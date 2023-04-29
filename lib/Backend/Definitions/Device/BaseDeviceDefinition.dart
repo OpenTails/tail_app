@@ -1,7 +1,6 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../Action/BaseAction.dart';
@@ -29,17 +28,19 @@ class BaseDeviceDefinition {
 class BaseStatefulDevice {
   final BaseDeviceDefinition baseDeviceDefinition;
   final BaseStoredDevice baseStoredDevice;
-  final BluetoothDevice device;
+
+  //final BluetoothDevice device;
   double battery = -1;
   double fwVersion = -1;
   double hwVersion = -1;
   BaseAction? currentAction;
   DeviceState deviceState = DeviceState.disconnected;
-  BluetoothCharacteristic? readCharacteristic;
-  BluetoothCharacteristic? writeCharacteristic;
-  BluetoothCharacteristic? batteryCharacteristic;
 
-  BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.device);
+  //BluetoothCharacteristic? readCharacteristic;
+  //BluetoothCharacteristic? writeCharacteristic;
+  //BluetoothCharacteristic? batteryCharacteristic;
+
+  BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice);
 }
 
 // All serialized/stored data

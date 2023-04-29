@@ -5,7 +5,6 @@ import 'package:logging_flutter/logging_flutter.dart';
 import 'package:tail_app/Backend/ActionRegistry.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import 'package:tail_app/Frontend/BluetoothDebug.dart';
 
 import '../main.dart';
 import 'Actions.dart';
@@ -64,15 +63,6 @@ class _HomeState extends ConsumerState<Home> {
           ];
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const DeviceList()),
-          );
-        },
-        child: const Icon(Icons.device_unknown),
-      ),
       drawer: drawer(context),
     );
   }
@@ -116,15 +106,6 @@ class _HomeState extends ConsumerState<Home> {
         ),
       ),
       ListTile(
-        title: const Text('Bluetooth Debug'),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const DeviceList()),
-          );
-        },
-      ),
-      ListTile(
         title: const Text('About'),
         onTap: () {
           Navigator.push(
@@ -142,6 +123,12 @@ class _HomeState extends ConsumerState<Home> {
         title: const Text('Logs'),
         onTap: () {
           LogConsole.open(context);
+        },
+      ),
+      ListTile(
+        title: const Text('Scan'),
+        onTap: () {
+          ref.read(bluetoothProvider).scan();
         },
       ),
     ]));

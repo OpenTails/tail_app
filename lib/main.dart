@@ -34,7 +34,7 @@ Future<void> main() async {
   };
   PlatformDispatcher.instance.onPlatformMessage = (String name, ByteData? data, PlatformMessageResponseCallback? callback) {
     String message = data != null ? String.fromCharCodes(data.buffer.asUint8List()) : '';
-    //Flogger.d("PlatformMessage::$name::$message");
+    Flogger.d("PlatformMessage::$name::$message");
   };
   runApp(const ProviderScope(
     child: TailApp(),
@@ -50,7 +50,8 @@ class TailApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Flogger.i('Starting app');
-    ref.read(bluetoothProvider).scan();
+    Future<void> init = ref.read(bluetoothProvider).init();
+    init.then((value) => Flogger.i('Bluetooth init done'));
     setupAsyncPermissions();
     return MaterialApp(
       title: 'All of the Tails',

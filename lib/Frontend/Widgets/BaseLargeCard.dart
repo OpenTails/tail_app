@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import 'package:tail_app/Backend/btMessage.dart';
-
-import '../../main.dart';
 
 class BaseLargeCard extends StatelessWidget {
   final String title;
@@ -61,10 +58,11 @@ class BaseHomeActionTile extends ConsumerWidget {
       color: Theme.of(context).colorScheme.surfaceVariant,
       child: InkWell(
         onTap: () async {
-          Set<BaseStatefulDevice> devices = ref.read(bluetoothProvider).knownDevices.value.where((element) => element.writeCharacteristic != null).where((element) => element.baseDeviceDefinition.deviceType == action.deviceCategory).toSet();
-          for (BaseStatefulDevice element in devices) {
-            ref.read(bluetoothProvider).sendCommand(btMessage(action.command, element));
-          }
+          Flogger.i("boop");
+          //Set<BaseStatefulDevice> devices = ref.read(bluetoothProvider).knownDevices.value.where((element) => element.writeCharacteristic != null).where((element) => element.baseDeviceDefinition.deviceType == action.deviceCategory).toSet();
+          //for (BaseStatefulDevice element in devices) {
+          //  ref.read(bluetoothProvider).sendCommand(btMessage(action.command, element));
+          //}
         },
         child: SizedBox(
             width: 100,

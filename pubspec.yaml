@@ -8,7 +8,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_blue_plus: ^1.4.0
   permission_handler: ^10.2.0
   wakelock: ^0.6.2
   chips_choice: ^3.0.0

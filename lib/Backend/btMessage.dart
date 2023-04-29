@@ -17,6 +17,6 @@ class btMessage {
 
   @override
   String toString() {
-    return 'btMessage{message: $message, device: ${device.device.name}, timestamp: $timestamp}';
+    return 'btMessage{message: $message, device: , timestamp: $timestamp}';
   }
 }

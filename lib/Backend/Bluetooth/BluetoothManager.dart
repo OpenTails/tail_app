@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'package:tail_app/Backend/DeviceRegistry.dart';
 
 import '../Definitions/Device/BaseDeviceDefinition.dart';
 import '../btMessage.dart';
-import 'BluetoothConsts.dart';
 
 class BluetoothManager extends ChangeNotifier {
   final ValueNotifier<Set<DiscoveredDevice>> listenableResults = ValueNotifier({});
@@ -21,22 +19,32 @@ class BluetoothManager extends ChangeNotifier {
   final StreamController<btMessage> outgoingMessageQueue = StreamController();
   final flutterReactiveBle = FlutterReactiveBle();
 
-  BluetoothManager() {
-    flutterReactiveBle.statusStream.listen((event) {
+  late StreamSubscription<BleStatus> statusStream;
+  late StreamSubscription<ConnectionStateUpdate> connectedDeviceStream;
+  late StreamSubscription<CharacteristicValue> characteristicValueStream;
+  late StreamSubscription<btMessage> outgoingMessageQueueStream;
+  late StreamSubscription<btMessage> incomingMessageQueueStream;
+
+  BluetoothManager() {}
+
+  Future<void> init() async {
+    await flutterReactiveBle.initialize();
+    flutterReactiveBle.logLevel = LogLevel.verbose;
+    statusStream = flutterReactiveBle.statusStream.listen((event) {
       Flogger.i("BluetoothState::$event");
       btState.value = event.toString();
     });
-    flutterReactiveBle.connectedDeviceStream.listen((event) {
+    connectedDeviceStream = flutterReactiveBle.connectedDeviceStream.listen((event) {
       Flogger.i("ConnectedDevice::$event");
     });
-    flutterReactiveBle.characteristicValueStream.listen((event) {
+    characteristicValueStream = flutterReactiveBle.characteristicValueStream.listen((event) {
       Flogger.i("CharacteristicValue::$event");
     });
-    outgoingMessageQueue.stream.listen((event) async {
+    outgoingMessageQueueStream = outgoingMessageQueue.stream.listen((event) async {
       Flogger.i("OutgoingMessage::$event");
-      await event.device.writeCharacteristic?.write(utf8.encode(event.message), withoutResponse: true);
+      //await event.device.writeCharacteristic?.write(utf8.encode(event.message), withoutResponse: true);
     });
-    incomingMessageQueue.stream.listen((event) {
+    incomingMessageQueueStream = incomingMessageQueue.stream.listen((event) {
       Flogger.i("IncomingMessage::$event");
     });
   }
@@ -47,7 +55,9 @@ class BluetoothManager extends ChangeNotifier {
     }
     Flogger.d("Starting scan");
 
-    flutterReactiveBle.scanForDevices(withServices: [], scanMode: ScanMode.lowLatency).listen((device) {
+    
+    StreamSubscription<DiscoveredDevice> scanForDevicesStream;
+    scanForDevicesStream = flutterReactiveBle.scanForDevices(withServices: [], scanMode: ScanMode.opportunistic, requireLocationServicesEnabled: false).listen((device) {
       Flogger.i("DeviceFound::$device");
       if (device.name.isEmpty || !DeviceRegistry.hasByName(device.name)) {
         return;
@@ -57,7 +67,7 @@ class BluetoothManager extends ChangeNotifier {
       listenableResults.value = resultsSet;
 
       //code for handling results
-    }, onError: (dynamic error) {
+    }, onError: (Object error) {
       Flogger.e("Error in scanForDevices", stackTrace: StackTrace.current);
     });
   }
@@ -81,7 +91,7 @@ class BluetoothManager extends ChangeNotifier {
     }
   }
 
-  Future<BaseStatefulDevice?> registerNewDevice(BluetoothDevice bluetoothDevice) async {
+/*  Future<BaseStatefulDevice?> registerNewDevice(BluetoothDevice bluetoothDevice) async {
     try {
       Flogger.d("Registering new device::${bluetoothDevice.name}");
       if (!DeviceRegistry.hasByName(bluetoothDevice.name)) {
@@ -103,9 +113,9 @@ class BluetoothManager extends ChangeNotifier {
       Flogger.e("Error in registerNewDevic:e $e", stackTrace: s);
       return null;
     }
-  }
+  }*/
 
-  Future<BaseStatefulDevice> registerExistingDevice(BaseStoredDevice device) async {
+/*  Future<BaseStatefulDevice> registerExistingDevice(BaseStoredDevice device) async {
     Flogger.d("Registering existing device::${device.deviceDefinitionUUID}::${device.btMACAddress}");
     BluetoothDevice btDevice = BluetoothDevice.fromId(device.btMACAddress);
     BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.allDevices.firstWhere((element) => element.uuid == device.deviceDefinitionUUID);
@@ -119,9 +129,9 @@ class BluetoothManager extends ChangeNotifier {
     knownDevices.value = knownDevicesSet;
     Flogger.d("Registered new device::${device.name}");
     return baseStatefulDevice;
-  }
+  }*/
 
-  Future<BaseStatefulDevice> registerDeviceListeners(BaseStatefulDevice baseStatefulDevice) async {
+/*  Future<BaseStatefulDevice> registerDeviceListeners(BaseStatefulDevice baseStatefulDevice) async {
     Flogger.d("Registering device listeners::${baseStatefulDevice.device.name}");
     baseStatefulDevice.device.state.listen((event) {
       Flogger.i("BTDeviceState::$event");
@@ -179,5 +189,5 @@ class BluetoothManager extends ChangeNotifier {
       Flogger.i("Bluetooth is off, turning on");
       await flutterBlue.turnOn();
     }
-  }
+  }*/
 }
