@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,41 +10,36 @@ import 'package:tail_app/Backend/DeviceRegistry.dart';
 import '../Definitions/Device/BaseDeviceDefinition.dart';
 import '../btMessage.dart';
 
-class BluetoothManager extends ChangeNotifier {
-  final ValueNotifier<Set<DiscoveredDevice>> listenableResults = ValueNotifier({});
+class BluetoothManager {
+  final Set<DiscoveredDevice> foundDevices = {};
   final ValueNotifier<Set<BaseStatefulDevice>> knownDevices = ValueNotifier({});
-  final ValueNotifier<String> btState = ValueNotifier("UnknownState");
   bool isScanning = false;
   final StreamController<btMessage> incomingMessageQueue = StreamController();
   final StreamController<btMessage> outgoingMessageQueue = StreamController();
   final flutterReactiveBle = FlutterReactiveBle();
 
-  late StreamSubscription<BleStatus> statusStream;
-  late StreamSubscription<ConnectionStateUpdate> connectedDeviceStream;
-  late StreamSubscription<CharacteristicValue> characteristicValueStream;
-  late StreamSubscription<btMessage> outgoingMessageQueueStream;
-  late StreamSubscription<btMessage> incomingMessageQueueStream;
-
-  BluetoothManager() {}
-
-  Future<void> init() async {
-    await flutterReactiveBle.initialize();
+  BluetoothManager() {
+    Flogger.i("Initializing BluetoothManager");
+    flutterReactiveBle.initialize();
     flutterReactiveBle.logLevel = LogLevel.verbose;
-    statusStream = flutterReactiveBle.statusStream.listen((event) {
+    flutterReactiveBle.statusStream.listen((event) {
       Flogger.i("BluetoothState::$event");
-      btState.value = event.toString();
+      if (kDebugMode) {
+        print(event);
+      }
     });
-    connectedDeviceStream = flutterReactiveBle.connectedDeviceStream.listen((event) {
+    flutterReactiveBle.connectedDeviceStream.listen((event) {
       Flogger.i("ConnectedDevice::$event");
     });
-    characteristicValueStream = flutterReactiveBle.characteristicValueStream.listen((event) {
+    flutterReactiveBle.characteristicValueStream.listen((event) {
       Flogger.i("CharacteristicValue::$event");
     });
-    outgoingMessageQueueStream = outgoingMessageQueue.stream.listen((event) async {
+    outgoingMessageQueue.stream.listen((event) async {
       Flogger.i("OutgoingMessage::$event");
-      //await event.device.writeCharacteristic?.write(utf8.encode(event.message), withoutResponse: true);
+      flutterReactiveBle.writeCharacteristicWithoutResponse(QualifiedCharacteristic(characteristicId: event.device.baseDeviceDefinition.bleTxCharacteristic, serviceId: event.device.baseDeviceDefinition.bleDeviceService, deviceId: event.device.baseStoredDevice.btMACAddress),
+          value: const Utf8Encoder().convert(event.message));
     });
-    incomingMessageQueueStream = incomingMessageQueue.stream.listen((event) {
+    incomingMessageQueue.stream.listen((event) {
       Flogger.i("IncomingMessage::$event");
     });
   }
@@ -53,33 +48,49 @@ class BluetoothManager extends ChangeNotifier {
     if (await Permission.bluetoothScan.isGranted == false) {
       return;
     }
+    if (isScanning) {
+      return;
+    }
     Flogger.d("Starting scan");
-
-    
-    StreamSubscription<DiscoveredDevice> scanForDevicesStream;
-    scanForDevicesStream = flutterReactiveBle.scanForDevices(withServices: [], scanMode: ScanMode.opportunistic, requireLocationServicesEnabled: false).listen((device) {
-      Flogger.i("DeviceFound::$device");
-      if (device.name.isEmpty || !DeviceRegistry.hasByName(device.name)) {
+    isScanning = true;
+    flutterReactiveBle.scanForDevices(withServices: DeviceRegistry.getAllIds()).listen((DiscoveredDevice device) {
+      //code for handling results
+      if (foundDevices.any((element) => element.id == device.id)) {
         return;
       }
-      Set<DiscoveredDevice> resultsSet = listenableResults.value;
-      resultsSet.add(device);
-      listenableResults.value = resultsSet;
+      Flogger.i("DeviceFound::${device.name}");
+      foundDevices.add(device);
+      BaseDeviceDefinition? deviceDefinition = DeviceRegistry.getByService(device.serviceUuids);
+      if (deviceDefinition == null) {
+        Flogger.w("Unknown device found: ${device.name}");
+        return;
+      }
+      Flogger.i("Found device: ${device.name}");
+      BaseStoredDevice baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid.toString(), device.id);
+      BaseStatefulDevice statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice);
+      flutterReactiveBle.connectToDevice(id: device.id).listen((event) {
+        if (event.connectionState == DeviceConnectionState.disconnected) {
+          Flogger.i("Disconnected from device: ${device.name}");
+          statefulDevice.deviceState = DeviceState.disconnected;
+          foundDevices.remove(device);
+          knownDevices.value.remove(statefulDevice);
+        }
 
-      //code for handling results
+        if (event.connectionState == DeviceConnectionState.connected) {
+          knownDevices.value.add(statefulDevice);
+          statefulDevice.deviceState = DeviceState.standby;
+          Flogger.i("Connected to device: ${device.name}");
+          flutterReactiveBle.subscribeToCharacteristic(QualifiedCharacteristic(characteristicId: deviceDefinition.bleRxCharacteristic, serviceId: deviceDefinition.bleDeviceService, deviceId: device.id)).listen((event) {
+            String value = const Utf8Decoder().convert(event);
+            Flogger.i("Received message: $value");
+            incomingMessageQueue.add(btMessage(value, statefulDevice));
+          });
+        }
+      });
     }, onError: (Object error) {
+      isScanning = false;
       Flogger.e("Error in scanForDevices", stackTrace: StackTrace.current);
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    Flogger.i("Calling dispose in BluetoothManager");
-    listenableResults.dispose();
-    btState.dispose();
-    incomingMessageQueue.close();
-    outgoingMessageQueue.close();
   }
 
   void sendCommand(btMessage message) {
@@ -90,104 +101,4 @@ class BluetoothManager extends ChangeNotifier {
       Flogger.e("Error in sendCommand: $e", stackTrace: s);
     }
   }
-
-/*  Future<BaseStatefulDevice?> registerNewDevice(BluetoothDevice bluetoothDevice) async {
-    try {
-      Flogger.d("Registering new device::${bluetoothDevice.name}");
-      if (!DeviceRegistry.hasByName(bluetoothDevice.name)) {
-        Flogger.d("Device not registered::${bluetoothDevice.name}");
-        return null;
-      }
-      BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByName(bluetoothDevice.name);
-      BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(baseDeviceDefinition, BaseStoredDevice(baseDeviceDefinition.uuid, bluetoothDevice.id.id), bluetoothDevice);
-      bluetoothDevice.connect(autoConnect: true);
-      await registerDeviceListeners(baseStatefulDevice);
-
-      Set<BaseStatefulDevice> knownDevicesSet = {};
-      knownDevicesSet.addAll(knownDevices.value);
-      knownDevicesSet.add(baseStatefulDevice);
-      knownDevices.value = knownDevicesSet;
-      Flogger.d("Registered new device::${bluetoothDevice.name}");
-      return baseStatefulDevice;
-    } catch (e, s) {
-      Flogger.e("Error in registerNewDevic:e $e", stackTrace: s);
-      return null;
-    }
-  }*/
-
-/*  Future<BaseStatefulDevice> registerExistingDevice(BaseStoredDevice device) async {
-    Flogger.d("Registering existing device::${device.deviceDefinitionUUID}::${device.btMACAddress}");
-    BluetoothDevice btDevice = BluetoothDevice.fromId(device.btMACAddress);
-    BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.allDevices.firstWhere((element) => element.uuid == device.deviceDefinitionUUID);
-    BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(baseDeviceDefinition, device, btDevice);
-    btDevice.connect(autoConnect: true); //TODO: connect to autoconnect option
-    await registerDeviceListeners(baseStatefulDevice);
-
-    Set<BaseStatefulDevice> knownDevicesSet = {};
-    knownDevicesSet.addAll(knownDevices.value);
-    knownDevicesSet.add(baseStatefulDevice);
-    knownDevices.value = knownDevicesSet;
-    Flogger.d("Registered new device::${device.name}");
-    return baseStatefulDevice;
-  }*/
-
-/*  Future<BaseStatefulDevice> registerDeviceListeners(BaseStatefulDevice baseStatefulDevice) async {
-    Flogger.d("Registering device listeners::${baseStatefulDevice.device.name}");
-    baseStatefulDevice.device.state.listen((event) {
-      Flogger.i("BTDeviceState::$event");
-
-      if (event == BluetoothDeviceState.connected) {
-        Flogger.i("${event.name}::BTDeviceServices::Discovering services");
-
-        baseStatefulDevice.device.discoverServices();
-        baseStatefulDevice.device.services.listen((servicesEvent) async {
-          Flogger.i("${event.name}::BTDeviceServices::$servicesEvent");
-
-          for (BluetoothService service in servicesEvent) {
-            Flogger.i("${event.name}::BTDeviceServices::${service.uuid}");
-
-            if (service.uuid == Guid(batteryService)) {
-              baseStatefulDevice.batteryCharacteristic = service.characteristics.first;
-              await baseStatefulDevice.batteryCharacteristic?.setNotifyValue(true);
-              baseStatefulDevice.batteryCharacteristic?.value.listen((event) {
-                Flogger.d("${baseStatefulDevice.device.name}::BTDeviceService::${service.uuid}::$event");
-                Utf8Decoder decoder = const Utf8Decoder();
-                String data = decoder.convert(event);
-                Flogger.d("${baseStatefulDevice.device.name}::Battery::$data");
-                baseStatefulDevice.battery = double.parse(data);
-              });
-            }
-            if (service.uuid == Guid(baseStatefulDevice.baseDeviceDefinition.bleDeviceService)) {
-              baseStatefulDevice.readCharacteristic = service.characteristics.firstWhere((element) => element.uuid == Guid(baseStatefulDevice.baseDeviceDefinition.bleRxCharacteristic));
-              baseStatefulDevice.writeCharacteristic = service.characteristics.firstWhere((element) => element.uuid == Guid(baseStatefulDevice.baseDeviceDefinition.bleTxCharacteristic));
-              await baseStatefulDevice.readCharacteristic?.setNotifyValue(true);
-            }
-
-            baseStatefulDevice.readCharacteristic?.value.listen((event) {
-              Utf8Decoder decoder = const Utf8Decoder();
-              String data = decoder.convert(event);
-              Flogger.d("${baseStatefulDevice.device.name}::BTDeviceService::${service.uuid}::$data");
-
-              btMessage message = btMessage(data, baseStatefulDevice);
-              incomingMessageQueue.add(message);
-            });
-          }
-        });
-      } else if (event == BluetoothDeviceState.disconnected) {
-        Flogger.i("${event.name}::BTDeviceServices::Disconnecting services");
-        baseStatefulDevice.batteryCharacteristic = null;
-        baseStatefulDevice.readCharacteristic = null;
-        baseStatefulDevice.writeCharacteristic = null;
-      }
-    });
-    Flogger.d("Registered listeners for device::${baseStatefulDevice.device.name}");
-    return baseStatefulDevice;
-  }
-
-  void turnOnBluetooth(FlutterBluePlus flutterBlue) async {
-    if (await flutterBlue.isOn == false) {
-      Flogger.i("Bluetooth is off, turning on");
-      await flutterBlue.turnOn();
-    }
-  }*/
 }

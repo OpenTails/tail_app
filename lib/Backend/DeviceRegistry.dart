@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 @immutable
 class DeviceRegistry {
-  static const Set<BaseDeviceDefinition> allDevices = {
-    BaseDeviceDefinition("798e1528-2832-4a87-93d7-4d1b25a2f418", "MiTail", "MiTail", "3af2108b-d066-42da-a7d4-55648fa0a9b6", "5bfd6484-ddee-4723-bfe6-b653372bbfd6", "c6612b64-0087-4974-939e-68968ef294b0", Icon(Icons.bluetooth), DeviceType.tail, true),
+  static Set<BaseDeviceDefinition> allDevices = {
     BaseDeviceDefinition(
-        "ace9fe88-92d2-4b0e-8c1d-628e9a4f44a1",
+        Uuid.parse("798e1528-2832-4a87-93d7-4d1b25a2f418"), "MiTail", "MiTail", Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"), Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"), Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"), const Icon(Icons.bluetooth), DeviceType.tail, true),
+    BaseDeviceDefinition(
+        Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66"),
         "EG2",
         "EG2",
-        "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+        Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"),
         //TODO: Set
-        "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
+        Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"),
         //TODO: Set
-        "c6612b64-0087-4974-939e-68968ef294b0",
+        Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"),
         //TODO: Set
-        Icon(Icons.bluetooth),
+        const Icon(Icons.bluetooth),
         DeviceType.ears,
         true)
   };
@@ -26,5 +28,21 @@ class DeviceRegistry {
 
   static bool hasByName(String id) {
     return allDevices.any((element) => element.btName == id);
+  }
+
+  static List<Uuid> getAllIds() {
+    return allDevices.map((e) => e.uuid).toList();
+  }
+
+  static BaseDeviceDefinition? getByService(List<Uuid> services) {
+    // check list against all devices
+    for (var device in allDevices) {
+      for (var service in services) {
+        if (services.contains(service)) {
+          return device;
+        }
+      }
+    }
+    return null;
   }
 }

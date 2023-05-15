@@ -13,8 +13,6 @@ class BaseLargeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Card(
-      elevation: 1,
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -24,11 +22,10 @@ class BaseLargeCard extends StatelessWidget {
         },
         child: Column(
           children: [
-            Center(
-              child: Text(
-                title,
-                textScaleFactor: 1.3,
-              ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.headlineLarge,
+              textAlign: TextAlign.left,
             ),
             SizedBox(
               height: 110,
@@ -40,7 +37,7 @@ class BaseLargeCard extends StatelessWidget {
           ],
         ),
       ),
-    ));
+    );
   }
 }
 
@@ -55,7 +52,6 @@ class BaseHomeActionTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       elevation: 1,
-      color: Theme.of(context).colorScheme.surfaceVariant,
       child: InkWell(
         onTap: () async {
           Flogger.i("boop");

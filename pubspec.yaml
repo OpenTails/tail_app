@@ -10,13 +10,10 @@ dependencies:
     sdk: flutter
   permission_handler: ^10.2.0
   wakelock: ^0.6.2
-  chips_choice: ^3.0.0
   cross_platform: ^3.0.1
   flutter_riverpod: ^2.3.6
   hooks_riverpod: ^2.3.6
   disable_battery_optimization: ^1.1.0+1
-  json_annotation: ^4.8.0
-  json_serializable: ^6.6.1
   logging_flutter: ^2.0.1
   flutter_reactive_ble: ^5.0.3
 dev_dependencies:

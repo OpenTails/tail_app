@@ -1,12 +1,9 @@
-import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:tail_app/Backend/ActionRegistry.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
-import '../main.dart';
 import 'Actions.dart';
 import 'Widgets/BaseLargeCard.dart';
 
@@ -39,7 +36,6 @@ class _HomeState extends ConsumerState<Home> {
         body: Center(
           child: ListView(
             children: <Widget>[
-              devicesChipsWidget(ref),
               const BaseLargeCard("Favorites", [], ActionPage()),
               BaseLargeCard("Actions", getActionTiles(), const ActionPage()),
               const BaseLargeCard("Triggers", [], ActionPage()),
@@ -65,28 +61,6 @@ class _HomeState extends ConsumerState<Home> {
       ),
       drawer: drawer(context),
     );
-  }
-
-  Widget devicesChipsWidget(WidgetRef ref) {
-    return ValueListenableBuilder(
-        builder: (context, value, child) {
-          return ChipsChoice.multiple(
-              wrapped: true,
-              choiceItems: () {
-                List<C2Choice> items = [];
-                for (BaseStatefulDevice device in ref.read(bluetoothProvider).knownDevices.value) {
-                  items.add(C2Choice(value: device, label: device.baseStoredDevice.name));
-                }
-                items.add(C2Choice(value: value, label: "Scan"));
-                return items;
-              }(),
-              onChanged: (val) {
-                changed(val);
-                //Prompt to disconnect/remove on long press
-              },
-              value: const []);
-        },
-        valueListenable: ref.watch(bluetoothProvider).knownDevices);
   }
 
   List<BaseHomeActionTile> getActionTiles() {
@@ -117,18 +91,6 @@ class _HomeState extends ConsumerState<Home> {
                       applicationLegalese: "This is a fan made app to control 'The Tail Company' tails and ears",
                     )),
           );
-        },
-      ),
-      ListTile(
-        title: const Text('Logs'),
-        onTap: () {
-          LogConsole.open(context);
-        },
-      ),
-      ListTile(
-        title: const Text('Scan'),
-        onTap: () {
-          ref.read(bluetoothProvider).scan();
         },
       ),
     ]));

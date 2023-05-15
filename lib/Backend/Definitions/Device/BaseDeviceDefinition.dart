@@ -1,7 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 
 import '../Action/BaseAction.dart';
 
@@ -11,12 +11,12 @@ enum DeviceState { disconnected, standby, runAction, casual, noPhone }
 
 @immutable
 class BaseDeviceDefinition {
-  final String uuid;
+  final Uuid uuid;
   final String model;
   final String btName;
-  final String bleDeviceService;
-  final String bleRxCharacteristic;
-  final String bleTxCharacteristic;
+  final Uuid bleDeviceService;
+  final Uuid bleRxCharacteristic;
+  final Uuid bleTxCharacteristic;
   final Icon icon;
   final DeviceType deviceType;
   final bool hasBatteryCharacteristic;
@@ -44,7 +44,6 @@ class BaseStatefulDevice {
 }
 
 // All serialized/stored data
-@JsonSerializable()
 class BaseStoredDevice {
   String name = "New Device";
   String btMACAddress = "";

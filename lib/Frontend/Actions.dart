@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/ActionRegistry.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 
-import '../main.dart';
-
 class ActionPage extends ConsumerWidget {
   const ActionPage({super.key});
 
@@ -14,19 +12,14 @@ class ActionPage extends ConsumerWidget {
         appBar: AppBar(
           title: const Text('Devices'),
         ),
-        body: ValueListenableBuilder(
-            builder: (context, value, child) {
-              return ListView(
-                children: getActions(ref),
-              );
-            },
-            valueListenable: ref.watch(bluetoothProvider).listenableResults));
+        body: ListView(
+          children: getActions(ref),
+        ));
   }
 
   getActions(WidgetRef ref) {
     List<Card> results = [];
-    for (MapEntry<ActionCategory, Set<BaseAction>> entry
-        in ActionRegistry.getSortedActions().entries) {
+    for (MapEntry<ActionCategory, Set<BaseAction>> entry in ActionRegistry.getSortedActions().entries) {
       List<Widget> actionsTiles = [];
       for (BaseAction action in entry.value) {
         actionsTiles.add(Card(
@@ -51,8 +44,7 @@ class ActionPage extends ConsumerWidget {
               ),
             ),
             GridView(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 125),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 125),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: actionsTiles,
