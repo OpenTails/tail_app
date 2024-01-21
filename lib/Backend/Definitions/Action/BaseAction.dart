@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../Device/BaseDeviceDefinition.dart';
 
-enum ActionCategory { other, calm, fast, tense, user, glowtip }
+part 'BaseAction.g.dart';
+
+enum ActionCategory { other, calm, fast, tense, glowtip, ears }
 
 extension ActionCategoryExtension on ActionCategory {
   String get friendly {
@@ -13,10 +15,10 @@ extension ActionCategoryExtension on ActionCategory {
         return "Fast and Excited";
       case ActionCategory.tense:
         return "Frustrated and Tense";
-      case ActionCategory.user:
-        return "User Defined";
       case ActionCategory.glowtip:
         return "GlowTip";
+      case ActionCategory.ears:
+        return "Ears";
       default:
         "";
     }
@@ -24,13 +26,21 @@ extension ActionCategoryExtension on ActionCategory {
   }
 }
 
-@immutable
+@JsonSerializable(explicitToJson: true)
 class BaseAction {
   final String name;
   final String command;
   final DeviceType deviceCategory;
   final ActionCategory actionCategory;
 
-  const BaseAction(
-      this.name, this.command, this.deviceCategory, this.actionCategory);
+  const BaseAction(this.name, this.command, this.deviceCategory, this.actionCategory);
+
+  factory BaseAction.fromJson(Map<String, dynamic> json) => _$BaseActionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BaseActionToJson(this);
+
+  @override
+  String toString() {
+    return 'BaseAction{name: $name, command: $command, deviceCategory: $deviceCategory, actionCategory: $actionCategory}';
+  }
 }

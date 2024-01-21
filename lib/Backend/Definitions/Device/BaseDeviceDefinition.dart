@@ -2,16 +2,18 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 
-import '../Action/BaseAction.dart';
+part 'BaseDeviceDefinition.g.dart';
 
-enum DeviceType { tail, ears, unknown }
+enum DeviceType { tail, ears, wings } //TODO make class with icon
 
-enum DeviceState { disconnected, standby, runAction, casual, noPhone }
+enum DeviceState { standby, runAction, busy }
 
-@immutable
 class BaseDeviceDefinition {
-  final Uuid uuid;
+  final String uuid;
   final String model;
   final String btName;
   final Uuid bleDeviceService;
@@ -22,44 +24,118 @@ class BaseDeviceDefinition {
   final bool hasBatteryCharacteristic;
 
   const BaseDeviceDefinition(this.uuid, this.model, this.btName, this.bleDeviceService, this.bleRxCharacteristic, this.bleTxCharacteristic, this.icon, this.deviceType, this.hasBatteryCharacteristic);
+
+  @override
+  String toString() {
+    return 'BaseDeviceDefinition{btName: $btName, deviceType: $deviceType}';
+  }
 }
 
 // data that represents the current state of a device
 class BaseStatefulDevice {
   final BaseDeviceDefinition baseDeviceDefinition;
   final BaseStoredDevice baseStoredDevice;
+  late QualifiedCharacteristic rxCharacteristic;
+  late QualifiedCharacteristic txCharacteristic;
+  late QualifiedCharacteristic batteryCharacteristic;
 
-  //final BluetoothDevice device;
-  double battery = -1;
-  double fwVersion = -1;
-  double hwVersion = -1;
-  BaseAction? currentAction;
-  DeviceState deviceState = DeviceState.disconnected;
+  ValueNotifier<double> battery = ValueNotifier(-1);
+  ValueNotifier<String> fwVersion = ValueNotifier("");
+  ValueNotifier<bool> glowTip = ValueNotifier(false);
+  Stream<ConnectionStateUpdate>? connectionStateStream;
+  ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
+  Stream<List<int>>? _rxCharacteristicStream;
+  Stream<void>? keepAliveStream;
 
-  //BluetoothCharacteristic? readCharacteristic;
-  //BluetoothCharacteristic? writeCharacteristic;
-  //BluetoothCharacteristic? batteryCharacteristic;
+  Stream<List<int>>? get rxCharacteristicStream => _rxCharacteristicStream;
+  ValueNotifier<DeviceConnectionState> deviceConnectionState = ValueNotifier(DeviceConnectionState.disconnected);
 
-  BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice);
-}
+  set rxCharacteristicStream(Stream<List<int>>? value) {
+    _rxCharacteristicStream = value?.asBroadcastStream();
+  }
 
-// All serialized/stored data
-class BaseStoredDevice {
-  String name = "New Device";
-  String btMACAddress = "";
-  Color? color;
-  String deviceDefinitionUUID;
+  Ref ref;
+  late CommandQueue commandQueue;
+  Stream<List<int>>? batteryCharacteristicStream;
 
-  BaseStoredDevice(this.deviceDefinitionUUID, this.btMACAddress);
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || other is BaseStoredDevice && runtimeType == other.runtimeType && name == other.name && btMACAddress == other.btMACAddress && color == other.color && deviceDefinitionUUID == other.deviceDefinitionUUID;
-
-  @override
-  int get hashCode => name.hashCode ^ btMACAddress.hashCode ^ color.hashCode ^ deviceDefinitionUUID.hashCode;
+  BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
+    rxCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleRxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
+    txCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleTxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
+    batteryCharacteristic = QualifiedCharacteristic(serviceId: Uuid.parse("0000180f-0000-1000-8000-00805f9b34fb"), characteristicId: Uuid.parse("00002a19-0000-1000-8000-00805f9b34fb"), deviceId: baseStoredDevice.btMACAddress);
+    commandQueue = CommandQueue(ref, this);
+  }
 
   @override
   String toString() {
-    return 'BaseStoredDevice{name: $name, btMACAddress: $btMACAddress, color: $color, deviceDefinitionUUID: $deviceDefinitionUUID}';
+    return 'BaseStatefulDevice{baseDeviceDefinition: $baseDeviceDefinition, baseStoredDevice: $baseStoredDevice, battery: $battery}';
   }
+}
+
+@JsonEnum()
+enum AutoActionCategory {
+  calm,
+  fast,
+  tense,
+}
+
+extension AutoActionCategoryExtension on AutoActionCategory {
+  String get friendly {
+    switch (this) {
+      case AutoActionCategory.calm:
+        return "Calm";
+      case AutoActionCategory.fast:
+        return "Fast";
+      case AutoActionCategory.tense:
+        return "Frustrated";
+      default:
+        "";
+    }
+    return "";
+  }
+}
+
+// All serialized/stored data
+@JsonSerializable(explicitToJson: true)
+class BaseStoredDevice {
+  @JsonKey(defaultValue: "New Device")
+  String name = "New Device";
+  @JsonKey(defaultValue: true)
+  bool autoMove = true;
+  @JsonKey(defaultValue: 15)
+  double autoMoveMinPause = 15;
+  @JsonKey(defaultValue: 240)
+  double autoMoveMaxPause = 240;
+  @JsonKey(defaultValue: 60)
+  double autoMoveTotal = 60;
+  @JsonKey(defaultValue: 1)
+  double noPhoneDelayTime = 1;
+  List<AutoActionCategory> selectedAutoCategories = [AutoActionCategory.calm];
+  final String btMACAddress;
+  final String deviceDefinitionUUID;
+
+  BaseStoredDevice(this.deviceDefinitionUUID, this.btMACAddress);
+
+  factory BaseStoredDevice.fromJson(Map<String, dynamic> json) => _$BaseStoredDeviceFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BaseStoredDeviceToJson(this);
+
+  @override
+  String toString() {
+    return 'BaseStoredDevice{name: $name, btMACAddress: $btMACAddress, deviceDefinitionUUID: $deviceDefinitionUUID}';
+  }
+}
+
+//Definitly didn't copy from https://github.com/OpenTails/CRUMPET-Android/commit/b465ad134dcdb7774fe4e59edf756bf3242d5e30
+String getNameFromBTName(String BTName) {
+  switch (BTName) {
+    case 'EG2':
+      return 'EarGear 2';
+    case 'mitail':
+      return 'MiTail';
+    case 'minitail':
+      return 'MiTail Mini';
+    case 'flutter':
+      return 'FlutterWings';
+  }
+  return BTName;
 }

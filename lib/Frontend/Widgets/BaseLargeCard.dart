@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 
 class BaseLargeCard extends StatelessWidget {
   final String title;
   final List<Widget> children;
-  final Widget page;
+  final String page;
 
   const BaseLargeCard(this.title, this.children, this.page, {super.key});
 
@@ -15,10 +16,7 @@ class BaseLargeCard extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => page),
-          );
+          context.push(page);
         },
         child: Column(
           children: [
@@ -44,8 +42,8 @@ class BaseLargeCard extends StatelessWidget {
 class BaseHomeActionTile extends ConsumerWidget {
   const BaseHomeActionTile(
     this.action, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final BaseAction action;
 
   @override
