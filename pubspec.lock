@@ -172,10 +172,10 @@ packages:
     dependency: "direct main"
     description:
       name: logging_flutter
-      sha256: "340959800c7d49c01fa693393410e9c25afcb577f13382dbe810c0ed7930495a"
+      sha256: "8b418504617a55de0d3e0582b25365894fe8a8936b934953caeddb13db4a190b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.0"
   matcher:
     dependency: transitive
     description:
