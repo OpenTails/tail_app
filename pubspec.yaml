@@ -8,7 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  permission_handler: ^10.2.0
+  permission_handler: ^11.0.1
   wakelock: ^0.6.2
   cross_platform: ^3.0.1
   flutter_riverpod: ^2.3.6
