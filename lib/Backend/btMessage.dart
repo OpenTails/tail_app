@@ -9,12 +9,14 @@ class BluetoothMessage implements Comparable<BluetoothMessage> {
   String? responseMSG; // the message to listen for;
   final BaseStatefulDevice device;
   final DateTime timestamp = DateTime.now();
-  final Priority priority;
+  Priority priority;
   Function? onCommandSent;
   Function(String)? onResponseReceived;
   double? delay;
 
   BluetoothMessage(this.message, this.device, this.priority);
+
+  BluetoothMessage.response(this.message, this.device, this.priority, this.responseMSG);
 
   BluetoothMessage.delay(this.delay, this.device, this.priority) {
     message = "";

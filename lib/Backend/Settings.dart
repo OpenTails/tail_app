@@ -26,7 +26,7 @@ class Preferences extends _$Preferences {
   }
 
   void store() {
-    prefs.setString("settings", jsonEncode(state.toJson()));
+    prefs.setString("settings", const JsonEncoder.withIndent("    ").convert(state.toJson()));
   }
 }
 
@@ -38,6 +38,8 @@ class PreferencesStore {
   bool autoConnectNewDevices = false;
   @JsonKey(defaultValue: true)
   bool haptics = true;
+  @JsonKey(defaultValue: false)
+  bool alwaysScanning = false; //TODO: implement by listening to scan provider
 
   factory PreferencesStore.fromJson(Map<String, dynamic> json) => _$PreferencesStoreFromJson(json);
 

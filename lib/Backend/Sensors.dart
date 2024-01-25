@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -16,10 +19,12 @@ import 'Bluetooth/BluetoothManager.dart';
 import 'Definitions/Action/BaseAction.dart';
 import 'Definitions/Device/BaseDeviceDefinition.dart';
 import 'DeviceRegistry.dart';
-import 'btMessage.dart';
+import 'moveLists.dart';
 
 part 'Sensors.g.dart';
 
+//TODO: wrap EarGear Mic and Tilt to Sensors, send enable/disable commands with toggle
+//TODO: error callback to disable the sensor from the trigger definition, such as when permission is denied
 @JsonSerializable(explicitToJson: true)
 class Trigger {
   late String triggerDef;
@@ -78,7 +83,7 @@ class Trigger {
   Map<String, dynamic> toJson() => _$TriggerToJson(this);
 }
 
-abstract class TriggerDefinition {
+abstract class TriggerDefinition implements Comparable<TriggerDefinition> {
   late String name;
   late String description;
   late Widget icon;
@@ -101,8 +106,13 @@ abstract class TriggerDefinition {
     List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceType.contains(element.baseDeviceDefinition.deviceType)).toList();
 
     for (BaseStatefulDevice baseStatefulDevice in devices) {
-      baseStatefulDevice.commandQueue.addCommand(BluetoothMessage(baseAction.command, baseStatefulDevice, Priority.normal));
+      runAction(baseAction, baseStatefulDevice);
     }
+  }
+
+  @override
+  int compareTo(TriggerDefinition other) {
+    return name.compareTo(other.name);
   }
 }
 
@@ -139,7 +149,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
       }
     });
     stepCountStream?.listen((StepCount event) {
-      Flogger.i("StepCount:: ${event.steps}");
+      Flogger.d("StepCount:: ${event.steps}");
       TriggerAction action = actions.firstWhere((TriggerAction element) => element.name == "Step");
       sendCommands(deviceType, action.action, ref);
       if (event.steps.isEven) {
@@ -173,12 +183,46 @@ class CoverTriggerDefinition extends TriggerDefinition {
   Future<void> onEnable(List<TriggerAction> actions, Set<DeviceType> deviceType) async {
     proximityStream = ProximitySensor.events;
     proximityStream?.listen((int event) {
-      Flogger.i("CoverEvent:: $event");
+      Flogger.d("CoverEvent:: $event");
       if (event >= 1) {
         TriggerAction action = actions.firstWhere((TriggerAction element) => element.name == "Near");
         sendCommands(deviceType, action.action, ref);
       } else if (event == 0) {
         TriggerAction action = actions.firstWhere((TriggerAction element) => element.name == "Far");
+        sendCommands(deviceType, action.action, ref);
+      }
+    });
+  }
+}
+
+class VolumeButtonTriggerDefinition extends TriggerDefinition {
+  StreamSubscription<HardwareButton>? subscription;
+
+  VolumeButtonTriggerDefinition(super.ref) {
+    super.name = "Volume Buttons";
+    super.description = "Trigger an action by pressing the volume button";
+    super.icon = const Icon(Icons.volume_up);
+    super.requiredPermission = null;
+    super.actionTypes = ["Volume Up", "Volume Down"];
+  }
+
+  @override
+  Future<void> onDisable() async {
+    if (subscription != null) {
+      subscription!.cancel();
+    }
+    subscription = null;
+  }
+
+  @override
+  Future<void> onEnable(List<TriggerAction> actions, Set<DeviceType> deviceType) async {
+    subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
+      Flogger.d("Volume press detected:${event.name}");
+      if (event == HardwareButton.volume_down) {
+        TriggerAction action = actions.firstWhere((TriggerAction element) => element.name == "Volume Up");
+        sendCommands(deviceType, action.action, ref);
+      } else if (event == HardwareButton.volume_up) {
+        TriggerAction action = actions.firstWhere((TriggerAction element) => element.name == "Volume Down");
         sendCommands(deviceType, action.action, ref);
       }
     });
@@ -205,7 +249,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
   @override
   Future<void> onEnable(List<TriggerAction> actions, Set<DeviceType> deviceType) async {
     detector = ShakeDetector.waitForStart(onPhoneShake: () {
-      Flogger.i("Shake Detected");
+      Flogger.d("Shake Detected");
       TriggerAction action = actions.firstWhere((TriggerAction element) => element.name == "Shake");
       sendCommands(deviceType, action.action, ref);
     });
@@ -233,7 +277,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
   Future<void> onEnable(List<TriggerAction> actions, Set<DeviceType> deviceType) async {
     btStream = ref.read(reactiveBLEProvider).scanForDevices(withServices: DeviceRegistry.getAllIds()).where((event) => !ref.read(knownDevicesProvider).keys.contains(event.id));
     btStream?.listen((DiscoveredDevice device) {
-      Flogger.i("TailProximityTriggerDefinition:: $device");
+      Flogger.d("TailProximityTriggerDefinition:: $device");
       TriggerAction action = actions.firstWhere((TriggerAction element) => element.name == "Nearby Gear");
       sendCommands(deviceType, action.action, ref);
     });
@@ -287,15 +331,28 @@ class TriggerList extends _$TriggerList {
     await prefs.setStringList(
         "triggers",
         state.map((e) {
-          return jsonEncode(e.toJson());
+          return const JsonEncoder.withIndent("    ").convert(e.toJson());
         }).toList());
   }
 }
 
+// Defines what triggers show in the UI
 @Riverpod(keepAlive: true)
 class TriggerDefinitionList extends _$TriggerDefinitionList {
   @override
-  List<TriggerDefinition> build() => [WalkingTriggerDefinition(ref), CoverTriggerDefinition(ref), TailProximityTriggerDefinition(ref), ShakeTriggerDefinition(ref)]; //TODO: Trigger for other gear nearby
+  List<TriggerDefinition> build() {
+    List<TriggerDefinition> triggerDefinitions = [
+      WalkingTriggerDefinition(ref),
+      CoverTriggerDefinition(ref),
+      TailProximityTriggerDefinition(ref),
+      ShakeTriggerDefinition(ref),
+    ];
+    if (Platform.isAndroid) {
+      triggerDefinitions.add(VolumeButtonTriggerDefinition(ref));
+    }
+    triggerDefinitions.sort();
+    return triggerDefinitions;
+  }
 
   //Filter by unused sensors
   List<TriggerDefinition> get() => ref.read(triggerListProvider).map((Trigger e) => e.triggerDefinition!).toSet().difference(state.toSet()).toList();

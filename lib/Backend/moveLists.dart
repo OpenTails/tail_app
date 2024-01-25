@@ -1,21 +1,69 @@
 import 'dart:convert';
 
+import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/btMessage.dart';
+import 'package:tail_app/Frontend/intnDefs.dart';
 
 import '../main.dart';
 
 part 'moveLists.g.dart';
 
-enum EasingType { linear, quadratic, cubic, quartic }
+enum EasingType { linear, cubic }
+
+extension EasingTypeExtension on EasingType {
+  Widget widget(BuildContext context) {
+    switch (this) {
+      case EasingType.linear:
+        return SizedBox(
+          width: 65,
+          child: Sparkline(
+            data: const [0, 1],
+            lineColor: Theme.of(context).colorScheme.outline,
+            lineWidth: 5,
+          ),
+        );
+      case EasingType.cubic:
+        return SizedBox(
+          width: 65,
+          child: Sparkline(
+            data: const [0.271, 0.488, 0.657, 0.784, 0.875, 0.936, 0.973, 0.992, 0.999, 1, 1.001, 1.008, 1.027, 1.064, 1.125, 1.216, 1.343, 1.512, 1.729, 2],
+            lineColor: Theme.of(context).colorScheme.outline,
+            lineWidth: 5,
+          ),
+        );
+    }
+  }
+
+  int get index {
+    switch (this) {
+      case EasingType.linear:
+        return 0;
+      case EasingType.cubic:
+        return 2;
+    }
+  }
+}
 
 enum MoveTimeType { sleep, linear }
 
 enum Speed { slow, fast }
+
+extension SpeedExtension on Speed {
+  String get name {
+    switch (this) {
+      case Speed.slow:
+        return sequencesEditSpeedSlow();
+      case Speed.fast:
+        return sequencesEditSpeedFast();
+    }
+  }
+}
 
 enum MoveType { move, delay, home }
 
@@ -55,11 +103,11 @@ class Move {
   String toString() {
     switch (moveType) {
       case MoveType.move:
-        return 'Left ${leftServo.round()} | Right ${rightServo.round()} | Speed ${speed.name}';
+        return '${sequencesEditLeftServo()} ${leftServo.round()} | ${sequencesEditRightServo()} ${rightServo.round()} | ${sequencesEditSpeed()} ${speed.name}';
       case MoveType.delay:
-        return 'Delay next move for $time seconds';
+        return sequenceEditListDelayLabel(time.round());
       case MoveType.home:
-        return 'Home Gear';
+        return sequencesEditHomeLabel();
     }
   }
 
@@ -71,16 +119,18 @@ class Move {
 }
 
 @JsonSerializable(explicitToJson: true)
-class MoveList {
+class MoveList extends BaseAction {
   List<Move> moves = [];
-  String name = "New List";
   bool homeAtEnd = true;
 
   factory MoveList.fromJson(Map<String, dynamic> json) => _$MoveListFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$MoveListToJson(this);
 
-  MoveList();
+  MoveList(super.name, super.deviceCategory, super.actionCategory) {
+    super.actionCategory = ActionCategory.sequence;
+  }
 }
 
 @Riverpod(keepAlive: true)
@@ -94,58 +144,75 @@ class MoveLists extends _$MoveLists {
     return [];
   }
 
-  void add(MoveList moveList) => state.add(moveList);
+  void add(MoveList moveList) {
+    state.add(moveList);
+    state = state;
+  }
 
-  void remove(MoveList moveList) => state.remove(moveList);
+  void remove(MoveList moveList) {
+    state.remove(moveList);
+    state = state;
+  }
 
   Future<void> store() async {
     Flogger.i("Storing sequences");
     await prefs.setStringList(
         "sequences",
-        state.map((e) {
-          return jsonEncode(e.toJson());
-        }).toList());
+        state.map(
+          (e) {
+            return const JsonEncoder.withIndent("    ").convert(e.toJson());
+          },
+        ).toList());
   }
 }
 
-Future<void> runMove(MoveList moveList, BaseStatefulDevice device) async {
-  Flogger.i("Starting MoveList ${moveList.name}.");
-  // add final home move
-  List<Move> newMoveList = List.from(moveList.moves); //prevent home move from being added to original MoveList
-  if (moveList.homeAtEnd) {
-    Move move = Move();
-    move.moveType = MoveType.home;
-    newMoveList.add(move);
-  }
-  //TODO: Merge move commands into 1 large command
-  for (Move element in newMoveList) {
-    //run move command
-    if (element.moveType == MoveType.delay) {
-      BluetoothMessage message = BluetoothMessage.delay(element.time, device, Priority.normal);
-      device.commandQueue.addCommand(message);
-    } else {
-      //Generate move command
-      String command = generateMoveCommand(element, device.baseDeviceDefinition.deviceType);
-      BluetoothMessage message = BluetoothMessage(command, device, Priority.normal);
-      device.commandQueue.addCommand(message);
-    }
+Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
+  if (action is CommandAction) {
+    device.commandQueue.addCommand(BluetoothMessage.response(action.command, device, Priority.normal, action.response));
+  } else if (action is MoveList) {
+    await (MoveList moveList, BaseStatefulDevice device) async {
+      Flogger.i("Starting MoveList ${moveList.name}.");
+      // add final home move
+      List<Move> newMoveList = List.from(moveList.moves); //prevent home move from being added to original MoveList
+      if (moveList.homeAtEnd) {
+        Move move = Move();
+        move.moveType = MoveType.home;
+        //newMoveList.add(move);
+      }
+      //TODO: Merge move commands into 1 large command
+      for (Move element in newMoveList) {
+        //run move command
+        if (element.moveType == MoveType.delay) {
+          BluetoothMessage message = BluetoothMessage.delay(element.time, device, Priority.normal);
+          device.commandQueue.addCommand(message);
+        } else {
+          //Generate move command
+          generateMoveCommand(element, device).forEach(
+            (element) {
+              device.commandQueue.addCommand(element);
+            },
+          );
+        }
+      }
+    }(action, device);
   }
 }
 
-String generateMoveCommand(Move move, DeviceType deviceType) {
-  String cmd = "";
+List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device) {
+  List<BluetoothMessage> commands = [];
   if (move.moveType == MoveType.home) {
-    if (deviceType == DeviceType.ears) {
-      cmd = "EARHOME";
+    if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
+      commands.add(BluetoothMessage.response("EarHome", device, Priority.normal, "EARHOME END"));
     } else {
-      cmd = "TAILHM";
+      commands.add(BluetoothMessage.response("TAILHM", device, Priority.normal, "END TAILHM"));
     }
   } else if (move.moveType == MoveType.move) {
-    if (deviceType == DeviceType.ears) {
-      cmd = "SPEED ${move.speed.name.toUpperCase()}\nDSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000";
+    if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
+      commands.add(BluetoothMessage.response("SPEED ${move.speed.name.toUpperCase()}", device, Priority.normal, "SPEED ${move.speed.name.toUpperCase()}"));
+      commands.add(BluetoothMessage.response("DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000", device, Priority.normal, "DSSP END"));
     } else {
-      cmd = "DSSP";
+      //cmd = "DSSP"; //TODO: Tail command
     }
   }
-  return cmd;
+  return commands;
 }

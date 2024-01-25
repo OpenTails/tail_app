@@ -1,39 +1,38 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tail_app/Frontend/intnDefs.dart';
 
 import '../Device/BaseDeviceDefinition.dart';
 
 part 'BaseAction.g.dart';
 
-enum ActionCategory { other, calm, fast, tense, glowtip, ears }
+enum ActionCategory { sequence, calm, fast, tense, glowtip, ears }
 
 extension ActionCategoryExtension on ActionCategory {
   String get friendly {
     switch (this) {
       case ActionCategory.calm:
-        return "Calm and Relaxed";
+        return actionsCategoryCalm();
       case ActionCategory.fast:
-        return "Fast and Excited";
+        return actionsCategoryFast();
       case ActionCategory.tense:
-        return "Frustrated and Tense";
+        return actionsCategoryTense();
       case ActionCategory.glowtip:
-        return "GlowTip";
+        return actionsCategoryGlowtip();
       case ActionCategory.ears:
-        return "Ears";
-      default:
-        "";
+        return actionsCategoryGlowtip();
+      case ActionCategory.sequence:
+        return sequencesPage();
     }
-    return "";
   }
 }
 
 @JsonSerializable(explicitToJson: true)
 class BaseAction {
-  final String name;
-  final String command;
-  final DeviceType deviceCategory;
-  final ActionCategory actionCategory;
+  String name;
+  Set<DeviceType> deviceCategory;
+  ActionCategory actionCategory;
 
-  const BaseAction(this.name, this.command, this.deviceCategory, this.actionCategory);
+  BaseAction(this.name, this.deviceCategory, this.actionCategory);
 
   factory BaseAction.fromJson(Map<String, dynamic> json) => _$BaseActionFromJson(json);
 
@@ -41,6 +40,19 @@ class BaseAction {
 
   @override
   String toString() {
-    return 'BaseAction{name: $name, command: $command, deviceCategory: $deviceCategory, actionCategory: $actionCategory}';
+    return 'BaseAction{name: $name, deviceCategory: $deviceCategory, actionCategory: $actionCategory}';
   }
+}
+
+@JsonSerializable(explicitToJson: true)
+class CommandAction extends BaseAction {
+  final String command;
+  final String? response;
+
+  CommandAction(super.name, this.command, super.deviceCategory, super.actionCategory, this.response);
+
+  factory CommandAction.fromJson(Map<String, dynamic> json) => _$CommandActionFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$CommandActionToJson(this);
 }

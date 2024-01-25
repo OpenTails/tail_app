@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tail_app/Backend/btMessage.dart';
 import 'package:vector_math/vector_math.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
+import '../../Backend/btMessage.dart';
 import '../../Backend/moveLists.dart';
+import '../intnDefs.dart';
 
 class DirectGearControl extends ConsumerStatefulWidget {
   const DirectGearControl({super.key});
@@ -27,7 +28,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Direct Gear Control'),
+        title: Text(joyStickPage()),
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop()),
       ),
       body: Column(
@@ -61,35 +62,37 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
             ),
           ),*/
           ListTile(
-              title: const Text("Speed"),
-              subtitle: SegmentedButton<Speed>(
-                selected: <Speed>{speed},
-                onSelectionChanged: (Set<Speed> value) {
-                  setState(() {
-                    speed = value.first;
-                  });
-                },
-                segments: Speed.values.map<ButtonSegment<Speed>>((Speed value) {
+            title: Text(sequencesEditSpeed()),
+            subtitle: SegmentedButton<Speed>(
+              selected: <Speed>{speed},
+              onSelectionChanged: (Set<Speed> value) {
+                setState(() {
+                  speed = value.first;
+                });
+              },
+              segments: Speed.values.map<ButtonSegment<Speed>>(
+                (Speed value) {
                   return ButtonSegment<Speed>(
                     value: value,
                     label: Text(value.name),
                   );
-                }).toList(),
-              )),
+                },
+              ).toList(),
+            ),
+          ),
           ListTile(
-            title: const Text("Easing Type"),
+            title: Text(sequencesEditEasing()),
             subtitle: SegmentedButton<EasingType>(
               selected: <EasingType>{easingType},
               onSelectionChanged: (Set<EasingType> value) {
-                setState(() {
-                  easingType = value.first;
-                });
+                setState(
+                  () {
+                    easingType = value.first;
+                  },
+                );
               },
               segments: EasingType.values.map<ButtonSegment<EasingType>>((EasingType value) {
-                return ButtonSegment<EasingType>(
-                  value: value,
-                  label: Text(value.name),
-                );
+                return ButtonSegment<EasingType>(value: value, icon: value.widget(context), tooltip: value.name);
               }).toList(),
             ),
           ),
@@ -140,9 +143,11 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
     move.rightServo = right;
     move.leftServo = left;
     ref.read(knownDevicesProvider).values.forEach((element) {
-      String moveCommand = generateMoveCommand(move, element.baseDeviceDefinition.deviceType);
-      BluetoothMessage btMsg = BluetoothMessage(moveCommand, element, Priority.high);
-      element.commandQueue.addCommand(btMsg);
+      generateMoveCommand(move, element).forEach((message) {
+        message.responseMSG = null;
+        message.priority = Priority.high;
+        element.commandQueue.addCommand(message);
+      });
     });
   }
 }

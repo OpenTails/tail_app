@@ -1,12 +1,14 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
+import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logging_flutter/logging_flutter.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:side_sheet_material3/side_sheet_material3.dart';
 import 'package:upgrader/upgrader.dart';
 
 import '../Widgets/manage_devices.dart';
+import '../intnDefs.dart';
 
 /// Flutter code sample for [NavigationDrawer].
 
@@ -20,10 +22,10 @@ class NavDestination {
   final String path;
 }
 
-const List<NavDestination> destinations = <NavDestination>[
-  NavDestination('Actions', Icon(Icons.widgets_outlined), Icon(Icons.widgets), "/actions"),
-  NavDestination('Triggers', Icon(Icons.sensors_outlined), Icon(Icons.sensors), "/triggers"),
-  NavDestination('Sequences', Icon(Icons.list_outlined), Icon(Icons.list), "/moveLists"),
+List<NavDestination> destinations = <NavDestination>[
+  NavDestination(actionsPage(), const Icon(Icons.widgets_outlined), const Icon(Icons.widgets), "/actions"),
+  NavDestination(triggersPage(), const Icon(Icons.sensors_outlined), const Icon(Icons.sensors), "/triggers"),
+  NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
 ];
 
 class NavigationDrawerExample extends ConsumerStatefulWidget {
@@ -64,8 +66,8 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
       child: Scaffold(
         key: scaffoldKey,
         body: DoubleBackToCloseApp(
-          snackBar: const SnackBar(
-            content: Text('Tap back again to leave'),
+          snackBar: SnackBar(
+            content: Text(doubleBack()),
           ),
           child: SafeArea(
             bottom: false,
@@ -74,15 +76,16 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
           ),
         ),
         appBar: AppBar(
-          title: const Text('Tail App'),
+          title: Text(title()),
           actions: [
             IconButton(
-                tooltip: "Manage Devices",
+                //TODO: Migrate to new widget
+                tooltip: manageDevices(),
                 onPressed: () async {
                   //List<BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
                   await showModalSideSheet(
                     context,
-                    header: 'Manage Devices',
+                    header: manageDevices(),
                     body: const ManageDevices(),
                     // Put your content widget here
                     addBackIconButton: true,
@@ -115,40 +118,42 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
         drawer: Drawer(
           child: Column(
             children: <Widget>[
-              const DrawerHeader(
+              DrawerHeader(
                 child: Text(
-                  'All of the Tails',
+                  subTitle(),
                 ),
               ),
               ListTile(
-                title: const Text('Joystick'),
+                title: Text(joyStickPage()),
                 onTap: () {
                   context.push("/joystick");
                 },
               ),
               ListTile(
-                title: const Text('About'),
+                title: Text(feedbackPage()),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    DialogRoute(
-                        builder: (context) => const AboutDialog(
-                              applicationName: "Tail_App",
-                              applicationVersion: "0.0.1",
-                              applicationLegalese: "This is a fan made app to control 'The Tail Company' tails and ears",
-                            ),
-                        context: context),
+                  BetterFeedback.of(context).showAndUploadToSentry();
+                },
+              ),
+              ListTile(
+                title: Text(aboutPage()),
+                onTap: () {
+                  PackageInfo.fromPlatform().then(
+                    (value) => Navigator.push(
+                      context,
+                      DialogRoute(
+                          builder: (context) => AboutDialog(
+                                applicationName: title(),
+                                applicationVersion: value.version,
+                                applicationLegalese: "This is a fan made app to control 'The Tail Company' tails and ears",
+                              ),
+                          context: context),
+                    ),
                   );
                 },
               ),
               ListTile(
-                title: const Text('Logs'),
-                onTap: () {
-                  LogConsole.open(context);
-                },
-              ),
-              ListTile(
-                title: const Text('Settings'),
+                title: Text(settingsPage()),
                 onTap: () {
                   context.push("/settings");
                 },

@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: eb376e9acf6938204f90eb3b1f00b578640d3188b4c8a8ec054f9f479af8d051
+      sha256: ae92f5d747aee634b87f89d9946000c2de774be1d6ac3e58268224348cd0101a
       url: "https://pub.dev"
     source: hosted
-    version: "64.0.0"
+    version: "61.0.0"
   adaptive_theme:
     dependency: "direct main"
     description:
@@ -21,18 +21,18 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "69f54f967773f6c26c7dcb13e93d7ccee8b17a641689da39e878d5cf13b06893"
+      sha256: ea3d8652bda62982addfd92fdc2d0214e5f82e43325104990d4f4c4a2a313562
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.0"
+    version: "5.13.0"
   analyzer_plugin:
     dependency: transitive
     description:
       name: analyzer_plugin
-      sha256: "9661b30b13a685efaee9f02e5d01ed9f2b423bd889d28a304d02d704aee69161"
+      sha256: c1d5f167683de03d5ab6c3b53fc9aeefc5d59476e7810ba7bbddff50c6f4392d
       url: "https://pub.dev"
     source: hosted
-    version: "0.11.3"
+    version: "0.11.2"
   ansicolor:
     dependency: transitive
     description:
@@ -145,6 +145,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  chart_sparkline:
+    dependency: "direct main"
+    description:
+      name: chart_sparkline
+      sha256: "3d6c7091851a0483230e51776f51c8bf692da144928150ba254a1b578e098830"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.15+1"
   checked_yaml:
     dependency: transitive
     description:
@@ -261,10 +269,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "40ae61a5d43feea6d24bd22c0537a6629db858963b99b4bc1c3db80676f32368"
+      sha256: "1efa911ca7086affd35f463ca2fc1799584fb6aa89883cf0af8e3664d6a02d55"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.4"
+    version: "2.3.2"
   dartx:
     dependency: transitive
     description:
@@ -305,6 +313,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  dynamic_color:
+    dependency: "direct main"
+    description:
+      name: dynamic_color
+      sha256: a866f1f8947bfdaf674d7928e769eac7230388a2e7a2542824fad4bb5b87be3b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.9"
   fake_async:
     dependency: transitive
     description:
@@ -313,6 +329,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  feedback:
+    dependency: transitive
+    description:
+      name: feedback
+      sha256: "3cb138a56a3f3914dd38471479c351ce6df377abb29c5ebe4042be5481fee271"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
+  feedback_sentry:
+    dependency: "direct main"
+    description:
+      name: feedback_sentry
+      sha256: "22a901f05ed773b04b604edcdbf67b36f0a9ac12747f3d68f33aea159465f841"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   ffi:
     dependency: transitive
     description:
@@ -342,6 +374,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_android_volume_keydown:
+    dependency: "direct main"
+    description:
+      name: flutter_android_volume_keydown
+      sha256: f07fa3e4362262ccf32be6522c8445cbac5a046c18f82c8bd7ba11391d057e9a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   flutter_foreground_service:
     dependency: "direct main"
     description:
@@ -374,6 +414,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.4"
+  flutter_json_view:
+    dependency: "direct main"
+    description:
+      name: flutter_json_view
+      sha256: b10457bf9cbe24c7ca305f28da238ecd16ebceb66903dab4e67677ee6e45618a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.4"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
@@ -430,6 +478,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -584,6 +637,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.1"
+  intl_translation:
+    dependency: "direct dev"
+    description:
+      name: intl_translation
+      sha256: c8dce69cd7ce7ffea26126c32d284c829a94f08c13e4322ec0d98753dde6baff
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.2"
   introduction_screen:
     dependency: "direct main"
     description:
@@ -680,6 +749,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  multi_value_listenable_builder:
+    dependency: "direct main"
+    description:
+      name: multi_value_listenable_builder
+      sha256: "5d073a5ab4935c3eab7134dec939544467bdf8a71ab24d01f0dcc3f94f03a71e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   os_detect:
     dependency: transitive
     description:
@@ -697,7 +774,7 @@ packages:
     source: hosted
     version: "2.1.0"
   package_info_plus:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: package_info_plus
       sha256: "88bc797f44a94814f2213db1c9bd5badebafdfb8290ca9f78d4b9ee2a3db4d79"
@@ -908,10 +985,10 @@ packages:
     dependency: transitive
     description:
       name: riverpod_analyzer_utils
-      sha256: d4dabc35358413bf4611fcb6abb46308a67c4ef4cd5e69fd3367b11925c59f57
+      sha256: d72d7096964baf288b55619fe48100001fc4564ab7923ed0a7f5c7650e03c0d6
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.0"
+    version: "0.3.4"
   riverpod_annotation:
     dependency: "direct dev"
     description:
@@ -924,18 +1001,18 @@ packages:
     dependency: "direct dev"
     description:
       name: riverpod_generator
-      sha256: ff8f064f1d7ef3cc6af481bba8e9a3fcdb4d34df34fac1b39bbc003167065be0
+      sha256: "5b36ad2f2b562cffb37212e8d59390b25499bf045b732276e30a207b16a25f61"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.9"
+    version: "2.3.3"
   riverpod_lint:
     dependency: "direct dev"
     description:
       name: riverpod_lint
-      sha256: "944929ef82c9bfeaa455ccab97920abcf847a0ffed5c9f6babc520a95db25176"
+      sha256: "70198738c3047ae4f6517ef1a2011a8514a980a52576c7f629a3a08810319a02"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.7"
+    version: "2.1.1"
   rxdart:
     dependency: transitive
     description:
@@ -972,10 +1049,10 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "89e426587b0879e53c46a0aae0eb312696d9d2d803ba14b252a65cc24b1416a2"
+      sha256: "5686ed515bb620dc52b4ae99a6586fe720d443591183cf1f620ec5d1f0eec100"
       url: "https://pub.dev"
     source: hosted
-    version: "7.14.0"
+    version: "7.15.0"
   sentry_dart_plugin:
     dependency: "direct dev"
     description:
@@ -988,18 +1065,18 @@ packages:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: fd089ee4e75a927be037c56815a0a54af5a519f52b803a5ffecb589bb36e2401
+      sha256: "505dec3b6810562785d2c34ae871c73ff2cba6cf436c32c188f0464df226ba8f"
       url: "https://pub.dev"
     source: hosted
-    version: "7.14.0"
+    version: "7.15.0"
   sentry_logging:
     dependency: "direct main"
     description:
       name: sentry_logging
-      sha256: "1ab0f004891821c8f5c3e3523c745adb5c57514343a96e75df1a49e9d8d7cfee"
+      sha256: "48736cef1aa0bc719c1c4dfeb9520b8f4f758b71c2020d6390fadf21a5d755cd"
       url: "https://pub.dev"
     source: hosted
-    version: "7.14.0"
+    version: "7.15.0"
   shake:
     dependency: "direct main"
     description:

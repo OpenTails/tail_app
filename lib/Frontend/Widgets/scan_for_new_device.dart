@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_ble_platform_interface/src/model/discovered_device.dart';
@@ -5,26 +7,13 @@ import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
 import '../../Backend/Settings.dart';
+import '../intnDefs.dart';
 
 class ScanForNewDevice extends ConsumerStatefulWidget {
   const ScanForNewDevice({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ScanForNewDevice();
-}
-
-class ScanDevicesPage extends StatelessWidget {
-  const ScanDevicesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Connect to device'),
-      ),
-      body: const ScanForNewDevice(),
-    );
-  }
 }
 
 class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
@@ -43,7 +32,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
       DiscoveredDevice? value = foundDevices.valueOrNull;
       if (value != null && !devices.containsKey(value.id)) {
         if (ref.read(preferencesProvider).autoConnectNewDevices) {
-          ref.read(btConnectProvider(value));
+          Future(() => ref.read(knownDevicesProvider.notifier).connect(value));
         } else {
           devices[value.id] = value;
         }
@@ -63,7 +52,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
             },
             value: ref.read(preferencesProvider).autoConnectNewDevices,
           ),
-          title: const Text("Automatically connect to new devices"),
+          title: Text(scanDevicesAutoConnectTitle()),
         ),
         ListView.builder(
           shrinkWrap: true,
@@ -74,7 +63,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
               title: Text(getNameFromBTName(devicesList[index].name)),
               trailing: Text(devicesList[index].id),
               onTap: () {
-                ref.watch(btConnectProvider(devicesList[index]));
+                ref.watch(knownDevicesProvider.notifier).connect(devicesList[index]);
                 setState(() {
                   devices.remove(devicesList[index].id);
                 });
@@ -83,15 +72,15 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
             );
           },
         ),
-        const Padding(
-            padding: EdgeInsets.only(top: 20),
+        Padding(
+            padding: const EdgeInsets.only(top: 20),
             child: Center(
               child: Column(
                 children: [
-                  CircularProgressIndicator(),
+                  const CircularProgressIndicator(),
                   Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text("Scanning for gear. Please make sure your gear is powered on and nearby"),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(scanDevicesScanMessage()),
                   )
                 ],
               ),

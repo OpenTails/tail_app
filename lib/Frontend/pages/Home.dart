@@ -25,7 +25,39 @@ class _HomeState extends ConsumerState<Home> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: const <Widget>[],
+      children: <Widget>[
+        Center(
+          child: Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const ListTile(
+                  leading: Icon(Icons.album),
+                  title: Text('Welcome to Tail App'),
+                  subtitle: Text('TODO: Set up state machine to show this page when no devices are connected, and to automatically scan for devices. Also include permission checks to make sure the device is ready to connect to gear'),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('Wan Wan'),
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                      child: const Text('Awoo'),
+                      onPressed: () {
+                        /* ... */
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

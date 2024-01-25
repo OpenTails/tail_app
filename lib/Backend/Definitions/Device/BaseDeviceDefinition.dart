@@ -6,9 +6,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 
+import '../../../Frontend/intnDefs.dart';
+
 part 'BaseDeviceDefinition.g.dart';
 
-enum DeviceType { tail, ears, wings } //TODO make class with icon
+enum DeviceType { tail, ears, wings } //TODO extend with icon
+
+extension DeviceTypeExtension on DeviceType {
+  String get name {
+    switch (this) {
+      case DeviceType.tail:
+        return deviceTypeTail();
+      case DeviceType.ears:
+        return deviceTypeEars();
+      case DeviceType.wings:
+        return deviceTypeWings();
+    }
+  }
+}
 
 enum DeviceState { standby, runAction, busy }
 
@@ -82,23 +97,20 @@ extension AutoActionCategoryExtension on AutoActionCategory {
   String get friendly {
     switch (this) {
       case AutoActionCategory.calm:
-        return "Calm";
+        return manageDevicesAutoMoveGroupsCalm();
       case AutoActionCategory.fast:
-        return "Fast";
+        return manageDevicesAutoMoveGroupsFast();
       case AutoActionCategory.tense:
-        return "Frustrated";
-      default:
-        "";
+        return manageDevicesAutoMoveGroupsFrustrated();
     }
-    return "";
   }
 }
 
 // All serialized/stored data
 @JsonSerializable(explicitToJson: true)
 class BaseStoredDevice {
-  @JsonKey(defaultValue: "New Device")
-  String name = "New Device";
+  @JsonKey(defaultValue: "New Gear")
+  String name = "New Gear";
   @JsonKey(defaultValue: true)
   bool autoMove = true;
   @JsonKey(defaultValue: 15)
