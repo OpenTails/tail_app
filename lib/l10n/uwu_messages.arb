@@ -1,0 +1,380 @@
+{
+  "sequencesEdit": "Edit Sequence",
+  "@sequencesEdit": {
+    "description": "Label for the edit icon on a sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsFast": "Fast",
+  "@manageDevicesAutoMoveGroupsFast": {
+    "description": "Auto move group fast option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeWings": "wings OwO",
+  "@deviceTypeWings": {
+    "description": "Wings option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryGlowtip": "G-G-GwowTip",
+  "@actionsCategoryGlowtip": {
+    "description": "glowtip action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "title": "Taiw App",
+  "@title": {
+    "description": "The name of the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryFast": "Fast and Excited",
+  "@actionsCategoryFast": {
+    "description": "fast action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBack": "Pwess back again t-to weave *screams*",
+  "@doubleBack": {
+    "description": "A toast which appears when the back button is pressed at the main page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoGear": "Nyo Geaw Connyected",
+  "@actionsNoGear": {
+    "description": "Label on the actions page when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsPage": "Settings",
+  "@settingsPage": {
+    "description": "The label and title of the settings page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditMove": "Muv",
+  "@sequencesEditMove": {
+    "description": "Label for the move tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutPage": "about OwO",
+  "@aboutPage": {
+    "description": "The label and title of the about page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsHapticsToggleTitle": "Haptic Feedback *cries*",
+  "@settingsHapticsToggleTitle": {
+    "description": "Settings page haptic feedback toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditRightServo": "Wight Sewvo",
+  "@sequencesEditRightServo": {
+    "description": "Label for the right servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditName": "Nyame",
+  "@sequencesEditName": {
+    "description": "Label for the name field on sequence edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryCalm": "C-Cawm and Wewaxed",
+  "@actionsCategoryCalm": {
+    "description": "calm action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleTitle": "Automatic ewwow wepowting",
+  "@settingsErrorReportingToggleTitle": {
+    "description": "Settings page error reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditSpeedSlow": "Swow",
+  "@sequencesEditSpeedSlow": {
+    "description": "Label for the Slow speed selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeTail": "Taiw",
+  "@deviceTypeTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveSubTitle": "the *runs away* taiw wiww sewect a wandom muv, pausing fow a wandom nyumbew of seconds between each muv ^w^",
+  "@manageDevicesAutoMoveSubTitle": {
+    "description": "Auto move toggle subtitle when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditTime": "Time",
+  "@sequencesEditTime": {
+    "description": "Label for the time slider on the delay tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevices": "manyage x3 D-Devices",
+  "@manageDevices": {
+    "description": "The screen where you pair and manage gear",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditHome": "Home",
+  "@sequencesEditHome": {
+    "description": "Label for the home tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsFrustrated": "Fwustwated",
+  "@manageDevicesAutoMoveGroupsFrustrated": {
+    "description": "Auto move group frustrated option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAutoConnectToggleTitle": "Automaticawwy Scan fow k-knyown geaw",
+  "@settingsAutoConnectToggleTitle": {
+    "description": "Settings page auto connect toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditEasing": "Easing Type",
+  "@sequencesEditEasing": {
+    "description": "Label for the easing selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "Ok",
+  "@ok": {
+    "description": "Ok on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveNoPhoneSliderLabel": "Intl.plural(howMany, one: '{howMany} m-minyute', other: '{howMany} m-minyutes')",
+  "@manageDevicesAutoMoveNoPhoneSliderLabel": {
+    "description": "Auto move no phone slider label when managing a device.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": "42"
+      }
+    }
+  },
+  "settingsHapticsToggleSubTitle": "Enyabwe vibwation when an action ow (・`ω´・) sequence is tapped",
+  "@settingsHapticsToggleSubTitle": {
+    "description": "Settings page haptic feedback toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditListDelayLabel": "Intl.plural(howMany, one: ' Deway (・`ω´・) nyext muv ^w^ fow {howMany} >w< second.', other: ' Deway (・`ω´・) nyext muv ^w^ fow {howMany} >w< seconds')",
+  "@sequenceEditListDelayLabel": {
+    "description": "Delay move label on the edit sequences page.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": "42"
+      }
+    }
+  },
+  "feedbackPage": "feedback *cries*",
+  "@feedbackPage": {
+    "description": "The label and title of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleSubTitle": "Automaticawwy wepowts ewwows t-to sentwy",
+  "@settingsErrorReportingToggleSubTitle": {
+    "description": "Settings page error reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceType": "Device Type",
+  "@deviceType": {
+    "description": "Title for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMovePauseSliderLabel": "Intl.plural(howMany, one: '{howMany} second', other: '{howMany} seconds')",
+  "@manageDevicesAutoMovePauseSliderLabel": {
+    "description": "Auto move pause slider title when managing a device.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": "42"
+      }
+    }
+  },
+  "sequencesEditHomeLabel": "Home the x3 Geaw",
+  "@sequencesEditHomeLabel": {
+    "description": "Label on the home tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectLabel": "Sewect an Twiggew Type",
+  "@triggersSelectLabel": {
+    "description": "The title of the add trigger dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesForget": "Fowget",
+  "@manageDevicesForget": {
+    "description": "manage devices forget button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Cancew",
+  "@cancel": {
+    "description": "Cancel on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveNoPhoneTitle": "Nyo-Phonye-Mode Stawt  Deway (・`ω´・)",
+  "@manageDevicesAutoMoveNoPhoneTitle": {
+    "description": "Auto move no-phone mode slider title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesAutoConnectTitle": "Automaticawwy connyect ÚwÚ t-to nyew devices",
+  "@scanDevicesAutoConnectTitle": {
+    "description": "scan for devices auto connect toggle title when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDelay": "deway (・`ω´・)",
+  "@sequencesEditDelay": {
+    "description": "Label for the delay tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsPage": "actions :3",
+  "@actionsPage": {
+    "description": "The label and title of the action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMovePauseTitle": "Pause between muvs",
+  "@manageDevicesAutoMovePauseTitle": {
+    "description": "Auto move pause slider title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersAdd": "Add Twiggew",
+  "@triggersAdd": {
+    "description": "Floating Action Button on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersPage": "Twiggews",
+  "@triggersPage": {
+    "description": "The label and title of the trigger page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeEars": "E-E-Eaws",
+  "@deviceTypeEars": {
+    "description": "Ears option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesDisconnect": "Disconnyect",
+  "@manageDevicesDisconnect": {
+    "description": "manage devices disconnect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPage": "Joystick",
+  "@joyStickPage": {
+    "description": "The label and title of the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditSpeedFast": "Fast",
+  "@sequencesEditSpeedFast": {
+    "description": "Label for the Fast speed selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subTitle": "aww >w< of the x3 T-T-Taiws",
+  "@subTitle": {
+    "description": "The sub-title which displays in the navigation drawer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesAdd": "Nyew Sequence",
+  "@sequencesAdd": {
+    "description": "Floating Action Button on the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesScanMessage": "S-Scannying fow geaw. Pwease make suwe youw geaw is powewed on and nyeawby",
+  "@scanDevicesScanMessage": {
+    "description": "scan for devices scan in progress message when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAutoConnectToggleSubTitle": "Scan fow k-knyown geaw a-a-automaticawwy, This onwy wowks when the x3 app is open and wiww dwain youw battewy fastew!!11",
+  "@settingsAutoConnectToggleSubTitle": {
+    "description": "Settings page auto connect toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsCalm": "C-Cawm",
+  "@manageDevicesAutoMoveGroupsCalm": {
+    "description": "Auto move group  calm option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveTitle": "Auto Muv",
+  "@manageDevicesAutoMoveTitle": {
+    "description": "Auto move toggle title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsTitle": "Muv Gwoups",
+  "@manageDevicesAutoMoveGroupsTitle": {
+    "description": "Auto move group selector title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditSpeed": "speed *screams*",
+  "@sequencesEditSpeed": {
+    "description": "Label for the speed selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryEars": "E-E-Eaws",
+  "@actionsCategoryEars": {
+    "description": "ears action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditLeftServo": "Weft Sewvo",
+  "@sequencesEditLeftServo": {
+    "description": "Label for the left servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPage": "sequences ^w^",
+  "@sequencesPage": {
+    "description": "The label and title of the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryTense": "Fwustwated and Tense",
+  "@actionsCategoryTense": {
+    "description": "tense action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditAdd": "Add Muv",
+  "@sequencesEditAdd": {
+    "description": "Label for the add Floating Action Button on edit sequence page",
+    "type": "text",
+    "placeholders": {}
+  }
+}
