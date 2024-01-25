@@ -1,205 +1,206 @@
 {
-  "@@last_modified": "2024-01-25T13:41:19.340125",
-  "Tail App": "Tail App",
-  "@Tail App": {
+  "@@locale": "en",
+  "@@last_modified": "2024-01-25T15:33:34.724489",
+  "title": "Tail App",
+  "@title": {
     "description": "The name of the app",
     "type": "text",
     "placeholders": {}
   },
-  "All of the Tails": "All of the Tails",
-  "@All of the Tails": {
+  "subTitle": "All of the Tails",
+  "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
     "placeholders": {}
   },
-  "Manage Devices": "Manage Devices",
-  "@Manage Devices": {
+  "manageDevices": "Manage Devices",
+  "@manageDevices": {
     "description": "The screen where you pair and manage gear",
     "type": "text",
     "placeholders": {}
   },
-  "Press back again to leave": "Press back again to leave",
-  "@Press back again to leave": {
+  "doubleBack": "Press back again to leave",
+  "@doubleBack": {
     "description": "A toast which appears when the back button is pressed at the main page",
     "type": "text",
     "placeholders": {}
   },
-  "Joystick": "Joystick",
-  "@Joystick": {
+  "joyStickPage": "Joystick",
+  "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
     "placeholders": {}
   },
-  "Feedback": "Feedback",
-  "@Feedback": {
+  "feedbackPage": "Feedback",
+  "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
     "placeholders": {}
   },
-  "About": "About",
-  "@About": {
+  "aboutPage": "About",
+  "@aboutPage": {
     "description": "The label and title of the about page",
     "type": "text",
     "placeholders": {}
   },
-  "Settings": "Settings",
-  "@Settings": {
+  "settingsPage": "Settings",
+  "@settingsPage": {
     "description": "The label and title of the settings page",
     "type": "text",
     "placeholders": {}
   },
-  "Actions": "Actions",
-  "@Actions": {
+  "actionsPage": "Actions",
+  "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
-  "Triggers": "Triggers",
-  "@Triggers": {
+  "triggersPage": "Triggers",
+  "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
     "placeholders": {}
   },
-  "Sequences": "Sequences",
-  "@Sequences": {
+  "sequencesPage": "Sequences",
+  "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "Select an Trigger Type": "Select an Trigger Type",
-  "@Select an Trigger Type": {
+  "triggersSelectLabel": "Select an Trigger Type",
+  "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
     "placeholders": {}
   },
-  "Ok": "Ok",
-  "@Ok": {
+  "ok": "Ok",
+  "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
     "placeholders": {}
   },
-  "Cancel": "Cancel",
-  "@Cancel": {
+  "cancel": "Cancel",
+  "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
     "placeholders": {}
   },
-  "Add Trigger": "Add Trigger",
-  "@Add Trigger": {
+  "triggersAdd": "Add Trigger",
+  "@triggersAdd": {
     "description": "Floating Action Button on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "Device Type": "Device Type",
-  "@Device Type": {
+  "deviceType": "Device Type",
+  "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "Tail": "Tail",
-  "@Tail": {
+  "deviceTypeTail": "Tail",
+  "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "Ears": "Ears",
-  "@Ears": {
+  "deviceTypeEars": "Ears",
+  "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "Wings": "Wings",
-  "@Wings": {
+  "deviceTypeWings": "Wings",
+  "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "New Sequence": "New Sequence",
-  "@New Sequence": {
+  "sequencesAdd": "New Sequence",
+  "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "Edit Sequence": "Edit Sequence",
-  "@Edit Sequence": {
+  "sequencesEdit": "Edit Sequence",
+  "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
     "placeholders": {}
   },
-  "Add Move": "Add Move",
-  "@Add Move": {
+  "sequencesEditAdd": "Add Move",
+  "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
     "placeholders": {}
   },
-  "Name": "Name",
-  "@Name": {
+  "sequencesEditName": "Name",
+  "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Move": "Move",
-  "@Move": {
+  "sequencesEditMove": "Move",
+  "@sequencesEditMove": {
     "description": "Label for the move tab on sequence move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Delay": "Delay",
-  "@Delay": {
+  "sequencesEditDelay": "Delay",
+  "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Home": "Home",
-  "@Home": {
+  "sequencesEditHome": "Home",
+  "@sequencesEditHome": {
     "description": "Label for the home tab on sequence move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Left Servo": "Left Servo",
-  "@Left Servo": {
+  "sequencesEditLeftServo": "Left Servo",
+  "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Right Servo": "Right Servo",
-  "@Right Servo": {
+  "sequencesEditRightServo": "Right Servo",
+  "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Speed": "Speed",
-  "@Speed": {
+  "sequencesEditSpeed": "Speed",
+  "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Fast": "Fast",
-  "@Fast": {
+  "sequencesEditSpeedFast": "Fast",
+  "@sequencesEditSpeedFast": {
     "description": "Label for the Fast speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Slow": "Slow",
-  "@Slow": {
+  "sequencesEditSpeedSlow": "Slow",
+  "@sequencesEditSpeedSlow": {
     "description": "Label for the Slow speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Easing Type": "Easing Type",
-  "@Easing Type": {
+  "sequencesEditEasing": "Easing Type",
+  "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Time": "Time",
-  "@Time": {
+  "sequencesEditTime": "Time",
+  "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "Home the Gear": "Home the Gear",
-  "@Home the Gear": {
+  "sequencesEditHomeLabel": "Home the Gear",
+  "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
     "placeholders": {}
@@ -210,108 +211,120 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 42
+        "example": "42"
       }
     }
   },
-  "No Gear Connected": "No Gear Connected",
-  "@No Gear Connected": {
+  "actionsNoGear": "No Gear Connected",
+  "@actionsNoGear": {
     "description": "Label on the actions page when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
-  "Calm and Relaxed": "Calm and Relaxed",
-  "@Calm and Relaxed": {
+  "actionsCategoryCalm": "Calm and Relaxed",
+  "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
     "placeholders": {}
   },
-  "Fast and Excited": "Fast and Excited",
-  "@Fast and Excited": {
+  "actionsCategoryFast": "Fast and Excited",
+  "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
     "placeholders": {}
   },
-  "Frustrated and Tense": "Frustrated and Tense",
-  "@Frustrated and Tense": {
+  "actionsCategoryTense": "Frustrated and Tense",
+  "@actionsCategoryTense": {
     "description": "tense action group label",
     "type": "text",
     "placeholders": {}
   },
-  "GlowTip": "GlowTip",
-  "@GlowTip": {
+  "actionsCategoryGlowtip": "GlowTip",
+  "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
     "placeholders": {}
   },
-  "Haptic Feedback": "Haptic Feedback",
-  "@Haptic Feedback": {
+  "actionsCategoryEars": "Ears",
+  "@actionsCategoryEars": {
+    "description": "ears action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsHapticsToggleTitle": "Haptic Feedback",
+  "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "Enable vibration when an action or sequence is tapped": "Enable vibration when an action or sequence is tapped",
-  "@Enable vibration when an action or sequence is tapped": {
+  "settingsHapticsToggleSubTitle": "Enable vibration when an action or sequence is tapped",
+  "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "Automatically Scan for known gear": "Automatically Scan for known gear",
-  "@Automatically Scan for known gear": {
+  "settingsAutoConnectToggleTitle": "Automatically Scan for known gear",
+  "@settingsAutoConnectToggleTitle": {
     "description": "Settings page auto connect toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "Scan for known gear automatically, This only works when the app is open and will drain your battery faster!": "Scan for known gear automatically, This only works when the app is open and will drain your battery faster!",
-  "@Scan for known gear automatically, This only works when the app is open and will drain your battery faster!": {
+  "settingsAutoConnectToggleSubTitle": "Scan for known gear automatically, This only works when the app is open and will drain your battery faster!",
+  "@settingsAutoConnectToggleSubTitle": {
     "description": "Settings page auto connect toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "Automatic error reporting": "Automatic error reporting",
-  "@Automatic error reporting": {
+  "settingsErrorReportingToggleTitle": "Automatic error reporting",
+  "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "Automatically reports errors to sentry": "Automatically reports errors to sentry",
-  "@Automatically reports errors to sentry": {
+  "settingsErrorReportingToggleSubTitle": "Automatically reports errors to sentry",
+  "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "Auto Move": "Auto Move",
-  "@Auto Move": {
+  "manageDevicesAutoMoveTitle": "Auto Move",
+  "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "The tail will select a random move, pausing for a random number of seconds between each move": "The tail will select a random move, pausing for a random number of seconds between each move",
-  "@The tail will select a random move, pausing for a random number of seconds between each move": {
+  "manageDevicesAutoMoveSubTitle": "The tail will select a random move, pausing for a random number of seconds between each move",
+  "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "Move Groups": "Move Groups",
-  "@Move Groups": {
+  "manageDevicesAutoMoveGroupsTitle": "Move Groups",
+  "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "Calm": "Calm",
-  "@Calm": {
+  "manageDevicesAutoMoveGroupsFast": "Fast",
+  "@manageDevicesAutoMoveGroupsFast": {
+    "description": "Auto move group fast option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsCalm": "Calm",
+  "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "Frustrated": "Frustrated",
-  "@Frustrated": {
+  "manageDevicesAutoMoveGroupsFrustrated": "Frustrated",
+  "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "Pause between moves": "Pause between moves",
-  "@Pause between moves": {
+  "manageDevicesAutoMovePauseTitle": "Pause between moves",
+  "@manageDevicesAutoMovePauseTitle": {
     "description": "Auto move pause slider title when managing a device",
     "type": "text",
     "placeholders": {}
@@ -322,12 +335,12 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 42
+        "example": "42"
       }
     }
   },
-  "No-Phone-Mode Start Delay": "No-Phone-Mode Start Delay",
-  "@No-Phone-Mode Start Delay": {
+  "manageDevicesAutoMoveNoPhoneTitle": "No-Phone-Mode Start Delay",
+  "@manageDevicesAutoMoveNoPhoneTitle": {
     "description": "Auto move no-phone mode slider title when managing a device",
     "type": "text",
     "placeholders": {}
@@ -338,30 +351,30 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 42
+        "example": "42"
       }
     }
   },
-  "Disconnect": "Disconnect",
-  "@Disconnect": {
+  "manageDevicesDisconnect": "Disconnect",
+  "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "Forget": "Forget",
-  "@Forget": {
+  "manageDevicesForget": "Forget",
+  "@manageDevicesForget": {
     "description": "manage devices forget button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "Automatically connect to new devices": "Automatically connect to new devices",
-  "@Automatically connect to new devices": {
+  "scanDevicesAutoConnectTitle": "Automatically connect to new devices",
+  "@scanDevicesAutoConnectTitle": {
     "description": "scan for devices auto connect toggle title when scanning for a device",
     "type": "text",
     "placeholders": {}
   },
-  "Scanning for gear. Please make sure your gear is powered on and nearby": "Scanning for gear. Please make sure your gear is powered on and nearby",
-  "@Scanning for gear. Please make sure your gear is powered on and nearby": {
+  "scanDevicesScanMessage": "Scanning for gear. Please make sure your gear is powered on and nearby",
+  "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
     "placeholders": {}

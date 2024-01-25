@@ -46,3 +46,6 @@ app.*.map.json
 #auto generated
 *.g.dart
 /.vscode/settings.json
+/lib/l10n/messages_all.dart
+/lib/l10n/messages_all_locales.dart
+/lib/l10n/messages_messages.dart

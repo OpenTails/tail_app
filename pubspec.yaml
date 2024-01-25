@@ -8,6 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   permission_handler: ^11.2.0
   wakelock:
   cross_platform: ^3.0.1
@@ -58,6 +60,7 @@ dev_dependencies:
   intl_translation:
 flutter:
   uses-material-design: true
+  generate: true
 
 sentry:
   upload_debug_symbols: true
