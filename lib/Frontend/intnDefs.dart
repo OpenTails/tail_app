@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 //generate file for translation. Run when adding new translations
-//dart run intl_translation:extract_to_arb --locale=en --output-dir=.\lang .\lib\Frontend\intnDefs.dart
+//dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/en_messages.arb' ./lib/Frontend/intnDefs.dart
 //convert to dart TODO:
 // dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/intl_*.arb
 String title() => Intl.message('Tail App', name: 'title', desc: 'The name of the app');
