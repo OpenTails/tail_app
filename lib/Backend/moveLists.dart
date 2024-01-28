@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import 'package:tail_app/Backend/btMessage.dart';
 import 'package:tail_app/Frontend/intnDefs.dart';
 
 import '../main.dart';

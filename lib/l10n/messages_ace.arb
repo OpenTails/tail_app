@@ -1,4 +1,5 @@
 {
+  "@@locale": "ace",
   "sequencesEdit": "Edit Sequence",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",

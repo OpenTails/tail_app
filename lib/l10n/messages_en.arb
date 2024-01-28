@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-01-25T17:26:33.089227",
+  "@@last_modified": "2024-01-28T00:36:38.286072",
   "title": "Tail App",
   "@title": {
     "description": "The name of the app",
@@ -205,6 +205,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "sequencesEditDeleteTitle": "Delete Sequence",
+  "@sequencesEditDeleteTitle": {
+    "description": "Title of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDeleteDescription": "Are you sure you want to delete this sequence?",
+  "@sequencesEditDeleteDescription": {
+    "description": "Message of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
   "sequenceEditListDelayLabel": "Intl.plural(howMany, one: ' Delay next move for {howMany} second.', other: 'Delay next move for {howMany} seconds.')",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
@@ -218,6 +230,12 @@
   "actionsNoGear": "No Gear Connected",
   "@actionsNoGear": {
     "description": "Label on the actions page when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoBluetooth": "Bluetooth is unavailable",
+  "@actionsNoBluetooth": {
+    "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   },
@@ -376,6 +394,120 @@
   "scanDevicesScanMessage": "Scanning for gear. Please make sure your gear is powered on and nearby",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingTitle": "Walking",
+  "@triggerWalkingTitle": {
+    "description": "Walking/Step trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingDescription": "Trigger an action on walking",
+  "@triggerWalkingDescription": {
+    "description": "Walking/Step trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStopped": "Stopped",
+  "@triggerWalkingStopped": {
+    "description": "Walking/Step trigger Stopped action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingEvenStep": "Even Step",
+  "@triggerWalkingEvenStep": {
+    "description": "Walking/Step trigger Even Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingOddStep": "Odd Step",
+  "@triggerWalkingOddStep": {
+    "description": "Walking/Step trigger Odd Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStep": "Step",
+  "@triggerWalkingStep": {
+    "description": "Walking/Step trigger Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverTitle": "Cover",
+  "@triggerCoverTitle": {
+    "description": "Cover trigger Title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverDescription": "Trigger an action by covering the proximity sensor",
+  "@triggerCoverDescription": {
+    "description": "Cover trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverNear": "Near",
+  "@triggerCoverNear": {
+    "description": "Cover trigger near action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverFar": "Far",
+  "@triggerCoverFar": {
+    "description": "Cover trigger far action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonTitle": "Volume Buttons",
+  "@triggerVolumeButtonTitle": {
+    "description": "Volume Button trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonDescription": "Trigger an action by pressing the volume button",
+  "@triggerVolumeButtonDescription": {
+    "description": "Volume Button trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeUp": "Volume Up",
+  "@triggerVolumeButtonVolumeUp": {
+    "description": "Volume Button trigger volume up action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeDown": "Volume Down",
+  "@triggerVolumeButtonVolumeDown": {
+    "description": "Volume Button trigger volume down action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeTitle": "Shake",
+  "@triggerShakeTitle": {
+    "description": "Shake trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeDescription": "Trigger an action by shaking your device",
+  "@triggerShakeDescription": {
+    "description": "Shake trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityTitle": "Nearby Gear",
+  "@triggerProximityTitle": {
+    "description": "Proximity trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityDescription": "Trigger an action if gear is nearby",
+  "@triggerProximityDescription": {
+    "description": "Proximity trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionNotSet": "No Action Set",
+  "@triggerActionNotSet": {
+    "description": "Trigger action label when no action set",
     "type": "text",
     "placeholders": {}
   }

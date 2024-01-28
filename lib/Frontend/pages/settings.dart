@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -69,14 +70,16 @@ class _SettingsState extends ConsumerState<Settings> {
               },
             ),
           ),
-          ListTile(
-            title: const Text("Development Menu"),
-            leading: const Icon(Icons.bug_report),
-            subtitle: const Text("It is illegal to read this message"),
-            onTap: () {
-              context.push('/settings/developer');
-            },
-          ),
+          if (kDebugMode) ...[
+            ListTile(
+              title: const Text("Development Menu"),
+              leading: const Icon(Icons.bug_report),
+              subtitle: const Text("It is illegal to read this message"),
+              onTap: () {
+                context.push('/settings/developer');
+              },
+            )
+          ],
         ],
       ),
     );

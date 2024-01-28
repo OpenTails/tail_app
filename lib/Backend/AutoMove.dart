@@ -1,5 +1,5 @@
+import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import 'package:tail_app/Backend/btMessage.dart';
 
 //TODO: call on device connect
 void ChangeAutoMove(BaseStatefulDevice device) {

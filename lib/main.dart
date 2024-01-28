@@ -6,22 +6,31 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:logging_flutter/logging_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tail_app/Backend/Sensors.dart';
+import 'package:tail_app/Backend/Settings.dart';
+import 'package:tail_app/Backend/moveLists.dart';
+import 'package:tail_app/Frontend/intnDefs.dart';
 
 import 'Backend/Bluetooth/BluetoothManager.dart';
 import 'Frontend/GoRouterConfig.dart';
+import 'l10n/messages_all_locales.dart';
 
 late SharedPreferences prefs;
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
   bool? reportingEnabled = prefs.getBool("AllowErrorReporting");
   if (reportingEnabled == null || reportingEnabled) {
+    if (kDebugMode) {
+      print('Before sending sentry event');
+    }
     return event;
   } else {
     return null;
@@ -44,9 +53,12 @@ Future<void> main() async {
     },
   );
   prefs = await SharedPreferences.getInstance();
+  var localeLoaded = await initializeMessages('ace');
+  Intl.defaultLocale = 'ace';
+  Flogger.i("Loaded local: $localeLoaded");
   await SentryFlutter.init(
     (options) {
-      options.dsn = 'https://2558d1aca0730fe5a59b946cd62154a6@o1187002.ingest.sentry.io/4506525602742272'; //TODO: Store as a secret
+      options.dsn = 'http://30dbd2cb36374c448885ee81aeae1419@192.168.50.189:8000/3';
       options.addIntegration(LoggingIntegration());
       options.attachScreenshot = true;
       options.attachViewHierarchy = true;
@@ -59,7 +71,6 @@ Future<void> main() async {
       options.enableAutoPerformanceTracing = true;
       options.beforeSend = beforeSend;
     },
-
     // Init your App.
     appRunner: () => runApp(
       DefaultAssetBundle(
@@ -88,7 +99,6 @@ class TailApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Flogger.i('Starting app');
-    setupAsyncPermissions();
     return DynamicColorBuilder(
       builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
         var light = ThemeData(
@@ -99,12 +109,14 @@ class TailApp extends ConsumerWidget {
           useMaterial3: true,
           colorScheme: darkDynamic,
         );
-        if (lightDynamic == null || darkDynamic == null) {
+        if (lightDynamic == null) {
           light = ThemeData(
             useMaterial3: true,
             brightness: Brightness.light,
             colorSchemeSeed: Colors.orange,
           );
+        }
+        if (darkDynamic == null) {
           dark = ThemeData(
             useMaterial3: true,
             brightness: Brightness.dark,
@@ -119,27 +131,20 @@ class TailApp extends ConsumerWidget {
             return BetterFeedback(
               themeMode: ThemeMode.system,
               darkTheme: FeedbackThemeData.dark(),
-              child: MaterialApp.router(title: 'All of the Tails', theme: theme, darkTheme: darkTheme, routerConfig: router, localizationsDelegates: const [
+              child: MaterialApp.router(title: subTitle(), theme: theme, darkTheme: darkTheme, routerConfig: router, localizationsDelegates: const [
+                AppLocalizations.delegate, // Add this line
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ], supportedLocales: const [
                 Locale('en'), // English
-                Locale('es'), // Spanish
+                Locale('ace'), // UwU
               ]),
             );
           },
         );
       },
     );
-  }
-
-  //Todo: make a screen to display required permissions
-  Future<void> setupAsyncPermissions() async {
-    Flogger.i("Permission BluetoothScan: ${await Permission.bluetoothScan.request()}");
-    Flogger.i("Permission BluetoothConnect: ${await Permission.bluetoothConnect.request()}");
-
-    //Flogger.i("Permission Location: ${await Permission.locationWhenInUse.request()}");
   }
 }
 
@@ -154,7 +159,10 @@ class _EagerInitialization extends ConsumerWidget {
     // By using "watch", the provider will stay alive and not be disposed.
     ref.watch(reactiveBLEProvider);
     ref.watch(knownDevicesProvider);
-    ref.watch(btConnectStatusProvider);
+    ref.watch(btConnectStateHandlerProvider);
+    ref.watch(triggerListProvider);
+    ref.watch(moveListsProvider);
+    ref.watch(preferencesProvider);
     return child;
   }
 }

@@ -5,8 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:side_sheet_material3/side_sheet_material3.dart';
+import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 
+import '../../l10n/messages_all_locales.dart';
 import '../Widgets/manage_devices.dart';
 import '../intnDefs.dart';
 
@@ -23,7 +25,7 @@ class NavDestination {
 }
 
 List<NavDestination> destinations = <NavDestination>[
-  NavDestination(actionsPage(), const Icon(Icons.widgets_outlined), const Icon(Icons.widgets), "/actions"),
+  NavDestination(actionsPage(), const Icon(Icons.widgets_outlined), const Icon(Icons.widgets), "/"),
   NavDestination(triggersPage(), const Icon(Icons.sensors_outlined), const Icon(Icons.sensors), "/triggers"),
   NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
 ];
@@ -32,7 +34,9 @@ class NavigationDrawerExample extends ConsumerStatefulWidget {
   Widget child;
   String location;
 
-  NavigationDrawerExample(this.child, this.location, {super.key});
+  NavigationDrawerExample(this.child, this.location, {super.key}) {
+    initializeMessages('ace');
+  }
 
   @override
   ConsumerState<NavigationDrawerExample> createState() => _NavigationDrawerExampleState();
@@ -72,7 +76,9 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
           child: SafeArea(
             bottom: false,
             top: false,
-            child: widget.child,
+            child: SnackBarOverlay(
+              child: widget.child,
+            ),
           ),
         ),
         appBar: AppBar(
@@ -82,7 +88,6 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                 //TODO: Migrate to new widget
                 tooltip: manageDevices(),
                 onPressed: () async {
-                  //List<BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
                   await showModalSideSheet(
                     context,
                     header: manageDevices(),

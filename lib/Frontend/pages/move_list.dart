@@ -22,39 +22,45 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
   Widget build(BuildContext context) {
     final List<MoveList> allMoveLists = ref.watch(moveListsProvider);
     return Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.add),
-          onPressed: () {
-            setState(() {
-              ref.watch(moveListsProvider.notifier).add(MoveList(sequencesPage(), DeviceType.values.toSet(), ActionCategory.sequence));
-              ref.watch(moveListsProvider.notifier).store();
-            });
-            context.push<MoveList>("/moveLists/editMoveList", extra: ref.watch(moveListsProvider).last).then((value) => setState(() {
-                  if (value != null) {
-                    ref.watch(moveListsProvider).last = value;
-                    ref.watch(moveListsProvider.notifier).store();
-                  }
-                }));
-          },
-          label: Text(sequencesPage()),
-        ),
-        body: ListView.builder(
-          itemCount: allMoveLists.length,
-          primary: true,
-          itemBuilder: (context, index) {
-            return ListTile(
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.add),
+        onPressed: () {
+          setState(() {
+            ref.watch(moveListsProvider.notifier).add(MoveList(sequencesPage(), DeviceType.values.toSet(), ActionCategory.sequence));
+            ref.watch(moveListsProvider.notifier).store();
+          });
+          context.push<MoveList>("/moveLists/editMoveList", extra: ref.watch(moveListsProvider).last).then((value) => setState(() {
+                if (value != null) {
+                  ref.watch(moveListsProvider).last = value;
+                  ref.watch(moveListsProvider.notifier).store();
+                }
+              }));
+        },
+        label: Text(sequencesPage()),
+      ),
+      body: ListView.builder(
+        itemCount: allMoveLists.length,
+        primary: true,
+        itemBuilder: (context, index) {
+          return Hero(
+            tag: 'moveListEditNameTag',
+            child: ListTile(
               title: Text(allMoveLists[index].name),
               subtitle: Text("${allMoveLists[index].moves.length} moves"), //TODO: Localize
               trailing: IconButton(
                 tooltip: sequencesEdit(),
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then((value) => setState(() {
-                        if (value != null) {
-                          allMoveLists[index] = value;
-                          ref.watch(moveListsProvider.notifier).store();
-                        }
-                      }));
+                  context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
+                        (value) => setState(
+                          () {
+                            if (value != null) {
+                              allMoveLists[index] = value;
+                              ref.watch(moveListsProvider.notifier).store();
+                            }
+                          },
+                        ),
+                      );
                 },
               ),
               onTap: () async {
@@ -65,9 +71,11 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                   runAction(allMoveLists[index], element);
                 });
               },
-            );
-          },
-        ));
+            ),
+          );
+        },
+      ),
+    );
   }
 }
 
@@ -98,6 +106,37 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
       appBar: AppBar(
         title: Text(sequencesEdit()),
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop(moveList)),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            tooltip: sequencesEditDeleteTitle(),
+            onPressed: () {
+              showDialog<bool>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: Text(sequencesEditDeleteTitle()),
+                  content: Text(sequencesEditDeleteDescription()),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: Text(cancel()),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: Text(ok()),
+                    ),
+                  ],
+                ),
+              ).then((value) {
+                if (value == true) {
+                  ref.read(moveListsProvider.notifier).remove(moveList!);
+                  ref.read(moveListsProvider.notifier).store();
+                  context.pop();
+                }
+              });
+            },
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
@@ -126,20 +165,23 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                controller: TextEditingController(text: moveList!.name),
-                decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName()),
-                maxLines: 1,
-                maxLength: 30,
-                autocorrect: false,
-                onSubmitted: (nameValue) {
-                  setState(
-                    () {
-                      moveList!.name = nameValue;
-                    },
-                  );
-                  ref.read(moveListsProvider.notifier).store();
-                },
+              child: Hero(
+                tag: 'moveListEditNameTag',
+                child: TextField(
+                  controller: TextEditingController(text: moveList!.name),
+                  decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName()),
+                  maxLines: 1,
+                  maxLength: 30,
+                  autocorrect: false,
+                  onSubmitted: (nameValue) {
+                    setState(
+                      () {
+                        moveList!.name = nameValue;
+                      },
+                    );
+                    ref.read(moveListsProvider.notifier).store();
+                  },
+                ),
               ),
             ),
             ListTile(

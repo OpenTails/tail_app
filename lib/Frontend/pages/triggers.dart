@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tail_app/Backend/ActionRegistry.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/Sensors.dart';
 
+import '../Widgets/action_selector.dart';
 import '../intnDefs.dart';
 
 class Triggers extends ConsumerStatefulWidget {
@@ -127,28 +127,21 @@ class _TriggersState extends ConsumerState<Triggers> {
       ),
     );
     results.addAll(
-      trigger.actions.map(
+      trigger.actions.values.map(
         (TriggerAction e) => ListTile(
           title: Text(e.name),
-          //TODO: Replace with window to select action/movelist. The dropdown is slow and cluttered
-          trailing: DropdownMenu<BaseAction>(
-            initialSelection: e.action,
-            dropdownMenuEntries: ActionRegistry.allCommands
-                .map(
-                  (BaseAction e) => DropdownMenuEntry<BaseAction>(
-                    label: e.name,
-                    value: e,
-                    leadingIcon: const Icon(Icons.moving),
-                  ),
-                )
-                .toList(),
-            onSelected: (BaseAction? value) {
-              setState(
-                () {
-                  e.action = value;
-                  ref.read(triggerListProvider.notifier).store();
-                },
-              );
+          subtitle: Text(e.action?.name ?? triggerActionNotSet()),
+          trailing: IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () async {
+              BaseAction? result = await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Dialog.fullscreen(child: ActionSelector(deviceType: trigger.deviceType));
+                  });
+              setState(() {
+                e.action = result;
+              });
             },
           ),
         ),

@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 //generate file for translation. Run when adding new translations
 //dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intnDefs.dart
 //convert to dart TODO:
-// dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*_messages.arb
+// dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb
 String title() => Intl.message('Tail App', name: 'title', desc: 'The name of the app');
 
 String subTitle() => Intl.message('All of the Tails', name: 'subTitle', desc: 'The sub-title which displays in the navigation drawer');
@@ -74,6 +74,10 @@ String sequencesEditTime() => Intl.message('Time', name: 'sequencesEditTime', de
 
 String sequencesEditHomeLabel() => Intl.message('Home the Gear', name: 'sequencesEditHomeLabel', desc: 'Label on the home tab of the move edit page');
 
+String sequencesEditDeleteTitle() => Intl.message('Delete Sequence', name: 'sequencesEditDeleteTitle', desc: 'Title of the dialog on the sequence edit page to delete the sequence');
+
+String sequencesEditDeleteDescription() => Intl.message('Are you sure you want to delete this sequence?', name: 'sequencesEditDeleteDescription', desc: 'Message of the dialog on the sequence edit page to delete the sequence');
+
 String sequenceEditListDelayLabel(int howMany) => Intl.message(
       '''Intl.plural(howMany, one: ' Delay next move for $howMany second.', other: 'Delay next move for $howMany seconds.')''',
       name: 'sequenceEditListDelayLabel',
@@ -83,6 +87,8 @@ String sequenceEditListDelayLabel(int howMany) => Intl.message(
     );
 //Actions Page
 String actionsNoGear() => Intl.message('No Gear Connected', name: 'actionsNoGear', desc: 'Label on the actions page when no gear is connected');
+
+String actionsNoBluetooth() => Intl.message('Bluetooth is unavailable', name: 'actionsNoBluetooth', desc: 'Label on the actions page when bluetooth is unavailable');
 
 String actionsCategoryCalm() => Intl.message('Calm and Relaxed', name: 'actionsCategoryCalm', desc: 'calm action group label');
 
@@ -147,3 +153,42 @@ String manageDevicesForget() => Intl.message('Forget', name: 'manageDevicesForge
 String scanDevicesAutoConnectTitle() => Intl.message('Automatically connect to new devices', name: 'scanDevicesAutoConnectTitle', desc: 'scan for devices auto connect toggle title when scanning for a device');
 
 String scanDevicesScanMessage() => Intl.message('Scanning for gear. Please make sure your gear is powered on and nearby', name: 'scanDevicesScanMessage', desc: 'scan for devices scan in progress message when scanning for a device');
+
+//Triggers
+String triggerWalkingTitle() => Intl.message('Walking', name: 'triggerWalkingTitle', desc: 'Walking/Step trigger title');
+
+String triggerWalkingDescription() => Intl.message('Trigger an action on walking', name: 'triggerWalkingDescription', desc: 'Walking/Step trigger description');
+
+String triggerWalkingStopped() => Intl.message('Stopped', name: 'triggerWalkingStopped', desc: 'Walking/Step trigger Stopped action label');
+
+String triggerWalkingEvenStep() => Intl.message('Even Step', name: 'triggerWalkingEvenStep', desc: 'Walking/Step trigger Even Step action label');
+
+String triggerWalkingOddStep() => Intl.message('Odd Step', name: 'triggerWalkingOddStep', desc: 'Walking/Step trigger Odd Step action label');
+
+String triggerWalkingStep() => Intl.message('Step', name: 'triggerWalkingStep', desc: 'Walking/Step trigger Step action label');
+
+String triggerCoverTitle() => Intl.message('Cover', name: 'triggerCoverTitle', desc: 'Cover trigger Title');
+
+String triggerCoverDescription() => Intl.message("Trigger an action by covering the proximity sensor", name: 'triggerCoverDescription', desc: 'Cover trigger description');
+
+String triggerCoverNear() => Intl.message("Near", name: 'triggerCoverNear', desc: 'Cover trigger near action label');
+
+String triggerCoverFar() => Intl.message("Far", name: 'triggerCoverFar', desc: 'Cover trigger far action label');
+
+String triggerVolumeButtonTitle() => Intl.message("Volume Buttons", name: 'triggerVolumeButtonTitle', desc: 'Volume Button trigger title');
+
+String triggerVolumeButtonDescription() => Intl.message("Trigger an action by pressing the volume button", name: 'triggerVolumeButtonDescription', desc: 'Volume Button trigger description');
+
+String triggerVolumeButtonVolumeUp() => Intl.message("Volume Up", name: 'triggerVolumeButtonVolumeUp', desc: 'Volume Button trigger volume up action label');
+
+String triggerVolumeButtonVolumeDown() => Intl.message("Volume Down", name: 'triggerVolumeButtonVolumeDown', desc: 'Volume Button trigger volume down action label');
+
+String triggerShakeTitle() => Intl.message("Shake", name: 'triggerShakeTitle', desc: 'Shake trigger title');
+
+String triggerShakeDescription() => Intl.message("Trigger an action by shaking your device", name: 'triggerShakeDescription', desc: 'Shake trigger description');
+
+String triggerProximityTitle() => Intl.message("Nearby Gear", name: 'triggerProximityTitle', desc: 'Proximity trigger title');
+
+String triggerProximityDescription() => Intl.message("Trigger an action if gear is nearby", name: 'triggerProximityDescription', desc: 'Proximity trigger description');
+
+String triggerActionNotSet() => Intl.message("No Action Set", name: 'triggerActionNotSet', desc: 'Trigger action label when no action set');

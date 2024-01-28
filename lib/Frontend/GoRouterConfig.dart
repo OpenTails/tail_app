@@ -1,8 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
-import 'package:tail_app/Frontend/pages/Home.dart';
 import 'package:tail_app/Frontend/pages/Shell.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
 import 'package:tail_app/Frontend/pages/developer/json_preview.dart';
@@ -17,7 +17,7 @@ final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>()
 
 // GoRouter configuration
 final GoRouter router = GoRouter(
-  debugLogDiagnostics: true,
+  debugLogDiagnostics: kDebugMode,
   navigatorKey: _rootNavigatorKey,
   observers: [SentryNavigatorObserver()],
   routes: [
@@ -27,20 +27,22 @@ final GoRouter router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (BuildContext context, GoRouterState state) => const Settings(),
       routes: [
-        GoRoute(
-          name: 'Developer Menu',
-          path: 'developer',
-          parentNavigatorKey: _rootNavigatorKey,
-          builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
-          routes: [
-            GoRoute(
-              name: 'JSON Viewer',
-              path: 'json',
-              parentNavigatorKey: _rootNavigatorKey,
-              builder: (BuildContext context, GoRouterState state) => const JsonPreview(),
-            )
-          ],
-        )
+        if (kDebugMode) ...[
+          GoRoute(
+            name: 'Developer Menu',
+            path: 'developer',
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
+            routes: [
+              GoRoute(
+                name: 'JSON Viewer',
+                path: 'json',
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (BuildContext context, GoRouterState state) => const JsonPreview(),
+              )
+            ],
+          )
+        ]
       ],
     ),
     GoRoute(
@@ -50,41 +52,74 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) => const DirectGearControl(),
     ),
     ShellRoute(
-        navigatorKey: _shellNavigatorKey,
-        routes: [
-          GoRoute(
-            name: 'Home',
-            path: '/',
-            parentNavigatorKey: _shellNavigatorKey,
-            builder: (BuildContext context, GoRouterState state) => const Home(title: "Home"),
+      navigatorKey: _shellNavigatorKey,
+      routes: [
+        GoRoute(
+          name: 'Actions',
+          path: '/',
+          parentNavigatorKey: _shellNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+            child: const ActionPage(),
+            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
           ),
-          GoRoute(
-            name: 'Actions',
-            path: '/actions',
-            parentNavigatorKey: _shellNavigatorKey,
-            builder: (BuildContext context, GoRouterState state) => const ActionPage(),
+        ),
+        GoRoute(
+          name: 'Triggers',
+          path: '/triggers',
+          parentNavigatorKey: _shellNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+            child: const Triggers(),
+            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
           ),
-          GoRoute(
-            name: 'Triggers',
-            path: '/triggers',
-            parentNavigatorKey: _shellNavigatorKey,
-            builder: (context, GoRouterState state) => const Triggers(),
+        ),
+        GoRoute(
+          name: 'Sequences',
+          path: '/moveLists',
+          parentNavigatorKey: _shellNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+            child: const MoveListView(),
+            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
           ),
-          GoRoute(
-            name: 'Sequences',
-            path: '/moveLists',
-            parentNavigatorKey: _shellNavigatorKey,
-            builder: (BuildContext context, GoRouterState state) => const MoveListView(),
-            routes: [
-              GoRoute(
+          routes: [
+            GoRoute(
                 name: 'Edit Sequence',
                 path: 'editMoveList',
                 parentNavigatorKey: _rootNavigatorKey,
-                builder: (context, state) => const EditMoveList(),
-              ),
-            ],
-          ),
-        ],
-        pageBuilder: (BuildContext context, GoRouterState state, Widget child) => NoTransitionPage(child: NavigationDrawerExample(child, state.matchedLocation))),
+                pageBuilder: (context, state) {
+                  return CustomTransitionPage(
+                    key: state.pageKey,
+                    child: const EditMoveList(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      // Change the opacity of the screen using a Curve based on the the animation's
+                      // value
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                  );
+                }),
+          ],
+        ),
+      ],
+      pageBuilder: (BuildContext context, GoRouterState state, Widget child) => NoTransitionPage(
+        child: NavigationDrawerExample(child, state.matchedLocation),
+      ),
+    ),
   ],
 );

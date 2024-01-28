@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vector_math/vector_math.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
-import '../../Backend/btMessage.dart';
+import '../../Backend/Bluetooth/btMessage.dart';
 import '../../Backend/moveLists.dart';
 import '../intnDefs.dart';
 

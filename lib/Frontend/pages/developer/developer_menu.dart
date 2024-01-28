@@ -32,6 +32,14 @@ class DeveloperMenu extends StatelessWidget {
             },
           ),
           ListTile(
+            title: const Text("Crash"),
+            leading: const Icon(Icons.bug_report),
+            subtitle: const Text("Test crash reporting"),
+            onTap: () {
+              throw Exception('Sentry Test');
+            },
+          ),
+          ListTile(
             title: Text(
               "Stored JSON",
               style: Theme.of(context).textTheme.titleLarge,

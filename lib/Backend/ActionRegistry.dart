@@ -61,3 +61,25 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
   }
   return sortedActions;
 }
+
+@Riverpod(dependencies: [KnownDevices])
+Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref, Set<DeviceType> deviceType) {
+  Map<ActionCategory, Set<BaseAction>> sortedActions = {};
+  for (BaseAction baseAction in List.from(ActionRegistry.allCommands)..addAll(ref.read(moveListsProvider))) {
+    Set<BaseAction>? baseActions = {};
+    // check if command matches device type
+    if (baseAction.deviceCategory.intersection(deviceType).isNotEmpty) {
+      // get category if it exists
+      if (sortedActions.containsKey(baseAction.actionCategory)) {
+        baseActions = sortedActions[baseAction.actionCategory];
+      }
+      // add action to category
+      baseActions?.add(baseAction);
+    }
+    // store result
+    if (baseActions != null && baseActions.isNotEmpty) {
+      sortedActions[baseAction.actionCategory] = baseActions;
+    }
+  }
+  return sortedActions;
+}

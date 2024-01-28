@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
@@ -9,11 +10,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 
 import '../../main.dart';
 import '../Definitions/Device/BaseDeviceDefinition.dart';
 import '../DeviceRegistry.dart';
-import '../btMessage.dart';
+import 'btMessage.dart';
 
 part 'BluetoothManager.g.dart';
 
@@ -145,14 +147,12 @@ class KnownDevices extends _$KnownDevices {
 }
 
 @Riverpod(keepAlive: true, dependencies: [reactiveBLE])
-StreamSubscription<BleStatus> btStatus(BtStatusRef ref) {
-  return ref.read(reactiveBLEProvider).statusStream.listen((BleStatus event) {
-    Flogger.i("BluetoothState::$event"); //TODO: Do something with this
-  });
+Stream<BleStatus> btStatus(BtStatusRef ref) {
+  return ref.read(reactiveBLEProvider).statusStream;
 }
 
 @Riverpod(keepAlive: true, dependencies: [reactiveBLE, KnownDevices])
-StreamSubscription<ConnectionStateUpdate> btConnectStatus(BtConnectStatusRef ref) {
+StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHandlerRef ref) {
   return ref.read(reactiveBLEProvider).connectedDeviceStream.listen((ConnectionStateUpdate event) {
     Flogger.i("ConnectedDevice::$event");
     Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
@@ -169,7 +169,7 @@ StreamSubscription<ConnectionStateUpdate> btConnectStatus(BtConnectStatusRef ref
         knownDevices[event.deviceId]?.rxCharacteristicStream = null;
         knownDevices[event.deviceId]?.keepAliveStream = null;
         knownDevices[event.deviceId]?.battery.value = 0;
-
+        ref.read(snackbarStreamProvider.notifier).add(AwesomeSnackbarContent(title: "Disconnected", message: "Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}", contentType: ContentType.warning));
         //remove foreground service if no devices connected
         if (Platform.isAndroid && knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isEmpty) {
           ForegroundService().stop();

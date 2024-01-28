@@ -3,7 +3,7 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
-import 'package:tail_app/Frontend/intnDefs.dart';
+import 'package:tail_app/Frontend/pages/Home.dart';
 
 import '../../Backend/ActionRegistry.dart';
 import '../../Backend/Bluetooth/BluetoothManager.dart';
@@ -28,7 +28,8 @@ class ActionPageBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (ref.watch(knownDevicesProvider).isNotEmpty && ref.watch(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isNotEmpty) {
+    AsyncValue<BleStatus> btStatus = ref.watch(btStatusProvider);
+    if (btStatus.valueOrNull != null && btStatus.valueOrNull == BleStatus.ready && ref.watch(knownDevicesProvider).isNotEmpty && ref.watch(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isNotEmpty) {
       Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
       List<ActionCategory> catList = actionsCatMap.keys.toList();
       return MultiValueListenableBuilder(
@@ -81,9 +82,7 @@ class ActionPageBuilder extends ConsumerWidget {
         },
       );
     } else {
-      return Center(
-        child: Text(actionsNoGear()),
-      );
+      return const Home();
     }
   }
 }
