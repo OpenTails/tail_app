@@ -11,14 +11,18 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '11'
-    - uses: dart-lang/setup-dart@v1
-      with:
-        sdk: 3.2.3
     - uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.7.7'
-    - run: flutter pub get
-    - run: flutter build apk
+        flutter-version: '3.16.9'
+    - name: Install packages
+      run: flutter pub get
+    - name: Generate localizations
+      run:  flutter gen-l10n
+    - name: Generate configs
+      run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
+    - name: Build APK
+      run: flutter build apk
+    - name: Build App BUndle
     - run: flutter build appbundle
 
   build_ios:
@@ -29,8 +33,12 @@ jobs:
     - uses: dart-lang/setup-dart@v1
     - uses: subosito/flutter-action@v2
       with:
-        channel: 'stable'
-        architecture: x64
-    - run: flutter pub get
-    - run: flutter test
-    - run: flutter build ios --release --no-codesign
+        flutter-version: '3.16.9'
+    - name: Install packages
+      run: flutter pub get
+    - name: Generate localizations
+      run:  flutter gen-l10n
+    - name: Generate configs
+      run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
+    - name: Build app
+      run: flutter build ios --release --no-codesign
