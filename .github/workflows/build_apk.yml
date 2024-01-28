@@ -23,7 +23,7 @@ jobs:
     - name: Build APK
       run: flutter build apk
     - name: Build App BUndle
-    - run: flutter build appbundle
+      run: flutter build appbundle
 
   build_ios:
     name: Build IOS Artifact
