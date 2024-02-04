@@ -60,6 +60,7 @@ final GoRouter router = GoRouter(
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
             child: const ActionPage(),
+            key: state.pageKey,
             transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
               return FadeTransition(
                 opacity: animation,
@@ -74,6 +75,7 @@ final GoRouter router = GoRouter(
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
             child: const Triggers(),
+            key: state.pageKey,
             transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
               return FadeTransition(
                 opacity: animation,
@@ -87,6 +89,7 @@ final GoRouter router = GoRouter(
           path: '/moveLists',
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+            key: state.pageKey,
             child: const MoveListView(),
             transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
               return FadeTransition(
@@ -97,28 +100,36 @@ final GoRouter router = GoRouter(
           ),
           routes: [
             GoRoute(
-                name: 'Edit Sequence',
-                path: 'editMoveList',
-                parentNavigatorKey: _rootNavigatorKey,
-                pageBuilder: (context, state) {
-                  return CustomTransitionPage(
-                    key: state.pageKey,
-                    child: const EditMoveList(),
-                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      // Change the opacity of the screen using a Curve based on the the animation's
-                      // value
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                    },
-                  );
-                }),
+              name: 'Edit Sequence',
+              path: 'editMoveList',
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  key: state.pageKey,
+                  child: const EditMoveList(),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    // Change the opacity of the screen using a Curve based on the the animation's
+                    // value
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
       ],
-      pageBuilder: (BuildContext context, GoRouterState state, Widget child) => NoTransitionPage(
+      pageBuilder: (BuildContext context, GoRouterState state, Widget child) => CustomTransitionPage(
         child: NavigationDrawerExample(child, state.matchedLocation),
+        key: state.pageKey,
+        transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
       ),
     ),
   ],
