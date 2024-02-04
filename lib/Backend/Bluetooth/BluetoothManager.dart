@@ -54,14 +54,16 @@ class KnownDevices extends _$KnownDevices {
   }
 
   void add(BaseStatefulDevice baseStatefulDevice) {
-    state[baseStatefulDevice.baseStoredDevice.btMACAddress] = baseStatefulDevice;
-    state = state;
+    Map<String, BaseStatefulDevice> state2 = Map.from(state);
+    state2[baseStatefulDevice.baseStoredDevice.btMACAddress] = baseStatefulDevice;
+    state = state2;
     store();
   }
 
   void remove(String id) {
-    state.remove(id);
-    state = state;
+    Map<String, BaseStatefulDevice> state2 = Map.from(state);
+    state2.remove(id);
+    state = state2;
     store();
   }
 
@@ -189,7 +191,7 @@ FlutterReactiveBle reactiveBLE(ReactiveBLERef ref) {
 }
 
 class CommandQueue {
-  Ref ref;
+  Ref? ref;
   PriorityQueue<BluetoothMessage> state = PriorityQueue();
   BaseStatefulDevice device;
 
@@ -220,7 +222,7 @@ class CommandQueue {
         try {
           final ISentrySpan innerSpan = transaction.startChild('Send Commands', description: 'Sends all commands to Gear');
           Flogger.d("Sending command to ${device.baseStoredDevice.name}:${message.message}");
-          await ref.read(reactiveBLEProvider).writeCharacteristicWithResponse(message.device.txCharacteristic, value: const Utf8Encoder().convert(message.message));
+          await ref?.read(reactiveBLEProvider).writeCharacteristicWithResponse(message.device.txCharacteristic, value: const Utf8Encoder().convert(message.message));
           innerSpan.finish();
           if (message.onCommandSent != null) {
             message.onCommandSent!();

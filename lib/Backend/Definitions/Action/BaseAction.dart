@@ -19,7 +19,7 @@ extension ActionCategoryExtension on ActionCategory {
       case ActionCategory.glowtip:
         return actionsCategoryGlowtip();
       case ActionCategory.ears:
-        return actionsCategoryGlowtip();
+        return actionsCategoryEars();
       case ActionCategory.sequence:
         return sequencesPage();
     }

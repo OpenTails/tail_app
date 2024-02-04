@@ -23,6 +23,17 @@ extension DeviceTypeExtension on DeviceType {
         return deviceTypeWings();
     }
   }
+
+  Color get color {
+    switch (this) {
+      case DeviceType.tail:
+        return Colors.orangeAccent;
+      case DeviceType.ears:
+        return Colors.blueAccent;
+      case DeviceType.wings:
+        return Colors.greenAccent;
+    }
+  }
 }
 
 enum DeviceState { standby, runAction, busy }
@@ -69,7 +80,7 @@ class BaseStatefulDevice {
     _rxCharacteristicStream = value?.asBroadcastStream();
   }
 
-  Ref ref;
+  Ref? ref;
   late CommandQueue commandQueue;
   Stream<List<int>>? batteryCharacteristicStream;
 

@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
@@ -21,7 +20,6 @@ import 'package:tail_app/Frontend/intnDefs.dart';
 
 import 'Backend/Bluetooth/BluetoothManager.dart';
 import 'Frontend/GoRouterConfig.dart';
-import 'l10n/messages_all_locales.dart';
 
 late SharedPreferences prefs;
 
@@ -53,9 +51,9 @@ Future<void> main() async {
     },
   );
   prefs = await SharedPreferences.getInstance();
-  var localeLoaded = await initializeMessages('ace');
-  Intl.defaultLocale = 'ace';
-  Flogger.i("Loaded local: $localeLoaded");
+  //var localeLoaded = await initializeMessages('ace');
+  //Intl.defaultLocale = 'ace';
+  //Flogger.i("Loaded local: $localeLoaded");
   await SentryFlutter.init(
     (options) {
       options.dsn = 'http://30dbd2cb36374c448885ee81aeae1419@192.168.50.189:8000/3';

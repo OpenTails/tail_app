@@ -145,13 +145,15 @@ class MoveLists extends _$MoveLists {
   }
 
   void add(MoveList moveList) {
-    state.add(moveList);
-    state = state;
+    List<MoveList> state2 = List.from(state);
+    state2.add(moveList);
+    state = state2;
   }
 
   void remove(MoveList moveList) {
-    state.remove(moveList);
-    state = state;
+    List<MoveList> state2 = List.from(state);
+    state2.remove(moveList);
+    state = state2;
   }
 
   Future<void> store() async {

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,6 +17,12 @@ class Settings extends ConsumerStatefulWidget {
 
 class _SettingsState extends ConsumerState<Settings> {
   final ScrollController _controller = ScrollController();
+  Color pickerColor = Color(000000);
+
+  // ValueChanged<Color> callback
+  void changeColor(Color color) {
+    setState(() => pickerColor = color);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +75,17 @@ class _SettingsState extends ConsumerState<Settings> {
                   prefs.setBool("AllowErrorReporting", value);
                 });
               },
+            ),
+          ),
+          ListTile(
+            title: Text(
+              "Appearance",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+          ListTile(
+            title: const Text(
+              "Tail Color", //TODO: Localize
             ),
           ),
           if (kDebugMode) ...[
