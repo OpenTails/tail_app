@@ -59,7 +59,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   json_annotation: ^4.8.1
   riverpod_annotation: ^2.3.4
-  sentry_dart_plugin: ^1.6.3
+  sentry_dart_plugin: ^1.7.0
   intl_translation:
 flutter:
   uses-material-design: true
