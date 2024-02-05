@@ -479,10 +479,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_reactive_ble
-      sha256: e2184b7793f0da1bd522a6296995f2b7a2a6ca28c57419cb5f5129b4cbdccf02
+      sha256: "247e2efa76de203d1ba11335c13754b5b9d0504b5423e5b0c93a600f016b24e0"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.3.1"
   flutter_riverpod:
     dependency: "direct main"
     description:
@@ -969,18 +969,18 @@ packages:
     dependency: transitive
     description:
       name: reactive_ble_mobile
-      sha256: fd4a27cd9753fd50480a6351f7aa75703cff4b504060e4b2dbf7dafde20d03bb
+      sha256: "9ec2b4c9c725e439950838d551579750060258fbccd5536d0543b4d07d225798"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.3.1"
   reactive_ble_platform_interface:
     dependency: transitive
     description:
       name: reactive_ble_platform_interface
-      sha256: "5a6e7e73d5c3ac778aa72f2c325ed37edfc6cb9029c66d5e2e8cc6a9c9c113ee"
+      sha256: "632c92401a2d69c9b94bd48f8fd47488a7013f3d1f9b291884350291a4a81813"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.3.1"
   riverpod:
     dependency: transitive
     description:
