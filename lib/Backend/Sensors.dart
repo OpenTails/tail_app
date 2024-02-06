@@ -118,8 +118,8 @@ abstract class TriggerDefinition implements Comparable<TriggerDefinition> {
 }
 
 class WalkingTriggerDefinition extends TriggerDefinition {
-  Stream<PedestrianStatus>? pedestrianStatusStream;
-  Stream<StepCount>? stepCountStream;
+  StreamSubscription<PedestrianStatus>? pedestrianStatusStream;
+  StreamSubscription<StepCount>? stepCountStream;
 
   WalkingTriggerDefinition(super.ref) {
     super.name = triggerWalkingTitle();
@@ -131,41 +131,45 @@ class WalkingTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
+    pedestrianStatusStream?.cancel();
+    stepCountStream?.cancel();
     pedestrianStatusStream = null;
     stepCountStream = null;
   }
 
   @override
   Future<void> onEnable(Map<String, TriggerAction> actions, Set<DeviceType> deviceType) async {
-    pedestrianStatusStream = Pedometer.pedestrianStatusStream;
-    stepCountStream = Pedometer.stepCountStream;
-    pedestrianStatusStream?.listen((PedestrianStatus event) {
-      Flogger.i("PedestrianStatus:: ${event.status}");
-      if (event.status == "Walking") {
-        TriggerAction? action = actions["Walking"];
+    pedestrianStatusStream = Pedometer.pedestrianStatusStream.listen(
+      (PedestrianStatus event) {
+        Flogger.i("PedestrianStatus:: ${event.status}");
+        if (event.status == "Walking") {
+          TriggerAction? action = actions["Walking"];
+          sendCommands(deviceType, action?.action, ref);
+        } else if (event.status == "Stopped") {
+          TriggerAction? action = actions["Stopped"];
+          sendCommands(deviceType, action?.action, ref);
+        }
+      },
+    );
+    stepCountStream = Pedometer.stepCountStream.listen(
+      (StepCount event) {
+        Flogger.d("StepCount:: ${event.steps}");
+        TriggerAction? action = actions["Step"];
         sendCommands(deviceType, action?.action, ref);
-      } else if (event.status == "Stopped") {
-        TriggerAction? action = actions["Stopped"];
-        sendCommands(deviceType, action?.action, ref);
-      }
-    });
-    stepCountStream?.listen((StepCount event) {
-      Flogger.d("StepCount:: ${event.steps}");
-      TriggerAction? action = actions["Step"];
-      sendCommands(deviceType, action?.action, ref);
-      if (event.steps.isEven) {
-        TriggerAction? action = actions["Even Step"];
-        sendCommands(deviceType, action?.action, ref);
-      } else {
-        TriggerAction? action = actions["Odd Step"];
-        sendCommands(deviceType, action?.action, ref);
-      }
-    });
+        if (event.steps.isEven) {
+          TriggerAction? action = actions["Even Step"];
+          sendCommands(deviceType, action?.action, ref);
+        } else {
+          TriggerAction? action = actions["Odd Step"];
+          sendCommands(deviceType, action?.action, ref);
+        }
+      },
+    );
   }
 }
 
 class CoverTriggerDefinition extends TriggerDefinition {
-  Stream<int>? proximityStream;
+  StreamSubscription<int>? proximityStream;
 
   CoverTriggerDefinition(super.ref) {
     super.name = triggerCoverTitle();
@@ -177,13 +181,13 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
+    proximityStream?.cancel();
     proximityStream = null;
   }
 
   @override
   Future<void> onEnable(Map<String, TriggerAction> actions, Set<DeviceType> deviceType) async {
-    proximityStream = ProximitySensor.events;
-    proximityStream?.listen((int event) {
+    proximityStream = ProximitySensor.events.listen((int event) {
       Flogger.d("CoverEvent:: $event");
       if (event >= 1) {
         TriggerAction? action = actions["Near"];
@@ -259,7 +263,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 }
 
 class TailProximityTriggerDefinition extends TriggerDefinition {
-  Stream<DiscoveredDevice>? btStream;
+  StreamSubscription<DiscoveredDevice>? btStream;
 
   TailProximityTriggerDefinition(super.ref) {
     super.name = triggerProximityTitle();
@@ -271,13 +275,13 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
+    btStream?.cancel();
     btStream = null;
   }
 
   @override
   Future<void> onEnable(Map<String, TriggerAction> actions, Set<DeviceType> deviceType) async {
-    btStream = ref.read(reactiveBLEProvider).scanForDevices(withServices: DeviceRegistry.getAllIds()).where((event) => !ref.read(knownDevicesProvider).keys.contains(event.id));
-    btStream?.listen((DiscoveredDevice device) {
+    btStream = ref.read(reactiveBLEProvider).scanForDevices(withServices: DeviceRegistry.getAllIds()).where((event) => !ref.read(knownDevicesProvider).keys.contains(event.id)).listen((DiscoveredDevice device) {
       Flogger.d("TailProximityTriggerDefinition:: $device");
       TriggerAction? action = actions["Nearby Gear"];
       sendCommands(deviceType, action?.action, ref);

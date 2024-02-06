@@ -102,8 +102,7 @@ class KnownDevices extends _$KnownDevices {
         Future(() => add(statefulDevice));
       }
       FlutterReactiveBle reactiveBLE = ref.read(reactiveBLEProvider);
-      statefulDevice.connectionStateStream = reactiveBLE.connectToDevice(id: device.id);
-      statefulDevice.connectionStateStream?.listen((event) {
+      statefulDevice.connectionStateStreamSubscription = reactiveBLE.connectToDevice(id: device.id).listen((event) {
         statefulDevice.deviceConnectionState.value = event.connectionState;
         Flogger.i("Connection State updated for ${baseStoredDevice.name}: ${event.connectionState}");
         if (event.connectionState == DeviceConnectionState.connected) {
@@ -122,13 +121,11 @@ class KnownDevices extends _$KnownDevices {
               //TODO: add busy check to see if gear ready for next command
             }
           });
-          statefulDevice.batteryCharacteristicStream = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryCharacteristic);
-          statefulDevice.batteryCharacteristicStream?.listen((List<int> event) {
+          statefulDevice.batteryCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryCharacteristic).listen((List<int> event) {
             Flogger.d("Received Battery message from ${baseStoredDevice.name}: $event");
             statefulDevice.battery.value = event.first.toDouble();
           });
-          statefulDevice.keepAliveStream = Stream.periodic(const Duration(seconds: 30));
-          statefulDevice.keepAliveStream?.listen((event) {
+          statefulDevice.keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 30)).listen((event) {
             if (state.containsKey(device.id)) {
               statefulDevice.commandQueue.addCommand(BluetoothMessage("PING", statefulDevice, Priority.low));
             } else {
@@ -166,11 +163,14 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
       knownDevices[event.deviceId]?.deviceConnectionState.value = event.connectionState;
       if (event.connectionState == DeviceConnectionState.disconnected) {
         Flogger.i("Disconnected from device: ${event.deviceId}");
-        knownDevices[event.deviceId]?.connectionStateStream = null;
-        knownDevices[event.deviceId]?.batteryCharacteristicStream = null;
+        knownDevices[event.deviceId]?.connectionStateStreamSubscription?.cancel();
+        knownDevices[event.deviceId]?.connectionStateStreamSubscription = null;
+        knownDevices[event.deviceId]?.batteryCharacteristicStreamSubscription?.cancel();
+        knownDevices[event.deviceId]?.batteryCharacteristicStreamSubscription = null;
         knownDevices[event.deviceId]?.rxCharacteristicStream = null;
-        knownDevices[event.deviceId]?.keepAliveStream = null;
-        knownDevices[event.deviceId]?.battery.value = 0;
+        knownDevices[event.deviceId]?.keepAliveStreamSubscription?.cancel();
+        knownDevices[event.deviceId]?.keepAliveStreamSubscription = null;
+        knownDevices[event.deviceId]?.battery.value = -1;
         ref.read(snackbarStreamProvider.notifier).add(AwesomeSnackbarContent(title: "Disconnected", message: "Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}", contentType: ContentType.warning));
         //remove foreground service if no devices connected
         if (Platform.isAndroid && knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isEmpty) {

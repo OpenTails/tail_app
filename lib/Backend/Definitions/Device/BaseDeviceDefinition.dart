@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:core';
 
 import 'package:flutter/material.dart';
@@ -68,10 +69,10 @@ class BaseStatefulDevice {
   ValueNotifier<double> battery = ValueNotifier(-1);
   ValueNotifier<String> fwVersion = ValueNotifier("");
   ValueNotifier<bool> glowTip = ValueNotifier(false);
-  Stream<ConnectionStateUpdate>? connectionStateStream;
+  StreamSubscription<ConnectionStateUpdate>? connectionStateStreamSubscription;
   ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
   Stream<List<int>>? _rxCharacteristicStream;
-  Stream<void>? keepAliveStream;
+  StreamSubscription<void>? keepAliveStreamSubscription;
 
   Stream<List<int>>? get rxCharacteristicStream => _rxCharacteristicStream;
   ValueNotifier<DeviceConnectionState> deviceConnectionState = ValueNotifier(DeviceConnectionState.disconnected);
@@ -82,7 +83,7 @@ class BaseStatefulDevice {
 
   Ref? ref;
   late CommandQueue commandQueue;
-  Stream<List<int>>? batteryCharacteristicStream;
+  StreamSubscription<List<int>>? batteryCharacteristicStreamSubscription;
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
     rxCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleRxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
