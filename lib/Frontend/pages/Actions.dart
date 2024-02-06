@@ -4,13 +4,13 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 
 import '../../Backend/ActionRegistry.dart';
 import '../../Backend/Bluetooth/BluetoothManager.dart';
 import '../../Backend/Definitions/Action/BaseAction.dart';
 import '../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import '../../Backend/DeviceRegistry.dart';
-import '../../Backend/Settings.dart';
 import '../../Backend/moveLists.dart';
 import 'Home.dart';
 
@@ -68,7 +68,7 @@ class ActionPageBuilder extends ConsumerWidget {
                               elevation: 1,
                               child: InkWell(
                                 onTap: () async {
-                                  if (ref.read(preferencesProvider).haptics) {
+                                  if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
                                     await Haptics.vibrate(HapticsType.selection);
                                   }
                                   for (var device in ref.read(getByActionProvider(actionsForCat[actionIndex]))) {

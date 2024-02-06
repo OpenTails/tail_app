@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 import 'package:tail_app/Frontend/intnDefs.dart';
 
 import '../Device/BaseDeviceDefinition.dart';
@@ -27,9 +28,13 @@ extension ActionCategoryExtension on ActionCategory {
 }
 
 @JsonSerializable(explicitToJson: true)
+@HiveType(typeId: 4)
 class BaseAction {
+  @HiveField(1)
   String name;
-  Set<DeviceType> deviceCategory;
+  @HiveField(2)
+  List<DeviceType> deviceCategory;
+  @HiveField(3)
   ActionCategory actionCategory;
 
   BaseAction(this.name, this.deviceCategory, this.actionCategory);

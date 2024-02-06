@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Frontend/intnDefs.dart';
-
-import '../main.dart';
 
 part 'moveLists.g.dart';
 
@@ -81,16 +81,24 @@ extension MoveTypeExtension on MoveType {
   }
 }
 
+@HiveType(typeId: 5)
 @JsonSerializable(explicitToJson: true)
 class Move {
   //Range 0-180
+  @HiveField(1)
   double leftServo = 0;
 
   //Range 0-180
+  @HiveField(2)
   double rightServo = 0;
+  @HiveField(3)
   Speed speed = Speed.fast;
+
+  @HiveField(4)
   double time = 1;
+  @HiveField(5, defaultValue: EasingType.linear)
   EasingType easingType = EasingType.linear;
+  @HiveField(6, defaultValue: MoveType.move)
   MoveType moveType = MoveType.move;
 
   factory Move.fromJson(Map<String, dynamic> json) => _$MoveFromJson(json);
@@ -118,9 +126,12 @@ class Move {
   int get hashCode => leftServo.hashCode ^ rightServo.hashCode ^ speed.hashCode ^ time.hashCode ^ easingType.hashCode ^ moveType.hashCode;
 }
 
+@HiveType(typeId: 3)
 @JsonSerializable(explicitToJson: true)
 class MoveList extends BaseAction {
+  @HiveField(4)
   List<Move> moves = [];
+  @HiveField(5)
   bool homeAtEnd = true;
 
   factory MoveList.fromJson(Map<String, dynamic> json) => _$MoveListFromJson(json);
@@ -137,11 +148,8 @@ class MoveList extends BaseAction {
 class MoveLists extends _$MoveLists {
   @override
   List<MoveList> build() {
-    List<String>? stringList = prefs.getStringList("sequences");
-    if (stringList != null) {
-      return stringList.map((e) => MoveList.fromJson(jsonDecode(e))).toList();
-    }
-    return [];
+    List<String> stringList = SentryHive.box('sequences').get('sequences', defaultValue: <String>[]); //TODO: use type adapter
+    return stringList.map((e) => MoveList.fromJson(jsonDecode(e))).toList();
   }
 
   void add(MoveList moveList) {
@@ -158,7 +166,8 @@ class MoveLists extends _$MoveLists {
 
   Future<void> store() async {
     Flogger.i("Storing sequences");
-    await prefs.setStringList(
+    SentryHive.box('sequences').put(
+        //TODO: use type adaptor
         "sequences",
         state.map(
           (e) {

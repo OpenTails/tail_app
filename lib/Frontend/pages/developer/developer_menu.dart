@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
@@ -10,7 +8,6 @@ import 'package:logging_flutter/logging_flutter.dart';
 import '../../../Backend/Bluetooth/BluetoothManager.dart';
 import '../../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import '../../../Backend/DeviceRegistry.dart';
-import '../../../main.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {
   const DeveloperMenu({super.key});
@@ -170,7 +167,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
-          ListTile(
+/*          ListTile( //TODO: debug hive box
             title: const Text("Triggers"),
             onTap: () {
               context.push('/settings/developer/json', extra: const JsonEncoder.withIndent("    ").convert(prefs.getStringList("triggers")));
@@ -193,7 +190,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             onTap: () {
               context.push('/settings/developer/json', extra: prefs.getString("settings"));
             },
-          )
+          )*/
         ],
       ),
     );

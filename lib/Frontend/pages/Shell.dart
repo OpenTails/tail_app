@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:side_sheet_material3/side_sheet_material3.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../Widgets/manage_devices.dart';
 import '../intnDefs.dart';
@@ -42,6 +43,19 @@ class NavigationDrawerExample extends ConsumerStatefulWidget {
 
 class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExample> {
   int screenIndex = 0;
+  var controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..setBackgroundColor(const Color(0x00000000))
+    ..setNavigationDelegate(
+      NavigationDelegate(
+        onProgress: (int progress) {
+          // Update loading bar.
+        },
+        onPageStarted: (String url) {},
+        onPageFinished: (String url) {},
+      ),
+    )
+    ..loadRequest(Uri.parse('https://thetailcompany.com/'));
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +67,6 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
         mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
         largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
         useDrawer: false,
-        internalAnimations: true,
         appBarBreakpoint: const WidthPlatformBreakpoint(begin: 0),
         selectedIndex: screenIndex,
         onSelectedIndexChange: (int index) {
@@ -97,10 +110,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
           ),
         ),
         // Define a default secondaryBody.
-        secondaryBody: (_) => Container(
-          //TODO: add widget here
-          color: const Color.fromARGB(255, 234, 158, 192),
-        ),
+        secondaryBody: (_) => WebViewWidget(controller: controller),
         // Override the default secondaryBody during the smallBreakpoint to be
         // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
         // overridden.

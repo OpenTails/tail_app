@@ -10,9 +10,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 
-import '../../main.dart';
 import '../Definitions/Device/BaseDeviceDefinition.dart';
 import '../DeviceRegistry.dart';
 import 'btMessage.dart';
@@ -36,10 +36,10 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
 class KnownDevices extends _$KnownDevices {
   @override
   Map<String, BaseStatefulDevice> build() {
-    List<String>? storedDevices = prefs.getStringList("devices");
+    List<String> storedDevices = SentryHive.box('devices').get('devices', defaultValue: <String>[]);
     Map<String, BaseStatefulDevice> results = {};
     try {
-      if (storedDevices != null && storedDevices.isNotEmpty) {
+      if (storedDevices.isNotEmpty) {
         storedDevices.map((String e) => BaseStoredDevice.fromJson(jsonDecode(e))).forEach((BaseStoredDevice e) {
           BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID(e.deviceDefinitionUUID);
           BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(baseDeviceDefinition, e, ref);
@@ -68,8 +68,8 @@ class KnownDevices extends _$KnownDevices {
   }
 
   Future<void> store() async {
-    await prefs.setStringList(
-        "devices",
+    SentryHive.box('devices').put(
+        'devices',
         state.values.map((e) {
           return const JsonEncoder.withIndent("    ").convert(e.baseStoredDevice.toJson());
         }).toList());

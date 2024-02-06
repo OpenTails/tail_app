@@ -6,16 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:shake/shake.dart';
 
 import '../Frontend/intnDefs.dart';
-import '../main.dart';
 import 'Bluetooth/BluetoothManager.dart';
 import 'Definitions/Action/BaseAction.dart';
 import 'Definitions/Device/BaseDeviceDefinition.dart';
@@ -27,20 +28,23 @@ part 'Sensors.g.dart';
 //TODO: wrap EarGear Mic and Tilt to Sensors, send enable/disable commands with toggle
 //TODO: error callback to disable the sensor from the trigger definition, such as when permission is denied
 @JsonSerializable(explicitToJson: true)
+@HiveType(typeId: 2)
 class Trigger {
+  @HiveField(1)
   late String triggerDef;
   @JsonKey(includeToJson: false, includeFromJson: false)
   TriggerDefinition? triggerDefinition;
   bool _enabled = false;
-  Set<DeviceType> _deviceType = {DeviceType.tail, DeviceType.ears, DeviceType.wings};
+  @HiveField(2, defaultValue: [DeviceType.tail, DeviceType.ears, DeviceType.wings])
+  List<DeviceType> _deviceType = [DeviceType.tail, DeviceType.ears, DeviceType.wings];
 
-  Set<DeviceType> get deviceType => _deviceType;
+  List<DeviceType> get deviceType => _deviceType;
 
-  set deviceType(Set<DeviceType> value) {
+  set deviceType(List<DeviceType> value) {
     _deviceType = value;
     if (_enabled) {
       triggerDefinition?.onDisable();
-      triggerDefinition?.onEnable(actions, deviceType);
+      triggerDefinition?.onEnable(actions, deviceType.toSet());
     }
   }
 
@@ -52,7 +56,7 @@ class Trigger {
         if (permissionStatus == PermissionStatus.granted) {
           _enabled = value;
           if (_enabled) {
-            triggerDefinition?.onEnable(actions, deviceType);
+            triggerDefinition?.onEnable(actions, deviceType.toSet());
           } else {
             triggerDefinition?.onDisable();
           }
@@ -61,13 +65,14 @@ class Trigger {
     } else {
       _enabled = value;
       if (_enabled) {
-        triggerDefinition?.onEnable(actions, deviceType);
+        triggerDefinition?.onEnable(actions, deviceType.toSet());
       } else {
         triggerDefinition?.onDisable();
       }
     }
   }
 
+  @HiveField(3)
   Map<String, TriggerAction> actions = {}; //TODO: Store action as a string, and find on demand
 
   Trigger(this.triggerDef) {
@@ -305,19 +310,15 @@ class TriggerAction {
 class TriggerList extends _$TriggerList {
   @override
   List<Trigger> build() {
-    List<String>? stringList = prefs.getStringList("triggers");
-    if (stringList != null) {
-      return stringList.map((e) {
-        Trigger trigger = Trigger.fromJson(jsonDecode(e));
-        Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.name == trigger.triggerDef));
-        trigger2.actions = trigger.actions;
-        trigger2.enabled = trigger2.enabled;
-        trigger2.deviceType = trigger.deviceType;
-        return trigger2;
-      }).toList();
-    } else {
-      return [];
-    }
+    List<String> stringList = SentryHive.box('triggers').get("triggers", defaultValue: <String>[]);
+    return stringList.map((e) {
+      Trigger trigger = Trigger.fromJson(jsonDecode(e));
+      Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.name == trigger.triggerDef));
+      trigger2.actions = trigger.actions;
+      trigger2.enabled = trigger2.enabled;
+      trigger2.deviceType = trigger.deviceType;
+      return trigger2;
+    }).toList();
   }
 
   void add(Trigger trigger) {
@@ -333,8 +334,8 @@ class TriggerList extends _$TriggerList {
 
   Future<void> store() async {
     Flogger.i("Storing triggers");
-    await prefs.setStringList(
-        "triggers",
+    SentryHive.box('triggers').put(
+        'triggers',
         state.map((e) {
           return const JsonEncoder.withIndent("    ").convert(e.toJson());
         }).toList());

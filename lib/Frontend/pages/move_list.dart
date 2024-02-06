@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/moveLists.dart';
 
-import '../../Backend/Settings.dart';
 import '../intnDefs.dart';
 
 class MoveListView extends ConsumerStatefulWidget {
@@ -26,7 +26,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
         icon: const Icon(Icons.add),
         onPressed: () {
           setState(() {
-            ref.watch(moveListsProvider.notifier).add(MoveList(sequencesPage(), DeviceType.values.toSet(), ActionCategory.sequence));
+            ref.watch(moveListsProvider.notifier).add(MoveList(sequencesPage(), DeviceType.values.toList(), ActionCategory.sequence));
             ref.watch(moveListsProvider.notifier).store();
           });
           context.push<MoveList>("/moveLists/editMoveList", extra: ref.watch(moveListsProvider).last).then((value) => setState(() {
@@ -64,7 +64,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                 },
               ),
               onTap: () async {
-                if (ref.read(preferencesProvider).haptics) {
+                if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
                   await Haptics.vibrate(HapticsType.selection);
                 }
                 ref.read(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).forEach((element) {
@@ -100,7 +100,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
   Widget build(BuildContext context) {
     setState(() {
       moveList ??= GoRouterState.of(context).extra! as MoveList; //Load stored data
-      moveList ??= MoveList(sequencesAdd(), DeviceType.values.toSet(), ActionCategory.sequence); // new if null, though it wont be stored
+      moveList ??= MoveList(sequencesAdd(), DeviceType.values.toList(), ActionCategory.sequence); // new if null, though it wont be stored
     });
     return Scaffold(
       appBar: AppBar(
@@ -188,9 +188,9 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
               title: Text(deviceType()),
               subtitle: SegmentedButton<DeviceType>(
                 multiSelectionEnabled: true,
-                selected: moveList!.deviceCategory,
+                selected: moveList!.deviceCategory.toSet(),
                 onSelectionChanged: (Set<DeviceType> value) {
-                  setState(() => moveList!.deviceCategory = value);
+                  setState(() => moveList!.deviceCategory = value.toList());
                   ref.read(moveListsProvider.notifier).store();
                 },
                 segments: DeviceType.values.map<ButtonSegment<DeviceType>>(

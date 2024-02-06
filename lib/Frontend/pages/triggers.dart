@@ -110,9 +110,9 @@ class _TriggersState extends ConsumerState<Triggers> {
         title: Text(deviceType()),
         subtitle: SegmentedButton<DeviceType>(
           multiSelectionEnabled: true,
-          selected: trigger.deviceType,
+          selected: trigger.deviceType.toSet(),
           onSelectionChanged: (Set<DeviceType> value) {
-            setState(() => trigger.deviceType = value);
+            setState(() => trigger.deviceType = value.toList());
             ref.read(triggerListProvider.notifier).store();
           },
           segments: DeviceType.values.map<ButtonSegment<DeviceType>>(
@@ -137,7 +137,7 @@ class _TriggersState extends ConsumerState<Triggers> {
               BaseAction? result = await showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return Dialog.fullscreen(child: ActionSelector(deviceType: trigger.deviceType));
+                    return Dialog.fullscreen(child: ActionSelector(deviceType: trigger.deviceType.toSet()));
                   });
               setState(() {
                 e.action = result;

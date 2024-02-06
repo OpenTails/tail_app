@@ -10,22 +10,24 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 import 'Backend/Bluetooth/BluetoothManager.dart';
+import 'Backend/Definitions/Action/BaseAction.dart';
 import 'Backend/Sensors.dart';
-import 'Backend/Settings.dart';
 import 'Backend/moveLists.dart';
 import 'Frontend/GoRouterConfig.dart';
 import 'Frontend/intnDefs.dart';
 
-late SharedPreferences prefs;
+//late SharedPreferences prefs;
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
-  bool? reportingEnabled = prefs.getBool("AllowErrorReporting");
-  if (reportingEnabled == null || reportingEnabled) {
+  bool reportingEnabled = SentryHive.box('settings').get("allowErrorReporting", defaultValue: true);
+  if (reportingEnabled) {
     if (kDebugMode) {
       print('Before sending sentry event');
     }
@@ -50,10 +52,22 @@ Future<void> main() async {
       }
     },
   );
-  prefs = await SharedPreferences.getInstance();
   //var localeLoaded = await initializeMessages('ace');
   //Intl.defaultLocale = 'ace';
   //Flogger.i("Loaded local: $localeLoaded");
+  final appDir = await getApplicationSupportDirectory();
+  SentryHive
+    ..init(appDir.path)
+    ..registerAdapter(BaseStoredDeviceAdapter())
+    ..registerAdapter(MoveListAdapter())
+    ..registerAdapter(MoveAdapter())
+    ..registerAdapter(BaseActionAdapter())
+    ..registerAdapter(TriggerAdapter());
+  SentryHive.openBox('settings');
+  SentryHive.openBox('triggers');
+  SentryHive.openBox('sequences');
+  SentryHive.openBox('devices');
+
   await SentryFlutter.init(
     (options) {
       options.dsn = 'http://30dbd2cb36374c448885ee81aeae1419@192.168.50.189:8000/3';
@@ -160,7 +174,6 @@ class _EagerInitialization extends ConsumerWidget {
     ref.watch(btConnectStateHandlerProvider);
     ref.watch(triggerListProvider);
     ref.watch(moveListsProvider);
-    ref.watch(preferencesProvider);
     return child;
   }
 }

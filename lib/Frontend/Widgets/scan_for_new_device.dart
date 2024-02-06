@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
-import '../../Backend/Settings.dart';
 import '../intnDefs.dart';
 
 class ScanForNewDevice extends ConsumerStatefulWidget {
@@ -33,7 +33,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
       if (foundDevices.valueOrNull != null) {
         DiscoveredDevice? value = foundDevices.valueOrNull;
         if (value != null && !devices.containsKey(value.id)) {
-          if (ref.read(preferencesProvider).autoConnectNewDevices) {
+          if (SentryHive.box('settings').get('autoConnectNewDevices', defaultValue: false)) {
             Future(() => ref.read(knownDevicesProvider.notifier).connect(value));
           } else {
             devices[value.id] = value;
@@ -48,11 +48,10 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
             trailing: Switch(
               onChanged: (bool value) {
                 setState(() {
-                  ref.read(preferencesProvider).autoConnectNewDevices = value;
+                  SentryHive.box('settings').put('autoConnectNewDevices', value);
                 });
-                ref.read(preferencesProvider.notifier).store();
               },
-              value: ref.read(preferencesProvider).autoConnectNewDevices,
+              value: SentryHive.box('settings').get('autoConnectNewDevices', defaultValue: false),
             ),
             title: Text(scanDevicesAutoConnectTitle()),
           ),

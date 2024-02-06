@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 
-import '../../Backend/Settings.dart';
-import '../../main.dart';
 import '../intnDefs.dart';
 
 class Settings extends ConsumerStatefulWidget {
@@ -27,7 +26,6 @@ class _SettingsState extends ConsumerState<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    PreferencesStore preferencesStore = ref.watch(preferencesProvider);
     return ListView(
       controller: _controller,
       children: [
@@ -36,11 +34,10 @@ class _SettingsState extends ConsumerState<Settings> {
           leading: const Icon(Icons.vibration),
           subtitle: Text(settingsHapticsToggleSubTitle()),
           trailing: Switch(
-            value: preferencesStore.haptics,
+            value: SentryHive.box('settings').get('haptics', defaultValue: true),
             onChanged: (bool value) {
               setState(() {
-                ref.read(preferencesProvider).haptics = value;
-                ref.read(preferencesProvider.notifier).store();
+                SentryHive.box('settings').put('haptics', value);
               });
             },
           ),
@@ -50,11 +47,10 @@ class _SettingsState extends ConsumerState<Settings> {
           leading: const Icon(Icons.bluetooth_searching),
           subtitle: Text(settingsAutoConnectToggleSubTitle()),
           trailing: Switch(
-            value: preferencesStore.alwaysScanning,
+            value: SentryHive.box('settings').get('alwaysScanning', defaultValue: false),
             onChanged: (bool value) {
               setState(() {
-                ref.read(preferencesProvider).alwaysScanning = value;
-                ref.read(preferencesProvider.notifier).store();
+                SentryHive.box('settings').put('alwaysScanning', value);
               });
             },
           ),
@@ -65,10 +61,10 @@ class _SettingsState extends ConsumerState<Settings> {
           leading: const Icon(Icons.error),
           subtitle: Text(settingsErrorReportingToggleSubTitle()),
           trailing: Switch(
-            value: prefs.getBool("AllowErrorReporting") ?? true,
+            value: SentryHive.box('settings').get('allowErrorReporting', defaultValue: true),
             onChanged: (bool value) {
               setState(() {
-                prefs.setBool("AllowErrorReporting", value);
+                SentryHive.box('settings').put('allowErrorReporting', value);
               });
             },
           ),
