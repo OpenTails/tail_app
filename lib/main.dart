@@ -13,13 +13,13 @@ import 'package:logging_flutter/logging_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tail_app/Backend/Sensors.dart';
-import 'package:tail_app/Backend/Settings.dart';
-import 'package:tail_app/Backend/moveLists.dart';
-import 'package:tail_app/Frontend/intnDefs.dart';
 
 import 'Backend/Bluetooth/BluetoothManager.dart';
+import 'Backend/Sensors.dart';
+import 'Backend/Settings.dart';
+import 'Backend/moveLists.dart';
 import 'Frontend/GoRouterConfig.dart';
+import 'Frontend/intnDefs.dart';
 
 late SharedPreferences prefs;
 

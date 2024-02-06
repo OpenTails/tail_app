@@ -160,7 +160,7 @@ class _ManageKnownDevicesState extends ConsumerState<ManageKnownDevices> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        knownDevices[index].connectionStateStream = null;
+                        knownDevices[index].connectionStateStreamSubscription = null;
                       });
                     },
                     child: Text(manageDevicesDisconnect()),
@@ -168,7 +168,7 @@ class _ManageKnownDevicesState extends ConsumerState<ManageKnownDevices> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        knownDevices[index].connectionStateStream = null;
+                        knownDevices[index].connectionStateStreamSubscription = null;
                       });
                       ref.watch(knownDevicesProvider.notifier).remove(knownDevices[index].baseStoredDevice.btMACAddress);
                     },

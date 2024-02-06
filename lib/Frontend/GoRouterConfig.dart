@@ -21,36 +21,6 @@ final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   observers: [SentryNavigatorObserver()],
   routes: [
-    GoRoute(
-      name: 'Settings',
-      path: '/settings',
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (BuildContext context, GoRouterState state) => const Settings(),
-      routes: [
-        if (kDebugMode) ...[
-          GoRoute(
-            name: 'Developer Menu',
-            path: 'developer',
-            parentNavigatorKey: _rootNavigatorKey,
-            builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
-            routes: [
-              GoRoute(
-                name: 'JSON Viewer',
-                path: 'json',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (BuildContext context, GoRouterState state) => const JsonPreview(),
-              )
-            ],
-          )
-        ]
-      ],
-    ),
-    GoRoute(
-      name: 'Direct Gear Control',
-      path: '/joystick',
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (BuildContext context, GoRouterState state) => const DirectGearControl(),
-    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       routes: [
@@ -118,6 +88,62 @@ final GoRouter router = GoRouter(
                 );
               },
             ),
+          ],
+        ),
+        GoRoute(
+          name: 'Direct Gear Control',
+          path: '/joystick',
+          parentNavigatorKey: _shellNavigatorKey,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: const DirectGearControl(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                // Change the opacity of the screen using a Curve based on the the animation's
+                // value
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+            );
+          },
+        ),
+        GoRoute(
+          name: 'Settings',
+          path: '/settings',
+          parentNavigatorKey: _shellNavigatorKey,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: const Settings(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                // Change the opacity of the screen using a Curve based on the the animation's
+                // value
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+            );
+          },
+          routes: [
+            if (kDebugMode) ...[
+              GoRoute(
+                name: 'Developer Menu',
+                path: 'developer',
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
+                routes: [
+                  GoRoute(
+                    name: 'JSON Viewer',
+                    path: 'json',
+                    parentNavigatorKey: _rootNavigatorKey,
+                    builder: (BuildContext context, GoRouterState state) => const JsonPreview(),
+                  )
+                ],
+              )
+            ]
           ],
         ),
       ],

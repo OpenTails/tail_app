@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:open_settings/open_settings.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tail_app/Frontend/intnDefs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
+import '../intnDefs.dart';
 
 class Home extends ConsumerWidget {
   const Home({super.key});
