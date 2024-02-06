@@ -66,7 +66,7 @@ class BaseStatefulDevice {
   late QualifiedCharacteristic rxCharacteristic;
   late QualifiedCharacteristic txCharacteristic;
   late QualifiedCharacteristic batteryCharacteristic;
-
+  late QualifiedCharacteristic otaCharacteristic;
   ValueNotifier<double> battery = ValueNotifier(-1);
   ValueNotifier<String> fwVersion = ValueNotifier("");
   ValueNotifier<bool> glowTip = ValueNotifier(false);
@@ -91,6 +91,7 @@ class BaseStatefulDevice {
     txCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleTxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
     batteryCharacteristic = QualifiedCharacteristic(serviceId: Uuid.parse("0000180f-0000-1000-8000-00805f9b34fb"), characteristicId: Uuid.parse("00002a19-0000-1000-8000-00805f9b34fb"), deviceId: baseStoredDevice.btMACAddress);
     commandQueue = CommandQueue(ref, this);
+    otaCharacteristic = QualifiedCharacteristic(characteristicId: Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"), serviceId: Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"), deviceId: baseStoredDevice.btMACAddress);
   }
 
   @override
