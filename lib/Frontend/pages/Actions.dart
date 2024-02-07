@@ -1,4 +1,3 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -64,7 +63,7 @@ class ActionPageBuilder extends ConsumerWidget {
                               .toList(),
                           builder: (BuildContext context, List<dynamic> values, Widget? child) {
                             return Card(
-                              color: knownDevices.values.where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseDeviceDefinition.deviceType.color.harmonizeWith(Theme.of(context).colorScheme.background),
+                              color: knownDevices.values.where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseDeviceDefinition.deviceType.color,
                               elevation: 1,
                               child: InkWell(
                                 onTap: () async {

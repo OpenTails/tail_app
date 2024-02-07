@@ -1,9 +1,13 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:side_sheet_material3/side_sheet_material3.dart';
+import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
+import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -115,8 +119,67 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
         // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
         // overridden.
         smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
-
         appBar: AppBar(
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(80),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: ref
+                      .watch(knownDevicesProvider)
+                      .values
+                      .map(
+                        (e) => Card(
+                          color: e.baseDeviceDefinition.deviceType.color,
+                          child: InkWell(
+                            //TODO: on tap open device window
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: 50,
+                                width: 100,
+                                child: Stack(
+                                  children: [
+                                    Text(e.baseStoredDevice.name),
+                                    Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: MultiValueListenableBuilder(
+                                        builder: (BuildContext context, List<dynamic> values, Widget? child) {
+                                          if (e.deviceConnectionState.value == DeviceConnectionState.connected) {
+                                            return Text("${e.battery.value.round()}%"); //TODO: Replace with dynamic icon
+                                          } else {
+                                            return Text(e.deviceConnectionState.value.name);
+                                          }
+                                        },
+                                        valueListenables: [e.battery, e.deviceConnectionState],
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: MultiValueListenableBuilder(
+                                        builder: (BuildContext context, List<dynamic> values, Widget? child) {
+                                          if (e.deviceConnectionState.value == DeviceConnectionState.connected) {
+                                            return Text("${e.rssi.value.round()} db"); //TODO: Replace with dynamic icon
+                                          }
+                                          return Container();
+                                        },
+                                        valueListenables: [e.rssi, e.deviceConnectionState],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ),
+          ),
           title: Text(title()),
           actions: [
             IconButton(

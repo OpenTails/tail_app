@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:tail_app/Frontend/intnDefs.dart';
 
@@ -31,11 +32,11 @@ class _ManageKnownDevicesState extends ConsumerState<ManageKnownDevices> {
               padding: const EdgeInsets.all(8.0),
               child: Text(knownDevices[index].baseStoredDevice.name),
             ),
-            subtitle: ValueListenableBuilder(
-              builder: (BuildContext context, DeviceConnectionState value, Widget? child) {
-                return Text("${knownDevices[index].baseStoredDevice.btMACAddress} | ${value.name}");
+            subtitle: MultiValueListenableBuilder(
+              valueListenables: [knownDevices[index].deviceConnectionState, knownDevices[index].rssi],
+              builder: (BuildContext context, List<dynamic> values, Widget? child) {
+                return Text("${knownDevices[index].baseStoredDevice.btMACAddress} | ${knownDevices[index].deviceConnectionState.value.name} | RSSI: ${knownDevices[index].rssi.value}");
               },
-              valueListenable: knownDevices[index].deviceConnectionState,
             ),
             leading: ValueListenableBuilder(
               valueListenable: knownDevices[index].deviceConnectionState,
