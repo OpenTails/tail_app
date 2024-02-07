@@ -12,7 +12,6 @@ import '../../../Backend/DeviceRegistry.dart';
 class DeveloperMenu extends ConsumerStatefulWidget {
   const DeveloperMenu({super.key});
 
-  //TODO: Add mock devices
   //TODO: Show hidden device state/values
   //TODO: Steal Snacks
   //TODO: Backup/Restore json

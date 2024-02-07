@@ -127,10 +127,10 @@ class _TriggersState extends ConsumerState<Triggers> {
       ),
     );
     results.addAll(
-      trigger.actions.values.map(
+      trigger.actions.map(
         (TriggerAction e) => ListTile(
-          title: Text(e.name),
-          subtitle: Text(e.action?.name ?? triggerActionNotSet()),
+          title: Text(trigger.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
+          subtitle: Text(ref.read(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
           trailing: IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () async {
@@ -140,7 +140,8 @@ class _TriggersState extends ConsumerState<Triggers> {
                     return Dialog.fullscreen(child: ActionSelector(deviceType: trigger.deviceType.toSet()));
                   });
               setState(() {
-                e.action = result;
+                e.action = result?.uuid;
+                ref.read(triggerListProvider.notifier).store();
               });
             },
           ),

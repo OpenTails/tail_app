@@ -11,8 +11,8 @@ part 'DeviceRegistry.g.dart';
 @immutable
 class DeviceRegistry {
   static Set<BaseDeviceDefinition> allDevices = {
-    BaseDeviceDefinition("798e1528-2832-4a87-93d7-4d1b25a2f418", "MiTail", "MiTail", Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"), Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"), Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"), const Icon(Icons.bluetooth), DeviceType.tail, true),
-    BaseDeviceDefinition("927dee04-ddd4-4582-8e42-69dc9fbfae66", "EG2", "EG2", Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66"), Uuid.parse("0b646a19-371e-4327-b169-9632d56c0e84"), Uuid.parse("05e026d8-b395-4416-9f8a-c00d6c3781b9"), const Icon(Icons.bluetooth), DeviceType.ears, true)
+    BaseDeviceDefinition("798e1528-2832-4a87-93d7-4d1b25a2f418", "MiTail", "MiTail", Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"), Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"), Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"), const Icon(Icons.bluetooth), DeviceType.tail),
+    BaseDeviceDefinition("927dee04-ddd4-4582-8e42-69dc9fbfae66", "EG2", "EG2", Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66"), Uuid.parse("0b646a19-371e-4327-b169-9632d56c0e84"), Uuid.parse("05e026d8-b395-4416-9f8a-c00d6c3781b9"), const Icon(Icons.bluetooth), DeviceType.ears)
   };
 
   static BaseDeviceDefinition getByUUID(String uuid) {

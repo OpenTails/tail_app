@@ -12,7 +12,15 @@ import '../../../Frontend/intnDefs.dart';
 
 part 'BaseDeviceDefinition.g.dart';
 
-enum DeviceType { tail, ears, wings } //TODO extend with icon
+@HiveType(typeId: 6)
+enum DeviceType {
+  @HiveField(1)
+  tail,
+  @HiveField(2)
+  ears,
+  @HiveField(3)
+  wings,
+} //TODO extend with icon
 
 extension DeviceTypeExtension on DeviceType {
   String get name {
@@ -49,9 +57,8 @@ class BaseDeviceDefinition {
   final Uuid bleTxCharacteristic;
   final Icon icon;
   final DeviceType deviceType;
-  final bool hasBatteryCharacteristic;
 
-  const BaseDeviceDefinition(this.uuid, this.model, this.btName, this.bleDeviceService, this.bleRxCharacteristic, this.bleTxCharacteristic, this.icon, this.deviceType, this.hasBatteryCharacteristic);
+  const BaseDeviceDefinition(this.uuid, this.model, this.btName, this.bleDeviceService, this.bleRxCharacteristic, this.bleTxCharacteristic, this.icon, this.deviceType);
 
   @override
   String toString() {

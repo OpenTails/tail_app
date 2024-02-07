@@ -7,6 +7,7 @@ import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/moveLists.dart';
+import 'package:uuid/uuid.dart';
 
 import '../intnDefs.dart';
 
@@ -26,7 +27,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
         icon: const Icon(Icons.add),
         onPressed: () {
           setState(() {
-            ref.watch(moveListsProvider.notifier).add(MoveList(sequencesPage(), DeviceType.values.toList(), ActionCategory.sequence));
+            ref.watch(moveListsProvider.notifier).add(MoveList(sequencesPage(), DeviceType.values.toList(), ActionCategory.sequence, const Uuid().v4()));
             ref.watch(moveListsProvider.notifier).store();
           });
           context.push<MoveList>("/moveLists/editMoveList", extra: ref.watch(moveListsProvider).last).then((value) => setState(() {
@@ -100,7 +101,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
   Widget build(BuildContext context) {
     setState(() {
       moveList ??= GoRouterState.of(context).extra! as MoveList; //Load stored data
-      moveList ??= MoveList(sequencesAdd(), DeviceType.values.toList(), ActionCategory.sequence); // new if null, though it wont be stored
+      moveList ??= MoveList(sequencesAdd(), DeviceType.values.toList(), ActionCategory.sequence, const Uuid().v4()); // new if null, though it wont be stored
     });
     return Scaffold(
       appBar: AppBar(

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:shake/shake.dart';
+import 'package:tail_app/Backend/ActionRegistry.dart';
 
 import '../Frontend/intnDefs.dart';
 import 'Bluetooth/BluetoothManager.dart';
@@ -44,7 +44,7 @@ class Trigger {
     _deviceType = value;
     if (_enabled) {
       triggerDefinition?.onDisable();
-      triggerDefinition?.onEnable(actions, deviceType.toSet());
+      triggerDefinition?.onEnable(actions.toSet(), deviceType.toSet());
     }
   }
 
@@ -56,7 +56,7 @@ class Trigger {
         if (permissionStatus == PermissionStatus.granted) {
           _enabled = value;
           if (_enabled) {
-            triggerDefinition?.onEnable(actions, deviceType.toSet());
+            triggerDefinition?.onEnable(actions.toSet(), deviceType.toSet());
           } else {
             triggerDefinition?.onDisable();
           }
@@ -65,7 +65,7 @@ class Trigger {
     } else {
       _enabled = value;
       if (_enabled) {
-        triggerDefinition?.onEnable(actions, deviceType.toSet());
+        triggerDefinition?.onEnable(actions.toSet(), deviceType.toSet());
       } else {
         triggerDefinition?.onDisable();
       }
@@ -73,20 +73,30 @@ class Trigger {
   }
 
   @HiveField(3)
-  Map<String, TriggerAction> actions = {}; //TODO: Store action as a string, and find on demand
+  List<TriggerAction> actions = []; //TODO: Store action as a uuid, and find on demand
 
   Trigger(this.triggerDef) {
-    //actions.addAll(triggerDefinition?.actionTypes.map((e) => TriggerAction(e)));
+    // called by hive when loading object
   }
 
   Trigger.trigDef(this.triggerDefinition) {
     triggerDef = triggerDefinition!.name;
-    actions.addAll(triggerDefinition!.actionTypes.map((e, f) => MapEntry(e, TriggerAction(f))));
+    actions.addAll(triggerDefinition!.actionTypes.map((e) => TriggerAction(e.uuid)));
   }
 
   factory Trigger.fromJson(Map<String, dynamic> json) => _$TriggerFromJson(json);
 
   Map<String, dynamic> toJson() => _$TriggerToJson(this);
+}
+
+@Riverpod()
+BaseAction? getActionFromUUID(GetActionFromUUIDRef ref, String? uuid) {
+  if (uuid == null) {
+    return null;
+  }
+  List<BaseAction> actions = List.from(ActionRegistry.allCommands);
+  actions.addAll(ref.read(moveListsProvider));
+  return actions.where((element) => element.uuid == uuid).firstOrNull;
 }
 
 abstract class TriggerDefinition implements Comparable<TriggerDefinition> {
@@ -95,16 +105,17 @@ abstract class TriggerDefinition implements Comparable<TriggerDefinition> {
   late Widget icon;
   Ref ref;
 
-  Future<void> onEnable(Map<String, TriggerAction> actions, Set<DeviceType> deviceType);
+  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType);
 
   Future<void> onDisable();
 
   Permission? requiredPermission;
-  late Map<String, String> actionTypes;
+  late List<TriggerActionDef> actionTypes;
 
   TriggerDefinition(this.ref);
 
-  Future<void> sendCommands(Set<DeviceType> deviceType, BaseAction? baseAction, Ref ref) async {
+  Future<void> sendCommands(Set<DeviceType> deviceType, String? action, Ref ref) async {
+    BaseAction? baseAction = ref.read(getActionFromUUIDProvider(action));
     if (baseAction == null) {
       return;
     }
@@ -131,7 +142,13 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     super.description = triggerWalkingDescription();
     super.icon = const Icon(Icons.directions_walk);
     super.requiredPermission = Permission.activityRecognition;
-    super.actionTypes = {"Walking": triggerWalkingTitle(), "Stopped": triggerWalkingStopped(), "Even Step": triggerWalkingEvenStep(), "Odd Step": triggerWalkingOddStep(), "Step": triggerWalkingStep()};
+    super.actionTypes = [
+      TriggerActionDef("Walking", triggerWalkingTitle(), "77d22961-5a69-465a-bd27-5cf5508d10a6"),
+      TriggerActionDef("Stopped", triggerWalkingStopped(), "7424097d-ba24-4d85-b963-bf58e85e289d"),
+      TriggerActionDef("Even Step", triggerWalkingEvenStep(), "79bb5829-f147-4f97-af8a-6534264dc764"),
+      TriggerActionDef("Odd Step", triggerWalkingOddStep(), "8097c565-326e-43fc-a077-bd46181a11d8"),
+      TriggerActionDef("Step", triggerWalkingStep(), "c82b04ba-7d2e-475a-90ba-3d354e5b8ef0")
+    ];
   }
 
   @override
@@ -143,30 +160,30 @@ class WalkingTriggerDefinition extends TriggerDefinition {
   }
 
   @override
-  Future<void> onEnable(Map<String, TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
     pedestrianStatusStream = Pedometer.pedestrianStatusStream.listen(
       (PedestrianStatus event) {
         Flogger.i("PedestrianStatus:: ${event.status}");
         if (event.status == "Walking") {
-          TriggerAction? action = actions["Walking"];
-          sendCommands(deviceType, action?.action, ref);
+          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Walking").uuid == element.uuid);
+          sendCommands(deviceType, action.action, ref);
         } else if (event.status == "Stopped") {
-          TriggerAction? action = actions["Stopped"];
-          sendCommands(deviceType, action?.action, ref);
+          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Stopped").uuid == element.uuid);
+          sendCommands(deviceType, action.action, ref);
         }
       },
     );
     stepCountStream = Pedometer.stepCountStream.listen(
       (StepCount event) {
         Flogger.d("StepCount:: ${event.steps}");
-        TriggerAction? action = actions["Step"];
-        sendCommands(deviceType, action?.action, ref);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Step").uuid == element.uuid);
+        sendCommands(deviceType, action.action, ref);
         if (event.steps.isEven) {
-          TriggerAction? action = actions["Even Step"];
-          sendCommands(deviceType, action?.action, ref);
+          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Even Step").uuid == element.uuid);
+          sendCommands(deviceType, action.action, ref);
         } else {
-          TriggerAction? action = actions["Odd Step"];
-          sendCommands(deviceType, action?.action, ref);
+          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Odd Step").uuid == element.uuid);
+          sendCommands(deviceType, action.action, ref);
         }
       },
     );
@@ -181,7 +198,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
     super.description = triggerCoverDescription();
     super.icon = const Icon(Icons.sensors);
     super.requiredPermission = null;
-    super.actionTypes = {"Near": triggerCoverNear(), "Far": triggerCoverFar()};
+    super.actionTypes = [TriggerActionDef("Near", triggerCoverNear(), "bf3d0ce0-15c0-46db-95ce-e2cd6a5ecd0f"), TriggerActionDef("Far", triggerCoverFar(), "d121e4a8-a12d-4f0a-8348-89c62eb72a7a")];
   }
 
   @override
@@ -191,15 +208,15 @@ class CoverTriggerDefinition extends TriggerDefinition {
   }
 
   @override
-  Future<void> onEnable(Map<String, TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
     proximityStream = ProximitySensor.events.listen((int event) {
       Flogger.d("CoverEvent:: $event");
       if (event >= 1) {
-        TriggerAction? action = actions["Near"];
-        sendCommands(deviceType, action?.action, ref);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Near").uuid == element.uuid);
+        sendCommands(deviceType, action.action, ref);
       } else if (event == 0) {
-        TriggerAction? action = actions["Far"];
-        sendCommands(deviceType, action?.action, ref);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Far").uuid == element.uuid);
+        sendCommands(deviceType, action.action, ref);
       }
     });
   }
@@ -213,7 +230,7 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
     super.description = triggerVolumeButtonDescription();
     super.icon = const Icon(Icons.volume_up);
     super.requiredPermission = null;
-    super.actionTypes = {"Volume Up": triggerVolumeButtonVolumeUp(), "Volume Down": triggerVolumeButtonVolumeDown()};
+    super.actionTypes = [TriggerActionDef("Volume Up", triggerVolumeButtonVolumeUp(), "834a9bef-9ae2-4623-81fa-bbead69eb28e"), TriggerActionDef("Volume Down", triggerVolumeButtonVolumeDown(), "2972aa14-33de-4d4f-ac67-4f572306b5c4")];
   }
 
   @override
@@ -225,15 +242,15 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
   }
 
   @override
-  Future<void> onEnable(Map<String, TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
     subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
       Flogger.d("Volume press detected:${event.name}");
       if (event == HardwareButton.volume_down) {
-        TriggerAction? action = actions["Volume Up"];
-        sendCommands(deviceType, action?.action, ref);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Volume Up").uuid == element.uuid);
+        sendCommands(deviceType, action.action, ref);
       } else if (event == HardwareButton.volume_up) {
-        TriggerAction? action = actions["Volume Down"];
-        sendCommands(deviceType, action?.action, ref);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Volume Down").uuid == element.uuid);
+        sendCommands(deviceType, action.action, ref);
       }
     });
   }
@@ -247,7 +264,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
     super.description = "Trigger an action by shaking your device";
     super.icon = const Icon(Icons.vibration);
     super.requiredPermission = null;
-    super.actionTypes = {"Shake": triggerShakeTitle()};
+    super.actionTypes = [TriggerActionDef("Shake", triggerShakeTitle(), "b84b4c7a-2330-4ede-82f4-dca7b6e74b0a")];
   }
 
   @override
@@ -257,11 +274,11 @@ class ShakeTriggerDefinition extends TriggerDefinition {
   }
 
   @override
-  Future<void> onEnable(Map<String, TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
     detector = ShakeDetector.waitForStart(onPhoneShake: () {
       Flogger.d("Shake Detected");
-      TriggerAction? action = actions["Shake"];
-      sendCommands(deviceType, action?.action, ref);
+      TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Shake").uuid == element.uuid);
+      sendCommands(deviceType, action.action, ref);
     });
     detector?.startListening();
   }
@@ -275,7 +292,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
     super.description = triggerProximityDescription();
     super.icon = const Icon(Icons.bluetooth_connected);
     super.requiredPermission = Permission.bluetoothScan;
-    super.actionTypes = {"Nearby Gear": triggerProximityTitle()};
+    super.actionTypes = [TriggerActionDef("Nearby Gear", triggerProximityTitle(), "e78a749b-8b78-47df-a5a1-1ed365292214")];
   }
 
   @override
@@ -285,34 +302,56 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
   }
 
   @override
-  Future<void> onEnable(Map<String, TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
     btStream = ref.read(reactiveBLEProvider).scanForDevices(withServices: DeviceRegistry.getAllIds()).where((event) => !ref.read(knownDevicesProvider).keys.contains(event.id)).listen((DiscoveredDevice device) {
       Flogger.d("TailProximityTriggerDefinition:: $device");
-      TriggerAction? action = actions["Nearby Gear"];
-      sendCommands(deviceType, action?.action, ref);
+      TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Nearby Gear").uuid == element.uuid);
+      sendCommands(deviceType, action.action, ref);
     });
   }
 }
 
+class TriggerActionDef {
+  //Store in trigger def instance
+  String name;
+  String translated; //Translated name
+  String uuid; // uuid
+
+  TriggerActionDef(this.name, this.translated, this.uuid);
+
+  @override
+  bool operator ==(Object other) => identical(this, other) || other is TriggerActionDef && runtimeType == other.runtimeType && uuid == other.uuid;
+
+  @override
+  int get hashCode => uuid.hashCode;
+}
+
+@HiveType(typeId: 8)
 @JsonSerializable(explicitToJson: true)
 class TriggerAction {
-  String name;
-  BaseAction? action;
+  @HiveField(1)
+  String uuid; //uuid matches triggerActionDef
+  @HiveField(2)
+  String? action;
 
-  TriggerAction(this.name);
+  TriggerAction(this.uuid);
 
   factory TriggerAction.fromJson(Map<String, dynamic> json) => _$TriggerActionFromJson(json);
 
   Map<String, dynamic> toJson() => _$TriggerActionToJson(this);
+
+  @override
+  bool operator ==(Object other) => identical(this, other) || other is TriggerAction && runtimeType == other.runtimeType && uuid == other.uuid;
+
+  @override
+  int get hashCode => uuid.hashCode;
 }
 
 @Riverpod(keepAlive: true, dependencies: [TriggerDefinitionList])
 class TriggerList extends _$TriggerList {
   @override
   List<Trigger> build() {
-    List<String> stringList = SentryHive.box('triggers').get("triggers", defaultValue: <String>[]);
-    return stringList.map((e) {
-      Trigger trigger = Trigger.fromJson(jsonDecode(e));
+    return SentryHive.box<Trigger>('triggers').values.map((trigger) {
       Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.name == trigger.triggerDef));
       trigger2.actions = trigger.actions;
       trigger2.enabled = trigger2.enabled;
@@ -334,11 +373,9 @@ class TriggerList extends _$TriggerList {
 
   Future<void> store() async {
     Flogger.i("Storing triggers");
-    SentryHive.box('triggers').put(
-        'triggers',
-        state.map((e) {
-          return const JsonEncoder.withIndent("    ").convert(e.toJson());
-        }).toList());
+    SentryHive.box<Trigger>('triggers')
+      ..clear()
+      ..addAll(state);
   }
 }
 

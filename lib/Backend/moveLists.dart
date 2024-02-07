@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -14,7 +12,13 @@ import 'package:tail_app/Frontend/intnDefs.dart';
 
 part 'moveLists.g.dart';
 
-enum EasingType { linear, cubic }
+@HiveType(typeId: 10)
+enum EasingType {
+  @HiveField(1)
+  linear,
+  @HiveField(2)
+  cubic,
+}
 
 extension EasingTypeExtension on EasingType {
   Widget widget(BuildContext context) {
@@ -50,9 +54,13 @@ extension EasingTypeExtension on EasingType {
   }
 }
 
-enum MoveTimeType { sleep, linear }
-
-enum Speed { slow, fast }
+@HiveType(typeId: 9)
+enum Speed {
+  @HiveField(1)
+  slow,
+  @HiveField(2)
+  fast,
+}
 
 extension SpeedExtension on Speed {
   String get name {
@@ -65,7 +73,15 @@ extension SpeedExtension on Speed {
   }
 }
 
-enum MoveType { move, delay, home }
+@HiveType(typeId: 11)
+enum MoveType {
+  @HiveField(1)
+  move,
+  @HiveField(2)
+  delay,
+  @HiveField(3)
+  home,
+}
 
 extension MoveTypeExtension on MoveType {
   IconData get icon {
@@ -129,9 +145,9 @@ class Move {
 @HiveType(typeId: 3)
 @JsonSerializable(explicitToJson: true)
 class MoveList extends BaseAction {
-  @HiveField(4)
-  List<Move> moves = [];
   @HiveField(5)
+  List<Move> moves = [];
+  @HiveField(6)
   bool homeAtEnd = true;
 
   factory MoveList.fromJson(Map<String, dynamic> json) => _$MoveListFromJson(json);
@@ -139,7 +155,7 @@ class MoveList extends BaseAction {
   @override
   Map<String, dynamic> toJson() => _$MoveListToJson(this);
 
-  MoveList(super.name, super.deviceCategory, super.actionCategory) {
+  MoveList(super.name, super.deviceCategory, super.actionCategory, super.uuid) {
     super.actionCategory = ActionCategory.sequence;
   }
 }
@@ -148,8 +164,7 @@ class MoveList extends BaseAction {
 class MoveLists extends _$MoveLists {
   @override
   List<MoveList> build() {
-    List<String> stringList = SentryHive.box('sequences').get('sequences', defaultValue: <String>[]); //TODO: use type adapter
-    return stringList.map((e) => MoveList.fromJson(jsonDecode(e))).toList();
+    return SentryHive.box<MoveList>('sequences').values.toList();
   }
 
   void add(MoveList moveList) {
@@ -166,14 +181,9 @@ class MoveLists extends _$MoveLists {
 
   Future<void> store() async {
     Flogger.i("Storing sequences");
-    SentryHive.box('sequences').put(
-        //TODO: use type adaptor
-        "sequences",
-        state.map(
-          (e) {
-            return const JsonEncoder.withIndent("    ").convert(e.toJson());
-          },
-        ).toList());
+    SentryHive.box<MoveList>('sequences')
+      ..clear()
+      ..addAll(state);
   }
 }
 

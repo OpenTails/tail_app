@@ -62,11 +62,17 @@ Future<void> main() async {
     ..registerAdapter(MoveListAdapter())
     ..registerAdapter(MoveAdapter())
     ..registerAdapter(BaseActionAdapter())
-    ..registerAdapter(TriggerAdapter());
+    ..registerAdapter(TriggerAdapter())
+    ..registerAdapter(TriggerActionAdapter())
+    ..registerAdapter(ActionCategoryAdapter())
+    ..registerAdapter(DeviceTypeAdapter())
+    ..registerAdapter(SpeedAdapter())
+    ..registerAdapter(MoveTypeAdapter())
+    ..registerAdapter(EasingTypeAdapter());
   SentryHive.openBox('settings');
-  SentryHive.openBox('triggers');
-  SentryHive.openBox('sequences');
-  SentryHive.openBox('devices');
+  SentryHive.openBox<Trigger>('triggers');
+  SentryHive.openBox<MoveList>('sequences');
+  SentryHive.openBox<BaseStoredDevice>('devices');
 
   await SentryFlutter.init(
     (options) {

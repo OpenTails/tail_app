@@ -36,15 +36,15 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
 class KnownDevices extends _$KnownDevices {
   @override
   Map<String, BaseStatefulDevice> build() {
-    List<String> storedDevices = SentryHive.box('devices').get('devices', defaultValue: <String>[]);
+    List<BaseStoredDevice> storedDevices = SentryHive.box<BaseStoredDevice>('devices').values.toList();
     Map<String, BaseStatefulDevice> results = {};
     try {
       if (storedDevices.isNotEmpty) {
-        storedDevices.map((String e) => BaseStoredDevice.fromJson(jsonDecode(e))).forEach((BaseStoredDevice e) {
+        for (BaseStoredDevice e in storedDevices) {
           BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID(e.deviceDefinitionUUID);
           BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(baseDeviceDefinition, e, ref);
           results[e.btMACAddress] = baseStatefulDevice;
-        });
+        }
       }
     } catch (e, s) {
       Flogger.e("Unable to load stored devices due to $e", stackTrace: s);
@@ -68,11 +68,9 @@ class KnownDevices extends _$KnownDevices {
   }
 
   Future<void> store() async {
-    SentryHive.box('devices').put(
-        'devices',
-        state.values.map((e) {
-          return const JsonEncoder.withIndent("    ").convert(e.baseStoredDevice.toJson());
-        }).toList());
+    SentryHive.box<BaseStoredDevice>('devices')
+      ..clear()
+      ..addAll(state.values.map((e) => e.baseStoredDevice));
   }
 
   Future<void> connect(DiscoveredDevice device) async {

@@ -6,7 +6,21 @@ import '../Device/BaseDeviceDefinition.dart';
 
 part 'BaseAction.g.dart';
 
-enum ActionCategory { sequence, calm, fast, tense, glowtip, ears }
+@HiveType(typeId: 7)
+enum ActionCategory {
+  @HiveField(1)
+  sequence,
+  @HiveField(2)
+  calm,
+  @HiveField(3)
+  fast,
+  @HiveField(4)
+  tense,
+  @HiveField(5)
+  glowtip,
+  @HiveField(6)
+  ears,
+}
 
 extension ActionCategoryExtension on ActionCategory {
   String get friendly {
@@ -36,8 +50,10 @@ class BaseAction {
   List<DeviceType> deviceCategory;
   @HiveField(3)
   ActionCategory actionCategory;
+  @HiveField(4)
+  String uuid;
 
-  BaseAction(this.name, this.deviceCategory, this.actionCategory);
+  BaseAction(this.name, this.deviceCategory, this.actionCategory, this.uuid);
 
   factory BaseAction.fromJson(Map<String, dynamic> json) => _$BaseActionFromJson(json);
 
@@ -47,6 +63,12 @@ class BaseAction {
   String toString() {
     return 'BaseAction{name: $name, deviceCategory: $deviceCategory, actionCategory: $actionCategory}';
   }
+
+  @override
+  bool operator ==(Object other) => identical(this, other) || other is BaseAction && runtimeType == other.runtimeType && uuid == other.uuid;
+
+  @override
+  int get hashCode => uuid.hashCode;
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -54,7 +76,7 @@ class CommandAction extends BaseAction {
   final String command;
   final String? response;
 
-  CommandAction(super.name, this.command, super.deviceCategory, super.actionCategory, this.response);
+  CommandAction(super.name, this.command, super.deviceCategory, super.actionCategory, this.response, super.uuid);
 
   factory CommandAction.fromJson(Map<String, dynamic> json) => _$CommandActionFromJson(json);
 
