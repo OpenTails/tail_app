@@ -123,9 +123,10 @@ class KnownDevices extends _$KnownDevices {
             Flogger.d("Received Battery message from ${baseStoredDevice.name}: $event");
             statefulDevice.battery.value = event.first.toDouble();
           });
-          statefulDevice.keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 30)).listen((event) {
+          statefulDevice.keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 30)).listen((event) async {
             if (state.containsKey(device.id)) {
               statefulDevice.commandQueue.addCommand(BluetoothMessage("PING", statefulDevice, Priority.low));
+              statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
             } else {
               throw Exception("Disconnected from device");
             }

@@ -84,6 +84,7 @@ class BaseStatefulDevice {
 
   Stream<List<int>>? get rxCharacteristicStream => _rxCharacteristicStream;
   ValueNotifier<DeviceConnectionState> deviceConnectionState = ValueNotifier(DeviceConnectionState.disconnected);
+  ValueNotifier<int> rssi = ValueNotifier(-1);
 
   set rxCharacteristicStream(Stream<List<int>>? value) {
     _rxCharacteristicStream = value?.asBroadcastStream();
@@ -108,9 +109,13 @@ class BaseStatefulDevice {
 }
 
 @JsonEnum()
+@HiveType(typeId: 12)
 enum AutoActionCategory {
+  @HiveField(1)
   calm,
+  @HiveField(2)
   fast,
+  @HiveField(3)
   tense,
 }
 

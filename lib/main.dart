@@ -68,7 +68,8 @@ Future<void> main() async {
     ..registerAdapter(DeviceTypeAdapter())
     ..registerAdapter(SpeedAdapter())
     ..registerAdapter(MoveTypeAdapter())
-    ..registerAdapter(EasingTypeAdapter());
+    ..registerAdapter(EasingTypeAdapter())
+    ..registerAdapter(AutoActionCategoryAdapter());
   SentryHive.openBox('settings');
   SentryHive.openBox<Trigger>('triggers');
   SentryHive.openBox<MoveList>('sequences');
