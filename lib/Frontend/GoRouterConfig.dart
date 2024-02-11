@@ -5,7 +5,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
 import 'package:tail_app/Frontend/pages/Shell.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
-import 'package:tail_app/Frontend/pages/developer/json_preview.dart';
 import 'package:tail_app/Frontend/pages/move_list.dart';
 import 'package:tail_app/Frontend/pages/settings.dart';
 import 'package:tail_app/Frontend/pages/triggers.dart';
@@ -134,14 +133,6 @@ final GoRouter router = GoRouter(
                 path: 'developer',
                 parentNavigatorKey: _rootNavigatorKey,
                 builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
-                routes: [
-                  GoRoute(
-                    name: 'JSON Viewer',
-                    path: 'json',
-                    parentNavigatorKey: _rootNavigatorKey,
-                    builder: (BuildContext context, GoRouterState state) => const JsonPreview(),
-                  )
-                ],
               )
             ]
           ],

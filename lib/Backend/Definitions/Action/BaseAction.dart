@@ -1,4 +1,3 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:tail_app/Frontend/intnDefs.dart';
 
@@ -41,7 +40,6 @@ extension ActionCategoryExtension on ActionCategory {
   }
 }
 
-@JsonSerializable(explicitToJson: true)
 @HiveType(typeId: 4)
 class BaseAction {
   @HiveField(1)
@@ -55,10 +53,6 @@ class BaseAction {
 
   BaseAction(this.name, this.deviceCategory, this.actionCategory, this.uuid);
 
-  factory BaseAction.fromJson(Map<String, dynamic> json) => _$BaseActionFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BaseActionToJson(this);
-
   @override
   String toString() {
     return 'BaseAction{name: $name, deviceCategory: $deviceCategory, actionCategory: $actionCategory}';
@@ -71,15 +65,9 @@ class BaseAction {
   int get hashCode => uuid.hashCode;
 }
 
-@JsonSerializable(explicitToJson: true)
 class CommandAction extends BaseAction {
   final String command;
   final String? response;
 
   CommandAction(super.name, this.command, super.deviceCategory, super.actionCategory, this.response, super.uuid);
-
-  factory CommandAction.fromJson(Map<String, dynamic> json) => _$CommandActionFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => _$CommandActionToJson(this);
 }

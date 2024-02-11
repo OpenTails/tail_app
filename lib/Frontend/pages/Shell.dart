@@ -61,6 +61,41 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
     )
     ..loadRequest(Uri.parse('https://thetailcompany.com/'));
 
+  Widget getSignal(int rssi) {
+    if (rssi < -2) {
+      return const Icon(Icons.signal_cellular_alt);
+    } else if (rssi <= -45) {
+      return const Icon(Icons.signal_cellular_alt_2_bar);
+    } else if (rssi < -65) {
+      return const Icon(Icons.signal_cellular_alt_1_bar);
+    } else {
+      return const Icon(Icons.signal_cellular_connected_no_internet_0_bar);
+    }
+  }
+
+  Widget getBattery(double level) {
+    if (level < 0) {
+      return const Icon(Icons.battery_unknown);
+    }
+    if (level < 12.5) {
+      return const Icon(Icons.battery_0_bar);
+    } else if (level < 25) {
+      return const Icon(Icons.battery_1_bar);
+    } else if (level < 37.5) {
+      return const Icon(Icons.battery_2_bar);
+    } else if (level < 50) {
+      return const Icon(Icons.battery_3_bar);
+    } else if (level < 62.5) {
+      return const Icon(Icons.battery_4_bar);
+    } else if (level < 75) {
+      return const Icon(Icons.battery_5_bar);
+    } else if (level < 87.5) {
+      return const Icon(Icons.battery_6_bar);
+    } else {
+      return const Icon(Icons.battery_full);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return UpgradeAlert(
@@ -148,7 +183,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                                       child: MultiValueListenableBuilder(
                                         builder: (BuildContext context, List<dynamic> values, Widget? child) {
                                           if (e.deviceConnectionState.value == DeviceConnectionState.connected) {
-                                            return Text("${e.battery.value.round()}%"); //TODO: Replace with dynamic icon
+                                            return getBattery(e.battery.value);
                                           } else {
                                             return Text(e.deviceConnectionState.value.name);
                                           }
@@ -161,7 +196,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                                       child: MultiValueListenableBuilder(
                                         builder: (BuildContext context, List<dynamic> values, Widget? child) {
                                           if (e.deviceConnectionState.value == DeviceConnectionState.connected) {
-                                            return Text("${e.rssi.value.round()} db"); //TODO: Replace with dynamic icon
+                                            return getSignal(e.rssi.value);
                                           }
                                           return Container();
                                         },

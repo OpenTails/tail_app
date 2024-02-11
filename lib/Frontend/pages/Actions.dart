@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 
@@ -68,7 +68,7 @@ class ActionPageBuilder extends ConsumerWidget {
                               child: InkWell(
                                 onTap: () async {
                                   if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
-                                    await Haptics.vibrate(HapticsType.selection);
+                                    HapticFeedback.selectionClick();
                                   }
                                   for (var device in ref.read(getByActionProvider(actionsForCat[actionIndex]))) {
                                     runAction(actionsForCat[actionIndex], device);

@@ -10,24 +10,21 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  permission_handler: ^11.2.0
-  wakelock:
+  permission_handler: ^11.2.1
   cross_platform: ^3.0.1
   flutter_riverpod: ^2.4.10
   logging: ^1.2.0
   logging_flutter: ^3.0.0
   flutter_reactive_ble: ^5.3.1
-  go_router: ^13.1.0
+  go_router: ^13.2.0
   double_back_to_close_app: ^2.1.0
   pedometer: ^4.0.1
   proximity_sensor: ^1.0.4
   simple_circular_progress_bar: ^1.0.2
   shake: ^2.2.0
-  haptic_feedback: ^0.4.2
   adaptive_theme: ^3.6.0
   side_sheet_material3: ^0.0.2
   flutter_joystick: ^0.0.4
-  introduction_screen: ^3.1.12
   sentry_flutter: ^7.16.0
   sentry_logging: ^7.16.0
   sentry_hive: ^7.16.0
@@ -35,7 +32,6 @@ dependencies:
   collection: ^1.18.0
   flutter_foreground_service: ^0.4.1
   upgrader: ^9.0.0
-  flutter_json_view: ^1.1.4
   chart_sparkline: ^1.0.15+1
   dynamic_color: ^1.6.9
   package_info_plus: ^5.0.1
@@ -48,7 +44,7 @@ dependencies:
   awesome_snackbar_content: ^0.1.3
   flutter_colorpicker: ^1.0.3
   flutter_adaptive_scaffold: ^0.1.7+2
-  webview_flutter: ^4.5.0
+  webview_flutter: ^4.7.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   path_provider: ^2.1.2
@@ -62,10 +58,8 @@ dev_dependencies:
   riverpod_lint:
   riverpod_generator:
   flutter_native_splash: ^2.3.10
-  json_serializable: ^6.7.1
-  json_annotation: ^4.8.1
   riverpod_annotation: ^2.3.4
-  sentry_dart_plugin: ^1.6.3
+  sentry_dart_plugin: ^1.7.0
   intl_translation:
   hive_generator: ^2.0.1
 flutter:

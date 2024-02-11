@@ -6,7 +6,6 @@ import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.da
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -27,12 +26,10 @@ part 'Sensors.g.dart';
 
 //TODO: wrap EarGear Mic and Tilt to Sensors, send enable/disable commands with toggle
 //TODO: error callback to disable the sensor from the trigger definition, such as when permission is denied
-@JsonSerializable(explicitToJson: true)
 @HiveType(typeId: 2)
 class Trigger {
   @HiveField(1)
   late String triggerDef;
-  @JsonKey(includeToJson: false, includeFromJson: false)
   TriggerDefinition? triggerDefinition;
   bool _enabled = false;
   @HiveField(2, defaultValue: [DeviceType.tail, DeviceType.ears, DeviceType.wings])
@@ -83,10 +80,6 @@ class Trigger {
     triggerDef = triggerDefinition!.name;
     actions.addAll(triggerDefinition!.actionTypes.map((e) => TriggerAction(e.uuid)));
   }
-
-  factory Trigger.fromJson(Map<String, dynamic> json) => _$TriggerFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TriggerToJson(this);
 }
 
 @Riverpod()
@@ -327,7 +320,6 @@ class TriggerActionDef {
 }
 
 @HiveType(typeId: 8)
-@JsonSerializable(explicitToJson: true)
 class TriggerAction {
   @HiveField(1)
   String uuid; //uuid matches triggerActionDef
@@ -335,10 +327,6 @@ class TriggerAction {
   String? action;
 
   TriggerAction(this.uuid);
-
-  factory TriggerAction.fromJson(Map<String, dynamic> json) => _$TriggerActionFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TriggerActionToJson(this);
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is TriggerAction && runtimeType == other.runtimeType && uuid == other.uuid;

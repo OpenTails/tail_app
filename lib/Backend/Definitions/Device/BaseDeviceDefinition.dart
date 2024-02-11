@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 
 import '../../../Frontend/intnDefs.dart';
@@ -108,7 +107,6 @@ class BaseStatefulDevice {
   }
 }
 
-@JsonEnum()
 @HiveType(typeId: 12)
 enum AutoActionCategory {
   @HiveField(1)
@@ -133,25 +131,18 @@ extension AutoActionCategoryExtension on AutoActionCategory {
 }
 
 // All serialized/stored data
-@JsonSerializable(explicitToJson: true)
 @HiveType(typeId: 1)
 class BaseStoredDevice {
   @HiveField(0)
-  @JsonKey(defaultValue: "New Gear")
   String name = "New Gear";
   @HiveField(1)
-  @JsonKey(defaultValue: true)
   bool autoMove = true;
-  @JsonKey(defaultValue: 15)
   @HiveField(2)
   double autoMoveMinPause = 15;
   @HiveField(3)
-  @JsonKey(defaultValue: 240)
   double autoMoveMaxPause = 240;
   @HiveField(4)
-  @JsonKey(defaultValue: 60)
   double autoMoveTotal = 60;
-  @JsonKey(defaultValue: 1)
   @HiveField(5)
   double noPhoneDelayTime = 1;
   @HiveField(6)
@@ -162,10 +153,6 @@ class BaseStoredDevice {
   final String deviceDefinitionUUID;
 
   BaseStoredDevice(this.deviceDefinitionUUID, this.btMACAddress);
-
-  factory BaseStoredDevice.fromJson(Map<String, dynamic> json) => _$BaseStoredDeviceFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BaseStoredDeviceToJson(this);
 
   @override
   String toString() {

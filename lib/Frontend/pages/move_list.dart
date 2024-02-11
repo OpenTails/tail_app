@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
@@ -66,7 +66,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
               ),
               onTap: () async {
                 if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
-                  await Haptics.vibrate(HapticsType.selection);
+                  HapticFeedback.selectionClick();
                 }
                 ref.read(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).forEach((element) {
                   runAction(allMoveLists[index], element);

@@ -1,7 +1,6 @@
 import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
@@ -98,7 +97,6 @@ extension MoveTypeExtension on MoveType {
 }
 
 @HiveType(typeId: 5)
-@JsonSerializable(explicitToJson: true)
 class Move {
   //Range 0-180
   @HiveField(1)
@@ -116,10 +114,6 @@ class Move {
   EasingType easingType = EasingType.linear;
   @HiveField(6, defaultValue: MoveType.move)
   MoveType moveType = MoveType.move;
-
-  factory Move.fromJson(Map<String, dynamic> json) => _$MoveFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MoveToJson(this);
 
   Move();
 
@@ -143,17 +137,11 @@ class Move {
 }
 
 @HiveType(typeId: 3)
-@JsonSerializable(explicitToJson: true)
 class MoveList extends BaseAction {
   @HiveField(5)
   List<Move> moves = [];
   @HiveField(6)
   bool homeAtEnd = true;
-
-  factory MoveList.fromJson(Map<String, dynamic> json) => _$MoveListFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => _$MoveListToJson(this);
 
   MoveList(super.name, super.deviceCategory, super.actionCategory, super.uuid) {
     super.actionCategory = ActionCategory.sequence;
