@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  permission_handler: ^11.2.1
+  permission_handler: ^11.3.0
   cross_platform: ^3.0.1
   flutter_riverpod: ^2.4.10
   logging: ^1.2.0
