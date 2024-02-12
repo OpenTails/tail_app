@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
@@ -36,6 +37,11 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
     return null;
   }
 }
+
+const String serverUrl = "https://plausible.io";
+const String domain = "com.codel1417.tail_app";
+
+final plausible = Plausible(serverUrl, domain);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,7 +80,7 @@ Future<void> main() async {
   SentryHive.openBox<Trigger>('triggers');
   SentryHive.openBox<MoveList>('sequences');
   SentryHive.openBox<BaseStoredDevice>('devices');
-
+  plausible.enabled = false;
   await SentryFlutter.init(
     (options) {
       options.dsn = 'http://30dbd2cb36374c448885ee81aeae1419@192.168.50.189:8000/3';

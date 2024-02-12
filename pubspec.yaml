@@ -49,6 +49,7 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.1.2
   uuid: ^4.3.3
+  plausible_analytics: ^0.3.0
 dev_dependencies:
   build_runner:
   flutter_test:

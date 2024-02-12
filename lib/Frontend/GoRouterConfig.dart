@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plausible_analytics/navigator_observer.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
 import 'package:tail_app/Frontend/pages/Shell.dart';
@@ -9,6 +10,7 @@ import 'package:tail_app/Frontend/pages/move_list.dart';
 import 'package:tail_app/Frontend/pages/settings.dart';
 import 'package:tail_app/Frontend/pages/triggers.dart';
 
+import '../main.dart';
 import 'pages/Actions.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -18,7 +20,10 @@ final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>()
 final GoRouter router = GoRouter(
   debugLogDiagnostics: kDebugMode,
   navigatorKey: _rootNavigatorKey,
-  observers: [SentryNavigatorObserver()],
+  observers: [
+    SentryNavigatorObserver(),
+    PlausibleNavigatorObserver(plausible),
+  ],
   routes: [
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
