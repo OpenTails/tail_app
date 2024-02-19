@@ -26,7 +26,7 @@ dependencies:
   side_sheet_material3: ^0.0.2
   flutter_joystick: ^0.0.4
   sentry_flutter: ^7.16.0
-  sentry_logging: ^7.16.0
+  sentry_logging: ^7.16.1
   sentry_hive: ^7.16.0
   vector_math: ^2.1.4
   collection: ^1.18.0
