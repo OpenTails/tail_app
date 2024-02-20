@@ -43,19 +43,6 @@ class _SettingsState extends ConsumerState<Settings> {
           ),
         ),
         ListTile(
-          title: Text(settingsAutoConnectToggleTitle()),
-          leading: const Icon(Icons.bluetooth_searching),
-          subtitle: Text(settingsAutoConnectToggleSubTitle()),
-          trailing: Switch(
-            value: SentryHive.box('settings').get('alwaysScanning', defaultValue: false),
-            onChanged: (bool value) {
-              setState(() {
-                SentryHive.box('settings').put('alwaysScanning', value);
-              });
-            },
-          ),
-        ),
-        ListTile(
           //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
           title: Text(settingsErrorReportingToggleTitle()),
           leading: const Icon(Icons.error),

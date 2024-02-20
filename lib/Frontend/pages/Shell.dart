@@ -5,14 +5,14 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
-import 'package:side_sheet_material3/side_sheet_material3.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../Widgets/manage_devices.dart';
+import '../../Backend/AutoMove.dart';
 import '../intnDefs.dart';
 
 /// Flutter code sample for [NavigationDrawer].
@@ -149,7 +149,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
           ),
         ),
         // Define a default secondaryBody.
-        secondaryBody: (_) => WebViewWidget(controller: controller),
+        secondaryBody: AdaptiveScaffold.emptyBuilder,
         // Override the default secondaryBody during the smallBreakpoint to be
         // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
         // overridden.
@@ -166,73 +166,241 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                       .watch(knownDevicesProvider)
                       .values
                       .map(
-                        (e) => Card(
-                          color: e.baseDeviceDefinition.deviceType.color,
-                          child: InkWell(
-                            //TODO: on tap open device window
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: 50,
-                                width: 100,
-                                child: Stack(
-                                  children: [
-                                    Text(e.baseStoredDevice.name),
-                                    Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: MultiValueListenableBuilder(
-                                        builder: (BuildContext context, List<dynamic> values, Widget? child) {
-                                          if (e.deviceConnectionState.value == DeviceConnectionState.connected) {
-                                            return getBattery(e.battery.value);
-                                          } else {
-                                            return Text(e.deviceConnectionState.value.name);
-                                          }
-                                        },
-                                        valueListenables: [e.battery, e.deviceConnectionState],
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: MultiValueListenableBuilder(
-                                        builder: (BuildContext context, List<dynamic> values, Widget? child) {
-                                          if (e.deviceConnectionState.value == DeviceConnectionState.connected) {
-                                            return getSignal(e.rssi.value);
-                                          }
-                                          return Container();
-                                        },
-                                        valueListenables: [e.rssi, e.deviceConnectionState],
-                                      ),
-                                    )
-                                  ],
+                        (BaseStatefulDevice e) => buildDeviceCard(e, context),
+                      )
+                      .toList()
+                    ..add(
+                      Card(
+                        clipBehavior: Clip.antiAlias,
+                        child: InkWell(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              height: 50,
+                              width: ref.watch(knownDevicesProvider).values.length > 1 ? 200 : 100,
+                              child: Center(
+                                child: Text(
+                                  "Scan For New Devices",
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ),
                           ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              useRootNavigator: false,
+                              builder: (BuildContext context) {
+                                return SimpleDialog(
+                                  title: Text("Scan For New Devices"),
+                                  children: [
+                                    const ScanForNewDevice(),
+                                    Center(
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(ok()),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          },
                         ),
-                      )
-                      .toList(),
+                      ),
+                    ),
                 ),
               ),
             ),
           ),
           title: Text(title()),
-          actions: [
-            IconButton(
-                //TODO: Migrate to new widget
-                tooltip: manageDevices(),
-                onPressed: () async {
-                  await showModalSideSheet(
-                    context,
-                    header: manageDevices(),
-                    body: const ManageDevices(),
-                    // Put your content widget here
-                    addBackIconButton: true,
-                    addActions: false,
-                    addDivider: true,
-                  );
-                },
-                icon: const Icon(Icons.bluetooth))
-          ],
+        ),
+      ),
+    );
+  }
+
+  Card buildDeviceCard(BaseStatefulDevice e, BuildContext context) {
+    // Auto connect to known devices
+    if (ref.watch(btStatusProvider).valueOrNull == BleStatus.ready) {
+      ref.watch(scanForDevicesProvider);
+    }
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      color: e.deviceConnectionState.value == DeviceConnectionState.connected ? e.baseDeviceDefinition.deviceType.color : null,
+      child: InkWell(
+        onTap: () {
+          showModalBottomSheet(
+              context: context,
+              showDragHandle: true,
+              isScrollControlled: true,
+              enableDrag: true,
+              isDismissible: true,
+              builder: (BuildContext context) {
+                return StatefulBuilder(
+                  builder: (BuildContext context, setState) {
+                    return Wrap(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: TextField(
+                            controller: TextEditingController(text: e.baseStoredDevice.name),
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: sequencesEditName(),
+                              hintText: e.baseDeviceDefinition.btName,
+                            ),
+                            maxLines: 1,
+                            maxLength: 30,
+                            autocorrect: false,
+                            onSubmitted: (nameValue) {
+                              setState(
+                                () {
+                                  if (nameValue.isNotEmpty) {
+                                    e.baseStoredDevice.name = nameValue;
+                                  } else {
+                                    e.baseStoredDevice.name = e.baseDeviceDefinition.btName;
+                                  }
+                                },
+                              );
+                              ref.read(knownDevicesProvider.notifier).store();
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(manageDevicesAutoMoveTitle()),
+                          subtitle: Text(manageDevicesAutoMoveSubTitle()),
+                          trailing: Switch(
+                            value: e.baseStoredDevice.autoMove,
+                            onChanged: (bool value) {
+                              setState(() {
+                                e.baseStoredDevice.autoMove = value;
+                              });
+                              ref.read(knownDevicesProvider.notifier).store();
+                              ChangeAutoMove(e);
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(manageDevicesAutoMoveGroupsTitle()),
+                          subtitle: SegmentedButton<AutoActionCategory>(
+                            multiSelectionEnabled: true,
+                            selected: e.baseStoredDevice.selectedAutoCategories.toSet(),
+                            onSelectionChanged: (Set<AutoActionCategory> value) {
+                              setState(() {
+                                e.baseStoredDevice.selectedAutoCategories = value.toList();
+                              });
+                              ref.read(knownDevicesProvider.notifier).store();
+                              ChangeAutoMove(e);
+                            },
+                            segments: AutoActionCategory.values.map<ButtonSegment<AutoActionCategory>>(
+                              (AutoActionCategory value) {
+                                return ButtonSegment<AutoActionCategory>(
+                                  value: value,
+                                  label: Text(value.friendly),
+                                );
+                              },
+                            ).toList(),
+                          ),
+                        ),
+                        ListTile(
+                            title: Text(manageDevicesAutoMovePauseTitle()),
+                            subtitle: RangeSlider(
+                              labels: RangeLabels(manageDevicesAutoMovePauseSliderLabel(e.baseStoredDevice.autoMoveMinPause.round()), manageDevicesAutoMovePauseSliderLabel(e.baseStoredDevice.autoMoveMaxPause.round())),
+                              min: 15,
+                              max: 240,
+                              values: RangeValues(e.baseStoredDevice.autoMoveMinPause, e.baseStoredDevice.autoMoveMaxPause),
+                              onChanged: (RangeValues value) {
+                                setState(() {
+                                  e.baseStoredDevice.autoMoveMinPause = value.start;
+                                  e.baseStoredDevice.autoMoveMaxPause = value.end;
+                                });
+                                ref.read(knownDevicesProvider.notifier).store();
+                              },
+                              onChangeEnd: (values) {
+                                ChangeAutoMove(e);
+                              },
+                            )),
+                        ListTile(
+                          title: Text(manageDevicesAutoMoveNoPhoneTitle()),
+                          subtitle: Slider(
+                            value: e.baseStoredDevice.noPhoneDelayTime,
+                            min: 1,
+                            max: 60,
+                            onChanged: (double value) {
+                              setState(() {
+                                e.baseStoredDevice.noPhoneDelayTime = value;
+                              });
+                              ref.read(knownDevicesProvider.notifier).store();
+                            },
+                            label: manageDevicesAutoMoveNoPhoneSliderLabel(e.baseStoredDevice.noPhoneDelayTime.round()),
+                          ),
+                        ),
+                        ButtonBar(
+                          alignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  e.connectionStateStreamSubscription = null;
+                                });
+                              },
+                              child: Text(manageDevicesDisconnect()),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  e.connectionStateStreamSubscription = null;
+                                });
+                                ref.watch(knownDevicesProvider.notifier).remove(e.baseStoredDevice.btMACAddress);
+                              },
+                              child: Text(manageDevicesForget()),
+                            )
+                          ],
+                        )
+                      ],
+                    );
+                  },
+                );
+              });
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 50,
+            width: 100,
+            child: Stack(
+              children: [
+                Text(e.baseStoredDevice.name),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: MultiValueListenableBuilder(
+                    builder: (BuildContext context, List<dynamic> values, Widget? child) {
+                      if (e.deviceConnectionState.value == DeviceConnectionState.connected) {
+                        return getBattery(e.battery.value);
+                      } else {
+                        return Text(e.deviceConnectionState.value.name);
+                      }
+                    },
+                    valueListenables: [e.battery, e.deviceConnectionState],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: MultiValueListenableBuilder(
+                    builder: (BuildContext context, List<dynamic> values, Widget? child) {
+                      if (e.deviceConnectionState.value == DeviceConnectionState.connected) {
+                        return getSignal(e.rssi.value);
+                      }
+                      return Container();
+                    },
+                    valueListenables: [e.rssi, e.deviceConnectionState],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

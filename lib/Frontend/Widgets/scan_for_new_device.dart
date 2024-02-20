@@ -17,7 +17,6 @@ class ScanForNewDevice extends ConsumerStatefulWidget {
 }
 
 class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
-  final ScrollController _controller = ScrollController();
   Map<String, DiscoveredDevice> devices = {};
 
   @override
@@ -40,7 +39,6 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
           }
         }
       }
-      List<DiscoveredDevice> devicesList = devices.values.toList();
       return Column(
         children: [
           ListTile(
@@ -55,23 +53,24 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
             ),
             title: Text(scanDevicesAutoConnectTitle()),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: devices.length,
-            controller: _controller,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(getNameFromBTName(devicesList[index].name)),
-                trailing: Text(devicesList[index].id),
-                onTap: () {
-                  ref.watch(knownDevicesProvider.notifier).connect(devicesList[index]);
-                  setState(() {
-                    devices.remove(devicesList[index].id);
-                  });
-                  //Navigator.pop(context);
-                },
-              );
-            },
+          Wrap(
+            children: devices.values
+                .map(
+                  (e) => ListTile(
+                    title: Text(getNameFromBTName(e.name)),
+                    trailing: Text(e.id),
+                    onTap: () {
+                      ref.watch(knownDevicesProvider.notifier).connect(e);
+                      setState(
+                        () {
+                          devices.remove(e.id);
+                        },
+                      );
+                      //Navigator.pop(context);
+                    },
+                  ),
+                )
+                .toList(),
           ),
           Padding(
               padding: const EdgeInsets.only(top: 20),

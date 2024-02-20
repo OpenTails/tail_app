@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +23,7 @@ part 'BluetoothManager.g.dart';
 Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
   Flogger.d("Starting scan");
   final FlutterReactiveBle bluetoothManagerRef = ref.watch(reactiveBLEProvider);
-  Stream<DiscoveredDevice> scanStream = bluetoothManagerRef.scanForDevices(withServices: DeviceRegistry.getAllIds()).asBroadcastStream();
+  Stream<DiscoveredDevice> scanStream = bluetoothManagerRef.scanForDevices(withServices: DeviceRegistry.getAllIds(), requireLocationServicesEnabled: false, scanMode: ScanMode.lowPower).asBroadcastStream();
   scanStream.listen((DiscoveredDevice event) {
     if (ref.read(knownDevicesProvider).containsKey(event.id) && ref.read(knownDevicesProvider)[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected) {
       ref.read(knownDevicesProvider.notifier).connect(event);
@@ -172,7 +172,7 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         knownDevices[event.deviceId]?.keepAliveStreamSubscription = null;
         knownDevices[event.deviceId]?.battery.value = -1;
         knownDevices[event.deviceId]?.rssi.value = -1;
-        ref.read(snackbarStreamProvider.notifier).add(AwesomeSnackbarContent(title: "Disconnected", message: "Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}", contentType: ContentType.warning));
+        ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}")));
         //remove foreground service if no devices connected
         if (Platform.isAndroid && knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isEmpty) {
           ForegroundService().stop();

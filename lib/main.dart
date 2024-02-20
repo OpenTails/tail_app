@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -38,8 +37,8 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
   }
 }
 
-const String serverUrl = "https://plausible.io";
-const String domain = "com.codel1417.tail_app";
+const String serverUrl = "https://plausible.codel1417.xyz";
+const String domain = "tail_app";
 
 final plausible = Plausible(serverUrl, domain);
 
@@ -83,7 +82,7 @@ Future<void> main() async {
   plausible.enabled = false;
   await SentryFlutter.init(
     (options) {
-      options.dsn = 'http://30dbd2cb36374c448885ee81aeae1419@192.168.50.189:8000/3';
+      options.dsn = 'https://1c6815c83f0644db8d569f0ba454f035@glitchtip.codel1417.xyz/2';
       options.addIntegration(LoggingIntegration());
       options.attachScreenshot = true;
       options.attachViewHierarchy = true;
@@ -120,55 +119,46 @@ Future<void> main() async {
 class TailApp extends ConsumerWidget {
   const TailApp({super.key});
 
+  static const FlexScheme usedScheme = FlexScheme.orangeM3;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Flogger.i('Starting app');
-    return DynamicColorBuilder(
-      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-        var light = ThemeData(
+    return BetterFeedback(
+      themeMode: ThemeMode.system,
+      darkTheme: FeedbackThemeData.dark(),
+      child: MaterialApp.router(
+        title: subTitle(),
+        theme: FlexThemeData.light(
+          scheme: usedScheme,
+          // Use very subtly themed app bar elevation in light mode.
+          appBarElevation: 0.5,
           useMaterial3: true,
-          colorScheme: lightDynamic,
-        );
-        var dark = ThemeData(
+          // We use the nicer Material-3 Typography in both M2 and M3 mode.
+          typography: Typography.material2021(platform: defaultTargetPlatform),
+        ),
+        darkTheme: FlexThemeData.dark(
+          scheme: usedScheme,
+          // Use a bit more themed elevated app bar in dark mode.
+          appBarElevation: 2,
           useMaterial3: true,
-          colorScheme: darkDynamic,
-        );
-        if (lightDynamic == null) {
-          light = ThemeData(
-            useMaterial3: true,
-            brightness: Brightness.light,
-            colorSchemeSeed: Colors.orange,
-          );
-        }
-        if (darkDynamic == null) {
-          dark = ThemeData(
-            useMaterial3: true,
-            brightness: Brightness.dark,
-            colorSchemeSeed: Colors.orange,
-          );
-        }
-        return AdaptiveTheme(
-          light: light,
-          dark: dark,
-          initial: AdaptiveThemeMode.system,
-          builder: (theme, darkTheme) {
-            return BetterFeedback(
-              themeMode: ThemeMode.system,
-              darkTheme: FeedbackThemeData.dark(),
-              child: MaterialApp.router(title: subTitle(), theme: theme, darkTheme: darkTheme, routerConfig: router, localizationsDelegates: const [
-                AppLocalizations.delegate, // Add this line
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ], supportedLocales: const [
-                Locale('en'), // English
-                Locale('ace'), // UwU
-              ]),
-            );
-          },
-        );
-      },
+          // We use the nicer Material-3 Typography in both M2 and M3 mode.
+          typography: Typography.material2021(platform: defaultTargetPlatform),
+        ),
+        routerConfig: router,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en'), // English
+          Locale('ace'), // UwU
+        ],
+        themeMode: ThemeMode.system,
+      ),
     );
   }
 }

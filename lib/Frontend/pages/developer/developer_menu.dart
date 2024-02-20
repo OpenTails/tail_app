@@ -1,4 +1,3 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,9 +11,6 @@ import '../../../Backend/DeviceRegistry.dart';
 class DeveloperMenu extends ConsumerStatefulWidget {
   const DeveloperMenu({super.key});
 
-  //TODO: Show hidden device state/values
-  //TODO: Steal Snacks
-  //TODO: Backup/Restore json
   @override
   ConsumerState<DeveloperMenu> createState() => _DeveloperMenuState();
 }
@@ -74,9 +70,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 ref.read(knownDevicesProvider.notifier).add(statefulDevice);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: AwesomeSnackbarContent(title: "Gear already Exists", message: "Did not add dev gear, Gear already exists", contentType: ContentType.failure),
-                  ),
+                  const SnackBar(content: Text("Did not add dev gear, Gear already exists")),
                 );
               }
             },
@@ -97,12 +91,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 ref.read(knownDevicesProvider.notifier).add(statefulDevice);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    elevation: 0,
-                    behavior: SnackBarBehavior.floating,
-                    backgroundColor: Colors.transparent,
-                    content: AwesomeSnackbarContent(title: "Gear already Exists", message: "Did not add dev gear, Gear already exists", contentType: ContentType.failure),
-                  ),
+                  const SnackBar(content: Text("Did not add dev gear, Gear already exists")),
                 );
               }
             },
@@ -153,6 +142,26 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             ),
           ),
           ListTile(
+            title: const Text("Set RSSI Level"),
+            leading: const Icon(Icons.battery_full),
+            subtitle: Slider(
+              min: -80,
+              max: -1,
+              value: ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.rssi.value.toDouble() ?? -1,
+              onChanged: (double value) {
+                setState(
+                  () {
+                    ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).forEach(
+                      (element) {
+                        element.rssi.value = value.round();
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          ListTile(
             title: const Text("Remove Dev Gear"),
             leading: const Icon(Icons.delete),
             onTap: () {
@@ -160,36 +169,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               ref.read(knownDevicesProvider.notifier).remove(""); // force update
             },
           ),
-          ListTile(
-            title: Text(
-              "Stored JSON",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-/*          ListTile( //TODO: debug hive box
-            title: const Text("Triggers"),
-            onTap: () {
-              context.push('/settings/developer/json', extra: const JsonEncoder.withIndent("    ").convert(prefs.getStringList("triggers")));
-            },
-          ),
-          ListTile(
-            title: const Text("Sequences"),
-            onTap: () {
-              context.push('/settings/developer/json', extra: const JsonEncoder.withIndent("    ").convert(prefs.getStringList("sequences")));
-            },
-          ),
-          ListTile(
-            title: const Text("Devices"),
-            onTap: () {
-              context.push('/settings/developer/json', extra: const JsonEncoder.withIndent("    ").convert(prefs.getStringList("devices")));
-            },
-          ),
-          ListTile(
-            title: const Text("Settings"),
-            onTap: () {
-              context.push('/settings/developer/json', extra: prefs.getString("settings"));
-            },
-          )*/
         ],
       ),
     );
