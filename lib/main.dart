@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:feedback_sentry/feedback_sentry.dart';
+import 'package:fk_user_agent/fk_user_agent.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,13 +39,20 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
   }
 }
 
-const String serverUrl = "https://plausible.codel1417.xyz";
-const String domain = "tail_app";
+const String serverUrl = "https://plausable.codel1417.xyz";
+const String domain = "tail-app";
 
-final plausible = Plausible(serverUrl, domain);
+final Plausible plausible = Plausible(serverUrl, domain);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FkUserAgent.init();
+  // Platform messages may fail, so we use a try/catch PlatformException.
+  try {
+    String platformVersion = FkUserAgent.userAgent!;
+    plausible.userAgent = platformVersion;
+  } on PlatformException {}
+  plausible.enabled = true;
   Flogger.init(config: const FloggerConfig(showDebugLogs: true, printClassName: true, printMethodName: true, showDateTime: false));
   PlatformDispatcher.instance.onError = (error, stack) {
     Flogger.e(error.toString(), stackTrace: stack);
@@ -79,7 +88,6 @@ Future<void> main() async {
   SentryHive.openBox<Trigger>('triggers');
   SentryHive.openBox<MoveList>('sequences');
   SentryHive.openBox<BaseStoredDevice>('devices');
-  plausible.enabled = false;
   await SentryFlutter.init(
     (options) {
       options.dsn = 'https://1c6815c83f0644db8d569f0ba454f035@glitchtip.codel1417.xyz/2';

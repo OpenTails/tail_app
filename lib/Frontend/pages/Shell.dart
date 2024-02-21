@@ -10,7 +10,6 @@ import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../Backend/AutoMove.dart';
 import '../intnDefs.dart';
@@ -47,19 +46,6 @@ class NavigationDrawerExample extends ConsumerStatefulWidget {
 
 class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExample> {
   int screenIndex = 0;
-  var controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(const Color(0x00000000))
-    ..setNavigationDelegate(
-      NavigationDelegate(
-        onProgress: (int progress) {
-          // Update loading bar.
-        },
-        onPageStarted: (String url) {},
-        onPageFinished: (String url) {},
-      ),
-    )
-    ..loadRequest(Uri.parse('https://thetailcompany.com/'));
 
   Widget getSignal(int rssi) {
     if (rssi < -2) {
