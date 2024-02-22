@@ -10,7 +10,7 @@ import '../../Backend/Bluetooth/BluetoothManager.dart';
 import '../intnDefs.dart';
 
 class ScanForNewDevice extends ConsumerStatefulWidget {
-  const ScanForNewDevice({super.key});
+  ScanForNewDevice({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ScanForNewDevice();
@@ -21,6 +21,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
 
   @override
   void initState() {
+    devices = {};
     super.initState();
   }
 
@@ -54,23 +55,28 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
             title: Text(scanDevicesAutoConnectTitle()),
           ),
           Wrap(
-            children: devices.values
-                .map(
-                  (e) => ListTile(
-                    title: Text(getNameFromBTName(e.name)),
-                    trailing: Text(e.id),
-                    onTap: () {
-                      ref.watch(knownDevicesProvider.notifier).connect(e);
-                      setState(
-                        () {
-                          devices.remove(e.id);
+            children: [
+              ListView(
+                shrinkWrap: true,
+                children: devices.values
+                    .map(
+                      (e) => ListTile(
+                        title: Text(getNameFromBTName(e.name)),
+                        trailing: Text(e.id),
+                        onTap: () {
+                          ref.watch(knownDevicesProvider.notifier).connect(e);
+                          setState(
+                            () {
+                              devices.remove(e.id);
+                            },
+                          );
+                          Navigator.pop(context);
                         },
-                      );
-                      //Navigator.pop(context);
-                    },
-                  ),
-                )
-                .toList(),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
           ),
           Padding(
               padding: const EdgeInsets.only(top: 20),

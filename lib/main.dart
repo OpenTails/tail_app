@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:fk_user_agent/fk_user_agent.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
+import 'package:sentry_dio/sentry_dio.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
@@ -92,8 +94,8 @@ Future<void> main() async {
     (options) {
       options.dsn = 'https://1c6815c83f0644db8d569f0ba454f035@glitchtip.codel1417.xyz/2';
       options.addIntegration(LoggingIntegration());
-      options.attachScreenshot = true;
-      options.attachViewHierarchy = true;
+      options.attachScreenshot = true; //not supported on GlitchTip
+      options.attachViewHierarchy = true; //not supported on GlitchTip
       options.tracesSampleRate = 1.0;
       options.profilesSampleRate = 1.0;
       options.attachThreads = true;
@@ -122,6 +124,14 @@ Future<void> main() async {
       ),
     ),
   );
+}
+
+void initDio() {
+  final dio = Dio();
+
+  /// This *must* be the last initialization step of the Dio setup, otherwise
+  /// your configuration of Dio might overwrite the Sentry configuration.
+  dio.addSentry();
 }
 
 class TailApp extends ConsumerWidget {

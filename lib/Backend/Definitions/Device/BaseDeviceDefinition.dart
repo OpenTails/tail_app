@@ -6,6 +6,7 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
+import 'package:tail_app/Backend/FirmwareUpdate.dart';
 
 import '../../../Frontend/intnDefs.dart';
 
@@ -49,15 +50,14 @@ enum DeviceState { standby, runAction, busy }
 
 class BaseDeviceDefinition {
   final String uuid;
-  final String model;
   final String btName;
   final Uuid bleDeviceService;
   final Uuid bleRxCharacteristic;
   final Uuid bleTxCharacteristic;
-  final Icon icon;
   final DeviceType deviceType;
+  final String fwURL;
 
-  const BaseDeviceDefinition(this.uuid, this.model, this.btName, this.bleDeviceService, this.bleRxCharacteristic, this.bleTxCharacteristic, this.icon, this.deviceType);
+  const BaseDeviceDefinition(this.uuid, this.btName, this.bleDeviceService, this.bleRxCharacteristic, this.bleTxCharacteristic, this.deviceType, this.fwURL);
 
   @override
   String toString() {
@@ -72,8 +72,10 @@ class BaseStatefulDevice {
   late QualifiedCharacteristic rxCharacteristic;
   late QualifiedCharacteristic txCharacteristic;
   late QualifiedCharacteristic batteryCharacteristic;
-  late QualifiedCharacteristic otaCharacteristic;
+  late QualifiedCharacteristic batteryChargeCharacteristic;
+
   ValueNotifier<double> battery = ValueNotifier(-1);
+  ValueNotifier<bool> batteryCharging = ValueNotifier(false);
   ValueNotifier<String> fwVersion = ValueNotifier("");
   ValueNotifier<bool> glowTip = ValueNotifier(false);
   StreamSubscription<ConnectionStateUpdate>? connectionStateStreamSubscription;
@@ -84,6 +86,8 @@ class BaseStatefulDevice {
   Stream<List<int>>? get rxCharacteristicStream => _rxCharacteristicStream;
   ValueNotifier<DeviceConnectionState> deviceConnectionState = ValueNotifier(DeviceConnectionState.disconnected);
   ValueNotifier<int> rssi = ValueNotifier(-1);
+  ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
+  ValueNotifier<bool> hasUpdate = ValueNotifier(false);
 
   set rxCharacteristicStream(Stream<List<int>>? value) {
     _rxCharacteristicStream = value?.asBroadcastStream();
@@ -92,13 +96,15 @@ class BaseStatefulDevice {
   Ref? ref;
   late CommandQueue commandQueue;
   StreamSubscription<List<int>>? batteryCharacteristicStreamSubscription;
+  StreamSubscription<List<int>>? batteryChargeCharacteristicStreamSubscription;
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
     rxCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleRxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
     txCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleTxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
     batteryCharacteristic = QualifiedCharacteristic(serviceId: Uuid.parse("0000180f-0000-1000-8000-00805f9b34fb"), characteristicId: Uuid.parse("00002a19-0000-1000-8000-00805f9b34fb"), deviceId: baseStoredDevice.btMACAddress);
+    batteryChargeCharacteristic = QualifiedCharacteristic(serviceId: Uuid.parse("0000180f-0000-1000-8000-00805f9b34fb"), characteristicId: Uuid.parse("5073792e-4fc0-45a0-b0a5-78b6c1756c91"), deviceId: baseStoredDevice.btMACAddress);
+
     commandQueue = CommandQueue(ref, this);
-    otaCharacteristic = QualifiedCharacteristic(characteristicId: Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"), serviceId: Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"), deviceId: baseStoredDevice.btMACAddress);
   }
 
   @override

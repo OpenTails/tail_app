@@ -59,6 +59,14 @@
     	    <string>Need Location permission</string>
 <key>NSMotionUsageDescription</key>
 <string>This application tracks your steps</string>
+    <key>NSBonjourServices</key>
+    <array>
+        <string>_tailapp._tcp</string>
+    </array>
+    <key>UIRequiresPersistentWiFi</key>
+    <true/>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>{YOUR_DESCRIPTION}</string>
 <key>UIBackgroundModes</key>
 <array>
     <string>processing</string>

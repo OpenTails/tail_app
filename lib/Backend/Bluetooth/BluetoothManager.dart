@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
@@ -15,9 +16,12 @@ import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 
 import '../Definitions/Device/BaseDeviceDefinition.dart';
 import '../DeviceRegistry.dart';
+import '../FirmwareUpdate.dart';
 import 'btMessage.dart';
 
 part 'BluetoothManager.g.dart';
+
+Dio dio = Dio();
 
 @Riverpod(dependencies: [reactiveBLE, KnownDevices])
 Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
@@ -75,7 +79,7 @@ class KnownDevices extends _$KnownDevices {
 
   Future<void> connect(DiscoveredDevice device) async {
     final ISentrySpan transaction = Sentry.startTransaction('connectToDevice()', 'task');
-    BaseDeviceDefinition? deviceDefinition = DeviceRegistry.getByService(device.serviceUuids);
+    BaseDeviceDefinition? deviceDefinition = DeviceRegistry.getByName(device.name);
     if (deviceDefinition == null) {
       Flogger.w("Unknown device found: ${device.name}");
       transaction.status = const SpanStatus.notFound();
@@ -113,16 +117,26 @@ class KnownDevices extends _$KnownDevices {
             Flogger.i("Received message from ${baseStoredDevice.name}: $value");
             if (value.startsWith("VER")) {
               statefulDevice.fwVersion.value = value.substring(value.indexOf(" "));
+              if (statefulDevice.fwInfo.value != null) {
+                if (statefulDevice.fwInfo.value?.version.split(" ")[1] != statefulDevice.fwVersion.value) {
+                  statefulDevice.hasUpdate.value = true;
+                }
+              }
             } else if (value.startsWith("GLOWTIP")) {
               statefulDevice.glowTip.value = "TRUE" == value.substring(value.indexOf(" "));
             } else if (value.contains("BUSY")) {
-              statefulDevice.deviceState.value = DeviceState.busy;
+              //statefulDevice.deviceState.value = DeviceState.busy;
               //TODO: add busy check to see if gear ready for next command
             }
           });
           statefulDevice.batteryCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryCharacteristic).listen((List<int> event) {
             Flogger.d("Received Battery message from ${baseStoredDevice.name}: $event");
             statefulDevice.battery.value = event.first.toDouble();
+          });
+          statefulDevice.batteryChargeCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryChargeCharacteristic).listen((List<int> event) {
+            String value = const Utf8Decoder().convert(event);
+            Flogger.d("Received Battery Charge message from ${baseStoredDevice.name}: $value");
+            statefulDevice.batteryCharging.value = value == "CHARGE ON";
           });
           statefulDevice.keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen((event) async {
             if (state.containsKey(device.id)) {
@@ -132,6 +146,21 @@ class KnownDevices extends _$KnownDevices {
               throw Exception("Disconnected from device");
             }
           }, cancelOnError: true);
+          if (deviceDefinition.fwURL != "") {
+            dio.get(statefulDevice.baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
+              (value) {
+                if (value.statusCode == 200) {
+                  statefulDevice.fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
+                  if (statefulDevice.fwVersion.value != "") {
+                    if (statefulDevice.fwInfo.value?.version.split(" ")[1] != statefulDevice.fwVersion.value) {
+                      statefulDevice.hasUpdate.value = true;
+                    }
+                  }
+                }
+              },
+            ).onError((error, stackTrace) => Flogger.e("Unable to get Firmware info for ${statefulDevice.baseDeviceDefinition.fwURL} :$error", stackTrace: stackTrace));
+          }
+          statefulDevice.commandQueue.addCommand(BluetoothMessage("VER", statefulDevice, Priority.low));
         }
       });
       transaction.status = const SpanStatus.ok();
@@ -172,6 +201,13 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         knownDevices[event.deviceId]?.keepAliveStreamSubscription = null;
         knownDevices[event.deviceId]?.battery.value = -1;
         knownDevices[event.deviceId]?.rssi.value = -1;
+        knownDevices[event.deviceId]?.hasUpdate.value = false;
+        knownDevices[event.deviceId]?.fwInfo.value = null;
+        knownDevices[event.deviceId]?.fwVersion.value = "";
+        knownDevices[event.deviceId]?.batteryCharging.value = false;
+        knownDevices[event.deviceId]?.batteryChargeCharacteristicStreamSubscription?.cancel();
+        knownDevices[event.deviceId]?.batteryChargeCharacteristicStreamSubscription = null;
+
         ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}")));
         //remove foreground service if no devices connected
         if (Platform.isAndroid && knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isEmpty) {

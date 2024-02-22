@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'package:flutter_nearby_connections/flutter_nearby_connections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:logging_flutter/logging_flutter.dart';
@@ -19,13 +19,13 @@ import '../Frontend/intnDefs.dart';
 import 'Bluetooth/BluetoothManager.dart';
 import 'Definitions/Action/BaseAction.dart';
 import 'Definitions/Device/BaseDeviceDefinition.dart';
-import 'DeviceRegistry.dart';
 import 'moveLists.dart';
 
 part 'Sensors.g.dart';
 
 //TODO: wrap EarGear Mic and Tilt to Sensors, send enable/disable commands with toggle
 //TODO: error callback to disable the sensor from the trigger definition, such as when permission is denied
+//TODO: Call disable method when last device reconnects, call enable method when first device connects
 @HiveType(typeId: 2)
 class Trigger {
   @HiveField(1)
@@ -70,7 +70,7 @@ class Trigger {
   }
 
   @HiveField(3)
-  List<TriggerAction> actions = []; //TODO: Store action as a uuid, and find on demand
+  List<TriggerAction> actions = [];
 
   Trigger(this.triggerDef) {
     // called by hive when loading object
@@ -157,10 +157,10 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     pedestrianStatusStream = Pedometer.pedestrianStatusStream.listen(
       (PedestrianStatus event) {
         Flogger.i("PedestrianStatus:: ${event.status}");
-        if (event.status == "Walking") {
+        if (event.status == "walking") {
           TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Walking").uuid == element.uuid);
           sendCommands(deviceType, action.action, ref);
-        } else if (event.status == "Stopped") {
+        } else if (event.status == "stopped") {
           TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Stopped").uuid == element.uuid);
           sendCommands(deviceType, action.action, ref);
         }
@@ -278,7 +278,8 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 }
 
 class TailProximityTriggerDefinition extends TriggerDefinition {
-  StreamSubscription<DiscoveredDevice>? btStream;
+  StreamSubscription? subscription;
+  NearbyService? nearbyService;
 
   TailProximityTriggerDefinition(super.ref) {
     super.name = triggerProximityTitle();
@@ -290,14 +291,26 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    btStream?.cancel();
-    btStream = null;
+    subscription?.cancel();
+    subscription = null;
+    await nearbyService?.stopAdvertisingPeer();
+    await nearbyService?.stopBrowsingForPeers();
   }
 
   @override
   Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
-    btStream = ref.read(reactiveBLEProvider).scanForDevices(withServices: DeviceRegistry.getAllIds()).where((event) => !ref.read(knownDevicesProvider).keys.contains(event.id)).listen((DiscoveredDevice device) {
-      Flogger.d("TailProximityTriggerDefinition:: $device");
+    nearbyService = NearbyService();
+    await nearbyService?.init(
+        serviceType: "tailapp",
+        strategy: Strategy.P2P_POINT_TO_POINT,
+        callback: (isRunning) async {
+          if (isRunning) {
+            await nearbyService?.startAdvertisingPeer();
+            await nearbyService?.startBrowsingForPeers();
+          }
+        });
+    subscription = nearbyService?.stateChangedSubscription(callback: (devicesList) {
+      Flogger.d("TailProximityTriggerDefinition::");
       TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Nearby Gear").uuid == element.uuid);
       sendCommands(deviceType, action.action, ref);
     });

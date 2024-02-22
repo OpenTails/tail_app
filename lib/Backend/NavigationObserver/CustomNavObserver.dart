@@ -16,7 +16,6 @@ class CustomNavObserver extends NavigatorObserver {
     String? name = route.settings.name;
     String refferalName = previousRoute?.settings.name ?? "";
     if (name != null) {
-      plausible.screenWidth = MediaQuery.of(route.navigator!.context).size.width.toString();
       plausible.event(page: route.settings.name.toString(), props: {"Number Of Devices": SentryHive.box<BaseStoredDevice>('devices').length.toString()}, referrer: refferalName);
     }
   }

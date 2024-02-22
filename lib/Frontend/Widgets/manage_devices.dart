@@ -8,7 +8,7 @@ class ManageDevices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: const [
+      children: [
         ManageKnownDevices(),
         ScanForNewDevice(),
       ],

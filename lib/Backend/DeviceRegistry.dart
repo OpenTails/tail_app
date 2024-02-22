@@ -11,16 +11,68 @@ part 'DeviceRegistry.g.dart';
 @immutable
 class DeviceRegistry {
   static Set<BaseDeviceDefinition> allDevices = {
-    BaseDeviceDefinition("798e1528-2832-4a87-93d7-4d1b25a2f418", "MiTail", "MiTail", Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"), Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"), Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"), const Icon(Icons.bluetooth), DeviceType.tail),
-    BaseDeviceDefinition("927dee04-ddd4-4582-8e42-69dc9fbfae66", "EG2", "EG2", Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66"), Uuid.parse("0b646a19-371e-4327-b169-9632d56c0e84"), Uuid.parse("05e026d8-b395-4416-9f8a-c00d6c3781b9"), const Icon(Icons.bluetooth), DeviceType.ears)
+    BaseDeviceDefinition(
+      "798e1528-2832-4a87-93d7-4d1b25a2f418",
+      "MiTail",
+      Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"),
+      Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"),
+      Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"),
+      DeviceType.tail,
+      "https://thetailcompany.com/fw/mitail",
+    ),
+    BaseDeviceDefinition(
+      "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee",
+      "(!)Tail1",
+      Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"),
+      Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"),
+      Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"),
+      DeviceType.tail,
+      "",
+    ),
+    BaseDeviceDefinition(
+      "5fb21175-fef4-448a-a38b-c472d935abab",
+      "minitail",
+      Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"),
+      Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"),
+      Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"),
+      DeviceType.tail,
+      "https://thetailcompany.com/fw/mini",
+    ),
+    BaseDeviceDefinition(
+      "e790f509-f95b-4eb4-b649-5b43ee1eee9c",
+      "flutter",
+      Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"),
+      Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"),
+      Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"),
+      DeviceType.wings,
+      "https://thetailcompany.com/fw/flutter",
+    ),
+    BaseDeviceDefinition(
+      "927dee04-ddd4-4582-8e42-69dc9fbfae66",
+      "EG2",
+      Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66"),
+      Uuid.parse("0b646a19-371e-4327-b169-9632d56c0e84"),
+      Uuid.parse("05e026d8-b395-4416-9f8a-c00d6c3781b9"),
+      DeviceType.ears,
+      "https://thetailcompany.com/fw/eg",
+    ),
+    BaseDeviceDefinition(
+      "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d",
+      "EarGear",
+      Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66"),
+      Uuid.parse("0b646a19-371e-4327-b169-9632d56c0e84"),
+      Uuid.parse("05e026d8-b395-4416-9f8a-c00d6c3781b9"),
+      DeviceType.ears,
+      "",
+    ),
   };
 
   static BaseDeviceDefinition getByUUID(String uuid) {
     return allDevices.firstWhere((BaseDeviceDefinition element) => element.uuid == uuid);
   }
 
-  static BaseDeviceDefinition getByName(String id) {
-    return allDevices.firstWhere((BaseDeviceDefinition element) => element.btName == id);
+  static BaseDeviceDefinition? getByName(String id) {
+    return allDevices.firstWhere((BaseDeviceDefinition element) => element.btName.toLowerCase() == id.toLowerCase());
   }
 
   static bool hasByName(String id) {
