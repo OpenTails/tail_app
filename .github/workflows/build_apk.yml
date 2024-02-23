@@ -3,7 +3,7 @@ on:
   pull_request:
 
 env:
-  SENTRY_AUTH_TOKEN: ${{ var.SENTRY_AUTH_TOKEN }}
+  SENTRY_AUTH_TOKEN: ${{ vars.SENTRY_AUTH_TOKEN }}
 jobs:
   build_android:
     name: Build Android Artifact
