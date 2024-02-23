@@ -9,6 +9,7 @@ import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/moveLists.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../main.dart';
 import '../intnDefs.dart';
 
 class MoveListView extends ConsumerStatefulWidget {
@@ -30,6 +31,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
             ref.watch(moveListsProvider.notifier).add(MoveList(sequencesPage(), DeviceType.values.toList(), ActionCategory.sequence, const Uuid().v4()));
             ref.watch(moveListsProvider.notifier).store();
           });
+          plausible.event(name: "Add Sequence");
           context.push<MoveList>("/moveLists/editMoveList", extra: ref.watch(moveListsProvider).last).then((value) => setState(() {
                 if (value != null) {
                   ref.watch(moveListsProvider).last = value;
