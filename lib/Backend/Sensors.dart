@@ -25,7 +25,6 @@ part 'Sensors.g.dart';
 
 //TODO: wrap EarGear Mic and Tilt to Sensors, send enable/disable commands with toggle
 //TODO: error callback to disable the sensor from the trigger definition, such as when permission is denied
-//TODO: Call disable method when last device reconnects, call enable method when first device connects
 @HiveType(typeId: 2)
 class Trigger extends ChangeNotifier {
   @HiveField(1)

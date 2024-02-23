@@ -85,14 +85,16 @@ Future<void> main() async {
     ..registerAdapter(SpeedAdapter())
     ..registerAdapter(MoveTypeAdapter())
     ..registerAdapter(EasingTypeAdapter())
-    ..registerAdapter(AutoActionCategoryAdapter());
+    ..registerAdapter(
+      AutoActionCategoryAdapter(),
+    );
   SentryHive.openBox('settings');
   SentryHive.openBox<Trigger>('triggers');
   SentryHive.openBox<MoveList>('sequences');
   SentryHive.openBox<BaseStoredDevice>('devices');
   await SentryFlutter.init(
     (options) {
-      options.dsn = 'https://1c6815c83f0644db8d569f0ba454f035@glitchtip.codel1417.xyz/2';
+      options.dsn = 'https://284f1830184d74dbbbb48ad14b577ffc@sentry.codel1417.xyz/3';
       options.addIntegration(LoggingIntegration());
       options.attachScreenshot = true; //not supported on GlitchTip
       options.attachViewHierarchy = true; //not supported on GlitchTip

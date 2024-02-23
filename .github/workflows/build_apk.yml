@@ -1,4 +1,4 @@
-on: 
+on:
   push:
   pull_request:
 jobs:
@@ -6,39 +6,49 @@ jobs:
     name: Build Android Artifact
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v2
-      with:
-        distribution: 'zulu'
-        java-version: '11'
-    - uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.16.9'
-    - name: Install packages
-      run: flutter pub get
-    - name: Generate localizations
-      run:  flutter gen-l10n
-    - name: Generate configs
-      run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
-    - name: Build APK
-      run: flutter build apk
-    - name: Build App BUndle
-      run: flutter build appbundle
-
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+      - name: Install packages
+        run: flutter pub get
+      - name: Generate localizations
+        run: flutter gen-l10n
+      - name: Generate configs
+        run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Build APK
+        run: flutter build apk
+      - name: Build App BUndle
+        run: flutter build appbundle
+      - name: Upload debug symbols
+        run: flutter packages pub run sentry_dart_plugin
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ env.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: 'Sentry'
+          SENTRY_PROJECT: 'tail-app'
+          SENTRY_URL: https://sentry.codel1417.xyz
   build_ios:
     name: Build IOS Artifact
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: dart-lang/setup-dart@v1
-    - uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.16.9'
-    - name: Install packages
-      run: flutter pub get
-    - name: Generate localizations
-      run:  flutter gen-l10n
-    - name: Generate configs
-      run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
-    - name: Build app
-      run: flutter build ios --release --no-codesign
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+      - name: Install packages
+        run: flutter pub get
+      - name: Generate localizations
+        run: flutter gen-l10n
+      - name: Generate configs
+        run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Build app
+        run: flutter build ios --release --no-codesign
+      - name: Upload debug symbols
+        run: flutter packages pub run sentry_dart_plugin
