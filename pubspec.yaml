@@ -74,6 +74,6 @@ sentry:
   upload_source_maps: true
   upload_sources: false
   project: 'tail-app'
-  org: 'Sentry'
+  org: 'sentry'
   #auth_token: ...
   url: 'https://sentry.codel1417.xyz'
