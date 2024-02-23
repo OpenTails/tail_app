@@ -74,13 +74,13 @@ final GoRouter router = GoRouter(
           ),
           routes: [
             GoRoute(
-              name: 'Edit Sequence',
+              name: 'Sequences/Edit Sequence',
               path: 'editMoveList',
               parentNavigatorKey: _rootNavigatorKey,
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
                   key: state.pageKey,
-                  name: 'Edit Sequence',
+                  name: 'Sequences/Edit Sequence',
                   child: const EditMoveList(),
                   transitionsBuilder: (context, animation, secondaryAnimation, child) {
                     // Change the opacity of the screen using a Curve based on the the animation's
@@ -137,7 +137,7 @@ final GoRouter router = GoRouter(
           routes: [
             if (kDebugMode) ...[
               GoRoute(
-                name: 'Developer Menu',
+                name: 'Settings/Developer Menu',
                 path: 'developer',
                 parentNavigatorKey: _rootNavigatorKey,
                 builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),

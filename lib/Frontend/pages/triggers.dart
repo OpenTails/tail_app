@@ -4,6 +4,7 @@ import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/Sensors.dart';
 
+import '../../main.dart';
 import '../Widgets/action_selector.dart';
 import '../intnDefs.dart';
 
@@ -25,43 +26,48 @@ class _TriggersState extends ConsumerState<Triggers> {
         onPressed: () {
           showDialog<TriggerDefinition>(
               context: context,
-              builder: (BuildContext context) => AlertDialog(
-                    title: Text(triggersSelectLabel()),
-                    content: StatefulBuilder(
-                      builder: (context, StateSetter setState) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: ref
-                              .watch(triggerDefinitionListProvider)
-                              .map((TriggerDefinition e) => ListTile(
-                                    title: Text(e.name),
-                                    leading: Radio<TriggerDefinition>(
-                                      value: e,
-                                      groupValue: triggerDefinition,
-                                      onChanged: (TriggerDefinition? value) {
-                                        setState(() {
-                                          triggerDefinition = value;
-                                        });
-                                      },
-                                    ),
-                                    trailing: e.icon,
-                                    subtitle: Text(e.description),
-                                  ))
-                              .toList(),
-                        );
-                      },
+              builder: (BuildContext context) {
+                plausible.event(page: "/Triggers/AddTrigger");
+                return AlertDialog(
+                  title: Text(triggersSelectLabel()),
+                  content: StatefulBuilder(
+                    builder: (context, StateSetter setState) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: ref
+                            .watch(triggerDefinitionListProvider)
+                            .map((TriggerDefinition e) => ListTile(
+                                  title: Text(e.name),
+                                  leading: Radio<TriggerDefinition>(
+                                    value: e,
+                                    groupValue: triggerDefinition,
+                                    onChanged: (TriggerDefinition? value) {
+                                      setState(() {
+                                        triggerDefinition = value;
+                                      });
+                                    },
+                                  ),
+                                  trailing: e.icon,
+                                  subtitle: Text(e.description),
+                                ))
+                            .toList(),
+                      );
+                    },
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, null),
+                      child: Text(cancel()),
                     ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, null),
-                        child: Text(cancel()),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, triggerDefinition),
-                        child: Text(ok()),
-                      ),
-                    ],
-                  )).then(
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context, triggerDefinition);
+                      },
+                      child: Text(ok()),
+                    ),
+                  ],
+                );
+              }).then(
             (TriggerDefinition? value) {
               if (value != null) {
                 // The user selected a Trigger Definition
@@ -69,6 +75,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                   () {
                     Trigger trigger = Trigger.trigDef(triggerDefinition!);
                     ref.read(triggerListProvider.notifier).add(trigger);
+                    plausible.event(name: "Add Trigger", props: {"Type": triggerDefinition!.runtimeType.toString()});
                   },
                 );
               }
@@ -85,13 +92,18 @@ class _TriggersState extends ConsumerState<Triggers> {
             title: Text(triggersList[index].triggerDefinition!.name),
             subtitle: Text(triggersList[index].triggerDefinition!.description),
             //leading: triggersList[index].triggerDefinition.icon,
-            leading: Switch(
-              value: triggersList[index].enabled,
-              onChanged: (bool value) {
-                setState(
-                  () {
-                    triggersList[index].enabled = value;
-                    ref.read(triggerListProvider.notifier).store();
+            leading: ListenableBuilder(
+              listenable: triggersList[index],
+              builder: (BuildContext context, Widget? child) {
+                return Switch(
+                  value: triggersList[index].enabled,
+                  onChanged: (bool value) {
+                    setState(
+                      () {
+                        triggersList[index].enabled = value;
+                        ref.read(triggerListProvider.notifier).store();
+                      },
+                    );
                   },
                 );
               },

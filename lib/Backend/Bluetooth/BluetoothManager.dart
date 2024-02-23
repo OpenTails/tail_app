@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +11,7 @@ import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
+import 'package:tail_app/Backend/Sensors.dart';
 
 import '../Definitions/Device/BaseDeviceDefinition.dart';
 import '../DeviceRegistry.dart';
@@ -208,10 +207,17 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         knownDevices[event.deviceId]?.batteryChargeCharacteristicStreamSubscription?.cancel();
         knownDevices[event.deviceId]?.batteryChargeCharacteristicStreamSubscription = null;
 
-        ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}")));
+        //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}")));
         //remove foreground service if no devices connected
-        if (Platform.isAndroid && knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isEmpty) {
+        bool lastDevice = knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isEmpty;
+        if (Platform.isAndroid && lastDevice) {
           ForegroundService().stop();
+        }
+        if (lastDevice) {
+          // Disable all triggers on last device
+          ref.read(triggerListProvider).where((element) => element.enabled).forEach((element) {
+            element.enabled = false;
+          });
         }
       }
     }

@@ -7,6 +7,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
+import '../../main.dart';
 import '../intnDefs.dart';
 
 class ScanForNewDevice extends ConsumerStatefulWidget {
@@ -65,6 +66,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                         trailing: Text(e.id),
                         onTap: () {
                           ref.watch(knownDevicesProvider.notifier).connect(e);
+                          plausible.event(name: "Connect New Gear", props: {"Type": e.name});
                           setState(
                             () {
                               devices.remove(e.id);

@@ -27,10 +27,11 @@ part 'Sensors.g.dart';
 //TODO: error callback to disable the sensor from the trigger definition, such as when permission is denied
 //TODO: Call disable method when last device reconnects, call enable method when first device connects
 @HiveType(typeId: 2)
-class Trigger {
+class Trigger extends ChangeNotifier {
   @HiveField(1)
   late String triggerDef;
   TriggerDefinition? triggerDefinition;
+  @HiveField(4)
   bool _enabled = false;
   @HiveField(2, defaultValue: [DeviceType.tail, DeviceType.ears, DeviceType.wings])
   List<DeviceType> _deviceType = [DeviceType.tail, DeviceType.ears, DeviceType.wings];
@@ -67,6 +68,7 @@ class Trigger {
         triggerDefinition?.onDisable();
       }
     }
+    notifyListeners();
   }
 
   @HiveField(3)
@@ -113,8 +115,7 @@ abstract class TriggerDefinition implements Comparable<TriggerDefinition> {
       return;
     }
     Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
-    List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceType.contains(element.baseDeviceDefinition.deviceType)).toList();
-
+    List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceType.contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
     for (BaseStatefulDevice baseStatefulDevice in devices) {
       runAction(baseAction, baseStatefulDevice);
     }
@@ -254,7 +255,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 
   ShakeTriggerDefinition(super.ref) {
     super.name = triggerShakeTitle();
-    super.description = "Trigger an action by shaking your device";
+    super.description = triggerShakeDescription();
     super.icon = const Icon(Icons.vibration);
     super.requiredPermission = null;
     super.actionTypes = [TriggerActionDef("Shake", triggerShakeTitle(), "b84b4c7a-2330-4ede-82f4-dca7b6e74b0a")];

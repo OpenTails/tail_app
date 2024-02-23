@@ -8,8 +8,6 @@ String title() => Intl.message('Tail App', name: 'title', desc: 'The name of the
 
 String subTitle() => Intl.message('All of the Tails', name: 'subTitle', desc: 'The sub-title which displays in the navigation drawer');
 
-String manageDevices() => Intl.message('Manage Devices', name: 'manageDevices', desc: 'The screen where you pair and manage gear');
-
 String doubleBack() => Intl.message('Press back again to leave', name: 'doubleBack', desc: 'A toast which appears when the back button is pressed at the main page');
 
 String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'The label and title of the joystick page');
@@ -86,8 +84,6 @@ String sequenceEditListDelayLabel(int howMany) => Intl.message(
       examples: const {'howMany': '42'},
     );
 //Actions Page
-String actionsNoGear() => Intl.message('No Gear Connected', name: 'actionsNoGear', desc: 'Label on the actions page when no gear is connected');
-
 String actionsNoBluetooth() => Intl.message('Bluetooth is unavailable', name: 'actionsNoBluetooth', desc: 'Label on the actions page when bluetooth is unavailable');
 
 String actionsCategoryCalm() => Intl.message('Calm and Relaxed', name: 'actionsCategoryCalm', desc: 'calm action group label');
@@ -100,14 +96,11 @@ String actionsCategoryGlowtip() => Intl.message('GlowTip', name: 'actionsCategor
 
 String actionsCategoryEars() => Intl.message('Ears', name: 'actionsCategoryEars', desc: 'ears action group label');
 
+String actionsSelectScreen() => Intl.message('Select an Action', name: 'actionsSelectScreen', desc: 'Title for action select menu on triggers page');
 //Settings
 String settingsHapticsToggleTitle() => Intl.message('Haptic Feedback', name: 'settingsHapticsToggleTitle', desc: 'Settings page haptic feedback toggle title');
 
 String settingsHapticsToggleSubTitle() => Intl.message('Enable vibration when an action or sequence is tapped', name: 'settingsHapticsToggleSubTitle', desc: 'Settings page haptic feedback toggle subtitle');
-
-String settingsAutoConnectToggleTitle() => Intl.message('Automatically Scan for known gear', name: 'settingsAutoConnectToggleTitle', desc: 'Settings page auto connect toggle title');
-
-String settingsAutoConnectToggleSubTitle() => Intl.message('Scan for known gear automatically, This only works when the app is open and will drain your battery faster!', name: 'settingsAutoConnectToggleSubTitle', desc: 'Settings page auto connect toggle subtitle');
 
 String settingsErrorReportingToggleTitle() => Intl.message('Automatic error reporting', name: 'settingsErrorReportingToggleTitle', desc: 'Settings page error reporting toggle title');
 
@@ -151,6 +144,8 @@ String manageDevicesDisconnect() => Intl.message('Disconnect', name: 'manageDevi
 String manageDevicesForget() => Intl.message('Forget', name: 'manageDevicesForget', desc: 'manage devices forget button title when managing a device');
 
 String scanDevicesAutoConnectTitle() => Intl.message('Automatically connect to new devices', name: 'scanDevicesAutoConnectTitle', desc: 'scan for devices auto connect toggle title when scanning for a device');
+
+String scanDevicesTitle() => Intl.message('Scan For New Gear', name: 'scanDevicesTitle', desc: 'button which opens the scan window');
 
 String scanDevicesScanMessage() => Intl.message('Scanning for gear. Please make sure your gear is powered on and nearby', name: 'scanDevicesScanMessage', desc: 'scan for devices scan in progress message when scanning for a device');
 

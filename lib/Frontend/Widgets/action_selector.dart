@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Backend/ActionRegistry.dart';
 import '../../Backend/Definitions/Action/BaseAction.dart';
 import '../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import '../intnDefs.dart';
 
 class ActionSelector extends ConsumerWidget {
   ActionSelector({super.key, required this.deviceType});
@@ -17,7 +18,7 @@ class ActionSelector extends ConsumerWidget {
     return Scaffold(
       primary: true,
       appBar: AppBar(
-        title: const Text('Select an Action'),
+        title: Text(actionsSelectScreen()),
       ),
       body: ListView.builder(
         primary: true,

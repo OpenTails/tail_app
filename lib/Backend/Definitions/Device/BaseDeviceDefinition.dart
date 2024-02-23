@@ -166,9 +166,10 @@ class BaseStoredDevice {
   }
 }
 
-//Definitly didn't copy from https://github.com/OpenTails/CRUMPET-Android/commit/b465ad134dcdb7774fe4e59edf756bf3242d5e30
 String getNameFromBTName(String BTName) {
   switch (BTName) {
+    case 'EarGear':
+      return 'EarGear';
     case 'EG2':
       return 'EarGear 2';
     case 'mitail':
@@ -177,6 +178,8 @@ String getNameFromBTName(String BTName) {
       return 'MiTail Mini';
     case 'flutter':
       return 'FlutterWings';
+    case '(!)Tail1':
+      return 'DigiTail';
   }
   return BTName;
 }

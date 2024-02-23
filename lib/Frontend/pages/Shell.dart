@@ -166,7 +166,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                               width: ref.watch(knownDevicesProvider).values.length > 1 ? 100 : 200,
                               child: Center(
                                 child: Text(
-                                  "Scan For New Gear",
+                                  scanDevicesTitle(),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -184,17 +184,9 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                                 return Wrap(
                                   children: [
                                     ListTile(
-                                      title: Text("Scan For New Gear"),
+                                      title: Text(scanDevicesTitle()),
                                     ),
                                     ScanForNewDevice(),
-                                    Center(
-                                      child: TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text(ok()),
-                                      ),
-                                    )
                                   ],
                                 );
                               },
