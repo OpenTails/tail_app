@@ -76,4 +76,4 @@ sentry:
   project: 'tail-app'
   org: 'Sentry'
   #auth_token: ...
-  url: 'https://sentry.codel1417.xyz/'
+  url: 'https://sentry.codel1417.xyz'

@@ -2,8 +2,6 @@ on:
   push:
   pull_request:
 
-env:
-  SENTRY_AUTH_TOKEN: ${{ vars.SENTRY_AUTH_TOKEN }}
 jobs:
   build_android:
     name: Build Android Artifact
@@ -25,14 +23,16 @@ jobs:
         run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
       - name: Build APK
         run: flutter build apk
-      - name: Build App BUndle
+      - name: Build App Bundle
         run: flutter build appbundle
       - name: Upload debug symbols
         run: flutter packages pub run sentry_dart_plugin
+        env:
+          SENTRY_AUTH_TOKEN: ${{ vars.SENTRY_AUTH_TOKEN }}
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
-          SENTRY_AUTH_TOKEN: ${{ env.SENTRY_AUTH_TOKEN }}
+          SENTRY_AUTH_TOKEN: ${{ vars.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: 'Sentry'
           SENTRY_PROJECT: 'tail-app'
           SENTRY_URL: https://sentry.codel1417.xyz
