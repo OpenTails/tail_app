@@ -125,7 +125,6 @@ class KnownDevices extends _$KnownDevices {
               statefulDevice.glowTip.value = "TRUE" == value.substring(value.indexOf(" "));
             } else if (value.contains("BUSY")) {
               //statefulDevice.deviceState.value = DeviceState.busy;
-              //TODO: add busy check to see if gear ready for next command
             }
           });
           statefulDevice.batteryCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryCharacteristic).listen((List<int> event) {
@@ -157,7 +156,7 @@ class KnownDevices extends _$KnownDevices {
                   }
                 }
               },
-            ).onError((error, stackTrace) => Flogger.e("Unable to get Firmware info for ${statefulDevice.baseDeviceDefinition.fwURL} :$error", stackTrace: stackTrace));
+            ).onError((error, stackTrace) => Flogger.e("Unable to get Firmware info for ${statefulDevice.baseDeviceDefinition.fwURL} :$error"));
           }
           statefulDevice.commandQueue.addCommand(BluetoothMessage("VER", statefulDevice, Priority.low));
         }
@@ -178,13 +177,15 @@ Stream<BleStatus> btStatus(BtStatusRef ref) {
   return ref.read(reactiveBLEProvider).statusStream;
 }
 
-@Riverpod(keepAlive: true, dependencies: [reactiveBLE, KnownDevices])
+@Riverpod(keepAlive: true, dependencies: [reactiveBLE, KnownDevices, TriggerList])
 StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHandlerRef ref) {
   return ref.read(reactiveBLEProvider).connectedDeviceStream.listen((ConnectionStateUpdate event) {
     Flogger.i("ConnectedDevice::$event");
     Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
     //start foreground service on device connected. Library handles duplicate start calls
     if (Platform.isAndroid && event.connectionState == DeviceConnectionState.connected) {
+      ForegroundServiceHandler.notification.setPriority(AndroidNotificationPriority.LOW);
+      ForegroundServiceHandler.notification.setTitle("Gear Connected");
       ForegroundService().start();
     }
     if (knownDevices.containsKey(event.deviceId)) {
