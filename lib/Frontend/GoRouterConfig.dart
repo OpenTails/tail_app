@@ -24,6 +24,7 @@ final GoRouter router = GoRouter(
   routes: [
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
+      parentNavigatorKey: _rootNavigatorKey,
       observers: [SentryNavigatorObserver(), CustomNavObserver(plausible)],
       routes: [
         GoRoute(
@@ -35,25 +36,6 @@ final GoRouter router = GoRouter(
             key: state.pageKey,
             name: 'Actions',
           ),
-        ),
-        GoRoute(
-          name: 'OTA',
-          path: '/ota',
-          parentNavigatorKey: _rootNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            String device = state.extra! as String;
-            return MaterialPage(
-              child: OtaUpdate(device: device),
-              key: state.pageKey,
-              name: 'OTA',
-            );
-          },
-          redirect: (context, state) {
-            if (state.extra == null) {
-              return '/';
-            }
-            return null;
-          },
         ),
         GoRoute(
           name: 'Triggers',
@@ -134,6 +116,25 @@ final GoRouter router = GoRouter(
           );
         },
       ),
+    ),
+    GoRoute(
+      name: 'OTA',
+      path: '/ota',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (BuildContext context, GoRouterState state) {
+        String device = state.extra! as String;
+        return MaterialPage(
+          child: OtaUpdate(device: device),
+          key: state.pageKey,
+          name: 'OTA',
+        );
+      },
+      redirect: (context, state) {
+        if (state.extra == null) {
+          return '/';
+        }
+        return null;
+      },
     ),
   ],
 );

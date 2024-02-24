@@ -1,5 +1,4 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
@@ -111,28 +110,18 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
             );
           },
         ).toList(),
-        body: (_) => DoubleBackToCloseApp(
-          snackBar: SnackBar(
-            content: Text(doubleBack()),
-          ),
-          child: SafeArea(
-            bottom: false,
-            top: false,
-            child: SnackBarOverlay(
-              child: widget.child,
-            ),
+        body: (_) => SafeArea(
+          bottom: false,
+          top: false,
+          child: SnackBarOverlay(
+            child: widget.child,
           ),
         ),
-        smallBody: (_) => DoubleBackToCloseApp(
-          snackBar: SnackBar(
-            content: Text(doubleBack()),
-          ),
-          child: SafeArea(
-            bottom: false,
-            top: false,
-            child: SnackBarOverlay(
-              child: widget.child,
-            ),
+        smallBody: (_) => SafeArea(
+          bottom: false,
+          top: false,
+          child: SnackBarOverlay(
+            child: widget.child,
           ),
         ),
         // Define a default secondaryBody.
