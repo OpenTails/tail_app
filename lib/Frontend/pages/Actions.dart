@@ -33,12 +33,12 @@ class ActionPageBuilder extends ConsumerWidget {
     AsyncValue<BleStatus> btStatus = ref.watch(btStatusProvider);
     Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
     if (btStatus.valueOrNull != null && btStatus.valueOrNull == BleStatus.ready && knownDevices.isNotEmpty) {
-      Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
-      List<ActionCategory> catList = actionsCatMap.keys.toList();
       return MultiValueListenableBuilder(
         valueListenables: knownDevices.values.map((e) => e.deviceConnectionState).toList(),
         builder: (BuildContext context, List<dynamic> values, Widget? child) {
           if (knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isNotEmpty) {
+            Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
+            List<ActionCategory> catList = actionsCatMap.keys.toList();
             return ListView.builder(
               itemCount: catList.length,
               itemBuilder: (BuildContext context, int categoryIndex) {
