@@ -143,6 +143,8 @@ String manageDevicesDisconnect() => Intl.message('Disconnect', name: 'manageDevi
 
 String manageDevicesForget() => Intl.message('Forget', name: 'manageDevicesForget', desc: 'manage devices forget button title when managing a device');
 
+String manageDevicesOtaButton() => Intl.message('Tap to update firmware', name: 'manageDevicesOtaButton', desc: 'manage devices ota available button');
+
 String scanDevicesAutoConnectTitle() => Intl.message('Automatically connect to new devices', name: 'scanDevicesAutoConnectTitle', desc: 'scan for devices auto connect toggle title when scanning for a device');
 
 String scanDevicesTitle() => Intl.message('Scan For New Gear', name: 'scanDevicesTitle', desc: 'button which opens the scan window');

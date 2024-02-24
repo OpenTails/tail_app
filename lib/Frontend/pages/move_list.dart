@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,37 +46,36 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
         itemCount: allMoveLists.length,
         primary: true,
         itemBuilder: (context, index) {
-          return Hero(
-            tag: 'moveListEditNameTag',
-            child: ListTile(
-              title: Text(allMoveLists[index].name),
-              subtitle: Text("${allMoveLists[index].moves.length} moves"), //TODO: Localize
-              trailing: IconButton(
-                tooltip: sequencesEdit(),
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
-                        (value) => setState(
-                          () {
-                            if (value != null) {
-                              allMoveLists[index] = value;
-                              ref.watch(moveListsProvider.notifier).store();
-                            }
-                          },
-                        ),
-                      );
+          return FadeIn(
+              delay: Duration(milliseconds: index * 100),
+              child: ListTile(
+                title: Text(allMoveLists[index].name),
+                subtitle: Text("${allMoveLists[index].moves.length} move(s)"), //TODO: Localize
+                trailing: IconButton(
+                  tooltip: sequencesEdit(),
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
+                          (value) => setState(
+                            () {
+                              if (value != null) {
+                                allMoveLists[index] = value;
+                                ref.watch(moveListsProvider.notifier).store();
+                              }
+                            },
+                          ),
+                        );
+                  },
+                ),
+                onTap: () async {
+                  if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
+                    HapticFeedback.selectionClick();
+                  }
+                  ref.read(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).forEach((element) {
+                    runAction(allMoveLists[index], element);
+                  });
                 },
-              ),
-              onTap: () async {
-                if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
-                  HapticFeedback.selectionClick();
-                }
-                ref.read(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).forEach((element) {
-                  runAction(allMoveLists[index], element);
-                });
-              },
-            ),
-          );
+              ));
         },
       ),
     );
@@ -168,23 +168,20 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Hero(
-                tag: 'moveListEditNameTag',
-                child: TextField(
-                  controller: TextEditingController(text: moveList!.name),
-                  decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName()),
-                  maxLines: 1,
-                  maxLength: 30,
-                  autocorrect: false,
-                  onSubmitted: (nameValue) {
-                    setState(
-                      () {
-                        moveList!.name = nameValue;
-                      },
-                    );
-                    ref.read(moveListsProvider.notifier).store();
-                  },
-                ),
+              child: TextField(
+                controller: TextEditingController(text: moveList!.name),
+                decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName()),
+                maxLines: 1,
+                maxLength: 30,
+                autocorrect: false,
+                onSubmitted: (nameValue) {
+                  setState(
+                    () {
+                      moveList!.name = nameValue;
+                    },
+                  );
+                  ref.read(moveListsProvider.notifier).store();
+                },
               ),
             ),
             ListTile(
@@ -210,15 +207,17 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
               child: ReorderableListView(
                 children: <Widget>[
                   for (int index = 0; index < moveList!.moves.length; index += 1)
-                    ListTile(
-                      key: Key('$index'),
-                      title: Text(moveList!.moves[index].toString()),
-                      leading: Icon(moveList!.moves[index].moveType.icon),
-                      onTap: () {
-                        editModal(context, index);
-                        //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
-                      },
-                    )
+                    FadeIn(
+                        key: Key('$index'),
+                        delay: Duration(milliseconds: (100 * index)),
+                        child: ListTile(
+                          title: Text(moveList!.moves[index].toString()),
+                          leading: Icon(moveList!.moves[index].moveType.icon),
+                          onTap: () {
+                            editModal(context, index);
+                            //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
+                          },
+                        ))
                 ],
                 onReorder: (int oldIndex, int newIndex) {
                   if (oldIndex < newIndex) {

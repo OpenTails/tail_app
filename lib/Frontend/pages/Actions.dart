@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
@@ -42,79 +43,86 @@ class ActionPageBuilder extends ConsumerWidget {
               itemCount: catList.length,
               itemBuilder: (BuildContext context, int categoryIndex) {
                 List<BaseAction> actionsForCat = actionsCatMap.values.toList()[categoryIndex].toList();
-                return Column(
-                  children: [
-                    Text(
-                      catList[categoryIndex].friendly,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 125),
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: actionsForCat.length,
-                      itemBuilder: (BuildContext context, int actionIndex) {
-                        return MultiValueListenableBuilder(
-                          valueListenables: knownDevices.values
-                              .where(
-                                (element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-                              )
-                              .map((e) => e.deviceState)
-                              .toList(),
-                          builder: (BuildContext context, List<dynamic> values, Widget? child) {
-                            return Card(
-                              color: knownDevices.values.where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseDeviceDefinition.deviceType.color,
-                              elevation: 1,
-                              child: InkWell(
-                                onTap: () async {
-                                  if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
-                                    HapticFeedback.selectionClick();
-                                  }
-                                  for (var device in ref.read(getByActionProvider(actionsForCat[actionIndex]))) {
-                                    runAction(actionsForCat[actionIndex], device);
-                                  }
-                                },
-                                child: SizedBox.expand(
-                                  child: Stack(
-                                    children: [
-                                      if (knownDevices.values
-                                          .where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType))
-                                          .where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected)
-                                          .where((element) => element.deviceState.value == DeviceState.runAction)
-                                          .isNotEmpty) ...[
-                                        const Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      ],
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: knownDevices.values
+                return FadeIn(
+                  delay: Duration(milliseconds: 100 * categoryIndex),
+                  child: Column(
+                    children: [
+                      Text(
+                        catList[categoryIndex].friendly,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 125),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: actionsForCat.length,
+                        itemBuilder: (BuildContext context, int actionIndex) {
+                          return MultiValueListenableBuilder(
+                            valueListenables: knownDevices.values
+                                .where(
+                                  (element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType),
+                                )
+                                .map((e) => e.deviceState)
+                                .toList(),
+                            builder: (BuildContext context, List<dynamic> values, Widget? child) {
+                              return FadeIn(
+                                delay: Duration(milliseconds: 100 * actionIndex),
+                                child: Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  color: knownDevices.values.where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseDeviceDefinition.deviceType.color,
+                                  elevation: 1,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
+                                        HapticFeedback.selectionClick();
+                                      }
+                                      for (var device in ref.read(getByActionProvider(actionsForCat[actionIndex]))) {
+                                        runAction(actionsForCat[actionIndex], device);
+                                      }
+                                    },
+                                    child: SizedBox.expand(
+                                      child: Stack(
+                                        children: [
+                                          if (knownDevices.values
                                               .where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType))
-                                              .map(
-                                                (e) => Text(e.baseDeviceDefinition.deviceType.name.substring(0, 1)),
-                                              )
-                                              .toList(),
-                                        ),
+                                              .where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected)
+                                              .where((element) => element.deviceState.value == DeviceState.runAction)
+                                              .isNotEmpty) ...[
+                                            const Center(
+                                              child: CircularProgressIndicator(),
+                                            )
+                                          ],
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: knownDevices.values
+                                                  .where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType))
+                                                  .map(
+                                                    (e) => Text(e.baseDeviceDefinition.deviceType.name.substring(0, 1)),
+                                                  )
+                                                  .toList(),
+                                            ),
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              actionsForCat[actionIndex].name,
+                                              semanticsLabel: actionsForCat[actionIndex].name,
+                                              overflow: TextOverflow.fade,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                      Center(
-                                        child: Text(
-                                          actionsForCat[actionIndex].name,
-                                          semanticsLabel: actionsForCat[actionIndex].name,
-                                          overflow: TextOverflow.fade,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    )
-                  ],
+                              );
+                            },
+                          );
+                        },
+                      )
+                    ],
+                  ),
                 );
               },
             );

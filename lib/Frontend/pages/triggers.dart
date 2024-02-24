@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
@@ -88,27 +89,30 @@ class _TriggersState extends ConsumerState<Triggers> {
         itemCount: triggersList.length,
         primary: true,
         itemBuilder: (BuildContext context, int index) {
-          return ExpansionTile(
-            title: Text(triggersList[index].triggerDefinition!.name),
-            subtitle: Text(triggersList[index].triggerDefinition!.description),
-            //leading: triggersList[index].triggerDefinition.icon,
-            leading: ListenableBuilder(
-              listenable: triggersList[index],
-              builder: (BuildContext context, Widget? child) {
-                return Switch(
-                  value: triggersList[index].enabled,
-                  onChanged: (bool value) {
-                    setState(
-                      () {
-                        triggersList[index].enabled = value;
-                        ref.read(triggerListProvider.notifier).store();
-                      },
-                    );
-                  },
-                );
-              },
+          return FadeIn(
+            delay: Duration(milliseconds: 100 * index),
+            child: ExpansionTile(
+              title: Text(triggersList[index].triggerDefinition!.name),
+              subtitle: Text(triggersList[index].triggerDefinition!.description),
+              //leading: triggersList[index].triggerDefinition.icon,
+              leading: ListenableBuilder(
+                listenable: triggersList[index],
+                builder: (BuildContext context, Widget? child) {
+                  return Switch(
+                    value: triggersList[index].enabled,
+                    onChanged: (bool value) {
+                      setState(
+                        () {
+                          triggersList[index].enabled = value;
+                          ref.read(triggerListProvider.notifier).store();
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+              children: getTriggerOptions(triggersList[index]),
             ),
-            children: getTriggerOptions(triggersList[index]),
           );
         },
       ),

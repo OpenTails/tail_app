@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,26 +58,29 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
           ),
           Wrap(
             children: [
-              ListView(
+              ListView.builder(
                 shrinkWrap: true,
-                children: devices.values
-                    .map(
-                      (e) => ListTile(
-                        title: Text(getNameFromBTName(e.name)),
-                        trailing: Text(e.id),
-                        onTap: () {
-                          ref.watch(knownDevicesProvider.notifier).connect(e);
-                          plausible.event(name: "Connect New Gear", props: {"Type": e.name});
-                          setState(
-                            () {
-                              devices.remove(e.id);
-                            },
-                          );
-                          Navigator.pop(context);
-                        },
-                      ),
-                    )
-                    .toList(),
+                itemCount: devices.values.length,
+                itemBuilder: (BuildContext context, int index) {
+                  DiscoveredDevice e = devices.values.toList()[index];
+                  return FadeIn(
+                    delay: const Duration(milliseconds: 100),
+                    child: ListTile(
+                      title: Text(getNameFromBTName(e.name)),
+                      trailing: Text(e.id),
+                      onTap: () {
+                        ref.watch(knownDevicesProvider.notifier).connect(e);
+                        plausible.event(name: "Connect New Gear", props: {"Type": e.name});
+                        setState(
+                          () {
+                            devices.remove(e.id);
+                          },
+                        );
+                        Navigator.pop(context);
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           ),

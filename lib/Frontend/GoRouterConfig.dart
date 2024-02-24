@@ -6,6 +6,7 @@ import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
 import 'package:tail_app/Frontend/pages/Shell.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
 import 'package:tail_app/Frontend/pages/move_list.dart';
+import 'package:tail_app/Frontend/pages/ota_update.dart';
 import 'package:tail_app/Frontend/pages/settings.dart';
 import 'package:tail_app/Frontend/pages/triggers.dart';
 
@@ -29,48 +30,49 @@ final GoRouter router = GoRouter(
           name: 'Actions',
           path: '/',
           parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
             child: const ActionPage(),
             key: state.pageKey,
             name: 'Actions',
-            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
           ),
+        ),
+        GoRoute(
+          name: 'OTA',
+          path: '/ota',
+          parentNavigatorKey: _rootNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            String device = state.extra! as String;
+            return MaterialPage(
+              child: OtaUpdate(device: device),
+              key: state.pageKey,
+              name: 'OTA',
+            );
+          },
+          redirect: (context, state) {
+            if (state.extra == null) {
+              return '/';
+            }
+            return null;
+          },
         ),
         GoRoute(
           name: 'Triggers',
           path: '/triggers',
           parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
             child: const Triggers(),
             key: state.pageKey,
             name: 'Triggers',
-            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
           ),
         ),
         GoRoute(
           name: 'Sequences',
           path: '/moveLists',
           parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
             key: state.pageKey,
             name: 'Sequences',
             child: const MoveListView(),
-            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
           ),
           routes: [
             GoRoute(
@@ -78,18 +80,10 @@ final GoRouter router = GoRouter(
               path: 'editMoveList',
               parentNavigatorKey: _rootNavigatorKey,
               pageBuilder: (context, state) {
-                return CustomTransitionPage(
+                return MaterialPage(
                   key: state.pageKey,
                   name: 'Sequences/Edit Sequence',
                   child: const EditMoveList(),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                    // Change the opacity of the screen using a Curve based on the the animation's
-                    // value
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
                 );
               },
             ),
@@ -100,18 +94,10 @@ final GoRouter router = GoRouter(
           path: '/joystick',
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) {
-            return CustomTransitionPage(
+            return NoTransitionPage(
               key: state.pageKey,
               name: 'Direct Gear Control',
               child: const DirectGearControl(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                // Change the opacity of the screen using a Curve based on the the animation's
-                // value
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
             );
           },
         ),
@@ -120,18 +106,10 @@ final GoRouter router = GoRouter(
           path: '/settings',
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) {
-            return CustomTransitionPage(
+            return NoTransitionPage(
               key: state.pageKey,
               name: 'Settings',
               child: const Settings(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                // Change the opacity of the screen using a Curve based on the the animation's
-                // value
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
             );
           },
           routes: [
