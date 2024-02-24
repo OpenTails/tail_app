@@ -30,7 +30,7 @@ class ActionSelector extends ConsumerWidget {
               Center(
                 child: Text(
                   catList[categoryIndex].friendly,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               GridView.builder(
@@ -39,15 +39,16 @@ class ActionSelector extends ConsumerWidget {
                 shrinkWrap: true,
                 itemCount: actionsForCat.length,
                 itemBuilder: (BuildContext context, int actionIndex) {
-                  return InkWell(
-                    onTap: () => Navigator.pop(context, actionsForCat[actionIndex]),
-                    child: Card(
-                      elevation: 2,
+                  return Card(
+                    clipBehavior: Clip.antiAlias,
+                    elevation: 2,
+                    child: InkWell(
+                      onTap: () => Navigator.pop(context, actionsForCat[actionIndex]),
                       child: SizedBox(
                         height: 50,
                         width: 50,
                         child: Center(
-                          child: Text(actionsForCat[actionIndex].name, semanticsLabel: actionsForCat[actionIndex].name),
+                          child: Text(actionsForCat[actionIndex].name, semanticsLabel: actionsForCat[actionIndex].name, overflow: TextOverflow.fade, textAlign: TextAlign.center),
                         ),
                       ),
                     ),
