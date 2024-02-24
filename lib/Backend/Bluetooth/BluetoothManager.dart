@@ -92,6 +92,7 @@ class KnownDevices extends _$KnownDevices {
       //get existing entry
       if (state.containsKey(device.id)) {
         statefulDevice = state[device.id]!;
+        statefulDevice.deviceConnectionState.value = DeviceConnectionState.connecting;
         baseStoredDevice = statefulDevice.baseStoredDevice;
         transaction.setTag('Known Device', 'Yes');
       } else {
@@ -103,9 +104,9 @@ class KnownDevices extends _$KnownDevices {
       }
       FlutterReactiveBle reactiveBLE = ref.read(reactiveBLEProvider);
       statefulDevice.connectionStateStreamSubscription = reactiveBLE.connectToDevice(id: device.id).listen((event) async {
+        statefulDevice.deviceConnectionState.value = event.connectionState;
         Flogger.i("Connection State updated for ${baseStoredDevice.name}: ${event.connectionState}");
         if (event.connectionState == DeviceConnectionState.connected) {
-          statefulDevice.deviceConnectionState.value = event.connectionState;
           statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
           Flogger.i("Discovering services for ${baseStoredDevice.name}");
           reactiveBLE.discoverAllServices(device.id);
@@ -187,8 +188,8 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
       ForegroundService().start();
     }
     if (knownDevices.containsKey(event.deviceId)) {
+      knownDevices[event.deviceId]?.deviceConnectionState.value = event.connectionState;
       if (event.connectionState == DeviceConnectionState.disconnected) {
-        knownDevices[event.deviceId]?.deviceConnectionState.value = event.connectionState;
         Flogger.i("Disconnected from device: ${event.deviceId}");
         knownDevices[event.deviceId]?.connectionStateStreamSubscription?.cancel();
         knownDevices[event.deviceId]?.connectionStateStreamSubscription = null;
@@ -218,8 +219,6 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
             element.enabled = false;
           });
         }
-      } else if (event.connectionState == DeviceConnectionState.connected) {
-        knownDevices[event.deviceId]?.deviceConnectionState.value = event.connectionState;
       }
     }
   });
