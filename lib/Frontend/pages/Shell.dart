@@ -472,6 +472,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                       setState(() {
                         widget.device.connectionStateStreamSubscription?.cancel();
                       });
+                      Navigator.pop(context);
                     },
                     child: Text(manageDevicesDisconnect()),
                   )
@@ -482,6 +483,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                       setState(() {
                         widget.device.commandQueue.addCommand(BluetoothMessage("SHUTDOWN", widget.device, Priority.high));
                       });
+                      Navigator.pop(context);
                     },
                     child: Text(manageDevicesShutdown()),
                   )
@@ -492,6 +494,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   widget.device.connectionStateStreamSubscription = null;
                 });
                 widget.ref.watch(knownDevicesProvider.notifier).remove(widget.device.baseStoredDevice.btMACAddress);
+                Navigator.pop(context);
               },
               child: Text(manageDevicesForget()),
             )
