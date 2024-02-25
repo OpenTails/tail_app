@@ -69,7 +69,7 @@ class ActionPageBuilder extends ConsumerWidget {
                                 delay: Duration(milliseconds: 100 * actionIndex),
                                 child: Card(
                                   clipBehavior: Clip.antiAlias,
-                                  color: knownDevices.values.where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseDeviceDefinition.deviceType.color,
+                                  color: Color(knownDevices.values.where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseStoredDevice.color),
                                   elevation: 1,
                                   child: InkWell(
                                     onTap: () async {

@@ -30,7 +30,6 @@ class Trigger extends ChangeNotifier {
   @HiveField(1)
   late String triggerDef;
   TriggerDefinition? triggerDefinition;
-  @HiveField(4)
   bool _enabled = false;
   @HiveField(2, defaultValue: [DeviceType.tail, DeviceType.ears, DeviceType.wings])
   List<DeviceType> _deviceType = [DeviceType.tail, DeviceType.ears, DeviceType.wings];
@@ -90,9 +89,7 @@ BaseAction? getActionFromUUID(GetActionFromUUIDRef ref, String? uuid) {
   }
   List<BaseAction> actions = List.from(ActionRegistry.allCommands);
   actions.addAll(ref.read(moveListsProvider));
-  return actions
-      .where((element) => element.uuid == uuid)
-      .firstOrNull;
+  return actions.where((element) => element.uuid == uuid).firstOrNull;
 }
 
 abstract class TriggerDefinition implements Comparable<TriggerDefinition> {
@@ -157,42 +154,27 @@ class WalkingTriggerDefinition extends TriggerDefinition {
   @override
   Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
     pedestrianStatusStream = Pedometer.pedestrianStatusStream.listen(
-          (PedestrianStatus event) {
+      (PedestrianStatus event) {
         Flogger.i("PedestrianStatus:: ${event.status}");
         if (event.status == "walking") {
-          TriggerAction? action = actions.firstWhere((element) =>
-          actionTypes
-              .firstWhere((element) => element.name == "Walking")
-              .uuid == element.uuid);
+          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Walking").uuid == element.uuid);
           sendCommands(deviceType, action.action, ref);
         } else if (event.status == "stopped") {
-          TriggerAction? action = actions.firstWhere((element) =>
-          actionTypes
-              .firstWhere((element) => element.name == "Stopped")
-              .uuid == element.uuid);
+          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Stopped").uuid == element.uuid);
           sendCommands(deviceType, action.action, ref);
         }
       },
     );
     stepCountStream = Pedometer.stepCountStream.listen(
-          (StepCount event) {
+      (StepCount event) {
         Flogger.d("StepCount:: ${event.steps}");
-        TriggerAction? action = actions.firstWhere((element) =>
-        actionTypes
-            .firstWhere((element) => element.name == "Step")
-            .uuid == element.uuid);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Step").uuid == element.uuid);
         sendCommands(deviceType, action.action, ref);
         if (event.steps.isEven) {
-          TriggerAction? action = actions.firstWhere((element) =>
-          actionTypes
-              .firstWhere((element) => element.name == "Even Step")
-              .uuid == element.uuid);
+          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Even Step").uuid == element.uuid);
           sendCommands(deviceType, action.action, ref);
         } else {
-          TriggerAction? action = actions.firstWhere((element) =>
-          actionTypes
-              .firstWhere((element) => element.name == "Odd Step")
-              .uuid == element.uuid);
+          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Odd Step").uuid == element.uuid);
           sendCommands(deviceType, action.action, ref);
         }
       },
@@ -222,16 +204,10 @@ class CoverTriggerDefinition extends TriggerDefinition {
     proximityStream = ProximitySensor.events.listen((int event) {
       Flogger.d("CoverEvent:: $event");
       if (event >= 1) {
-        TriggerAction? action = actions.firstWhere((element) =>
-        actionTypes
-            .firstWhere((element) => element.name == "Near")
-            .uuid == element.uuid);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Near").uuid == element.uuid);
         sendCommands(deviceType, action.action, ref);
       } else if (event == 0) {
-        TriggerAction? action = actions.firstWhere((element) =>
-        actionTypes
-            .firstWhere((element) => element.name == "Far")
-            .uuid == element.uuid);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Far").uuid == element.uuid);
         sendCommands(deviceType, action.action, ref);
       }
     });
@@ -262,16 +238,10 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
     subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
       Flogger.d("Volume press detected:${event.name}");
       if (event == HardwareButton.volume_down) {
-        TriggerAction? action = actions.firstWhere((element) =>
-        actionTypes
-            .firstWhere((element) => element.name == "Volume Up")
-            .uuid == element.uuid);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Volume Up").uuid == element.uuid);
         sendCommands(deviceType, action.action, ref);
       } else if (event == HardwareButton.volume_up) {
-        TriggerAction? action = actions.firstWhere((element) =>
-        actionTypes
-            .firstWhere((element) => element.name == "Volume Down")
-            .uuid == element.uuid);
+        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Volume Down").uuid == element.uuid);
         sendCommands(deviceType, action.action, ref);
       }
     });
@@ -299,10 +269,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
   Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
     detector = ShakeDetector.waitForStart(onPhoneShake: () {
       Flogger.d("Shake Detected");
-      TriggerAction? action = actions.firstWhere((element) =>
-      actionTypes
-          .firstWhere((element) => element.name == "Shake")
-          .uuid == element.uuid);
+      TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Shake").uuid == element.uuid);
       sendCommands(deviceType, action.action, ref);
     });
     detector?.startListening();
@@ -343,10 +310,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
         });
     subscription = nearbyService?.stateChangedSubscription(callback: (devicesList) {
       Flogger.d("TailProximityTriggerDefinition::");
-      TriggerAction? action = actions.firstWhere((element) =>
-      actionTypes
-          .firstWhere((element) => element.name == "Nearby Gear")
-          .uuid == element.uuid);
+      TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Nearby Gear").uuid == element.uuid);
       sendCommands(deviceType, action.action, ref);
     });
   }
@@ -387,10 +351,7 @@ class TriggerAction {
 class TriggerList extends _$TriggerList {
   @override
   List<Trigger> build() {
-    return SentryHive
-        .box<Trigger>('triggers')
-        .values
-        .map((trigger) {
+    return SentryHive.box<Trigger>('triggers').values.map((trigger) {
       Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.name == trigger.triggerDef));
       trigger2.actions = trigger.actions;
       trigger2.enabled = trigger2.enabled;

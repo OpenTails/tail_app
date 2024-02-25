@@ -96,7 +96,7 @@ class KnownDevices extends _$KnownDevices {
         baseStoredDevice = statefulDevice.baseStoredDevice;
         transaction.setTag('Known Device', 'Yes');
       } else {
-        baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, device.id);
+        baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, device.id, deviceDefinition.deviceType.color.value);
         baseStoredDevice.name = getNameFromBTName(deviceDefinition.btName);
         statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice, ref);
         transaction.setTag('Known Device', 'No');

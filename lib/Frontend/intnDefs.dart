@@ -106,6 +106,8 @@ String settingsErrorReportingToggleTitle() => Intl.message('Automatic error repo
 
 String settingsErrorReportingToggleSubTitle() => Intl.message('Automatically reports errors to sentry', name: 'settingsErrorReportingToggleSubTitle', desc: 'Settings page error reporting toggle subtitle');
 
+String settingsAppColor() => Intl.message('App Color', name: 'settingsAppColor', desc: 'Settings page app color picker button title');
+
 //Move List
 String manageDevicesAutoMoveTitle() => Intl.message('Auto Move', name: 'manageDevicesAutoMoveTitle', desc: 'Auto move toggle title when managing a device');
 
@@ -140,6 +142,10 @@ String manageDevicesAutoMoveNoPhoneSliderLabel(int howMany) => Intl.message(
     );
 
 String manageDevicesDisconnect() => Intl.message('Disconnect', name: 'manageDevicesDisconnect', desc: 'manage devices disconnect button title when managing a device');
+
+String manageDevicesShutdown() => Intl.message('Shut Down', name: 'manageDevicesShutdown', desc: 'manage devices shutdown button title when managing a device');
+
+String manageDevicesColor() => Intl.message('Gear Color', name: 'manageDevicesColor', desc: 'manage devices color picker button title when managing a device');
 
 String manageDevicesForget() => Intl.message('Forget', name: 'manageDevicesForget', desc: 'manage devices forget button title when managing a device');
 

@@ -62,7 +62,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 BaseStoredDevice baseStoredDevice;
                 BaseStatefulDevice statefulDevice;
                 BaseDeviceDefinition? deviceDefinition = DeviceRegistry.getByService([Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66")]);
-                baseStoredDevice = BaseStoredDevice(deviceDefinition!.uuid, "DEV");
+                baseStoredDevice = BaseStoredDevice(deviceDefinition!.uuid, "DEV", deviceDefinition.deviceType.color.value);
                 baseStoredDevice.name = getNameFromBTName(deviceDefinition.btName);
                 statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice, null);
                 statefulDevice.deviceConnectionState.value = ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.deviceConnectionState.value ?? DeviceConnectionState.connected;
@@ -83,7 +83,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 BaseStoredDevice baseStoredDevice;
                 BaseStatefulDevice statefulDevice;
                 BaseDeviceDefinition? deviceDefinition = DeviceRegistry.getByService([Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6")]);
-                baseStoredDevice = BaseStoredDevice(deviceDefinition!.uuid, "DEV2");
+                baseStoredDevice = BaseStoredDevice(deviceDefinition!.uuid, "DEV2", deviceDefinition.deviceType.color.value);
                 baseStoredDevice.name = getNameFromBTName(deviceDefinition.btName);
                 statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice, null);
                 statefulDevice.deviceConnectionState.value = ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.deviceConnectionState.value ?? DeviceConnectionState.connected;

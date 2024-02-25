@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,31 +16,33 @@ class Home extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Widget> values = [
-      Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ListTile(
-                  leading: const Icon(Icons.waving_hand),
-                  title: Text(subTitle()),
-                  subtitle: const Text('This is a fan made app to control The Tail Company tails, ears, and wings'),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    TextButton(
-                      onPressed: () async {
-                        await launchUrl(Uri.parse('https://thetailcompany.com/')); //TODO: Bug MT for referral code, at least for analytics
-                      },
-                      child: const Text('Tail Company Store'),
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                ),
-              ],
+      FadeIn(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    leading: const Icon(Icons.waving_hand),
+                    title: Text(subTitle()),
+                    subtitle: const Text('This is a fan made app to control The Tail Company tails, ears, and wings'),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      TextButton(
+                        onPressed: () async {
+                          await launchUrl(Uri.parse('https://thetailcompany.com/')); //TODO: Bug MT for referral code, at least for analytics
+                        },
+                        child: const Text('Tail Company Store'),
+                      ),
+                      const SizedBox(width: 8),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

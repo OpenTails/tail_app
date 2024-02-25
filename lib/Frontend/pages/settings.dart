@@ -1,4 +1,5 @@
 import 'package:feedback_sentry/feedback_sentry.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 
+import '../../main.dart';
 import '../intnDefs.dart';
 
 class Settings extends ConsumerStatefulWidget {
@@ -17,12 +19,7 @@ class Settings extends ConsumerStatefulWidget {
 
 class _SettingsState extends ConsumerState<Settings> {
   final ScrollController _controller = ScrollController();
-  Color pickerColor = Color(000000);
-
-  // ValueChanged<Color> callback
-  void changeColor(Color color) {
-    setState(() => pickerColor = color);
-  }
+  Color appColor = Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value));
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +55,39 @@ class _SettingsState extends ConsumerState<Settings> {
         ),
         ListTile(
           title: Text(
-            "Appearance",
-            style: Theme.of(context).textTheme.titleLarge,
+            settingsAppColor(),
           ),
-        ),
-        ListTile(
-          title: const Text(
-            "Tail Color", //TODO: Localize
+          trailing: ColorIndicator(
+            width: 44,
+            height: 44,
+            borderRadius: 22,
+            color: Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value)),
           ),
+          onTap: () {
+            plausible.event(page: "Settings/App Color");
+            ColorPicker(
+              title: Text(
+                settingsAppColor(),
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              color: appColor,
+              onColorChanged: (Color color) => setState(() => appColor = color),
+              pickersEnabled: const <ColorPickerType, bool>{
+                ColorPickerType.both: false,
+                ColorPickerType.primary: true,
+                ColorPickerType.accent: true,
+                ColorPickerType.wheel: true,
+              },
+            ).showPickerDialog(context).then(
+              (value) {
+                if (value) {
+                  SentryHive.box('settings').put('appColor', appColor.value);
+                } else {
+                  appColor = Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value));
+                }
+              },
+            );
+          },
         ),
         if (kDebugMode) ...[
           ListTile(

@@ -1,10 +1,12 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
+import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
@@ -35,52 +37,52 @@ List<NavDestination> destinations = <NavDestination>[
 ];
 
 class NavigationDrawerExample extends ConsumerStatefulWidget {
-  Widget child;
-  String location;
+  final Widget child;
+  final String location;
 
-  NavigationDrawerExample(this.child, this.location, {super.key});
+  const NavigationDrawerExample(this.child, this.location, {super.key});
 
   @override
   ConsumerState<NavigationDrawerExample> createState() => _NavigationDrawerExampleState();
 }
 
+Widget getSignal(int rssi) {
+  if (rssi < -2) {
+    return const Icon(Icons.signal_cellular_alt);
+  } else if (rssi <= -45) {
+    return const Icon(Icons.signal_cellular_alt_2_bar);
+  } else if (rssi < -65) {
+    return const Icon(Icons.signal_cellular_alt_1_bar);
+  } else {
+    return const Icon(Icons.signal_cellular_connected_no_internet_0_bar);
+  }
+}
+
+Widget getBattery(double level) {
+  if (level < 0) {
+    return const Icon(Icons.battery_unknown);
+  }
+  if (level < 12.5) {
+    return const Icon(Icons.battery_0_bar);
+  } else if (level < 25) {
+    return const Icon(Icons.battery_1_bar);
+  } else if (level < 37.5) {
+    return const Icon(Icons.battery_2_bar);
+  } else if (level < 50) {
+    return const Icon(Icons.battery_3_bar);
+  } else if (level < 62.5) {
+    return const Icon(Icons.battery_4_bar);
+  } else if (level < 75) {
+    return const Icon(Icons.battery_5_bar);
+  } else if (level < 87.5) {
+    return const Icon(Icons.battery_6_bar);
+  } else {
+    return const Icon(Icons.battery_full);
+  }
+}
+
 class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExample> {
   int screenIndex = 0;
-
-  Widget getSignal(int rssi) {
-    if (rssi < -2) {
-      return const Icon(Icons.signal_cellular_alt);
-    } else if (rssi <= -45) {
-      return const Icon(Icons.signal_cellular_alt_2_bar);
-    } else if (rssi < -65) {
-      return const Icon(Icons.signal_cellular_alt_1_bar);
-    } else {
-      return const Icon(Icons.signal_cellular_connected_no_internet_0_bar);
-    }
-  }
-
-  Widget getBattery(double level) {
-    if (level < 0) {
-      return const Icon(Icons.battery_unknown);
-    }
-    if (level < 12.5) {
-      return const Icon(Icons.battery_0_bar);
-    } else if (level < 25) {
-      return const Icon(Icons.battery_1_bar);
-    } else if (level < 37.5) {
-      return const Icon(Icons.battery_2_bar);
-    } else if (level < 50) {
-      return const Icon(Icons.battery_3_bar);
-    } else if (level < 62.5) {
-      return const Icon(Icons.battery_4_bar);
-    } else if (level < 75) {
-      return const Icon(Icons.battery_5_bar);
-    } else if (level < 87.5) {
-      return const Icon(Icons.battery_6_bar);
-    } else {
-      return const Icon(Icons.battery_full);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +144,103 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                       .watch(knownDevicesProvider)
                       .values
                       .map(
-                        (BaseStatefulDevice e) => buildDeviceCard(e, context),
+                        (BaseStatefulDevice e) => (BaseStatefulDevice e, BuildContext context) {
+                          // Auto connect to known devices
+                          if (ref.watch(btStatusProvider).valueOrNull == BleStatus.ready) {
+                            ref.watch(scanForDevicesProvider);
+                          }
+                          return FadeIn(
+                            child: ValueListenableBuilder(
+                              valueListenable: e.deviceConnectionState,
+                              builder: (BuildContext context, DeviceConnectionState value, Widget? child) {
+                                return Flash(
+                                  animate: value == DeviceConnectionState.connected,
+                                  child: Card(
+                                    clipBehavior: Clip.antiAlias,
+                                    color: e.deviceConnectionState.value == DeviceConnectionState.connected ? Color(e.baseStoredDevice.color) : null,
+                                    child: ValueListenableBuilder(
+                                      valueListenable: e.hasUpdate,
+                                      builder: (BuildContext context, bool value, Widget? child) {
+                                        return Badge(
+                                          isLabelVisible: value,
+                                          child: child,
+                                        );
+                                      },
+                                      child: InkWell(
+                                        onTap: () {
+                                          plausible.event(page: "Manage Gear");
+                                          showModalBottomSheet(
+                                            context: context,
+                                            showDragHandle: true,
+                                            isScrollControlled: true,
+                                            enableDrag: true,
+                                            isDismissible: true,
+                                            builder: (BuildContext context) {
+                                              return ManageGear(
+                                                ref: ref,
+                                                device: e,
+                                              );
+                                            },
+                                          ).then((value) {
+                                            setState(() {}); //force widget update
+                                            return;
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            height: 50,
+                                            width: 100,
+                                            child: Stack(
+                                              children: [
+                                                Text(e.baseStoredDevice.name),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 16),
+                                                  child: Align(
+                                                    alignment: Alignment.bottomCenter,
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: value == DeviceConnectionState.connected
+                                                          ? [
+                                                              ValueListenableBuilder(
+                                                                valueListenable: e.battery,
+                                                                builder: (BuildContext context, value, Widget? child) {
+                                                                  return getBattery(e.battery.value);
+                                                                },
+                                                              ),
+                                                              ValueListenableBuilder(
+                                                                valueListenable: e.batteryCharging,
+                                                                builder: (BuildContext context, value, Widget? child) {
+                                                                  if (e.deviceConnectionState.value == DeviceConnectionState.connected && e.batteryCharging.value) {
+                                                                    return const Icon(Icons.power);
+                                                                  } else {
+                                                                    return Container();
+                                                                  }
+                                                                },
+                                                              ),
+                                                              ValueListenableBuilder(
+                                                                valueListenable: e.rssi,
+                                                                builder: (BuildContext context, value, Widget? child) {
+                                                                  return getSignal(e.rssi.value);
+                                                                },
+                                                              ),
+                                                            ]
+                                                          : [const Icon(Icons.bluetooth_disabled)],
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }(e, context),
                       )
                       .toList()
                     ..add(
@@ -196,231 +294,210 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
       ),
     );
   }
+}
 
-  Widget buildDeviceCard(BaseStatefulDevice e, BuildContext context) {
-    // Auto connect to known devices
-    if (ref.watch(btStatusProvider).valueOrNull == BleStatus.ready) {
-      ref.watch(scanForDevicesProvider);
-    }
-    return FadeIn(
-      child: ValueListenableBuilder(
-        valueListenable: e.deviceConnectionState,
-        builder: (BuildContext context, DeviceConnectionState value, Widget? child) {
-          return Flash(
-              animate: value == DeviceConnectionState.connected,
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                color: e.deviceConnectionState.value == DeviceConnectionState.connected ? e.baseDeviceDefinition.deviceType.color : null,
-                child: ValueListenableBuilder(
-                  valueListenable: e.hasUpdate,
-                  builder: (BuildContext context, bool value, Widget? child) {
-                    return Badge(
-                      isLabelVisible: value,
-                      child: child,
-                    );
+class ManageGear extends ConsumerStatefulWidget {
+  const ManageGear({super.key, required this.ref, required this.device});
+
+  final WidgetRef ref;
+  final BaseStatefulDevice device;
+
+  @override
+  ConsumerState<ManageGear> createState() => _ManageGearState();
+}
+
+class _ManageGearState extends ConsumerState<ManageGear> {
+  late Color color;
+
+  @override
+  void initState() {
+    super.initState();
+    color = Color(widget.device.baseStoredDevice.color);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: [
+        widget.device.hasUpdate.value
+            ? ElevatedButton(
+                onPressed: () {
+                  context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
+                },
+                child: Text(manageDevicesOtaButton()))
+            : Container(),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            controller: TextEditingController(text: widget.device.baseStoredDevice.name),
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: sequencesEditName(),
+              hintText: widget.device.baseDeviceDefinition.btName,
+            ),
+            maxLines: 1,
+            maxLength: 30,
+            autocorrect: false,
+            onSubmitted: (nameValue) {
+              setState(
+                () {
+                  if (nameValue.isNotEmpty) {
+                    widget.device.baseStoredDevice.name = nameValue;
+                  } else {
+                    widget.device.baseStoredDevice.name = widget.device.baseDeviceDefinition.btName;
+                  }
+                },
+              );
+              widget.ref.read(knownDevicesProvider.notifier).store();
+            },
+          ),
+        ),
+        ListTile(
+          title: Text(
+            manageDevicesColor(),
+          ),
+          trailing: ColorIndicator(
+            width: 44,
+            height: 44,
+            borderRadius: 22,
+            color: Color(widget.device.baseStoredDevice.color),
+          ),
+          onTap: () {
+            plausible.event(page: "Manage Gear/Gear Color");
+            ColorPicker(
+              title: Text(
+                manageDevicesColor(),
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              color: color,
+              onColorChanged: (Color color) => setState(() => this.color = color),
+              pickersEnabled: const <ColorPickerType, bool>{
+                ColorPickerType.both: false,
+                ColorPickerType.primary: true,
+                ColorPickerType.accent: true,
+                ColorPickerType.wheel: true,
+              },
+            ).showPickerDialog(context).then(
+              (value) {
+                setState(
+                  () {
+                    if (value) {
+                      widget.device.baseStoredDevice.color = color.value;
+                      ref.read(knownDevicesProvider.notifier).store();
+                    } else {
+                      color = Color(widget.device.baseStoredDevice.color);
+                    }
                   },
-                  child: InkWell(
-                    onTap: () {
-                      plausible.event(page: "Manage Gear");
-                      showModalBottomSheet(
-                        context: context,
-                        showDragHandle: true,
-                        isScrollControlled: true,
-                        enableDrag: true,
-                        isDismissible: true,
-                        builder: (BuildContext context) {
-                          return StatefulBuilder(
-                            builder: (BuildContext context, setState) {
-                              return Wrap(
-                                children: [
-                                  e.hasUpdate.value
-                                      ? ElevatedButton(
-                                          onPressed: () {
-                                            context.push("/ota", extra: e.baseStoredDevice.btMACAddress);
-                                          },
-                                          child: Text(manageDevicesOtaButton()))
-                                      : Container(),
-                                  Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: TextField(
-                                      controller: TextEditingController(text: e.baseStoredDevice.name),
-                                      decoration: InputDecoration(
-                                        border: const OutlineInputBorder(),
-                                        labelText: sequencesEditName(),
-                                        hintText: e.baseDeviceDefinition.btName,
-                                      ),
-                                      maxLines: 1,
-                                      maxLength: 30,
-                                      autocorrect: false,
-                                      onSubmitted: (nameValue) {
-                                        setState(
-                                          () {
-                                            if (nameValue.isNotEmpty) {
-                                              e.baseStoredDevice.name = nameValue;
-                                            } else {
-                                              e.baseStoredDevice.name = e.baseDeviceDefinition.btName;
-                                            }
-                                          },
-                                        );
-                                        ref.read(knownDevicesProvider.notifier).store();
-                                      },
-                                    ),
-                                  ),
-                                  ListTile(
-                                    title: Text(manageDevicesAutoMoveTitle()),
-                                    subtitle: Text(manageDevicesAutoMoveSubTitle()),
-                                    trailing: Switch(
-                                      value: e.baseStoredDevice.autoMove,
-                                      onChanged: (bool value) {
-                                        setState(() {
-                                          e.baseStoredDevice.autoMove = value;
-                                        });
-                                        ref.read(knownDevicesProvider.notifier).store();
-                                        ChangeAutoMove(e);
-                                      },
-                                    ),
-                                  ),
-                                  ListTile(
-                                    title: Text(manageDevicesAutoMoveGroupsTitle()),
-                                    subtitle: SegmentedButton<AutoActionCategory>(
-                                      multiSelectionEnabled: true,
-                                      selected: e.baseStoredDevice.selectedAutoCategories.toSet(),
-                                      onSelectionChanged: (Set<AutoActionCategory> value) {
-                                        setState(() {
-                                          e.baseStoredDevice.selectedAutoCategories = value.toList();
-                                        });
-                                        ref.read(knownDevicesProvider.notifier).store();
-                                        ChangeAutoMove(e);
-                                      },
-                                      segments: AutoActionCategory.values.map<ButtonSegment<AutoActionCategory>>(
-                                        (AutoActionCategory value) {
-                                          return ButtonSegment<AutoActionCategory>(
-                                            value: value,
-                                            label: Text(value.friendly),
-                                          );
-                                        },
-                                      ).toList(),
-                                    ),
-                                  ),
-                                  ListTile(
-                                    title: Text(manageDevicesAutoMovePauseTitle()),
-                                    subtitle: RangeSlider(
-                                      labels: RangeLabels(manageDevicesAutoMovePauseSliderLabel(e.baseStoredDevice.autoMoveMinPause.round()), manageDevicesAutoMovePauseSliderLabel(e.baseStoredDevice.autoMoveMaxPause.round())),
-                                      min: 15,
-                                      max: 240,
-                                      values: RangeValues(e.baseStoredDevice.autoMoveMinPause, e.baseStoredDevice.autoMoveMaxPause),
-                                      onChanged: (RangeValues value) {
-                                        setState(() {
-                                          e.baseStoredDevice.autoMoveMinPause = value.start;
-                                          e.baseStoredDevice.autoMoveMaxPause = value.end;
-                                        });
-                                        ref.read(knownDevicesProvider.notifier).store();
-                                      },
-                                      onChangeEnd: (values) {
-                                        ChangeAutoMove(e);
-                                      },
-                                    ),
-                                  ),
-                                  ListTile(
-                                    title: Text(manageDevicesAutoMoveNoPhoneTitle()),
-                                    subtitle: Slider(
-                                      value: e.baseStoredDevice.noPhoneDelayTime,
-                                      min: 1,
-                                      max: 60,
-                                      onChanged: (double value) {
-                                        setState(() {
-                                          e.baseStoredDevice.noPhoneDelayTime = value;
-                                        });
-                                        ref.read(knownDevicesProvider.notifier).store();
-                                      },
-                                      label: manageDevicesAutoMoveNoPhoneSliderLabel(e.baseStoredDevice.noPhoneDelayTime.round()),
-                                    ),
-                                  ),
-                                  ButtonBar(
-                                    alignment: MainAxisAlignment.end,
-                                    children: [
-                                      value == DeviceConnectionState.connected
-                                          ? TextButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  e.connectionStateStreamSubscription?.cancel();
-                                                });
-                                              },
-                                              child: Text(manageDevicesDisconnect()),
-                                            )
-                                          : Container(),
-                                      TextButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            e.connectionStateStreamSubscription = null;
-                                          });
-                                          ref.watch(knownDevicesProvider.notifier).remove(e.baseStoredDevice.btMACAddress);
-                                        },
-                                        child: Text(manageDevicesForget()),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      );
+                );
+              },
+            );
+          },
+        ),
+        ListTile(
+          title: Text(manageDevicesAutoMoveTitle()),
+          subtitle: Text(manageDevicesAutoMoveSubTitle()),
+          trailing: Switch(
+            value: widget.device.baseStoredDevice.autoMove,
+            onChanged: (bool value) {
+              setState(() {
+                widget.device.baseStoredDevice.autoMove = value;
+              });
+              widget.ref.read(knownDevicesProvider.notifier).store();
+              ChangeAutoMove(widget.device);
+            },
+          ),
+        ),
+        ListTile(
+          title: Text(manageDevicesAutoMoveGroupsTitle()),
+          subtitle: SegmentedButton<AutoActionCategory>(
+            multiSelectionEnabled: true,
+            selected: widget.device.baseStoredDevice.selectedAutoCategories.toSet(),
+            onSelectionChanged: (Set<AutoActionCategory> value) {
+              setState(() {
+                widget.device.baseStoredDevice.selectedAutoCategories = value.toList();
+              });
+              widget.ref.read(knownDevicesProvider.notifier).store();
+              ChangeAutoMove(widget.device);
+            },
+            segments: AutoActionCategory.values.map<ButtonSegment<AutoActionCategory>>(
+              (AutoActionCategory value) {
+                return ButtonSegment<AutoActionCategory>(
+                  value: value,
+                  label: Text(value.friendly),
+                );
+              },
+            ).toList(),
+          ),
+        ),
+        ListTile(
+          title: Text(manageDevicesAutoMovePauseTitle()),
+          subtitle: RangeSlider(
+            labels: RangeLabels(manageDevicesAutoMovePauseSliderLabel(widget.device.baseStoredDevice.autoMoveMinPause.round()), manageDevicesAutoMovePauseSliderLabel(widget.device.baseStoredDevice.autoMoveMaxPause.round())),
+            min: 15,
+            max: 240,
+            values: RangeValues(widget.device.baseStoredDevice.autoMoveMinPause, widget.device.baseStoredDevice.autoMoveMaxPause),
+            onChanged: (RangeValues value) {
+              setState(() {
+                widget.device.baseStoredDevice.autoMoveMinPause = value.start;
+                widget.device.baseStoredDevice.autoMoveMaxPause = value.end;
+              });
+              widget.ref.read(knownDevicesProvider.notifier).store();
+            },
+            onChangeEnd: (values) {
+              ChangeAutoMove(widget.device);
+            },
+          ),
+        ),
+        ListTile(
+          title: Text(manageDevicesAutoMoveNoPhoneTitle()),
+          subtitle: Slider(
+            value: widget.device.baseStoredDevice.noPhoneDelayTime,
+            min: 1,
+            max: 60,
+            onChanged: (double value) {
+              setState(() {
+                widget.device.baseStoredDevice.noPhoneDelayTime = value;
+              });
+              widget.ref.read(knownDevicesProvider.notifier).store();
+            },
+            label: manageDevicesAutoMoveNoPhoneSliderLabel(widget.device.baseStoredDevice.noPhoneDelayTime.round()),
+          ),
+        ),
+        ButtonBar(
+          alignment: MainAxisAlignment.end,
+          children: [
+            widget.device.deviceConnectionState.value == DeviceConnectionState.connected
+                ? TextButton(
+                    onPressed: () {
+                      setState(() {
+                        widget.device.connectionStateStreamSubscription?.cancel();
+                      });
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 50,
-                        width: 100,
-                        child: Stack(
-                          children: [
-                            Text(e.baseStoredDevice.name),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16),
-                              child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: value == DeviceConnectionState.connected
-                                      ? [
-                                          ValueListenableBuilder(
-                                            valueListenable: e.battery,
-                                            builder: (BuildContext context, value, Widget? child) {
-                                              return getBattery(e.battery.value);
-                                            },
-                                          ),
-                                          ValueListenableBuilder(
-                                            valueListenable: e.batteryCharging,
-                                            builder: (BuildContext context, value, Widget? child) {
-                                              if (e.deviceConnectionState.value == DeviceConnectionState.connected && e.batteryCharging.value) {
-                                                return const Icon(Icons.power);
-                                              } else {
-                                                return Container();
-                                              }
-                                            },
-                                          ),
-                                          ValueListenableBuilder(
-                                            valueListenable: e.rssi,
-                                            builder: (BuildContext context, value, Widget? child) {
-                                              return getSignal(e.rssi.value);
-                                            },
-                                          ),
-                                        ]
-                                      : [const Icon(Icons.bluetooth_disabled)],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ));
-        },
-      ),
+                    child: Text(manageDevicesDisconnect()),
+                  )
+                : Container(),
+            widget.device.deviceConnectionState.value == DeviceConnectionState.connected
+                ? TextButton(
+                    onPressed: () {
+                      setState(() {
+                        widget.device.commandQueue.addCommand(BluetoothMessage("SHUTDOWN", widget.device, Priority.high));
+                      });
+                    },
+                    child: Text(manageDevicesShutdown()),
+                  )
+                : Container(),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  widget.device.connectionStateStreamSubscription = null;
+                });
+                widget.ref.watch(knownDevicesProvider.notifier).remove(widget.device.baseStoredDevice.btMACAddress);
+              },
+              child: Text(manageDevicesForget()),
+            )
+          ],
+        )
+      ],
     );
   }
 }
-/*
-)*/

@@ -157,8 +157,10 @@ class BaseStoredDevice {
   final String btMACAddress;
   @HiveField(8)
   final String deviceDefinitionUUID;
+  @HiveField(9)
+  int color;
 
-  BaseStoredDevice(this.deviceDefinitionUUID, this.btMACAddress);
+  BaseStoredDevice(this.deviceDefinitionUUID, this.btMACAddress, this.color);
 
   @override
   String toString() {

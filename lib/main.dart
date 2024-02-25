@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
@@ -88,10 +90,10 @@ Future<void> main() async {
     ..registerAdapter(
       AutoActionCategoryAdapter(),
     );
-  SentryHive.openBox('settings');
-  SentryHive.openBox<Trigger>('triggers');
-  SentryHive.openBox<MoveList>('sequences');
-  SentryHive.openBox<BaseStoredDevice>('devices');
+  await SentryHive.openBox('settings');
+  await SentryHive.openBox<Trigger>('triggers');
+  await SentryHive.openBox<MoveList>('sequences');
+  await SentryHive.openBox<BaseStoredDevice>('devices');
   await SentryFlutter.init(
     (options) {
       options.dsn = 'https://284f1830184d74dbbbb48ad14b577ffc@sentry.codel1417.xyz/3';
@@ -139,8 +141,6 @@ void initDio() {
 class TailApp extends ConsumerWidget {
   const TailApp({super.key});
 
-  static const FlexScheme usedScheme = FlexScheme.orangeM3;
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -148,36 +148,52 @@ class TailApp extends ConsumerWidget {
     return BetterFeedback(
       themeMode: ThemeMode.system,
       darkTheme: FeedbackThemeData.dark(),
-      child: MaterialApp.router(
-        title: subTitle(),
-        theme: FlexThemeData.light(
-          scheme: usedScheme,
-          // Use very subtly themed app bar elevation in light mode.
-          appBarElevation: 0.5,
-          useMaterial3: true,
-          // We use the nicer Material-3 Typography in both M2 and M3 mode.
-          typography: Typography.material2021(platform: defaultTargetPlatform),
-        ),
-        darkTheme: FlexThemeData.dark(
-          scheme: usedScheme,
-          // Use a bit more themed elevated app bar in dark mode.
-          appBarElevation: 2,
-          useMaterial3: true,
-          // We use the nicer Material-3 Typography in both M2 and M3 mode.
-          typography: Typography.material2021(platform: defaultTargetPlatform),
-        ),
-        routerConfig: router,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en'), // English
-          Locale('ace'), // UwU
-        ],
-        themeMode: ThemeMode.system,
+      child: ValueListenableBuilder(
+        valueListenable: SentryHive.box('settings').listenable(keys: ["appColor"]),
+        builder: (BuildContext context, value, Widget? child) {
+          ColorScheme colorScheme = ColorScheme.fromSeed(
+            brightness: Brightness.dark,
+            seedColor: Color(
+              SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
+            ),
+            primary: Color(
+              SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
+            ),
+          );
+          return MaterialApp.router(
+            title: subTitle(),
+            theme: FlexThemeData.light(
+              colorScheme: colorScheme,
+              // Use very subtly themed app bar elevation in light mode.
+              appBarElevation: 0.5,
+              useMaterial3: true,
+              fontFamily: GoogleFonts.notoSans().fontFamily,
+              // We use the nicer Material-3 Typography in both M2 and M3 mode.
+              typography: Typography.material2021(platform: defaultTargetPlatform),
+            ),
+            darkTheme: FlexThemeData.dark(
+              colorScheme: colorScheme,
+              // Use a bit more themed elevated app bar in dark mode.
+              appBarElevation: 2,
+              useMaterial3: true,
+              fontFamily: GoogleFonts.notoSans().fontFamily,
+              // We use the nicer Material-3 Typography in both M2 and M3 mode.
+              typography: Typography.material2021(platform: defaultTargetPlatform),
+            ),
+            routerConfig: router,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'), // English
+              Locale('ace'), // UwU
+            ],
+            themeMode: ThemeMode.system,
+          );
+        },
       ),
     );
   }
