@@ -31,14 +31,18 @@ jobs:
       - name: Upload debug symbols
         run: flutter packages pub run sentry_dart_plugin
         env:
-          SENTRY_AUTH_TOKEN: ${{ vars.SENTRY_AUTH_TOKEN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
+          SENTRY_RELEASE: ${{ github.GITHUB_SHA }}
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
-          SENTRY_AUTH_TOKEN: ${{ vars.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: 'sentry'
-          SENTRY_PROJECT: 'tail-app'
-          SENTRY_URL: https://sentry.codel1417.xyz
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
   build_ios:
     name: Build IOS Artifact
     runs-on: macos-latest
