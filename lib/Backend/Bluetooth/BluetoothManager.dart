@@ -262,17 +262,13 @@ class CommandQueue {
       }
       //TODO: Resend on busy
       if (bluetoothMessage.delay == null) {
-        final ISentrySpan transaction = Sentry.startTransaction('sendBTCommand()', 'Send Command');
         try {
-          final ISentrySpan innerSpan = transaction.startChild('Send Commands', description: 'Sends all commands to Gear');
           Flogger.d("Sending command to ${device.baseStoredDevice.name}:${message.message}");
           await ref?.read(reactiveBLEProvider).writeCharacteristicWithResponse(message.device.txCharacteristic, value: const Utf8Encoder().convert(message.message));
-          innerSpan.finish();
           if (message.onCommandSent != null) {
             message.onCommandSent!();
           }
           if (message.responseMSG != null) {
-            final ISentrySpan responseSpan = transaction.startChild('Receive Response', description: 'Listens for the correct response message');
             Flogger.d("Waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
             List<int>? response = await message.device.rxCharacteristicStream?.timeout(const Duration(seconds: 10), onTimeout: (sink) => sink.close()).where((event) {
               Flogger.i('Response:${const Utf8Decoder().convert(event)}');
@@ -283,18 +279,12 @@ class CommandQueue {
               if (message.onResponseReceived != null) {
                 message.onResponseReceived!(const Utf8Decoder().convert(response));
               }
-              responseSpan.status = const SpanStatus.ok();
             } else {
               Flogger.d("Timed out waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
-              responseSpan.status = const SpanStatus.deadlineExceeded();
             }
-            responseSpan.finish();
           }
         } catch (e, s) {
           Sentry.captureException(e, stackTrace: s);
-          transaction.status = const SpanStatus.internalError();
-        } finally {
-          await transaction.finish();
         }
       } else {
         //TODO: Allow higher priority commands to run
