@@ -151,8 +151,17 @@ class TailApp extends ConsumerWidget {
       child: ValueListenableBuilder(
         valueListenable: SentryHive.box('settings').listenable(keys: ["appColor"]),
         builder: (BuildContext context, value, Widget? child) {
-          ColorScheme colorScheme = ColorScheme.fromSeed(
+          ColorScheme colorSchemeDark = ColorScheme.fromSeed(
             brightness: Brightness.dark,
+            seedColor: Color(
+              SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
+            ),
+            primary: Color(
+              SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
+            ),
+          );
+          ColorScheme colorSchemeLight = ColorScheme.fromSeed(
+            brightness: Brightness.light,
             seedColor: Color(
               SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
             ),
@@ -163,7 +172,7 @@ class TailApp extends ConsumerWidget {
           return MaterialApp.router(
             title: subTitle(),
             theme: FlexThemeData.light(
-              colorScheme: colorScheme,
+              colorScheme: colorSchemeLight,
               // Use very subtly themed app bar elevation in light mode.
               appBarElevation: 0.5,
               useMaterial3: true,
@@ -172,7 +181,7 @@ class TailApp extends ConsumerWidget {
               typography: Typography.material2021(platform: defaultTargetPlatform),
             ),
             darkTheme: FlexThemeData.dark(
-              colorScheme: colorScheme,
+              colorScheme: colorSchemeDark,
               // Use a bit more themed elevated app bar in dark mode.
               appBarElevation: 2,
               useMaterial3: true,
