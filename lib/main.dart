@@ -95,7 +95,7 @@ Future<void> main() async {
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
   await SentryFlutter.init(
-    (options) {
+    (options) async {
       options.dsn = 'https://284f1830184d74dbbbb48ad14b577ffc@sentry.codel1417.xyz/3';
       options.addIntegration(LoggingIntegration());
       options.attachScreenshot = true; //not supported on GlitchTip
@@ -108,6 +108,7 @@ Future<void> main() async {
       options.enableAutoNativeBreadcrumbs = true;
       options.enableAutoPerformanceTracing = true;
       options.beforeSend = beforeSend;
+      options.release = (await rootBundle.loadString('.git/HEAD')).trim();
     },
     // Init your App.
     appRunner: () => runApp(

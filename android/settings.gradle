@@ -24,3 +24,8 @@ plugins {
 }
 
 include ":app"
+
+import org.apache.tools.ant.DirectoryScanner
+
+DirectoryScanner.removeDefaultExclude('**/.git')
+DirectoryScanner.removeDefaultExclude('**/.git/**')

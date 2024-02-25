@@ -68,7 +68,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
-
+  assets:
+    - .git/HEAD
 sentry:
   upload_debug_symbols: true
   upload_source_maps: true
