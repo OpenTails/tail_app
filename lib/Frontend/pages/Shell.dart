@@ -340,21 +340,17 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 8),
                 child: LineChart(
                   LineChartData(
-                    titlesData: const FlTitlesData(rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))),
+                    titlesData: const FlTitlesData(
+                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    ),
                     lineTouchData: const LineTouchData(enabled: false),
                     borderData: FlBorderData(show: false),
                     minY: 0,
                     maxY: 100,
                     minX: 0,
                     maxX: widget.device.stopWatch.elapsed.inSeconds.toDouble(),
-                    lineBarsData: [
-                      LineChartBarData(
-                        spots: widget.device.batlevels,
-                        color: Theme.of(context).primaryColor,
-                        dotData: const FlDotData(show: false),
-                        isCurved: true,
-                      )
-                    ],
+                    lineBarsData: [LineChartBarData(spots: widget.device.batlevels, color: Theme.of(context).primaryColor, dotData: const FlDotData(show: false), isCurved: true, show: widget.device.batlevels.isNotEmpty)],
                   ),
                 ),
               ),
