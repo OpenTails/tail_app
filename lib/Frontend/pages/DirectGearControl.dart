@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +22,8 @@ class DirectGearControl extends ConsumerStatefulWidget {
 class _JoystickState extends ConsumerState<DirectGearControl> {
   double left = 0;
   double right = 0;
+  double x = 0;
+  double y = 0;
   Speed speed = Speed.fast;
   EasingType easingType = EasingType.linear;
   Set<DeviceType> deviceTypes = DeviceType.values.toSet();
@@ -111,57 +114,67 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
           ),
         ),
         Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
             children: [
-              Joystick(
-                mode: JoystickMode.all,
-                onStickDragEnd: () {
-                  Move move = Move();
-                  move.moveType = MoveType.home;
-                  ref.read(knownDevicesProvider).values.forEach((element) {
-                    generateMoveCommand(move, element).forEach((message) {
-                      message.responseMSG = null;
-                      message.priority = Priority.high;
-                      element.commandQueue.addCommand(message);
-                    });
-                  });
-                },
-                base: const Card(
-                  elevation: 1,
-                  shape: CircleBorder(),
-                  child: SizedBox.square(dimension: 300),
-                ),
-                stick: Card(
-                  elevation: 2,
-                  shape: const CircleBorder(),
-                  color: Theme.of(context).primaryColor,
-                  child: SizedBox.square(dimension: 100),
-                ),
-                listener: (details) {
-                  setState(() {
-                    double x = details.x;
-                    double y = details.y;
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Joystick(
+                    mode: JoystickMode.all,
+                    onStickDragEnd: () {
+                      Move move = Move();
+                      move.moveType = MoveType.home;
+                      ref.read(knownDevicesProvider).values.forEach((element) {
+                        generateMoveCommand(move, element).forEach((message) {
+                          message.responseMSG = null;
+                          message.priority = Priority.high;
+                          element.commandQueue.addCommand(message);
+                        });
+                      });
+                    },
+                    base: const Card(
+                      elevation: 1,
+                      shape: CircleBorder(),
+                      child: SizedBox.square(dimension: 300),
+                    ),
+                    stick: Card(
+                      elevation: 2,
+                      shape: const CircleBorder(),
+                      color: Theme.of(context).primaryColor,
+                      child: SizedBox.square(dimension: 100),
+                    ),
+                    listener: (details) {
+                      setState(() {
+                        x = details.x;
+                        y = details.y;
 
-                    double sign = x.sign;
-                    double direction = degrees(atan2(y.abs(), x.abs())); // 0-90
-                    double magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
+                        double sign = x.sign;
+                        double direction = degrees(atan2(y.abs(), x.abs())); // 0-90
+                        double magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
 
-                    double secondServo = ((((direction - 0) * (128 - 0)) / (90 - 0)) + 0).clamp(0, 128);
-                    double primaryServo = ((((magnitude - 0) * (128 - 0)) / (1 - 0)) + 0).clamp(0, 128);
-                    if (sign > 0) {
-                      left = primaryServo;
-                      right = secondServo;
-                    } else {
-                      right = primaryServo;
-                      left = secondServo;
-                    }
-                  });
-                  SendMove();
-                },
-                period: const Duration(milliseconds: 500),
+                        double secondServo = ((((direction - 0) * (128 - 0)) / (90 - 0)) + 0).clamp(0, 128);
+                        double primaryServo = ((((magnitude - 0) * (128 - 0)) / (1 - 0)) + 0).clamp(0, 128);
+                        if (sign > 0) {
+                          left = primaryServo;
+                          right = secondServo;
+                        } else {
+                          right = primaryServo;
+                          left = secondServo;
+                        }
+                      });
+                      SendMove();
+                    },
+                    period: const Duration(milliseconds: 500),
+                  ),
+                ],
               ),
+              if (kDebugMode) ...[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [Text("Left: ${left}"), Text("Right: ${right}"), Text("X: ${x}"), Text("Y: ${y}")],
+                )
+              ],
             ],
           ),
         )
