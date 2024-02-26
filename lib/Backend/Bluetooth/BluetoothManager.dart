@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:dio/dio.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +14,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Sensors.dart';
 
+import '../AutoMove.dart';
 import '../Definitions/Device/BaseDeviceDefinition.dart';
 import '../DeviceRegistry.dart';
 import '../FirmwareUpdate.dart';
@@ -107,6 +109,7 @@ class KnownDevices extends _$KnownDevices {
         statefulDevice.deviceConnectionState.value = event.connectionState;
         Flogger.i("Connection State updated for ${baseStoredDevice.name}: ${event.connectionState}");
         if (event.connectionState == DeviceConnectionState.connected) {
+          statefulDevice.stopWatch.start();
           statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
           Flogger.i("Discovering services for ${baseStoredDevice.name}");
           reactiveBLE.discoverAllServices(device.id);
@@ -125,11 +128,16 @@ class KnownDevices extends _$KnownDevices {
               statefulDevice.glowTip.value = "TRUE" == value.substring(value.indexOf(" "));
             } else if (value.contains("BUSY")) {
               //statefulDevice.deviceState.value = DeviceState.busy;
+            } else if (value.contains("LOWBATT")) {
+              statefulDevice.batteryLow.value = true;
+            } else if (value.contains("ERR")) {
+              statefulDevice.error.value = true;
             }
           });
           statefulDevice.batteryCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryCharacteristic).listen((List<int> event) {
             Flogger.d("Received Battery message from ${baseStoredDevice.name}: $event");
             statefulDevice.battery.value = event.first.toDouble();
+            statefulDevice.batlevels.add(FlSpot(statefulDevice.stopWatch.elapsed.inSeconds.toDouble(), event.first.toDouble()));
           });
           statefulDevice.batteryChargeCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryChargeCharacteristic).listen((List<int> event) {
             String value = const Utf8Decoder().convert(event);
@@ -159,6 +167,9 @@ class KnownDevices extends _$KnownDevices {
             ).onError((error, stackTrace) => Flogger.e("Unable to get Firmware info for ${statefulDevice.baseDeviceDefinition.fwURL} :$error"));
           }
           statefulDevice.commandQueue.addCommand(BluetoothMessage("VER", statefulDevice, Priority.low));
+          if (statefulDevice.baseStoredDevice.autoMove) {
+            ChangeAutoMove(statefulDevice);
+          }
         }
       });
       transaction.status = const SpanStatus.ok();
@@ -207,7 +218,9 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         knownDevices[event.deviceId]?.batteryCharging.value = false;
         knownDevices[event.deviceId]?.batteryChargeCharacteristicStreamSubscription?.cancel();
         knownDevices[event.deviceId]?.batteryChargeCharacteristicStreamSubscription = null;
-
+        knownDevices[event.deviceId]?.stopWatch.stop();
+        knownDevices[event.deviceId]?.stopWatch.reset();
+        knownDevices[event.deviceId]?.batteryLow.value = false;
         //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}")));
         //remove foreground service if no devices connected
         bool lastDevice = knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isEmpty;

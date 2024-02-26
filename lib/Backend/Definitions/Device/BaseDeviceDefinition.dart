@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,6 +77,9 @@ class BaseStatefulDevice {
 
   ValueNotifier<double> battery = ValueNotifier(-1);
   ValueNotifier<bool> batteryCharging = ValueNotifier(false);
+  ValueNotifier<bool> batteryLow = ValueNotifier(false);
+  ValueNotifier<bool> error = ValueNotifier(false);
+
   ValueNotifier<String> fwVersion = ValueNotifier("");
   ValueNotifier<bool> glowTip = ValueNotifier(false);
   StreamSubscription<ConnectionStateUpdate>? connectionStateStreamSubscription;
@@ -97,6 +101,8 @@ class BaseStatefulDevice {
   late CommandQueue commandQueue;
   StreamSubscription<List<int>>? batteryCharacteristicStreamSubscription;
   StreamSubscription<List<int>>? batteryChargeCharacteristicStreamSubscription;
+  List<FlSpot> batlevels = [];
+  Stopwatch stopWatch = Stopwatch();
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
     rxCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleRxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
@@ -142,7 +148,7 @@ class BaseStoredDevice {
   @HiveField(0)
   String name = "New Gear";
   @HiveField(1)
-  bool autoMove = true;
+  bool autoMove = false;
   @HiveField(2)
   double autoMoveMinPause = 15;
   @HiveField(3)

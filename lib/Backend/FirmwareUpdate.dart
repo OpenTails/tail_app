@@ -15,4 +15,9 @@ class FWInfo {
   factory FWInfo.fromJson(Map<String, dynamic> json) => _$FWInfoFromJson(json);
 
   Map<String, dynamic> toJson() => _$FWInfoToJson(this);
+
+  @override
+  String toString() {
+    return 'FWInfo{version: $version}';
+  }
 }

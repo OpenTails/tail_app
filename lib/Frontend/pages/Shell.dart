@@ -1,5 +1,7 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
@@ -176,9 +178,16 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                                             enableDrag: true,
                                             isDismissible: true,
                                             builder: (BuildContext context) {
-                                              return ManageGear(
-                                                ref: ref,
-                                                device: e,
+                                              return DraggableScrollableSheet(
+                                                expand: false,
+                                                initialChildSize: 1,
+                                                builder: (BuildContext context, ScrollController scrollController) {
+                                                  return ManageGear(
+                                                    ref: ref,
+                                                    device: e,
+                                                    controller: scrollController,
+                                                  );
+                                                },
                                               );
                                             },
                                           ).then((value) {
@@ -297,8 +306,9 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
 }
 
 class ManageGear extends ConsumerStatefulWidget {
-  const ManageGear({super.key, required this.ref, required this.device});
+  const ManageGear({super.key, required this.ref, required this.device, required this.controller});
 
+  final ScrollController controller;
   final WidgetRef ref;
   final BaseStatefulDevice device;
 
@@ -317,15 +327,47 @@ class _ManageGearState extends ConsumerState<ManageGear> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return ListView(
+      shrinkWrap: true,
+      controller: widget.controller,
       children: [
-        widget.device.hasUpdate.value
-            ? ElevatedButton(
-                onPressed: () {
-                  context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
-                },
-                child: Text(manageDevicesOtaButton()))
-            : Container(),
+        ValueListenableBuilder(
+          valueListenable: widget.device.battery,
+          builder: (BuildContext context, double value, Widget? child) {
+            return SizedBox(
+              height: 200,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 8),
+                child: LineChart(
+                  LineChartData(
+                    titlesData: const FlTitlesData(rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))),
+                    lineTouchData: const LineTouchData(enabled: false),
+                    borderData: FlBorderData(show: false),
+                    minY: 0,
+                    maxY: 100,
+                    minX: 0,
+                    maxX: widget.device.stopWatch.elapsed.inSeconds.toDouble(),
+                    lineBarsData: [
+                      LineChartBarData(
+                        spots: widget.device.batlevels,
+                        color: Theme.of(context).primaryColor,
+                        dotData: const FlDotData(show: false),
+                        isCurved: true,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+        if (widget.device.hasUpdate.value || kDebugMode) ...[
+          ElevatedButton(
+              onPressed: () {
+                context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
+              },
+              child: Text(manageDevicesOtaButton()))
+        ],
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
@@ -463,31 +505,52 @@ class _ManageGearState extends ConsumerState<ManageGear> {
             label: manageDevicesAutoMoveNoPhoneSliderLabel(widget.device.baseStoredDevice.noPhoneDelayTime.round()),
           ),
         ),
+        if (kDebugMode) ...[
+          ListTile(
+            title: Text("Debug"),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("BT MAC: ${widget.device.baseStoredDevice.btMACAddress}"),
+                Text("FW VER: ${widget.device.fwVersion.value}"),
+                Text("FW AVAIL: ${widget.device.fwInfo.value}"),
+                Text("GLOWTIP: ${widget.device.glowTip.value}"),
+                Text("CON ELAPSED: ${widget.device.stopWatch.elapsed}"),
+                Text("RSSI: ${widget.device.rssi.value}"),
+                Text("BATT: ${widget.device.battery.value}"),
+                Text("BATT_CHARGE: ${widget.device.batteryCharging.value}"),
+                Text("BATT LOW: ${widget.device.batteryLow.value}"),
+                Text("STATE: ${widget.device.deviceState.value}"),
+                Text("DEV UUID: ${widget.device.baseDeviceDefinition.uuid}"),
+                Text("DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}"),
+                Text("DEV FW URL: ${widget.device.baseDeviceDefinition.fwURL}"),
+              ],
+            ),
+          )
+        ],
         ButtonBar(
           alignment: MainAxisAlignment.end,
           children: [
-            widget.device.deviceConnectionState.value == DeviceConnectionState.connected
-                ? TextButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.device.connectionStateStreamSubscription?.cancel();
-                      });
-                      Navigator.pop(context);
-                    },
-                    child: Text(manageDevicesDisconnect()),
-                  )
-                : Container(),
-            widget.device.deviceConnectionState.value == DeviceConnectionState.connected
-                ? TextButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.device.commandQueue.addCommand(BluetoothMessage("SHUTDOWN", widget.device, Priority.high));
-                      });
-                      Navigator.pop(context);
-                    },
-                    child: Text(manageDevicesShutdown()),
-                  )
-                : Container(),
+            if (widget.device.deviceConnectionState.value == DeviceConnectionState.connected) ...[
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    widget.device.connectionStateStreamSubscription?.cancel();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text(manageDevicesDisconnect()),
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    widget.device.commandQueue.addCommand(BluetoothMessage("SHUTDOWN", widget.device, Priority.high));
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text(manageDevicesShutdown()),
+              )
+            ],
             TextButton(
               onPressed: () {
                 setState(() {
