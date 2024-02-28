@@ -23,6 +23,8 @@ jobs:
         run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
       - name: Build APK
         run: flutter build apk
+      - name: Build Dev APK
+        run: flutter build apk --debug
       - name: Build App Bundle
         run: flutter build appbundle
       - uses: actions/upload-artifact@v4
