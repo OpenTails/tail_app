@@ -107,6 +107,7 @@ Future<void> main() async {
       options.reportSilentFlutterErrors = true;
       options.enableAutoNativeBreadcrumbs = true;
       options.enableAutoPerformanceTracing = true;
+      options.enableAppHangTracking = true;
       options.beforeSend = beforeSend;
       options.release = (await rootBundle.loadString('.git/HEAD')).trim();
     },
