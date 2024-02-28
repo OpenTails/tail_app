@@ -2,9 +2,14 @@ name: tail_app
 description: A Cross Platform Tail Control App
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
-
+repository: https://github.com/Codel1417/tail_app
 environment:
   sdk: ^3.2.3
+
+platforms:
+  android:
+  ios:
+
 dependencies:
   flutter:
     sdk: flutter
