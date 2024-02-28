@@ -91,10 +91,52 @@ class _TriggersState extends ConsumerState<Triggers> {
         itemBuilder: (BuildContext context, int index) {
           return FadeIn(
             delay: Duration(milliseconds: 100 * index),
-            child: ExpansionTile(
+            child: ListTile(
+              onTap: () {
+                showModalBottomSheet(
+                  isDismissible: true,
+                  isScrollControlled: true,
+                  showDragHandle: true,
+                  enableDrag: true,
+                  useRootNavigator: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return DraggableScrollableSheet(
+                        expand: false,
+                        initialChildSize: 0.5,
+                        builder: (BuildContext context, ScrollController scrollController) {
+                          return ListView(
+                            shrinkWrap: true,
+                            controller: scrollController,
+                            children: [
+                              ListTile(
+                                title: Text(triggersList[index].triggerDefinition!.name),
+                                subtitle: Text(triggersList[index].triggerDefinition!.description),
+                                leading: ListenableBuilder(
+                                  listenable: triggersList[index],
+                                  builder: (BuildContext context, Widget? child) {
+                                    return Switch(
+                                      value: triggersList[index].enabled,
+                                      onChanged: (bool value) {
+                                        setState(
+                                          () {
+                                            triggersList[index].enabled = value;
+                                            ref.read(triggerListProvider.notifier).store();
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              )
+                            ]..addAll(getTriggerOptions(triggersList[index])),
+                          );
+                        });
+                  },
+                );
+              },
               title: Text(triggersList[index].triggerDefinition!.name),
               subtitle: Text(triggersList[index].triggerDefinition!.description),
-              //leading: triggersList[index].triggerDefinition.icon,
               leading: ListenableBuilder(
                 listenable: triggersList[index],
                 builder: (BuildContext context, Widget? child) {
@@ -111,7 +153,6 @@ class _TriggersState extends ConsumerState<Triggers> {
                   );
                 },
               ),
-              children: getTriggerOptions(triggersList[index]),
             ),
           );
         },
