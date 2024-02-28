@@ -109,7 +109,7 @@ Future<void> main() async {
       options.enableAutoPerformanceTracing = true;
       options.enableAppHangTracking = true;
       options.beforeSend = beforeSend;
-      options.release = (await rootBundle.loadString('.git/HEAD')).trim();
+      options.release = (await rootBundle.loadString('.git/ORIG_HEAD')).trim();
     },
     // Init your App.
     appRunner: () => runApp(

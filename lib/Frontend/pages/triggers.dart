@@ -129,7 +129,61 @@ class _TriggersState extends ConsumerState<Triggers> {
                                   },
                                 ),
                               ),
-                              ...getTriggerOptions(triggersList[index])
+                              ListTile(
+                                title: Text(deviceType()),
+                                subtitle: SegmentedButton<DeviceType>(
+                                  multiSelectionEnabled: true,
+                                  selected: triggersList[index].deviceType.toSet(),
+                                  onSelectionChanged: (Set<DeviceType> value) {
+                                    setState(() => triggersList[index].deviceType = value.toList());
+                                    ref.read(triggerListProvider.notifier).store();
+                                  },
+                                  segments: DeviceType.values.map<ButtonSegment<DeviceType>>(
+                                    (DeviceType value) {
+                                      return ButtonSegment<DeviceType>(
+                                        value: value,
+                                        label: Text(value.name),
+                                      );
+                                    },
+                                  ).toList(),
+                                ),
+                              ),
+                              ...triggersList[index].actions.map(
+                                    (TriggerAction e) => ListTile(
+                                      title: Text(triggersList[index].triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
+                                      subtitle: Text(ref.read(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.edit),
+                                        onPressed: () async {
+                                          BaseAction? result = await showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return Dialog.fullscreen(child: ActionSelector(deviceType: triggersList[index].deviceType.toSet()));
+                                              });
+                                          setState(
+                                            () {
+                                              e.action = result?.uuid;
+                                              ref.read(triggerListProvider.notifier).store();
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                              ButtonBar(
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        ref.read(triggerListProvider).remove(triggersList[index]);
+                                        ref.read(triggerListProvider.notifier).store();
+                                        Navigator.of(context).pop();
+                                      });
+                                    },
+                                    child: const Text("Delete Trigger"),
+                                  ),
+                                ],
+                              )
                             ],
                           );
                         });
@@ -159,53 +213,5 @@ class _TriggersState extends ConsumerState<Triggers> {
         },
       ),
     );
-  }
-
-  List<Widget> getTriggerOptions(Trigger trigger) {
-    List<Widget> results = [];
-    results.add(
-      ListTile(
-        title: Text(deviceType()),
-        subtitle: SegmentedButton<DeviceType>(
-          multiSelectionEnabled: true,
-          selected: trigger.deviceType.toSet(),
-          onSelectionChanged: (Set<DeviceType> value) {
-            setState(() => trigger.deviceType = value.toList());
-            ref.read(triggerListProvider.notifier).store();
-          },
-          segments: DeviceType.values.map<ButtonSegment<DeviceType>>(
-            (DeviceType value) {
-              return ButtonSegment<DeviceType>(
-                value: value,
-                label: Text(value.name),
-              );
-            },
-          ).toList(),
-        ),
-      ),
-    );
-    results.addAll(
-      trigger.actions.map(
-        (TriggerAction e) => ListTile(
-          title: Text(trigger.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
-          subtitle: Text(ref.read(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
-          trailing: IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () async {
-              BaseAction? result = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog.fullscreen(child: ActionSelector(deviceType: trigger.deviceType.toSet()));
-                  });
-              setState(() {
-                e.action = result?.uuid;
-                ref.read(triggerListProvider.notifier).store();
-              });
-            },
-          ),
-        ),
-      ),
-    );
-    return results;
   }
 }
