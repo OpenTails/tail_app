@@ -128,8 +128,9 @@ class _TriggersState extends ConsumerState<Triggers> {
                                     );
                                   },
                                 ),
-                              )
-                            ]..addAll(getTriggerOptions(triggersList[index])),
+                              ),
+                              ...getTriggerOptions(triggersList[index])
+                            ],
                           );
                         });
                   },

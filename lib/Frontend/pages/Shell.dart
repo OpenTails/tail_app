@@ -180,7 +180,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                                             builder: (BuildContext context) {
                                               return DraggableScrollableSheet(
                                                 expand: false,
-                                                initialChildSize: 1,
+                                                initialChildSize: 0.9,
                                                 builder: (BuildContext context, ScrollController scrollController) {
                                                   return ManageGear(
                                                     ref: ref,

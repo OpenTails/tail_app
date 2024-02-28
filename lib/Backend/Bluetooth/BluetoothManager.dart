@@ -13,6 +13,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Sensors.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../AutoMove.dart';
 import '../Definitions/Device/BaseDeviceDefinition.dart';
@@ -199,6 +200,11 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
       ForegroundServiceHandler.notification.setTitle("Gear Connected");
       ForegroundService().start();
     }
+    if (event.connectionState == DeviceConnectionState.connected) {
+      if (SentryHive.box('settings').get('keepAwake', defaultValue: false)) {
+        WakelockPlus.enable();
+      }
+    }
     if (knownDevices.containsKey(event.deviceId)) {
       knownDevices[event.deviceId]?.deviceConnectionState.value = event.connectionState;
       if (event.connectionState == DeviceConnectionState.disconnected) {
@@ -232,6 +238,7 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
           ref.read(triggerListProvider).where((element) => element.enabled).forEach((element) {
             element.enabled = false;
           });
+          WakelockPlus.disable();
         }
       }
     }

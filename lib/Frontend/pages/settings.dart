@@ -2,10 +2,13 @@ import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_hive/sentry_hive.dart';
+import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../main.dart';
 import '../intnDefs.dart';
@@ -49,6 +52,27 @@ class _SettingsState extends ConsumerState<Settings> {
             onChanged: (bool value) {
               setState(() {
                 SentryHive.box('settings').put('allowErrorReporting', value);
+              });
+            },
+          ),
+        ),
+        ListTile(
+          //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
+          title: Text("Keep screen on"),
+          leading: const Icon(Icons.phone_android),
+          subtitle: Text("Keep the screen on when gear is connected"),
+          trailing: Switch(
+            value: SentryHive.box('settings').get('keepAwake', defaultValue: false),
+            onChanged: (bool value) {
+              setState(() {
+                SentryHive.box('settings').put('keepAwake', value);
+                if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState == DeviceConnectionState.connected).isNotEmpty) {
+                  if (value) {
+                    WakelockPlus.enable();
+                  } else {
+                    WakelockPlus.disable();
+                  }
+                }
               });
             },
           ),
