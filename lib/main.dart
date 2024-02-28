@@ -195,7 +195,7 @@ class TailApp extends ConsumerWidget {
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
+              //GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [
               Locale('en'), // English

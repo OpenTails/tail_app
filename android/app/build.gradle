@@ -56,6 +56,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    namespace 'com.codel1417.tail_app'
 }
 
 flutter {
@@ -64,4 +65,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${localProperties.getProperty('kotlin.version')}"
+    implementation "com.polidea.rxandroidble2:rxandroidble:1.11.1"
 }
