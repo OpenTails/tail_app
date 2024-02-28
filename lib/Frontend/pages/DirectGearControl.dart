@@ -24,6 +24,8 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
   double right = 0;
   double x = 0;
   double y = 0;
+  double direction = 0;
+  double magnitude = 0;
   Speed speed = Speed.fast;
   EasingType easingType = EasingType.linear;
   Set<DeviceType> deviceTypes = DeviceType.values.toSet();
@@ -120,59 +122,75 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Joystick(
-                    mode: JoystickMode.all,
-                    onStickDragEnd: () {
-                      Move move = Move();
-                      move.moveType = MoveType.home;
-                      ref.read(knownDevicesProvider).values.forEach((element) {
-                        generateMoveCommand(move, element).forEach((message) {
-                          message.responseMSG = null;
-                          message.priority = Priority.high;
-                          element.commandQueue.addCommand(message);
+                  Align(
+                    alignment: Alignment.center,
+                    child: Joystick(
+                      mode: JoystickMode.all,
+                      onStickDragEnd: () {
+                        Move move = Move();
+                        move.moveType = MoveType.home;
+                        ref.read(knownDevicesProvider).values.forEach((element) {
+                          generateMoveCommand(move, element).forEach((message) {
+                            message.responseMSG = null;
+                            message.priority = Priority.high;
+                            element.commandQueue.addCommand(message);
+                          });
                         });
-                      });
-                    },
-                    base: const Card(
-                      elevation: 1,
-                      shape: CircleBorder(),
-                      child: SizedBox.square(dimension: 300),
-                    ),
-                    stick: Card(
-                      elevation: 2,
-                      shape: const CircleBorder(),
-                      color: Theme.of(context).primaryColor,
-                      child: SizedBox.square(dimension: 100),
-                    ),
-                    listener: (details) {
-                      setState(() {
-                        x = details.x;
-                        y = details.y;
+                      },
+                      base: const Card(
+                        elevation: 1,
+                        shape: CircleBorder(),
+                        child: SizedBox.square(dimension: 300),
+                      ),
+                      stick: Card(
+                        elevation: 2,
+                        shape: const CircleBorder(),
+                        color: Theme.of(context).primaryColor,
+                        child: SizedBox.square(dimension: 100),
+                      ),
+                      listener: (details) {
+                        setState(() {
+                          x = details.x;
+                          y = details.y;
 
-                        double sign = x.sign;
-                        double direction = degrees(atan2(y.abs(), x.abs())); // 0-90
-                        double magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
+                          double sign = x.sign;
+                          direction = degrees(atan2(y.abs(), x.abs())); // 0-90
+                          magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
 
-                        double secondServo = ((((direction - 0) * (128 - 0)) / (90 - 0)) + 0).clamp(0, 128);
-                        double primaryServo = ((((magnitude - 0) * (128 - 0)) / (1 - 0)) + 0).clamp(0, 128);
-                        if (sign > 0) {
-                          left = primaryServo;
-                          right = secondServo;
-                        } else {
-                          right = primaryServo;
-                          left = secondServo;
-                        }
-                      });
-                      SendMove();
-                    },
-                    period: const Duration(milliseconds: 500),
+                          double secondServo = ((((direction - 0) * (128 - 0)) / (90 - 0)) + 0).clamp(0, 128);
+                          double primaryServo = ((((magnitude - 0) * (128 - 0)) / (1 - 0)) + 0).clamp(0, 128);
+                          if (sign > 0) {
+                            left = primaryServo;
+                            right = secondServo;
+                          } else {
+                            right = primaryServo;
+                            left = secondServo;
+                          }
+                        });
+                        SendMove();
+                      },
+                      period: const Duration(milliseconds: 500),
+                    ),
                   ),
                 ],
               ),
               if (kDebugMode) ...[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Text("Left: ${left}"), Text("Right: ${right}"), Text("X: ${x}"), Text("Y: ${y}")],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Magnitude: ${magnitude.toStringAsPrecision(2)}"),
+                        Text("Direction: ${direction.toInt()}"),
+                        Text("Left: ${left.toInt()}"),
+                        Text("Right: ${right.toInt()}"),
+                        Text("X: ${x.toStringAsPrecision(2)}"),
+                        Text("Y: ${y.toStringAsPrecision(2)}"),
+                      ],
+                    ),
+                  ),
                 )
               ],
             ],

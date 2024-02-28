@@ -168,7 +168,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
 
         List<int> chunk = firmwareFile!.skip(current).take(mtu).toList();
         if (chunk.isNotEmpty) {
-          await ref.read(reactiveBLEProvider).writeCharacteristicWithResponse(baseStatefulDevice.txCharacteristic, value: chunk);
+          await ref.read(reactiveBLEProvider).writeCharacteristicWithoutResponse(baseStatefulDevice.txCharacteristic, value: chunk);
           current = current + chunk.length;
         } else {
           current = total;

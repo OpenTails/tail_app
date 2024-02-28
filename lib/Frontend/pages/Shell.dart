@@ -327,239 +327,243 @@ class _ManageGearState extends ConsumerState<ManageGear> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      controller: widget.controller,
-      children: [
-        ValueListenableBuilder(
-          valueListenable: widget.device.battery,
-          builder: (BuildContext context, double value, Widget? child) {
-            return SizedBox(
-              height: 200,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 8),
-                child: LineChart(
-                  LineChartData(
-                    titlesData: const FlTitlesData(
-                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+    return Theme(
+      data: BuildTheme(Theme.of(context).brightness, Color(widget.device.baseStoredDevice.color)),
+      child: ListView(
+        shrinkWrap: true,
+        controller: widget.controller,
+        children: [
+          ValueListenableBuilder(
+            valueListenable: widget.device.battery,
+            builder: (BuildContext context, double value, Widget? child) {
+              return SizedBox(
+                height: 200,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 8),
+                  child: LineChart(
+                    LineChartData(
+                      titlesData: const FlTitlesData(
+                        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      ),
+                      lineTouchData: const LineTouchData(enabled: false),
+                      borderData: FlBorderData(show: false),
+                      minY: 0,
+                      maxY: 100,
+                      minX: 0,
+                      maxX: widget.device.stopWatch.elapsed.inSeconds.toDouble(),
+                      lineBarsData: [LineChartBarData(spots: widget.device.batlevels, color: Theme.of(context).primaryColor, dotData: const FlDotData(show: false), isCurved: true, show: widget.device.batlevels.isNotEmpty)],
                     ),
-                    lineTouchData: const LineTouchData(enabled: false),
-                    borderData: FlBorderData(show: false),
-                    minY: 0,
-                    maxY: 100,
-                    minX: 0,
-                    maxX: widget.device.stopWatch.elapsed.inSeconds.toDouble(),
-                    lineBarsData: [LineChartBarData(spots: widget.device.batlevels, color: Theme.of(context).primaryColor, dotData: const FlDotData(show: false), isCurved: true, show: widget.device.batlevels.isNotEmpty)],
                   ),
                 ),
-              ),
-            );
-          },
-        ),
-        if (widget.device.hasUpdate.value || kDebugMode) ...[
-          ElevatedButton(
-              onPressed: () {
-                context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
-              },
-              child: Text(manageDevicesOtaButton()))
-        ],
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: TextField(
-            controller: TextEditingController(text: widget.device.baseStoredDevice.name),
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: sequencesEditName(),
-              hintText: widget.device.baseDeviceDefinition.btName,
-            ),
-            maxLines: 1,
-            maxLength: 30,
-            autocorrect: false,
-            onSubmitted: (nameValue) {
-              setState(
-                () {
-                  if (nameValue.isNotEmpty) {
-                    widget.device.baseStoredDevice.name = nameValue;
-                  } else {
-                    widget.device.baseStoredDevice.name = widget.device.baseDeviceDefinition.btName;
-                  }
-                },
               );
-              widget.ref.read(knownDevicesProvider.notifier).store();
             },
           ),
-        ),
-        ListTile(
-          title: Text(
-            manageDevicesColor(),
-          ),
-          trailing: ColorIndicator(
-            width: 44,
-            height: 44,
-            borderRadius: 22,
-            color: Color(widget.device.baseStoredDevice.color),
-          ),
-          onTap: () {
-            plausible.event(page: "Manage Gear/Gear Color");
-            ColorPicker(
-              title: Text(
-                manageDevicesColor(),
-                style: Theme.of(context).textTheme.titleLarge,
+          if (widget.device.hasUpdate.value || kDebugMode) ...[
+            ElevatedButton(
+                onPressed: () {
+                  context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
+                },
+                child: Text(manageDevicesOtaButton()))
+          ],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              controller: TextEditingController(text: widget.device.baseStoredDevice.name),
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: sequencesEditName(),
+                hintText: widget.device.baseDeviceDefinition.btName,
               ),
-              color: color,
-              onColorChanged: (Color color) => setState(() => this.color = color),
-              pickersEnabled: const <ColorPickerType, bool>{
-                ColorPickerType.both: false,
-                ColorPickerType.primary: true,
-                ColorPickerType.accent: true,
-                ColorPickerType.wheel: true,
-              },
-            ).showPickerDialog(context).then(
-              (value) {
+              maxLines: 1,
+              maxLength: 30,
+              autocorrect: false,
+              onSubmitted: (nameValue) {
                 setState(
                   () {
-                    if (value) {
-                      widget.device.baseStoredDevice.color = color.value;
-                      ref.read(knownDevicesProvider.notifier).store();
+                    if (nameValue.isNotEmpty) {
+                      widget.device.baseStoredDevice.name = nameValue;
                     } else {
-                      color = Color(widget.device.baseStoredDevice.color);
+                      widget.device.baseStoredDevice.name = widget.device.baseDeviceDefinition.btName;
                     }
                   },
                 );
+                widget.ref.read(knownDevicesProvider.notifier).store();
               },
-            );
-          },
-        ),
-        ListTile(
-          title: Text(manageDevicesAutoMoveTitle()),
-          subtitle: Text(manageDevicesAutoMoveSubTitle()),
-          trailing: Switch(
-            value: widget.device.baseStoredDevice.autoMove,
-            onChanged: (bool value) {
-              setState(() {
-                widget.device.baseStoredDevice.autoMove = value;
-              });
-              widget.ref.read(knownDevicesProvider.notifier).store();
-              ChangeAutoMove(widget.device);
-            },
-          ),
-        ),
-        ListTile(
-          title: Text(manageDevicesAutoMoveGroupsTitle()),
-          subtitle: SegmentedButton<AutoActionCategory>(
-            multiSelectionEnabled: true,
-            selected: widget.device.baseStoredDevice.selectedAutoCategories.toSet(),
-            onSelectionChanged: (Set<AutoActionCategory> value) {
-              setState(() {
-                widget.device.baseStoredDevice.selectedAutoCategories = value.toList();
-              });
-              widget.ref.read(knownDevicesProvider.notifier).store();
-              ChangeAutoMove(widget.device);
-            },
-            segments: AutoActionCategory.values.map<ButtonSegment<AutoActionCategory>>(
-              (AutoActionCategory value) {
-                return ButtonSegment<AutoActionCategory>(
-                  value: value,
-                  label: Text(value.friendly),
-                );
-              },
-            ).toList(),
-          ),
-        ),
-        ListTile(
-          title: Text(manageDevicesAutoMovePauseTitle()),
-          subtitle: RangeSlider(
-            labels: RangeLabels(manageDevicesAutoMovePauseSliderLabel(widget.device.baseStoredDevice.autoMoveMinPause.round()), manageDevicesAutoMovePauseSliderLabel(widget.device.baseStoredDevice.autoMoveMaxPause.round())),
-            min: 15,
-            max: 240,
-            values: RangeValues(widget.device.baseStoredDevice.autoMoveMinPause, widget.device.baseStoredDevice.autoMoveMaxPause),
-            onChanged: (RangeValues value) {
-              setState(() {
-                widget.device.baseStoredDevice.autoMoveMinPause = value.start;
-                widget.device.baseStoredDevice.autoMoveMaxPause = value.end;
-              });
-              widget.ref.read(knownDevicesProvider.notifier).store();
-            },
-            onChangeEnd: (values) {
-              ChangeAutoMove(widget.device);
-            },
-          ),
-        ),
-        ListTile(
-          title: Text(manageDevicesAutoMoveNoPhoneTitle()),
-          subtitle: Slider(
-            value: widget.device.baseStoredDevice.noPhoneDelayTime,
-            min: 1,
-            max: 60,
-            onChanged: (double value) {
-              setState(() {
-                widget.device.baseStoredDevice.noPhoneDelayTime = value;
-              });
-              widget.ref.read(knownDevicesProvider.notifier).store();
-            },
-            label: manageDevicesAutoMoveNoPhoneSliderLabel(widget.device.baseStoredDevice.noPhoneDelayTime.round()),
-          ),
-        ),
-        if (kDebugMode) ...[
-          ListTile(
-            title: Text("Debug"),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("BT MAC: ${widget.device.baseStoredDevice.btMACAddress}"),
-                Text("FW VER: ${widget.device.fwVersion.value}"),
-                Text("FW AVAIL: ${widget.device.fwInfo.value}"),
-                Text("GLOWTIP: ${widget.device.glowTip.value}"),
-                Text("CON ELAPSED: ${widget.device.stopWatch.elapsed}"),
-                Text("RSSI: ${widget.device.rssi.value}"),
-                Text("BATT: ${widget.device.battery.value}"),
-                Text("BATT_CHARGE: ${widget.device.batteryCharging.value}"),
-                Text("BATT LOW: ${widget.device.batteryLow.value}"),
-                Text("STATE: ${widget.device.deviceState.value}"),
-                Text("DEV UUID: ${widget.device.baseDeviceDefinition.uuid}"),
-                Text("DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}"),
-                Text("DEV FW URL: ${widget.device.baseDeviceDefinition.fwURL}"),
-              ],
             ),
-          )
-        ],
-        ButtonBar(
-          alignment: MainAxisAlignment.end,
-          children: [
-            if (widget.device.deviceConnectionState.value == DeviceConnectionState.connected) ...[
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    widget.device.connectionStateStreamSubscription?.cancel();
-                  });
-                  Navigator.pop(context);
+          ),
+          ListTile(
+            title: Text(
+              manageDevicesColor(),
+            ),
+            trailing: ColorIndicator(
+              width: 44,
+              height: 44,
+              borderRadius: 22,
+              color: Color(widget.device.baseStoredDevice.color),
+            ),
+            onTap: () {
+              plausible.event(page: "Manage Gear/Gear Color");
+              ColorPicker(
+                title: Text(
+                  manageDevicesColor(),
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                color: color,
+                onColorChanged: (Color color) => setState(() => this.color = color),
+                pickersEnabled: const <ColorPickerType, bool>{
+                  ColorPickerType.both: false,
+                  ColorPickerType.primary: true,
+                  ColorPickerType.accent: true,
+                  ColorPickerType.wheel: true,
                 },
-                child: Text(manageDevicesDisconnect()),
-              ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    widget.device.commandQueue.addCommand(BluetoothMessage("SHUTDOWN", widget.device, Priority.high));
-                  });
-                  Navigator.pop(context);
+              ).showPickerDialog(context).then(
+                (value) {
+                  setState(
+                    () {
+                      if (value) {
+                        widget.device.baseStoredDevice.color = color.value;
+                        ref.read(knownDevicesProvider.notifier).store();
+                      } else {
+                        color = Color(widget.device.baseStoredDevice.color);
+                      }
+                    },
+                  );
                 },
-                child: Text(manageDevicesShutdown()),
-              )
-            ],
-            TextButton(
-              onPressed: () {
+              );
+            },
+          ),
+          ListTile(
+            title: Text(manageDevicesAutoMoveTitle()),
+            subtitle: Text(manageDevicesAutoMoveSubTitle()),
+            trailing: Switch(
+              value: widget.device.baseStoredDevice.autoMove,
+              onChanged: (bool value) {
                 setState(() {
-                  widget.device.connectionStateStreamSubscription = null;
+                  widget.device.baseStoredDevice.autoMove = value;
                 });
-                widget.ref.watch(knownDevicesProvider.notifier).remove(widget.device.baseStoredDevice.btMACAddress);
-                Navigator.pop(context);
+                widget.ref.read(knownDevicesProvider.notifier).store();
+                ChangeAutoMove(widget.device);
               },
-              child: Text(manageDevicesForget()),
+            ),
+          ),
+          ListTile(
+            title: Text(manageDevicesAutoMoveGroupsTitle()),
+            subtitle: SegmentedButton<AutoActionCategory>(
+              multiSelectionEnabled: true,
+              selected: widget.device.baseStoredDevice.selectedAutoCategories.toSet(),
+              onSelectionChanged: (Set<AutoActionCategory> value) {
+                setState(() {
+                  widget.device.baseStoredDevice.selectedAutoCategories = value.toList();
+                });
+                widget.ref.read(knownDevicesProvider.notifier).store();
+                ChangeAutoMove(widget.device);
+              },
+              segments: AutoActionCategory.values.map<ButtonSegment<AutoActionCategory>>(
+                (AutoActionCategory value) {
+                  return ButtonSegment<AutoActionCategory>(
+                    value: value,
+                    label: Text(value.friendly),
+                  );
+                },
+              ).toList(),
+            ),
+          ),
+          ListTile(
+            title: Text(manageDevicesAutoMovePauseTitle()),
+            subtitle: RangeSlider(
+              labels: RangeLabels(manageDevicesAutoMovePauseSliderLabel(widget.device.baseStoredDevice.autoMoveMinPause.round()), manageDevicesAutoMovePauseSliderLabel(widget.device.baseStoredDevice.autoMoveMaxPause.round())),
+              min: 15,
+              max: 240,
+              values: RangeValues(widget.device.baseStoredDevice.autoMoveMinPause, widget.device.baseStoredDevice.autoMoveMaxPause),
+              onChanged: (RangeValues value) {
+                setState(() {
+                  widget.device.baseStoredDevice.autoMoveMinPause = value.start;
+                  widget.device.baseStoredDevice.autoMoveMaxPause = value.end;
+                });
+                widget.ref.read(knownDevicesProvider.notifier).store();
+              },
+              onChangeEnd: (values) {
+                ChangeAutoMove(widget.device);
+              },
+            ),
+          ),
+          ListTile(
+            title: Text(manageDevicesAutoMoveNoPhoneTitle()),
+            subtitle: Slider(
+              value: widget.device.baseStoredDevice.noPhoneDelayTime,
+              min: 1,
+              max: 60,
+              onChanged: (double value) {
+                setState(() {
+                  widget.device.baseStoredDevice.noPhoneDelayTime = value;
+                });
+                widget.ref.read(knownDevicesProvider.notifier).store();
+              },
+              label: manageDevicesAutoMoveNoPhoneSliderLabel(widget.device.baseStoredDevice.noPhoneDelayTime.round()),
+            ),
+          ),
+          if (kDebugMode) ...[
+            ListTile(
+              title: Text("Debug"),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("BT MAC: ${widget.device.baseStoredDevice.btMACAddress}"),
+                  Text("FW VER: ${widget.device.fwVersion.value}"),
+                  Text("FW AVAIL: ${widget.device.fwInfo.value}"),
+                  Text("GLOWTIP: ${widget.device.glowTip.value}"),
+                  Text("CON ELAPSED: ${widget.device.stopWatch.elapsed}"),
+                  Text("RSSI: ${widget.device.rssi.value}"),
+                  Text("BATT: ${widget.device.battery.value}"),
+                  Text("BATT_CHARGE: ${widget.device.batteryCharging.value}"),
+                  Text("BATT LOW: ${widget.device.batteryLow.value}"),
+                  Text("ERR: ${widget.device.error.value}"),
+                  Text("STATE: ${widget.device.deviceState.value}"),
+                  Text("DEV UUID: ${widget.device.baseDeviceDefinition.uuid}"),
+                  Text("DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}"),
+                  Text("DEV FW URL: ${widget.device.baseDeviceDefinition.fwURL}"),
+                ],
+              ),
             )
           ],
-        )
-      ],
+          ButtonBar(
+            alignment: MainAxisAlignment.end,
+            children: [
+              if (widget.device.deviceConnectionState.value == DeviceConnectionState.connected) ...[
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      widget.device.connectionStateStreamSubscription?.cancel();
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text(manageDevicesDisconnect()),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      widget.device.commandQueue.addCommand(BluetoothMessage("SHUTDOWN", widget.device, Priority.high));
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text(manageDevicesShutdown()),
+                )
+              ],
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    widget.device.connectionStateStreamSubscription = null;
+                  });
+                  widget.ref.watch(knownDevicesProvider.notifier).remove(widget.device.baseStoredDevice.btMACAddress);
+                  Navigator.pop(context);
+                },
+                child: Text(manageDevicesForget()),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }

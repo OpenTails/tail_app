@@ -43,7 +43,7 @@ extension EasingTypeExtension on EasingType {
     }
   }
 
-  int get index {
+  int get num {
     switch (this) {
       case EasingType.linear:
         return 0;
@@ -230,7 +230,7 @@ List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device)
       commands.add(BluetoothMessage.response("DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000", device, Priority.normal, "DSSP END"));
     } else {
       //cmd = "DSSP"; //TODO: Tail command
-      commands.add(BluetoothMessage.response("DSSP E${move.easingType.index} F${move.easingType.index} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.speed} M${move.speed.speed}", device, Priority.normal, "OK"));
+      commands.add(BluetoothMessage.response("DSSP E${move.easingType.num} F${move.easingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.speed} M${move.speed.speed}", device, Priority.normal, "OK"));
     }
   }
   return commands;

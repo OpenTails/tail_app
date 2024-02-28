@@ -152,44 +152,11 @@ class TailApp extends ConsumerWidget {
       child: ValueListenableBuilder(
         valueListenable: SentryHive.box('settings').listenable(keys: ["appColor"]),
         builder: (BuildContext context, value, Widget? child) {
-          ColorScheme colorSchemeDark = ColorScheme.fromSeed(
-            brightness: Brightness.dark,
-            seedColor: Color(
-              SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
-            ),
-            primary: Color(
-              SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
-            ),
-          );
-          ColorScheme colorSchemeLight = ColorScheme.fromSeed(
-            brightness: Brightness.light,
-            seedColor: Color(
-              SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
-            ),
-            primary: Color(
-              SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
-            ),
-          );
           return MaterialApp.router(
             title: subTitle(),
-            theme: FlexThemeData.light(
-              colorScheme: colorSchemeLight,
-              // Use very subtly themed app bar elevation in light mode.
-              appBarElevation: 0.5,
-              useMaterial3: true,
-              fontFamily: GoogleFonts.notoSans().fontFamily,
-              // We use the nicer Material-3 Typography in both M2 and M3 mode.
-              typography: Typography.material2021(platform: defaultTargetPlatform),
-            ),
-            darkTheme: FlexThemeData.dark(
-              colorScheme: colorSchemeDark,
-              // Use a bit more themed elevated app bar in dark mode.
-              appBarElevation: 2,
-              useMaterial3: true,
-              fontFamily: GoogleFonts.notoSans().fontFamily,
-              // We use the nicer Material-3 Typography in both M2 and M3 mode.
-              typography: Typography.material2021(platform: defaultTargetPlatform),
-            ),
+            color: Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value)),
+            theme: BuildTheme(Brightness.light, Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value))),
+            darkTheme: BuildTheme(Brightness.dark, Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value))),
             routerConfig: router,
             localizationsDelegates: const [
               AppLocalizations.delegate,
@@ -205,6 +172,42 @@ class TailApp extends ConsumerWidget {
           );
         },
       ),
+    );
+  }
+}
+
+ThemeData BuildTheme(Brightness brightness, Color color) {
+  if (brightness == Brightness.light) {
+    return FlexThemeData.light(
+      colorScheme: ColorScheme.fromSeed(
+        brightness: Brightness.light,
+        seedColor: color,
+        primary: color,
+      ),
+      // Use very subtly themed app bar elevation in light mode.
+      appBarElevation: 0.5,
+      useMaterial3: true,
+      fontFamily: GoogleFonts.notoSans().fontFamily,
+      // We use the nicer Material-3 Typography in both M2 and M3 mode.
+      typography: Typography.material2021(platform: defaultTargetPlatform),
+    );
+  } else {
+    return FlexThemeData.dark(
+      colorScheme: ColorScheme.fromSeed(
+        brightness: Brightness.dark,
+        seedColor: Color(
+          SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
+        ),
+        primary: Color(
+          SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
+        ),
+      ),
+      // Use a bit more themed elevated app bar in dark mode.
+      appBarElevation: 2,
+      useMaterial3: true,
+      fontFamily: GoogleFonts.notoSans().fontFamily,
+      // We use the nicer Material-3 Typography in both M2 and M3 mode.
+      typography: Typography.material2021(platform: defaultTargetPlatform),
     );
   }
 }
