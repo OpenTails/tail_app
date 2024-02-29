@@ -201,3 +201,15 @@ String triggerEarMicTitle() => Intl.message("EarGear Mic", name: 'triggerEarMicT
 String triggerEarMicDescription() => Intl.message("Trigger an action when EarGear detects sound", name: 'triggerEarMicDescription', desc: 'EarGear internal mic trigger description');
 
 String triggerEarMicSound() => Intl.message("Sound Detected", name: 'triggerEarMicSound', desc: 'EarGear internal mic trigger sound detected action label');
+
+String triggerEarTiltTitle() => Intl.message("EarGear Tilt Sensor", name: 'triggerEarTiltTitle', desc: 'EarGear internal gesture sensor trigger title');
+
+String triggerEarTiltDescription() => Intl.message("Trigger an action when EarGear detects tilt", name: 'triggerEarTiltDescription', desc: 'EarGear internal mic trigger description');
+
+String triggerEarTiltLeft() => Intl.message("Left Tilt", name: 'triggerEarTiltLeft', desc: 'EarGear internal gesture sensor trigger left tilt detected action label');
+
+String triggerEarTiltRight() => Intl.message("Right Tilt", name: 'triggerEarTiltRight', desc: 'EarGear internal gesture sensor trigger right tilt detected action label');
+
+String triggerEarTiltForward() => Intl.message("Forward Tilt", name: 'triggerEarTiltForward', desc: 'EarGear internal gesture sensor trigger forward tilt detected action label');
+
+String triggerEarTiltbackward() => Intl.message("Backward Tilt", name: 'triggerEarTiltbackward', desc: 'EarGear internal gesture sensor trigger backward tilt detected action label');

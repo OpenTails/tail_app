@@ -44,28 +44,24 @@ class Trigger extends ChangeNotifier {
     _deviceType = value;
     if (_enabled) {
       triggerDefinition?.onDisable();
-      triggerDefinition?.onEnable(actions.toSet(), deviceType.toSet());
+      triggerDefinition?.onEnable();
     }
   }
 
   bool get enabled => _enabled;
 
   set enabled(bool value) {
-    if (triggerDefinition?.requiredPermission != null) {
+    if (triggerDefinition?.requiredPermission != null && value) {
       triggerDefinition?.requiredPermission?.request().then((permissionStatus) {
         if (permissionStatus == PermissionStatus.granted) {
           _enabled = value;
-          if (_enabled) {
-            triggerDefinition?.onEnable(actions.toSet(), deviceType.toSet());
-          } else {
-            triggerDefinition?.onDisable();
-          }
+          triggerDefinition?.onEnable();
         }
       });
     } else {
       _enabled = value;
       if (_enabled) {
-        triggerDefinition?.onEnable(actions.toSet(), deviceType.toSet());
+        triggerDefinition?.onEnable();
       } else {
         triggerDefinition?.onDisable();
       }
@@ -102,7 +98,7 @@ abstract class TriggerDefinition implements Comparable<TriggerDefinition> {
   late Widget icon;
   Ref ref;
 
-  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType);
+  Future<void> onEnable();
 
   Future<void> onDisable();
 
@@ -149,37 +145,47 @@ class WalkingTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    pedestrianStatusStream?.cancel();
-    stepCountStream?.cancel();
-    pedestrianStatusStream = null;
-    stepCountStream = null;
+    if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
+      pedestrianStatusStream?.cancel();
+      stepCountStream?.cancel();
+      pedestrianStatusStream = null;
+      stepCountStream = null;
+    }
   }
 
   @override
-  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable() async {
+    if (pedestrianStatusStream != null) {
+      return;
+    }
     pedestrianStatusStream = Pedometer.pedestrianStatusStream.listen(
       (PedestrianStatus event) {
         Flogger.i("PedestrianStatus:: ${event.status}");
         if (event.status == "walking") {
-          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Walking").uuid == element.uuid);
-          sendCommands(deviceType, action.action, ref);
+          ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Walking").uuid == e.uuid).forEach(
+                (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+              );
         } else if (event.status == "stopped") {
-          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Stopped").uuid == element.uuid);
-          sendCommands(deviceType, action.action, ref);
+          ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Stopped").uuid == e.uuid).forEach(
+                (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+              );
         }
       },
     );
     stepCountStream = Pedometer.stepCountStream.listen(
       (StepCount event) {
         Flogger.d("StepCount:: ${event.steps}");
-        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Step").uuid == element.uuid);
-        sendCommands(deviceType, action.action, ref);
+        ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Step").uuid == e.uuid).forEach(
+              (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+            );
         if (event.steps.isEven) {
-          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Even Step").uuid == element.uuid);
-          sendCommands(deviceType, action.action, ref);
+          ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Even Step").uuid == e.uuid).forEach(
+                (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+              );
         } else {
-          TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Odd Step").uuid == element.uuid);
-          sendCommands(deviceType, action.action, ref);
+          ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Odd Step").uuid == e.uuid).forEach(
+                (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+              );
         }
       },
     );
@@ -199,20 +205,27 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    proximityStream?.cancel();
-    proximityStream = null;
+    if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
+      proximityStream?.cancel();
+      proximityStream = null;
+    }
   }
 
   @override
-  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable() async {
+    if (proximityStream != null) {
+      return;
+    }
     proximityStream = ProximitySensor.events.listen((int event) {
       Flogger.d("CoverEvent:: $event");
       if (event >= 1) {
-        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Near").uuid == element.uuid);
-        sendCommands(deviceType, action.action, ref);
+        ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Near").uuid == e.uuid).forEach(
+              (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+            );
       } else if (event == 0) {
-        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Far").uuid == element.uuid);
-        sendCommands(deviceType, action.action, ref);
+        ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Far").uuid == e.uuid).forEach(
+              (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+            );
       }
     });
   }
@@ -234,20 +247,26 @@ class EarMicTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    deviceRefSubscription?.close();
-    ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
-      element.deviceConnectionState.removeListener(onDeviceConnected);
-    });
-    for (var element in rxSubscriptions) {
-      element?.cancel();
+    if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
+      deviceRefSubscription?.close();
+      ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+        element.deviceConnectionState.removeListener(onDeviceConnected);
+      });
+      for (var element in rxSubscriptions) {
+        element?.cancel();
+      }
+      rxSubscriptions = [];
+      ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+        element.commandQueue.addCommand(BluetoothMessage.response("ENDLISTEN", element, Priority.normal, "LISTEN OFF"));
+      });
     }
-    ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
-      element.commandQueue.addCommand(BluetoothMessage.response("ENDLISTEN", element, Priority.normal, "LISTEN OFF"));
-    });
   }
 
   @override
-  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable() async {
+    if (rxSubscriptions.isNotEmpty) {
+      return;
+    }
     ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
       element.commandQueue.addCommand(BluetoothMessage("LISTEN FULL", element, Priority.normal));
     });
@@ -292,6 +311,104 @@ class EarMicTriggerDefinition extends TriggerDefinition {
   }
 }
 
+class EarTiltTriggerDefinition extends TriggerDefinition {
+  List<StreamSubscription<List<int>>?> rxSubscriptions = [];
+  ProviderSubscription<Map<String, BaseStatefulDevice>>? deviceRefSubscription;
+
+  EarTiltTriggerDefinition(super.ref) {
+    super.name = triggerEarTiltTitle();
+    super.description = triggerEarTiltDescription();
+    super.icon = const Icon(Icons.threed_rotation);
+    super.requiredPermission = null;
+    super.actionTypes = [
+      TriggerActionDef("Left", triggerEarTiltLeft(), "0137efd7-5a6f-4ac3-8956-cd75e11e6fd4"),
+      TriggerActionDef("Right", triggerEarTiltRight(), "21d233cc-aeaf-4096-a997-7070e38a8801"),
+      TriggerActionDef("Forward", triggerEarTiltForward(), "7e32987a-588c-4969-a589-d95f94262da7"),
+      TriggerActionDef("Backward", triggerEarTiltbackward(), "a4ad813e-a867-4c73-8e73-c4a294829667"),
+    ];
+  }
+
+  @override
+  Future<void> onDisable() async {
+    if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
+      deviceRefSubscription?.close();
+      ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+        element.deviceConnectionState.removeListener(onDeviceConnected);
+      });
+      for (var element in rxSubscriptions) {
+        element?.cancel();
+      }
+      rxSubscriptions = [];
+      ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+        element.commandQueue.addCommand(BluetoothMessage("ENDTILTMODE", element, Priority.normal));
+      });
+    }
+  }
+
+  @override
+  Future<void> onEnable() async {
+    if (rxSubscriptions.isNotEmpty) {
+      return;
+    }
+    ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+      element.commandQueue.addCommand(BluetoothMessage("TILTMODE START", element, Priority.normal));
+    });
+    //add listeners on new device paired
+    deviceRefSubscription = ref.listen(knownDevicesProvider, (previous, next) {
+      onDeviceConnected();
+    });
+  }
+
+  Future<void> onDeviceConnected() async {
+    ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).map((e) {
+      e.deviceConnectionState.removeListener(onDeviceConnected);
+      e.deviceConnectionState.addListener(onDeviceConnected);
+    });
+    listen();
+  }
+
+  Future<void> listen() async {
+    //cancel old subscriptions
+    if (rxSubscriptions.isNotEmpty) {
+      for (var element in rxSubscriptions) {
+        element?.cancel();
+      }
+    }
+    //Store the current streams to keep them open
+    rxSubscriptions = ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).map(
+      (element) {
+        element.commandQueue.addCommand(BluetoothMessage("TILTMODE START", element, Priority.normal));
+        return element.rxCharacteristicStream?.listen(
+          (event) {
+            String msg = const Utf8Decoder().convert(event);
+            if (msg.contains("TILT LEFT")) {
+              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+              ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Left").uuid == e.uuid).forEach(
+                    (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+                  );
+            } else if (msg.contains("TILT RIGHT")) {
+              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+              ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Right").uuid == e.uuid).forEach(
+                    (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+                  );
+            } else if (msg.contains("TILT FORWARD")) {
+              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+              ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Forward").uuid == e.uuid).forEach(
+                    (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+                  );
+            } else if (msg.contains("TILT BACKWARD")) {
+              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+              ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Backward").uuid == e.uuid).forEach(
+                    (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+                  );
+            }
+          },
+        );
+      },
+    ).toList();
+  }
+}
+
 class VolumeButtonTriggerDefinition extends TriggerDefinition {
   StreamSubscription<HardwareButton>? subscription;
 
@@ -305,22 +422,27 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    if (subscription != null) {
-      subscription!.cancel();
+    if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
+      subscription?.cancel();
+      subscription = null;
     }
-    subscription = null;
   }
 
   @override
-  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable() async {
+    if (subscription != null) {
+      return;
+    }
     subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
       Flogger.d("Volume press detected:${event.name}");
       if (event == HardwareButton.volume_down) {
-        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Volume Up").uuid == element.uuid);
-        sendCommands(deviceType, action.action, ref);
+        ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Volume Up").uuid == e.uuid).forEach(
+              (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+            );
       } else if (event == HardwareButton.volume_up) {
-        TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Volume Down").uuid == element.uuid);
-        sendCommands(deviceType, action.action, ref);
+        ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Volume Down").uuid == e.uuid).forEach(
+              (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+            );
       }
     });
   }
@@ -339,16 +461,22 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    detector?.stopListening();
-    detector = null;
+    if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
+      detector?.stopListening();
+      detector = null;
+    }
   }
 
   @override
-  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable() async {
+    if (detector != null) {
+      return;
+    }
     detector = ShakeDetector.waitForStart(onPhoneShake: () {
       Flogger.d("Shake Detected");
-      TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Shake").uuid == element.uuid);
-      sendCommands(deviceType, action.action, ref);
+      ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Shake").uuid == e.uuid).forEach(
+            (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+          );
     });
     detector?.startListening();
   }
@@ -368,14 +496,19 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    subscription?.cancel();
-    subscription = null;
-    await nearbyService?.stopAdvertisingPeer();
-    await nearbyService?.stopBrowsingForPeers();
+    if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
+      subscription?.cancel();
+      subscription = null;
+      await nearbyService?.stopAdvertisingPeer();
+      await nearbyService?.stopBrowsingForPeers();
+    }
   }
 
   @override
-  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
+  Future<void> onEnable() async {
+    if (subscription != null) {
+      return;
+    }
     nearbyService = NearbyService();
     await nearbyService?.init(
         serviceType: "tailapp",
@@ -388,8 +521,9 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
         });
     subscription = nearbyService?.stateChangedSubscription(callback: (devicesList) {
       Flogger.d("TailProximityTriggerDefinition::");
-      TriggerAction? action = actions.firstWhere((element) => actionTypes.firstWhere((element) => element.name == "Nearby Gear").uuid == element.uuid);
-      sendCommands(deviceType, action.action, ref);
+      ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Nearby Gear").uuid == e.uuid).forEach(
+            (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+          );
     });
   }
 }
@@ -467,6 +601,8 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
       CoverTriggerDefinition(ref),
       TailProximityTriggerDefinition(ref),
       ShakeTriggerDefinition(ref),
+      EarMicTriggerDefinition(ref),
+      EarTiltTriggerDefinition(ref),
     ];
     if (Platform.isAndroid) {
       triggerDefinitions.add(VolumeButtonTriggerDefinition(ref));

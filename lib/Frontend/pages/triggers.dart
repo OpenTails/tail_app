@@ -33,25 +33,27 @@ class _TriggersState extends ConsumerState<Triggers> {
                   title: Text(triggersSelectLabel()),
                   content: StatefulBuilder(
                     builder: (context, StateSetter setState) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: ref
-                            .watch(triggerDefinitionListProvider)
-                            .map((TriggerDefinition e) => ListTile(
-                                  title: Text(e.name),
-                                  leading: Radio<TriggerDefinition>(
-                                    value: e,
-                                    groupValue: triggerDefinition,
-                                    onChanged: (TriggerDefinition? value) {
-                                      setState(() {
-                                        triggerDefinition = value;
-                                      });
-                                    },
-                                  ),
-                                  trailing: e.icon,
-                                  subtitle: Text(e.description),
-                                ))
-                            .toList(),
+                      return SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: ref
+                              .watch(triggerDefinitionListProvider)
+                              .map((TriggerDefinition e) => ListTile(
+                                    title: Text(e.name),
+                                    leading: Radio<TriggerDefinition>(
+                                      value: e,
+                                      groupValue: triggerDefinition,
+                                      onChanged: (TriggerDefinition? value) {
+                                        setState(() {
+                                          triggerDefinition = value;
+                                        });
+                                      },
+                                    ),
+                                    trailing: e.icon,
+                                    subtitle: Text(e.description),
+                                  ))
+                              .toList(),
+                        ),
                       );
                     },
                   ),
