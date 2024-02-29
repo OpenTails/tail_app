@@ -54,9 +54,12 @@ class Trigger extends ChangeNotifier {
     if (triggerDefinition?.requiredPermission != null && value) {
       triggerDefinition?.requiredPermission?.request().then((permissionStatus) {
         if (permissionStatus == PermissionStatus.granted) {
-          _enabled = value;
+          _enabled = true;
           triggerDefinition?.onEnable();
+        } else {
+          _enabled = false;
         }
+        notifyListeners();
       });
     } else {
       _enabled = value;
