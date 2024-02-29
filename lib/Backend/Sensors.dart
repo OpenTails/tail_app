@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
 import 'package:flutter_nearby_connections/flutter_nearby_connections.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:logging_flutter/logging_flutter.dart';
@@ -14,6 +17,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:shake/shake.dart';
 import 'package:tail_app/Backend/ActionRegistry.dart';
+import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
 
 import '../Frontend/intnDefs.dart';
 import 'Bluetooth/BluetoothManager.dart';
@@ -211,6 +215,80 @@ class CoverTriggerDefinition extends TriggerDefinition {
         sendCommands(deviceType, action.action, ref);
       }
     });
+  }
+}
+
+class EarMicTriggerDefinition extends TriggerDefinition {
+  List<StreamSubscription<List<int>>?> rxSubscriptions = [];
+  ProviderSubscription<Map<String, BaseStatefulDevice>>? deviceRefSubscription;
+
+  EarMicTriggerDefinition(super.ref) {
+    super.name = triggerEarMicTitle();
+    super.description = triggerEarMicDescription();
+    super.icon = const Icon(Icons.mic);
+    super.requiredPermission = null;
+    super.actionTypes = [
+      TriggerActionDef("Sound", triggerEarMicSound(), "839d8978-7b77-4ccb-b23f-28144bf95453"),
+    ];
+  }
+
+  @override
+  Future<void> onDisable() async {
+    deviceRefSubscription?.close();
+    ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+      element.deviceConnectionState.removeListener(onDeviceConnected);
+    });
+    for (var element in rxSubscriptions) {
+      element?.cancel();
+    }
+    ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+      element.commandQueue.addCommand(BluetoothMessage.response("ENDLISTEN", element, Priority.normal, "LISTEN OFF"));
+    });
+  }
+
+  @override
+  Future<void> onEnable(Set<TriggerAction> actions, Set<DeviceType> deviceType) async {
+    ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+      element.commandQueue.addCommand(BluetoothMessage("LISTEN FULL", element, Priority.normal));
+    });
+    //add listeners on new device paired
+    deviceRefSubscription = ref.listen(knownDevicesProvider, (previous, next) {
+      onDeviceConnected();
+    });
+  }
+
+  Future<void> onDeviceConnected() async {
+    ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).map((e) {
+      e.deviceConnectionState.removeListener(onDeviceConnected);
+      e.deviceConnectionState.addListener(onDeviceConnected);
+    });
+    listen();
+  }
+
+  Future<void> listen() async {
+    //cancel old subscriptions
+    if (rxSubscriptions.isNotEmpty) {
+      for (var element in rxSubscriptions) {
+        element?.cancel();
+      }
+    }
+    //Store the current streams to keep them open
+    rxSubscriptions = ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).map(
+      (element) {
+        element.commandQueue.addCommand(BluetoothMessage("LISTEN FULL", element, Priority.normal));
+        return element.rxCharacteristicStream?.listen(
+          (event) {
+            String msg = const Utf8Decoder().convert(event);
+            if (msg.contains("LISTEN_FULL BANG")) {
+              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+              ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.actions).flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Sound").uuid == e.uuid).forEach(
+                    (element) => sendCommands(ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).map((e) => e.deviceType).flattened.toSet(), element.action, ref),
+                  );
+            }
+          },
+        );
+      },
+    ).toList();
   }
 }
 

@@ -195,3 +195,9 @@ String triggerProximityTitle() => Intl.message("Nearby Gear", name: 'triggerProx
 String triggerProximityDescription() => Intl.message("Trigger an action if gear is nearby", name: 'triggerProximityDescription', desc: 'Proximity trigger description');
 
 String triggerActionNotSet() => Intl.message("No Action Set", name: 'triggerActionNotSet', desc: 'Trigger action label when no action set');
+
+String triggerEarMicTitle() => Intl.message("EarGear Mic", name: 'triggerEarMicTitle', desc: 'EarGear internal mic trigger title');
+
+String triggerEarMicDescription() => Intl.message("Trigger an action when EarGear detects sound", name: 'triggerEarMicDescription', desc: 'EarGear internal mic trigger description');
+
+String triggerEarMicSound() => Intl.message("Sound Detected", name: 'triggerEarMicSound', desc: 'EarGear internal mic trigger sound detected action label');
