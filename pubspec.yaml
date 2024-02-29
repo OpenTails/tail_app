@@ -55,7 +55,7 @@ dependencies:
   dio: ^5.4.1
   json_serializable: ^6.7.1
   crypto: ^3.0.3
-  animate_do: ^3.3.3
+  animate_do: ^3.3.4
   google_fonts: ^6.1.0
   fl_chart: ^0.66.2
   file_picker: ^6.1.1
@@ -77,8 +77,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
-  assets:
-    - .git/ORIG_HEAD
 sentry:
   upload_debug_symbols: true
   upload_source_maps: true

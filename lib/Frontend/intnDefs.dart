@@ -212,4 +212,4 @@ String triggerEarTiltRight() => Intl.message("Right Tilt", name: 'triggerEarTilt
 
 String triggerEarTiltForward() => Intl.message("Forward Tilt", name: 'triggerEarTiltForward', desc: 'EarGear internal gesture sensor trigger forward tilt detected action label');
 
-String triggerEarTiltbackward() => Intl.message("Backward Tilt", name: 'triggerEarTiltbackward', desc: 'EarGear internal gesture sensor trigger backward tilt detected action label');
+String triggerEarTiltBackward() => Intl.message("Backward Tilt", name: 'triggerEarTiltbackward', desc: 'EarGear internal gesture sensor trigger backward tilt detected action label');

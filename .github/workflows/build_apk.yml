@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
@@ -30,6 +32,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           path: ./build/app/outputs/*
+      - name: read pubspec
+        uses: pietrobolcato/action-read-yaml@1.1.0
+        id: read_action_js
+        with:
+          config: ./pubspec.yaml
+
       - name: Upload debug symbols
         run: flutter packages pub run sentry_dart_plugin
         env:
@@ -37,7 +45,7 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_RELEASE: ${{ github.GITHUB_SHA }}
+          SENTRY_RELEASE: ${{ steps.read_action_js.outputs['version'] }}
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
@@ -45,4 +53,5 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
-
+        with:
+          version: ${{ steps.read_action_js.outputs['version'] }}

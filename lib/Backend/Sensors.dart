@@ -27,8 +27,6 @@ import 'moveLists.dart';
 
 part 'Sensors.g.dart';
 
-//TODO: wrap EarGear Mic and Tilt to Sensors, send enable/disable commands with toggle
-//TODO: error callback to disable the sensor from the trigger definition, such as when permission is denied
 @HiveType(typeId: 2)
 class Trigger extends ChangeNotifier {
   @HiveField(1)
@@ -327,7 +325,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       TriggerActionDef("Left", triggerEarTiltLeft(), "0137efd7-5a6f-4ac3-8956-cd75e11e6fd4"),
       TriggerActionDef("Right", triggerEarTiltRight(), "21d233cc-aeaf-4096-a997-7070e38a8801"),
       TriggerActionDef("Forward", triggerEarTiltForward(), "7e32987a-588c-4969-a589-d95f94262da7"),
-      TriggerActionDef("Backward", triggerEarTiltbackward(), "a4ad813e-a867-4c73-8e73-c4a294829667"),
+      TriggerActionDef("Backward", triggerEarTiltBackward(), "a4ad813e-a867-4c73-8e73-c4a294829667"),
     ];
   }
 
