@@ -299,6 +299,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
             ),
           ),
           title: Text(title()),
+          leading: const Image(image: AssetImage('assets/copilot_fox_icon.png')),
         ),
       ),
     );

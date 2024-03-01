@@ -133,6 +133,11 @@ class _SettingsState extends ConsumerState<Settings> {
                     builder: (context) => AboutDialog(
                           applicationName: title(),
                           applicationVersion: value.version,
+                          applicationIcon: const Image(
+                            image: AssetImage('assets/copilot_fox_icon.png'),
+                            height: 60,
+                            width: 60,
+                          ),
                           applicationLegalese: "This is a fan made app to control 'The Tail Company' tails and ears",
                         ),
                     context: context),
