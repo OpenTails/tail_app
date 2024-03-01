@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/Sensors.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../main.dart';
 import '../Widgets/action_selector.dart';
@@ -76,7 +77,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                 // The user selected a Trigger Definition
                 setState(
                   () {
-                    Trigger trigger = Trigger.trigDef(triggerDefinition!);
+                    Trigger trigger = Trigger.trigDef(triggerDefinition!, const Uuid().v4());
                     ref.read(triggerListProvider.notifier).add(trigger);
                     plausible.event(name: "Add Trigger", props: {"Type": triggerDefinition!.runtimeType.toString()});
                   },
