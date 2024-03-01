@@ -94,6 +94,7 @@ Future<void> main() async {
   await SentryHive.openBox<Trigger>('triggers');
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
+  initDio();
   await SentryFlutter.init(
     (options) async {
       options.dsn = 'https://284f1830184d74dbbbb48ad14b577ffc@sentry.codel1417.xyz/3';
@@ -131,12 +132,13 @@ Future<void> main() async {
   );
 }
 
-void initDio() {
+Dio initDio() {
   final dio = Dio();
 
   /// This *must* be the last initialization step of the Dio setup, otherwise
   /// your configuration of Dio might overwrite the Sentry configuration.
   dio.addSentry();
+  return dio;
 }
 
 class TailApp extends ConsumerWidget {

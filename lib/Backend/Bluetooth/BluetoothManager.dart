@@ -13,6 +13,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Sensors.dart';
+import 'package:tail_app/main.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../AutoMove.dart';
@@ -22,8 +23,6 @@ import '../FirmwareUpdate.dart';
 import 'btMessage.dart';
 
 part 'BluetoothManager.g.dart';
-
-Dio dio = Dio();
 
 @Riverpod(dependencies: [reactiveBLE, KnownDevices])
 Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
@@ -154,7 +153,7 @@ class KnownDevices extends _$KnownDevices {
             }
           }, cancelOnError: true);
           if (deviceDefinition.fwURL != "") {
-            dio.get(statefulDevice.baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
+            initDio().get(statefulDevice.baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
               (value) {
                 if (value.statusCode == 200) {
                   statefulDevice.fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));

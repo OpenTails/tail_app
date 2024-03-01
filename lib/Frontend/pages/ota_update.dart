@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/main.dart';
 
 import '../../Backend/FirmwareUpdate.dart';
 
@@ -129,7 +130,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       otaState = OtaState.download;
       downloadProgress = 0;
     });
-    final Response<List<int>> rs = await Dio().get<List<int>>(updateURL!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
+    final Response<List<int>> rs = await initDio().get<List<int>>(updateURL!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
       setState(() {
         downloadProgress = current / total;
       });
