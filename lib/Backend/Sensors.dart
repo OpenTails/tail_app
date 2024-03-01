@@ -30,7 +30,7 @@ part 'Sensors.g.dart';
 @HiveType(typeId: 2)
 class Trigger extends ChangeNotifier {
   @HiveField(1)
-  late String triggerDef;
+  late String triggerDefUUID;
   TriggerDefinition? triggerDefinition;
   bool _enabled = false;
   @HiveField(2, defaultValue: [DeviceType.tail, DeviceType.ears, DeviceType.wings])
@@ -73,12 +73,12 @@ class Trigger extends ChangeNotifier {
   @HiveField(3)
   List<TriggerAction> actions = [];
 
-  Trigger(this.triggerDef) {
+  Trigger(this.triggerDefUUID) {
     // called by hive when loading object
   }
 
   Trigger.trigDef(this.triggerDefinition) {
-    triggerDef = triggerDefinition!.name;
+    triggerDefUUID = triggerDefinition!.uuid;
     actions.addAll(triggerDefinition!.actionTypes.map((e) => TriggerAction(e.uuid)));
   }
 }
@@ -97,6 +97,7 @@ abstract class TriggerDefinition implements Comparable<TriggerDefinition> {
   late String name;
   late String description;
   late Widget icon;
+  late String uuid;
   Ref ref;
 
   Future<void> onEnable();
@@ -135,6 +136,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     super.description = triggerWalkingDescription();
     super.icon = const Icon(Icons.directions_walk);
     super.requiredPermission = Permission.activityRecognition;
+    super.uuid = "ee9379e2-ec4f-40bb-8674-fd223a6edfda";
     super.actionTypes = [
       TriggerActionDef("Walking", triggerWalkingTitle(), "77d22961-5a69-465a-bd27-5cf5508d10a6"),
       TriggerActionDef("Stopped", triggerWalkingStopped(), "7424097d-ba24-4d85-b963-bf58e85e289d"),
@@ -201,6 +203,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
     super.description = triggerCoverDescription();
     super.icon = const Icon(Icons.sensors);
     super.requiredPermission = null;
+    super.uuid = "a390cd3c-c314-44c1-b89d-57be75bfc3a2";
     super.actionTypes = [TriggerActionDef("Near", triggerCoverNear(), "bf3d0ce0-15c0-46db-95ce-e2cd6a5ecd0f"), TriggerActionDef("Far", triggerCoverFar(), "d121e4a8-a12d-4f0a-8348-89c62eb72a7a")];
   }
 
@@ -321,6 +324,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     super.description = triggerEarTiltDescription();
     super.icon = const Icon(Icons.threed_rotation);
     super.requiredPermission = null;
+    super.uuid = "93d72792-145e-4b56-92b9-3279a5e7d839";
     super.actionTypes = [
       TriggerActionDef("Left", triggerEarTiltLeft(), "0137efd7-5a6f-4ac3-8956-cd75e11e6fd4"),
       TriggerActionDef("Right", triggerEarTiltRight(), "21d233cc-aeaf-4096-a997-7070e38a8801"),
@@ -418,6 +422,7 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
     super.description = triggerVolumeButtonDescription();
     super.icon = const Icon(Icons.volume_up);
     super.requiredPermission = null;
+    super.uuid = "26c1eaef-5976-43cb-bc68-f67cfb29de51";
     super.actionTypes = [TriggerActionDef("Volume Up", triggerVolumeButtonVolumeUp(), "834a9bef-9ae2-4623-81fa-bbead69eb28e"), TriggerActionDef("Volume Down", triggerVolumeButtonVolumeDown(), "2972aa14-33de-4d4f-ac67-4f572306b5c4")];
   }
 
@@ -457,6 +462,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
     super.description = triggerShakeDescription();
     super.icon = const Icon(Icons.vibration);
     super.requiredPermission = null;
+    super.uuid = "059d445a-35fe-45a3-8d3d-de8bce213a05";
     super.actionTypes = [TriggerActionDef("Shake", triggerShakeTitle(), "b84b4c7a-2330-4ede-82f4-dca7b6e74b0a")];
   }
 
@@ -492,6 +498,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
     super.description = triggerProximityDescription();
     super.icon = const Icon(Icons.bluetooth_connected);
     super.requiredPermission = Permission.bluetoothScan;
+    super.uuid = "5418e7a5-850b-482e-ba35-163564c848ab";
     super.actionTypes = [TriggerActionDef("Nearby Gear", triggerProximityTitle(), "e78a749b-8b78-47df-a5a1-1ed365292214")];
   }
 
@@ -565,7 +572,7 @@ class TriggerList extends _$TriggerList {
   @override
   List<Trigger> build() {
     return SentryHive.box<Trigger>('triggers').values.map((trigger) {
-      Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.name == trigger.triggerDef));
+      Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.uuid == trigger.triggerDefUUID));
       trigger2.actions = trigger.actions;
       trigger2.enabled = trigger2.enabled;
       trigger2.deviceType = trigger.deviceType;
