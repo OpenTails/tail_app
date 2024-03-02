@@ -337,26 +337,31 @@ class _ManageGearState extends ConsumerState<ManageGear> {
           ValueListenableBuilder(
             valueListenable: widget.device.battery,
             builder: (BuildContext context, double value, Widget? child) {
-              return SizedBox(
-                height: 200,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 8),
-                  child: LineChart(
-                    LineChartData(
-                      titlesData: const FlTitlesData(
-                        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              return ExpansionTile(
+                title: Text(manageDevicesBatteryGraphTitle()),
+                children: [
+                  SizedBox(
+                    height: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 8),
+                      child: LineChart(
+                        LineChartData(
+                          titlesData: const FlTitlesData(
+                            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          ),
+                          lineTouchData: const LineTouchData(enabled: false),
+                          borderData: FlBorderData(show: false),
+                          minY: 0,
+                          maxY: 100,
+                          minX: 0,
+                          maxX: widget.device.stopWatch.elapsed.inSeconds.toDouble(),
+                          lineBarsData: [LineChartBarData(spots: widget.device.batlevels, color: Theme.of(context).primaryColor, dotData: const FlDotData(show: false), isCurved: true, show: widget.device.batlevels.isNotEmpty)],
+                        ),
                       ),
-                      lineTouchData: const LineTouchData(enabled: false),
-                      borderData: FlBorderData(show: false),
-                      minY: 0,
-                      maxY: 100,
-                      minX: 0,
-                      maxX: widget.device.stopWatch.elapsed.inSeconds.toDouble(),
-                      lineBarsData: [LineChartBarData(spots: widget.device.batlevels, color: Theme.of(context).primaryColor, dotData: const FlDotData(show: false), isCurved: true, show: widget.device.batlevels.isNotEmpty)],
                     ),
-                  ),
-                ),
+                  )
+                ],
               );
             },
           ),
@@ -434,6 +439,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               );
             },
           ),
+          const ListTile(
+            title: Divider(),
+            dense: true,
+          ),
           ListTile(
             title: Text(manageDevicesAutoMoveTitle()),
             subtitle: Text(manageDevicesAutoMoveSubTitle()),
@@ -487,21 +496,6 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               onChangeEnd: (values) {
                 ChangeAutoMove(widget.device);
               },
-            ),
-          ),
-          ListTile(
-            title: Text(manageDevicesAutoMoveNoPhoneTitle()),
-            subtitle: Slider(
-              value: widget.device.baseStoredDevice.noPhoneDelayTime,
-              min: 1,
-              max: 60,
-              onChanged: (double value) {
-                setState(() {
-                  widget.device.baseStoredDevice.noPhoneDelayTime = value;
-                });
-                widget.ref.read(knownDevicesProvider.notifier).store();
-              },
-              label: manageDevicesAutoMoveNoPhoneSliderLabel(widget.device.baseStoredDevice.noPhoneDelayTime.round()),
             ),
           ),
           if (kDebugMode) ...[

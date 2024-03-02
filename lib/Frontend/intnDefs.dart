@@ -131,15 +131,7 @@ String manageDevicesAutoMovePauseSliderLabel(int howMany) => Intl.message(
       examples: const {'howMany': '42'},
     );
 
-String manageDevicesAutoMoveNoPhoneTitle() => Intl.message('No-Phone-Mode Start Delay', name: 'manageDevicesAutoMoveNoPhoneTitle', desc: 'Auto move no-phone mode slider title when managing a device');
-
-String manageDevicesAutoMoveNoPhoneSliderLabel(int howMany) => Intl.message(
-      '''Intl.plural(howMany, one: '$howMany minute', other: '$howMany minutes')''',
-      name: 'manageDevicesAutoMoveNoPhoneSliderLabel',
-      args: [howMany],
-      desc: 'Auto move no phone slider label when managing a device.',
-      examples: const {'howMany': '42'},
-    );
+String manageDevicesBatteryGraphTitle() => Intl.message('Battery Graph', name: 'manageDevicesBatteryGraphTitle', desc: 'battery graph expansion tile title');
 
 String manageDevicesDisconnect() => Intl.message('Disconnect', name: 'manageDevicesDisconnect', desc: 'manage devices disconnect button title when managing a device');
 
