@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
@@ -189,7 +188,6 @@ ThemeData BuildTheme(Brightness brightness, Color color) {
       // Use very subtly themed app bar elevation in light mode.
       appBarElevation: 0.5,
       useMaterial3: true,
-      fontFamily: GoogleFonts.notoSans().fontFamily,
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(platform: defaultTargetPlatform),
     );
@@ -207,7 +205,6 @@ ThemeData BuildTheme(Brightness brightness, Color color) {
       // Use a bit more themed elevated app bar in dark mode.
       appBarElevation: 2,
       useMaterial3: true,
-      fontFamily: GoogleFonts.notoSans().fontFamily,
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(platform: defaultTargetPlatform),
     );
