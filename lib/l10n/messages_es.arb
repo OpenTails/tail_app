@@ -1,1 +1,512 @@
-{}
+{
+  "triggerCoverNear": "Cerca",
+  "@triggerCoverNear": {
+    "description": "Cover trigger near action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsFast": "Rápido",
+  "@manageDevicesAutoMoveGroupsFast": {
+    "description": "Auto move group fast option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeWings": "Alas",
+  "@deviceTypeWings": {
+    "description": "Wings option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingOddStep": "Paso impar",
+  "@triggerWalkingOddStep": {
+    "description": "Walking/Step trigger Odd Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryGlowtip": "punta luminosa",
+  "@actionsCategoryGlowtip": {
+    "description": "glowtip action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDeleteTitle": "Eliminar secuencia",
+  "@sequencesEditDeleteTitle": {
+    "description": "Title of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEdit": "Editar secuencia",
+  "@sequencesEdit": {
+    "description": "Label for the edit icon on a sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "title": "Aplicación de cola",
+  "@title": {
+    "description": "The name of the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingTitle": "Caminando",
+  "@triggerWalkingTitle": {
+    "description": "Walking/Step trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryFast": "Rápido y emocionado",
+  "@actionsCategoryFast": {
+    "description": "fast action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStopped": "Interrumpido",
+  "@triggerWalkingStopped": {
+    "description": "Walking/Step trigger Stopped action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBack": "Presiona Atrás nuevamente para salir.",
+  "@doubleBack": {
+    "description": "A toast which appears when the back button is pressed at the main page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoGear": "No hay equipo conectado",
+  "@actionsNoGear": {
+    "description": "Label on the actions page when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsPage": "Ajustes",
+  "@settingsPage": {
+    "description": "The label and title of the settings page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditMove": "Mover",
+  "@sequencesEditMove": {
+    "description": "Label for the move tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeUp": "Sube el volumen",
+  "@triggerVolumeButtonVolumeUp": {
+    "description": "Volume Button trigger volume up action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutPage": "Acerca de",
+  "@aboutPage": {
+    "description": "The label and title of the about page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoBluetooth": "Bluetooth no está disponible",
+  "@actionsNoBluetooth": {
+    "description": "Label on the actions page when bluetooth is unavailable",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsHapticsToggleTitle": "Retroalimentación háptica",
+  "@settingsHapticsToggleTitle": {
+    "description": "Settings page haptic feedback toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionNotSet": "Sin conjunto de acciones",
+  "@triggerActionNotSet": {
+    "description": "Trigger action label when no action set",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditRightServo": "Servo derecho",
+  "@sequencesEditRightServo": {
+    "description": "Label for the right servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingEvenStep": "Paso par",
+  "@triggerWalkingEvenStep": {
+    "description": "Walking/Step trigger Even Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditName": "Nombre",
+  "@sequencesEditName": {
+    "description": "Label for the name field on sequence edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryCalm": "Calmado y relajado",
+  "@actionsCategoryCalm": {
+    "description": "calm action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityDescription": "Activa una acción si hay equipo cerca",
+  "@triggerProximityDescription": {
+    "description": "Proximity trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleTitle": "Informe automático de errores",
+  "@settingsErrorReportingToggleTitle": {
+    "description": "Settings page error reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditSpeedSlow": "Lento",
+  "@sequencesEditSpeedSlow": {
+    "description": "Label for the Slow speed selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeTail": "Cola",
+  "@deviceTypeTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeDescription": "Activa una acción agitando tu dispositivo",
+  "@triggerShakeDescription": {
+    "description": "Shake trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveSubTitle": "La cola seleccionará un movimiento aleatorio y hará una pausa durante un número aleatorio de segundos entre cada movimiento.",
+  "@manageDevicesAutoMoveSubTitle": {
+    "description": "Auto move toggle subtitle when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityTitle": "Equipo cercano",
+  "@triggerProximityTitle": {
+    "description": "Proximity trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditTime": "Tiempo",
+  "@sequencesEditTime": {
+    "description": "Label for the time slider on the delay tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevices": "Administrar dispositivos",
+  "@manageDevices": {
+    "description": "The screen where you pair and manage gear",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditHome": "Hogar",
+  "@sequencesEditHome": {
+    "description": "Label for the home tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsFrustrated": "Frustrado",
+  "@manageDevicesAutoMoveGroupsFrustrated": {
+    "description": "Auto move group frustrated option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAutoConnectToggleTitle": "Buscar automáticamente equipo conocido",
+  "@settingsAutoConnectToggleTitle": {
+    "description": "Settings page auto connect toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverDescription": "Activar una acción cubriendo el sensor de proximidad.",
+  "@triggerCoverDescription": {
+    "description": "Cover trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditEasing": "Tipo de flexibilización",
+  "@sequencesEditEasing": {
+    "description": "Label for the easing selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "De acuerdo",
+  "@ok": {
+    "description": "Ok on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStep": "Paso",
+  "@triggerWalkingStep": {
+    "description": "Walking/Step trigger Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveNoPhoneSliderLabel": "Intl.plural(cuántos, uno: '{cuántos} minutos', otro: '{cuántos} minutos')",
+  "@manageDevicesAutoMoveNoPhoneSliderLabel": {
+    "description": "Auto move no phone slider label when managing a device.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": "42"
+      }
+    }
+  },
+  "settingsHapticsToggleSubTitle": "Habilitar la vibración cuando se toca una acción o secuencia",
+  "@settingsHapticsToggleSubTitle": {
+    "description": "Settings page haptic feedback toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditListDelayLabel": "Intl.plural(cuántos, uno: 'Retrasar el siguiente movimiento durante {howMany} segundos.', otro: 'Retrasar el siguiente movimiento durante {howMany} segundos.')",
+  "@sequenceEditListDelayLabel": {
+    "description": "Delay move label on the edit sequences page.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": "42"
+      }
+    }
+  },
+  "feedbackPage": "Comentario",
+  "@feedbackPage": {
+    "description": "The label and title of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDeleteDescription": "¿Estás seguro de que deseas eliminar esta secuencia?",
+  "@sequencesEditDeleteDescription": {
+    "description": "Message of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonDescription": "Activa una acción presionando el botón de volumen",
+  "@triggerVolumeButtonDescription": {
+    "description": "Volume Button trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleSubTitle": "Informa automáticamente los errores al centinela",
+  "@settingsErrorReportingToggleSubTitle": {
+    "description": "Settings page error reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingDescription": "Activar una acción al caminar",
+  "@triggerWalkingDescription": {
+    "description": "Walking/Step trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceType": "Tipo de dispositivo",
+  "@deviceType": {
+    "description": "Title for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMovePauseSliderLabel": "Intl.plural(cuántos, uno: '{cuántos} segundos', otro: '{cuántos} segundos')",
+  "@manageDevicesAutoMovePauseSliderLabel": {
+    "description": "Auto move pause slider title when managing a device.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": "42"
+      }
+    }
+  },
+  "sequencesEditHomeLabel": "Inicio el equipo",
+  "@sequencesEditHomeLabel": {
+    "description": "Label on the home tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeTitle": "Agitar",
+  "@triggerShakeTitle": {
+    "description": "Shake trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectLabel": "Seleccione un tipo de activador",
+  "@triggersSelectLabel": {
+    "description": "The title of the add trigger dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonTitle": "Botones de volumen",
+  "@triggerVolumeButtonTitle": {
+    "description": "Volume Button trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeDown": "Bajar volumen",
+  "@triggerVolumeButtonVolumeDown": {
+    "description": "Volume Button trigger volume down action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesForget": "Olvidar",
+  "@manageDevicesForget": {
+    "description": "manage devices forget button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Cancelar",
+  "@cancel": {
+    "description": "Cancel on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverFar": "Lejos",
+  "@triggerCoverFar": {
+    "description": "Cover trigger far action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveNoPhoneTitle": "Retraso de inicio en modo sin teléfono",
+  "@manageDevicesAutoMoveNoPhoneTitle": {
+    "description": "Auto move no-phone mode slider title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesAutoConnectTitle": "Conéctate automáticamente a nuevos dispositivos",
+  "@scanDevicesAutoConnectTitle": {
+    "description": "scan for devices auto connect toggle title when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDelay": "Demora",
+  "@sequencesEditDelay": {
+    "description": "Label for the delay tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsPage": "Comportamiento",
+  "@actionsPage": {
+    "description": "The label and title of the action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMovePauseTitle": "Pausa entre movimientos",
+  "@manageDevicesAutoMovePauseTitle": {
+    "description": "Auto move pause slider title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersAdd": "Agregar disparador",
+  "@triggersAdd": {
+    "description": "Floating Action Button on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersPage": "Desencadenantes",
+  "@triggersPage": {
+    "description": "The label and title of the trigger page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeEars": "Orejas",
+  "@deviceTypeEars": {
+    "description": "Ears option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesDisconnect": "Desconectar",
+  "@manageDevicesDisconnect": {
+    "description": "manage devices disconnect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPage": "Palanca de mando",
+  "@joyStickPage": {
+    "description": "The label and title of the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditSpeedFast": "Rápido",
+  "@sequencesEditSpeedFast": {
+    "description": "Label for the Fast speed selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subTitle": "todas las colas",
+  "@subTitle": {
+    "description": "The sub-title which displays in the navigation drawer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesAdd": "Nueva secuencia",
+  "@sequencesAdd": {
+    "description": "Floating Action Button on the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesScanMessage": "Escaneando en busca de equipo. Asegúrate de que tu equipo esté encendido y cerca",
+  "@scanDevicesScanMessage": {
+    "description": "scan for devices scan in progress message when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAutoConnectToggleSubTitle": "Busque equipos conocidos automáticamente. ¡Esto solo funciona cuando la aplicación está abierta y agotará la batería más rápido!",
+  "@settingsAutoConnectToggleSubTitle": {
+    "description": "Settings page auto connect toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsCalm": "Calma",
+  "@manageDevicesAutoMoveGroupsCalm": {
+    "description": "Auto move group  calm option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveTitle": "Movimiento automático",
+  "@manageDevicesAutoMoveTitle": {
+    "description": "Auto move toggle title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsTitle": "Mover grupos",
+  "@manageDevicesAutoMoveGroupsTitle": {
+    "description": "Auto move group selector title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditSpeed": "Velocidad",
+  "@sequencesEditSpeed": {
+    "description": "Label for the speed selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryEars": "Orejas",
+  "@actionsCategoryEars": {
+    "description": "ears action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditLeftServo": "Servo izquierdo",
+  "@sequencesEditLeftServo": {
+    "description": "Label for the left servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverTitle": "Cubrir",
+  "@triggerCoverTitle": {
+    "description": "Cover trigger Title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPage": "Secuencias",
+  "@sequencesPage": {
+    "description": "The label and title of the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryTense": "Frustrado y tenso",
+  "@actionsCategoryTense": {
+    "description": "tense action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditAdd": "Agregar movimiento",
+  "@sequencesEditAdd": {
+    "description": "Label for the add Floating Action Button on edit sequence page",
+    "type": "text",
+    "placeholders": {}
+  }
+}
