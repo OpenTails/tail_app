@@ -11,6 +11,7 @@ import 'package:tail_app/Backend/moveLists.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../main.dart';
+import '../Widgets/device_type_widget.dart';
 import '../intnDefs.dart';
 
 class MoveListView extends ConsumerStatefulWidget {
@@ -184,24 +185,12 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 },
               ),
             ),
-            ListTile(
-              title: Text(deviceType()),
-              subtitle: SegmentedButton<DeviceType>(
-                multiSelectionEnabled: true,
-                selected: moveList!.deviceCategory.toSet(),
-                onSelectionChanged: (Set<DeviceType> value) {
-                  setState(() => moveList!.deviceCategory = value.toList());
-                  ref.read(moveListsProvider.notifier).store();
-                },
-                segments: DeviceType.values.map<ButtonSegment<DeviceType>>(
-                  (DeviceType value) {
-                    return ButtonSegment<DeviceType>(
-                      value: value,
-                      label: Text(value.name),
-                    );
-                  },
-                ).toList(),
-              ),
+            DeviceTypeWidget(
+              selected: moveList!.deviceCategory,
+              onSelectionChanged: (Set<DeviceType> value) {
+                setState(() => moveList!.deviceCategory = value.toList());
+                ref.read(moveListsProvider.notifier).store();
+              },
             ),
             ListTile(
               title: Text(sequenceEditRepeatTitle()),

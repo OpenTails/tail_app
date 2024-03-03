@@ -8,6 +8,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../main.dart';
 import '../Widgets/action_selector.dart';
+import '../Widgets/device_type_widget.dart';
 import '../intnDefs.dart';
 
 class Triggers extends ConsumerStatefulWidget {
@@ -134,26 +135,14 @@ class _TriggersState extends ConsumerState<Triggers> {
                                       },
                                     ),
                                   ),
-                                  ListTile(
-                                    title: Text(deviceType()),
-                                    subtitle: SegmentedButton<DeviceType>(
-                                      multiSelectionEnabled: true,
-                                      selected: triggersList[index].deviceType.toSet(),
-                                      onSelectionChanged: (Set<DeviceType> value) {
-                                        setState(() {
-                                          triggersList[index].deviceType = value.toList();
-                                          ref.read(triggerListProvider.notifier).store();
-                                        });
-                                      },
-                                      segments: DeviceType.values.map<ButtonSegment<DeviceType>>(
-                                        (DeviceType value) {
-                                          return ButtonSegment<DeviceType>(
-                                            value: value,
-                                            label: Text(value.name),
-                                          );
-                                        },
-                                      ).toList(),
-                                    ),
+                                  DeviceTypeWidget(
+                                    selected: triggersList[index].deviceType,
+                                    onSelectionChanged: (Set<DeviceType> value) {
+                                      setState(() {
+                                        triggersList[index].deviceType = value.toList();
+                                        ref.read(triggerListProvider.notifier).store();
+                                      });
+                                    },
                                   ),
                                   ...triggersList[index].actions.map(
                                         (TriggerAction e) => ListTile(

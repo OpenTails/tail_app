@@ -10,6 +10,7 @@ import '../../Backend/Bluetooth/BluetoothManager.dart';
 import '../../Backend/Bluetooth/btMessage.dart';
 import '../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import '../../Backend/moveLists.dart';
+import '../Widgets/device_type_widget.dart';
 import '../intnDefs.dart';
 
 class DirectGearControl extends ConsumerStatefulWidget {
@@ -97,23 +98,11 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
             }).toList(),
           ),
         ),
-        ListTile(
-          title: Text(deviceType()),
-          subtitle: SegmentedButton<DeviceType>(
-            multiSelectionEnabled: true,
-            selected: deviceTypes,
-            onSelectionChanged: (Set<DeviceType> value) {
-              setState(() => deviceTypes = value);
-            },
-            segments: DeviceType.values.map<ButtonSegment<DeviceType>>(
-              (DeviceType value) {
-                return ButtonSegment<DeviceType>(
-                  value: value,
-                  label: Text(value.name),
-                );
-              },
-            ).toList(),
-          ),
+        DeviceTypeWidget(
+          selected: deviceTypes.toList(),
+          onSelectionChanged: (Set<DeviceType> value) {
+            setState(() => deviceTypes = value);
+          },
         ),
         Expanded(
           child: Stack(
