@@ -191,7 +191,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Intl.plural(howMany, one: '次の動きを {howMany} 秒間遅らせます。', other: '次の動きを {howMany} 秒間遅らせます。')",
+  "sequenceEditListDelayLabel": "次の動作を {howMany} ミリ秒遅らせます。",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "自動移動",
+  "manageDevicesAutoMoveTitle": "カジュアルモード",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -420,6 +420,108 @@
   "triggerProximityDescription": "ギアが近くにある場合にアクションをトリガーする",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesBatteryGraphTitle": "バッテリーグラフ",
+  "@manageDevicesBatteryGraphTitle": {
+    "description": "battery graph expansion tile title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesShutdown": "シャットダウン",
+  "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesColor": "ギアの色",
+  "@manageDevicesColor": {
+    "description": "manage devices color picker button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaButton": "タップしてファームウェアを更新します",
+  "@manageDevicesOtaButton": {
+    "description": "manage devices ota available button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltForward": "前傾チルト",
+  "@triggerEarTiltForward": {
+    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltBackward": "後傾チルト",
+  "@triggerEarTiltBackward": {
+    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditRepeatTitle": "シーケンスの繰り返し",
+  "@sequenceEditRepeatTitle": {
+    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsSelectScreen": "アクションを選択してください",
+  "@actionsSelectScreen": {
+    "description": "Title for action select menu on triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAppColor": "アプリの色",
+  "@settingsAppColor": {
+    "description": "Settings page app color picker button title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesTitle": "新しいギアをスキャンする",
+  "@scanDevicesTitle": {
+    "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicTitle": "イヤーギアマイク",
+  "@triggerEarMicTitle": {
+    "description": "EarGear internal mic trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicDescription": "EarGear が音を検出したときにアクションをトリガーする",
+  "@triggerEarMicDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicSound": "音を検出しました",
+  "@triggerEarMicSound": {
+    "description": "EarGear internal mic trigger sound detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltTitle": "EarGear 傾斜センサー",
+  "@triggerEarTiltTitle": {
+    "description": "EarGear internal gesture sensor trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltDescription": "EarGear が傾きを検出したときにアクションをトリガーする",
+  "@triggerEarTiltDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltLeft": "左傾斜",
+  "@triggerEarTiltLeft": {
+    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltRight": "右チルト",
+  "@triggerEarTiltRight": {
+    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
     "placeholders": {}
   }
