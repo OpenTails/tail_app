@@ -252,7 +252,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
       //There is probably a much better way to remove listeners
       _tabController?.dispose();
     }
-    _tabController = TabController(length: 3, initialIndex: move.moveType.index, vsync: this);
+    _tabController = TabController(length: 2, initialIndex: move.moveType.index, vsync: this);
     _tabController?.addListener(() {
       move.moveType = MoveType.values[_tabController!.index];
     });
