@@ -108,86 +108,92 @@ class _TriggersState extends ConsumerState<Triggers> {
                         expand: false,
                         initialChildSize: 0.5,
                         builder: (BuildContext context, ScrollController scrollController) {
-                          return ListView(
-                            shrinkWrap: true,
-                            controller: scrollController,
-                            children: [
-                              ListTile(
-                                title: Text(triggersList[index].triggerDefinition!.name),
-                                subtitle: Text(triggersList[index].triggerDefinition!.description),
-                                leading: ListenableBuilder(
-                                  listenable: triggersList[index],
-                                  builder: (BuildContext context, Widget? child) {
-                                    return Switch(
-                                      value: triggersList[index].enabled,
-                                      onChanged: (bool value) {
-                                        setState(
-                                          () {
-                                            triggersList[index].enabled = value;
-                                            ref.read(triggerListProvider.notifier).store();
+                          return StatefulBuilder(
+                            builder: (BuildContext context, void Function(void Function()) setState) {
+                              return ListView(
+                                shrinkWrap: true,
+                                controller: scrollController,
+                                children: [
+                                  ListTile(
+                                    title: Text(triggersList[index].triggerDefinition!.name),
+                                    subtitle: Text(triggersList[index].triggerDefinition!.description),
+                                    leading: ListenableBuilder(
+                                      listenable: triggersList[index],
+                                      builder: (BuildContext context, Widget? child) {
+                                        return Switch(
+                                          value: triggersList[index].enabled,
+                                          onChanged: (bool value) {
+                                            setState(
+                                              () {
+                                                triggersList[index].enabled = value;
+                                                ref.read(triggerListProvider.notifier).store();
+                                              },
+                                            );
                                           },
                                         );
                                       },
-                                    );
-                                  },
-                                ),
-                              ),
-                              ListTile(
-                                title: Text(deviceType()),
-                                subtitle: SegmentedButton<DeviceType>(
-                                  multiSelectionEnabled: true,
-                                  selected: triggersList[index].deviceType.toSet(),
-                                  onSelectionChanged: (Set<DeviceType> value) {
-                                    setState(() => triggersList[index].deviceType = value.toList());
-                                    ref.read(triggerListProvider.notifier).store();
-                                  },
-                                  segments: DeviceType.values.map<ButtonSegment<DeviceType>>(
-                                    (DeviceType value) {
-                                      return ButtonSegment<DeviceType>(
-                                        value: value,
-                                        label: Text(value.name),
-                                      );
-                                    },
-                                  ).toList(),
-                                ),
-                              ),
-                              ...triggersList[index].actions.map(
-                                    (TriggerAction e) => ListTile(
-                                      title: Text(triggersList[index].triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
-                                      subtitle: Text(ref.read(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
-                                      trailing: IconButton(
-                                        icon: const Icon(Icons.edit),
-                                        onPressed: () async {
-                                          BaseAction? result = await showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Dialog.fullscreen(child: ActionSelector(deviceType: triggersList[index].deviceType.toSet()));
-                                              });
-                                          setState(
-                                            () {
-                                              e.action = result?.uuid;
-                                              ref.read(triggerListProvider.notifier).store();
-                                            },
-                                          );
-                                        },
-                                      ),
                                     ),
                                   ),
-                              ButtonBar(
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        ref.read(triggerListProvider).remove(triggersList[index]);
-                                        ref.read(triggerListProvider.notifier).store();
-                                        Navigator.of(context).pop();
-                                      });
-                                    },
-                                    child: const Text("Delete Trigger"),
+                                  ListTile(
+                                    title: Text(deviceType()),
+                                    subtitle: SegmentedButton<DeviceType>(
+                                      multiSelectionEnabled: true,
+                                      selected: triggersList[index].deviceType.toSet(),
+                                      onSelectionChanged: (Set<DeviceType> value) {
+                                        setState(() {
+                                          triggersList[index].deviceType = value.toList();
+                                          ref.read(triggerListProvider.notifier).store();
+                                        });
+                                      },
+                                      segments: DeviceType.values.map<ButtonSegment<DeviceType>>(
+                                        (DeviceType value) {
+                                          return ButtonSegment<DeviceType>(
+                                            value: value,
+                                            label: Text(value.name),
+                                          );
+                                        },
+                                      ).toList(),
+                                    ),
                                   ),
+                                  ...triggersList[index].actions.map(
+                                        (TriggerAction e) => ListTile(
+                                          title: Text(triggersList[index].triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
+                                          subtitle: Text(ref.read(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
+                                          trailing: IconButton(
+                                            icon: const Icon(Icons.edit),
+                                            onPressed: () async {
+                                              BaseAction? result = await showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return Dialog.fullscreen(child: ActionSelector(deviceType: triggersList[index].deviceType.toSet()));
+                                                  });
+                                              setState(
+                                                () {
+                                                  e.action = result?.uuid;
+                                                  ref.read(triggerListProvider.notifier).store();
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                  ButtonBar(
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            ref.read(triggerListProvider).remove(triggersList[index]);
+                                            ref.read(triggerListProvider.notifier).store();
+                                            Navigator.of(context).pop();
+                                          });
+                                        },
+                                        child: const Text("Delete Trigger"),
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
+                              );
+                            },
                           );
                         });
                   },
