@@ -131,7 +131,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Intl.plural(howMany, one: 'Nächsten Zug um {howMany} Sekunden verzögern.', other: 'Nächsten Zug um {howMany} Sekunden verzögern.')",
+  "sequenceEditListDelayLabel": "Nächsten Zug um {howMany} ms verzögern.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -480,6 +480,18 @@
   "sequenceEditRepeatTitle": "Wiederholen Sie die Sequenz",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsSelectScreen": "Wählen Sie eine Aktion aus",
+  "@actionsSelectScreen": {
+    "description": "Title for action select menu on triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAppColor": "App-Farbe",
+  "@settingsAppColor": {
+    "description": "Settings page app color picker button title",
     "type": "text",
     "placeholders": {}
   }
