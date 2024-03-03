@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Intl.plural(combien, un : 'Retarder le prochain mouvement de {howMany} seconde.', autre : 'Retarder le prochain mouvement de {howMany} secondes.')",
+  "sequenceEditListDelayLabel": "Retardez le prochain coup pendant {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -165,13 +165,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Mouvement automatique",
+  "manageDevicesAutoMoveTitle": "Mode décontracté",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "La queue sélectionnera un mouvement aléatoire, en faisant une pause d'un nombre aléatoire de secondes entre chaque mouvement.",
+  "manageDevicesAutoMoveSubTitle": "La queue sélectionnera un mouvement aléatoire, s'arrêtant pendant un nombre aléatoire de secondes entre chaque mouvement",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "Application Tail",
+  "title": "Application Queue",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -420,6 +420,108 @@
   "triggerActionNotSet": "Aucun ensemble d'actions",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesTitle": "Rechercher un nouvel équipement",
+  "@scanDevicesTitle": {
+    "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicTitle": "Micro EarGear",
+  "@triggerEarMicTitle": {
+    "description": "EarGear internal mic trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicDescription": "Déclenchez une action lorsque EarGear détecte un son",
+  "@triggerEarMicDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicSound": "Son détecté",
+  "@triggerEarMicSound": {
+    "description": "EarGear internal mic trigger sound detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltTitle": "Capteur d'inclinaison EarGear",
+  "@triggerEarTiltTitle": {
+    "description": "EarGear internal gesture sensor trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltDescription": "Déclenchez une action lorsque EarGear détecte une inclinaison",
+  "@triggerEarTiltDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltLeft": "Inclinaison gauche",
+  "@triggerEarTiltLeft": {
+    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltRight": "Inclinaison droite",
+  "@triggerEarTiltRight": {
+    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltForward": "Inclinaison vers l'avant",
+  "@triggerEarTiltForward": {
+    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltBackward": "Inclinaison vers l'arrière",
+  "@triggerEarTiltBackward": {
+    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditRepeatTitle": "Répéter la séquence",
+  "@sequenceEditRepeatTitle": {
+    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsSelectScreen": "Sélectionnez une action",
+  "@actionsSelectScreen": {
+    "description": "Title for action select menu on triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAppColor": "Couleur de l'application",
+  "@settingsAppColor": {
+    "description": "Settings page app color picker button title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesBatteryGraphTitle": "Graphique de la batterie",
+  "@manageDevicesBatteryGraphTitle": {
+    "description": "battery graph expansion tile title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesShutdown": "Fermer",
+  "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesColor": "Couleur de l'engrenage",
+  "@manageDevicesColor": {
+    "description": "manage devices color picker button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaButton": "Appuyez pour mettre à jour le micrologiciel",
+  "@manageDevicesOtaButton": {
+    "description": "manage devices ota available button",
     "type": "text",
     "placeholders": {}
   }
