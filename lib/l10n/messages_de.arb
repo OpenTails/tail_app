@@ -201,7 +201,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Automatisch verschieben",
+  "manageDevicesAutoMoveTitle": "Casual-Modus",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -492,6 +492,36 @@
   "settingsAppColor": "App-Farbe",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesBatteryGraphTitle": "Batteriediagramm",
+  "@manageDevicesBatteryGraphTitle": {
+    "description": "battery graph expansion tile title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesShutdown": "Abschalten",
+  "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesColor": "Zahnradfarbe",
+  "@manageDevicesColor": {
+    "description": "manage devices color picker button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaButton": "Tippen Sie hier, um die Firmware zu aktualisieren",
+  "@manageDevicesOtaButton": {
+    "description": "manage devices ota available button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesTitle": "Nach neuer Ausrüstung suchen",
+  "@scanDevicesTitle": {
+    "description": "button which opens the scan window",
     "type": "text",
     "placeholders": {}
   }
