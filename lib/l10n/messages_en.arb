@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-01-28T00:36:38.286072",
+  "@@last_modified": "2024-03-03T18:10:52.691840",
   "title": "Tail App",
   "@title": {
     "description": "The name of the app",
@@ -10,18 +10,6 @@
   "subTitle": "All of the Tails",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevices": "Manage Devices",
-  "@manageDevices": {
-    "description": "The screen where you pair and manage gear",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBack": "Press back again to leave",
-  "@doubleBack": {
-    "description": "A toast which appears when the back button is pressed at the main page",
     "type": "text",
     "placeholders": {}
   },
@@ -151,12 +139,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHome": "Home",
-  "@sequencesEditHome": {
-    "description": "Label for the home tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesEditLeftServo": "Left Servo",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
@@ -172,18 +154,6 @@
   "sequencesEditSpeed": "Speed",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeedFast": "Fast",
-  "@sequencesEditSpeedFast": {
-    "description": "Label for the Fast speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeedSlow": "Slow",
-  "@sequencesEditSpeedSlow": {
-    "description": "Label for the Slow speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
@@ -217,7 +187,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Intl.plural(howMany, one: ' Delay next move for {howMany} second.', other: 'Delay next move for {howMany} seconds.')",
+  "sequenceEditListDelayLabel": "Delay next move for {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -226,12 +196,6 @@
         "example": "42"
       }
     }
-  },
-  "actionsNoGear": "No Gear Connected",
-  "@actionsNoGear": {
-    "description": "Label on the actions page when no gear is connected",
-    "type": "text",
-    "placeholders": {}
   },
   "actionsNoBluetooth": "Bluetooth is unavailable",
   "@actionsNoBluetooth": {
@@ -269,6 +233,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "actionsSelectScreen": "Select an Action",
+  "@actionsSelectScreen": {
+    "description": "Title for action select menu on triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
   "settingsHapticsToggleTitle": "Haptic Feedback",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
@@ -278,18 +248,6 @@
   "settingsHapticsToggleSubTitle": "Enable vibration when an action or sequence is tapped",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleTitle": "Automatically Scan for known gear",
-  "@settingsAutoConnectToggleTitle": {
-    "description": "Settings page auto connect toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleSubTitle": "Scan for known gear automatically, This only works when the app is open and will drain your battery faster!",
-  "@settingsAutoConnectToggleSubTitle": {
-    "description": "Settings page auto connect toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
@@ -305,7 +263,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Auto Move",
+  "settingsAppColor": "App Color",
+  "@settingsAppColor": {
+    "description": "Settings page app color picker button title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveTitle": "Casual Mode",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -347,35 +311,27 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseSliderLabel": "Intl.plural(howMany, one: '{howMany} second', other: '{howMany} seconds')",
-  "@manageDevicesAutoMovePauseSliderLabel": {
-    "description": "Auto move pause slider title when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
-  },
-  "manageDevicesAutoMoveNoPhoneTitle": "No-Phone-Mode Start Delay",
-  "@manageDevicesAutoMoveNoPhoneTitle": {
-    "description": "Auto move no-phone mode slider title when managing a device",
+  "manageDevicesBatteryGraphTitle": "Battery Graph",
+  "@manageDevicesBatteryGraphTitle": {
+    "description": "battery graph expansion tile title",
     "type": "text",
     "placeholders": {}
-  },
-  "manageDevicesAutoMoveNoPhoneSliderLabel": "Intl.plural(howMany, one: '{howMany} minute', other: '{howMany} minutes')",
-  "@manageDevicesAutoMoveNoPhoneSliderLabel": {
-    "description": "Auto move no phone slider label when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
   },
   "manageDevicesDisconnect": "Disconnect",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesShutdown": "Shut Down",
+  "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesColor": "Gear Color",
+  "@manageDevicesColor": {
+    "description": "manage devices color picker button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
@@ -385,9 +341,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "manageDevicesOtaButton": "Tap to update firmware",
+  "@manageDevicesOtaButton": {
+    "description": "manage devices ota available button",
+    "type": "text",
+    "placeholders": {}
+  },
   "scanDevicesAutoConnectTitle": "Automatically connect to new devices",
   "@scanDevicesAutoConnectTitle": {
     "description": "scan for devices auto connect toggle title when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesTitle": "Scan For New Gear",
+  "@scanDevicesTitle": {
+    "description": "button which opens the scan window",
     "type": "text",
     "placeholders": {}
   },
@@ -412,18 +380,6 @@
   "triggerWalkingStopped": "Stopped",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingEvenStep": "Even Step",
-  "@triggerWalkingEvenStep": {
-    "description": "Walking/Step trigger Even Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingOddStep": "Odd Step",
-  "@triggerWalkingOddStep": {
-    "description": "Walking/Step trigger Odd Step action label",
     "type": "text",
     "placeholders": {}
   },
@@ -508,6 +464,66 @@
   "triggerActionNotSet": "No Action Set",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicTitle": "EarGear Mic",
+  "@triggerEarMicTitle": {
+    "description": "EarGear internal mic trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicDescription": "Trigger an action when EarGear detects sound",
+  "@triggerEarMicDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicSound": "Sound Detected",
+  "@triggerEarMicSound": {
+    "description": "EarGear internal mic trigger sound detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltTitle": "EarGear Tilt Sensor",
+  "@triggerEarTiltTitle": {
+    "description": "EarGear internal gesture sensor trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltDescription": "Trigger an action when EarGear detects tilt",
+  "@triggerEarTiltDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltLeft": "Left Tilt",
+  "@triggerEarTiltLeft": {
+    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltRight": "Right Tilt",
+  "@triggerEarTiltRight": {
+    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltForward": "Forward Tilt",
+  "@triggerEarTiltForward": {
+    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltBackward": "Backward Tilt",
+  "@triggerEarTiltBackward": {
+    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditRepeatTitle": "Repeat Sequence",
+  "@sequenceEditRepeatTitle": {
+    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
     "placeholders": {}
   }
