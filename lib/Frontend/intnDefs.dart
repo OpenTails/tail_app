@@ -140,10 +140,6 @@ String triggerWalkingDescription() => Intl.message('Trigger an action on walking
 
 String triggerWalkingStopped() => Intl.message('Stopped', name: 'triggerWalkingStopped', desc: 'Walking/Step trigger Stopped action label');
 
-String triggerWalkingEvenStep() => Intl.message('Even Step', name: 'triggerWalkingEvenStep', desc: 'Walking/Step trigger Even Step action label');
-
-String triggerWalkingOddStep() => Intl.message('Odd Step', name: 'triggerWalkingOddStep', desc: 'Walking/Step trigger Odd Step action label');
-
 String triggerWalkingStep() => Intl.message('Step', name: 'triggerWalkingStep', desc: 'Walking/Step trigger Step action label');
 
 String triggerCoverTitle() => Intl.message('Cover', name: 'triggerCoverTitle', desc: 'Cover trigger Title');

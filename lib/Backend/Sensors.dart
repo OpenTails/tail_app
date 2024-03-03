@@ -169,13 +169,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     super.icon = const Icon(Icons.directions_walk);
     super.requiredPermission = Permission.activityRecognition;
     super.uuid = "ee9379e2-ec4f-40bb-8674-fd223a6edfda";
-    super.actionTypes = [
-      TriggerActionDef("Walking", triggerWalkingTitle(), "77d22961-5a69-465a-bd27-5cf5508d10a6"),
-      TriggerActionDef("Stopped", triggerWalkingStopped(), "7424097d-ba24-4d85-b963-bf58e85e289d"),
-      TriggerActionDef("Even Step", triggerWalkingEvenStep(), "79bb5829-f147-4f97-af8a-6534264dc764"),
-      TriggerActionDef("Odd Step", triggerWalkingOddStep(), "8097c565-326e-43fc-a077-bd46181a11d8"),
-      TriggerActionDef("Step", triggerWalkingStep(), "c82b04ba-7d2e-475a-90ba-3d354e5b8ef0")
-    ];
+    super.actionTypes = [TriggerActionDef("Walking", triggerWalkingTitle(), "77d22961-5a69-465a-bd27-5cf5508d10a6"), TriggerActionDef("Stopped", triggerWalkingStopped(), "7424097d-ba24-4d85-b963-bf58e85e289d"), TriggerActionDef("Step", triggerWalkingStep(), "c82b04ba-7d2e-475a-90ba-3d354e5b8ef0")];
   }
 
   @override
@@ -211,15 +205,6 @@ class WalkingTriggerDefinition extends TriggerDefinition {
         actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Step").uuid == e.uuid).forEach(
               (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
             );
-        if (event.steps.isEven) {
-          actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Even Step").uuid == e.uuid).forEach(
-                (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-              );
-        } else {
-          actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Odd Step").uuid == e.uuid).forEach(
-                (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-              );
-        }
       },
     );
   }
