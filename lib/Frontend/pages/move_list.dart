@@ -199,7 +199,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 value: moveList!.repeat,
                 min: 1,
                 max: 5,
-                divisions: 5,
+                divisions: 4,
                 label: "${moveList!.repeat.toInt()}",
                 onChanged: (double value) {
                   setState(() {
