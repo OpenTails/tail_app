@@ -30,10 +30,52 @@ class ActionRegistry {
     CommandAction("SOS", "LEDSOS", [DeviceType.tail], ActionCategory.glowtip, null, "66164945-840f-4302-b27c-e7a7623bf475"),
     CommandAction("Beacon", "LEDBEA", [DeviceType.tail], ActionCategory.glowtip, null, "4955a936-7703-4ce6-8d4a-b18857c0ea0a"),
     CommandAction("Flame", "LEDFLA", [DeviceType.tail], ActionCategory.glowtip, null, "e46566b4-1071-4866-815b-1aefbf06b573"),
-    CommandAction("Left Twist", "LETWIST", [DeviceType.ears], ActionCategory.ears, "LETWIST END", "0d5a9dfa-38f2-4b09-9be1-cd36236a03b0"),
-    CommandAction("Right Twist", "RITWIST", [DeviceType.ears], ActionCategory.ears, "RITWIST END", "9a6be63e-36f5-4f50-88b6-7adf2680aa5c"),
-    CommandAction("Both Twist", "BOTWIST", [DeviceType.ears], ActionCategory.ears, "BOTWIST END", "2bc43e6c-65e7-4a35-834e-b2c31b8f83fe"),
-    CommandAction("Home Ears", "EARHOME", [DeviceType.ears], ActionCategory.ears, "EARHOME END", "cdd2e0ac-97a2-41d7-9ece-8d4dce4829d7")
+    //CommandAction("Left Twist", "LETWIST", [DeviceType.ears], ActionCategory.ears, "LETWIST END", "0d5a9dfa-38f2-4b09-9be1-cd36236a03b0"),
+    //CommandAction("Right Twist", "RITWIST", [DeviceType.ears], ActionCategory.ears, "RITWIST END", "9a6be63e-36f5-4f50-88b6-7adf2680aa5c"),
+    //CommandAction("Both Twist", "BOTWIST", [DeviceType.ears], ActionCategory.ears, "BOTWIST END", "2bc43e6c-65e7-4a35-834e-b2c31b8f83fe"),
+    //CommandAction("Home Ears", "EARHOME", [DeviceType.ears], ActionCategory.ears, "EARHOME END", "cdd2e0ac-97a2-41d7-9ece-8d4dce4829d7"),
+    MoveList.builtIn(
+      "Both Twist",
+      [DeviceType.ears],
+      ActionCategory.ears,
+      "d8384bcf-31ed-4b5d-a25a-da3a2f96e406",
+      [
+        Move.move(128, 128, Speed.slow, EasingType.cubic),
+        Move.delay(1),
+        Move.move(0, 0, Speed.slow, EasingType.cubic),
+        Move.delay(1),
+        Move.move(128, 128, Speed.slow, EasingType.cubic),
+        Move.delay(1),
+      ],
+    ),
+    MoveList.builtIn(
+      "Left Twist",
+      [DeviceType.ears],
+      ActionCategory.ears,
+      "0d5a9dfa-38f2-4b09-9be1-cd36236a03b0",
+      [
+        Move.move(128, 0, Speed.slow, EasingType.cubic),
+        Move.delay(1),
+        Move.move(0, 0, Speed.slow, EasingType.cubic),
+        Move.delay(1),
+        Move.move(128, 0, Speed.slow, EasingType.cubic),
+        Move.delay(1),
+      ],
+    ),
+    MoveList.builtIn(
+      "Left Twist",
+      [DeviceType.ears],
+      ActionCategory.ears,
+      "9a6be63e-36f5-4f50-88b6-7adf2680aa5c",
+      [
+        Move.move(0, 128, Speed.slow, EasingType.cubic),
+        Move.delay(1),
+        Move.move(0, 0, Speed.slow, EasingType.cubic),
+        Move.delay(1),
+        Move.move(0, 128, Speed.slow, EasingType.cubic),
+        Move.delay(1),
+      ],
+    ),
   };
 }
 

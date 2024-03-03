@@ -126,6 +126,16 @@ class Move {
 
   Move();
 
+  Move.move(this.leftServo, this.rightServo, this.speed, this.easingType);
+
+  Move.delay(this.time) {
+    moveType = MoveType.delay;
+  }
+
+  Move.home() {
+    moveType = MoveType.home;
+  }
+
   @override
   String toString() {
     switch (moveType) {
@@ -155,6 +165,8 @@ class MoveList extends BaseAction {
   MoveList(super.name, super.deviceCategory, super.actionCategory, super.uuid) {
     super.actionCategory = ActionCategory.sequence;
   }
+
+  MoveList.builtIn(super.name, super.deviceCategory, super.actionCategory, super.uuid, this.moves);
 }
 
 @Riverpod(keepAlive: true)
@@ -192,11 +204,9 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
       Flogger.i("Starting MoveList ${moveList.name}.");
       // add final home move
       List<Move> newMoveList = List.from(moveList.moves); //prevent home move from being added to original MoveList
-      if (moveList.homeAtEnd) {
-        Move move = Move();
-        move.moveType = MoveType.home;
-        //newMoveList.add(move);
-      }
+      Move move = Move.home();
+      newMoveList.add(move);
+
       //TODO: Merge move commands into 1 large command
       for (Move element in newMoveList) {
         //run move command
