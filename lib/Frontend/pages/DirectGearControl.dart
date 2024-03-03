@@ -148,7 +148,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         });
                         SendMove();
                       },
-                      period: Duration(milliseconds: (speed * 20).toInt(),
+                      period: Duration(milliseconds: (speed * 20).toInt()),
                     ),
                   ),
                 ],
