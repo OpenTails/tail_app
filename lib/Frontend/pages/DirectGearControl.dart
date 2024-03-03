@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Frontend/Widgets/speed_widget.dart';
 import 'package:vector_math/vector_math.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
@@ -27,7 +28,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
   double y = 0;
   double direction = 0;
   double magnitude = 0;
-  Speed speed = Speed.fast;
+  double speed = 50;
   EasingType easingType = EasingType.linear;
   Set<DeviceType> deviceTypes = DeviceType.values.toSet();
 
@@ -63,24 +64,13 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
               onChangeEnd: (value) => SendMove(),
             ),
           ),*/
-        ListTile(
-          title: Text(sequencesEditSpeed()),
-          subtitle: SegmentedButton<Speed>(
-            selected: <Speed>{speed},
-            onSelectionChanged: (Set<Speed> value) {
-              setState(() {
-                speed = value.first;
-              });
-            },
-            segments: Speed.values.map<ButtonSegment<Speed>>(
-              (Speed value) {
-                return ButtonSegment<Speed>(
-                  value: value,
-                  label: Text(value.name),
-                );
-              },
-            ).toList(),
-          ),
+        SpeedWidget(
+          value: speed,
+          onChanged: (double value) {
+            setState(() {
+              speed = value;
+            });
+          },
         ),
         ListTile(
           title: Text(sequencesEditEasing()),

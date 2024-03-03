@@ -53,32 +53,9 @@ extension EasingTypeExtension on EasingType {
   }
 }
 
-@HiveType(typeId: 9)
 enum Speed {
-  @HiveField(1)
   slow,
-  @HiveField(2)
   fast,
-}
-
-extension SpeedExtension on Speed {
-  String get name {
-    switch (this) {
-      case Speed.slow:
-        return sequencesEditSpeedSlow();
-      case Speed.fast:
-        return sequencesEditSpeedFast();
-    }
-  }
-
-  int get speed {
-    switch (this) {
-      case Speed.slow:
-        return 50;
-      case Speed.fast:
-        return 10;
-    }
-  }
 }
 
 @HiveType(typeId: 11)
@@ -111,13 +88,16 @@ class Move {
   @HiveField(1)
   double leftServo = 0;
 
-  //Range 0-180
+  //Range 0-127
   @HiveField(2)
   double rightServo = 0;
+
+  //Range 0-127
   @HiveField(3)
-  Speed speed = Speed.fast;
+  double speed = 50;
 
   @HiveField(4)
+  //Range 0-127
   double time = 1;
   @HiveField(5, defaultValue: EasingType.linear)
   EasingType easingType = EasingType.linear;
@@ -140,9 +120,9 @@ class Move {
   String toString() {
     switch (moveType) {
       case MoveType.move:
-        return '${sequencesEditLeftServo()} ${leftServo.round().clamp(0, 128) ~/ 16} | ${sequencesEditRightServo()} ${rightServo.round().clamp(0, 128) ~/ 16} | ${sequencesEditSpeed()} ${speed.name}';
+        return '${sequencesEditLeftServo()} ${leftServo.round().clamp(0, 128) ~/ 16} | ${sequencesEditRightServo()} ${rightServo.round().clamp(0, 128) ~/ 16} | ${sequencesEditSpeed()} ${speed.toInt() * 20}ms';
       case MoveType.delay:
-        return sequenceEditListDelayLabel(time.round());
+        return sequenceEditListDelayLabel(time.toInt() * 20);
       case MoveType.home:
         return sequencesEditHomeLabel();
     }
@@ -215,7 +195,7 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
             cmd = "$cmd E${prevMove.easingType.num}F${prevMove.easingType.num}A${prevMove.leftServo.round().clamp(0, 128) ~/ 16}B${prevMove.rightServo.round().clamp(0, 128) ~/ 16}S${move.time.toInt()}";
           }
         }
-        cmd = "$cmd E${move.easingType.num}F${move.easingType.num}A${move.leftServo.round().clamp(0, 128) ~/ 16}B${move.rightServo.round().clamp(0, 128) ~/ 16}L${move.speed.speed}";
+        cmd = "$cmd E${move.easingType.num}F${move.easingType.num}A${move.leftServo.round().clamp(0, 128) ~/ 16}B${move.rightServo.round().clamp(0, 128) ~/ 16}L${move.speed.toInt()}";
       }
       device.commandQueue.addCommand(BluetoothMessage(cmd, device, Priority.normal));
       device.commandQueue.addCommand(BluetoothMessage("TAILU$preset", device, Priority.normal));
@@ -255,10 +235,10 @@ List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device)
     }
   } else if (move.moveType == MoveType.move) {
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
-      commands.add(BluetoothMessage.response("SPEED ${move.speed.name.toUpperCase()}", device, Priority.normal, "SPEED ${move.speed.name.toUpperCase()}"));
+      commands.add(BluetoothMessage.response("SPEED ${move.speed > 60 ? Speed.fast.name : Speed.slow.name}", device, Priority.normal, "SPEED ${move.speed > 60 ? Speed.fast.name : Speed.slow.name}"));
       commands.add(BluetoothMessage.response("DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000", device, Priority.normal, "DSSP END"));
     } else {
-      commands.add(BluetoothMessage.response("DSSP E${move.easingType.num} F${move.easingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.speed} M${move.speed.speed}", device, Priority.normal, "OK"));
+      commands.add(BluetoothMessage.response("DSSP E${move.easingType.num} F${move.easingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.toInt()} M${move.speed.toInt()}", device, Priority.normal, "OK"));
     }
   }
   return commands;

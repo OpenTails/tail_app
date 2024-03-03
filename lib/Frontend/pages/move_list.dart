@@ -8,6 +8,7 @@ import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/moveLists.dart';
+import 'package:tail_app/Frontend/Widgets/speed_widget.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../main.dart';
@@ -306,22 +307,11 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                           },
                         ),
                       ),
-                      ListTile(
-                        title: Text(sequencesEditSpeed()),
-                        subtitle: SegmentedButton<Speed>(
-                          selected: <Speed>{move.speed},
-                          onSelectionChanged: (Set<Speed> value) {
-                            setEditState(() => move.speed = value.first);
-                          },
-                          segments: Speed.values.map<ButtonSegment<Speed>>(
-                            (Speed value) {
-                              return ButtonSegment<Speed>(
-                                value: value,
-                                label: Text(value.name),
-                              );
-                            },
-                          ).toList(),
-                        ),
+                      SpeedWidget(
+                        value: move.speed,
+                        onChanged: (double value) {
+                          setEditState(() => move.speed = value.roundToDouble());
+                        },
                       ),
                       ListTile(
                         title: Text(sequencesEditEasing()),
@@ -349,11 +339,11 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                         title: Text(sequencesEditTime()),
                         subtitle: Slider(
                           value: move.time,
-                          max: 10,
+                          label: "${move.time.toInt() * 20} ms",
+                          max: 127,
                           min: 1,
-                          divisions: 9,
                           onChanged: (value) {
-                            setEditState(() => move.time = value);
+                            setEditState(() => move.time = value.roundToDouble());
                           },
                         ),
                       )

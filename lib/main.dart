@@ -83,7 +83,6 @@ Future<void> main() async {
     ..registerAdapter(TriggerActionAdapter())
     ..registerAdapter(ActionCategoryAdapter())
     ..registerAdapter(DeviceTypeAdapter())
-    ..registerAdapter(SpeedAdapter())
     ..registerAdapter(MoveTypeAdapter())
     ..registerAdapter(EasingTypeAdapter())
     ..registerAdapter(

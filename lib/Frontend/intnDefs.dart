@@ -52,17 +52,11 @@ String sequencesEditMove() => Intl.message('Move', name: 'sequencesEditMove', de
 
 String sequencesEditDelay() => Intl.message('Delay', name: 'sequencesEditDelay', desc: 'Label for the delay tab on sequence move edit page');
 
-String sequencesEditHome() => Intl.message('Home', name: 'sequencesEditHome', desc: 'Label for the home tab on sequence move edit page');
-
 String sequencesEditLeftServo() => Intl.message('Left Servo', name: 'sequencesEditLeftServo', desc: 'Label for the left servo slider on the move tab of the move edit page');
 
 String sequencesEditRightServo() => Intl.message('Right Servo', name: 'sequencesEditRightServo', desc: 'Label for the right servo slider on the move tab of the move edit page');
 
 String sequencesEditSpeed() => Intl.message('Speed', name: 'sequencesEditSpeed', desc: 'Label for the speed selector on the move tab of the move edit page');
-
-String sequencesEditSpeedFast() => Intl.message('Fast', name: 'sequencesEditSpeedFast', desc: 'Label for the Fast speed selector on the move tab of the move edit page');
-
-String sequencesEditSpeedSlow() => Intl.message('Slow', name: 'sequencesEditSpeedSlow', desc: 'Label for the Slow speed selector on the move tab of the move edit page');
 
 String sequencesEditEasing() => Intl.message('Easing Type', name: 'sequencesEditEasing', desc: 'Label for the easing selector on the move tab of the move edit page');
 
@@ -75,7 +69,7 @@ String sequencesEditDeleteTitle() => Intl.message('Delete Sequence', name: 'sequ
 String sequencesEditDeleteDescription() => Intl.message('Are you sure you want to delete this sequence?', name: 'sequencesEditDeleteDescription', desc: 'Message of the dialog on the sequence edit page to delete the sequence');
 
 String sequenceEditListDelayLabel(int howMany) => Intl.message(
-      'Delay next move for $howMany second(s).',
+      'Delay next move for $howMany ms.',
       name: 'sequenceEditListDelayLabel',
       args: [howMany],
       desc: 'Delay move label on the edit sequences page.',
