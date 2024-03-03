@@ -203,6 +203,23 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 ).toList(),
               ),
             ),
+            ListTile(
+              title: Text(sequenceEditRepeatTitle()),
+              leading: const Icon(Icons.repeat),
+              subtitle: Slider(
+                value: moveList!.repeat,
+                min: 1,
+                max: 5,
+                divisions: 5,
+                label: "${moveList!.repeat.toInt()}",
+                onChanged: (double value) {
+                  setState(() {
+                    setState(() => moveList!.repeat = value);
+                    ref.read(moveListsProvider.notifier).store();
+                  });
+                },
+              ),
+            ),
             Expanded(
               child: ReorderableListView(
                 children: <Widget>[
@@ -267,10 +284,6 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                     icon: const Icon(Icons.timer_rounded),
                     text: sequencesEditDelay(),
                   ),
-                  Tab(
-                    icon: const Icon(Icons.home),
-                    text: sequencesEditHome(),
-                  ),
                 ],
               ),
               body: TabBarView(
@@ -280,10 +293,12 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                     children: [
                       ListTile(
                         title: Text(sequencesEditLeftServo()),
+                        leading: const Icon(Icons.turn_slight_left),
                         subtitle: Slider(
                           value: move.leftServo,
                           max: 128,
                           divisions: 8,
+                          label: "${move.leftServo.round().clamp(0, 128) ~/ 16}",
                           onChanged: (value) {
                             setEditState(() => move.leftServo = value);
                           },
@@ -291,10 +306,12 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                       ),
                       ListTile(
                         title: Text(sequencesEditRightServo()),
+                        leading: const Icon(Icons.turn_slight_right),
                         subtitle: Slider(
                           value: move.rightServo,
                           max: 128,
                           divisions: 8,
+                          label: "${move.rightServo.round().clamp(0, 128) ~/ 16}",
                           onChanged: (value) {
                             setEditState(() => move.rightServo = value);
                           },
@@ -352,9 +369,6 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                         ),
                       )
                     ],
-                  ),
-                  Center(
-                    child: Text(sequencesEditHomeLabel()),
                   ),
                 ],
               ),

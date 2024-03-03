@@ -485,9 +485,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
           ListTile(
             title: Text(manageDevicesAutoMovePauseTitle()),
             subtitle: RangeSlider(
-              labels: RangeLabels(manageDevicesAutoMovePauseSliderLabel(widget.device.baseStoredDevice.autoMoveMinPause.round()), manageDevicesAutoMovePauseSliderLabel(widget.device.baseStoredDevice.autoMoveMaxPause.round())),
+              labels: RangeLabels("${widget.device.baseStoredDevice.autoMoveMinPause.round()}", "${widget.device.baseStoredDevice.autoMoveMaxPause.round()}"),
               min: 15,
               max: 240,
+              divisions: 225,
               values: RangeValues(widget.device.baseStoredDevice.autoMoveMinPause, widget.device.baseStoredDevice.autoMoveMaxPause),
               onChanged: (RangeValues value) {
                 setState(() {

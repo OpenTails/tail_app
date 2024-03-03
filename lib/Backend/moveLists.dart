@@ -140,7 +140,7 @@ class Move {
   String toString() {
     switch (moveType) {
       case MoveType.move:
-        return '${sequencesEditLeftServo()} ${leftServo.round()} | ${sequencesEditRightServo()} ${rightServo.round()} | ${sequencesEditSpeed()} ${speed.name}';
+        return '${sequencesEditLeftServo()} ${leftServo.round().clamp(0, 128) ~/ 16} | ${sequencesEditRightServo()} ${rightServo.round().clamp(0, 128) ~/ 16} | ${sequencesEditSpeed()} ${speed.name}';
       case MoveType.delay:
         return sequenceEditListDelayLabel(time.round());
       case MoveType.home:
@@ -160,7 +160,7 @@ class MoveList extends BaseAction {
   @HiveField(5)
   List<Move> moves = [];
   @HiveField(6)
-  bool homeAtEnd = true;
+  double repeat = 1;
 
   MoveList(super.name, super.deviceCategory, super.actionCategory, super.uuid) {
     super.actionCategory = ActionCategory.sequence;
@@ -200,14 +200,33 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
   if (action is CommandAction) {
     device.commandQueue.addCommand(BluetoothMessage.response(action.command, device, Priority.normal, action.response));
   } else if (action is MoveList) {
-    await (MoveList moveList, BaseStatefulDevice device) async {
-      Flogger.i("Starting MoveList ${moveList.name}.");
-      // add final home move
-      List<Move> newMoveList = List.from(moveList.moves); //prevent home move from being added to original MoveList
-      Move move = Move.home();
-      newMoveList.add(move);
-
-      //TODO: Merge move commands into 1 large command
+    Flogger.i("Starting MoveList ${action.name}.");
+    if (action.moves.isNotEmpty && action.moves.length <= 5 && device.baseDeviceDefinition.deviceType != DeviceType.ears) {
+      int preset = 1; //TODO: store
+      String cmd = "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt()}H1";
+      for (int i = 0; i < action.moves.length; i++) {
+        Move move = action.moves[i];
+        if (i == 0 && move.moveType == MoveType.delay) {
+          continue; // Skip first move if it is a delay
+        }
+        if (move.moveType == MoveType.delay) {
+          if (i > 0 && action.moves[i + 1].moveType == MoveType.move) {
+            Move prevMove = action.moves[i + 1];
+            cmd = "$cmd E${prevMove.easingType.num}F${prevMove.easingType.num}A${prevMove.leftServo.round().clamp(0, 128) ~/ 16}B${prevMove.rightServo.round().clamp(0, 128) ~/ 16}S${move.time.toInt()}";
+          }
+        }
+        cmd = "$cmd E${move.easingType.num}F${move.easingType.num}A${move.leftServo.round().clamp(0, 128) ~/ 16}B${move.rightServo.round().clamp(0, 128) ~/ 16}L${move.speed.speed}";
+      }
+      device.commandQueue.addCommand(BluetoothMessage(cmd, device, Priority.normal));
+      device.commandQueue.addCommand(BluetoothMessage("TAILU$preset", device, Priority.normal));
+    } else {
+      List<Move> newMoveList = List.from(action.moves); //prevent home move from being added to original MoveList
+      if (action.repeat.toInt() > 1) {
+        for (int i = 1; i < action.repeat; i++) {
+          newMoveList.addAll(action.moves);
+        }
+      }
+      newMoveList.add(Move.home()); // add final home move
       for (Move element in newMoveList) {
         //run move command
         if (element.moveType == MoveType.delay) {
@@ -222,7 +241,7 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
           );
         }
       }
-    }(action, device);
+    }
   }
 }
 
@@ -239,7 +258,6 @@ List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device)
       commands.add(BluetoothMessage.response("SPEED ${move.speed.name.toUpperCase()}", device, Priority.normal, "SPEED ${move.speed.name.toUpperCase()}"));
       commands.add(BluetoothMessage.response("DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000", device, Priority.normal, "DSSP END"));
     } else {
-      //cmd = "DSSP"; //TODO: Tail command
       commands.add(BluetoothMessage.response("DSSP E${move.easingType.num} F${move.easingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.speed} M${move.speed.speed}", device, Priority.normal, "OK"));
     }
   }

@@ -8,8 +8,6 @@ String title() => Intl.message('Tail App', name: 'title', desc: 'The name of the
 
 String subTitle() => Intl.message('All of the Tails', name: 'subTitle', desc: 'The sub-title which displays in the navigation drawer');
 
-String doubleBack() => Intl.message('Press back again to leave', name: 'doubleBack', desc: 'A toast which appears when the back button is pressed at the main page');
-
 String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'The label and title of the joystick page');
 
 String feedbackPage() => Intl.message('Feedback', name: 'feedbackPage', desc: 'The label and title of the feedback page');
@@ -77,7 +75,7 @@ String sequencesEditDeleteTitle() => Intl.message('Delete Sequence', name: 'sequ
 String sequencesEditDeleteDescription() => Intl.message('Are you sure you want to delete this sequence?', name: 'sequencesEditDeleteDescription', desc: 'Message of the dialog on the sequence edit page to delete the sequence');
 
 String sequenceEditListDelayLabel(int howMany) => Intl.message(
-      '''Intl.plural(howMany, one: ' Delay next move for $howMany second.', other: 'Delay next move for $howMany seconds.')''',
+      'Delay next move for $howMany second(s).',
       name: 'sequenceEditListDelayLabel',
       args: [howMany],
       desc: 'Delay move label on the edit sequences page.',
@@ -109,7 +107,7 @@ String settingsErrorReportingToggleSubTitle() => Intl.message('Automatically rep
 String settingsAppColor() => Intl.message('App Color', name: 'settingsAppColor', desc: 'Settings page app color picker button title');
 
 //Move List
-String manageDevicesAutoMoveTitle() => Intl.message('Auto Move', name: 'manageDevicesAutoMoveTitle', desc: 'Auto move toggle title when managing a device');
+String manageDevicesAutoMoveTitle() => Intl.message('Casual Mode', name: 'manageDevicesAutoMoveTitle', desc: 'Auto move toggle title when managing a device');
 
 String manageDevicesAutoMoveSubTitle() => Intl.message('The tail will select a random move, pausing for a random number of seconds between each move', name: 'manageDevicesAutoMoveSubTitle', desc: 'Auto move toggle subtitle when managing a device');
 
@@ -122,14 +120,6 @@ String manageDevicesAutoMoveGroupsCalm() => Intl.message('Calm', name: 'manageDe
 String manageDevicesAutoMoveGroupsFrustrated() => Intl.message('Frustrated', name: 'manageDevicesAutoMoveGroupsFrustrated', desc: 'Auto move group frustrated option label when managing a device');
 
 String manageDevicesAutoMovePauseTitle() => Intl.message('Pause between moves', name: 'manageDevicesAutoMovePauseTitle', desc: 'Auto move pause slider title when managing a device');
-
-String manageDevicesAutoMovePauseSliderLabel(int howMany) => Intl.message(
-      '''Intl.plural(howMany, one: '$howMany second', other: '$howMany seconds')''',
-      name: 'manageDevicesAutoMovePauseSliderLabel',
-      args: [howMany],
-      desc: 'Auto move pause slider title when managing a device.',
-      examples: const {'howMany': '42'},
-    );
 
 String manageDevicesBatteryGraphTitle() => Intl.message('Battery Graph', name: 'manageDevicesBatteryGraphTitle', desc: 'battery graph expansion tile title');
 
@@ -205,3 +195,5 @@ String triggerEarTiltRight() => Intl.message("Right Tilt", name: 'triggerEarTilt
 String triggerEarTiltForward() => Intl.message("Forward Tilt", name: 'triggerEarTiltForward', desc: 'EarGear internal gesture sensor trigger forward tilt detected action label');
 
 String triggerEarTiltBackward() => Intl.message("Backward Tilt", name: 'triggerEarTiltbackward', desc: 'EarGear internal gesture sensor trigger backward tilt detected action label');
+
+String sequenceEditRepeatTitle() => Intl.message("Repeat Sequence", name: 'sequenceEditRepeatTitle', desc: 'Title for slider on sequence edit page to set how many times to repeat the sequence');
