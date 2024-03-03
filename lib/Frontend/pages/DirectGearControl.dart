@@ -28,7 +28,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
   double y = 0;
   double direction = 0;
   double magnitude = 0;
-  double speed = 50;
+  double speed = 25;
   EasingType easingType = EasingType.linear;
   Set<DeviceType> deviceTypes = DeviceType.values.toSet();
 
@@ -148,7 +148,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         });
                         SendMove();
                       },
-                      period: const Duration(milliseconds: 500),
+                      period: Duration(milliseconds: (speed * 20).toInt(),
                     ),
                   ),
                 ],
