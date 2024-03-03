@@ -17,18 +17,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevices": "デバイスの管理",
-  "@manageDevices": {
-    "description": "The screen where you pair and manage gear",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBack": "もう一度戻るボタンを押すと終了します",
-  "@doubleBack": {
-    "description": "A toast which appears when the back button is pressed at the main page",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "ジョイスティック",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -155,12 +143,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHome": "家",
-  "@sequencesEditHome": {
-    "description": "Label for the home tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesEditLeftServo": "左サーボ",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
@@ -176,18 +158,6 @@
   "sequencesEditSpeed": "スピード",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeedFast": "速い",
-  "@sequencesEditSpeedFast": {
-    "description": "Label for the Fast speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeedSlow": "遅い",
-  "@sequencesEditSpeedSlow": {
-    "description": "Label for the Slow speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
@@ -230,12 +200,6 @@
         "example": "42"
       }
     }
-  },
-  "actionsNoGear": "ギアが接続されていません",
-  "@actionsNoGear": {
-    "description": "Label on the actions page when no gear is connected",
-    "type": "text",
-    "placeholders": {}
   },
   "actionsNoBluetooth": "Bluetooth が使用できません",
   "@actionsNoBluetooth": {
@@ -282,18 +246,6 @@
   "settingsHapticsToggleSubTitle": "アクションまたはシーケンスがタップされたときに振動を有効にする",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleTitle": "既知のギアを自動的にスキャンします",
-  "@settingsAutoConnectToggleTitle": {
-    "description": "Settings page auto connect toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleSubTitle": "既知のギアを自動的にスキャンします。これはアプリが開いているときにのみ機能し、バッテリーの消耗が早くなります。",
-  "@settingsAutoConnectToggleSubTitle": {
-    "description": "Settings page auto connect toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
@@ -351,32 +303,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseSliderLabel": "Intl.plural(howMany, one: '{howMany} 秒', other: '{howMany} 秒')",
-  "@manageDevicesAutoMovePauseSliderLabel": {
-    "description": "Auto move pause slider title when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
-  },
-  "manageDevicesAutoMoveNoPhoneTitle": "電話なしモードの開始遅延",
-  "@manageDevicesAutoMoveNoPhoneTitle": {
-    "description": "Auto move no-phone mode slider title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveNoPhoneSliderLabel": "Intl.plural(howMany, one: '{howMany} 分', other: '{howMany} 分')",
-  "@manageDevicesAutoMoveNoPhoneSliderLabel": {
-    "description": "Auto move no phone slider label when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
-  },
   "manageDevicesDisconnect": "切断する",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
@@ -416,18 +342,6 @@
   "triggerWalkingStopped": "停止",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingEvenStep": "偶数ステップ",
-  "@triggerWalkingEvenStep": {
-    "description": "Walking/Step trigger Even Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingOddStep": "オッドステップ",
-  "@triggerWalkingOddStep": {
-    "description": "Walking/Step trigger Odd Step action label",
     "type": "text",
     "placeholders": {}
   },

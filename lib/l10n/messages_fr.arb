@@ -47,12 +47,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHome": "Maison",
-  "@sequencesEditHome": {
-    "description": "Label for the home tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesEditLeftServo": "Servo gauche",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
@@ -68,18 +62,6 @@
   "sequencesEditSpeed": "Vitesse",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeedFast": "Rapide",
-  "@sequencesEditSpeedFast": {
-    "description": "Label for the Fast speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeedSlow": "Lent",
-  "@sequencesEditSpeedSlow": {
-    "description": "Label for the Slow speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
@@ -122,12 +104,6 @@
         "example": "42"
       }
     }
-  },
-  "actionsNoGear": "Aucun équipement connecté",
-  "@actionsNoGear": {
-    "description": "Label on the actions page when no gear is connected",
-    "type": "text",
-    "placeholders": {}
   },
   "actionsNoBluetooth": "Le Bluetooth n'est pas disponible",
   "@actionsNoBluetooth": {
@@ -174,18 +150,6 @@
   "settingsHapticsToggleSubTitle": "Activer les vibrations lorsqu'une action ou une séquence est exploitée",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleTitle": "Rechercher automatiquement les équipements connus",
-  "@settingsAutoConnectToggleTitle": {
-    "description": "Settings page auto connect toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleSubTitle": "Recherchez automatiquement les équipements connus. Cela ne fonctionne que lorsque l'application est ouverte et videra votre batterie plus rapidement !",
-  "@settingsAutoConnectToggleSubTitle": {
-    "description": "Settings page auto connect toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
@@ -243,32 +207,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseSliderLabel": "Intl.plural(combien, un : '{combien} seconde', autre : '{combien} secondes')",
-  "@manageDevicesAutoMovePauseSliderLabel": {
-    "description": "Auto move pause slider title when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
-  },
-  "manageDevicesAutoMoveNoPhoneTitle": "Délai de démarrage en mode sans téléphone",
-  "@manageDevicesAutoMoveNoPhoneTitle": {
-    "description": "Auto move no-phone mode slider title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveNoPhoneSliderLabel": "Intl.plural(combien, un : '{combien} minutes', autre : '{combien} minutes')",
-  "@manageDevicesAutoMoveNoPhoneSliderLabel": {
-    "description": "Auto move no phone slider label when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
-  },
   "manageDevicesDisconnect": "Déconnecter",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
@@ -308,18 +246,6 @@
   "triggerWalkingStopped": "Arrêté",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingEvenStep": "Même pas",
-  "@triggerWalkingEvenStep": {
-    "description": "Walking/Step trigger Even Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingOddStep": "Étape étrange",
-  "@triggerWalkingOddStep": {
-    "description": "Walking/Step trigger Odd Step action label",
     "type": "text",
     "placeholders": {}
   },
@@ -374,18 +300,6 @@
   "subTitle": "Toutes les queues",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevices": "Gérer les appareils",
-  "@manageDevices": {
-    "description": "The screen where you pair and manage gear",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBack": "Appuyez à nouveau pour quitter",
-  "@doubleBack": {
-    "description": "A toast which appears when the back button is pressed at the main page",
     "type": "text",
     "placeholders": {}
   },

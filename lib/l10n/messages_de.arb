@@ -11,18 +11,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevices": "Geräte verwalten",
-  "@manageDevices": {
-    "description": "The screen where you pair and manage gear",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBack": "Drücken Sie erneut die Zurück-Taste, um zu gehen",
-  "@doubleBack": {
-    "description": "A toast which appears when the back button is pressed at the main page",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "Joystick",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -113,12 +101,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeedSlow": "Langsam",
-  "@sequencesEditSpeedSlow": {
-    "description": "Label for the Slow speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesEditEasing": "Lockerungstyp",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
@@ -158,12 +140,6 @@
         "example": "42"
       }
     }
-  },
-  "actionsNoGear": "Keine Ausrüstung angeschlossen",
-  "@actionsNoGear": {
-    "description": "Label on the actions page when no gear is connected",
-    "type": "text",
-    "placeholders": {}
   },
   "actionsNoBluetooth": "Bluetooth ist nicht verfügbar",
   "@actionsNoBluetooth": {
@@ -210,18 +186,6 @@
   "settingsHapticsToggleSubTitle": "Aktivieren Sie die Vibration, wenn auf eine Aktion oder Sequenz getippt wird",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleTitle": "Automatisch nach bekannter Ausrüstung suchen",
-  "@settingsAutoConnectToggleTitle": {
-    "description": "Settings page auto connect toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleSubTitle": "Scannen Sie automatisch nach bekannten Geräten. Dies funktioniert nur, wenn die App geöffnet ist, und entlädt Ihren Akku schneller!",
-  "@settingsAutoConnectToggleSubTitle": {
-    "description": "Settings page auto connect toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
@@ -279,32 +243,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseSliderLabel": "Intl.plural(howMany, one: '{howMany} second', other: '{howMany} seconds')",
-  "@manageDevicesAutoMovePauseSliderLabel": {
-    "description": "Auto move pause slider title when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
-  },
-  "manageDevicesAutoMoveNoPhoneTitle": "Startverzögerung im No-Phone-Modus",
-  "@manageDevicesAutoMoveNoPhoneTitle": {
-    "description": "Auto move no-phone mode slider title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveNoPhoneSliderLabel": "Intl.plural(howMany, einer: '{howMany} Minute', anderer: '{howMany} Minuten')",
-  "@manageDevicesAutoMoveNoPhoneSliderLabel": {
-    "description": "Auto move no phone slider label when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
-  },
   "manageDevicesDisconnect": "Trennen",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
@@ -356,18 +294,6 @@
   "triggerWalkingStopped": "Gestoppt",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingEvenStep": "Gleichmäßiger Schritt",
-  "@triggerWalkingEvenStep": {
-    "description": "Walking/Step trigger Even Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingOddStep": "Seltsamer Schritt",
-  "@triggerWalkingOddStep": {
-    "description": "Walking/Step trigger Odd Step action label",
     "type": "text",
     "placeholders": {}
   },
@@ -479,12 +405,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHome": "Heim",
-  "@sequencesEditHome": {
-    "description": "Label for the home tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesEditLeftServo": "Linkes Servo",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
@@ -500,12 +420,6 @@
   "sequencesEditSpeed": "Geschwindigkeit",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeedFast": "Schnell",
-  "@sequencesEditSpeedFast": {
-    "description": "Label for the Fast speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   }

@@ -17,12 +17,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingOddStep": "Paso impar",
-  "@triggerWalkingOddStep": {
-    "description": "Walking/Step trigger Odd Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
   "actionsCategoryGlowtip": "punta luminosa",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
@@ -62,18 +56,6 @@
   "triggerWalkingStopped": "Interrumpido",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBack": "Presiona Atrás nuevamente para salir.",
-  "@doubleBack": {
-    "description": "A toast which appears when the back button is pressed at the main page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoGear": "No hay equipo conectado",
-  "@actionsNoGear": {
-    "description": "Label on the actions page when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
@@ -125,12 +107,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingEvenStep": "Paso par",
-  "@triggerWalkingEvenStep": {
-    "description": "Walking/Step trigger Even Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesEditName": "Nombre",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
@@ -152,12 +128,6 @@
   "settingsErrorReportingToggleTitle": "Informe automático de errores",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeedSlow": "Lento",
-  "@sequencesEditSpeedSlow": {
-    "description": "Label for the Slow speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
@@ -191,27 +161,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevices": "Administrar dispositivos",
-  "@manageDevices": {
-    "description": "The screen where you pair and manage gear",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditHome": "Hogar",
-  "@sequencesEditHome": {
-    "description": "Label for the home tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesAutoMoveGroupsFrustrated": "Frustrado",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleTitle": "Buscar automáticamente equipo conocido",
-  "@settingsAutoConnectToggleTitle": {
-    "description": "Settings page auto connect toggle title",
     "type": "text",
     "placeholders": {}
   },
@@ -238,16 +190,6 @@
     "description": "Walking/Step trigger Step action label",
     "type": "text",
     "placeholders": {}
-  },
-  "manageDevicesAutoMoveNoPhoneSliderLabel": "Intl.plural(cuántos, uno: '{cuántos} minutos', otro: '{cuántos} minutos')",
-  "@manageDevicesAutoMoveNoPhoneSliderLabel": {
-    "description": "Auto move no phone slider label when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
   },
   "settingsHapticsToggleSubTitle": "Habilitar la vibración cuando se toca una acción o secuencia",
   "@settingsHapticsToggleSubTitle": {
@@ -301,16 +243,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseSliderLabel": "Intl.plural(cuántos, uno: '{cuántos} segundos', otro: '{cuántos} segundos')",
-  "@manageDevicesAutoMovePauseSliderLabel": {
-    "description": "Auto move pause slider title when managing a device.",
-    "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": "42"
-      }
-    }
-  },
   "sequencesEditHomeLabel": "Inicio el equipo",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
@@ -356,12 +288,6 @@
   "triggerCoverFar": "Lejos",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveNoPhoneTitle": "Retraso de inicio en modo sin teléfono",
-  "@manageDevicesAutoMoveNoPhoneTitle": {
-    "description": "Auto move no-phone mode slider title when managing a device",
     "type": "text",
     "placeholders": {}
   },
@@ -419,12 +345,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeedFast": "Rápido",
-  "@sequencesEditSpeedFast": {
-    "description": "Label for the Fast speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
   "subTitle": "todas las colas",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
@@ -440,12 +360,6 @@
   "scanDevicesScanMessage": "Escaneando en busca de equipo. Asegúrate de que tu equipo esté encendido y cerca",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAutoConnectToggleSubTitle": "Busque equipos conocidos automáticamente. ¡Esto solo funciona cuando la aplicación está abierta y agotará la batería más rápido!",
-  "@settingsAutoConnectToggleSubTitle": {
-    "description": "Settings page auto connect toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
