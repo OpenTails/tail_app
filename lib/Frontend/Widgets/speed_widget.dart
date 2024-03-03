@@ -15,9 +15,9 @@ class SpeedWidget extends StatelessWidget {
         subtitle: Slider(
           label: "${(value.toInt() * 20).toInt()}ms",
           value: value,
-          min: 5,
+          min: 15,
           max: 127,
-          divisions: 120,
+          divisions: 110,
           onChanged: onChanged,
         ));
   }
