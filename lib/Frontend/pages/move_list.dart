@@ -342,6 +342,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                           label: "${move.time.toInt() * 20} ms",
                           max: 127,
                           min: 1,
+                          divisions: 125,
                           onChanged: (value) {
                             setEditState(() => move.time = value.roundToDouble());
                           },

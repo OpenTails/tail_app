@@ -17,7 +17,7 @@ class SpeedWidget extends StatelessWidget {
           value: value,
           min: 5,
           max: 127,
-          divisions: 24,
+          divisions: 120,
           onChanged: onChanged,
         ));
   }
