@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Sin conjunto de acciones",
+  "triggerActionNotSet": "Retroalimentación háptica",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -179,7 +179,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "De acuerdo",
+  "ok": "Tipo de flexibilización",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -197,7 +197,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Intl.plural(cuántos, uno: 'Retrasar el siguiente movimiento durante {howMany} segundos.', otro: 'Retrasar el siguiente movimiento durante {howMany} segundos.')",
+  "sequenceEditListDelayLabel": "Retrasa el siguiente movimiento durante {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -369,7 +369,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Movimiento automático",
+  "manageDevicesAutoMoveTitle": "Modo informal",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -420,6 +420,108 @@
   "sequencesEditAdd": "Frustrado y tenso",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsSelectScreen": "Seleccione una acción",
+  "@actionsSelectScreen": {
+    "description": "Title for action select menu on triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAppColor": "Color de la aplicación",
+  "@settingsAppColor": {
+    "description": "Settings page app color picker button title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesBatteryGraphTitle": "Gráfico de batería",
+  "@manageDevicesBatteryGraphTitle": {
+    "description": "battery graph expansion tile title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesShutdown": "Cerrar",
+  "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesColor": "Color del engranaje",
+  "@manageDevicesColor": {
+    "description": "manage devices color picker button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaButton": "Toque para actualizar el firmware",
+  "@manageDevicesOtaButton": {
+    "description": "manage devices ota available button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesTitle": "Buscar equipo nuevo",
+  "@scanDevicesTitle": {
+    "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicTitle": "Micrófono EarGear",
+  "@triggerEarMicTitle": {
+    "description": "EarGear internal mic trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicDescription": "Activar una acción cuando EarGear detecta sonido",
+  "@triggerEarMicDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicSound": "Sonido detectado",
+  "@triggerEarMicSound": {
+    "description": "EarGear internal mic trigger sound detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltTitle": "Sensor de inclinación del auricular",
+  "@triggerEarTiltTitle": {
+    "description": "EarGear internal gesture sensor trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltDescription": "Activar una acción cuando EarGear detecta inclinación",
+  "@triggerEarTiltDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltLeft": "Inclinación izquierda",
+  "@triggerEarTiltLeft": {
+    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltRight": "Inclinación hacia la derecha",
+  "@triggerEarTiltRight": {
+    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltForward": "Inclinación hacia adelante",
+  "@triggerEarTiltForward": {
+    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltBackward": "Inclinación hacia atrás",
+  "@triggerEarTiltBackward": {
+    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditRepeatTitle": "Repetir secuencia",
+  "@sequenceEditRepeatTitle": {
+    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
     "placeholders": {}
   }
