@@ -329,7 +329,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: BuildTheme(Theme.of(context).brightness, Color(widget.device.baseStoredDevice.color)),
+      data: BuildTheme(
+        Theme.of(context).brightness,
+        color,
+      ),
       child: ListView(
         shrinkWrap: true,
         controller: widget.controller,

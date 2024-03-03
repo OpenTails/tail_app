@@ -195,12 +195,8 @@ ThemeData BuildTheme(Brightness brightness, Color color) {
     return FlexThemeData.dark(
       colorScheme: ColorScheme.fromSeed(
         brightness: Brightness.dark,
-        seedColor: Color(
-          SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
-        ),
-        primary: Color(
-          SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value),
-        ),
+        seedColor: color,
+        primary: color,
       ),
       // Use a bit more themed elevated app bar in dark mode.
       appBarElevation: 2,
