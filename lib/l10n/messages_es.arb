@@ -485,7 +485,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Cubrir",
+  "triggerCoverTitle": "Servo izquierdo",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -503,7 +503,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Agregar movimiento",
+  "sequencesEditAdd": "Frustrado y tenso",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
