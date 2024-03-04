@@ -198,7 +198,7 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
         cmd = "$cmd E${move.easingType.num}F${move.easingType.num}A${move.leftServo.round().clamp(0, 128) ~/ 16}B${move.rightServo.round().clamp(0, 128) ~/ 16}L${move.speed.toInt()}";
       }
       device.commandQueue.addCommand(BluetoothMessage(cmd, device, Priority.normal));
-      device.commandQueue.addCommand(BluetoothMessage("TAILU$preset", device, Priority.normal));
+      device.commandQueue.addCommand(BluetoothMessage.response("TAILU$preset", device, Priority.normal, "TAILU$preset END"));
     } else {
       List<Move> newMoveList = List.from(action.moves); //prevent home move from being added to original MoveList
       if (action.repeat.toInt() > 1) {
@@ -229,13 +229,13 @@ List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device)
   List<BluetoothMessage> commands = [];
   if (move.moveType == MoveType.home) {
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
-      commands.add(BluetoothMessage.response("EarHome", device, Priority.normal, "EARHOME END"));
+      commands.add(BluetoothMessage.response("EARHOME", device, Priority.normal, "EARHOME END"));
     } else {
       commands.add(BluetoothMessage.response("TAILHM", device, Priority.normal, "END TAILHM"));
     }
   } else if (move.moveType == MoveType.move) {
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
-      commands.add(BluetoothMessage.response("SPEED ${move.speed > 60 ? Speed.fast.name : Speed.slow.name}", device, Priority.normal, "SPEED ${move.speed > 60 ? Speed.fast.name : Speed.slow.name}"));
+      commands.add(BluetoothMessage.response("SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}", device, Priority.normal, "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}"));
       commands.add(BluetoothMessage.response("DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000", device, Priority.normal, "DSSP END"));
     } else {
       commands.add(BluetoothMessage.response("DSSP E${move.easingType.num} F${move.easingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.toInt()} M${move.speed.toInt()}", device, Priority.normal, "OK"));

@@ -308,7 +308,7 @@ class CommandQueue {
       } else {
         //TODO: Allow higher priority commands to run
         Flogger.d("Pausing queue for ${device.baseStoredDevice.name}");
-        await Future.delayed(Duration(seconds: bluetoothMessage.delay!.round()));
+        await Future.delayed(Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20));
         Flogger.d("Resuming queue for ${device.baseStoredDevice.name}");
       }
       device.deviceState.value = DeviceState.standby; //Without setting state to standby, another command can not run

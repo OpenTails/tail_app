@@ -35,6 +35,11 @@ class BluetoothMessage implements Comparable<BluetoothMessage> {
 
   @override
   int compareTo(other) {
-    return priority.index.compareTo(other.priority.index);
+    int val = priority.index.compareTo(other.priority.index);
+    if (val == 0) {
+      return timestamp.compareTo(other.timestamp);
+    } else {
+      return val;
+    }
   }
 }
