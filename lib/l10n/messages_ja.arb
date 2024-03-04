@@ -201,7 +201,7 @@
       }
     }
   },
-  "actionsNoBluetooth": "Bluetooth が使用できません",
+  "actionsNoBluetooth": "このシーケンスを削除してもよろしいですか?",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "新しいデバイスに自動的に接続します",
+  "scanDevicesAutoConnectTitle": "タップしてファームウェアを更新します",
   "@scanDevicesAutoConnectTitle": {
     "description": "scan for devices auto connect toggle title when scanning for a device",
     "type": "text",
