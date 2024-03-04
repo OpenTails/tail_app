@@ -9,7 +9,9 @@ import '../../main.dart';
 import '../intnDefs.dart';
 
 class ScanForNewDevice extends ConsumerStatefulWidget {
-  ScanForNewDevice({super.key});
+  ScanForNewDevice({super.key, required this.scrollController});
+
+  ScrollController scrollController;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ScanForNewDevice();
@@ -39,6 +41,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
         children: [
           ListView.builder(
             shrinkWrap: true,
+            controller: widget.scrollController,
             itemCount: devices.values.length,
             itemBuilder: (BuildContext context, int index) {
               DiscoveredDevice e = devices.values.toList()[index];
