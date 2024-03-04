@@ -57,7 +57,7 @@ dependencies:
   crypto: ^3.0.3
   animate_do: ^3.3.4
   fl_chart: ^0.66.2
-  file_picker: ^6.1.1
+  file_picker: ^6.2.0
   wakelock_plus:
 
 dev_dependencies:
