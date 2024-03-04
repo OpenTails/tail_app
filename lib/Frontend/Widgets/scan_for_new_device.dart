@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
@@ -35,54 +32,34 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
       if (foundDevices.valueOrNull != null) {
         DiscoveredDevice? value = foundDevices.valueOrNull;
         if (value != null && !devices.containsKey(value.id)) {
-          if (SentryHive.box('settings').get('autoConnectNewDevices', defaultValue: false)) {
-            Future(() => ref.read(knownDevicesProvider.notifier).connect(value));
-          } else {
-            devices[value.id] = value;
-          }
+          devices[value.id] = value;
         }
       }
       return Column(
         children: [
-          ListTile(
-            dense: true,
-            trailing: Switch(
-              onChanged: (bool value) {
-                setState(() {
-                  SentryHive.box('settings').put('autoConnectNewDevices', value);
-                });
-              },
-              value: SentryHive.box('settings').get('autoConnectNewDevices', defaultValue: false),
-            ),
-            title: Text(scanDevicesAutoConnectTitle()),
-          ),
-          Wrap(
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: devices.values.length,
-                itemBuilder: (BuildContext context, int index) {
-                  DiscoveredDevice e = devices.values.toList()[index];
-                  return FadeIn(
-                    delay: const Duration(milliseconds: 100),
-                    child: ListTile(
-                      title: Text(getNameFromBTName(e.name)),
-                      trailing: Text(e.id),
-                      onTap: () {
-                        ref.watch(knownDevicesProvider.notifier).connect(e);
-                        plausible.event(name: "Connect New Gear", props: {"Type": e.name});
-                        setState(
-                          () {
-                            devices.remove(e.id);
-                          },
-                        );
-                        Navigator.pop(context);
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: devices.values.length,
+            itemBuilder: (BuildContext context, int index) {
+              DiscoveredDevice e = devices.values.toList()[index];
+              return FadeIn(
+                delay: const Duration(milliseconds: 100),
+                child: ListTile(
+                  title: Text(getNameFromBTName(e.name)),
+                  trailing: Text(e.id),
+                  onTap: () {
+                    ref.watch(knownDevicesProvider.notifier).connect(e);
+                    plausible.event(name: "Connect New Gear", props: {"Type": e.name});
+                    setState(
+                      () {
+                        devices.remove(e.id);
                       },
-                    ),
-                  );
-                },
-              ),
-            ],
+                    );
+                    Navigator.pop(context);
+                  },
+                ),
+              );
+            },
           ),
           Padding(
               padding: const EdgeInsets.only(top: 20),
