@@ -52,7 +52,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                   trailing: Text(e.id),
                   onTap: () {
                     ref.watch(knownDevicesProvider.notifier).connect(e);
-                    plausible.event(name: "Connect New Gear", props: {"Type": e.name});
+                    plausible.event(name: "Connect New Gear", props: {"Gear Type": e.name});
                     setState(
                       () {
                         devices.remove(e.id);

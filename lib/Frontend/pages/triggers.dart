@@ -80,7 +80,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                   () {
                     Trigger trigger = Trigger.trigDef(triggerDefinition!, const Uuid().v4());
                     ref.read(triggerListProvider.notifier).add(trigger);
-                    plausible.event(name: "Add Trigger", props: {"Type": triggerDefinition!.runtimeType.toString()});
+                    plausible.event(name: "Add Trigger", props: {"Trigger Type": triggerDefinition!.runtimeType.toString()});
                   },
                 );
               }
@@ -127,7 +127,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                                             setState(
                                               () {
                                                 triggersList[index].enabled = value;
-                                                ref.read(triggerListProvider.notifier).store();
+                                                plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.read(triggerDefinitionListProvider).where((element) => element.uuid == triggersList[index].triggerDefUUID).first.toString()});
                                               },
                                             );
                                           },

@@ -9,6 +9,8 @@ import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Frontend/intnDefs.dart';
 
+import '../main.dart';
+
 part 'moveLists.g.dart';
 
 @HiveType(typeId: 10)
@@ -179,8 +181,10 @@ class MoveLists extends _$MoveLists {
 Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
   if (action is CommandAction) {
     device.commandQueue.addCommand(BluetoothMessage.response(action.command, device, Priority.normal, action.response));
+    plausible.event(name: "Run Action", props: {"Action Name": action.name, "Action Type": action.actionCategory.name});
   } else if (action is MoveList) {
     Flogger.i("Starting MoveList ${action.name}.");
+    plausible.event(name: "Run Sequence", props: {"Sequence Repeat": action.repeat.toInt().toString(), "Sequence Device Type": device.baseDeviceDefinition.deviceType.name, "Sequence Moves": action.moves.length.toString()});
     if (action.moves.isNotEmpty && action.moves.length <= 5 && device.baseDeviceDefinition.deviceType != DeviceType.ears) {
       int preset = 1; //TODO: store
       String cmd = "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt()}H1";
