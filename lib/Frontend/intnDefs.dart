@@ -119,6 +119,8 @@ String manageDevicesBatteryGraphTitle() => Intl.message('Battery Graph', name: '
 
 String manageDevicesDisconnect() => Intl.message('Disconnect', name: 'manageDevicesDisconnect', desc: 'manage devices disconnect button title when managing a device');
 
+String manageDevicesConnect() => Intl.message('Connect', name: 'manageDevicesConnect', desc: 'manage devices connect button title when managing a device');
+
 String manageDevicesShutdown() => Intl.message('Shut Down', name: 'manageDevicesShutdown', desc: 'manage devices shutdown button title when managing a device');
 
 String manageDevicesColor() => Intl.message('Gear Color', name: 'manageDevicesColor', desc: 'manage devices color picker button title when managing a device');
