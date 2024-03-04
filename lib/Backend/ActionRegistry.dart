@@ -79,7 +79,7 @@ class ActionRegistry {
   };
 }
 
-@Riverpod(dependencies: [KnownDevices])
+@Riverpod(dependencies: [KnownDevices], keepAlive: false)
 Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef ref) {
   Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};

@@ -37,7 +37,7 @@ class ActionPageBuilder extends ConsumerWidget {
         valueListenables: knownDevices.values.map((e) => e.deviceConnectionState).toList(),
         builder: (BuildContext context, List<dynamic> values, Widget? child) {
           if (knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isNotEmpty) {
-            Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
+            Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.read(getAvailableActionsProvider);
             List<ActionCategory> catList = actionsCatMap.keys.toList();
             return ListView.builder(
               itemCount: catList.length,
