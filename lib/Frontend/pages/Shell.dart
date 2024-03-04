@@ -279,13 +279,22 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                                 enableDrag: true,
                                 isDismissible: true,
                                 builder: (BuildContext context) {
-                                  return Wrap(
-                                    children: [
-                                      ListTile(
-                                        title: Text(scanDevicesTitle()),
-                                      ),
-                                      ScanForNewDevice(),
-                                    ],
+                                  return DraggableScrollableSheet(
+                                    initialChildSize: 0.5,
+                                    expand: false,
+                                    builder: (BuildContext context, ScrollController scrollController) {
+                                      return Column(
+                                        children: [
+                                          ListTile(
+                                            title: Text(scanDevicesTitle()),
+                                          ),
+                                          Expanded(
+                                              child: ScanForNewDevice(
+                                            scrollController: scrollController,
+                                          )),
+                                        ],
+                                      );
+                                    },
                                   );
                                 },
                               );
@@ -522,6 +531,8 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   Text("DEV UUID: ${widget.device.baseDeviceDefinition.uuid}"),
                   Text("DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}"),
                   Text("DEV FW URL: ${widget.device.baseDeviceDefinition.fwURL}"),
+                  Text("DISABLE AUTOCONNECT: ${widget.device.disableAutoConnect}"),
+                  Text("FORGET: ${widget.device.forgetOnDisconnect}"),
                 ],
               ),
             )
@@ -533,6 +544,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 TextButton(
                   onPressed: () {
                     setState(() {
+                      widget.device.disableAutoConnect = true;
                       widget.device.connectionStateStreamSubscription?.cancel();
                     });
                     Navigator.pop(context);
@@ -549,12 +561,23 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   child: Text(manageDevicesShutdown()),
                 )
               ],
+              if (widget.device.deviceConnectionState.value == DeviceConnectionState.disconnected && widget.device.disableAutoConnect) ...[
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      widget.device.disableAutoConnect = false;
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text(manageDevicesConnect()),
+                ),
+              ],
               TextButton(
                 onPressed: () {
                   setState(() {
                     widget.device.connectionStateStreamSubscription = null;
+                    widget.device.forgetOnDisconnect = true;
                   });
-                  widget.ref.watch(knownDevicesProvider.notifier).remove(widget.device.baseStoredDevice.btMACAddress);
                   Navigator.pop(context);
                 },
                 child: Text(manageDevicesForget()),

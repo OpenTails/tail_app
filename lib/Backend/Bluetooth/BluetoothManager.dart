@@ -30,7 +30,7 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
   final FlutterReactiveBle bluetoothManagerRef = ref.watch(reactiveBLEProvider);
   Stream<DiscoveredDevice> scanStream = bluetoothManagerRef.scanForDevices(withServices: DeviceRegistry.getAllIds(), requireLocationServicesEnabled: false, scanMode: ScanMode.lowPower).asBroadcastStream();
   scanStream.listen((DiscoveredDevice event) {
-    if (ref.read(knownDevicesProvider).containsKey(event.id) && ref.read(knownDevicesProvider)[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected) {
+    if (ref.read(knownDevicesProvider).containsKey(event.id) && ref.read(knownDevicesProvider)[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected && !ref.read(knownDevicesProvider)[event.id]!.disableAutoConnect) {
       ref.read(knownDevicesProvider.notifier).connect(event);
     }
   });
@@ -238,6 +238,9 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
             element.enabled = false;
           });
           WakelockPlus.disable();
+        }
+        if (knownDevices[event.deviceId]!.forgetOnDisconnect) {
+          ref.read(knownDevicesProvider.notifier).remove(event.deviceId);
         }
       }
     }

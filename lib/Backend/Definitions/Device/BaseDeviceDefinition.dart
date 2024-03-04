@@ -103,6 +103,8 @@ class BaseStatefulDevice {
   StreamSubscription<List<int>>? batteryChargeCharacteristicStreamSubscription;
   List<FlSpot> batlevels = [];
   Stopwatch stopWatch = Stopwatch();
+  bool disableAutoConnect = false;
+  bool forgetOnDisconnect = false;
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
     rxCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleRxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
