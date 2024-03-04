@@ -65,9 +65,12 @@ Widget getBattery(double level) {
     return const Icon(Icons.battery_unknown);
   }
   if (level < 12.5) {
-    return const Icon(Icons.battery_0_bar);
+    return Flash(infinite: true, child: const Icon(Icons.battery_0_bar));
   } else if (level < 25) {
-    return const Icon(Icons.battery_1_bar);
+    return Flash(
+      infinite: true,
+      child: const Icon(Icons.battery_1_bar),
+    );
   } else if (level < 37.5) {
     return const Icon(Icons.battery_2_bar);
   } else if (level < 50) {
