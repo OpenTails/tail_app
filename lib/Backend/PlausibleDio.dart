@@ -37,7 +37,7 @@ class PlausibleDio extends Plausible {
         "referrer": referrer,
         "props": props,
       };
-      dio.post(Uri.parse('$serverUrl/api/event').toString(), data: json.encode(body), options: Options(contentType: 'application/json; charset=utf-8', headers: {'X-Forwarded-For': '127.0.0.1', 'User-Agent': userAgent}));
+      await dio.post(Uri.parse('$serverUrl/api/event').toString(), data: json.encode(body), options: Options(contentType: 'application/json; charset=utf-8', headers: {'X-Forwarded-For': '127.0.0.1', 'User-Agent': userAgent}));
     } catch (e) {
       if (kDebugMode) {
         print(e);

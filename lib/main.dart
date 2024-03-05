@@ -49,17 +49,11 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
 const String serverUrl = "https://plausable.codel1417.xyz";
 const String domain = "tail-app";
 
-final Plausible plausible = PlausibleDio(serverUrl, domain);
+late final Plausible plausible;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FkUserAgent.init();
-  // Platform messages may fail, so we use a try/catch PlatformException.
-  try {
-    String platformVersion = FkUserAgent.userAgent!;
-    plausible.userAgent = platformVersion;
-  } on PlatformException {}
-  plausible.enabled = true;
   Flogger.init(config: const FloggerConfig(showDebugLogs: true, printClassName: true, printMethodName: true, showDateTime: false));
   PlatformDispatcher.instance.onError = (error, stack) {
     Flogger.e(error.toString(), stackTrace: stack);
@@ -104,13 +98,10 @@ Future<void> main() async {
       options.attachScreenshot = true; //not supported on GlitchTip
       options.attachViewHierarchy = true; //not supported on GlitchTip
       options.tracesSampleRate = 1.0;
-      options.profilesSampleRate = 1.0;
+      //options.profilesSampleRate = 1.0;
+      options.enableBreadcrumbTrackingForCurrentPlatform();
       options.attachThreads = true;
-      options.enableUserInteractionTracing = true;
-      options.reportSilentFlutterErrors = true;
-      options.enableAutoNativeBreadcrumbs = true;
-      options.enableAutoPerformanceTracing = true;
-      options.enableAppHangTracking = true;
+      options.anrEnabled = true;
       options.beforeSend = beforeSend;
     },
     // Init your App.
@@ -123,7 +114,7 @@ Future<void> main() async {
               observers: [
                 RiverpodProviderObserver(),
               ],
-              child: const _EagerInitialization(
+              child: _EagerInitialization(
                 child: TailApp(),
               ),
             ),
@@ -135,7 +126,7 @@ Future<void> main() async {
 }
 
 Dio initDio() {
-  final dio = Dio();
+  final Dio dio = Dio();
   dio.httpClientAdapter = NativeAdapter();
   dio.interceptors.add(
     RetryInterceptor(
@@ -157,12 +148,21 @@ Dio initDio() {
   /// This *must* be the last initialization step of the Dio setup, otherwise
   /// your configuration of Dio might overwrite the Sentry configuration.
 
-  dio.addSentry();
+  dio.addSentry(failedRequestStatusCodes: []);
   return dio;
 }
 
 class TailApp extends ConsumerWidget {
-  const TailApp({super.key});
+  TailApp({super.key}) {
+    //Init Plausible
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    plausible = PlausibleDio(serverUrl, domain);
+    try {
+      String platformVersion = FkUserAgent.userAgent!;
+      plausible.userAgent = platformVersion;
+    } on PlatformException {}
+    plausible.enabled = true;
+  }
 
   // This widget is the root of your application.
   @override
@@ -188,7 +188,10 @@ class TailApp extends ConsumerWidget {
             ],
             supportedLocales: const [
               Locale('en'), // English
-              Locale('ace'), // UwU
+              Locale('de'), // german
+              Locale('es'), // spanish
+              Locale('fr'), // french
+              Locale('ja'), // japanese
             ],
             themeMode: ThemeMode.system,
           );
