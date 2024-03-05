@@ -9,6 +9,7 @@ import 'package:flutter_foreground_service/flutter_foreground_service.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
@@ -190,11 +191,12 @@ Stream<BleStatus> btStatus(BtStatusRef ref) {
 
 @Riverpod(keepAlive: true, dependencies: [reactiveBLE, KnownDevices, TriggerList])
 StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHandlerRef ref) {
-  return ref.read(reactiveBLEProvider).connectedDeviceStream.listen((ConnectionStateUpdate event) {
+  return ref.read(reactiveBLEProvider).connectedDeviceStream.listen((ConnectionStateUpdate event) async {
     Flogger.i("ConnectedDevice::$event");
     Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
     //start foreground service on device connected. Library handles duplicate start calls
     if (Platform.isAndroid && event.connectionState == DeviceConnectionState.connected) {
+      await Permission.notification.request(); // Used only for Foreground service
       ForegroundServiceHandler.notification.setPriority(AndroidNotificationPriority.LOW);
       ForegroundServiceHandler.notification.setTitle("Gear Connected");
       ForegroundService().start();
