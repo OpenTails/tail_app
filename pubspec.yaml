@@ -67,7 +67,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints:
-  custom_lint: 0.5.11
+  custom_lint: 0.6.2
   riverpod_lint:
   riverpod_generator:
   flutter_native_splash: ^2.3.10
