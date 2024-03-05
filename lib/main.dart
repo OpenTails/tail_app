@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:fk_user_agent/fk_user_agent.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -13,8 +14,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging_flutter/logging_flutter.dart';
+import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
@@ -23,6 +26,7 @@ import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 import 'Backend/Bluetooth/BluetoothManager.dart';
 import 'Backend/Definitions/Action/BaseAction.dart';
+import 'Backend/PlausibleDio.dart';
 import 'Backend/Sensors.dart';
 import 'Backend/moveLists.dart';
 import 'Frontend/GoRouterConfig.dart';
@@ -45,7 +49,7 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
 const String serverUrl = "https://plausable.codel1417.xyz";
 const String domain = "tail-app";
 
-final Plausible plausible = Plausible(serverUrl, domain);
+final Plausible plausible = PlausibleDio(serverUrl, domain);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -132,9 +136,27 @@ Future<void> main() async {
 
 Dio initDio() {
   final dio = Dio();
+  dio.httpClientAdapter = NativeAdapter();
+  dio.interceptors.add(
+    RetryInterceptor(
+      dio: dio,
+      logPrint: Flogger.d, // specify log function (optional)
+      retries: 3, // retry count (optional)
+      retryDelays: const [
+        // set delays between retries (optional)
+        Duration(seconds: 10), // wait 1 sec before first retry
+        Duration(seconds: 30), // wait 2 sec before second retry
+        Duration(seconds: 60), // wait 3 sec before third retry
+      ],
+    ),
+  );
+  if (kDebugMode) {
+    dio.interceptors.add(PrettyDioLogger(requestBody: true, compact: true));
+  }
 
   /// This *must* be the last initialization step of the Dio setup, otherwise
   /// your configuration of Dio might overwrite the Sentry configuration.
+
   dio.addSentry();
   return dio;
 }
