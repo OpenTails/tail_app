@@ -31,7 +31,7 @@ String cancel() => Intl.message('Cancel', name: 'cancel', desc: 'Cancel on dialo
 
 String triggersAdd() => Intl.message('Add Trigger', name: 'triggersAdd', desc: 'Floating Action Button on the triggers page');
 
-String deviceType() => Intl.message('Device Type', name: 'deviceType', desc: 'Title for the selector to select which device to send moves to');
+String deviceType() => Intl.message('Gear Type', name: 'deviceType', desc: 'Title for the selector to select which device to send moves to');
 
 String deviceTypeTail() => Intl.message('Tail', name: 'deviceTypeTail', desc: 'Tail option for the selector to select which device to send moves to');
 
