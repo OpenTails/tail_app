@@ -1,1 +1,528 @@
-{}
+{
+  "aboutPage": "O",
+  "@aboutPage": {
+    "description": "The label and title of the about page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsPage": "Ustawienia",
+  "@settingsPage": {
+    "description": "The label and title of the settings page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsPage": "działania",
+  "@actionsPage": {
+    "description": "The label and title of the action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersPage": "Wyzwalacze",
+  "@triggersPage": {
+    "description": "The label and title of the trigger page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPage": "Sekwencje",
+  "@sequencesPage": {
+    "description": "The label and title of the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectLabel": "Wybierz typ wyzwalacza",
+  "@triggersSelectLabel": {
+    "description": "The title of the add trigger dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "Ok on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Anulować",
+  "@cancel": {
+    "description": "Cancel on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersAdd": "Dodaj wyzwalacz",
+  "@triggersAdd": {
+    "description": "Floating Action Button on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceType": "Rodzaj urządzenia",
+  "@deviceType": {
+    "description": "Title for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeTail": "Ogon",
+  "@deviceTypeTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeEars": "Uszy",
+  "@deviceTypeEars": {
+    "description": "Ears option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeWings": "Skrzydełka",
+  "@deviceTypeWings": {
+    "description": "Wings option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesAdd": "Nowa sekwencja",
+  "@sequencesAdd": {
+    "description": "Floating Action Button on the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEdit": "Edytuj sekwencję",
+  "@sequencesEdit": {
+    "description": "Label for the edit icon on a sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditAdd": "Dodaj ruch",
+  "@sequencesEditAdd": {
+    "description": "Label for the add Floating Action Button on edit sequence page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditName": "Nazwa",
+  "@sequencesEditName": {
+    "description": "Label for the name field on sequence edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditMove": "Przenosić",
+  "@sequencesEditMove": {
+    "description": "Label for the move tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDelay": "Opóźnienie",
+  "@sequencesEditDelay": {
+    "description": "Label for the delay tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditLeftServo": "Lewy serw",
+  "@sequencesEditLeftServo": {
+    "description": "Label for the left servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditRightServo": "Prawy serw",
+  "@sequencesEditRightServo": {
+    "description": "Label for the right servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditSpeed": "Prędkość",
+  "@sequencesEditSpeed": {
+    "description": "Label for the speed selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditEasing": "Typ łagodzenia",
+  "@sequencesEditEasing": {
+    "description": "Label for the easing selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditTime": "Czas",
+  "@sequencesEditTime": {
+    "description": "Label for the time slider on the delay tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditHomeLabel": "Strona główna Gear",
+  "@sequencesEditHomeLabel": {
+    "description": "Label on the home tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDeleteTitle": "Usuń sekwencję",
+  "@sequencesEditDeleteTitle": {
+    "description": "Title of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDeleteDescription": "Czy na pewno chcesz usunąć tę sekwencję?",
+  "@sequencesEditDeleteDescription": {
+    "description": "Message of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditListDelayLabel": "Opóźnij następny ruch o {howMany} ms.",
+  "@sequenceEditListDelayLabel": {
+    "description": "Delay move label on the edit sequences page.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": "42"
+      }
+    }
+  },
+  "actionsNoBluetooth": "Bluetooth jest niedostępny",
+  "@actionsNoBluetooth": {
+    "description": "Label on the actions page when bluetooth is unavailable",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryCalm": "Spokojny i zrelaksowany",
+  "@actionsCategoryCalm": {
+    "description": "calm action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryFast": "Szybki i podekscytowany",
+  "@actionsCategoryFast": {
+    "description": "fast action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryTense": "Sfrustrowany i spięty",
+  "@actionsCategoryTense": {
+    "description": "tense action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryGlowtip": "Świecąca wskazówka",
+  "@actionsCategoryGlowtip": {
+    "description": "glowtip action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryEars": "Uszy",
+  "@actionsCategoryEars": {
+    "description": "ears action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsSelectScreen": "Wybierz akcję",
+  "@actionsSelectScreen": {
+    "description": "Title for action select menu on triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsHapticsToggleTitle": "Informacje zwrotne dotykowe",
+  "@settingsHapticsToggleTitle": {
+    "description": "Settings page haptic feedback toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsHapticsToggleSubTitle": "Włącz wibracje po dotknięciu akcji lub sekwencji",
+  "@settingsHapticsToggleSubTitle": {
+    "description": "Settings page haptic feedback toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleTitle": "Automatyczne raportowanie błędów",
+  "@settingsErrorReportingToggleTitle": {
+    "description": "Settings page error reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleSubTitle": "Automatycznie raportuje błędy do wartownika",
+  "@settingsErrorReportingToggleSubTitle": {
+    "description": "Settings page error reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAppColor": "Kolor aplikacji",
+  "@settingsAppColor": {
+    "description": "Settings page app color picker button title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveTitle": "Tryb swobodny",
+  "@manageDevicesAutoMoveTitle": {
+    "description": "Auto move toggle title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveSubTitle": "Ogon wybierze losowy ruch, zatrzymując się na losową liczbę sekund pomiędzy każdym ruchem",
+  "@manageDevicesAutoMoveSubTitle": {
+    "description": "Auto move toggle subtitle when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsTitle": "Przenieś grupy",
+  "@manageDevicesAutoMoveGroupsTitle": {
+    "description": "Auto move group selector title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsFast": "Szybko",
+  "@manageDevicesAutoMoveGroupsFast": {
+    "description": "Auto move group fast option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsCalm": "Spokój",
+  "@manageDevicesAutoMoveGroupsCalm": {
+    "description": "Auto move group  calm option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMoveGroupsFrustrated": "Sfrustrowany",
+  "@manageDevicesAutoMoveGroupsFrustrated": {
+    "description": "Auto move group frustrated option label when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAutoMovePauseTitle": "Pauza pomiędzy ruchami",
+  "@manageDevicesAutoMovePauseTitle": {
+    "description": "Auto move pause slider title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesBatteryGraphTitle": "Wykres baterii",
+  "@manageDevicesBatteryGraphTitle": {
+    "description": "battery graph expansion tile title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesDisconnect": "Rozłączyć się",
+  "@manageDevicesDisconnect": {
+    "description": "manage devices disconnect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesShutdown": "Zamknięcie",
+  "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesColor": "Kolor przekładni",
+  "@manageDevicesColor": {
+    "description": "manage devices color picker button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesForget": "Zapominać",
+  "@manageDevicesForget": {
+    "description": "manage devices forget button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaButton": "Kliknij, aby zaktualizować oprogramowanie sprzętowe",
+  "@manageDevicesOtaButton": {
+    "description": "manage devices ota available button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesAutoConnectTitle": "Automatycznie łącz się z nowymi urządzeniami",
+  "@scanDevicesAutoConnectTitle": {
+    "description": "scan for devices auto connect toggle title when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesTitle": "Skanuj w poszukiwaniu nowego sprzętu",
+  "@scanDevicesTitle": {
+    "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesScanMessage": "Skanowanie w poszukiwaniu sprzętu. Upewnij się, że Twój sprzęt jest włączony i znajduje się w pobliżu",
+  "@scanDevicesScanMessage": {
+    "description": "scan for devices scan in progress message when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingTitle": "Pieszy",
+  "@triggerWalkingTitle": {
+    "description": "Walking/Step trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingDescription": "Uruchom akcję podczas chodzenia",
+  "@triggerWalkingDescription": {
+    "description": "Walking/Step trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStopped": "Zatrzymany",
+  "@triggerWalkingStopped": {
+    "description": "Walking/Step trigger Stopped action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStep": "Krok",
+  "@triggerWalkingStep": {
+    "description": "Walking/Step trigger Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverTitle": "Okładka",
+  "@triggerCoverTitle": {
+    "description": "Cover trigger Title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverDescription": "Wywołaj akcję zakrywając czujnik zbliżeniowy",
+  "@triggerCoverDescription": {
+    "description": "Cover trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverNear": "W pobliżu",
+  "@triggerCoverNear": {
+    "description": "Cover trigger near action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverFar": "Daleko",
+  "@triggerCoverFar": {
+    "description": "Cover trigger far action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonTitle": "Przyciski głośności",
+  "@triggerVolumeButtonTitle": {
+    "description": "Volume Button trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonDescription": "Uruchom akcję, naciskając przycisk głośności",
+  "@triggerVolumeButtonDescription": {
+    "description": "Volume Button trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeUp": "Zwiększ głośność",
+  "@triggerVolumeButtonVolumeUp": {
+    "description": "Volume Button trigger volume up action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeDown": "Ściszanie",
+  "@triggerVolumeButtonVolumeDown": {
+    "description": "Volume Button trigger volume down action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeTitle": "Potrząsnąć",
+  "@triggerShakeTitle": {
+    "description": "Shake trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeDescription": "Wywołaj akcję, potrząsając urządzeniem",
+  "@triggerShakeDescription": {
+    "description": "Shake trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityTitle": "W pobliżu Gear",
+  "@triggerProximityTitle": {
+    "description": "Proximity trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityDescription": "Uruchom akcję, jeśli w pobliżu znajduje się sprzęt",
+  "@triggerProximityDescription": {
+    "description": "Proximity trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionNotSet": "Brak ustawionej akcji",
+  "@triggerActionNotSet": {
+    "description": "Trigger action label when no action set",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicTitle": "Mikrofon douszny",
+  "@triggerEarMicTitle": {
+    "description": "EarGear internal mic trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicDescription": "Uruchom działanie, gdy EarGear wykryje dźwięk",
+  "@triggerEarMicDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicSound": "Wykryto dźwięk",
+  "@triggerEarMicSound": {
+    "description": "EarGear internal mic trigger sound detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltTitle": "Czujnik pochylenia ucha",
+  "@triggerEarTiltTitle": {
+    "description": "EarGear internal gesture sensor trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltDescription": "Uruchom działanie, gdy EarGear wykryje przechylenie",
+  "@triggerEarTiltDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltLeft": "Przechylenie w lewo",
+  "@triggerEarTiltLeft": {
+    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltRight": "Przechylenie w prawo",
+  "@triggerEarTiltRight": {
+    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltForward": "Pochylenie do przodu",
+  "@triggerEarTiltForward": {
+    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltBackward": "Przechylenie do tyłu",
+  "@triggerEarTiltBackward": {
+    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditRepeatTitle": "Powtórz sekwencję",
+  "@sequenceEditRepeatTitle": {
+    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "title": "Aplikacja Ogon",
+  "@title": {
+    "description": "The name of the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subTitle": "Wszystkie Tailsy",
+  "@subTitle": {
+    "description": "The sub-title which displays in the navigation drawer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPage": "Drążek sterowy",
+  "@joyStickPage": {
+    "description": "The label and title of the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "feedbackPage": "Informacja zwrotna",
+  "@feedbackPage": {
+    "description": "The label and title of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  }
+}
