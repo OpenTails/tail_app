@@ -98,7 +98,7 @@ class DeviceRegistry {
 Set<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseAction) {
   Flogger.i("Getting devices for action::$baseAction");
   Set<BaseStatefulDevice> foundDevices = {};
-  for (BaseStatefulDevice device in ref.read(knownDevicesProvider).values.where((BaseStatefulDevice element) => element.deviceConnectionState.value == DeviceConnectionState.connected)) {
+  for (BaseStatefulDevice device in ref.read(knownDevicesProvider).values.where((BaseStatefulDevice element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.deviceState.value == DeviceState.standby)) {
     Flogger.i("Known Device::$device");
     if (baseAction.deviceCategory.contains(device.baseDeviceDefinition.deviceType)) {
       foundDevices.add(device);
