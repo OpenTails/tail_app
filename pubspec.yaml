@@ -50,7 +50,6 @@ dependencies:
   path_provider: ^2.1.2
   uuid: ^4.3.3
   plausible_analytics: ^0.3.0
-  fk_user_agent: ^2.1.0
   flutter_nearby_connections: ^1.1.2
   dio: ^5.4.1
   json_serializable: ^6.7.1

@@ -214,6 +214,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
             ),
             ReorderableListView(
               scrollController: _scrollController,
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               children: <Widget>[
                 for (int index = 0; index < moveList!.moves.length; index += 1)

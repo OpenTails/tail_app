@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
-import 'package:fk_user_agent/fk_user_agent.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging_flutter/logging_flutter.dart';
@@ -24,7 +22,6 @@ import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
-import 'Backend/Bluetooth/BluetoothManager.dart';
 import 'Backend/Definitions/Action/BaseAction.dart';
 import 'Backend/PlausibleDio.dart';
 import 'Backend/Sensors.dart';
@@ -53,24 +50,25 @@ late final Plausible plausible;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FkUserAgent.init();
   Flogger.init(config: const FloggerConfig(showDebugLogs: true, printClassName: true, printMethodName: true, showDateTime: false));
   PlatformDispatcher.instance.onError = (error, stack) {
     Flogger.e(error.toString(), stackTrace: stack);
     return true;
   };
-  Flogger.registerListener(
-    (record) {
-      LogConsole.add(OutputEvent(record.level, [record.printable()]), bufferSize: 100000);
-      if (kDebugMode) {
+
+  if (kDebugMode) {
+    Flogger.registerListener(
+      (record) {
+        LogConsole.add(OutputEvent(record.level, [record.printable()]), bufferSize: 10000);
         log(record.printable(), stackTrace: record.stackTrace);
-      }
-    },
-  );
+      },
+    );
+  }
+
   //var localeLoaded = await initializeMessages('ace');
   //Intl.defaultLocale = 'ace';
   //Flogger.i("Loaded local: $localeLoaded");
-  final appDir = await getApplicationSupportDirectory();
+  final Directory appDir = await getApplicationSupportDirectory();
   SentryHive
     ..init(appDir.path)
     ..registerAdapter(BaseStoredDeviceAdapter())
@@ -112,11 +110,9 @@ Future<void> main() async {
           child: SentryScreenshotWidget(
             child: ProviderScope(
               observers: [
-                RiverpodProviderObserver(),
+                if (kDebugMode) ...[RiverpodProviderObserver()],
               ],
-              child: _EagerInitialization(
-                child: TailApp(),
-              ),
+              child: TailApp(),
             ),
           ),
         ),
@@ -142,7 +138,10 @@ Dio initDio() {
     ),
   );
   if (kDebugMode) {
-    dio.interceptors.add(PrettyDioLogger(requestBody: true, compact: true));
+    dio.interceptors.add(PrettyDioLogger(
+      requestBody: true,
+      compact: true,
+    ));
   }
 
   /// This *must* be the last initialization step of the Dio setup, otherwise
@@ -157,10 +156,6 @@ class TailApp extends ConsumerWidget {
     //Init Plausible
     // Platform messages may fail, so we use a try/catch PlatformException.
     plausible = PlausibleDio(serverUrl, domain);
-    try {
-      String platformVersion = FkUserAgent.userAgent!;
-      plausible.userAgent = platformVersion;
-    } on PlatformException {}
     plausible.enabled = true;
   }
 
@@ -180,19 +175,8 @@ class TailApp extends ConsumerWidget {
             theme: BuildTheme(Brightness.light, Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value))),
             darkTheme: BuildTheme(Brightness.dark, Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value))),
             routerConfig: router,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              //GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en'), // English
-              Locale('de'), // german
-              Locale('es'), // spanish
-              Locale('fr'), // french
-              Locale('ja'), // japanese
-            ],
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             themeMode: ThemeMode.system,
           );
         },
@@ -228,24 +212,6 @@ ThemeData BuildTheme(Brightness brightness, Color color) {
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(platform: defaultTargetPlatform),
     );
-  }
-}
-
-class _EagerInitialization extends ConsumerWidget {
-  const _EagerInitialization({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Eagerly initialize providers by watching them.
-    // By using "watch", the provider will stay alive and not be disposed.
-    ref.watch(reactiveBLEProvider);
-    ref.watch(knownDevicesProvider);
-    ref.watch(btConnectStateHandlerProvider);
-    ref.watch(triggerListProvider);
-    ref.watch(moveListsProvider);
-    return child;
   }
 }
 

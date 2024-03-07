@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 
 import '../main.dart';
+import 'Definitions/Device/BaseDeviceDefinition.dart';
 
 class PlausibleDio extends Plausible {
   PlausibleDio(super.serverUrl, super.domain);
-
-  //
 
   Dio dio = initDio();
 
@@ -19,7 +19,6 @@ class PlausibleDio extends Plausible {
     if (!enabled) {
       return 0;
     }
-
     // Post-edit parameters
     if (serverUrl.toString().endsWith('/')) {
       // Remove trailing slash '/'
@@ -27,6 +26,9 @@ class PlausibleDio extends Plausible {
     }
     page = "app://localhost/$page";
     referrer = "app://localhost/$referrer";
+    props['Number Of Devices'] = SentryHive.box<BaseStoredDevice>('devices').length.toString();
+    props['Number Of Sequences'] = SentryHive.box<BaseStoredDevice>('sequences').length.toString();
+    props['Number Of Triggers'] = SentryHive.box<BaseStoredDevice>('triggers').length.toString();
 
     // Http Post request see https://plausible.io/docs/events-api
     try {
@@ -37,7 +39,13 @@ class PlausibleDio extends Plausible {
         "referrer": referrer,
         "props": props,
       };
-      await dio.post(Uri.parse('$serverUrl/api/event').toString(), data: json.encode(body), options: Options(contentType: 'application/json; charset=utf-8', headers: {'X-Forwarded-For': '127.0.0.1', 'User-Agent': userAgent}));
+      await dio.post(
+        Uri.parse('$serverUrl/api/event').toString(),
+        data: json.encode(body),
+        options: Options(
+          contentType: 'application/json; charset=utf-8',
+        ),
+      );
     } catch (e) {
       if (kDebugMode) {
         print(e);

@@ -36,63 +36,41 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-/*          ListTile(
-            title: const Text("Left Servo"),
-            subtitle: Slider(
-              value: left,
-              max: 128,
-              divisions: 8,
-              onChanged: (value) {
+        ExpansionTile(
+          title: Text(settingsPage()),
+          initiallyExpanded: MediaQuery.sizeOf(context).height > 900,
+          children: [
+            SpeedWidget(
+              value: speed,
+              onChanged: (double value) {
                 setState(() {
-                  left = value;
+                  speed = value;
                 });
               },
-              onChangeEnd: (value) => SendMove(),
             ),
-          ),
-          ListTile(
-            title: const Text("Right Servo"),
-            subtitle: Slider(
-              value: right,
-              max: 128,
-              divisions: 8,
-              onChanged: (value) {
-                setState(() {
-                  right = value;
-                });
-              },
-              onChangeEnd: (value) => SendMove(),
-            ),
-          ),*/
-        SpeedWidget(
-          value: speed,
-          onChanged: (double value) {
-            setState(() {
-              speed = value;
-            });
-          },
-        ),
-        ListTile(
-          title: Text(sequencesEditEasing()),
-          subtitle: SegmentedButton<EasingType>(
-            selected: <EasingType>{easingType},
-            onSelectionChanged: (Set<EasingType> value) {
-              setState(
-                () {
-                  easingType = value.first;
+            ListTile(
+              title: Text(sequencesEditEasing()),
+              subtitle: SegmentedButton<EasingType>(
+                selected: <EasingType>{easingType},
+                onSelectionChanged: (Set<EasingType> value) {
+                  setState(
+                    () {
+                      easingType = value.first;
+                    },
+                  );
                 },
-              );
-            },
-            segments: EasingType.values.map<ButtonSegment<EasingType>>((EasingType value) {
-              return ButtonSegment<EasingType>(value: value, icon: value.widget(context), tooltip: value.name);
-            }).toList(),
-          ),
-        ),
-        DeviceTypeWidget(
-          selected: deviceTypes.toList(),
-          onSelectionChanged: (Set<DeviceType> value) {
-            setState(() => deviceTypes = value);
-          },
+                segments: EasingType.values.map<ButtonSegment<EasingType>>((EasingType value) {
+                  return ButtonSegment<EasingType>(value: value, icon: value.widget(context), tooltip: value.name);
+                }).toList(),
+              ),
+            ),
+            DeviceTypeWidget(
+              selected: deviceTypes.toList(),
+              onSelectionChanged: (Set<DeviceType> value) {
+                setState(() => deviceTypes = value);
+              },
+            ),
+          ],
         ),
         Expanded(
           child: Stack(
@@ -125,7 +103,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         elevation: 2,
                         shape: const CircleBorder(),
                         color: Theme.of(context).primaryColor,
-                        child: SizedBox.square(dimension: 100),
+                        child: const SizedBox.square(dimension: 100),
                       ),
                       listener: (details) {
                         setState(() {
@@ -174,7 +152,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
               ],
             ],
           ),
-        )
+        ),
       ],
     );
   }
