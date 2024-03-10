@@ -34,7 +34,7 @@ class Home extends ConsumerWidget {
                     children: <Widget>[
                       TextButton(
                         onPressed: () async {
-                          await launchUrl(Uri.parse('https://thetailcompany.com/')); //TODO: Bug MT for referral code, at least for analytics
+                          await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
                         },
                         child: const Text('Tail Company Store'),
                       ),
