@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/Widgets/speed_widget.dart';
 import 'package:vector_math/vector_math.dart';
 
@@ -107,6 +109,9 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                       ),
                       listener: (details) {
                         setState(() {
+                          if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
+                            HapticFeedback.selectionClick();
+                          }
                           x = details.x;
                           y = details.y;
 
