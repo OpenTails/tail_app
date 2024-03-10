@@ -153,6 +153,7 @@ class KnownDevices extends _$KnownDevices {
               throw Exception("Disconnected from device");
             }
           }, cancelOnError: true);
+          // Try to get firmware update information from Tail Company site
           if (deviceDefinition.fwURL != "") {
             initDio().get(statefulDevice.baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
               (value) {
@@ -290,30 +291,48 @@ class CommandQueue {
           Flogger.d("Sending command to ${device.baseStoredDevice.name}:${message.message}");
           await ref?.read(reactiveBLEProvider).writeCharacteristicWithResponse(message.device.txCharacteristic, value: const Utf8Encoder().convert(message.message));
           if (message.onCommandSent != null) {
+            // Callback when the specific command is run
             message.onCommandSent!();
           }
           if (message.responseMSG != null) {
+            Duration timeoutDuration = const Duration(seconds: 10);
             Flogger.d("Waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
-            List<int>? response = await message.device.rxCharacteristicStream?.timeout(const Duration(seconds: 10), onTimeout: (sink) => sink.close()).where((event) {
+            Timer timer = Timer(timeoutDuration, () {});
+            Future<List<int>> response = message.device.rxCharacteristicStream!.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
               Flogger.i('Response:${const Utf8Decoder().convert(event)}');
               return const Utf8Decoder().convert(event) == message.responseMSG!;
             }).first;
-            Flogger.d("Finished waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
-            if (response != null) {
+
+            response.then((value) {
+              timer.cancel();
               if (message.onResponseReceived != null) {
-                message.onResponseReceived!(const Utf8Decoder().convert(response));
+                //callback when the command response is received
+                message.onResponseReceived!(const Utf8Decoder().convert(value));
               }
-            } else {
-              Flogger.d("Timed out waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
+            });
+            response.timeout(timeoutDuration, onTimeout: () => Flogger.d("Timed out waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}"));
+            while (timer.isActive) {
+              //allow higher priority commands to interrupt waiting for a response
+              if (state.isNotEmpty && state.first.priority.index > bluetoothMessage.priority.index) {
+                timer.cancel();
+              }
+              await Future.delayed(const Duration(milliseconds: 50)); // Prevent the loop from consuming too many resources
             }
+            Flogger.d("Finished waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
           }
         } catch (e, s) {
           Sentry.captureException(e, stackTrace: s);
         }
       } else {
-        //TODO: Allow higher priority commands to run
         Flogger.d("Pausing queue for ${device.baseStoredDevice.name}");
-        await Future.delayed(Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20));
+        Timer timer = Timer(Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20), () {});
+        while (timer.isActive) {
+          //allow higher priority commands to interrupt the delay
+          if (state.isNotEmpty && state.first.priority.index > bluetoothMessage.priority.index) {
+            timer.cancel();
+          }
+          await Future.delayed(const Duration(milliseconds: 50)); // Prevent the loop from consuming too many resources
+        }
         Flogger.d("Resuming queue for ${device.baseStoredDevice.name}");
       }
       device.deviceState.value = DeviceState.standby; //Without setting state to standby, another command can not run
