@@ -17,7 +17,7 @@ dependencies:
     sdk: flutter
   permission_handler: ^11.3.0
   cross_platform: ^3.0.1
-  flutter_riverpod: ^2.4.10
+  flutter_riverpod: ^2.5.1
   logging: ^1.2.0
   logging_flutter: ^3.0.0
   flutter_reactive_ble: ^5.3.1
