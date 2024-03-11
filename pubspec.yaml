@@ -17,7 +17,7 @@ dependencies:
     sdk: flutter
   permission_handler: ^11.3.0
   cross_platform: ^3.0.1
-  flutter_riverpod: ^2.4.10
+  flutter_riverpod: ^2.5.1
   logging: ^1.2.0
   logging_flutter: ^3.0.0
   flutter_reactive_ble: ^5.3.1
@@ -27,10 +27,10 @@ dependencies:
   shake: ^2.2.0
   flex_color_scheme: ^7.3.1
   flutter_joystick: ^0.0.4
-  sentry_flutter: ^7.16.1
-  sentry_logging: ^7.16.1
-  sentry_hive: ^7.16.1
-  sentry_dio: ^7.16.1
+  sentry_flutter: ^7.17.0
+  sentry_logging: ^7.17.0
+  sentry_hive: ^7.17.0
+  sentry_dio: ^7.17.0
   vector_math: ^2.1.4
   collection: ^1.18.0
   flutter_foreground_service: ^0.4.1
@@ -70,7 +70,7 @@ dev_dependencies:
   riverpod_lint:
   riverpod_generator:
   flutter_native_splash: ^2.3.10
-  riverpod_annotation: ^2.3.4
+  riverpod_annotation: ^2.3.5
   sentry_dart_plugin: ^1.7.1
   intl_translation:
   hive_generator: ^2.0.1
