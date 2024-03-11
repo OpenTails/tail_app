@@ -70,7 +70,7 @@ dev_dependencies:
   riverpod_lint:
   riverpod_generator:
   flutter_native_splash: ^2.3.10
-  riverpod_annotation: ^2.3.4
+  riverpod_annotation: ^2.3.5
   sentry_dart_plugin: ^1.7.1
   intl_translation:
   hive_generator: ^2.0.1
