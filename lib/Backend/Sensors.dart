@@ -23,6 +23,7 @@ import '../Frontend/intnDefs.dart';
 import 'Bluetooth/BluetoothManager.dart';
 import 'Definitions/Action/BaseAction.dart';
 import 'Definitions/Device/BaseDeviceDefinition.dart';
+import 'DeviceRegistry.dart';
 import 'moveLists.dart';
 
 part 'Sensors.g.dart';
@@ -498,6 +499,8 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 class TailProximityTriggerDefinition extends TriggerDefinition {
   StreamSubscription? subscription;
   NearbyService? nearbyService;
+  StreamSubscription<DiscoveredDevice>? btConnectStream;
+  Timer? btnearbyCooldown;
 
   TailProximityTriggerDefinition(super.ref) {
     super.name = triggerProximityTitle();
@@ -513,6 +516,8 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
     if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
       subscription?.cancel();
       subscription = null;
+      btConnectStream?.cancel();
+      btConnectStream = null;
       await nearbyService?.stopAdvertisingPeer();
       await nearbyService?.stopBrowsingForPeers();
     }
@@ -523,6 +528,17 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
     if (subscription != null) {
       return;
     }
+    btConnectStream = ref.read(reactiveBLEProvider).scanForDevices(withServices: DeviceRegistry.getAllIds()).where((event) => !ref.read(knownDevicesProvider).keys.contains(event.id)).listen(
+      (DiscoveredDevice device) {
+        if (btnearbyCooldown != null && btnearbyCooldown!.isActive) {
+          return;
+        }
+        actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Nearby Gear").uuid == e.uuid).forEach(
+              (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
+            );
+        btnearbyCooldown = Timer(const Duration(seconds: 30), () {});
+      },
+    );
     nearbyService = NearbyService();
     await nearbyService?.init(
         serviceType: "tailapp",
