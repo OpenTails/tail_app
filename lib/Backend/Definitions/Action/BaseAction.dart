@@ -43,13 +43,13 @@ extension ActionCategoryExtension on ActionCategory {
 @HiveType(typeId: 4)
 class BaseAction {
   @HiveField(1)
-  String name;
+  final String name;
   @HiveField(2)
   List<DeviceType> deviceCategory;
   @HiveField(3)
-  ActionCategory actionCategory;
+  final ActionCategory actionCategory;
   @HiveField(4)
-  String uuid;
+  final String uuid;
 
   BaseAction(this.name, this.deviceCategory, this.actionCategory, this.uuid);
 
