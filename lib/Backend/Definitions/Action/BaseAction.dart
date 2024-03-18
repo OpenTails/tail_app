@@ -43,7 +43,7 @@ extension ActionCategoryExtension on ActionCategory {
 @HiveType(typeId: 4)
 class BaseAction {
   @HiveField(1)
-  final String name;
+  String name;
   @HiveField(2)
   List<DeviceType> deviceCategory;
   @HiveField(3)
