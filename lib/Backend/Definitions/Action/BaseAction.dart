@@ -47,7 +47,7 @@ class BaseAction {
   @HiveField(2)
   List<DeviceType> deviceCategory;
   @HiveField(3)
-  final ActionCategory actionCategory;
+  ActionCategory actionCategory;
   @HiveField(4)
   final String uuid;
 
