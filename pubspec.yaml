@@ -21,7 +21,7 @@ dependencies:
   logging: ^1.2.0
   logging_flutter: ^3.0.0
   flutter_reactive_ble: ^5.3.1
-  go_router: ^13.2.0
+  go_router: ^13.2.1
   pedometer: ^4.0.1
   proximity_sensor: ^1.0.4
   shake: ^2.2.0
