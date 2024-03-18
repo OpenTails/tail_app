@@ -28,7 +28,7 @@ dependencies:
   flex_color_scheme: ^7.3.1
   flutter_joystick: ^0.0.4
   sentry_flutter: ^7.17.0
-  sentry_logging: ^7.17.0
+  sentry_logging: ^7.18.0
   sentry_hive: ^7.17.0
   sentry_dio: ^7.17.0
   vector_math: ^2.1.4
