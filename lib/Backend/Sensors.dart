@@ -142,16 +142,27 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
 
   TriggerDefinition(this.ref);
 
-  Future<void> sendCommands(Set<DeviceType> deviceType, String? action, Ref ref) async {
-    BaseAction? baseAction = ref.read(getActionFromUUIDProvider(action));
-    if (baseAction == null) {
-      return;
-    }
-    Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
-    List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceType.contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
-    for (BaseStatefulDevice baseStatefulDevice in devices) {
-      runAction(baseAction, baseStatefulDevice);
-    }
+  Future<void> sendCommands(String name, Ref ref) async {
+    actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == name).uuid == e.uuid).forEach(
+      (TriggerAction triggerAction) async {
+        if (triggerAction.isActive.value) {
+          // 15 second cooldown between moves
+          return;
+        }
+        BaseAction? baseAction = ref.read(getActionFromUUIDProvider(triggerAction.action));
+        if (baseAction == null) {
+          return;
+        }
+        triggerAction.isActive.value = true;
+        Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+        List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceTypes.values.flattened.toSet().contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
+        for (BaseStatefulDevice baseStatefulDevice in devices) {
+          runAction(baseAction, baseStatefulDevice);
+        }
+        await Future.delayed(const Duration(seconds: 15));
+        triggerAction.isActive.value = false;
+      },
+    );
   }
 
   @override
@@ -190,22 +201,16 @@ class WalkingTriggerDefinition extends TriggerDefinition {
       (PedestrianStatus event) {
         Flogger.i("PedestrianStatus:: ${event.status}");
         if (event.status == "walking") {
-          actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Walking").uuid == e.uuid).forEach(
-                (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-              );
+          sendCommands("Walking", ref);
         } else if (event.status == "stopped") {
-          actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Stopped").uuid == e.uuid).forEach(
-                (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-              );
+          sendCommands("Stopped", ref);
         }
       },
     );
     stepCountStream = Pedometer.stepCountStream.listen(
       (StepCount event) {
         Flogger.d("StepCount:: ${event.steps}");
-        actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Step").uuid == e.uuid).forEach(
-              (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-            );
+        sendCommands("Step", ref);
       },
     );
   }
@@ -237,13 +242,9 @@ class CoverTriggerDefinition extends TriggerDefinition {
     proximityStream = ProximitySensor.events.listen((int event) {
       Flogger.d("CoverEvent:: $event");
       if (event >= 1) {
-        actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Near").uuid == e.uuid).forEach(
-              (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-            );
+        sendCommands("Near", ref);
       } else if (event == 0) {
-        actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Far").uuid == e.uuid).forEach(
-              (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-            );
+        sendCommands("Far", ref);
       }
     });
   }
@@ -317,9 +318,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
             String msg = const Utf8Decoder().convert(event);
             if (msg.contains("LISTEN_FULL BANG")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-              actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Sound").uuid == e.uuid).forEach(
-                    (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-                  );
+              sendCommands("Sound", ref);
             }
           },
         );
@@ -399,24 +398,16 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
             String msg = const Utf8Decoder().convert(event);
             if (msg.contains("TILT LEFT")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-              actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Left").uuid == e.uuid).forEach(
-                    (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-                  );
+              sendCommands("Left", ref);
             } else if (msg.contains("TILT RIGHT")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-              actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Right").uuid == e.uuid).forEach(
-                    (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-                  );
+              sendCommands("Right", ref);
             } else if (msg.contains("TILT FORWARD")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-              actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Forward").uuid == e.uuid).forEach(
-                    (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-                  );
+              sendCommands("Forward", ref);
             } else if (msg.contains("TILT BACKWARD")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-              actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Backward").uuid == e.uuid).forEach(
-                    (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-                  );
+              sendCommands("Backward", ref);
             }
           },
         );
@@ -451,13 +442,9 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
     subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
       Flogger.d("Volume press detected:${event.name}");
       if (event == HardwareButton.volume_down) {
-        actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Volume Up").uuid == e.uuid).forEach(
-              (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-            );
+        sendCommands("Volume Up", ref);
       } else if (event == HardwareButton.volume_up) {
-        actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Volume Down").uuid == e.uuid).forEach(
-              (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-            );
+        sendCommands("Volume Down", ref);
       }
     });
   }
@@ -488,9 +475,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
     }
     detector = ShakeDetector.waitForStart(onPhoneShake: () {
       Flogger.d("Shake Detected");
-      actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Shake").uuid == e.uuid).forEach(
-            (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-          );
+      sendCommands("Shake", ref);
     });
     detector?.startListening();
   }
@@ -533,9 +518,9 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
         if (btnearbyCooldown != null && btnearbyCooldown!.isActive) {
           return;
         }
-        actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Nearby Gear").uuid == e.uuid).forEach(
-              (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-            );
+
+        sendCommands("Nearby Gear", ref);
+
         btnearbyCooldown = Timer(const Duration(seconds: 30), () {});
       },
     );
@@ -551,9 +536,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
         });
     subscription = nearbyService?.stateChangedSubscription(callback: (devicesList) {
       Flogger.d("TailProximityTriggerDefinition::");
-      actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == "Nearby Gear").uuid == e.uuid).forEach(
-            (element) => sendCommands(deviceTypes.values.flattened.toSet(), element.action, ref),
-          );
+      sendCommands("Nearby Gear", ref);
     });
   }
 }
@@ -563,7 +546,6 @@ class TriggerActionDef {
   String name;
   String translated; //Translated name
   String uuid; // uuid
-
   TriggerActionDef(this.name, this.translated, this.uuid);
 
   @override
@@ -579,6 +561,7 @@ class TriggerAction {
   String uuid; //uuid matches triggerActionDef
   @HiveField(2)
   String? action;
+  ValueNotifier<bool> isActive = ValueNotifier(false);
 
   TriggerAction(this.uuid);
 
