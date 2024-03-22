@@ -126,6 +126,7 @@ class _pdfWidgetState extends State<pdfWidget> {
         filePath = '${(await getTemporaryDirectory()).path}${widget.name}.pdf';
         if (await File(filePath).exists()) {
           if (context.mounted) {
+            progress = 0;
             context.push('/more/viewPDF', extra: filePath);
           }
           return;
@@ -137,6 +138,7 @@ class _pdfWidgetState extends State<pdfWidget> {
         });
         if (rs.statusCode == 200) {
           if (context.mounted) {
+            progress = 0;
             context.push('/more/viewPDF', extra: filePath);
           }
         } else {
