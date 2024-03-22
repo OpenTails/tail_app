@@ -35,7 +35,7 @@ List<NavDestination> destinations = <NavDestination>[
   NavDestination(triggersPage(), const Icon(Icons.sensors_outlined), const Icon(Icons.sensors), "/triggers"),
   NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
   NavDestination(joyStickPage(), const Icon(Icons.gamepad_outlined), const Icon(Icons.gamepad), "/joystick"),
-  NavDestination(settingsPage(), const Icon(Icons.settings_outlined), const Icon(Icons.settings), "/settings"),
+  NavDestination('More', const Icon(Icons.more_outlined), const Icon(Icons.more), "/more"),
 ];
 
 class NavigationDrawerExample extends ConsumerStatefulWidget {
@@ -521,6 +521,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("BT MAC: ${widget.device.baseStoredDevice.btMACAddress}"),
+                  Text("HW VER: ${widget.device.hwVersion.value}"),
                   Text("FW VER: ${widget.device.fwVersion.value}"),
                   Text("FW AVAIL: ${widget.device.fwInfo.value}"),
                   Text("GLOWTIP: ${widget.device.glowTip.value}"),
@@ -557,7 +558,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      widget.device.commandQueue.addCommand(BluetoothMessage("SHUTDOWN", widget.device, Priority.high));
+                      widget.device.commandQueue.addCommand(BluetoothMessage(message: "SHUTDOWN", device: widget.device, priority: Priority.high, type: Type.system));
                     });
                     Navigator.pop(context);
                   },

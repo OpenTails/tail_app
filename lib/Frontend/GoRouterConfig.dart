@@ -5,10 +5,12 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
 import 'package:tail_app/Frontend/pages/Shell.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
+import 'package:tail_app/Frontend/pages/more.dart';
 import 'package:tail_app/Frontend/pages/move_list.dart';
 import 'package:tail_app/Frontend/pages/ota_update.dart';
 import 'package:tail_app/Frontend/pages/settings.dart';
 import 'package:tail_app/Frontend/pages/triggers.dart';
+import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
 import '../Backend/NavigationObserver/CustomNavObserver.dart';
 import '../main.dart';
@@ -31,7 +33,7 @@ final GoRouter router = GoRouter(
           name: 'Actions',
           path: '/',
           parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
+          pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
             child: const ActionPage(),
             key: state.pageKey,
             name: 'Actions',
@@ -41,7 +43,7 @@ final GoRouter router = GoRouter(
           name: 'Triggers',
           path: '/triggers',
           parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
+          pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
             child: const Triggers(),
             key: state.pageKey,
             name: 'Triggers',
@@ -51,7 +53,7 @@ final GoRouter router = GoRouter(
           name: 'Sequences',
           path: '/moveLists',
           parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
+          pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
             key: state.pageKey,
             name: 'Sequences',
             child: const MoveListView(),
@@ -76,7 +78,7 @@ final GoRouter router = GoRouter(
           path: '/joystick',
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) {
-            return NoTransitionPage(
+            return MaterialPage(
               key: state.pageKey,
               name: 'Direct Gear Control',
               child: const DirectGearControl(),
@@ -84,26 +86,24 @@ final GoRouter router = GoRouter(
           },
         ),
         GoRoute(
-          name: 'Settings',
-          path: '/settings',
+          name: 'More',
+          path: '/more',
           parentNavigatorKey: _shellNavigatorKey,
+          routes: [
+            GoRoute(
+              name: 'More/viewPDF',
+              path: 'viewPDF',
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (BuildContext context, GoRouterState state) => ViewPDF(assetPath: state.extra! as String),
+            ),
+          ],
           pageBuilder: (context, state) {
-            return NoTransitionPage(
+            return MaterialPage(
               key: state.pageKey,
-              name: 'Settings',
-              child: const Settings(),
+              name: 'More',
+              child: More(),
             );
           },
-          routes: [
-            if (kDebugMode) ...[
-              GoRoute(
-                name: 'Settings/Developer Menu',
-                path: 'developer',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
-              )
-            ]
-          ],
         ),
       ],
       pageBuilder: (BuildContext context, GoRouterState state, Widget child) => CustomTransitionPage(
@@ -135,6 +135,28 @@ final GoRouter router = GoRouter(
         }
         return null;
       },
+    ),
+    GoRoute(
+      name: 'Settings',
+      path: '/settings',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          name: 'Settings',
+          child: const Settings(),
+        );
+      },
+      routes: [
+        if (kDebugMode) ...[
+          GoRoute(
+            name: 'Settings/Developer Menu',
+            path: 'developer',
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
+          )
+        ]
+      ],
     ),
   ],
 );
