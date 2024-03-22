@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Aucun ensemble d'actions",
+  "triggerActionNotSet": "Déclenchez une action si un équipement est à proximité",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -576,6 +576,36 @@
   "manageDevicesConnect": "Connecter",
   "@manageDevicesConnect": {
     "description": "manage devices connect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleTitle": "Autoriser les analyses anonymes",
+  "@settingsAnalyticsToggleTitle": {
+    "description": "Settings page analytics reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleSubTitle": "Signaler l'utilisation non identifiante des fonctionnalités à Plausible pour améliorer l'application",
+  "@settingsAnalyticsToggleSubTitle": {
+    "description": "Settings page analytics reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleTitle": "Gardez l'écran allumé",
+  "@settingsKeepScreenOnToggleTitle": {
+    "description": "Settings page Keep Awake toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleSubTitle": "Maintient l'écran allumé pendant que l'équipement est connecté",
+  "@settingsKeepScreenOnToggleSubTitle": {
+    "description": "Settings page Keep Awake toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePrivacyPolicyLinkTitle": "politique de confidentialité",
+  "@morePrivacyPolicyLinkTitle": {
+    "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
     "placeholders": {}
   }
