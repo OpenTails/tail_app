@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Type d'appareil",
+  "deviceType": "Type d'engrenage",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -516,6 +516,66 @@
   "manageDevicesOtaButton": "Appuyez pour mettre à jour le micrologiciel",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualResponsibleWaggingTitle": "Agitation responsable",
+  "@moreManualResponsibleWaggingTitle": {
+    "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualMiTailTitle": "Manuel MiTail",
+  "@moreManualMiTailTitle": {
+    "description": "Title for MiTail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualDigitailTitle": "Manuel DigiTail",
+  "@moreManualDigitailTitle": {
+    "description": "Title for Digitail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualEargearTitle": "Manuel d'utilisation des écouteurs",
+  "@moreManualEargearTitle": {
+    "description": "Title for EarGear manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualFlutterWingsTitle": "Manuel FlutterWings",
+  "@moreManualFlutterWingsTitle": {
+    "description": "Title for FlutterWings manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualTitle": "Manuels",
+  "@moreManualTitle": {
+    "description": "Title for manual header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualSubTitle": "Appuyez pour voir",
+  "@moreManualSubTitle": {
+    "description": "Subtitle for each manual on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreUsefulLinksTitle": "Liens utiles",
+  "@moreUsefulLinksTitle": {
+    "description": "Title for Useful Links header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsDescription": "Changez la couleur de l'application, configurez Haptics, et plus encore",
+  "@settingsDescription": {
+    "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesConnect": "Connecter",
+  "@manageDevicesConnect": {
+    "description": "manage devices connect button title when managing a device",
     "type": "text",
     "placeholders": {}
   }
