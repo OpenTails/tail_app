@@ -357,12 +357,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Automaticky se připojovat k novým zařízením",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesScanMessage": "Hledání vybavení. Ujistěte se, že je vaše zařízení zapnuté a poblíž",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",

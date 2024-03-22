@@ -351,12 +351,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Ühendage automaatselt uute seadmetega",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesTitle": "Otsige uut varustust",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",

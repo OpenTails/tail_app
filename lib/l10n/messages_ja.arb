@@ -315,12 +315,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "タップしてファームウェアを更新します",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesScanMessage": "ギアをスキャンしています。ギアの電源が入っており、近くにあることを確認してください",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",

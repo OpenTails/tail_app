@@ -255,12 +255,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Automatische Verbindung zu neuen Geräten herstellen",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesScanMessage": "Suche nach Ausrüstung. Bitte stellen Sie sicher, dass Ihre Ausrüstung eingeschaltet und in der Nähe ist",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
