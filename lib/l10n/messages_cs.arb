@@ -518,5 +518,11 @@
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
     "placeholders": {}
+  },
+  "settingsDescription": "Změňte barvu aplikace, nakonfigurujte haptiku a další",
+  "@settingsDescription": {
+    "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
   }
 }
