@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Seadme tüüp",
+  "deviceType": "Käigu tüüp",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -516,6 +516,66 @@
   "sequenceEditRepeatTitle": "Korda järjestust",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsDescription": "Muutke rakenduse värvi, seadistage Haptics ja palju muud",
+  "@settingsDescription": {
+    "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesConnect": "Ühendage",
+  "@manageDevicesConnect": {
+    "description": "manage devices connect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualResponsibleWaggingTitle": "Vastutustundlik vehkimine",
+  "@moreManualResponsibleWaggingTitle": {
+    "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualMiTailTitle": "MiTaili käsiraamat",
+  "@moreManualMiTailTitle": {
+    "description": "Title for MiTail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualDigitailTitle": "DigiTaili käsiraamat",
+  "@moreManualDigitailTitle": {
+    "description": "Title for Digitail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualEargearTitle": "Kõrvaklappide kasutusjuhend",
+  "@moreManualEargearTitle": {
+    "description": "Title for EarGear manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualFlutterWingsTitle": "FlutterWingsi käsiraamat",
+  "@moreManualFlutterWingsTitle": {
+    "description": "Title for FlutterWings manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualTitle": "Käsiraamatud",
+  "@moreManualTitle": {
+    "description": "Title for manual header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualSubTitle": "Puudutage vaatamiseks",
+  "@moreManualSubTitle": {
+    "description": "Subtitle for each manual on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreUsefulLinksTitle": "Kasulikud lingid",
+  "@moreUsefulLinksTitle": {
+    "description": "Title for Useful Links header on More page",
     "type": "text",
     "placeholders": {}
   }
