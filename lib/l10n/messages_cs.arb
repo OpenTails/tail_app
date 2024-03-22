@@ -357,12 +357,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Automaticky se připojovat k novým zařízením",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesScanMessage": "Hledání vybavení. Ujistěte se, že je vaše zařízení zapnuté a poblíž",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
@@ -522,6 +516,12 @@
   "sequenceEditRepeatTitle": "Opakujte sekvenci",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsDescription": "Změňte barvu aplikace, nakonfigurujte haptiku a další",
+  "@settingsDescription": {
+    "description": "The description of the settings page on the more page",
     "type": "text",
     "placeholders": {}
   }

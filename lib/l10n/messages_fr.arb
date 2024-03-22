@@ -219,12 +219,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Connectez-vous automatiquement à de nouveaux appareils",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesScanMessage": "Recherche d'équipement. Veuillez vous assurer que votre équipement est sous tension et à proximité",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",

@@ -369,12 +369,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Connettiti automaticamente a nuovi dispositivi",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesTitle": "Cerca nuova attrezzatura",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",

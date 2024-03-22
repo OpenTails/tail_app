@@ -333,12 +333,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Maak automatisch verbinding met nieuwe apparaten",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesTitle": "Scannen naar nieuwe uitrusting",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",

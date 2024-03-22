@@ -321,12 +321,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Automatycznie łącz się z nowymi urządzeniami",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesTitle": "Skanuj w poszukiwaniu nowego sprzętu",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
