@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Gerätetyp",
+  "deviceType": "Getriebetyp",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Lösen Sie eine Aktion aus, indem Sie die Lautstärketaste drücken",
+  "triggerVolumeButtonDescription": "Lautstärketasten",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -369,7 +369,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Kein Aktionssatz",
+  "triggerActionNotSet": "Lösen Sie eine Aktion aus, wenn sich Ausrüstung in der Nähe befindet",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Rechtsneigung",
+  "triggerEarTiltRight": "Rechte Neigung",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -516,6 +516,66 @@
   "scanDevicesTitle": "Nach neuer Ausrüstung suchen",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsDescription": "Ändern Sie die App-Farbe, konfigurieren Sie die Haptik und mehr",
+  "@settingsDescription": {
+    "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesConnect": "Verbinden",
+  "@manageDevicesConnect": {
+    "description": "manage devices connect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualResponsibleWaggingTitle": "Verantwortungsvolles Wedeln",
+  "@moreManualResponsibleWaggingTitle": {
+    "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualMiTailTitle": "MiTail-Handbuch",
+  "@moreManualMiTailTitle": {
+    "description": "Title for MiTail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualDigitailTitle": "DigiTail-Handbuch",
+  "@moreManualDigitailTitle": {
+    "description": "Title for Digitail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualEargearTitle": "EarGear-Handbuch",
+  "@moreManualEargearTitle": {
+    "description": "Title for EarGear manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualFlutterWingsTitle": "FlutterWings-Handbuch",
+  "@moreManualFlutterWingsTitle": {
+    "description": "Title for FlutterWings manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualTitle": "Anleitungen",
+  "@moreManualTitle": {
+    "description": "Title for manual header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualSubTitle": "Zum Ansehen antippen",
+  "@moreManualSubTitle": {
+    "description": "Subtitle for each manual on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreUsefulLinksTitle": "Nützliche Links",
+  "@moreUsefulLinksTitle": {
+    "description": "Title for Useful Links header on More page",
     "type": "text",
     "placeholders": {}
   }
