@@ -582,7 +582,9 @@ class TriggerList extends _$TriggerList {
       trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').action = ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'c53e980e-899e-4148-a13e-f57a8f9707f4').uuid;
       trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').action = ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid;
       SentryHive.box('settings').put("firstLaunchSensors", false);
-      store();
+      SentryHive.box<Trigger>('triggers')
+        ..clear()
+        ..addAll([trigger]);
       return [trigger];
     } else {
       return SentryHive.box<Trigger>('triggers').values.map((trigger) {
