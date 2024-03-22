@@ -1,5 +1,5 @@
 {
-  "title": "Hale-app",
+  "title": "Hale App",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Enhedstype",
+  "deviceType": "Gear Type",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Scanner efter gear. Sørg for, at dit udstyr er tændt og i nærheden",
+  "scanDevicesScanMessage": "Scan efter nyt gear",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Lyd fundet",
+  "triggerEarMicSound": "Udløs en handling, når EarGear registrerer lyd",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -516,6 +516,96 @@
   "sequenceEditRepeatTitle": "Gentag sekvens",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleSubTitle": "Holder skærmen tændt, mens gear er tilsluttet",
+  "@settingsKeepScreenOnToggleSubTitle": {
+    "description": "Settings page Keep Awake toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleTitle": "Tillad anonym analyse",
+  "@settingsAnalyticsToggleTitle": {
+    "description": "Settings page analytics reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleSubTitle": "Rapportér ikke-identificerende funktionsbrug til Plausible for at forbedre appen",
+  "@settingsAnalyticsToggleSubTitle": {
+    "description": "Settings page analytics reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesConnect": "Forbinde",
+  "@manageDevicesConnect": {
+    "description": "manage devices connect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualResponsibleWaggingTitle": "Ansvarlig logning",
+  "@moreManualResponsibleWaggingTitle": {
+    "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualMiTailTitle": "MiTail manual",
+  "@moreManualMiTailTitle": {
+    "description": "Title for MiTail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualDigitailTitle": "DigiTail manual",
+  "@moreManualDigitailTitle": {
+    "description": "Title for Digitail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsDescription": "Skift appfarve, konfigurer Haptics og mere",
+  "@settingsDescription": {
+    "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleTitle": "Hold skærmen tændt",
+  "@settingsKeepScreenOnToggleTitle": {
+    "description": "Settings page Keep Awake toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualEargearTitle": "EarGear manual",
+  "@moreManualEargearTitle": {
+    "description": "Title for EarGear manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualFlutterWingsTitle": "FlutterWings manual",
+  "@moreManualFlutterWingsTitle": {
+    "description": "Title for FlutterWings manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePrivacyPolicyLinkTitle": "Fortrolighedspolitik",
+  "@morePrivacyPolicyLinkTitle": {
+    "description": "Title for UPrivacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualTitle": "Manualer",
+  "@moreManualTitle": {
+    "description": "Title for manual header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualSubTitle": "Tryk for at se",
+  "@moreManualSubTitle": {
+    "description": "Subtitle for each manual on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreUsefulLinksTitle": "nyttige links",
+  "@moreUsefulLinksTitle": {
+    "description": "Title for Useful Links header on More page",
     "type": "text",
     "placeholders": {}
   }
