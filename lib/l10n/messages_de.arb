@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPage": "Joystick",
+  "joyStickPage": "Casual-Modus",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Rechte Neigung",
+  "triggerEarTiltRight": "Rechtsneigung",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -576,6 +576,36 @@
   "moreUsefulLinksTitle": "Nützliche Links",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleTitle": "Lassen Sie den Bildschirm eingeschaltet",
+  "@settingsKeepScreenOnToggleTitle": {
+    "description": "Settings page Keep Awake toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleSubTitle": "Der Bildschirm bleibt eingeschaltet, während die Ausrüstung angeschlossen ist",
+  "@settingsKeepScreenOnToggleSubTitle": {
+    "description": "Settings page Keep Awake toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleTitle": "Anonyme Analysen zulassen",
+  "@settingsAnalyticsToggleTitle": {
+    "description": "Settings page analytics reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleSubTitle": "Melden Sie die Nutzung nicht identifizierender Funktionen an Plausible, um die App zu verbessern",
+  "@settingsAnalyticsToggleSubTitle": {
+    "description": "Settings page analytics reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePrivacyPolicyLinkTitle": "Datenschutzrichtlinie",
+  "@morePrivacyPolicyLinkTitle": {
+    "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
     "placeholders": {}
   }
