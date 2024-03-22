@@ -16,6 +16,8 @@ String aboutPage() => Intl.message('About', name: 'aboutPage', desc: 'The label 
 
 String settingsPage() => Intl.message('Settings', name: 'settingsPage', desc: 'The label and title of the settings page');
 
+String settingsDescription() => Intl.message('Change app color, configure Haptics, and more', name: 'settingsDescription', desc: 'The description of the settings page on the more page');
+
 String actionsPage() => Intl.message('Actions', name: 'actionsPage', desc: 'The label and title of the action page');
 
 String triggersPage() => Intl.message('Triggers', name: 'triggersPage', desc: 'The label and title of the trigger page');
@@ -187,3 +189,19 @@ String triggerEarTiltForward() => Intl.message("Forward Tilt", name: 'triggerEar
 String triggerEarTiltBackward() => Intl.message("Backward Tilt", name: 'triggerEarTiltBackward', desc: 'EarGear internal gesture sensor trigger backward tilt detected action label');
 
 String sequenceEditRepeatTitle() => Intl.message("Repeat Sequence", name: 'sequenceEditRepeatTitle', desc: 'Title for slider on sequence edit page to set how many times to repeat the sequence');
+
+String moreManualResponsibleWaggingTitle() => Intl.message("Responsible Wagging", name: 'moreManualResponsibleWaggingTitle', desc: 'Title for Responsible wagging manual button on More page');
+
+String moreManualMiTailTitle() => Intl.message("MiTail Manual", name: 'moreManualMiTailTitle', desc: 'Title for MiTail manual button on More page');
+
+String moreManualDigitailTitle() => Intl.message("DigiTail Manual", name: 'moreManualDigitailTitle', desc: 'Title for Digitail manual button on More page');
+
+String moreManualEargearTitle() => Intl.message("EarGear Manual", name: 'moreManualEargearTitle', desc: 'Title for EarGear manual button on More page');
+
+String moreManualFlutterWingsTitle() => Intl.message("FlutterWings Manual", name: 'moreManualFlutterWingsTitle', desc: 'Title for FlutterWings manual button on More page');
+
+String moreManualTitle() => Intl.message("Manuals", name: 'moreManualTitle', desc: 'Title for manual header on More page');
+
+String moreManualSubTitle() => Intl.message('Tap to view', name: 'moreManualSubTitle', desc: 'Subtitle for each manual on More page');
+
+String moreUsefulLinksTitle() => Intl.message("Useful Links", name: 'moreUsefulLinksTitle', desc: 'Title for Useful Links header on More page');

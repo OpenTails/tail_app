@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-03-03T18:10:52.691840",
+  "@@last_modified": "2024-03-21T22:26:15.741268",
   "title": "Tail App",
   "@title": {
     "description": "The name of the app",
@@ -34,6 +34,12 @@
   "settingsPage": "Settings",
   "@settingsPage": {
     "description": "The label and title of the settings page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsDescription": "Change app color, configure Haptics, and more",
+  "@settingsDescription": {
+    "description": "The description of the settings page on the more page",
     "type": "text",
     "placeholders": {}
   },
@@ -79,7 +85,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Device Type",
+  "deviceType": "Gear Type",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -323,6 +329,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "manageDevicesConnect": "Connect",
+  "@manageDevicesConnect": {
+    "description": "manage devices connect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
   "manageDevicesShutdown": "Shut Down",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
@@ -344,12 +356,6 @@
   "manageDevicesOtaButton": "Tap to update firmware",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesAutoConnectTitle": "Automatically connect to new devices",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
     "type": "text",
     "placeholders": {}
   },
@@ -524,6 +530,54 @@
   "sequenceEditRepeatTitle": "Repeat Sequence",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualResponsibleWaggingTitle": "Responsible Wagging",
+  "@moreManualResponsibleWaggingTitle": {
+    "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualMiTailTitle": "MiTail Manual",
+  "@moreManualMiTailTitle": {
+    "description": "Title for MiTail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualDigitailTitle": "DigiTail Manual",
+  "@moreManualDigitailTitle": {
+    "description": "Title for Digitail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualEargearTitle": "EarGear Manual",
+  "@moreManualEargearTitle": {
+    "description": "Title for EarGear manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualFlutterWingsTitle": "FlutterWings Manual",
+  "@moreManualFlutterWingsTitle": {
+    "description": "Title for FlutterWings manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualTitle": "Manuals",
+  "@moreManualTitle": {
+    "description": "Title for manual header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualSubTitle": "Tap to view",
+  "@moreManualSubTitle": {
+    "description": "Subtitle for each manual on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreUsefulLinksTitle": "Useful Links",
+  "@moreUsefulLinksTitle": {
+    "description": "Title for Useful Links header on More page",
     "type": "text",
     "placeholders": {}
   }

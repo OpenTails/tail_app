@@ -32,7 +32,7 @@ class _MoreState extends ConsumerState<More> {
       children: [
         ListTile(
           title: Text(settingsPage()),
-          subtitle: Text('Change app color, configure Haptics, and more,'),
+          subtitle: Text(settingsDescription()),
           leading: const Icon(Icons.settings),
           onTap: () {
             context.push('/settings');
@@ -46,38 +46,38 @@ class _MoreState extends ConsumerState<More> {
         ),
         ListTile(
           title: Text(
-            "Manuals",
+            moreManualTitle(),
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
-        pdfWidget(name: "DigiTail Manual", url: "https://thetailcompany.com/digitail.pdf"),
-        pdfWidget(name: "EarGear Manual", url: "https://thetailcompany.com/eargear.pdf"),
-        pdfWidget(name: "FlutterWings Manual", url: "https://thetailcompany.com/flutterwings.pdf"),
-        pdfWidget(name: "MiTail Manual", url: "https://thetailcompany.com/mitail.pdf"),
-        pdfWidget(name: "Responsible Wagging", url: "https://thetailcompany.com/responsiblewagging.pdf"),
+        pdfWidget(name: moreManualDigitailTitle(), url: "https://thetailcompany.com/digitail.pdf"),
+        pdfWidget(name: moreManualEargearTitle(), url: "https://thetailcompany.com/eargear.pdf"),
+        pdfWidget(name: moreManualFlutterWingsTitle(), url: "https://thetailcompany.com/flutterwings.pdf"),
+        pdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf"),
+        pdfWidget(name: moreManualResponsibleWaggingTitle(), url: "https://thetailcompany.com/responsiblewagging.pdf"),
         ListTile(
           title: Text(
-            "Useful Links",
+            moreUsefulLinksTitle(),
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
         ListTile(
-          title: Text("Tail Company Store"),
-          leading: Icon(Icons.store),
+          title: const Text("Tail Company Store"),
+          leading: const Icon(Icons.store),
           onTap: () async {
             await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
           },
         ),
         ListTile(
-          title: Text("Tail Company Wiki"),
-          leading: Icon(Icons.notes),
+          title: const Text("Tail Company Wiki"),
+          leading: const Icon(Icons.notes),
           onTap: () async {
             await launchUrl(Uri.parse('https://docs.thetailcompany.com/?utm_source=Tail_App'));
           },
         ),
         ListTile(
-          title: Text("GitHub"),
-          leading: Icon(Icons.code),
+          title: const Text("GitHub"),
+          leading: const Icon(Icons.code),
           onTap: () async {
             await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app'));
           },
@@ -115,7 +115,7 @@ class _pdfWidgetState extends State<pdfWidget> {
         widget.name,
       ),
       subtitle: AnimatedCrossFade(
-        firstChild: Text('Tap to view'),
+        firstChild: Text(moreManualSubTitle()),
         secondChild: LinearProgressIndicator(
           value: progress,
         ),
@@ -125,7 +125,9 @@ class _pdfWidgetState extends State<pdfWidget> {
       onTap: () async {
         filePath = '${(await getTemporaryDirectory()).path}${widget.name}.pdf';
         if (await File(filePath).exists()) {
-          context.push('/more/viewPDF', extra: filePath);
+          if (context.mounted) {
+            context.push('/more/viewPDF', extra: filePath);
+          }
           return;
         }
         final Response rs = await initDio().download(widget.url, filePath, deleteOnError: true, cancelToken: cancelToken, onReceiveProgress: (current, total) {
@@ -134,7 +136,9 @@ class _pdfWidgetState extends State<pdfWidget> {
           });
         });
         if (rs.statusCode == 200) {
-          context.push('/more/viewPDF', extra: filePath);
+          if (context.mounted) {
+            context.push('/more/viewPDF', extra: filePath);
+          }
         } else {
           progress = 0;
         }
