@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Informacje zwrotne dotykowe",
+  "settingsHapticsToggleTitle": "Wybierz akcję",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Skanowanie w poszukiwaniu sprzętu. Upewnij się, że Twój sprzęt jest włączony i znajduje się w pobliżu",
+  "scanDevicesScanMessage": "Skanuj w poszukiwaniu nowego sprzętu",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -447,7 +447,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Wykryto dźwięk",
+  "triggerEarMicSound": "Uruchom działanie, gdy EarGear wykryje dźwięk",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -576,6 +576,36 @@
   "settingsDescription": "Zmień kolor aplikacji, skonfiguruj dotyk i nie tylko",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleTitle": "Zezwalaj na anonimową analizę",
+  "@settingsAnalyticsToggleTitle": {
+    "description": "Settings page analytics reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleSubTitle": "Zgłoś nieidentyfikujące użycie funkcji firmie Prawdopodobny w celu ulepszenia aplikacji",
+  "@settingsAnalyticsToggleSubTitle": {
+    "description": "Settings page analytics reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleTitle": "Pozostaw ekran włączony",
+  "@settingsKeepScreenOnToggleTitle": {
+    "description": "Settings page Keep Awake toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleSubTitle": "Utrzymuje ekran włączony, gdy sprzęt jest podłączony",
+  "@settingsKeepScreenOnToggleSubTitle": {
+    "description": "Settings page Keep Awake toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePrivacyPolicyLinkTitle": "Polityka prywatności",
+  "@morePrivacyPolicyLinkTitle": {
+    "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
     "placeholders": {}
   }
