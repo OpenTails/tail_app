@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/moveLists.dart';
 
@@ -18,9 +19,10 @@ class PlausibleDio extends Plausible {
   /// Post event to plausible
   @override
   Future<int> event({String name = "pageview", String referrer = "", String page = "", Map<String, String> props = const {}}) async {
-    if (!enabled) {
+    if (!enabled && SentryHive.box('settings').get('allowAnalytics', defaultValue: true)) {
       return 0;
     }
+    final transaction = Sentry.startTransaction('Plausible Event', 'http');
     // Post-edit parameters
     if (serverUrl.toString().endsWith('/')) {
       // Remove trailing slash '/'
@@ -50,10 +52,13 @@ class PlausibleDio extends Plausible {
         ),
       );
     } catch (e) {
+      transaction.throwable = e;
+      transaction.status = const SpanStatus.internalError();
       if (kDebugMode) {
         print(e);
       }
     }
+    transaction.finish();
     return 1;
   }
 }
