@@ -85,11 +85,12 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                     alignment: Alignment.center,
                     child: Joystick(
                       mode: JoystickMode.all,
-                      onStickDragEnd: () {
+                      onStickDragEnd: () async {
+                        await Future.delayed(Duration(milliseconds: (speed * 20).toInt()));
                         Move move = Move();
                         move.moveType = MoveType.home;
                         ref.read(knownDevicesProvider).values.forEach((element) {
-                          generateMoveCommand(move, element).forEach((message) {
+                          generateMoveCommand(move, element, Type.direct).forEach((message) {
                             message.responseMSG = null;
                             message.priority = Priority.high;
                             element.commandQueue.addCommand(message);
@@ -169,7 +170,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
     move.rightServo = right;
     move.leftServo = left;
     ref.read(knownDevicesProvider).values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach((element) {
-      generateMoveCommand(move, element).forEach((message) {
+      generateMoveCommand(move, element, Type.direct).forEach((message) {
         message.responseMSG = null;
         message.priority = Priority.high;
         element.commandQueue.addCommand(message);

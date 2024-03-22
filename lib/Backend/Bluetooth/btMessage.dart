@@ -4,6 +4,8 @@ import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 enum Priority { low, normal, high }
 
+enum Type { system, move, direct }
+
 class BluetoothMessage implements Comparable<BluetoothMessage> {
   late final String message;
   String? responseMSG; // the message to listen for;
@@ -13,12 +15,11 @@ class BluetoothMessage implements Comparable<BluetoothMessage> {
   Function? onCommandSent;
   Function(String)? onResponseReceived;
   double? delay;
+  Type type;
 
-  BluetoothMessage(this.message, this.device, this.priority);
+  BluetoothMessage({required this.message, required this.device, required this.priority, required this.type, this.responseMSG, this.onCommandSent, this.onResponseReceived});
 
-  BluetoothMessage.response(this.message, this.device, this.priority, this.responseMSG);
-
-  BluetoothMessage.delay(this.delay, this.device, this.priority) {
+  BluetoothMessage.delay({required this.delay, required this.device, required this.priority, required this.type}) {
     message = "";
   }
 

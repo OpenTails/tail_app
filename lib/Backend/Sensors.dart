@@ -276,7 +276,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     }
     rxSubscriptions = [];
     ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
-      element.commandQueue.addCommand(BluetoothMessage.response("ENDLISTEN", element, Priority.low, "LISTEN OFF"));
+      element.commandQueue.addCommand(BluetoothMessage(message: "ENDLISTEN", device: element, priority: Priority.low, responseMSG: "LISTEN OFF", type: Type.system));
     });
   }
 
@@ -286,7 +286,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
       return;
     }
     ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
-      element.commandQueue.addCommand(BluetoothMessage("LISTEN FULL", element, Priority.low));
+      element.commandQueue.addCommand(BluetoothMessage(message: "LISTEN FULL", device: element, priority: Priority.low, type: Type.system));
     });
     //add listeners on new device paired
     deviceRefSubscription = ref.listen(knownDevicesProvider, (previous, next) {
@@ -312,7 +312,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     //Store the current streams to keep them open
     rxSubscriptions = ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).map(
       (element) {
-        element.commandQueue.addCommand(BluetoothMessage("LISTEN FULL", element, Priority.low));
+        element.commandQueue.addCommand(BluetoothMessage(message: "LISTEN FULL", device: element, priority: Priority.low, type: Type.system));
         return element.rxCharacteristicStream?.listen(
           (event) {
             String msg = const Utf8Decoder().convert(event);
@@ -356,7 +356,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     }
     rxSubscriptions = [];
     ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
-      element.commandQueue.addCommand(BluetoothMessage("ENDTILTMODE", element, Priority.low));
+      element.commandQueue.addCommand(BluetoothMessage(message: "ENDTILTMODE", device: element, priority: Priority.low, type: Type.system));
     });
   }
 
@@ -366,7 +366,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       return;
     }
     ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
-      element.commandQueue.addCommand(BluetoothMessage("TILTMODE START", element, Priority.low));
+      element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE START", device: element, priority: Priority.low, type: Type.system));
     });
     //add listeners on new device paired
     deviceRefSubscription = ref.listen(knownDevicesProvider, (previous, next) {
@@ -392,7 +392,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     //Store the current streams to keep them open
     rxSubscriptions = ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).map(
       (element) {
-        element.commandQueue.addCommand(BluetoothMessage("TILTMODE START", element, Priority.low));
+        element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE START", device: element, priority: Priority.low, type: Type.system));
         return element.rxCharacteristicStream?.listen(
           (event) {
             String msg = const Utf8Decoder().convert(event);

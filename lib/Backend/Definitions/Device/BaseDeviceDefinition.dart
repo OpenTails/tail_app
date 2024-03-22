@@ -81,6 +81,8 @@ class BaseStatefulDevice {
   ValueNotifier<bool> error = ValueNotifier(false);
 
   ValueNotifier<String> fwVersion = ValueNotifier("");
+  ValueNotifier<String> hwVersion = ValueNotifier("");
+
   ValueNotifier<bool> glowTip = ValueNotifier(false);
   StreamSubscription<ConnectionStateUpdate>? connectionStateStreamSubscription;
   ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);

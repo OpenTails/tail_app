@@ -20,5 +20,5 @@ void ChangeAutoMove(BaseStatefulDevice device) {
       cmd = "STOPAUTO";
     }
   }
-  device.commandQueue.addCommand(BluetoothMessage(cmd, device, Priority.normal));
+  device.commandQueue.addCommand(BluetoothMessage(message: cmd, device: device, priority: Priority.normal, type: Type.system));
 }

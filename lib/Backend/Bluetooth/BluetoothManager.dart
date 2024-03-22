@@ -133,6 +133,8 @@ class KnownDevices extends _$KnownDevices {
               statefulDevice.batteryLow.value = true;
             } else if (value.contains("ERR")) {
               statefulDevice.error.value = true;
+            } else if (value.contains("HWVER")) {
+              statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
             }
           });
           statefulDevice.batteryCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryCharacteristic).listen((List<int> event) {
@@ -147,7 +149,7 @@ class KnownDevices extends _$KnownDevices {
           });
           statefulDevice.keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen((event) async {
             if (state.containsKey(device.id)) {
-              statefulDevice.commandQueue.addCommand(BluetoothMessage("PING", statefulDevice, Priority.low));
+              statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "PING", device: statefulDevice, priority: Priority.low, type: Type.system));
               statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
             } else {
               throw Exception("Disconnected from device");
@@ -168,7 +170,8 @@ class KnownDevices extends _$KnownDevices {
               },
             ).onError((error, stackTrace) => Flogger.e("Unable to get Firmware info for ${statefulDevice.baseDeviceDefinition.fwURL} :$error"));
           }
-          statefulDevice.commandQueue.addCommand(BluetoothMessage("VER", statefulDevice, Priority.low));
+          statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "VER", device: statefulDevice, priority: Priority.low, type: Type.system));
+          statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: statefulDevice, priority: Priority.low, type: Type.system));
           if (statefulDevice.baseStoredDevice.autoMove) {
             ChangeAutoMove(statefulDevice);
           }
@@ -337,6 +340,10 @@ class CommandQueue {
       }
       device.deviceState.value = DeviceState.standby; //Without setting state to standby, another command can not run
     });
+    //preempt queue
+    if (bluetoothMessage.type == Type.direct) {
+      state.toUnorderedList().where((element) => [Type.move, Type.direct].contains(element.type)).forEach((element) => state.remove(element));
+    }
     state.add(bluetoothMessage);
   }
 }
