@@ -5,7 +5,9 @@ import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/intnDefs.dart';
 import 'package:tail_app/main.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,6 +41,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
+          leading: const Icon(Icons.feedback),
           title: Text(feedbackPage()),
           onTap: () {
             BetterFeedback.of(context).showAndUploadToSentry();
@@ -80,6 +83,36 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.code),
           onTap: () async {
             await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app'));
+          },
+        ),
+        ListTile(
+          title: Text(morePrivacyPolicyLinkTitle()),
+          leading: const Icon(Icons.privacy_tip),
+          onTap: () async {
+            await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app/blob/master/PRIVACY.md'));
+          },
+        ),
+        ListTile(
+          title: Text(aboutPage()),
+          leading: const Icon(Icons.info),
+          onTap: () {
+            PackageInfo.fromPlatform().then(
+              (value) => Navigator.push(
+                context,
+                DialogRoute(
+                    builder: (context) => AboutDialog(
+                          applicationName: title(),
+                          applicationVersion: value.version,
+                          applicationIcon: const Image(
+                            image: AssetImage('assets/copilot_fox_icon.png'),
+                            height: 60,
+                            width: 60,
+                          ),
+                          applicationLegalese: "This is a fan made app to control 'The Tail Company' tails and ears",
+                        ),
+                    context: context),
+              ),
+            );
           },
         ),
       ],
@@ -131,19 +164,26 @@ class _pdfWidgetState extends State<pdfWidget> {
           }
           return;
         }
-        final Response rs = await initDio().download(widget.url, filePath, deleteOnError: true, cancelToken: cancelToken, onReceiveProgress: (current, total) {
-          setState(() {
-            progress = current / total;
+        final transaction = Sentry.startTransaction('GET PDF', 'http', description: widget.url);
+        try {
+          final Response rs = await initDio().download(widget.url, filePath, deleteOnError: true, cancelToken: cancelToken, onReceiveProgress: (current, total) {
+            setState(() {
+              progress = current / total;
+            });
           });
-        });
-        if (rs.statusCode == 200) {
-          if (context.mounted) {
+          if (rs.statusCode == 200) {
+            if (context.mounted) {
+              progress = 0;
+              context.push('/more/viewPDF', extra: filePath);
+            }
+          } else {
             progress = 0;
-            context.push('/more/viewPDF', extra: filePath);
           }
-        } else {
-          progress = 0;
+        } catch (e) {
+          transaction.throwable = e;
+          transaction.status = const SpanStatus.internalError();
         }
+        transaction.finish();
       },
     );
   }

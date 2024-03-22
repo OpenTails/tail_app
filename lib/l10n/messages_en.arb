@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-03-21T22:26:15.741268",
+  "@@last_modified": "2024-03-22T13:37:41.315843",
   "title": "Tail App",
   "@title": {
     "description": "The name of the app",
@@ -257,6 +257,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "settingsKeepScreenOnToggleTitle": "Keep Screen On",
+  "@settingsKeepScreenOnToggleTitle": {
+    "description": "Settings page Keep Awake toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleSubTitle": "Keeps the screen on while gear is connected",
+  "@settingsKeepScreenOnToggleSubTitle": {
+    "description": "Settings page Keep Awake toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
   "settingsErrorReportingToggleTitle": "Automatic error reporting",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
@@ -266,6 +278,18 @@
   "settingsErrorReportingToggleSubTitle": "Automatically reports errors to sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleTitle": "Allow Anonymous Analytics",
+  "@settingsAnalyticsToggleTitle": {
+    "description": "Settings page analytics reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleSubTitle": "Report non identifying feature usage to Plausible for enhancing the app",
+  "@settingsAnalyticsToggleSubTitle": {
+    "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
@@ -578,6 +602,12 @@
   "moreUsefulLinksTitle": "Useful Links",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePrivacyPolicyLinkTitle": "Privacy Policy",
+  "@morePrivacyPolicyLinkTitle": {
+    "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
     "placeholders": {}
   }

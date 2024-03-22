@@ -96,9 +96,17 @@ String settingsHapticsToggleTitle() => Intl.message('Haptic Feedback', name: 'se
 
 String settingsHapticsToggleSubTitle() => Intl.message('Enable vibration when an action or sequence is tapped', name: 'settingsHapticsToggleSubTitle', desc: 'Settings page haptic feedback toggle subtitle');
 
+String settingsKeepScreenOnToggleTitle() => Intl.message('Keep Screen On', name: 'settingsKeepScreenOnToggleTitle', desc: 'Settings page Keep Awake toggle title');
+
+String settingsKeepScreenOnToggleSubTitle() => Intl.message('Keeps the screen on while gear is connected', name: 'settingsKeepScreenOnToggleSubTitle', desc: 'Settings page Keep Awake toggle subtitle');
+
 String settingsErrorReportingToggleTitle() => Intl.message('Automatic error reporting', name: 'settingsErrorReportingToggleTitle', desc: 'Settings page error reporting toggle title');
 
 String settingsErrorReportingToggleSubTitle() => Intl.message('Automatically reports errors to sentry', name: 'settingsErrorReportingToggleSubTitle', desc: 'Settings page error reporting toggle subtitle');
+
+String settingsAnalyticsToggleTitle() => Intl.message('Allow Anonymous Analytics', name: 'settingsAnalyticsToggleTitle', desc: 'Settings page analytics reporting toggle title');
+
+String settingsAnalyticsToggleSubTitle() => Intl.message('Report non identifying feature usage to Plausible for enhancing the app', name: 'settingsAnalyticsToggleSubTitle', desc: 'Settings page analytics reporting toggle subtitle');
 
 String settingsAppColor() => Intl.message('App Color', name: 'settingsAppColor', desc: 'Settings page app color picker button title');
 
@@ -205,3 +213,5 @@ String moreManualTitle() => Intl.message("Manuals", name: 'moreManualTitle', des
 String moreManualSubTitle() => Intl.message('Tap to view', name: 'moreManualSubTitle', desc: 'Subtitle for each manual on More page');
 
 String moreUsefulLinksTitle() => Intl.message("Useful Links", name: 'moreUsefulLinksTitle', desc: 'Title for Useful Links header on More page');
+
+String morePrivacyPolicyLinkTitle() => Intl.message("Privacy Policy", name: 'morePrivacyPolicyLinkTitle', desc: 'Title for UPrivacy policy link under Useful Links on More page');

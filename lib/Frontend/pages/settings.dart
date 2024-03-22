@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -48,23 +47,9 @@ class _SettingsState extends ConsumerState<Settings> {
           ),
           ListTile(
             //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
-            title: Text(settingsErrorReportingToggleTitle()),
-            leading: const Icon(Icons.error),
-            subtitle: Text(settingsErrorReportingToggleSubTitle()),
-            trailing: Switch(
-              value: SentryHive.box('settings').get('allowErrorReporting', defaultValue: true),
-              onChanged: (bool value) {
-                setState(() {
-                  SentryHive.box('settings').put('allowErrorReporting', value);
-                });
-              },
-            ),
-          ),
-          ListTile(
-            //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
-            title: Text("Keep screen on"),
+            title: Text(settingsKeepScreenOnToggleTitle()),
             leading: const Icon(Icons.phone_android),
-            subtitle: Text("Keep the screen on when gear is connected"),
+            subtitle: Text(settingsKeepScreenOnToggleSubTitle()),
             trailing: Switch(
               value: SentryHive.box('settings').get('keepAwake', defaultValue: false),
               onChanged: (bool value) {
@@ -82,6 +67,7 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.color_lens),
             title: Text(
               settingsAppColor(),
             ),
@@ -117,6 +103,34 @@ class _SettingsState extends ConsumerState<Settings> {
               );
             },
           ),
+          ListTile(
+            //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
+            title: Text(settingsAnalyticsToggleTitle()),
+            leading: const Icon(Icons.analytics),
+            subtitle: Text(settingsAnalyticsToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box('settings').get('allowAnalytics', defaultValue: true),
+              onChanged: (bool value) {
+                setState(() {
+                  SentryHive.box('settings').put('allowAnalytics', value);
+                });
+              },
+            ),
+          ),
+          ListTile(
+            //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
+            title: Text(settingsErrorReportingToggleTitle()),
+            leading: const Icon(Icons.error),
+            subtitle: Text(settingsErrorReportingToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box('settings').get('allowErrorReporting', defaultValue: true),
+              onChanged: (bool value) {
+                setState(() {
+                  SentryHive.box('settings').put('allowErrorReporting', value);
+                });
+              },
+            ),
+          ),
           if (kDebugMode) ...[
             ListTile(
               title: const Text("Development Menu"),
@@ -127,28 +141,6 @@ class _SettingsState extends ConsumerState<Settings> {
               },
             )
           ],
-          ListTile(
-            title: Text(aboutPage()),
-            onTap: () {
-              PackageInfo.fromPlatform().then(
-                (value) => Navigator.push(
-                  context,
-                  DialogRoute(
-                      builder: (context) => AboutDialog(
-                            applicationName: title(),
-                            applicationVersion: value.version,
-                            applicationIcon: const Image(
-                              image: AssetImage('assets/copilot_fox_icon.png'),
-                              height: 60,
-                              width: 60,
-                            ),
-                            applicationLegalese: "This is a fan made app to control 'The Tail Company' tails and ears",
-                          ),
-                      context: context),
-                ),
-              );
-            },
-          ),
         ],
       ),
     );

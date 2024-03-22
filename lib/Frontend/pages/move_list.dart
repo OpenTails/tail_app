@@ -73,7 +73,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                   if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
                     HapticFeedback.selectionClick();
                   }
-                  ref.read(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).forEach((element) {
+                  ref.watch(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).forEach((element) {
                     runAction(allMoveLists[index], element);
                   });
                 },
@@ -135,8 +135,8 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 ),
               ).then((value) {
                 if (value == true) {
-                  ref.read(moveListsProvider.notifier).remove(moveList!);
-                  ref.read(moveListsProvider.notifier).store();
+                  ref.watch(moveListsProvider.notifier).remove(moveList!);
+                  ref.watch(moveListsProvider.notifier).store();
                   context.pop();
                 }
               });
@@ -163,9 +163,9 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
           //https://github.com/flutter/flutter/issues/138737
           //https://github.com/flutter/flutter/issues/138525
           if (moveList!.moves.isEmpty) {
-            ref.read(moveListsProvider.notifier).remove(moveList!);
+            ref.watch(moveListsProvider.notifier).remove(moveList!);
           }
-          ref.read(moveListsProvider.notifier).store();
+          ref.watch(moveListsProvider.notifier).store();
         },
         child: ListView(
           controller: _scrollController,
@@ -184,7 +184,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                       moveList!.name = nameValue;
                     },
                   );
-                  ref.read(moveListsProvider.notifier).store();
+                  ref.watch(moveListsProvider.notifier).store();
                 },
               ),
             ),
@@ -192,7 +192,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
               selected: moveList!.deviceCategory,
               onSelectionChanged: (Set<DeviceType> value) {
                 setState(() => moveList!.deviceCategory = value.toList());
-                ref.read(moveListsProvider.notifier).store();
+                ref.watch(moveListsProvider.notifier).store();
               },
             ),
             ListTile(
@@ -207,7 +207,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 onChanged: (double value) {
                   setState(() {
                     setState(() => moveList!.repeat = value);
-                    ref.read(moveListsProvider.notifier).store();
+                    ref.watch(moveListsProvider.notifier).store();
                   });
                 },
               ),
@@ -240,7 +240,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                     moveList!.moves.insert(newIndex, item);
                   },
                 );
-                ref.read(moveListsProvider.notifier).store();
+                ref.watch(moveListsProvider.notifier).store();
               },
             )
           ],
@@ -379,7 +379,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
             moveList!.moves[index] = move;
           },
         );
-        ref.read(moveListsProvider.notifier).store();
+        ref.watch(moveListsProvider.notifier).store();
       },
     );
   }

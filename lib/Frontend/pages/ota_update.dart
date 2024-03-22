@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/main.dart';
@@ -130,19 +131,28 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       otaState = OtaState.download;
       downloadProgress = 0;
     });
-    final Response<List<int>> rs = await initDio().get<List<int>>(updateURL!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
-      setState(() {
-        downloadProgress = current / total;
+    final transaction = Sentry.startTransaction('OTA Download', 'http');
+    try {
+      final Response<List<int>> rs = await initDio().get<List<int>>(updateURL!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
+        setState(() {
+          downloadProgress = current / total;
+        });
       });
-    });
-    if (rs.statusCode == 200) {
-      downloadProgress = 1;
-      Digest digest = md5.convert(rs.data!);
-      downloadedMD5 = digest.toString();
-      if (digest.toString() == updateURL!.md5sum) {
-        firmwareFile = rs.data;
+      if (rs.statusCode == 200) {
+        downloadProgress = 1;
+        Digest digest = md5.convert(rs.data!);
+        downloadedMD5 = digest.toString();
+        if (digest.toString() == updateURL!.md5sum) {
+          firmwareFile = rs.data;
+        } else {
+          transaction.status = const SpanStatus.dataLoss();
+        }
       }
+    } catch (e) {
+      transaction.throwable = e;
+      transaction.status = const SpanStatus.internalError();
     }
+    transaction.finish();
   }
 
   Future<void> uploadFirmware() async {

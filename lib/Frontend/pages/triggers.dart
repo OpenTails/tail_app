@@ -83,7 +83,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                 setState(
                   () {
                     Trigger trigger = Trigger.trigDef(triggerDefinition!, const Uuid().v4());
-                    ref.read(triggerListProvider.notifier).add(trigger);
+                    ref.watch(triggerListProvider.notifier).add(trigger);
                     plausible.event(name: "Add Trigger", props: {"Trigger Type": triggerDefinition!.runtimeType.toString()});
                   },
                 );
@@ -131,7 +131,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                                           setState(
                                             () {
                                               triggersList[index].enabled = value;
-                                              plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.read(triggerDefinitionListProvider).where((element) => element.uuid == triggersList[index].triggerDefUUID).first.toString()});
+                                              plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == triggersList[index].triggerDefUUID).first.toString()});
                                             },
                                           );
                                         },
@@ -145,7 +145,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                                     setState(
                                       () {
                                         triggersList[index].deviceType = value.toList();
-                                        ref.read(triggerListProvider.notifier).store();
+                                        ref.watch(triggerListProvider.notifier).store();
                                       },
                                     );
                                   },
@@ -159,7 +159,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                                             return AnimatedCrossFade(
                                               duration: const Duration(milliseconds: 500),
                                               secondChild: const LinearProgressIndicator(),
-                                              firstChild: Text(ref.read(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
+                                              firstChild: Text(ref.watch(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
                                               crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                                             );
                                           },
@@ -176,7 +176,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                                             setState(
                                               () {
                                                 e.action = result?.uuid;
-                                                ref.read(triggerListProvider.notifier).store();
+                                                ref.watch(triggerListProvider.notifier).store();
                                               },
                                             );
                                           },
@@ -189,8 +189,8 @@ class _TriggersState extends ConsumerState<Triggers> {
                                       onPressed: () {
                                         setState(
                                           () {
-                                            ref.read(triggerListProvider).remove(triggersList[index]);
-                                            ref.read(triggerListProvider.notifier).store();
+                                            ref.watch(triggerListProvider).remove(triggersList[index]);
+                                            ref.watch(triggerListProvider.notifier).store();
                                             Navigator.of(context).pop();
                                           },
                                         );
@@ -228,7 +228,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                       setState(
                         () {
                           triggersList[index].enabled = value;
-                          ref.read(triggerListProvider.notifier).store();
+                          ref.watch(triggerListProvider.notifier).store();
                         },
                       );
                     },
