@@ -351,12 +351,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Opret automatisk forbindelse til nye enheder",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "scanDevicesTitle": "Scan efter nyt gear",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",

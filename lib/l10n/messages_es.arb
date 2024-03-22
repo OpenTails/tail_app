@@ -291,12 +291,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesAutoConnectTitle": "Conéctate automáticamente a nuevos dispositivos",
-  "@scanDevicesAutoConnectTitle": {
-    "description": "scan for devices auto connect toggle title when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesEditDelay": "Demora",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
