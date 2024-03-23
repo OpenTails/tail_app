@@ -113,6 +113,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         children: [
                           ColorPicker(
                             color: appColor,
+                            padding: EdgeInsets.zero,
                             onColorChanged: (Color color) => setState(() => appColor = color),
                             pickersEnabled: const <ColorPickerType, bool>{
                               ColorPickerType.both: false,
