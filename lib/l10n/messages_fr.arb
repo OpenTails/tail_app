@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Ailes",
+  "deviceTypeWings": "Oreilles",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -47,7 +47,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Servo gauche",
+  "sequencesEditLeftServo": "Retard",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
@@ -606,6 +606,18 @@
   "morePrivacyPolicyLinkTitle": "politique de confidentialité",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Basculer la barre de vitesse",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Plus",
+  "@moreTitle": {
+    "description": "Title for More page",
     "type": "text",
     "placeholders": {}
   }
