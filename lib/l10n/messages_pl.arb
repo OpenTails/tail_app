@@ -608,5 +608,17 @@
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
     "placeholders": {}
+  },
+  "moreTitle": "Więcej",
+  "@moreTitle": {
+    "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Przełącz pasek zębaty",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
   }
 }
