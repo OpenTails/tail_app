@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Servo izquierdo",
+  "sequencesEditLeftServo": "Mover",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
@@ -606,6 +606,18 @@
   "morePrivacyPolicyLinkTitle": "política de privacidad",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Alternar barra de engranajes",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Más",
+  "@moreTitle": {
+    "description": "Title for More page",
     "type": "text",
     "placeholders": {}
   }
