@@ -273,7 +273,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Reihenfolge bearbeiten",
+  "sequencesEdit": "Sequenz bearbeiten",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Rechtsneigung",
+  "triggerEarTiltRight": "Rechte Neigung",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Nützliche Links",
+  "moreUsefulLinksTitle": "Zum Ansehen antippen",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -606,6 +606,18 @@
   "morePrivacyPolicyLinkTitle": "Datenschutzrichtlinie",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Schalten Sie die Schaltleiste um",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Mehr",
+  "@moreTitle": {
+    "description": "Title for More page",
     "type": "text",
     "placeholders": {}
   }
