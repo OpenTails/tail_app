@@ -79,28 +79,52 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
             onTap: () {
               plausible.event(page: "Settings/App Color");
-              ColorPicker(
-                title: Text(
-                  settingsAppColor(),
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                color: appColor,
-                onColorChanged: (Color color) => setState(() => appColor = color),
-                pickersEnabled: const <ColorPickerType, bool>{
-                  ColorPickerType.both: false,
-                  ColorPickerType.primary: true,
-                  ColorPickerType.accent: true,
-                  ColorPickerType.wheel: true,
-                },
-              ).showPickerDialog(context).then(
-                (value) {
-                  if (value) {
-                    SentryHive.box('settings').put('appColor', appColor.value);
-                  } else {
-                    appColor = Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value));
-                  }
-                },
-              );
+              showDialog<bool>(
+                  context: context,
+                  useRootNavigator: false,
+                  useSafeArea: true,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(
+                        settingsAppColor(),
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            SentryHive.box('settings').put('appColor', appColor.value);
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            ok(),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            appColor = Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value));
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            cancel(),
+                          ),
+                        )
+                      ],
+                      content: Wrap(
+                        children: [
+                          ColorPicker(
+                            color: appColor,
+                            onColorChanged: (Color color) => setState(() => appColor = color),
+                            pickersEnabled: const <ColorPickerType, bool>{
+                              ColorPickerType.both: false,
+                              ColorPickerType.primary: true,
+                              ColorPickerType.accent: true,
+                              ColorPickerType.wheel: true,
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  });
             },
           ),
           ListTile(
