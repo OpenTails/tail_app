@@ -457,7 +457,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    widget.device.connectionStateStreamSubscription = null;
+                    widget.device.connectionStateStreamSubscription?.cancel();
                     widget.device.forgetOnDisconnect = true;
                   });
                   Navigator.pop(context);
