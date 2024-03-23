@@ -608,5 +608,17 @@
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
     "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Attiva/disattiva la barra degli ingranaggi",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Di più",
+  "@moreTitle": {
+    "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
   }
 }
