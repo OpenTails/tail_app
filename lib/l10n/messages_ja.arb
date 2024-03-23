@@ -219,7 +219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryTense": "イライラして緊張している",
+  "actionsCategoryTense": "イライラと緊張",
   "@actionsCategoryTense": {
     "description": "tense action group label",
     "type": "text",
@@ -489,7 +489,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "音を検出しました",
+  "triggerEarMicSound": "EarGear が音を検出したときにアクションをトリガーする",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -606,6 +606,18 @@
   "settingsKeepScreenOnToggleSubTitle": "ギアが接続されている間は画面をオンのままにします",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "もっと",
+  "@moreTitle": {
+    "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "トグルギアバー",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   }
