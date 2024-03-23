@@ -1,5 +1,5 @@
 {
-  "title": "Hale App",
+  "title": "Hale-app",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -606,6 +606,18 @@
   "moreUsefulLinksTitle": "nyttige links",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Skift Gear Bar",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Mere",
+  "@moreTitle": {
+    "description": "Title for More page",
     "type": "text",
     "placeholders": {}
   }
