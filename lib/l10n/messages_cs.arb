@@ -608,5 +608,17 @@
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
     "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Přepnout Gear Bar",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Více",
+  "@moreTitle": {
+    "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
   }
 }
