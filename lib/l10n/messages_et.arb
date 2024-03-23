@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Lisa liiguta",
+  "sequencesEditAdd": "Redigeeri järjestust",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Lubage vibratsioon toimingu või jada puudutamisel",
+  "settingsHapticsToggleSubTitle": "Lubage toimingu või jada puudutamisel vibratsioon",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Tagasi kallutamine",
+  "triggerEarTiltBackward": "Kallutamine tahapoole",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -606,6 +606,18 @@
   "morePrivacyPolicyLinkTitle": "Privaatsuspoliitika",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Lülitage käiguriba sisse",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Rohkem",
+  "@moreTitle": {
+    "description": "Title for More page",
     "type": "text",
     "placeholders": {}
   }
