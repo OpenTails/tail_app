@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-03-22T13:37:41.315843",
+  "@@last_modified": "2024-03-23T14:11:48.143155",
   "title": "Tail App",
   "@title": {
     "description": "The name of the app",
@@ -10,6 +10,12 @@
   "subTitle": "All of the Tails",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Toggle Gear Bar",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -608,6 +614,12 @@
   "morePrivacyPolicyLinkTitle": "Privacy Policy",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "More",
+  "@moreTitle": {
+    "description": "Title for More page",
     "type": "text",
     "placeholders": {}
   }

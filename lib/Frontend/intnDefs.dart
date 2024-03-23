@@ -8,6 +8,8 @@ String title() => Intl.message('Tail App', name: 'title', desc: 'The name of the
 
 String subTitle() => Intl.message('All of the Tails', name: 'subTitle', desc: 'The sub-title which displays in the navigation drawer');
 
+String shellDeviceBarToggleLabel() => Intl.message('Toggle Gear Bar', name: 'shellDeviceBarToggleLabel', desc: 'Tooltip for the Gear bar display button on the shell / main UI app bar');
+
 String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'The label and title of the joystick page');
 
 String feedbackPage() => Intl.message('Feedback', name: 'feedbackPage', desc: 'The label and title of the feedback page');
@@ -215,3 +217,5 @@ String moreManualSubTitle() => Intl.message('Tap to view', name: 'moreManualSubT
 String moreUsefulLinksTitle() => Intl.message("Useful Links", name: 'moreUsefulLinksTitle', desc: 'Title for Useful Links header on More page');
 
 String morePrivacyPolicyLinkTitle() => Intl.message("Privacy Policy", name: 'morePrivacyPolicyLinkTitle', desc: 'Title for UPrivacy policy link under Useful Links on More page');
+
+String moreTitle() => Intl.message("More", name: 'moreTitle', desc: 'Title for More page');

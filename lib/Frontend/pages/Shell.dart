@@ -35,7 +35,7 @@ List<NavDestination> destinations = <NavDestination>[
   NavDestination(triggersPage(), const Icon(Icons.sensors_outlined), const Icon(Icons.sensors), "/triggers"),
   NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
   NavDestination(joyStickPage(), const Icon(Icons.gamepad_outlined), const Icon(Icons.gamepad), "/joystick"),
-  NavDestination('More', const Icon(Icons.more_outlined), const Icon(Icons.more), "/more"),
+  NavDestination(moreTitle(), const Icon(Icons.more_outlined), const Icon(Icons.more), "/more"),
 ];
 
 class NavigationDrawerExample extends ConsumerStatefulWidget {
@@ -148,7 +148,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                   onPressed: () => setState(() => showAppBar = !showAppBar),
                   icon: const Icon(Icons.device_hub),
                   selectedIcon: const Icon(Icons.device_hub_outlined),
-                  tooltip: "Toggle gear bar",
+                  tooltip: shellDeviceBarToggleLabel(),
                 )
               ],
               bottom: PreferredSize(
