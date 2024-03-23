@@ -30,6 +30,7 @@ class _TriggersState extends ConsumerState<Triggers> {
         onPressed: () {
           showDialog<TriggerDefinition>(
             context: context,
+            useRootNavigator: false,
             builder: (BuildContext context) {
               plausible.event(page: "/Triggers/AddTrigger");
               return AlertDialog(

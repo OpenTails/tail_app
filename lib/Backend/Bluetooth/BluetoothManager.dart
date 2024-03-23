@@ -232,6 +232,7 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         knownDevices[event.deviceId]?.stopWatch.stop();
         knownDevices[event.deviceId]?.stopWatch.reset();
         knownDevices[event.deviceId]?.batteryLow.value = false;
+        knownDevices[event.deviceId]?.hwVersion.value = "";
         //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}")));
         //remove foreground service if no devices connected
         bool lastDevice = knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isEmpty;
