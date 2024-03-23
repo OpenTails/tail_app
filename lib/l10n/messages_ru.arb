@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканируйте новое снаряжение",
+  "scanDevicesTitle": "Сканирование нового снаряжения",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Хорошо",
+  "ok": "Выберите тип триггера",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -606,6 +606,18 @@
   "morePrivacyPolicyLinkTitle": "политика конфиденциальности",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Переключить панель передач",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Более",
+  "@moreTitle": {
+    "description": "Title for More page",
     "type": "text",
     "placeholders": {}
   }
