@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pdfx/pdfx.dart';
 
 class ViewPDF extends StatelessWidget {
@@ -14,9 +13,7 @@ class ViewPDF extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop()),
-      ),
+      appBar: AppBar(),
       body: PdfViewPinch(
         controller: pdfPinchController,
       ),
