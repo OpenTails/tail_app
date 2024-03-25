@@ -129,13 +129,13 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                 child: widget.child,
               ),
             ),
-            smallBody: (_) => SafeArea(
-              bottom: false,
-              top: false,
-              child: SnackBarOverlay(
-                child: widget.child,
-              ),
-            ),
+            // smallBody: (_) => SafeArea(
+            //   bottom: false,
+            //   top: false,
+            //   child: SnackBarOverlay(
+            //     child: widget.child,
+            //   ),
+            // ),
             // Define a default secondaryBody.
             //secondaryBody: AdaptiveScaffold.emptyBuilder,
             // Override the default secondaryBody during the smallBreakpoint to be
