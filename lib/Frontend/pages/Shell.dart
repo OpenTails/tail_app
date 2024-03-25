@@ -137,7 +137,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
               ),
             ),
             // Define a default secondaryBody.
-            secondaryBody: AdaptiveScaffold.emptyBuilder,
+            //secondaryBody: AdaptiveScaffold.emptyBuilder,
             // Override the default secondaryBody during the smallBreakpoint to be
             // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
             // overridden.
