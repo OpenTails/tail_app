@@ -34,7 +34,7 @@ dependencies:
   vector_math: ^2.1.4
   collection: ^1.18.0
   flutter_foreground_service: ^0.4.1
-  upgrader: ^10.0.0
+  upgrader: ^10.0.1
   chart_sparkline: ^1.0.15+1
   package_info_plus: ^5.0.1
   multi_value_listenable_builder: ^0.0.2
