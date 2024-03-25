@@ -158,7 +158,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                                           valueListenable: e.isActive,
                                           builder: (BuildContext context, value, Widget? child) {
                                             return AnimatedCrossFade(
-                                              duration: const Duration(milliseconds: 500),
+                                              duration: const Duration(milliseconds: 250),
                                               secondChild: const LinearProgressIndicator(),
                                               firstChild: Text(ref.watch(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
                                               crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
