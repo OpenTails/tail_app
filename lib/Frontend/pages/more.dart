@@ -182,27 +182,39 @@ class _pdfWidgetState extends State<pdfWidget> {
         }
         final transaction = Sentry.startTransaction('GET PDF', 'http', description: widget.url);
         try {
-          final Response rs = await initDio().download(widget.url, filePath, deleteOnError: true, cancelToken: cancelToken, onReceiveProgress: (current, total) {
-            setState(() {
-              progress = current / total;
-            });
-          });
+          final Response rs = await initDio().download(
+            widget.url,
+            filePath,
+            deleteOnError: true,
+            cancelToken: cancelToken,
+            onReceiveProgress: (current, total) {
+              setState(
+                () {
+                  progress = current / total;
+                },
+              );
+            },
+          );
           if (rs.statusCode == 200) {
             if (context.mounted) {
               progress = 0;
               context.push('/more/viewPDF', extra: filePath);
             }
           } else {
-            setState(() {
-              progress = 0;
-            });
+            setState(
+              () {
+                progress = 0;
+              },
+            );
           }
         } catch (e) {
           transaction.throwable = e;
           transaction.status = const SpanStatus.internalError();
-          setState(() {
-            progress = 0;
-          });
+          setState(
+            () {
+              progress = 0;
+            },
+          );
         }
         transaction.finish();
       },

@@ -138,10 +138,12 @@ Dio initDio() {
     ),
   );
   if (kDebugMode) {
-    dio.interceptors.add(PrettyDioLogger(
-      requestBody: true,
-      compact: true,
-    ));
+    dio.interceptors.add(
+      PrettyDioLogger(
+        requestBody: true,
+        compact: true,
+      ),
+    );
   }
 
   /// This *must* be the last initialization step of the Dio setup, otherwise
