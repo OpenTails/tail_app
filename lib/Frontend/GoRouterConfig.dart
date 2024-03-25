@@ -33,55 +33,49 @@ final GoRouter router = GoRouter(
           name: 'Actions',
           path: '/',
           parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
             child: const ActionPage(),
             key: state.pageKey,
             name: 'Actions',
+            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+              return FadeTransition(
+                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              );
+            },
           ),
         ),
         GoRoute(
           name: 'Triggers',
           path: '/triggers',
           parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
             child: const Triggers(),
             key: state.pageKey,
             name: 'Triggers',
+            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+              return FadeTransition(
+                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              );
+            },
           ),
-        ),
-        GoRoute(
-          name: 'Sequences',
-          path: '/moveLists',
-          parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
-            key: state.pageKey,
-            name: 'Sequences',
-            child: const MoveListView(),
-          ),
-          routes: [
-            GoRoute(
-              name: 'Sequences/Edit Sequence',
-              path: 'editMoveList',
-              parentNavigatorKey: _rootNavigatorKey,
-              pageBuilder: (context, state) {
-                return MaterialPage(
-                  key: state.pageKey,
-                  name: 'Sequences/Edit Sequence',
-                  child: const EditMoveList(),
-                );
-              },
-            ),
-          ],
         ),
         GoRoute(
           name: 'Direct Gear Control',
           path: '/joystick',
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) {
-            return MaterialPage(
+            return CustomTransitionPage(
               key: state.pageKey,
               name: 'Direct Gear Control',
               child: const DirectGearControl(),
+              transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+                return FadeTransition(
+                  opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                  child: child,
+                );
+              },
             );
           },
         ),
@@ -98,10 +92,16 @@ final GoRouter router = GoRouter(
             ),
           ],
           pageBuilder: (context, state) {
-            return MaterialPage(
+            return CustomTransitionPage(
               key: state.pageKey,
               name: 'More',
               child: More(),
+              transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+                return FadeTransition(
+                  opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                  child: child,
+                );
+              },
             );
           },
         ),
@@ -135,6 +135,30 @@ final GoRouter router = GoRouter(
         }
         return null;
       },
+    ),
+    GoRoute(
+      name: 'Sequences',
+      path: '/moveLists',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+        key: state.pageKey,
+        name: 'Sequences',
+        child: const MoveListView(),
+      ),
+      routes: [
+        GoRoute(
+          name: 'Sequences/Edit Sequence',
+          path: 'editMoveList',
+          parentNavigatorKey: _rootNavigatorKey,
+          pageBuilder: (context, state) {
+            return MaterialPage(
+              key: state.pageKey,
+              name: 'Sequences/Edit Sequence',
+              child: const EditMoveList(),
+            );
+          },
+        ),
+      ],
     ),
     GoRoute(
       name: 'Settings',

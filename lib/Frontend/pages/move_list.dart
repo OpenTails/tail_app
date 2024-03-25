@@ -27,6 +27,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
   Widget build(BuildContext context) {
     final List<MoveList> allMoveLists = ref.watch(moveListsProvider);
     return Scaffold(
+      appBar: AppBar(title: Text(sequencesPage())),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         onPressed: () {
@@ -144,19 +145,21 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.add),
-        onPressed: () {
-          setState(
-            () {
-              moveList!.moves.add(Move());
-            },
-          );
-          editModal(context, moveList!.moves.length - 1);
-          //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves.last).then((value) => setState(() => moveList!.moves.last = value!));
-        },
-        label: Text(sequencesEditAdd()),
-      ),
+      floatingActionButton: moveList!.moves.length < 6
+          ? FloatingActionButton.extended(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                setState(
+                  () {
+                    moveList!.moves.add(Move());
+                  },
+                );
+                editModal(context, moveList!.moves.length - 1);
+                //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves.last).then((value) => setState(() => moveList!.moves.last = value!));
+              },
+              label: Text(sequencesEditAdd()),
+            )
+          : null,
       body: PopScope(
         onPopInvoked: (didPop) async {
           //This is broken >.<

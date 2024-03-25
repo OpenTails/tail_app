@@ -33,6 +33,22 @@ class _MoreState extends ConsumerState<More> {
     return ListView(
       children: [
         ListTile(
+          title: Text(joyStickPage()),
+          subtitle: Text(joyStickPageDescription()),
+          leading: const Icon(Icons.gamepad),
+          onTap: () {
+            context.push('/joystick');
+          },
+        ),
+        ListTile(
+          title: Text(sequencesPage()),
+          subtitle: Text(sequencesPageDescription()),
+          leading: const Icon(Icons.list),
+          onTap: () {
+            context.push('/moveLists');
+          },
+        ),
+        ListTile(
           title: Text(settingsPage()),
           subtitle: Text(settingsDescription()),
           leading: const Icon(Icons.settings),
@@ -153,7 +169,7 @@ class _pdfWidgetState extends State<pdfWidget> {
           value: progress,
         ),
         crossFadeState: progress < 1 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 250),
       ),
       onTap: () async {
         filePath = '${(await getTemporaryDirectory()).path}${widget.name}.pdf';
@@ -177,11 +193,16 @@ class _pdfWidgetState extends State<pdfWidget> {
               context.push('/more/viewPDF', extra: filePath);
             }
           } else {
-            progress = 0;
+            setState(() {
+              progress = 0;
+            });
           }
         } catch (e) {
           transaction.throwable = e;
           transaction.status = const SpanStatus.internalError();
+          setState(() {
+            progress = 0;
+          });
         }
         transaction.finish();
       },

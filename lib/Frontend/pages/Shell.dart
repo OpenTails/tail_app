@@ -33,9 +33,9 @@ class NavDestination {
 List<NavDestination> destinations = <NavDestination>[
   NavDestination(actionsPage(), const Icon(Icons.widgets_outlined), const Icon(Icons.widgets), "/"),
   NavDestination(triggersPage(), const Icon(Icons.sensors_outlined), const Icon(Icons.sensors), "/triggers"),
-  NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
-  NavDestination(joyStickPage(), const Icon(Icons.gamepad_outlined), const Icon(Icons.gamepad), "/joystick"),
-  NavDestination(moreTitle(), const Icon(Icons.more_outlined), const Icon(Icons.more), "/more"),
+  //NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
+  //NavDestination(joyStickPage(), const Icon(Icons.gamepad_outlined), const Icon(Icons.gamepad), "/joystick"),
+  NavDestination(moreTitle(), const Icon(Icons.menu), const Icon(Icons.menu_open), "/more"),
 ];
 
 class NavigationDrawerExample extends ConsumerStatefulWidget {
