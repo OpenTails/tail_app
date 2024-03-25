@@ -27,7 +27,6 @@ class _SettingsState extends ConsumerState<Settings> {
     return Scaffold(
       appBar: AppBar(
         title: Text(settingsPage()),
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop()),
       ),
       body: ListView(
         controller: _controller,

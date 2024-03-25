@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 
 import '../../../Backend/Bluetooth/BluetoothManager.dart';
@@ -21,7 +20,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Developer Menu'),
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop()),
       ),
       body: ListView(
         primary: true,
