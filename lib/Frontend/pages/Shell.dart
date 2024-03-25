@@ -238,11 +238,14 @@ class _ManageGearState extends ConsumerState<ManageGear> {
             },
           ),
           if (widget.device.hasUpdate.value || kDebugMode) ...[
-            ElevatedButton(
-                onPressed: () {
-                  context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
-                },
-                child: Text(manageDevicesOtaButton()))
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FilledButton(
+                  onPressed: () {
+                    context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
+                  },
+                  child: Text(manageDevicesOtaButton())),
+            )
           ],
           Padding(
             padding: const EdgeInsets.all(16.0),
