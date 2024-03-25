@@ -4,13 +4,15 @@ import 'package:intl/intl.dart';
 //dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intnDefs.dart
 //convert to dart
 // dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb
-String title() => Intl.message('Tail App', name: 'title', desc: 'The name of the app');
+String title() => Intl.message('The DigiTail, MiTail, MiTail Mini, FlutterWings, and EarGear App (TM Pending)', name: 'title', desc: 'The name of the app');
 
 String subTitle() => Intl.message('All of the Tails', name: 'subTitle', desc: 'The sub-title which displays in the navigation drawer');
 
 String shellDeviceBarToggleLabel() => Intl.message('Toggle Gear Bar', name: 'shellDeviceBarToggleLabel', desc: 'Tooltip for the Gear bar display button on the shell / main UI app bar');
 
 String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'The label and title of the joystick page');
+
+String joyStickPageDescription() => Intl.message('Directly control the gear position.', name: 'joyStickPageDescription', desc: 'The description of the joystick page on the more page');
 
 String feedbackPage() => Intl.message('Feedback', name: 'feedbackPage', desc: 'The label and title of the feedback page');
 
@@ -24,7 +26,9 @@ String actionsPage() => Intl.message('Actions', name: 'actionsPage', desc: 'The 
 
 String triggersPage() => Intl.message('Triggers', name: 'triggersPage', desc: 'The label and title of the trigger page');
 
-String sequencesPage() => Intl.message('Sequences', name: 'sequencesPage', desc: 'The label and title of the sequences page');
+String sequencesPage() => Intl.message('Custom Actions', name: 'sequencesPage', desc: 'The label and title of the sequences page');
+
+String sequencesPageDescription() => Intl.message('Create custom Actions for your gear', name: 'sequencesPageDescription', desc: 'The description of the sequences page link on the more page');
 
 // Triggers Page
 String triggersSelectLabel() => Intl.message('Select an Trigger Type', name: 'triggersSelectLabel', desc: 'The title of the add trigger dialog');
@@ -44,9 +48,9 @@ String deviceTypeEars() => Intl.message('Ears', name: 'deviceTypeEars', desc: 'E
 String deviceTypeWings() => Intl.message('Wings', name: 'deviceTypeWings', desc: 'Wings option for the selector to select which device to send moves to');
 
 // Sequences Page
-String sequencesAdd() => Intl.message('New Sequence', name: 'sequencesAdd', desc: 'Floating Action Button on the sequences page');
+String sequencesAdd() => Intl.message('New Action', name: 'sequencesAdd', desc: 'Floating Action Button on the sequences page');
 
-String sequencesEdit() => Intl.message('Edit Sequence', name: 'sequencesEdit', desc: 'Label for the edit icon on a sequence');
+String sequencesEdit() => Intl.message('Edit Action', name: 'sequencesEdit', desc: 'Label for the edit icon on a sequence');
 
 String sequencesEditAdd() => Intl.message('Add Move', name: 'sequencesEditAdd', desc: 'Label for the add Floating Action Button on edit sequence page');
 
@@ -68,9 +72,9 @@ String sequencesEditTime() => Intl.message('Time', name: 'sequencesEditTime', de
 
 String sequencesEditHomeLabel() => Intl.message('Home the Gear', name: 'sequencesEditHomeLabel', desc: 'Label on the home tab of the move edit page');
 
-String sequencesEditDeleteTitle() => Intl.message('Delete Sequence', name: 'sequencesEditDeleteTitle', desc: 'Title of the dialog on the sequence edit page to delete the sequence');
+String sequencesEditDeleteTitle() => Intl.message('Delete Action', name: 'sequencesEditDeleteTitle', desc: 'Title of the dialog on the sequence edit page to delete the sequence');
 
-String sequencesEditDeleteDescription() => Intl.message('Are you sure you want to delete this sequence?', name: 'sequencesEditDeleteDescription', desc: 'Message of the dialog on the sequence edit page to delete the sequence');
+String sequencesEditDeleteDescription() => Intl.message('Are you sure you want to delete this action?', name: 'sequencesEditDeleteDescription', desc: 'Message of the dialog on the sequence edit page to delete the sequence');
 
 String sequenceEditListDelayLabel(int howMany) => Intl.message(
       'Delay next move for $howMany ms.',
@@ -96,7 +100,7 @@ String actionsSelectScreen() => Intl.message('Select an Action', name: 'actionsS
 //Settings
 String settingsHapticsToggleTitle() => Intl.message('Haptic Feedback', name: 'settingsHapticsToggleTitle', desc: 'Settings page haptic feedback toggle title');
 
-String settingsHapticsToggleSubTitle() => Intl.message('Enable vibration when an action or sequence is tapped', name: 'settingsHapticsToggleSubTitle', desc: 'Settings page haptic feedback toggle subtitle');
+String settingsHapticsToggleSubTitle() => Intl.message('Enable vibration when an action is tapped', name: 'settingsHapticsToggleSubTitle', desc: 'Settings page haptic feedback toggle subtitle');
 
 String settingsKeepScreenOnToggleTitle() => Intl.message('Keep Screen On', name: 'settingsKeepScreenOnToggleTitle', desc: 'Settings page Keep Awake toggle title');
 
@@ -198,7 +202,7 @@ String triggerEarTiltForward() => Intl.message("Forward Tilt", name: 'triggerEar
 
 String triggerEarTiltBackward() => Intl.message("Backward Tilt", name: 'triggerEarTiltBackward', desc: 'EarGear internal gesture sensor trigger backward tilt detected action label');
 
-String sequenceEditRepeatTitle() => Intl.message("Repeat Sequence", name: 'sequenceEditRepeatTitle', desc: 'Title for slider on sequence edit page to set how many times to repeat the sequence');
+String sequenceEditRepeatTitle() => Intl.message("Repeat Action", name: 'sequenceEditRepeatTitle', desc: 'Title for slider on sequence edit page to set how many times to repeat the sequence');
 
 String moreManualResponsibleWaggingTitle() => Intl.message("Responsible Wagging", name: 'moreManualResponsibleWaggingTitle', desc: 'Title for Responsible wagging manual button on More page');
 
