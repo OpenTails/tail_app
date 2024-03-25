@@ -38,42 +38,6 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ExpansionTile(
-          title: Text(settingsPage()),
-          initiallyExpanded: MediaQuery.sizeOf(context).height > 900,
-          children: [
-            SpeedWidget(
-              value: speed,
-              onChanged: (double value) {
-                setState(() {
-                  speed = value;
-                });
-              },
-            ),
-            ListTile(
-              title: Text(sequencesEditEasing()),
-              subtitle: SegmentedButton<EasingType>(
-                selected: <EasingType>{easingType},
-                onSelectionChanged: (Set<EasingType> value) {
-                  setState(
-                    () {
-                      easingType = value.first;
-                    },
-                  );
-                },
-                segments: EasingType.values.map<ButtonSegment<EasingType>>((EasingType value) {
-                  return ButtonSegment<EasingType>(value: value, icon: value.widget(context), tooltip: value.name);
-                }).toList(),
-              ),
-            ),
-            DeviceTypeWidget(
-              selected: deviceTypes.toList(),
-              onSelectionChanged: (Set<DeviceType> value) {
-                setState(() => deviceTypes = value);
-              },
-            ),
-          ],
-        ),
         Expanded(
           child: Stack(
             children: [
@@ -89,13 +53,17 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         await Future.delayed(Duration(milliseconds: (speed * 20).toInt()));
                         Move move = Move();
                         move.moveType = MoveType.home;
-                        ref.read(knownDevicesProvider).values.forEach((element) {
-                          generateMoveCommand(move, element, Type.direct).forEach((message) {
-                            message.responseMSG = null;
-                            message.priority = Priority.high;
-                            element.commandQueue.addCommand(message);
-                          });
-                        });
+                        ref.read(knownDevicesProvider).values.forEach(
+                          (element) {
+                            generateMoveCommand(move, element, Type.direct).forEach(
+                              (message) {
+                                message.responseMSG = null;
+                                message.priority = Priority.high;
+                                element.commandQueue.addCommand(message);
+                              },
+                            );
+                          },
+                        );
                       },
                       base: const Card(
                         elevation: 1,
@@ -109,27 +77,29 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         child: const SizedBox.square(dimension: 100),
                       ),
                       listener: (details) {
-                        setState(() {
-                          if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
-                            HapticFeedback.selectionClick();
-                          }
-                          x = details.x;
-                          y = details.y;
+                        setState(
+                          () {
+                            if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
+                              HapticFeedback.selectionClick();
+                            }
+                            x = details.x;
+                            y = details.y;
 
-                          double sign = x.sign;
-                          direction = degrees(atan2(y.abs(), x.abs())); // 0-90
-                          magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
+                            double sign = x.sign;
+                            direction = degrees(atan2(y.abs(), x.abs())); // 0-90
+                            magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
 
-                          double secondServo = ((((direction - 0) * (128 - 0)) / (90 - 0)) + 0).clamp(0, 128);
-                          double primaryServo = ((((magnitude - 0) * (128 - 0)) / (1 - 0)) + 0).clamp(0, 128);
-                          if (sign > 0) {
-                            left = primaryServo;
-                            right = secondServo;
-                          } else {
-                            right = primaryServo;
-                            left = secondServo;
-                          }
-                        });
+                            double secondServo = ((((direction - 0) * (128 - 0)) / (90 - 0)) + 0).clamp(0, 128);
+                            double primaryServo = ((((magnitude - 0) * (128 - 0)) / (1 - 0)) + 0).clamp(0, 128);
+                            if (sign > 0) {
+                              left = primaryServo;
+                              right = secondServo;
+                            } else {
+                              right = primaryServo;
+                              left = secondServo;
+                            }
+                          },
+                        );
                         SendMove();
                       },
                       period: Duration(milliseconds: (speed * 20).toInt()),
@@ -139,9 +109,9 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
               ),
               if (kDebugMode) ...[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 400, 8, 8),
                   child: Align(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.bottomLeft,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -156,6 +126,47 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                   ),
                 )
               ],
+              ExpansionTile(
+                title: Text(settingsPage()),
+                initiallyExpanded: MediaQuery.sizeOf(context).height > 900,
+                backgroundColor: Theme.of(context).cardColor,
+                children: [
+                  SpeedWidget(
+                    value: speed,
+                    onChanged: (double value) {
+                      setState(
+                        () {
+                          speed = value;
+                        },
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Text(sequencesEditEasing()),
+                    subtitle: SegmentedButton<EasingType>(
+                      selected: <EasingType>{easingType},
+                      onSelectionChanged: (Set<EasingType> value) {
+                        setState(
+                          () {
+                            easingType = value.first;
+                          },
+                        );
+                      },
+                      segments: EasingType.values.map<ButtonSegment<EasingType>>(
+                        (EasingType value) {
+                          return ButtonSegment<EasingType>(value: value, icon: value.widget(context), tooltip: value.name);
+                        },
+                      ).toList(),
+                    ),
+                  ),
+                  DeviceTypeWidget(
+                    selected: deviceTypes.toList(),
+                    onSelectionChanged: (Set<DeviceType> value) {
+                      setState(() => deviceTypes = value);
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
@@ -169,12 +180,16 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
     move.speed = speed;
     move.rightServo = right;
     move.leftServo = left;
-    ref.read(knownDevicesProvider).values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach((element) {
-      generateMoveCommand(move, element, Type.direct).forEach((message) {
-        message.responseMSG = null;
-        message.priority = Priority.high;
-        element.commandQueue.addCommand(message);
-      });
-    });
+    ref.read(knownDevicesProvider).values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach(
+      (element) {
+        generateMoveCommand(move, element, Type.direct).forEach(
+          (message) {
+            message.responseMSG = null;
+            message.priority = Priority.high;
+            element.commandQueue.addCommand(message);
+          },
+        );
+      },
+    );
   }
 }
