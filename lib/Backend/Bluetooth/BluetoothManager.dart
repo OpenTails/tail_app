@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -235,7 +236,8 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         knownDevices[event.deviceId]?.hwVersion.value = "";
         //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}")));
         //remove foreground service if no devices connected
-        bool lastDevice = knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isEmpty;
+        int deviceCount = knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).length;
+        bool lastDevice = deviceCount == 0;
         if (Platform.isAndroid && lastDevice) {
           ForegroundService().stop();
         }
@@ -245,6 +247,9 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
             element.enabled = false;
           });
           WakelockPlus.disable();
+          FlutterAppBadger.removeBadge();
+        } else {
+          FlutterAppBadger.updateBadgeCount(deviceCount);
         }
         if (knownDevices[event.deviceId]!.forgetOnDisconnect) {
           ref.read(knownDevicesProvider.notifier).remove(event.deviceId);
