@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Nová sekvence",
+  "sequencesAdd": "Nová akce",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
