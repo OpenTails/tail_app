@@ -29,11 +29,12 @@ import 'Backend/Sensors.dart';
 import 'Backend/moveLists.dart';
 import 'Frontend/GoRouterConfig.dart';
 import 'Frontend/intnDefs.dart';
+import 'constants.dart';
 
 //late SharedPreferences prefs;
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
-  bool reportingEnabled = SentryHive.box('settings').get("allowErrorReporting", defaultValue: true);
+  bool reportingEnabled = SentryHive.box(settings).get("allowErrorReporting", defaultValue: true);
   if (reportingEnabled) {
     if (kDebugMode) {
       print('Before sending sentry event');
@@ -85,7 +86,7 @@ Future<void> main() async {
     ..registerAdapter(
       AutoActionCategoryAdapter(),
     );
-  await SentryHive.openBox('settings');
+  await SentryHive.openBox(settings);
   await SentryHive.openBox<Trigger>('triggers');
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
@@ -171,13 +172,13 @@ class TailApp extends ConsumerWidget {
       themeMode: ThemeMode.system,
       darkTheme: FeedbackThemeData.dark(),
       child: ValueListenableBuilder(
-        valueListenable: SentryHive.box('settings').listenable(keys: ["appColor"]),
+        valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
         builder: (BuildContext context, value, Widget? child) {
           return MaterialApp.router(
             title: subTitle(),
-            color: Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value)),
-            theme: BuildTheme(Brightness.light, Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value))),
-            darkTheme: BuildTheme(Brightness.dark, Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value))),
+            color: Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault)),
+            theme: BuildTheme(Brightness.light, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
+            darkTheme: BuildTheme(Brightness.dark, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
             routerConfig: router,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,

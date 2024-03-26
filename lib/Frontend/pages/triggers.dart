@@ -7,6 +7,7 @@ import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/Sensors.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/action_selector.dart';
 import '../Widgets/device_type_widget.dart';
@@ -158,7 +159,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                                           valueListenable: e.isActive,
                                           builder: (BuildContext context, value, Widget? child) {
                                             return AnimatedCrossFade(
-                                              duration: const Duration(milliseconds: 250),
+                                              duration: animationTransitionDuration,
                                               secondChild: const LinearProgressIndicator(),
                                               firstChild: Text(ref.watch(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
                                               crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
@@ -216,7 +217,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                       firstChild: Text(triggersList[index].triggerDefinition!.description),
                       secondChild: const LinearProgressIndicator(),
                       crossFadeState: !values.any((element) => element == true) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                      duration: const Duration(milliseconds: 500),
+                      duration: animationTransitionDuration,
                     );
                   },
                   valueListenables: triggersList[index].actions.map((e) => e.isActive).toList()),

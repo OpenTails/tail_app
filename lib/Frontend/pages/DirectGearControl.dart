@@ -13,6 +13,7 @@ import '../../Backend/Bluetooth/BluetoothManager.dart';
 import '../../Backend/Bluetooth/btMessage.dart';
 import '../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import '../../Backend/moveLists.dart';
+import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';
 import '../intnDefs.dart';
 
@@ -79,7 +80,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                       listener: (details) {
                         setState(
                           () {
-                            if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
+                            if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
                               HapticFeedback.selectionClick();
                             }
                             x = details.x;

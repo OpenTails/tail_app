@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ import 'package:tail_app/Backend/ActionRegistry.dart';
 import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
 
 import '../Frontend/intnDefs.dart';
+import '../constants.dart';
 import 'Bluetooth/BluetoothManager.dart';
 import 'Definitions/Action/BaseAction.dart';
 import 'Definitions/Device/BaseDeviceDefinition.dart';
@@ -157,6 +159,9 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
         List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceTypes.values.flattened.toSet().contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
         for (BaseStatefulDevice baseStatefulDevice in devices) {
+          if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+            await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+          }
           runAction(baseAction, baseStatefulDevice);
         }
         await Future.delayed(const Duration(seconds: 15));
@@ -576,12 +581,12 @@ class TriggerAction {
 class TriggerList extends _$TriggerList {
   @override
   List<Trigger> build() {
-    if (SentryHive.box('settings').get("firstLaunchSensors", defaultValue: true)) {
+    if (SentryHive.box(settings).get("firstLaunchSensors", defaultValue: true)) {
       TriggerDefinition triggerDefinition = ref.read(triggerDefinitionListProvider).where((element) => element.uuid == 'ee9379e2-ec4f-40bb-8674-fd223a6edfda').first;
       Trigger trigger = Trigger.trigDef(triggerDefinition, '91e3d421-6a52-45ab-a23e-f38e4987a8f5');
       trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').action = ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'c53e980e-899e-4148-a13e-f57a8f9707f4').uuid;
       trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').action = ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid;
-      SentryHive.box('settings').put("firstLaunchSensors", false);
+      SentryHive.box(settings).put("firstLaunchSensors", false);
       SentryHive.box<Trigger>('triggers')
         ..clear()
         ..addAll([trigger]);

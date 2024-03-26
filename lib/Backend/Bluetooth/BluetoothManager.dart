@@ -18,6 +18,7 @@ import 'package:tail_app/Backend/Sensors.dart';
 import 'package:tail_app/main.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../constants.dart';
 import '../AutoMove.dart';
 import '../Definitions/Device/BaseDeviceDefinition.dart';
 import '../DeviceRegistry.dart';
@@ -207,7 +208,7 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
       ForegroundService().start();
     }
     if (event.connectionState == DeviceConnectionState.connected) {
-      if (SentryHive.box('settings').get('keepAwake', defaultValue: false)) {
+      if (SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault)) {
         WakelockPlus.enable();
       }
     }

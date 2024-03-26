@@ -15,6 +15,7 @@ import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 
 import '../../Backend/AutoMove.dart';
+import '../../constants.dart';
 import '../../main.dart';
 import '../intnDefs.dart';
 
@@ -95,7 +96,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
     return UpgradeAlert(
       child: TweenAnimationBuilder(
         tween: Tween<double>(begin: 90, end: showAppBar ? 90 : 0),
-        duration: const Duration(milliseconds: 250),
+        duration: animationTransitionDuration,
         builder: (BuildContext context, double size, Widget? child) {
           return AdaptiveScaffold(
             // An option to override the default breakpoints used for small, medium,
@@ -157,7 +158,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                   child: AnimatedCrossFade(
                     firstChild: const DeviceStatusWidget(),
                     secondChild: Container(),
-                    duration: const Duration(milliseconds: 250),
+                    duration: animationTransitionDuration,
                     crossFadeState: showAppBar ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                   ),
                 ),

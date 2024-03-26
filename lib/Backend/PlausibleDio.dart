@@ -7,6 +7,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/moveLists.dart';
 
+import '../constants.dart';
 import '../main.dart';
 import 'Definitions/Device/BaseDeviceDefinition.dart';
 import 'Sensors.dart';
@@ -19,7 +20,7 @@ class PlausibleDio extends Plausible {
   /// Post event to plausible
   @override
   Future<int> event({String name = "pageview", String referrer = "", String page = "", Map<String, String> props = const {}}) async {
-    if (!enabled && SentryHive.box('settings').get('allowAnalytics', defaultValue: true)) {
+    if (!enabled && SentryHive.box(settings).get(allowAnalytics, defaultValue: allowAnalyticsDefault)) {
       return 0;
     }
     final transaction = Sentry.startTransaction('Plausible Event', 'http');

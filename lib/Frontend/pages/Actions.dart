@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +14,7 @@ import '../../Backend/Definitions/Action/BaseAction.dart';
 import '../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import '../../Backend/DeviceRegistry.dart';
 import '../../Backend/moveLists.dart';
+import '../../constants.dart';
 import 'Home.dart';
 
 class ActionPage extends ConsumerWidget {
@@ -73,10 +76,13 @@ class ActionPageBuilder extends ConsumerWidget {
                                   elevation: 1,
                                   child: InkWell(
                                     onTap: () async {
-                                      if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
+                                      if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
                                         HapticFeedback.selectionClick();
                                       }
                                       for (var device in ref.read(getByActionProvider(actionsForCat[actionIndex]))) {
+                                        if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+                                          await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+                                        }
                                         runAction(actionsForCat[actionIndex], device);
                                       }
                                     },

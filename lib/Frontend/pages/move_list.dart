@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +13,7 @@ import 'package:tail_app/Backend/moveLists.dart';
 import 'package:tail_app/Frontend/Widgets/speed_widget.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/device_type_widget.dart';
 import '../intnDefs.dart';
@@ -50,35 +53,40 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
         primary: true,
         itemBuilder: (context, index) {
           return FadeIn(
-              delay: Duration(milliseconds: index * 100),
-              child: ListTile(
-                title: Text(allMoveLists[index].name),
-                subtitle: Text("${allMoveLists[index].moves.length} move(s)"), //TODO: Localize
-                trailing: IconButton(
-                  tooltip: sequencesEdit(),
-                  icon: const Icon(Icons.edit),
-                  onPressed: () {
-                    context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
-                          (value) => setState(
-                            () {
-                              if (value != null) {
-                                allMoveLists[index] = value;
-                                ref.watch(moveListsProvider.notifier).store();
-                              }
-                            },
-                          ),
-                        );
-                  },
-                ),
-                onTap: () async {
-                  if (SentryHive.box('settings').get('haptics', defaultValue: true)) {
-                    HapticFeedback.selectionClick();
-                  }
-                  ref.watch(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType)).forEach((element) {
-                    runAction(allMoveLists[index], element);
-                  });
+            delay: Duration(milliseconds: index * 100),
+            child: ListTile(
+              title: Text(allMoveLists[index].name),
+              subtitle: Text("${allMoveLists[index].moves.length} move(s)"), //TODO: Localize
+              trailing: IconButton(
+                tooltip: sequencesEdit(),
+                icon: const Icon(Icons.edit),
+                onPressed: () {
+                  context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
+                        (value) => setState(
+                          () {
+                            if (value != null) {
+                              allMoveLists[index] = value;
+                              ref.watch(moveListsProvider.notifier).store();
+                            }
+                          },
+                        ),
+                      );
                 },
-              ));
+              ),
+              onTap: () async {
+                if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
+                  HapticFeedback.selectionClick();
+                }
+                for (BaseStatefulDevice element in ref.watch(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType))) {
+                  if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+                    await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+                  }
+                  runAction(allMoveLists[index], element);
+                }
+                ;
+              },
+            ),
+          );
         },
       ),
     );

@@ -8,6 +8,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../constants.dart';
 import '../../main.dart';
 import '../intnDefs.dart';
 
@@ -20,7 +21,13 @@ class Settings extends ConsumerStatefulWidget {
 
 class _SettingsState extends ConsumerState<Settings> {
   final ScrollController _controller = ScrollController();
-  Color appColor = Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value));
+  late Color appColorValue;
+
+  @override
+  void initState() {
+    super.initState();
+    appColorValue = Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +43,10 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.vibration),
             subtitle: Text(settingsHapticsToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box('settings').get('haptics', defaultValue: true),
+              value: SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box('settings').put('haptics', value);
+                  SentryHive.box(settings).put(haptics, value);
                 });
               },
             ),
@@ -50,11 +57,11 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.phone_android),
             subtitle: Text(settingsKeepScreenOnToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box('settings').get('keepAwake', defaultValue: false),
+              value: SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box('settings').put('keepAwake', value);
-                  if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState == DeviceConnectionState.connected).isNotEmpty) {
+                  SentryHive.box(settings).put(keepAwake, value);
+                  if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isNotEmpty) {
                     if (value) {
                       WakelockPlus.enable();
                     } else {
@@ -62,6 +69,22 @@ class _SettingsState extends ConsumerState<Settings> {
                     }
                   }
                 });
+              },
+            ),
+          ),
+          ListTile(
+            //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
+            title: Text(settingsKitsuneToggleTitle()),
+            leading: const Icon(Icons.more_time),
+            subtitle: Text(settingsKitsuneToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(kitsuneModeToggle, value);
+                  },
+                );
               },
             ),
           ),
@@ -74,7 +97,7 @@ class _SettingsState extends ConsumerState<Settings> {
               width: 44,
               height: 44,
               borderRadius: 22,
-              color: Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value)),
+              color: Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault)),
             ),
             onTap: () {
               plausible.event(page: "Settings/App Color");
@@ -91,7 +114,7 @@ class _SettingsState extends ConsumerState<Settings> {
                       actions: [
                         TextButton(
                           onPressed: () {
-                            SentryHive.box('settings').put('appColor', appColor.value);
+                            SentryHive.box(settings).put(appColor, appColorValue.value);
                             Navigator.of(context).pop();
                           },
                           child: Text(
@@ -100,7 +123,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         ),
                         TextButton(
                           onPressed: () {
-                            appColor = Color(SentryHive.box('settings').get('appColor', defaultValue: Colors.orange.value));
+                            appColorValue = Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault));
                             Navigator.of(context).pop();
                           },
                           child: Text(
@@ -111,9 +134,9 @@ class _SettingsState extends ConsumerState<Settings> {
                       content: Wrap(
                         children: [
                           ColorPicker(
-                            color: appColor,
+                            color: appColorValue,
                             padding: EdgeInsets.zero,
-                            onColorChanged: (Color color) => setState(() => appColor = color),
+                            onColorChanged: (Color color) => setState(() => appColorValue = color),
                             pickersEnabled: const <ColorPickerType, bool>{
                               ColorPickerType.both: false,
                               ColorPickerType.primary: true,
@@ -127,16 +150,19 @@ class _SettingsState extends ConsumerState<Settings> {
                   });
             },
           ),
+          const ListTile(
+            title: Divider(),
+          ),
           ListTile(
             //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
             title: Text(settingsAnalyticsToggleTitle()),
             leading: const Icon(Icons.analytics),
             subtitle: Text(settingsAnalyticsToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box('settings').get('allowAnalytics', defaultValue: true),
+              value: SentryHive.box(settings).get(allowAnalytics, defaultValue: allowAnalyticsDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box('settings').put('allowAnalytics', value);
+                  SentryHive.box(settings).put(allowAnalytics, value);
                 });
               },
             ),
@@ -147,10 +173,10 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.error),
             subtitle: Text(settingsErrorReportingToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box('settings').get('allowErrorReporting', defaultValue: true),
+              value: SentryHive.box(settings).get(allowErrorReporting, defaultValue: allowErrorReportingDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box('settings').put('allowErrorReporting', value);
+                  SentryHive.box(settings).put(allowErrorReporting, value);
                 });
               },
             ),

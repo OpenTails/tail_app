@@ -12,6 +12,8 @@ import 'package:tail_app/Frontend/intnDefs.dart';
 import 'package:tail_app/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../constants.dart';
+
 class More extends ConsumerStatefulWidget {
   More({Key? key}) : super(key: key);
 
@@ -169,7 +171,7 @@ class _pdfWidgetState extends State<pdfWidget> {
           value: progress,
         ),
         crossFadeState: progress < 1 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-        duration: const Duration(milliseconds: 250),
+        duration: animationTransitionDuration,
       ),
       onTap: () async {
         filePath = '${(await getTemporaryDirectory()).path}${widget.name}.pdf';
