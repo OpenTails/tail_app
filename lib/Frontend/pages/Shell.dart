@@ -398,7 +398,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
           ),
           if (kDebugMode) ...[
             ListTile(
-              title: Text("Debug"),
+              title: const Text("Debug"),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -406,22 +406,161 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   Text("HW VER: ${widget.device.hwVersion.value}"),
                   Text("FW VER: ${widget.device.fwVersion.value}"),
                   Text("FW AVAIL: ${widget.device.fwInfo.value}"),
-                  Text("GLOWTIP: ${widget.device.glowTip.value}"),
                   Text("CON ELAPSED: ${widget.device.stopWatch.elapsed}"),
-                  Text("RSSI: ${widget.device.rssi.value}"),
-                  Text("BATT: ${widget.device.battery.value}"),
-                  Text("BATT_CHARGE: ${widget.device.batteryCharging.value}"),
-                  Text("BATT LOW: ${widget.device.batteryLow.value}"),
-                  Text("ERR: ${widget.device.error.value}"),
-                  Text("STATE: ${widget.device.deviceState.value}"),
                   Text("DEV UUID: ${widget.device.baseDeviceDefinition.uuid}"),
                   Text("DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}"),
                   Text("DEV FW URL: ${widget.device.baseDeviceDefinition.fwURL}"),
-                  Text("DISABLE AUTOCONNECT: ${widget.device.disableAutoConnect}"),
-                  Text("FORGET: ${widget.device.forgetOnDisconnect}"),
                 ],
               ),
-            )
+            ),
+            ListTile(
+              title: const Text("Has Update"),
+              trailing: Switch(
+                value: widget.device.hasUpdate.value,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.hasUpdate.value = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text("Has Glowtip"),
+              trailing: Switch(
+                value: widget.device.glowTip.value,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.glowTip.value = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text("Disable Autoconnect"),
+              trailing: Switch(
+                value: widget.device.disableAutoConnect,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.disableAutoConnect = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text("Forget on Disconnect"),
+              trailing: Switch(
+                value: widget.device.forgetOnDisconnect,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.forgetOnDisconnect = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text("Battery Level"),
+              subtitle: Slider(
+                min: -1,
+                max: 100,
+                onChanged: (double value) {
+                  if (value == widget.device.battery.value) {
+                    return;
+                  }
+                  setState(() {
+                    widget.device.battery.value = value;
+                  });
+                },
+                value: widget.device.battery.value,
+              ),
+            ),
+            ListTile(
+              title: const Text("Battery Charging"),
+              trailing: Switch(
+                value: widget.device.batteryCharging.value,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.batteryCharging.value = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text("Battery Low"),
+              trailing: Switch(
+                value: widget.device.batteryLow.value,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.batteryLow.value = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text("Error"),
+              trailing: Switch(
+                value: widget.device.error.value,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.error.value = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text("Connection State"),
+              trailing: DropdownMenu<DeviceConnectionState>(
+                initialSelection: widget.device.deviceConnectionState.value,
+                onSelected: (value) {
+                  if (value != null) {
+                    setState(
+                      () {
+                        widget.device.deviceConnectionState.value = value;
+                      },
+                    );
+                  }
+                },
+                dropdownMenuEntries: DeviceConnectionState.values
+                    .map(
+                      (e) => DropdownMenuEntry(value: e, label: e.name),
+                    )
+                    .toList(),
+              ),
+            ),
+            ListTile(
+              title: const Text("Device State"),
+              trailing: DropdownMenu<DeviceState>(
+                initialSelection: widget.device.deviceState.value,
+                onSelected: (value) {
+                  if (value != null) {
+                    setState(
+                      () {
+                        widget.device.deviceState.value = value;
+                      },
+                    );
+                  }
+                },
+                dropdownMenuEntries: DeviceState.values
+                    .map(
+                      (e) => DropdownMenuEntry(value: e, label: e.name),
+                    )
+                    .toList(),
+              ),
+            ),
+            ListTile(
+              title: const Text("RSSI Level"),
+              subtitle: Slider(
+                min: -80,
+                max: -1,
+                value: widget.device.rssi.value.toDouble(),
+                onChanged: (double value) {
+                  setState(
+                    () {
+                      widget.device.rssi.value = value.toInt();
+                    },
+                  );
+                },
+              ),
+            ),
           ],
           ButtonBar(
             alignment: MainAxisAlignment.end,
@@ -511,17 +650,20 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                       builder: (BuildContext context, DeviceConnectionState value, Widget? child) {
                         return Flash(
                           animate: value == DeviceConnectionState.connected,
-                          child: Card(
-                            clipBehavior: Clip.antiAlias,
-                            color: e.deviceConnectionState.value == DeviceConnectionState.connected ? Color(e.baseStoredDevice.color) : null,
-                            child: ValueListenableBuilder(
-                              valueListenable: e.hasUpdate,
-                              builder: (BuildContext context, bool value, Widget? child) {
-                                return Badge(
-                                  isLabelVisible: value,
-                                  child: child,
-                                );
-                              },
+                          child: ValueListenableBuilder(
+                            valueListenable: e.hasUpdate,
+                            builder: (BuildContext context, bool value, Widget? child) {
+                              return Badge(
+                                isLabelVisible: value,
+                                largeSize: 35,
+                                backgroundColor: Theme.of(context).primaryColor,
+                                label: const Icon(Icons.system_update),
+                                child: child,
+                              );
+                            },
+                            child: Card(
+                              clipBehavior: Clip.antiAlias,
+                              color: e.deviceConnectionState.value == DeviceConnectionState.connected ? Color(e.baseStoredDevice.color) : null,
                               child: InkWell(
                                 onTap: () {
                                   plausible.event(page: "Manage Gear");
