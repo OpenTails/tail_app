@@ -461,8 +461,13 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    widget.device.connectionStateStreamSubscription?.cancel();
-                    widget.device.forgetOnDisconnect = true;
+                    if (widget.device.deviceConnectionState.value == DeviceConnectionState.connected) {
+                      widget.device.connectionStateStreamSubscription?.cancel();
+                      widget.device.forgetOnDisconnect = true;
+                      widget.device.disableAutoConnect = true;
+                    } else {
+                      ref.read(knownDevicesProvider.notifier).remove(widget.device.baseStoredDevice.btMACAddress);
+                    }
                   });
                   Navigator.pop(context);
                 },
