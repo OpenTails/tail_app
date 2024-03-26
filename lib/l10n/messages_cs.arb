@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Udržuje obrazovku zapnutou, když je připojeno zařízení",
+  "settingsKeepScreenOnToggleSubTitle": "Tento režim zastaví vypínání obrazovky, když je vaše zařízení připojeno",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -630,6 +630,18 @@
   "sequencesPageDescription": "Vytvořte si vlastní akce pro své vybavení",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Kitsune režim",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Pokud připojíte mnoho instancí stejných zařízení, tento režim přidá k časům zahájení pohybu náhodné pauzy, čímž získá jiný vizuální efekt.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
