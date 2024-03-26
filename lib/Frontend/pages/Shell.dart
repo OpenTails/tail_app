@@ -333,7 +333,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                     ),
                   );
                 },
-              );
+              ).whenComplete(() => setState(() {}));
             },
           ),
           const ListTile(

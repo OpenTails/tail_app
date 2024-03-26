@@ -147,7 +147,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         ],
                       ),
                     );
-                  });
+                  }).whenComplete(() => setState(() {}));
             },
           ),
           const ListTile(
