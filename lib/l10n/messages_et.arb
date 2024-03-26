@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "Saba rakendus",
+  "title": "Rakendus DigiTail, MiTail, MiTail Mini, FlutterWings ja EarGear (TM ootel)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Jadad",
+  "sequencesPage": "Kohandatud toimingud",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Käigu tüüp",
+  "deviceType": "Rohkem",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -107,13 +107,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Uus järjestus",
+  "sequencesAdd": "Uus tegevus",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Redigeeri järjestust",
+  "sequencesEdit": "Redigeeri toimingut",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -179,13 +179,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Kustuta järjestus",
+  "sequencesEditDeleteTitle": "Kustuta toiming",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Kas olete kindel, et soovite selle jada kustutada?",
+  "sequencesEditDeleteDescription": "Kas olete kindel, et soovite selle toimingu kustutada?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Lubage toimingu või jada puudutamisel vibratsioon",
+  "settingsHapticsToggleSubTitle": "Lubage toimingu puudutamisel vibratsioon",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Teatab vigadest automaatselt valvurile",
+  "settingsErrorReportingToggleSubTitle": "Saadab Sentryle veateate",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Raputama",
+  "triggerShakeTitle": "Hääl maha",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Korda järjestust",
+  "sequenceEditRepeatTitle": "Korda toimingut",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Hoiab ekraani sisselülitatuna, kui varustus on ühendatud",
+  "settingsKeepScreenOnToggleSubTitle": "See režiim ei lülitu ekraani välja, kui teie varustus on ühendatud",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -618,6 +618,30 @@
   "moreTitle": "Rohkem",
   "@moreTitle": {
     "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Käigu asendi otse juhtimine.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Looge oma varustuse jaoks kohandatud toiminguid",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Kitsune režiim",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Kui ühendate samade seadmete mitu eksemplari, lisab see režiim nende liikumise algusaegadele juhuslikke pause, andes sellele erineva visuaalse efekti.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
