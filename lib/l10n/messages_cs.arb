@@ -185,7 +185,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Smazat sekvenci",
+  "sequencesEditDeleteTitle": "Smazat akci",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
