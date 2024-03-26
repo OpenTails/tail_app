@@ -1,5 +1,5 @@
 {
-  "title": "Aplikace Tail",
+  "title": "Aplikace DigiTail, MiTail, MiTail Mini, FlutterWings a EarGear (TM čeká)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Sekvence",
+  "sequencesPage": "Vlastní akce",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Typ zařízení",
+  "deviceType": "Typ ozubeného kola",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -107,13 +107,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Nová sekvence",
+  "sequencesAdd": "Nová akce",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Upravit sekvenci",
+  "sequencesEdit": "Upravit akci",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -185,13 +185,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Smazat sekvenci",
+  "sequencesEditDeleteTitle": "Smazat akci",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Opravdu chcete tuto sekvenci smazat?",
+  "sequencesEditDeleteDescription": "Opravdu chcete tuto akci smazat?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -249,13 +249,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Hmatová zpětná vazba",
+  "settingsHapticsToggleTitle": "Vyberte akci",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Povolit vibrace při klepnutí na akci nebo sekvenci",
+  "settingsHapticsToggleSubTitle": "Povolit vibrace při klepnutí na akci",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Automaticky hlásí chyby hlídce",
+  "settingsErrorReportingToggleSubTitle": "Odesílá chybová hlášení do Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -522,6 +522,126 @@
   "settingsDescription": "Změňte barvu aplikace, nakonfigurujte haptiku a další",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesConnect": "Připojit",
+  "@manageDevicesConnect": {
+    "description": "manage devices connect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualResponsibleWaggingTitle": "Zodpovědné Wagging",
+  "@moreManualResponsibleWaggingTitle": {
+    "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualMiTailTitle": "Manuál MiTail",
+  "@moreManualMiTailTitle": {
+    "description": "Title for MiTail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualDigitailTitle": "DigiTail manuál",
+  "@moreManualDigitailTitle": {
+    "description": "Title for Digitail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualEargearTitle": "Manuál EarGear",
+  "@moreManualEargearTitle": {
+    "description": "Title for EarGear manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualFlutterWingsTitle": "Manuál FlutterWings",
+  "@moreManualFlutterWingsTitle": {
+    "description": "Title for FlutterWings manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualTitle": "Příručky",
+  "@moreManualTitle": {
+    "description": "Title for manual header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualSubTitle": "Klepnutím zobrazíte",
+  "@moreManualSubTitle": {
+    "description": "Subtitle for each manual on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreUsefulLinksTitle": "užitečné odkazy",
+  "@moreUsefulLinksTitle": {
+    "description": "Title for Useful Links header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePrivacyPolicyLinkTitle": "Zásady ochrany osobních údajů",
+  "@morePrivacyPolicyLinkTitle": {
+    "description": "Title for UPrivacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleTitle": "Nechte obrazovku zapnutou",
+  "@settingsKeepScreenOnToggleTitle": {
+    "description": "Settings page Keep Awake toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleSubTitle": "Tento režim zastaví vypínání obrazovky, když je vaše zařízení připojeno",
+  "@settingsKeepScreenOnToggleSubTitle": {
+    "description": "Settings page Keep Awake toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleTitle": "Povolit anonymní analýzu",
+  "@settingsAnalyticsToggleTitle": {
+    "description": "Settings page analytics reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleSubTitle": "Nahlaste použití neidentifikujících funkcí společnosti Plausible za účelem vylepšení aplikace",
+  "@settingsAnalyticsToggleSubTitle": {
+    "description": "Settings page analytics reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shellDeviceBarToggleLabel": "Přepnout Gear Bar",
+  "@shellDeviceBarToggleLabel": {
+    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Více",
+  "@moreTitle": {
+    "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Přímé ovládání polohy převodovky.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Vytvořte si vlastní akce pro své vybavení",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Kitsune režim",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Pokud připojíte mnoho instancí stejných zařízení, tento režim přidá k časům zahájení pohybu náhodné pauzy, čímž získá jiný vizuální efekt.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
