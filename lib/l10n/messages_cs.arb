@@ -1,5 +1,5 @@
 {
-  "title": "Aplikace Tail",
+  "title": "Aplikace DigiTail, MiTail, MiTail Mini, FlutterWings a EarGear (TM čeká)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -618,6 +618,18 @@
   "moreTitle": "Více",
   "@moreTitle": {
     "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Přímé ovládání polohy převodovky.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Vytvořte si vlastní akce pro své vybavení",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
     "type": "text",
     "placeholders": {}
   }
