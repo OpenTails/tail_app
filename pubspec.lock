@@ -229,10 +229,10 @@ packages:
     dependency: transitive
     description:
       name: cronet_http
-      sha256: a38ffbb49797ae1e0f774fc884d128a7023986b14a3165e1e39841f9f7e22137
+      sha256: "9b9f00ae48971bc8a8cbdd4528bd35511adce00fb79d1ebf9f9907667056640f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.0"
   cross_file:
     dependency: transitive
     description:
@@ -333,10 +333,10 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: "49af28382aefc53562459104f64d16b9dfd1e8ef68c862d5af436cc8356ce5a8"
+      sha256: "50fec96118958b97c727d0d8f67255d3683f16cc1f90d9bc917b5d4fe3abeca9"
       url: "https://pub.dev"
     source: hosted
-    version: "5.4.1"
+    version: "5.4.2"
   dio_smart_retry:
     dependency: "direct main"
     description:
@@ -458,10 +458,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_adaptive_scaffold
-      sha256: "4257142551ec97761d44f4258b8ad53ac76593dd0992197b876769df19f8a018"
+      sha256: "600bbe237530a249f957f7d0f36273c20bd38d137e28e098c5231c30cadbe927"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.8"
+    version: "0.1.10+1"
   flutter_android_volume_keydown:
     dependency: "direct main"
     description:
@@ -1001,10 +1001,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_apple
-      sha256: "8c90be7f8244eeb2bbfa4248221d38a66ca3e3cc3ab967a25a2529d86eee7c45"
+      sha256: "92861b0f0c2443dd8898398c2baa4f1ae925109b5909ae4a17d0108a6a788932"
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.1"
+    version: "9.4.2"
   permission_handler_html:
     dependency: transitive
     description:
@@ -1574,10 +1574,10 @@ packages:
     dependency: "direct main"
     description:
       name: upgrader
-      sha256: "938c14b35175e9491785d2a5bb0ddf92e81846ba22443f073519ab45a24e0cc7"
+      sha256: "859ec45fe9160ca5f9aed4540517edaf6dbd36f57ed3537b99799ffd2b024685"
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.0"
+    version: "10.0.1"
   url_launcher:
     dependency: "direct main"
     description:
