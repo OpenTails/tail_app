@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Последовательности",
+  "sequencesPage": "Пользовательские действия",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -71,13 +71,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Новая последовательность",
+  "sequencesAdd": "Новое действие",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Редактировать последовательность",
+  "sequencesEdit": "Изменить действие",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -143,13 +143,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Удалить последовательность",
+  "sequencesEditDeleteTitle": "Удалить действие",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Вы уверены, что хотите удалить эту последовательность?",
+  "sequencesEditDeleteDescription": "Вы уверены, что хотите удалить это действие?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Включить вибрацию при нажатии действия или последовательности",
+  "settingsHapticsToggleSubTitle": "Включить вибрацию при нажатии на действие",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -225,7 +225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Автоматически сообщает об ошибках часовому",
+  "settingsErrorReportingToggleSubTitle": "Отправляет отчеты об ошибках в Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "Хвостовое приложение",
+  "title": "Приложение DigiTail, MiTail, MiTail Mini, FlutterWings и EarGear (на рассмотрении TM)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Повторить последовательность",
+  "sequenceEditRepeatTitle": "Повторить действие",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Экран остается включенным, пока устройство подключено",
+  "settingsKeepScreenOnToggleSubTitle": "Этот режим предотвращает выключение экрана, пока ваше оборудование подключено.",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -618,6 +618,30 @@
   "moreTitle": "Более",
   "@moreTitle": {
     "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Непосредственно контролируйте положение шестерни.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Создавайте собственные действия для своего снаряжения",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Режим Кицунэ",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Если вы подключаете много экземпляров одних и тех же устройств, этот режим добавит случайные паузы ко времени их начала движения, придав ему другой визуальный эффект.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
