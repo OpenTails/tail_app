@@ -113,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Upravit sekvenci",
+  "sequencesEdit": "Upravit akci",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
