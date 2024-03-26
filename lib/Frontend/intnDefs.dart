@@ -104,15 +104,15 @@ String settingsHapticsToggleSubTitle() => Intl.message('Enable vibration when an
 
 String settingsKeepScreenOnToggleTitle() => Intl.message('Keep Screen On', name: 'settingsKeepScreenOnToggleTitle', desc: 'Settings page Keep Awake toggle title');
 
-String settingsKeepScreenOnToggleSubTitle() => Intl.message('Keeps the screen on while gear is connected', name: 'settingsKeepScreenOnToggleSubTitle', desc: 'Settings page Keep Awake toggle subtitle');
+String settingsKeepScreenOnToggleSubTitle() => Intl.message('This mode stops the screen from switching off whilst your gear is connected', name: 'settingsKeepScreenOnToggleSubTitle', desc: 'Settings page Keep Awake toggle subtitle');
 
 String settingsKitsuneToggleTitle() => Intl.message('Kitsune Mode', name: 'settingsKitsuneToggleTitle', desc: 'Settings page Kitsune mode toggle title');
 
-String settingsKitsuneToggleSubTitle() => Intl.message('Adds a random delay so having multiple tails moves more naturally', name: 'settingsKitsuneToggleSubTitle', desc: 'Settings page Keep Awake toggle subtitle');
+String settingsKitsuneToggleSubTitle() => Intl.message('If you connect many instances of the same devices, this mode will add random pauses to their move-start times, giving it a different visual effect.', name: 'settingsKitsuneToggleSubTitle', desc: 'Settings page kitsune toggle subtitle');
 
 String settingsErrorReportingToggleTitle() => Intl.message('Automatic error reporting', name: 'settingsErrorReportingToggleTitle', desc: 'Settings page error reporting toggle title');
 
-String settingsErrorReportingToggleSubTitle() => Intl.message('Automatically reports errors to sentry', name: 'settingsErrorReportingToggleSubTitle', desc: 'Settings page error reporting toggle subtitle');
+String settingsErrorReportingToggleSubTitle() => Intl.message('Sends error reports to Sentry', name: 'settingsErrorReportingToggleSubTitle', desc: 'Settings page error reporting toggle subtitle');
 
 String settingsAnalyticsToggleTitle() => Intl.message('Allow Anonymous Analytics', name: 'settingsAnalyticsToggleTitle', desc: 'Settings page analytics reporting toggle title');
 
