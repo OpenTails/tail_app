@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Povolit vibrace při klepnutí na akci nebo sekvenci",
+  "settingsHapticsToggleSubTitle": "Povolit vibrace při klepnutí na akci",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
