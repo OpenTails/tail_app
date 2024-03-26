@@ -1,5 +1,5 @@
 {
-  "title": "Hale-app",
+  "title": "DigiTail, MiTail, MiTail Mini, FlutterWings og EarGear-appen (TM afventer)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Sekvenser",
+  "sequencesPage": "Brugerdefinerede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -107,19 +107,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Ny sekvens",
+  "sequencesAdd": "Ny handling",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Rediger sekvens",
+  "sequencesEdit": "Rediger handling",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Tilføj Flyt",
+  "sequencesEditAdd": "Rediger sekvens",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -179,13 +179,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Slet sekvens",
+  "sequencesEditDeleteTitle": "Slet handling",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Er du sikker på, at du vil slette denne sekvens?",
+  "sequencesEditDeleteDescription": "Er du sikker på, at du vil slette denne handling?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Aktiver vibration, når der trykkes på en handling eller sekvens",
+  "settingsHapticsToggleSubTitle": "Aktiver vibration, når der trykkes på en handling",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Rapporterer automatisk fejl til vagtposten",
+  "settingsErrorReportingToggleSubTitle": "Sender fejlrapporter til Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -513,13 +513,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Gentag sekvens",
+  "sequenceEditRepeatTitle": "Gentag handling",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Holder skærmen tændt, mens gear er tilsluttet",
+  "settingsKeepScreenOnToggleSubTitle": "Denne tilstand forhindrer skærmen i at slukke, mens dit udstyr er tilsluttet",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -618,6 +618,30 @@
   "moreTitle": "Mere",
   "@moreTitle": {
     "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Styr gearpositionen direkte.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Opret tilpassede handlinger til dit udstyr",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Kitsune-tilstand",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
