@@ -191,7 +191,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Opravdu chcete tuto sekvenci smazat?",
+  "sequencesEditDeleteDescription": "Opravdu chcete tuto akci smazat?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
