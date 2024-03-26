@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Automaticky hlásí chyby hlídce",
+  "settingsErrorReportingToggleSubTitle": "Odesílá chybová hlášení do Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
