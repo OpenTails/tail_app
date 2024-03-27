@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 
 import '../../../Backend/Bluetooth/BluetoothManager.dart';
 import '../../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import '../../../Backend/DeviceRegistry.dart';
+import '../../../constants.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {
   const DeveloperMenu({super.key});
@@ -45,6 +47,46 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             onTap: () {
               throw Exception('Sentry Test');
             },
+          ),
+          ListTile(
+            title: const Text(shouldDisplayReview),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(shouldDisplayReview, value);
+                  },
+                );
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text(hasDisplayedReview),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(hasDisplayedReview, value);
+                  },
+                );
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text(gearDisconnectCount),
+            subtitle: Slider(
+              divisions: 6,
+              max: 6,
+              min: 0,
+              value: SentryHive.box(settings).get(gearDisconnectCount, defaultValue: gearDisconnectCountDefault).toDouble(),
+              onChanged: (double value) {
+                setState(() {
+                  SentryHive.box(settings).put(gearDisconnectCount, value.toInt());
+                });
+              },
+            ),
           ),
           ListTile(
             title: Text(

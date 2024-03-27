@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:install_referrer/install_referrer.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
@@ -30,7 +31,7 @@ class PlausibleDio extends Plausible {
       super.serverUrl = serverUrl.substring(0, serverUrl.length - 1);
     }
     page = "app://localhost/$page";
-    referrer = "app://localhost/$referrer";
+    referrer = "app://localhost/$referrer?utm_source=${(await InstallReferrer.referrer).name}";
     props = Map.of(props);
     props['Number Of Devices'] = SentryHive.box<BaseStoredDevice>('devices').length.toString();
     props['Number Of Sequences'] = SentryHive.box<MoveList>('sequences').length.toString();

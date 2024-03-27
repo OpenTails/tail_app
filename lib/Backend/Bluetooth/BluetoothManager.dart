@@ -216,6 +216,12 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
       knownDevices[event.deviceId]?.deviceConnectionState.value = event.connectionState;
       if (event.connectionState == DeviceConnectionState.disconnected) {
         Flogger.i("Disconnected from device: ${event.deviceId}");
+        int count = SentryHive.box(settings).get(gearDisconnectCount, defaultValue: gearDisconnectCountDefault) + 1;
+        if (count > 5 && SentryHive.box(settings).get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
+          SentryHive.box(settings).put(shouldDisplayReview, true);
+        } else {
+          SentryHive.box(settings).put(gearDisconnectCount, count);
+        }
         knownDevices[event.deviceId]?.connectionStateStreamSubscription?.cancel();
         knownDevices[event.deviceId]?.connectionStateStreamSubscription = null;
         knownDevices[event.deviceId]?.batteryCharacteristicStreamSubscription?.cancel();

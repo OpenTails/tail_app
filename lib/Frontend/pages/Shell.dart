@@ -7,6 +7,9 @@ import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
@@ -90,10 +93,29 @@ Widget getBattery(double level) {
 class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExample> {
   int screenIndex = 0;
   bool showAppBar = true;
+  final InAppReview inAppReview = InAppReview.instance;
 
   @override
   Widget build(BuildContext context) {
     return UpgradeAlert(
+        child: ValueListenableBuilder(
+      valueListenable: SentryHive.box(settings).listenable(keys: [shouldDisplayReview]),
+      builder: (BuildContext context, Box<dynamic> value, Widget? child) {
+        inAppReview.isAvailable().then((isAvailable) {
+          if (isAvailable && value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
+            inAppReview.requestReview();
+            Future(
+              // Don't refresh widget in same frame
+              () {
+                SentryHive.box(settings).put(hasDisplayedReview, true);
+                SentryHive.box(settings).put(shouldDisplayReview, false);
+              },
+            );
+          }
+        });
+
+        return child!;
+      },
       child: TweenAnimationBuilder(
         tween: Tween<double>(begin: 90, end: showAppBar ? 90 : 0),
         duration: animationTransitionDuration,
@@ -172,7 +194,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
           );
         },
       ),
-    );
+    ));
   }
 }
 
