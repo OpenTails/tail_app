@@ -32,11 +32,17 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
   Flogger.d("Starting scan");
   final FlutterReactiveBle bluetoothManagerRef = ref.watch(reactiveBLEProvider);
   Stream<DiscoveredDevice> scanStream = bluetoothManagerRef.scanForDevices(withServices: DeviceRegistry.getAllIds(), requireLocationServicesEnabled: false, scanMode: ScanMode.lowPower).asBroadcastStream();
-  scanStream.listen((DiscoveredDevice event) {
-    if (ref.read(knownDevicesProvider).containsKey(event.id) && ref.read(knownDevicesProvider)[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected && !ref.read(knownDevicesProvider)[event.id]!.disableAutoConnect) {
-      ref.read(knownDevicesProvider.notifier).connect(event);
-    }
-  });
+  scanStream.listen(
+    (DiscoveredDevice event) {
+      if (ref.read(knownDevicesProvider).containsKey(event.id) && ref.read(knownDevicesProvider)[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected && !ref.read(knownDevicesProvider)[event.id]!.disableAutoConnect) {
+        ref.read(knownDevicesProvider.notifier).connect(event);
+      }
+    },
+  ).onError(
+    (e) {
+      Flogger.e('Error while scanning for gear:$e');
+    },
+  );
   return scanStream.skipWhile((DiscoveredDevice element) => ref.read(knownDevicesProvider).containsKey(element.id));
 }
 

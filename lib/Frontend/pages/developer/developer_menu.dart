@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
@@ -89,116 +88,46 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             ),
           ),
           ListTile(
+            title: const Text(firstLaunchSensors),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(firstLaunchSensors, defaultValue: firstLaunchSensorsDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(firstLaunchSensors, value);
+                  },
+                );
+              },
+            ),
+          ),
+          ListTile(
             title: Text(
               "Gear Debug",
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           ListTile(
-            title: const Text("Add Ear"),
+            title: const Text("Add new Device"),
             leading: const Icon(Icons.add),
-            onTap: () {
-              if (!ref.read(knownDevicesProvider).containsKey("DEV")) {
-                BaseStoredDevice baseStoredDevice;
-                BaseStatefulDevice statefulDevice;
-                BaseDeviceDefinition? deviceDefinition = DeviceRegistry.getByService([Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66")]);
-                baseStoredDevice = BaseStoredDevice(deviceDefinition!.uuid, "DEV", deviceDefinition.deviceType.color.value);
-                baseStoredDevice.name = getNameFromBTName(deviceDefinition.btName);
-                statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice, null);
-                statefulDevice.deviceConnectionState.value = ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.deviceConnectionState.value ?? DeviceConnectionState.connected;
-                statefulDevice.battery.value = ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.battery.value ?? 100;
-                ref.read(knownDevicesProvider.notifier).add(statefulDevice);
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Did not add dev gear, Gear already exists")),
-                );
-              }
-            },
-          ),
-          ListTile(
-            title: const Text("Add Tail"),
-            leading: const Icon(Icons.add),
-            onTap: () {
-              if (!ref.read(knownDevicesProvider).containsKey("DEV2")) {
-                BaseStoredDevice baseStoredDevice;
-                BaseStatefulDevice statefulDevice;
-                BaseDeviceDefinition? deviceDefinition = DeviceRegistry.getByService([Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6")]);
-                baseStoredDevice = BaseStoredDevice(deviceDefinition!.uuid, "DEV2", deviceDefinition.deviceType.color.value);
-                baseStoredDevice.name = getNameFromBTName(deviceDefinition.btName);
-                statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice, null);
-                statefulDevice.deviceConnectionState.value = ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.deviceConnectionState.value ?? DeviceConnectionState.connected;
-                statefulDevice.battery.value = ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.battery.value ?? 100;
-                ref.read(knownDevicesProvider.notifier).add(statefulDevice);
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Did not add dev gear, Gear already exists")),
-                );
-              }
-            },
-          ),
-          ListTile(
-            title: const Text("Set Connection State"),
-            leading: const Icon(Icons.bluetooth),
-            trailing: DropdownMenu<DeviceConnectionState>(
-              initialSelection: ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.deviceConnectionState.value ?? DeviceConnectionState.connected,
+            trailing: DropdownMenu<BaseDeviceDefinition>(
+              initialSelection: null,
               onSelected: (value) {
                 if (value != null) {
                   setState(
                     () {
-                      ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).forEach(
-                        (element) {
-                          element.deviceConnectionState.value = value;
-                        },
-                      );
+                      BaseStoredDevice baseStoredDevice;
+                      BaseStatefulDevice statefulDevice;
+                      baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color.value);
+                      baseStoredDevice.name = getNameFromBTName(value.btName);
+                      statefulDevice = BaseStatefulDevice(value, baseStoredDevice, null);
+                      if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
+                        ref.read(knownDevicesProvider.notifier).add(statefulDevice);
+                      }
                     },
                   );
                 }
               },
-              dropdownMenuEntries: DeviceConnectionState.values
-                  .map(
-                    (e) => DropdownMenuEntry(value: e, label: e.name),
-                  )
-                  .toList(),
-            ),
-          ),
-          ListTile(
-            title: const Text("Set Battery Level"),
-            leading: const Icon(Icons.battery_full),
-            subtitle: Slider(
-              min: -1,
-              max: 100,
-              value: ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.battery.value ?? 100,
-              onChanged: (double value) {
-                setState(
-                  () {
-                    ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).forEach(
-                      (element) {
-                        element.battery.value = value;
-                      },
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text("Set RSSI Level"),
-            leading: const Icon(Icons.battery_full),
-            subtitle: Slider(
-              min: -80,
-              max: -1,
-              value: ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).firstOrNull?.rssi.value.toDouble() ?? -1,
-              onChanged: (double value) {
-                setState(
-                  () {
-                    ref.read(knownDevicesProvider).values.where((element) => element.baseStoredDevice.btMACAddress.contains("DEV")).forEach(
-                      (element) {
-                        element.rssi.value = value.round();
-                      },
-                    );
-                  },
-                );
-              },
+              dropdownMenuEntries: DeviceRegistry.allDevices.map((e) => DropdownMenuEntry(value: e, label: e.btName)).toList(),
             ),
           ),
           ListTile(

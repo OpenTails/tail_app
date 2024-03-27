@@ -14,6 +14,7 @@ const String allowErrorReporting = 'allowErrorReporting';
 const String shouldDisplayReview = 'shouldDisplayReview';
 const String hasDisplayedReview = 'hasDisplayReview';
 const String gearDisconnectCount = 'reviewGearDisconnectCount';
+const String firstLaunchSensors = 'firstLaunchSensors';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -25,3 +26,7 @@ const bool allowErrorReportingDefault = true;
 const bool shouldDisplayReviewDefault = false;
 const bool hasDisplayedReviewDefault = false;
 const int gearDisconnectCountDefault = 0;
+const bool firstLaunchSensorsDefault = true;
+
+// Triggers labels
+const String triggerBox = 'triggers';

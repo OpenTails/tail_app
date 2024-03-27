@@ -35,7 +35,7 @@ class PlausibleDio extends Plausible {
     props = Map.of(props);
     props['Number Of Devices'] = SentryHive.box<BaseStoredDevice>('devices').length.toString();
     props['Number Of Sequences'] = SentryHive.box<MoveList>('sequences').length.toString();
-    props['Number Of Triggers'] = SentryHive.box<Trigger>('triggers').length.toString();
+    props['Number Of Triggers'] = SentryHive.box<Trigger>(triggerBox).length.toString();
 
     // Http Post request see https://plausible.io/docs/events-api
     try {
