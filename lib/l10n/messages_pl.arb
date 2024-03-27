@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Sekwencje",
+  "sequencesPage": "Akcje niestandardowe",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -77,13 +77,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Nowa sekwencja",
+  "sequencesAdd": "Nowa akcja",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Edytuj sekwencję",
+  "sequencesEdit": "Edytuj akcję",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -149,13 +149,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Usuń sekwencję",
+  "sequencesEditDeleteTitle": "Usuń akcję",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Czy na pewno chcesz usunąć tę sekwencję?",
+  "sequencesEditDeleteDescription": "Czy na pewno chcesz usunąć tę akcję?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -219,7 +219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Włącz wibracje po dotknięciu akcji lub sekwencji",
+  "settingsHapticsToggleSubTitle": "Włącz wibracje po dotknięciu akcji",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Automatycznie raportuje błędy do wartownika",
+  "settingsErrorReportingToggleSubTitle": "Wysyła raporty o błędach do Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -489,13 +489,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Powtórz sekwencję",
+  "sequenceEditRepeatTitle": "Powtórz czynność",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "title": "Aplikacja Ogon",
+  "title": "Aplikacja DigiTail, MiTail, MiTail Mini, FlutterWings i EarGear (TM w toku)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Utrzymuje ekran włączony, gdy sprzęt jest podłączony",
+  "settingsKeepScreenOnToggleSubTitle": "Ten tryb zapobiega wyłączaniu się ekranu, gdy sprzęt jest podłączony",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -618,6 +618,30 @@
   "shellDeviceBarToggleLabel": "Przełącz pasek zębaty",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Bezpośrednio kontroluj położenie przekładni.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Twórz niestandardowe akcje dla swojego sprzętu",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Tryb Kitsune’a",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Jeśli podłączysz wiele instancji tych samych urządzeń, ten tryb doda losowe przerwy do ich czasów rozpoczęcia ruchu, nadając mu inny efekt wizualny.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   }

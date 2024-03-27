@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "しっぽアプリ",
+  "title": "DigiTail、MiTail、MiTail Mini、FlutterWings、および EarGear アプリ (TM 保留中)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "シーケンス",
+  "sequencesPage": "カスタムアクション",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -107,13 +107,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "新しいシーケンス",
+  "sequencesAdd": "新しいアクション",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "シーケンスの編集",
+  "sequencesEdit": "アクションの編集",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -167,7 +167,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "時間",
+  "sequencesEditTime": "イージングタイプ",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -179,19 +179,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "シーケンスの削除",
+  "sequencesEditDeleteTitle": "削除アクション",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "このシーケンスを削除してもよろしいですか?",
+  "sequencesEditDeleteDescription": "このアクションを削除してもよろしいですか?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "次の動作を {howMany} ミリ秒遅らせます。",
+  "sequenceEditListDelayLabel": "次の動きを{howMany}ミリ秒遅らせます。",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -219,7 +219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryTense": "イライラと緊張",
+  "actionsCategoryTense": "イライラして緊張している",
   "@actionsCategoryTense": {
     "description": "tense action group label",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "アクションまたはシーケンスがタップされたときに振動を有効にする",
+  "settingsHapticsToggleSubTitle": "アクションをタップしたときに振動を有効にする",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "自動的にエラーを監視者に報告します",
+  "settingsErrorReportingToggleSubTitle": "エラーレポートをSentryに送信します",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "シーケンスの繰り返し",
+  "sequenceEditRepeatTitle": "アクションを繰り返す",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "ギアが接続されている間は画面をオンのままにします",
+  "settingsKeepScreenOnToggleSubTitle": "このモードでは、機器が接続されている間、画面がオフになるのを防ぎます。",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -615,9 +615,33 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "トグルギアバー",
+  "shellDeviceBarToggleLabel": "ギアバーを切り替える",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "ギアのカスタムアクションを作成する",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "キツネモード",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "同じデバイスの多数のインスタンスを接続する場合、このモードは移動開始時間にランダムな一時停止を追加し、異なる視覚効果を与えます。",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "ギア位置をダイレクトにコントロール。",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
     "type": "text",
     "placeholders": {}
   }

@@ -17,13 +17,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Nouvelle séquence",
+  "sequencesAdd": "Nouvelle action",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Modifier la séquence",
+  "sequencesEdit": "Modifier l'action",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -83,13 +83,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Supprimer la séquence",
+  "sequencesEditDeleteTitle": "Supprimer l'action",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Êtes-vous sûr de vouloir supprimer cette séquence ?",
+  "sequencesEditDeleteDescription": "Êtes-vous sûr de vouloir supprimer cette action ?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -147,7 +147,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Activer les vibrations lorsqu'une action ou une séquence est exploitée",
+  "settingsHapticsToggleSubTitle": "Activer les vibrations lorsqu'une action est appuyée",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -159,7 +159,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Signale automatiquement les erreurs à la sentinelle",
+  "settingsErrorReportingToggleSubTitle": "Envoie des rapports d'erreurs à Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -285,7 +285,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "Application Queue",
+  "title": "Les applications DigiTail, MiTail, MiTail Mini, FlutterWings et EarGear (TM en attente)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -333,7 +333,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Séquences",
+  "sequencesPage": "Actions personnalisées",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -477,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Répéter la séquence",
+  "sequenceEditRepeatTitle": "Répéter l'action",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Maintient l'écran allumé pendant que l'équipement est connecté",
+  "settingsKeepScreenOnToggleSubTitle": "Ce mode empêche l'écran de s'éteindre lorsque votre équipement est connecté",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -618,6 +618,30 @@
   "moreTitle": "Plus",
   "@moreTitle": {
     "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Contrôlez directement la position de la vitesse.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Créez des actions personnalisées pour votre équipement",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Mode Kitsune",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de déplacement, ce qui lui donnera un effet visuel différent.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   }

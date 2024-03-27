@@ -1,5 +1,5 @@
 {
-  "title": "Staart-app",
+  "title": "De DigiTail-, MiTail-, MiTail Mini-, FlutterWings- en EarGear-app (TM in behandeling)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -47,7 +47,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Opeenvolgingen",
+  "sequencesPage": "Aangepaste acties",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -89,13 +89,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Nieuwe reeks",
+  "sequencesAdd": "Nieuwe actie",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Volgorde bewerken",
+  "sequencesEdit": "Actie bewerken",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -161,13 +161,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Reeks verwijderen",
+  "sequencesEditDeleteTitle": "Actie verwijderen",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Weet u zeker dat u deze reeks wilt verwijderen?",
+  "sequencesEditDeleteDescription": "Weet u zeker dat u deze actie wilt verwijderen?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Schakel trillingen in wanneer op een actie of reeks wordt getikt",
+  "settingsHapticsToggleSubTitle": "Schakel trillingen in wanneer op een actie wordt getikt",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Rapporteert automatisch fouten aan de schildwacht",
+  "settingsErrorReportingToggleSubTitle": "Stuurt foutrapporten naar Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Activeer een actie door op de volumeknop te drukken",
+  "triggerVolumeButtonDescription": "Volumeknoppen",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Rechtse kanteling",
+  "triggerEarTiltRight": "Rechts kantelen",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Herhaal reeks",
+  "sequenceEditRepeatTitle": "Herhaal actie",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Houdt het scherm ingeschakeld terwijl de uitrusting is aangesloten",
+  "settingsKeepScreenOnToggleSubTitle": "Deze modus voorkomt dat het scherm wordt uitgeschakeld terwijl uw apparatuur is aangesloten",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -618,6 +618,30 @@
   "moreTitle": "Meer",
   "@moreTitle": {
     "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Als je veel exemplaren van dezelfde apparaten met elkaar verbindt, voegt deze modus willekeurige pauzes toe aan de starttijden van hun verplaatsingen, waardoor het een ander visueel effect krijgt.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Directe controle van de versnellingspositie.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Maak aangepaste acties voor je uitrusting",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Kitsune-modus",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
     "type": "text",
     "placeholders": {}
   }
