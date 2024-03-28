@@ -236,3 +236,15 @@ String moreUsefulLinksTitle() => Intl.message("Useful Links", name: 'moreUsefulL
 String morePrivacyPolicyLinkTitle() => Intl.message("Privacy Policy", name: 'morePrivacyPolicyLinkTitle', desc: 'Title for UPrivacy policy link under Useful Links on More page');
 
 String moreTitle() => Intl.message("More", name: 'moreTitle', desc: 'Title for More page');
+
+String otaTitle() => Intl.message("Update Gear", name: 'otaTitle', desc: 'Title for OTA page');
+
+String otaChangelogLabel() => Intl.message("Changelog", name: 'otaTitle', desc: 'Label for changelog section of OTA page');
+
+String otaDownloadButtonLabel() => Intl.message("Download", name: 'otaDownloadButtonLabel', desc: 'Label for download firmware button at bottom of OTA page');
+
+String otaUploadButtonLabel() => Intl.message("Upload", name: 'otaUploadButtonLabel', desc: 'Label for upload firmware button at bottom of OTA page');
+
+String otaUploadProgressLabel() => Intl.message("Upload Progress", name: 'otaUploadProgressLabel', desc: 'Label for upload firmware progress bar at bottom of OTA page');
+
+String otaDownloadProgressLabel() => Intl.message("Download Progress", name: 'otaDownloadProgressLabel', desc: 'Label for download firmware progress bar at bottom of OTA page');

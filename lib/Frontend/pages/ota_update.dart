@@ -12,6 +12,7 @@ import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/main.dart';
 
 import '../../Backend/FirmwareUpdate.dart';
+import '../intnDefs.dart';
 
 class OtaUpdate extends ConsumerStatefulWidget {
   OtaUpdate({super.key, required this.device});
@@ -47,14 +48,14 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       uploadFirmware();
     }*/
     return Scaffold(
-      appBar: AppBar(title: Text("Update Gear")),
+      appBar: AppBar(title: Text(otaTitle())),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             if (kDebugMode) ...[
               ListTile(
-                title: Text("Debug"),
+                title: const Text("Debug"),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -69,7 +70,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
               ),
             ],
             ListTile(
-              title: Text("ChangeLog"),
+              title: Text(otaChangelogLabel()),
               subtitle: Text(updateURL?.changelog ?? "Unavailable"),
             ),
             Expanded(
@@ -81,8 +82,8 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         ButtonBar(
                           alignment: MainAxisAlignment.center,
                           children: [
-                            ElevatedButton(onPressed: updateURL != null ? () => downloadFirmware() : null, child: Text("Download")),
-                            ElevatedButton(onPressed: firmwareFile != null && otaState != OtaState.upload ? () => uploadFirmware() : null, child: Text("Upload")),
+                            ElevatedButton(onPressed: updateURL != null ? () => downloadFirmware() : null, child: Text(otaDownloadButtonLabel())),
+                            ElevatedButton(onPressed: firmwareFile != null && otaState != OtaState.upload ? () => uploadFirmware() : null, child: Text(otaUploadButtonLabel())),
                             if (kDebugMode) ...[
                               ElevatedButton(
                                 onPressed: () async {
@@ -103,18 +104,18 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                                     // User canceled the picker
                                   }
                                 },
-                                child: Text("Select file"),
+                                child: const Text("Select file"),
                               )
                             ],
                           ],
                         ),
                         ListTile(
-                          title: Text("Download Progress"),
+                          title: Text(otaDownloadProgressLabel()),
                           leading: const Icon(Icons.download),
                           subtitle: LinearProgressIndicator(value: downloadProgress),
                         ),
                         ListTile(
-                          title: Text("Upload Progress"),
+                          title: Text(otaUploadProgressLabel()),
                           leading: const Icon(Icons.upload),
                           subtitle: LinearProgressIndicator(value: uploadProgress),
                         )
