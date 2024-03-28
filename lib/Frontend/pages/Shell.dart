@@ -104,18 +104,22 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
         child: ValueListenableBuilder(
       valueListenable: SentryHive.box(settings).listenable(keys: [shouldDisplayReview]),
       builder: (BuildContext context, Box<dynamic> value, Widget? child) {
-        inAppReview.isAvailable().then((isAvailable) {
-          if (isAvailable && value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
-            inAppReview.requestReview();
-            Future(
-              // Don't refresh widget in same frame
-              () {
-                SentryHive.box(settings).put(hasDisplayedReview, true);
-                SentryHive.box(settings).put(shouldDisplayReview, false);
-              },
-            );
-          }
-        });
+        if (value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
+          inAppReview.isAvailable().then(
+            (isAvailable) {
+              if (isAvailable && value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
+                inAppReview.requestReview();
+                Future(
+                  // Don't refresh widget in same frame
+                  () {
+                    SentryHive.box(settings).put(hasDisplayedReview, true);
+                    SentryHive.box(settings).put(shouldDisplayReview, false);
+                  },
+                );
+              }
+            },
+          );
+        }
 
         return child!;
       },
