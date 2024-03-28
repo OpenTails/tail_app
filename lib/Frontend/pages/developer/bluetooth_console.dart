@@ -83,7 +83,13 @@ class DisplayLog extends StatefulWidget {
 class _DisplayLogState extends State<DisplayLog> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 100)).then((value) => setState(() {}));
+    Future.delayed(const Duration(milliseconds: 100)).then(
+      (value) {
+        if (context.mounted) {
+          setState(() {});
+        }
+      },
+    );
     return Padding(
       padding: const EdgeInsets.only(bottom: 100),
       child: ListView.builder(
