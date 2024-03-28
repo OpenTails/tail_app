@@ -108,7 +108,16 @@ String settingsKeepScreenOnToggleSubTitle() => Intl.message('This mode stops the
 
 String settingsKitsuneToggleTitle() => Intl.message('Kitsune Mode', name: 'settingsKitsuneToggleTitle', desc: 'Settings page Kitsune mode toggle title');
 
-String settingsKitsuneToggleSubTitle() => Intl.message('If you connect many instances of the same devices, this mode will add random pauses to their move-start times, giving it a different visual effect.', name: 'settingsKitsuneToggleSubTitle', desc: 'Settings page kitsune toggle subtitle');
+String settingsKitsuneToggleSubTitle() =>
+    Intl.message('If you connect many instances of the same devices, this mode will add random pauses to their move-start times, giving it a different visual effect.', name: 'settingsKitsuneToggleSubTitle', desc: 'Settings page show battery percentage toggle subtitle');
+
+String settingsBatteryPercentageToggleTitle() => Intl.message('Show Battery %', name: 'settingsBatteryPercentageToggleTitle', desc: 'Settings page Battery Percentage mode toggle title');
+
+String settingsBatteryPercentageToggleSubTitle() => Intl.message('Show the actual battery level instead of an icon', name: 'settingsBatteryPercentageToggleSubTitle', desc: 'Settings page show battery percentage toggle subtitle');
+
+String settingsLargerCardsToggleTitle() => Intl.message('Larger Cards', name: 'settingsLargerCardsToggleTitle', desc: 'Settings page Larger cards toggle title');
+
+String settingsLargerCardsToggleSubTitle() => Intl.message('Makes the action cards bigger for easier tapping', name: 'settingsLargerCardsToggleSubTitle', desc: 'Settings page show larger cards toggle subtitle');
 
 String settingsErrorReportingToggleTitle() => Intl.message('Automatic error reporting', name: 'settingsErrorReportingToggleTitle', desc: 'Settings page error reporting toggle title');
 

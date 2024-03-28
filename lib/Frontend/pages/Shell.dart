@@ -65,6 +65,9 @@ Widget getSignal(int rssi) {
 }
 
 Widget getBattery(double level) {
+  if (SentryHive.box(settings).get(showAccurateBattery, defaultValue: showAccurateBatteryDefault)) {
+    return Text('${level.toInt()}%');
+  }
   if (level < 0) {
     return const Icon(Icons.battery_unknown);
   }

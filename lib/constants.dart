@@ -15,6 +15,8 @@ const String shouldDisplayReview = 'shouldDisplayReview';
 const String hasDisplayedReview = 'hasDisplayReview';
 const String gearDisconnectCount = 'reviewGearDisconnectCount';
 const String firstLaunchSensors = 'firstLaunchSensors';
+const String showAccurateBattery = 'showAccurateBattery';
+const String largerActionCardSize = 'largerActionCardSize';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -27,6 +29,7 @@ const bool shouldDisplayReviewDefault = false;
 const bool hasDisplayedReviewDefault = false;
 const int gearDisconnectCountDefault = 0;
 const bool firstLaunchSensorsDefault = true;
-
+const bool showAccurateBatteryDefault = false;
+const bool largerActionCardSizeDefault = false;
 // Triggers labels
 const String triggerBox = 'triggers';

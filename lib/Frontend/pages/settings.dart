@@ -39,56 +39,6 @@ class _SettingsState extends ConsumerState<Settings> {
         controller: _controller,
         children: [
           ListTile(
-            title: Text(settingsHapticsToggleTitle()),
-            leading: const Icon(Icons.vibration),
-            subtitle: Text(settingsHapticsToggleSubTitle()),
-            trailing: Switch(
-              value: SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault),
-              onChanged: (bool value) {
-                setState(() {
-                  SentryHive.box(settings).put(haptics, value);
-                });
-              },
-            ),
-          ),
-          ListTile(
-            //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
-            title: Text(settingsKeepScreenOnToggleTitle()),
-            leading: const Icon(Icons.phone_android),
-            subtitle: Text(settingsKeepScreenOnToggleSubTitle()),
-            trailing: Switch(
-              value: SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault),
-              onChanged: (bool value) {
-                setState(() {
-                  SentryHive.box(settings).put(keepAwake, value);
-                  if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isNotEmpty) {
-                    if (value) {
-                      WakelockPlus.enable();
-                    } else {
-                      WakelockPlus.disable();
-                    }
-                  }
-                });
-              },
-            ),
-          ),
-          ListTile(
-            //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
-            title: Text(settingsKitsuneToggleTitle()),
-            leading: const Icon(Icons.more_time),
-            subtitle: Text(settingsKitsuneToggleSubTitle()),
-            trailing: Switch(
-              value: SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault),
-              onChanged: (bool value) {
-                setState(
-                  () {
-                    SentryHive.box(settings).put(kitsuneModeToggle, value);
-                  },
-                );
-              },
-            ),
-          ),
-          ListTile(
             leading: const Icon(Icons.color_lens),
             title: Text(
               settingsAppColor(),
@@ -149,6 +99,87 @@ class _SettingsState extends ConsumerState<Settings> {
                     );
                   }).whenComplete(() => setState(() {}));
             },
+          ),
+          ListTile(
+            title: Text(settingsBatteryPercentageToggleTitle()),
+            leading: const Icon(Icons.battery_unknown),
+            subtitle: Text(settingsBatteryPercentageToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(showAccurateBattery, defaultValue: showAccurateBatteryDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(showAccurateBattery, value);
+                  },
+                );
+              },
+            ),
+          ),
+          ListTile(
+            title: Text(settingsLargerCardsToggleTitle()),
+            leading: const Icon(Icons.format_size),
+            subtitle: Text(settingsLargerCardsToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(largerActionCardSize, defaultValue: largerActionCardSizeDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(largerActionCardSize, value);
+                  },
+                );
+              },
+            ),
+          ),
+          const ListTile(
+            title: Divider(),
+          ),
+          ListTile(
+            title: Text(settingsHapticsToggleTitle()),
+            leading: const Icon(Icons.vibration),
+            subtitle: Text(settingsHapticsToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault),
+              onChanged: (bool value) {
+                setState(() {
+                  SentryHive.box(settings).put(haptics, value);
+                });
+              },
+            ),
+          ),
+          ListTile(
+            title: Text(settingsKeepScreenOnToggleTitle()),
+            leading: const Icon(Icons.phone_android),
+            subtitle: Text(settingsKeepScreenOnToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault),
+              onChanged: (bool value) {
+                setState(() {
+                  SentryHive.box(settings).put(keepAwake, value);
+                  if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isNotEmpty) {
+                    if (value) {
+                      WakelockPlus.enable();
+                    } else {
+                      WakelockPlus.disable();
+                    }
+                  }
+                });
+              },
+            ),
+          ),
+          ListTile(
+            title: Text(settingsKitsuneToggleTitle()),
+            leading: const Icon(Icons.more_time),
+            subtitle: Text(settingsKitsuneToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(kitsuneModeToggle, value);
+                  },
+                );
+              },
+            ),
           ),
           const ListTile(
             title: Divider(),

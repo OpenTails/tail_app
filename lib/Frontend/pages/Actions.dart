@@ -33,6 +33,7 @@ class ActionPageBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool largerCards = SentryHive.box(settings).get(largerActionCardSize, defaultValue: largerActionCardSizeDefault);
     AsyncValue<BleStatus> btStatus = ref.watch(btStatusProvider);
     Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
     if (btStatus.valueOrNull != null && btStatus.valueOrNull == BleStatus.ready && knownDevices.isNotEmpty) {
@@ -55,7 +56,7 @@ class ActionPageBuilder extends ConsumerWidget {
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 125),
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 225 : 125),
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: actionsForCat.length,
@@ -104,7 +105,10 @@ class ActionPageBuilder extends ConsumerWidget {
                                               children: knownDevices.values
                                                   .where((element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType))
                                                   .map(
-                                                    (e) => Text(e.baseDeviceDefinition.deviceType.name.substring(0, 1)),
+                                                    (e) => Text(
+                                                      e.baseDeviceDefinition.deviceType.name.substring(0, 1),
+                                                      textScaler: TextScaler.linear(largerCards ? 2 : 1),
+                                                    ),
                                                   )
                                                   .toList(),
                                             ),
@@ -115,6 +119,7 @@ class ActionPageBuilder extends ConsumerWidget {
                                               semanticsLabel: actionsForCat[actionIndex].name,
                                               overflow: TextOverflow.fade,
                                               textAlign: TextAlign.center,
+                                              textScaler: TextScaler.linear(largerCards ? 2 : 1),
                                             ),
                                           )
                                         ],
