@@ -183,7 +183,7 @@ Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref, Set<Dev
 }
 
 @HiveType(typeId: 13)
-class FavoriteAction implements Comparable {
+class FavoriteAction implements Comparable<FavoriteAction> {
   @HiveField(1)
   String actionUUID;
   @HiveField(2)
@@ -193,9 +193,7 @@ class FavoriteAction implements Comparable {
 
   @override
   int compareTo(other) {
-    if (other is FavoriteAction) {
-      id.compareTo(other.id);
-    }
+    id.compareTo(other.id);
     return 0;
   }
 }
