@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Opakujte sekvenci",
+  "sequenceEditRepeatTitle": "Opakujte akci",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",

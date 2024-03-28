@@ -1,5 +1,5 @@
 {
-  "title": "Schwanz-App",
+  "title": "Die DigiTail-, MiTail-, MiTail Mini-, FlutterWings- und EarGear-App (TM angemeldet)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -47,7 +47,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Sequenzen",
+  "sequencesPage": "Benutzerdefinierte Aktionen",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -119,13 +119,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Sequenz löschen",
+  "sequencesEditDeleteTitle": "Aktion löschen",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Möchten Sie diese Sequenz wirklich löschen?",
+  "sequencesEditDeleteDescription": "Sind Sie sicher, dass Sie diese Aktion löschen möchten?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -183,7 +183,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Aktivieren Sie die Vibration, wenn auf eine Aktion oder Sequenz getippt wird",
+  "settingsHapticsToggleSubTitle": "Aktivieren Sie die Vibration, wenn auf eine Aktion getippt wird",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -195,7 +195,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Meldet Fehler automatisch an Sentry",
+  "settingsErrorReportingToggleSubTitle": "Sendet Fehlerberichte an Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -267,13 +267,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Neue Sequenz",
+  "sequencesAdd": "Neue Aktion",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Sequenz bearbeiten",
+  "sequencesEdit": "Aktion bearbeiten",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Wiederholen Sie die Sequenz",
+  "sequenceEditRepeatTitle": "Aktion wiederholen",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Der Bildschirm bleibt eingeschaltet, während die Ausrüstung angeschlossen ist",
+  "settingsKeepScreenOnToggleSubTitle": "Dieser Modus verhindert, dass sich der Bildschirm ausschaltet, während Ihre Ausrüstung angeschlossen ist",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -618,6 +618,30 @@
   "moreTitle": "Mehr",
   "@moreTitle": {
     "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Steuern Sie direkt die Gangposition.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Erstellen Sie benutzerdefinierte Aktionen für Ihre Ausrüstung",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Kitsune-Modus",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus zufällige Pausen zu den Startzeiten ihrer Bewegungen hinzu, was zu einem anderen visuellen Effekt führt.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   }

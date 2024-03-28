@@ -23,19 +23,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Eliminar secuencia",
+  "sequencesEditDeleteTitle": "Eliminar acción",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Editar secuencia",
+  "sequencesEdit": "Editar acción",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
     "placeholders": {}
   },
-  "title": "Aplicación de cola",
+  "title": "La aplicación DigiTail, MiTail, MiTail Mini, FlutterWings y EarGear (TM pendiente)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -191,7 +191,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Habilitar la vibración cuando se toca una acción o secuencia",
+  "settingsHapticsToggleSubTitle": "Habilitar la vibración cuando se toca una acción",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "¿Estás seguro de que deseas eliminar esta secuencia?",
+  "sequencesEditDeleteDescription": "¿Estás seguro de que deseas eliminar esta acción?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -225,7 +225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Informa automáticamente los errores al centinela",
+  "settingsErrorReportingToggleSubTitle": "Envía informes de errores a Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -345,7 +345,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Nueva secuencia",
+  "sequencesAdd": "Nueva acción",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Secuencias",
+  "sequencesPage": "Acciones personalizadas",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Repetir secuencia",
+  "sequenceEditRepeatTitle": "Repetir acción",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Enlaces útiles",
+  "moreUsefulLinksTitle": "Toca para ver",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Mantiene la pantalla encendida mientras el equipo está conectado",
+  "settingsKeepScreenOnToggleSubTitle": "Este modo evita que la pantalla se apague mientras su equipo está conectado",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -618,6 +618,30 @@
   "moreTitle": "Más",
   "@moreTitle": {
     "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Controla directamente la posición del engranaje.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Crea acciones personalizadas para tu equipo",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Modo Kitsune",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Si conecta muchas instancias de los mismos dispositivos, este modo agregará pausas aleatorias a sus tiempos de inicio de movimiento, dándole un efecto visual diferente.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
