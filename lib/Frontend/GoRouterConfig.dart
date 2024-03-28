@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
 import 'package:tail_app/Frontend/pages/Shell.dart';
+import 'package:tail_app/Frontend/pages/developer/bluetooth_console.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
 import 'package:tail_app/Frontend/pages/more.dart';
 import 'package:tail_app/Frontend/pages/move_list.dart';
@@ -173,12 +175,14 @@ final GoRouter router = GoRouter(
       },
       routes: [
         if (kDebugMode) ...[
-          GoRoute(
-            name: 'Settings/Developer Menu',
-            path: 'developer',
-            parentNavigatorKey: _rootNavigatorKey,
-            builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
-          )
+          GoRoute(name: 'Settings/Developer Menu', path: 'developer', parentNavigatorKey: _rootNavigatorKey, builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(), routes: [
+            GoRoute(
+              name: 'Settings/Developer Menu/Console',
+              path: 'console',
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (BuildContext context, GoRouterState state) => BluetoothConsole(device: state.extra! as BaseStatefulDevice),
+            ),
+          ]),
         ]
       ],
     ),

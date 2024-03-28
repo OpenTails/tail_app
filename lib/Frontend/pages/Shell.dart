@@ -431,6 +431,12 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  FilledButton(
+                    onPressed: () {
+                      context.push("/settings/developer/console", extra: widget.device);
+                    },
+                    child: const Text("Open console"),
+                  ),
                   Text("BT MAC: ${widget.device.baseStoredDevice.btMACAddress}"),
                   Text("HW VER: ${widget.device.hwVersion.value}"),
                   Text("FW VER: ${widget.device.fwVersion.value}"),
