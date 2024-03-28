@@ -126,6 +126,7 @@ class KnownDevices extends _$KnownDevices {
           statefulDevice.rxCharacteristicStream?.listen((event) {
             String value = const Utf8Decoder().convert(event);
             Flogger.i("Received message from ${baseStoredDevice.name}: $value");
+            statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
             if (value.startsWith("VER")) {
               statefulDevice.fwVersion.value = value.substring(value.indexOf(" "));
               if (statefulDevice.fwInfo.value != null) {
@@ -312,6 +313,7 @@ class CommandQueue {
         try {
           Flogger.d("Sending command to ${device.baseStoredDevice.name}:${message.message}");
           await ref?.read(reactiveBLEProvider).writeCharacteristicWithResponse(message.device.txCharacteristic, value: const Utf8Encoder().convert(message.message));
+          device.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.send, message: message.message));
           if (message.onCommandSent != null) {
             // Callback when the specific command is run
             message.onCommandSent!();
