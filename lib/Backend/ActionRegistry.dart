@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'package:hive/hive.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/moveLists.dart';
 
+import '../constants.dart';
 import 'Bluetooth/BluetoothManager.dart';
 import 'Definitions/Action/BaseAction.dart';
 import 'Definitions/Device/BaseDeviceDefinition.dart';
@@ -176,4 +180,52 @@ Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref, Set<Dev
     }
   }
   return sortedActions;
+}
+
+@HiveType(typeId: 13)
+class FavoriteAction implements Comparable {
+  @HiveField(1)
+  String actionUUID;
+  @HiveField(2)
+  int id;
+
+  FavoriteAction({required this.actionUUID, required this.id});
+
+  @override
+  int compareTo(other) {
+    if (other is FavoriteAction) {
+      id.compareTo(other.id);
+    }
+    return 0;
+  }
+}
+
+@Riverpod(keepAlive: true)
+class FavoriteActions extends _$FavoriteActions {
+  @override
+  List<FavoriteAction> build() {
+    return List.of([if (SentryHive.box<FavoriteAction>(favoriteActionsBox).isNotEmpty) ...SentryHive.box<FavoriteAction>(favoriteActionsBox).values]);
+  }
+
+  void add(BaseAction action) {
+    state.add(FavoriteAction(actionUUID: action.uuid, id: state.length + 1));
+    state.sort();
+    store();
+  }
+
+  void remove(BaseAction action) {
+    state.removeWhere((element) => element.actionUUID == action.uuid);
+    store();
+  }
+
+  bool contains(BaseAction action) {
+    return state.any((element) => element.actionUUID == action.uuid);
+  }
+
+  Future<void> store() async {
+    Flogger.i("Storing favorites");
+    SentryHive.box<FavoriteAction>(favoriteActionsBox)
+      ..clear()
+      ..addAll(state);
+  }
 }

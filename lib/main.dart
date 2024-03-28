@@ -21,6 +21,7 @@ import 'package:sentry_dio/sentry_dio.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
+import 'package:tail_app/Backend/ActionRegistry.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 import 'Backend/Definitions/Action/BaseAction.dart';
@@ -85,9 +86,11 @@ Future<void> main() async {
     ..registerAdapter(EasingTypeAdapter())
     ..registerAdapter(
       AutoActionCategoryAdapter(),
-    );
+    )
+    ..registerAdapter(FavoriteActionAdapter());
   await SentryHive.openBox(settings);
-  await SentryHive.openBox<Trigger>('triggers');
+  await SentryHive.openBox<Trigger>(triggerBox);
+  await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
   initDio();

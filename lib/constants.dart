@@ -33,3 +33,5 @@ const bool showAccurateBatteryDefault = false;
 const bool largerActionCardSizeDefault = false;
 // Triggers labels
 const String triggerBox = 'triggers';
+
+const String favoriteActionsBox = 'favoriteActions';
