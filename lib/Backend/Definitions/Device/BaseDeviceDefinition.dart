@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 
+import 'package:circular_buffer/circular_buffer.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
@@ -70,43 +71,45 @@ class BaseDeviceDefinition {
 class BaseStatefulDevice {
   final BaseDeviceDefinition baseDeviceDefinition;
   final BaseStoredDevice baseStoredDevice;
-  late QualifiedCharacteristic rxCharacteristic;
-  late QualifiedCharacteristic txCharacteristic;
-  late QualifiedCharacteristic batteryCharacteristic;
-  late QualifiedCharacteristic batteryChargeCharacteristic;
+  late final QualifiedCharacteristic rxCharacteristic;
+  late final QualifiedCharacteristic txCharacteristic;
+  late final QualifiedCharacteristic batteryCharacteristic;
+  late final QualifiedCharacteristic batteryChargeCharacteristic;
 
-  ValueNotifier<double> battery = ValueNotifier(-1);
-  ValueNotifier<bool> batteryCharging = ValueNotifier(false);
-  ValueNotifier<bool> batteryLow = ValueNotifier(false);
-  ValueNotifier<bool> error = ValueNotifier(false);
+  final ValueNotifier<double> battery = ValueNotifier(-1);
+  final ValueNotifier<bool> batteryCharging = ValueNotifier(false);
+  final ValueNotifier<bool> batteryLow = ValueNotifier(false);
+  final ValueNotifier<bool> error = ValueNotifier(false);
 
-  ValueNotifier<String> fwVersion = ValueNotifier("");
-  ValueNotifier<String> hwVersion = ValueNotifier("");
+  final ValueNotifier<String> fwVersion = ValueNotifier("");
+  final ValueNotifier<String> hwVersion = ValueNotifier("");
 
-  ValueNotifier<bool> glowTip = ValueNotifier(false);
+  final ValueNotifier<bool> glowTip = ValueNotifier(false);
   StreamSubscription<ConnectionStateUpdate>? connectionStateStreamSubscription;
-  ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
+  final ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
   Stream<List<int>>? _rxCharacteristicStream;
   StreamSubscription<void>? keepAliveStreamSubscription;
 
   Stream<List<int>>? get rxCharacteristicStream => _rxCharacteristicStream;
-  ValueNotifier<DeviceConnectionState> deviceConnectionState = ValueNotifier(DeviceConnectionState.disconnected);
-  ValueNotifier<int> rssi = ValueNotifier(-1);
-  ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
-  ValueNotifier<bool> hasUpdate = ValueNotifier(false);
+  final ValueNotifier<DeviceConnectionState> deviceConnectionState = ValueNotifier(DeviceConnectionState.disconnected);
+  final ValueNotifier<int> rssi = ValueNotifier(-1);
+  final ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
+  final ValueNotifier<bool> hasUpdate = ValueNotifier(false);
 
   set rxCharacteristicStream(Stream<List<int>>? value) {
     _rxCharacteristicStream = value?.asBroadcastStream();
   }
 
   Ref? ref;
-  late CommandQueue commandQueue;
+  late final CommandQueue commandQueue;
   StreamSubscription<List<int>>? batteryCharacteristicStreamSubscription;
   StreamSubscription<List<int>>? batteryChargeCharacteristicStreamSubscription;
   List<FlSpot> batlevels = [];
   Stopwatch stopWatch = Stopwatch();
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
+
+  final CircularBuffer<MessageHistoryEntry> messageHistory = CircularBuffer(50);
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
     rxCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleRxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
@@ -121,6 +124,18 @@ class BaseStatefulDevice {
   String toString() {
     return 'BaseStatefulDevice{baseDeviceDefinition: $baseDeviceDefinition, baseStoredDevice: $baseStoredDevice, battery: $battery}';
   }
+}
+
+enum MessageHistoryType {
+  send,
+  receive,
+}
+
+class MessageHistoryEntry {
+  final MessageHistoryType type;
+  final String message;
+
+  MessageHistoryEntry({required this.type, required this.message});
 }
 
 @HiveType(typeId: 12)
