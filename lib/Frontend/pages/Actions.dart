@@ -151,7 +151,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
             if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
               HapticFeedback.selectionClick();
             }
-            for (var device in ref.read(getByActionProvider(action))) {
+            for (var device in ref.read(getByActionProvider(action)).toList()..shuffle()) {
               if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
                 await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
               }

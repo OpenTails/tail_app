@@ -158,7 +158,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         triggerAction.isActive.value = true;
         Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
         List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceTypes.values.flattened.toSet().contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
-        for (BaseStatefulDevice baseStatefulDevice in devices) {
+        for (BaseStatefulDevice baseStatefulDevice in List.of(devices)..shuffle()) {
           if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
             await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
           }
