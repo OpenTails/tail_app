@@ -184,6 +184,9 @@ class _pdfWidgetState extends State<pdfWidget> {
         }
         final transaction = Sentry.startTransaction('GET PDF', 'http', description: widget.url);
         try {
+          setState(() {
+            progress = 0.1;
+          });
           final Response rs = await initDio().download(
             widget.url,
             filePath,
