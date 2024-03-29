@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Langt",
+  "triggerCoverFar": "Enhed afdækket",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
