@@ -1,5 +1,5 @@
 {
-  "triggerCoverNear": "Cerca",
+  "triggerCoverNear": "Dispositivo cubierto",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -95,13 +95,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Retroalimentación háptica",
+  "triggerActionNotSet": "Equipo cercano",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Servo derecho",
+  "sequencesEditRightServo": "Posición del lado derecho",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
@@ -155,7 +155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Tiempo",
+  "sequencesEditTime": "Cuánto tiempo esperar antes de pasar al siguiente movimiento en esta acción personalizada",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -207,7 +207,7 @@
       }
     }
   },
-  "feedbackPage": "Comentario",
+  "feedbackPage": "Toca para ver",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Tipo de engranaje",
+  "deviceType": "¿A qué equipo debería aplicarse esto?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -285,7 +285,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Lejos",
+  "triggerCoverFar": "Dispositivo descubierto",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Velocidad",
+  "sequencesEditSpeed": "¿A qué velocidad debe moverse el engranaje hasta esta posición?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Mover",
+  "sequencesEditLeftServo": "Posición del servo izquierdo",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Repetir acción",
+  "sequenceEditRepeatTitle": "¿Cuántas veces repetir esta acción?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -642,6 +642,102 @@
   "settingsKitsuneToggleSubTitle": "Si conecta muchas instancias de los mismos dispositivos, este modo agregará pausas aleatorias a sus tiempos de inicio de movimiento, dándole un efecto visual diferente.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Las acciones personalizadas te permiten crear tus propias acciones para el equipo. Al tocar una acción personalizada, se reproducirá. Toque el lápiz para editar una acción personalizada.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Cada acción personalizada consta de 1 a 6 movimientos y puede repetirse hasta 5 veces. Puedes mantener presionado un movimiento para reordenarlo.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Mostrar % de batería",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Muestra el nivel real de la batería en lugar de un icono",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Tarjetas más grandes",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Hace que las tarjetas de acción sean más grandes para tocarlas más fácilmente.",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Ocultar tarjetas tutoriales",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Oculta las distintas tarjetas de tutoriales en toda la aplicación.",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Actualizar equipo",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Registro de cambios de firmware",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Descargar",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "Subir",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Progreso de la carga del firmware",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Progreso de la descarga del firmware",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Los activadores envían acciones automáticamente a tu equipo. Puede tener varios activadores activos al mismo tiempo. Toque un disparador para editarlo, use el interruptor de la izquierda para habilitar el disparador.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, presione el ícono Atrás en la pantalla de selección.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   }
