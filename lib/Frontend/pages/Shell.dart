@@ -124,7 +124,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
         return child!;
       },
       child: TweenAnimationBuilder(
-        tween: Tween<double>(begin: 90, end: showAppBar ? 90 : 0),
+        tween: Tween<double>(begin: 90 * MediaQuery.textScalerOf(context).scale(1), end: showAppBar ? 90 * MediaQuery.textScalerOf(context).scale(1) : 0),
         duration: animationTransitionDuration,
         builder: (BuildContext context, double size, Widget? child) {
           return AdaptiveScaffold(
@@ -791,8 +791,8 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
-                        height: 50,
-                        width: ref.watch(knownDevicesProvider).values.length > 1 ? 100 : 200,
+                        height: 50 * MediaQuery.textScalerOf(context).scale(1),
+                        width: ref.watch(knownDevicesProvider).values.length > 1 ? 100 * MediaQuery.textScalerOf(context).scale(1) : 200 * MediaQuery.textScalerOf(context).scale(1),
                         child: Center(
                           child: Text(
                             scanDevicesTitle(),
