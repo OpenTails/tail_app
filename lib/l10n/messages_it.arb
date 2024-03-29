@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Feedback",
+  "feedbackPage": "Invia feedback",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
