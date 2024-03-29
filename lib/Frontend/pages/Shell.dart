@@ -698,7 +698,7 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                             },
                             child: Card(
                               clipBehavior: Clip.antiAlias,
-                              color: e.deviceConnectionState.value == DeviceConnectionState.connected ? Color(e.baseStoredDevice.color) : null,
+                              color: e.deviceConnectionState.value == DeviceConnectionState.connected ? Color(e.baseStoredDevice.color) : Theme.of(context).cardColor,
                               child: InkWell(
                                 onTap: () {
                                   plausible.event(page: "Manage Gear");
@@ -741,34 +741,44 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                                           padding: const EdgeInsets.only(top: 16),
                                           child: Align(
                                             alignment: Alignment.bottomCenter,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: value == DeviceConnectionState.connected
-                                                  ? [
-                                                      ValueListenableBuilder(
-                                                        valueListenable: e.battery,
-                                                        builder: (BuildContext context, value, Widget? child) {
-                                                          return getBattery(e.battery.value);
-                                                        },
-                                                      ),
-                                                      ValueListenableBuilder(
-                                                        valueListenable: e.batteryCharging,
-                                                        builder: (BuildContext context, value, Widget? child) {
-                                                          if (e.deviceConnectionState.value == DeviceConnectionState.connected && e.batteryCharging.value) {
-                                                            return const Icon(Icons.power);
-                                                          } else {
-                                                            return Container();
-                                                          }
-                                                        },
-                                                      ),
-                                                      ValueListenableBuilder(
-                                                        valueListenable: e.rssi,
-                                                        builder: (BuildContext context, value, Widget? child) {
-                                                          return getSignal(e.rssi.value);
-                                                        },
-                                                      ),
-                                                    ]
-                                                  : [const Icon(Icons.bluetooth_disabled)],
+                                            child: AnimatedCrossFade(
+                                              firstChild: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  ValueListenableBuilder(
+                                                    valueListenable: e.battery,
+                                                    builder: (BuildContext context, value, Widget? child) {
+                                                      return AnimatedSwitcher(
+                                                        duration: animationTransitionDuration,
+                                                        child: getBattery(e.battery.value),
+                                                      );
+                                                    },
+                                                  ),
+                                                  ValueListenableBuilder(
+                                                    valueListenable: e.batteryCharging,
+                                                    builder: (BuildContext context, value, Widget? child) {
+                                                      return AnimatedCrossFade(
+                                                        firstChild: const Icon(Icons.power),
+                                                        secondChild: Container(),
+                                                        crossFadeState: e.deviceConnectionState.value == DeviceConnectionState.connected && e.batteryCharging.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                                        duration: animationTransitionDuration,
+                                                      );
+                                                    },
+                                                  ),
+                                                  ValueListenableBuilder(
+                                                    valueListenable: e.rssi,
+                                                    builder: (BuildContext context, value, Widget? child) {
+                                                      return AnimatedSwitcher(
+                                                        duration: animationTransitionDuration,
+                                                        child: getSignal(e.rssi.value),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                              secondChild: const Icon(Icons.bluetooth_disabled),
+                                              crossFadeState: value == DeviceConnectionState.connected ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                              duration: animationTransitionDuration,
                                             ),
                                           ),
                                         )
