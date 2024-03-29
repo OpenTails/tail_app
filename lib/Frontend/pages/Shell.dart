@@ -696,9 +696,9 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                                 child: child,
                               );
                             },
-                            child: Card(
-                              clipBehavior: Clip.antiAlias,
-                              color: e.deviceConnectionState.value == DeviceConnectionState.connected ? Color(e.baseStoredDevice.color) : Theme.of(context).cardColor,
+                            child: TweenAnimationBuilder(
+                              tween: value == DeviceConnectionState.connected ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
+                              duration: animationTransitionDuration,
                               child: InkWell(
                                 onTap: () {
                                   plausible.event(page: "Manage Gear");
@@ -787,6 +787,13 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                                   ),
                                 ),
                               ),
+                              builder: (BuildContext context, double value, Widget? child) {
+                                return Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  color: Color.lerp(Theme.of(context).cardColor, Color(e.baseStoredDevice.color), value),
+                                  child: child,
+                                );
+                              },
                             ),
                           ),
                         );
