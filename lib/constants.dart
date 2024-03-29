@@ -18,6 +18,7 @@ const String firstLaunchSensors = 'firstLaunchSensors';
 const String showAccurateBattery = 'showAccurateBattery';
 const String largerActionCardSize = 'largerActionCardSize';
 const String hideTutorialCards = 'hideTutorialCards';
+const String hasCompletedOnboarding = 'hasCompletedOnboarding';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -33,6 +34,7 @@ const bool firstLaunchSensorsDefault = true;
 const bool showAccurateBatteryDefault = false;
 const bool largerActionCardSizeDefault = false;
 const bool hideTutorialCardsDefault = false;
+const bool hasCompletedOnboardingDefault = false;
 
 // Triggers labels
 const String triggerBox = 'triggers';

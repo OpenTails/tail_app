@@ -2,17 +2,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
 import 'package:tail_app/Frontend/pages/Shell.dart';
 import 'package:tail_app/Frontend/pages/developer/bluetooth_console.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
+import 'package:tail_app/Frontend/pages/intro.dart';
 import 'package:tail_app/Frontend/pages/more.dart';
 import 'package:tail_app/Frontend/pages/move_list.dart';
 import 'package:tail_app/Frontend/pages/ota_update.dart';
 import 'package:tail_app/Frontend/pages/settings.dart';
 import 'package:tail_app/Frontend/pages/triggers.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
+import 'package:tail_app/constants.dart';
 
 import '../Backend/NavigationObserver/CustomNavObserver.dart';
 import '../main.dart';
@@ -32,21 +35,26 @@ final GoRouter router = GoRouter(
       observers: [SentryNavigatorObserver(), CustomNavObserver(plausible)],
       routes: [
         GoRoute(
-          name: 'Actions',
-          path: '/',
-          parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
-            child: const ActionPage(),
-            key: state.pageKey,
             name: 'Actions',
-            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-              return FadeTransition(
-                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-                child: child,
-              );
-            },
-          ),
-        ),
+            path: '/',
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+                  child: const ActionPage(),
+                  key: state.pageKey,
+                  name: 'Actions',
+                  transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+                    return FadeTransition(
+                      opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                      child: child,
+                    );
+                  },
+                ),
+            redirect: (context, state) {
+              if (!SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault)) {
+                return '/onboarding';
+              }
+              return null;
+            }),
         GoRoute(
           name: 'Triggers',
           path: '/triggers',
@@ -133,6 +141,24 @@ final GoRouter router = GoRouter(
       },
       redirect: (context, state) {
         if (state.extra == null) {
+          return '/';
+        }
+        return null;
+      },
+    ),
+    GoRoute(
+      name: 'Onboarding',
+      path: '/onboarding',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (BuildContext context, GoRouterState state) {
+        return MaterialPage(
+          child: const OnBoardingPage(),
+          key: state.pageKey,
+          name: 'Onboarding',
+        );
+      },
+      redirect: (context, state) {
+        if (SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault)) {
           return '/';
         }
         return null;

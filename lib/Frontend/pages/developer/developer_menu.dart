@@ -48,6 +48,19 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             },
           ),
           ListTile(
+            title: const Text(hasCompletedOnboarding),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboarding),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(hasCompletedOnboarding, value);
+                  },
+                );
+              },
+            ),
+          ),
+          ListTile(
             title: const Text(shouldDisplayReview),
             trailing: Switch(
               value: SentryHive.box(settings).get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault),
