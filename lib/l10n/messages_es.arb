@@ -113,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Calmado y relajado",
+  "actionsCategoryCalm": "Bluetooth no está disponible",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Informe automático de errores",
+  "settingsErrorReportingToggleTitle": "Frustrado y tenso",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -207,7 +207,7 @@
       }
     }
   },
-  "feedbackPage": "Toca para ver",
+  "feedbackPage": "Enviar comentarios",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
