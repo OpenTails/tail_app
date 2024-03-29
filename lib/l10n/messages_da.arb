@@ -149,7 +149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Højre servo",
+  "sequencesEditRightServo": "Højre sides position",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
