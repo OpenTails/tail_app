@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Rückmeldung",
+  "feedbackPage": "Feedback abschicken",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Für welche Ausrüstung soll das gelten?",
+  "deviceType": "Für welches Getriebe soll das gelten?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -113,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Bringen Sie die Ausrüstung nach Hause",
+  "sequencesEditHomeLabel": "Startseite die Ausrüstung",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Möchten Sie diese Aktion wirklich löschen?",
+  "sequencesEditDeleteDescription": "Sind Sie sicher, dass Sie diese Aktion löschen möchten?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung für eine zufällige Anzahl von Sekunden",
+  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung eine zufällige Anzahl von Sekunden",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseTitle": "Pause zwischen den Zügen",
+  "manageDevicesAutoMovePauseTitle": "Pause zwischen den Bewegungen",
   "@manageDevicesAutoMovePauseTitle": {
     "description": "Auto move pause slider title when managing a device",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Gerät entdeckt",
+  "triggerCoverFar": "Gerät aufgedeckt",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -441,7 +441,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Lösen Sie eine Aktion aus, wenn EarGear eine Neigung erkennt",
+  "triggerEarTiltDescription": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Bildschirm eingeschaltet lassen",
+  "settingsKeepScreenOnToggleTitle": "Lassen Sie den Bildschirm eingeschaltet",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "Zahnradleiste umschalten",
+  "shellDeviceBarToggleLabel": "Schalten Sie die Schaltleiste um",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -621,7 +621,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Steuern Sie direkt die Gangposition.",
+  "joyStickPageDescription": "Steuern Sie die Gangposition direkt.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus zufällige Pausen zu den Startzeiten ihrer Bewegungen hinzu, was einen anderen visuellen Effekt ergibt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Zeigt den tatsächlichen Akkuladestand anstelle eines Symbols an",
+  "settingsBatteryPercentageToggleSubTitle": "Zeigt den tatsächlichen Akkustand anstelle eines Symbols an",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Blenden Sie die verschiedenen Tutorial-Karten in der gesamten App aus",
+  "settingsTutorialCardToggleSubTitle": "Die verschiedenen Lernkarten in der gesamten App ausblenden",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
