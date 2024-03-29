@@ -125,13 +125,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Frustrado y tenso",
+  "settingsErrorReportingToggleTitle": "Cada acción personalizada consta de 1 a 6 movimientos y puede repetirse hasta 5 veces. Puedes mantener presionado un movimiento para reordenarlo.",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Cola",
+  "deviceTypeTail": "Inclinación hacia atrás",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -738,6 +738,60 @@
   "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, presione el ícono Atrás en la pantalla de selección.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyDescription": "Si bien los datos recopilados son anónimos y no pueden usarse para identificar a un usuario específico, aún debes aceptar la política de privacidad.",
+  "@onboardingPrivacyPolicyDescription": {
+    "description": "Description for there being a privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyViewButtonLabel": "Ver política de privacidad",
+  "@onboardingPrivacyPolicyViewButtonLabel": {
+    "description": "Button label to view privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Aceptar Política de Privacidad",
+  "@onboardingPrivacyPolicyAcceptButtonLabel": {
+    "description": "Button label to accept privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothTitle": "Bluetooth",
+  "@onboardingBluetoothTitle": {
+    "description": "Title for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothDescription": "Se requiere permiso de Bluetooth para conectarse al equipo",
+  "@onboardingBluetoothDescription": {
+    "description": "Description for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothRequestButtonLabel": "Conceder permiso",
+  "@onboardingBluetoothRequestButtonLabel": {
+    "description": "Label for the button to request bluetooth permission on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothEnableButtonLabel": "Activar Bluetooth",
+  "@onboardingBluetoothEnableButtonLabel": {
+    "description": "Label for the button to open bluetooth settings on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingDoneButtonLabel": "Hecho",
+  "@onboardingDoneButtonLabel": {
+    "description": "Label for the button to close the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingCompletedTitle": "¡Feliz meneo!",
+  "@onboardingCompletedTitle": {
+    "description": "Title of the final page of the onboarding screen",
     "type": "text",
     "placeholders": {}
   }
