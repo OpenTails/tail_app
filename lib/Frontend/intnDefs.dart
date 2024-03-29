@@ -263,3 +263,22 @@ String sequencesInfoDescription() =>
     Intl.message('Custom Actions allow you to make your own Actions for gear. Tapping on a Custom Action will play it. Tap the pencil to edit a Custom Action.', name: 'sequencesInfoDescription', desc: 'Description for what a custom action is and how to use them on the Custom Actions page');
 
 String sequencesInfoEditDescription() => Intl.message('Each Custom Action consists of 1-6 moves and may repeat up to 5 times. You can long press a move to re-order it.', name: 'sequencesInfoEditDescription', desc: 'Description for making a custom action on the edit Custom Action page');
+
+String onboardingPrivacyPolicyDescription() =>
+    Intl.message("While the data collected is anonymous and can't be used to identify a specific user, you still need to accept the privacy policy", name: 'onboardingPrivacyPolicyDescription', desc: 'Description for there being a privacy policy on the onboarding screen');
+
+String onboardingPrivacyPolicyViewButtonLabel() => Intl.message("View Privacy Policy", name: 'onboardingPrivacyPolicyViewButtonLabel', desc: 'Button label to view privacy policy on the onboarding screen');
+
+String onboardingPrivacyPolicyAcceptButtonLabel() => Intl.message("Accept Privacy Policy", name: 'onboardingPrivacyPolicyAcceptButtonLabel', desc: 'Button label to accept privacy policy on the onboarding screen');
+
+String onboardingBluetoothTitle() => Intl.message("Bluetooth", name: 'onboardingBluetoothTitle', desc: 'Title for bluetooth section on the onboarding screen');
+
+String onboardingBluetoothDescription() => Intl.message("Bluetooth permission is required to connect to gear", name: 'onboardingBluetoothDescription', desc: 'Description for bluetooth section on the onboarding screen');
+
+String onboardingBluetoothRequestButtonLabel() => Intl.message("Grant Permission", name: 'onboardingBluetoothRequestButtonLabel', desc: 'Label for the button to request bluetooth permission on the onboarding screen');
+
+String onboardingBluetoothEnableButtonLabel() => Intl.message("Turn On Bluetooth", name: 'onboardingBluetoothEnableButtonLabel', desc: 'Label for the button to open bluetooth settings on the onboarding screen');
+
+String onboardingDoneButtonLabel() => Intl.message("Done", name: 'onboardingDoneButtonLabel', desc: 'Label for the button to close the onboarding screen');
+
+String onboardingCompletedTitle() => Intl.message("Happy Wagging!", name: 'onboardingCompletedTitle', desc: 'Title of the final page of the onboarding screen');

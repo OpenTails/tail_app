@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:lottie/lottie.dart';
+import 'package:open_settings/open_settings.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_hive/sentry_hive.dart';
+import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Frontend/intnDefs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 
-class OnBoardingPage extends StatefulWidget {
+class OnBoardingPage extends ConsumerStatefulWidget {
   const OnBoardingPage({super.key});
 
   @override
   OnBoardingPageState createState() => OnBoardingPageState();
 }
 
-class OnBoardingPageState extends State<OnBoardingPage> {
+class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
   bool bluetoothAccepted = false;
   bool privacyAccepted = false;
@@ -43,7 +48,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(fontSize: 19.0);
-
+    bool bluetoothPoweredOff = ref.watch(btStatusProvider).valueOrNull == BleStatus.poweredOff;
     const pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
@@ -55,7 +60,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
     return IntroductionScreen(
       key: introKey,
       canProgress: (page) {
-        if (page == 2 && !bluetoothAccepted) {
+        if (page == 2 && !bluetoothAccepted && !bluetoothPoweredOff) {
           return false;
         } else if (page == 1 && !privacyAccepted) {
           return false;
@@ -69,7 +74,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(top: 16, right: 16),
-            child: _buildImage('copilot_fox_icon.png', 100),
+            child: _buildImage('copilot_fox_icon.png', 60),
           ),
         ),
       ),
@@ -77,15 +82,18 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: title(),
           body: subTitle(),
-          image: _buildImage('copilot_fox_icon.png', 300),
+          image: Lottie.asset(
+            'assets/tailcostickers/tgs/TailCoStickers_file_144834334.tgs',
+            decoder: LottieComposition.decodeGZip,
+          ),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: morePrivacyPolicyLinkTitle(),
-          body: "While the data collected is anonymous and can't be used to identify a specific user, you still need to accept the privacy policy",
-          image: const Icon(
-            Icons.privacy_tip,
-            size: 200,
+          body: onboardingPrivacyPolicyDescription(),
+          image: Lottie.asset(
+            'assets/tailcostickers/tgs/TailCoStickers_file_144834359.tgs',
+            decoder: LottieComposition.decodeGZip,
           ),
           footer: Center(
             child: Wrap(
@@ -95,26 +103,28 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                   onPressed: () async {
                     await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app/blob/master/PRIVACY.md'));
                   },
-                  child: const Text(
-                    'View Privacy Policy',
+                  child: Text(
+                    onboardingPrivacyPolicyViewButtonLabel(),
                   ),
                 ),
                 FilledButton(
-                  onPressed: () {
-                    Permission.bluetoothScan.request().then(
-                      (value) {
-                        if (value == PermissionStatus.granted) {
-                          setState(
-                            () {
-                              privacyAccepted = true;
+                  onPressed: privacyAccepted
+                      ? null
+                      : () {
+                          Permission.bluetoothScan.request().then(
+                            (value) {
+                              if (value == PermissionStatus.granted) {
+                                setState(
+                                  () {
+                                    privacyAccepted = true;
+                                  },
+                                );
+                              }
                             },
                           );
-                        }
-                      },
-                    );
-                  },
-                  child: const Text(
-                    'Accept Privacy Policy',
+                        },
+                  child: Text(
+                    onboardingPrivacyPolicyAcceptButtonLabel(),
                   ),
                 )
               ],
@@ -127,28 +137,41 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           ),
         ),
         PageViewModel(
-          title: "Bluetooth",
-          body: "Bluetooth permission is required to connect to gear",
-          image: const Icon(
-            Icons.bluetooth,
-            size: 200,
+          title: onboardingBluetoothTitle(),
+          body: onboardingBluetoothDescription(),
+          image: Lottie.asset(
+            'assets/tailcostickers/tgs/TailCoStickers_file_144834357.tgs',
+            decoder: LottieComposition.decodeGZip,
           ),
           footer: Center(
             child: Wrap(
+              spacing: 10,
               children: [
                 FilledButton(
-                  onPressed: () async {
-                    PermissionStatus value = await Permission.bluetoothScan.request();
-                    if (value == PermissionStatus.granted) {
-                      setState(
-                        () {
-                          bluetoothAccepted = true;
+                  onPressed: !bluetoothPoweredOff
+                      ? null
+                      : () {
+                          OpenSettings.openBluetoothSetting();
                         },
-                      );
-                    }
-                  },
-                  child: const Text(
-                    'Grant Permission',
+                  child: Text(
+                    onboardingBluetoothEnableButtonLabel(),
+                  ),
+                ),
+                FilledButton(
+                  onPressed: bluetoothAccepted
+                      ? null
+                      : () async {
+                          PermissionStatus value = await Permission.bluetoothScan.request();
+                          if (value == PermissionStatus.granted) {
+                            setState(
+                              () {
+                                bluetoothAccepted = true;
+                              },
+                            );
+                          }
+                        },
+                  child: Text(
+                    onboardingBluetoothRequestButtonLabel(),
                   ),
                 )
               ],
@@ -161,14 +184,11 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           ),
         ),
         PageViewModel(
-          title: "Title of last page - reversed",
-          bodyWidget: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Click on ", style: bodyStyle),
-              Icon(Icons.edit),
-              Text(" to edit a post", style: bodyStyle),
-            ],
+          title: onboardingCompletedTitle(),
+          body: "",
+          image: Lottie.asset(
+            'assets/tailcostickers/tgs/TailCoStickers_file_144834338.tgs',
+            decoder: LottieComposition.decodeGZip,
           ),
           decoration: pageDecoration.copyWith(
             bodyFlex: 2,
@@ -176,7 +196,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
             bodyAlignment: Alignment.bottomCenter,
             imageAlignment: Alignment.topCenter,
           ),
-          image: _buildImage('img1.jpg'),
           reverse: true,
         ),
       ],
@@ -186,7 +205,12 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       //rtl: true, // Display as right-to-left
       back: const Icon(Icons.arrow_back),
       next: const Icon(Icons.arrow_forward),
-      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+      done: FilledButton(
+        onPressed: () {
+          _onIntroEnd(context);
+        },
+        child: Text(onboardingDoneButtonLabel(), style: const TextStyle(fontWeight: FontWeight.w600)),
+      ),
     );
   }
 }
