@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-03-29T13:32:59.048001",
+  "@@last_modified": "2024-03-29T14:31:25.380409",
   "title": "The DigiTail, MiTail, MiTail Mini, FlutterWings, and EarGear App (TM Pending)",
   "@title": {
     "description": "The name of the app",
@@ -31,7 +31,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Feedback",
+  "feedbackPage": "Send Feedback",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
