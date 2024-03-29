@@ -39,7 +39,7 @@ String cancel() => Intl.message('Cancel', name: 'cancel', desc: 'Cancel on dialo
 
 String triggersAdd() => Intl.message('Add Trigger', name: 'triggersAdd', desc: 'Floating Action Button on the triggers page');
 
-String deviceType() => Intl.message('Gear Type', name: 'deviceType', desc: 'Title for the selector to select which device to send moves to');
+String deviceType() => Intl.message('Which gear should this apply to?', name: 'deviceType', desc: 'Title for the selector to select which device to send moves to');
 
 String deviceTypeTail() => Intl.message('Tail', name: 'deviceTypeTail', desc: 'Tail option for the selector to select which device to send moves to');
 
@@ -60,15 +60,15 @@ String sequencesEditMove() => Intl.message('Move', name: 'sequencesEditMove', de
 
 String sequencesEditDelay() => Intl.message('Delay', name: 'sequencesEditDelay', desc: 'Label for the delay tab on sequence move edit page');
 
-String sequencesEditLeftServo() => Intl.message('Left Servo', name: 'sequencesEditLeftServo', desc: 'Label for the left servo slider on the move tab of the move edit page');
+String sequencesEditLeftServo() => Intl.message('Position of the Left Servo', name: 'sequencesEditLeftServo', desc: 'Label for the left servo slider on the move tab of the move edit page');
 
-String sequencesEditRightServo() => Intl.message('Right Servo', name: 'sequencesEditRightServo', desc: 'Label for the right servo slider on the move tab of the move edit page');
+String sequencesEditRightServo() => Intl.message('Position of the Right Side', name: 'sequencesEditRightServo', desc: 'Label for the right servo slider on the move tab of the move edit page');
 
-String sequencesEditSpeed() => Intl.message('Speed', name: 'sequencesEditSpeed', desc: 'Label for the speed selector on the move tab of the move edit page');
+String sequencesEditSpeed() => Intl.message('How Fast should the gear move to this position?', name: 'sequencesEditSpeed', desc: 'Label for the speed selector on the move tab of the move edit page');
 
 String sequencesEditEasing() => Intl.message('Easing Type', name: 'sequencesEditEasing', desc: 'Label for the easing selector on the move tab of the move edit page');
 
-String sequencesEditTime() => Intl.message('Time', name: 'sequencesEditTime', desc: 'Label for the time slider on the delay tab of the move edit page');
+String sequencesEditTime() => Intl.message('How long to wait before going to the next move in this Custom Action', name: 'sequencesEditTime', desc: 'Label for the time slider on the delay tab of the move edit page');
 
 String sequencesEditHomeLabel() => Intl.message('Home the Gear', name: 'sequencesEditHomeLabel', desc: 'Label on the home tab of the move edit page');
 
@@ -123,6 +123,10 @@ String settingsErrorReportingToggleTitle() => Intl.message('Automatic error repo
 
 String settingsErrorReportingToggleSubTitle() => Intl.message('Sends error reports to Sentry', name: 'settingsErrorReportingToggleSubTitle', desc: 'Settings page error reporting toggle subtitle');
 
+String settingsTutorialCardToggleTitle() => Intl.message('Hide Tutorial Cards', name: 'settingsTutorialCardToggleTitle', desc: 'Settings page tutorial card display toggle title');
+
+String settingsTutorialCardToggleSubTitle() => Intl.message('Hide the various tutorial cards throughout the app', name: 'settingsTutorialCardToggleSubTitle', desc: 'Settings page tutorial card display toggle subtitle');
+
 String settingsAnalyticsToggleTitle() => Intl.message('Allow Anonymous Analytics', name: 'settingsAnalyticsToggleTitle', desc: 'Settings page analytics reporting toggle title');
 
 String settingsAnalyticsToggleSubTitle() => Intl.message('Report non identifying feature usage to Plausible for enhancing the app', name: 'settingsAnalyticsToggleSubTitle', desc: 'Settings page analytics reporting toggle subtitle');
@@ -175,9 +179,9 @@ String triggerCoverTitle() => Intl.message('Cover', name: 'triggerCoverTitle', d
 
 String triggerCoverDescription() => Intl.message("Trigger an action by covering the proximity sensor", name: 'triggerCoverDescription', desc: 'Cover trigger description');
 
-String triggerCoverNear() => Intl.message("Near", name: 'triggerCoverNear', desc: 'Cover trigger near action label');
+String triggerCoverNear() => Intl.message("Device Covered", name: 'triggerCoverNear', desc: 'Cover trigger near action label');
 
-String triggerCoverFar() => Intl.message("Far", name: 'triggerCoverFar', desc: 'Cover trigger far action label');
+String triggerCoverFar() => Intl.message("Device Uncovered", name: 'triggerCoverFar', desc: 'Cover trigger far action label');
 
 String triggerVolumeButtonTitle() => Intl.message("Volume Buttons", name: 'triggerVolumeButtonTitle', desc: 'Volume Button trigger title');
 
@@ -215,7 +219,7 @@ String triggerEarTiltForward() => Intl.message("Forward Tilt", name: 'triggerEar
 
 String triggerEarTiltBackward() => Intl.message("Backward Tilt", name: 'triggerEarTiltBackward', desc: 'EarGear internal gesture sensor trigger backward tilt detected action label');
 
-String sequenceEditRepeatTitle() => Intl.message("Repeat Action", name: 'sequenceEditRepeatTitle', desc: 'Title for slider on sequence edit page to set how many times to repeat the sequence');
+String sequenceEditRepeatTitle() => Intl.message("How many times to repeat this Action?", name: 'sequenceEditRepeatTitle', desc: 'Title for slider on sequence edit page to set how many times to repeat the sequence');
 
 String moreManualResponsibleWaggingTitle() => Intl.message("Responsible Wagging", name: 'moreManualResponsibleWaggingTitle', desc: 'Title for Responsible wagging manual button on More page');
 
@@ -239,12 +243,23 @@ String moreTitle() => Intl.message("More", name: 'moreTitle', desc: 'Title for M
 
 String otaTitle() => Intl.message("Update Gear", name: 'otaTitle', desc: 'Title for OTA page');
 
-String otaChangelogLabel() => Intl.message("Changelog", name: 'otaTitle', desc: 'Label for changelog section of OTA page');
+String otaChangelogLabel() => Intl.message("Firmware Changelog", name: 'otaChangelogLabel', desc: 'Label for changelog section of OTA page');
 
 String otaDownloadButtonLabel() => Intl.message("Download", name: 'otaDownloadButtonLabel', desc: 'Label for download firmware button at bottom of OTA page');
 
 String otaUploadButtonLabel() => Intl.message("Upload", name: 'otaUploadButtonLabel', desc: 'Label for upload firmware button at bottom of OTA page');
 
-String otaUploadProgressLabel() => Intl.message("Upload Progress", name: 'otaUploadProgressLabel', desc: 'Label for upload firmware progress bar at bottom of OTA page');
+String otaUploadProgressLabel() => Intl.message("Firmware Upload Progress", name: 'otaUploadProgressLabel', desc: 'Label for upload firmware progress bar at bottom of OTA page');
 
-String otaDownloadProgressLabel() => Intl.message("Download Progress", name: 'otaDownloadProgressLabel', desc: 'Label for download firmware progress bar at bottom of OTA page');
+String otaDownloadProgressLabel() => Intl.message("Firmware Download Progress", name: 'otaDownloadProgressLabel', desc: 'Label for download firmware progress bar at bottom of OTA page');
+
+String triggerInfoDescription() => Intl.message('Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, use the toggle on the left to enable the trigger.',
+    name: 'triggerInfoDescription', desc: 'Description for what a trigger is and how to use them on the triggers page');
+
+String triggerInfoEditActionDescription() =>
+    Intl.message('Tap the pencil to select the Action to play when the event happens. To remove an Action, press the back icon on the selection screen.', name: 'triggerInfoEditActionDescription', desc: 'Instruction on how to select an action on the trigger edit page');
+
+String sequencesInfoDescription() =>
+    Intl.message('Custom Actions allow you to make your own Actions for gear. Tapping on a Custom Action will play it. Tap the pencil to edit a Custom Action.', name: 'sequencesInfoDescription', desc: 'Description for what a custom action is and how to use them on the Custom Actions page');
+
+String sequencesInfoEditDescription() => Intl.message('Each Custom Action consists of 1-6 moves and may repeat up to 5 times. You can long press a move to re-order it.', name: 'sequencesInfoEditDescription', desc: 'Description for making a custom action on the edit Custom Action page');

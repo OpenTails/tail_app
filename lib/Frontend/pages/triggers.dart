@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/Sensors.dart';
@@ -95,64 +96,100 @@ class _TriggersState extends ConsumerState<Triggers> {
         },
         label: Text(triggersAdd()),
       ),
-      body: ListView.builder(
-        itemCount: triggersList.length,
-        primary: true,
-        itemBuilder: (BuildContext context, int index) {
-          return FadeIn(
-            delay: Duration(milliseconds: 100 * index),
-            child: ListTile(
-              onTap: () {
-                showModalBottomSheet(
-                  isDismissible: true,
-                  isScrollControlled: true,
-                  showDragHandle: true,
-                  enableDrag: true,
-                  useRootNavigator: true,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return DraggableScrollableSheet(
-                      expand: false,
-                      initialChildSize: 0.5,
-                      builder: (BuildContext context, ScrollController scrollController) {
-                        return TriggerEdit(trigger: triggersList[index], scrollController: scrollController);
-                      },
-                    );
-                  },
-                ).whenComplete(() => setState(() {}));
-              },
-              title: Text(triggersList[index].triggerDefinition!.name),
-              subtitle: MultiValueListenableBuilder(
-                  builder: (BuildContext context, List<dynamic> values, Widget? child) {
-                    return AnimatedCrossFade(
-                      firstChild: Text(triggersList[index].triggerDefinition!.description),
-                      secondChild: const LinearProgressIndicator(),
-                      crossFadeState: !values.any((element) => element == true) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                      duration: animationTransitionDuration,
-                    );
-                  },
-                  valueListenables: triggersList[index].actions.map((e) => e.isActive).toList()),
-              leading: ListenableBuilder(
-                listenable: triggersList[index],
-                builder: (BuildContext context, Widget? child) {
-                  return Switch(
-                    value: triggersList[index].enabled,
-                    onChanged: (bool value) {
-                      setState(
-                        () {
-                          triggersList[index].enabled = value;
-                          ref.watch(triggerListProvider.notifier).store();
-                        },
-                      );
-                    },
-                  );
-                },
-              ),
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            PageInfoCard(
+              text: triggerInfoDescription(),
             ),
-          );
-        },
+            ListView.builder(
+              itemCount: triggersList.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                return FadeIn(
+                  delay: Duration(milliseconds: 100 * index),
+                  child: ListTile(
+                    onTap: () {
+                      showModalBottomSheet(
+                        isDismissible: true,
+                        isScrollControlled: true,
+                        showDragHandle: true,
+                        enableDrag: true,
+                        useRootNavigator: true,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return DraggableScrollableSheet(
+                            expand: false,
+                            initialChildSize: 0.5,
+                            builder: (BuildContext context, ScrollController scrollController) {
+                              return TriggerEdit(trigger: triggersList[index], scrollController: scrollController);
+                            },
+                          );
+                        },
+                      ).whenComplete(() => setState(() {}));
+                    },
+                    title: Text(triggersList[index].triggerDefinition!.name),
+                    subtitle: MultiValueListenableBuilder(
+                        builder: (BuildContext context, List<dynamic> values, Widget? child) {
+                          return AnimatedCrossFade(
+                            firstChild: Text(triggersList[index].triggerDefinition!.description),
+                            secondChild: const LinearProgressIndicator(),
+                            crossFadeState: !values.any((element) => element == true) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                            duration: animationTransitionDuration,
+                          );
+                        },
+                        valueListenables: triggersList[index].actions.map((e) => e.isActive).toList()),
+                    leading: ListenableBuilder(
+                      listenable: triggersList[index],
+                      builder: (BuildContext context, Widget? child) {
+                        return Switch(
+                          value: triggersList[index].enabled,
+                          onChanged: (bool value) {
+                            setState(
+                              () {
+                                triggersList[index].enabled = value;
+                                ref.watch(triggerListProvider.notifier).store();
+                              },
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
+  }
+}
+
+class PageInfoCard extends StatelessWidget {
+  final String text;
+
+  const PageInfoCard({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    bool show = !SentryHive.box(settings).get(hideTutorialCards, defaultValue: hideTutorialCardsDefault);
+    return show
+        ? Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Text(text),
+                ),
+              ),
+            ),
+          )
+        : Container();
   }
 }
 
@@ -203,6 +240,9 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
               },
             );
           },
+        ),
+        PageInfoCard(
+          text: triggerInfoEditActionDescription(),
         ),
         ...widget.trigger.actions.map(
           (TriggerAction e) => ListTile(

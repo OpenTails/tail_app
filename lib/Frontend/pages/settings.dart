@@ -130,6 +130,21 @@ class _SettingsState extends ConsumerState<Settings> {
               },
             ),
           ),
+          ListTile(
+            title: Text(settingsTutorialCardToggleTitle()),
+            leading: const Icon(Icons.help),
+            subtitle: Text(settingsTutorialCardToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(hideTutorialCards, defaultValue: hideTutorialCardsDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(hideTutorialCards, value);
+                  },
+                );
+              },
+            ),
+          ),
           const ListTile(
             title: Divider(),
           ),

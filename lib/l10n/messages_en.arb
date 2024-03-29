@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-03-26T12:38:46.576760",
+  "@@last_modified": "2024-03-29T13:32:59.048001",
   "title": "The DigiTail, MiTail, MiTail Mini, FlutterWings, and EarGear App (TM Pending)",
   "@title": {
     "description": "The name of the app",
@@ -103,7 +103,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Gear Type",
+  "deviceType": "Which gear should this apply to?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -163,19 +163,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Left Servo",
+  "sequencesEditLeftServo": "Position of the Left Servo",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Right Servo",
+  "sequencesEditRightServo": "Position of the Right Side",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Speed",
+  "sequencesEditSpeed": "How Fast should the gear move to this position?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -187,7 +187,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Time",
+  "sequencesEditTime": "How long to wait before going to the next move in this Custom Action",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -295,7 +295,31 @@
   },
   "settingsKitsuneToggleSubTitle": "If you connect many instances of the same devices, this mode will add random pauses to their move-start times, giving it a different visual effect.",
   "@settingsKitsuneToggleSubTitle": {
-    "description": "Settings page kitsune toggle subtitle",
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Show Battery %",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Show the actual battery level instead of an icon",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Larger Cards",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Makes the action cards bigger for easier tapping",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
@@ -308,6 +332,18 @@
   "settingsErrorReportingToggleSubTitle": "Sends error reports to Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Hide Tutorial Cards",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Hide the various tutorial cards throughout the app",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
@@ -461,13 +497,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Near",
+  "triggerCoverNear": "Device Covered",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Far",
+  "triggerCoverFar": "Device Uncovered",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -581,7 +617,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Repeat Action",
+  "sequenceEditRepeatTitle": "How many times to repeat this Action?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -644,6 +680,66 @@
   "moreTitle": "More",
   "@moreTitle": {
     "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Update Gear",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Firmware Changelog",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Download",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "Upload",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Firmware Upload Progress",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Firmware Download Progress",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, use the toggle on the left to enable the trigger.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Tap the pencil to select the Action to play when the event happens. To remove an Action, press the back icon on the selection screen.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Custom Actions allow you to make your own Actions for gear. Tapping on a Custom Action will play it. Tap the pencil to edit a Custom Action.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Each Custom Action consists of 1-6 moves and may repeat up to 5 times. You can long press a move to re-order it.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
     "placeholders": {}
   }

@@ -11,6 +11,7 @@ import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/moveLists.dart';
 import 'package:tail_app/Frontend/Widgets/speed_widget.dart';
+import 'package:tail_app/Frontend/pages/triggers.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../constants.dart';
@@ -30,66 +31,76 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
   Widget build(BuildContext context) {
     final List<MoveList> allMoveLists = ref.watch(moveListsProvider);
     return Scaffold(
-      appBar: AppBar(title: Text(sequencesPage())),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.add),
-        onPressed: () {
-          setState(() {
-            ref.watch(moveListsProvider.notifier).add(MoveList(sequencesPage(), DeviceType.values.toList(), ActionCategory.sequence, const Uuid().v4()));
-            ref.watch(moveListsProvider.notifier).store();
-          });
-          plausible.event(name: "Add Sequence");
-          context.push<MoveList>("/moveLists/editMoveList", extra: ref.watch(moveListsProvider).last).then((value) => setState(() {
-                if (value != null) {
-                  ref.watch(moveListsProvider).last = value;
-                  ref.watch(moveListsProvider.notifier).store();
-                }
-              }));
-        },
-        label: Text(sequencesPage()),
-      ),
-      body: ListView.builder(
-        itemCount: allMoveLists.length,
-        primary: true,
-        itemBuilder: (context, index) {
-          return FadeIn(
-            delay: Duration(milliseconds: index * 100),
-            child: ListTile(
-              title: Text(allMoveLists[index].name),
-              subtitle: Text("${allMoveLists[index].moves.length} move(s)"), //TODO: Localize
-              trailing: IconButton(
-                tooltip: sequencesEdit(),
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
-                        (value) => setState(
-                          () {
-                            if (value != null) {
-                              allMoveLists[index] = value;
-                              ref.watch(moveListsProvider.notifier).store();
-                            }
-                          },
-                        ),
-                      );
+        appBar: AppBar(title: Text(sequencesPage())),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: const Icon(Icons.add),
+          onPressed: () {
+            setState(() {
+              ref.watch(moveListsProvider.notifier).add(MoveList(sequencesPage(), DeviceType.values.toList(), ActionCategory.sequence, const Uuid().v4()));
+              ref.watch(moveListsProvider.notifier).store();
+            });
+            plausible.event(name: "Add Sequence");
+            context.push<MoveList>("/moveLists/editMoveList", extra: ref.watch(moveListsProvider).last).then((value) => setState(() {
+                  if (value != null) {
+                    ref.watch(moveListsProvider).last = value;
+                    ref.watch(moveListsProvider.notifier).store();
+                  }
+                }));
+          },
+          label: Text(sequencesPage()),
+        ),
+        body: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              PageInfoCard(
+                text: sequencesInfoDescription(),
+              ),
+              ListView.builder(
+                itemCount: allMoveLists.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return FadeIn(
+                    delay: Duration(milliseconds: index * 100),
+                    child: ListTile(
+                      title: Text(allMoveLists[index].name),
+                      subtitle: Text("${allMoveLists[index].moves.length} move(s)"), //TODO: Localize
+                      trailing: IconButton(
+                        tooltip: sequencesEdit(),
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
+                                (value) => setState(
+                                  () {
+                                    if (value != null) {
+                                      allMoveLists[index] = value;
+                                      ref.watch(moveListsProvider.notifier).store();
+                                    }
+                                  },
+                                ),
+                              );
+                        },
+                      ),
+                      onTap: () async {
+                        if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
+                          HapticFeedback.selectionClick();
+                        }
+                        for (BaseStatefulDevice element in ref.watch(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType))) {
+                          if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+                            await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+                          }
+                          runAction(allMoveLists[index], element);
+                        }
+                        ;
+                      },
+                    ),
+                  );
                 },
               ),
-              onTap: () async {
-                if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
-                  HapticFeedback.selectionClick();
-                }
-                for (BaseStatefulDevice element in ref.watch(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType))) {
-                  if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
-                    await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
-                  }
-                  runAction(allMoveLists[index], element);
-                }
-                ;
-              },
-            ),
-          );
-        },
-      ),
-    );
+            ],
+          ),
+        ));
   }
 }
 
@@ -181,6 +192,9 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
         child: ListView(
           controller: _scrollController,
           children: [
+            PageInfoCard(
+              text: sequencesInfoEditDescription(),
+            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
