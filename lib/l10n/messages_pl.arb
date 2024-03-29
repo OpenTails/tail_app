@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Typ przekładni",
+  "deviceType": "Którego biegu to ma dotyczyć?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -113,19 +113,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Lewy serw",
+  "sequencesEditLeftServo": "Pozycja lewego serwa",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Prawy serw",
+  "sequencesEditRightServo": "Pozycja prawej strony",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Prędkość",
+  "sequencesEditSpeed": "Jak szybko powinien przesuwać się bieg do tej pozycji?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Czas",
+  "sequencesEditTime": "Jak długo czekać przed przejściem do następnego ruchu w tej akcji niestandardowej",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Wybierz akcję",
+  "settingsHapticsToggleTitle": "Świecąca wskazówka",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -369,13 +369,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "W pobliżu",
+  "triggerCoverNear": "Urządzenie objęte gwarancją",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Daleko",
+  "triggerCoverFar": "Urządzenie odkryte",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -489,7 +489,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Powtórz czynność",
+  "sequenceEditRepeatTitle": "Ile razy powtórzyć tę akcję?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -642,6 +642,102 @@
   "settingsKitsuneToggleSubTitle": "Jeśli podłączysz wiele instancji tych samych urządzeń, ten tryb doda losowe przerwy do ich czasów rozpoczęcia ruchu, nadając mu inny efekt wizualny.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Ukryj karty samouczków",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Ukryj różne karty samouczków w całej aplikacji",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Stuknij ołówek, aby wybrać akcję, która ma zostać odtworzona po wystąpieniu zdarzenia. Aby usunąć akcję, naciśnij ikonę Wstecz na ekranie wyboru.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Akcje niestandardowe umożliwiają tworzenie własnych akcji dla sprzętu. Kliknięcie akcji niestandardowej spowoduje jej odtworzenie. Kliknij ołówek, aby edytować akcję niestandardową.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Każda akcja niestandardowa składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Pokaż% baterii",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Pokaż rzeczywisty poziom naładowania baterii zamiast ikony",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Większe karty",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Powiększa karty akcji, ułatwiając ich dotykanie",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Zaktualizuj sprzęt",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Dziennik zmian oprogramowania sprzętowego",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Pobierać",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "Wgrywać",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Postęp przesyłania oprogramowania sprzętowego",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Postęp pobierania oprogramowania sprzętowego",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Wyzwalacze automatycznie wysyłają akcje do Twojego sprzętu. Jednocześnie może być aktywnych wiele wyzwalaczy. Stuknij wyzwalacz, aby go edytować, użyj przełącznika po lewej stronie, aby włączyć wyzwalacz.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   }
