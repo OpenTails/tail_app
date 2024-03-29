@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Typ ozubeného kola",
+  "deviceType": "Na jaké zařízení by se to mělo vztahovat?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Přidat přesun",
+  "sequencesEditAdd": "Upravit akci",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -143,19 +143,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Levé servo",
+  "sequencesEditLeftServo": "Poloha levého serva",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Pravé servo",
+  "sequencesEditRightServo": "Poloha na pravé straně",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Rychlost",
+  "sequencesEditSpeed": "Jak rychle by se měl převod do této polohy přesunout?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -167,7 +167,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Čas",
+  "sequencesEditTime": "Jak dlouho čekat, než přejdete k dalšímu pohybu v této vlastní akci",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -393,13 +393,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "U",
+  "triggerCoverNear": "Zařízení kryté",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Daleko",
+  "triggerCoverFar": "Zařízení odkryté",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Opakujte akci",
+  "sequenceEditRepeatTitle": "Kolikrát opakovat tuto akci?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -642,6 +642,102 @@
   "settingsKitsuneToggleSubTitle": "Pokud připojíte mnoho instancí stejných zařízení, tento režim přidá k časům zahájení pohybu náhodné pauzy, čímž získá jiný vizuální efekt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Zobrazit % baterie",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Místo ikony zobrazte skutečnou úroveň nabití baterie",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Větší karty",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Zvětší akční karty pro snadnější klepání",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Skrýt výukové karty",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Firmware Changelog",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Stažení",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "nahrát",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Průběh nahrávání firmwaru",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Průběh stahování firmwaru",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Spouštěče automaticky posílají akce do vašeho zařízení. Můžete mít aktivních více spouštěčů současně. Klepnutím na spoušť jej upravíte, pomocí přepínače vlevo spoušť aktivujte.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Klepnutím na tužku vyberte akci, kterou chcete přehrát, když k události dojde. Chcete-li akci odebrat, stiskněte ikonu zpět na obrazovce výběru.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Vlastní akce vám umožňují vytvářet vlastní akce pro zařízení. Klepnutím na vlastní akci ji přehrajete. Klepnutím na tužku upravíte vlastní akci.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Skryjte různé výukové karty v celé aplikaci",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Aktualizujte Gear",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Každá vlastní akce se skládá z 1–6 tahů a může se opakovat až 5krát. Pořadí můžete změnit dlouhým stisknutím tahu.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
     "placeholders": {}
   }
