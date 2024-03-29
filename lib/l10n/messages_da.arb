@@ -167,7 +167,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Tid",
+  "sequencesEditTime": "Hvor længe skal du vente, før du går til næste træk i denne tilpassede handling",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -720,6 +720,24 @@
   "otaUploadProgressLabel": "Fremskridt for upload af firmware",
   "@otaUploadProgressLabel": {
     "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Tryk på blyanten for at vælge den handling, der skal afspilles, når begivenheden finder sted. For at fjerne en handling skal du trykke på tilbage-ikonet på valgskærmen.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Custom Actions giver dig mulighed for at lave dine egne Actions for gear. Hvis du trykker på en brugerdefineret handling, afspilles den. Tryk på blyanten for at redigere en tilpasset handling.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Hver brugerdefineret handling består af 1-6 træk og kan gentages op til 5 gange. Du kan trykke længe på et træk for at genbestille det.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
     "placeholders": {}
   }
