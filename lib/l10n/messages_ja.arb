@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "フィードバック",
+  "feedbackPage": "フィードバックを送信",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -41,7 +41,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "行動",
+  "actionsPage": "設定",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
@@ -155,7 +155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "ギアはどのくらいの速度でこの位置に移動する必要がありますか?",
+  "sequencesEditSpeed": "ギアはこの位置にどのくらいの速さで移動する必要がありますか?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "ホーム・ザ・ギア",
+  "sequencesEditHomeLabel": "ホームギア",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "速くて興奮する",
+  "actionsCategoryFast": "速くて興奮",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "アクションをタップすると振動を有効にする",
+  "settingsHapticsToggleSubTitle": "アクションをタップしたときに振動を有効にする",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -273,7 +273,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "グループを移動する",
+  "manageDevicesAutoMoveGroupsTitle": "グループの移動",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -381,7 +381,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "音量を上げる",
+  "triggerVolumeButtonVolumeUp": "ボリュームアップ",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -447,19 +447,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "後方傾斜",
+  "triggerEarTiltBackward": "後傾チルト",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "このアクションを何回繰り返すか?",
+  "sequenceEditRepeatTitle": "このアクションを何回繰り返しますか?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "アクションを選択してください",
+  "actionsSelectScreen": "アクションを選択",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -633,13 +633,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "同じデバイスの多数のインスタンスを接続する場合、このモードは移動開始時間にランダムな一時停止を追加し、異なる視覚効果を与えます。",
+  "settingsKitsuneToggleSubTitle": "同じデバイスのインスタンスを多数接続すると、このモードでは移動開始時間にランダムな一時停止が追加され、異なる視覚効果が得られます。",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "ギア位置をダイレクトにコントロール。",
+  "joyStickPageDescription": "ギア位置を直接制御します。",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleTitle": "大きなカード",
+  "settingsLargerCardsToggleTitle": "大きめのカード",
   "@settingsLargerCardsToggleTitle": {
     "description": "Settings page Larger cards toggle title",
     "type": "text",
@@ -717,19 +717,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleTitle": "チュートリアルカードを隠す",
+  "settingsTutorialCardToggleTitle": "チュートリアルカードを非表示",
   "@settingsTutorialCardToggleTitle": {
     "description": "Settings page tutorial card display toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "アプリ全体でさまざまなチュートリアル カードを非表示にする",
+  "settingsTutorialCardToggleSubTitle": "アプリ全体のさまざまなチュートリアルカードを非表示にする",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "ギアのアップデート",
+  "otaTitle": "ギアを更新する",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
