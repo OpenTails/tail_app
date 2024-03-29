@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Tagasiside",
+  "feedbackPage": "Käivitage toiming, kui läheduses on varustus",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Rohkem",
+  "deviceType": "Millise käigu kohta see peaks kehtima?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -143,19 +143,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Vasakpoolne servo",
+  "sequencesEditLeftServo": "Vasakpoolse servo asend",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Parem servo",
+  "sequencesEditRightServo": "Parema külje asend",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Kiirus",
+  "sequencesEditSpeed": "Kui kiiresti peaks käik sellesse asendisse liikuma?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -167,7 +167,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Aeg",
+  "sequencesEditTime": "Kui kaua oodata, enne kui asute selle kohandatud toimingu järgmise käigu juurde",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Kõrvad",
+  "actionsCategoryEars": "Saba",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -399,13 +399,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Lähedal",
+  "triggerCoverNear": "Seadmega kaetud",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Kaugel",
+  "triggerCoverFar": "Seade katmata",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Korda toimingut",
+  "sequenceEditRepeatTitle": "Mitu korda seda toimingut korrata?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "See režiim ei lülitu ekraani välja, kui teie varustus on ühendatud",
+  "settingsKeepScreenOnToggleSubTitle": "See režiim peatab ekraani väljalülitamise, kui teie varustus on ühendatud",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -642,6 +642,102 @@
   "settingsKitsuneToggleSubTitle": "Kui ühendate samade seadmete mitu eksemplari, lisab see režiim nende liikumise algusaegadele juhuslikke pause, andes sellele erineva visuaalse efekti.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse ümberjärjestamiseks võite pikalt vajutada.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Näita aku %",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Kuvage ikooni asemel tegelik aku tase",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Suuremad kaardid",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Muudab tegevuskaardid koputamise hõlbustamiseks suuremaks",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Peida õpetuskaardid",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuskaardid kogu rakenduses",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Värskendage Geari",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Püsivara muudatuste logi",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Lae alla",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "Laadi üles",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Püsivara üleslaadimise edenemine",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Püsivara allalaadimise edenemine",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga võib olla aktiivne mitu päästikut. Selle muutmiseks puudutage päästikut, päästiku lubamiseks kasutage vasakpoolset lülitit.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Puudutage pliiatsit, et valida sündmuse toimumisel esitatav toiming. Toimingu eemaldamiseks vajutage valikukuval tagasiikooni.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   }
