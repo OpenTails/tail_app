@@ -95,13 +95,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Ripeti azione",
+  "sequenceEditRepeatTitle": "Quante volte ripetere questa Azione?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Tipo di ingranaggio",
+  "deviceType": "A quale attrezzatura dovrebbe applicarsi?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -161,19 +161,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Servo sinistro",
+  "sequencesEditLeftServo": "Posizione del servo sinistro",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Servo destro",
+  "sequencesEditRightServo": "Posizione del lato destro",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Velocità",
+  "sequencesEditSpeed": "Quanto velocemente dovrebbe spostarsi l'ingranaggio in questa posizione?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -185,7 +185,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Tempo",
+  "sequencesEditTime": "Quanto tempo attendere prima di passare alla mossa successiva in questa azione personalizzata",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Feedback tattile",
+  "settingsHapticsToggleTitle": "Seleziona un'azione",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -417,13 +417,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Vicino",
+  "triggerCoverNear": "Dispositivo coperto",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Lontano",
+  "triggerCoverFar": "Dispositivo scoperto",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Inclinazione sinistra",
+  "triggerEarTiltLeft": "Sensore di inclinazione EarGear",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -642,6 +642,102 @@
   "settingsKitsuneToggleSubTitle": "Se colleghi molte istanze degli stessi dispositivi, questa modalità aggiungerà pause casuali ai tempi di inizio spostamento, conferendogli un effetto visivo diverso.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Registro modifiche firmware",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Scaricamento",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "Caricamento",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Avanzamento caricamento firmware",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Avanzamento del download del firmware",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "I trigger inviano automaticamente azioni alla tua attrezzatura. Puoi avere più trigger attivi contemporaneamente. Tocca un trigger per modificarlo, usa l'interruttore a sinistra per abilitare il trigger.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Tocca la matita per selezionare l'azione da eseguire quando si verifica l'evento. Per rimuovere un'azione, premere l'icona Indietro nella schermata di selezione.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Le azioni personalizzate ti consentono di creare le tue azioni per l'equipaggiamento. Toccando un'azione personalizzata verrà riprodotta. Tocca la matita per modificare un'azione personalizzata.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Ogni azione personalizzata consiste di 1-6 mosse e può ripetersi fino a 5 volte. Puoi premere a lungo una mossa per riordinarla.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Mostra % batteria",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Mostra il livello effettivo della batteria invece di un'icona",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Carte più grandi",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per facilitarne il tocco",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Nascondi le schede tutorial",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Nascondi le varie schede tutorial in tutta l'app",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Aggiorna attrezzatura",
+  "@otaTitle": {
+    "description": "Title for OTA page",
     "type": "text",
     "placeholders": {}
   }
