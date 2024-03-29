@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Informacja zwrotna",
+  "feedbackPage": "Wyślij opinię",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
