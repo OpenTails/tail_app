@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Aangepaste acties",
+  "feedbackPage": "Feedback verzenden",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
