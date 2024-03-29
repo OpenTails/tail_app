@@ -525,7 +525,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesConnect": "Соединять",
+  "manageDevicesConnect": "График батареи",
   "@manageDevicesConnect": {
     "description": "manage devices connect button title when managing a device",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Обновить снаряжение",
+  "otaTitle": "политика конфиденциальности",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -735,9 +735,63 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Каждое пользовательское действие состоит из 1–6 ходов и может повторяться до 5 раз. Вы можете долго нажимать на ход, чтобы изменить его порядок.",
+  "sequencesInfoEditDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyDescription": "Хотя собранные данные являются анонимными и не могут быть использованы для идентификации конкретного пользователя, вам все равно необходимо принять политику конфиденциальности.",
+  "@onboardingPrivacyPolicyDescription": {
+    "description": "Description for there being a privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothTitle": "Bluetooth",
+  "@onboardingBluetoothTitle": {
+    "description": "Title for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingDoneButtonLabel": "Сделанный",
+  "@onboardingDoneButtonLabel": {
+    "description": "Label for the button to close the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyViewButtonLabel": "Посмотреть политику конфиденциальности",
+  "@onboardingPrivacyPolicyViewButtonLabel": {
+    "description": "Button label to view privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Принять политику конфиденциальности",
+  "@onboardingPrivacyPolicyAcceptButtonLabel": {
+    "description": "Button label to accept privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothDescription": "Для подключения к устройству требуется разрешение Bluetooth",
+  "@onboardingBluetoothDescription": {
+    "description": "Description for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothRequestButtonLabel": "Предоставить разрешение",
+  "@onboardingBluetoothRequestButtonLabel": {
+    "description": "Label for the button to request bluetooth permission on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothEnableButtonLabel": "Включите Bluetooth",
+  "@onboardingBluetoothEnableButtonLabel": {
+    "description": "Label for the button to open bluetooth settings on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingCompletedTitle": "Приятного виляния!",
+  "@onboardingCompletedTitle": {
+    "description": "Title of the final page of the onboarding screen",
     "type": "text",
     "placeholders": {}
   }
