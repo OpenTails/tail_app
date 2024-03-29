@@ -115,96 +115,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                       expand: false,
                       initialChildSize: 0.5,
                       builder: (BuildContext context, ScrollController scrollController) {
-                        return StatefulBuilder(
-                          builder: (BuildContext context, void Function(void Function()) setState) {
-                            return ListView(
-                              shrinkWrap: true,
-                              controller: scrollController,
-                              children: [
-                                ListTile(
-                                  title: Text(triggersList[index].triggerDefinition!.name),
-                                  subtitle: Text(triggersList[index].triggerDefinition!.description),
-                                  leading: ListenableBuilder(
-                                    listenable: triggersList[index],
-                                    builder: (BuildContext context, Widget? child) {
-                                      return Switch(
-                                        value: triggersList[index].enabled,
-                                        onChanged: (bool value) {
-                                          setState(
-                                            () {
-                                              triggersList[index].enabled = value;
-                                              plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == triggersList[index].triggerDefUUID).first.toString()});
-                                            },
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ),
-                                DeviceTypeWidget(
-                                  selected: triggersList[index].deviceType,
-                                  onSelectionChanged: (Set<DeviceType> value) {
-                                    setState(
-                                      () {
-                                        triggersList[index].deviceType = value.toList();
-                                        ref.watch(triggerListProvider.notifier).store();
-                                      },
-                                    );
-                                  },
-                                ),
-                                ...triggersList[index].actions.map(
-                                      (TriggerAction e) => ListTile(
-                                        title: Text(triggersList[index].triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
-                                        subtitle: ValueListenableBuilder(
-                                          valueListenable: e.isActive,
-                                          builder: (BuildContext context, value, Widget? child) {
-                                            return AnimatedCrossFade(
-                                              duration: animationTransitionDuration,
-                                              secondChild: const LinearProgressIndicator(),
-                                              firstChild: Text(ref.watch(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
-                                              crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                                            );
-                                          },
-                                        ),
-                                        trailing: IconButton(
-                                          icon: const Icon(Icons.edit),
-                                          onPressed: () async {
-                                            BaseAction? result = await showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Dialog.fullscreen(child: ActionSelector(deviceType: triggersList[index].deviceType.toSet()));
-                                              },
-                                            );
-                                            setState(
-                                              () {
-                                                e.action = result?.uuid;
-                                                ref.watch(triggerListProvider.notifier).store();
-                                              },
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                ButtonBar(
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {
-                                        setState(
-                                          () {
-                                            ref.watch(triggerListProvider).remove(triggersList[index]);
-                                            ref.watch(triggerListProvider.notifier).store();
-                                            Navigator.of(context).pop();
-                                          },
-                                        );
-                                      },
-                                      child: const Text("Delete Trigger"),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            );
-                          },
-                        );
+                        return TriggerEdit(trigger: triggersList[index], scrollController: scrollController);
                       },
                     );
                   },
@@ -241,6 +152,108 @@ class _TriggersState extends ConsumerState<Triggers> {
           );
         },
       ),
+    );
+  }
+}
+
+class TriggerEdit extends ConsumerStatefulWidget {
+  final ScrollController scrollController;
+  final Trigger trigger;
+
+  const TriggerEdit({super.key, required this.trigger, required this.scrollController});
+
+  @override
+  ConsumerState<TriggerEdit> createState() => _TriggerEditState();
+}
+
+class _TriggerEditState extends ConsumerState<TriggerEdit> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      controller: widget.scrollController,
+      children: [
+        ListTile(
+          title: Text(widget.trigger.triggerDefinition!.name),
+          subtitle: Text(widget.trigger.triggerDefinition!.description),
+          leading: ListenableBuilder(
+            listenable: widget.trigger,
+            builder: (BuildContext context, Widget? child) {
+              return Switch(
+                value: widget.trigger.enabled,
+                onChanged: (bool value) {
+                  setState(
+                    () {
+                      widget.trigger.enabled = value;
+                      plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == widget.trigger.triggerDefUUID).first.toString()});
+                    },
+                  );
+                },
+              );
+            },
+          ),
+        ),
+        DeviceTypeWidget(
+          selected: widget.trigger.deviceType,
+          onSelectionChanged: (Set<DeviceType> value) {
+            setState(
+              () {
+                widget.trigger.deviceType = value.toList();
+                ref.watch(triggerListProvider.notifier).store();
+              },
+            );
+          },
+        ),
+        ...widget.trigger.actions.map(
+          (TriggerAction e) => ListTile(
+            title: Text(widget.trigger.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
+            subtitle: ValueListenableBuilder(
+              valueListenable: e.isActive,
+              builder: (BuildContext context, value, Widget? child) {
+                return AnimatedCrossFade(
+                  duration: animationTransitionDuration,
+                  secondChild: const LinearProgressIndicator(),
+                  firstChild: Text(ref.watch(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
+                  crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                );
+              },
+            ),
+            trailing: IconButton(
+              icon: const Icon(Icons.edit),
+              onPressed: () async {
+                BaseAction? result = await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Dialog.fullscreen(child: ActionSelector(deviceType: widget.trigger.deviceType.toSet()));
+                  },
+                );
+                setState(
+                  () {
+                    e.action = result?.uuid;
+                    ref.watch(triggerListProvider.notifier).store();
+                  },
+                );
+              },
+            ),
+          ),
+        ),
+        ButtonBar(
+          children: [
+            TextButton(
+              onPressed: () {
+                setState(
+                  () {
+                    ref.watch(triggerListProvider).remove(widget.trigger);
+                    ref.watch(triggerListProvider.notifier).store();
+                    Navigator.of(context).pop();
+                  },
+                );
+              },
+              child: const Text("Delete Trigger"),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
