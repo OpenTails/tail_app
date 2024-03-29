@@ -733,7 +733,10 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                                     width: 100,
                                     child: Stack(
                                       children: [
-                                        Text(e.baseStoredDevice.name),
+                                        Text(
+                                          e.baseStoredDevice.name,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 16),
                                           child: Align(
