@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Rediger sekvens",
+  "sequencesEditAdd": "Opdater Gear",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Vælg en handling",
+  "actionsSelectScreen": "Send feedback",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Scan efter nyt gear",
+  "scanDevicesScanMessage": "Tilføj trigger",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -738,6 +738,60 @@
   "sequencesInfoEditDescription": "Hver brugerdefineret handling består af 1-6 træk og kan gentages op til 5 gange. Du kan trykke længe på et træk for at genbestille det.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyViewButtonLabel": "Se privatlivspolitik",
+  "@onboardingPrivacyPolicyViewButtonLabel": {
+    "description": "Button label to view privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothTitle": "Bluetooth",
+  "@onboardingBluetoothTitle": {
+    "description": "Title for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingDoneButtonLabel": "Færdig",
+  "@onboardingDoneButtonLabel": {
+    "description": "Label for the button to close the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyDescription": "Selvom de indsamlede data er anonyme og ikke kan bruges til at identificere en bestemt bruger, skal du stadig acceptere privatlivspolitikken",
+  "@onboardingPrivacyPolicyDescription": {
+    "description": "Description for there being a privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Accepter privatlivspolitik",
+  "@onboardingPrivacyPolicyAcceptButtonLabel": {
+    "description": "Button label to accept privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothDescription": "Bluetooth-tilladelse er påkrævet for at oprette forbindelse til gear",
+  "@onboardingBluetoothDescription": {
+    "description": "Description for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothRequestButtonLabel": "Giv tilladelse",
+  "@onboardingBluetoothRequestButtonLabel": {
+    "description": "Label for the button to request bluetooth permission on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothEnableButtonLabel": "Slå Bluetooth til",
+  "@onboardingBluetoothEnableButtonLabel": {
+    "description": "Label for the button to open bluetooth settings on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingCompletedTitle": "Godt logrende!",
+  "@onboardingCompletedTitle": {
+    "description": "Title of the final page of the onboarding screen",
     "type": "text",
     "placeholders": {}
   }
