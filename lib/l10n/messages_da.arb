@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Nær ved",
+  "triggerCoverNear": "Enhed dækket",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -678,6 +678,48 @@
   "settingsTutorialCardToggleSubTitle": "Skjul de forskellige vejledningskort i hele appen",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Fremskridt for download af firmware",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Udløsere sender automatisk handlinger til dit udstyr. Du kan have flere udløsere aktive på samme tid. Tryk på en trigger for at redigere den, brug knappen til venstre for at aktivere triggeren.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Opdater Gear",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Firmware-ændringslog",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Hent",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "Upload",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Fremskridt for upload af firmware",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   }
