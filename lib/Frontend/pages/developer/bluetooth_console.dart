@@ -98,6 +98,7 @@ class _DisplayLogState extends State<DisplayLog> {
         itemCount: widget.widget.device.messageHistory.length,
         itemBuilder: (BuildContext context, int index) {
           MessageHistoryEntry messageHistoryEntry = widget.widget.device.messageHistory.reversed.toList()[index];
+          //TODO: autocomplete for known commands
           return Text(
             messageHistoryEntry.message,
             textDirection: messageHistoryEntry.type == MessageHistoryType.send ? TextDirection.rtl : TextDirection.ltr,
