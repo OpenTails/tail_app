@@ -47,19 +47,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Retard",
+  "sequencesEditLeftServo": "Position du servo gauche",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Servo droit",
+  "sequencesEditRightServo": "Position du côté droit",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Vitesse",
+  "sequencesEditSpeed": "À quelle vitesse l’engrenage doit-il se déplacer vers cette position ?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Temps",
+  "sequencesEditTime": "Combien de temps attendre avant de passer au coup suivant dans cette action personnalisée",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -129,7 +129,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "Astuce lumineuse",
+  "actionsCategoryGlowtip": "Frustré et tendu",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -261,13 +261,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Près",
+  "triggerCoverNear": "Appareil couvert",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Loin",
+  "triggerCoverFar": "Appareil découvert",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Type d'engrenage",
+  "deviceType": "À quel matériel cela devrait-il s'appliquer ?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -477,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Répéter l'action",
+  "sequenceEditRepeatTitle": "Combien de fois répéter cette action ?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Appuyez pour mettre à jour le micrologiciel",
+  "manageDevicesOtaButton": "Oublier",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Plus",
+  "moreTitle": "politique de confidentialité",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -642,6 +642,102 @@
   "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de déplacement, ce qui lui donnera un effet visuel différent.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Afficher le niveau réel de la batterie au lieu d'une icône",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Cartes plus grandes",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Rend les cartes d'action plus grandes pour faciliter l'exploitation",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Masquer les différentes cartes du didacticiel dans toute l'application",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Progression du téléchargement du micrologiciel",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Progression du téléchargement du micrologiciel",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Les déclencheurs envoient automatiquement des actions à votre équipement. Vous pouvez avoir plusieurs déclencheurs actifs en même temps. Appuyez sur un déclencheur pour le modifier, utilisez la bascule à gauche pour activer le déclencheur.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Appuyez sur le crayon pour sélectionner l'action à jouer lorsque l'événement se produit. Pour supprimer une action, appuyez sur l'icône de retour sur l'écran de sélection.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Les actions personnalisées vous permettent de créer vos propres actions pour l'équipement. En appuyant sur une action personnalisée, vous la jouerez. Appuyez sur le crayon pour modifier une action personnalisée.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Chaque action personnalisée comprend 1 à 6 mouvements et peut être répétée jusqu'à 5 fois. Vous pouvez appuyer longuement sur un mouvement pour le réorganiser.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Afficher le % de batterie",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Masquer les cartes du didacticiel",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Mettre à jour l'équipement",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Journal des modifications du micrologiciel",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Télécharger",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "Télécharger",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   }
