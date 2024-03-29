@@ -30,8 +30,8 @@ class PlausibleDio extends Plausible {
       // Remove trailing slash '/'
       super.serverUrl = serverUrl.substring(0, serverUrl.length - 1);
     }
-    page = "app://localhost/$page";
-    referrer = "app://localhost/$referrer?utm_source=${(await InstallReferrer.referrer).name}";
+    page = "app://localhost/$page?utm_source=${(await InstallReferrer.referrer).name}";
+    referrer = "app://localhost/$referrer";
     props = Map.of(props);
     props['Number Of Devices'] = SentryHive.box<BaseStoredDevice>('devices').length.toString();
     props['Number Of Sequences'] = SentryHive.box<MoveList>('sequences').length.toString();
