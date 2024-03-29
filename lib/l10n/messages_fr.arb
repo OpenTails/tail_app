@@ -303,7 +303,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Retour",
+  "feedbackPage": "Envoyer des commentaires",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Oublier",
+  "manageDevicesOtaButton": "Activer les vibrations lorsqu'une action est appuyée",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
