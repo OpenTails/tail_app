@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Zpětná vazba",
+  "feedbackPage": "Poslat zpětnou vazbu",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
