@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Gear Type",
+  "deviceType": "Hvilket gear skal det gælde for?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
