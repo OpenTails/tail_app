@@ -155,7 +155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Fart",
+  "sequencesEditSpeed": "Hvor hurtigt skal gearet bevæge sig til denne position?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
