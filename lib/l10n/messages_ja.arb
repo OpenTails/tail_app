@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "DigiTail、MiTail、MiTail Mini、FlutterWings、および EarGear アプリ (TM 保留中)",
+  "title": "DigiTail、MiTail、MiTail Mini、FlutterWings、EarGear アプリ (TM 申請中)",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "フィードバックを送信",
+  "feedbackPage": "フィードバックを送信する",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "ホームギア",
+  "sequencesEditHomeLabel": "ホーム・ザ・ギア",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "速くて興奮",
+  "actionsCategoryFast": "速くて興奮する",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "カジュアルモード",
+  "manageDevicesAutoMoveTitle": "アプリの色",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseTitle": "動きの合間に一時停止する",
+  "manageDevicesAutoMovePauseTitle": "アクションをタップしたときに振動を有効にする",
   "@manageDevicesAutoMovePauseTitle": {
     "description": "Auto move pause slider title when managing a device",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "対象となるデバイス",
+  "triggerCoverNear": "対象デバイス",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "デバイスを振ってアクションをトリガーします",
+  "triggerShakeDescription": "デバイスを振ることでアクションをトリガーします",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "アクションを選択",
+  "actionsSelectScreen": "アクションを選択してください",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "EarGearが傾きを検知するとアクションがトリガーされます",
+  "triggerEarTiltDescription": "EarGear が傾きを検出したときにアクションをトリガーする",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -543,7 +543,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualEargearTitle": "EarGear マニュアル",
+  "moreManualEargearTitle": "MiTail マニュアル",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "ギア位置を直接制御します。",
+  "joyStickPageDescription": "ギア位置をダイレクトにコントロール。",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -717,13 +717,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleTitle": "チュートリアルカードを非表示",
+  "settingsTutorialCardToggleTitle": "チュートリアルカードを隠す",
   "@settingsTutorialCardToggleTitle": {
     "description": "Settings page tutorial card display toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "アプリ全体のさまざまなチュートリアルカードを非表示にする",
+  "settingsTutorialCardToggleSubTitle": "アプリ全体でさまざまなチュートリアル カードを非表示にする",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -738,6 +738,60 @@
   "triggerInfoEditActionDescription": "鉛筆をタップして、イベントの発生時に再生するアクションを選択します。アクションを削除するには、選択画面で戻るアイコンを押します。",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシー ポリシーに同意する必要があります。",
+  "@onboardingPrivacyPolicyDescription": {
+    "description": "Description for there being a privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyViewButtonLabel": "プライバシーポリシーを見る",
+  "@onboardingPrivacyPolicyViewButtonLabel": {
+    "description": "Button label to view privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingCompletedTitle": "尻尾を振って幸せに！",
+  "@onboardingCompletedTitle": {
+    "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyAcceptButtonLabel": "プライバシーポリシーに同意する",
+  "@onboardingPrivacyPolicyAcceptButtonLabel": {
+    "description": "Button label to accept privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothTitle": "ブルートゥース",
+  "@onboardingBluetoothTitle": {
+    "description": "Title for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothDescription": "ギアに接続するには Bluetooth 許可が必要です",
+  "@onboardingBluetoothDescription": {
+    "description": "Description for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothRequestButtonLabel": "許可を与える",
+  "@onboardingBluetoothRequestButtonLabel": {
+    "description": "Label for the button to request bluetooth permission on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothEnableButtonLabel": "Bluetoothをオンにする",
+  "@onboardingBluetoothEnableButtonLabel": {
+    "description": "Label for the button to open bluetooth settings on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingDoneButtonLabel": "終わり",
+  "@onboardingDoneButtonLabel": {
+    "description": "Label for the button to close the onboarding screen",
     "type": "text",
     "placeholders": {}
   }
