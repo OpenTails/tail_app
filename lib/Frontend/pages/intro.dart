@@ -96,7 +96,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           image: Lottie.asset(
             width: MediaQuery.of(context).size.width,
             renderCache: RenderCache.raster,
-            'assets/tailcostickers/tgs/TailCoStickers_file_144834334.tgs',
+            'assets/tailcostickers/tgs/TailCoStickers_file_144834354.tgs',
             decoder: LottieComposition.decodeGZip,
           ),
           decoration: pageDecoration,

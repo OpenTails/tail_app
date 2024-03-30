@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 //dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intnDefs.dart
 //convert to dart
 // dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb
-String title() => Intl.message('The DigiTail, MiTail, MiTail Mini, FlutterWings, and EarGear App (TM Pending)', name: 'title', desc: 'The name of the app');
+String title() => Intl.message('Gear on the Go', name: 'title', desc: 'The name of the app');
 
 String subTitle() => Intl.message('All of the Tails', name: 'subTitle', desc: 'The sub-title which displays in the navigation drawer');
 
