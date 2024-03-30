@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Skrzydełka",
+  "deviceTypeWings": "Uszy",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -495,7 +495,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "Aplikacja DigiTail, MiTail, MiTail Mini, FlutterWings i EarGear (TM w toku)",
+  "title": "Sprzęt w podróży",
   "@title": {
     "description": "The name of the app",
     "type": "text",
