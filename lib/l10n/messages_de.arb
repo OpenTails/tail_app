@@ -1,5 +1,5 @@
 {
-  "title": "Die DigiTail-, MiTail-, MiTail Mini-, FlutterWings- und EarGear-App (TM angemeldet)",
+  "title": "Ausrüstung für unterwegs",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Für welches Getriebe soll das gelten?",
+  "deviceType": "Für welche Ausrüstung soll das gelten?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -147,7 +147,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Ruhig und entspannt",
+  "actionsCategoryCalm": "Bluetooth ist nicht verfügbar",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Gerät aufgedeckt",
+  "triggerCoverFar": "Gerät entdeckt",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Lautstärketasten",
+  "triggerVolumeButtonDescription": "Gerät aufgedeckt",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -441,7 +441,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
+  "triggerEarTiltDescription": "Lösen Sie eine Aktion aus, wenn EarGear eine Neigung erkennt",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Bildschirm eingeschaltet lassen",
+  "settingsKeepScreenOnToggleTitle": "Lassen Sie den Bildschirm eingeschaltet",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -657,19 +657,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Auslöser senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Auslöser, um ihn zu bearbeiten. Verwenden Sie den Schalter auf der linken Seite, um den Auslöser zu aktivieren.",
+  "triggerInfoDescription": "Trigger senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Trigger, um ihn zu bearbeiten, und aktivieren Sie den Trigger mit dem Schalter auf der linken Seite.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tippen Sie auf den Stift, um die Aktion auszuwählen, die ausgeführt werden soll, wenn das Ereignis eintritt. Um eine Aktion zu entfernen, drücken Sie auf dem Auswahlbildschirm auf das Zurück-Symbol.",
+  "triggerInfoEditActionDescription": "Auslöser senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Auslöser, um ihn zu bearbeiten. Verwenden Sie den Schalter auf der linken Seite, um den Auslöser zu aktivieren.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Mit benutzerdefinierten Aktionen können Sie Ihre eigenen Aktionen für Ausrüstung erstellen. Wenn Sie auf eine benutzerdefinierte Aktion tippen, wird sie ausgeführt. Tippen Sie auf den Stift, um eine benutzerdefinierte Aktion zu bearbeiten.",
+  "sequencesInfoDescription": "Fortschritt des Firmware-Downloads",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -699,7 +699,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Macht die Aktionskarten größer, damit sie leichter angetippt werden können",
+  "settingsLargerCardsToggleSubTitle": "Vergrößert die Aktionskarten, um das Tippen zu erleichtern",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzbestimmungen akzeptieren",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzrichtlinie akzeptieren",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
