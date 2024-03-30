@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Хвост",
+  "deviceTypeTail": "Добавить триггер",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Казуальный режим",
+  "manageDevicesAutoMoveTitle": "Цвет приложения",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "Приложение DigiTail, MiTail, MiTail Mini, FlutterWings и EarGear (на рассмотрении TM)",
+  "title": "Механизм на ходу",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -465,7 +465,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Запуск действия, когда EarGear обнаруживает звук",
+  "triggerEarMicDescription": "Карты большего размера",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
