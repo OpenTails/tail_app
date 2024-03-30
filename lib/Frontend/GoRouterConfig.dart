@@ -38,16 +38,10 @@ final GoRouter router = GoRouter(
             name: 'Actions',
             path: '/',
             parentNavigatorKey: _shellNavigatorKey,
-            pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+            pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
                   child: const ActionPage(),
                   key: state.pageKey,
                   name: 'Actions',
-                  transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-                    return FadeTransition(
-                      opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-                      child: child,
-                    );
-                  },
                 ),
             redirect: (context, state) {
               if (!SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault)) {
@@ -59,16 +53,10 @@ final GoRouter router = GoRouter(
           name: 'Triggers',
           path: '/triggers',
           parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => CustomTransitionPage(
+          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
             child: const Triggers(),
             key: state.pageKey,
             name: 'Triggers',
-            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-              return FadeTransition(
-                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-                child: child,
-              );
-            },
           ),
         ),
         GoRoute(
@@ -76,16 +64,10 @@ final GoRouter router = GoRouter(
           path: '/joystick',
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) {
-            return CustomTransitionPage(
+            return MaterialPage(
               key: state.pageKey,
               name: 'Direct Gear Control',
               child: const DirectGearControl(),
-              transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-                return FadeTransition(
-                  opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-                  child: child,
-                );
-              },
             );
           },
         ),
@@ -102,29 +84,17 @@ final GoRouter router = GoRouter(
             ),
           ],
           pageBuilder: (context, state) {
-            return CustomTransitionPage(
+            return NoTransitionPage(
               key: state.pageKey,
               name: 'More',
               child: More(),
-              transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-                return FadeTransition(
-                  opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-                  child: child,
-                );
-              },
             );
           },
         ),
       ],
-      pageBuilder: (BuildContext context, GoRouterState state, Widget child) => CustomTransitionPage(
+      pageBuilder: (BuildContext context, GoRouterState state, Widget child) => NoTransitionPage(
         child: NavigationDrawerExample(child, state.matchedLocation),
         key: state.pageKey,
-        transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
       ),
     ),
     GoRoute(

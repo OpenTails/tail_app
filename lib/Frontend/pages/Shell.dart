@@ -330,7 +330,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                         onPressed: () {
                           Navigator.of(context).pop();
                           widget.device.baseStoredDevice.color = color.value;
-                          ref.watch(knownDevicesProvider.notifier).store();
+                          ref.read(knownDevicesProvider.notifier).store();
                         },
                         child: Text(
                           ok(),

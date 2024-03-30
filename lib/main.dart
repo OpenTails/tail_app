@@ -100,8 +100,7 @@ Future<void> main() async {
       options.dsn = 'https://284f1830184d74dbbbb48ad14b577ffc@sentry.codel1417.xyz/3';
       options.addIntegration(LoggingIntegration());
       options.attachScreenshot = true; //not supported on GlitchTip
-      options.attachViewHierarchy = true; //not supported on GlitchTip
-      options.tracesSampleRate = 1.0;
+      options.tracesSampleRate = 0.5;
       //options.profilesSampleRate = 1.0;
       options.enableBreadcrumbTrackingForCurrentPlatform();
       options.attachThreads = true;
@@ -112,14 +111,12 @@ Future<void> main() async {
     appRunner: () => runApp(
       DefaultAssetBundle(
         bundle: SentryAssetBundle(),
-        child: SentryUserInteractionWidget(
-          child: SentryScreenshotWidget(
-            child: ProviderScope(
-              observers: [
-                if (kDebugMode) ...[RiverpodProviderObserver()],
-              ],
-              child: TailApp(),
-            ),
+        child: SentryScreenshotWidget(
+          child: ProviderScope(
+            observers: [
+              if (kDebugMode) ...[RiverpodProviderObserver()],
+            ],
+            child: TailApp(),
           ),
         ),
       ),
