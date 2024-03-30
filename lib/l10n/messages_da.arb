@@ -1,5 +1,5 @@
 {
-  "title": "DigiTail, MiTail, MiTail Mini, FlutterWings og EarGear-appen (TM afventer)",
+  "title": "Gear på farten",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Udløs en handling ved at ryste din enhed",
+  "triggerShakeDescription": "Ryste",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Hver brugerdefineret handling består af 1-6 træk og kan gentages op til 5 gange. Du kan trykke længe på et træk for at genbestille det.",
+  "sequencesInfoEditDescription": "Fremskridt for download af firmware",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
