@@ -285,13 +285,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "Les applications DigiTail, MiTail, MiTail Mini, FlutterWings et EarGear (TM en attente)",
+  "title": "Équipement en déplacement",
   "@title": {
     "description": "The name of the app",
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Toutes les queues",
+  "subTitle": "Envoyer des commentaires",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
