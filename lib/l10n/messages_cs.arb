@@ -1,5 +1,5 @@
 {
-  "title": "Aplikace DigiTail, MiTail, MiTail Mini, FlutterWings a EarGear (TM čeká)",
+  "title": "Výbava na cestách",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -561,7 +561,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "Příručky",
+  "moreManualTitle": "Nedaleké zařízení",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Spouštěče automaticky posílají akce do vašeho zařízení. Můžete mít aktivních více spouštěčů současně. Klepnutím na spoušť jej upravíte, pomocí přepínače vlevo spoušť aktivujte.",
+  "triggerInfoDescription": "Skryjte různé výukové karty v celé aplikaci",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
