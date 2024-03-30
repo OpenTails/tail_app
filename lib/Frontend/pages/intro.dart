@@ -172,7 +172,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                       ? null
                       : () async {
                           PermissionStatus value = await Permission.bluetoothScan.request();
-                          if (value == PermissionStatus.granted) {
+                          PermissionStatus value2 = await Permission.bluetoothConnect.request();
+                          if (value == PermissionStatus.granted && value2 == PermissionStatus.granted) {
                             setState(
                               () {
                                 bluetoothAccepted = true;
