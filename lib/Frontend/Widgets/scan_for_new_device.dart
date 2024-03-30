@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
@@ -37,11 +38,12 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
           devices[value.id] = value;
         }
       }
-      return Column(
+      return ListView(
+        controller: widget.scrollController,
         children: [
           ListView.builder(
             shrinkWrap: true,
-            controller: widget.scrollController,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: devices.values.length,
             itemBuilder: (BuildContext context, int index) {
               DiscoveredDevice e = devices.values.toList()[index];
@@ -69,7 +71,18 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
               child: Center(
                 child: Column(
                   children: [
-                    const CircularProgressIndicator(),
+                    Spin(
+                      infinite: true,
+                      duration: const Duration(seconds: 1, milliseconds: 500),
+                      child: Transform.flip(
+                        flipX: true,
+                        child: Lottie.asset(
+                          width: 200,
+                          'assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs',
+                          decoder: LottieComposition.decodeGZip,
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(scanDevicesScanMessage()),
