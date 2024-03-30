@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "La aplicación DigiTail, MiTail, MiTail Mini, FlutterWings y EarGear (TM pendiente)",
+  "title": "Equipo sobre la marcha",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "Manual de cola digital",
+  "moreManualDigitailTitle": "Manual de MiTail",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
