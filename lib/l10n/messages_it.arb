@@ -1,5 +1,5 @@
 {
-  "title": "L'app DigiTail, MiTail, MiTail Mini, FlutterWings e EarGear (TM in attesa)",
+  "title": "Attrezzatura in movimento",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "Microfono EarGear",
+  "triggerEarMicTitle": "Nessuna serie di azioni",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Aggiorna attrezzatura",
+  "otaTitle": "link utili",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
