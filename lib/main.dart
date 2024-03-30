@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging_flutter/logging_flutter.dart';
-import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -127,20 +125,6 @@ Future<void> main() async {
 
 Dio initDio() {
   final Dio dio = Dio();
-  dio.httpClientAdapter = NativeAdapter();
-  dio.interceptors.add(
-    RetryInterceptor(
-      dio: dio,
-      logPrint: Flogger.d, // specify log function (optional)
-      retries: 3, // retry count (optional)
-      retryDelays: const [
-        // set delays between retries (optional)
-        Duration(seconds: 10), // wait 1 sec before first retry
-        Duration(seconds: 30), // wait 2 sec before second retry
-        Duration(seconds: 60), // wait 3 sec before third retry
-      ],
-    ),
-  );
   if (kDebugMode) {
     dio.interceptors.add(
       PrettyDioLogger(
