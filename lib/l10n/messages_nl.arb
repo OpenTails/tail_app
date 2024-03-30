@@ -1,5 +1,5 @@
 {
-  "title": "De DigiTail-, MiTail-, MiTail Mini-, FlutterWings- en EarGear-app (TM in behandeling)",
+  "title": "Uitrusting voor onderweg",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Automatische foutrapportage",
+  "settingsErrorReportingToggleTitle": "Grotere kaarten",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Schudden",
+  "triggerShakeTitle": "Volume verminderen",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadProgressLabel": "Voortgang firmware-upload",
+  "otaUploadProgressLabel": "Uploaden",
   "@otaUploadProgressLabel": {
     "description": "Label for upload firmware progress bar at bottom of OTA page",
     "type": "text",
