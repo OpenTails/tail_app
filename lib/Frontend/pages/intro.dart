@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -47,17 +48,27 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      Theme.of(context).brightness == Brightness.dark
+          ? SystemUiOverlayStyle.light.copyWith(
+              statusBarColor: Theme.of(context).canvasColor,
+            )
+          : SystemUiOverlayStyle.dark.copyWith(
+              statusBarColor: Theme.of(context).canvasColor,
+            ),
+    );
     const bodyStyle = TextStyle(fontSize: 19.0);
     bool bluetoothPoweredOff = ref.watch(btStatusProvider).valueOrNull == BleStatus.poweredOff;
-    const pageDecoration = PageDecoration(
-      titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+    var pageDecoration = PageDecoration(
+      titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
-      bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Colors.white,
+      bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+      pageColor: Theme.of(context).canvasColor,
       imagePadding: EdgeInsets.zero,
     );
 
-    return IntroductionScreen(
+    return SafeArea(
+        child: IntroductionScreen(
       key: introKey,
       canProgress: (page) {
         if (page == 2 && !bluetoothAccepted && !bluetoothPoweredOff) {
@@ -111,17 +122,9 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   onPressed: privacyAccepted
                       ? null
                       : () {
-                          Permission.bluetoothScan.request().then(
-                            (value) {
-                              if (value == PermissionStatus.granted) {
-                                setState(
-                                  () {
-                                    privacyAccepted = true;
-                                  },
-                                );
-                              }
-                            },
-                          );
+                          setState(() {
+                            privacyAccepted = true;
+                          });
                         },
                   child: Text(
                     onboardingPrivacyPolicyAcceptButtonLabel(),
@@ -211,6 +214,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         },
         child: Text(onboardingDoneButtonLabel(), style: const TextStyle(fontWeight: FontWeight.w600)),
       ),
-    );
+    ));
   }
 }
