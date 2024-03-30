@@ -94,6 +94,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           title: title(),
           body: subTitle(),
           image: Lottie.asset(
+            width: MediaQuery.of(context).size.width,
+            renderCache: RenderCache.raster,
             'assets/tailcostickers/tgs/TailCoStickers_file_144834334.tgs',
             decoder: LottieComposition.decodeGZip,
           ),
@@ -103,6 +105,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           title: morePrivacyPolicyLinkTitle(),
           body: onboardingPrivacyPolicyDescription(),
           image: Lottie.asset(
+            renderCache: RenderCache.raster,
+            width: MediaQuery.of(context).size.width,
             'assets/tailcostickers/tgs/TailCoStickers_file_144834359.tgs',
             decoder: LottieComposition.decodeGZip,
           ),
@@ -124,6 +128,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                       : () {
                           setState(() {
                             privacyAccepted = true;
+                            introKey.currentState?.next();
                           });
                         },
                   child: Text(
@@ -143,6 +148,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           title: onboardingBluetoothTitle(),
           body: onboardingBluetoothDescription(),
           image: Lottie.asset(
+            renderCache: RenderCache.raster,
+            width: MediaQuery.of(context).size.width,
             'assets/tailcostickers/tgs/TailCoStickers_file_144834357.tgs',
             decoder: LottieComposition.decodeGZip,
           ),
@@ -171,6 +178,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                                 bluetoothAccepted = true;
                               },
                             );
+                            introKey.currentState?.next();
                           }
                         },
                   child: Text(
@@ -190,6 +198,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           title: onboardingCompletedTitle(),
           body: "",
           image: Lottie.asset(
+            renderCache: RenderCache.raster,
+            width: MediaQuery.of(context).size.width,
             'assets/tailcostickers/tgs/TailCoStickers_file_144834338.tgs',
             decoder: LottieComposition.decodeGZip,
           ),
