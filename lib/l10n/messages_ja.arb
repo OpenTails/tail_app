@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "DigiTail、MiTail、MiTail Mini、FlutterWings、EarGear アプリ (TM 申請中)",
+  "title": "外出先でのギア",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -113,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "アクションの編集",
+  "sequencesEdit": "編集アクション",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -155,7 +155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "ギアはこの位置にどのくらいの速さで移動する必要がありますか?",
+  "sequencesEditSpeed": "ギアはどのくらいの速度でこの位置に移動する必要がありますか?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "ホーム・ザ・ギア",
+  "sequencesEditHomeLabel": "ホームギア",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "対象デバイス",
+  "triggerCoverNear": "対象となるデバイス",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "シェイク",
+  "triggerShakeTitle": "EarGear が傾きを検出したときにアクションをトリガーする",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "同じデバイスのインスタンスを多数接続すると、このモードでは移動開始時間にランダムな一時停止が追加され、異なる視覚効果が得られます。",
+  "settingsKitsuneToggleSubTitle": "同じデバイスの多数のインスタンスを接続する場合、このモードは移動開始時間にランダムな一時停止を追加し、異なる視覚効果を与えます。",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -735,13 +735,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "鉛筆をタップして、イベントの発生時に再生するアクションを選択します。アクションを削除するには、選択画面で戻るアイコンを押します。",
+  "triggerInfoEditActionDescription": "ギアを更新する",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシー ポリシーに同意する必要があります。",
+  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります。",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "尻尾を振って幸せに！",
+  "onboardingCompletedTitle": "ハッピーワッギング！",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
