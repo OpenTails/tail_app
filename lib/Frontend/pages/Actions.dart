@@ -86,9 +86,11 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       children: [
-                        Text(
-                          catList[categoryIndex].friendly,
-                          style: Theme.of(context).textTheme.titleLarge,
+                        Center(
+                          child: Text(
+                            catList[categoryIndex].friendly,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
                         ),
                         GridView.builder(
                           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
