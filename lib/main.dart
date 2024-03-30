@@ -24,6 +24,7 @@ import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/ActionRegistry.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 
+import 'Backend/Bluetooth/BluetoothManager.dart';
 import 'Backend/Definitions/Action/BaseAction.dart';
 import 'Backend/PlausibleDio.dart';
 import 'Backend/Sensors.dart';
@@ -116,7 +117,7 @@ Future<void> main() async {
             observers: [
               if (kDebugMode) ...[RiverpodProviderObserver()],
             ],
-            child: TailApp(),
+            child: _EagerInitialization(child: TailApp()),
           ),
         ),
       ),
@@ -256,5 +257,24 @@ class RiverpodProviderObserver extends ProviderObserver {
     ProviderContainer container,
   ) {
     Flogger.e('Provider $provider threw $error at $stackTrace', stackTrace: stackTrace);
+  }
+}
+
+class _EagerInitialization extends ConsumerWidget {
+  const _EagerInitialization({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Eagerly initialize providers by watching them.
+    // By using "watch", the provider will stay alive and not be disposed.
+    ref.watch(reactiveBLEProvider);
+    ref.watch(btStatusProvider);
+    ref.watch(knownDevicesProvider);
+    ref.watch(btConnectStateHandlerProvider);
+    ref.watch(triggerListProvider);
+    ref.watch(moveListsProvider);
+    return child;
   }
 }
