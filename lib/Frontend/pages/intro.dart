@@ -128,6 +128,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                       : () {
                           setState(() {
                             privacyAccepted = true;
+                            SentryHive.box(settings).put(allowErrorReporting, true);
+                            SentryHive.box(settings).put(allowAnalytics, true);
                             introKey.currentState?.next();
                           });
                         },
