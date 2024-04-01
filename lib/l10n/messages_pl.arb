@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Uszy",
+  "deviceTypeEars": "Szczęśliwego machania!",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -201,7 +201,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Uszy",
+  "actionsCategoryEars": "Szczęśliwego machania!",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Kliknij, aby zaktualizować oprogramowanie sprzętowe",
+  "manageDevicesOtaButton": "Zapominać",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
