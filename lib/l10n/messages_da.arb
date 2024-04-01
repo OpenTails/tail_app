@@ -155,7 +155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Hvor hurtigt skal gearet bevæge sig til denne position?",
+  "sequencesEditSpeed": "Hurtig",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Hurtig og spændt",
+  "actionsCategoryFast": "Forsink næste træk i [X20X] ms.",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -285,7 +285,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "Flyt grupper",
+  "manageDevicesAutoMoveGroupsTitle": "Afslappet tilstand",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Intet handlingssæt",
+  "triggerActionNotSet": "Udløs en handling, hvis gear er i nærheden",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleTitle": "Kitsune-tilstand",
+  "settingsKitsuneToggleTitle": "Opret tilpassede handlinger til dit udstyr",
   "@settingsKitsuneToggleTitle": {
     "description": "Settings page Kitsune mode toggle title",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Opdater Gear",
+  "otaTitle": "Tilt bagud",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -789,9 +789,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Godt logrende!",
+  "onboardingCompletedTitle": "Bluetooth-tilladelse er påkrævet for at oprette forbindelse til gear",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Tryk igen for at afslutte ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Fjern handling",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
     "placeholders": {}
   }
