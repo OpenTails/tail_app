@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
@@ -6,13 +7,14 @@ import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Backend/Sensors.dart';
+import 'package:tail_app/Frontend/Widgets/trigger_select.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../constants.dart';
 import '../../main.dart';
-import '../Widgets/action_selector.dart';
 import '../Widgets/device_type_widget.dart';
 import '../intnDefs.dart';
+import 'action_selector.dart';
 
 class Triggers extends ConsumerStatefulWidget {
   const Triggers({super.key});
@@ -25,59 +27,16 @@ class _TriggersState extends ConsumerState<Triggers> {
   @override
   Widget build(BuildContext context) {
     final List<Trigger> triggersList = ref.watch(triggerListProvider);
-    TriggerDefinition? triggerDefinition;
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         onPressed: () {
           showDialog<TriggerDefinition>(
             context: context,
-            useRootNavigator: false,
+            useRootNavigator: true,
             builder: (BuildContext context) {
               plausible.event(page: "/Triggers/AddTrigger");
-              return AlertDialog(
-                title: Text(triggersSelectLabel()),
-                content: StatefulBuilder(
-                  builder: (context, StateSetter setState) {
-                    return SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: ref
-                            .watch(triggerDefinitionListProvider)
-                            .map((TriggerDefinition e) => ListTile(
-                                  title: Text(e.name),
-                                  leading: Radio<TriggerDefinition>(
-                                    value: e,
-                                    groupValue: triggerDefinition,
-                                    onChanged: (TriggerDefinition? value) {
-                                      setState(
-                                        () {
-                                          triggerDefinition = value;
-                                        },
-                                      );
-                                    },
-                                  ),
-                                  trailing: e.icon,
-                                  subtitle: Text(e.description),
-                                ))
-                            .toList(),
-                      ),
-                    );
-                  },
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, null),
-                    child: Text(cancel()),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context, triggerDefinition);
-                    },
-                    child: Text(ok()),
-                  ),
-                ],
-              );
+              return const TriggerSelect();
             },
           ).then(
             (TriggerDefinition? value) {
@@ -85,9 +44,9 @@ class _TriggersState extends ConsumerState<Triggers> {
                 // The user selected a Trigger Definition
                 setState(
                   () {
-                    Trigger trigger = Trigger.trigDef(triggerDefinition!, const Uuid().v4());
+                    Trigger trigger = Trigger.trigDef(value, const Uuid().v4());
                     ref.watch(triggerListProvider.notifier).add(trigger);
-                    plausible.event(name: "Add Trigger", props: {"Trigger Type": triggerDefinition!.runtimeType.toString()});
+                    plausible.event(name: "Add Trigger", props: {"Trigger Type": value.runtimeType.toString()});
                   },
                 );
               }
@@ -205,6 +164,23 @@ class TriggerEdit extends ConsumerStatefulWidget {
 
 class _TriggerEditState extends ConsumerState<TriggerEdit> {
   @override
+  void initState() {
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    Navigator.of(context).pop();
+    return true;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
@@ -261,18 +237,32 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
             trailing: IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () async {
-                BaseAction? result = await showDialog(
+                Object? result = await showDialog(
+                  useRootNavigator: true,
+                  barrierDismissible: true,
+                  barrierColor: Theme.of(context).canvasColor,
                   context: context,
                   builder: (BuildContext context) {
-                    return Dialog.fullscreen(child: ActionSelector(deviceType: widget.trigger.deviceType.toSet()));
+                    return Dialog.fullscreen(backgroundColor: Theme.of(context).canvasColor, child: ActionSelector(deviceType: widget.trigger.deviceType.toSet()));
                   },
                 );
-                setState(
-                  () {
-                    e.action = result?.uuid;
-                    ref.watch(triggerListProvider.notifier).store();
-                  },
-                );
+                if (result is BaseAction) {
+                  setState(
+                    () {
+                      e.action = result.uuid;
+                      ref.watch(triggerListProvider.notifier).store();
+                    },
+                  );
+                } else if (result is bool) {
+                  if (!result) {
+                    setState(
+                      () {
+                        e.action = null;
+                        ref.watch(triggerListProvider.notifier).store();
+                      },
+                    );
+                  }
+                }
               },
             ),
           ),

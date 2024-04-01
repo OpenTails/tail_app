@@ -6,6 +6,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
 import 'package:tail_app/Frontend/pages/Shell.dart';
+import 'package:tail_app/Frontend/pages/action_selector.dart';
 import 'package:tail_app/Frontend/pages/developer/bluetooth_console.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_pincode.dart';
@@ -51,15 +52,28 @@ final GoRouter router = GoRouter(
               return null;
             }),
         GoRoute(
-          name: 'Triggers',
-          path: '/triggers',
-          parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
-            child: const Triggers(),
-            key: state.pageKey,
             name: 'Triggers',
-          ),
-        ),
+            path: '/triggers',
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
+                  child: const Triggers(),
+                  key: state.pageKey,
+                  name: 'Triggers',
+                ),
+            routes: [
+              GoRoute(
+                name: 'Triggers/Select Action',
+                path: 'select',
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+                  child: ActionSelector(
+                    deviceType: state.extra! as Set<DeviceType>,
+                  ),
+                  key: state.pageKey,
+                  name: 'Triggers/Select Action',
+                ),
+              ),
+            ]),
         GoRoute(
           name: 'Direct Gear Control',
           path: '/joystick',

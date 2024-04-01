@@ -10,6 +10,10 @@ A Cross Platform Tail Company gear control App
 - Joystick for moving gear
 - Dark Mode
 
+## Have a suggestion?
+
+Small or large, feel free to leave suggestions for new features, or changes to existing features.
+
 # Building
 
 Follow the instructions here to set up a Flutter environment https://docs.flutter.dev/get-started/install/windows/mobile?tab=download#software-requirements

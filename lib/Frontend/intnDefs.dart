@@ -33,6 +33,8 @@ String sequencesPageDescription() => Intl.message('Create custom Actions for you
 // Triggers Page
 String triggersSelectLabel() => Intl.message('Select an Trigger Type', name: 'triggersSelectLabel', desc: 'The title of the add trigger dialog');
 
+String triggersSelectClearLabel() => Intl.message('Remove Action', name: 'triggersSelectClearLabel', desc: 'The button label on the trigger select screen for clearing the selected action');
+
 String ok() => Intl.message('Ok', name: 'ok', desc: 'Ok on dialog boxes');
 
 String cancel() => Intl.message('Cancel', name: 'cancel', desc: 'Cancel on dialog boxes');

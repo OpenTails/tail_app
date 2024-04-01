@@ -12,6 +12,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Frontend/Widgets/back_button_to_close.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
@@ -99,108 +100,113 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
 
   @override
   Widget build(BuildContext context) {
-    return UpgradeAlert(
+    return BackButtonToClose(
+      child: UpgradeAlert(
         child: ValueListenableBuilder(
-      valueListenable: SentryHive.box(settings).listenable(keys: [shouldDisplayReview]),
-      builder: (BuildContext context, Box<dynamic> value, Widget? child) {
-        if (value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
-          inAppReview.isAvailable().then(
-            (isAvailable) {
-              if (isAvailable && value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
-                inAppReview.requestReview();
-                Future(
-                  // Don't refresh widget in same frame
-                  () {
-                    SentryHive.box(settings).put(hasDisplayedReview, true);
-                    SentryHive.box(settings).put(shouldDisplayReview, false);
-                  },
-                );
-              }
-            },
-          );
-        }
+          valueListenable: SentryHive.box(settings).listenable(keys: [shouldDisplayReview]),
+          builder: (BuildContext context, Box<dynamic> value, Widget? child) {
+            if (value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
+              inAppReview.isAvailable().then(
+                (isAvailable) {
+                  if (isAvailable && value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
+                    inAppReview.requestReview();
+                    Future(
+                      // Don't refresh widget in same frame
+                      () {
+                        SentryHive.box(settings).put(hasDisplayedReview, true);
+                        SentryHive.box(settings).put(shouldDisplayReview, false);
+                      },
+                    );
+                  }
+                },
+              );
+            }
 
-        return child!;
-      },
-      child: TweenAnimationBuilder(
-        tween: Tween<double>(begin: 90 * MediaQuery.textScalerOf(context).scale(1), end: showAppBar ? 90 * MediaQuery.textScalerOf(context).scale(1) : 0),
-        duration: animationTransitionDuration,
-        builder: (BuildContext context, double size, Widget? child) {
-          return AdaptiveScaffold(
-            // An option to override the default breakpoints used for small, medium,
-            // and large.
-            smallBreakpoint: const WidthPlatformBreakpoint(end: 700),
-            mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
-            largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
-            useDrawer: false,
-            appBarBreakpoint: const WidthPlatformBreakpoint(begin: 0),
-            selectedIndex: screenIndex,
-            onSelectedIndexChange: (int index) {
-              setState(() {
-                screenIndex = index;
-                return GoRouter.of(context).go(destinations[index].path);
-              });
-            },
-            destinations: destinations.map(
-              (NavDestination destination) {
-                return NavigationDestination(
-                  label: destination.label,
-                  icon: destination.icon,
-                  selectedIcon: destination.selectedIcon,
-                  tooltip: destination.label,
-                );
-              },
-            ).toList(),
-            body: (_) => SafeArea(
-              bottom: false,
-              top: false,
-              child: SnackBarOverlay(
-                child: widget.child,
-              ),
-            ),
-            // smallBody: (_) => SafeArea(
-            //   bottom: false,
-            //   top: false,
-            //   child: SnackBarOverlay(
-            //     child: widget.child,
-            //   ),
-            // ),
-            // Define a default secondaryBody.
-            //secondaryBody: AdaptiveScaffold.emptyBuilder,
-            // Override the default secondaryBody during the smallBreakpoint to be
-            // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
-            // overridden.
-            smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
-            appBar: AppBar(
-              actions: [
-                IconButton(
-                  onPressed: () => setState(() => showAppBar = !showAppBar),
-                  icon: const Icon(Icons.device_hub),
-                  selectedIcon: const Icon(Icons.device_hub_outlined),
-                  tooltip: shellDeviceBarToggleLabel(),
-                )
-              ],
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(size),
-                child: Center(
-                  child: AnimatedCrossFade(
-                    firstChild: const DeviceStatusWidget(),
-                    secondChild: Container(),
-                    duration: animationTransitionDuration,
-                    crossFadeState: showAppBar ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            return child!;
+          },
+          child: TweenAnimationBuilder(
+            tween: Tween<double>(begin: 90 * MediaQuery.textScalerOf(context).scale(1), end: showAppBar ? 90 * MediaQuery.textScalerOf(context).scale(1) : 0),
+            duration: animationTransitionDuration,
+            builder: (BuildContext context, double size, Widget? child) {
+              return AdaptiveScaffold(
+                // An option to override the default breakpoints used for small, medium,
+                // and large.
+                smallBreakpoint: const WidthPlatformBreakpoint(end: 700),
+                mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
+                largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
+                useDrawer: false,
+                appBarBreakpoint: const WidthPlatformBreakpoint(begin: 0),
+                selectedIndex: screenIndex,
+                onSelectedIndexChange: (int index) {
+                  setState(
+                    () {
+                      screenIndex = index;
+                      return GoRouter.of(context).go(destinations[index].path);
+                    },
+                  );
+                },
+                destinations: destinations.map(
+                  (NavDestination destination) {
+                    return NavigationDestination(
+                      label: destination.label,
+                      icon: destination.icon,
+                      selectedIcon: destination.selectedIcon,
+                      tooltip: destination.label,
+                    );
+                  },
+                ).toList(),
+                body: (_) => SafeArea(
+                  bottom: false,
+                  top: false,
+                  child: SnackBarOverlay(
+                    child: widget.child,
                   ),
                 ),
-              ),
-              title: GestureDetector(
-                onTap: () => setState(() => showAppBar = !showAppBar),
-                child: Text(title()),
-              ),
-              leading: const Image(image: AssetImage('assets/copilot_fox_icon.png')),
-            ),
-          );
-        },
+                // smallBody: (_) => SafeArea(
+                //   bottom: false,
+                //   top: false,
+                //   child: SnackBarOverlay(
+                //     child: widget.child,
+                //   ),
+                // ),
+                // Define a default secondaryBody.
+                //secondaryBody: AdaptiveScaffold.emptyBuilder,
+                // Override the default secondaryBody during the smallBreakpoint to be
+                // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
+                // overridden.
+                smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
+                appBar: AppBar(
+                  actions: [
+                    IconButton(
+                      onPressed: () => setState(() => showAppBar = !showAppBar),
+                      icon: const Icon(Icons.device_hub),
+                      selectedIcon: const Icon(Icons.device_hub_outlined),
+                      tooltip: shellDeviceBarToggleLabel(),
+                    )
+                  ],
+                  bottom: PreferredSize(
+                    preferredSize: Size.fromHeight(size),
+                    child: Center(
+                      child: AnimatedCrossFade(
+                        firstChild: const DeviceStatusWidget(),
+                        secondChild: Container(),
+                        duration: animationTransitionDuration,
+                        crossFadeState: showAppBar ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                      ),
+                    ),
+                  ),
+                  title: GestureDetector(
+                    onTap: () => setState(() => showAppBar = !showAppBar),
+                    child: Text(title()),
+                  ),
+                  leading: const Image(image: AssetImage('assets/copilot_fox_icon.png')),
+                ),
+              );
+            },
+          ),
+        ),
       ),
-    ));
+    );
   }
 }
 

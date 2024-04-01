@@ -1,24 +1,55 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../Backend/ActionRegistry.dart';
 import '../../Backend/Definitions/Action/BaseAction.dart';
 import '../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import '../intnDefs.dart';
 
-class ActionSelector extends ConsumerWidget {
+class ActionSelector extends ConsumerStatefulWidget {
   ActionSelector({super.key, required this.deviceType});
 
   Set<DeviceType> deviceType;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.read(getAllActionsProvider(deviceType));
+  ConsumerState<ActionSelector> createState() => _ActionSelectorState();
+}
+
+class _ActionSelectorState extends ConsumerState<ActionSelector> {
+  @override
+  void initState() {
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    Navigator.of(context).pop();
+    return true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.read(getAllActionsProvider(widget.deviceType));
     List<ActionCategory> catList = actionsCatMap.keys.toList();
     return Scaffold(
       primary: true,
       appBar: AppBar(
         title: Text(actionsSelectScreen()),
+        actions: [
+          IconButton(
+            onPressed: () => context.pop(true),
+            icon: const Icon(Icons.clear),
+            tooltip: triggersSelectClearLabel(),
+          )
+        ],
       ),
       body: ListView.builder(
         primary: true,
