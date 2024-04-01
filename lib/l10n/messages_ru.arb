@@ -113,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Положение правой стороны",
+  "sequencesEditRightServo": "Отмена",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "Увеличить громкость",
+  "triggerVolumeButtonVolumeUp": "Кнопки громкости",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "политика конфиденциальности",
+  "moreTitle": "Этот режим предотвращает выключение экрана, пока ваше оборудование подключено.",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
