@@ -131,7 +131,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Typ łagodzenia",
+  "sequencesEditEasing": "Opóźnienie",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "Czujnik pochylenia ucha",
+  "triggerEarTiltTitle": "Ile razy powtórzyć tę akcję?",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "Podręcznik FlutterWings",
+  "moreManualFlutterWingsTitle": "Szybki i podekscytowany",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Postęp pobierania oprogramowania sprzętowego",
+  "otaDownloadProgressLabel": "Postęp przesyłania oprogramowania sprzętowego",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -792,6 +792,18 @@
   "onboardingCompletedTitle": "Szczęśliwego machania!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Naciśnij ponownie, aby wyjść ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Usuń akcję",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
     "placeholders": {}
   }
