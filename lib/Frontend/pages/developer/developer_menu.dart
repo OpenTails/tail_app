@@ -49,6 +49,12 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             },
           ),
           ListTile(
+            title: Text(
+              "Internal Settings Debug",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+          ListTile(
             title: const Text(hasCompletedOnboarding),
             trailing: Switch(
               value: SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboarding),
