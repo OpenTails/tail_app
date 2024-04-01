@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "アクションをタップすると振動を有効にする",
+  "settingsHapticsToggleSubTitle": "アクションをタップしたときに振動を有効にする",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "エラーレポートをSentryに送信します",
+  "settingsErrorReportingToggleSubTitle": "このモードでは、ギアが接続されている間は画面がオフにならないようにします。",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -267,13 +267,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "尻尾はランダムな動きを選択し、各動きの間にランダムな秒数の間停止します。",
+  "manageDevicesAutoMoveSubTitle": "尻尾はランダムな動きを選択し、各動きの間にランダムな秒数の間一時停止します。",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "グループの移動",
+  "manageDevicesAutoMoveGroupsTitle": "グループを移動する",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -381,7 +381,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "ボリュームアップ",
+  "triggerVolumeButtonVolumeUp": "音量を上げる",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -477,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "イヤーギアマイク",
+  "triggerEarMicTitle": "ステップ",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "EarGearが傾きを検知するとアクションがトリガーされます",
+  "triggerEarTiltDescription": "EarGear が傾きを検出したときにアクションをトリガーする",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "フラッターウィングスマニュアル",
+  "moreManualFlutterWingsTitle": "FlutterWings マニュアル",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "アプリを強化するために、特定できない機能の使用を Plausible に報告します",
+  "settingsAnalyticsToggleSubTitle": "アプリの機能強化のため、識別されない機能の使用状況を Plausible に報告してください",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "このモードでは、ギアが接続されている間は画面がオフにならないようにします。",
+  "settingsKeepScreenOnToggleSubTitle": "このモードでは、機器が接続されている間、画面がオフになるのを防ぎます。",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -639,13 +639,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "ギア位置を直接制御します。",
+  "joyStickPageDescription": "ギア位置をダイレクトにコントロール。",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "ファームウェア変更ログ",
+  "otaChangelogLabel": "ファームウェア変更履歴",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -681,7 +681,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。鉛筆をタップしてカスタムアクションを編集します。",
+  "sequencesInfoDescription": "カスタム アクションを使用すると、ギアに独自のアクションを作成できます。カスタム アクションをタップすると、それが再生されます。鉛筆をタップしてカスタム アクションを編集します。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -693,13 +693,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "バッテリー残量を表示",
+  "settingsBatteryPercentageToggleTitle": "バッテリー%を表示",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "アイコンの代わりに実際のバッテリーレベルを表示する",
+  "settingsBatteryPercentageToggleSubTitle": "アイコンの代わりに実際のバッテリー残量を表示する",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -723,7 +723,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "アプリ全体でさまざまなチュートリアル カードを非表示にする",
+  "settingsTutorialCardToggleSubTitle": "アプリ全体のさまざまなチュートリアルカードを非表示にする",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "EarGear が傾きを検出したときにアクションをトリガーする",
+  "triggerInfoEditActionDescription": "EarGearが傾きを検知するとアクションがトリガーされます",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -792,6 +792,18 @@
   "onboardingDoneButtonLabel": "終わり",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "もう一度押すと終了します ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "アクションの削除",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
     "placeholders": {}
   }
