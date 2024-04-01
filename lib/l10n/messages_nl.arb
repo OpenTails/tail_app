@@ -225,7 +225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Selecteer een actie",
+  "settingsHapticsToggleTitle": "Grotere kaarten",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
