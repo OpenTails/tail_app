@@ -2,10 +2,13 @@ import 'dart:async';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 
 import '../intnDefs.dart';
 
-class BackButtonToClose extends StatefulWidget {
+class BackButtonToClose extends ConsumerStatefulWidget {
   const BackButtonToClose({required this.child, super.key});
 
   final Widget child;
@@ -14,7 +17,7 @@ class BackButtonToClose extends StatefulWidget {
   _BackButtonToCloseState createState() => _BackButtonToCloseState();
 }
 
-class _BackButtonToCloseState extends State<BackButtonToClose> {
+class _BackButtonToCloseState extends ConsumerState<BackButtonToClose> {
   Timer timer = Timer(Duration.zero, () {});
 
   @override
@@ -31,6 +34,9 @@ class _BackButtonToCloseState extends State<BackButtonToClose> {
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     if (info.currentRoute(context)!.isFirst && info.currentRoute(context)!.isCurrent) {
+      if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).isNotEmpty) {
+        return true;
+      }
       if (timer.isActive) {
         return false;
       }
