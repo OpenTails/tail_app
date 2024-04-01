@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "Přesunout skupiny",
+  "manageDevicesAutoMoveGroupsTitle": "Klepnutím zobrazíte",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "EarGear Mic",
+  "triggerEarMicTitle": "Žádná sada akcí",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Udělení povolení",
+  "onboardingBluetoothRequestButtonLabel": "Skryjte různé výukové karty v celé aplikaci",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -792,6 +792,18 @@
   "onboardingCompletedTitle": "Happy Wagging!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Odebrat akci",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Pro ukončení stiskněte znovu ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   }
