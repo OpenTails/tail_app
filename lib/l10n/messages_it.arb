@@ -59,7 +59,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "OK",
+  "ok": "Elimina azione",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsCalm": "Calma",
+  "manageDevicesAutoMoveGroupsCalm": "Sposta gruppi",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Suono rilevato",
+  "triggerEarMicSound": "Nessuna serie di azioni",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -621,7 +621,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Controllare direttamente la posizione del cambio.",
+  "joyStickPageDescription": "Inclinazione destra",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Attiva il Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "link utili",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -789,9 +789,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Buon scodinzolante!",
+  "onboardingCompletedTitle": "Fatto",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Rimuovi azione",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Premere di nuovo per uscire ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   }
