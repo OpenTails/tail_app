@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "耳",
+  "deviceTypeEars": "ジョイスティック",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "ホームギア",
+  "sequencesEditHomeLabel": "ホーム・ザ・ギア",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "耳",
+  "actionsCategoryEars": "ジョイスティック",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "アクションをタップしたときに振動を有効にする",
+  "settingsHapticsToggleSubTitle": "アクションをタップすると振動を有効にする",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "尻尾はランダムな動きを選択し、各動きの間にランダムな秒数の間一時停止します。",
+  "manageDevicesAutoMoveSubTitle": "尻尾はランダムな動きを選択し、各動きの間にランダムな秒数の間停止します。",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "このアクションを何回繰り返しますか?",
+  "sequenceEditRepeatTitle": "このアクションを何回繰り返すか?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "EarGear が傾きを検出したときにアクションをトリガーする",
+  "triggerEarTiltDescription": "EarGearが傾きを検知するとアクションがトリガーされます",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "デジテールマニュアル",
+  "moreManualDigitailTitle": "MiTail マニュアル",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "このモードでは、機器が接続されている間、画面がオフになるのを防ぎます。",
+  "settingsKeepScreenOnToggleSubTitle": "このモードでは、ギアが接続されている間は画面がオフにならないようにします。",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "ギア位置をダイレクトにコントロール。",
+  "joyStickPageDescription": "ギア位置を直接制御します。",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -681,7 +681,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "カスタム アクションを使用すると、ギアに独自のアクションを作成できます。カスタム アクションをタップすると、それが再生されます。鉛筆をタップしてカスタム アクションを編集します。",
+  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。鉛筆をタップしてカスタムアクションを編集します。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -693,19 +693,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "バッテリー%を表示",
+  "settingsBatteryPercentageToggleTitle": "バッテリー残量を表示",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "アイコンの代わりに実際のバッテリー残量を表示する",
+  "settingsBatteryPercentageToggleSubTitle": "アイコンの代わりに実際のバッテリーレベルを表示する",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleTitle": "大きめのカード",
+  "settingsLargerCardsToggleTitle": "イージングタイプ",
   "@settingsLargerCardsToggleTitle": {
     "description": "Settings page Larger cards toggle title",
     "type": "text",
@@ -735,13 +735,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "ギアを更新する",
+  "triggerInfoEditActionDescription": "EarGear が傾きを検出したときにアクションをトリガーする",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります。",
+  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシー ポリシーに同意する必要があります。",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
