@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Oreilles",
+  "deviceTypeEars": "Frustré et tendu",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Modifier l'action",
+  "sequencesEdit": "Nom",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -135,7 +135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Oreilles",
+  "actionsCategoryEars": "Frustré et tendu",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "Manuels",
+  "moreManualTitle": "Manuel d'utilisation des écouteurs",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Accepter la politique de confidentialité",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Voir la politique de confidentialité",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Activer le Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Activer Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -792,6 +792,18 @@
   "onboardingCompletedTitle": "Bonne agitation !",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Supprimer l'action",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Appuyez à nouveau pour quitter ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   }
