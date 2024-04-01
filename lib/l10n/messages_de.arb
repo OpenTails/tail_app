@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Wählen Sie einen Triggertyp aus",
+  "triggersSelectLabel": "Aktion löschen",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Für welche Ausrüstung soll das gelten?",
+  "deviceType": "Für welches Getriebe soll das gelten?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung für eine zufällige Anzahl von Sekunden.",
+  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung eine zufällige Anzahl von Sekunden",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Löse eine Aktion aus, wenn EarGear Geräusche erkennt",
+  "triggerEarMicDescription": "Lösen Sie eine Aktion aus, wenn EarGear Geräusche erkennt",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Ändern Sie die App-Farbe, konfigurieren Sie die Haptik und mehr",
+  "settingsDescription": "App-Farbe ändern, Haptik konfigurieren und mehr",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Lassen Sie den Bildschirm eingeschaltet",
+  "settingsKeepScreenOnToggleTitle": "Viel Spaß beim Wedeln!",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus zufällige Pausen zu den Startzeiten ihrer Bewegungen hinzu, was einen anderen visuellen Effekt ergibt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Fortschritt des Firmware-Downloads",
+  "otaDownloadProgressLabel": "Fortschritt des Firmware-Uploads",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -747,13 +747,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, müssen Sie dennoch die Datenschutzrichtlinie akzeptieren.",
+  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, müssen Sie dennoch die Datenschutzrichtlinie akzeptieren",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzrichtlinie akzeptieren",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzbestimmungen akzeptieren",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Berechtigung erteilen",
+  "onboardingBluetoothRequestButtonLabel": "Erlaubnis erteilen",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -792,6 +792,18 @@
   "onboardingCompletedTitle": "Viel Spaß beim Wedeln!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Aktion entfernen",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Drücken Sie erneut, um den Vorgang zu beenden ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   }
