@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung für eine zufällige Anzahl von Sekunden",
+  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung für eine zufällige Anzahl von Sekunden.",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFrustrated": "Frustriert",
+  "manageDevicesAutoMoveGroupsFrustrated": "Ruhig",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
@@ -309,13 +309,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Abgedecktes Gerät",
+  "triggerCoverNear": "Gerät abgedeckt",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Gerät entdeckt",
+  "triggerCoverFar": "Gerät aufgedeckt",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Lösen Sie eine Aktion aus, wenn EarGear Geräusche erkennt",
+  "triggerEarMicDescription": "Löse eine Aktion aus, wenn EarGear Geräusche erkennt",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "Schalten Sie die Schaltleiste um",
+  "shellDeviceBarToggleLabel": "Zahnradleiste umschalten",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Trigger senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Trigger, um ihn zu bearbeiten, und aktivieren Sie den Trigger mit dem Schalter auf der linken Seite.",
+  "triggerInfoDescription": "Auslöser senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Auslöser, um ihn zu bearbeiten. Verwenden Sie den Schalter auf der linken Seite, um den Auslöser zu aktivieren.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, müssen Sie dennoch die Datenschutzrichtlinie akzeptieren",
+  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, müssen Sie dennoch die Datenschutzrichtlinie akzeptieren.",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Erlaubnis erteilen",
+  "onboardingBluetoothRequestButtonLabel": "Berechtigung erteilen",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
