@@ -495,7 +495,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Inclinación hacia la derecha",
+  "triggerEarTiltRight": "Inclinación izquierda",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -645,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Las acciones personalizadas te permiten crear tus propias acciones para el equipo. Al tocar una acción personalizada, se reproducirá. Toque el lápiz para editar una acción personalizada.",
+  "sequencesInfoDescription": "¿Cuántas veces repetir esta acción?",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
