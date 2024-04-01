@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 
+import '../intnDefs.dart';
+
 class BackButtonToClose extends StatefulWidget {
   const BackButtonToClose({required this.child, super.key});
 
@@ -34,8 +36,8 @@ class _BackButtonToCloseState extends State<BackButtonToClose> {
       }
       timer = Timer(const Duration(seconds: 1), () {});
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Press again to exit 🎉'),
+        SnackBar(
+          content: Text(doubleBackToClose()),
         ),
       );
       return true;

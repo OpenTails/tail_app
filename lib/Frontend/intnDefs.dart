@@ -284,3 +284,5 @@ String onboardingBluetoothEnableButtonLabel() => Intl.message("Turn On Bluetooth
 String onboardingDoneButtonLabel() => Intl.message("Done", name: 'onboardingDoneButtonLabel', desc: 'Label for the button to close the onboarding screen');
 
 String onboardingCompletedTitle() => Intl.message("Happy Wagging!", name: 'onboardingCompletedTitle', desc: 'Title of the final page of the onboarding screen');
+
+String doubleBackToClose() => Intl.message("Press again to exit ", name: 'doubleBackToClose', desc: 'Snackbar message which appears when the back button is pressed at the main screen');
