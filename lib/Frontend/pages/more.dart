@@ -4,9 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -109,27 +107,7 @@ class _MoreState extends ConsumerState<More> {
             if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) {
               return;
             }
-            screenLock(
-              title: Lottie.asset(
-                renderCache: RenderCache.raster,
-                width: 80,
-                'assets/tailcostickers/tgs/TailCoStickers_file_144834344.tgs',
-                decoder: LottieComposition.decodeGZip,
-              ),
-              context: context,
-              onUnlocked: () {
-                SentryHive.box(settings).put(showDebugging, true);
-                Navigator.of(context).pop();
-              },
-              // One at top left, 9 at bottom right
-              correctString: '0476',
-              keyPadConfig: const KeyPadConfig(
-                // 0 - 9
-                displayStrings: ['🦊', '🐶', '🐵', '🐦', '🐉', '🐎', '🦖', '🦦', '🐿️', '🐭'],
-              ),
-              cancelButton: const Icon(Icons.close),
-              deleteButton: const Icon(Icons.delete),
-            );
+            context.push('/settings/developer/pin');
           },
         ),
         ListTile(

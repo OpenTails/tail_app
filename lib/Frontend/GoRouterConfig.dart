@@ -8,6 +8,7 @@ import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
 import 'package:tail_app/Frontend/pages/Shell.dart';
 import 'package:tail_app/Frontend/pages/developer/bluetooth_console.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
+import 'package:tail_app/Frontend/pages/developer/developer_pincode.dart';
 import 'package:tail_app/Frontend/pages/intro.dart';
 import 'package:tail_app/Frontend/pages/more.dart';
 import 'package:tail_app/Frontend/pages/move_list.dart';
@@ -182,6 +183,12 @@ final GoRouter router = GoRouter(
               parentNavigatorKey: _rootNavigatorKey,
               builder: (BuildContext context, GoRouterState state) => BluetoothConsole(device: state.extra! as BaseStatefulDevice),
             ),
+            GoRoute(
+              name: 'Settings/Developer Menu/Pin',
+              path: 'pin',
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (BuildContext context, GoRouterState state) => const DeveloperPincode(),
+            )
           ],
         ),
       ],

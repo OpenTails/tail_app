@@ -41,9 +41,9 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             },
           ),
           ListTile(
-            title: const Text("Crash"),
+            title: const Text("Throw an error"),
             leading: const Icon(Icons.bug_report),
-            subtitle: const Text("Test crash reporting"),
+            subtitle: const Text("Sends an error to sentry"),
             onTap: () {
               throw Exception('Sentry Test');
             },
