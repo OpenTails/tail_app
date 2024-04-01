@@ -6,7 +6,6 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
-import 'package:flutter_nearby_connections/flutter_nearby_connections.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -487,8 +486,6 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 }
 
 class TailProximityTriggerDefinition extends TriggerDefinition {
-  StreamSubscription? subscription;
-  NearbyService? nearbyService;
   StreamSubscription<DiscoveredDevice>? btConnectStream;
   Timer? btnearbyCooldown;
 
@@ -504,18 +501,14 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
   @override
   Future<void> onDisable() async {
     if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
-      subscription?.cancel();
-      subscription = null;
       btConnectStream?.cancel();
       btConnectStream = null;
-      await nearbyService?.stopAdvertisingPeer();
-      await nearbyService?.stopBrowsingForPeers();
     }
   }
 
   @override
   Future<void> onEnable() async {
-    if (subscription != null) {
+    if (btConnectStream != null) {
       return;
     }
     btConnectStream = ref.read(reactiveBLEProvider).scanForDevices(withServices: DeviceRegistry.getAllIds()).where((event) => !ref.read(knownDevicesProvider).keys.contains(event.id)).listen(
@@ -529,20 +522,6 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
         btnearbyCooldown = Timer(const Duration(seconds: 30), () {});
       },
     );
-    nearbyService = NearbyService();
-    await nearbyService?.init(
-        serviceType: "tailapp",
-        strategy: Strategy.P2P_POINT_TO_POINT,
-        callback: (isRunning) async {
-          if (isRunning) {
-            await nearbyService?.startAdvertisingPeer();
-            await nearbyService?.startBrowsingForPeers();
-          }
-        });
-    subscription = nearbyService?.stateChangedSubscription(callback: (devicesList) {
-      Flogger.d("TailProximityTriggerDefinition::");
-      sendCommands("Nearby Gear", ref);
-    });
   }
 }
 
