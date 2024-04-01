@@ -309,7 +309,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersAdd": "Agregar disparador",
+  "triggersAdd": "Cancelar",
   "@triggersAdd": {
     "description": "Floating Action Button on the triggers page",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "Manual de MiTail",
+  "moreManualDigitailTitle": "política de privacidad",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleTitle": "Tarjetas más grandes",
+  "settingsLargerCardsToggleTitle": "Muestra el nivel real de la batería en lugar de un icono",
   "@settingsLargerCardsToggleTitle": {
     "description": "Settings page Larger cards toggle title",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Subir",
+  "otaUploadButtonLabel": "Descargar",
   "@otaUploadButtonLabel": {
     "description": "Label for upload firmware button at bottom of OTA page",
     "type": "text",
@@ -789,9 +789,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "¡Feliz meneo!",
+  "onboardingCompletedTitle": "Hecho",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Eliminar acción",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Presione nuevamente para salir ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   }
