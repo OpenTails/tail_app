@@ -189,7 +189,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsCalm": "Calme",
+  "manageDevicesAutoMoveGroupsCalm": "Couleur de l'application",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
@@ -273,7 +273,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonTitle": "Boutons de volume",
+  "triggerVolumeButtonTitle": "Déclenchez une action en recouvrant le capteur de proximité",
   "@triggerVolumeButtonTitle": {
     "description": "Volume Button trigger title",
     "type": "text",
