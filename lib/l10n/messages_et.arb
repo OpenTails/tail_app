@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Privaatsuspoliitika",
+  "deviceType": "Andke luba",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
