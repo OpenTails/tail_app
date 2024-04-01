@@ -122,7 +122,7 @@ class _MoreState extends ConsumerState<More> {
                 Navigator.of(context).pop();
               },
               // One at top left, 9 at bottom right
-              correctString: '0000',
+              correctString: '0476',
               keyPadConfig: const KeyPadConfig(
                 // 0 - 9
                 displayStrings: ['🦊', '🐶', '🐵', '🐦', '🐉', '🐎', '🦖', '🦦', '🐿️', '🐭'],
