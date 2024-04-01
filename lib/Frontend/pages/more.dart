@@ -4,10 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/intnDefs.dart';
 import 'package:tail_app/main.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -101,6 +104,32 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.code),
           onTap: () async {
             await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app'));
+          },
+          onLongPress: () {
+            if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) {
+              return;
+            }
+            screenLock(
+              title: Lottie.asset(
+                renderCache: RenderCache.raster,
+                width: 80,
+                'assets/tailcostickers/tgs/TailCoStickers_file_144834344.tgs',
+                decoder: LottieComposition.decodeGZip,
+              ),
+              context: context,
+              onUnlocked: () {
+                SentryHive.box(settings).put(showDebugging, true);
+                Navigator.of(context).pop();
+              },
+              // One at top left, 9 at bottom right
+              correctString: '0000',
+              keyPadConfig: const KeyPadConfig(
+                // 0 - 9
+                displayStrings: ['🦊', '🐶', '🐵', '🐦', '🐉', '🐎', '🦖', '🦦', '🐿️', '🐭'],
+              ),
+              cancelButton: const Icon(Icons.close),
+              deleteButton: const Icon(Icons.delete),
+            );
           },
         ),
         ListTile(
