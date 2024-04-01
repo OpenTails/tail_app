@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 
@@ -108,6 +109,20 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 setState(
                   () {
                     SentryHive.box(settings).put(firstLaunchSensors, value);
+                  },
+                );
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text(showDebugging),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(showDebugging, value);
+                    context.pop();
                   },
                 );
               },

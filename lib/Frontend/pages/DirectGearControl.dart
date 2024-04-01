@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
@@ -108,7 +107,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                   ),
                 ],
               ),
-              if (kDebugMode) ...[
+              if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 400, 8, 8),
                   child: Align(

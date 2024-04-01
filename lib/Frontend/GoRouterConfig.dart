@@ -170,16 +170,20 @@ final GoRouter router = GoRouter(
         );
       },
       routes: [
-        if (kDebugMode) ...[
-          GoRoute(name: 'Settings/Developer Menu', path: 'developer', parentNavigatorKey: _rootNavigatorKey, builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(), routes: [
+        GoRoute(
+          name: 'Settings/Developer Menu',
+          path: 'developer',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
+          routes: [
             GoRoute(
               name: 'Settings/Developer Menu/Console',
               path: 'console',
               parentNavigatorKey: _rootNavigatorKey,
               builder: (BuildContext context, GoRouterState state) => BluetoothConsole(device: state.extra! as BaseStatefulDevice),
             ),
-          ]),
-        ]
+          ],
+        ),
       ],
     ),
   ],

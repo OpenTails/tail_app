@@ -3,15 +3,16 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
 import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
 import 'package:tail_app/main.dart';
 
 import '../../Backend/FirmwareUpdate.dart';
+import '../../constants.dart';
 import '../intnDefs.dart';
 
 class OtaUpdate extends ConsumerStatefulWidget {
@@ -53,7 +54,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            if (kDebugMode) ...[
+            if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
               ListTile(
                 title: const Text("Debug"),
                 subtitle: Column(
@@ -84,7 +85,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                           children: [
                             ElevatedButton(onPressed: updateURL != null ? () => downloadFirmware() : null, child: Text(otaDownloadButtonLabel())),
                             ElevatedButton(onPressed: firmwareFile != null && otaState != OtaState.upload ? () => uploadFirmware() : null, child: Text(otaUploadButtonLabel())),
-                            if (kDebugMode) ...[
+                            if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
                               ElevatedButton(
                                 onPressed: () async {
                                   FilePickerResult? result = await FilePicker.platform.pickFiles(

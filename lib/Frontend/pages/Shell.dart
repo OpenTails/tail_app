@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
@@ -267,7 +266,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               );
             },
           ),
-          if (widget.device.hasUpdate.value || kDebugMode) ...[
+          if (widget.device.hasUpdate.value || SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: FilledButton(
@@ -425,7 +424,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               },
             ),
           ),
-          if (kDebugMode) ...[
+          if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
             ListTile(
               title: const Text("Debug"),
               subtitle: Column(
@@ -854,6 +853,24 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                 ),
               ),
             ),
+        ),
+      ),
+    );
+  }
+}
+
+class NewAppBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      title: Text(title()),
+      leading: const Image(image: AssetImage('assets/copilot_fox_icon.png')),
+      pinned: true,
+      expandedHeight: 200.0,
+      flexibleSpace: FlexibleSpaceBar(
+        title: Text(title()),
+        background: const Center(
+          child: DeviceStatusWidget(),
         ),
       ),
     );

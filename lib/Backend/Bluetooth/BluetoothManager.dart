@@ -9,6 +9,7 @@ import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -221,6 +222,11 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
     }
     if (knownDevices.containsKey(event.deviceId)) {
       knownDevices[event.deviceId]?.deviceConnectionState.value = event.connectionState;
+      Fluttertoast.showToast(
+        msg: "${knownDevices[event.deviceId]?.baseStoredDevice.name} has ${event.connectionState.name}",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+      );
       if (event.connectionState == DeviceConnectionState.disconnected) {
         Flogger.i("Disconnected from device: ${event.deviceId}");
         int count = SentryHive.box(settings).get(gearDisconnectCount, defaultValue: gearDisconnectCountDefault) + 1;

@@ -58,14 +58,12 @@ Future<void> main() async {
     return true;
   };
 
-  if (kDebugMode) {
-    Flogger.registerListener(
-      (record) {
-        LogConsole.add(OutputEvent(record.level, [record.printable()]), bufferSize: 10000);
-        log(record.printable(), stackTrace: record.stackTrace);
-      },
-    );
-  }
+  Flogger.registerListener(
+    (record) {
+      LogConsole.add(OutputEvent(record.level, [record.printable()]), bufferSize: 10000);
+      log(record.printable(), stackTrace: record.stackTrace);
+    },
+  );
 
   //var localeLoaded = await initializeMessages('ace');
   //Intl.defaultLocale = 'ace';
@@ -113,7 +111,7 @@ Future<void> main() async {
         child: SentryScreenshotWidget(
           child: ProviderScope(
             observers: [
-              if (kDebugMode) ...[RiverpodProviderObserver()],
+              RiverpodProviderObserver(),
             ],
             child: _EagerInitialization(child: TailApp()),
           ),
@@ -147,12 +145,16 @@ class TailApp extends ConsumerWidget {
     // Platform messages may fail, so we use a try/catch PlatformException.
     plausible = PlausibleDio(serverUrl, domain);
     plausible.enabled = true;
+    Flogger.i('Starting app');
+    if (kDebugMode) {
+      Flogger.i('Debug Mode Enabled');
+      SentryHive.box(settings).put(showDebugging, true);
+    }
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Flogger.i('Starting app');
     return BetterFeedback(
       themeMode: ThemeMode.system,
       darkTheme: FeedbackThemeData.dark(),

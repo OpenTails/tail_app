@@ -1,5 +1,4 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -227,7 +226,7 @@ class _SettingsState extends ConsumerState<Settings> {
               },
             ),
           ),
-          if (kDebugMode) ...[
+          if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
             ListTile(
               title: const Text("Development Menu"),
               leading: const Icon(Icons.bug_report),
