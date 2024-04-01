@@ -89,7 +89,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Имя",
+  "sequencesEditName": "Крылья",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканирование нового снаряжения",
+  "scanDevicesTitle": "Сканировать новое снаряжение",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Наклон вперед",
+  "triggerEarTiltForward": "Правый наклон",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие.",
+  "sequencesInfoDescription": "Ответственное виляние",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -792,6 +792,18 @@
   "onboardingCompletedTitle": "Приятного виляния!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Удалить действие",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Нажмите еще раз, чтобы выйти ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   }
