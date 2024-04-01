@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Okei",
+  "ok": "Valige päästiku tüüp",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Lubage toimingu puudutamisel vibratsioon",
+  "settingsHapticsToggleSubTitle": "Automaatne veateade",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "EarGear mikrofon",
+  "triggerEarMicTitle": "Tegevuskomplekt puudub",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleTitle": "Anonüümse analüüsi lubamine",
+  "settingsAnalyticsToggleTitle": "Hoidke ekraan sees",
   "@settingsAnalyticsToggleTitle": {
     "description": "Settings page analytics reporting toggle title",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Rohkem",
+  "moreTitle": "Püsivara allalaadimise edenemine",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Näita aku %",
+  "settingsBatteryPercentageToggleTitle": "Jalutamine",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
@@ -792,6 +792,18 @@
   "onboardingCompletedTitle": "Head vehkimist!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Eemalda tegevus",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Väljumiseks vajutage uuesti ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   }
