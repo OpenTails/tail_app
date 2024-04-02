@@ -124,6 +124,32 @@ class BaseStatefulDevice {
   String toString() {
     return 'BaseStatefulDevice{baseDeviceDefinition: $baseDeviceDefinition, baseStoredDevice: $baseStoredDevice, battery: $battery}';
   }
+
+  void reset() {
+    battery.value = -1;
+    batteryCharging.value = false;
+    batteryLow.value = false;
+    error.value = false;
+    fwVersion.value = "";
+    hwVersion.value = "";
+    glowTip.value = false;
+    connectionStateStreamSubscription?.cancel();
+    connectionStateStreamSubscription = null;
+    deviceState.value = DeviceState.standby;
+    rxCharacteristicStream = null;
+    keepAliveStreamSubscription?.cancel();
+    keepAliveStreamSubscription = null;
+    deviceConnectionState.value = DeviceConnectionState.disconnected;
+    rssi.value = -1;
+    fwInfo.value = null;
+    hasUpdate.value = false;
+    batteryCharacteristicStreamSubscription?.cancel();
+    batteryCharacteristicStreamSubscription = null;
+    batteryChargeCharacteristicStreamSubscription?.cancel();
+    batteryChargeCharacteristicStreamSubscription = null;
+    batlevels = [];
+    stopWatch.reset();
+  }
 }
 
 enum MessageHistoryType {

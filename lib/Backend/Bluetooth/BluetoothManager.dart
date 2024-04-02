@@ -33,6 +33,7 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
   Flogger.d("Starting scan");
   final FlutterReactiveBle bluetoothManagerRef = ref.watch(reactiveBLEProvider);
   Stream<DiscoveredDevice> scanStream = bluetoothManagerRef.scanForDevices(withServices: DeviceRegistry.getAllIds(), requireLocationServicesEnabled: false, scanMode: ScanMode.lowPower).asBroadcastStream();
+  // Checks if pair devices are nearby and tries to connect
   scanStream.listen(
     (DiscoveredDevice event) {
       if (ref.read(knownDevicesProvider).containsKey(event.id) && ref.read(knownDevicesProvider)[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected && !ref.read(knownDevicesProvider)[event.id]!.disableAutoConnect) {
@@ -44,6 +45,7 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
       Flogger.e('Error while scanning for gear:$e');
     },
   );
+  // returns all gear that are not paired
   return scanStream.skipWhile((DiscoveredDevice element) => ref.read(knownDevicesProvider).containsKey(element.id));
 }
 
@@ -115,78 +117,93 @@ class KnownDevices extends _$KnownDevices {
         Future(() => add(statefulDevice));
       }
       FlutterReactiveBle reactiveBLE = ref.read(reactiveBLEProvider);
-      statefulDevice.connectionStateStreamSubscription = reactiveBLE.connectToDevice(id: device.id).listen((event) async {
-        statefulDevice.deviceConnectionState.value = event.connectionState;
-        Flogger.i("Connection State updated for ${baseStoredDevice.name}: ${event.connectionState}");
-        if (event.connectionState == DeviceConnectionState.connected) {
-          statefulDevice.stopWatch.start();
-          statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
-          Flogger.i("Discovering services for ${baseStoredDevice.name}");
-          reactiveBLE.discoverAllServices(device.id);
-          statefulDevice.rxCharacteristicStream = reactiveBLE.subscribeToCharacteristic(statefulDevice.rxCharacteristic);
-          statefulDevice.rxCharacteristicStream?.listen((event) {
-            String value = const Utf8Decoder().convert(event);
-            Flogger.i("Received message from ${baseStoredDevice.name}: $value");
-            statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
-            if (value.startsWith("VER")) {
-              statefulDevice.fwVersion.value = value.substring(value.indexOf(" "));
-              if (statefulDevice.fwInfo.value != null) {
-                if (statefulDevice.fwInfo.value?.version.split(" ")[1] != statefulDevice.fwVersion.value) {
-                  statefulDevice.hasUpdate.value = true;
-                }
-              }
-            } else if (value.startsWith("GLOWTIP")) {
-              statefulDevice.glowTip.value = "TRUE" == value.substring(value.indexOf(" "));
-            } else if (value.contains("BUSY")) {
-              //statefulDevice.deviceState.value = DeviceState.busy;
-            } else if (value.contains("LOWBATT")) {
-              statefulDevice.batteryLow.value = true;
-            } else if (value.contains("ERR")) {
-              statefulDevice.error.value = true;
-            } else if (value.contains("HWVER")) {
-              statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
-            }
-          });
-          statefulDevice.batteryCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryCharacteristic).listen((List<int> event) {
-            Flogger.d("Received Battery message from ${baseStoredDevice.name}: $event");
-            statefulDevice.battery.value = event.first.toDouble();
-            statefulDevice.batlevels.add(FlSpot(statefulDevice.stopWatch.elapsed.inSeconds.toDouble(), event.first.toDouble()));
-          });
-          statefulDevice.batteryChargeCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryChargeCharacteristic).listen((List<int> event) {
-            String value = const Utf8Decoder().convert(event);
-            Flogger.d("Received Battery Charge message from ${baseStoredDevice.name}: $value");
-            statefulDevice.batteryCharging.value = value == "CHARGE ON";
-          });
-          statefulDevice.keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen((event) async {
-            if (state.containsKey(device.id)) {
-              statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "PING", device: statefulDevice, priority: Priority.low, type: Type.system));
-              statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
-            } else {
-              throw Exception("Disconnected from device");
-            }
-          }, cancelOnError: true);
-          // Try to get firmware update information from Tail Company site
-          if (deviceDefinition.fwURL != "") {
-            initDio().get(statefulDevice.baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
-              (value) {
-                if (value.statusCode == 200) {
-                  statefulDevice.fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
-                  if (statefulDevice.fwVersion.value != "") {
-                    if (statefulDevice.fwInfo.value?.version.split(" ")[1] != statefulDevice.fwVersion.value) {
-                      statefulDevice.hasUpdate.value = true;
-                    }
+      statefulDevice.connectionStateStreamSubscription = reactiveBLE.connectToDevice(id: device.id).listen(
+        (event) async {
+          statefulDevice.deviceConnectionState.value = event.connectionState;
+          Flogger.i("Connection State updated for ${baseStoredDevice.name}: ${event.connectionState}");
+          if (event.connectionState == DeviceConnectionState.connected) {
+            // The timer used for the time value on the battery level graph
+            statefulDevice.stopWatch.start();
+            // set initial signal strength
+            statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
+
+            Flogger.i("Discovering services for ${baseStoredDevice.name}");
+            await reactiveBLE.discoverAllServices(device.id);
+            statefulDevice.rxCharacteristicStream = reactiveBLE.subscribeToCharacteristic(statefulDevice.rxCharacteristic);
+
+            // Listen for responses outside of commands
+            statefulDevice.rxCharacteristicStream?.listen((event) {
+              String value = const Utf8Decoder().convert(event);
+              Flogger.i("Received message from ${baseStoredDevice.name}: $value");
+              statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
+              // Firmware Version
+              if (value.startsWith("VER")) {
+                statefulDevice.fwVersion.value = value.substring(value.indexOf(" "));
+                if (statefulDevice.fwInfo.value != null) {
+                  if (statefulDevice.fwInfo.value?.version.split(" ")[1] != statefulDevice.fwVersion.value) {
+                    statefulDevice.hasUpdate.value = true;
                   }
                 }
-              },
-            ).onError((error, stackTrace) => Flogger.e("Unable to get Firmware info for ${statefulDevice.baseDeviceDefinition.fwURL} :$error"));
+                // Sent after VER message
+              } else if (value.startsWith("GLOWTIP")) {
+                statefulDevice.glowTip.value = "TRUE" == value.substring(value.indexOf(" "));
+              } else if (value.contains("BUSY")) {
+                //statefulDevice.deviceState.value = DeviceState.busy;
+              } else if (value.contains("LOWBATT")) {
+                statefulDevice.batteryLow.value = true;
+              } else if (value.contains("ERR")) {
+                statefulDevice.error.value = true;
+              } else if (value.contains("HWVER")) {
+                // Hardware Version
+                statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
+              }
+            });
+            // Listen to battery level stream
+            statefulDevice.batteryCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryCharacteristic).listen((List<int> event) {
+              Flogger.d("Received Battery message from ${baseStoredDevice.name}: $event");
+              statefulDevice.battery.value = event.first.toDouble();
+              statefulDevice.batlevels.add(FlSpot(statefulDevice.stopWatch.elapsed.inSeconds.toDouble(), event.first.toDouble()));
+            });
+            // Listen to battery charge state stream
+            statefulDevice.batteryChargeCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryChargeCharacteristic).listen((List<int> event) {
+              String value = const Utf8Decoder().convert(event);
+              Flogger.d("Received Battery Charge message from ${baseStoredDevice.name}: $value");
+              statefulDevice.batteryCharging.value = value == "CHARGE ON";
+            });
+            // Send a ping every 15 seconds
+            // Also gets the RSSI signal strength
+            statefulDevice.keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen((event) async {
+              if (state.containsKey(device.id)) {
+                statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "PING", device: statefulDevice, priority: Priority.low, type: Type.system));
+                statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
+              } else {
+                throw Exception("Disconnected from device");
+              }
+            }, cancelOnError: true);
+            // Try to get firmware update information from Tail Company site
+            if (deviceDefinition.fwURL != "") {
+              initDio().get(statefulDevice.baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
+                (value) {
+                  if (value.statusCode == 200) {
+                    statefulDevice.fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
+                    if (statefulDevice.fwVersion.value != "") {
+                      if (statefulDevice.fwInfo.value?.version.split(" ")[1] != statefulDevice.fwVersion.value) {
+                        statefulDevice.hasUpdate.value = true;
+                      }
+                    }
+                  }
+                },
+              ).onError((error, stackTrace) => Flogger.e("Unable to get Firmware info for ${statefulDevice.baseDeviceDefinition.fwURL} :$error"));
+            }
+            // Add initial commands to the queue
+            statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "VER", device: statefulDevice, priority: Priority.low, type: Type.system));
+            statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: statefulDevice, priority: Priority.low, type: Type.system));
+            if (statefulDevice.baseStoredDevice.autoMove) {
+              ChangeAutoMove(statefulDevice);
+            }
           }
-          statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "VER", device: statefulDevice, priority: Priority.low, type: Type.system));
-          statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: statefulDevice, priority: Priority.low, type: Type.system));
-          if (statefulDevice.baseStoredDevice.autoMove) {
-            ChangeAutoMove(statefulDevice);
-          }
-        }
-      });
+        },
+      );
       transaction.status = const SpanStatus.ok();
     } catch (e, s) {
       Sentry.captureException(e, stackTrace: s);
@@ -221,40 +238,26 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
       }
     }
     if (knownDevices.containsKey(event.deviceId)) {
-      knownDevices[event.deviceId]?.deviceConnectionState.value = event.connectionState;
+      BaseStatefulDevice baseStatefulDevice = knownDevices[event.deviceId]!;
+      baseStatefulDevice.deviceConnectionState.value = event.connectionState;
       Fluttertoast.showToast(
-        msg: "${knownDevices[event.deviceId]?.baseStoredDevice.name} has ${event.connectionState.name}",
+        msg: "${baseStatefulDevice.baseStoredDevice.name} has ${event.connectionState.name}",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
       );
       if (event.connectionState == DeviceConnectionState.disconnected) {
         Flogger.i("Disconnected from device: ${event.deviceId}");
+
+        // We don't want to display the app review screen right away. We keep track of gear disconnects and after 5 we try to display the review dialog.
         int count = SentryHive.box(settings).get(gearDisconnectCount, defaultValue: gearDisconnectCountDefault) + 1;
         if (count > 5 && SentryHive.box(settings).get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
           SentryHive.box(settings).put(shouldDisplayReview, true);
         } else {
           SentryHive.box(settings).put(gearDisconnectCount, count);
         }
-        knownDevices[event.deviceId]?.connectionStateStreamSubscription?.cancel();
-        knownDevices[event.deviceId]?.connectionStateStreamSubscription = null;
-        knownDevices[event.deviceId]?.batteryCharacteristicStreamSubscription?.cancel();
-        knownDevices[event.deviceId]?.batteryCharacteristicStreamSubscription = null;
-        knownDevices[event.deviceId]?.rxCharacteristicStream = null;
-        knownDevices[event.deviceId]?.keepAliveStreamSubscription?.cancel();
-        knownDevices[event.deviceId]?.keepAliveStreamSubscription = null;
-        knownDevices[event.deviceId]?.battery.value = -1;
-        knownDevices[event.deviceId]?.rssi.value = -1;
-        knownDevices[event.deviceId]?.hasUpdate.value = false;
-        knownDevices[event.deviceId]?.fwInfo.value = null;
-        knownDevices[event.deviceId]?.fwVersion.value = "";
-        knownDevices[event.deviceId]?.batteryCharging.value = false;
-        knownDevices[event.deviceId]?.batteryChargeCharacteristicStreamSubscription?.cancel();
-        knownDevices[event.deviceId]?.batteryChargeCharacteristicStreamSubscription = null;
-        knownDevices[event.deviceId]?.stopWatch.stop();
-        knownDevices[event.deviceId]?.stopWatch.reset();
-        knownDevices[event.deviceId]?.batteryLow.value = false;
-        knownDevices[event.deviceId]?.hwVersion.value = "";
-        //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${knownDevices[event.deviceId]?.baseStoredDevice.name}")));
+        // Resets most of the runtime values without recreating the whole object
+        baseStatefulDevice.reset();
+        //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${baseStatefulDevice.baseStoredDevice.name}")));
         //remove foreground service if no devices connected
         int deviceCount = knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).length;
         bool lastDevice = deviceCount == 0;
@@ -266,11 +269,13 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
           ref.read(triggerListProvider).where((element) => element.enabled).forEach((element) {
             element.enabled = false;
           });
+          // stop wakelock if its started
           WakelockPlus.disable();
           FlutterAppBadger.removeBadge();
         } else {
           FlutterAppBadger.updateBadgeCount(deviceCount);
         }
+        // if the forget button was used, remove the device
         if (knownDevices[event.deviceId]!.forgetOnDisconnect) {
           ref.read(knownDevicesProvider.notifier).remove(event.deviceId);
         }
@@ -297,8 +302,10 @@ class CommandQueue {
 
   Stream<BluetoothMessage> messageQueueStream() async* {
     while (true) {
-      await Future.delayed(const Duration(milliseconds: 50));
-      while (state.isNotEmpty && device.deviceState.value == DeviceState.standby) {
+      // Limit the speed commands are processed
+      await Future.delayed(const Duration(milliseconds: 100));
+      // wait for
+      if (state.isNotEmpty && device.deviceState.value == DeviceState.standby) {
         device.deviceState.value = DeviceState.runAction;
         yield state.removeFirst();
       }
@@ -328,11 +335,13 @@ class CommandQueue {
             Duration timeoutDuration = const Duration(seconds: 10);
             Flogger.d("Waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
             Timer timer = Timer(timeoutDuration, () {});
+
+            // We use a timeout as sometimes a response isn't sent by the gear
             Future<List<int>> response = message.device.rxCharacteristicStream!.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
               Flogger.i('Response:${const Utf8Decoder().convert(event)}');
               return const Utf8Decoder().convert(event) == message.responseMSG!;
             }).first;
-
+            // Handles response value
             response.then((value) {
               timer.cancel();
               if (message.onResponseReceived != null) {
