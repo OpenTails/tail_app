@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
 
-//
 //generate file for translation. Run when adding new translations
 //dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intnDefs.dart
 //convert to dart
