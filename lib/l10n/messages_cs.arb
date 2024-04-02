@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "užitečné odkazy",
+  "moreUsefulLinksTitle": "Klepnutím zobrazíte",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
