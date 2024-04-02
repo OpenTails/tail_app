@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-04-01T16:47:00.492641",
+  "@@last_modified": "2024-04-02T17:27:31.592989",
   "title": "Gear on the Go",
   "@title": {
     "description": "The name of the app",
@@ -79,7 +79,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Select an Trigger Type",
+  "triggersSelectLabel": "Select a Trigger Type",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
