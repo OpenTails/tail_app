@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Elimina azione",
+  "triggersSelectLabel": "Seleziona un tipo di trigger",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
@@ -191,7 +191,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "A casa l'ingranaggio",
+  "sequencesEditHomeLabel": "Tipo di facilitazione",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Nessuna serie di azioni",
+  "triggerEarMicSound": "Attrezzatura nelle vicinanze",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Avanzamento del download del firmware",
+  "otaDownloadProgressLabel": "Avanzamento caricamento firmware",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "link utili",
+  "onboardingBluetoothEnableButtonLabel": "Nessuna serie di azioni",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
