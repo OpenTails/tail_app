@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersAdd": "トリガーの追加",
+  "triggersAdd": "トリガーを追加",
   "@triggersAdd": {
     "description": "Floating Action Button on the triggers page",
     "type": "text",
@@ -273,7 +273,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "グループを移動する",
+  "manageDevicesAutoMoveGroupsTitle": "グループの移動",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -381,7 +381,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "音量を上げる",
+  "triggerVolumeButtonVolumeUp": "ボリュームアップ",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -477,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "ステップ",
+  "triggerEarMicTitle": "外出先でのギア",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "EarGear が傾きを検出したときにアクションをトリガーする",
+  "triggerEarTiltDescription": "EarGearが傾きを検知するとアクションがトリガーされます",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "FlutterWings マニュアル",
+  "moreManualFlutterWingsTitle": "フラッターウィングスマニュアル",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "アプリの色の変更、触覚の構成など",
+  "settingsDescription": "遅れ",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "アプリの機能強化のため、識別されない機能の使用状況を Plausible に報告してください",
+  "settingsAnalyticsToggleSubTitle": "アプリを強化するために、特定できない機能の使用を Plausible に報告します",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "画面をオンのままにする",
+  "settingsKeepScreenOnToggleTitle": "画面をオンにしたままにする",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "ギアバーを切り替える",
+  "shellDeviceBarToggleLabel": "もう一度押すと終了します",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "同じデバイスの多数のインスタンスを接続する場合、このモードは移動開始時間にランダムな一時停止を追加し、異なる視覚効果を与えます。",
+  "settingsKitsuneToggleSubTitle": "同じデバイスの多数のインスタンスを接続する場合、このモードでは移動開始時間にランダムな一時停止が追加され、異なる視覚効果が与えられます。",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -645,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "ファームウェア変更履歴",
+  "otaChangelogLabel": "ファームウェアの変更履歴",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -723,7 +723,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "アプリ全体のさまざまなチュートリアルカードを非表示にする",
+  "settingsTutorialCardToggleSubTitle": "アプリ全体でさまざまなチュートリアル カードを非表示にする",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -735,13 +735,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "EarGearが傾きを検知するとアクションがトリガーされます",
+  "triggerInfoEditActionDescription": "尻尾はランダムな動きを選択し、各動きの間にランダムな秒数の間一時停止します。",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシー ポリシーに同意する必要があります。",
+  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります。",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "ギアに接続するには Bluetooth 許可が必要です",
+  "onboardingBluetoothDescription": "ギアに接続するにはBluetoothの許可が必要です",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
