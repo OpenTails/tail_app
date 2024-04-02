@@ -47,13 +47,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Тип шестерни",
+  "deviceType": "К какому механизму это должно относиться?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Хвост",
+  "deviceTypeTail": "Добавить триггер",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -89,7 +89,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Имя",
+  "sequencesEditName": "Крылья",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -107,19 +107,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Левый сервопривод",
+  "sequencesEditLeftServo": "Положение левого сервопривода",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Правый сервопривод",
+  "sequencesEditRightServo": "Отмена",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Скорость",
+  "sequencesEditSpeed": "С какой скоростью шестерня должна переместиться в это положение?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -131,7 +131,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Время",
+  "sequencesEditTime": "Как долго ждать, прежде чем перейти к следующему шагу в этом специальном действии?",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Казуальный режим",
+  "manageDevicesAutoMoveTitle": "Цвет приложения",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -315,13 +315,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканирование нового снаряжения",
+  "scanDevicesTitle": "Сканировать новое снаряжение",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Сканирование снаряжения. Убедитесь, что ваше оборудование включено и находится поблизости.",
+  "scanDevicesScanMessage": "Нажмите, чтобы обновить прошивку",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "Приложение DigiTail, MiTail, MiTail Mini, FlutterWings и EarGear (на рассмотрении TM)",
+  "title": "Механизм на ходу",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -381,7 +381,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Обратная связь",
+  "feedbackPage": "Отправить отзыв",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -393,13 +393,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Около",
+  "triggerCoverNear": "Устройство покрыто",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Далеко",
+  "triggerCoverFar": "Устройство раскрыто",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "Увеличить громкость",
+  "triggerVolumeButtonVolumeUp": "Кнопки громкости",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -465,7 +465,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Запуск действия, когда EarGear обнаруживает звук",
+  "triggerEarMicDescription": "Карты большего размера",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -501,19 +501,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Наклон вперед",
+  "triggerEarTiltForward": "Правый наклон",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Наклон назад",
+  "triggerEarTiltBackward": "EarGear микрофон",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Повторить действие",
+  "sequenceEditRepeatTitle": "Сколько раз повторить это Действие?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -525,7 +525,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesConnect": "Соединять",
+  "manageDevicesConnect": "График батареи",
   "@manageDevicesConnect": {
     "description": "manage devices connect button title when managing a device",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Более",
+  "moreTitle": "Этот режим предотвращает выключение экрана, пока ваше оборудование подключено.",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -642,6 +642,168 @@
   "settingsKitsuneToggleSubTitle": "Если вы подключаете много экземпляров одних и тех же устройств, этот режим добавит случайные паузы ко времени их начала движения, придав ему другой визуальный эффект.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Показать процент заряда батареи",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Показывать фактический уровень заряда батареи вместо значка",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Карты большего размера",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Карты действий становятся больше, чтобы их было легче нажимать.",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Скрыть карточки обучения",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Скройте различные обучающие карточки в приложении.",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизводиться при возникновении события. Чтобы удалить действие, нажмите значок «Назад» на экране выбора.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Триггеры автоматически отправляют действия на ваше снаряжение. Вы можете одновременно активировать несколько триггеров. Нажмите на триггер, чтобы отредактировать его, используйте переключатель слева, чтобы включить триггер.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "политика конфиденциальности",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Журнал изменений прошивки",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Скачать",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "Загрузить",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Ход загрузки прошивки",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Ход загрузки прошивки",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Ответственное виляние",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyDescription": "Хотя собранные данные являются анонимными и не могут быть использованы для идентификации конкретного пользователя, вам все равно необходимо принять политику конфиденциальности.",
+  "@onboardingPrivacyPolicyDescription": {
+    "description": "Description for there being a privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothTitle": "Bluetooth",
+  "@onboardingBluetoothTitle": {
+    "description": "Title for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingDoneButtonLabel": "Сделанный",
+  "@onboardingDoneButtonLabel": {
+    "description": "Label for the button to close the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyViewButtonLabel": "Посмотреть политику конфиденциальности",
+  "@onboardingPrivacyPolicyViewButtonLabel": {
+    "description": "Button label to view privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Принять политику конфиденциальности",
+  "@onboardingPrivacyPolicyAcceptButtonLabel": {
+    "description": "Button label to accept privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothDescription": "Для подключения к устройству требуется разрешение Bluetooth",
+  "@onboardingBluetoothDescription": {
+    "description": "Description for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothRequestButtonLabel": "Предоставить разрешение",
+  "@onboardingBluetoothRequestButtonLabel": {
+    "description": "Label for the button to request bluetooth permission on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothEnableButtonLabel": "Включите Bluetooth",
+  "@onboardingBluetoothEnableButtonLabel": {
+    "description": "Label for the button to open bluetooth settings on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingCompletedTitle": "Приятного виляния!",
+  "@onboardingCompletedTitle": {
+    "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Удалить действие",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Нажмите еще раз, чтобы выйти ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   }

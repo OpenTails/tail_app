@@ -1,5 +1,5 @@
 {
-  "title": "Die DigiTail-, MiTail-, MiTail Mini-, FlutterWings- und EarGear-App (TM angemeldet)",
+  "title": "Ausrüstung für unterwegs",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Rückmeldung",
+  "feedbackPage": "Feedback abschicken",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Wählen Sie einen Triggertyp aus",
+  "triggersSelectLabel": "Aktion löschen",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Getriebetyp",
+  "deviceType": "Für welches Getriebe soll das gelten?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Zeit",
+  "sequencesEditTime": "Wie lange muss gewartet werden, bevor mit dem nächsten Zug in dieser benutzerdefinierten Aktion fortgefahren wird?",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -147,7 +147,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Ruhig und entspannt",
+  "actionsCategoryCalm": "Bluetooth ist nicht verfügbar",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung für eine zufällige Anzahl von Sekunden",
+  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung eine zufällige Anzahl von Sekunden",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -231,13 +231,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFrustrated": "Frustriert",
+  "manageDevicesAutoMoveGroupsFrustrated": "Ruhig",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseTitle": "Pause zwischen den Zügen",
+  "manageDevicesAutoMovePauseTitle": "Pause zwischen den Bewegungen",
   "@manageDevicesAutoMovePauseTitle": {
     "description": "Auto move pause slider title when managing a device",
     "type": "text",
@@ -309,13 +309,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Nahe",
+  "triggerCoverNear": "Gerät abgedeckt",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Weit",
+  "triggerCoverFar": "Gerät aufgedeckt",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Lautstärketasten",
+  "triggerVolumeButtonDescription": "Gerät aufgedeckt",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Ausrüstung in der Nähe",
+  "triggerProximityTitle": "Sendet Fehlerberichte an Sentry",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -399,19 +399,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Linkes Servo",
+  "sequencesEditLeftServo": "Position des linken Servos",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Rechtes Servo",
+  "sequencesEditRightServo": "Position der rechten Seite",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Geschwindigkeit",
+  "sequencesEditSpeed": "Wie schnell sollte sich das Zahnrad in diese Position bewegen?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Aktion wiederholen",
+  "sequenceEditRepeatTitle": "Wie oft muss diese Aktion wiederholt werden?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Ändern Sie die App-Farbe, konfigurieren Sie die Haptik und mehr",
+  "settingsDescription": "App-Farbe ändern, Haptik konfigurieren und mehr",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -573,13 +573,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Zum Ansehen antippen",
+  "moreUsefulLinksTitle": "Lösen Sie eine Aktion aus, indem Sie Ihr Gerät schütteln",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Lassen Sie den Bildschirm eingeschaltet",
+  "settingsKeepScreenOnToggleTitle": "Viel Spaß beim Wedeln!",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "Schalten Sie die Schaltleiste um",
+  "shellDeviceBarToggleLabel": "Zahnradleiste umschalten",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -639,9 +639,171 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus zufällige Pausen zu den Startzeiten ihrer Bewegungen hinzu, was zu einem anderen visuellen Effekt führt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadProgressLabel": "Fortschritt des Firmware-Uploads",
+  "@otaUploadProgressLabel": {
+    "description": "Label for upload firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadProgressLabel": "Fortschritt des Firmware-Uploads",
+  "@otaDownloadProgressLabel": {
+    "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Auslöser senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Auslöser, um ihn zu bearbeiten. Verwenden Sie den Schalter auf der linken Seite, um den Auslöser zu aktivieren.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Auslöser senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Auslöser, um ihn zu bearbeiten. Verwenden Sie den Schalter auf der linken Seite, um den Auslöser zu aktivieren.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Fortschritt des Firmware-Downloads",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Jede benutzerdefinierte Aktion besteht aus 1–6 Zügen und kann bis zu 5 Mal wiederholt werden. Sie können einen Zug lange drücken, um ihn neu anzuordnen.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Batterie % anzeigen",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Zeigt den tatsächlichen Akkuladestand anstelle eines Symbols an",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Größere Karten",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Vergrößert die Aktionskarten, um das Tippen zu erleichtern",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Tutorial-Karten ausblenden",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Blenden Sie die verschiedenen Tutorial-Karten in der gesamten App aus",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Ausrüstung aktualisieren",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Firmware-Änderungsprotokoll",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Herunterladen",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaUploadButtonLabel": "Hochladen",
+  "@otaUploadButtonLabel": {
+    "description": "Label for upload firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyViewButtonLabel": "Datenschutzrichtlinie anzeigen",
+  "@onboardingPrivacyPolicyViewButtonLabel": {
+    "description": "Button label to view privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, müssen Sie dennoch die Datenschutzrichtlinie akzeptieren",
+  "@onboardingPrivacyPolicyDescription": {
+    "description": "Description for there being a privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzbestimmungen akzeptieren",
+  "@onboardingPrivacyPolicyAcceptButtonLabel": {
+    "description": "Button label to accept privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothTitle": "Bluetooth",
+  "@onboardingBluetoothTitle": {
+    "description": "Title for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothDescription": "Für die Verbindung mit der Ausrüstung ist eine Bluetooth-Berechtigung erforderlich",
+  "@onboardingBluetoothDescription": {
+    "description": "Description for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothRequestButtonLabel": "Erlaubnis erteilen",
+  "@onboardingBluetoothRequestButtonLabel": {
+    "description": "Label for the button to request bluetooth permission on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothEnableButtonLabel": "Schalten Sie Bluetooth ein",
+  "@onboardingBluetoothEnableButtonLabel": {
+    "description": "Label for the button to open bluetooth settings on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingDoneButtonLabel": "Erledigt",
+  "@onboardingDoneButtonLabel": {
+    "description": "Label for the button to close the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingCompletedTitle": "Viel Spaß beim Wedeln!",
+  "@onboardingCompletedTitle": {
+    "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Aktion entfernen",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Drücken Sie erneut, um den Vorgang zu beenden ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   }
