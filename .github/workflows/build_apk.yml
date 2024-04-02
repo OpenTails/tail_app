@@ -28,7 +28,10 @@ jobs:
         run: flutter build appbundle
       - uses: actions/upload-artifact@v4
         with:
-          path: ./build/app/outputs/*
+          path: |
+            build/app/outputs/apk
+            build/app/outputs/bundle
+          compression-level: 0 # bundles are already compressed
       - name: read pubspec
         uses: pietrobolcato/action-read-yaml@1.1.0
         id: read_action_js
