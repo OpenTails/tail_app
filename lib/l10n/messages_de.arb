@@ -53,13 +53,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Aktion löschen",
+  "triggersSelectLabel": "Wählen Sie einen Triggertyp aus",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
     "placeholders": {}
   },
-  "ok": "OK",
+  "ok": "Löst aus",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Für welches Getriebe soll das gelten?",
+  "deviceType": "Für welche Ausrüstung soll das gelten?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Flügel",
+  "deviceTypeWings": "Wie schnell sollte sich das Zahnrad in diese Position bewegen?",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Wie lange muss gewartet werden, bevor mit dem nächsten Zug in dieser benutzerdefinierten Aktion fortgefahren wird?",
+  "sequencesEditTime": "Wie lange soll gewartet werden, bevor mit dem nächsten Schritt in dieser benutzerdefinierten Aktion fortgefahren wird?",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -207,13 +207,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung eine zufällige Anzahl von Sekunden",
+  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung für eine zufällige Anzahl von Sekunden",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "Gruppen verschieben",
+  "manageDevicesAutoMoveGroupsTitle": "Melden Sie die Nutzung nicht identifizierender Funktionen an Plausible, um die App zu verbessern",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Bewegung hinzufügen",
+  "sequencesEditAdd": "Zahnradleiste umschalten",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Lösen Sie eine Aktion aus, wenn EarGear Geräusche erkennt",
+  "triggerEarMicDescription": "Löse eine Aktion aus, wenn EarGear Geräusche erkennt",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Rechte Neigung",
+  "triggerEarTiltRight": "Nach rechts neigen",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "App-Farbe ändern, Haptik konfigurieren und mehr",
+  "settingsDescription": "Ändern Sie die App-Farbe, konfigurieren Sie die Haptik und mehr",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -603,13 +603,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "morePrivacyPolicyLinkTitle": "Datenschutzrichtlinie",
+  "morePrivacyPolicyLinkTitle": "Lautstärke runter",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "Zahnradleiste umschalten",
+  "shellDeviceBarToggleLabel": "Schalten Sie die Schaltleiste um",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -621,7 +621,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Steuern Sie direkt die Gangposition.",
+  "joyStickPageDescription": "Steuern Sie die Gangposition direkt.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus zufällige Pausen zu den Startzeiten ihrer Bewegungen hinzu, was einen anderen visuellen Effekt ergibt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
