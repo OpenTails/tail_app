@@ -14,6 +14,8 @@ A Cross Platform Tail Company gear control App
 
 Small or large, feel free to leave suggestions for new features, or changes to existing features.
 
+- As long as the suggestion is not related to a specific day or event, or involves requesting/accessing personally identifying information
+
 # Building
 
 Follow the instructions here to set up a Flutter environment https://docs.flutter.dev/get-started/install/windows/mobile?tab=download#software-requirements
