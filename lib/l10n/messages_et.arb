@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Kõik sabad",
+  "subTitle": "Väljumiseks vajutage uuesti",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Automaatne veateade",
+  "settingsHapticsToggleSubTitle": "Lülitage käiguriba sisse",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -285,7 +285,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "Teisalda rühmad",
+  "manageDevicesAutoMoveGroupsTitle": "Saba valib juhusliku käigu, peatudes iga liigutuse vahel juhusliku arvu sekunditeks",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
