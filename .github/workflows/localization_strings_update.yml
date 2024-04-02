@@ -20,7 +20,7 @@ jobs:
       - name: Generate intl_translation
         run: dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intnDefs.dart
       - name: Stage Changes
-        run: git config user.email "github-actions[bot]@users.noreply.github.com" && git config user.name "github-actions[bot]" && git add lib/l10n/messages_en.arb;
+        run: git config user.email "github-actions[bot]@users.noreply.github.com" && git config user.name "github-actions[bot]" && git add lib/l10n/messages_en.arb && 	git config --global --add safe.directory /github/workspace
       - name: Push
         uses: actions-x/commit@v2
         with:
