@@ -18,19 +18,8 @@ jobs:
         with:
           flutter-version: '3.19.2'
           cache: true
-      - name: Update Build Number
-        run: bash ${GITHUB_WORKSPACE}/Scripts/update_version.sh
-        working-directory: Scripts
-      - name: Install packages
-        run: flutter config --no-cli-animations && flutter pub get
-      - name: Generate localizations
-        run: flutter gen-l10n
-      - name: Generate configs
-        run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
-      - name: Build APK
-        run: flutter build apk --split-per-abi
-      - name: Build App Bundle
-        run: flutter build appbundle
+      - name: Run build script
+        run: ./Scripts/build.sh
       - uses: actions/upload-artifact@v4
         with:
           path: |
@@ -50,7 +39,6 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_RELEASE: ${{ steps.read_action_js.outputs['version'] }}
 #      - name: Create Sentry release
 #        uses: getsentry/action-release@v1
 #        env:
