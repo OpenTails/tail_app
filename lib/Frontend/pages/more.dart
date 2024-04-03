@@ -127,7 +127,7 @@ class _MoreState extends ConsumerState<More> {
                 DialogRoute(
                     builder: (context) => AboutDialog(
                           applicationName: title(),
-                          applicationVersion: value.version,
+                          applicationVersion: "${value.version}+${value.buildNumber}",
                           applicationIcon: const Image(
                             image: AssetImage('assets/copilot_fox_icon.png'),
                             height: 60,
