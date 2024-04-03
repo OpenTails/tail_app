@@ -16,6 +16,9 @@ jobs:
         with:
           flutter-version: '3.19.2'
           cache: true
+      - name: Update Build Number
+        run: bash ${GITHUB_WORKSPACE}/Scripts/update_version.sh
+        working-directory: Scripts
       - name: Install packages
         run: flutter config --no-cli-animations && flutter pub get
       - name: Generate localizations
