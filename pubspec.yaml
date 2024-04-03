@@ -60,7 +60,6 @@ dependencies:
   pod_player: ^0.2.1
   tivy: ^0.1.1
   pdfx: ^2.6.0
-  flutter_app_badger: ^1.5.0
   in_app_review: ^2.0.9
   install_referrer: ^1.2.1
   circular_buffer: ^0.11.0
