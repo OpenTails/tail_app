@@ -34,13 +34,13 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
   Stream<DiscoveredDevice> scanStream = bluetoothManagerRef.scanForDevices(withServices: DeviceRegistry.getAllIds(), requireLocationServicesEnabled: false, scanMode: ScanMode.lowPower).asBroadcastStream();
   // Checks if pair devices are nearby and tries to connect
   scanStream.listen(
-        (DiscoveredDevice event) {
+    (DiscoveredDevice event) {
       if (ref.read(knownDevicesProvider).containsKey(event.id) && ref.read(knownDevicesProvider)[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected && !ref.read(knownDevicesProvider)[event.id]!.disableAutoConnect) {
         ref.read(knownDevicesProvider.notifier).connect(event);
       }
     },
   ).onError(
-        (e) {
+    (e) {
       Flogger.e('Error while scanning for gear:$e');
     },
   );
@@ -52,10 +52,7 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
 class KnownDevices extends _$KnownDevices {
   @override
   Map<String, BaseStatefulDevice> build() {
-    List<BaseStoredDevice> storedDevices = SentryHive
-        .box<BaseStoredDevice>('devices')
-        .values
-        .toList();
+    List<BaseStoredDevice> storedDevices = SentryHive.box<BaseStoredDevice>('devices').values.toList();
     Map<String, BaseStatefulDevice> results = {};
     try {
       if (storedDevices.isNotEmpty) {
@@ -120,7 +117,7 @@ class KnownDevices extends _$KnownDevices {
       }
       FlutterReactiveBle reactiveBLE = ref.read(reactiveBLEProvider);
       statefulDevice.connectionStateStreamSubscription = reactiveBLE.connectToDevice(id: device.id).listen(
-            (event) async {
+        (event) async {
           statefulDevice.deviceConnectionState.value = event.connectionState;
           Flogger.i("Connection State updated for ${baseStoredDevice.name}: ${event.connectionState}");
           if (event.connectionState == DeviceConnectionState.connected) {
@@ -185,7 +182,7 @@ class KnownDevices extends _$KnownDevices {
             // Try to get firmware update information from Tail Company site
             if (deviceDefinition.fwURL != "") {
               initDio().get(statefulDevice.baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
-                    (value) {
+                (value) {
                   if (value.statusCode == 200) {
                     statefulDevice.fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
                     if (statefulDevice.fwVersion.value != "") {
@@ -219,32 +216,15 @@ class KnownDevices extends _$KnownDevices {
 
 @Riverpod(keepAlive: true, dependencies: [reactiveBLE])
 Stream<BleStatus> btStatus(BtStatusRef ref) {
-  return ref
-      .read(reactiveBLEProvider)
-      .statusStream;
+  return ref.read(reactiveBLEProvider).statusStream;
 }
 
 @Riverpod(keepAlive: true, dependencies: [reactiveBLE, KnownDevices, TriggerList])
 StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHandlerRef ref) {
-  return ref
-      .read(reactiveBLEProvider)
-      .connectedDeviceStream
-      .listen((ConnectionStateUpdate event) async {
+  return ref.read(reactiveBLEProvider).connectedDeviceStream.listen((ConnectionStateUpdate event) async {
     Flogger.i("ConnectedDevice::$event");
-    Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
-    //start foreground service on device connected. Library handles duplicate start calls
-    if (Platform.isAndroid && event.connectionState == DeviceConnectionState.connected) {
-      await Permission.notification.request(); // Used only for Foreground service
-      ForegroundServiceHandler.notification.setPriority(AndroidNotificationPriority.LOW);
-      ForegroundServiceHandler.notification.setTitle("Gear Connected");
-      ForegroundService().start();
-    }
-    if (event.connectionState == DeviceConnectionState.connected) {
-      if (SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault)) {
-        WakelockPlus.enable();
-      }
-    }
-    if (knownDevices.containsKey(event.deviceId)) {
+    Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+    if (knownDevices.containsKey(event.deviceId) && [DeviceConnectionState.disconnected, DeviceConnectionState.connected].contains(event.connectionState)) {
       BaseStatefulDevice baseStatefulDevice = knownDevices[event.deviceId]!;
       baseStatefulDevice.deviceConnectionState.value = event.connectionState;
       Fluttertoast.showToast(
@@ -252,7 +232,18 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
       );
-      if (event.connectionState == DeviceConnectionState.disconnected) {
+      if (event.connectionState == DeviceConnectionState.connected) {
+        if (SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault)) {
+          WakelockPlus.enable();
+        }
+        if (Platform.isAndroid) {
+          //start foreground service on device connected. Library handles duplicate start calls
+          await Permission.notification.request(); // Used only for Foreground service
+          ForegroundServiceHandler.notification.setPriority(AndroidNotificationPriority.LOW);
+          ForegroundServiceHandler.notification.setTitle("Gear Connected");
+          ForegroundService().start();
+        }
+      } else {
         Flogger.i("Disconnected from device: ${event.deviceId}");
 
         // We don't want to display the app review screen right away. We keep track of gear disconnects and after 5 we try to display the review dialog.
@@ -265,21 +256,23 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         // Resets most of the runtime values without recreating the whole object
         baseStatefulDevice.reset();
         //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${baseStatefulDevice.baseStoredDevice.name}")));
-        //remove foreground service if no devices connected
-        int deviceCount = knownDevices.values
-            .where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected)
-            .length;
+
+        // remove foreground service if no devices connected
+        int deviceCount = knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).length;
         bool lastDevice = deviceCount == 0;
-        if (Platform.isAndroid && lastDevice) {
-          ForegroundService().stop();
-        }
         if (lastDevice) {
           // Disable all triggers on last device
-          ref.read(triggerListProvider).where((element) => element.enabled).forEach((element) {
-            element.enabled = false;
-          });
+          ref.read(triggerListProvider).where((element) => element.enabled).forEach(
+            (element) {
+              element.enabled = false;
+            },
+          );
           // stop wakelock if its started
           WakelockPlus.disable();
+          // Close foreground service
+          if (Platform.isAndroid) {
+            ForegroundService().stop();
+          }
         }
         // if the forget button was used, remove the device
         if (knownDevices[event.deviceId]!.forgetOnDisconnect) {
@@ -382,7 +375,7 @@ class CommandQueue {
       }
       device.deviceState.value = DeviceState.standby; //Without setting state to standby, another command can not run
     });
-    //preempt queue
+    // preempt queue
     if (bluetoothMessage.type == Type.direct) {
       state.toUnorderedList().where((element) => [Type.move, Type.direct].contains(element.type)).forEach((element) => state.remove(element));
     }
