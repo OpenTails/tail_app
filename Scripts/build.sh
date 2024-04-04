@@ -20,6 +20,6 @@ flutter build apk --split-per-abi --split-debug-info=./symbols --build-number="$
 flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
 if [[ -v GITHUB_OUTPUT ]]; then
   echo "SENTRY_DIST=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
-  echo "SENTRY_RELEASE=VERSION" >> "$GITHUB_OUTPUT"
+  echo "SENTRY_RELEASE=$VERSION" >> "$GITHUB_OUTPUT"
 fi
 echo
