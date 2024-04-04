@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -27,7 +26,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
 // GoRouter configuration
 final GoRouter router = GoRouter(
-  debugLogDiagnostics: kDebugMode,
+  debugLogDiagnostics: true,
   navigatorKey: _rootNavigatorKey,
   observers: [SentryNavigatorObserver(), CustomNavObserver(plausible)],
   routes: [
