@@ -1,11 +1,16 @@
 on:
   push:
   pull_request:
-
+  release:
+    types: [ created ]
 jobs:
   build_android:
     name: Build Android Artifact
     runs-on: ubuntu-latest
+    outputs:
+      SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
+      SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,6 +24,7 @@ jobs:
           flutter-version: '3.19.2'
           cache: true
       - name: Run build script
+        id: build
         run: bash ${GITHUB_WORKSPACE}/Scripts/build.sh
         working-directory: Scripts
       - uses: actions/upload-artifact@v4
@@ -26,7 +32,6 @@ jobs:
           path: |
             build/app/outputs/apk
             build/app/outputs/bundle
-          compression-level: 0 # bundles are already compressed
       - name: Upload debug symbols
         run: flutter packages pub run sentry_dart_plugin
         env:
@@ -34,12 +39,45 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
-#      - name: Create Sentry release
-#        uses: getsentry/action-release@v1
-#        env:
-#          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-#          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-#          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-#          SENTRY_URL: ${{ secrets.SENTRY_URL }}
-#        with:
-#          version: ${{ steps.read_action_js.outputs['version'] }}
+          SENTRY_DIST: ${{ needs.build_android.outputs.SENTRY_DIST }}
+          SENTRY_RELEASE: ${{ needs.build_android.outputs.SENTRY_RELEASE }}
+  release-job:
+    name: Releasing
+    needs: build_android
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'created'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Android.zip
+      - name: Upload release attachment
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const fs = require('fs');
+            const tag = context.ref.replace("refs/tags/", "");
+            // Get release for this tag
+            const release = await github.repos.getReleaseByTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag
+            });
+            // Upload the release asset
+            await github.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.data.id,
+              name: "Android.zip",
+              data: await fs.readFileSync("Android.zip")
+            });
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
+          SENTRY_DIST: ${{ needs.build_android.outputs.SENTRY_DIST }}
+          SENTRY_RELEASE: ${{ needs.build_android.outputs.SENTRY_RELEASE }}
+        with:
+          version: ${{ steps.read_action_js.outputs['version'] }}

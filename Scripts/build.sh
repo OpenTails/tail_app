@@ -4,13 +4,17 @@ set -x
 if [[ "$(pwd)" == *"/Scripts" ]]; then
   cd ..
 fi
+VERSION="$(cat VERSION)"
+BUILD_NUMBER="$(git rev-list HEAD --count)"
 flutter config --no-cli-animations
 flutter pub get
 flutter gen-l10n
 dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb
 flutter pub run build_runner build --delete-conflicting-outputs
-flutter build apk --split-per-abi --split-debug-info=./symbols --build-number="$(git rev-list HEAD --count)"
-flutter build appbundle --split-debug-info=./symbols --build-number="$(git rev-list HEAD --count)"
-if [[ -v GITHUB_ENV ]]; then
-  echo "SENTRY_DIST=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
+flutter build apk --split-per-abi --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+if [[ -v GITHUB_OUTPUT ]]; then
+  echo "SENTRY_DIST=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
+  echo "SENTRY_RELEASE=VERSION" >> "$GITHUB_OUTPUT"
 fi
+echo
