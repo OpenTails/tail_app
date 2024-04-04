@@ -28,7 +28,7 @@ jobs:
             build/app/outputs/bundle
           compression-level: 0 # bundles are already compressed
       - name: Upload debug symbols
-        run: flutter run sentry_dart_plugin
+        run: flutter packages pub run sentry_dart_plugin
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
