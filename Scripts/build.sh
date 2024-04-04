@@ -6,6 +6,11 @@ if [[ "$(pwd)" == *"/Scripts" ]]; then
 fi
 VERSION="$(cat VERSION)"
 BUILD_NUMBER="$(git rev-list HEAD --count)"
+# Assumes tags start with V
+if [[ -v RELEASE_TAG ]] && [[ -n $RELEASE_TAG ]]; then
+  TAG="${RELEASE_TAG,,}"
+  VERSION="${TAG//"v"}"
+fi
 flutter config --no-cli-animations
 flutter pub get
 flutter gen-l10n

@@ -10,7 +10,6 @@ jobs:
     outputs:
       SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
       SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,6 +26,8 @@ jobs:
         id: build
         run: bash ${GITHUB_WORKSPACE}/Scripts/build.sh
         working-directory: Scripts
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
       - uses: actions/upload-artifact@v4
         with:
           path: |
@@ -39,8 +40,8 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_DIST: ${{ needs.build_android.outputs.SENTRY_DIST }}
-          SENTRY_RELEASE: ${{ needs.build_android.outputs.SENTRY_RELEASE }}
+          SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
+          SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
   release-job:
     name: Releasing
     needs: build_android
