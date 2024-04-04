@@ -11,6 +11,6 @@ dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-defer
 flutter pub run build_runner build --delete-conflicting-outputs
 flutter build apk --split-per-abi --split-debug-info=./symbols --build-number="$(git rev-list HEAD --count)"
 flutter build appbundle --split-debug-info=./symbols --build-number="$(git rev-list HEAD --count)"
-if [[ ! -v GITHUB_ENV ]]; then
+if [[ -v GITHUB_ENV ]]; then
   echo "SENTRY_DIST=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
 fi
