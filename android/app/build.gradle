@@ -64,5 +64,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${localProperties.getProperty('kotlin.version')}"
-    implementation "com.polidea.rxandroidble2:rxandroidble:1.11.1"
+    implementation "com.polidea.rxandroidble2:rxandroidble:1.18.1"
 }
