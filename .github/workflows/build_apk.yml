@@ -34,12 +34,13 @@ jobs:
           config: ./pubspec.yaml
 
       - name: Upload debug symbols
-        run: flutter packages pub run sentry_dart_plugin
+        run: flutter run sentry_dart_plugin --dist=dist
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
+          SENTRY_DIST: $(git rev-list HEAD --count)
 #      - name: Create Sentry release
 #        uses: getsentry/action-release@v1
 #        env:
