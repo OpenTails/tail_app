@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
@@ -5,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
-import 'package:open_settings/open_settings.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
@@ -163,7 +163,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   onPressed: !bluetoothPoweredOff
                       ? null
                       : () {
-                          OpenSettings.openBluetoothSetting();
+                          AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
                         },
                   child: Text(
                     onboardingBluetoothEnableButtonLabel(),

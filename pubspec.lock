@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  app_settings:
+    dependency: "direct main"
+    description:
+      name: app_settings
+      sha256: "09bc7fe0313a507087bec1a3baf555f0576e816a760cbb31813a88890a09d9e5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.1"
   archive:
     dependency: transitive
     description:
@@ -445,10 +453,10 @@ packages:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: "29c12aba221eb8a368a119685371381f8035011d18de5ba277ad11d7dfb8657f"
+      sha256: "4cee2f1d07259f77e8b36f4ec5f35499d19e74e17c7dce5b819554914082bc01"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.5.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -465,18 +473,20 @@ packages:
   flutter_android_volume_keydown:
     dependency: "direct main"
     description:
-      name: flutter_android_volume_keydown
-      sha256: f07fa3e4362262ccf32be6522c8445cbac5a046c18f82c8bd7ba11391d057e9a
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: "feature/media_button"
+      resolved-ref: "65b8ad96f08fac23fd06a726b94420eaf1af761d"
+      url: "https://github.com/Codel1417/flutter_android_volume_keydown"
+    source: git
     version: "1.0.0"
   flutter_foreground_service:
     dependency: "direct main"
     description:
-      name: flutter_foreground_service
-      sha256: e045aaad2af73bd44b52d2b38aa3684258c6e7005de4e8887aa192d2be084fa1
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/flutter_foreground_service"
+      ref: "3d31c2d21828f618e52c0f6490d1b5c857e0e4ba"
+      resolved-ref: "3d31c2d21828f618e52c0f6490d1b5c857e0e4ba"
+      url: "https://github.com/cph-cachet/flutter-plugins"
+    source: git
     version: "0.4.1"
   flutter_joystick:
     dependency: "direct main"
@@ -776,10 +786,11 @@ packages:
   install_referrer:
     dependency: "direct main"
     description:
-      name: install_referrer
-      sha256: "901c56d24ee3c3010dfd0bbebf305ed6b4b0f3fe969192081c167590a64cd78b"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: fd87e9b8f0d5ed909e929388244456f72b9b63c7
+      resolved-ref: fd87e9b8f0d5ed909e929388244456f72b9b63c7
+      url: "https://github.com/undreeyyy/flutter_plugin_install_referrer"
+    source: git
     version: "1.2.1"
   intl:
     dependency: "direct main"
@@ -941,14 +952,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
-  open_settings:
-    dependency: "direct main"
-    description:
-      name: open_settings
-      sha256: ceb716dc476352aecb939805b6fa6a593168a5ed1abfe3caa022b6b1715e94ae
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   os_detect:
     dependency: transitive
     description:
@@ -1048,10 +1051,11 @@ packages:
   pedometer:
     dependency: "direct main"
     description:
-      name: pedometer
-      sha256: e8c574dae778276fa848873c6ea2015a636a91e8572a4a652b04a4fcd6c54259
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/pedometer"
+      ref: "3d31c2d21828f618e52c0f6490d1b5c857e0e4ba"
+      resolved-ref: "3d31c2d21828f618e52c0f6490d1b5c857e0e4ba"
+      url: "https://github.com/cph-cachet/flutter-plugins"
+    source: git
     version: "4.0.1"
   permission_handler:
     dependency: "direct main"
@@ -1200,11 +1204,12 @@ packages:
   proximity_sensor:
     dependency: "direct main"
     description:
-      name: proximity_sensor
-      sha256: "2d4cddd13b02dbb0eef0f74392c8547f181fc522cc79f49a3d276aa6c051ae02"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
+      path: "."
+      ref: HEAD
+      resolved-ref: "4295c0daecdfa1cd1befa05b79821ae0f28f6cd0"
+      url: "https://github.com/Codel1417/flutter-proximity-sensor-plugin"
+    source: git
+    version: "1.3.0"
   pub_semver:
     dependency: transitive
     description:
@@ -1286,13 +1291,13 @@ packages:
     source: hosted
     version: "0.27.7"
   sensors_plus:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sensors_plus
-      sha256: "362c8f4f001838b90dd5206b898bbad941bc0142479eab9a3415f0f79e622908"
+      sha256: "59a962b35e36abc799bab94974128f29877ca11610d0573f5aea73d1a5d4bd88"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.1"
+    version: "5.0.0"
   sensors_plus_platform_interface:
     dependency: transitive
     description:
@@ -1301,14 +1306,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  sensors_plus_web:
-    dependency: transitive
-    description:
-      name: sensors_plus_web
-      sha256: fca8d7d9ab6233b2a059952666415508e252420be1ef54f092d07884da53ec5e
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2"
   sentry:
     dependency: transitive
     description:
@@ -1360,10 +1357,11 @@ packages:
   shake:
     dependency: "direct main"
     description:
-      name: shake
-      sha256: "107546951c6b8f5e4c2dca66dfb3aa27dd1a853b4e9a26c9aea224b167045023"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: dieringe
+      resolved-ref: "13978dd2487313a371d99c2826d56be89ed6f474"
+      url: "https://github.com/Codel1417/shake"
+    source: git
     version: "2.2.0"
   shared_preferences:
     dependency: transitive
@@ -1646,10 +1644,10 @@ packages:
     dependency: "direct main"
     description:
       name: upgrader
-      sha256: "859ec45fe9160ca5f9aed4540517edaf6dbd36f57ed3537b99799ffd2b024685"
+      sha256: f780415c78c0685260561f8a0825c0eaaccccecfe1eac26939e45c489d10029e
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.1"
+    version: "10.1.0"
   url_launcher:
     dependency: "direct main"
     description:

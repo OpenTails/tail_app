@@ -1,8 +1,8 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging_flutter/logging_flutter.dart';
-import 'package:open_settings/open_settings.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pod_player/pod_player.dart';
 import 'package:tail_app/constants.dart';
@@ -97,7 +97,7 @@ class _HomeState extends ConsumerState<Home> {
                         children: <Widget>[
                           TextButton(
                             onPressed: () async {
-                              OpenSettings.openBluetoothSetting();
+                              AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
                             },
                             child: const Text('Open Settings'),
                           ),
