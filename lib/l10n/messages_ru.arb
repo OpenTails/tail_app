@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Добавить ход",
+  "sequencesEditAdd": "Крылья",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Тактильная обратная связь",
+  "settingsHapticsToggleTitle": "Светящийся наконечник",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканировать новое снаряжение",
+  "scanDevicesTitle": "Сканирование нового снаряжения",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",

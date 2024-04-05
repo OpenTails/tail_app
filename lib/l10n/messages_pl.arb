@@ -59,7 +59,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Ogon",
+  "deviceTypeTail": "Anulować",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -561,7 +561,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Podręcznik FlutterWings",
+  "moreManualSubTitle": "Szybki i podekscytowany",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "morePrivacyPolicyLinkTitle": "Polityka prywatności",
+  "morePrivacyPolicyLinkTitle": "Ile razy powtórzyć tę akcję?",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Wgrywać",
+  "otaUploadButtonLabel": "Pobierać",
   "@otaUploadButtonLabel": {
     "description": "Label for upload firmware button at bottom of OTA page",
     "type": "text",

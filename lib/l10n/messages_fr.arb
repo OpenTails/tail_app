@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Supprimer l'action",
+  "sequencesEditDeleteTitle": "Marche",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -171,7 +171,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Masquer les cartes du didacticiel",
+  "manageDevicesAutoMoveSubTitle": "À quel équipement cela devrait-il s'appliquer ?",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "À quel équipement cela devrait-il s'appliquer ?",
+  "deviceType": "À quel matériel cela devrait-il s'appliquer ?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Afficher le % de batterie",
+  "settingsBatteryPercentageToggleTitle": "Pause entre les mouvements",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",

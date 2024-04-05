@@ -125,13 +125,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Cada acción personalizada consta de 1 a 6 movimientos y puede repetirse hasta 5 veces. Puedes mantener presionado un movimiento para reordenarlo.",
+  "settingsErrorReportingToggleTitle": "Si conecta muchas instancias de los mismos dispositivos, este modo agregará pausas aleatorias a sus tiempos de inicio de movimiento, dándole un efecto visual diferente.",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Inclinación hacia atrás",
+  "deviceTypeTail": "Frustrado y tenso",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Cada acción personalizada consta de 1 a 6 movimientos y puede repetirse hasta 5 veces. Puedes mantener presionado un movimiento para reordenarlo.",
+  "sequencesInfoEditDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, presione el ícono Atrás en la pantalla de selección.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",

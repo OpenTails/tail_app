@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "Vertraging",
+  "sequencesEditDelay": "Beweging",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",

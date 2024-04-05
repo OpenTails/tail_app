@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Dække over",
+  "triggerCoverTitle": "Gåture",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -179,7 +179,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Slet handling",
+  "sequencesEditDeleteTitle": "Fjern handling",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsCalm": "Berolige",
+  "manageDevicesAutoMoveGroupsCalm": "Hurtig",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
