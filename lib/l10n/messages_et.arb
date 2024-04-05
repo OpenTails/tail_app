@@ -185,7 +185,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Kas olete kindel, et soovite selle toimingu kustutada?",
+  "sequencesEditDeleteDescription": "Kustuta toiming",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Haptiline tagasiside",
+  "settingsHapticsToggleTitle": "Lülitage käiguriba sisse",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
