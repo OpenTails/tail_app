@@ -4,23 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import 'package:tail_app/Backend/Sensors.dart';
+import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Backend/sensors.dart';
 import 'package:tail_app/Frontend/Widgets/trigger_select.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/device_type_widget.dart';
-import '../intnDefs.dart';
+import '../intn_defs.dart';
 import 'action_selector.dart';
 
 class Triggers extends ConsumerStatefulWidget {
   const Triggers({super.key});
 
   @override
-  _TriggersState createState() => _TriggersState();
+  ConsumerState<Triggers> createState() => _TriggersState();
 }
 
 class _TriggersState extends ConsumerState<Triggers> {

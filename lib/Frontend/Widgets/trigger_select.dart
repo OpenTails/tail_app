@@ -2,14 +2,14 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../Backend/Sensors.dart';
-import '../intnDefs.dart';
+import '../../Backend/sensors.dart';
+import '../intn_defs.dart';
 
 class TriggerSelect extends ConsumerStatefulWidget {
-  const TriggerSelect({Key? key}) : super(key: key);
+  const TriggerSelect({super.key});
 
   @override
-  _TriggerSelectState createState() => _TriggerSelectState();
+  ConsumerState<TriggerSelect> createState() => _TriggerSelectState();
 }
 
 class _TriggerSelectState extends ConsumerState<TriggerSelect> {

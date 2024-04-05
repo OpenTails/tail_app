@@ -8,8 +8,8 @@ import 'package:pod_player/pod_player.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../Backend/Bluetooth/BluetoothManager.dart';
-import '../intnDefs.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../intn_defs.dart';
 
 final log.Logger homeLogger = log.Logger('Home');
 

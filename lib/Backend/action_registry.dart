@@ -4,14 +4,14 @@ import 'package:hive/hive.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/moveLists.dart';
+import 'package:tail_app/Backend/move_lists.dart';
 
 import '../constants.dart';
-import 'Bluetooth/BluetoothManager.dart';
-import 'Definitions/Action/BaseAction.dart';
-import 'Definitions/Device/BaseDeviceDefinition.dart';
+import 'Bluetooth/bluetooth_manager.dart';
+import 'Definitions/Action/base_action.dart';
+import 'Definitions/Device/device_definition.dart';
 
-part 'ActionRegistry.g.dart';
+part 'action_registry.g.dart';
 
 @immutable
 class ActionRegistry {
@@ -135,7 +135,7 @@ class ActionRegistry {
   };
 }
 
-@Riverpod(dependencies: [KnownDevices], keepAlive: false)
+@Riverpod(keepAlive: false)
 Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef ref) {
   Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
@@ -160,7 +160,7 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
   return sortedActions;
 }
 
-@Riverpod(dependencies: [KnownDevices])
+@riverpod
 Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref, Set<DeviceType> deviceType) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   for (BaseAction baseAction in List.from(ActionRegistry.allCommands)..addAll(ref.read(moveListsProvider))) {

@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
 enum Priority { low, normal, high }
 

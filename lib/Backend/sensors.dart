@@ -16,18 +16,18 @@ import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:shake/shake.dart';
-import 'package:tail_app/Backend/ActionRegistry.dart';
-import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
+import 'package:tail_app/Backend/action_registry.dart';
 
-import '../Frontend/intnDefs.dart';
+import '../Frontend/intn_defs.dart';
 import '../constants.dart';
-import 'Bluetooth/BluetoothManager.dart';
-import 'Definitions/Action/BaseAction.dart';
-import 'Definitions/Device/BaseDeviceDefinition.dart';
-import 'DeviceRegistry.dart';
-import 'moveLists.dart';
+import 'Bluetooth/bluetooth_manager.dart';
+import 'Definitions/Action/base_action.dart';
+import 'Definitions/Device/device_definition.dart';
+import 'device_registry.dart';
+import 'move_lists.dart';
 
-part 'Sensors.g.dart';
+part 'sensors.g.dart';
 
 @HiveType(typeId: 2)
 class Trigger extends ChangeNotifier {
@@ -556,7 +556,9 @@ class TriggerAction {
   int get hashCode => uuid.hashCode;
 }
 
-@Riverpod(keepAlive: true, dependencies: [TriggerDefinitionList])
+@Riverpod(
+  keepAlive: true,
+)
 class TriggerList extends _$TriggerList {
   @override
   List<Trigger> build() {

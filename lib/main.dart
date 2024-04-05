@@ -18,16 +18,16 @@ import 'package:sentry_dio/sentry_dio.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
-import 'package:tail_app/Backend/ActionRegistry.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Backend/action_registry.dart';
 
-import 'Backend/Bluetooth/BluetoothManager.dart';
-import 'Backend/Definitions/Action/BaseAction.dart';
-import 'Backend/PlausibleDio.dart';
-import 'Backend/Sensors.dart';
-import 'Backend/moveLists.dart';
-import 'Frontend/GoRouterConfig.dart';
-import 'Frontend/intnDefs.dart';
+import 'Backend/Bluetooth/bluetooth_manager.dart';
+import 'Backend/Definitions/Action/base_action.dart';
+import 'Backend/move_lists.dart';
+import 'Backend/plausible_dio.dart';
+import 'Backend/sensors.dart';
+import 'Frontend/go_router_config.dart';
+import 'Frontend/intn_defs.dart';
 import 'constants.dart';
 
 //late SharedPreferences prefs;
@@ -108,6 +108,7 @@ Future<void> main() async {
       options.beforeSend = beforeSend;
     },
     // Init your App.
+    // ignore: missing_provider_scope
     appRunner: () => runApp(
       DefaultAssetBundle(
         bundle: SentryAssetBundle(),
@@ -159,8 +160,8 @@ class TailApp extends ConsumerWidget {
           return MaterialApp.router(
             title: subTitle(),
             color: Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault)),
-            theme: BuildTheme(Brightness.light, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
-            darkTheme: BuildTheme(Brightness.dark, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
+            theme: buildTheme(Brightness.light, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
+            darkTheme: buildTheme(Brightness.dark, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
             routerConfig: router,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
@@ -172,7 +173,7 @@ class TailApp extends ConsumerWidget {
   }
 }
 
-ThemeData BuildTheme(Brightness brightness, Color color) {
+ThemeData buildTheme(Brightness brightness, Color color) {
   if (brightness == Brightness.light) {
     return FlexThemeData.light(
       colorScheme: ColorScheme.fromSeed(

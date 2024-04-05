@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 
-import '../../../Backend/Bluetooth/BluetoothManager.dart';
-import '../../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import '../../../Backend/DeviceRegistry.dart';
+import '../../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../../Backend/Definitions/Device/device_definition.dart';
+import '../../../Backend/device_registry.dart';
 import '../../../constants.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {

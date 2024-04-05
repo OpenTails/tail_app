@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
 class BluetoothConsole extends StatefulWidget {
-  BaseStatefulDevice device;
+  final BaseStatefulDevice device;
 
-  BluetoothConsole({super.key, required this.device});
+  const BluetoothConsole({super.key, required this.device});
 
   @override
   State<BluetoothConsole> createState() => _BluetoothConsoleState();

@@ -16,7 +16,7 @@ jobs:
       - name: Generate localizations
         run: flutter gen-l10n
       - name: Generate configs
-        run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intnDefs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
+        run: dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb && flutter pub run build_runner build --delete-conflicting-outputs
       - name: Build app
         run: flutter build ipa --release --no-codesign
       - name: Upload debug symbols

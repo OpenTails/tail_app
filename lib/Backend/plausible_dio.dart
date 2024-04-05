@@ -6,12 +6,12 @@ import 'package:install_referrer/install_referrer.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/moveLists.dart';
+import 'package:tail_app/Backend/move_lists.dart';
 
 import '../constants.dart';
 import '../main.dart';
-import 'Definitions/Device/BaseDeviceDefinition.dart';
-import 'Sensors.dart';
+import 'Definitions/Device/device_definition.dart';
+import 'sensors.dart';
 
 class PlausibleDio extends Plausible {
   PlausibleDio(super.serverUrl, super.domain);

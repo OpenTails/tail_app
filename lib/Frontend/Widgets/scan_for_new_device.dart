@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
-import '../../Backend/Bluetooth/BluetoothManager.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../main.dart';
-import '../intnDefs.dart';
+import '../intn_defs.dart';
 
 class ScanForNewDevice extends ConsumerStatefulWidget {
-  ScanForNewDevice({super.key, required this.scrollController});
+  const ScanForNewDevice({super.key, required this.scrollController});
 
-  ScrollController scrollController;
+  final ScrollController scrollController;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ScanForNewDevice();

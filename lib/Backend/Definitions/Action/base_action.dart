@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
-import 'package:tail_app/Frontend/intnDefs.dart';
+import 'package:tail_app/Frontend/intn_defs.dart';
 
-import '../Device/BaseDeviceDefinition.dart';
+import '../Device/device_definition.dart';
 
-part 'BaseAction.g.dart';
+part 'base_action.g.dart';
 
 @HiveType(typeId: 7)
 enum ActionCategory {

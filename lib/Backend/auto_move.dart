@@ -1,7 +1,7 @@
-import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
-void ChangeAutoMove(BaseStatefulDevice device) {
+void changeAutoMove(BaseStatefulDevice device) {
   String cmd = '';
   if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
     if (device.baseStoredDevice.autoMove) {

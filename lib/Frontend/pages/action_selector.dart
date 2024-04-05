@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../Backend/ActionRegistry.dart';
-import '../../Backend/Definitions/Action/BaseAction.dart';
-import '../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import '../intnDefs.dart';
+import '../../Backend/Definitions/Action/base_action.dart';
+import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/action_registry.dart';
+import '../intn_defs.dart';
 
 class ActionSelector extends ConsumerStatefulWidget {
-  ActionSelector({super.key, required this.deviceType});
+  const ActionSelector({super.key, required this.deviceType});
 
-  Set<DeviceType> deviceType;
+  final Set<DeviceType> deviceType;
 
   @override
   ConsumerState<ActionSelector> createState() => _ActionSelectorState();

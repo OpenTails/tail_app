@@ -9,14 +9,14 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Frontend/intnDefs.dart';
+import 'package:tail_app/Frontend/intn_defs.dart';
 import 'package:tail_app/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 
 class More extends ConsumerStatefulWidget {
-  More({Key? key}) : super(key: key);
+  const More({super.key});
 
   @override
   ConsumerState<More> createState() => _MoreState();
@@ -72,11 +72,11 @@ class _MoreState extends ConsumerState<More> {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
-        pdfWidget(name: moreManualDigitailTitle(), url: "https://thetailcompany.com/digitail.pdf"),
-        pdfWidget(name: moreManualEargearTitle(), url: "https://thetailcompany.com/eargear.pdf"),
-        pdfWidget(name: moreManualFlutterWingsTitle(), url: "https://thetailcompany.com/flutterwings.pdf"),
-        pdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf"),
-        pdfWidget(name: moreManualResponsibleWaggingTitle(), url: "https://thetailcompany.com/responsiblewagging.pdf"),
+        PdfWidget(name: moreManualDigitailTitle(), url: "https://thetailcompany.com/digitail.pdf"),
+        PdfWidget(name: moreManualEargearTitle(), url: "https://thetailcompany.com/eargear.pdf"),
+        PdfWidget(name: moreManualFlutterWingsTitle(), url: "https://thetailcompany.com/flutterwings.pdf"),
+        PdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf"),
+        PdfWidget(name: moreManualResponsibleWaggingTitle(), url: "https://thetailcompany.com/responsiblewagging.pdf"),
         ListTile(
           title: Text(
             moreUsefulLinksTitle(),
@@ -145,17 +145,17 @@ class _MoreState extends ConsumerState<More> {
   }
 }
 
-class pdfWidget extends StatefulWidget {
-  String name;
-  String url;
+class PdfWidget extends StatefulWidget {
+  final String name;
+  final String url;
 
-  pdfWidget({super.key, required this.name, required this.url});
+  const PdfWidget({super.key, required this.name, required this.url});
 
   @override
-  State<pdfWidget> createState() => _pdfWidgetState();
+  State<PdfWidget> createState() => _PdfWidgetState();
 }
 
-class _pdfWidgetState extends State<pdfWidget> {
+class _PdfWidgetState extends State<PdfWidget> {
   CancelToken cancelToken = CancelToken();
   String filePath = '';
   double progress = 0;
@@ -194,7 +194,7 @@ class _pdfWidgetState extends State<pdfWidget> {
           setState(() {
             progress = 0.1;
           });
-          final Response rs = await initDio().download(
+          final rs = await initDio().download(
             widget.url,
             filePath,
             deleteOnError: true,

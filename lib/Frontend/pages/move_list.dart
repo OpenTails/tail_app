@@ -6,10 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
-import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import 'package:tail_app/Backend/moveLists.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Frontend/Widgets/speed_widget.dart';
 import 'package:tail_app/Frontend/pages/triggers.dart';
 import 'package:uuid/uuid.dart';
@@ -17,7 +17,7 @@ import 'package:uuid/uuid.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/device_type_widget.dart';
-import '../intnDefs.dart';
+import '../intn_defs.dart';
 
 class MoveListView extends ConsumerStatefulWidget {
   const MoveListView({super.key});
@@ -92,7 +92,6 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                           }
                           runAction(allMoveLists[index], element);
                         }
-                        ;
                       },
                     ),
                   );

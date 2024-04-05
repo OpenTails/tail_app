@@ -9,6 +9,26 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  static_analysis:
+    name: Build Android Artifact
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.2'
+          cache: true
+      - name: Run build script
+        id: build
+        run: bash ${GITHUB_WORKSPACE}/Scripts/build.sh
+        working-directory: Scripts
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          SKIP_BUILD: true # Checks if it exists, not the value
+      - name: Analyze Dart
+        uses: zgosalvez/github-actions-analyze-dart@v2
   build_android:
     name: Build Android Artifact
     runs-on: ubuntu-latest

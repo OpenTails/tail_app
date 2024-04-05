@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'FirmwareUpdate.g.dart';
+part 'firmware_update.g.dart';
 
 @JsonSerializable()
 class FWInfo {

@@ -4,18 +4,18 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../constants.dart';
 import '../../main.dart';
-import '../intnDefs.dart';
+import '../intn_defs.dart';
 
 class Settings extends ConsumerStatefulWidget {
   const Settings({super.key});
 
   @override
-  _SettingsState createState() => _SettingsState();
+  ConsumerState<Settings> createState() => _SettingsState();
 }
 
 class _SettingsState extends ConsumerState<Settings> {

@@ -9,14 +9,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 
-import '../../Backend/ActionRegistry.dart';
-import '../../Backend/Bluetooth/BluetoothManager.dart';
-import '../../Backend/Definitions/Action/BaseAction.dart';
-import '../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import '../../Backend/DeviceRegistry.dart';
-import '../../Backend/moveLists.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Definitions/Action/base_action.dart';
+import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/action_registry.dart';
+import '../../Backend/device_registry.dart';
+import '../../Backend/move_lists.dart';
 import '../../constants.dart';
-import 'Home.dart';
+import 'home.dart';
 
 class ActionPage extends ConsumerWidget {
   const ActionPage({super.key});

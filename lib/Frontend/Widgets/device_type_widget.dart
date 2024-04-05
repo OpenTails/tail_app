@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import '../intnDefs.dart';
+import '../../Backend/Definitions/Device/device_definition.dart';
+import '../intn_defs.dart';
 
 class DeviceTypeWidget extends StatelessWidget {
-  DeviceTypeWidget({Key? key, required this.selected, required this.onSelectionChanged}) : super(key: key);
-  List<DeviceType> selected;
-  Function(Set<DeviceType> value) onSelectionChanged;
+  const DeviceTypeWidget({super.key, required this.selected, required this.onSelectionChanged});
+
+  final List<DeviceType> selected;
+  final Function(Set<DeviceType> value) onSelectionChanged;
 
   @override
   Widget build(BuildContext context) {

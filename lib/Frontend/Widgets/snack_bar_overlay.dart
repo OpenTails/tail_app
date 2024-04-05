@@ -8,12 +8,12 @@ part 'snack_bar_overlay.g.dart';
 
 @Riverpod()
 class SnackbarStream extends _$SnackbarStream {
-  StreamController<SnackBar> streamController = StreamController();
+  final StreamController<SnackBar> _streamController = StreamController();
 
   @override
-  Stream<SnackBar> build() => streamController.stream;
+  Stream<SnackBar> build() => _streamController.stream;
 
-  void add(SnackBar content) => streamController.add(content);
+  void add(SnackBar content) => _streamController.add(content);
 }
 
 class SnackBarOverlay extends ConsumerWidget {

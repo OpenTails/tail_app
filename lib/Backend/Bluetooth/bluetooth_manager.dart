@@ -14,22 +14,22 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Sensors.dart';
+import 'package:tail_app/Backend/sensors.dart';
 import 'package:tail_app/main.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../constants.dart';
-import '../AutoMove.dart';
-import '../Definitions/Device/BaseDeviceDefinition.dart';
-import '../DeviceRegistry.dart';
-import '../FirmwareUpdate.dart';
-import 'btMessage.dart';
+import '../Definitions/Device/device_definition.dart';
+import '../auto_move.dart';
+import '../device_registry.dart';
+import '../firmware_update.dart';
+import 'bluetooth_message.dart';
 
-part 'BluetoothManager.g.dart';
+part 'bluetooth_manager.g.dart';
 
 final log.Logger bluetoothLog = log.Logger('Bluetooth');
 
-@Riverpod(dependencies: [reactiveBLE, KnownDevices])
+@riverpod
 Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
   bluetoothLog.fine("Starting scan");
   final FlutterReactiveBle bluetoothManagerRef = ref.watch(reactiveBLEProvider);
@@ -202,7 +202,7 @@ class KnownDevices extends _$KnownDevices {
             statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "VER", device: statefulDevice, priority: Priority.low, type: Type.system));
             statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: statefulDevice, priority: Priority.low, type: Type.system));
             if (statefulDevice.baseStoredDevice.autoMove) {
-              ChangeAutoMove(statefulDevice);
+              changeAutoMove(statefulDevice);
             }
           }
         },
@@ -219,12 +219,14 @@ class KnownDevices extends _$KnownDevices {
   }
 }
 
-@Riverpod(keepAlive: true, dependencies: [reactiveBLE])
+@Riverpod(
+  keepAlive: true,
+)
 Stream<BleStatus> btStatus(BtStatusRef ref) {
   return ref.read(reactiveBLEProvider).statusStream;
 }
 
-@Riverpod(keepAlive: true, dependencies: [reactiveBLE, KnownDevices, TriggerList])
+@Riverpod(keepAlive: true)
 StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHandlerRef ref) {
   return ref.read(reactiveBLEProvider).connectedDeviceStream.listen((ConnectionStateUpdate event) async {
     bluetoothLog.info("ConnectedDevice::$event");

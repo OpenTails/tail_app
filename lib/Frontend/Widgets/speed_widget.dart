@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../intnDefs.dart';
+import '../intn_defs.dart';
 
 class SpeedWidget extends StatelessWidget {
-  SpeedWidget({super.key, required this.value, required this.onChanged});
+  const SpeedWidget({super.key, required this.value, required this.onChanged});
 
-  Function(double value) onChanged;
-  double value;
+  final Function(double value) onChanged;
+  final double value;
 
   @override
   Widget build(BuildContext context) {

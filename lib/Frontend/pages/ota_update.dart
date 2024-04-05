@@ -7,21 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/main.dart';
 
-import '../../Backend/FirmwareUpdate.dart';
+import '../../Backend/firmware_update.dart';
 import '../../constants.dart';
-import '../intnDefs.dart';
+import '../intn_defs.dart';
 
 class OtaUpdate extends ConsumerStatefulWidget {
-  OtaUpdate({super.key, required this.device});
+  const OtaUpdate({super.key, required this.device});
 
-  String device;
+  final String device;
 
   @override
-  _OtaUpdateState createState() => _OtaUpdateState();
+  ConsumerState<OtaUpdate> createState() => _OtaUpdateState();
 }
 
 enum OtaState {
@@ -61,11 +61,11 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("MD5: ${updateURL?.md5sum}"),
-                    Text("DL MD5: ${downloadedMD5}"),
+                    Text("DL MD5: $downloadedMD5"),
                     Text("URL: ${updateURL?.url}"),
                     Text("AVAILABLE VERSION: ${updateURL?.version}"),
                     Text("CURRENT VERSION: ${ref.read(knownDevicesProvider)[widget.device]?.fwVersion.value}"),
-                    Text("STATE: ${otaState}"),
+                    Text("STATE: $otaState"),
                   ],
                 ),
               ),

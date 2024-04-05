@@ -4,9 +4,9 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 
-import '../intnDefs.dart';
+import '../intn_defs.dart';
 
 class BackButtonToClose extends ConsumerStatefulWidget {
   const BackButtonToClose({required this.child, super.key});
@@ -14,7 +14,7 @@ class BackButtonToClose extends ConsumerStatefulWidget {
   final Widget child;
 
   @override
-  _BackButtonToCloseState createState() => _BackButtonToCloseState();
+  ConsumerState<BackButtonToClose> createState() => _BackButtonToCloseState();
 }
 
 class _BackButtonToCloseState extends ConsumerState<BackButtonToClose> {

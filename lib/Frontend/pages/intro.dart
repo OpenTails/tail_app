@@ -8,8 +8,8 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
-import 'package:tail_app/Frontend/intnDefs.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Frontend/intn_defs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
@@ -30,16 +30,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     // Navigator.of(context).pushReplacement()
     SentryHive.box(settings).put(hasCompletedOnboarding, true);
     context.pushReplacement('/');
-  }
-
-  Widget _buildFullscreenImage() {
-    return Image.asset(
-      'assets/fullscreen.jpg',
-      fit: BoxFit.cover,
-      height: double.infinity,
-      width: double.infinity,
-      alignment: Alignment.center,
-    );
   }
 
   Widget _buildImage(String assetName, [double width = 350]) {

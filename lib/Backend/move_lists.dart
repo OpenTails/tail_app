@@ -4,14 +4,14 @@ import 'package:hive/hive.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
-import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import 'package:tail_app/Frontend/intnDefs.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
+import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Frontend/intn_defs.dart';
 
 import '../main.dart';
 
-part 'moveLists.g.dart';
+part 'move_lists.g.dart';
 
 @HiveType(typeId: 10)
 enum EasingType {

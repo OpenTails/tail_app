@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
-import 'package:tail_app/Frontend/pages/DirectGearControl.dart';
-import 'package:tail_app/Frontend/pages/Shell.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/pages/action_selector.dart';
 import 'package:tail_app/Frontend/pages/developer/bluetooth_console.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_pincode.dart';
+import 'package:tail_app/Frontend/pages/direct_gear_control.dart';
 import 'package:tail_app/Frontend/pages/intro.dart';
 import 'package:tail_app/Frontend/pages/more.dart';
 import 'package:tail_app/Frontend/pages/move_list.dart';
 import 'package:tail_app/Frontend/pages/ota_update.dart';
 import 'package:tail_app/Frontend/pages/settings.dart';
+import 'package:tail_app/Frontend/pages/shell.dart';
 import 'package:tail_app/Frontend/pages/triggers.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 import 'package:tail_app/constants.dart';
 
-import '../Backend/NavigationObserver/CustomNavObserver.dart';
+import '../Backend/NavigationObserver/custom_go_router_navigation_observer.dart';
 import '../main.dart';
-import 'pages/Actions.dart';
+import 'pages/actions.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -101,7 +101,7 @@ final GoRouter router = GoRouter(
             return NoTransitionPage(
               key: state.pageKey,
               name: 'More',
-              child: More(),
+              child: const More(),
             );
           },
         ),

@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
-import 'package:tail_app/Backend/FirmwareUpdate.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/firmware_update.dart';
 
-import '../../../Frontend/intnDefs.dart';
+import '../../../Frontend/intn_defs.dart';
 
-part 'BaseDeviceDefinition.g.dart';
+part 'device_definition.g.dart';
 
 @HiveType(typeId: 6)
 enum DeviceType {
@@ -219,8 +219,8 @@ class BaseStoredDevice {
   }
 }
 
-String getNameFromBTName(String BTName) {
-  switch (BTName) {
+String getNameFromBTName(String bluetoothDeviceName) {
+  switch (bluetoothDeviceName) {
     case 'EarGear':
       return 'EarGear';
     case 'EG2':
@@ -234,5 +234,5 @@ String getNameFromBTName(String BTName) {
     case '(!)Tail1':
       return 'DigiTail';
   }
-  return BTName;
+  return bluetoothDeviceName;
 }

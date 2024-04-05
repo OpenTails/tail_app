@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
-import 'package:tail_app/Backend/Definitions/Action/BaseAction.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
-part 'DeviceRegistry.g.dart';
+part 'device_registry.g.dart';
 
 @immutable
 class DeviceRegistry {
@@ -94,7 +94,7 @@ class DeviceRegistry {
   }
 }
 
-@Riverpod(dependencies: [KnownDevices])
+@Riverpod()
 Set<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseAction) {
   Flogger.i("Getting devices for action::$baseAction");
   Set<BaseStatefulDevice> foundDevices = {};

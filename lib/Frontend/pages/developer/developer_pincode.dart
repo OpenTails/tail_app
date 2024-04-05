@@ -7,7 +7,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 import '../../../constants.dart';
 
 class DeveloperPincode extends StatefulWidget {
-  const DeveloperPincode({Key? key}) : super(key: key);
+  const DeveloperPincode({super.key});
 
   @override
   State<DeveloperPincode> createState() => _DeveloperPincodeState();

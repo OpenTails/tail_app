@@ -9,18 +9,18 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Bluetooth/BluetoothManager.dart';
-import 'package:tail_app/Backend/Bluetooth/btMessage.dart';
-import 'package:tail_app/Backend/Definitions/Device/BaseDeviceDefinition.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/Widgets/back_button_to_close.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 
-import '../../Backend/AutoMove.dart';
+import '../../Backend/auto_move.dart';
 import '../../constants.dart';
 import '../../main.dart';
-import '../intnDefs.dart';
+import '../intn_defs.dart';
 
 /// Flutter code sample for [NavigationDrawer].
 
@@ -206,7 +206,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: BuildTheme(
+      data: buildTheme(
         Theme.of(context).brightness,
         color,
       ),
@@ -357,7 +357,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   widget.device.baseStoredDevice.autoMove = value;
                 });
                 widget.ref.read(knownDevicesProvider.notifier).store();
-                ChangeAutoMove(widget.device);
+                changeAutoMove(widget.device);
               },
             ),
           ),
@@ -371,7 +371,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   widget.device.baseStoredDevice.selectedAutoCategories = value.toList();
                 });
                 widget.ref.read(knownDevicesProvider.notifier).store();
-                ChangeAutoMove(widget.device);
+                changeAutoMove(widget.device);
               },
               segments: AutoActionCategory.values.map<ButtonSegment<AutoActionCategory>>(
                 (AutoActionCategory value) {
@@ -399,7 +399,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 widget.ref.read(knownDevicesProvider.notifier).store();
               },
               onChangeEnd: (values) {
-                ChangeAutoMove(widget.device);
+                changeAutoMove(widget.device);
               },
             ),
           ),
@@ -839,6 +839,8 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
 }
 
 class NewAppBar extends StatelessWidget {
+  const NewAppBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
