@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Poslat zpětnou vazbu",
+  "feedbackPage": "GlowTip",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "Klepnutím zobrazíte",
+  "manageDevicesAutoMoveGroupsTitle": "Bluetooth",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -321,7 +321,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesBatteryGraphTitle": "Graf baterie",
+  "manageDevicesBatteryGraphTitle": "Automatické hlášení chyb",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
     "type": "text",
@@ -525,7 +525,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesConnect": "Připojit",
+  "manageDevicesConnect": "Frustrovaný",
   "@manageDevicesConnect": {
     "description": "manage devices connect button title when managing a device",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Více",
+  "moreTitle": "Klepnutím zobrazíte",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
