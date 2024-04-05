@@ -174,7 +174,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
             appBar: AppBar(
               title: const DeviceStatusWidget(),
               centerTitle: true,
-              toolbarHeight: 90 * MediaQuery.textScalerOf(context).scale(1),
+              toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1),
             ),
           ),
         ),

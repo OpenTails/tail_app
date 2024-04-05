@@ -76,7 +76,7 @@ dependencies:
   file_picker: ^8.0.0+1
   wakelock_plus: ^1.1.4
   pod_player: ^0.2.1
-  tivy: ^0.1.1
+  #tivy: ^0.1.1
   pdfx: ^2.6.0
   in_app_review: ^2.0.9
   install_referrer:
