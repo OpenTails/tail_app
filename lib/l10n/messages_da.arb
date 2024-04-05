@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Alle Halerne",
+  "subTitle": "Udløs en handling, hvis gear er i nærheden",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleTitle": "Opret tilpassede handlinger til dit udstyr",
+  "settingsKitsuneToggleTitle": "Hvilket gear skal det gælde for?",
   "@settingsKitsuneToggleTitle": {
     "description": "Settings page Kitsune mode toggle title",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Accepter privatlivspolitik",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Højre sides position",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
