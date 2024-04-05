@@ -1,17 +1,17 @@
 {
-  "triggerActionNotSet": "近くのギア",
+  "triggerActionNotSet": "ボリュームアップ",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
     "placeholders": {}
   },
-  "title": "外出先でのギア",
+  "title": "外出先でも使えるギア",
   "@title": {
     "description": "The name of the app",
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "テイルズのすべて",
+  "subTitle": "全てのしっぽ",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
@@ -41,7 +41,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "設定",
+  "actionsPage": "トリガー",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
@@ -59,7 +59,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "トリガータイプの選択",
+  "triggersSelectLabel": "トリガータイプを選択",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "これはどのギアに適用する必要がありますか?",
+  "deviceType": "これはどのギアに適用されますか?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "移動の追加",
+  "sequencesEditAdd": "移動を追加",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -155,7 +155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "ギアはどのくらいの速度でこの位置に移動する必要がありますか?",
+  "sequencesEditSpeed": "ギアはこの位置にどのくらいの速さで移動する必要がありますか?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "ホーム・ザ・ギア",
+  "sequencesEditHomeLabel": "ホームギア",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -191,7 +191,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "次の動作を {howMany} ミリ秒遅らせます。",
+  "sequenceEditListDelayLabel": "次の動きを{howMany}ミリ秒遅らせます。",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -201,7 +201,7 @@
       }
     }
   },
-  "actionsNoBluetooth": "このシーケンスを削除してもよろしいですか?",
+  "actionsNoBluetooth": "Bluetoothは利用できません",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "速くて興奮する",
+  "actionsCategoryFast": "速くて興奮",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "アクションをタップしたときに振動を有効にする",
+  "settingsHapticsToggleSubTitle": "アクションをタップすると振動を有効にする",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -267,13 +267,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "尻尾はランダムな動きを選択し、各動きの間にランダムな秒数の間一時停止します。",
+  "manageDevicesAutoMoveSubTitle": "尻尾はランダムな動きを選択し、各動きの間にランダムな秒数の間停止します。",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "グループの移動",
+  "manageDevicesAutoMoveGroupsTitle": "グループを移動する",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -357,13 +357,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "対象となるデバイス",
+  "triggerCoverNear": "対象デバイス",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "デバイスのカバーが解除されました",
+  "triggerCoverFar": "デバイスがカバーされていません",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -381,7 +381,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "ボリュームアップ",
+  "triggerVolumeButtonVolumeUp": "音量を上げる",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "デバイスを振ることでアクションをトリガーします",
+  "triggerShakeDescription": "デバイスを振ってアクションをトリガーします",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "ギアが近くにある場合にアクションをトリガーする",
+  "triggerProximityDescription": "ギアが近くにある場合はアクションをトリガーする",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -429,7 +429,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "ギアの色",
+  "manageDevicesColor": "ギアカラー",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -441,25 +441,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "前傾チルト",
+  "triggerEarTiltForward": "前方傾斜",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "後傾チルト",
+  "triggerEarTiltBackward": "後方傾斜",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "このアクションを何回繰り返すか?",
+  "sequenceEditRepeatTitle": "このアクションを何回繰り返しますか?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "アクションを選択してください",
+  "actionsSelectScreen": "アクションを選択",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "EarGear が音を検出したときにアクションをトリガーする",
+  "triggerEarMicDescription": "EarGearが音を検知するとアクションが実行されます",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "左傾斜",
+  "triggerEarTiltLeft": "左に傾ける",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "フラッターウィングスマニュアル",
+  "moreManualFlutterWingsTitle": "FlutterWings マニュアル",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "アプリを強化するために、特定できない機能の使用を Plausible に報告します",
+  "settingsAnalyticsToggleSubTitle": "アプリの機能強化のため、識別されない機能の使用状況を Plausible に報告してください",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "このモードでは、機器が接続されている間、画面がオフになるのを防ぎます。",
+  "settingsKeepScreenOnToggleSubTitle": "このモードでは、ギアが接続されている間は画面がオフにならないようにします。",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "もう一度押すと終了します",
+  "shellDeviceBarToggleLabel": "許可を与える",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -633,13 +633,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "同じデバイスの多数のインスタンスを接続する場合、このモードでは移動開始時間にランダムな一時停止が追加され、異なる視覚効果が与えられます。",
+  "settingsKitsuneToggleSubTitle": "同じデバイスのインスタンスを多数接続すると、このモードでは移動開始時間にランダムな一時停止が追加され、異なる視覚効果が得られます。",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "ギア位置をダイレクトにコントロール。",
+  "joyStickPageDescription": "ギア位置を直接制御します。",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -681,7 +681,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "カスタム アクションを使用すると、ギアに独自のアクションを作成できます。カスタム アクションをタップすると、それが再生されます。鉛筆をタップしてカスタム アクションを編集します。",
+  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。鉛筆をタップしてカスタムアクションを編集します。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -693,13 +693,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "バッテリー%を表示",
+  "settingsBatteryPercentageToggleTitle": "バッテリー残量を表示",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "アイコンの代わりに実際のバッテリー残量を表示する",
+  "settingsBatteryPercentageToggleSubTitle": "アイコンの代わりに実際のバッテリーレベルを表示する",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -711,31 +711,31 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "アクションカードを大きくしてタップしやすくします",
+  "settingsLargerCardsToggleSubTitle": "アクションカードを大きくしてタップしやすくしました",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleTitle": "チュートリアルカードを隠す",
+  "settingsTutorialCardToggleTitle": "チュートリアルカードを非表示",
   "@settingsTutorialCardToggleTitle": {
     "description": "Settings page tutorial card display toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "アプリ全体でさまざまなチュートリアル カードを非表示にする",
+  "settingsTutorialCardToggleSubTitle": "アプリ全体のさまざまなチュートリアルカードを非表示にする",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "ギアを更新する",
+  "otaTitle": "ギアのアップデート",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "尻尾はランダムな動きを選択し、各動きの間にランダムな秒数の間一時停止します。",
+  "triggerInfoEditActionDescription": "ステップ",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "ハッピーワッギング！",
+  "onboardingCompletedTitle": "尻尾を振って幸せに！",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -795,7 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "もう一度押すと終了します ",
+  "doubleBackToClose": "終了するにはもう一度押してください ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
