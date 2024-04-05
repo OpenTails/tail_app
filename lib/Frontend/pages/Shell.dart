@@ -124,85 +124,58 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
 
             return child!;
           },
-          child: TweenAnimationBuilder(
-            tween: Tween<double>(begin: 90 * MediaQuery.textScalerOf(context).scale(1), end: showAppBar ? 90 * MediaQuery.textScalerOf(context).scale(1) : 0),
-            duration: animationTransitionDuration,
-            builder: (BuildContext context, double size, Widget? child) {
-              return AdaptiveScaffold(
-                // An option to override the default breakpoints used for small, medium,
-                // and large.
-                smallBreakpoint: const WidthPlatformBreakpoint(end: 700),
-                mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
-                largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
-                useDrawer: false,
-                appBarBreakpoint: const WidthPlatformBreakpoint(begin: 0),
-                selectedIndex: screenIndex,
-                onSelectedIndexChange: (int index) {
-                  setState(
-                    () {
-                      screenIndex = index;
-                      return GoRouter.of(context).go(destinations[index].path);
-                    },
-                  );
+          child: AdaptiveScaffold(
+            // An option to override the default breakpoints used for small, medium,
+            // and large.
+            smallBreakpoint: const WidthPlatformBreakpoint(end: 700),
+            mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
+            largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
+            useDrawer: false,
+            appBarBreakpoint: const WidthPlatformBreakpoint(begin: 0),
+            selectedIndex: screenIndex,
+            onSelectedIndexChange: (int index) {
+              setState(
+                () {
+                  screenIndex = index;
+                  return GoRouter.of(context).go(destinations[index].path);
                 },
-                destinations: destinations.map(
-                  (NavDestination destination) {
-                    return NavigationDestination(
-                      label: destination.label,
-                      icon: destination.icon,
-                      selectedIcon: destination.selectedIcon,
-                      tooltip: destination.label,
-                    );
-                  },
-                ).toList(),
-                body: (_) => SafeArea(
-                  bottom: false,
-                  top: false,
-                  child: SnackBarOverlay(
-                    child: widget.child,
-                  ),
-                ),
-                // smallBody: (_) => SafeArea(
-                //   bottom: false,
-                //   top: false,
-                //   child: SnackBarOverlay(
-                //     child: widget.child,
-                //   ),
-                // ),
-                // Define a default secondaryBody.
-                //secondaryBody: AdaptiveScaffold.emptyBuilder,
-                // Override the default secondaryBody during the smallBreakpoint to be
-                // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
-                // overridden.
-                smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
-                appBar: AppBar(
-                  actions: [
-                    IconButton(
-                      onPressed: () => setState(() => showAppBar = !showAppBar),
-                      icon: const Icon(Icons.device_hub),
-                      selectedIcon: const Icon(Icons.device_hub_outlined),
-                      tooltip: shellDeviceBarToggleLabel(),
-                    )
-                  ],
-                  bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(size),
-                    child: Center(
-                      child: AnimatedCrossFade(
-                        firstChild: const DeviceStatusWidget(),
-                        secondChild: Container(),
-                        duration: animationTransitionDuration,
-                        crossFadeState: showAppBar ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                      ),
-                    ),
-                  ),
-                  title: GestureDetector(
-                    onTap: () => setState(() => showAppBar = !showAppBar),
-                    child: Text(title()),
-                  ),
-                  leading: const Image(image: AssetImage('assets/copilot_fox_icon.png')),
-                ),
               );
             },
+            destinations: destinations.map(
+              (NavDestination destination) {
+                return NavigationDestination(
+                  label: destination.label,
+                  icon: destination.icon,
+                  selectedIcon: destination.selectedIcon,
+                  tooltip: destination.label,
+                );
+              },
+            ).toList(),
+            body: (_) => SafeArea(
+              bottom: false,
+              top: false,
+              child: SnackBarOverlay(
+                child: widget.child,
+              ),
+            ),
+            // smallBody: (_) => SafeArea(
+            //   bottom: false,
+            //   top: false,
+            //   child: SnackBarOverlay(
+            //     child: widget.child,
+            //   ),
+            // ),
+            // Define a default secondaryBody.
+            //secondaryBody: AdaptiveScaffold.emptyBuilder,
+            // Override the default secondaryBody during the smallBreakpoint to be
+            // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
+            // overridden.
+            smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
+            appBar: AppBar(
+              title: const DeviceStatusWidget(),
+              centerTitle: true,
+              toolbarHeight: 90 * MediaQuery.textScalerOf(context).scale(1),
+            ),
           ),
         ),
       ),
