@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   static_analysis:
-    name: Build Android Artifact
+    name: Linter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
