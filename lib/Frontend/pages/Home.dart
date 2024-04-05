@@ -2,7 +2,7 @@ import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logging_flutter/logging_flutter.dart';
+import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pod_player/pod_player.dart';
 import 'package:tail_app/constants.dart';
@@ -10,6 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../Backend/Bluetooth/BluetoothManager.dart';
 import '../intnDefs.dart';
+
+final log.Logger homeLogger = log.Logger('Home');
 
 class Home extends ConsumerStatefulWidget {
   const Home({super.key});
@@ -130,8 +132,8 @@ class _HomeState extends ConsumerState<Home> {
                         children: <Widget>[
                           TextButton(
                             onPressed: () async {
-                              Flogger.i("Permission BluetoothScan: ${await Permission.bluetoothScan.request()}");
-                              Flogger.i("Permission BluetoothConnect: ${await Permission.bluetoothConnect.request()}");
+                              homeLogger.info("Permission BluetoothScan: ${await Permission.bluetoothScan.request()}");
+                              homeLogger.info("Permission BluetoothConnect: ${await Permission.bluetoothConnect.request()}");
                             },
                             child: const Text('Grant Permissions'),
                           ),

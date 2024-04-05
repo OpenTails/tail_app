@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:logging/logging.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
@@ -48,8 +48,10 @@ const String serverUrl = "https://plausable.codel1417.xyz";
 const String domain = "tail-app";
 
 late final Plausible plausible;
+final mainLogger = Logger('Main');
 
 Future<void> main() async {
+  mainLogger.info("Begin");
   WidgetsFlutterBinding.ensureInitialized();
   Flogger.init(config: const FloggerConfig(showDebugLogs: true, printClassName: true, printMethodName: true, showDateTime: false));
   PlatformDispatcher.instance.onError = (error, stack) {
@@ -67,6 +69,7 @@ Future<void> main() async {
   //var localeLoaded = await initializeMessages('ace');
   //Intl.defaultLocale = 'ace';
   //Flogger.i("Loaded local: $localeLoaded");
+  mainLogger.fine("Init Hive");
   final Directory appDir = await getApplicationSupportDirectory();
   SentryHive
     ..init(appDir.path)
@@ -84,12 +87,14 @@ Future<void> main() async {
       AutoActionCategoryAdapter(),
     )
     ..registerAdapter(FavoriteActionAdapter());
+  mainLogger.fine("Open Hive Boxes");
   await SentryHive.openBox(settings);
   await SentryHive.openBox<Trigger>(triggerBox);
   await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
-  initDio();
+  //initDio();
+  mainLogger.fine("Init Sentry");
   await SentryFlutter.init(
     (options) async {
       options.dsn = 'https://284f1830184d74dbbbb48ad14b577ffc@sentry.codel1417.xyz/3';
@@ -121,14 +126,6 @@ Future<void> main() async {
 
 Dio initDio() {
   final Dio dio = Dio();
-  if (kDebugMode) {
-    dio.interceptors.add(
-      PrettyDioLogger(
-        requestBody: true,
-        compact: true,
-      ),
-    );
-  }
 
   /// This *must* be the last initialization step of the Dio setup, otherwise
   /// your configuration of Dio might overwrite the Sentry configuration.
@@ -143,9 +140,9 @@ class TailApp extends ConsumerWidget {
     // Platform messages may fail, so we use a try/catch PlatformException.
     plausible = PlausibleDio(serverUrl, domain);
     plausible.enabled = true;
-    Flogger.i('Starting app');
+    mainLogger.info('Starting app');
     if (kDebugMode) {
-      Flogger.i('Debug Mode Enabled');
+      mainLogger.info('Debug Mode Enabled');
       SentryHive.box(settings).put(showDebugging, true);
     }
   }
@@ -206,13 +203,15 @@ ThemeData BuildTheme(Brightness brightness, Color color) {
 }
 
 class RiverpodProviderObserver extends ProviderObserver {
+  final Logger riverpodLogger = Logger('Riverpod');
+
   @override
   void didAddProvider(
     ProviderBase<Object?> provider,
     Object? value,
     ProviderContainer container,
   ) {
-    Flogger.d('Provider $provider was initialized with $value');
+    riverpodLogger.fine('Provider $provider was initialized with $value');
   }
 
   @override
@@ -220,7 +219,7 @@ class RiverpodProviderObserver extends ProviderObserver {
     ProviderBase<Object?> provider,
     ProviderContainer container,
   ) {
-    Flogger.d('Provider $provider was disposed');
+    riverpodLogger.fine('Provider $provider was disposed');
   }
 
   @override
@@ -230,7 +229,7 @@ class RiverpodProviderObserver extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    Flogger.d('Provider $provider updated from $previousValue to $newValue');
+    riverpodLogger.fine('Provider $provider updated from $previousValue to $newValue');
   }
 
   @override
@@ -240,7 +239,7 @@ class RiverpodProviderObserver extends ProviderObserver {
     StackTrace stackTrace,
     ProviderContainer container,
   ) {
-    Flogger.e('Provider $provider threw $error at $stackTrace', stackTrace: stackTrace);
+    riverpodLogger.warning('Provider $provider threw $error at $stackTrace', error, stackTrace);
   }
 }
 
