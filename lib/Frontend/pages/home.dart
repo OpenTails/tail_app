@@ -4,7 +4,6 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pod_player/pod_player.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -21,11 +20,11 @@ class Home extends ConsumerStatefulWidget {
 }
 
 class _HomeState extends ConsumerState<Home> {
-  late final PodPlayerController controller;
+  //late final PodPlayerController controller;
 
   @override
   void initState() {
-    controller = PodPlayerController(
+    /*controller = PodPlayerController(
       playVideoFrom: PlayVideoFrom.vimeo(
         '913642606',
       ),
@@ -36,13 +35,13 @@ class _HomeState extends ConsumerState<Home> {
         wakelockEnabled: false,
         forcedVideoFocus: false,
       ),
-    )..initialise();
+    )..initialise();*/
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    //controller.dispose();
     super.dispose();
   }
 
@@ -148,7 +147,7 @@ class _HomeState extends ConsumerState<Home> {
             secondChild: Container(),
             crossFadeState: btStatus.valueOrNull == BleStatus.unauthorized ? CrossFadeState.showFirst : CrossFadeState.showSecond,
             duration: animationTransitionDuration),
-        Padding(
+        /*Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
             clipBehavior: Clip.antiAlias,
@@ -169,7 +168,7 @@ class _HomeState extends ConsumerState<Home> {
               ),
             ),
           ),
-        ),
+        ),*/
       ],
     );
   }

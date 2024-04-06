@@ -213,7 +213,7 @@ class RiverpodProviderObserver extends ProviderObserver {
     Object? value,
     ProviderContainer container,
   ) {
-    riverpodLogger.fine('Provider $provider was initialized with $value');
+    riverpodLogger.info('Provider $provider was initialized with $value');
   }
 
   @override
@@ -221,7 +221,7 @@ class RiverpodProviderObserver extends ProviderObserver {
     ProviderBase<Object?> provider,
     ProviderContainer container,
   ) {
-    riverpodLogger.fine('Provider $provider was disposed');
+    riverpodLogger.info('Provider $provider was disposed');
   }
 
   @override
@@ -231,7 +231,7 @@ class RiverpodProviderObserver extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    riverpodLogger.fine('Provider $provider updated from $previousValue to $newValue');
+    riverpodLogger.info('Provider $provider updated from $previousValue to $newValue');
   }
 
   @override
@@ -260,6 +260,8 @@ class _EagerInitialization extends ConsumerWidget {
     ref.watch(btConnectStateHandlerProvider);
     ref.watch(triggerListProvider);
     ref.watch(moveListsProvider);
+    ref.watch(favoriteActionsProvider);
+
     return child;
   }
 }

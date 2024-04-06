@@ -11,6 +11,7 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/constants.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/device_registry.dart';
 
 final knownGearScanControllerLogger = log.Logger('KnownGearScanController');
 
@@ -27,6 +28,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
   bool shouldScan = false;
   final Duration scanDurationTimeout = const Duration(seconds: 30);
   Timer? scanTimeout;
+  StreamSubscription<DiscoveredDevice>? scanStream;
 
   @override
   Widget build(BuildContext context) {
@@ -45,44 +47,62 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
                 if (ref.watch(btStatusProvider).valueOrNull == BleStatus.ready) {
                   //when running, automatically reconnects to devices
                   knownGearScanControllerLogger.info("Scanning for gear");
-                  ref.listen(
-                    scanForDevicesProvider,
-                    (previous, next) {},
+                  scanStream ??= ref
+                      .read(reactiveBLEProvider)
+                      .scanForDevices(withServices: DeviceRegistry.getAllIds(), requireLocationServicesEnabled: false, scanMode: ScanMode.lowPower)
+                      .where(
+                        (event) => knownDevices.containsKey(event.id) && knownDevices[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected && !knownDevices[event.id]!.disableAutoConnect,
+                      )
+                      .listen(
+                    (DiscoveredDevice event) {
+                      Future(() => ref.read(knownDevicesProvider.notifier).connect(event));
+                    },
                   );
                 }
               } else {
                 knownGearScanControllerLogger.info("All devices connected");
                 if (shouldScan) {
-                  setState(
-                    () {
-                      shouldScan = false;
-                    },
+                  Future(
+                    () => setState(
+                      () {
+                        shouldScan = false;
+                        scanTimeout?.cancel();
+                        scanTimeout = null;
+                      },
+                    ),
                   );
                 }
+                scanTimeout?.cancel();
+                scanTimeout = null;
+                scanStream?.cancel();
+                scanStream = null;
               }
-              return Stack(
-                children: [
-                  AnimatedCrossFade(firstChild: Container(), secondChild: const LinearProgressIndicator(), crossFadeState: shouldScan ? CrossFadeState.showSecond : CrossFadeState.showFirst, duration: animationTransitionDuration),
-                  NotificationListener<OverscrollNotification>(
-                      onNotification: (OverscrollNotification notification) {
-                        knownGearScanControllerLogger.info('Overscroll ${notification.overscroll}');
-                        if (notification.overscroll < 2 && notification.overscroll > -2) {
-                          // ignore, don't do anything
-                          return false;
-                        }
-                        startScanTimer();
-                        return true;
-                      },
-                      child: child!),
-                ],
-              );
+              return child!;
             },
-            child: widget.child,
+            child: Stack(
+              children: [
+                AnimatedCrossFade(firstChild: Container(), secondChild: const LinearProgressIndicator(), crossFadeState: shouldScan ? CrossFadeState.showSecond : CrossFadeState.showFirst, duration: animationTransitionDuration),
+                NotificationListener<OverscrollNotification>(
+                    onNotification: (OverscrollNotification notification) {
+                      knownGearScanControllerLogger.info('Overscroll ${notification.overscroll}');
+                      if (notification.overscroll < 2 && notification.overscroll > -2) {
+                        // ignore, don't do anything
+                        return false;
+                      }
+                      startScanTimer();
+                      return true;
+                    },
+                    child: widget.child),
+              ],
+            ),
           );
         },
         valueListenable: SentryHive.box(settings).listenable(keys: [alwaysScanning]),
+        child: widget.child,
       );
     }
+    scanStream?.cancel();
+    scanStream = null;
     return widget.child;
   }
 
@@ -102,6 +122,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
             },
           );
         }
+        scanTimeout = null;
       },
     );
     if (mounted) {
@@ -110,6 +131,8 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
           shouldScan = true;
         },
       );
+    } else {
+      shouldScan = true;
     }
   }
 }

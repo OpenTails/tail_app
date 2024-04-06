@@ -32,6 +32,9 @@ final log.Logger bluetoothLog = log.Logger('Bluetooth');
 
 @riverpod
 Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
+  ref.onDispose(() {
+    bluetoothLog.fine("Stopping scan");
+  });
   bluetoothLog.fine("Starting scan");
   final FlutterReactiveBle bluetoothManagerRef = ref.watch(reactiveBLEProvider);
   Stream<DiscoveredDevice> scanStream = bluetoothManagerRef.scanForDevices(withServices: DeviceRegistry.getAllIds(), requireLocationServicesEnabled: false, scanMode: ScanMode.lowPower).asBroadcastStream();
