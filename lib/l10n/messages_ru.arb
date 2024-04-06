@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "С какой скоростью шестерня должна переместиться в это положение?",
+  "sequencesEditSpeed": "Насколько быстро шестерня должна переместиться в это положение?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -201,7 +201,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Выберите действие",
+  "actionsSelectScreen": "Светящийся наконечник",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканирование нового снаряжения",
+  "scanDevicesTitle": "Сканировать новое снаряжение",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -531,7 +531,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "Ответственное виляние",
+  "moreManualResponsibleWaggingTitle": "Сколько раз повторить это Действие?",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Нажмите еще раз, чтобы выйти ",
+  "doubleBackToClose": "Включите Bluetooth ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",

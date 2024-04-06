@@ -77,13 +77,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Für welche Ausrüstung soll das gelten?",
+  "deviceType": "Für welches Getriebe soll das gelten?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Schwanz",
+  "deviceTypeTail": "Wie schnell sollte sich das Zahnrad in diese Position bewegen?",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -113,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Bringen Sie die Ausrüstung nach Hause",
+  "sequencesEditHomeLabel": "Startseite die Ausrüstung",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Sind Sie sicher, dass Sie diese Aktion löschen möchten?",
+  "sequencesEditDeleteDescription": "Möchten Sie diese Aktion wirklich löschen?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung für eine zufällige Anzahl von Sekunden",
+  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung für eine zufällige Anzahl von Sekunden.",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -303,19 +303,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Lösen Sie eine Aktion aus, indem Sie den Näherungssensor abdecken",
+  "triggerCoverDescription": "Durch Abdecken des Näherungssensors eine Aktion auslösen",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Gerät abgedeckt",
+  "triggerCoverNear": "Abgedecktes Gerät",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Gerät aufgedeckt",
+  "triggerCoverFar": "Gerät entdeckt",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -369,13 +369,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Lösen Sie eine Aktion aus, wenn sich Ausrüstung in der Nähe befindet",
+  "triggerActionNotSet": "Keine Aktion festgelegt",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Zahnradleiste umschalten",
+  "sequencesEditAdd": "Schalten Sie die Schaltleiste um",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Wie schnell sollte sich das Zahnrad in diese Position bewegen?",
+  "sequencesEditSpeed": "Wie schnell soll das Getriebe in diese Position gelangen?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "EarGear-Neigungssensor",
+  "triggerEarTiltTitle": "EarGear Neigungssensor",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Tippen Sie hier, um die Firmware zu aktualisieren",
+  "manageDevicesOtaButton": "Tippen, um die Firmware zu aktualisieren",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Ändern Sie die App-Farbe, konfigurieren Sie die Haptik und mehr",
+  "settingsDescription": "App-Farbe ändern, Haptik konfigurieren und mehr",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualMiTailTitle": "MiTail-Handbuch",
+  "moreManualMiTailTitle": "MiTail Handbuch",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
     "type": "text",
@@ -555,7 +555,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "FlutterWings-Handbuch",
+  "moreManualFlutterWingsTitle": "FlutterWings Handbuch",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "Schalten Sie die Schaltleiste um",
+  "shellDeviceBarToggleLabel": "Zahnradleiste umschalten",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus zufällige Pausen zu den Startzeiten ihrer Bewegungen hinzu, was einen anderen visuellen Effekt ergibt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Auslöser senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Auslöser, um ihn zu bearbeiten. Verwenden Sie den Schalter auf der linken Seite, um den Auslöser zu aktivieren.",
+  "triggerInfoDescription": "Trigger senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Trigger, um ihn zu bearbeiten, und aktivieren Sie den Trigger mit dem Schalter auf der linken Seite.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -699,7 +699,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Vergrößert die Aktionskarten, um das Tippen zu erleichtern",
+  "settingsLargerCardsToggleSubTitle": "Macht die Aktionskarten größer, damit sie leichter angetippt werden können",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Blenden Sie die verschiedenen Tutorial-Karten in der gesamten App aus",
+  "settingsTutorialCardToggleSubTitle": "Die verschiedenen Lernkarten in der gesamten App ausblenden",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -747,13 +747,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, müssen Sie dennoch die Datenschutzrichtlinie akzeptieren",
+  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, müssen Sie dennoch die Datenschutzrichtlinie akzeptieren.",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzbestimmungen akzeptieren",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzrichtlinie akzeptieren",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -771,13 +771,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Erlaubnis erteilen",
+  "onboardingBluetoothRequestButtonLabel": "Berechtigung erteilen",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Schalten Sie Bluetooth ein",
+  "onboardingBluetoothEnableButtonLabel": "Bluetooth einschalten",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Drücken Sie erneut, um den Vorgang zu beenden ",
+  "doubleBackToClose": "Erlaubnis erteilen ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",

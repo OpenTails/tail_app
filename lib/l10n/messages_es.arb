@@ -179,7 +179,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Tipo de flexibilización",
+  "ok": "De acuerdo",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -315,13 +315,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Desencadenantes",
+  "triggersPage": "Comportamiento",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Frustrado y tenso",
+  "deviceTypeEars": "Orejas",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -381,7 +381,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Frustrado y tenso",
+  "actionsCategoryEars": "Orejas",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Servo izquierdo",
+  "triggerCoverTitle": "Cubrir",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Frustrado y tenso",
+  "sequencesEditAdd": "Agregar movimiento",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Activar una acción cuando EarGear detecta sonido",
+  "triggerEarMicSound": "Sonido detectado",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -501,13 +501,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Inclinación hacia adelante",
+  "triggerEarTiltForward": "Inclinación izquierda",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Inclinación hacia atrás",
+  "triggerEarTiltBackward": "Equipo cercano",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Hace que las tarjetas de acción sean más grandes para tocarlas más fácilmente.",
+  "settingsLargerCardsToggleSubTitle": "Muestra el nivel real de la batería en lugar de un icono",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",

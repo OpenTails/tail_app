@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Type d'assouplissement",
+  "sequencesEditEasing": "À quelle vitesse l’engrenage doit-il se déplacer vers cette position ?",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -171,7 +171,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "À quel équipement cela devrait-il s'appliquer ?",
+  "manageDevicesAutoMoveSubTitle": "À quel matériel cela devrait-il s'appliquer ?",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -279,7 +279,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Déclenchez une action en appuyant sur le bouton volume",
+  "triggerVolumeButtonDescription": "Nom",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -345,7 +345,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "D'accord",
+  "ok": "Équipement en déplacement",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "À quel matériel cela devrait-il s'appliquer ?",
+  "deviceType": "À quel équipement cela devrait-il s'appliquer ?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Télécharger",
+  "otaDownloadButtonLabel": "Journal des modifications du micrologiciel",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",

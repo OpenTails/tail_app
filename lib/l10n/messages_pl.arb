@@ -47,7 +47,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersAdd": "Dodaj wyzwalacz",
+  "triggersAdd": "Anulować",
   "@triggersAdd": {
     "description": "Floating Action Button on the triggers page",
     "type": "text",

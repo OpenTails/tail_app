@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Annulla",
+  "cancel": "Elimina azione",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",

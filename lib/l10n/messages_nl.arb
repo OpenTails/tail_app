@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Naam",
+  "sequencesEditName": "Vleugels",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
