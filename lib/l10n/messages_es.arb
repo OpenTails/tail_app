@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Equipo cercano",
+  "triggerEarTiltBackward": "Activa una acción si hay equipo cerca",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Oculta las distintas tarjetas de tutoriales en toda la aplicación.",
+  "settingsTutorialCardToggleSubTitle": "Ocultar tarjetas tutoriales",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -804,6 +804,12 @@
   "doubleBackToClose": "Presione nuevamente para salir ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "Busque siempre equipo conocido",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   }
