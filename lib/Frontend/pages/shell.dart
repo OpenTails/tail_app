@@ -648,6 +648,7 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
           child: Row(
             children: ref

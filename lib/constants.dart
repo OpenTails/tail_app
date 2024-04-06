@@ -20,6 +20,7 @@ const String largerActionCardSize = 'largerActionCardSize';
 const String hideTutorialCards = 'hideTutorialCards';
 const String hasCompletedOnboarding = 'hasCompletedOnboarding';
 const String showDebugging = 'showDebugging';
+const String alwaysScanning = 'alwaysScanning';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -37,7 +38,7 @@ const bool largerActionCardSizeDefault = false;
 const bool hideTutorialCardsDefault = false;
 const bool hasCompletedOnboardingDefault = false;
 const bool showDebuggingDefault = false;
-
+const bool alwaysScanningDefault = true;
 // Triggers labels
 const String triggerBox = 'triggers';
 
