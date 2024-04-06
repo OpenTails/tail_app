@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-04-05T22:07:27.167401",
+  "@@last_modified": "2024-04-06T15:18:31.177664",
   "title": "Gear on the Go",
   "@title": {
     "description": "The name of the app",
@@ -278,6 +278,12 @@
   "settingsHapticsToggleSubTitle": "Enable vibration when an action is tapped",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "Always scan for known gear",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   },
