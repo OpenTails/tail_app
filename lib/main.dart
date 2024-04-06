@@ -51,6 +51,7 @@ late final Plausible plausible;
 final mainLogger = Logger('Main');
 
 Future<void> main() async {
+  Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
   WidgetsFlutterBinding.ensureInitialized();
   Flogger.init(config: const FloggerConfig(showDebugLogs: true, printClassName: true, printMethodName: true, showDateTime: false));

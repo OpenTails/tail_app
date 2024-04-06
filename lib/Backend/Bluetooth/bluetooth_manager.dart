@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,7 +44,7 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
     },
   ).onError(
     (e, s) {
-      bluetoothLog.shout('Error while scanning for gear:$e', e, s);
+      bluetoothLog.warning('Error while scanning for gear:$e', e, s);
     },
   );
   // returns all gear that are not paired
@@ -226,6 +227,8 @@ Stream<BleStatus> btStatus(BtStatusRef ref) {
   return ref.read(reactiveBLEProvider).statusStream;
 }
 
+ValueNotifier<bool> isAnyGearConnected = ValueNotifier(false);
+
 @Riverpod(keepAlive: true)
 StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHandlerRef ref) {
   return ref.read(reactiveBLEProvider).connectedDeviceStream.listen((ConnectionStateUpdate event) async {
@@ -240,6 +243,7 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         gravity: ToastGravity.CENTER,
       );
       if (event.connectionState == DeviceConnectionState.connected) {
+        isAnyGearConnected.value = true;
         if (SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault)) {
           bluetoothLog.fine('Enabling wakelock');
           WakelockPlus.enable();
@@ -280,6 +284,7 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
               element.enabled = false;
             },
           );
+          isAnyGearConnected.value = false;
           bluetoothLog.finer('Disabling wakelock');
           // stop wakelock if its started
           WakelockPlus.disable();

@@ -13,6 +13,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/Widgets/back_button_to_close.dart';
+import 'package:tail_app/Frontend/Widgets/known_gear_scan_controller.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
@@ -643,195 +644,195 @@ class DeviceStatusWidget extends ConsumerStatefulWidget {
 class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: ref
-              .watch(knownDevicesProvider)
-              .values
-              .map(
-                (BaseStatefulDevice e) => (BaseStatefulDevice e, BuildContext context) {
-                  // Auto connect to known devices
-                  if (ref.watch(btStatusProvider).valueOrNull == BleStatus.ready) {
-                    ref.watch(scanForDevicesProvider);
-                  }
-                  return FadeIn(
-                    child: ValueListenableBuilder(
-                      valueListenable: e.deviceConnectionState,
-                      builder: (BuildContext context, DeviceConnectionState value, Widget? child) {
-                        return Flash(
-                          animate: value == DeviceConnectionState.connected,
-                          child: ValueListenableBuilder(
-                            valueListenable: e.hasUpdate,
-                            builder: (BuildContext context, bool value, Widget? child) {
-                              return Badge(
-                                isLabelVisible: value,
-                                largeSize: 35,
-                                backgroundColor: Theme.of(context).primaryColor,
-                                label: const Icon(Icons.system_update),
-                                child: child,
-                              );
-                            },
-                            child: TweenAnimationBuilder(
-                              tween: value == DeviceConnectionState.connected ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
-                              duration: animationTransitionDuration,
-                              child: InkWell(
-                                onTap: () {
-                                  plausible.event(page: "Manage Gear");
-                                  showModalBottomSheet(
-                                    context: context,
-                                    showDragHandle: true,
-                                    isScrollControlled: true,
-                                    enableDrag: true,
-                                    isDismissible: true,
-                                    builder: (BuildContext context) {
-                                      return DraggableScrollableSheet(
-                                        expand: false,
-                                        initialChildSize: 0.7,
-                                        builder: (BuildContext context, ScrollController scrollController) {
-                                          return ManageGear(
-                                            ref: ref,
-                                            device: e,
-                                            controller: scrollController,
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ).then((value) {
-                                    setState(() {}); //force widget update
-                                    return;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                    height: 50,
-                                    width: 100,
-                                    child: Stack(
-                                      children: [
-                                        Text(
-                                          e.baseStoredDevice.name,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 16),
-                                          child: Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: AnimatedCrossFade(
-                                              firstChild: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  ValueListenableBuilder(
-                                                    valueListenable: e.battery,
-                                                    builder: (BuildContext context, value, Widget? child) {
-                                                      return AnimatedSwitcher(
-                                                        duration: animationTransitionDuration,
-                                                        child: getBattery(e.battery.value),
-                                                      );
-                                                    },
-                                                  ),
-                                                  ValueListenableBuilder(
-                                                    valueListenable: e.batteryCharging,
-                                                    builder: (BuildContext context, value, Widget? child) {
-                                                      return AnimatedCrossFade(
-                                                        firstChild: const Icon(Icons.power),
-                                                        secondChild: Container(),
-                                                        crossFadeState: e.deviceConnectionState.value == DeviceConnectionState.connected && e.batteryCharging.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                                                        duration: animationTransitionDuration,
-                                                      );
-                                                    },
-                                                  ),
-                                                  ValueListenableBuilder(
-                                                    valueListenable: e.rssi,
-                                                    builder: (BuildContext context, value, Widget? child) {
-                                                      return AnimatedSwitcher(
-                                                        duration: animationTransitionDuration,
-                                                        child: getSignal(e.rssi.value),
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                              secondChild: const Icon(Icons.bluetooth_disabled),
-                                              crossFadeState: value == DeviceConnectionState.connected ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                                              duration: animationTransitionDuration,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              builder: (BuildContext context, double value, Widget? child) {
-                                return Card(
-                                  clipBehavior: Clip.antiAlias,
-                                  color: Color.lerp(Theme.of(context).cardColor, Color(e.baseStoredDevice.color), value),
+    return KnownGearScanController(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: ref
+                .watch(knownDevicesProvider)
+                .values
+                .map(
+                  (BaseStatefulDevice e) => (BaseStatefulDevice e, BuildContext context) {
+                    // Auto connect to known devices
+                    return FadeIn(
+                      child: ValueListenableBuilder(
+                        valueListenable: e.deviceConnectionState,
+                        builder: (BuildContext context, DeviceConnectionState value, Widget? child) {
+                          return Flash(
+                            animate: value == DeviceConnectionState.connected,
+                            child: ValueListenableBuilder(
+                              valueListenable: e.hasUpdate,
+                              builder: (BuildContext context, bool value, Widget? child) {
+                                return Badge(
+                                  isLabelVisible: value,
+                                  largeSize: 35,
+                                  backgroundColor: Theme.of(context).primaryColor,
+                                  label: const Icon(Icons.system_update),
                                   child: child,
                                 );
                               },
+                              child: TweenAnimationBuilder(
+                                tween: value == DeviceConnectionState.connected ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
+                                duration: animationTransitionDuration,
+                                child: InkWell(
+                                  onTap: () {
+                                    plausible.event(page: "Manage Gear");
+                                    showModalBottomSheet(
+                                      context: context,
+                                      showDragHandle: true,
+                                      isScrollControlled: true,
+                                      enableDrag: true,
+                                      isDismissible: true,
+                                      builder: (BuildContext context) {
+                                        return DraggableScrollableSheet(
+                                          expand: false,
+                                          initialChildSize: 0.7,
+                                          builder: (BuildContext context, ScrollController scrollController) {
+                                            return ManageGear(
+                                              ref: ref,
+                                              device: e,
+                                              controller: scrollController,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ).then((value) {
+                                      setState(() {}); //force widget update
+                                      return;
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SizedBox(
+                                      height: 50,
+                                      width: 100,
+                                      child: Stack(
+                                        children: [
+                                          Text(
+                                            e.baseStoredDevice.name,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 16),
+                                            child: Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: AnimatedCrossFade(
+                                                firstChild: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    ValueListenableBuilder(
+                                                      valueListenable: e.battery,
+                                                      builder: (BuildContext context, value, Widget? child) {
+                                                        return AnimatedSwitcher(
+                                                          duration: animationTransitionDuration,
+                                                          child: getBattery(e.battery.value),
+                                                        );
+                                                      },
+                                                    ),
+                                                    ValueListenableBuilder(
+                                                      valueListenable: e.batteryCharging,
+                                                      builder: (BuildContext context, value, Widget? child) {
+                                                        return AnimatedCrossFade(
+                                                          firstChild: const Icon(Icons.power),
+                                                          secondChild: Container(),
+                                                          crossFadeState: e.deviceConnectionState.value == DeviceConnectionState.connected && e.batteryCharging.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                                          duration: animationTransitionDuration,
+                                                        );
+                                                      },
+                                                    ),
+                                                    ValueListenableBuilder(
+                                                      valueListenable: e.rssi,
+                                                      builder: (BuildContext context, value, Widget? child) {
+                                                        return AnimatedSwitcher(
+                                                          duration: animationTransitionDuration,
+                                                          child: getSignal(e.rssi.value),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                                secondChild: const Icon(Icons.bluetooth_disabled),
+                                                crossFadeState: value == DeviceConnectionState.connected ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                                duration: animationTransitionDuration,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                builder: (BuildContext context, double value, Widget? child) {
+                                  return Card(
+                                    clipBehavior: Clip.antiAlias,
+                                    color: Color.lerp(Theme.of(context).cardColor, Color(e.baseStoredDevice.color), value),
+                                    child: child,
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }(e, context),
-              )
-              .toList()
-            ..add(
-              FadeIn(
-                child: Card(
-                  clipBehavior: Clip.antiAlias,
-                  child: InkWell(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 50 * MediaQuery.textScalerOf(context).scale(1),
-                        width: ref.watch(knownDevicesProvider).values.length > 1 ? 100 * MediaQuery.textScalerOf(context).scale(1) : 200 * MediaQuery.textScalerOf(context).scale(1),
-                        child: Center(
-                          child: Text(
-                            scanDevicesTitle(),
-                            textAlign: TextAlign.center,
+                          );
+                        },
+                      ),
+                    );
+                  }(e, context),
+                )
+                .toList()
+              ..add(
+                FadeIn(
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: 50 * MediaQuery.textScalerOf(context).scale(1),
+                          width: ref.watch(knownDevicesProvider).values.length > 1 ? 100 * MediaQuery.textScalerOf(context).scale(1) : 200 * MediaQuery.textScalerOf(context).scale(1),
+                          child: Center(
+                            child: Text(
+                              scanDevicesTitle(),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    onTap: () {
-                      plausible.event(page: "Scan For New Gear");
-                      showModalBottomSheet(
-                        context: context,
-                        showDragHandle: true,
-                        isScrollControlled: true,
-                        enableDrag: true,
-                        isDismissible: true,
-                        builder: (BuildContext context) {
-                          return DraggableScrollableSheet(
-                            initialChildSize: 0.5,
-                            expand: false,
-                            builder: (BuildContext context, ScrollController scrollController) {
-                              return Column(
-                                children: [
-                                  ListTile(
-                                    title: Text(scanDevicesTitle()),
-                                  ),
-                                  Expanded(
+                      onTap: () {
+                        plausible.event(page: "Scan For New Gear");
+                        showModalBottomSheet(
+                          context: context,
+                          showDragHandle: true,
+                          isScrollControlled: true,
+                          enableDrag: true,
+                          isDismissible: true,
+                          builder: (BuildContext context) {
+                            return DraggableScrollableSheet(
+                              initialChildSize: 0.5,
+                              expand: false,
+                              builder: (BuildContext context, ScrollController scrollController) {
+                                return Column(
+                                  children: [
+                                    ListTile(
+                                      title: Text(scanDevicesTitle()),
+                                    ),
+                                    Expanded(
                                       child: ScanForNewDevice(
-                                    scrollController: scrollController,
-                                  )),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
+                                        scrollController: scrollController,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
+          ),
         ),
       ),
     );

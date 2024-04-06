@@ -137,6 +137,9 @@ class ActionRegistry {
 
 @Riverpod(keepAlive: false)
 Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef ref) {
+  if (!isAnyGearConnected.value) {
+    return {};
+  }
   Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   for (BaseAction baseAction in List.from(ActionRegistry.allCommands)..addAll(ref.read(moveListsProvider))) {
