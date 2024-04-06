@@ -45,7 +45,10 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
                 if (ref.watch(btStatusProvider).valueOrNull == BleStatus.ready) {
                   //when running, automatically reconnects to devices
                   knownGearScanControllerLogger.info("Scanning for gear");
-                  ref.watch(scanForDevicesProvider);
+                  ref.listen(
+                    scanForDevicesProvider,
+                    (previous, next) {},
+                  );
                 }
               } else {
                 knownGearScanControllerLogger.info("All devices connected");
