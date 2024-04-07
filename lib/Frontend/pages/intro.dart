@@ -86,6 +86,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           image: Lottie.asset(
             width: MediaQuery.of(context).size.width,
             renderCache: RenderCache.raster,
+            backgroundLoading: true,
             'assets/tailcostickers/tgs/TailCoStickers_file_144834354.tgs',
             decoder: LottieComposition.decodeGZip,
           ),
@@ -97,6 +98,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           image: Lottie.asset(
             renderCache: RenderCache.raster,
             width: MediaQuery.of(context).size.width,
+            backgroundLoading: true,
             'assets/tailcostickers/tgs/TailCoStickers_file_144834359.tgs',
             decoder: LottieComposition.decodeGZip,
           ),
@@ -142,6 +144,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           image: Lottie.asset(
             renderCache: RenderCache.raster,
             width: MediaQuery.of(context).size.width,
+            backgroundLoading: true,
             'assets/tailcostickers/tgs/TailCoStickers_file_144834357.tgs',
             decoder: LottieComposition.decodeGZip,
           ),
@@ -193,6 +196,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           image: Lottie.asset(
             renderCache: RenderCache.raster,
             width: MediaQuery.of(context).size.width,
+            backgroundLoading: true,
             'assets/tailcostickers/tgs/TailCoStickers_file_144834338.tgs',
             decoder: LottieComposition.decodeGZip,
           ),

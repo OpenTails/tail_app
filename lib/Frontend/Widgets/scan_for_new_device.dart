@@ -78,6 +78,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                         flipX: true,
                         child: Lottie.asset(
                           width: 200,
+                          backgroundLoading: true,
                           'assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs',
                           decoder: LottieComposition.decodeGZip,
                         ),
