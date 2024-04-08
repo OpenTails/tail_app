@@ -30,7 +30,7 @@ dependencies:
   proximity_sensor:
     git:
       url: https://github.com/Codel1417/flutter-proximity-sensor-plugin
-  sensors_plus: ^5.0.0
+  sensors_plus: ^5.0.1
   shake:
     git:
       url: https://github.com/Codel1417/shake
