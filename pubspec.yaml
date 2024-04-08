@@ -21,7 +21,7 @@ dependencies:
   logging: ^1.2.0
   logging_flutter: ^3.0.0
   flutter_reactive_ble: ^5.3.1
-  go_router: ^13.2.2
+  go_router: ^13.2.3
   pedometer:
     git:
       url: https://github.com/cph-cachet/flutter-plugins
