@@ -29,7 +29,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "aboutPage": "Umbes",
+  "aboutPage": "Looge oma varustuse jaoks kohandatud toiminguid",
   "@aboutPage": {
     "description": "The label and title of the about page",
     "type": "text",
@@ -279,7 +279,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Saba valib juhusliku käigu, peatudes iga liigutuse vahel juhusliku arvu sekunditeks",
+  "manageDevicesAutoMoveSubTitle": "Kui kiiresti peaks käik sellesse asendisse liikuma?",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -804,6 +804,12 @@
   "doubleBackToClose": "Väljumiseks vajutage uuesti ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "Otsige alati teadaolevat varustust",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   }

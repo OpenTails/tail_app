@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Действия",
+  "actionsPage": "Настройки",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Положение левого сервопривода",
+  "sequencesEditLeftServo": "Добавить триггер",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Насколько быстро шестерня должна переместиться в это положение?",
+  "sequencesEditSpeed": "С какой скоростью шестерня должна переместиться в это положение?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканировать новое снаряжение",
+  "scanDevicesTitle": "Сканирование нового снаряжения",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -543,7 +543,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "Руководство по DigiTail",
+  "moreManualDigitailTitle": "Скрыть карточки обучения",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -804,6 +804,12 @@
   "doubleBackToClose": "Включите Bluetooth ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "Всегда сканируйте известное снаряжение",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   }

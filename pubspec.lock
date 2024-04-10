@@ -667,10 +667,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "5ed2687bc961f33a752017ccaa7edead3e5601b28b6376a5901bf24728556b85"
+      sha256: f6ba8eed5fa831e461122de577d4a26674a1d836e2956abe6c0f6c4d952e6673
       url: "https://pub.dev"
     source: hosted
-    version: "13.2.2"
+    version: "13.2.3"
   graphs:
     dependency: transitive
     description:
@@ -1294,10 +1294,10 @@ packages:
     dependency: "direct main"
     description:
       name: sensors_plus
-      sha256: "59a962b35e36abc799bab94974128f29877ca11610d0573f5aea73d1a5d4bd88"
+      sha256: "6898cd4490ffc27fea4de5976585e92fae55355175d46c6c3b3d719d42f9e230"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "5.0.1"
   sensors_plus_platform_interface:
     dependency: transitive
     description:
@@ -1708,10 +1708,10 @@ packages:
     dependency: "direct main"
     description:
       name: uuid
-      sha256: cd210a09f7c18cbe5a02511718e0334de6559871052c90a90c0cca46a4aa81c8
+      sha256: "814e9e88f21a176ae1359149021870e87f7cddaf633ab678a5d2b0bff7fd1ba8"
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.3"
+    version: "4.4.0"
   vector_math:
     dependency: "direct main"
     description:

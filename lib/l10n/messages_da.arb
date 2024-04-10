@@ -806,5 +806,11 @@
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
     "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "Scan altid for kendt gear",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
   }
 }
