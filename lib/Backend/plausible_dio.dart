@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:install_referrer/install_referrer.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
@@ -36,6 +37,8 @@ class PlausibleDio extends Plausible {
     props['Number Of Devices'] = SentryHive.box<BaseStoredDevice>('devices').length.toString();
     props['Number Of Sequences'] = SentryHive.box<MoveList>('sequences').length.toString();
     props['Number Of Triggers'] = SentryHive.box<Trigger>(triggerBox).length.toString();
+    props['App Version'] = (await PackageInfo.fromPlatform()).version;
+    props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
 
     // Http Post request see https://plausible.io/docs/events-api
     try {
