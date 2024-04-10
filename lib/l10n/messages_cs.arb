@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Na jaké zařízení by se to mělo vztahovat?",
+  "deviceType": "Poloha na pravé straně",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -441,7 +441,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Nedaleké zařízení",
+  "triggerProximityTitle": "Snížit hlasitost",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -804,6 +804,12 @@
   "doubleBackToClose": "Pro ukončení stiskněte znovu ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "Vždy vyhledejte známé vybavení",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   }

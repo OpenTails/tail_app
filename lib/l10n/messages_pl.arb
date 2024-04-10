@@ -183,7 +183,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Szybki i podekscytowany",
+  "actionsCategoryFast": "Instrukcje",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Przechylenie do tyłu",
+  "triggerEarTiltBackward": "Pochylenie do przodu",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Powiększa karty akcji, ułatwiając ich dotykanie",
+  "settingsLargerCardsToggleSubTitle": "Wybierz akcję",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Pobierać",
+  "otaDownloadButtonLabel": "Ukryj karty samouczków",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Szczęśliwego machania!",
+  "onboardingCompletedTitle": "Włącz Bluetooth",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -804,6 +804,12 @@
   "triggersSelectClearLabel": "Usuń akcję",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "Zawsze skanuj w poszukiwaniu znanego sprzętu",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   }

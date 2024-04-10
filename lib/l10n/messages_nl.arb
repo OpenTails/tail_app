@@ -195,7 +195,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Snel en opgewonden",
+  "actionsCategoryFast": "Bluetooth is niet beschikbaar",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Apparaat blootgelegd",
+  "triggerCoverFar": "Activeer een actie door de nabijheidssensor af te dekken",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -483,13 +483,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Rechts kantelen",
+  "triggerEarTiltRight": "Rechtse kanteling",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Voorwaartse kanteling",
+  "triggerEarTiltForward": "EarGear-microfoon",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Hoewel de verzamelde gegevens anoniem zijn en niet kunnen worden gebruikt om een specifieke gebruiker te identificeren, moet u nog steeds het privacybeleid accepteren",
+  "onboardingPrivacyPolicyDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Om een actie te verwijderen, drukt u op het terug-pictogram op het selectiescherm.",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -804,6 +804,12 @@
   "triggersSelectClearLabel": "Actie verwijderen",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "Scan altijd naar bekende uitrusting",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   }

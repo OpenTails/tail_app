@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "遅れ",
+  "sequencesEditDelay": "穏やかでリラックスした",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
@@ -477,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "外出先でのギア",
+  "triggerEarMicTitle": "音量を上げる",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -804,6 +804,12 @@
   "triggersSelectClearLabel": "アクションの削除",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "常に既知のギアをスキャンする",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   }
