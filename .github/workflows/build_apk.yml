@@ -28,7 +28,7 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
           SKIP_BUILD: true # Checks if it exists, not the value
       - name: Analyze Dart
-        uses: zgosalvez/github-actions-analyze-dart@v2
+        uses: zgosalvez/github-actions-analyze-dart@v3
   build_android:
     name: Build Android Artifact
     runs-on: ubuntu-latest
