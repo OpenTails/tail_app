@@ -65,7 +65,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   path_provider: ^2.1.2
-  uuid: ^4.3.3
+  uuid: ^4.4.0
   plausible_analytics: ^0.3.0
   dio: ^5.4.2+1
   json_serializable: ^6.7.1
