@@ -44,7 +44,7 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
   }
 }
 
-const String serverUrl = "https://plausable.codel1417.xyz";
+const String serverUrl = "https://plausible.codel1417.xyz";
 const String domain = "tail-app";
 
 late final Plausible plausible;
@@ -61,7 +61,7 @@ Future<void> main() async {
   };
 
   Flogger.registerListener(
-        (record) {
+    (record) {
       LogConsole.add(OutputEvent(record.level, [record.printable()]), bufferSize: 10000);
       log(record.printable(), stackTrace: record.stackTrace);
     },
@@ -74,10 +74,20 @@ Future<void> main() async {
   final Directory appDir = await getApplicationSupportDirectory();
   SentryHive
     ..init(appDir.path)
-    ..registerAdapter(BaseStoredDeviceAdapter())..registerAdapter(MoveListAdapter())..registerAdapter(MoveAdapter())..registerAdapter(BaseActionAdapter())..registerAdapter(TriggerAdapter())..registerAdapter(TriggerActionAdapter())..registerAdapter(ActionCategoryAdapter())..registerAdapter(
-      DeviceTypeAdapter())..registerAdapter(MoveTypeAdapter())..registerAdapter(EasingTypeAdapter())..registerAdapter(
-    AutoActionCategoryAdapter(),
-  )..registerAdapter(FavoriteActionAdapter());
+    ..registerAdapter(BaseStoredDeviceAdapter())
+    ..registerAdapter(MoveListAdapter())
+    ..registerAdapter(MoveAdapter())
+    ..registerAdapter(BaseActionAdapter())
+    ..registerAdapter(TriggerAdapter())
+    ..registerAdapter(TriggerActionAdapter())
+    ..registerAdapter(ActionCategoryAdapter())
+    ..registerAdapter(DeviceTypeAdapter())
+    ..registerAdapter(MoveTypeAdapter())
+    ..registerAdapter(EasingTypeAdapter())
+    ..registerAdapter(
+      AutoActionCategoryAdapter(),
+    )
+    ..registerAdapter(FavoriteActionAdapter());
   mainLogger.fine("Open Hive Boxes");
   await SentryHive.openBox(settings);
   await SentryHive.openBox<Trigger>(triggerBox);
@@ -87,7 +97,7 @@ Future<void> main() async {
   //initDio();
   mainLogger.fine("Init Sentry");
   await SentryFlutter.init(
-        (options) async {
+    (options) async {
       options.dsn = 'https://a2d00e5fef5103984087f0ee8c39b3b0@sentry.codel1417.xyz/2';
       options.addIntegration(LoggingIntegration());
       options.attachScreenshot = true; //not supported on GlitchTip
@@ -100,20 +110,19 @@ Future<void> main() async {
     },
     // Init your App.
     // ignore: missing_provider_scope
-    appRunner: () =>
-        runApp(
-          DefaultAssetBundle(
-            bundle: SentryAssetBundle(),
-            child: SentryScreenshotWidget(
-              child: ProviderScope(
-                observers: [
-                  RiverpodProviderObserver(),
-                ],
-                child: _EagerInitialization(child: TailApp()),
-              ),
-            ),
+    appRunner: () => runApp(
+      DefaultAssetBundle(
+        bundle: SentryAssetBundle(),
+        child: SentryScreenshotWidget(
+          child: ProviderScope(
+            observers: [
+              RiverpodProviderObserver(),
+            ],
+            child: _EagerInitialization(child: TailApp()),
           ),
         ),
+      ),
+    ),
   );
 }
 
@@ -199,31 +208,39 @@ class RiverpodProviderObserver extends ProviderObserver {
   final Logger riverpodLogger = Logger('Riverpod');
 
   @override
-  void didAddProvider(ProviderBase<Object?> provider,
-      Object? value,
-      ProviderContainer container,) {
+  void didAddProvider(
+    ProviderBase<Object?> provider,
+    Object? value,
+    ProviderContainer container,
+  ) {
     riverpodLogger.info('Provider $provider was initialized with $value');
   }
 
   @override
-  void didDisposeProvider(ProviderBase<Object?> provider,
-      ProviderContainer container,) {
+  void didDisposeProvider(
+    ProviderBase<Object?> provider,
+    ProviderContainer container,
+  ) {
     riverpodLogger.info('Provider $provider was disposed');
   }
 
   @override
-  void didUpdateProvider(ProviderBase<Object?> provider,
-      Object? previousValue,
-      Object? newValue,
-      ProviderContainer container,) {
+  void didUpdateProvider(
+    ProviderBase<Object?> provider,
+    Object? previousValue,
+    Object? newValue,
+    ProviderContainer container,
+  ) {
     riverpodLogger.info('Provider $provider updated from $previousValue to $newValue');
   }
 
   @override
-  void providerDidFail(ProviderBase<Object?> provider,
-      Object error,
-      StackTrace stackTrace,
-      ProviderContainer container,) {
+  void providerDidFail(
+    ProviderBase<Object?> provider,
+    Object error,
+    StackTrace stackTrace,
+    ProviderContainer container,
+  ) {
     riverpodLogger.warning('Provider $provider threw $error at $stackTrace', error, stackTrace);
   }
 }
