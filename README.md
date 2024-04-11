@@ -1,7 +1,7 @@
 # tail_app
 
-https://img.shields.io/weblate/progress/tail_app?server=https%3A%2F%2Fweblate.codel1417.xyz&style=for-the-badge
-https://img.shields.io/github/sponsors/codel1417?style=for-the-badge
+![Translation](https://img.shields.io/weblate/progress/tail_app?server=https%3A%2F%2Fweblate.codel1417.xyz&style=for-the-badge)
+![Sponsor](https://img.shields.io/github/sponsors/codel1417?style=for-the-badge)
 
 
 
