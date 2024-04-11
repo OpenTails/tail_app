@@ -42,6 +42,6 @@ Follow the instructions here to set up a Flutter environment https://docs.flutte
 
 [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/)
 
-[Plausible/](https://plausible.codel1417.xyz/tail-app)
+[Plausible](https://plausible.codel1417.xyz/tail-app)
 
 [Uptime](https://uptime.codel1417.xyz/status/public)
