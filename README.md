@@ -35,3 +35,12 @@ Follow the instructions here to set up a Flutter environment https://docs.flutte
 ### Dev passcode
 
 🦊🐉🦦🦖
+
+### Internal URLS
+
+[https://sentry.codel1417.xyz/](https://sentry.codel1417.xyz/organizations/sentry/projects/tail_app/?project=2)
+
+[https://weblate.codel1417.xyz/](https://weblate.codel1417.xyz/projects/tail_app/tail_app/)
+
+[https://plausible.codel1417.xyz/](https://plausible.codel1417.xyz/tail-app)
+
