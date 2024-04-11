@@ -44,3 +44,4 @@ Follow the instructions here to set up a Flutter environment https://docs.flutte
 
 [https://plausible.codel1417.xyz/](https://plausible.codel1417.xyz/tail-app)
 
+[https://uptime.codel1417.xyz/](https://uptime.codel1417.xyz/status/public)
