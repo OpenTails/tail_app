@@ -16,10 +16,14 @@ fi
 flutter config --no-cli-animations
 flutter pub get
 flutter gen-l10n
+DEBUG=""
+if [[ 'pull_request' == GITHUB_EVENT_NAME ]]; then
+  DEBUG="--debug"
+fi
 dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
 flutter pub run build_runner build --delete-conflicting-outputs
 if [[ ! -v SKIP_BUILD ]]; then
-  flutter build apk --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+  flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION"
   flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
   if [[ -v GITHUB_OUTPUT ]]; then
     echo "SENTRY_DIST=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
