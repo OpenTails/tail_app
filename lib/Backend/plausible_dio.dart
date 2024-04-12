@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cross_platform/cross_platform.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:install_referrer/install_referrer.dart';
@@ -41,6 +43,13 @@ class PlausibleDio extends Plausible {
     props['App Version'] = (await PackageInfo.fromPlatform()).version;
     props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
 
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidDeviceInfo = await DeviceInfoPlugin().androidInfo;
+      props['OS Version'] = 'Android ${androidDeviceInfo.version.release}';
+    } else {
+      IosDeviceInfo iosDeviceInfo = await DeviceInfoPlugin().iosInfo;
+      props['OS Version'] = 'iOS ${iosDeviceInfo.systemVersion}';
+    }
     // Http Post request see https://plausible.io/docs/events-api
     try {
       Object body = {
