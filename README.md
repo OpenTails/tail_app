@@ -4,7 +4,6 @@
 ![Sponsor](https://img.shields.io/github/sponsors/codel1417?style=for-the-badge)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/codel1417/tail_app/build_apk.yml?style=for-the-badge)
 
-
 A Cross Platform Tail Company gear control App
 
 ## Features
@@ -14,6 +13,8 @@ A Cross Platform Tail Company gear control App
 - Custom Actions
 - Joystick for moving gear
 - Dark Mode
+
+Google Play Services is required for android, so non Play Store Android devices are unsupported
 
 ## Have a suggestion?
 
@@ -39,9 +40,6 @@ Follow the instructions here to set up a Flutter environment https://docs.flutte
 ### Internal URLS
 
 [Sentry](https://sentry.codel1417.xyz/organizations/sentry/projects/tail_app/?project=2)
-
 [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/)
-
 [Plausible](https://plausible.codel1417.xyz/tail-app)
-
 [Uptime](https://uptime.codel1417.xyz/status/public)
