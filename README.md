@@ -35,6 +35,8 @@ Follow the instructions here to set up a Flutter environment https://docs.flutte
 
 ### Dev passcode
 
+Long press Github button, enter the following code
+
 🦊🐉🦦🦖
 
 ### Internal URLS
