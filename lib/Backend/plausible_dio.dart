@@ -9,6 +9,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 
+import '../Frontend/utils.dart';
 import '../constants.dart';
 import '../main.dart';
 import 'Definitions/Device/device_definition.dart';

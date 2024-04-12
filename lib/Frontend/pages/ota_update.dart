@@ -9,11 +9,11 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/main.dart';
 
 import '../../Backend/firmware_update.dart';
 import '../../constants.dart';
 import '../intn_defs.dart';
+import '../utils.dart';
 
 class OtaUpdate extends ConsumerStatefulWidget {
   const OtaUpdate({super.key, required this.device});

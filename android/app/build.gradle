@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
-       keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 android {
     compileSdkVersion 34
@@ -68,6 +68,7 @@ android {
         }
     }
     namespace 'com.codel1417.tail_app'
+    ndkVersion '25.1.8937393'
 }
 
 flutter {

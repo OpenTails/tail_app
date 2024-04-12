@@ -6,13 +6,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Frontend/intn_defs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
+import '../../main.dart';
+import '../utils.dart';
 
 class OnBoardingPage extends ConsumerStatefulWidget {
   const OnBoardingPage({super.key});
@@ -28,6 +29,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
 
   void _onIntroEnd(BuildContext context) {
     // Navigator.of(context).pushReplacement()
+    plausible.event(name: "Complete Onboarding");
     SentryHive.box(settings).put(hasCompletedOnboarding, true);
     context.pushReplacement('/');
   }
@@ -166,9 +168,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   onPressed: bluetoothAccepted
                       ? null
                       : () async {
-                          PermissionStatus value = await Permission.bluetoothScan.request();
-                          PermissionStatus value2 = await Permission.bluetoothConnect.request();
-                          if (value == PermissionStatus.granted && value2 == PermissionStatus.granted) {
+                          if (await getBluetoothPermission()) {
                             setState(
                               () {
                                 bluetoothAccepted = true;

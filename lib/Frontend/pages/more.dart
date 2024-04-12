@@ -10,10 +10,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/intn_defs.dart';
-import 'package:tail_app/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
+import '../utils.dart';
 
 class More extends ConsumerStatefulWidget {
   const More({super.key});

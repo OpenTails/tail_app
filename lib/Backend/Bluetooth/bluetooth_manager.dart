@@ -16,9 +16,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/sensors.dart';
-import 'package:tail_app/main.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../Frontend/utils.dart';
 import '../../constants.dart';
 import '../Definitions/Device/device_definition.dart';
 import '../auto_move.dart';
