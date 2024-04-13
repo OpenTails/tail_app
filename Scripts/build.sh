@@ -17,7 +17,7 @@ flutter config --no-cli-animations
 flutter pub get
 flutter gen-l10n
 DEBUG=""
-if [[ 'pull_request' == GITHUB_EVENT_NAME ]]; then
+if [[ $GITHUB_EVENT_NAME == 'pull_request'  ]]; then
   DEBUG="--debug"
 fi
 dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
