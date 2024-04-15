@@ -82,34 +82,34 @@ class BaseStatefulDevice {
   late final QualifiedCharacteristic batteryCharacteristic;
   late final QualifiedCharacteristic batteryChargeCharacteristic;
 
-  final ValueNotifier<double> battery = ValueNotifier(-1);
+  final ValueNotifier<double> batteryLevel = ValueNotifier(-1);
   final ValueNotifier<bool> batteryCharging = ValueNotifier(false);
   final ValueNotifier<bool> batteryLow = ValueNotifier(false);
-  final ValueNotifier<bool> error = ValueNotifier(false);
+  final ValueNotifier<bool> gearReturnedError = ValueNotifier(false);
 
   final ValueNotifier<String> fwVersion = ValueNotifier("");
   final ValueNotifier<String> hwVersion = ValueNotifier("");
 
-  final ValueNotifier<bool> glowTip = ValueNotifier(false);
+  final ValueNotifier<bool> hasGlowtip = ValueNotifier(false);
   StreamSubscription<ConnectionStateUpdate>? connectionStateStreamSubscription;
   final ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
-  Stream<List<int>>? _rxCharacteristicStream;
+  Stream<String>? _rxCharacteristicStream;
   StreamSubscription<void>? keepAliveStreamSubscription;
 
-  Stream<List<int>>? get rxCharacteristicStream => _rxCharacteristicStream;
+  Stream<String>? get rxCharacteristicStream => _rxCharacteristicStream;
   final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(ConnectivityState.disconnected);
   final ValueNotifier<int> rssi = ValueNotifier(-1);
   final ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
   final ValueNotifier<bool> hasUpdate = ValueNotifier(false);
 
-  set rxCharacteristicStream(Stream<List<int>>? value) {
+  set rxCharacteristicStream(Stream<String>? value) {
     _rxCharacteristicStream = value?.asBroadcastStream();
   }
 
   Ref? ref;
   late final CommandQueue commandQueue;
   StreamSubscription<List<int>>? batteryCharacteristicStreamSubscription;
-  StreamSubscription<List<int>>? batteryChargeCharacteristicStreamSubscription;
+  StreamSubscription<String>? batteryChargeCharacteristicStreamSubscription;
   List<FlSpot> batlevels = [];
   Stopwatch stopWatch = Stopwatch();
   bool disableAutoConnect = false;
@@ -128,17 +128,17 @@ class BaseStatefulDevice {
 
   @override
   String toString() {
-    return 'BaseStatefulDevice{baseDeviceDefinition: $baseDeviceDefinition, baseStoredDevice: $baseStoredDevice, battery: $battery}';
+    return 'BaseStatefulDevice{baseDeviceDefinition: $baseDeviceDefinition, baseStoredDevice: $baseStoredDevice, battery: $batteryLevel}';
   }
 
   void reset() {
-    battery.value = -1;
+    batteryLevel.value = -1;
     batteryCharging.value = false;
     batteryLow.value = false;
-    error.value = false;
+    gearReturnedError.value = false;
     fwVersion.value = "";
     hwVersion.value = "";
-    glowTip.value = false;
+    hasGlowtip.value = false;
     connectionStateStreamSubscription?.cancel();
     connectionStateStreamSubscription = null;
     deviceState.value = DeviceState.standby;
@@ -288,23 +288,23 @@ class CommandQueue {
               Timer timer = Timer(timeoutDuration, () {});
 
               // We use a timeout as sometimes a response isn't sent by the gear
-              Future<List<int>> response = message.device.rxCharacteristicStream!.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
-                bluetoothLog.info('Response:${const Utf8Decoder().convert(event)}');
-                return const Utf8Decoder().convert(event) == message.responseMSG!;
+              Future<String> response = message.device.rxCharacteristicStream!.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
+                bluetoothLog.info('Response:$event');
+                return event == message.responseMSG!;
               }).first;
               // Handles response value
               response.then((value) {
                 timer.cancel();
                 if (message.onResponseReceived != null) {
                   //callback when the command response is received
-                  message.onResponseReceived!(const Utf8Decoder().convert(value));
+                  message.onResponseReceived!(value);
                 }
               });
               response.timeout(
                 timeoutDuration,
                 onTimeout: () {
                   bluetoothLog.warning("Timed out waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
-                  return [];
+                  return "";
                 },
               );
               while (timer.isActive) {

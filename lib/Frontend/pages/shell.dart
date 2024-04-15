@@ -215,7 +215,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
         controller: widget.controller,
         children: [
           ValueListenableBuilder(
-            valueListenable: widget.device.battery,
+            valueListenable: widget.device.batteryLevel,
             builder: (BuildContext context, double value, Widget? child) {
               return ExpansionTile(
                 title: Text(manageDevicesBatteryGraphTitle()),
@@ -440,10 +440,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
             ListTile(
               title: const Text("Has Glowtip"),
               trailing: Switch(
-                value: widget.device.glowTip.value,
+                value: widget.device.hasGlowtip.value,
                 onChanged: (bool value) {
                   setState(() {
-                    widget.device.glowTip.value = value;
+                    widget.device.hasGlowtip.value = value;
                   });
                 },
               ),
@@ -476,14 +476,14 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 min: -1,
                 max: 100,
                 onChanged: (double value) {
-                  if (value == widget.device.battery.value) {
+                  if (value == widget.device.batteryLevel.value) {
                     return;
                   }
                   setState(() {
-                    widget.device.battery.value = value;
+                    widget.device.batteryLevel.value = value;
                   });
                 },
-                value: widget.device.battery.value,
+                value: widget.device.batteryLevel.value,
               ),
             ),
             ListTile(
@@ -511,10 +511,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
             ListTile(
               title: const Text("Error"),
               trailing: Switch(
-                value: widget.device.error.value,
+                value: widget.device.gearReturnedError.value,
                 onChanged: (bool value) {
                   setState(() {
-                    widget.device.error.value = value;
+                    widget.device.gearReturnedError.value = value;
                   });
                 },
               ),
@@ -723,11 +723,11 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     ValueListenableBuilder(
-                                                      valueListenable: e.battery,
+                                                      valueListenable: e.batteryLevel,
                                                       builder: (BuildContext context, value, Widget? child) {
                                                         return AnimatedSwitcher(
                                                           duration: animationTransitionDuration,
-                                                          child: getBattery(e.battery.value),
+                                                          child: getBattery(e.batteryLevel.value),
                                                         );
                                                       },
                                                     ),

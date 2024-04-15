@@ -135,11 +135,10 @@ class KnownDevices extends _$KnownDevices {
             statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
             bluetoothLog.info("Discovering services for ${baseStoredDevice.name}");
             await reactiveBLE.discoverAllServices(device.id);
-            statefulDevice.rxCharacteristicStream = reactiveBLE.subscribeToCharacteristic(statefulDevice.rxCharacteristic);
+            statefulDevice.rxCharacteristicStream = reactiveBLE.subscribeToCharacteristic(statefulDevice.rxCharacteristic).map((event) => const Utf8Decoder().convert(event));
 
             // Listen for responses outside of commands
-            statefulDevice.rxCharacteristicStream?.listen((event) {
-              String value = const Utf8Decoder().convert(event);
+            statefulDevice.rxCharacteristicStream?.listen((value) {
               bluetoothLog.info("Received message from ${baseStoredDevice.name}: $value");
               statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
               // Firmware Version
@@ -152,13 +151,13 @@ class KnownDevices extends _$KnownDevices {
                 }
                 // Sent after VER message
               } else if (value.startsWith("GLOWTIP")) {
-                statefulDevice.glowTip.value = "TRUE" == value.substring(value.indexOf(" "));
+                statefulDevice.hasGlowtip.value = "TRUE" == value.substring(value.indexOf(" "));
               } else if (value.contains("BUSY")) {
                 //statefulDevice.deviceState.value = DeviceState.busy;
               } else if (value.contains("LOWBATT")) {
                 statefulDevice.batteryLow.value = true;
               } else if (value.contains("ERR")) {
-                statefulDevice.error.value = true;
+                statefulDevice.gearReturnedError.value = true;
               } else if (value.contains("HWVER")) {
                 // Hardware Version
                 statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
@@ -167,12 +166,11 @@ class KnownDevices extends _$KnownDevices {
             // Listen to battery level stream
             statefulDevice.batteryCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryCharacteristic).listen((List<int> event) {
               bluetoothLog.fine("Received Battery message from ${baseStoredDevice.name}: $event");
-              statefulDevice.battery.value = event.first.toDouble();
+              statefulDevice.batteryLevel.value = event.first.toDouble();
               statefulDevice.batlevels.add(FlSpot(statefulDevice.stopWatch.elapsed.inSeconds.toDouble(), event.first.toDouble()));
             });
             // Listen to battery charge state stream
-            statefulDevice.batteryChargeCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryChargeCharacteristic).listen((List<int> event) {
-              String value = const Utf8Decoder().convert(event);
+            statefulDevice.batteryChargeCharacteristicStreamSubscription = reactiveBLE.subscribeToCharacteristic(statefulDevice.batteryChargeCharacteristic).map((event) => const Utf8Decoder().convert(event)).listen((String value) {
               bluetoothLog.fine("Received Battery Charge message from ${baseStoredDevice.name}: $value");
               statefulDevice.batteryCharging.value = value == "CHARGE ON";
             });
@@ -183,7 +181,7 @@ class KnownDevices extends _$KnownDevices {
                 statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "PING", device: statefulDevice, priority: Priority.low, type: Type.system));
                 statefulDevice.rssi.value = await reactiveBLE.readRssi(device.id);
               } else {
-                throw Exception("Disconnected from device");
+                bluetoothLog.warning("Disconnected from device");
               }
             }, cancelOnError: true);
             // Try to get firmware update information from Tail Company site
@@ -214,7 +212,7 @@ class KnownDevices extends _$KnownDevices {
       );
       transaction.status = const SpanStatus.ok();
     } catch (e, s) {
-      bluetoothLog.shout('Exception when connecting to device', e, s);
+      bluetoothLog.severe('Exception when connecting to device', e, s);
       Sentry.captureException(e, stackTrace: s);
       transaction.status = const SpanStatus.internalError();
     } finally {

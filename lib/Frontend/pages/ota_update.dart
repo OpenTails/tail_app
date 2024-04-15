@@ -164,14 +164,14 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     });
     BaseStatefulDevice? baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
     if (firmwareFile != null && baseStatefulDevice != null) {
-      baseStatefulDevice.error.value = false;
+      baseStatefulDevice.gearReturnedError.value = false;
       int mtu = await ref.read(reactiveBLEProvider).requestMtu(deviceId: baseStatefulDevice.baseStoredDevice.btMACAddress, mtu: 512) - 3;
       int total = firmwareFile!.length;
       int current = 0;
       List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
       await ref.read(reactiveBLEProvider).writeCharacteristicWithResponse(baseStatefulDevice.txCharacteristic, value: beginOTA);
       while (uploadProgress < 1) {
-        if (baseStatefulDevice.error.value) {
+        if (baseStatefulDevice.gearReturnedError.value) {
           setState(() {
             otaState = OtaState.error;
           });
