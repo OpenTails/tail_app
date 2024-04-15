@@ -69,29 +69,7 @@ Future<void> main() async {
   //Intl.defaultLocale = 'ace';
   //Flogger.i("Loaded local: $localeLoaded");
   mainLogger.fine("Init Hive");
-  final Directory appDir = await getApplicationSupportDirectory();
-  SentryHive
-    ..init(appDir.path)
-    ..registerAdapter(BaseStoredDeviceAdapter())
-    ..registerAdapter(MoveListAdapter())
-    ..registerAdapter(MoveAdapter())
-    ..registerAdapter(BaseActionAdapter())
-    ..registerAdapter(TriggerAdapter())
-    ..registerAdapter(TriggerActionAdapter())
-    ..registerAdapter(ActionCategoryAdapter())
-    ..registerAdapter(DeviceTypeAdapter())
-    ..registerAdapter(MoveTypeAdapter())
-    ..registerAdapter(EasingTypeAdapter())
-    ..registerAdapter(
-      AutoActionCategoryAdapter(),
-    )
-    ..registerAdapter(FavoriteActionAdapter());
-  mainLogger.fine("Open Hive Boxes");
-  await SentryHive.openBox(settings);
-  await SentryHive.openBox<Trigger>(triggerBox);
-  await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
-  await SentryHive.openBox<MoveList>('sequences');
-  await SentryHive.openBox<BaseStoredDevice>('devices');
+  await initHive();
   //initDio();
   mainLogger.fine("Init Sentry");
   await SentryFlutter.init(
@@ -112,16 +90,36 @@ Future<void> main() async {
       DefaultAssetBundle(
         bundle: SentryAssetBundle(),
         child: SentryScreenshotWidget(
-          child: ProviderScope(
-            observers: [
-              RiverpodProviderObserver(),
-            ],
-            child: _EagerInitialization(child: TailApp()),
-          ),
+          child: TailApp(),
         ),
       ),
     ),
   );
+}
+
+Future<void> initHive() async {
+  final Directory appDir = await getApplicationSupportDirectory();
+  SentryHive
+    ..init(appDir.path)
+    ..registerAdapter(BaseStoredDeviceAdapter())
+    ..registerAdapter(MoveListAdapter())
+    ..registerAdapter(MoveAdapter())
+    ..registerAdapter(BaseActionAdapter())
+    ..registerAdapter(TriggerAdapter())
+    ..registerAdapter(TriggerActionAdapter())
+    ..registerAdapter(ActionCategoryAdapter())
+    ..registerAdapter(DeviceTypeAdapter())
+    ..registerAdapter(MoveTypeAdapter())
+    ..registerAdapter(EasingTypeAdapter())
+    ..registerAdapter(
+      AutoActionCategoryAdapter(),
+    )
+    ..registerAdapter(FavoriteActionAdapter());
+  await SentryHive.openBox(settings);
+  await SentryHive.openBox<Trigger>(triggerBox);
+  await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
+  await SentryHive.openBox<MoveList>('sequences');
+  await SentryHive.openBox<BaseStoredDevice>('devices');
 }
 
 class TailApp extends ConsumerWidget {
@@ -140,23 +138,30 @@ class TailApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BetterFeedback(
-      themeMode: ThemeMode.system,
-      darkTheme: FeedbackThemeData.dark(),
-      child: ValueListenableBuilder(
-        valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
-        builder: (BuildContext context, value, Widget? child) {
-          return MaterialApp.router(
-            title: subTitle(),
-            color: Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault)),
-            theme: buildTheme(Brightness.light, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
-            darkTheme: buildTheme(Brightness.dark, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
-            routerConfig: router,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            themeMode: ThemeMode.system,
-          );
-        },
+    return ProviderScope(
+      observers: [
+        RiverpodProviderObserver(),
+      ],
+      child: _EagerInitialization(
+        child: BetterFeedback(
+          themeMode: ThemeMode.system,
+          darkTheme: FeedbackThemeData.dark(),
+          child: ValueListenableBuilder(
+            valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
+            builder: (BuildContext context, value, Widget? child) {
+              return MaterialApp.router(
+                title: subTitle(),
+                color: Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault)),
+                theme: buildTheme(Brightness.light, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
+                darkTheme: buildTheme(Brightness.dark, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
+                routerConfig: router,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                themeMode: ThemeMode.system,
+              );
+            },
+          ),
+        ),
       ),
     );
   }

@@ -214,7 +214,10 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       // You can override onSkip callback
       //rtl: true, // Display as right-to-left
       back: const Icon(Icons.arrow_back),
-      next: const Icon(Icons.arrow_forward),
+      next: const Icon(
+        Icons.arrow_forward,
+        key: Key('nextPage'),
+      ),
       done: FilledButton(
         onPressed: () {
           _onIntroEnd(context);
