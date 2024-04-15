@@ -1,12 +1,12 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../intn_defs.dart';
@@ -58,10 +58,7 @@ class _SettingsState extends ConsumerState<Settings> {
                     return AlertDialog(
                       title: Text(
                         settingsAppColor(),
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleLarge,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       actions: [
                         TextButton(
@@ -110,7 +107,7 @@ class _SettingsState extends ConsumerState<Settings> {
               value: SentryHive.box(settings).get(showAccurateBattery, defaultValue: showAccurateBatteryDefault),
               onChanged: (bool value) {
                 setState(
-                      () {
+                  () {
                     SentryHive.box(settings).put(showAccurateBattery, value);
                   },
                 );
@@ -125,7 +122,7 @@ class _SettingsState extends ConsumerState<Settings> {
               value: SentryHive.box(settings).get(largerActionCardSize, defaultValue: largerActionCardSizeDefault),
               onChanged: (bool value) {
                 setState(
-                      () {
+                  () {
                     SentryHive.box(settings).put(largerActionCardSize, value);
                   },
                 );
@@ -140,7 +137,7 @@ class _SettingsState extends ConsumerState<Settings> {
               value: SentryHive.box(settings).get(hideTutorialCards, defaultValue: hideTutorialCardsDefault),
               onChanged: (bool value) {
                 setState(
-                      () {
+                  () {
                     SentryHive.box(settings).put(hideTutorialCards, value);
                   },
                 );
@@ -185,11 +182,7 @@ class _SettingsState extends ConsumerState<Settings> {
               onChanged: (bool value) {
                 setState(() {
                   SentryHive.box(settings).put(keepAwake, value);
-                  if (ref
-                      .read(knownDevicesProvider)
-                      .values
-                      .where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected)
-                      .isNotEmpty) {
+                  if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).isNotEmpty) {
                     if (value) {
                       WakelockPlus.enable();
                     } else {
@@ -208,7 +201,7 @@ class _SettingsState extends ConsumerState<Settings> {
               value: SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault),
               onChanged: (bool value) {
                 setState(
-                      () {
+                  () {
                     SentryHive.box(settings).put(kitsuneModeToggle, value);
                   },
                 );

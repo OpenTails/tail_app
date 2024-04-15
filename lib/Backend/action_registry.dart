@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:hive/hive.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -144,7 +143,7 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   for (BaseAction baseAction in List.from(ActionRegistry.allCommands)..addAll(ref.read(moveListsProvider))) {
     Set<BaseAction>? baseActions = {};
-    for (BaseStatefulDevice baseStatefulDevice in knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected)) {
+    for (BaseStatefulDevice baseStatefulDevice in knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected)) {
       // check if command matches device type
       if (baseAction.deviceCategory.contains(baseStatefulDevice.baseDeviceDefinition.deviceType) && ((baseAction.actionCategory == ActionCategory.glowtip && baseStatefulDevice.glowTip.value) || baseAction.actionCategory != ActionCategory.glowtip)) {
         // get category if it exists

@@ -163,7 +163,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
               children: [
                 if (knownDevices.values
                     .where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType))
-                    .where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected)
+                    .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
                     .where((element) => element.deviceState.value == DeviceState.runAction)
                     .isNotEmpty) ...[
                   const Center(

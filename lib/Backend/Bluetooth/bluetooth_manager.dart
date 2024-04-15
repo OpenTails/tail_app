@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
@@ -41,7 +39,7 @@ Stream<DiscoveredDevice> scanForDevices(ScanForDevicesRef ref) {
   // Checks if pair devices are nearby and tries to connect
   scanStream.listen(
     (DiscoveredDevice event) {
-      if (ref.read(knownDevicesProvider).containsKey(event.id) && ref.read(knownDevicesProvider)[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected && !ref.read(knownDevicesProvider)[event.id]!.disableAutoConnect) {
+      if (ref.read(knownDevicesProvider).containsKey(event.id) && ref.read(knownDevicesProvider)[event.id]?.deviceConnectionState.value == ConnectivityState.disconnected && !ref.read(knownDevicesProvider)[event.id]!.disableAutoConnect) {
         ref.read(knownDevicesProvider.notifier).connect(event);
       }
     },
@@ -111,8 +109,8 @@ class KnownDevices extends _$KnownDevices {
       //get existing entry
       if (state.containsKey(device.id)) {
         statefulDevice = state[device.id]!;
-        statefulDevice.deviceConnectionState.value = DeviceConnectionState.connecting;
         baseStoredDevice = statefulDevice.baseStoredDevice;
+        statefulDevice.deviceConnectionState.value = ConnectivityState.connecting; // we need to set the state to connecting to prevent auto-connect from constantly trying to connect while a connection is in progress
         transaction.setTag('Known Device', 'Yes');
       } else {
         baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, device.id, deviceDefinition.deviceType.color.value);
@@ -124,7 +122,10 @@ class KnownDevices extends _$KnownDevices {
       FlutterReactiveBle reactiveBLE = ref.read(reactiveBLEProvider);
       statefulDevice.connectionStateStreamSubscription = reactiveBLE.connectToDevice(id: device.id).listen(
         (event) async {
-          statefulDevice.deviceConnectionState.value = event.connectionState;
+          if (event.connectionState == DeviceConnectionState.connecting) {
+            return;
+          }
+          statefulDevice.deviceConnectionState.value = event.connectionState == DeviceConnectionState.connected ? ConnectivityState.connected : ConnectivityState.disconnected;
           bluetoothLog.info("Connection State updated for ${baseStoredDevice.name}: ${event.connectionState}");
           if (event.connectionState == DeviceConnectionState.connected) {
             // The timer used for the time value on the battery level graph
@@ -239,7 +240,7 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
     Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
     if (knownDevices.containsKey(event.deviceId) && [DeviceConnectionState.disconnected, DeviceConnectionState.connected].contains(event.connectionState)) {
       BaseStatefulDevice baseStatefulDevice = knownDevices[event.deviceId]!;
-      baseStatefulDevice.deviceConnectionState.value = event.connectionState;
+      baseStatefulDevice.deviceConnectionState.value = event.connectionState == DeviceConnectionState.connected ? ConnectivityState.connected : ConnectivityState.disconnected;
       Fluttertoast.showToast(
         msg: "${baseStatefulDevice.baseStoredDevice.name} has ${event.connectionState.name}",
         toastLength: Toast.LENGTH_SHORT,
@@ -277,7 +278,7 @@ StreamSubscription<ConnectionStateUpdate> btConnectStateHandler(BtConnectStateHa
         //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${baseStatefulDevice.baseStoredDevice.name}")));
 
         // remove foreground service if no devices connected
-        int deviceCount = knownDevices.values.where((element) => element.deviceConnectionState.value == DeviceConnectionState.connected).length;
+        int deviceCount = knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).length;
         bool lastDevice = deviceCount == 0;
         if (lastDevice) {
           bluetoothLog.fine('Last gear detected');
@@ -314,105 +315,4 @@ FlutterReactiveBle reactiveBLE(ReactiveBLERef ref) {
   flutterReactiveBle.logLevel = LogLevel.none;
   flutterReactiveBle.initialize();
   return FlutterReactiveBle();
-}
-
-class CommandQueue {
-  Ref? ref;
-  PriorityQueue<BluetoothMessage> state = PriorityQueue();
-  BaseStatefulDevice device;
-
-  CommandQueue(this.ref, this.device);
-
-  Stream<BluetoothMessage> messageQueueStream() async* {
-    while (true) {
-      // Limit the speed commands are processed
-      await Future.delayed(const Duration(milliseconds: 100));
-      // wait for
-      if (state.isNotEmpty && device.deviceState.value == DeviceState.standby) {
-        device.deviceState.value = DeviceState.runAction;
-        yield state.removeFirst();
-      }
-    }
-  }
-
-  StreamSubscription<BluetoothMessage>? messageQueueStreamSubscription;
-
-  void addCommand(BluetoothMessage bluetoothMessage) {
-    messageQueueStreamSubscription ??= messageQueueStream().listen((message) async {
-      //Check if the device is still known and connected;
-      if (device.deviceConnectionState.value != DeviceConnectionState.connected) {
-        device.deviceState.value = DeviceState.standby;
-        return;
-      }
-      //TODO: Resend on busy
-      if (bluetoothMessage.delay == null) {
-        try {
-          bluetoothLog.fine("Sending command to ${device.baseStoredDevice.name}:${message.message}");
-          await ref?.read(reactiveBLEProvider).writeCharacteristicWithResponse(message.device.txCharacteristic, value: const Utf8Encoder().convert(message.message));
-          device.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.send, message: message.message));
-          if (message.onCommandSent != null) {
-            // Callback when the specific command is run
-            message.onCommandSent!();
-          }
-          try {
-            if (message.responseMSG != null) {
-              Duration timeoutDuration = const Duration(seconds: 10);
-              bluetoothLog.fine("Waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
-              Timer timer = Timer(timeoutDuration, () {});
-
-              // We use a timeout as sometimes a response isn't sent by the gear
-              Future<List<int>> response = message.device.rxCharacteristicStream!.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
-                bluetoothLog.info('Response:${const Utf8Decoder().convert(event)}');
-                return const Utf8Decoder().convert(event) == message.responseMSG!;
-              }).first;
-              // Handles response value
-              response.then((value) {
-                timer.cancel();
-                if (message.onResponseReceived != null) {
-                  //callback when the command response is received
-                  message.onResponseReceived!(const Utf8Decoder().convert(value));
-                }
-              });
-              response.timeout(
-                timeoutDuration,
-                onTimeout: () {
-                  bluetoothLog.warning("Timed out waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
-                  return [];
-                },
-              );
-              while (timer.isActive) {
-                //allow higher priority commands to interrupt waiting for a response
-                if (state.isNotEmpty && state.first.priority.index > bluetoothMessage.priority.index) {
-                  timer.cancel();
-                }
-                await Future.delayed(const Duration(milliseconds: 50)); // Prevent the loop from consuming too many resources
-              }
-              bluetoothLog.fine("Finished waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
-            }
-          } catch (e, s) {
-            bluetoothLog.warning('Command timed out or threw error: $e', e, s);
-          }
-        } catch (e, s) {
-          Sentry.captureException(e, stackTrace: s);
-        }
-      } else {
-        bluetoothLog.fine("Pausing queue for ${device.baseStoredDevice.name}");
-        Timer timer = Timer(Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20), () {});
-        while (timer.isActive) {
-          //allow higher priority commands to interrupt the delay
-          if (state.isNotEmpty && state.first.priority.index > bluetoothMessage.priority.index) {
-            timer.cancel();
-          }
-          await Future.delayed(const Duration(milliseconds: 50)); // Prevent the loop from consuming too many resources
-        }
-        bluetoothLog.fine("Resuming queue for ${device.baseStoredDevice.name}");
-      }
-      device.deviceState.value = DeviceState.standby; //Without setting state to standby, another command can not run
-    });
-    // preempt queue
-    if (bluetoothMessage.type == Type.direct) {
-      state.toUnorderedList().where((element) => [Type.move, Type.direct].contains(element.type)).forEach((element) => state.remove(element));
-    }
-    state.add(bluetoothMessage);
-  }
 }

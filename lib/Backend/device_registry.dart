@@ -75,10 +75,6 @@ class DeviceRegistry {
     return allDevices.firstWhere((BaseDeviceDefinition element) => element.btName.toLowerCase() == id.toLowerCase());
   }
 
-  static bool hasByName(String id) {
-    return allDevices.any((BaseDeviceDefinition element) => element.btName == id);
-  }
-
   static List<Uuid> getAllIds() {
     return allDevices.map((BaseDeviceDefinition e) => e.bleDeviceService).toList();
   }
@@ -98,7 +94,7 @@ class DeviceRegistry {
 Set<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseAction) {
   Flogger.i("Getting devices for action::$baseAction");
   Set<BaseStatefulDevice> foundDevices = {};
-  for (BaseStatefulDevice device in ref.read(knownDevicesProvider).values.where((BaseStatefulDevice element) => element.deviceConnectionState.value == DeviceConnectionState.connected && element.deviceState.value == DeviceState.standby)) {
+  for (BaseStatefulDevice device in ref.read(knownDevicesProvider).values.where((BaseStatefulDevice element) => element.deviceConnectionState.value == ConnectivityState.connected && element.deviceState.value == DeviceState.standby)) {
     Flogger.i("Known Device::$device");
     if (baseAction.deviceCategory.contains(device.baseDeviceDefinition.deviceType)) {
       foundDevices.add(device);

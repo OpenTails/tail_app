@@ -51,7 +51,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
                       .read(reactiveBLEProvider)
                       .scanForDevices(withServices: DeviceRegistry.getAllIds(), requireLocationServicesEnabled: false, scanMode: ScanMode.lowPower)
                       .where(
-                        (event) => knownDevices.containsKey(event.id) && knownDevices[event.id]?.deviceConnectionState.value == DeviceConnectionState.disconnected && !knownDevices[event.id]!.disableAutoConnect,
+                        (event) => knownDevices.containsKey(event.id) && knownDevices[event.id]?.deviceConnectionState.value == ConnectivityState.disconnected && !knownDevices[event.id]!.disableAutoConnect,
                       )
                       .listen(
                     (DiscoveredDevice event) {

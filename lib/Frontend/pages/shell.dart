@@ -3,7 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -522,7 +521,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
             ),
             ListTile(
               title: const Text("Connection State"),
-              trailing: DropdownMenu<DeviceConnectionState>(
+              trailing: DropdownMenu<ConnectivityState>(
                 initialSelection: widget.device.deviceConnectionState.value,
                 onSelected: (value) {
                   if (value != null) {
@@ -533,7 +532,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                     );
                   }
                 },
-                dropdownMenuEntries: DeviceConnectionState.values
+                dropdownMenuEntries: ConnectivityState.values
                     .map(
                       (e) => DropdownMenuEntry(value: e, label: e.name),
                     )
@@ -579,7 +578,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
           ButtonBar(
             alignment: MainAxisAlignment.end,
             children: [
-              if (widget.device.deviceConnectionState.value == DeviceConnectionState.connected) ...[
+              if (widget.device.deviceConnectionState.value == ConnectivityState.connected) ...[
                 TextButton(
                   onPressed: () {
                     setState(() {
@@ -600,7 +599,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   child: Text(manageDevicesShutdown()),
                 )
               ],
-              if (widget.device.deviceConnectionState.value == DeviceConnectionState.disconnected && widget.device.disableAutoConnect) ...[
+              if (widget.device.deviceConnectionState.value == ConnectivityState.disconnected && widget.device.disableAutoConnect) ...[
                 TextButton(
                   onPressed: () {
                     setState(() {
@@ -614,7 +613,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    if (widget.device.deviceConnectionState.value == DeviceConnectionState.connected) {
+                    if (widget.device.deviceConnectionState.value == ConnectivityState.connected) {
                       widget.device.connectionStateStreamSubscription?.cancel();
                       widget.device.forgetOnDisconnect = true;
                       widget.device.disableAutoConnect = true;
@@ -660,9 +659,9 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                     return FadeIn(
                       child: ValueListenableBuilder(
                         valueListenable: e.deviceConnectionState,
-                        builder: (BuildContext context, DeviceConnectionState value, Widget? child) {
+                        builder: (BuildContext context, ConnectivityState value, Widget? child) {
                           return Flash(
-                            animate: value == DeviceConnectionState.connected,
+                            animate: value == ConnectivityState.connected,
                             child: ValueListenableBuilder(
                               valueListenable: e.hasUpdate,
                               builder: (BuildContext context, bool value, Widget? child) {
@@ -675,7 +674,7 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                                 );
                               },
                               child: TweenAnimationBuilder(
-                                tween: value == DeviceConnectionState.connected ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
+                                tween: value == ConnectivityState.connected ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
                                 duration: animationTransitionDuration,
                                 child: InkWell(
                                   onTap: () {
@@ -738,7 +737,7 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                                                         return AnimatedCrossFade(
                                                           firstChild: const Icon(Icons.power),
                                                           secondChild: Container(),
-                                                          crossFadeState: e.deviceConnectionState.value == DeviceConnectionState.connected && e.batteryCharging.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                                          crossFadeState: e.deviceConnectionState.value == ConnectivityState.connected && e.batteryCharging.value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                                                           duration: animationTransitionDuration,
                                                         );
                                                       },
@@ -755,7 +754,7 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                                                   ],
                                                 ),
                                                 secondChild: const Icon(Icons.bluetooth_disabled),
-                                                crossFadeState: value == DeviceConnectionState.connected ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                                crossFadeState: value == ConnectivityState.connected ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                                                 duration: animationTransitionDuration,
                                               ),
                                             ),
