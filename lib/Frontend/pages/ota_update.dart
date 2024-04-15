@@ -53,7 +53,6 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
 
   @override
   Widget build(BuildContext context) {
-    otaState = OtaState.completed;
     return Scaffold(
       appBar: AppBar(title: Text(otaTitle())),
       body: Center(
