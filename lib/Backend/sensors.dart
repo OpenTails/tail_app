@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -331,7 +330,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
 }
 
 class EarTiltTriggerDefinition extends TriggerDefinition {
-  List<StreamSubscription<List<int>>?> rxSubscriptions = [];
+  List<StreamSubscription<String>?> rxSubscriptions = [];
   ProviderSubscription<Map<String, BaseStatefulDevice>>? deviceRefSubscription;
 
   EarTiltTriggerDefinition(super.ref) {
@@ -397,8 +396,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       (element) {
         element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE START", device: element, priority: Priority.low, type: Type.system));
         return element.rxCharacteristicStream?.listen(
-          (event) {
-            String msg = const Utf8Decoder().convert(event);
+          (msg) {
             if (msg.contains("TILT LEFT")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
               sendCommands("Left", ref);
