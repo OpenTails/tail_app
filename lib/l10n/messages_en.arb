@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-04-06T15:18:31.177664",
+  "@@last_modified": "2024-04-15T15:20:08.789399",
   "title": "Gear on the Go",
   "@title": {
     "description": "The name of the app",
@@ -728,6 +728,12 @@
   "otaDownloadProgressLabel": "Firmware Download Progress",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Update Completed",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   },
