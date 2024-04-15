@@ -132,6 +132,8 @@ class TailApp extends ConsumerWidget {
     if (kDebugMode) {
       mainLogger.info('Debug Mode Enabled');
       SentryHive.box(settings).put(showDebugging, true);
+      SentryHive.box(settings).put(allowAnalytics, false);
+      SentryHive.box(settings).put(allowErrorReporting, false);
     }
   }
 
