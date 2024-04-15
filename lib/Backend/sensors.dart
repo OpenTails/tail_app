@@ -255,7 +255,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
 }
 
 class EarMicTriggerDefinition extends TriggerDefinition {
-  List<StreamSubscription<List<int>>?> rxSubscriptions = [];
+  List<StreamSubscription<String>?> rxSubscriptions = [];
   ProviderSubscription<Map<String, BaseStatefulDevice>>? deviceRefSubscription;
 
   EarMicTriggerDefinition(super.ref) {
@@ -318,8 +318,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
       (element) {
         element.commandQueue.addCommand(BluetoothMessage(message: "LISTEN FULL", device: element, priority: Priority.low, type: Type.system));
         return element.rxCharacteristicStream?.listen(
-          (event) {
-            String msg = const Utf8Decoder().convert(event);
+          (msg) {
             if (msg.contains("LISTEN_FULL BANG")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
               sendCommands("Sound", ref);
