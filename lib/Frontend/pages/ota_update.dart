@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
@@ -12,6 +13,7 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
 import '../../Backend/firmware_update.dart';
 import '../../constants.dart';
+import '../../main.dart';
 import '../intn_defs.dart';
 import '../utils.dart';
 
@@ -30,6 +32,7 @@ enum OtaState {
   upload,
   error,
   manual,
+  completed,
 }
 
 class _OtaUpdateState extends ConsumerState<OtaUpdate> {
@@ -42,93 +45,138 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   String? downloadedMD5;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     updateURL ??= ref.read(knownDevicesProvider)[widget.device]?.fwInfo.value;
-    /*downloadFirmware();
-    if (downloadProgress == 1) {
-      uploadFirmware();
-    }*/
+    downloadFirmware();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    otaState = OtaState.completed;
     return Scaffold(
       appBar: AppBar(title: Text(otaTitle())),
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
-              ListTile(
-                title: const Text("Debug"),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("MD5: ${updateURL?.md5sum}"),
-                    Text("DL MD5: $downloadedMD5"),
-                    Text("URL: ${updateURL?.url}"),
-                    Text("AVAILABLE VERSION: ${updateURL?.version}"),
-                    Text("CURRENT VERSION: ${ref.read(knownDevicesProvider)[widget.device]?.fwVersion.value}"),
-                    Text("STATE: $otaState"),
-                  ],
-                ),
+        child: AnimatedCrossFade(
+          layoutBuilder: (topChild, topChildKey, bottomChild, bottomChildKey) => Stack(
+            clipBehavior: Clip.none,
+            fit: StackFit.expand,
+            children: <Widget>[
+              Positioned(
+                key: bottomChildKey,
+                child: bottomChild,
+              ),
+              Positioned(
+                key: topChildKey,
+                child: topChild,
               ),
             ],
-            ListTile(
-              title: Text(otaChangelogLabel()),
-              subtitle: Text(updateURL?.changelog ?? "Unavailable"),
-            ),
-            Expanded(
+          ),
+          firstChild: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                ListTile(
+                  title: const Text("Debug"),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("MD5: ${updateURL?.md5sum}"),
+                      Text("DL MD5: $downloadedMD5"),
+                      Text("URL: ${updateURL?.url}"),
+                      Text("AVAILABLE VERSION: ${updateURL?.version}"),
+                      Text("CURRENT VERSION: ${ref.read(knownDevicesProvider)[widget.device]?.fwVersion.value}"),
+                      Text("STATE: $otaState"),
+                    ],
+                  ),
+                ),
+              ],
+              ListTile(
+                title: Text(otaChangelogLabel()),
+                subtitle: Text(updateURL?.changelog ?? "Unavailable"),
+              ),
+              Expanded(
                 child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ButtonBar(
-                          alignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(onPressed: updateURL != null ? () => downloadFirmware() : null, child: Text(otaDownloadButtonLabel())),
-                            ElevatedButton(onPressed: firmwareFile != null && otaState != OtaState.upload ? () => uploadFirmware() : null, child: Text(otaUploadButtonLabel())),
-                            if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
-                              ElevatedButton(
-                                onPressed: () async {
-                                  FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                    type: FileType.custom,
-                                    withData: true,
-                                    allowedExtensions: ['bin'],
-                                  );
-                                  if (result != null) {
-                                    setState(() {
-                                      firmwareFile = result.files.single.bytes?.toList(growable: false);
-                                      Digest digest = md5.convert(firmwareFile!);
-                                      downloadProgress = 1;
-                                      downloadedMD5 = digest.toString();
-                                      otaState = OtaState.manual;
-                                    });
-                                  } else {
-                                    // User canceled the picker
-                                  }
-                                },
-                                child: const Text("Select file"),
-                              )
-                            ],
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ButtonBar(
+                        alignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(onPressed: updateURL != null ? () => downloadFirmware() : null, child: Text(otaDownloadButtonLabel())),
+                          ElevatedButton(onPressed: firmwareFile != null && otaState != OtaState.upload ? () => uploadFirmware() : null, child: Text(otaUploadButtonLabel())),
+                          if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                            ElevatedButton(
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  withData: true,
+                                  allowedExtensions: ['bin'],
+                                );
+                                if (result != null) {
+                                  setState(() {
+                                    firmwareFile = result.files.single.bytes?.toList(growable: false);
+                                    Digest digest = md5.convert(firmwareFile!);
+                                    downloadProgress = 1;
+                                    downloadedMD5 = digest.toString();
+                                    otaState = OtaState.manual;
+                                  });
+                                } else {
+                                  // User canceled the picker
+                                }
+                              },
+                              child: const Text("Select file"),
+                            )
                           ],
-                        ),
-                        ListTile(
-                          title: Text(otaDownloadProgressLabel()),
-                          leading: const Icon(Icons.download),
-                          subtitle: LinearProgressIndicator(value: downloadProgress),
-                        ),
-                        ListTile(
-                          title: Text(otaUploadProgressLabel()),
-                          leading: const Icon(Icons.upload),
-                          subtitle: LinearProgressIndicator(value: uploadProgress),
-                        )
-                      ],
-                    )))
-          ],
+                        ],
+                      ),
+                      ListTile(
+                        title: Text(otaDownloadProgressLabel()),
+                        leading: const Icon(Icons.download),
+                        subtitle: LinearProgressIndicator(value: downloadProgress),
+                      ),
+                      ListTile(
+                        title: Text(otaUploadProgressLabel()),
+                        leading: const Icon(Icons.upload),
+                        subtitle: LinearProgressIndicator(value: uploadProgress),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          secondChild: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ListTile(
+                title: Text(
+                  otaCompletedTitle(),
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Lottie.asset(
+                renderCache: RenderCache.raster,
+                width: MediaQuery.of(context).size.width,
+                backgroundLoading: true,
+                'assets/tailcostickers/tgs/TailCoStickers_file_144834339.tgs',
+                decoder: LottieComposition.decodeGZip,
+              ),
+            ],
+          ),
+          duration: animationTransitionDuration,
+          crossFadeState: otaState == OtaState.completed ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         ),
       ),
     );
   }
 
   Future<void> downloadFirmware() async {
+    if (updateURL == null) {
+      return;
+    }
     setState(() {
       otaState = OtaState.download;
       downloadProgress = 0;
@@ -193,7 +241,8 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       }
       if (uploadProgress == 1) {
         //await Future.delayed(const Duration(seconds: 10));
-        otaState = OtaState.standby;
+        otaState = OtaState.completed;
+        plausible.event(name: "Update Gear");
       }
       baseStatefulDevice.deviceState.value = DeviceState.standby; // hold the command queue
     }

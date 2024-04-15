@@ -259,6 +259,8 @@ String otaUploadProgressLabel() => Intl.message("Firmware Upload Progress", name
 
 String otaDownloadProgressLabel() => Intl.message("Firmware Download Progress", name: 'otaDownloadProgressLabel', desc: 'Label for download firmware progress bar at bottom of OTA page');
 
+String otaCompletedTitle() => Intl.message("Update Completed", name: 'otaCompletedTitle', desc: 'Title for the text that appears when an OTA update is completed');
+
 String triggerInfoDescription() => Intl.message('Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, use the toggle on the left to enable the trigger.',
     name: 'triggerInfoDescription', desc: 'Description for what a trigger is and how to use them on the triggers page');
 
