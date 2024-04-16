@@ -21,7 +21,7 @@ dependencies:
   logging: ^1.2.0
   logging_flutter: ^3.0.0
   flutter_reactive_ble: ^5.3.1
-  go_router: ^13.2.3
+  go_router: ^13.2.4
   pedometer:
     git:
       url: https://github.com/cph-cachet/flutter-plugins
@@ -37,10 +37,10 @@ dependencies:
       ref: dieringe
   flex_color_scheme: ^7.3.1
   flutter_joystick: ^0.0.4
-  sentry_flutter: ^7.18.0
-  sentry_logging: ^7.18.0
-  sentry_hive: ^7.18.0
-  sentry_dio: ^7.18.0
+  sentry_flutter: ^7.19.0
+  sentry_logging: ^7.19.0
+  sentry_hive: ^7.19.0
+  sentry_dio: ^7.19.0
   vector_math: ^2.1.4
   collection: ^1.18.0
   flutter_foreground_service:
@@ -48,7 +48,7 @@ dependencies:
       url: https://github.com/cph-cachet/flutter-plugins
       path: packages/flutter_foreground_service
       ref: 3d31c2d21828f618e52c0f6490d1b5c857e0e4ba
-  upgrader: ^10.1.0
+  upgrader: ^10.2.0
   chart_sparkline: ^1.0.15+1
   package_info_plus: ^5.0.1
   multi_value_listenable_builder: ^0.0.2
@@ -58,16 +58,16 @@ dependencies:
       url: https://github.com/Codel1417/flutter_android_volume_keydown
       ref: feature/media_button
   intl: #pinned to flutter version
-  url_launcher: ^6.2.5
+  url_launcher: ^6.2.6
   app_settings: ^5.1.1
   flex_color_picker: ^3.4.1
   flutter_adaptive_scaffold: ^0.1.10+1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  path_provider: ^2.1.2
+  path_provider: ^2.1.3
   uuid: ^4.4.0
   plausible_analytics: ^0.3.0
-  dio: ^5.4.2+1
+  dio: ^5.4.3+1
   json_serializable: ^6.7.1
   json_annotation: ^4.8.1
   crypto: ^3.0.3
@@ -87,7 +87,7 @@ dependencies:
   circular_buffer: ^0.11.0
   introduction_screen: ^3.1.14
   lottie: ^3.1.0
-  fluttertoast: ^8.2.4
+  fluttertoast: ^8.2.5
   flutter_screen_lock: ^9.0.2
   back_button_interceptor: ^7.0.3
   riverpod_annotation: ^2.3.5
