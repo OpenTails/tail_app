@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -61,39 +60,38 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return FadeIn(
-                    delay: Duration(milliseconds: index * 100),
-                    child: ListTile(
-                      title: Text(allMoveLists[index].name),
-                      subtitle: Text("${allMoveLists[index].moves.length} move(s)"), //TODO: Localize
-                      trailing: IconButton(
-                        tooltip: sequencesEdit(),
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                          context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
-                                (value) => setState(
-                                  () {
-                                    if (value != null) {
-                                      allMoveLists[index] = value;
-                                      ref.watch(moveListsProvider.notifier).store();
-                                    }
-                                  },
-                                ),
-                              );
-                        },
-                      ),
-                      onTap: () async {
-                        if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
-                          HapticFeedback.selectionClick();
-                        }
-                        for (BaseStatefulDevice element in ref.watch(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType))) {
-                          if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
-                            await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
-                          }
-                          runAction(allMoveLists[index], element);
-                        }
+                  return ListTile(
+                    key: Key('$index'),
+                    title: Text(allMoveLists[index].name),
+                    subtitle: Text("${allMoveLists[index].moves.length} move(s)"),
+                    //TODO: Localize
+                    trailing: IconButton(
+                      tooltip: sequencesEdit(),
+                      icon: const Icon(Icons.edit),
+                      onPressed: () {
+                        context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
+                              (value) => setState(
+                                () {
+                                  if (value != null) {
+                                    allMoveLists[index] = value;
+                                    ref.watch(moveListsProvider.notifier).store();
+                                  }
+                                },
+                              ),
+                            );
                       },
                     ),
+                    onTap: () async {
+                      if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
+                        HapticFeedback.selectionClick();
+                      }
+                      for (BaseStatefulDevice element in ref.watch(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType))) {
+                        if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+                          await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+                        }
+                        runAction(allMoveLists[index], element);
+                      }
+                    },
                   );
                 },
               ),
@@ -242,17 +240,15 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
               shrinkWrap: true,
               children: <Widget>[
                 for (int index = 0; index < moveList!.moves.length; index += 1)
-                  FadeIn(
-                      key: Key('$index'),
-                      delay: Duration(milliseconds: (100 * index)),
-                      child: ListTile(
-                        title: Text(moveList!.moves[index].toString()),
-                        leading: Icon(moveList!.moves[index].moveType.icon),
-                        onTap: () {
-                          editModal(context, index);
-                          //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
-                        },
-                      ))
+                  ListTile(
+                    key: Key('$index'),
+                    title: Text(moveList!.moves[index].toString()),
+                    leading: Icon(moveList!.moves[index].moveType.icon),
+                    onTap: () {
+                      editModal(context, index);
+                      //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
+                    },
+                  )
               ],
               onReorder: (int oldIndex, int newIndex) {
                 if (oldIndex < newIndex) {
