@@ -8,7 +8,7 @@ import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.da
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:logging_flutter/logging_flutter.dart';
+import 'package:logging/logging.dart' as log;
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
@@ -27,6 +27,8 @@ import 'device_registry.dart';
 import 'move_lists.dart';
 
 part 'sensors.g.dart';
+
+final sensorsLogger = log.Logger('Sensors');
 
 @HiveType(typeId: 2)
 class Trigger extends ChangeNotifier {
@@ -202,7 +204,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     }
     pedestrianStatusStream = Pedometer.pedestrianStatusStream.listen(
       (PedestrianStatus event) {
-        Flogger.i("PedestrianStatus:: ${event.status}");
+        sensorsLogger.info("PedestrianStatus:: ${event.status}");
         if (event.status == "walking") {
           sendCommands("Walking", ref);
         } else if (event.status == "stopped") {
@@ -212,7 +214,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     );
     stepCountStream = Pedometer.stepCountStream.listen(
       (StepCount event) {
-        Flogger.d("StepCount:: ${event.steps}");
+        sensorsLogger.fine("StepCount:: ${event.steps}");
         sendCommands("Step", ref);
       },
     );
@@ -243,7 +245,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
       return;
     }
     proximityStream = ProximitySensor.events.listen((int event) {
-      Flogger.d("CoverEvent:: $event");
+      sensorsLogger.fine("CoverEvent:: $event");
       if (event >= 1) {
         sendCommands("Near", ref);
       } else if (event == 0) {
@@ -441,7 +443,7 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
       return;
     }
     subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
-      Flogger.d("Volume press detected:${event.name}");
+      sensorsLogger.fine("Volume press detected:${event.name}");
       if (event == HardwareButton.volume_down) {
         sendCommands("Volume Up", ref);
       } else if (event == HardwareButton.volume_up) {
@@ -475,7 +477,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
       return;
     }
     detector = ShakeDetector.waitForStart(onPhoneShake: () {
-      Flogger.d("Shake Detected");
+      sensorsLogger.fine("Shake Detected");
       sendCommands("Shake", ref);
     });
     detector?.startListening();
@@ -591,7 +593,7 @@ class TriggerList extends _$TriggerList {
   }
 
   Future<void> store() async {
-    Flogger.i("Storing triggers");
+    sensorsLogger.info("Storing triggers");
     SentryHive.box<Trigger>(triggerBox)
       ..clear()
       ..addAll(state);

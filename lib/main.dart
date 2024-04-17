@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:feedback_sentry/feedback_sentry.dart';
@@ -51,20 +50,8 @@ final mainLogger = Logger('Main');
 Future<void> main() async {
   Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
+  initFlogger();
   WidgetsFlutterBinding.ensureInitialized();
-  Flogger.init(config: const FloggerConfig(showDebugLogs: true, printClassName: true, printMethodName: true, showDateTime: false));
-  PlatformDispatcher.instance.onError = (error, stack) {
-    Flogger.e(error.toString(), stackTrace: stack);
-    return true;
-  };
-
-  Flogger.registerListener(
-    (record) {
-      LogConsole.add(OutputEvent(record.level, [record.printable()]), bufferSize: 10000);
-      log(record.printable(), stackTrace: record.stackTrace);
-    },
-  );
-
   //var localeLoaded = await initializeMessages('ace');
   //Intl.defaultLocale = 'ace';
   //Flogger.i("Loaded local: $localeLoaded");
@@ -97,6 +84,16 @@ Future<void> main() async {
   );
 }
 
+void initFlogger() {
+  Flogger.init(config: const FloggerConfig(showDebugLogs: true, printClassName: true, printMethodName: true, showDateTime: false));
+  Flogger.registerListener(
+    (record) {
+      LogConsole.add(OutputEvent(record.level, [record.printable()]), bufferSize: 1000);
+      //log(record.printable(), stackTrace: record.stackTrace);
+    },
+  );
+}
+
 Future<void> initHive() async {
   final Directory appDir = await getApplicationSupportDirectory();
   SentryHive
@@ -115,14 +112,14 @@ Future<void> initHive() async {
       AutoActionCategoryAdapter(),
     )
     ..registerAdapter(FavoriteActionAdapter());
-  await SentryHive.openBox(settings);
+  await SentryHive.openBox(settings); // Do not set type here
   await SentryHive.openBox<Trigger>(triggerBox);
   await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
 }
 
-class TailApp extends ConsumerWidget {
+class TailApp extends StatelessWidget {
   TailApp({super.key}) {
     //Init Plausible
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -139,7 +136,7 @@ class TailApp extends ConsumerWidget {
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return ProviderScope(
       observers: [
         RiverpodProviderObserver(),

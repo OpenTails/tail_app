@@ -1,7 +1,7 @@
 import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:logging_flutter/logging_flutter.dart';
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
@@ -12,6 +12,8 @@ import 'package:tail_app/Frontend/intn_defs.dart';
 import '../main.dart';
 
 part 'move_lists.g.dart';
+
+final sequencesLogger = Logger('Sequences');
 
 @HiveType(typeId: 10)
 enum EasingType {
@@ -171,7 +173,7 @@ class MoveLists extends _$MoveLists {
   }
 
   Future<void> store() async {
-    Flogger.i("Storing sequences");
+    sequencesLogger.info("Storing sequences");
     SentryHive.box<MoveList>('sequences')
       ..clear()
       ..addAll(state);
@@ -183,7 +185,7 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
     device.commandQueue.addCommand(BluetoothMessage(message: action.command, device: device, priority: Priority.normal, responseMSG: action.response, type: Type.move));
     plausible.event(name: "Run Action", props: {"Action Name": action.name, "Action Type": action.actionCategory.name});
   } else if (action is MoveList) {
-    Flogger.i("Starting MoveList ${action.name}.");
+    sequencesLogger.info("Starting MoveList ${action.name}.");
     plausible.event(name: "Run Sequence", props: {"Sequence Repeat": action.repeat.toInt().toString(), "Sequence Device Type": device.baseDeviceDefinition.deviceType.name, "Sequence Moves": action.moves.length.toString()});
     if (action.moves.isNotEmpty && action.moves.length <= 5 && device.baseDeviceDefinition.deviceType != DeviceType.ears) {
       int preset = 1; //TODO: store

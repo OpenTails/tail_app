@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:logging_flutter/logging_flutter.dart';
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/move_lists.dart';
@@ -11,6 +11,8 @@ import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 
 part 'action_registry.g.dart';
+
+final actionRegistryLogger = Logger('ActionRegistry');
 
 @immutable
 class ActionRegistry {
@@ -223,7 +225,7 @@ class FavoriteActions extends _$FavoriteActions {
   }
 
   Future<void> store() async {
-    Flogger.i("Storing favorites");
+    actionRegistryLogger.info("Storing favorites");
     SentryHive.box<FavoriteAction>(favoriteActionsBox)
       ..clear()
       ..addAll(state);

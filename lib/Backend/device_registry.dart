@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
-import 'package:logging_flutter/logging_flutter.dart';
+import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
 part 'device_registry.g.dart';
+
+final deviceRegistryLogger = log.Logger('DeviceRegistry');
 
 @immutable
 class DeviceRegistry {
@@ -92,10 +94,10 @@ class DeviceRegistry {
 
 @Riverpod()
 Set<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseAction) {
-  Flogger.i("Getting devices for action::$baseAction");
+  deviceRegistryLogger.info("Getting devices for action::$baseAction");
   Set<BaseStatefulDevice> foundDevices = {};
   for (BaseStatefulDevice device in ref.read(knownDevicesProvider).values.where((BaseStatefulDevice element) => element.deviceConnectionState.value == ConnectivityState.connected && element.deviceState.value == DeviceState.standby)) {
-    Flogger.i("Known Device::$device");
+    deviceRegistryLogger.info("Known Device::$device");
     if (baseAction.deviceCategory.contains(device.baseDeviceDefinition.deviceType)) {
       foundDevices.add(device);
     }
