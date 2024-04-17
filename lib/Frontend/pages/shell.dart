@@ -300,7 +300,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: Text(
-                      settingsAppColor(),
+                      manageDevicesColor(),
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     actions: [
