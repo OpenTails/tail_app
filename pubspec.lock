@@ -959,6 +959,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  multi_listenable_builder:
+    dependency: "direct main"
+    description:
+      name: multi_listenable_builder
+      sha256: "496062744fd0ccafc2254d79b148570b7437caf433a346eedda6dd8596799c9d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   multi_value_listenable_builder:
     dependency: "direct main"
     description:

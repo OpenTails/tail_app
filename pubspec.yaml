@@ -22,16 +22,16 @@ dependencies:
   logging_flutter: ^3.0.0
   flutter_reactive_ble: ^5.3.1
   go_router: ^13.2.4
-  pedometer:
+  pedometer: # Needs gradle namespace
     git:
       url: https://github.com/cph-cachet/flutter-plugins
       path: packages/pedometer
       ref: 3d31c2d21828f618e52c0f6490d1b5c857e0e4ba
-  proximity_sensor:
+  proximity_sensor: # Needs gradle namespace
     git:
       url: https://github.com/Codel1417/flutter-proximity-sensor-plugin
   sensors_plus: ^5.0.1
-  shake:
+  shake: # Needs gradle namespace
     git:
       url: https://github.com/Codel1417/shake
       ref: dieringe
@@ -43,7 +43,7 @@ dependencies:
   sentry_dio: ^7.20.0
   vector_math: ^2.1.4
   collection: ^1.18.0
-  flutter_foreground_service:
+  flutter_foreground_service: # Needs gradle namespace
     git:
       url: https://github.com/cph-cachet/flutter-plugins
       path: packages/flutter_foreground_service
@@ -52,8 +52,9 @@ dependencies:
   chart_sparkline: ^1.0.15+1
   package_info_plus: ^7.0.0
   multi_value_listenable_builder: ^0.0.2
+  multi_listenable_builder: ^1.0.0
   feedback_sentry: ^3.0.0
-  flutter_android_volume_keydown:
+  flutter_android_volume_keydown: # Needs gradle namespace
     git:
       url: https://github.com/Codel1417/flutter_android_volume_keydown
       ref: feature/media_button
@@ -80,7 +81,7 @@ dependencies:
   #tivy: ^0.1.1
   pdfx: ^2.6.0
   in_app_review: ^2.0.9
-  install_referrer:
+  install_referrer: # Needs gradle namespace
     git:
       url: https://github.com/undreeyyy/flutter_plugin_install_referrer
       ref: fd87e9b8f0d5ed909e929388244456f72b9b63c7

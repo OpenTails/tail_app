@@ -195,7 +195,7 @@ extension AutoActionCategoryExtension on AutoActionCategory {
 
 // All serialized/stored data
 @HiveType(typeId: 1)
-class BaseStoredDevice {
+class BaseStoredDevice extends ChangeNotifier {
   @HiveField(0)
   String name = "New Gear";
   @HiveField(1)
@@ -215,9 +215,16 @@ class BaseStoredDevice {
   @HiveField(8)
   final String deviceDefinitionUUID;
   @HiveField(9)
-  int color;
+  int _color;
 
-  BaseStoredDevice(this.deviceDefinitionUUID, this.btMACAddress, this.color);
+  int get color => _color;
+
+  set color(int value) {
+    _color = value;
+    notifyListeners();
+  }
+
+  BaseStoredDevice(this.deviceDefinitionUUID, this.btMACAddress, this._color);
 
   @override
   String toString() {

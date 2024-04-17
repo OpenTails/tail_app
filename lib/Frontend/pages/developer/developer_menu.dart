@@ -172,6 +172,19 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               ref.read(knownDevicesProvider.notifier).remove(""); // force update
             },
           ),
+          ListTile(
+            title: const Text("isAnyGearConnected"),
+            trailing: Switch(
+              value: isAnyGearConnected.value,
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    isAnyGearConnected.value = value;
+                  },
+                );
+              },
+            ),
+          )
         ],
       ),
     );

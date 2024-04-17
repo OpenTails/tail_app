@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:multi_listenable_builder/multi_listenable_builder.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 
@@ -49,74 +50,79 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
         List<ActionCategory> catList = actionsCatMap.keys.toList();
         return AnimatedCrossFade(
           firstChild: const Home(),
-          secondChild: ListView(
-            shrinkWrap: true,
-            children: [
-              AnimatedCrossFade(
-                  firstChild: Container(),
-                  secondChild: GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
-                    itemCount: actionsCatMap.values.flattened
-                        .where(
-                          (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                        )
-                        .length,
-                    itemBuilder: (BuildContext context, int index) {
-                      BaseAction baseAction = actionsCatMap.values.flattened
-                          .where(
-                            (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                          )
-                          .toList()[index];
-                      return getActionCard(index, knownDevices, baseAction, largerCards);
-                    },
-                  ),
-                  crossFadeState: actionsCatMap.values.flattened.where((element) => ref.read(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                  duration: animationTransitionDuration),
-              ListView.builder(
+          secondChild: MultiListenableBuilder(
+            builder: (BuildContext context, Widget? child) {
+              return ListView(
                 shrinkWrap: true,
-                itemCount: catList.length,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int categoryIndex) {
-                  List<BaseAction> actionsForCat = actionsCatMap.values.toList()[categoryIndex].toList();
-                  return FadeIn(
-                    delay: Duration(milliseconds: 100 * categoryIndex),
-                    child: ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: [
-                        Center(
-                          child: Text(
-                            catList[categoryIndex].friendly,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                        GridView.builder(
-                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                children: [
+                  AnimatedCrossFade(
+                      firstChild: Container(),
+                      secondChild: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                        itemCount: actionsCatMap.values.flattened
+                            .where(
+                              (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
+                            )
+                            .length,
+                        itemBuilder: (BuildContext context, int index) {
+                          BaseAction baseAction = actionsCatMap.values.flattened
+                              .where(
+                                (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
+                              )
+                              .toList()[index];
+                          return getActionCard(index, knownDevices, baseAction, largerCards);
+                        },
+                      ),
+                      crossFadeState: actionsCatMap.values.flattened.where((element) => ref.read(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                      duration: animationTransitionDuration),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: catList.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int categoryIndex) {
+                      List<BaseAction> actionsForCat = actionsCatMap.values.toList()[categoryIndex].toList();
+                      return FadeIn(
+                        delay: Duration(milliseconds: 100 * categoryIndex),
+                        child: ListView(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: actionsForCat.length,
-                          itemBuilder: (BuildContext context, int actionIndex) {
-                            return MultiValueListenableBuilder(
-                              valueListenables: knownDevices.values
-                                  .where(
-                                    (element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-                                  )
-                                  .map((e) => e.deviceState)
-                                  .toList(),
-                              builder: (BuildContext context, List<dynamic> values, Widget? child) {
-                                return getActionCard(actionIndex, knownDevices, actionsForCat[actionIndex], largerCards);
+                          children: [
+                            Center(
+                              child: Text(
+                                catList[categoryIndex].friendly,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ),
+                            GridView.builder(
+                              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: actionsForCat.length,
+                              itemBuilder: (BuildContext context, int actionIndex) {
+                                return MultiValueListenableBuilder(
+                                  valueListenables: knownDevices.values
+                                      .where(
+                                        (element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType),
+                                      )
+                                      .map((e) => e.deviceState)
+                                      .toList(),
+                                  builder: (BuildContext context, List<dynamic> values, Widget? child) {
+                                    return getActionCard(actionIndex, knownDevices, actionsForCat[actionIndex], largerCards);
+                                  },
+                                );
                               },
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              );
+            },
+            notifiers: knownDevices.isNotEmpty ? knownDevices.values.map((e) => e.baseStoredDevice).toList() : [ChangeNotifier()],
           ),
           crossFadeState: actionsCatMap.isNotEmpty ? CrossFadeState.showSecond : CrossFadeState.showFirst,
           duration: animationTransitionDuration,
