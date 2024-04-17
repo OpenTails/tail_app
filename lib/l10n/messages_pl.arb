@@ -47,7 +47,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersAdd": "Anulować",
+  "triggersAdd": "Dodaj wyzwalacz",
   "@triggersAdd": {
     "description": "Floating Action Button on the triggers page",
     "type": "text",
@@ -59,19 +59,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Anulować",
+  "deviceTypeTail": "Ogon",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Szczęśliwego machania!",
+  "deviceTypeEars": "Uszy",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Uszy",
+  "deviceTypeWings": "Skrzydełka",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -131,7 +131,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Opóźnienie",
+  "sequencesEditEasing": "Typ łagodzenia",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -183,7 +183,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Instrukcje",
+  "actionsCategoryFast": "Szybki i podekscytowany",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -201,7 +201,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Szczęśliwego machania!",
+  "actionsCategoryEars": "Uszy",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Świecąca wskazówka",
+  "settingsHapticsToggleTitle": "Informacje zwrotne dotykowe",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Zapominać",
+  "manageDevicesOtaButton": "Kliknij, aby zaktualizować oprogramowanie sprzętowe",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Skanuj w poszukiwaniu nowego sprzętu",
+  "scanDevicesScanMessage": "Skanowanie w poszukiwaniu sprzętu. Upewnij się, że Twój sprzęt jest włączony i znajduje się w pobliżu",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -447,13 +447,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Uruchom działanie, gdy EarGear wykryje dźwięk",
+  "triggerEarMicSound": "Wykryto dźwięk",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "Ile razy powtórzyć tę akcję?",
+  "triggerEarTiltTitle": "Czujnik pochylenia ucha",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Pochylenie do przodu",
+  "triggerEarTiltBackward": "Przechylenie do tyłu",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "Szybki i podekscytowany",
+  "moreManualFlutterWingsTitle": "Podręcznik FlutterWings",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -561,7 +561,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Szybki i podekscytowany",
+  "moreManualSubTitle": "Kliknij, aby wyświetlić",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "morePrivacyPolicyLinkTitle": "Ile razy powtórzyć tę akcję?",
+  "morePrivacyPolicyLinkTitle": "Polityka prywatności",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Każda akcja niestandardowa składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
+  "sequencesInfoEditDescription": "Każda Akcja Własna składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Wybierz akcję",
+  "settingsLargerCardsToggleSubTitle": "Powiększa karty akcji, ułatwiając ich dotykanie",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -711,13 +711,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Ukryj karty samouczków",
+  "otaDownloadButtonLabel": "Pobierać",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Pobierać",
+  "otaUploadButtonLabel": "Wgrywać",
   "@otaUploadButtonLabel": {
     "description": "Label for upload firmware button at bottom of OTA page",
     "type": "text",
@@ -729,13 +729,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Postęp przesyłania oprogramowania sprzętowego",
+  "otaDownloadProgressLabel": "Postęp pobierania oprogramowania sprzętowego",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Postęp pobierania oprogramowania sprzętowego",
+  "triggerInfoDescription": "Wyzwalacze automatycznie wysyłają akcje do Twojego sprzętu. Jednocześnie może być aktywnych wiele wyzwalaczy. Stuknij wyzwalacz, aby go edytować, użyj przełącznika po lewej stronie, aby włączyć wyzwalacz.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Włącz Bluetooth",
+  "onboardingCompletedTitle": "Szczęśliwego machania!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -810,6 +810,12 @@
   "settingsAlwaysScanningToggleTitle": "Zawsze skanuj w poszukiwaniu znanego sprzętu",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Aktualizacja zakończona",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   }
