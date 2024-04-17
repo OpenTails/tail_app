@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Equipo cercano",
+  "triggerActionNotSet": "Sin conjunto de acciones",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -113,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Bluetooth no está disponible",
+  "actionsCategoryCalm": "Calmado y relajado",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -125,13 +125,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Si conecta muchas instancias de los mismos dispositivos, este modo agregará pausas aleatorias a sus tiempos de inicio de movimiento, dándole un efecto visual diferente.",
+  "settingsErrorReportingToggleTitle": "Informe automático de errores",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Frustrado y tenso",
+  "deviceTypeTail": "Cola",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -309,13 +309,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersAdd": "Cancelar",
+  "triggersAdd": "Agregar disparador",
   "@triggersAdd": {
     "description": "Floating Action Button on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Comportamiento",
+  "triggersPage": "Desencadenantes",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -495,19 +495,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Inclinación izquierda",
+  "triggerEarTiltRight": "Inclinación hacia la derecha",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Inclinación izquierda",
+  "triggerEarTiltForward": "Inclinación hacia adelante",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Activa una acción si hay equipo cerca",
+  "triggerEarTiltBackward": "Inclinación hacia atrás",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Toca para ver",
+  "moreUsefulLinksTitle": "Enlaces útiles",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "política de privacidad",
+  "moreManualDigitailTitle": "Manual de cola digital",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -645,13 +645,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "¿Cuántas veces repetir esta acción?",
+  "sequencesInfoDescription": "Las acciones personalizadas te permiten crear tus propias acciones para el equipo. Al tocar una acción personalizada, se reproducirá. Toque el lápiz para editar una acción personalizada.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, presione el ícono Atrás en la pantalla de selección.",
+  "sequencesInfoEditDescription": "Cada acción personalizada consta de 1 a 6 movimientos y puede repetirse hasta 5 veces. Puedes mantener presionado un movimiento para reordenarlo.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -669,13 +669,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleTitle": "Muestra el nivel real de la batería en lugar de un icono",
+  "settingsLargerCardsToggleTitle": "Tarjetas más grandes",
   "@settingsLargerCardsToggleTitle": {
     "description": "Settings page Larger cards toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Muestra el nivel real de la batería en lugar de un icono",
+  "settingsLargerCardsToggleSubTitle": "Hace que las tarjetas de acción sean más grandes para tocarlas más fácilmente.",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Ocultar tarjetas tutoriales",
+  "settingsTutorialCardToggleSubTitle": "Oculta las distintas tarjetas de tutoriales en toda la aplicación.",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Descargar",
+  "otaUploadButtonLabel": "Subir",
   "@otaUploadButtonLabel": {
     "description": "Label for upload firmware button at bottom of OTA page",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Hecho",
+  "onboardingCompletedTitle": "¡Feliz meneo!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -810,6 +810,12 @@
   "settingsAlwaysScanningToggleTitle": "Busque siempre equipo conocido",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Actualización completada",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   }
