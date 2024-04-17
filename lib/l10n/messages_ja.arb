@@ -1,5 +1,5 @@
 {
-  "triggerActionNotSet": "ボリュームアップ",
+  "triggerActionNotSet": "アクションセットなし",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "フィードバックを送信する",
+  "feedbackPage": "フィードバックを送信",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -41,7 +41,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "トリガー",
+  "actionsPage": "行動",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "しっぽ",
+  "cancel": "キャンセル",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "ジョイスティック",
+  "deviceTypeEars": "耳",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "穏やかでリラックスした",
+  "sequencesEditDelay": "遅れ",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
@@ -167,7 +167,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "このカスタム アクションで次の動きに進むまでの待機時間",
+  "sequencesEditTime": "このカスタムアクションで次の動作に進む前にどれくらい待つか",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -219,7 +219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryTense": "イライラして緊張している",
+  "actionsCategoryTense": "イライラと緊張",
   "@actionsCategoryTense": {
     "description": "tense action group label",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "ジョイスティック",
+  "actionsCategoryEars": "耳",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -255,13 +255,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "このモードでは、ギアが接続されている間は画面がオフにならないようにします。",
+  "settingsErrorReportingToggleSubTitle": "Sentryにエラーレポートを送信します",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "アプリの色",
+  "manageDevicesAutoMoveTitle": "カジュアルモード",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -291,19 +291,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFrustrated": "イライラした",
+  "manageDevicesAutoMoveGroupsFrustrated": "イライラ",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseTitle": "アクションをタップしたときに振動を有効にする",
+  "manageDevicesAutoMovePauseTitle": "動きの間に一時停止する",
   "@manageDevicesAutoMovePauseTitle": {
     "description": "Auto move pause slider title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "切断する",
+  "manageDevicesDisconnect": "切断",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "ギアをスキャンしています。ギアの電源が入っており、近くにあることを確認してください",
+  "scanDevicesScanMessage": "ギアをスキャンしています。ギアの電源が入っていて近くにあることを確認してください",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "歩くことでアクションをトリガーする",
+  "triggerWalkingDescription": "歩くときにアクションをトリガーする",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "近接センサーを覆うことでアクションをトリガーします",
+  "triggerCoverDescription": "近接センサーを覆うことでアクションをトリガーする",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "EarGear が傾きを検出したときにアクションをトリガーする",
+  "triggerShakeTitle": "シェイク",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "タップしてファームウェアを更新します",
+  "manageDevicesOtaButton": "タップしてファームウェアを更新",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -477,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "音量を上げる",
+  "triggerEarMicTitle": "イヤーギアマイク",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -489,7 +489,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "EarGear が音を検出したときにアクションをトリガーする",
+  "triggerEarMicSound": "音が検出されました",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "アクションを繰り返す",
+  "triggerEarTiltRight": "右傾き",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -525,7 +525,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "責任あるワギング",
+  "moreManualResponsibleWaggingTitle": "責任ある尻尾の振り方",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
@@ -537,13 +537,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "MiTail マニュアル",
+  "moreManualDigitailTitle": "デジテールマニュアル",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
     "placeholders": {}
   },
-  "moreManualEargearTitle": "MiTail マニュアル",
+  "moreManualEargearTitle": "イヤーギアマニュアル",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
     "type": "text",
@@ -567,13 +567,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "役立つリンク",
+  "moreUsefulLinksTitle": "便利なリンク",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "遅れ",
+  "settingsDescription": "アプリの色を変更したり、触覚を設定したり、その他",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "許可を与える",
+  "shellDeviceBarToggleLabel": "ギアバーを切り替える",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "各カスタム アクションは 1 ～ 6 の動きで構成され、最大 5 回繰り返すことができます。移動を長押しすると、順序を変更できます。",
+  "sequencesInfoEditDescription": "各カスタムアクションは 1 ～ 6 個の動きから構成され、最大 5 回繰り返すことができます。動きを長押しすると順序を変更できます。",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleTitle": "イージングタイプ",
+  "settingsLargerCardsToggleTitle": "大きなカード",
   "@settingsLargerCardsToggleTitle": {
     "description": "Settings page Larger cards toggle title",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "ステップ",
+  "triggerInfoEditActionDescription": "鉛筆をタップして、イベントが発生したときに実行するアクションを選択します。アクションを削除するには、選択画面で戻るアイコンを押します。",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -810,6 +810,12 @@
   "settingsAlwaysScanningToggleTitle": "常に既知のギアをスキャンする",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "更新が完了しました",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   }
