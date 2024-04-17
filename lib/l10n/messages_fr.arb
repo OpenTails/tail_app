@@ -5,13 +5,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Frustré et tendu",
+  "deviceTypeEars": "Oreilles",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Oreilles",
+  "deviceTypeWings": "Ailes",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Nom",
+  "sequencesEdit": "Modifier l'action",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "À quelle vitesse l’engrenage doit-il se déplacer vers cette position ?",
+  "sequencesEditEasing": "Type d'assouplissement",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Marche",
+  "sequencesEditDeleteTitle": "Supprimer l'action",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Retardez le prochain coup pendant {howMany} ms.",
+  "sequenceEditListDelayLabel": "Retardez le prochain coup de {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -129,13 +129,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "Frustré et tendu",
+  "actionsCategoryGlowtip": "Astuce lumineuse",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Frustré et tendu",
+  "actionsCategoryEars": "Oreilles",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -171,7 +171,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "À quel équipement cela devrait-il s'appliquer ?",
+  "manageDevicesAutoMoveSubTitle": "La queue sélectionnera un mouvement aléatoire, s'arrêtant pendant un nombre aléatoire de secondes entre chaque mouvement",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -189,7 +189,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsCalm": "Couleur de l'application",
+  "manageDevicesAutoMoveGroupsCalm": "Calme",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
@@ -273,13 +273,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonTitle": "Déclenchez une action en recouvrant le capteur de proximité",
+  "triggerVolumeButtonTitle": "Boutons de volume",
   "@triggerVolumeButtonTitle": {
     "description": "Volume Button trigger title",
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Nom",
+  "triggerVolumeButtonDescription": "Déclenchez une action en appuyant sur le bouton volume",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Envoyer des commentaires",
+  "subTitle": "Toutes les queues",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
@@ -345,7 +345,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Équipement en déplacement",
+  "ok": "D'accord",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "À quel matériel cela devrait-il s'appliquer ?",
+  "deviceType": "À quel équipement cela devrait-il s'appliquer ?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Déclenchez une action si un équipement est à proximité",
+  "triggerActionNotSet": "Aucun ensemble d'actions",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Activer les vibrations lorsqu'une action est appuyée",
+  "manageDevicesOtaButton": "Appuyez pour mettre à jour le micrologiciel",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "Manuel d'utilisation des écouteurs",
+  "moreManualTitle": "Manuels",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "politique de confidentialité",
+  "moreTitle": "Plus",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Pause entre les mouvements",
+  "settingsBatteryPercentageToggleTitle": "Afficher le % de batterie",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Journal des modifications du micrologiciel",
+  "otaDownloadButtonLabel": "Télécharger",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Voir la politique de confidentialité",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Accepter la politique de confidentialité",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -810,6 +810,12 @@
   "settingsAlwaysScanningToggleTitle": "Recherchez toujours un équipement connu",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Mise à jour terminée",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   }
