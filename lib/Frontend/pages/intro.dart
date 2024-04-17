@@ -42,12 +42,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       Theme.of(context).brightness == Brightness.dark
-          ? SystemUiOverlayStyle.light.copyWith(
-              statusBarColor: Theme.of(context).canvasColor,
-            )
-          : SystemUiOverlayStyle.dark.copyWith(
-              statusBarColor: Theme.of(context).canvasColor,
-            ),
+          ? SystemUiOverlayStyle.light.copyWith(statusBarColor: Theme.of(context).canvasColor, systemNavigationBarColor: Theme.of(context).canvasColor)
+          : SystemUiOverlayStyle.dark.copyWith(statusBarColor: Theme.of(context).canvasColor, systemNavigationBarColor: Theme.of(context).canvasColor),
     );
     const bodyStyle = TextStyle(fontSize: 19.0);
     bool bluetoothPoweredOff = ref.watch(btStatusProvider).valueOrNull == BleStatus.poweredOff;

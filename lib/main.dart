@@ -157,6 +157,7 @@ class TailApp extends StatelessWidget {
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 supportedLocales: AppLocalizations.supportedLocales,
                 themeMode: ThemeMode.system,
+                debugShowCheckedModeBanner: false,
               );
             },
           ),
