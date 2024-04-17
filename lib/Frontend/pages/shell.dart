@@ -814,7 +814,10 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
                                 return Column(
                                   children: [
                                     ListTile(
-                                      title: Text(scanDevicesTitle()),
+                                      title: Text(
+                                        scanDevicesTitle(),
+                                        style: Theme.of(context).textTheme.titleLarge,
+                                      ),
                                     ),
                                     Expanded(
                                       child: ScanForNewDevice(
