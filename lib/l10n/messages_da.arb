@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Udløs en handling, hvis gear er i nærheden",
+  "subTitle": "Alle Halerne",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Gåture",
+  "triggerCoverTitle": "Dække over",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Brugerdefinerede handlinger",
+  "sequencesPage": "Tilpassede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Opdater Gear",
+  "sequencesEditAdd": "Tilføj Flyt",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -155,7 +155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Hurtig",
+  "sequencesEditSpeed": "Hvor hurtigt skal gearet bevæge sig til denne position?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -179,7 +179,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Fjern handling",
+  "sequencesEditDeleteTitle": "Slet handling",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Forsink næste træk i [X20X] ms.",
+  "actionsCategoryFast": "Hurtig og spændt",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Send feedback",
+  "actionsSelectScreen": "Vælg en handling",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -285,7 +285,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "Afslappet tilstand",
+  "manageDevicesAutoMoveGroupsTitle": "Flyt grupper",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsCalm": "Hurtig",
+  "manageDevicesAutoMoveGroupsCalm": "Berolige",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Tilføj trigger",
+  "scanDevicesScanMessage": "Scanner efter gear. Sørg for, at dit udstyr er tændt og i nærheden",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Ryste",
+  "triggerShakeDescription": "Udløs en handling ved at ryste din enhed",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Udløs en handling, hvis gear er i nærheden",
+  "triggerActionNotSet": "Intet handlingssæt",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Udløs en handling, når EarGear registrerer lyd",
+  "triggerEarMicSound": "Lyd registreret",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "DigiTail manual",
+  "moreManualTitle": "Manualer",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -633,13 +633,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleTitle": "Hvilket gear skal det gælde for?",
+  "settingsKitsuneToggleTitle": "Kitsune-tilstand",
   "@settingsKitsuneToggleTitle": {
     "description": "Settings page Kitsune mode toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
+  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, vil denne tilstand tilføje tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Tilt bagud",
+  "otaTitle": "Opdater Gear",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Fremskridt for download af firmware",
+  "sequencesInfoEditDescription": "Hver brugerdefineret handling består af 1-6 træk og kan gentages op til 5 gange. Du kan trykke længe på et træk for at genbestille det.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -765,13 +765,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Højre sides position",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Accepter privatlivspolitik",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Bluetooth-tilladelse er påkrævet for at oprette forbindelse til gear",
+  "onboardingBluetoothDescription": "Der kræves Bluetooth-tilladelse for at oprette forbindelse til gear",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Bluetooth-tilladelse er påkrævet for at oprette forbindelse til gear",
+  "onboardingCompletedTitle": "Godt logrende!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -810,6 +810,12 @@
   "settingsAlwaysScanningToggleTitle": "Scan altid for kendt gear",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Opdatering fuldført",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   }
