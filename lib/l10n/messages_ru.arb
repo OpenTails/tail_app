@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Настройки",
+  "actionsPage": "Действия",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Добавить триггер",
+  "deviceTypeTail": "Хвост",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -83,13 +83,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Крылья",
+  "sequencesEditAdd": "Добавить ход",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Крылья",
+  "sequencesEditName": "Имя",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -107,13 +107,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Добавить триггер",
+  "sequencesEditLeftServo": "Положение левого сервопривода",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Отмена",
+  "sequencesEditRightServo": "Положение правой стороны",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Главная Gear",
+  "sequencesEditHomeLabel": "Главная Шестерня",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -201,13 +201,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Светящийся наконечник",
+  "actionsSelectScreen": "Выберите действие",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Светящийся наконечник",
+  "settingsHapticsToggleTitle": "Тактильная обратная связь",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Цвет приложения",
+  "manageDevicesAutoMoveTitle": "Казуальный режим",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -321,7 +321,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Нажмите, чтобы обновить прошивку",
+  "scanDevicesScanMessage": "Сканирование снаряжения. Убедитесь, что ваше оборудование включено и находится поблизости.",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Выберите тип триггера",
+  "ok": "Хорошо",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "Кнопки громкости",
+  "triggerVolumeButtonVolumeUp": "Увеличить громкость",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -465,7 +465,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Карты большего размера",
+  "triggerEarMicDescription": "Запуск действия, когда EarGear обнаруживает звук",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -501,13 +501,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Правый наклон",
+  "triggerEarTiltForward": "Наклон вперед",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "EarGear микрофон",
+  "triggerEarTiltBackward": "Наклон назад",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -525,13 +525,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesConnect": "График батареи",
+  "manageDevicesConnect": "Соединять",
   "@manageDevicesConnect": {
     "description": "manage devices connect button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "Сколько раз повторить это Действие?",
+  "moreManualResponsibleWaggingTitle": "Ответственное виляние",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
@@ -543,7 +543,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "Скрыть карточки обучения",
+  "moreManualDigitailTitle": "Руководство по DigiTail",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Этот режим предотвращает выключение экрана, пока ваше оборудование подключено.",
+  "moreTitle": "Более",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "политика конфиденциальности",
+  "otaTitle": "Обновить снаряжение",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -729,13 +729,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Ответственное виляние",
+  "sequencesInfoDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие.",
+  "sequencesInfoEditDescription": "Каждое пользовательское действие состоит из 1–6 ходов и может повторяться до 5 раз. Вы можете долго нажимать на ход, чтобы изменить его порядок.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Включите Bluetooth ",
+  "doubleBackToClose": "Нажмите еще раз, чтобы выйти ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -810,6 +810,12 @@
   "settingsAlwaysScanningToggleTitle": "Всегда сканируйте известное снаряжение",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Обновление завершено",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   }
