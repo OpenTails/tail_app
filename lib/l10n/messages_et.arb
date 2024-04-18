@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Väljumiseks vajutage uuesti",
+  "subTitle": "Kõik sabad",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
@@ -29,7 +29,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "aboutPage": "Looge oma varustuse jaoks kohandatud toiminguid",
+  "aboutPage": "Umbes",
   "@aboutPage": {
     "description": "The label and title of the about page",
     "type": "text",
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Valige päästiku tüüp",
+  "ok": "Okei",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Andke luba",
+  "deviceType": "Millise käigu kohta see kehtima peaks?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Saba",
+  "deviceTypeEars": "Kõrvad",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Redigeeri järjestust",
+  "sequencesEditAdd": "Lisa Liikumine",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -185,7 +185,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Kustuta toiming",
+  "sequencesEditDeleteDescription": "Kas olete kindel, et soovite selle toimingu kustutada?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -201,7 +201,7 @@
       }
     }
   },
-  "actionsNoBluetooth": "Kui ühendate samade seadmete mitu eksemplari, lisab see režiim nende liikumise algusaegadele juhuslikke pause, andes sellele erineva visuaalse efekti.",
+  "actionsNoBluetooth": "Bluetooth pole saadaval",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Saba",
+  "actionsCategoryEars": "Kõrvad",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -243,13 +243,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Lülitage käiguriba sisse",
+  "settingsHapticsToggleTitle": "Haptiline tagasiside",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Lülitage käiguriba sisse",
+  "settingsHapticsToggleSubTitle": "Lubage toimingu puudutamisel vibratsioon",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -279,13 +279,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Kui kiiresti peaks käik sellesse asendisse liikuma?",
+  "manageDevicesAutoMoveSubTitle": "Saba valib juhusliku käigu, peatudes iga liigutuse vahel juhusliku arvu sekunditeks",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "Saba valib juhusliku käigu, peatudes iga liigutuse vahel juhusliku arvu sekunditeks",
+  "manageDevicesAutoMoveGroupsTitle": "Teisalda rühmad",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Hääl maha",
+  "triggerShakeTitle": "Raputama",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "Tegevuskomplekt puudub",
+  "triggerEarMicTitle": "EarGear mikrofon",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -489,7 +489,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "EarGear kaldeandur",
+  "triggerEarTiltLeft": "Vasak kallutus",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Käsiraamatud",
+  "moreManualSubTitle": "Puudutage vaatamiseks",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -585,13 +585,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "See režiim peatab ekraani väljalülitamise, kui teie varustus on ühendatud",
+  "settingsKeepScreenOnToggleSubTitle": "See režiim ei lülitu ekraani välja, kui teie varustus on ühendatud",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleTitle": "Hoidke ekraan sees",
+  "settingsAnalyticsToggleTitle": "Anonüümse analüüsi lubamine",
   "@settingsAnalyticsToggleTitle": {
     "description": "Settings page analytics reporting toggle title",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Püsivara allalaadimise edenemine",
+  "moreTitle": "Rohkem",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -651,13 +651,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse ümberjärjestamiseks võite pikalt vajutada.",
+  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse muutmiseks võite pikalt vajutada.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Jalutamine",
+  "settingsBatteryPercentageToggleTitle": "Näita aku %",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuskaardid kogu rakenduses",
+  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuse kaardid kogu rakenduses",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -810,6 +810,12 @@
   "settingsAlwaysScanningToggleTitle": "Otsige alati teadaolevat varustust",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Värskendus lõpetatud",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   }

@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Vleugels",
+  "sequencesEditName": "Naam",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "Beweging",
+  "sequencesEditDelay": "Vertraging",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
@@ -167,7 +167,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Actie verwijderen",
+  "sequencesEditDeleteDescription": "Weet u zeker dat u deze actie wilt verwijderen?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -195,7 +195,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Bluetooth is niet beschikbaar",
+  "actionsCategoryFast": "Snel en opgewonden",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -225,19 +225,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Grotere kaarten",
+  "settingsHapticsToggleTitle": "Haptische feedback",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Schakel trillingen in wanneer op een actie wordt getikt",
+  "settingsHapticsToggleSubTitle": "Schakel trillen in wanneer op een actie wordt getikt",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Grotere kaarten",
+  "settingsErrorReportingToggleTitle": "Automatische foutrapportage",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Grotere kaarten",
+  "manageDevicesColor": "Kleur uitrusting",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -381,13 +381,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Groepen verplaatsen",
+  "triggerCoverNear": "Toestel gedekt",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Activeer een actie door de nabijheidssensor af te dekken",
+  "triggerCoverFar": "Apparaat blootgelegd",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Volumeknoppen",
+  "triggerVolumeButtonDescription": "Activeer een actie door op de volumeknop te drukken",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Volume verminderen",
+  "triggerShakeTitle": "Schudden",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "EarGear-microfoon",
+  "triggerEarMicSound": "Geluid gedetecteerd",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -483,13 +483,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Rechtse kanteling",
+  "triggerEarTiltRight": "Rechts kantelen",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "EarGear-microfoon",
+  "triggerEarTiltForward": "Voorwaartse kanteling",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijk actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
+  "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijkertijd actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -687,13 +687,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Om een actie te verwijderen, drukt u op het terug-pictogram op het selectiescherm.",
+  "sequencesInfoDescription": "Met aangepaste acties kun je je eigen acties voor uitrusting maken. Als u op een aangepaste actie tikt, wordt deze afgespeeld. Tik op het potlood om een aangepaste actie te bewerken.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang ingedrukt houden om deze opnieuw te rangschikken.",
+  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang indrukken om deze opnieuw te rangschikken.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadProgressLabel": "Uploaden",
+  "otaUploadProgressLabel": "Firmware-uploadvoortgang",
   "@otaUploadProgressLabel": {
     "description": "Label for upload firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Om een actie te verwijderen, drukt u op het terug-pictogram op het selectiescherm.",
+  "onboardingPrivacyPolicyDescription": "Hoewel de verzamelde gegevens anoniem zijn en niet kunnen worden gebruikt om een specifieke gebruiker te identificeren, moet u nog steeds het privacybeleid accepteren",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Stuurt foutrapporten naar Sentry",
+  "onboardingBluetoothEnableButtonLabel": "Schakel Bluetooth in",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -810,6 +810,12 @@
   "settingsAlwaysScanningToggleTitle": "Scan altijd naar bekende uitrusting",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Update voltooid",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   }

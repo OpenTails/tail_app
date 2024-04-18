@@ -59,13 +59,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Elimina azione",
+  "ok": "OK",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Elimina azione",
+  "cancel": "Annulla",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -89,7 +89,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Sensore di inclinazione EarGear",
+  "triggerEarTiltBackward": "Inclinazione all'indietro",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Quanto velocemente dovrebbe spostarsi l'ingranaggio in questa posizione?",
+  "sequencesEditSpeed": "Con quale velocità l'ingranaggio dovrebbe spostarsi in questa posizione?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -191,7 +191,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Tipo di facilitazione",
+  "sequencesEditHomeLabel": "A casa l'ingranaggio",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Seleziona un'azione",
+  "settingsHapticsToggleTitle": "Feedback tattile",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Consenti analisi anonime",
+  "manageDevicesAutoMoveSubTitle": "La coda selezionerà una mossa casuale, facendo una pausa per un numero casuale di secondi tra ogni mossa",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsCalm": "Sposta gruppi",
+  "manageDevicesAutoMoveGroupsCalm": "Calma",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Attiva un'azione scuotendo il dispositivo",
+  "triggerProximityTitle": "Attrezzatura nelle vicinanze",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "Nessuna serie di azioni",
+  "triggerEarMicTitle": "Microfono EarGear",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Attrezzatura nelle vicinanze",
+  "triggerEarMicSound": "Suono rilevato",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Sensore di inclinazione EarGear",
+  "triggerEarTiltLeft": "Inclinazione sinistra",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "GlowTip",
+  "shellDeviceBarToggleLabel": "Attiva/disattiva la barra degli ingranaggi",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -621,7 +621,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Inclinazione destra",
+  "joyStickPageDescription": "Controllare direttamente la posizione del cambio.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Tocca la matita per selezionare l'azione da eseguire quando si verifica l'evento. Per rimuovere un'azione, premere l'icona Indietro nella schermata di selezione.",
+  "otaDownloadProgressLabel": "Avanzamento del download del firmware",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per essere toccate più facilmente",
+  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per facilitarne il tocco",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "link utili",
+  "otaTitle": "Aggiorna attrezzatura",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Nessuna serie di azioni",
+  "onboardingBluetoothEnableButtonLabel": "Attiva il Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Fatto",
+  "onboardingCompletedTitle": "Buon scodinzolante!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -810,6 +810,12 @@
   "settingsAlwaysScanningToggleTitle": "Cerca sempre l'attrezzatura conosciuta",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Aggiornamento completato",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
     "placeholders": {}
   }
