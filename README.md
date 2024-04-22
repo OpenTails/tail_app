@@ -8,7 +8,7 @@ A Cross Platform Tail Company gear control App
 
 ## Features
 
-- Support for the same actions/moves from Crumept
+- Support for the same actions/moves from Crumpet
 - Triggers for walking, shaking and other gestures
 - Custom Actions
 - Joystick for moving gear
