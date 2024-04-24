@@ -131,7 +131,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Positie van de rechterkant",
+  "sequencesEditRightServo": "Positie van de rechterservo",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Wijzig de app-kleur, configureer haptiek en meer",
+  "settingsDescription": "Wijzig de kleur van de app, configureer haptiek en meer",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang indrukken om deze opnieuw te rangschikken.",
+  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang ingedrukt houden om deze opnieuw te rangschikken.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadProgressLabel": "Firmware-uploadvoortgang",
+  "otaUploadProgressLabel": "Voortgang firmware-upload",
   "@otaUploadProgressLabel": {
     "description": "Label for upload firmware progress bar at bottom of OTA page",
     "type": "text",
