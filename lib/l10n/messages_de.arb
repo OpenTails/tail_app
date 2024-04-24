@@ -405,7 +405,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Position der rechten Seite",
+  "sequencesEditRightServo": "Position des rechten Servos",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Nach rechts neigen",
+  "triggerEarTiltRight": "Neigung nach rechts",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
