@@ -149,7 +149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "右側の位置",
+  "sequencesEditRightServo": "右サーボの位置",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
