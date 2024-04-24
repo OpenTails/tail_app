@@ -101,7 +101,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Posición del lado derecho",
+  "sequencesEditRightServo": "Posición del servo derecho",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
