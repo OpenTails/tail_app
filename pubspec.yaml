@@ -70,7 +70,7 @@ dependencies:
   plausible_analytics: ^0.3.0
   dio: ^5.4.3+1
   json_serializable: ^6.7.1
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   crypto: ^3.0.3
   animate_do: ^3.3.4
   fl_chart: ^0.67.0
