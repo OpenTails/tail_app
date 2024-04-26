@@ -149,7 +149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Poloha na pravé straně",
+  "sequencesEditRightServo": "Poloha pravého serva",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",

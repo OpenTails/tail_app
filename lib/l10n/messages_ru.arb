@@ -113,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Положение правой стороны",
+  "sequencesEditRightServo": "Положение правого сервопривода",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
