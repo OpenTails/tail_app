@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Dække over",
+  "triggerCoverTitle": "Højre tilt",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Brugerdefinerede handlinger",
+  "sequencesPage": "Tilpassede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -795,7 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Tryk igen for at afslutte ",
+  "doubleBackToClose": "Færdig ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
