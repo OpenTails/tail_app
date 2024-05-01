@@ -101,7 +101,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Křídla",
+  "deviceTypeWings": "Uši",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
