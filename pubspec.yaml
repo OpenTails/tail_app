@@ -48,7 +48,7 @@ dependencies:
       url: https://github.com/cph-cachet/flutter-plugins
       path: packages/flutter_foreground_service
       ref: 3d31c2d21828f618e52c0f6490d1b5c857e0e4ba
-  upgrader: ^10.2.0
+  upgrader: ^10.3.0
   chart_sparkline: ^1.0.15+1
   package_info_plus: ^7.0.0
   multi_value_listenable_builder: ^0.0.2
