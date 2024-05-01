@@ -39,7 +39,7 @@ dependencies:
   flutter_joystick: ^0.0.4
   sentry_flutter: ^7.20.0
   sentry_logging: ^7.20.0
-  sentry_hive: ^7.20.0
+  sentry_hive: ^7.20.1
   sentry_dio: ^7.20.0
   vector_math: ^2.1.4
   collection: ^1.18.0
