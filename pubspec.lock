@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "22600aa1e926be775fa5fe7e6894e7fb3df9efda8891c73f70fb3262399a432d"
+      sha256: "0763b45fa9294197a2885c8567927e2830ade852e5c896fd4ab7e0e348d0f373"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.10"
+    version: "3.5.0"
   args:
     dependency: transitive
     description:
@@ -389,10 +389,10 @@ packages:
     dependency: transitive
     description:
       name: feedback
-      sha256: fe585cb251d08074e25ba8a7f19c58861bda48387855c27ff84d8f8622873de6
+      sha256: "26769f73de6215add72074d24e4a23542e4c02a8fd1a873e7c93da5dc9c1d362"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   feedback_sentry:
     dependency: "direct main"
     description:
@@ -474,10 +474,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_adaptive_scaffold
-      sha256: "600bbe237530a249f957f7d0f36273c20bd38d137e28e098c5231c30cadbe927"
+      sha256: "9a1d5e9f728815e27b7b612883db19107ba8a35a46a97c757ea00896cb027451"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.10+1"
+    version: "0.1.10+2"
   flutter_android_volume_keydown:
     dependency: "direct main"
     description:
@@ -496,8 +496,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/flutter_foreground_service"
-      ref: "3d31c2d21828f618e52c0f6490d1b5c857e0e4ba"
-      resolved-ref: "3d31c2d21828f618e52c0f6490d1b5c857e0e4ba"
+      ref: HEAD
+      resolved-ref: "1a09f176126db5fdbcced77b9539768c8e602bf5"
       url: "https://github.com/cph-cachet/flutter-plugins"
     source: git
     version: "0.4.1"
@@ -1091,8 +1091,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/pedometer"
-      ref: "3d31c2d21828f618e52c0f6490d1b5c857e0e4ba"
-      resolved-ref: "3d31c2d21828f618e52c0f6490d1b5c857e0e4ba"
+      ref: HEAD
+      resolved-ref: "1a09f176126db5fdbcced77b9539768c8e602bf5"
       url: "https://github.com/cph-cachet/flutter-plugins"
     source: git
     version: "4.0.1"
@@ -1108,10 +1108,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: "1acac6bae58144b442f11e66621c062aead9c99841093c38f5bcdcc24c1c3474"
+      sha256: "8bb852cd759488893805c3161d0b2b5db55db52f773dbb014420b304055ba2c5"
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.5"
+    version: "12.0.6"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -1184,14 +1184,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
-  pointycastle:
-    dependency: transitive
-    description:
-      name: pointycastle
-      sha256: "70fe966348fe08c34bf929582f1d8247d9d9408130723206472b4687227e4333"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.8.0"
   pool:
     dependency: transitive
     description:
@@ -1237,10 +1229,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "4295c0daecdfa1cd1befa05b79821ae0f28f6cd0"
+      resolved-ref: b4796fa33c8a63577ba0ac34e3485e260e118686
       url: "https://github.com/Codel1417/flutter-proximity-sensor-plugin"
     source: git
-    version: "1.3.0"
+    version: "1.3.1"
   pub_semver:
     dependency: transitive
     description:
@@ -1667,10 +1659,10 @@ packages:
     dependency: "direct main"
     description:
       name: upgrader
-      sha256: "3716b5a697bbdc80c2365d500bb072e0087fbb15b14316a4869353fe8f261822"
+      sha256: d45483694620883107c2f5ca1dff7cdd4237b16810337a9c9c234203eb79eb5f
       url: "https://pub.dev"
     source: hosted
-    version: "10.2.0"
+    version: "10.3.0"
   url_launcher:
     dependency: "direct main"
     description:
@@ -1803,10 +1795,10 @@ packages:
     dependency: transitive
     description:
       name: web_socket
-      sha256: "7c57c6d0eb006e64d962d5c832bbe2ae9adbd887829944065f7467cbe13f6d8f"
+      sha256: bfe704c186c6e32a46f6607f94d079cd0b747b9a489fceeecc93cd3adb98edd5
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3"
   web_socket_channel:
     dependency: transitive
     description:
@@ -1835,10 +1827,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "0a989dc7ca2bb51eac91e8fd00851297cfffd641aa7538b165c62637ca0eaa4a"
+      sha256: "0eaf06e3446824099858367950a813472af675116bf63f008a4c2a75ae13e9cb"
       url: "https://pub.dev"
     source: hosted
-    version: "5.4.0"
+    version: "5.5.0"
   win32_registry:
     dependency: transitive
     description:
