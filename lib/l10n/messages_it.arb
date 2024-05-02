@@ -531,7 +531,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "Manuali",
+  "moreManualTitle": "A piedi",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per essere toccate più facilmente",
+  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per facilitarne il tocco",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",

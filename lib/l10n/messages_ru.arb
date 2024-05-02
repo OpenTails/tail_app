@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Нажмите еще раз, чтобы выйти ",
+  "doubleBackToClose": "Приятного виляния! ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",

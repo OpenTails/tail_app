@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Feedback verzenden",
+  "feedbackPage": "Stuur feedback",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Wijzig de kleur van de app, configureer haptiek en meer",
+  "settingsDescription": "Wijzig de app-kleur, configureer haptiek en meer",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang ingedrukt houden om deze opnieuw te rangschikken.",
+  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang indrukken om deze opnieuw te rangschikken.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadProgressLabel": "Voortgang firmware-upload",
+  "otaUploadProgressLabel": "Firmware-uploadvoortgang",
   "@otaUploadProgressLabel": {
     "description": "Label for upload firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -795,7 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Druk nogmaals om af te sluiten ",
+  "doubleBackToClose": "Veel plezier met kwispelen! ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
