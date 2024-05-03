@@ -45,7 +45,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions/setup-java@v4
-        if: matrix.os == 'ubuntu_latest'
+        if: matrix.os == 'ubuntu-latest'
         with:
           distribution: 'zulu'
           java-version: '17'
