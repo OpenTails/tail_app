@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-    name: Build Android Artifact
+    name: Build
     runs-on: ${{ matrix.os }}
     outputs:
       SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
