@@ -19,12 +19,20 @@ flutter gen-l10n
 DEBUG=""
 if [[ $GITHUB_EVENT_NAME == 'pull_request'  ]]; then
   DEBUG="--debug"
+else
+  DEBUG="--release"
 fi
 dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
 flutter pub run build_runner build --delete-conflicting-outputs
 if [[ ! -v SKIP_BUILD ]]; then
-  flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION"
-  flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+
+  if [[ -v IOS ]]; then
+    flutter build ipa $DEBUG--no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+  else
+    flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+    flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+  fi
+
   if [[ -v GITHUB_OUTPUT ]]; then
     echo "SENTRY_DIST=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
     echo "SENTRY_RELEASE=$VERSION" >> "$GITHUB_OUTPUT"
