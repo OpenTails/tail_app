@@ -58,6 +58,7 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
           GITHUB_EVENT_NAME: ${{ github.event_name }}
       - uses: actions/upload-artifact@v4
+        name: android
         with:
           path: |
             build/app/outputs/apk
@@ -93,6 +94,7 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           IOS: true
       - uses: actions/upload-artifact@v4
+        name: ios
         with:
           path: |
             build/ios/archive/
