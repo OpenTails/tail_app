@@ -32,8 +32,11 @@ jobs:
       - name: Analyze Dart
         uses: zgosalvez/github-actions-analyze-dart@v3
   build_android:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     name: Build Android Artifact
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     outputs:
       SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
       SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
@@ -42,6 +45,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions/setup-java@v4
+        if: matrix.os == 'ubuntu_latest'
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -57,8 +61,9 @@ jobs:
         env:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
           GITHUB_EVENT_NAME: ${{ github.event_name }}
+          OS: ${{ matrix.os }}
       - uses: actions/upload-artifact@v4
-        name: android
+        name: artifact-${{ matrix.os }}
         with:
           path: |
             build/app/outputs/apk
@@ -74,44 +79,9 @@ jobs:
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
           SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
           SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
-  build_ios:
-    name: Build IOS Artifact
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.19.2'
-          cache: true
-      - name: Run build script
-        id: build
-        run: zsh ${GITHUB_WORKSPACE}/Scripts/build.sh
-        working-directory: Scripts
-        env:
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          IOS: true
-      - uses: actions/upload-artifact@v4
-        name: ios
-        with:
-          path: |
-            build/ios/archive/
-      - name: Upload debug symbols
-        run: flutter packages pub run sentry_dart_plugin
-        if: github.event_name == 'push' || github.event_name == 'release'
-        continue-on-error: true
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-          SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
-          SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
   release-job:
     name: Releasing
-    needs: [build_android, build_ios]
+    needs: [build_android]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'created'
     steps:
