@@ -26,7 +26,7 @@ flutter pub run build_runner build --delete-conflicting-outputs
 if [[ ! -v SKIP_BUILD ]]; then
 
   if [[ -v IOS ]]; then
-    flutter build ipa $DEBUG--no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+    flutter build ipa $DEBUG --no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION"
   else
     flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION"
     flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
