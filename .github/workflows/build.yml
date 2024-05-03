@@ -57,7 +57,7 @@ jobs:
           cache: true
       - name: Run build script
         id: build
-        run: bash ${GITHUB_WORKSPACE}/Scripts/build.sh
+        run: bash ${GITHUB_WORKSPACE}/Scripts/launchBuild.sh
         working-directory: Scripts
         env:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
