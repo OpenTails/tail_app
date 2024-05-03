@@ -9,6 +9,11 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    groups:
+      sentry:
+        patterns:
+          - "sentry_*"
+          - "feedback_sentry"
   - package-ecosystem: "github-actions"
     directory: "/.github/workflows/"
     schedule:
@@ -17,3 +22,8 @@ updates:
     directory: "/android/"
     schedule:
       interval: "daily"
+  - package-ecosystem: "bundler" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+
