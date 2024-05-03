@@ -25,7 +25,7 @@ dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-defer
 flutter pub run build_runner build --delete-conflicting-outputs
 if [[ ! -v SKIP_BUILD ]]; then
 
-  if [[ -v IOS ]]; then
+  if [[ $OS == 'macos_latest' ]]; then
     flutter build ipa $DEBUG --no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION"
   else
     flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION"
