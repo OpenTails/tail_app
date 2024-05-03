@@ -35,6 +35,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+        flutter: [3.19.2,3.x]
     name: Build
     runs-on: ${{ matrix.os }}
     outputs:
@@ -52,7 +53,7 @@ jobs:
           cache: 'gradle'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.2'
+          flutter-version: ${{ matrix.os }}
           cache: true
       - name: Run build script
         id: build
@@ -63,7 +64,7 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           OS: ${{ matrix.os }}
       - uses: actions/upload-artifact@v4
-        name: artifact-${{ matrix.os }}
+        name: artifact-${{ matrix.os }}-${{ matrix.flutter }}
         with:
           path: |
             build/app/outputs/apk
