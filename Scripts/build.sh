@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -e
 set -x
 # We want to be in the project root folder, not the scripts folder
