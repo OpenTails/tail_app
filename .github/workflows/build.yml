@@ -109,7 +109,7 @@ jobs:
           SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
   release-job:
     name: Releasing
-    needs: build_android
+    needs: [build_android, build_ios]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'created'
     steps:
