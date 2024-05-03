@@ -65,6 +65,7 @@ jobs:
           OS: ${{ matrix.os }}
       - uses: actions/upload-artifact@v4
         name: artifact-${{ matrix.os }}-${{ matrix.flutter }}
+        continue-on-error: true
         with:
           path: |
             build/app/outputs/apk
