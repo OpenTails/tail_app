@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:feedback_sentry/feedback_sentry.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,14 @@ const String domain = "tail-app";
 
 late final Plausible plausible;
 final mainLogger = Logger('Main');
+
+Future<void> initFirebase() async {
+  final notificationSettings = await FirebaseMessaging.instance.requestPermission(provisional: true);
+  final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+  if (apnsToken != null) {
+    // APNS token is available, make FCM plugin API requests...
+  }
+}
 
 Future<void> main() async {
   Logger.root.level = Level.ALL;
