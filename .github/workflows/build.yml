@@ -67,6 +67,7 @@ jobs:
         name: artifact-${{ matrix.os }}-${{ matrix.flutter }}
         continue-on-error: true
         with:
+          name: artifact-${{ matrix.os }}-${{ matrix.flutter }}
           path: |
             build/app/outputs/apk
             build/app/outputs/bundle
