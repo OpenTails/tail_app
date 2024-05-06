@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:feedback_sentry/feedback_sentry.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +20,7 @@ import 'package:tail_app/Backend/action_registry.dart';
 
 import 'Backend/Bluetooth/bluetooth_manager.dart';
 import 'Backend/Definitions/Action/base_action.dart';
+import 'Backend/firebase.dart';
 import 'Backend/move_lists.dart';
 import 'Backend/plausible_dio.dart';
 import 'Backend/sensors.dart';
@@ -30,7 +30,7 @@ import 'constants.dart';
 
 //late SharedPreferences prefs;
 
-FutureOr<SentryEvent?> beforeSend(SentryEvent event, {Hint? hint}) async {
+FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
   bool reportingEnabled = SentryHive.box(settings).get("allowErrorReporting", defaultValue: true);
   if (reportingEnabled) {
     if (kDebugMode) {
@@ -48,14 +48,6 @@ const String domain = "tail-app";
 late final Plausible plausible;
 final mainLogger = Logger('Main');
 
-Future<void> initFirebase() async {
-  final notificationSettings = await FirebaseMessaging.instance.requestPermission(provisional: true);
-  final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-  if (apnsToken != null) {
-    // APNS token is available, make FCM plugin API requests...
-  }
-}
-
 Future<void> main() async {
   Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
@@ -67,6 +59,8 @@ Future<void> main() async {
   mainLogger.fine("Init Hive");
   await initHive();
   //initDio();
+  await initFirebase();
+  await initNotificationPlugin();
   mainLogger.fine("Init Sentry");
   await SentryFlutter.init(
     (options) async {
