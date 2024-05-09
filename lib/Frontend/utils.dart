@@ -10,10 +10,12 @@ Future<bool> getBluetoothPermission() async {
   if (Platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
     granted = PermissionStatus.granted == await Permission.bluetoothScan.request();
     granted = granted && PermissionStatus.granted == await Permission.bluetoothConnect.request();
-  } else {
+  } else if (Platform.isAndroid){
     granted = PermissionStatus.granted == await Permission.location.request();
     granted = granted && PermissionStatus.granted == await Permission.locationWhenInUse.request();
     granted = granted && PermissionStatus.granted == await Permission.bluetooth.request();
+  } else {
+    granted = PermissionStatus.granted == await Permission.bluetooth.request();
   }
   return granted;
 }

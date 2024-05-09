@@ -42,17 +42,25 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       Theme.of(context).brightness == Brightness.dark
-          ? SystemUiOverlayStyle.light.copyWith(statusBarColor: Theme.of(context).canvasColor, systemNavigationBarColor: Theme.of(context).canvasColor)
-          : SystemUiOverlayStyle.dark.copyWith(statusBarColor: Theme.of(context).canvasColor, systemNavigationBarColor: Theme.of(context).canvasColor),
+          ? SystemUiOverlayStyle.light.copyWith(
+              statusBarColor: Theme.of(context).canvasColor,
+              systemNavigationBarColor: Theme.of(context).canvasColor)
+          : SystemUiOverlayStyle.dark.copyWith(
+              statusBarColor: Theme.of(context).canvasColor,
+              systemNavigationBarColor: Theme.of(context).canvasColor),
     );
     const bodyStyle = TextStyle(fontSize: 19.0);
-    bool bluetoothPoweredOff = ref.watch(btStatusProvider).valueOrNull == BleStatus.poweredOff;
+    bool bluetoothPoweredOff =
+        ref.watch(btStatusProvider).valueOrNull == BleStatus.poweredOff;
     var pageDecoration = PageDecoration(
-      titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titleTextStyle:
+          const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Theme.of(context).canvasColor,
       imagePadding: EdgeInsets.zero,
+      footerFlex: 0,
+      footerPadding: EdgeInsets.zero,
     );
 
     return SafeArea(
@@ -106,7 +114,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
               children: [
                 FilledButton(
                   onPressed: () async {
-                    await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app/blob/master/PRIVACY.md'));
+                    await launchUrl(Uri.parse(
+                        'https://github.com/Codel1417/tail_app/blob/master/PRIVACY.md'));
                   },
                   child: Text(
                     onboardingPrivacyPolicyViewButtonLabel(),
@@ -118,7 +127,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                       : () {
                           setState(() {
                             privacyAccepted = true;
-                            SentryHive.box(settings).put(allowErrorReporting, true);
+                            SentryHive.box(settings)
+                                .put(allowErrorReporting, true);
                             SentryHive.box(settings).put(allowAnalytics, true);
                             introKey.currentState?.next();
                           });
@@ -154,7 +164,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   onPressed: !bluetoothPoweredOff
                       ? null
                       : () {
-                          AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
+                          AppSettings.openAppSettings(
+                              type: AppSettingsType.bluetooth);
                         },
                   child: Text(
                     onboardingBluetoothEnableButtonLabel(),
@@ -218,7 +229,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         onPressed: () {
           _onIntroEnd(context);
         },
-        child: Text(onboardingDoneButtonLabel(), style: const TextStyle(fontWeight: FontWeight.w600)),
+        child: Text(onboardingDoneButtonLabel(),
+            style: const TextStyle(fontWeight: FontWeight.w600)),
       ),
     ));
   }

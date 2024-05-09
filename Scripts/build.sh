@@ -26,6 +26,9 @@ flutter pub run build_runner build --delete-conflicting-outputs
 if [[ ! -v SKIP_BUILD ]]; then
 
   if [[ $OS == 'macos-latest' ]]; then
+    cd ios
+    pod install
+    cd ..
     flutter build ipa $DEBUG --no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION"
   else
     flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION"
