@@ -18,7 +18,7 @@ class _DeveloperPincodeState extends State<DeveloperPincode> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScreenLock(
-        title: LottieLazyLoad(
+        title: const LottieLazyLoad(
           asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834344.tgs',
           renderCache: true,
           width: 80,
