@@ -2,12 +2,12 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../main.dart';
 import '../intn_defs.dart';
+import 'lottie_lazy_load.dart';
 
 class ScanForNewDevice extends ConsumerStatefulWidget {
   const ScanForNewDevice({super.key, required this.scrollController});
@@ -76,11 +76,10 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                       duration: const Duration(seconds: 1, milliseconds: 500),
                       child: Transform.flip(
                         flipX: true,
-                        child: Lottie.asset(
+                        child: const LottieLazyLoad(
+                          asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs',
+                          renderCache: false,
                           width: 200,
-                          backgroundLoading: true,
-                          'assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs',
-                          decoder: LottieComposition.decodeGZip,
                         ),
                       ),
                     ),

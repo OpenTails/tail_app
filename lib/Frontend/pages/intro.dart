@@ -5,9 +5,9 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Frontend/Widgets/lottie_lazy_load.dart';
 import 'package:tail_app/Frontend/intn_defs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -42,19 +42,13 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       Theme.of(context).brightness == Brightness.dark
-          ? SystemUiOverlayStyle.light.copyWith(
-              statusBarColor: Theme.of(context).canvasColor,
-              systemNavigationBarColor: Theme.of(context).canvasColor)
-          : SystemUiOverlayStyle.dark.copyWith(
-              statusBarColor: Theme.of(context).canvasColor,
-              systemNavigationBarColor: Theme.of(context).canvasColor),
+          ? SystemUiOverlayStyle.light.copyWith(statusBarColor: Theme.of(context).canvasColor, systemNavigationBarColor: Theme.of(context).canvasColor)
+          : SystemUiOverlayStyle.dark.copyWith(statusBarColor: Theme.of(context).canvasColor, systemNavigationBarColor: Theme.of(context).canvasColor),
     );
     const bodyStyle = TextStyle(fontSize: 19.0);
-    bool bluetoothPoweredOff =
-        ref.watch(btStatusProvider).valueOrNull == BleStatus.poweredOff;
+    bool bluetoothPoweredOff = ref.watch(btStatusProvider).valueOrNull == BleStatus.poweredOff;
     var pageDecoration = PageDecoration(
-      titleTextStyle:
-          const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Theme.of(context).canvasColor,
@@ -89,24 +83,20 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         PageViewModel(
           title: title(),
           body: subTitle(),
-          image: Lottie.asset(
+          image: LottieLazyLoad(
+            asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834354.tgs',
+            renderCache: true,
             width: MediaQuery.of(context).size.width,
-            renderCache: RenderCache.raster,
-            backgroundLoading: true,
-            'assets/tailcostickers/tgs/TailCoStickers_file_144834354.tgs',
-            decoder: LottieComposition.decodeGZip,
           ),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: morePrivacyPolicyLinkTitle(),
           body: onboardingPrivacyPolicyDescription(),
-          image: Lottie.asset(
-            renderCache: RenderCache.raster,
+          image: LottieLazyLoad(
+            asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834359.tgs',
+            renderCache: true,
             width: MediaQuery.of(context).size.width,
-            backgroundLoading: true,
-            'assets/tailcostickers/tgs/TailCoStickers_file_144834359.tgs',
-            decoder: LottieComposition.decodeGZip,
           ),
           footer: Center(
             child: Wrap(
@@ -114,8 +104,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
               children: [
                 FilledButton(
                   onPressed: () async {
-                    await launchUrl(Uri.parse(
-                        'https://github.com/Codel1417/tail_app/blob/master/PRIVACY.md'));
+                    await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app/blob/master/PRIVACY.md'));
                   },
                   child: Text(
                     onboardingPrivacyPolicyViewButtonLabel(),
@@ -127,8 +116,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                       : () {
                           setState(() {
                             privacyAccepted = true;
-                            SentryHive.box(settings)
-                                .put(allowErrorReporting, true);
+                            SentryHive.box(settings).put(allowErrorReporting, true);
                             SentryHive.box(settings).put(allowAnalytics, true);
                             introKey.currentState?.next();
                           });
@@ -149,12 +137,10 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         PageViewModel(
           title: onboardingBluetoothTitle(),
           body: onboardingBluetoothDescription(),
-          image: Lottie.asset(
-            renderCache: RenderCache.raster,
+          image: LottieLazyLoad(
+            asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834357.tgs',
+            renderCache: true,
             width: MediaQuery.of(context).size.width,
-            backgroundLoading: true,
-            'assets/tailcostickers/tgs/TailCoStickers_file_144834357.tgs',
-            decoder: LottieComposition.decodeGZip,
           ),
           footer: Center(
             child: Wrap(
@@ -164,8 +150,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   onPressed: !bluetoothPoweredOff
                       ? null
                       : () {
-                          AppSettings.openAppSettings(
-                              type: AppSettingsType.bluetooth);
+                          AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
                         },
                   child: Text(
                     onboardingBluetoothEnableButtonLabel(),
@@ -200,12 +185,10 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         PageViewModel(
           title: onboardingCompletedTitle(),
           body: "",
-          image: Lottie.asset(
-            renderCache: RenderCache.raster,
+          image: LottieLazyLoad(
+            asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834338.tgs',
+            renderCache: true,
             width: MediaQuery.of(context).size.width,
-            backgroundLoading: true,
-            'assets/tailcostickers/tgs/TailCoStickers_file_144834338.tgs',
-            decoder: LottieComposition.decodeGZip,
           ),
           decoration: pageDecoration.copyWith(
             bodyFlex: 2,
@@ -229,8 +212,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         onPressed: () {
           _onIntroEnd(context);
         },
-        child: Text(onboardingDoneButtonLabel(),
-            style: const TextStyle(fontWeight: FontWeight.w600)),
+        child: Text(onboardingDoneButtonLabel(), style: const TextStyle(fontWeight: FontWeight.w600)),
       ),
     ));
   }

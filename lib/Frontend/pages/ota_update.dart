@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
@@ -14,6 +13,7 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/firmware_update.dart';
 import '../../constants.dart';
 import '../../main.dart';
+import '../Widgets/lottie_lazy_load.dart';
 import '../intn_defs.dart';
 import '../utils.dart';
 
@@ -156,12 +156,10 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Lottie.asset(
-                renderCache: RenderCache.raster,
+              LottieLazyLoad(
+                asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834339.tgs',
+                renderCache: true,
                 width: MediaQuery.of(context).size.width,
-                backgroundLoading: true,
-                'assets/tailcostickers/tgs/TailCoStickers_file_144834339.tgs',
-                decoder: LottieComposition.decodeGZip,
               ),
             ],
           ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 
 import '../../../constants.dart';
+import '../../Widgets/lottie_lazy_load.dart';
 
 class DeveloperPincode extends StatefulWidget {
   const DeveloperPincode({super.key});
@@ -18,11 +18,10 @@ class _DeveloperPincodeState extends State<DeveloperPincode> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScreenLock(
-        title: Lottie.asset(
-          renderCache: RenderCache.raster,
+        title: LottieLazyLoad(
+          asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834344.tgs',
+          renderCache: true,
           width: 80,
-          'assets/tailcostickers/tgs/TailCoStickers_file_144834344.tgs',
-          decoder: LottieComposition.decodeGZip,
         ),
         onCancelled: () => context.pop(),
         onUnlocked: () {
