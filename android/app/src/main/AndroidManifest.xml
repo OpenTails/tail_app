@@ -66,7 +66,7 @@
             android:value="false" />
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
-            android:value="true" />
+            android:value="false" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="newsletter" />
