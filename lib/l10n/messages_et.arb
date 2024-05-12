@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Tühista",
+  "cancel": "Eemalda tegevus",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Kiire ja põnev",
+  "actionsCategoryFast": "Rahulik ja lõdvestunud",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Kiire",
+  "manageDevicesAutoMoveGroupsFast": "Juhuslik režiim",
   "@manageDevicesAutoMoveGroupsFast": {
     "description": "Auto move group fast option label when managing a device",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonTitle": "Helitugevuse nupud",
+  "triggerVolumeButtonTitle": "Seade katmata",
   "@triggerVolumeButtonTitle": {
     "description": "Volume Button trigger title",
     "type": "text",
@@ -804,6 +804,12 @@
   "otaCompletedTitle": "Värskendus lõpetatud",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Uuendus ebaõnnestus",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
     "placeholders": {}
   }
