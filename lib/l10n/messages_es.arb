@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Los activadores envían automáticamente acciones a tu equipo. Puede tener varios activadores activos al mismo tiempo. Toque un disparador para editarlo, use el interruptor de la izquierda para habilitar el disparador.",
+  "triggerInfoDescription": "Los activadores envían acciones automáticamente a tu equipo. Puede tener varios activadores activos al mismo tiempo. Toque un disparador para editarlo, use el interruptor de la izquierda para habilitar el disparador.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -810,6 +810,18 @@
   "otaFailedTitle": "Actualización fallida",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Permitir notificaciones de boletines",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Recibir notificaciones automáticamente cuando haya un nuevo boletín",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
