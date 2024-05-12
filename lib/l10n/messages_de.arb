@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -810,6 +810,18 @@
   "otaFailedTitle": "Update fehlgeschlagen",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Automatisch benachrichtigt werden, wenn ein neuer Newsletter erscheint",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Newsletter-Benachrichtigungen zulassen",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
     "type": "text",
     "placeholders": {}
   }
