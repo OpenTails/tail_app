@@ -525,7 +525,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "Odpowiedzialne machanie",
+  "moreManualResponsibleWaggingTitle": "Pochylenie do przodu",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "Twórz niestandardowe akcje dla swojego sprzętu",
+  "sequencesPageDescription": "Wyzwalacze",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -810,6 +810,18 @@
   "otaFailedTitle": "Aktualizacja nie powiodła się",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Zezwalaj na powiadomienia biuletynem",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Automatycznie otrzymuj powiadomienia, gdy pojawi się nowy newsletter",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
