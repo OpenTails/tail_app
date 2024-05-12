@@ -1,8 +1,12 @@
+import 'package:cross_platform/cross_platform.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/firebase_options.dart';
+
+import '../constants.dart';
 
 final fireLogger = Logger('Firebase');
 
@@ -15,24 +19,8 @@ Future<void> initFirebase() async {
   try {
     fireLogger.info("Begin init Firebase");
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-    Firebase.app().setAutomaticDataCollectionEnabled(false);
+    await Firebase.app().setAutomaticDataCollectionEnabled(false);
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-    await messaging.subscribeToTopic("newsletter");
-    final notificationSettings = await messaging.requestPermission(
-      provisional: true,
-      sound: false,
-    );
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: false,
-    );
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       fireLogger.info('Got a message whilst in the foreground!');
       fireLogger.info('Message data: ${message.data}');
@@ -59,6 +47,37 @@ Future<void> initFirebase() async {
     });
   } catch (e, s) {
     fireLogger.shout('error setting up firebase', e, s);
+  }
+}
+
+Future<void> toggleFirebaseMessaging() async {
+  if (SentryHive.box(settings).get(allowNewsletterNotifications, defaultValue: allowNewsletterNotificationsDefault)) {
+    await init();
+  } else {
+    await deinit();
+  }
+}
+
+Future<void> deinit() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  await messaging.deleteToken();
+  await messaging.unsubscribeFromTopic("newsletter");
+}
+
+Future<void> init() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  await messaging.subscribeToTopic("newsletter");
+  await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: false,
+  );
+  if (Platform.isIOS) {
+    await messaging.setForegroundNotificationPresentationOptions(alert: true, badge: true);
   }
 }
 

@@ -21,6 +21,8 @@ const String hideTutorialCards = 'hideTutorialCards';
 const String hasCompletedOnboarding = 'hasCompletedOnboardingVersion';
 const String showDebugging = 'showDebugging';
 const String alwaysScanning = 'alwaysScanning';
+// Notification Settings
+const String allowNewsletterNotifications = 'allowNewsletterNotifications';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -39,6 +41,7 @@ const bool hideTutorialCardsDefault = false;
 const int hasCompletedOnboardingDefault = 0;
 const bool showDebuggingDefault = false;
 const bool alwaysScanningDefault = true;
+const bool allowNewsletterNotificationsDefault = false;
 // Triggers labels
 const String triggerBox = 'triggers';
 

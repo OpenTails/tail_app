@@ -214,6 +214,22 @@ class _SettingsState extends ConsumerState<Settings> {
           ListTile(
             //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
             title: Text(settingsAnalyticsToggleTitle()),
+            leading: const Icon(Icons.notifications),
+            subtitle: Text(settingsNewsletterToggleSubTitle()),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(allowNewsletterNotifications, defaultValue: allowNewsletterNotificationsDefault),
+              onChanged: (bool value) {
+                setState(() {
+                  SentryHive.box(settings).put(allowNewsletterNotifications, value);
+                });
+              },
+            ),
+          ),
+          const ListTile(
+            title: Divider(),
+          ),
+          ListTile(
+            title: Text(settingsAnalyticsToggleTitle()),
             leading: const Icon(Icons.analytics),
             subtitle: Text(settingsAnalyticsToggleSubTitle()),
             trailing: Switch(
