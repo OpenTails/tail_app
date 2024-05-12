@@ -41,7 +41,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Tegevused",
+  "actionsPage": "Muutke rakenduse värvi, seadistage Haptics ja palju muud",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse muutmiseks võite pikalt vajutada.",
+  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse ümberjärjestamiseks võite pikalt vajutada.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Värskendage Geari",
+  "otaTitle": "Privaatsuspoliitika",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Püsivara allalaadimise edenemine",
+  "otaDownloadProgressLabel": "Edusammud",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
