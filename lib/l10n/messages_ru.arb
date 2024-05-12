@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Изменить действие",
+  "sequencesEdit": "Новое действие",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFrustrated": "Расстроенный",
+  "manageDevicesAutoMoveGroupsFrustrated": "Спокойствие",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканирование нового снаряжения",
+  "scanDevicesTitle": "Сканируйте новое снаряжение",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "Звук тише",
+  "triggerVolumeButtonVolumeDown": "Запуск действия нажатием кнопки громкости",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -705,25 +705,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Скачать",
+  "otaDownloadButtonLabel": "Начать OTA-обновление",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Загрузить",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Ход загрузки прошивки",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "Ход загрузки прошивки",
+  "otaDownloadProgressLabel": "Прогресс",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -807,15 +795,33 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Всегда сканируйте известное снаряжение",
+  "settingsAlwaysScanningToggleTitle": "Включить вибрацию при нажатии на действие",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "otaCompletedTitle": "Обновление завершено",
+  "otaCompletedTitle": "Более",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Не удалось обновить",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Разрешить уведомления о новостной рассылке",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Автоматически получать уведомления о появлении нового информационного бюллетеня",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }

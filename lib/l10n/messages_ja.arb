@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "移動を追加",
+  "sequencesEditAdd": "音量を上げる",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -201,7 +201,7 @@
       }
     }
   },
-  "actionsNoBluetooth": "Bluetoothは利用できません",
+  "actionsNoBluetooth": "次の動きを[X20X]ミリ秒遅らせます。",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "尻尾はランダムな動きを選択し、各動きの間にランダムな秒数の間停止します。",
+  "manageDevicesAutoMoveSubTitle": "アプリの機能強化のため、識別されない機能の使用状況を Plausible に報告してください",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "シェイク",
+  "triggerShakeTitle": "近接センサーを覆うことでアクションをトリガーする",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "デジテールマニュアル",
+  "moreManualDigitailTitle": "DigiTail マニュアル",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -621,7 +621,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "ギアのカスタムアクションを作成する",
+  "sequencesPageDescription": "カスタムアクション",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -651,25 +651,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "ダウンロード",
+  "otaDownloadButtonLabel": "OTAアップデートを開始",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "アップロード",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "ファームウェアのアップロードの進行状況",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "ファームウェアのダウンロードの進行状況",
+  "otaDownloadProgressLabel": "進捗",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -681,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。カスタムアクションを編集するには、鉛筆をタップします。",
+  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。鉛筆をタップしてカスタムアクションを編集します。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -816,6 +804,24 @@
   "otaCompletedTitle": "更新が完了しました",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "アップデートに失敗しました",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "新しいニュースレターがあるときに自動的に通知を受け取る",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "ニュースレター通知を許可する",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
     "type": "text",
     "placeholders": {}
   }

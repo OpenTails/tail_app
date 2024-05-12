@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Hvilket gear skal dette gælde for?",
+  "deviceType": "Hvilket gear skal det gælde for?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -101,7 +101,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Vinger",
+  "deviceTypeWings": "Hale",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "Forsinke",
+  "sequencesEditDelay": "Bevæge sig",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Automatisk fejlrapportering",
+  "settingsErrorReportingToggleTitle": "Gør handlingskortene større for nemmere at trykke",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingTitle": "Gåture",
+  "triggerWalkingTitle": "Scan efter nyt gear",
   "@triggerWalkingTitle": {
     "description": "Walking/Step trigger title",
     "type": "text",
@@ -441,7 +441,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Gear i nærheden",
+  "triggerProximityTitle": "Nærliggende Gear",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Lyd registreret",
+  "triggerEarMicSound": "Lyd fundet",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "Opret tilpassede handlinger til dit udstyr",
+  "sequencesPageDescription": "Tilpassede handlinger",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -681,13 +681,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Fremskridt for download af firmware",
+  "otaDownloadProgressLabel": "Fremskridt",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Udløsere sender automatisk handlinger til dit udstyr. Du kan have flere udløsere aktive på samme tid. Tryk på en trigger for at redigere den, brug knappen til venstre for at aktivere triggeren.",
+  "triggerInfoDescription": "Firmware-ændringslog",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -705,25 +705,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Hent",
+  "otaDownloadButtonLabel": "Start OTA-opdatering",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Upload",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Fremskridt for upload af firmware",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoEditActionDescription": "Tryk på blyanten for at vælge den handling, der skal afspilles, når begivenheden finder sted. For at fjerne en handling skal du trykke på tilbage-ikonet på valgskærmen.",
+  "triggerInfoEditActionDescription": "Fremskridt for download af firmware",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -771,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Bluetooth-tilladelse er påkrævet for at oprette forbindelse til gear",
+  "onboardingBluetoothDescription": "Der kræves Bluetooth-tilladelse for at oprette forbindelse til gear",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -816,6 +804,24 @@
   "otaCompletedTitle": "Opdatering fuldført",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Opdatering fejlede",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Tillad nyhedsbrevsmeddelelser",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Modtag automatisk notifikationer, når der er et nyt nyhedsbrev",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }

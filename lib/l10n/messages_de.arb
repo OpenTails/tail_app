@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "aboutPage": "Um",
+  "aboutPage": "Feedback abschicken",
   "@aboutPage": {
     "description": "The label and title of the about page",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Wie schnell soll das Getriebe in diese Position gelangen?",
+  "sequencesEditSpeed": "Position des linken Servos",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Mehr",
+  "moreTitle": "Datenschutzrichtlinie",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -645,13 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadProgressLabel": "Fortschritt des Firmware-Uploads",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "Fortschritt des Firmware-Downloads",
+  "otaDownloadProgressLabel": "Fortschritt",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -681,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Batteriestand in % anzeigen",
+  "settingsBatteryPercentageToggleTitle": "Batterieprozentsatz anzeigen",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
@@ -711,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Die verschiedenen Lernkarten in der gesamten App ausblenden",
+  "settingsTutorialCardToggleSubTitle": "Tutorial-Karten ausblenden",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -723,21 +717,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Firmware-Änderungsprotokoll",
+  "otaChangelogLabel": "Ausrüstung aktualisieren",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Herunterladen",
+  "otaDownloadButtonLabel": "OTA-Update starten",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadButtonLabel": "Hochladen",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
@@ -789,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Viel Spaß beim Wedeln!",
+  "onboardingCompletedTitle": "Erledigt",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -816,6 +804,24 @@
   "otaCompletedTitle": "Update abgeschlossen",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Update fehlgeschlagen",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Automatisch benachrichtigt werden, wenn ein neuer Newsletter erscheint",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Newsletter-Benachrichtigungen zulassen",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
     "type": "text",
     "placeholders": {}
   }
