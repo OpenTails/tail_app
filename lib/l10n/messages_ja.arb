@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "デジテールマニュアル",
+  "moreManualDigitailTitle": "DigiTail マニュアル",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -810,6 +810,18 @@
   "otaFailedTitle": "アップデートに失敗しました",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "新しいニュースレターがあるときに自動的に通知を受け取る",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "ニュースレター通知を許可する",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
     "type": "text",
     "placeholders": {}
   }
