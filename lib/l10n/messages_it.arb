@@ -29,7 +29,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsPage": "Impostazioni",
+  "settingsPage": "Di",
   "@settingsPage": {
     "description": "The label and title of the settings page",
     "type": "text",
@@ -161,7 +161,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Posizione del servo sinistro",
+  "sequencesEditLeftServo": "Ritardo",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Quanto velocemente dovrebbe spostarsi l'ingranaggio in questa posizione?",
+  "sequencesEditSpeed": "Con quale velocità l'ingranaggio dovrebbe spostarsi in questa posizione?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Colore dell'ingranaggio",
+  "manageDevicesColor": "Fermare",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -465,7 +465,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Nessuna serie di azioni",
+  "triggerActionNotSet": "Attiva un'azione se l'attrezzatura è nelle vicinanze",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -651,13 +651,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Scaricamento",
+  "otaDownloadButtonLabel": "Inizia l'aggiornamento OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Avanzamento del download del firmware",
+  "otaDownloadProgressLabel": "Progresso",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per facilitarne il tocco",
+  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per essere toccate più facilmente",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -804,6 +804,12 @@
   "otaCompletedTitle": "Aggiornamento completato",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Aggiornamento non riuscito",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
     "placeholders": {}
   }
