@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-12T00:26:11.092964",
+  "@@last_modified": "2024-05-12T00:44:38.039698",
   "title": "Gear on the Go",
   "@title": {
     "description": "The name of the app",
@@ -368,6 +368,18 @@
   "settingsAnalyticsToggleSubTitle": "Report non identifying feature usage to Plausible for enhancing the app",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Allow Newsletter Notifications",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Automatically receive notifications when there is a new newsletter",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
