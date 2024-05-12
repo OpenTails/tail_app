@@ -711,18 +711,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Subir",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Progreso de la carga del firmware",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "otaDownloadProgressLabel": "Progreso de la descarga del firmware",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",

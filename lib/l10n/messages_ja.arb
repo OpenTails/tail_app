@@ -657,18 +657,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "アップロード",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "ファームウェアのアップロードの進行状況",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "otaDownloadProgressLabel": "ファームウェアのダウンロードの進行状況",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",

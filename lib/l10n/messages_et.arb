@@ -711,18 +711,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Laadi üles",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Püsivara üleslaadimise edenemine",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "otaDownloadProgressLabel": "Püsivara allalaadimise edenemine",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",

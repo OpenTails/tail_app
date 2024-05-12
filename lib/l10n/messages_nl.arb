@@ -729,18 +729,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Uploaden",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Firmware-uploadvoortgang",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "onboardingPrivacyPolicyViewButtonLabel": "Bekijk privacybeleid",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",

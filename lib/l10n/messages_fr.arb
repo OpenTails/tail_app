@@ -669,12 +669,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadProgressLabel": "Progression du téléchargement du micrologiciel",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "otaDownloadProgressLabel": "Progression du téléchargement du micrologiciel",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
@@ -732,12 +726,6 @@
   "otaDownloadButtonLabel": "Télécharger",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadButtonLabel": "Télécharger",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },

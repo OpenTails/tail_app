@@ -717,18 +717,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Wgrywać",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Postęp przesyłania oprogramowania sprzętowego",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "otaDownloadProgressLabel": "Postęp pobierania oprogramowania sprzętowego",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
