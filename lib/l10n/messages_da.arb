@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Tilpassede handlinger",
+  "sequencesPage": "Brugerdefinerede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Hvilket gear skal dette gælde for?",
+  "deviceType": "Hvilket gear skal det gælde for?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "Forsinke",
+  "sequencesEditDelay": "Bevæge sig",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Automatisk fejlrapportering",
+  "settingsErrorReportingToggleTitle": "Gør handlingskortene større for nemmere at trykke",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingTitle": "Gåture",
+  "triggerWalkingTitle": "Scan efter nyt gear",
   "@triggerWalkingTitle": {
     "description": "Walking/Step trigger title",
     "type": "text",
@@ -441,7 +441,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Gear i nærheden",
+  "triggerProximityTitle": "Nærliggende Gear",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "Opret tilpassede handlinger til dit udstyr",
+  "sequencesPageDescription": "Tilpassede handlinger",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -681,7 +681,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Fremskridt for download af firmware",
+  "otaDownloadProgressLabel": "Fremskridt",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -705,13 +705,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Hent",
+  "otaDownloadButtonLabel": "Start OTA-opdatering",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tryk på blyanten for at vælge den handling, der skal afspilles, når begivenheden finder sted. For at fjerne en handling skal du trykke på tilbage-ikonet på valgskærmen.",
+  "triggerInfoEditActionDescription": "Fremskridt for download af firmware",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -804,6 +804,12 @@
   "otaCompletedTitle": "Opdatering fuldført",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Opdatering fejlede",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
     "placeholders": {}
   }
