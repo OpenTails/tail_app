@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Lae alla",
+  "otaDownloadButtonLabel": "Alustage OTA värskendamist",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
