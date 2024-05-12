@@ -279,7 +279,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Příležitostný režim",
+  "manageDevicesAutoMoveTitle": "Povolit anonymní analýzu",
   "@manageDevicesAutoMoveTitle": {
     "description": "Auto move toggle title when managing a device",
     "type": "text",
@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Zařízení kryté",
+  "triggerCoverNear": "Pokrýt",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -810,6 +810,18 @@
   "otaFailedTitle": "Aktualizace selhala",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Povolit upozornění na bulletin",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Automaticky dostávat upozornění, když je nový newsletter",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
