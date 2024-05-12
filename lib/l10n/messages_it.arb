@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Coda",
+  "deviceTypeTail": "A quale attrezzatura dovrebbe applicarsi?",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Con quale velocità l'ingranaggio dovrebbe spostarsi in questa posizione?",
+  "sequencesEditSpeed": "Quanto velocemente dovrebbe spostarsi l'ingranaggio in questa posizione?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -810,6 +810,18 @@
   "otaFailedTitle": "Aggiornamento non riuscito",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Consenti notifiche newsletter",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Ricevi automaticamente notifiche quando c'è una nuova newsletter",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
