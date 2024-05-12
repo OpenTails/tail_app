@@ -78,8 +78,7 @@ String sequencesEditDeleteTitle() => Intl.message('Delete Action', name: 'sequen
 
 String sequencesEditDeleteDescription() => Intl.message('Are you sure you want to delete this action?', name: 'sequencesEditDeleteDescription', desc: 'Message of the dialog on the sequence edit page to delete the sequence');
 
-String sequenceEditListDelayLabel(int howMany) =>
-    Intl.message(
+String sequenceEditListDelayLabel(int howMany) => Intl.message(
       'Delay next move for $howMany ms.',
       name: 'sequenceEditListDelayLabel',
       args: [howMany],
@@ -252,19 +251,16 @@ String otaTitle() => Intl.message("Update Gear", name: 'otaTitle', desc: 'Title 
 
 String otaChangelogLabel() => Intl.message("Firmware Changelog", name: 'otaChangelogLabel', desc: 'Label for changelog section of OTA page');
 
-String otaDownloadButtonLabel() => Intl.message("Download", name: 'otaDownloadButtonLabel', desc: 'Label for download firmware button at bottom of OTA page');
+String otaDownloadButtonLabel() => Intl.message("Begin OTA Update", name: 'otaDownloadButtonLabel', desc: 'Label for download firmware button at bottom of OTA page');
 
-String otaUploadButtonLabel() => Intl.message("Upload", name: 'otaUploadButtonLabel', desc: 'Label for upload firmware button at bottom of OTA page');
-
-String otaUploadProgressLabel() => Intl.message("Firmware Upload Progress", name: 'otaUploadProgressLabel', desc: 'Label for upload firmware progress bar at bottom of OTA page');
-
-String otaDownloadProgressLabel() => Intl.message("Firmware Download Progress", name: 'otaDownloadProgressLabel', desc: 'Label for download firmware progress bar at bottom of OTA page');
+String otaDownloadProgressLabel() => Intl.message("Progress", name: 'otaDownloadProgressLabel', desc: 'Label for download firmware progress bar at bottom of OTA page');
 
 String otaCompletedTitle() => Intl.message("Update Completed", name: 'otaCompletedTitle', desc: 'Title for the text that appears when an OTA update is completed');
 
-String triggerInfoDescription() =>
-    Intl.message('Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, use the toggle on the left to enable the trigger.',
-        name: 'triggerInfoDescription', desc: 'Description for what a trigger is and how to use them on the triggers page');
+String otaFailedTitle() => Intl.message("Update Failed", name: 'otaFailedTitle', desc: 'Title for the text that appears when an OTA update has failed');
+
+String triggerInfoDescription() => Intl.message('Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, use the toggle on the left to enable the trigger.',
+    name: 'triggerInfoDescription', desc: 'Description for what a trigger is and how to use them on the triggers page');
 
 String triggerInfoEditActionDescription() =>
     Intl.message('Tap the pencil to select the Action to play when the event happens. To remove an Action, press the back icon on the selection screen.', name: 'triggerInfoEditActionDescription', desc: 'Instruction on how to select an action on the trigger edit page');

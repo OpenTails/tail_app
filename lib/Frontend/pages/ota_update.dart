@@ -100,46 +100,44 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ButtonBar(
-                        alignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(onPressed: updateURL != null ? () => downloadFirmware() : null, child: Text(otaDownloadButtonLabel())),
-                          ElevatedButton(onPressed: firmwareFile != null && otaState != OtaState.upload ? () => uploadFirmware() : null, child: Text(otaUploadButtonLabel())),
-                          if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
-                            ElevatedButton(
-                              onPressed: () async {
-                                FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                  type: FileType.custom,
-                                  withData: true,
-                                  allowedExtensions: ['bin'],
-                                );
-                                if (result != null) {
-                                  setState(() {
-                                    firmwareFile = result.files.single.bytes?.toList(growable: false);
-                                    Digest digest = md5.convert(firmwareFile!);
-                                    downloadProgress = 1;
-                                    downloadedMD5 = digest.toString();
-                                    otaState = OtaState.manual;
-                                  });
-                                } else {
-                                  // User canceled the picker
-                                }
-                              },
-                              child: const Text("Select file"),
-                            )
+                      AnimatedCrossFade(
+                        firstChild: ListTile(
+                          title: Text(otaDownloadProgressLabel()),
+                          leading: Icon(downloadProgress < 1 ? Icons.download : Icons.upload),
+                          subtitle: LinearProgressIndicator(value: (downloadProgress + uploadProgress) / 2),
+                        ),
+                        secondChild: ButtonBar(
+                          alignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(onPressed: (updateURL != null || firmwareFile != null) && ref.read(knownDevicesProvider)[widget.device]!.batteryLevel.value > 50 ? () => beginUpdate : null, child: Text(otaDownloadButtonLabel())),
+                            if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                              ElevatedButton(
+                                onPressed: () async {
+                                  FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                    type: FileType.custom,
+                                    withData: true,
+                                    allowedExtensions: ['bin'],
+                                  );
+                                  if (result != null) {
+                                    setState(() {
+                                      firmwareFile = result.files.single.bytes?.toList(growable: false);
+                                      Digest digest = md5.convert(firmwareFile!);
+                                      downloadProgress = 1;
+                                      downloadedMD5 = digest.toString();
+                                      otaState = OtaState.manual;
+                                    });
+                                  } else {
+                                    // User canceled the picker
+                                  }
+                                },
+                                child: const Text("Select file"),
+                              )
+                            ],
                           ],
-                        ],
+                        ),
+                        crossFadeState: [OtaState.download, OtaState.upload].contains(otaState) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                        duration: animationTransitionDuration,
                       ),
-                      ListTile(
-                        title: Text(otaDownloadProgressLabel()),
-                        leading: const Icon(Icons.download),
-                        subtitle: LinearProgressIndicator(value: downloadProgress),
-                      ),
-                      ListTile(
-                        title: Text(otaUploadProgressLabel()),
-                        leading: const Icon(Icons.upload),
-                        subtitle: LinearProgressIndicator(value: uploadProgress),
-                      )
                     ],
                   ),
                 ),
@@ -149,25 +147,50 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
           secondChild: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ListTile(
-                title: Text(
-                  otaCompletedTitle(),
-                  style: Theme.of(context).textTheme.titleLarge,
-                  textAlign: TextAlign.center,
+              if (otaState == OtaState.completed) ...[
+                ListTile(
+                  title: Text(
+                    otaCompletedTitle(),
+                    style: Theme.of(context).textTheme.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-              LottieLazyLoad(
-                asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834339.tgs',
-                renderCache: true,
-                width: MediaQuery.of(context).size.width,
-              ),
+                LottieLazyLoad(
+                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834339.tgs',
+                  renderCache: true,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ],
+              if (otaState == OtaState.error) ...[
+                ListTile(
+                  title: Text(
+                    otaFailedTitle(),
+                    style: Theme.of(context).textTheme.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                LottieLazyLoad(
+                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834348.tgs',
+                  renderCache: true,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ]
             ],
           ),
           duration: animationTransitionDuration,
-          crossFadeState: otaState == OtaState.completed ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+          crossFadeState: [OtaState.error, OtaState.completed].contains(otaState) ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         ),
       ),
     );
+  }
+
+  Future<void> beginUpdate() async {
+    if (firmwareFile == null) {
+      await downloadFirmware();
+    }
+    if (otaState != OtaState.error) {
+      await uploadFirmware();
+    }
   }
 
   Future<void> downloadFirmware() async {
@@ -193,11 +216,13 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
           firmwareFile = rs.data;
         } else {
           transaction.status = const SpanStatus.dataLoss();
+          otaState = OtaState.error;
         }
       }
     } catch (e) {
       transaction.throwable = e;
       transaction.status = const SpanStatus.internalError();
+      otaState = OtaState.error;
     }
     transaction.finish();
   }
