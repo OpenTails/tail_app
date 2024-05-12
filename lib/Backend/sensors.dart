@@ -100,6 +100,33 @@ BaseAction? getActionFromUUID(GetActionFromUUIDRef ref, String? uuid) {
   return actions.where((element) => element.uuid == uuid).firstOrNull;
 }
 
+class TriggerPermissionHandle {
+  final Set<Permission> android;
+  final Set<Permission> ios;
+
+  const TriggerPermissionHandle({this.android = const {}, this.ios = const {}});
+
+  Future<bool> hasAllPermissions() async {
+    if (Platform.isAndroid) {
+      for (Permission permission in android) {
+        PermissionStatus permissionStatus = await permission.request();
+        if (PermissionStatus.granted != permissionStatus) {
+          return false;
+        }
+      }
+    }
+    if (Platform.isIOS) {
+      for (Permission permission in ios) {
+        PermissionStatus permissionStatus = await permission.request();
+        if (PermissionStatus.granted != permissionStatus) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+}
+
 abstract class TriggerDefinition extends ChangeNotifier implements Comparable<TriggerDefinition> {
   late String name;
   late String description;
@@ -119,8 +146,8 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
       _enabled = false;
       onDisable();
     } else if (requiredPermission != null && value) {
-      requiredPermission?.request().then((permissionStatus) {
-        if (permissionStatus == PermissionStatus.granted) {
+      requiredPermission?.hasAllPermissions().then((granted) {
+        if (granted) {
           _enabled = true;
           onEnable();
         }
@@ -139,7 +166,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
 
   Future<void> onDisable();
 
-  Permission? requiredPermission;
+  TriggerPermissionHandle? requiredPermission;
   late List<TriggerActionDef> actionTypes;
 
   TriggerDefinition(this.ref);
@@ -184,7 +211,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     super.name = triggerWalkingTitle();
     super.description = triggerWalkingDescription();
     super.icon = const Icon(Icons.directions_walk);
-    super.requiredPermission = Permission.activityRecognition;
+    super.requiredPermission = TriggerPermissionHandle(android: {Permission.activityRecognition});
     super.uuid = "ee9379e2-ec4f-40bb-8674-fd223a6edfda";
     super.actionTypes = [TriggerActionDef("Walking", triggerWalkingTitle(), "77d22961-5a69-465a-bd27-5cf5508d10a6"), TriggerActionDef("Stopped", triggerWalkingStopped(), "7424097d-ba24-4d85-b963-bf58e85e289d"), TriggerActionDef("Step", triggerWalkingStep(), "c82b04ba-7d2e-475a-90ba-3d354e5b8ef0")];
   }
@@ -492,7 +519,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
     super.name = triggerProximityTitle();
     super.description = triggerProximityDescription();
     super.icon = const Icon(Icons.bluetooth_connected);
-    super.requiredPermission = Permission.bluetoothScan;
+    super.requiredPermission = TriggerPermissionHandle(android: {Permission.bluetoothScan}, ios: {Permission.bluetooth});
     super.uuid = "5418e7a5-850b-482e-ba35-163564c848ab";
     super.actionTypes = [TriggerActionDef("Nearby Gear", triggerProximityTitle(), "e78a749b-8b78-47df-a5a1-1ed365292214")];
   }
