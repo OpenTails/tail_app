@@ -95,13 +95,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Uši",
+  "deviceTypeEars": "Rychlý a nadšený",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Uši",
+  "deviceTypeWings": "Přidat spouštěč",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Uši",
+  "actionsCategoryEars": "Rychlý a nadšený",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsTitle": "Přesunout skupiny",
+  "manageDevicesAutoMoveGroupsTitle": "Spusťte akci, když EarGear detekuje zvuk",
   "@manageDevicesAutoMoveGroupsTitle": {
     "description": "Auto move group selector title when managing a device",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "morePrivacyPolicyLinkTitle": "Zásady ochrany osobních údajů",
+  "morePrivacyPolicyLinkTitle": "Klepnutím zobrazíte",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
@@ -681,13 +681,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Stažení",
+  "otaDownloadButtonLabel": "Spusťte aktualizaci OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Průběh stahování firmwaru",
+  "otaDownloadProgressLabel": "Pokrok",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -759,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Udělení povolení",
+  "onboardingBluetoothRequestButtonLabel": "Zapněte Bluetooth",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -804,6 +804,12 @@
   "otaCompletedTitle": "Aktualizace dokončena",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Aktualizace selhala",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
     "placeholders": {}
   }
