@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Firmware-uploadvoortgang",
+  "triggersSelectLabel": "Update voltooid",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Schakel trillen in wanneer op een actie wordt getikt",
+  "settingsHapticsToggleSubTitle": "Schakel trillingen in wanneer op een actie wordt getikt",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -723,7 +723,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Start OTA-update",
+  "otaDownloadButtonLabel": "OTA-update starten",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -810,6 +810,18 @@
   "otaFailedTitle": "Update mislukt",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Nieuwsbriefmeldingen toestaan",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Ontvang automatisch notificaties als er een nieuwe nieuwsbrief is",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
