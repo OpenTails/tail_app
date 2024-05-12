@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-04-24T13:35:10.530720",
+  "@@last_modified": "2024-05-12T00:26:11.092964",
   "title": "Gear on the Go",
   "@title": {
     "description": "The name of the app",
@@ -707,25 +707,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Download",
+  "otaDownloadButtonLabel": "Begin OTA Update",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Upload",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Firmware Upload Progress",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "Firmware Download Progress",
+  "otaDownloadProgressLabel": "Progress",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -734,6 +722,12 @@
   "otaCompletedTitle": "Update Completed",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Update Failed",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
     "placeholders": {}
   },
