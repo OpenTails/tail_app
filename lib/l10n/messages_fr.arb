@@ -1,5 +1,5 @@
 {
-  "sequencesEditDelay": "Retard",
+  "sequencesEditDelay": "Se déplacer",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Retardez le prochain coup pendant {howMany} ms.",
+  "sequenceEditListDelayLabel": "Retardez le prochain coup de {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesForget": "Oublier",
+  "manageDevicesForget": "Couleur de l'engrenage",
   "@manageDevicesForget": {
     "description": "manage devices forget button title when managing a device",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsPage": "Paramètres",
+  "settingsPage": "À propos",
   "@settingsPage": {
     "description": "The label and title of the settings page",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "À quel équipement cela devrait-il s'appliquer ?",
+  "deviceType": "À quel matériel cela devrait-il s'appliquer ?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -447,7 +447,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Déclenchez une action lorsque EarGear détecte une inclinaison",
+  "triggerEarTiltDescription": "Capteur d'inclinaison EarGear",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleTitle": "Cartes plus grandes",
+  "settingsLargerCardsToggleTitle": "Afficher le niveau réel de la batterie au lieu d'une icône",
   "@settingsLargerCardsToggleTitle": {
     "description": "Settings page Larger cards toggle title",
     "type": "text",
@@ -669,13 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadProgressLabel": "Progression du téléchargement du micrologiciel",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "Progression du téléchargement du micrologiciel",
+  "otaDownloadProgressLabel": "Progrès",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -693,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Les actions personnalisées vous permettent de créer vos propres actions pour l'équipement. En appuyant sur une action personnalisée, vous la jouerez. Appuyez sur le crayon pour modifier une action personnalisée.",
+  "sequencesInfoDescription": "Plus",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -729,15 +723,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Télécharger",
+  "otaDownloadButtonLabel": "Commencer la mise à jour OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadButtonLabel": "Télécharger",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
@@ -777,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Activer Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Activer le Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -816,6 +804,24 @@
   "otaCompletedTitle": "Mise à jour terminée",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Mise à jour a échoué",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Autoriser les notifications de newsletter",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Recevez automatiquement des notifications lorsqu'il y a une nouvelle newsletter",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }

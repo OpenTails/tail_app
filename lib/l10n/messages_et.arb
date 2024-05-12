@@ -41,13 +41,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Tegevused",
+  "actionsPage": "Muutke rakenduse värvi, seadistage Haptics ja palju muud",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Päästikud",
+  "triggersPage": "Muutke rakenduse värvi, seadistage Haptics ja palju muud",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Tühista",
+  "cancel": "Eemalda tegevus",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Kiire ja põnev",
+  "actionsCategoryFast": "Rahulik ja lõdvestunud",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Kiire",
+  "manageDevicesAutoMoveGroupsFast": "Juhuslik režiim",
   "@manageDevicesAutoMoveGroupsFast": {
     "description": "Auto move group fast option label when managing a device",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonTitle": "Helitugevuse nupud",
+  "triggerVolumeButtonTitle": "Seade katmata",
   "@triggerVolumeButtonTitle": {
     "description": "Volume Button trigger title",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Värskendage Geari",
+  "otaTitle": "Privaatsuspoliitika",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -705,25 +705,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Lae alla",
+  "otaDownloadButtonLabel": "Alustage OTA värskendamist",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Laadi üles",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Püsivara üleslaadimise edenemine",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "Püsivara allalaadimise edenemine",
+  "otaDownloadProgressLabel": "Edusammud",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -816,6 +804,24 @@
   "otaCompletedTitle": "Värskendus lõpetatud",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Uuendus ebaõnnestus",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Lubage uudiskirja märguanded",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Saate automaatselt teateid uue uudiskirja ilmumisel",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }

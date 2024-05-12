@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Activa una acción agitando tu dispositivo",
+  "triggerShakeDescription": "Bajar volumen",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -207,7 +207,7 @@
       }
     }
   },
-  "feedbackPage": "Enviar comentarios",
+  "feedbackPage": "Controla directamente la posición del engranaje.",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -429,7 +429,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesBatteryGraphTitle": "Gráfico de batería",
+  "manageDevicesBatteryGraphTitle": "Pausa entre movimientos",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Mantener la pantalla encendida",
+  "settingsKeepScreenOnToggleTitle": "Busque siempre equipo conocido",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -705,25 +705,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Descargar",
+  "otaDownloadButtonLabel": "Comenzar la actualización OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaUploadButtonLabel": "Subir",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Progreso de la carga del firmware",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "Progreso de la descarga del firmware",
+  "otaDownloadProgressLabel": "Progreso",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -789,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "¡Feliz meneo!",
+  "onboardingCompletedTitle": "Hecho",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -816,6 +804,24 @@
   "otaCompletedTitle": "Actualización completada",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Actualización fallida",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Permitir notificaciones de boletines",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Recibir notificaciones automáticamente cuando haya un nuevo boletín",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }

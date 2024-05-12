@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Selecteer een triggertype",
+  "triggersSelectLabel": "Update voltooid",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
@@ -161,7 +161,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Actie verwijderen",
+  "sequencesEditDeleteTitle": "Thuis de uitrusting",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Schakel trillen in wanneer op een actie wordt getikt",
+  "settingsHapticsToggleSubTitle": "Schakel trillingen in wanneer op een actie wordt getikt",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStopped": "Gestopt",
+  "triggerWalkingStopped": "Activeer een actie tijdens het lopen",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
     "type": "text",
@@ -567,13 +567,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Tik om te bekijken",
+  "moreManualSubTitle": "Handleidingen",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Wijzig de app-kleur, configureer haptiek en meer",
+  "settingsDescription": "Wijzig de kleur van de app, configureer haptiek en meer",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -663,13 +663,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Verberg de verschillende leskaarten in de hele app",
+  "settingsTutorialCardToggleSubTitle": "Leskaarten verbergen",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Voortgang firmwaredownload",
+  "otaDownloadProgressLabel": "Voortgang",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -723,21 +723,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Downloaden",
+  "otaDownloadButtonLabel": "OTA-update starten",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadButtonLabel": "Uploaden",
-  "@otaUploadButtonLabel": {
-    "description": "Label for upload firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaUploadProgressLabel": "Firmware-uploadvoortgang",
-  "@otaUploadProgressLabel": {
-    "description": "Label for upload firmware progress bar at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
@@ -816,6 +804,24 @@
   "otaCompletedTitle": "Update voltooid",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Update mislukt",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Nieuwsbriefmeldingen toestaan",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Ontvang automatisch notificaties als er een nieuwe nieuwsbrief is",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
