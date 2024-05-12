@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Brugerdefinerede handlinger",
+  "sequencesPage": "Tilpassede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -101,7 +101,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Vinger",
+  "deviceTypeWings": "Hale",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Lyd registreret",
+  "triggerEarMicSound": "Lyd fundet",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Udløsere sender automatisk handlinger til dit udstyr. Du kan have flere udløsere aktive på samme tid. Tryk på en trigger for at redigere den, brug knappen til venstre for at aktivere triggeren.",
+  "triggerInfoDescription": "Firmware-ændringslog",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -759,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Bluetooth-tilladelse er påkrævet for at oprette forbindelse til gear",
+  "onboardingBluetoothDescription": "Der kræves Bluetooth-tilladelse for at oprette forbindelse til gear",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -810,6 +810,18 @@
   "otaFailedTitle": "Opdatering fejlede",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Tillad nyhedsbrevsmeddelelser",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Modtag automatisk notifikationer, når der er et nyt nyhedsbrev",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
