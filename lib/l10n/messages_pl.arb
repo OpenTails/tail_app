@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "działania",
+  "actionsPage": "Zmień kolor aplikacji, skonfiguruj dotyk i nie tylko",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
@@ -155,7 +155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Czy na pewno chcesz usunąć tę akcję?",
+  "sequencesEditDeleteDescription": "Usuń akcję",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStep": "Krok",
+  "triggerWalkingStep": "Zatrzymany",
   "@triggerWalkingStep": {
     "description": "Walking/Step trigger Step action label",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Ukryj różne karty samouczków w całej aplikacji",
+  "settingsTutorialCardToggleSubTitle": "Ukryj karty samouczków",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Każda akcja niestandardowa składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
+  "sequencesInfoEditDescription": "Każda Akcja Własna składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -711,13 +711,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Pobierać",
+  "otaDownloadButtonLabel": "Rozpocznij aktualizację OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Postęp pobierania oprogramowania sprzętowego",
+  "otaDownloadProgressLabel": "Postęp",
   "@otaDownloadProgressLabel": {
     "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
@@ -804,6 +804,12 @@
   "otaCompletedTitle": "Aktualizacja zakończona",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Aktualizacja nie powiodła się",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
     "placeholders": {}
   }
