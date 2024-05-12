@@ -45,7 +45,7 @@ final GoRouter router = GoRouter(
                   name: 'Actions',
                 ),
             redirect: (context, state) {
-              if (!SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault)) {
+              if (SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree) {
                 return '/onboarding';
               }
               return null;
