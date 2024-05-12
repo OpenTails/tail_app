@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Retardez le prochain coup pendant {howMany} ms.",
+  "sequenceEditListDelayLabel": "Retardez le prochain coup de {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -171,7 +171,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "La queue sélectionnera un mouvement aléatoire, en faisant une pause d'un nombre aléatoire de secondes entre chaque mouvement.",
+  "manageDevicesAutoMoveSubTitle": "La queue sélectionnera un mouvement aléatoire, s'arrêtant pendant un nombre aléatoire de secondes entre chaque mouvement",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -810,6 +810,18 @@
   "otaFailedTitle": "Mise à jour a échoué",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Autoriser les notifications de newsletter",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Recevez automatiquement des notifications lorsqu'il y a une nouvelle newsletter",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
