@@ -30,7 +30,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   void _onIntroEnd(BuildContext context) {
     // Navigator.of(context).pushReplacement()
     plausible.event(name: "Complete Onboarding");
-    SentryHive.box(settings).put(hasCompletedOnboarding, true);
+    SentryHive.box(settings).put(hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
     context.pushReplacement('/');
   }
 

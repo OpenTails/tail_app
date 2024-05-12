@@ -59,11 +59,11 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text(hasCompletedOnboarding),
             trailing: Switch(
-              value: SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboarding),
+              value: SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree,
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(hasCompletedOnboarding, value);
+                    SentryHive.box(settings).put(hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
                   },
                 );
               },

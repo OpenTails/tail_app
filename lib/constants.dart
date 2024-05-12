@@ -18,7 +18,7 @@ const String firstLaunchSensors = 'firstLaunchSensors';
 const String showAccurateBattery = 'showAccurateBattery';
 const String largerActionCardSize = 'largerActionCardSize';
 const String hideTutorialCards = 'hideTutorialCards';
-const String hasCompletedOnboarding = 'hasCompletedOnboarding';
+const String hasCompletedOnboarding = 'hasCompletedOnboardingVersion';
 const String showDebugging = 'showDebugging';
 const String alwaysScanning = 'alwaysScanning';
 
@@ -36,10 +36,12 @@ const bool firstLaunchSensorsDefault = true;
 const bool showAccurateBatteryDefault = false;
 const bool largerActionCardSizeDefault = false;
 const bool hideTutorialCardsDefault = false;
-const bool hasCompletedOnboardingDefault = false;
+const int hasCompletedOnboardingDefault = 0;
 const bool showDebuggingDefault = false;
 const bool alwaysScanningDefault = true;
 // Triggers labels
 const String triggerBox = 'triggers';
 
 const String favoriteActionsBox = 'favoriteActions';
+
+const int hasCompletedOnboardingVersionToAgree = 1;
