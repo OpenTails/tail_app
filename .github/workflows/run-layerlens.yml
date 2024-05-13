@@ -18,19 +18,16 @@ jobs:
     - name: clone the repo
       uses: actions/checkout@v3
 
-    - name: install dart sdk
-      uses: dart-lang/setup-dart@v1.3
-      with:
-        sdk: dev
-
-    - name: version
-      run: dart --version
+    - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.2'
+          cache: true
 
     - name: dart pub get
-      run: dart pub get
+      run: flutter pub get
 
     - name: generate
-      run: dart run layerlens
+      run: flutter pub run layerlens
 
     - name: Commit files
       uses: stefanzweifel/git-auto-commit-action@v4
