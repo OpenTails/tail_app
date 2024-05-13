@@ -24,14 +24,14 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FirebaseMessagingAutoInitEnabled</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Need BLE permission to connect to Gear</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Need BLE permission to connect to Gear</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Need Location permission</string>
 	<key>NSMotionUsageDescription</key>
 	<string>This application uses motion to trigger actions when you are walking</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
@@ -58,8 +58,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>FirebaseMessagingAutoInitEnabled</key>
 	<false/>
 </dict>
 </plist>
