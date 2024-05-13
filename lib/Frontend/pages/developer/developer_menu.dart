@@ -7,6 +7,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/firebase.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../../Backend/Definitions/Device/device_definition.dart';
 import '../../../Backend/device_registry.dart';
 import '../../../constants.dart';

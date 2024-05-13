@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
@@ -13,57 +12,57 @@ final deviceRegistryLogger = log.Logger('DeviceRegistry');
 @immutable
 class DeviceRegistry {
   static Set<BaseDeviceDefinition> allDevices = {
-    BaseDeviceDefinition(
+    const BaseDeviceDefinition(
       "798e1528-2832-4a87-93d7-4d1b25a2f418",
       "MiTail",
-      Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"),
-      Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"),
-      Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"),
+      "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+      "c6612b64-0087-4974-939e-68968ef294b0",
+      "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       DeviceType.tail,
       "https://thetailcompany.com/fw/mitail",
     ),
-    BaseDeviceDefinition(
+    const BaseDeviceDefinition(
       "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee",
       "(!)Tail1",
-      Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"),
-      Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"),
-      Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"),
+      "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+      "c6612b64-0087-4974-939e-68968ef294b0",
+      "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       DeviceType.tail,
       "",
     ),
-    BaseDeviceDefinition(
+    const BaseDeviceDefinition(
       "5fb21175-fef4-448a-a38b-c472d935abab",
       "minitail",
-      Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"),
-      Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"),
-      Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"),
+      "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+      "c6612b64-0087-4974-939e-68968ef294b0",
+      "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       DeviceType.tail,
       "https://thetailcompany.com/fw/mini",
     ),
-    BaseDeviceDefinition(
+    const BaseDeviceDefinition(
       "e790f509-f95b-4eb4-b649-5b43ee1eee9c",
       "flutter",
-      Uuid.parse("3af2108b-d066-42da-a7d4-55648fa0a9b6"),
-      Uuid.parse("c6612b64-0087-4974-939e-68968ef294b0"),
-      Uuid.parse("5bfd6484-ddee-4723-bfe6-b653372bbfd6"),
+      "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+      "c6612b64-0087-4974-939e-68968ef294b0",
+      "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       DeviceType.wings,
       "https://thetailcompany.com/fw/flutter",
     ),
-    BaseDeviceDefinition(
+    const BaseDeviceDefinition(
       "927dee04-ddd4-4582-8e42-69dc9fbfae66",
       "EG2",
-      Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66"),
-      Uuid.parse("0b646a19-371e-4327-b169-9632d56c0e84"),
-      Uuid.parse("05e026d8-b395-4416-9f8a-c00d6c3781b9"),
+      "927dee04-ddd4-4582-8e42-69dc9fbfae66",
+      "0b646a19-371e-4327-b169-9632d56c0e84",
+      "05e026d8-b395-4416-9f8a-c00d6c3781b9",
       DeviceType.ears,
       "https://thetailcompany.com/fw/eg",
     ),
-    BaseDeviceDefinition(
+    const BaseDeviceDefinition(
       "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d",
       "EarGear",
-      Uuid.parse("927dee04-ddd4-4582-8e42-69dc9fbfae66"),
-      Uuid.parse("0b646a19-371e-4327-b169-9632d56c0e84"),
-      Uuid.parse("05e026d8-b395-4416-9f8a-c00d6c3781b9"),
+      "927dee04-ddd4-4582-8e42-69dc9fbfae66",
+      "0b646a19-371e-4327-b169-9632d56c0e84",
+      "05e026d8-b395-4416-9f8a-c00d6c3781b9",
       DeviceType.ears,
       "",
     ),
@@ -77,18 +76,8 @@ class DeviceRegistry {
     return allDevices.firstWhere((BaseDeviceDefinition element) => element.btName.toLowerCase() == id.toLowerCase());
   }
 
-  static List<Uuid> getAllIds() {
+  static List<String> getAllIds() {
     return allDevices.map((BaseDeviceDefinition e) => e.bleDeviceService).toList();
-  }
-
-  static BaseDeviceDefinition? getByService(List<Uuid> services) {
-    // check list against all devices
-    for (BaseDeviceDefinition device in allDevices) {
-      if (services.contains(device.bleDeviceService)) {
-        return device;
-      }
-    }
-    return null;
   }
 }
 

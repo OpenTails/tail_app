@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -15,6 +16,7 @@ import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/action_registry.dart';
 
@@ -52,7 +54,7 @@ Future<void> main() async {
   Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
   initFlogger();
-  WidgetsFlutterBinding.ensureInitialized();
+  initFlutter();
   //var localeLoaded = await initializeMessages('ace');
   //Intl.defaultLocale = 'ace';
   //Flogger.i("Loaded local: $localeLoaded");
@@ -95,6 +97,24 @@ void initFlogger() {
       //log(record.printable(), stackTrace: record.stackTrace);
     },
   );
+}
+
+void initFlutter() {
+  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding.instance.addObserver(WidgetBindingLogger());
+}
+
+class WidgetBindingLogger extends WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    mainLogger.info("didChangeAppLifecycleState: $state");
+  }
+
+  @override
+  Future<AppExitResponse> didRequestAppExit() async {
+    mainLogger.info("didRequestAppExit");
+    return super.didRequestAppExit();
+  }
 }
 
 Future<void> initHive() async {
@@ -250,10 +270,8 @@ class _EagerInitialization extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Eagerly initialize providers by watching them.
     // By using "watch", the provider will stay alive and not be disposed.
-    ref.watch(reactiveBLEProvider);
-    ref.watch(btStatusProvider);
+    ref.watch(initFlutterBluePlusProvider);
     ref.watch(knownDevicesProvider);
-    ref.watch(btConnectStateHandlerProvider);
     ref.watch(triggerListProvider);
     ref.watch(moveListsProvider);
     ref.watch(favoriteActionsProvider);

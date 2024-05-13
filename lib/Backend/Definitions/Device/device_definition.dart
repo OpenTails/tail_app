@@ -6,11 +6,12 @@ import 'package:circular_buffer/circular_buffer.dart';
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/firmware_update.dart';
 
 import '../../../Frontend/intn_defs.dart';
@@ -59,9 +60,9 @@ enum DeviceState { standby, runAction, busy }
 class BaseDeviceDefinition {
   final String uuid;
   final String btName;
-  final Uuid bleDeviceService;
-  final Uuid bleRxCharacteristic;
-  final Uuid bleTxCharacteristic;
+  final String bleDeviceService;
+  final String bleRxCharacteristic;
+  final String bleTxCharacteristic;
   final DeviceType deviceType;
   final String fwURL;
 
@@ -74,14 +75,9 @@ class BaseDeviceDefinition {
 }
 
 // data that represents the current state of a device
-class BaseStatefulDevice {
+class BaseStatefulDevice extends ChangeNotifier {
   final BaseDeviceDefinition baseDeviceDefinition;
   final BaseStoredDevice baseStoredDevice;
-  late final QualifiedCharacteristic rxCharacteristic;
-  late final QualifiedCharacteristic txCharacteristic;
-  late final QualifiedCharacteristic batteryCharacteristic;
-  late final QualifiedCharacteristic batteryChargeCharacteristic;
-
   final ValueNotifier<double> batteryLevel = ValueNotifier(-1);
   final ValueNotifier<bool> batteryCharging = ValueNotifier(false);
   final ValueNotifier<bool> batteryLow = ValueNotifier(false);
@@ -91,25 +87,17 @@ class BaseStatefulDevice {
   final ValueNotifier<String> hwVersion = ValueNotifier("");
 
   final ValueNotifier<bool> hasGlowtip = ValueNotifier(false);
-  StreamSubscription<ConnectionStateUpdate>? connectionStateStreamSubscription;
   final ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
-  Stream<String>? _rxCharacteristicStream;
   StreamSubscription<void>? keepAliveStreamSubscription;
-
-  Stream<String>? get rxCharacteristicStream => _rxCharacteristicStream;
   final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(ConnectivityState.disconnected);
   final ValueNotifier<int> rssi = ValueNotifier(-1);
+  final ValueNotifier<int> mtu = ValueNotifier(-1);
+
   final ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
   final ValueNotifier<bool> hasUpdate = ValueNotifier(false);
-
-  set rxCharacteristicStream(Stream<String>? value) {
-    _rxCharacteristicStream = value?.asBroadcastStream();
-  }
-
+  late final Stream<String> rxCharacteristicStream;
   Ref? ref;
   late final CommandQueue commandQueue;
-  StreamSubscription<List<int>>? batteryCharacteristicStreamSubscription;
-  StreamSubscription<String>? batteryChargeCharacteristicStreamSubscription;
   List<FlSpot> batlevels = [];
   Stopwatch stopWatch = Stopwatch();
   bool disableAutoConnect = false;
@@ -118,12 +106,18 @@ class BaseStatefulDevice {
   final CircularBuffer<MessageHistoryEntry> messageHistory = CircularBuffer(50);
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
-    rxCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleRxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
-    txCharacteristic = QualifiedCharacteristic(characteristicId: baseDeviceDefinition.bleTxCharacteristic, serviceId: baseDeviceDefinition.bleDeviceService, deviceId: baseStoredDevice.btMACAddress);
-    batteryCharacteristic = QualifiedCharacteristic(serviceId: Uuid.parse("0000180f-0000-1000-8000-00805f9b34fb"), characteristicId: Uuid.parse("00002a19-0000-1000-8000-00805f9b34fb"), deviceId: baseStoredDevice.btMACAddress);
-    batteryChargeCharacteristic = QualifiedCharacteristic(serviceId: Uuid.parse("0000180f-0000-1000-8000-00805f9b34fb"), characteristicId: Uuid.parse("5073792e-4fc0-45a0-b0a5-78b6c1756c91"), deviceId: baseStoredDevice.btMACAddress);
-
     commandQueue = CommandQueue(ref, this);
+    rxCharacteristicStream = FlutterBluePlus.events.onCharacteristicReceived
+        .asBroadcastStream()
+        .where((event) => event.device.remoteId.str == baseStoredDevice.btMACAddress && event.characteristic.characteristicUuid.str == baseDeviceDefinition.bleRxCharacteristic)
+        .map((event) => const Utf8Decoder().convert(event.value));
+    deviceConnectionState.addListener(
+      () {
+        if (deviceConnectionState.value == ConnectivityState.disconnected) {
+          reset();
+        }
+      },
+    );
   }
 
   @override
@@ -136,25 +130,12 @@ class BaseStatefulDevice {
     batteryCharging.value = false;
     batteryLow.value = false;
     gearReturnedError.value = false;
-    fwVersion.value = "";
-    hwVersion.value = "";
-    hasGlowtip.value = false;
-    connectionStateStreamSubscription?.cancel();
-    connectionStateStreamSubscription = null;
     deviceState.value = DeviceState.standby;
-    rxCharacteristicStream = null;
-    keepAliveStreamSubscription?.cancel();
-    keepAliveStreamSubscription = null;
-    deviceConnectionState.value = ConnectivityState.disconnected;
     rssi.value = -1;
-    fwInfo.value = null;
     hasUpdate.value = false;
-    batteryCharacteristicStreamSubscription?.cancel();
-    batteryCharacteristicStreamSubscription = null;
-    batteryChargeCharacteristicStreamSubscription?.cancel();
-    batteryChargeCharacteristicStreamSubscription = null;
     batlevels = [];
     stopWatch.reset();
+    mtu.value = -1;
   }
 }
 
@@ -282,7 +263,7 @@ class CommandQueue {
       if (bluetoothMessage.delay == null) {
         try {
           bluetoothLog.fine("Sending command to ${device.baseStoredDevice.name}:${message.message}");
-          await ref?.read(reactiveBLEProvider).writeCharacteristicWithResponse(message.device.txCharacteristic, value: const Utf8Encoder().convert(message.message));
+          await sendMessage(device, const Utf8Encoder().convert(message.message));
           device.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.send, message: message.message));
           if (message.onCommandSent != null) {
             // Callback when the specific command is run
@@ -295,7 +276,7 @@ class CommandQueue {
               Timer timer = Timer(timeoutDuration, () {});
 
               // We use a timeout as sometimes a response isn't sent by the gear
-              Future<String> response = message.device.rxCharacteristicStream!.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
+              Future<String> response = message.device.rxCharacteristicStream.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
                 bluetoothLog.info('Response:$event');
                 return event == message.responseMSG!;
               }).first;

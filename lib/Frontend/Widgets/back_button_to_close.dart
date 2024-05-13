@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../intn_defs.dart';
 
 class BackButtonToClose extends ConsumerStatefulWidget {

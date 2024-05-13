@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
 import '../../Backend/firmware_update.dart';
@@ -235,11 +236,11 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     BaseStatefulDevice? baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
     if (firmwareFile != null && baseStatefulDevice != null) {
       baseStatefulDevice.gearReturnedError.value = false;
-      int mtu = await ref.read(reactiveBLEProvider).requestMtu(deviceId: baseStatefulDevice.baseStoredDevice.btMACAddress, mtu: 512) - 3;
+      int mtu = baseStatefulDevice.mtu.value;
       int total = firmwareFile!.length;
       int current = 0;
       List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
-      await ref.read(reactiveBLEProvider).writeCharacteristicWithResponse(baseStatefulDevice.txCharacteristic, value: beginOTA);
+      await sendMessage(baseStatefulDevice, beginOTA);
       while (uploadProgress < 1) {
         if (baseStatefulDevice.gearReturnedError.value) {
           setState(() {
@@ -251,7 +252,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
 
         List<int> chunk = firmwareFile!.skip(current).take(mtu).toList();
         if (chunk.isNotEmpty) {
-          await ref.read(reactiveBLEProvider).writeCharacteristicWithoutResponse(baseStatefulDevice.txCharacteristic, value: chunk);
+          await sendMessage(baseStatefulDevice, chunk);
           current = current + chunk.length;
         } else {
           current = total;

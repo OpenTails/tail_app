@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Frontend/intn_defs.dart';
 import 'package:tail_app/Frontend/pages/intro.dart';
 import 'package:tail_app/constants.dart';
@@ -16,11 +14,7 @@ void main() {
     // Load app widget.
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [
-          btStatusProvider.overrideWith((ref) {
-            return Stream.value(BleStatus.ready);
-          })
-        ],
+        overrides: [],
         child: MaterialApp(
           // required to get the dimensions for the scaffold
           builder: (context, child) => const OnBoardingPage(),

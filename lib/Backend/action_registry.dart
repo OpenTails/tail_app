@@ -7,6 +7,7 @@ import 'package:tail_app/Backend/move_lists.dart';
 
 import '../constants.dart';
 import 'Bluetooth/bluetooth_manager.dart';
+import 'Bluetooth/bluetooth_manager_plus.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 

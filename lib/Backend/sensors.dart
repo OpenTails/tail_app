@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart' as log;
@@ -23,7 +23,6 @@ import '../constants.dart';
 import 'Bluetooth/bluetooth_manager.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
-import 'device_registry.dart';
 import 'move_lists.dart';
 
 part 'sensors.g.dart';
@@ -345,7 +344,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     rxSubscriptions = ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).map(
       (element) {
         element.commandQueue.addCommand(BluetoothMessage(message: "LISTEN FULL", device: element, priority: Priority.low, type: Type.system));
-        return element.rxCharacteristicStream?.listen(
+        return element.rxCharacteristicStream.listen(
           (msg) {
             if (msg.contains("LISTEN_FULL BANG")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
@@ -424,7 +423,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     rxSubscriptions = ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).map(
       (element) {
         element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE START", device: element, priority: Priority.low, type: Type.system));
-        return element.rxCharacteristicStream?.listen(
+        return element.rxCharacteristicStream.listen(
           (msg) {
             if (msg.contains("TILT LEFT")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
@@ -512,7 +511,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 }
 
 class TailProximityTriggerDefinition extends TriggerDefinition {
-  StreamSubscription<DiscoveredDevice>? btConnectStream;
+  StreamSubscription<List<ScanResult>>? btConnectStream;
   Timer? btnearbyCooldown;
 
   TailProximityTriggerDefinition(super.ref) {
@@ -537,15 +536,13 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
     if (btConnectStream != null) {
       return;
     }
-    btConnectStream = ref.read(reactiveBLEProvider).scanForDevices(withServices: DeviceRegistry.getAllIds()).where((event) => !ref.read(knownDevicesProvider).keys.contains(event.id)).listen(
-      (DiscoveredDevice device) {
-        if (btnearbyCooldown != null && btnearbyCooldown!.isActive) {
-          return;
+    btConnectStream = FlutterBluePlus.onScanResults.listen(
+      (event) {
+        if (event.where((element) => !ref.read(knownDevicesProvider).keys.contains(element.device.remoteId.str)).isNotEmpty && btnearbyCooldown != null && btnearbyCooldown!.isActive) {
+          sendCommands("Nearby Gear", ref);
+
+          btnearbyCooldown = Timer(const Duration(seconds: 30), () {});
         }
-
-        sendCommands("Nearby Gear", ref);
-
-        btnearbyCooldown = Timer(const Duration(seconds: 30), () {});
       },
     );
   }

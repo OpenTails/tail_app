@@ -4,7 +4,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_listenable_builder/multi_listenable_builder.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
@@ -44,7 +43,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
     Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
 
     return MultiValueListenableBuilder(
-      valueListenables: knownDevices.isEmpty ? [ValueNotifier(DeviceConnectionState.disconnected)] : knownDevices.values.map((e) => e.deviceConnectionState).toList(),
+      valueListenables: knownDevices.isEmpty ? [ValueNotifier(ConnectivityState.disconnected)] : knownDevices.values.map((e) => e.deviceConnectionState).toList(),
       builder: (BuildContext context, List<dynamic> values, Widget? child) {
         Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.read(getAvailableActionsProvider);
         List<ActionCategory> catList = actionsCatMap.keys.toList();

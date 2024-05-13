@@ -9,6 +9,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/Widgets/back_button_to_close.dart';
@@ -423,6 +424,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   Text("DEV UUID: ${widget.device.baseDeviceDefinition.uuid}"),
                   Text("DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}"),
                   Text("DEV FW URL: ${widget.device.baseDeviceDefinition.fwURL}"),
+                  Text("MTU: ${widget.device.mtu.value}"),
                 ],
               ),
             ),
@@ -583,7 +585,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   onPressed: () {
                     setState(() {
                       widget.device.disableAutoConnect = true;
-                      widget.device.connectionStateStreamSubscription?.cancel();
+                      disconnect(widget.device.baseStoredDevice.btMACAddress);
                     });
                     Navigator.pop(context);
                   },
@@ -614,7 +616,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 onPressed: () {
                   setState(() {
                     if (widget.device.deviceConnectionState.value == ConnectivityState.connected) {
-                      widget.device.connectionStateStreamSubscription?.cancel();
+                      disconnect(widget.device.baseStoredDevice.btMACAddress);
                       widget.device.forgetOnDisconnect = true;
                       widget.device.disableAutoConnect = true;
                     } else {
