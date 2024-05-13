@@ -28,7 +28,7 @@ jobs:
     - name: add layerlens
       run: flutter pub global activate layerlens
     - name: generate
-      run: flutter pub run layerlens
+      run: layerlens
 
     - name: Commit files
       uses: stefanzweifel/git-auto-commit-action@v4
