@@ -3,7 +3,9 @@ name: Run layerlens.
 on:
   push:
     branches: [ master ]
-
+    paths:
+      - 'pubspec.yml'
+      - 'pubspec.lock'
 jobs:
   generate:
     runs-on: ubuntu-latest
