@@ -23,9 +23,10 @@ jobs:
         flutter-version: '3.19.2'
         cache: true
 
-    - name: dart pub get
+    - name: flutter pub get
       run: flutter pub get
-
+    - name: add layerlens
+      run: flutter pub global activate layerlens
     - name: generate
       run: flutter pub run layerlens
 
