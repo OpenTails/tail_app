@@ -2,7 +2,8 @@ name: Run layerlens.
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
     paths:
       - 'pubspec.yml'
       - 'pubspec.lock'
