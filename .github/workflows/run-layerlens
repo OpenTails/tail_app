@@ -1,6 +1,9 @@
 name: Run layerlens.
 
 on:
+  workflow_dispatch:
+    branches:
+      - master
   push:
     branches:
       - master
