@@ -43,7 +43,7 @@ ValueNotifier<bool> isBluetoothEnabled = ValueNotifier(false);
 
 @Riverpod(keepAlive: true)
 Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
-  await FlutterBluePlus.setLogLevel(LogLevel.verbose, color: true);
+  await FlutterBluePlus.setLogLevel(LogLevel.verbose, color: false);
   // first, check if bluetooth is supported by your hardware
   // Note: The platform is initialized on the first call to any FlutterBluePlus method.
   if (await FlutterBluePlus.isSupported == false) {
@@ -215,7 +215,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[bluetoothDevice.remoteId.str];
     // get Device object
     // set value
-    if (bluetoothCharacteristic.characteristicUuid == Guid("00002a19-0000-1000-8000-00805f9b34fb")) {
+    if (bluetoothCharacteristic.characteristicUuid == Guid("0x2A19")) {
       statefulDevice?.batteryLevel.value == values.first;
       statefulDevice?.batlevels.add(FlSpot(statefulDevice.stopWatch.elapsed.inSeconds.toDouble(), values.first.toDouble()));
     }
