@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStopped": "Fermato",
+  "triggerWalkingStopped": "Attiva un'azione mentre cammini",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Aggiornamento non riuscito",
+  "otaFailedTitle": "Aggiornamento non riuscito. Riavvia la tua attrezzatura e riprova",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -834,6 +834,12 @@
   "triggerRandomAction": "Azione",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Aggiornamento dell'attrezzatura. Si prega di non spegnere l'attrezzatura né chiudere l'app",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   }
