@@ -285,7 +285,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Ocas vybere náhodný pohyb a mezi každým pohybem se zastaví na náhodný počet sekund",
+  "manageDevicesAutoMoveSubTitle": "Povolit anonymní analýzu",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -840,6 +840,12 @@
   "otaInProgressTitle": "Aktualizace zařízení Gear. Nevypínejte zařízení ani nezavírejte aplikaci",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Slabá baterie. Nabijte prosím své zařízení alespoň na 50 %",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }
