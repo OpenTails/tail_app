@@ -215,7 +215,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[bluetoothDevice.remoteId.str];
     // get Device object
     // set value
-    if (bluetoothCharacteristic.characteristicUuid == Guid("0x2A19")) {
+    if (bluetoothCharacteristic.characteristicUuid == Guid("2A19")) {
       statefulDevice?.batteryLevel.value == values.first;
       statefulDevice?.batlevels.add(FlSpot(statefulDevice.stopWatch.elapsed.inSeconds.toDouble(), values.first.toDouble()));
     }
