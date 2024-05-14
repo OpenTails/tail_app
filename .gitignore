@@ -47,3 +47,4 @@ app.*.map.json
 *.g.dart
 /.vscode/settings.json
 /lib/l10n/messages_*.dart
+/ios/Podfile.lock
