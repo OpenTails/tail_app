@@ -27,33 +27,40 @@ import 'bluetooth_message.dart';
 
 part 'bluetooth_manager_plus.g.dart';
 
-StreamSubscription<OnConnectionStateChangedEvent>? onConnectionStateChangedStreamSubscription;
-StreamSubscription<OnReadRssiEvent>? onReadRssiStreamSubscription;
-StreamSubscription<OnDiscoveredServicesEvent>? onDiscoveredServicesStreamSubscription;
-StreamSubscription<OnCharacteristicReceivedEvent>? onCharacteristicReceivedStreamSubscription;
-StreamSubscription<OnServicesResetEvent>? onServicesResetStreamSubscription;
-StreamSubscription<BluetoothAdapterState>? adapterStateStreamSubscription;
-StreamSubscription<List<ScanResult>>? onScanResultsStreamSubscription;
-StreamSubscription<OnMtuChangedEvent>? onMtuChanged;
+StreamSubscription<OnConnectionStateChangedEvent>? _onConnectionStateChangedStreamSubscription;
+StreamSubscription<OnReadRssiEvent>? _onReadRssiStreamSubscription;
+StreamSubscription<OnDiscoveredServicesEvent>? _onDiscoveredServicesStreamSubscription;
+StreamSubscription<OnCharacteristicReceivedEvent>? _onCharacteristicReceivedStreamSubscription;
+StreamSubscription<OnServicesResetEvent>? _onServicesResetStreamSubscription;
+StreamSubscription<BluetoothAdapterState>? _adapterStateStreamSubscription;
+StreamSubscription<List<ScanResult>>? _onScanResultsStreamSubscription;
+StreamSubscription<OnMtuChangedEvent>? _onMtuChanged;
 
-final bluetoothPlusLogger = log.Logger('BluetoothPlus');
+final _bluetoothPlusLogger = log.Logger('BluetoothPlus');
 
 ValueNotifier<bool> isAnyGearConnected = ValueNotifier(false);
 ValueNotifier<bool> isBluetoothEnabled = ValueNotifier(false);
 
+bool _didInitFlutterBluePlus = false;
+
 @Riverpod(keepAlive: true)
 Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
+  if (_didInitFlutterBluePlus) {
+    return;
+  }
+  _didInitFlutterBluePlus = true;
+
   await FlutterBluePlus.setLogLevel(LogLevel.verbose, color: false);
   // first, check if bluetooth is supported by your hardware
   // Note: The platform is initialized on the first call to any FlutterBluePlus method.
   if (await FlutterBluePlus.isSupported == false) {
-    bluetoothPlusLogger.info("Bluetooth not supported by this device");
+    _bluetoothPlusLogger.info("Bluetooth not supported by this device");
     return;
   }
 
   // listen to *any device* connection state changes
-  onConnectionStateChangedStreamSubscription = FlutterBluePlus.events.onConnectionStateChanged.listen((event) async {
-    bluetoothPlusLogger.info('${event.device} ${event.connectionState}');
+  _onConnectionStateChangedStreamSubscription = FlutterBluePlus.events.onConnectionStateChanged.listen((event) async {
+    _bluetoothPlusLogger.info('${event.device} ${event.connectionState}');
     Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
     BluetoothDevice bluetoothDevice = event.device;
     BluetoothConnectionState bluetoothConnectionState = event.connectionState;
@@ -99,16 +106,16 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       );
       isAnyGearConnected.value = true;
       if (SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault)) {
-        bluetoothPlusLogger.fine('Enabling wakelock');
+        _bluetoothPlusLogger.fine('Enabling wakelock');
         WakelockPlus.enable();
       }
       if (Platform.isAndroid) {
         //start foreground service on device connected. Library handles duplicate start calls
-        bluetoothPlusLogger.fine('Requesting notification permission');
-        bluetoothPlusLogger.finer('Requesting notification permission result${await Permission.notification.request()}'); // Used only for Foreground service
+        _bluetoothPlusLogger.fine('Requesting notification permission');
+        _bluetoothPlusLogger.finer('Requesting notification permission result${await Permission.notification.request()}'); // Used only for Foreground service
         ForegroundServiceHandler.notification.setPriority(AndroidNotificationPriority.LOW);
         ForegroundServiceHandler.notification.setTitle("Gear Connected");
-        bluetoothPlusLogger.fine('Starting foreground service');
+        _bluetoothPlusLogger.fine('Starting foreground service');
         ForegroundService().start();
       }
       await event.device.discoverServices();
@@ -140,15 +147,15 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       }, cancelOnError: true);
     }
     if (bluetoothConnectionState == BluetoothConnectionState.disconnected) {
-      bluetoothPlusLogger.info("Disconnected from device: ${bluetoothDevice.remoteId.str}");
+      _bluetoothPlusLogger.info("Disconnected from device: ${bluetoothDevice.remoteId.str}");
       // We don't want to display the app review screen right away. We keep track of gear disconnects and after 5 we try to display the review dialog.
       int count = SentryHive.box(settings).get(gearDisconnectCount, defaultValue: gearDisconnectCountDefault) + 1;
       if (count > 5 && SentryHive.box(settings).get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
         SentryHive.box(settings).put(shouldDisplayReview, true);
-        bluetoothPlusLogger.finer('Setting shouldDisplayReview to true');
+        _bluetoothPlusLogger.finer('Setting shouldDisplayReview to true');
       } else {
         SentryHive.box(settings).put(gearDisconnectCount, count);
-        bluetoothPlusLogger.finer('Setting gearDisconnectCount to $count');
+        _bluetoothPlusLogger.finer('Setting gearDisconnectCount to $count');
       }
       //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${baseStatefulDevice.baseStoredDevice.name}")));
 
@@ -156,7 +163,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       int deviceCount = knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).length;
       bool lastDevice = deviceCount == 0;
       if (lastDevice) {
-        bluetoothPlusLogger.fine('Last gear detected');
+        _bluetoothPlusLogger.fine('Last gear detected');
         // Disable all triggers on last device
         ref.read(triggerListProvider).where((element) => element.enabled).forEach(
           (element) {
@@ -164,34 +171,34 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
           },
         );
         isAnyGearConnected.value = false;
-        bluetoothPlusLogger.finer('Disabling wakelock');
+        _bluetoothPlusLogger.finer('Disabling wakelock');
         // stop wakelock if its started
         WakelockPlus.disable();
         // Close foreground service
         if (Platform.isAndroid) {
-          bluetoothPlusLogger.finer('Stopping foreground service');
+          _bluetoothPlusLogger.finer('Stopping foreground service');
           ForegroundService().stop();
         }
       }
       // if the forget button was used, remove the device
       if (knownDevices[bluetoothDevice.remoteId.str]!.forgetOnDisconnect) {
-        bluetoothPlusLogger.finer('forgetting about gear');
+        _bluetoothPlusLogger.finer('forgetting about gear');
         ref.read(knownDevicesProvider.notifier).remove(bluetoothDevice.remoteId.str);
       }
     }
   });
-  onReadRssiStreamSubscription = FlutterBluePlus.events.onReadRssi.listen((event) {
-    bluetoothPlusLogger.info('${event.device} RSSI:${event.rssi}');
+  _onReadRssiStreamSubscription = FlutterBluePlus.events.onReadRssi.listen((event) {
+    _bluetoothPlusLogger.info('${event.device} RSSI:${event.rssi}');
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     statefulDevice?.rssi.value = event.rssi;
   });
-  onMtuChanged = FlutterBluePlus.events.onMtuChanged.listen((event) {
-    bluetoothPlusLogger.info('${event.device} MTU:${event.mtu}');
+  _onMtuChanged = FlutterBluePlus.events.onMtuChanged.listen((event) {
+    _bluetoothPlusLogger.info('${event.device} MTU:${event.mtu}');
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     statefulDevice?.mtu.value = event.mtu;
   });
-  onDiscoveredServicesStreamSubscription = FlutterBluePlus.events.onDiscoveredServices.listen((event) async {
-    bluetoothPlusLogger.info('${event.device} ${event.services}');
+  _onDiscoveredServicesStreamSubscription = FlutterBluePlus.events.onDiscoveredServices.listen((event) async {
+    _bluetoothPlusLogger.info('${event.device} ${event.services}');
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     //Subscribes to all characteristics
     for (BluetoothService service in event.services) {
@@ -206,8 +213,8 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       changeAutoMove(statefulDevice);
     }
   });
-  onCharacteristicReceivedStreamSubscription = FlutterBluePlus.events.onCharacteristicReceived.listen((event) {
-    bluetoothPlusLogger.info('${event.device} ${event.value}');
+  _onCharacteristicReceivedStreamSubscription = FlutterBluePlus.events.onCharacteristicReceived.listen((event) {
+    _bluetoothPlusLogger.info('${event.device} ${event.value}');
 
     BluetoothDevice bluetoothDevice = event.device;
     BluetoothCharacteristic bluetoothCharacteristic = event.characteristic;
@@ -248,22 +255,22 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       }
     }
   });
-  onServicesResetStreamSubscription = FlutterBluePlus.events.onServicesReset.listen((event) async {
-    bluetoothPlusLogger.info("${event.device} onServicesReset");
+  _onServicesResetStreamSubscription = FlutterBluePlus.events.onServicesReset.listen((event) async {
+    _bluetoothPlusLogger.info("${event.device} onServicesReset");
     await event.device.discoverServices();
   });
   // handle bluetooth on & off
   // note: for iOS the initial state is typically BluetoothAdapterState.unknown
   // note: if you have permissions issues you will get stuck at BluetoothAdapterState.unauthorized
-  adapterStateStreamSubscription = FlutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
-    bluetoothPlusLogger.info(state);
+  _adapterStateStreamSubscription = FlutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
+    _bluetoothPlusLogger.info(state);
     isBluetoothEnabled.value = state == BluetoothAdapterState.on;
   });
-  onScanResultsStreamSubscription = FlutterBluePlus.onScanResults.listen(
+  _onScanResultsStreamSubscription = FlutterBluePlus.onScanResults.listen(
     (results) async {
       if (results.isNotEmpty) {
         ScanResult r = results.last; // the most recently found device
-        bluetoothPlusLogger.info('${r.device.remoteId}: "${r.advertisementData.advName}" found!');
+        _bluetoothPlusLogger.info('${r.device.remoteId}: "${r.advertisementData.advName}" found!');
         Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
         if (knownDevices.containsKey(r.device.remoteId.str) && knownDevices[r.device.remoteId.str]?.deviceConnectionState.value == ConnectivityState.disconnected && !knownDevices[r.device.remoteId.str]!.disableAutoConnect) {
           knownDevices[r.device.remoteId.str]?.deviceConnectionState.value = ConnectivityState.connecting;
@@ -271,7 +278,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         }
       }
     },
-    onError: (e) => bluetoothPlusLogger.severe(e),
+    onError: (e) => _bluetoothPlusLogger.severe(e),
   );
 }
 
