@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Zobacz Politykę prywatności",
+  "onboardingPrivacyPolicyViewButtonLabel": "Mimo, że zbierane dane są anonimowe i nie pozwalają na identyfikację konkretnego użytkownika, nadal musisz zaakceptować politykę prywatności",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -822,6 +822,24 @@
   "settingsNewsletterToggleSubTitle": "Automatycznie otrzymuj powiadomienia, gdy pojawi się nowy newsletter",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Tryb swobodny",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Losowo rozegraj wybraną akcję",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Działanie",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
     "type": "text",
     "placeholders": {}
   }
