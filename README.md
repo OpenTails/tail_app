@@ -45,3 +45,5 @@ Long press Github button, enter the following code
 [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/)
 [Plausible](https://plausible.codel1417.xyz/tail-app)
 [Uptime](https://uptime.codel1417.xyz/status/public)
+
+UUIDs were generated using https://www.uuidgenerator.net/version4
