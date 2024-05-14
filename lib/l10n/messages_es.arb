@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Comenzar la actualización OTA",
+  "otaDownloadButtonLabel": "Iniciar actualización OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Actualización fallida",
+  "otaFailedTitle": "Error de actualización. Reinicia tu equipo e inténtalo de nuevo.",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -834,6 +834,12 @@
   "triggerRandomAction": "Acción",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Actualización de equipo. No apagues tu equipo ni cierres la aplicación.",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   }
