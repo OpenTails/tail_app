@@ -147,13 +147,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Ruhig und entspannt",
+  "actionsCategoryCalm": "Schnell",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Schnell und aufgeregt",
+  "actionsCategoryFast": "OK",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualMiTailTitle": "MiTail Handbuch",
+  "moreManualMiTailTitle": "Verantwortungsvolles Wedeln",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
     "type": "text",
@@ -759,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Bluetooth einschalten",
+  "onboardingBluetoothEnableButtonLabel": "Berechtigung erteilen",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Aktion entfernen",
+  "triggersSelectClearLabel": "Wählen Sie einen Triggertyp aus",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -840,6 +840,12 @@
   "otaInProgressTitle": "Gear wird aktualisiert. Bitte schalten Sie Ihr Gear nicht aus und schließen Sie die App nicht.",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Schwache Batterie. Bitte laden Sie Ihre Ausrüstung zu mindestens 50 % auf",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }
