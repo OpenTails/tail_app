@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-14T14:51:33.489238",
+  "@@last_modified": "2024-05-14T16:41:26.954931",
   "title": "Gear on the Go",
   "@title": {
     "description": "The name of the app",
@@ -743,9 +743,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Progress",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
+  "otaInProgressTitle": "Updating Gear. Please do not turn off your gear or close the app",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   },
@@ -755,7 +755,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Update Failed",
+  "otaFailedTitle": "Update Failed. Please restart your gear and try again",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
