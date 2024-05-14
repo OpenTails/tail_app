@@ -46,7 +46,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
   }
   _didInitFlutterBluePlus = true;
 
-  await FlutterBluePlus.setLogLevel(LogLevel.verbose, color: false);
+  await FlutterBluePlus.setLogLevel(LogLevel.warning, color: false);
   // first, check if bluetooth is supported by your hardware
   // Note: The platform is initialized on the first call to any FlutterBluePlus method.
   if (await FlutterBluePlus.isSupported == false) {
@@ -56,7 +56,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
 
   // listen to *any device* connection state changes
   _onConnectionStateChangedStreamSubscription = FlutterBluePlus.events.onConnectionStateChanged.listen((event) async {
-    _bluetoothPlusLogger.info('${event.device} ${event.connectionState}');
+    _bluetoothPlusLogger.info('${event.device.advName} ${event.connectionState}');
     Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
     BluetoothDevice bluetoothDevice = event.device;
     BluetoothConnectionState bluetoothConnectionState = event.connectionState;
@@ -158,17 +158,17 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     }
   });
   _onReadRssiStreamSubscription = FlutterBluePlus.events.onReadRssi.listen((event) {
-    _bluetoothPlusLogger.info('${event.device} RSSI:${event.rssi}');
+    _bluetoothPlusLogger.info('${event.device.advName} RSSI:${event.rssi}');
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     statefulDevice?.rssi.value = event.rssi;
   });
   _onMtuChanged = FlutterBluePlus.events.onMtuChanged.listen((event) {
-    _bluetoothPlusLogger.info('${event.device} MTU:${event.mtu}');
+    _bluetoothPlusLogger.info('${event.device.advName} MTU:${event.mtu}');
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     statefulDevice?.mtu.value = event.mtu;
   });
   _onDiscoveredServicesStreamSubscription = FlutterBluePlus.events.onDiscoveredServices.listen((event) async {
-    _bluetoothPlusLogger.info('${event.device} ${event.services}');
+    //_bluetoothPlusLogger.info('${event.device} ${event.services}');
     //Subscribes to all characteristics
     for (BluetoothService service in event.services) {
       for (BluetoothCharacteristic characteristic in service.characteristics) {
@@ -177,7 +177,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     }
   });
   _onCharacteristicReceivedStreamSubscription = FlutterBluePlus.events.onCharacteristicReceived.listen((event) {
-    _bluetoothPlusLogger.info('${event.device} ${event.value}');
+    _bluetoothPlusLogger.info('onCharacteristicReceived ${event.device.advName} ${event.characteristic.uuid.str} ${event.value}');
 
     BluetoothDevice bluetoothDevice = event.device;
     BluetoothCharacteristic bluetoothCharacteristic = event.characteristic;
@@ -185,36 +185,38 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[bluetoothDevice.remoteId.str];
     // get Device object
     // set value
+    if (statefulDevice == null) {
+      return;
+    }
     if (bluetoothCharacteristic.characteristicUuid == Guid("2a19")) {
-      statefulDevice?.batteryLevel.value = values.first.toDouble();
+      statefulDevice.batteryLevel.value = values.first.toDouble();
     } else if (bluetoothCharacteristic.characteristicUuid == Guid("5073792e-4fc0-45a0-b0a5-78b6c1756c91")) {
       String value = const Utf8Decoder().convert(values);
-      statefulDevice?.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
-      statefulDevice?.batteryCharging.value = value == "CHARGE ON";
-    }
-    if (bluetoothCharacteristic.characteristicUuid.str == statefulDevice?.baseDeviceDefinition.bleRxCharacteristic) {
+      statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
+      statefulDevice.batteryCharging.value = value == "CHARGE ON";
+    } else if (bluetoothCharacteristic.characteristicUuid == Guid(statefulDevice.baseDeviceDefinition.bleRxCharacteristic)) {
       String value = const Utf8Decoder().convert(values);
-      statefulDevice?.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
+      statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
       // Firmware Version
       if (value.startsWith("VER")) {
-        statefulDevice?.fwVersion.value = value.substring(value.indexOf(" "));
+        statefulDevice.fwVersion.value = value.substring(value.indexOf(" "));
         // Sent after VER message
       } else if (value.startsWith("GLOWTIP")) {
-        statefulDevice?.hasGlowtip.value = "TRUE" == value.substring(value.indexOf(" "));
+        statefulDevice.hasGlowtip.value = "TRUE" == value.substring(value.indexOf(" "));
       } else if (value.contains("BUSY")) {
         //statefulDevice.deviceState.value = DeviceState.busy;
       } else if (value.contains("LOWBATT")) {
-        statefulDevice?.batteryLow.value = true;
+        statefulDevice.batteryLow.value = true;
       } else if (value.contains("ERR")) {
-        statefulDevice?.gearReturnedError.value = true;
+        statefulDevice.gearReturnedError.value = true;
       } else if (value.contains("HWVER")) {
         // Hardware Version
-        statefulDevice?.hwVersion.value = value.substring(value.indexOf(" "));
+        statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
       }
     }
   });
   _onServicesResetStreamSubscription = FlutterBluePlus.events.onServicesReset.listen((event) async {
-    _bluetoothPlusLogger.info("${event.device} onServicesReset");
+    _bluetoothPlusLogger.info("${event.device.advName} onServicesReset");
     await event.device.discoverServices();
   });
   // handle bluetooth on & off
@@ -277,7 +279,7 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
   BluetoothDevice? bluetoothDevice = FlutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == device.baseStoredDevice.btMACAddress);
   if (bluetoothDevice != null) {
     BluetoothCharacteristic? bluetoothCharacteristic =
-        bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid.str == device.baseDeviceDefinition.bleDeviceService)?.characteristics.firstWhereOrNull((element) => element.characteristicUuid.str == device.baseDeviceDefinition.bleTxCharacteristic);
+        bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid == Guid(device.baseDeviceDefinition.bleDeviceService))?.characteristics.firstWhereOrNull((element) => element.characteristicUuid == Guid(device.baseDeviceDefinition.bleTxCharacteristic));
     await bluetoothCharacteristic?.write(message, withoutResponse: withoutResponse, allowLongWrite: allowLongWrite);
   }
 }

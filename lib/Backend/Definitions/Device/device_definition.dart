@@ -117,11 +117,13 @@ class BaseStatefulDevice extends ChangeNotifier {
         reset();
       } else if (deviceConnectionState.value == ConnectivityState.connected) {
         // Add initial commands to the queue
-        commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: Type.system));
-        commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: Type.system));
-        if (baseStoredDevice.autoMove) {
-          changeAutoMove(this);
-        }
+        Future.delayed(const Duration(seconds: 5), () {
+          commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: Type.system, responseMSG: "VER "));
+          commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: Type.system, responseMSG: "HWVER "));
+          if (baseStoredDevice.autoMove) {
+            changeAutoMove(this);
+          }
+        });
       }
     });
     batteryLevel.addListener(() {
@@ -292,11 +294,6 @@ class CommandQueue {
 
   void addCommand(BluetoothMessage bluetoothMessage) {
     messageQueueStreamSubscription ??= messageQueueStream().listen((message) async {
-      //Check if the device is still known and connected;
-      if (device.deviceConnectionState.value != ConnectivityState.connected) {
-        device.deviceState.value = DeviceState.standby;
-        return;
-      }
       //TODO: Resend on busy
       if (bluetoothMessage.delay == null) {
         try {
@@ -316,7 +313,7 @@ class CommandQueue {
               // We use a timeout as sometimes a response isn't sent by the gear
               Future<String> response = message.device.rxCharacteristicStream.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
                 bluetoothLog.info('Response:$event');
-                return event == message.responseMSG!;
+                return event.contains(message.responseMSG!);
               }).first;
               // Handles response value
               response.then((value) {
@@ -341,6 +338,8 @@ class CommandQueue {
                 await Future.delayed(const Duration(milliseconds: 50)); // Prevent the loop from consuming too many resources
               }
               bluetoothLog.fine("Finished waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
+            } else {
+              await Future.delayed(const Duration(milliseconds: 200));
             }
           } catch (e, s) {
             bluetoothLog.warning('Command timed out or threw error: $e', e, s);
