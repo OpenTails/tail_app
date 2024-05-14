@@ -4,6 +4,7 @@ import 'dart:core';
 
 import 'package:circular_buffer/circular_buffer.dart';
 import 'package:collection/collection.dart';
+import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -15,7 +16,9 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/firmware_update.dart';
 
 import '../../../Frontend/intn_defs.dart';
+import '../../../Frontend/utils.dart';
 import '../../Bluetooth/bluetooth_message.dart';
+import '../../auto_move.dart';
 
 part 'device_definition.g.dart';
 
@@ -85,10 +88,8 @@ class BaseStatefulDevice extends ChangeNotifier {
 
   final ValueNotifier<String> fwVersion = ValueNotifier("");
   final ValueNotifier<String> hwVersion = ValueNotifier("");
-
   final ValueNotifier<bool> hasGlowtip = ValueNotifier(false);
   final ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
-  StreamSubscription<void>? keepAliveStreamSubscription;
   final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(ConnectivityState.disconnected);
   final ValueNotifier<int> rssi = ValueNotifier(-1);
   final ValueNotifier<int> mtu = ValueNotifier(-1);
@@ -111,18 +112,55 @@ class BaseStatefulDevice extends ChangeNotifier {
         .asBroadcastStream()
         .where((event) => event.device.remoteId.str == baseStoredDevice.btMACAddress && event.characteristic.characteristicUuid.str == baseDeviceDefinition.bleRxCharacteristic)
         .map((event) => const Utf8Decoder().convert(event.value));
-    deviceConnectionState.addListener(
-      () {
-        if (deviceConnectionState.value == ConnectivityState.disconnected) {
-          reset();
+    deviceConnectionState.addListener(() {
+      if (deviceConnectionState.value == ConnectivityState.disconnected) {
+        reset();
+      } else if (deviceConnectionState.value == ConnectivityState.connected) {
+        // Add initial commands to the queue
+        commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: Type.system));
+        commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: Type.system));
+        if (baseStoredDevice.autoMove) {
+          changeAutoMove(this);
         }
-      },
-    );
+      }
+    });
+    batteryLevel.addListener(() {
+      batlevels.add(FlSpot(stopWatch.elapsed.inSeconds.toDouble(), batteryLevel.value));
+      batteryLow.value = batteryLevel.value < 20;
+    });
+    fwInfo.addListener(() {
+      if (fwInfo.value != null) {
+        if (fwInfo.value?.version.split(" ")[1] != fwVersion.value) {
+          hasUpdate.value = true;
+        }
+      }
+    });
+    getFirmwareInfo();
   }
 
   @override
   String toString() {
     return 'BaseStatefulDevice{baseDeviceDefinition: $baseDeviceDefinition, baseStoredDevice: $baseStoredDevice, battery: $batteryLevel}';
+  }
+
+  void getFirmwareInfo() {
+    // Try to get firmware update information from Tail Company site
+    if (baseDeviceDefinition.fwURL != "" && fwInfo.value == null) {
+      initDio().get(baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
+        (value) {
+          if (value.statusCode == 200) {
+            fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
+            if (fwVersion.value != "") {
+              if (fwInfo.value?.version.split(" ")[1] != fwVersion.value) {
+                hasUpdate.value = true;
+              }
+            }
+          }
+        },
+      ).onError((error, stackTrace) {
+        bluetoothLog.warning("Unable to get Firmware info for ${baseDeviceDefinition.fwURL} :$error", error, stackTrace);
+      });
+    }
   }
 
   void reset() {

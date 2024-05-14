@@ -15,6 +15,7 @@ import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:shake/shake.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
 import 'package:tail_app/Backend/action_registry.dart';
 
@@ -171,6 +172,9 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
   TriggerDefinition(this.ref);
 
   Future<void> sendCommands(String name, Ref ref) async {
+    if (!isAnyGearConnected.value) {
+      return;
+    }
     actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == name).uuid == e.uuid).forEach(
       (TriggerAction triggerAction) async {
         if (triggerAction.isActive.value) {
@@ -445,6 +449,32 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
   }
 }
 
+class RandomTriggerDefinition extends TriggerDefinition {
+  Timer? randomTimer;
+
+  RandomTriggerDefinition(super.ref) {
+    super.name = triggerRandomButtonTitle();
+    super.description = triggerRandomButtonDescription();
+    super.icon = const Icon(Icons.timelapse);
+    super.requiredPermission = null;
+    super.uuid = "12e01dea-219a-40e7-b51d-d89d6d4460ac";
+    super.actionTypes = [TriggerActionDef("Action", triggerRandomAction(), "60011d58-1c29-49ae-ad31-6774b81df49b")];
+  }
+
+  @override
+  Future<void> onDisable() async {
+    randomTimer?.cancel();
+    randomTimer = null;
+  }
+
+  @override
+  Future<void> onEnable() async {
+    randomTimer = Timer(Duration(seconds: Random().nextInt(240)), () {
+      sendCommands("Action", ref);
+    });
+  }
+}
+
 class VolumeButtonTriggerDefinition extends TriggerDefinition {
   StreamSubscription<HardwareButton>? subscription;
 
@@ -636,6 +666,7 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
       ShakeTriggerDefinition(ref),
       EarMicTriggerDefinition(ref),
       EarTiltTriggerDefinition(ref),
+      RandomTriggerDefinition(ref),
     ];
     if (Platform.isAndroid) {
       triggerDefinitions.add(VolumeButtonTriggerDefinition(ref));

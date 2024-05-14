@@ -193,6 +193,12 @@ String triggerCoverNear() => Intl.message("Device Covered", name: 'triggerCoverN
 
 String triggerCoverFar() => Intl.message("Device Uncovered", name: 'triggerCoverFar', desc: 'Cover trigger far action label');
 
+String triggerRandomButtonTitle() => Intl.message("Casual Mode", name: 'triggerRandomButtonTitle', desc: 'Casual Mode trigger title');
+
+String triggerRandomButtonDescription() => Intl.message("Randomly play a selected action", name: 'triggerRandomButtonDescription', desc: 'Casual Mode trigger description');
+
+String triggerRandomAction() => Intl.message("Action", name: 'triggerRandomAction', desc: 'Casual Mode trigger action label');
+
 String triggerVolumeButtonTitle() => Intl.message("Volume Buttons", name: 'triggerVolumeButtonTitle', desc: 'Volume Button trigger title');
 
 String triggerVolumeButtonDescription() => Intl.message("Trigger an action by pressing the volume button", name: 'triggerVolumeButtonDescription', desc: 'Volume Button trigger description');

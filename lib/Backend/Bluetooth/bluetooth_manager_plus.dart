@@ -3,8 +3,6 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
-import 'package:dio/dio.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
@@ -17,10 +15,7 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-import '../../Frontend/utils.dart';
 import '../../constants.dart';
-import '../auto_move.dart';
-import '../firmware_update.dart';
 import '../sensors.dart';
 import 'bluetooth_manager.dart';
 import 'bluetooth_message.dart';
@@ -35,6 +30,7 @@ StreamSubscription<OnServicesResetEvent>? _onServicesResetStreamSubscription;
 StreamSubscription<BluetoothAdapterState>? _adapterStateStreamSubscription;
 StreamSubscription<List<ScanResult>>? _onScanResultsStreamSubscription;
 StreamSubscription<OnMtuChangedEvent>? _onMtuChanged;
+StreamSubscription<void>? keepAliveStreamSubscription;
 
 final _bluetoothPlusLogger = log.Logger('BluetoothPlus');
 
@@ -119,32 +115,6 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         ForegroundService().start();
       }
       await event.device.discoverServices();
-      // Try to get firmware update information from Tail Company site
-      if (deviceDefinition.fwURL != "" && statefulDevice.fwInfo.value == null) {
-        initDio().get(statefulDevice.baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
-          (value) {
-            if (value.statusCode == 200) {
-              statefulDevice.fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
-              if (statefulDevice.fwVersion.value != "") {
-                if (statefulDevice.fwInfo.value?.version.split(" ")[1] != statefulDevice.fwVersion.value) {
-                  statefulDevice.hasUpdate.value = true;
-                }
-              }
-            }
-          },
-        ).onError((error, stackTrace) {
-          bluetoothLog.warning("Unable to get Firmware info for ${statefulDevice.baseDeviceDefinition.fwURL} :$error", error, stackTrace);
-        });
-      }
-      statefulDevice.keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen((event) async {
-        if (ref.read(knownDevicesProvider).containsKey(deviceID) && statefulDevice.deviceConnectionState.value == ConnectivityState.connected) {
-          statefulDevice.commandQueue.addCommand(BluetoothMessage(message: "PING", device: statefulDevice, priority: Priority.low, type: Type.system));
-          bluetoothDevice.readRssi();
-        } else {
-          statefulDevice.keepAliveStreamSubscription?.cancel();
-          bluetoothLog.warning("Disconnected from device");
-        }
-      }, cancelOnError: true);
     }
     if (bluetoothConnectionState == BluetoothConnectionState.disconnected) {
       _bluetoothPlusLogger.info("Disconnected from device: ${bluetoothDevice.remoteId.str}");
@@ -199,18 +169,11 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
   });
   _onDiscoveredServicesStreamSubscription = FlutterBluePlus.events.onDiscoveredServices.listen((event) async {
     _bluetoothPlusLogger.info('${event.device} ${event.services}');
-    BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     //Subscribes to all characteristics
     for (BluetoothService service in event.services) {
       for (BluetoothCharacteristic characteristic in service.characteristics) {
         await characteristic.setNotifyValue(true);
       }
-    }
-    // Add initial commands to the queue
-    statefulDevice?.commandQueue.addCommand(BluetoothMessage(message: "VER", device: statefulDevice, priority: Priority.low, type: Type.system));
-    statefulDevice?.commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: statefulDevice, priority: Priority.low, type: Type.system));
-    if (statefulDevice!.baseStoredDevice.autoMove) {
-      changeAutoMove(statefulDevice);
     }
   });
   _onCharacteristicReceivedStreamSubscription = FlutterBluePlus.events.onCharacteristicReceived.listen((event) {
@@ -222,12 +185,12 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[bluetoothDevice.remoteId.str];
     // get Device object
     // set value
-    if (bluetoothCharacteristic.characteristicUuid == Guid("2A19")) {
-      statefulDevice?.batteryLevel.value == values.first;
-      statefulDevice?.batlevels.add(FlSpot(statefulDevice.stopWatch.elapsed.inSeconds.toDouble(), values.first.toDouble()));
-    }
-    if (bluetoothCharacteristic.characteristicUuid == Guid("5073792e-4fc0-45a0-b0a5-78b6c1756c91")) {
-      statefulDevice?.batteryCharging.value = const Utf8Decoder().convert(values) == "CHARGE ON";
+    if (bluetoothCharacteristic.characteristicUuid == Guid("2a19")) {
+      statefulDevice?.batteryLevel.value = values.first.toDouble();
+    } else if (bluetoothCharacteristic.characteristicUuid == Guid("5073792e-4fc0-45a0-b0a5-78b6c1756c91")) {
+      String value = const Utf8Decoder().convert(values);
+      statefulDevice?.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
+      statefulDevice?.batteryCharging.value = value == "CHARGE ON";
     }
     if (bluetoothCharacteristic.characteristicUuid.str == statefulDevice?.baseDeviceDefinition.bleRxCharacteristic) {
       String value = const Utf8Decoder().convert(values);
@@ -235,11 +198,6 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       // Firmware Version
       if (value.startsWith("VER")) {
         statefulDevice?.fwVersion.value = value.substring(value.indexOf(" "));
-        if (statefulDevice?.fwInfo.value != null) {
-          if (statefulDevice?.fwInfo.value?.version.split(" ")[1] != statefulDevice?.fwVersion.value) {
-            statefulDevice?.hasUpdate.value = true;
-          }
-        }
         // Sent after VER message
       } else if (value.startsWith("GLOWTIP")) {
         statefulDevice?.hasGlowtip.value = "TRUE" == value.substring(value.indexOf(" "));
@@ -280,6 +238,17 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     },
     onError: (e) => _bluetoothPlusLogger.severe(e),
   );
+
+  keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen((event) async {
+    Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+    for (var element in FlutterBluePlus.connectedDevices) {
+      BaseStatefulDevice? device = knownDevices[element.remoteId.str];
+      if (device != null) {
+        device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: Type.system));
+        element.readRssi();
+      }
+    }
+  }, cancelOnError: true);
 }
 
 Future<void> disconnect(String id) async {
