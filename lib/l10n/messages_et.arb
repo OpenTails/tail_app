@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Eemalda tegevus",
+  "cancel": "Parema servo asend",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Rahulik ja lõdvestunud",
+  "actionsCategoryFast": "Viivitage järgmist liigutust [X20X] ms.",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Käivitage toiming, kui läheduses on varustus",
+  "triggerProximityDescription": "Käivitage toiming, raputades seadet",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Tagasi kallutamine",
+  "triggerEarTiltBackward": "Kallutamine tahapoole",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse ümberjärjestamiseks võite pikalt vajutada.",
+  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse muutmiseks võite pikalt vajutada.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Uuendus ebaõnnestus",
+  "otaFailedTitle": "Uuendus ebaõnnestus. Taaskäivitage varustus ja proovige uuesti",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -834,6 +834,12 @@
   "triggerRandomAction": "Tegevus",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Geari värskendamine. Ärge lülitage käiku välja ega sulgege rakendust",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   }
