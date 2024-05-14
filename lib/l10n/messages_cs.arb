@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Nová akce",
+  "sequencesAdd": "Přidat spouštěč",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Vyberte akci",
+  "actionsSelectScreen": "Rychlý a nadšený",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -285,7 +285,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Ocas vybere náhodný pohyb a mezi každým pohybem se zastaví na náhodný počet sekund",
+  "manageDevicesAutoMoveSubTitle": "Povolit anonymní analýzu",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Spusťte akci zakrytím senzoru přiblížení",
+  "triggerCoverDescription": "Pokrýt",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -687,12 +687,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Pokrok",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Spouštěče automaticky posílají akce do vašeho zařízení. Můžete mít aktivních více spouštěčů současně. Klepnutím na spoušť jej upravíte, pomocí přepínače vlevo spoušť aktivujte.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
@@ -771,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Hotovo",
+  "onboardingDoneButtonLabel": "Zapněte Bluetooth",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
@@ -807,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Aktualizace selhala",
+  "otaFailedTitle": "Aktualizace selhala. Restartujte zařízení a zkuste to znovu",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -822,6 +816,36 @@
   "settingsNewsletterToggleSubTitle": "Automaticky dostávat upozornění, když je nový newsletter",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Povolit anonymní analýzu",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Náhodně zahrajte vybranou akci",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Akce",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Aktualizace zařízení Gear. Nevypínejte zařízení ani nezavírejte aplikaci",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Slabá baterie. Nabijte prosím své zařízení alespoň na 50 %",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }

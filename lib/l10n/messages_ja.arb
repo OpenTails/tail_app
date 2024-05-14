@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "新しいアクション",
+  "sequencesAdd": "翼",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "シャットダウン",
+  "manageDevicesShutdown": "接続する",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "画面をオンにしたままにする",
+  "settingsKeepScreenOnToggleTitle": "常に既知のギアをスキャンする",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -654,12 +654,6 @@
   "otaDownloadButtonLabel": "OTAアップデートを開始",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "進捗",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
@@ -765,13 +759,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "許可を与える",
+  "onboardingBluetoothRequestButtonLabel": "ギアに接続するにはBluetoothの許可が必要です",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Bluetoothをオンにする",
+  "onboardingBluetoothEnableButtonLabel": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります。",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -807,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "アップデートに失敗しました",
+  "otaFailedTitle": "アップデートに失敗しました。機器を再起動してもう一度お試しください。",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -822,6 +816,36 @@
   "settingsNewsletterToggleTitle": "ニュースレター通知を許可する",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "カジュアルモード",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "選択したアクションをランダムに実行する",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "アクション",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "ギアを更新しています。ギアをオフにしたり、アプリを閉じたりしないでください。",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "バッテリー残量が少なくなっています。機器を少なくとも50%まで充電してください。",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }

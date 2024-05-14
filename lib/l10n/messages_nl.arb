@@ -1,5 +1,5 @@
 {
-  "title": "Uitrusting voor onderweg",
+  "title": "Start OTA-update",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -143,7 +143,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Versoepelingstype",
+  "sequencesEditEasing": "Hoe snel moet het tandwiel naar deze positie bewegen?",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Schakel trillingen in wanneer op een actie wordt getikt",
+  "settingsHapticsToggleSubTitle": "Schakel trillen in wanneer op een actie wordt getikt",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Wijzig de kleur van de app, configureer haptiek en meer",
+  "settingsDescription": "Wijzig de app-kleur, configureer haptiek en meer",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -669,12 +669,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Voortgang",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijkertijd actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
@@ -723,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "OTA-update starten",
+  "otaDownloadButtonLabel": "Start OTA-update",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -777,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Veel plezier met kwispelen!",
+  "onboardingCompletedTitle": "Klaar",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -807,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Update mislukt",
+  "otaFailedTitle": "Update mislukt. Start uw uitrusting opnieuw op en probeer het opnieuw",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -822,6 +816,36 @@
   "settingsNewsletterToggleSubTitle": "Ontvang automatisch notificaties als er een nieuwe nieuwsbrief is",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Casual modus",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Speel willekeurig een geselecteerde actie",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Actie",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Uitrusting bijwerken. Schakel uw apparatuur niet uit en sluit de app niet",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Lage batterij. Laad uw uitrusting op tot minimaal 50%",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }

@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Новое действие",
+  "sequencesAdd": "Крылья",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Включить вибрацию при нажатии на действие",
+  "settingsHapticsToggleSubTitle": "Уши",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Запуск действия нажатием кнопки громкости",
+  "triggerVolumeButtonDescription": "Кнопки громкости",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "Запуск действия нажатием кнопки громкости",
+  "triggerVolumeButtonVolumeDown": "Кнопки громкости",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
@@ -711,12 +711,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Прогресс",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesInfoDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
@@ -807,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Не удалось обновить",
+  "otaFailedTitle": "Не удалось обновить. Перезапустите устройство и повторите попытку.",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -822,6 +816,36 @@
   "settingsNewsletterToggleSubTitle": "Автоматически получать уведомления о появлении нового информационного бюллетеня",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Казуальный режим",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Случайное воспроизведение выбранного действия",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Действие",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Обновление снаряжения. Пожалуйста, не выключайте свое оборудование и не закрывайте приложение.",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Низкий заряд батареи. Пожалуйста, зарядите свое снаряжение минимум на 50 %.",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }

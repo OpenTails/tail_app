@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "punta luminosa",
+  "actionsCategoryGlowtip": "Frustrado y tenso",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -89,7 +89,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Retroalimentación háptica",
+  "settingsHapticsToggleTitle": "Seleccione una acción",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Nombre",
+  "sequencesEditName": "Agregar movimiento",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -143,7 +143,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "La cola seleccionará un movimiento aleatorio y hará una pausa durante un número aleatorio de segundos entre cada movimiento.",
+  "manageDevicesAutoMoveSubTitle": "Tarjetas más grandes",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -219,7 +219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Activa una acción presionando el botón de volumen",
+  "triggerVolumeButtonDescription": "Botones de volumen",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Agitar",
+  "triggerShakeTitle": "Sube el volumen",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -303,7 +303,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseTitle": "Pausa entre movimientos",
+  "manageDevicesAutoMovePauseTitle": "Frustrado",
   "@manageDevicesAutoMovePauseTitle": {
     "description": "Auto move pause slider title when managing a device",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsCalm": "Calma",
+  "manageDevicesAutoMoveGroupsCalm": "Mover grupos",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
@@ -711,12 +711,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Progreso",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Los activadores envían acciones automáticamente a tu equipo. Puede tener varios activadores activos al mismo tiempo. Toque un disparador para editarlo, use el interruptor de la izquierda para habilitar el disparador.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
@@ -765,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Activar Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Conceder permiso",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -807,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Actualización fallida",
+  "otaFailedTitle": "Error de actualización. Reinicia tu equipo e inténtalo de nuevo.",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -822,6 +816,36 @@
   "settingsNewsletterToggleSubTitle": "Recibir notificaciones automáticamente cuando haya un nuevo boletín",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Juega aleatoriamente una acción seleccionada",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Modo informal",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Acción",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Actualización de equipo. No apagues tu equipo ni cierres la aplicación.",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Batería baja. Cargue su equipo al menos al 50 %.",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }

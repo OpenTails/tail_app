@@ -89,7 +89,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Ohren",
+  "deviceTypeEars": "Frustriert und angespannt",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -147,13 +147,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Ruhig und entspannt",
+  "actionsCategoryCalm": "Schnell",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Schnell und aufgeregt",
+  "actionsCategoryFast": "OK",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -171,7 +171,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Ohren",
+  "actionsCategoryEars": "Frustriert und angespannt",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualMiTailTitle": "MiTail Handbuch",
+  "moreManualMiTailTitle": "Verantwortungsvolles Wedeln",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
     "type": "text",
@@ -645,12 +645,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Fortschritt",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Trigger senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Trigger, um ihn zu bearbeiten, und aktivieren Sie den Trigger mit dem Schalter auf der linken Seite.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
@@ -675,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Batterieprozentsatz anzeigen",
+  "settingsBatteryPercentageToggleTitle": "Batteriestand in % anzeigen",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
@@ -747,7 +741,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothTitle": "Bluetooth",
+  "onboardingBluetoothTitle": "Datenschutzrichtlinie akzeptieren",
   "@onboardingBluetoothTitle": {
     "description": "Title for bluetooth section on the onboarding screen",
     "type": "text",
@@ -765,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Bluetooth einschalten",
+  "onboardingBluetoothEnableButtonLabel": "Berechtigung erteilen",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -783,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Aktion entfernen",
+  "triggersSelectClearLabel": "Wählen Sie einen Triggertyp aus",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -807,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Update fehlgeschlagen",
+  "otaFailedTitle": "Update fehlgeschlagen. Bitte starte deine Ausrüstung neu und versuche es erneut",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -822,6 +816,36 @@
   "settingsNewsletterToggleTitle": "Newsletter-Benachrichtigungen zulassen",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Casual-Modus",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Eine ausgewählte Aktion nach dem Zufallsprinzip ausführen",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Aktion",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Gear wird aktualisiert. Bitte schalten Sie Ihr Gear nicht aus und schließen Sie die App nicht.",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Schwache Batterie. Bitte laden Sie Ihre Ausrüstung zu mindestens 50 % auf",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }

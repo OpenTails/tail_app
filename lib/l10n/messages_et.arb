@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Eemalda tegevus",
+  "cancel": "Parema servo asend",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Rahulik ja lõdvestunud",
+  "actionsCategoryFast": "Viivitage järgmist liigutust [X20X] ms.",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "Lülita välja",
+  "manageDevicesShutdown": "Teisalda rühmad",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Käivitage toiming, kui läheduses on varustus",
+  "triggerProximityDescription": "Käivitage toiming, raputades seadet",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Tagasi kallutamine",
+  "triggerEarTiltBackward": "Kallutamine tahapoole",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "Lülitage käiguriba sisse",
+  "shellDeviceBarToggleLabel": "Käik liikvel olles",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuse kaardid kogu rakenduses",
+  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuskaardid kogu rakenduses",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -708,12 +708,6 @@
   "otaDownloadButtonLabel": "Alustage OTA värskendamist",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "Edusammud",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
@@ -759,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Andke luba",
+  "onboardingBluetoothRequestButtonLabel": "Geariga ühendamiseks on vaja Bluetoothi luba",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -807,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Uuendus ebaõnnestus",
+  "otaFailedTitle": "Uuendus ebaõnnestus. Taaskäivitage varustus ja proovige uuesti",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -822,6 +816,36 @@
   "settingsNewsletterToggleSubTitle": "Saate automaatselt teateid uue uudiskirja ilmumisel",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Juhuslik režiim",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Mängige juhuslikult valitud tegevust",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Tegevus",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Geari värskendamine. Ärge lülitage käiku välja ega sulgege rakendust",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Madal akutase. Palun laadige oma varustus vähemalt 50%",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }

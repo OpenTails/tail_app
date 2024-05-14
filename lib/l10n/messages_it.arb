@@ -143,7 +143,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Nome",
+  "sequencesEditName": "Aggiungi mossa",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStopped": "Fermato",
+  "triggerWalkingStopped": "Attiva un'azione mentre cammini",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Attiva un'azione se l'attrezzatura è nelle vicinanze",
+  "triggerProximityDescription": "Attiva un'azione scuotendo il dispositivo",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Questa modalità impedisce allo schermo di spegnersi mentre l'attrezzatura è collegata",
+  "settingsKeepScreenOnToggleSubTitle": "Tieni lo schermo acceso",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -654,12 +654,6 @@
   "otaDownloadButtonLabel": "Inizia l'aggiornamento OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadProgressLabel": "Progresso",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
     "type": "text",
     "placeholders": {}
   },
@@ -777,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Buon scodinzolante!",
+  "onboardingCompletedTitle": "Fatto",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -807,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Aggiornamento non riuscito",
+  "otaFailedTitle": "Aggiornamento non riuscito. Riavvia la tua attrezzatura e riprova",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -822,6 +816,36 @@
   "settingsNewsletterToggleSubTitle": "Ricevi automaticamente notifiche quando c'è una nuova newsletter",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Esegui casualmente un'azione selezionata",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Modalità casuale",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Azione",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Aggiornamento dell'attrezzatura. Si prega di non spegnere l'attrezzatura né chiudere l'app",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Batteria scarica. Carica la tua attrezzatura almeno al 50%",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }
