@@ -89,7 +89,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Retroalimentación háptica",
+  "settingsHapticsToggleTitle": "Seleccione una acción",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Nombre",
+  "sequencesEditName": "Agregar movimiento",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -219,7 +219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Activa una acción presionando el botón de volumen",
+  "triggerVolumeButtonDescription": "Botones de volumen",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsCalm": "Calma",
+  "manageDevicesAutoMoveGroupsCalm": "Mover grupos",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Activar Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Conceder permiso",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -822,6 +822,24 @@
   "settingsNewsletterToggleSubTitle": "Recibir notificaciones automáticamente cuando haya un nuevo boletín",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Juega aleatoriamente una acción seleccionada",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Modo informal",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Acción",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
     "type": "text",
     "placeholders": {}
   }
