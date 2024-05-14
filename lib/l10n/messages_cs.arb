@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Aktualizace selhala",
+  "otaFailedTitle": "Aktualizace selhala. Restartujte zařízení a zkuste to znovu",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
