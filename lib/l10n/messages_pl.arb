@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Wyzwalacze",
+  "triggersPage": "Którego biegu to ma dotyczyć?",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Którego biegu to ma dotyczyć?",
+  "deviceType": "Którego biegu to powinno dotyczyć?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -149,7 +149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Usuń akcję",
+  "sequencesEditDeleteTitle": "Strona główna Gear",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Okładka",
+  "triggerCoverTitle": "Zatrzymany",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Przydatne linki",
+  "moreUsefulLinksTitle": "Instrukcje",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -840,6 +840,12 @@
   "otaInProgressTitle": "Aktualizowanie sprzętu. Nie wyłączaj sprzętu ani nie zamykaj aplikacji",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Niski poziom baterii. Naładuj swój sprzęt przynajmniej do 50%",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }
