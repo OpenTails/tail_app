@@ -711,12 +711,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Progreso",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Los activadores envían acciones automáticamente a tu equipo. Puede tener varios activadores activos al mismo tiempo. Toque un disparador para editarlo, use el interruptor de la izquierda para habilitar el disparador.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",

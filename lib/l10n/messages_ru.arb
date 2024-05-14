@@ -711,12 +711,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Прогресс",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesInfoDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",

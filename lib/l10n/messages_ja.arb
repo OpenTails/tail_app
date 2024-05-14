@@ -657,12 +657,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "進捗",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "トリガーはギアにアクションを自動的に送信します。複数のトリガーを同時にアクティブにすることができます。トリガーをタップして編集し、左側のトグルを使用してトリガーを有効にします。",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",

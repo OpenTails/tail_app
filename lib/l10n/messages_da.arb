@@ -681,12 +681,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Fremskridt",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Firmware-ændringslog",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",

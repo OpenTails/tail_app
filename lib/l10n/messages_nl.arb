@@ -669,12 +669,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Voortgang",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijkertijd actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",

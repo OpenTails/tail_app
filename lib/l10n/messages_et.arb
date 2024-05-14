@@ -711,12 +711,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Edusammud",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga võib olla aktiivne mitu päästikut. Selle muutmiseks puudutage päästikut, päästiku lubamiseks kasutage vasakpoolset lülitit.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",

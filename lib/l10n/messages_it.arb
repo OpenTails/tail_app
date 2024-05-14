@@ -657,12 +657,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Progresso",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "I trigger inviano automaticamente azioni alla tua attrezzatura. Puoi avere più trigger attivi contemporaneamente. Tocca un trigger per modificarlo, usa l'interruttore a sinistra per abilitare il trigger.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",

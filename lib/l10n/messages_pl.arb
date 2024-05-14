@@ -717,12 +717,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Postęp",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Wyzwalacze automatycznie wysyłają akcje do Twojego sprzętu. Jednocześnie może być aktywnych wiele wyzwalaczy. Stuknij wyzwalacz, aby go edytować, użyj przełącznika po lewej stronie, aby włączyć wyzwalacz.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",

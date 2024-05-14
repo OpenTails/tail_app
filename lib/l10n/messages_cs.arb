@@ -687,12 +687,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadProgressLabel": "Pokrok",
-  "@otaDownloadProgressLabel": {
-    "description": "Label for download firmware progress bar at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerInfoDescription": "Spouštěče automaticky posílají akce do vašeho zařízení. Můžete mít aktivních více spouštěčů současně. Klepnutím na spoušť jej upravíte, pomocí přepínače vlevo spoušť aktivujte.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
