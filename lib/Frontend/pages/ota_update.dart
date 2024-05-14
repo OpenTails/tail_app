@@ -110,7 +110,12 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         secondChild: ButtonBar(
                           alignment: MainAxisAlignment.center,
                           children: [
-                            ElevatedButton(onPressed: (updateURL != null || firmwareFile != null) && ref.read(knownDevicesProvider)[widget.device]!.batteryLevel.value > 50 ? () => beginUpdate : null, child: Text(otaDownloadButtonLabel())),
+                            ElevatedButton(
+                              onPressed: (updateURL != null || firmwareFile != null) && ref.read(knownDevicesProvider)[widget.device]!.batteryLevel.value > 50 ? () => beginUpdate() : null,
+                              child: Text(
+                                otaDownloadButtonLabel(),
+                              ),
+                            ),
                             if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
                               ElevatedButton(
                                 onPressed: () async {
@@ -236,9 +241,10 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     BaseStatefulDevice? baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
     if (firmwareFile != null && baseStatefulDevice != null) {
       baseStatefulDevice.gearReturnedError.value = false;
-      int mtu = baseStatefulDevice.mtu.value;
+      int mtu = baseStatefulDevice.mtu.value - 15;
       int total = firmwareFile!.length;
       int current = 0;
+      baseStatefulDevice.gearReturnedError.value = false;
       List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
       await sendMessage(baseStatefulDevice, beginOTA);
       while (uploadProgress < 1) {
@@ -252,7 +258,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
 
         List<int> chunk = firmwareFile!.skip(current).take(mtu).toList();
         if (chunk.isNotEmpty) {
-          await sendMessage(baseStatefulDevice, chunk);
+          await sendMessage(baseStatefulDevice, chunk, withoutResponse: false, allowLongWrite: true);
           current = current + chunk.length;
         } else {
           current = total;
