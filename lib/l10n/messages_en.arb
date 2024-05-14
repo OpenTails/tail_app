@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-14T16:41:26.954931",
+  "@@last_modified": "2024-05-14T18:41:24.073262",
   "title": "Gear on the Go",
   "@title": {
     "description": "The name of the app",
@@ -758,6 +758,12 @@
   "otaFailedTitle": "Update Failed. Please restart your gear and try again",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Low Battery. Please charge your gear to at least 50%",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   },
