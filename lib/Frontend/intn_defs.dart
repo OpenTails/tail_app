@@ -263,11 +263,11 @@ String otaChangelogLabel() => Intl.message("Firmware Changelog", name: 'otaChang
 
 String otaDownloadButtonLabel() => Intl.message("Begin OTA Update", name: 'otaDownloadButtonLabel', desc: 'Label for download firmware button at bottom of OTA page');
 
-String otaDownloadProgressLabel() => Intl.message("Progress", name: 'otaDownloadProgressLabel', desc: 'Label for download firmware progress bar at bottom of OTA page');
+String otaInProgressTitle() => Intl.message("Updating Gear. Please do not turn off your gear or close the app", name: 'otaInProgressTitle', desc: 'Label for ota in progress');
 
 String otaCompletedTitle() => Intl.message("Update Completed", name: 'otaCompletedTitle', desc: 'Title for the text that appears when an OTA update is completed');
 
-String otaFailedTitle() => Intl.message("Update Failed", name: 'otaFailedTitle', desc: 'Title for the text that appears when an OTA update has failed');
+String otaFailedTitle() => Intl.message("Update Failed. Please restart your gear and try again", name: 'otaFailedTitle', desc: 'Title for the text that appears when an OTA update has failed');
 
 String triggerInfoDescription() => Intl.message('Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, use the toggle on the left to enable the trigger.',
     name: 'triggerInfoDescription', desc: 'Description for what a trigger is and how to use them on the triggers page');
