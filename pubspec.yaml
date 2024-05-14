@@ -20,7 +20,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
   logging: ^1.2.0
   flutter_blue_plus: ^1.32.6
-  go_router: ^14.1.0
+  go_router: ^14.1.1
   vector_math: ^2.1.4 # used for joystick
   collection: ^1.18.0
   flutter_foreground_service: # Needs gradle namespace
@@ -106,10 +106,10 @@ dependencies:
   flutter_local_notifications: ^17.1.2
 
   # Sentry
-  sentry_flutter: ^8.1.0
-  sentry_logging: ^8.1.0
-  sentry_hive: ^8.1.0
-  sentry_dio: ^8.1.0
+  sentry_flutter: ^8.2.0
+  sentry_logging: ^8.2.0
+  sentry_hive: ^8.2.0
+  sentry_dio: ^8.2.0
   feedback_sentry: # need to update for sentry
     git:
       url: https://github.com/ueman/feedback
