@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "デジテールマニュアル",
+  "moreManualDigitailTitle": "DigiTail マニュアル",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "アップデートに失敗しました",
+  "otaFailedTitle": "アップデートに失敗しました。機器を再起動してもう一度お試しください。",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -834,6 +834,12 @@
   "triggerRandomAction": "アクション",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "ギアを更新しています。ギアをオフにしたり、アプリを閉じたりしないでください。",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   }
