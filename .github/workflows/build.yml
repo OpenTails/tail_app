@@ -21,7 +21,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.2'
-          cache: true
+          cache: false
       - name: Run build script
         id: build
         run: bash ${GITHUB_WORKSPACE}/Scripts/build.sh
@@ -34,8 +34,8 @@ jobs:
   build_android:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        flutter: [3.19.2,3.x]
+        os: [ ubuntu-latest, macos-latest ]
+        flutter: [ 3.19.2,3.x ]
     name: Build
     runs-on: ${{ matrix.os }}
     outputs:
@@ -50,11 +50,10 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-          cache: 'gradle'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.flutter }}
-          cache: true
+          cache: false
       - name: Run build script
         id: build
         run: bash ${GITHUB_WORKSPACE}/Scripts/launchBuild.sh
@@ -84,7 +83,7 @@ jobs:
           SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
   release-job:
     name: Releasing
-    needs: [build_android]
+    needs: [ build_android ]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'created'
     steps:
