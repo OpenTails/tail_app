@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Новое действие",
+  "sequencesAdd": "Крылья",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Включить вибрацию при нажатии на действие",
+  "settingsHapticsToggleSubTitle": "Уши",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Запуск действия нажатием кнопки громкости",
+  "triggerVolumeButtonDescription": "Кнопки громкости",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -840,6 +840,12 @@
   "otaInProgressTitle": "Обновление снаряжения. Пожалуйста, не выключайте свое оборудование и не закрывайте приложение.",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Низкий заряд батареи. Пожалуйста, зарядите свое снаряжение минимум на 50 %.",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }
