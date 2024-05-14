@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "新しいアクション",
+  "sequencesAdd": "翼",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "シャットダウン",
+  "manageDevicesShutdown": "接続する",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "画面をオンにしたままにする",
+  "settingsKeepScreenOnToggleTitle": "常に既知のギアをスキャンする",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Bluetoothをオンにする",
+  "onboardingBluetoothEnableButtonLabel": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります。",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -840,6 +840,12 @@
   "otaInProgressTitle": "ギアを更新しています。ギアをオフにしたり、アプリを閉じたりしないでください。",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "バッテリー残量が少なくなっています。機器を少なくとも50%まで充電してください。",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }
