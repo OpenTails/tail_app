@@ -89,7 +89,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Ohren",
+  "deviceTypeEars": "Frustriert und angespannt",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -171,7 +171,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Ohren",
+  "actionsCategoryEars": "Frustriert und angespannt",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothTitle": "Bluetooth",
+  "onboardingBluetoothTitle": "Datenschutzrichtlinie akzeptieren",
   "@onboardingBluetoothTitle": {
     "description": "Title for bluetooth section on the onboarding screen",
     "type": "text",
@@ -822,6 +822,24 @@
   "settingsNewsletterToggleTitle": "Newsletter-Benachrichtigungen zulassen",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Casual-Modus",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Eine ausgewählte Aktion nach dem Zufallsprinzip ausführen",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Aktion",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
     "type": "text",
     "placeholders": {}
   }
