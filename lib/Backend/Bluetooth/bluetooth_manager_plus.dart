@@ -275,11 +275,11 @@ Future<void> stopScan() async {
   await FlutterBluePlus.stopScan();
 }
 
-Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool withoutResponse = false, bool allowLongWrite = false}) async {
+Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool withoutResponse = false}) async {
   BluetoothDevice? bluetoothDevice = FlutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == device.baseStoredDevice.btMACAddress);
   if (bluetoothDevice != null) {
     BluetoothCharacteristic? bluetoothCharacteristic =
         bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid == Guid(device.baseDeviceDefinition.bleDeviceService))?.characteristics.firstWhereOrNull((element) => element.characteristicUuid == Guid(device.baseDeviceDefinition.bleTxCharacteristic));
-    await bluetoothCharacteristic?.write(message, withoutResponse: withoutResponse, allowLongWrite: allowLongWrite);
+    await bluetoothCharacteristic?.write(message, withoutResponse: withoutResponse && bluetoothCharacteristic.properties.writeWithoutResponse);
   }
 }

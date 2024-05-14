@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging/logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
@@ -36,22 +37,27 @@ enum OtaState {
   error,
   manual,
   completed,
+  lowBattery,
 }
 
 class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   double downloadProgress = 0;
   double uploadProgress = 0;
-  FWInfo? updateURL;
+  FWInfo? firmwareInfo;
   Dio dio = Dio();
   List<int>? firmwareFile;
   OtaState otaState = OtaState.standby;
   String? downloadedMD5;
   bool wakelockEnabledBeforehand = false;
+  BaseStatefulDevice? baseStatefulDevice;
+  int current = 0;
+  final _otaLogger = Logger('otaLogger');
 
   @override
   void initState() {
     super.initState();
-    updateURL ??= ref.read(knownDevicesProvider)[widget.device]?.fwInfo.value;
+    baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
+    firmwareInfo ??= baseStatefulDevice?.fwInfo.value;
     downloadFirmware();
     WakelockPlus.enabled.then((value) => wakelockEnabledBeforehand = value);
   }
@@ -65,6 +71,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     if ([OtaState.download, OtaState.upload].contains(otaState)) {
       otaState == OtaState.error;
     }
+    baseStatefulDevice?.deviceState.value = DeviceState.standby;
   }
 
   @override
@@ -96,11 +103,11 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("MD5: ${updateURL?.md5sum}"),
+                      Text("MD5: ${firmwareInfo?.md5sum}"),
                       Text("DL MD5: $downloadedMD5"),
-                      Text("URL: ${updateURL?.url}"),
-                      Text("AVAILABLE VERSION: ${updateURL?.version}"),
-                      Text("CURRENT VERSION: ${ref.read(knownDevicesProvider)[widget.device]?.fwVersion.value}"),
+                      Text("URL: ${baseStatefulDevice?.baseDeviceDefinition.fwURL}"),
+                      Text("AVAILABLE VERSION: ${firmwareInfo?.version}"),
+                      Text("CURRENT VERSION: ${baseStatefulDevice?.fwVersion.value}"),
                       Text("STATE: $otaState"),
                     ],
                   ),
@@ -108,7 +115,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
               ],
               ListTile(
                 title: Text(otaChangelogLabel()),
-                subtitle: Text(updateURL?.changelog ?? "Unavailable"),
+                subtitle: Text(firmwareInfo?.changelog ?? "Unavailable"),
               ),
               Expanded(
                 child: Align(
@@ -120,7 +127,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         alignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                            onPressed: (updateURL != null || firmwareFile != null) && ref.read(knownDevicesProvider)[widget.device]!.batteryLevel.value > 50 ? () => beginUpdate() : null,
+                            onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
                             child: Text(
                               otaDownloadButtonLabel(),
                             ),
@@ -187,6 +194,20 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   width: MediaQuery.of(context).size.width,
                 ),
               ],
+              if (otaState == OtaState.lowBattery) ...[
+                ListTile(
+                  title: Text(
+                    otaLowBattery(),
+                    style: Theme.of(context).textTheme.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                LottieLazyLoad(
+                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834342.tgs',
+                  renderCache: true,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ],
               if ([OtaState.download, OtaState.upload].contains(otaState)) ...[
                 ListTile(
                   title: Text(
@@ -208,19 +229,39 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
                 ListTile(
-                  subtitle: LinearProgressIndicator(value: (downloadProgress + uploadProgress) / 2),
+                  subtitle: LinearProgressIndicator(value: downloadProgress < 1 ? downloadProgress : uploadProgress),
                 ),
-              ]
+                if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                  ListTile(
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Upload Progress: ${current} / ${firmwareFile!.length} = ${uploadProgress.toStringAsPrecision(3)}'),
+                        Text('MTU: ${baseStatefulDevice!.mtu.value}'),
+                        Text('OtaState: ${otaState.name}'),
+                        Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),
+                        Text('ConnectivityState: ${baseStatefulDevice!.deviceConnectionState.value}'),
+                      ],
+                    ),
+                  )
+                ],
+              ],
             ],
           ),
           duration: animationTransitionDuration,
-          crossFadeState: [OtaState.error, OtaState.completed, OtaState.upload, OtaState.download].contains(otaState) ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+          crossFadeState: [OtaState.standby, OtaState.manual].contains(otaState) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
         ),
       ),
     );
   }
 
   Future<void> beginUpdate() async {
+    if (baseStatefulDevice!.batteryLevel.value < 50) {
+      setState(() {
+        otaState = OtaState.lowBattery;
+      });
+      return;
+    }
     WakelockPlus.enable();
     if (firmwareFile == null) {
       await downloadFirmware();
@@ -231,7 +272,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   }
 
   Future<void> downloadFirmware() async {
-    if (updateURL == null) {
+    if (firmwareInfo == null) {
       return;
     }
     setState(() {
@@ -240,7 +281,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     });
     final transaction = Sentry.startTransaction('OTA Download', 'http');
     try {
-      final Response<List<int>> rs = await initDio().get<List<int>>(updateURL!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
+      final Response<List<int>> rs = await initDio().get<List<int>>(firmwareInfo!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
         setState(() {
           downloadProgress = current / total;
         });
@@ -249,7 +290,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
         downloadProgress = 1;
         Digest digest = md5.convert(rs.data!);
         downloadedMD5 = digest.toString();
-        if (digest.toString() == updateURL!.md5sum) {
+        if (digest.toString() == firmwareInfo!.md5sum) {
           firmwareFile = rs.data;
         } else {
           transaction.status = const SpanStatus.dataLoss();
@@ -269,27 +310,38 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       otaState = OtaState.upload;
       uploadProgress = 0;
     });
-    BaseStatefulDevice? baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
+    if (baseStatefulDevice == null) {
+      otaState = OtaState.error;
+      return;
+    }
     if (firmwareFile != null && baseStatefulDevice != null) {
-      baseStatefulDevice.gearReturnedError.value = false;
-      int mtu = baseStatefulDevice.mtu.value - 15;
+      baseStatefulDevice?.gearReturnedError.value = false;
+      int mtu = baseStatefulDevice!.mtu.value - 10;
       int total = firmwareFile!.length;
-      int current = 0;
-      baseStatefulDevice.gearReturnedError.value = false;
+      current = 0;
+      baseStatefulDevice!.gearReturnedError.value = false;
       List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
-      await sendMessage(baseStatefulDevice, beginOTA);
+      await sendMessage(baseStatefulDevice!, beginOTA);
       while (uploadProgress < 1 || otaState == OtaState.error) {
-        if (baseStatefulDevice.gearReturnedError.value) {
+        if (baseStatefulDevice!.gearReturnedError.value) {
           setState(() {
             otaState = OtaState.error;
           });
           break;
         }
-        baseStatefulDevice.deviceState.value = DeviceState.busy; // hold the command queue
+        baseStatefulDevice!.deviceState.value = DeviceState.busy; // hold the command queue
 
         List<int> chunk = firmwareFile!.skip(current).take(mtu).toList();
         if (chunk.isNotEmpty) {
-          await sendMessage(baseStatefulDevice, chunk, withoutResponse: false, allowLongWrite: true);
+          try {
+            await sendMessage(baseStatefulDevice!, chunk, withoutResponse: true);
+          } catch (e, s) {
+            _otaLogger.severe("Exception during ota upload:$e", e, s);
+            setState(() {
+              otaState = OtaState.error;
+            });
+            return;
+          }
           current = current + chunk.length;
         } else {
           current = total;
@@ -304,7 +356,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
         otaState = OtaState.completed;
         plausible.event(name: "Update Gear");
       }
-      baseStatefulDevice.deviceState.value = DeviceState.standby; // hold the command queue
+      baseStatefulDevice!.deviceState.value = DeviceState.standby; // hold the command queue
     }
   }
 }

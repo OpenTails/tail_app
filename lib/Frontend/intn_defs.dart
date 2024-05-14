@@ -269,6 +269,8 @@ String otaCompletedTitle() => Intl.message("Update Completed", name: 'otaComplet
 
 String otaFailedTitle() => Intl.message("Update Failed. Please restart your gear and try again", name: 'otaFailedTitle', desc: 'Title for the text that appears when an OTA update has failed');
 
+String otaLowBattery() => Intl.message("Low Battery. Please charge your gear to at least 50%", name: 'otaLowBattery', desc: 'Title for the text that appears when an OTA update was blocked due to low battery');
+
 String triggerInfoDescription() => Intl.message('Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, use the toggle on the left to enable the trigger.',
     name: 'triggerInfoDescription', desc: 'Description for what a trigger is and how to use them on the triggers page');
 
