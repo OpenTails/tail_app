@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-12T00:44:38.039698",
+  "@@last_modified": "2024-05-14T14:51:33.489238",
   "title": "Gear on the Go",
   "@title": {
     "description": "The name of the app",
@@ -530,6 +530,24 @@
   "triggerCoverFar": "Device Uncovered",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Casual Mode",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Randomly play a selected action",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Action",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
     "type": "text",
     "placeholders": {}
   },
