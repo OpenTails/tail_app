@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Vyberte akci",
+  "actionsSelectScreen": "Rychlý a nadšený",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Spusťte akci zakrytím senzoru přiblížení",
+  "triggerCoverDescription": "Pokrýt",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -834,6 +834,12 @@
   "triggerRandomAction": "Akce",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Aktualizace zařízení Gear. Nevypínejte zařízení ani nezavírejte aplikaci",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   }
