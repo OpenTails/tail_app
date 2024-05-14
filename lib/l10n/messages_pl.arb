@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Którego biegu to powinno dotyczyć?",
+  "deviceType": "Którego biegu to ma dotyczyć?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Aktualizacja nie powiodła się",
+  "otaFailedTitle": "Aktualizacja nie powiodła się. Uruchom ponownie swój sprzęt i spróbuj jeszcze raz",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -834,6 +834,12 @@
   "triggerRandomAction": "Działanie",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Aktualizowanie sprzętu. Nie wyłączaj sprzętu ani nie zamykaj aplikacji",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   }
