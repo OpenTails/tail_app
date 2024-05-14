@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "punta luminosa",
+  "actionsCategoryGlowtip": "Frustrado y tenso",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -143,7 +143,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "La cola seleccionará un movimiento aleatorio y hará una pausa durante un número aleatorio de segundos entre cada movimiento.",
+  "manageDevicesAutoMoveSubTitle": "Tarjetas más grandes",
   "@manageDevicesAutoMoveSubTitle": {
     "description": "Auto move toggle subtitle when managing a device",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Agitar",
+  "triggerShakeTitle": "Sube el volumen",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -303,7 +303,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseTitle": "Pausa entre movimientos",
+  "manageDevicesAutoMovePauseTitle": "Frustrado",
   "@manageDevicesAutoMovePauseTitle": {
     "description": "Auto move pause slider title when managing a device",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Iniciar actualización OTA",
+  "otaDownloadButtonLabel": "Comenzar la actualización OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -840,6 +840,12 @@
   "otaInProgressTitle": "Actualización de equipo. No apagues tu equipo ni cierres la aplicación.",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Batería baja. Cargue su equipo al menos al 50 %.",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   }
