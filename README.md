@@ -155,6 +155,8 @@ To Turn off Developer Mode
 
 ### Internal URLS
 
+These services are self-hosted in a mini-pc on my tv stand in my apartment
+
 [Sentry](https://sentry.codel1417.xyz/organizations/sentry/projects/tail_app/?project=2)
 [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/)
 [Plausible](https://plausible.codel1417.xyz/tail-app)
