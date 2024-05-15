@@ -74,10 +74,10 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 > These commands must be run before building or running.
 
 ```shell
-flutter pub get
+flutter pub get # Downloads Dependencies 
 flutter gen-l10n
 dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
-flutter pub run build_runner build --delete-conflicting-outputs
+flutter pub run build_runner build --delete-conflicting-outputs  # Generates .g files
 ```
 
 - To generate base EN localalization file, run 
