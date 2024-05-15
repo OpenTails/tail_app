@@ -46,8 +46,9 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 #### Hardware
 
 - 8GB of ram
-- Quad Core CPU
-- 80gb of unused storage
+- Dual Core CPU
+- 80gb of unused storage (Required for Android Studio & XCode, Sources for IOS & Android apps, etc)
+- 2018 or newer Apple Mac (For IOS) Older macs with [OpenCore-Legacy Patcher](https://dortania.github.io/OpenCore-Legacy-Patcher/) may work
 
 #### Software
 - Windows 11 Or MacOS Sonoma (Have not tried developing on linux)
