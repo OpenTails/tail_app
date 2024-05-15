@@ -126,7 +126,7 @@ flutter build ipa --debug --no-codesign
 > 4. Click the small `-` icon near the bottom of the settings window
 > 5. Click Delete
 
-> [!WARNING]
+> [!TIP]
 > If CocoaPods returns a version error, delete [`ios/Podfile.lock`](ios/Podfile.lock)
 
 ##### For Android
