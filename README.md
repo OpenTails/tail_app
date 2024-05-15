@@ -139,7 +139,7 @@ flutter build appbundle --debug --dart-define=cronetHttpNoPlay=true
 
 App packages can be found in [`build/app/output`](build/app/outputs/)
 
-## Developer Mode Features
+### Developer Mode Features
 
 - Gear console
 - Manual OTA Updates
