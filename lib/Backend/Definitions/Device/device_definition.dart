@@ -131,7 +131,7 @@ class BaseStatefulDevice extends ChangeNotifier {
       batteryLow.value = batteryLevel.value < 20;
     });
     fwInfo.addListener(() {
-      if (fwInfo.value != null) {
+      if (fwInfo.value != null && fwVersion.value.isNotEmpty) {
         if (fwInfo.value?.version.split(" ")[1] != fwVersion.value) {
           hasUpdate.value = true;
         }
