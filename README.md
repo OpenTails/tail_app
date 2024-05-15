@@ -34,7 +34,7 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 - [@MasterTailer](https://github.com/MasterTailer) for providing useful feedback and suggestions, and creating the gear this app controls
 - [@ToeiRei](https://github.com/ToeiRei) for inspiring me to use more privacy-preserving infrastructure like plausible.
 - [@leinir](https://github.com/leinir) for creating the Crumpet Android app
-- The Tail Company Telegram Channel for modivating me over time.
+- The Tail Company Telegram Channel for motivating me over time.
 
 ## Development
 
