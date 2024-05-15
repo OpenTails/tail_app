@@ -4,6 +4,7 @@ set -x
 if [[ "$(pwd)" == *"/Scripts" ]]; then
   cd ..
 fi
+# get the Build Bumber & version from git
 VERSION="$(cat VERSION)"
 BUILD_NUMBER="$(git rev-list HEAD --count)"
 # Gets the release tag from github if it exists (Github Actions)
@@ -12,6 +13,8 @@ if [[ -v RELEASE_TAG ]] && [[ -n $RELEASE_TAG ]]; then
   TAG="${RELEASE_TAG,,}"
   VERSION="${TAG//"v"}"
 fi
+
+# Configure flutter & pre-build tasks
 flutter config --no-cli-animations
 flutter pub get
 flutter gen-l10n
@@ -24,7 +27,7 @@ fi
 dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
 flutter pub run build_runner build --delete-conflicting-outputs
 if [[ ! -v SKIP_BUILD ]]; then
-
+  # Build
   if [[ $OS == 'macos-latest' ]]; then
     cd ios
     pod install
