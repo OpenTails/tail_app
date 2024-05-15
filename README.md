@@ -28,7 +28,7 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 > [!NOTE]
 > As long as the suggestion is not related to a specific day or event
 
-## Thanks
+## Special Thanks
 
 - [@darkgrue](https://github.com/darkgrue) for helping me with gear firmware behavior & developing the firmware the Gear uses
 - [@MasterTailer](https://github.com/MasterTailer) for providing useful feedback and suggestions, and creating the gear this app controls
@@ -43,6 +43,14 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 > [!TIP]
 > Follow the instructions [here](https://docs.flutter.dev/get-started/install/windows/mobile?tab=download#software-requirements) to set up a Flutter environment
 
+#### Hardware
+
+- 8GB of ram
+- Quad Core CPU
+- 80gb of unused storage
+
+#### Software
+- Windows 11 Or MacOS Sonoma (Have not tried developing on linux)
 - [Android Studio](https://developer.android.com/studio)
   - [Flutter Plugin](https://plugins.jetbrains.com/plugin/9212-flutter)
   - [Dart Plugin](https://plugins.jetbrains.com/plugin/6351-dart)
