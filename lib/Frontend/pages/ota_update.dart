@@ -58,7 +58,6 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     super.initState();
     baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
     firmwareInfo ??= baseStatefulDevice?.fwInfo.value;
-    downloadFirmware();
     WakelockPlus.enabled.then((value) => wakelockEnabledBeforehand = value);
   }
 
@@ -236,7 +235,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Upload Progress: ${current} / ${firmwareFile!.length} = ${uploadProgress.toStringAsPrecision(3)}'),
+                        Text('Upload Progress: ${current} / ${firmwareFile?.length} = ${uploadProgress.toStringAsPrecision(3)}'),
                         Text('MTU: ${baseStatefulDevice!.mtu.value}'),
                         Text('OtaState: ${otaState.name}'),
                         Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),
