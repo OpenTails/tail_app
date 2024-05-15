@@ -106,6 +106,16 @@ pod install
 cd ..
 flutter build ipa --debug --no-codesign
 ```
+> [!TIP]
+> MacOS may display multiple permission prompts such as File Access, KeyChain Access, Device Access (iphone) & Controlling XCode. Accept them for the build to complete
+
+> [!TIP]
+> If you receive an error that IOS is not installed in XCode during build.
+> 1. Go to XCode (In Top menu bar) -> Settings
+> 2. Click Platforms
+> 3. Click on IOS Simulator
+> 4. Click the small `-` icon near the bottom of the settings window
+> 5. Click Delete
 
 > [!WARNING]
 > If CocoaPods returns a version error, delete [`ios/Podfile.lock`](ios/Podfile.lock)
