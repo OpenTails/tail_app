@@ -19,29 +19,29 @@ A Cross Platform Tail Company gear control App
 - Background mode on IOS
 
 > [!WARNING]
->Google Play Services is required for android, so non Play Store Android devices are unsupported
+> Google Play Services is required for android, so non Play Store Android devices are unsupported
 
 ## Have a suggestion?
 
 Small or large, feel free to leave suggestions for new features, or changes to existing features.
 
-- As long as the suggestion is not related to a specific day or event
+> [!NOTE]
+> As long as the suggestion is not related to a specific day or event
 
 ## Thanks
 
-- @darkgrue for helping me with gear firmware behavior & developing the firmware the Gear uses
-- @MasterTailer for providing useful feedback and suggestions, and creating the gear this app controls
-- @ToeiRei for inspiring me to use more privacy-preserving infrastructure like plausible.
-
-<details>
-
-<summary>Development</summary>
+- [@darkgrue](https://github.com/darkgrue) for helping me with gear firmware behavior & developing the firmware the Gear uses
+- [@MasterTailer](https://github.com/MasterTailer) for providing useful feedback and suggestions, and creating the gear this app controls
+- [@ToeiRei](https://github.com/ToeiRei) for inspiring me to use more privacy-preserving infrastructure like plausible.
+- [@leinir](https://github.com/leinir) for creating the Crumpet Android app
+- The Tail Company Telegram Channel for modivating me over time.
 
 ## Development
 
 ### Requirements
 
-Follow the instructions here to set up a Flutter environment https://docs.flutter.dev/get-started/install/windows/mobile?tab=download#software-requirements
+> [!TIP]
+> Follow the instructions [here](https://docs.flutter.dev/get-started/install/windows/mobile?tab=download#software-requirements) to set up a Flutter environment
 
 - [Android Studio](https://developer.android.com/studio)
   - [Flutter Plugin](https://plugins.jetbrains.com/plugin/9212-flutter)
@@ -121,18 +121,26 @@ flutter build appbundle --debug --dart-define=cronetHttpNoPlay=true
 
 App packages can be found in [`build/app/output`](build/app/outputs/)
 
-## Dev Features
+## Developer Mode Features
 
 - Gear console
 - Manual OTA Updates
 - Advanced state control for gear
 - Access to app logs
+- ~~Crime~~
 
-### Dev passcode
+<details>
 
-Long press Github button, enter the following code
+<summary>Secret</summary
 
-🦊🐉🦦🦖
+To enter the in-app Developer Mode, follow these instructions
+
+1. Long press Github button, enter the following code
+2. `🦊🐉🦦🦖`
+
+To Turn off Developer Mode
+1. go to More -> Settings -> Developper Mode
+2. Turn off `showDebugging`
 </details>
 
 ### Internal URLS
