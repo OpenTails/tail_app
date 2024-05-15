@@ -109,7 +109,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
             if (value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
               inAppReview.isAvailable().then(
                 (isAvailable) {
-                  if (isAvailable && value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
+                  if (isAvailable && value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault) && mounted) {
                     inAppReview.requestReview();
                     Future(
                       // Don't refresh widget in same frame
