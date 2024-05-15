@@ -19,13 +19,13 @@ dependencies:
   cross_platform: ^3.0.1
   flutter_riverpod: ^2.5.1
   logging: ^1.2.0
-  flutter_blue_plus: ^1.32.6
+  flutter_blue_plus: ^1.32.7
   go_router: ^14.1.1
   vector_math: ^2.1.4 # used for joystick
   collection: ^1.18.0
   flutter_foreground_service: # Needs gradle namespace
     git:
-      url: https://github.com/cph-cachet/flutter-plugins
+      url: https://github.com/Codel1417/flutter-plugins
       path: packages/flutter_foreground_service
   package_info_plus: ^8.0.0
   intl: #pinned to flutter version
@@ -44,7 +44,6 @@ dependencies:
   #tivy: ^0.1.1
 
   circular_buffer: ^0.11.0  # Used for serial console
-  fluttertoast: ^8.2.5
   back_button_interceptor: ^7.0.3 # for rejecting the back button in some places due to flutter/Go Router bugs
   riverpod_annotation: ^2.3.5
   device_info_plus: ^10.1.0
@@ -54,15 +53,14 @@ dependencies:
       ref: fd87e9b8f0d5ed909e929388244456f72b9b63c7
 
   # Widgets / UI
-  flutter_screen_lock: ^9.0.2 # used to hide dev mode toggle
+  flutter_screen_lock: ^9.0.3 # used to hide dev mode toggle
   introduction_screen: ^3.1.14
   lottie: ^3.1.1
-  flex_color_picker: ^3.4.1
+  flex_color_picker: ^3.5.0
   flutter_adaptive_scaffold: ^0.1.10+2
   animate_do: ^3.3.4
   fl_chart: ^0.68.0
   chart_sparkline: ^1.0.15+1 # used for the move easing visual
-  flex_color_scheme: ^7.3.1
   pdfx: ^2.6.0
   flutter_joystick: ^0.0.4
   multi_value_listenable_builder: ^0.0.2

@@ -6,7 +6,6 @@ import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_foreground_service/flutter_foreground_service.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -95,11 +94,6 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       }
       // The timer used for the time value on the battery level graph
       statefulDevice.stopWatch.start();
-      await Fluttertoast.showToast(
-        msg: "${statefulDevice.baseStoredDevice.name} has ${event.connectionState.name}",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-      );
       isAnyGearConnected.value = true;
       if (SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault)) {
         _bluetoothPlusLogger.fine('Enabling wakelock');
@@ -109,8 +103,9 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         //start foreground service on device connected. Library handles duplicate start calls
         _bluetoothPlusLogger.fine('Requesting notification permission');
         _bluetoothPlusLogger.finer('Requesting notification permission result${await Permission.notification.request()}'); // Used only for Foreground service
-        ForegroundServiceHandler.notification.setPriority(AndroidNotificationPriority.LOW);
-        ForegroundServiceHandler.notification.setTitle("Gear Connected");
+        await ForegroundServiceHandler.notification.setPriority(AndroidNotificationPriority.LOW);
+        await ForegroundServiceHandler.setContinueRunningAfterAppKilled(false);
+        await ForegroundServiceHandler.notification.setTitle("Gear Connected");
         _bluetoothPlusLogger.fine('Starting foreground service');
         ForegroundService().start();
       }

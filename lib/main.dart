@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:feedback_sentry/feedback_sentry.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -192,28 +191,24 @@ class TailApp extends StatelessWidget {
 
 ThemeData buildTheme(Brightness brightness, Color color) {
   if (brightness == Brightness.light) {
-    return FlexThemeData.light(
+    return ThemeData(
       colorScheme: ColorScheme.fromSeed(
         brightness: Brightness.light,
         seedColor: color,
         primary: color,
       ),
-      // Use very subtly themed app bar elevation in light mode.
-      appBarElevation: 0.5,
-      useMaterial3: true,
+      appBarTheme: const AppBarTheme(elevation: 0.5),
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(platform: defaultTargetPlatform),
     );
   } else {
-    return FlexThemeData.dark(
+    return ThemeData(
       colorScheme: ColorScheme.fromSeed(
         brightness: Brightness.dark,
         seedColor: color,
         primary: color,
       ),
-      // Use a bit more themed elevated app bar in dark mode.
-      appBarElevation: 2,
-      useMaterial3: true,
+      appBarTheme: const AppBarTheme(elevation: 2),
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(platform: defaultTargetPlatform),
     );
