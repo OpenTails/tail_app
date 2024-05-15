@@ -107,7 +107,7 @@ cd ..
 flutter build ipa --debug --no-codesign
 ```
 > [!TIP]
-> MacOS may display multiple permission prompts such as File Access, KeyChain Access, Device Access (iphone) & Controlling XCode. Accept them for the build to complete
+> MacOS may display multiple permission prompts such as File Access, KeyChain Access, Device Access (iphone) & Controlling XCode. Accept them for the build to complete. These only need to be accepted once
 
 > [!TIP]
 > If you receive an error that IOS is not installed in XCode during build.
