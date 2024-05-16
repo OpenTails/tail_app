@@ -279,7 +279,7 @@ class CommandQueue {
   CommandQueue(this.ref, this.device);
 
   Stream<BluetoothMessage> messageQueueStream() async* {
-    while (true) {
+    while (device.deviceConnectionState.value == ConnectivityState.connected) {
       // Limit the speed commands are processed
       await Future.delayed(const Duration(milliseconds: 100));
       // wait for
@@ -288,11 +288,17 @@ class CommandQueue {
         yield state.removeFirst();
       }
     }
+    state.clear(); // clear the queue on disconnect
+    messageQueueStreamSubscription?.cancel();
+    messageQueueStreamSubscription = null;
   }
 
   StreamSubscription<BluetoothMessage>? messageQueueStreamSubscription;
 
   void addCommand(BluetoothMessage bluetoothMessage) {
+    if (device.deviceConnectionState.value != ConnectivityState.connected) {
+      return;
+    }
     messageQueueStreamSubscription ??= messageQueueStream().listen((message) async {
       //TODO: Resend on busy
       if (bluetoothMessage.delay == null) {
