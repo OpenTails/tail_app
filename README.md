@@ -153,7 +153,7 @@ dart pub global activate icons_launcher # downloads the utiltiy
 dart pub global run icons_launcher:create
 ```
 
-#### Updating app icon
+#### Updating splash screen
 
 Make any changeshen to the 'flutter_native_splash' section in [pubspec.yml](pubspec.yml)
 
