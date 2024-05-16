@@ -21,6 +21,9 @@ fi
 # Configure flutter & pre-build tasks
 flutter config --no-cli-animations
 dart pub global activate flutter_gen
+dart pub global activate intl_translation
+dart pub global activate build_runner
+
 flutter pub get
 DEBUG=""
 if [[ $GITHUB_EVENT_NAME == 'pull_request'  ]]; then
