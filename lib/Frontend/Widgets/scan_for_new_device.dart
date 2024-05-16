@@ -58,7 +58,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                           delay: const Duration(milliseconds: 100),
                           child: ListTile(
                             title: Text(getNameFromBTName(e.device.advName)),
-                            trailing: Text(e.device.remoteId.str),
+                            trailing: Text(SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
                             onTap: () async {
                               await e.device.connect();
                               plausible.event(name: "Connect New Gear", props: {"Gear Type": e.device.advName});

@@ -1,5 +1,9 @@
 set -e
 set -x
+
+# -v checks if a variable exists
+
+
 # We want to be in the project root folder, not the scripts folder
 if [[ "$(pwd)" == *"/Scripts" ]]; then
   cd ..
@@ -26,7 +30,7 @@ else
 fi
 dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
 flutter pub run build_runner build --delete-conflicting-outputs
-if [[ ! -v SKIP_BUILD ]]; then
+if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which doesn't require a full build
   # Build
   if [[ $OS == 'macos-latest' ]]; then
     cd ios
