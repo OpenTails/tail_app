@@ -122,8 +122,6 @@ dev_dependencies:
   riverpod_lint:
   riverpod_generator:
   flutter_native_splash: ^2.4.0
-  sentry_dart_plugin: ^2.0.0
-  intl_translation:
   hive_generator: ^2.0.1
   icons_launcher: ^2.1.7
   integration_test:

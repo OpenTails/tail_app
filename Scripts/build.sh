@@ -20,6 +20,7 @@ fi
 
 # Configure flutter & pre-build tasks
 flutter config --no-cli-animations
+dart pub global activate flutter_gen
 flutter pub get
 DEBUG=""
 if [[ $GITHUB_EVENT_NAME == 'pull_request'  ]]; then
@@ -27,8 +28,8 @@ if [[ $GITHUB_EVENT_NAME == 'pull_request'  ]]; then
 else
   DEBUG="--release"
 fi
-dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
-flutter pub run build_runner build --delete-conflicting-outputs
+dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
+dart pub global run build_runner build --delete-conflicting-outputs
 if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which doesn't require a full build
   # Build
   if [[ $OS == 'macos-latest' ]]; then

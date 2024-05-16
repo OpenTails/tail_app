@@ -70,7 +70,7 @@ jobs:
             build/app/outputs/apk
             build/app/outputs/bundle
       - name: Upload debug symbols
-        run: flutter packages pub run sentry_dart_plugin
+        run: dart pub global run sentry_dart_plugin
         if: github.event_name == 'push' || github.event_name == 'release'
         continue-on-error: true
         env:
