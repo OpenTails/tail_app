@@ -29,6 +29,7 @@ import 'move_lists.dart';
 part 'sensors.g.dart';
 
 final sensorsLogger = log.Logger('Sensors');
+final _random = Random();
 
 @HiveType(typeId: 2)
 class Trigger extends ChangeNotifier {
@@ -181,21 +182,24 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           // 15 second cooldown between moves
           return;
         }
-        BaseAction? baseAction = ref.read(getActionFromUUIDProvider(triggerAction.action));
-        if (baseAction == null) {
-          return;
-        }
-        triggerAction.isActive.value = true;
-        Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
-        List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceTypes.values.flattened.toSet().contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
-        for (BaseStatefulDevice baseStatefulDevice in List.of(devices)..shuffle()) {
-          if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
-            await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+        if (triggerAction.actions.isNotEmpty) {
+          String action = triggerAction.actions[_random.nextInt(triggerAction.actions.length)];
+          BaseAction? baseAction = ref.read(getActionFromUUIDProvider(action));
+          if (baseAction == null) {
+            return;
           }
-          runAction(baseAction, baseStatefulDevice);
+          triggerAction.isActive.value = true;
+          Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+          List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceTypes.values.flattened.toSet().contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
+          for (BaseStatefulDevice baseStatefulDevice in List.of(devices)..shuffle()) {
+            if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+              await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+            }
+            runAction(baseAction, baseStatefulDevice);
+          }
+          await Future.delayed(const Duration(seconds: 15));
+          triggerAction.isActive.value = false;
         }
-        await Future.delayed(const Duration(seconds: 15));
-        triggerAction.isActive.value = false;
       },
     );
   }
@@ -597,7 +601,7 @@ class TriggerAction {
   @HiveField(1)
   String uuid; //uuid matches triggerActionDef
   @HiveField(2)
-  String? action;
+  List<String> actions = [];
   ValueNotifier<bool> isActive = ValueNotifier(false);
 
   TriggerAction(this.uuid);
@@ -618,8 +622,8 @@ class TriggerList extends _$TriggerList {
     if (SentryHive.box(settings).get(firstLaunchSensors, defaultValue: firstLaunchSensorsDefault)) {
       TriggerDefinition triggerDefinition = ref.read(triggerDefinitionListProvider).where((element) => element.uuid == 'ee9379e2-ec4f-40bb-8674-fd223a6edfda').first;
       Trigger trigger = Trigger.trigDef(triggerDefinition, '91e3d421-6a52-45ab-a23e-f38e4987a8f5');
-      trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').action = ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'c53e980e-899e-4148-a13e-f57a8f9707f4').uuid;
-      trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').action = ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid;
+      trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'c53e980e-899e-4148-a13e-f57a8f9707f4').uuid);
+      trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid);
       SentryHive.box(settings).put(firstLaunchSensors, false);
       SentryHive.box<Trigger>(triggerBox)
         ..clear()

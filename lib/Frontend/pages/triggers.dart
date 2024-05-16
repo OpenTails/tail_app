@@ -225,7 +225,19 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                 return AnimatedCrossFade(
                   duration: animationTransitionDuration,
                   secondChild: const LinearProgressIndicator(),
-                  firstChild: Text(ref.watch(getActionFromUUIDProvider(e.action))?.name ?? triggerActionNotSet()),
+                  firstChild: Builder(builder: (context) {
+                    String text = "";
+                    for (String actionUUID in e.actions) {
+                      BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
+                      if (baseAction != null) {
+                        if (text.isNotEmpty) {
+                          text += ', ';
+                        }
+                        text += baseAction.name;
+                      }
+                    }
+                    return Text(text.isNotEmpty ? text : triggerActionNotSet());
+                  }),
                   crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                 );
               },
@@ -239,13 +251,17 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                   barrierColor: Theme.of(context).canvasColor,
                   context: context,
                   builder: (BuildContext context) {
-                    return Dialog.fullscreen(backgroundColor: Theme.of(context).canvasColor, child: ActionSelector(deviceType: widget.trigger.deviceType.toSet()));
+                    return Dialog.fullscreen(
+                        backgroundColor: Theme.of(context).canvasColor,
+                        child: ActionSelector(
+                          actionSelectorInfo: ActionSelectorInfo(deviceType: widget.trigger.deviceType.toSet(), selectedActions: []),
+                        ));
                   },
                 );
-                if (result is BaseAction) {
+                if (result is List<BaseAction>) {
                   setState(
                     () {
-                      e.action = result.uuid;
+                      e.actions = result.map((element) => element.uuid).toList();
                       ref.watch(triggerListProvider.notifier).store();
                     },
                   );
@@ -253,7 +269,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                   if (!result) {
                     setState(
                       () {
-                        e.action = null;
+                        e.actions = [];
                         ref.watch(triggerListProvider.notifier).store();
                       },
                     );

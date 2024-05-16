@@ -67,7 +67,7 @@ final GoRouter router = GoRouter(
                 parentNavigatorKey: _rootNavigatorKey,
                 pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
                   child: ActionSelector(
-                    deviceType: state.extra! as Set<DeviceType>,
+                    actionSelectorInfo: state.extra! as ActionSelectorInfo,
                   ),
                   key: state.pageKey,
                   name: 'Triggers/Select Action',
