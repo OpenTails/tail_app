@@ -142,6 +142,25 @@ flutter build appbundle --debug --dart-define=cronetHttpNoPlay=true
 
 App packages can be found in [`build/app/output`](build/app/outputs/)
 
+### Additional Commands
+
+#### Updating app icon
+
+Place the new icon in [Assets](assets/) then update `image_path` in the `icons_launcher` section in [pubspec.yml](pubspec.yml)
+
+```shell
+dart pub global activate icons_launcher # downloads the utiltiy
+dart pub global run icons_launcher:create
+```
+
+#### Updating app icon
+
+Make any changeshen to the 'flutter_native_splash' section in [pubspec.yml](pubspec.yml)
+
+```shell
+dart run flutter_native_splash:create
+```
+
 ### Developer Mode Features
 
 - Gear console
