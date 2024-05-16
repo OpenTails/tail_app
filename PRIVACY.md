@@ -1,5 +1,7 @@
 # Privacy Policy
 
+Updated 5/16/2024 to add this updated line for future use.
+
 ## What is Collected
 
 **All collected data is anonymous and aggregated. No PII is stored**
