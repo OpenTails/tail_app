@@ -75,8 +75,12 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 > These commands must be run before building or running.
 
 ```shell
-flutter pub get # Downloads Dependencies 
-flutter gen-l10n
+# Install and enable required tools
+dart pub global activate build_runner
+dart pub global activate flutter_gen
+dart pub global activate intl_translation
+
+flutter pub get # Downloads Dependencies
 dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
 flutter pub run build_runner build --delete-conflicting-outputs  # Generates .g files
 ```
@@ -84,18 +88,22 @@ flutter pub run build_runner build --delete-conflicting-outputs  # Generates .g 
 - To generate base EN localalization file, run
 
 ```shell
+dart pub global activate intl_translation
 dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intn_defs.dart
 ```
 
 - To build localization files, run
 
 ```shell
+dart pub global activate intl_translation
 dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
 ```
 
 - To build generated `.g` files, run
 
 ```shell
+dart pub global activate build_runner
+dart pub global activate flutter_gen
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
@@ -105,6 +113,11 @@ flutter pub run build_runner build --delete-conflicting-outputs
 flutter Upgrade
 ```
 
+- if you get an error simialr to `Error: Couldn't resolve the package 'flutter_gen' in 'package:flutter_gen/gen_l10n/app_localizations.dart'` run
+
+```
+flutter pub get
+```
 #### Building for each platform
 
 ##### For IOS
@@ -141,6 +154,25 @@ flutter build appbundle --debug --dart-define=cronetHttpNoPlay=true
 ```
 
 App packages can be found in [`build/app/output`](build/app/outputs/)
+
+### Additional Commands
+
+#### Updating app icon
+
+Place the new icon in [Assets](assets/) then update `image_path` in the `icons_launcher` section in [pubspec.yml](pubspec.yml)
+
+```shell
+dart pub global activate icons_launcher # downloads the utiltiy
+dart pub global run icons_launcher:create
+```
+
+#### Updating splash screen
+
+Make any changeshen to the 'flutter_native_splash' section in [pubspec.yml](pubspec.yml)
+
+```shell
+dart run flutter_native_splash:create
+```
 
 ### Developer Mode Features
 
