@@ -256,14 +256,23 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     }
     //cancel streams
     await _keepAliveStreamSubscription?.cancel();
+    _keepAliveStreamSubscription = null;
     await _onCharacteristicReceivedStreamSubscription?.cancel();
+    _onCharacteristicReceivedStreamSubscription = null;
     await _onConnectionStateChangedStreamSubscription?.cancel();
+    _onConnectionStateChangedStreamSubscription = null;
     await _onDiscoveredServicesStreamSubscription?.cancel();
+    _onDiscoveredServicesStreamSubscription = null;
     await _onMtuChanged?.cancel();
+    _onMtuChanged = null;
     await _adapterStateStreamSubscription?.cancel();
+    _adapterStateStreamSubscription = null;
     await _onScanResultsStreamSubscription?.cancel();
+    _onScanResultsStreamSubscription = null;
     await _onServicesResetStreamSubscription?.cancel();
+    _onServicesResetStreamSubscription = null;
     await _onReadRssiStreamSubscription?.cancel();
+    _onReadRssiStreamSubscription = null;
     // Mark all gear disconnected;
     ref.read(knownDevicesProvider).forEach(
           (key, value) => value.deviceConnectionState.value = ConnectivityState.disconnected,
