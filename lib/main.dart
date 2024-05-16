@@ -197,7 +197,7 @@ ThemeData buildTheme(Brightness brightness, Color color) {
         seedColor: color,
         primary: color,
       ),
-      appBarTheme: const AppBarTheme(elevation: 0.5),
+      appBarTheme: const AppBarTheme(elevation: 2),
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(platform: defaultTargetPlatform),
     );
