@@ -98,6 +98,20 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
+          title: const Text("Tail Company Telegram"),
+          leading: const Icon(Icons.telegram),
+          onTap: () async {
+            await launchUrl(Uri.parse('https://t.me/joinchat/VCdXxqKgRv2yrDNC'));
+          },
+        ),
+        ListTile(
+          title: const Text("Tail Company Support Email"),
+          leading: const Icon(Icons.email),
+          onTap: () async {
+            await launchUrl(Uri.parse('mailto:info@thetailcompany.com'));
+          },
+        ),
+        ListTile(
           title: const Text("GitHub"),
           leading: const Icon(Icons.code),
           onTap: () async {
