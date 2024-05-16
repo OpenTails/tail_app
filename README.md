@@ -73,51 +73,54 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 
 > [!IMPORTANT]
 > These commands must be run before building or running.
+> 
+> ```shell
+> # Install and enable required tools
+> dart pub global activate build_runner
+> dart pub global activate flutter_gen
+> dart pub global activate intl_translation
+> 
+> flutter pub get # Downloads Dependencies
+> dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
+> flutter pub run build_runner build --delete-conflicting-outputs  # Generates .g files
+> ```
 
-```shell
-# Install and enable required tools
-dart pub global activate build_runner
-dart pub global activate flutter_gen
-dart pub global activate intl_translation
+> [!NOTE]
+> To generate base EN localalization file, run
+> 
+> ```shell
+> dart pub global activate intl_translation
+> dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intn_defs.dart
+> ```
+> 
+> To build localization files, run
+> 
+> ```shell
+> dart pub global activate intl_translation
+> dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
+> ```
+> 
+> To build generated `.g` files, run
+>
+> ```shell
+> dart pub global activate build_runner
+> dart pub global activate flutter_gen
+> flutter pub run build_runner build --delete-conflicting-outputs
+> ```
 
-flutter pub get # Downloads Dependencies
-dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
-flutter pub run build_runner build --delete-conflicting-outputs  # Generates .g files
-```
+> [!TIP]
+> If you get a flutter version error, run
+>
+> ```shell
+> flutter Upgrade
+> ```
+>
+> if you get an error simialr to `Error: Couldn't resolve the package 'flutter_gen' in 'package:flutter_gen/gen_l10n/app_localizations.dart'` run
+>
+> ```
+> flutter pub get
+> ```
 
-- To generate base EN localalization file, run
-
-```shell
-dart pub global activate intl_translation
-dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intn_defs.dart
-```
-
-- To build localization files, run
-
-```shell
-dart pub global activate intl_translation
-dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
-```
-
-- To build generated `.g` files, run
-
-```shell
-dart pub global activate build_runner
-dart pub global activate flutter_gen
-flutter pub run build_runner build --delete-conflicting-outputs
-```
-
-- If you get a flutter version error, run
-
-```shell
-flutter Upgrade
-```
-
-- if you get an error simialr to `Error: Couldn't resolve the package 'flutter_gen' in 'package:flutter_gen/gen_l10n/app_localizations.dart'` run
-
-```
-flutter pub get
-```
 #### Building for each platform
 
 ##### For IOS
@@ -132,16 +135,14 @@ flutter build ipa --debug --no-codesign
 
 > [!TIP]
 > MacOS may display multiple permission prompts such as File Access, KeyChain Access, Device Access (iphone) & Controlling XCode. Accept them for the build to complete. These only need to be accepted once
-
-> [!TIP]
+>
 > If you receive an error that IOS is not installed in XCode during build.
 > 1. Go to XCode (In Top menu bar) -> Settings
 > 2. Click Platforms
 > 3. Click on IOS Simulator
 > 4. Click the small `-` icon near the bottom of the settings window
 > 5. Click Delete
-
-> [!TIP]
+> 
 > If CocoaPods returns a version error, delete [`ios/Podfile.lock`](ios/Podfile.lock)
 
 ##### For Android
