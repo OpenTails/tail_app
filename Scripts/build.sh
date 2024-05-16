@@ -21,7 +21,6 @@ fi
 # Configure flutter & pre-build tasks
 flutter config --no-cli-animations
 flutter pub get
-flutter gen-l10n
 DEBUG=""
 if [[ $GITHUB_EVENT_NAME == 'pull_request'  ]]; then
   DEBUG="--debug"

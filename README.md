@@ -51,11 +51,12 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 - 2018 or newer Apple Mac (For IOS) Older macs with [OpenCore-Legacy Patcher](https://dortania.github.io/OpenCore-Legacy-Patcher/) may work
 
 #### Software
+
 - Windows 11 Or MacOS Sonoma (Have not tried developing on linux)
 - [Android Studio](https://developer.android.com/studio)
-  - [Flutter Plugin](https://plugins.jetbrains.com/plugin/9212-flutter)
-  - [Dart Plugin](https://plugins.jetbrains.com/plugin/6351-dart)
-  - [Flutter Enhancement Suite (Recommended)](https://plugins.jetbrains.com/plugin/12693-flutter-enhancement-suite)
+    - [Flutter Plugin](https://plugins.jetbrains.com/plugin/9212-flutter)
+    - [Dart Plugin](https://plugins.jetbrains.com/plugin/6351-dart)
+    - [Flutter Enhancement Suite (Recommended)](https://plugins.jetbrains.com/plugin/12693-flutter-enhancement-suite)
 - [Java `17` (For Android)](https://adoptium.net/temurin/releases/?package=jdk&version=17)
 - [XCode `15` (For IOS)](https://developer.apple.com/xcode/) with IOS & CLI Tools installed
 - [CocoaPods (For IOS)](https://cocoapods.org/)
@@ -80,25 +81,25 @@ dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-defer
 flutter pub run build_runner build --delete-conflicting-outputs  # Generates .g files
 ```
 
-- To generate base EN localalization file, run 
+- To generate base EN localalization file, run
 
 ```shell
 dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intn_defs.dart
 ```
 
-- To build localization files, run 
+- To build localization files, run
 
 ```shell
-flutter gen-l10n && dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
+dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
 ```
 
-- To build generated `.g` files, run 
+- To build generated `.g` files, run
 
 ```shell
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
-- If you get a flutter version error, run 
+- If you get a flutter version error, run
 
 ```shell
 flutter Upgrade
@@ -115,6 +116,7 @@ pod install
 cd ..
 flutter build ipa --debug --no-codesign
 ```
+
 > [!TIP]
 > MacOS may display multiple permission prompts such as File Access, KeyChain Access, Device Access (iphone) & Controlling XCode. Accept them for the build to complete. These only need to be accepted once
 
@@ -150,7 +152,7 @@ App packages can be found in [`build/app/output`](build/app/outputs/)
 
 <details>
 
-<summary>Secret</summary
+<summary>Secret</summary>
 
 To enter the in-app Developer Mode, follow these instructions
 
@@ -158,8 +160,10 @@ To enter the in-app Developer Mode, follow these instructions
 2. `🦊🐉🦦🦖`
 
 To Turn off Developer Mode
+
 1. go to More -> Settings -> Developper Mode
 2. Turn off `showDebugging`
+
 </details>
 
 ### Internal URLS
