@@ -15,11 +15,10 @@ import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/action_registry.dart';
+import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
 
-import 'Backend/Bluetooth/bluetooth_manager.dart';
 import 'Backend/Definitions/Action/base_action.dart';
 import 'Backend/firebase.dart';
 import 'Backend/move_lists.dart';
@@ -164,7 +163,8 @@ class TailApp extends StatelessWidget {
         RiverpodProviderObserver(),
       ],
       child: _EagerInitialization(
-        child: BetterFeedback(
+        child: BtAppStateController(
+            child: BetterFeedback(
           themeMode: ThemeMode.system,
           darkTheme: FeedbackThemeData.dark(),
           child: ValueListenableBuilder(
@@ -183,7 +183,7 @@ class TailApp extends StatelessWidget {
               );
             },
           ),
-        ),
+        )),
       ),
     );
   }
@@ -265,11 +265,10 @@ class _EagerInitialization extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Eagerly initialize providers by watching them.
     // By using "watch", the provider will stay alive and not be disposed.
-    ref.watch(initFlutterBluePlusProvider);
-    ref.watch(knownDevicesProvider);
-    ref.watch(triggerListProvider);
-    ref.watch(moveListsProvider);
-    ref.watch(favoriteActionsProvider);
+    //ref.watch(knownDevicesProvider);
+    //ref.watch(triggerListProvider);
+    //ref.watch(moveListsProvider);
+    //ref.watch(favoriteActionsProvider);
 
     return child;
   }

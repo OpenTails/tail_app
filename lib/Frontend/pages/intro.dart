@@ -164,6 +164,10 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                                 if (await getBluetoothPermission()) {
                                   setState(
                                     () {
+                                      // Start FlutterBluePlus
+                                      if (!ref.exists(initFlutterBluePlusProvider)) {
+                                        ref.read(initFlutterBluePlusProvider);
+                                      }
                                       bluetoothAccepted = true;
                                     },
                                   );

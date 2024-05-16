@@ -29,7 +29,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
   void initState() {
     super.initState();
     _listener = AppLifecycleListener(
-      onShow: () {
+      onResume: () {
         Future(
           // force widget rebuild
           () => setState(() {}),

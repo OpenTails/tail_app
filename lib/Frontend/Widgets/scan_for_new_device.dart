@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_hive/sentry_hive.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
@@ -21,16 +22,19 @@ class ScanForNewDevice extends ConsumerStatefulWidget {
 }
 
 class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
+  bool anyKnownGear = false;
+
   @override
   void initState() {
     beginScan();
     super.initState();
+    anyKnownGear = ref.read(knownDevicesProvider).isNotEmpty;
   }
 
   @override
   void dispose() {
     super.dispose();
-    if (!SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault)) {
+    if (!SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault) || !anyKnownGear) {
       stopScan();
     }
   }

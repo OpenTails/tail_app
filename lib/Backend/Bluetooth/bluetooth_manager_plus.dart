@@ -252,7 +252,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     stopScan();
     //Disconnect any gear
     for (var element in FlutterBluePlus.connectedDevices) {
-      await element.disconnect(queue: false);
+      await disconnect(element.remoteId.str);
     }
     //cancel streams
     await _keepAliveStreamSubscription?.cancel();
@@ -275,7 +275,11 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
 }
 
 Future<void> disconnect(String id) async {
-  await FlutterBluePlus.connectedDevices.firstWhere((element) => element.remoteId.str == id).disconnect();
+  BluetoothDevice? device = FlutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == id);
+  if (device != null) {
+    _bluetoothPlusLogger.info("disconnecting from ${device.advName}");
+    await device.disconnect(queue: false);
+  }
 }
 
 Future<void> connect(String id) async {
@@ -291,6 +295,7 @@ Future<void> connect(String id) async {
 
 Future<void> beginScan({Duration? timeout}) async {
   if (_didInitFlutterBluePlus && !FlutterBluePlus.isScanningNow) {
+    _bluetoothPlusLogger.info("Starting scan");
     await FlutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map((e) => Guid(e)).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
   }
 }
@@ -307,6 +312,7 @@ Future<void> stopScan() async {
   if (!_didInitFlutterBluePlus) {
     return;
   }
+  _bluetoothPlusLogger.info("stopScan called");
   await FlutterBluePlus.stopScan();
 }
 
