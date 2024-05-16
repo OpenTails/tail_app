@@ -113,6 +113,11 @@ flutter pub run build_runner build --delete-conflicting-outputs
 flutter Upgrade
 ```
 
+- if you get an error simialr to `Error: Couldn't resolve the package 'flutter_gen' in 'package:flutter_gen/gen_l10n/app_localizations.dart'` run
+
+```
+flutter pub get
+```
 #### Building for each platform
 
 ##### For IOS
