@@ -253,7 +253,9 @@ String moreManualSubTitle() => Intl.message('Tap to view', name: 'moreManualSubT
 
 String moreUsefulLinksTitle() => Intl.message("Useful Links", name: 'moreUsefulLinksTitle', desc: 'Title for Useful Links header on More page');
 
-String morePrivacyPolicyLinkTitle() => Intl.message("Privacy Policy", name: 'morePrivacyPolicyLinkTitle', desc: 'Title for UPrivacy policy link under Useful Links on More page');
+String morePrivacyPolicyLinkTitle() => Intl.message("Privacy Policy", name: 'morePrivacyPolicyLinkTitle', desc: 'Title for Privacy policy link under Useful Links on More page');
+
+String homeChangelogLinkTitle() => Intl.message("Changelog", name: 'homeChangelogLinkTitle', desc: 'Title for Changelog on Home page');
 
 String moreTitle() => Intl.message("More", name: 'moreTitle', desc: 'Title for More page');
 

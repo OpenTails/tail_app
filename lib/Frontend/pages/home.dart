@@ -1,12 +1,15 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../intn_defs.dart';
+import 'markdown_viewer.dart';
 
 final log.Logger homeLogger = log.Logger('Home');
 
@@ -63,16 +66,20 @@ class _HomeState extends ConsumerState<Home> {
                         title: Text(subTitle()),
                         subtitle: const Text('This is a fan made app to control The Tail Company tails, ears, and wings'),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      ButtonBar(
                         children: <Widget>[
+                          TextButton(
+                            onPressed: () async {
+                              context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()));
+                            },
+                            child: Text(homeChangelogLinkTitle()),
+                          ),
                           TextButton(
                             onPressed: () async {
                               await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
                             },
                             child: const Text('Tail Company Store'),
                           ),
-                          const SizedBox(width: 8),
                         ],
                       ),
                     ],

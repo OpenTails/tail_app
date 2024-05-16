@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -10,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/intn_defs.dart';
+import 'package:tail_app/Frontend/pages/markdown_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
@@ -128,7 +130,7 @@ class _MoreState extends ConsumerState<More> {
           title: Text(morePrivacyPolicyLinkTitle()),
           leading: const Icon(Icons.privacy_tip),
           onTap: () async {
-            await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app/blob/master/PRIVACY.md'));
+            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('PRIVACY.md'), title: morePrivacyPolicyLinkTitle()));
           },
         ),
         ListTile(

@@ -9,6 +9,7 @@ import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_pincode.dart';
 import 'package:tail_app/Frontend/pages/direct_gear_control.dart';
 import 'package:tail_app/Frontend/pages/intro.dart';
+import 'package:tail_app/Frontend/pages/markdown_viewer.dart';
 import 'package:tail_app/Frontend/pages/more.dart';
 import 'package:tail_app/Frontend/pages/move_list.dart';
 import 'package:tail_app/Frontend/pages/ota_update.dart';
@@ -95,6 +96,14 @@ final GoRouter router = GoRouter(
               path: 'viewPDF',
               parentNavigatorKey: _rootNavigatorKey,
               builder: (BuildContext context, GoRouterState state) => ViewPDF(assetPath: state.extra! as String),
+            ),
+            GoRoute(
+              name: 'More/viewMarkdown',
+              path: 'viewMarkdown',
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (BuildContext context, GoRouterState state) {
+                return MarkdownViewer(markdownInfo: state.extra! as MarkdownInfo);
+              },
             ),
           ],
           pageBuilder: (context, state) {
