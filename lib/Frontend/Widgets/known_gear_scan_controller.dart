@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
@@ -24,9 +23,40 @@ class KnownGearScanController extends ConsumerStatefulWidget {
 }
 
 class _KnownGearScanControllerState extends ConsumerState<KnownGearScanController> {
-  bool shouldScan = false;
   final Duration scanDurationTimeout = const Duration(seconds: 30);
-  Timer? scanTimeout;
+  late AppLifecycleState? _state;
+  late final AppLifecycleListener _listener;
+
+  @override
+  void initState() {
+    super.initState();
+    _state = SchedulerBinding.instance.lifecycleState;
+    _listener = AppLifecycleListener(
+      onShow: () {
+        Future(
+          // force widget rebuild
+          () => setState(() {}),
+        );
+      },
+      //onResume: () => _handleTransition('resume'),
+      onHide: () {
+        if (!isAnyGearConnected.value) {
+          stopScan();
+        }
+      },
+      //onInactive: () => _handleTransition('inactive'),
+      //onPause: () => _handleTransition('pause'),
+      //onDetach: () => _handleTransition('detach'),
+      //onRestart: () => _handleTransition('restart'),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _listener.dispose();
+    stopScan();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +66,14 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
         valueListenable: isBluetoothEnabled,
         builder: (BuildContext context, bool bluetoothEnabled, Widget? child) {
           return ValueListenableBuilder(
-            builder: (BuildContext context, alwaysScan, Widget? child) {
+            builder: (BuildContext context, alwaysScanBox, Widget? child) {
+              bool alwaysScan = alwaysScanBox.get(alwaysScanning, defaultValue: alwaysScanningDefault);
               return MultiValueListenableBuilder(
                 valueListenables: knownDevices.values.map((e) => e.deviceConnectionState).toList(),
                 builder: (BuildContext context, List<dynamic> values, Widget? child) {
                   // Check if all known devices are connected, stop passive scanning if true
                   knownGearScanControllerLogger.info("Device connectivity state updated");
-                  if (!values.every((element) => element == ConnectivityState.connected) && (SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault) || shouldScan)) {
+                  if (!values.every((element) => element == ConnectivityState.connected) && alwaysScan) {
                     // Verify scanning can start
                     knownGearScanControllerLogger.info("Not all gear connected");
                     if (bluetoothEnabled) {
@@ -52,34 +83,28 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
                     }
                   } else {
                     knownGearScanControllerLogger.info("All devices connected");
-                    if (shouldScan) {
-                      Future(
-                        () => setState(
-                          () {
-                            shouldScan = false;
-                            scanTimeout?.cancel();
-                            scanTimeout = null;
-                          },
-                        ),
-                      );
-                    }
-                    scanTimeout?.cancel();
-                    scanTimeout = null;
                     stopScan();
                   }
                   return child!;
                 },
                 child: Stack(
                   children: [
-                    AnimatedCrossFade(firstChild: Container(), secondChild: const LinearProgressIndicator(), crossFadeState: shouldScan ? CrossFadeState.showSecond : CrossFadeState.showFirst, duration: animationTransitionDuration),
+                    StreamBuilder(
+                      stream: isScanning(),
+                      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                        return AnimatedCrossFade(firstChild: Container(), secondChild: const LinearProgressIndicator(), crossFadeState: snapshot.hasData && snapshot.data! && !alwaysScan ? CrossFadeState.showSecond : CrossFadeState.showFirst, duration: animationTransitionDuration);
+                      },
+                    ),
                     NotificationListener<OverscrollNotification>(
                         onNotification: (OverscrollNotification notification) {
-                          knownGearScanControllerLogger.info('Overscroll ${notification.overscroll}');
+                          //knownGearScanControllerLogger.info('Overscroll ${notification.overscroll}');
                           if (notification.overscroll < 2 && notification.overscroll > -2) {
                             // ignore, don't do anything
                             return false;
                           }
-                          startScanTimer();
+                          if (!alwaysScan) {
+                            beginScan(timeout: scanDurationTimeout);
+                          }
                           return true;
                         },
                         child: widget.child),
@@ -95,35 +120,5 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
     }
     stopScan();
     return widget.child;
-  }
-
-  void startScanTimer() {
-    if (scanTimeout != null && scanTimeout!.isActive) {
-      return;
-    }
-    knownGearScanControllerLogger.info('Starting scan timer');
-    scanTimeout = Timer(
-      scanDurationTimeout,
-      () {
-        knownGearScanControllerLogger.info('Scan timer finished');
-        if (mounted) {
-          setState(
-            () {
-              shouldScan = false;
-            },
-          );
-        }
-        scanTimeout = null;
-      },
-    );
-    if (mounted) {
-      setState(
-        () {
-          shouldScan = true;
-        },
-      );
-    } else {
-      shouldScan = true;
-    }
   }
 }

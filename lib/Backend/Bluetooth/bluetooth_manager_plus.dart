@@ -260,10 +260,18 @@ Future<void> connect(String id) async {
   }
 }
 
-Future<void> beginScan() async {
+Future<void> beginScan({Duration? timeout}) async {
   if (!FlutterBluePlus.isScanningNow) {
-    await FlutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map((e) => Guid(e)).toList(), continuousUpdates: SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault), androidScanMode: AndroidScanMode.lowPower);
+    await FlutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map((e) => Guid(e)).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
   }
+}
+
+bool isScanningNow() {
+  return FlutterBluePlus.isScanningNow;
+}
+
+Stream<bool> isScanning() {
+  return FlutterBluePlus.isScanning;
 }
 
 Future<void> stopScan() async {
