@@ -235,7 +235,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Upload Progress: ${current} / ${firmwareFile?.length} = ${uploadProgress.toStringAsPrecision(3)}'),
+                        Text('Upload Progress: $current / ${firmwareFile?.length} = ${uploadProgress.toStringAsPrecision(3)}'),
                         Text('MTU: ${baseStatefulDevice!.mtu.value}'),
                         Text('OtaState: ${otaState.name}'),
                         Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),

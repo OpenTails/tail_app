@@ -62,7 +62,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                             onTap: () async {
                               await e.device.connect();
                               plausible.event(name: "Connect New Gear", props: {"Gear Type": e.device.advName});
-                              if (mounted) {
+                              if (context.mounted) {
                                 Navigator.pop(context);
                               }
                             },

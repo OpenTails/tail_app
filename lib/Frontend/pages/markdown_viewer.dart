@@ -16,7 +16,7 @@ class MarkdownViewer extends StatefulWidget {
   final MarkdownInfo markdownInfo;
 
   @override
-  _MarkdownViewerState createState() => _MarkdownViewerState();
+  State<MarkdownViewer> createState() => _MarkdownViewerState();
 }
 
 class _MarkdownViewerState extends State<MarkdownViewer> {

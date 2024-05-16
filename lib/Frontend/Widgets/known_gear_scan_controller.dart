@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
@@ -24,13 +23,11 @@ class KnownGearScanController extends ConsumerStatefulWidget {
 
 class _KnownGearScanControllerState extends ConsumerState<KnownGearScanController> {
   final Duration scanDurationTimeout = const Duration(seconds: 30);
-  late AppLifecycleState? _state;
   late final AppLifecycleListener _listener;
 
   @override
   void initState() {
     super.initState();
-    _state = SchedulerBinding.instance.lifecycleState;
     _listener = AppLifecycleListener(
       onShow: () {
         Future(
