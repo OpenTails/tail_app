@@ -149,9 +149,9 @@ flutter build ipa --debug --no-codesign
 
 ```shell
 # Build APK
-flutter build apk --debug --dart-define=cronetHttpNoPlay=true
+flutter build apk --debug
 # build AppBundle
-flutter build appbundle --debug --dart-define=cronetHttpNoPlay=true
+flutter build appbundle --debug
 ```
 
 App packages can be found in [`build/app/output`](build/app/outputs/)
