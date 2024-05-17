@@ -24,6 +24,8 @@ String settingsDescription() => Intl.message('Change app color, configure Haptic
 
 String actionsPage() => Intl.message('Actions', name: 'actionsPage', desc: 'The label and title of the action page');
 
+String homePage() => Intl.message('Actions', name: 'actionsPage', desc: 'The label and title of the action page');
+
 String triggersPage() => Intl.message('Triggers', name: 'triggersPage', desc: 'The label and title of the trigger page');
 
 String sequencesPage() => Intl.message('Custom Actions', name: 'sequencesPage', desc: 'The label and title of the sequences page');
