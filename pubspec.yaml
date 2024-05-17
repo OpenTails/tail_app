@@ -4,7 +4,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 repository: https://github.com/Codel1417/tail_app
 environment:
-  sdk: '>=3.3.0-0 <4.0.0'
+  sdk: '>=3.4.0-0 <4.0.0'
 
 platforms:
   android:
@@ -12,8 +12,6 @@ platforms:
 
 dependencies:
   flutter:
-    sdk: flutter
-  flutter_localizations:
     sdk: flutter
   cross_platform: ^3.0.1
   logging: ^1.2.0
@@ -27,7 +25,7 @@ dependencies:
   #pod_player: ^0.2.2
   #tivy: ^0.1.1
   circular_buffer: ^0.11.0  # Used for serial console
-  wordpress_client: ^8.4.7
+  wordpress_client: ^8.4.8
   synchronized: ^3.1.0+1
 
   # Platform Interfaces
@@ -55,7 +53,7 @@ dependencies:
   riverpod_annotation: ^2.3.5
 
   # Widgets / UI
-  flutter_screen_lock: ^9.0.3 # used to hide dev mode toggle
+  flutter_screen_lock: ^9.1.0 # used to hide dev mode toggle
   introduction_screen: ^3.1.14 # Onboarding
   lottie: ^3.1.1
   flex_color_picker: ^3.5.0
@@ -170,3 +168,4 @@ flutter_native_splash:
     color_dark: "#0573a4"
 dependency_overrides:
   device_info_plus: any # PDFx uses an older version, but v10 and newer is required for IOS publishing
+  meta: any

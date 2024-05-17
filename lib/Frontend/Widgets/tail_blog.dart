@@ -22,7 +22,7 @@ List<Post> _wordpressPosts = [];
 class _TailBlogState extends State<TailBlog> {
   FeedState feedState = FeedState.loading;
   List<FeedItem> results = [];
-  final WordpressClient client = WordpressClient(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'));
+  final WordpressClient client = WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: initDio());
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,6 @@ class _TailBlogState extends State<TailBlog> {
   @override
   void initState() {
     super.initState();
-    client.initialize();
     getFeed();
   }
 
