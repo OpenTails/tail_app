@@ -30,6 +30,7 @@ class _TailBlogState extends State<TailBlog> {
       alignment: Alignment.center,
       firstChild: feedState == FeedState.loading ? const LinearProgressIndicator() : Container(),
       secondChild: ListView.builder(
+        itemExtent: 300,
         controller: widget.controller,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -41,35 +42,39 @@ class _TailBlogState extends State<TailBlog> {
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 clipBehavior: Clip.antiAlias,
-                child: InkWell(
-                  onTap: () async {
-                    await launchUrl(Uri.parse("${feedItem.url}?utm_source=Tail_App'"));
-                  },
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: <Widget>[
-                      if (feedItem.imageId != null) ...[
-                        FutureBuilder(
-                          future: getImage(feedItem, context),
-                          builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                            return AnimatedSize(
-                              duration: animationTransitionDuration,
-                              child: snapshot.hasData ? snapshot.data! : Container(),
-                            );
-                          },
-                        )
-                      ],
-                      Card(
-                        clipBehavior: Clip.antiAlias,
-                        margin: EdgeInsets.zero,
-                        elevation: 2,
-                        child: ListTile(
-                          //leading: Icon(feedItem.feedType.icon),
-                          trailing: const Icon(Icons.open_in_browser),
-                          title: Text(feedItem.title),
+                child: SizedBox(
+                  height: 300,
+                  child: InkWell(
+                    onTap: () async {
+                      await launchUrl(Uri.parse("${feedItem.url}?utm_source=Tail_App'"));
+                    },
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: <Widget>[
+                        if (feedItem.imageId != null) ...[
+                          FutureBuilder(
+                            future: getImage(feedItem, context),
+                            builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+                              return AnimatedOpacity(
+                                duration: animationTransitionDuration,
+                                opacity: snapshot.hasData ? 1 : 0,
+                                child: snapshot.hasData ? snapshot.data! : Container(),
+                              );
+                            },
+                          )
+                        ],
+                        Card(
+                          clipBehavior: Clip.antiAlias,
+                          margin: EdgeInsets.zero,
+                          elevation: 2,
+                          child: ListTile(
+                            //leading: Icon(feedItem.feedType.icon),
+                            trailing: const Icon(Icons.open_in_browser),
+                            title: Text(feedItem.title),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -99,7 +104,7 @@ class _TailBlogState extends State<TailBlog> {
     if (_wordpressPosts.isEmpty) {
       final ListPostRequest request = ListPostRequest(
         page: 1,
-        perPage: 5,
+        perPage: 10,
         order: Order.desc,
       );
       final WordpressResponse<List<Post>> wordpressPostResponse = await client.posts.list(request);
