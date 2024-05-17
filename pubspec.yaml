@@ -27,6 +27,8 @@ dependencies:
   #pod_player: ^0.2.2
   #tivy: ^0.1.1
   circular_buffer: ^0.11.0  # Used for serial console
+  wordpress_client: ^8.4.7
+  synchronized: ^3.1.0+1
 
   # Platform Interfaces
   device_info_plus: ^10.1.0

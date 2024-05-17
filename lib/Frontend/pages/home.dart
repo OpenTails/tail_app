@@ -8,6 +8,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../Widgets/tail_blog.dart';
 import '../intn_defs.dart';
 import 'markdown_viewer.dart';
 
@@ -22,6 +23,7 @@ class Home extends ConsumerStatefulWidget {
 
 class _HomeState extends ConsumerState<Home> {
   //late final PodPlayerController controller;
+  final ScrollController _controller = ScrollController();
 
   @override
   void initState() {
@@ -50,44 +52,46 @@ class _HomeState extends ConsumerState<Home> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: isBluetoothEnabled,
+      child: TailBlog(controller: _controller),
       builder: (BuildContext context, bool bluetoothEnabled, Widget? child) {
-        return ListView(
-          shrinkWrap: true,
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        leading: const Icon(Icons.waving_hand),
-                        title: Text(subTitle()),
-                        subtitle: const Text('This is a fan made app to control The Tail Company tails, ears, and wings'),
-                      ),
-                      ButtonBar(
-                        children: <Widget>[
-                          TextButton(
-                            onPressed: () async {
-                              context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()));
-                            },
-                            child: Text(homeChangelogLinkTitle()),
-                          ),
-                          TextButton(
-                            onPressed: () async {
-                              await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
-                            },
-                            child: const Text('Tail Company Store'),
-                          ),
-                        ],
-                      ),
-                    ],
+        return SingleChildScrollView(
+          controller: _controller,
+          child: Column(
+            children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ListTile(
+                          leading: const Icon(Icons.waving_hand),
+                          title: Text(subTitle()),
+                          subtitle: const Text('This is a fan made app to control The Tail Company tails, ears, and wings'),
+                        ),
+                        ButtonBar(
+                          children: <Widget>[
+                            TextButton(
+                              onPressed: () async {
+                                context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()));
+                              },
+                              child: Text(homeChangelogLinkTitle()),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
+                              },
+                              child: const Text('Tail Company Store'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            AnimatedCrossFade(
+              AnimatedCrossFade(
                 firstChild: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -119,30 +123,11 @@ class _HomeState extends ConsumerState<Home> {
                 ),
                 secondChild: Container(),
                 crossFadeState: !bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                duration: animationTransitionDuration),
-            /*Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            clipBehavior: Clip.antiAlias,
-            child: InkWell(
-              onTap: () {
-                if (controller.isVideoPlaying) {
-                  controller.pause();
-                } else {
-                  controller.videoSeekTo(Duration.zero);
-                  controller.play();
-                }
-              },
-              child: PodVideoPlayer(
-                controller: controller,
-                matchFrameAspectRatioToVideo: true,
-                alwaysShowProgressBar: true,
-                overlayBuilder: (options) => Container(),
+                duration: animationTransitionDuration,
               ),
-            ),
+              child!,
+            ],
           ),
-        ),*/
-          ],
         );
       },
     );
