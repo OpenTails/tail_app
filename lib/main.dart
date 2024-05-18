@@ -73,6 +73,10 @@ Future<void> main() async {
       options.attachThreads = true;
       options.anrEnabled = true;
       options.beforeSend = beforeSend;
+      options.enableMetrics = true;
+      options.diagnosticLevel = SentryLevel.debug;
+      //options.platformChecker = CustomSentryPlatformChecker();
+      //options.httpClient = SentryDioClient(); // This doesn't do much :/. Sentry flutter uses native to send data
     },
     // Init your App.
     // ignore: missing_provider_scope

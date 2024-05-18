@@ -23,7 +23,7 @@ Future<bool> getBluetoothPermission() async {
 
 final dioLogger = Logger('Dio');
 
-Dio initDio() {
+Dio initDio({skipSentry = false}) {
   final Dio dio = Dio();
 
   /// This *must* be the last initialization step of the Dio setup, otherwise
@@ -39,6 +39,8 @@ Dio initDio() {
       logPrint: (o) => dioLogger.finer(o.toString()),
     ),
   );
-  dio.addSentry(failedRequestStatusCodes: []);
+  if (skipSentry) {
+    dio.addSentry(failedRequestStatusCodes: []);
+  }
   return dio;
 }
