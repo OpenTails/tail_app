@@ -14,7 +14,7 @@ A Cross Platform Tail Company gear control App
 - Triggers for walking, shaking and other gestures
 - Custom Actions
 - Joystick for manually moving gear
-- Dark Mode
+- Dark Mode (Based on system setting)
 - Color Themes
 - Background mode on IOS
 - Tail Blog
