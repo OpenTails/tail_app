@@ -115,7 +115,7 @@ class _TailBlogState extends State<TailBlog> {
 
     if (_wordpressPosts.isNotEmpty) {
       for (Post post in _wordpressPosts) {
-        results.add(FeedItem(title: post.title!.parsedText, publishDate: post.date!, url: post.link, feedType: FeedType.blog, imageId: post.featuredMedia));
+        results.add(FeedItem(title: post.title!.parsedText, publishDate: post.date!, url: post.link, feedType: FeedType.blog, imageId: post.featuredMedia, imageUrl: post.featuredImageUrl));
       }
     }
     if (results.isNotEmpty && context.mounted) {
@@ -142,12 +142,17 @@ class _TailBlogState extends State<TailBlog> {
         await lock.synchronized(
           () async {
             // Get image url from wordpress api
-            final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
-            WordpressResponse<Media> retrieveMediaResponse = await client.media.retrieve(retrieveMediaRequest);
-            if (retrieveMediaResponse.dataOrNull() != null) {
-              Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
-              mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
+            if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
+              mediaUrl = item.imageUrl;
+            } else {
+              final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
+              WordpressResponse<Media> retrieveMediaResponse = await client.media.retrieve(retrieveMediaRequest);
+              if (retrieveMediaResponse.dataOrNull() != null) {
+                Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
+                mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
+              }
             }
+
             if (mediaUrl != null) {
               // download the image
               await initDio().download(mediaUrl!, filePath);
@@ -173,13 +178,15 @@ class _TailBlogState extends State<TailBlog> {
 
 class FeedItem implements Comparable<FeedItem> {
   String title;
-
   DateTime publishDate;
   String url;
   FeedType feedType;
-  int? imageId;
 
-  FeedItem({required this.title, required this.publishDate, required this.url, required this.feedType, this.imageId});
+  //Image ID is used as the wordpress image ID and the unique id to identify the image in cache
+  int? imageId;
+  String? imageUrl;
+
+  FeedItem({required this.title, required this.publishDate, required this.url, required this.feedType, this.imageId, this.imageUrl});
 
   @override
   int compareTo(FeedItem other) {
