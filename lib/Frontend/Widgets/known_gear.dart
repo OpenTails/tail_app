@@ -22,10 +22,10 @@ class _KnownGearState extends ConsumerState<KnownGear> {
   Widget build(BuildContext context) {
     List<BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider).values.toList();
     return Row(
-      children: knownDevices.map((BaseStatefulDevice baseStatefulDevice) => KnownGearCard(baseStatefulDevice: baseStatefulDevice) as Widget).toList()
-        ..add(
-          const ScanForNewGearButton(),
-        ),
+      children: [
+        ...knownDevices.map((BaseStatefulDevice baseStatefulDevice) => KnownGearCard(baseStatefulDevice: baseStatefulDevice)),
+        const ScanForNewGearButton(),
+      ],
     );
   }
 }
@@ -103,7 +103,7 @@ class KnownGearCard extends ConsumerStatefulWidget {
 class _KnownGearCardState extends ConsumerState<KnownGearCard> {
   @override
   Widget build(BuildContext context) {
-    throw FadeIn(
+    return FadeIn(
       child: ValueListenableBuilder(
         valueListenable: widget.baseStatefulDevice.deviceConnectionState,
         builder: (BuildContext context, ConnectivityState value, Widget? child) {
