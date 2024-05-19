@@ -14,9 +14,10 @@ A Cross Platform Tail Company gear control App
 - Triggers for walking, shaking and other gestures
 - Custom Actions
 - Joystick for manually moving gear
-- Dark Mode
+- Dark Mode (Based on system setting)
 - Color Themes
 - Background mode on IOS
+- Tail Blog
 
 > [!WARNING]
 > Google Play Services is required for android, so non Play Store Android devices are unsupported
