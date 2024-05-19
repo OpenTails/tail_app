@@ -4,9 +4,15 @@ import 'package:intl/intl.dart';
 //dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intn_defs.dart
 //convert to dart
 // dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
-String title() => Intl.message('Gear on the Go', name: 'title', desc: 'The name of the app');
+String title() => Intl.message('The Tail Company', name: 'title', desc: 'The name of the app');
 
 String subTitle() => Intl.message('All of the Tails', name: 'subTitle', desc: 'The sub-title which displays in the navigation drawer');
+
+String homeNewsTitle() => Intl.message('Fresh from the Tail Blog', name: 'homeNewsTitle', desc: 'The title header for the news in the home screen when no gear is connected');
+
+String homeWelcomeMessageTitle() => Intl.message('Welcome to the Tail Company App', name: 'homeWelcomeMessageTitle', desc: 'The welcome message title on the home screen when no gear is connected');
+
+String homeWelcomeMessage() => Intl.message('You can control, explore and update all your Tail Co gear right here in this app. There are also instructions and guides available too. Happy Wagging!', name: 'homeWelcomeMessage', desc: 'The welcome message on the home screen when no gear is connected');
 
 String shellDeviceBarToggleLabel() => Intl.message('Toggle Gear Bar', name: 'shellDeviceBarToggleLabel', desc: 'Tooltip for the Gear bar display button on the shell / main UI app bar');
 

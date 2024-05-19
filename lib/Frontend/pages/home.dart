@@ -67,8 +67,8 @@ class _HomeState extends ConsumerState<Home> {
                       children: <Widget>[
                         ListTile(
                           leading: const Icon(Icons.waving_hand),
-                          title: Text(subTitle()),
-                          subtitle: const Text('This is a fan made app to control The Tail Company tails, ears, and wings'),
+                          title: Text(homeWelcomeMessageTitle()),
+                          subtitle:  Text(homeWelcomeMessage()),
                         ),
                         ButtonBar(
                           children: <Widget>[
@@ -125,6 +125,7 @@ class _HomeState extends ConsumerState<Home> {
                 crossFadeState: !bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                 duration: animationTransitionDuration,
               ),
+              ListTile(title: Text(homeNewsTitle(), style: Theme.of(context).textTheme.titleLarge,),),
               child!,
             ],
           ),
