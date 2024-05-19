@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,9 @@ import 'package:tail_app/Backend/action_registry.dart';
 import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
 
 import 'Backend/Definitions/Action/base_action.dart';
-import 'Backend/firebase.dart';
+import 'Backend/background_update.dart';
 import 'Backend/move_lists.dart';
+import 'Backend/notifications.dart';
 import 'Backend/plausible_dio.dart';
 import 'Backend/sensors.dart';
 import 'Frontend/go_router_config.dart';
@@ -53,14 +55,14 @@ Future<void> main() async {
   mainLogger.info("Begin");
   initFlogger();
   initFlutter();
+  initNotifications();
+  initBackgroundTasks();
   //var localeLoaded = await initializeMessages('ace');
   //Intl.defaultLocale = 'ace';
   //Flogger.i("Loaded local: $localeLoaded");
   mainLogger.fine("Init Hive");
   await initHive();
   //initDio();
-  await initFirebase();
-  await initNotificationPlugin();
   mainLogger.fine("Init Sentry");
   await SentryFlutter.init(
     (options) async {
@@ -142,9 +144,11 @@ Future<void> initHive() async {
   await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
+  await SentryHive.openBox<BaseStoredDevice>('devices');
+  await SentryHive.openBox('notificationsStuff');
 }
 
-class TailApp extends StatelessWidget {
+class TailApp extends StatefulWidget {
   TailApp({super.key}) {
     //Init Plausible
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -157,6 +161,23 @@ class TailApp extends StatelessWidget {
       SentryHive.box(settings).put(allowAnalytics, false);
       SentryHive.box(settings).put(allowErrorReporting, false);
     }
+  }
+
+  @override
+  State<TailApp> createState() => _TailAppState();
+}
+
+class _TailAppState extends State<TailApp> {
+  @override
+  void initState() {
+    // Only after at least the action method is set, the notification events are delivered
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: NotificationController.onActionReceivedMethod,
+        onNotificationCreatedMethod: NotificationController.onNotificationCreatedMethod,
+        onNotificationDisplayedMethod: NotificationController.onNotificationDisplayedMethod,
+        onDismissActionReceivedMethod: NotificationController.onDismissActionReceivedMethod);
+
+    super.initState();
   }
 
   // This widget is the root of your application.

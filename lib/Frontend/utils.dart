@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_dio/sentry_dio.dart';
+import 'package:wordpress_client/wordpress_client.dart';
 
 Future<bool> getBluetoothPermission() async {
   bool granted = false;
@@ -39,8 +40,12 @@ Dio initDio({skipSentry = false}) {
       logPrint: (o) => dioLogger.finer(o.toString()),
     ),
   );
-  if (skipSentry) {
+  if (!skipSentry) {
     dio.addSentry(failedRequestStatusCodes: []);
   }
   return dio;
+}
+
+WordpressClient getWordpressClient() {
+  return WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: initDio());
 }

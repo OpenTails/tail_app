@@ -30,6 +30,7 @@
     <uses-permission
         android:name="android.permission.BODY_SENSORS_BACKGROUND"
         tools:node="remove" /> <!--proximity_sensor adds this permission -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!--Awesome Notifications -->
     <application
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="false"
@@ -61,15 +62,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <meta-data
-            android:name="firebase_analytics_collection_enabled"
-            android:value="false" />
-        <meta-data
-            android:name="firebase_messaging_auto_init_enabled"
-            android:value="false" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="newsletter" />
     </application>
 
 </manifest>

@@ -48,3 +48,9 @@ const String triggerBox = 'triggers';
 const String favoriteActionsBox = 'favoriteActions';
 
 const int hasCompletedOnboardingVersionToAgree = 1;
+
+// Notifications
+const String notificationBox = 'notificationsStuff';
+const String latestPost = 'latestPost';
+const int defaultPostId = 0;
+const String blogChannelKey = 'tail_blog';

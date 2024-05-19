@@ -1,12 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:synchronized/synchronized.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wordpress_client/wordpress_client.dart';
+
+final _wpLogger = Logger('Main');
 
 class TailBlog extends StatefulWidget {
   const TailBlog({super.key, required this.controller});
@@ -22,7 +25,7 @@ List<Post> _wordpressPosts = [];
 class _TailBlogState extends State<TailBlog> {
   FeedState feedState = FeedState.loading;
   List<FeedItem> results = [];
-  final WordpressClient client = WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: initDio());
+  final WordpressClient client = getWordpressClient();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +93,7 @@ class _TailBlogState extends State<TailBlog> {
   @override
   void dispose() {
     super.dispose();
-    client.dispose();
+    //client.dispose();
   }
 
   @override
@@ -101,15 +104,25 @@ class _TailBlogState extends State<TailBlog> {
 
   Future<void> getFeed() async {
     if (_wordpressPosts.isEmpty) {
-      final ListPostRequest request = ListPostRequest(
-        page: 1,
-        perPage: 10,
-        order: Order.desc,
-      );
-      final WordpressResponse<List<Post>> wordpressPostResponse = await client.posts.list(request);
-      List<Post>? data = wordpressPostResponse.dataOrNull();
-      if (data != null) {
-        _wordpressPosts = data;
+      try {
+        final ListPostRequest request = ListPostRequest(
+          page: 1,
+          perPage: 10,
+          order: Order.desc,
+          //context: RequestContext.embed,
+        );
+        final WordpressResponse<List<Post>> wordpressPostResponse = await client.posts.list(request);
+        List<Post>? data = wordpressPostResponse.dataOrNull();
+        if (data != null) {
+          _wordpressPosts = data;
+          // Store the latest post id for checking for new posts
+          SentryHive.box(notificationBox).put(latestPost, data.first.id);
+        }
+      } catch (e, s) {
+        setState(() {
+          feedState = FeedState.error;
+        });
+        _wpLogger.warning('Error when getting blog posts: $e', e, s);
       }
     }
 
@@ -129,8 +142,6 @@ class _TailBlogState extends State<TailBlog> {
     }
   }
 
-  Lock lock = Lock();
-
   Future<Widget> getImage(FeedItem item, BuildContext context) async {
     String? mediaUrl;
     if (item.imageId != null) {
@@ -138,27 +149,22 @@ class _TailBlogState extends State<TailBlog> {
 
       File file = File(filePath);
       if (!await file.exists()) {
-        //only one at a time
-        await lock.synchronized(
-          () async {
-            // Get image url from wordpress api
-            if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
-              mediaUrl = item.imageUrl;
-            } else {
-              final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
-              WordpressResponse<Media> retrieveMediaResponse = await client.media.retrieve(retrieveMediaRequest);
-              if (retrieveMediaResponse.dataOrNull() != null) {
-                Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
-                mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
-              }
-            }
+        // Get image url from wordpress api
+        if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
+          mediaUrl = item.imageUrl;
+        } else {
+          final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
+          WordpressResponse<Media> retrieveMediaResponse = await client.media.retrieve(retrieveMediaRequest);
+          if (retrieveMediaResponse.dataOrNull() != null) {
+            Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
+            mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
+          }
+        }
 
-            if (mediaUrl != null) {
-              // download the image
-              await initDio().download(mediaUrl!, filePath);
-            }
-          },
-        );
+        if (mediaUrl != null) {
+          // download the image
+          await initDio().download(mediaUrl!, filePath);
+        }
       }
       if (await file.exists()) {
         if (context.mounted) {

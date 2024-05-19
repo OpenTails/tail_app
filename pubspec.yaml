@@ -26,7 +26,6 @@ dependencies:
   #tivy: ^0.1.1
   circular_buffer: ^0.11.0  # Used for serial console
   wordpress_client: ^8.4.8
-  synchronized: ^3.1.0+1
 
   # Platform Interfaces
   device_info_plus: ^10.1.0
@@ -98,10 +97,10 @@ dependencies:
   upgrader: ^10.3.0
 
   # Spicy
-  firebase_messaging: ^14.9.2 # Push Notifications
-  firebase_core: ^2.31.0 # Init firebase
-  flutter_local_notifications: ^17.1.2 # push Notifications when app open
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
+  background_fetch: ^1.3.4
+  awesome_notifications_core: ^0.9.3 # <~ always ensure to use the latest version
+  awesome_notifications: any # <~ this version is managed by awesome_notifications_core package
 
   # Sentry
   sentry_flutter: ^8.2.0 # Base sentry + Flutter integration

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/firebase.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../../Backend/Bluetooth/bluetooth_manager_plus.dart';
@@ -136,16 +134,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 );
               },
             ),
-          ),
-          FutureBuilder(
-            future: getFirebaseToken(),
-            builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
-              return ListTile(
-                onTap: () => Clipboard.setData(ClipboardData(text: snapshot.hasData ? snapshot.data! : "")),
-                title: const Text('Firebase'),
-                subtitle: Text(snapshot.hasData ? snapshot.data! : ""),
-              );
-            },
           ),
           ListTile(
             title: Text(
