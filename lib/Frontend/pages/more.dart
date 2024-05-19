@@ -78,7 +78,13 @@ class _MoreState extends ConsumerState<More> {
         PdfWidget(name: moreManualEargearTitle(), url: "https://thetailcompany.com/eargear.pdf"),
         PdfWidget(name: moreManualFlutterWingsTitle(), url: "https://thetailcompany.com/flutterwings.pdf"),
         PdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf"),
-        PdfWidget(name: moreManualResponsibleWaggingTitle(), url: "https://thetailcompany.com/responsiblewagging.pdf"),
+        ListTile(
+          title: Text(moreManualResponsibleWaggingTitle()),
+          subtitle: Text(moreManualSubTitle()),
+          onTap: () async {
+            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('assets/Responsible_Wagging.md'), title: moreManualResponsibleWaggingTitle()));
+          },
+        ),
         ListTile(
           title: Text(
             moreUsefulLinksTitle(),
