@@ -27,8 +27,9 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 android {
-    compileSdkVersion 34
+    compileSdkVersion rootProject.ext.compileSdkVersion
     //ndkVersion flutter.ndkVersion
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -47,11 +48,11 @@ android {
         applicationId "com.codel1417.tail_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 28
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdkVersion 28
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
     buildTypes {
         release {
@@ -60,6 +61,7 @@ android {
             // so `flutter run --release` works.
             signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
         }
+
     }
     signingConfigs {
         release {
@@ -81,8 +83,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${localProperties.getProperty('kotlin.version')}"
     testImplementation 'junit:junit:4.13.2'
     // https://developer.android.com/jetpack/androidx/releases/test/#1.2.0
-    androidTestImplementation 'androidx.test:runner:1.5.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 
 }

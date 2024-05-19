@@ -1,3 +1,9 @@
+ext {
+    compileSdkVersion = 34
+    targetSdkVersion = 34
+    appCompatVersion = "1.6.1"
+}
+
 allprojects {
     repositories {
         google()
@@ -16,4 +22,9 @@ subprojects {
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
+}
+configurations.all {
+    resolutionStrategy {
+        force 'androidx.core:core-ktx:1.6.0'
+    }
 }
