@@ -105,10 +105,9 @@ class _TailBlogState extends State<TailBlog> {
   Future<void> getFeed() async {
     if (_wordpressPosts.isEmpty) {
       try {
+        // Slug, Sticky, and Author are not used
         final ListPostRequest request = ListPostRequest(
-          page: 1,
-          perPage: 10,
-          order: Order.desc,
+          page: 1, perPage: 10, order: Order.desc, queryParameters: {'_fields': 'id,title,link,featured_media_src_url,featured_media,sticky,slug,author,date'},
           //context: RequestContext.embed,
         );
         final WordpressResponse<List<Post>> wordpressPostResponse = await client.posts.list(request);
@@ -128,7 +127,14 @@ class _TailBlogState extends State<TailBlog> {
 
     if (_wordpressPosts.isNotEmpty) {
       for (Post post in _wordpressPosts) {
-        results.add(FeedItem(title: post.title!.parsedText, publishDate: post.date!, url: post.link, feedType: FeedType.blog, imageId: post.featuredMedia, imageUrl: post.featuredImageUrl));
+        results.add(FeedItem(
+          title: post.title!.parsedText,
+          publishDate: post.date!,
+          url: post.link,
+          feedType: FeedType.blog,
+          imageId: post.featuredMedia,
+          imageUrl: post.featuredImageUrl,
+        ));
       }
     }
     if (results.isNotEmpty && context.mounted) {

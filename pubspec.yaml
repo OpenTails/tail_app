@@ -135,12 +135,10 @@ sentry: # used by the sentry-dart-plugin to upload symbols. Credentials are prov
   upload_sources: false
 
 icons_launcher:
-  image_path: "assets/copilot_fox_icon.png"
+  image_path: "assets/TC_Logo.jpg"
   platforms:
     android:
       enable: true
-      adaptive_background_color: '#0573a4'
-      adaptive_foreground_image: "assets/copilot_fox_icon.png"
     ios:
       enable: true
 
@@ -160,11 +158,8 @@ flutter_native_splash:
   # of your splash screen to a solid color.  Use background_image to set the background of your
   # splash screen to a png image.  This is useful for gradients. The image will be stretch to the
   # size of the app. Only one parameter can be used, color and background_image cannot both be set.
-  color: "#0573a4"
-  color_dark: "#0573a4"
-  android_12:
-    color: "#0573a4"
-    color_dark: "#0573a4"
+  color: "#ffffff"
+  color_dark: "#212121"
 dependency_overrides:
   device_info_plus: any # PDFx uses an older version, but v10 and newer is required for IOS publishing
   meta: any

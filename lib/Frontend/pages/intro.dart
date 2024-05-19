@@ -76,14 +76,14 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 16, right: 16),
-                  child: _buildImage('copilot_fox_icon.png', 60),
+                  child: _buildImage('TC_Logo.jpg', 60),
                 ),
               ),
             ),
             pages: [
               PageViewModel(
-                title: title(),
-                body: subTitle(),
+                title: homeWelcomeMessageTitle(),
+                body: homeWelcomeMessage(),
                 image: LottieLazyLoad(
                   asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834354.tgs',
                   renderCache: true,

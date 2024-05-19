@@ -151,7 +151,7 @@ class _MoreState extends ConsumerState<More> {
                           applicationName: title(),
                           applicationVersion: "${value.version}+${value.buildNumber}",
                           applicationIcon: const Image(
-                            image: AssetImage('assets/copilot_fox_icon.png'),
+                            image: AssetImage('assets/TC_Logo.jpg'),
                             height: 60,
                             width: 60,
                           ),

@@ -61,6 +61,8 @@ Future<void> checkForNewPosts() async {
       page: 1,
       perPage: 1,
       order: Order.desc,
+      queryParameters: {'_fields': 'id,title,link,featured_media_src_url,featured_media,sticky,slug,author,date'},
+
       //context: RequestContext.embed,
     );
     final WordpressResponse<List<Post>> wordpressPostResponse = await client.posts.list(request);

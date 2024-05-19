@@ -35,7 +35,7 @@
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="Gear on the Go">
+        android:label="Tail Company">
         >
         <activity
             android:name=".MainActivity"
