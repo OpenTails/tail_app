@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   cross_platform: ^3.0.1
   logging: ^1.2.0
-  go_router: ^14.1.1
+  go_router: ^14.1.2
   vector_math: ^2.1.4 # used for joystick
   collection: ^1.18.0 # Priority Queue
   intl: #pinned to flutter version?
@@ -54,7 +54,7 @@ dependencies:
   # Widgets / UI
   flutter_screen_lock: ^9.1.0 # used to hide dev mode toggle
   introduction_screen: ^3.1.14 # Onboarding
-  lottie: ^3.1.1
+  lottie: ^3.1.2
   flex_color_picker: ^3.5.0
   flutter_adaptive_scaffold: ^0.1.10+2
   animate_do: ^3.3.4
@@ -66,6 +66,7 @@ dependencies:
   multi_listenable_builder: ^1.0.0
   logging_flutter: ^3.0.0
   flutter_markdown: ^0.7.1
+  video_player: ^2.8.6
 
   # Dio HTTP
   dio: ^5.4.3+1
