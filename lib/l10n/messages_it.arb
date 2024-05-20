@@ -1,5 +1,5 @@
 {
-  "title": "Attrezzatura in movimento",
+  "title": "La Compagnia della Coda",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Quanto velocemente dovrebbe spostarsi l'ingranaggio in questa posizione?",
+  "sequencesEditSpeed": "Con quale velocità l'ingranaggio dovrebbe spostarsi in questa posizione?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -465,7 +465,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Attiva un'azione se l'attrezzatura è nelle vicinanze",
+  "triggerActionNotSet": "Attiva un'azione scuotendo il dispositivo",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Rimuovi azione",
+  "triggersSelectClearLabel": "Rimuovi azioni",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -807,13 +807,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleTitle": "Consenti notifiche newsletter",
+  "settingsNewsletterToggleTitle": "Consenti notifiche del blog di coda",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Ricevi automaticamente notifiche quando c'è una nuova newsletter",
+  "settingsNewsletterToggleSubTitle": "Ricevi automaticamente notifiche quando c'è un nuovo post sul blog di Tail",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -846,6 +846,54 @@
   "otaLowBattery": "Batteria scarica. Carica la tua attrezzatura almeno al 50%",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffDescription": "Scorri orizzontalmente sull'area del dispositivo noto sopra per iniziare la scansione. Puoi attivare la scansione continua nelle impostazioni.",
+  "@homeContinuousScanningOffDescription": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessage": "Puoi controllare, esplorare e aggiornare tutta la tua attrezzatura Tail Co proprio qui in questa app. Sono disponibili anche istruzioni e guide. Buon scodinzolante!",
+  "@homeWelcomeMessage": {
+    "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "Salva azioni",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "Attrezzatura trovata. Tocca il nome dell'ingranaggio per connetterti",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "Registro delle modifiche",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeNewsTitle": "Fresco dal blog della coda",
+  "@homeNewsTitle": {
+    "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessageTitle": "Benvenuto nell'app Tail Company",
+  "@homeWelcomeMessageTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffTitle": "Scansione sempre disabilitata",
+  "@homeContinuousScanningOffTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   }
