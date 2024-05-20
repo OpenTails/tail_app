@@ -813,7 +813,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleTitle": "Newsletter-Benachrichtigungen zulassen",
+  "settingsNewsletterToggleTitle": "Tail-Blog-Benachrichtigungen zulassen",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
     "type": "text",
@@ -882,6 +882,18 @@
   "triggersSelectSaveLabel": "Aktionen speichern",
   "@triggersSelectSaveLabel": {
     "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "Ausrüstung gefunden. Tippen Sie auf den Namen der Ausrüstung, um eine Verbindung herzustellen",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "Änderungsprotokoll",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
     "type": "text",
     "placeholders": {}
   }
