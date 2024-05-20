@@ -176,6 +176,10 @@ Make any changes to the 'flutter_native_splash' section in [pubspec.yml](pubspec
 dart run flutter_native_splash:create
 ```
 
+### Fastlane
+
+[Fastlane](https://docs.fastlane.tools/) is a tool to automatically upload apps to the Apple App Store and Google Play Store. Inside the [IOS](ios/) and [Android](android/) folders is a fastlane folder. Inside is the FastFile which contains the upload config. Secrets are JSON files passed through repository secrets. The script [fastlane.sh](Scripts/fastlane.sh) selects the fastlane folder to use and begins the upload
+
 ### Developer Mode Features
 
 - Gear console
