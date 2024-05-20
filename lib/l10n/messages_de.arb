@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Wählen Sie einen Triggertyp aus",
+  "triggersSelectClearLabel": "Aktionen entfernen",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -876,6 +876,12 @@
   "homeContinuousScanningOffDescription": "Wischen Sie horizontal über den Bereich mit den bekannten Geräten oben, um mit dem Scannen zu beginnen. Sie können das kontinuierliche Scannen in den Einstellungen aktivieren.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "Aktionen speichern",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
