@@ -15,9 +15,11 @@ update_fastlane
 
 default_platform(:android)
   desc "Deploy a new version to the Google Play"
-  lane :deploy do
+  lane :beta do
     setup_ci if ENV['CI']
+    #   note the `..`, since fastlane runs in the _fastlane_ directory
+    changelog = File.read("../../CHANGELOG.md")
     #gradle(task: "clean assembleRelease")
-    upload_to_play_store(aab: "../build/app/outputs/bundle/release/app-release.aab", track:"beta")
+    upload_to_play_store(aab: "../build/app/outputs/bundle/release/app-release.aab", track:"beta", release_notes: changelog, version_code: ENV['BUILD_NUMBER'], version_name: ENV['VERSION'], , json_key_data: ENV['GOOGLE_SECRETS'])
   end
 end

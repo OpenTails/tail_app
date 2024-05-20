@@ -80,6 +80,17 @@ jobs:
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
           SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
           SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
+      - name: Upload Beta
+        if: github.event_name == 'push1' || github.event_name == 'release1' # Disabled for now
+        run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
+        working-directory: Scripts
+        continue-on-error: true
+        env:
+          VERSION: ${{ steps.build.outputs.SENTRY_RELEASE }}
+          BUILD_NUMBER: ${{ steps.build.outputs.SENTRY_DIST }}
+          GOOGLE_SECRETS: ${{ secrets.GOOGLE_PLAY }}
+          APPLE_SECRETS: ${{ secrets.APPLE }}
+
   release-job:
     name: Releasing
     needs: [ build_android ]
