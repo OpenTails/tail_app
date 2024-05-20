@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' as log;
+import 'package:sentry_hive/sentry_hive.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -64,11 +66,29 @@ class _HomeState extends ConsumerState<Home> {
                   child: Card(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (ref.read(knownDevicesProvider).isNotEmpty && !SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault) && !SentryHive.box(settings).get(hideTutorialCards, defaultValue: hideTutorialCardsDefault)) ...[
+                          ListTile(
+                            leading: const Icon(Icons.info),
+                            subtitle: Text(homeContinuousScanningOffDescription()),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         ListTile(
                           leading: const Icon(Icons.waving_hand),
                           title: Text(homeWelcomeMessageTitle()),
-                          subtitle:  Text(homeWelcomeMessage()),
+                          subtitle: Text(homeWelcomeMessage()),
                         ),
                         ButtonBar(
                           children: <Widget>[
@@ -125,7 +145,12 @@ class _HomeState extends ConsumerState<Home> {
                 crossFadeState: !bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                 duration: animationTransitionDuration,
               ),
-              ListTile(title: Text(homeNewsTitle(), style: Theme.of(context).textTheme.titleLarge,),),
+              ListTile(
+                title: Text(
+                  homeNewsTitle(),
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
               child!,
             ],
           ),

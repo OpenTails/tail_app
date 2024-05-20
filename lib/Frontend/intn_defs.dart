@@ -12,6 +12,11 @@ String homeNewsTitle() => Intl.message('Fresh from the Tail Blog', name: 'homeNe
 
 String homeWelcomeMessageTitle() => Intl.message('Welcome to the Tail Company App', name: 'homeWelcomeMessageTitle', desc: 'The welcome message title on the home screen when no gear is connected');
 
+String homeContinuousScanningOffTitle() => Intl.message('Always scanning disabled', name: 'homeContinuousScanningOffTitle', desc: 'The welcome message title on the home screen when no gear is connected');
+
+String homeContinuousScanningOffDescription() =>
+    Intl.message('Swipe horizontally on the known device area above to begin scanning. You can turn on continuous scanning in settings.', name: 'homeContinuousScanningOffDescription', desc: 'The welcome message title on the home screen when no gear is connected');
+
 String homeWelcomeMessage() => Intl.message('You can control, explore and update all your Tail Co gear right here in this app. There are also instructions and guides available too. Happy Wagging!', name: 'homeWelcomeMessage', desc: 'The welcome message on the home screen when no gear is connected');
 
 String shellDeviceBarToggleLabel() => Intl.message('Toggle Gear Bar', name: 'shellDeviceBarToggleLabel', desc: 'Tooltip for the Gear bar display button on the shell / main UI app bar');
@@ -183,6 +188,8 @@ String manageDevicesForget() => Intl.message('Forget', name: 'manageDevicesForge
 String manageDevicesOtaButton() => Intl.message('Tap to update firmware', name: 'manageDevicesOtaButton', desc: 'manage devices ota available button');
 
 String scanDevicesTitle() => Intl.message('Scan For New Gear', name: 'scanDevicesTitle', desc: 'button which opens the scan window');
+
+String scanDevicesFoundTitle() => Intl.message('Found Gear. Tap the gear name to connect', name: 'scanDevicesFoundTitle', desc: 'Title when gear is found on the scan for new gear page');
 
 String scanDevicesScanMessage() => Intl.message('Scanning for gear. Please make sure your gear is powered on and nearby', name: 'scanDevicesScanMessage', desc: 'scan for devices scan in progress message when scanning for a device');
 

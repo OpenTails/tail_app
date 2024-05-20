@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const int kitsuneDelayRange = 1000;
-const Duration animationTransitionDuration = Duration(milliseconds: 250);
+const Duration animationTransitionDuration = Duration(milliseconds: 500);
 
 // Settings labels
 const String settings = 'settings';

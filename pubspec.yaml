@@ -38,10 +38,7 @@ dependencies:
   url_launcher: ^6.2.6 # Open URLS in external apps
   app_settings: ^5.1.1 # Open bluetooth settings
   flutter_blue_plus: ^1.32.7
-  flutter_foreground_service: # Needs gradle namespace
-    git:
-      url: https://github.com/Codel1417/flutter-plugins
-      path: packages/flutter_foreground_service
+  flutter_foreground_task: ^6.2.0
   install_referrer: # Needs gradle namespace
     git:
       url: https://github.com/undreeyyy/flutter_plugin_install_referrer

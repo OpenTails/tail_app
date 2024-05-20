@@ -27,6 +27,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
   @override
   void initState() {
     beginScan();
+    hasAnyResults = false;
     super.initState();
     anyKnownGear = ref.read(knownDevicesProvider).isNotEmpty;
   }
@@ -34,10 +35,13 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
   @override
   void dispose() {
     super.dispose();
+    hasAnyResults = false;
     if (!SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault) || !anyKnownGear) {
       stopScan();
     }
   }
+
+  bool hasAnyResults = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +52,26 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
           return ListView(
             controller: widget.scrollController,
             children: [
+              AnimatedCrossFade(
+                firstChild: ListTile(
+                  title: Text(
+                    scanDevicesFoundTitle(),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                secondChild: Container(),
+                crossFadeState: hasAnyResults ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                duration: animationTransitionDuration,
+              ),
               StreamBuilder<List<ScanResult>>(
                 stream: FlutterBluePlus.scanResults,
                 builder: (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    Future(
+                      () => setState(() {
+                        hasAnyResults = true;
+                      }),
+                    );
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -79,30 +99,34 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                   }
                 },
               ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Spin(
-                          infinite: true,
-                          duration: const Duration(seconds: 1, milliseconds: 500),
-                          child: Transform.flip(
-                            flipX: true,
-                            child: const LottieLazyLoad(
-                              asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs',
-                              renderCache: false,
-                              width: 200,
+              AnimatedOpacity(
+                opacity: hasAnyResults ? 0.5 : 1,
+                duration: animationTransitionDuration,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Spin(
+                            infinite: true,
+                            duration: const Duration(seconds: 1, milliseconds: 500),
+                            child: Transform.flip(
+                              flipX: true,
+                              child: const LottieLazyLoad(
+                                asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs',
+                                renderCache: false,
+                                width: 200,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(scanDevicesScanMessage()),
-                        )
-                      ],
-                    ),
-                  )),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(scanDevicesScanMessage()),
+                          )
+                        ],
+                      ),
+                    )),
+              ),
             ],
           );
         } else {

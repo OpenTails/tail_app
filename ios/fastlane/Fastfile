@@ -11,6 +11,6 @@ platform :ios do
     #   note the `..`, since fastlane runs in the _fastlane_ directory
     changelog = File.read("../../CHANGELOG.md")
     build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
-    upload_to_testflight(skip_waiting_for_build_processing: true, changelog:changelog, build_number: ENV['BUILD_NUMBER'], app_version: ENV['VERSION'], reject_build_waiting_for_review: true)
+    upload_to_testflight(skip_waiting_for_build_processing: true, changelog:changelog, build_number: ENV['BUILD_NUMBER'], app_version: ENV['VERSION'], reject_build_waiting_for_review: true, api_key_path:"APPLE_SECRETS.json")
   end
 end

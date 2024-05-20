@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:flutter_foreground_service/flutter_foreground_service.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -103,11 +103,25 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         //start foreground service on device connected. Library handles duplicate start calls
         _bluetoothPlusLogger.fine('Requesting notification permission');
         _bluetoothPlusLogger.finer('Requesting notification permission result${await Permission.notification.request()}'); // Used only for Foreground service
-        await ForegroundServiceHandler.notification.setPriority(AndroidNotificationPriority.LOW);
-        await ForegroundServiceHandler.setContinueRunningAfterAppKilled(false);
-        await ForegroundServiceHandler.notification.setTitle("Gear Connected");
-        _bluetoothPlusLogger.fine('Starting foreground service');
-        ForegroundService().start();
+        FlutterForegroundTask.init(
+          androidNotificationOptions: AndroidNotificationOptions(
+            foregroundServiceType: AndroidForegroundServiceType.CONNECTED_DEVICE,
+            channelId: 'foreground_service',
+            channelName: 'Gear Connected',
+            channelDescription: 'This notification appears when any gear is running.',
+            channelImportance: NotificationChannelImportance.LOW,
+            priority: NotificationPriority.LOW,
+            iconData: const NotificationIconData(
+              resType: ResourceType.mipmap,
+              resPrefix: ResourcePrefix.ic,
+              name: 'launcher',
+            ),
+            buttons: [],
+          ),
+          iosNotificationOptions: const IOSNotificationOptions(),
+          foregroundTaskOptions: const ForegroundTaskOptions(),
+        );
+        FlutterForegroundTask.startService(notificationTitle: "Gear Connected", notificationText: "Gear is connected to The Tail Company app");
       }
       await event.device.discoverServices();
     }
@@ -142,7 +156,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         // Close foreground service
         if (Platform.isAndroid) {
           _bluetoothPlusLogger.finer('Stopping foreground service');
-          ForegroundService().stop();
+          FlutterForegroundTask.stopService();
         }
       }
       // if the forget button was used, remove the device
