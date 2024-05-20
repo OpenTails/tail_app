@@ -64,7 +64,7 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 - [Flutter SDK `3.22.0`](https://docs.flutter.dev/get-started/install)
 - Bash (Windows & Linux) or ZSH (MacOS)
 - [Git](https://git-scm.com/downloads)
-
+- [Ruby](https://www.ruby-lang.org/en/) for FastLane
 ### Building
 
 #### Preparing for build
