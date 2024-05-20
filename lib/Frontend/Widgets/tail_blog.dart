@@ -169,7 +169,7 @@ class _TailBlogState extends State<TailBlog> {
 
         if (mediaUrl != null) {
           // download the image
-          await initDio().download(mediaUrl!, filePath);
+          await initDio().download(mediaUrl, filePath);
         }
       }
       if (await file.exists()) {
