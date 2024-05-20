@@ -41,8 +41,8 @@ if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which does
     cd ..
     flutter build ipa $DEBUG --no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION" 
   else
-    flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION" #--dart-define=cronetHttpNoPlay=true
-    flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" #--dart-define=cronetHttpNoPlay=true
+    flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=cronetHttpNoPlay=true
+    flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=cronetHttpNoPlay=true
   fi
 
   if [[ -v GITHUB_OUTPUT ]]; then
