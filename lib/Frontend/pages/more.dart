@@ -94,6 +94,7 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: const Text("Tail Company Store"),
           leading: const Icon(Icons.store),
+          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
           },
@@ -101,6 +102,7 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: const Text("Tail Company Wiki"),
           leading: const Icon(Icons.notes),
+          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchUrl(Uri.parse('https://docs.thetailcompany.com/?utm_source=Tail_App'));
           },
@@ -108,6 +110,7 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: const Text("Tail Company Telegram"),
           leading: const Icon(Icons.telegram),
+          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchUrl(Uri.parse('https://t.me/joinchat/VCdXxqKgRv2yrDNC'));
           },
@@ -115,6 +118,7 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: const Text("Tail Company Support Email"),
           leading: const Icon(Icons.email),
+          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchUrl(Uri.parse('mailto:info@thetailcompany.com'));
           },
@@ -122,6 +126,7 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: const Text("GitHub"),
           leading: const Icon(Icons.code),
+          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app'));
           },
