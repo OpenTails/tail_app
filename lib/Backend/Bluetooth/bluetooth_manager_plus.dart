@@ -112,9 +112,9 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
             channelImportance: NotificationChannelImportance.LOW,
             priority: NotificationPriority.LOW,
             iconData: const NotificationIconData(
-              resType: ResourceType.mipmap,
-              resPrefix: ResourcePrefix.ic,
-              name: 'launcher',
+              resType: ResourceType.drawable,
+              resPrefix: ResourcePrefix.img,
+              name: 'tc_logo_transparent_notext_small',
             ),
             buttons: [],
           ),

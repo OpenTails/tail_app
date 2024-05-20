@@ -34,7 +34,11 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   }
 
   Widget _buildImage(String assetName, [double width = 350]) {
-    return Image.asset('assets/$assetName', width: width);
+    return Image.asset(
+      'assets/$assetName',
+      width: width,
+      cacheWidth: width.toInt(),
+    );
   }
 
   @override
@@ -76,7 +80,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 16, right: 16),
-                  child: _buildImage('TC_Logo.jpg', 60),
+                  child: _buildImage('TC_Logo_Transparent_NoText.png', 60),
                 ),
               ),
             ),
