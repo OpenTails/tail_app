@@ -81,7 +81,7 @@ jobs:
           SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
           SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
       - name: Upload Beta
-        if: github.event_name == 'push1' || github.event_name == 'release1' # Disabled for now
+        if: github.event_name == 'push' || github.event_name == 'release1' # Disabled for now
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
         continue-on-error: true
