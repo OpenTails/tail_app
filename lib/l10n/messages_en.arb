@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-14T18:41:24.073262",
-  "title": "Gear on the Go",
+  "@@last_modified": "2024-05-20T18:07:11.615132",
+  "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -10,6 +10,36 @@
   "subTitle": "All of the Tails",
   "@subTitle": {
     "description": "The sub-title which displays in the navigation drawer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeNewsTitle": "Fresh from the Tail Blog",
+  "@homeNewsTitle": {
+    "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessageTitle": "Welcome to the Tail Company App",
+  "@homeWelcomeMessageTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffTitle": "Always scanning disabled",
+  "@homeContinuousScanningOffTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffDescription": "Swipe horizontally on the known device area above to begin scanning. You can turn on continuous scanning in settings.",
+  "@homeContinuousScanningOffDescription": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessage": "You can control, explore and update all your Tail Co gear right here in this app. There are also instructions and guides available too. Happy Wagging!",
+  "@homeWelcomeMessage": {
+    "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
@@ -85,9 +115,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Remove Action",
+  "triggersSelectClearLabel": "Remove Actions",
   "@triggersSelectClearLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected action",
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "Save Actions",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   },
@@ -371,13 +407,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleTitle": "Allow Newsletter Notifications",
+  "settingsNewsletterToggleTitle": "Allow Tail Blog Notifications",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Automatically receive notifications when there is a new newsletter",
+  "settingsNewsletterToggleSubTitle": "Automatically receive notifications when there is a new Tail Blog post",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -476,6 +512,12 @@
   "scanDevicesTitle": "Scan For New Gear",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "Found Gear. Tap the gear name to connect",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
     "placeholders": {}
   },
@@ -715,7 +757,13 @@
   },
   "morePrivacyPolicyLinkTitle": "Privacy Policy",
   "@morePrivacyPolicyLinkTitle": {
-    "description": "Title for UPrivacy policy link under Useful Links on More page",
+    "description": "Title for Privacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "Changelog",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
     "type": "text",
     "placeholders": {}
   },
