@@ -90,6 +90,7 @@ jobs:
           BUILD_NUMBER: ${{ steps.build.outputs.SENTRY_DIST }}
           GOOGLE_SECRETS: ${{ secrets.GOOGLE_PLAY }}
           APPLE_SECRETS: ${{ secrets.APPLE }}
+          OS: ${{ matrix.os }}
 
   release-job:
     name: Releasing
