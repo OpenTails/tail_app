@@ -40,8 +40,8 @@
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="false"
         android:icon="@mipmap/ic_launcher"
-		android:roundIcon="@mipmap/ic_launcher_rounded"
-        android:label="Tail Company">
+        android:label="The Tail Co"
+        android:roundIcon="@mipmap/ic_launcher_rounded">
         >
         <activity
             android:name=".MainActivity"
