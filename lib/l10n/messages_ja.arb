@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "外出先でも使えるギア",
+  "title": "テールカンパニー",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "タップしてファームウェアを更新",
+  "manageDevicesOtaButton": "アップデートに失敗しました。機器を再起動してもう一度お試しください。",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。鉛筆をタップしてカスタムアクションを編集します。",
+  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。カスタムアクションを編集するには、鉛筆をタップします。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -807,13 +807,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "新しいニュースレターがあるときに自動的に通知を受け取る",
+  "settingsNewsletterToggleSubTitle": "新しいTail Blog投稿があったときに自動的に通知を受け取る",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleTitle": "ニュースレター通知を許可する",
+  "settingsNewsletterToggleTitle": "テールブログ通知を許可する",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
     "type": "text",
@@ -846,6 +846,54 @@
   "otaLowBattery": "バッテリー残量が少なくなっています。機器を少なくとも50%まで充電してください。",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessageTitle": "テールカンパニーアプリへようこそ",
+  "@homeWelcomeMessageTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffTitle": "常にスキャンを無効",
+  "@homeContinuousScanningOffTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffDescription": "スキャンを開始するには、上記の既知のデバイス領域を水平にスワイプします。設定で連続スキャンをオンにすることができます。",
+  "@homeContinuousScanningOffDescription": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessage": "このアプリで、Tail Co のすべてのギアを制御、検索、更新できます。また、説明とガイドも用意されています。楽しく尻尾を振ってください!",
+  "@homeWelcomeMessage": {
+    "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "変更履歴",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeNewsTitle": "しっぽブログの最新情報",
+  "@homeNewsTitle": {
+    "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "アクションを保存",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "ギアが見つかりました。ギア名をタップして接続してください",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
     "placeholders": {}
   }
