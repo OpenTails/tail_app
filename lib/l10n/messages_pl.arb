@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Którego biegu to ma dotyczyć?",
+  "triggersPage": "Więcej",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Którego biegu to powinno dotyczyć?",
+  "deviceType": "Którego biegu to ma dotyczyć?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -495,7 +495,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "title": "Sprzęt w podróży",
+  "title": "Firma Tail",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Wyślij opinię",
+  "feedbackPage": "Bezpośrednio kontroluj położenie przekładni.",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -531,7 +531,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualMiTailTitle": "Instrukcja MiTail’a",
+  "moreManualMiTailTitle": "Pochylenie do przodu",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
     "type": "text",
@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Każda Akcja Własna składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
+  "sequencesInfoEditDescription": "Każda akcja niestandardowa składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Usuń akcję",
+  "triggersSelectClearLabel": "Usuń akcje",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -807,13 +807,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleTitle": "Zezwalaj na powiadomienia biuletynem",
+  "settingsNewsletterToggleTitle": "Zezwalaj na powiadomienia z bloga Tail",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Automatycznie otrzymuj powiadomienia, gdy pojawi się nowy newsletter",
+  "settingsNewsletterToggleSubTitle": "Automatycznie otrzymuj powiadomienia, gdy pojawi się nowy post na blogu Tail",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -846,6 +846,54 @@
   "otaLowBattery": "Niski poziom baterii. Naładuj swój sprzęt przynajmniej do 50%",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessageTitle": "Witamy w aplikacji Tail Company",
+  "@homeWelcomeMessageTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffTitle": "Skanowanie zawsze wyłączone",
+  "@homeContinuousScanningOffTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffDescription": "Przesuń poziomo po znanym obszarze urządzenia powyżej, aby rozpocząć skanowanie. Możesz włączyć ciągłe skanowanie w ustawieniach.",
+  "@homeContinuousScanningOffDescription": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessage": "W tej aplikacji możesz kontrolować, eksplorować i aktualizować cały swój sprzęt Tail Co. Dostępne są także instrukcje i przewodniki. Szczęśliwego machania!",
+  "@homeWelcomeMessage": {
+    "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "Zapisz działania",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "Znaleziono sprzęt. Kliknij nazwę koła zębatego, aby się połączyć",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "Dziennik zmian",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeNewsTitle": "Świeżo z bloga Tail",
+  "@homeNewsTitle": {
+    "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   }
