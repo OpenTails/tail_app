@@ -18,7 +18,7 @@ platform :ios do
     )
     #   note the `..`, since fastlane runs in the _fastlane_ directory
     changelog = File.read("../../CHANGELOG.md")
-    get_certificates(api_key_path:"APPLE_SECRETS.json")
+    get_certificates(api_key_path:"APPLE_SECRETS.json", keychain_path: "KeychainName" keystore_password: "verySecureSecretPassword1")
     get_provisioning_profile(force: true, api_key_path:"APPLE_SECRETS.json")
 
     #get_push_certificate
