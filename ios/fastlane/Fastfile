@@ -12,7 +12,7 @@ platform :ios do
     sync_code_signing(
       type: "appstore",
       readonly: false,
-      team_id: "SKRSQZ43AV"
+      team_id: "SKRSQZ43AV",
       api_key_path:"APPLE_SECRETS.json",
       force: true,
       verbose: true,
