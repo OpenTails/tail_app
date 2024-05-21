@@ -14,13 +14,20 @@ platform :ios do
       readonly: false, 
       api_key_path:"APPLE_SECRETS.json"
     )
-    
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      code_sign_identity: "iPhone Distribution",
+      sdk: "iphoneos*",
+      entitlements_file_path: "Runner/Runner.entitlements"
+    )
     build_app(
-      workspace: "Runner.xcworkspace", 
+      workspace: "Runner.xcworkspace",
       scheme: "Runner",
       skip_build_archive: true,
       export_team_id: "SKRSQZ43AV" ,
       archive_path: "../build/ios/archive/Runner.xcarchive",
+      xcconfig: "Flutter/Generated.xcconfig"
     )
     upload_to_testflight(
       skip_waiting_for_build_processing: true, 

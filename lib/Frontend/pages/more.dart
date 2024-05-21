@@ -74,10 +74,9 @@ class _MoreState extends ConsumerState<More> {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
-        PdfWidget(name: moreManualDigitailTitle(), url: "https://thetailcompany.com/digitail.pdf"),
+        PdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf"),
         PdfWidget(name: moreManualEargearTitle(), url: "https://thetailcompany.com/eargear.pdf"),
         PdfWidget(name: moreManualFlutterWingsTitle(), url: "https://thetailcompany.com/flutterwings.pdf"),
-        PdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf"),
         ListTile(
           title: Text(moreManualResponsibleWaggingTitle()),
           subtitle: Text(moreManualSubTitle()),
