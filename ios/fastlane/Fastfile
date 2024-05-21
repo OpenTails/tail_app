@@ -11,9 +11,6 @@ platform :ios do
       name: "KeychainName",
       default_keychain: true,
       password: 'verySecureSecretPassword1'
-      #unlock: true,
-      timeout: 0,
-      lock_when_sleeps: true
     )
     unlock_keychain( # If the keychain file is located in the standard location `~/Library/Keychains`, then it is sufficient to provide the keychain file name, or file name with its suffix.
       path: "KeychainName",
