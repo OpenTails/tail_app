@@ -7,18 +7,9 @@ platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
     setup_ci if ENV['CI']
-    create_keychain(
-      name: "KeychainName",
-      default_keychain: true,
-      password: 'verySecureSecretPassword1'
-    )
-    unlock_keychain( # If the keychain file is located in the standard location `~/Library/Keychains`, then it is sufficient to provide the keychain file name, or file name with its suffix.
-      path: "KeychainName",
-      password: "verySecureSecretPassword1"
-    )
     #   note the `..`, since fastlane runs in the _fastlane_ directory
     changelog = File.read("../../CHANGELOG.md")
-    get_certificates(api_key_path:"APPLE_SECRETS.json", keychain_path: "KeychainName", keystore_password: "verySecureSecretPassword1")
+    get_certificates(api_key_path:"APPLE_SECRETS.json", keychain_path: "verySecureSecretPassword1")
     get_provisioning_profile(force: true, api_key_path:"APPLE_SECRETS.json")
 
     #get_push_certificate
