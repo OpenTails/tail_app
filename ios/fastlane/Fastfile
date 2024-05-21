@@ -9,6 +9,7 @@ platform :ios do
     setup_ci if ENV['CI']
     #   note the `..`, since fastlane runs in the _fastlane_ directory
     changelog = File.read("../../CHANGELOG.md")
+    disable_automatic_code_signing
     sync_code_signing(
       type: "appstore",
       readonly: false,
@@ -23,6 +24,8 @@ platform :ios do
       code_sign_identity: "iPhone Distribution",
       team_id: "SKRSQZ43AV",
       bundle_identifier: "com.codel1417.tailApp",
+      profile_name: lane_context[SharedValues::SIGH_NAME]
+      profile_uuid: lane_context[SharedValues::SIGH_UUID],
     )
     sh "flutter build ipa --build-number=$BUILD_NUMBER --build-name=$VERSION "
     build_app(
