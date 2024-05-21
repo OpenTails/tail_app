@@ -9,18 +9,18 @@ platform :ios do
     setup_ci if ENV['CI']
     #   note the `..`, since fastlane runs in the _fastlane_ directory
     changelog = File.read("../../CHANGELOG.md")
-    sync_code_signing(
-      type: "appstore", 
-      readonly: false, 
-      api_key_path:"APPLE_SECRETS.json",
-      force: true
-    )
+
     update_code_signing_settings(
       use_automatic_signing: false,
       path: "Runner.xcodeproj",
       code_sign_identity: "iPhone Distribution",
-      sdk: "iphoneos*",
       entitlements_file_path: "Runner/Runner.entitlements"
+    )
+    sync_code_signing(
+      type: "appstore",
+      readonly: false,
+      api_key_path:"APPLE_SECRETS.json",
+      force: true,
     )
     build_app(
       workspace: "Runner.xcworkspace",
