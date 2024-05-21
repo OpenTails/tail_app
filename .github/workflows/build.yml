@@ -61,12 +61,14 @@ jobs:
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           working-directory: ios # TODO: Merge somehow
+          ruby-version: '3.3' # Not needed with a .ruby-version file
       - name: Setup Ruby Ubuntu
         uses: ruby/setup-ruby@v1
         if: matrix.os == 'ubuntu-latest'
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           working-directory: android
+          ruby-version: '3.3' # Not needed with a .ruby-version file
       - name: Cocoapods Cache
         uses: actions/cache@v2
         id: cocoapods-cache
