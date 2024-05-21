@@ -91,6 +91,7 @@ jobs:
           GOOGLE_SECRETS: ${{ secrets.GOOGLE_PLAY }}
           APPLE_SECRETS: ${{ secrets.APPLE }}
           OS: ${{ matrix.os }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
 
   release-job:
     name: Releasing
