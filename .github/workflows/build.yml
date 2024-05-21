@@ -92,7 +92,7 @@ jobs:
           APPLE_SECRETS: ${{ secrets.APPLE }}
           OS: ${{ matrix.os }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
-
+          MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
   release-job:
     name: Releasing
     needs: [ build_android ]

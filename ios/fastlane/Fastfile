@@ -9,7 +9,7 @@ platform :ios do
     setup_ci if ENV['CI']
     #   note the `..`, since fastlane runs in the _fastlane_ directory
     changelog = File.read("../../CHANGELOG.md")
-    sync_code_signing(type: "appstore", readonly: false)
+    sync_code_signing(type: "appstore", readonly: false, api_key_path:"APPLE_SECRETS.json")
     #get_certificates(api_key_path:"APPLE_SECRETS.json", keychain_path: "/Users/runner/Library/Keychains/fastlane_tmp_keychain-db")
     #get_provisioning_profile(force: true, api_key_path:"APPLE_SECRETS.json")
 
