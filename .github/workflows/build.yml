@@ -61,6 +61,7 @@ jobs:
       - name: Cocoapods Cache
         uses: actions/cache@v2
         id: cocoapods-cache
+        if: matrix.os == 'macos-latest'
         with:
           path: ios/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('pubspec.lock') }}

@@ -221,6 +221,9 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       } else if (value.contains("HWVER")) {
         // Hardware Version
         statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
+      } else if (value.contains("BATT")) {
+        // Battery Level
+        statefulDevice.batteryLevel.value = int.parse(value.substring(value.indexOf(" "))).toDouble();
       }
     }
   });
@@ -256,6 +259,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       BaseStatefulDevice? device = knownDevices[element.remoteId.str];
       if (device != null) {
         device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: Type.system));
+        device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: Type.system));
         element.readRssi();
       }
     }
