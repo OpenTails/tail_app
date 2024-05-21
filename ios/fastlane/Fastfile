@@ -12,13 +12,17 @@ platform :ios do
     sync_code_signing(
       type: "appstore",
       readonly: false,
+      team_id: "SKRSQZ43AV"
       api_key_path:"APPLE_SECRETS.json",
+      force: true,
+      verbose: true,
     )
     update_code_signing_settings(
       use_automatic_signing: false,
       path: "Runner.xcodeproj",
       code_sign_identity: "iPhone Distribution",
-      entitlements_file_path: "Runner.entitlements"
+      team_id: "SKRSQZ43AV",
+      bundle_identifier: "com.codel1417.tailApp",
     )
     sh "flutter build ipa --build-number=$BUILD_NUMBER --build-name=$VERSION "
     build_app(
