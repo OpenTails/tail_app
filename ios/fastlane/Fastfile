@@ -12,7 +12,8 @@ platform :ios do
     sync_code_signing(
       type: "appstore", 
       readonly: false, 
-      api_key_path:"APPLE_SECRETS.json"
+      api_key_path:"APPLE_SECRETS.json",
+      force: true
     )
     update_code_signing_settings(
       use_automatic_signing: false,
