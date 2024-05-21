@@ -16,9 +16,9 @@ fi
   if [[ $OS == 'macos-latest' ]]; then
     cd ios
     echo "$APPLE_SECRETS" > APPLE_SECRETS.json
-    fastlane beta
+    bundle exec fastlane beta
     rm APPLE_SECRETS.json
   else
     cd android
-    fastlane beta
+    bundle exec fastlane beta
   fi
