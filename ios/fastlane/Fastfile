@@ -19,7 +19,7 @@ platform :ios do
       path: "Runner.xcodeproj",
       code_sign_identity: "iPhone Distribution",
       sdk: "iphoneos*",
-      entitlements_file_path: "Runner/Runner.entitlements"
+      entitlements_file_path: "Runner.entitlements"
     )
     build_app(
       workspace: "Runner.xcworkspace",

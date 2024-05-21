@@ -65,6 +65,7 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 - Bash (Windows & Linux) or ZSH (MacOS)
 - [Git](https://git-scm.com/downloads)
 - [Ruby](https://www.ruby-lang.org/en/) for FastLane
+
 ### Building
 
 #### Preparing for build
@@ -116,10 +117,19 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 > flutter Upgrade
 > ```
 >
-> if you get an error simialr to `Error: Couldn't resolve the package 'flutter_gen' in 'package:flutter_gen/gen_l10n/app_localizations.dart'` run
+> if you get an error similar to `Error: Couldn't resolve the package 'flutter_gen' in 'package:flutter_gen/gen_l10n/app_localizations.dart'` run
 >
 > ```
 > flutter pub get
+> ```
+>
+> if you get an error during riverpod generator such as `RangeError (index): Invalid value: Not in inclusive range 0..20491: 77535` try
+>
+> ```shell
+> flutter clean
+> flutter pub get
+> flutter pub run build_runner build --delete-conflicting-outputs
+> flutter pub get # fixes app_localizations error
 > ```
 
 #### Building for each platform
@@ -184,15 +194,15 @@ dart run flutter_native_splash:create
 
 Some of these values aren't actually secret and can be shared. Specifically the sentry ones
 
-| Name | Example Value | How to get | Uses |
-|------|-------|------------|----------|
-| SENTRY_AUTH_TOKEN | sntrys_eyJpYXQiOjE3MTYyNTky... | Go to Sentry -> Settings -> Auth Token | Authenticate with sentry to upload symbols |
-| SENTRY_ORG | Sentry | Listed at the top left of sentry when logged in | Which org to upload symbols to |
-| SENTRY_PROJECT | tail_app | Whatever the project is named in sentry | Which project to upload symbols to |
-| SENTRY_URL | https://sentry.codel1417.xyz/ | The url to the sentry instance | Which instance to upload symbols to |
-| FASTLANE_GITHUB | JeqGFIV1yb7emBFLkBk/dA== | echo -n your_github_username:your_personal_access_token \| base64 | Store certificates for fastlane match |
-| APPLE | {"key_id": "D383SF739", "issuer_id": "6053b7fe-68a8-4acb-89be-165aa6465141", "key": "-----BEGIN PRIVATE KEY-----MIGTAgEAMB----END PRIVATE KEY-----", "in_house": false } | Json file of apple credentials https://docs.fastlane.tools/app-store-connect-api/ | Authenticate with Apple to upload to TestFlight |
-| FASTLANE_PATCH_PASSWORD | hunter2 | Make a password | Encrypt match certificates |
+| Name                    | Example Value                                                                                                                                                            | How to get                                                                        | Uses                                            |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|-------------------------------------------------|
+| SENTRY_AUTH_TOKEN       | sntrys_eyJpYXQiOjE3MTYyNTky...                                                                                                                                           | Go to Sentry -> Settings -> Auth Token                                            | Authenticate with sentry to upload symbols      |
+| SENTRY_ORG              | Sentry                                                                                                                                                                   | Listed at the top left of sentry when logged in                                   | Which org to upload symbols to                  |
+| SENTRY_PROJECT          | tail_app                                                                                                                                                                 | Whatever the project is named in sentry                                           | Which project to upload symbols to              |
+| SENTRY_URL              | https://sentry.codel1417.xyz/                                                                                                                                            | The url to the sentry instance                                                    | Which instance to upload symbols to             |
+| FASTLANE_GITHUB         | JeqGFIV1yb7emBFLkBk/dA==                                                                                                                                                 | echo -n your_github_username:your_personal_access_token \| base64                 | Store certificates for fastlane match           |
+| APPLE                   | {"key_id": "D383SF739", "issuer_id": "6053b7fe-68a8-4acb-89be-165aa6465141", "key": "-----BEGIN PRIVATE KEY-----MIGTAgEAMB----END PRIVATE KEY-----", "in_house": false } | Json file of apple credentials https://docs.fastlane.tools/app-store-connect-api/ | Authenticate with Apple to upload to TestFlight |
+| FASTLANE_PATCH_PASSWORD | hunter2                                                                                                                                                                  | Make a password                                                                   | Encrypt match certificates                      |
 
 ### Developer Mode Features
 

@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:tail_app/Frontend/intn_defs.dart';
+import 'package:uuid/uuid.dart';
 
 import '../Device/device_definition.dart';
 
@@ -19,6 +20,8 @@ enum ActionCategory {
   glowtip,
   @HiveField(6)
   ears,
+  @HiveField(7)
+  hidden
 }
 
 extension ActionCategoryExtension on ActionCategory {
@@ -36,6 +39,8 @@ extension ActionCategoryExtension on ActionCategory {
         return actionsCategoryEars();
       case ActionCategory.sequence:
         return sequencesPage();
+      case ActionCategory.hidden:
+        return "";
     }
   }
 }
@@ -70,4 +75,8 @@ class CommandAction extends BaseAction {
   final String? response;
 
   CommandAction(super.name, this.command, super.deviceCategory, super.actionCategory, this.response, super.uuid);
+
+  factory CommandAction.hiddenEars(String command, String response) {
+    return CommandAction(command, command, [DeviceType.ears], ActionCategory.hidden, response, const Uuid().v4());
+  }
 }

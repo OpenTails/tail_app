@@ -153,6 +153,18 @@ class MoveList extends BaseAction {
   MoveList.builtIn(super.name, super.deviceCategory, super.actionCategory, super.uuid, this.moves);
 }
 
+class EarsMoveList extends MoveList {
+  List<Object> commandMoves = [];
+
+  EarsMoveList(super.name, super.deviceCategory, super.actionCategory, super.uuid);
+
+  factory EarsMoveList.builtIn(name, uuid, commandMoves) {
+    var earsMoveList = EarsMoveList(name, [DeviceType.ears], ActionCategory.hidden, uuid);
+    earsMoveList.commandMoves = commandMoves;
+    return earsMoveList;
+  }
+}
+
 @Riverpod(keepAlive: true)
 class MoveLists extends _$MoveLists {
   @override
@@ -181,7 +193,25 @@ class MoveLists extends _$MoveLists {
 }
 
 Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
-  if (action is CommandAction) {
+  //cursed handling of ears specifically
+  if (action is EarsMoveList) {
+    plausible.event(name: "Run Action", props: {"Action Name": action.name, "Action Type": action.actionCategory.name});
+    if (action.commandMoves.isNotEmpty && device.baseDeviceDefinition.deviceType == DeviceType.ears) {
+      for (int i = 0; i < action.commandMoves.length; i++) {
+        Object element = action.commandMoves[i];
+        if (element is Move) {
+          if (element.moveType == MoveType.delay) {
+            BluetoothMessage message = BluetoothMessage.delay(delay: element.time, device: device, priority: Priority.normal, type: Type.move);
+            device.commandQueue.addCommand(message);
+          }
+        } else if (element is CommandAction) {
+          //Generate move command
+          BluetoothMessage message = BluetoothMessage(message: element.command, device: device, priority: Priority.normal, type: Type.move, responseMSG: element.response);
+          device.commandQueue.addCommand(message);
+        }
+      }
+    }
+  } else if (action is CommandAction) {
     device.commandQueue.addCommand(BluetoothMessage(message: action.command, device: device, priority: Priority.normal, responseMSG: action.response, type: Type.move));
     plausible.event(name: "Run Action", props: {"Action Name": action.name, "Action Type": action.actionCategory.name});
   } else if (action is MoveList) {

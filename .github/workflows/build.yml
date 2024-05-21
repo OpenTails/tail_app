@@ -55,7 +55,6 @@ jobs:
           flutter-version: '3.22.0'
           cache: true
       - uses: ruby/setup-ruby@v1
-        if: matrix.os == 'macos-latest'
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           ruby-version: '3.3' # Not needed with a .ruby-version file
