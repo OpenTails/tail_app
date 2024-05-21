@@ -9,14 +9,25 @@ platform :ios do
     setup_ci if ENV['CI']
     #   note the `..`, since fastlane runs in the _fastlane_ directory
     changelog = File.read("../../CHANGELOG.md")
-    sync_code_signing(type: "appstore", readonly: false, api_key_path:"APPLE_SECRETS.json")
+    sync_code_signing(
+      type: "appstore", 
+      readonly: false, 
+      api_key_path:"APPLE_SECRETS.json"
+    )
     
     build_app(
       workspace: "Runner.xcworkspace", 
-      scheme: "Runner")
+      scheme: "Runner",
       skip_build_archive: true,
       archive_path: "../build/ios/archive/Runner.xcarchive",
     )
-    upload_to_testflight(skip_waiting_for_build_processing: true, changelog: changelog, build_number: ENV['BUILD_NUMBER'], app_version: ENV['VERSION'], reject_build_waiting_for_review: true, api_key_path:"APPLE_SECRETS.json")
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true, 
+      changelog: changelog, 
+      build_number: ENV['BUILD_NUMBER'], 
+      app_version: ENV['VERSION'], 
+      reject_build_waiting_for_review: true, 
+      api_key_path:"APPLE_SECRETS.json"
+    )
   end
 end
