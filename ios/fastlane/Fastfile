@@ -14,6 +14,12 @@ platform :ios do
       readonly: false,
       api_key_path:"APPLE_SECRETS.json",
     )
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      code_sign_identity: "iPhone Distribution",
+      entitlements_file_path: "Runner.entitlements"
+    )
     sh "flutter build ipa --build-number=$BUILD_NUMBER --build-name=$VERSION "
     build_app(
       workspace: "Runner.xcworkspace",
