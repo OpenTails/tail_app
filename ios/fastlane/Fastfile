@@ -20,7 +20,6 @@ platform :ios do
       type: "appstore",
       readonly: false,
       api_key_path:"APPLE_SECRETS.json",
-      force: true,
     )
     build_app(
       workspace: "Runner.xcworkspace",
