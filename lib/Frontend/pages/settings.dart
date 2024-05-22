@@ -212,8 +212,7 @@ class _SettingsState extends ConsumerState<Settings> {
             title: Divider(),
           ),
           ListTile(
-            //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
-            title: Text(settingsAnalyticsToggleTitle()),
+            title: Text(settingsNewsletterToggleTitle()),
             leading: const Icon(Icons.notifications),
             subtitle: Text(settingsNewsletterToggleSubTitle()),
             trailing: Switch(

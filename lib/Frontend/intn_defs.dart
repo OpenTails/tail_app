@@ -158,20 +158,11 @@ String settingsNewsletterToggleSubTitle() => Intl.message('Automatically receive
 
 String settingsAppColor() => Intl.message('App Color', name: 'settingsAppColor', desc: 'Settings page app color picker button title');
 
-//Move List
-String manageDevicesAutoMoveTitle() => Intl.message('Casual Mode', name: 'manageDevicesAutoMoveTitle', desc: 'Auto move toggle title when managing a device');
-
-String manageDevicesAutoMoveSubTitle() => Intl.message('The tail will select a random move, pausing for a random number of seconds between each move', name: 'manageDevicesAutoMoveSubTitle', desc: 'Auto move toggle subtitle when managing a device');
-
-String manageDevicesAutoMoveGroupsTitle() => Intl.message('Move Groups', name: 'manageDevicesAutoMoveGroupsTitle', desc: 'Auto move group selector title when managing a device');
-
 String manageDevicesAutoMoveGroupsFast() => Intl.message('Fast', name: 'manageDevicesAutoMoveGroupsFast', desc: 'Auto move group fast option label when managing a device');
 
 String manageDevicesAutoMoveGroupsCalm() => Intl.message('Calm', name: 'manageDevicesAutoMoveGroupsCalm', desc: 'Auto move group  calm option label when managing a device');
 
 String manageDevicesAutoMoveGroupsFrustrated() => Intl.message('Frustrated', name: 'manageDevicesAutoMoveGroupsFrustrated', desc: 'Auto move group frustrated option label when managing a device');
-
-String manageDevicesAutoMovePauseTitle() => Intl.message('Pause between moves', name: 'manageDevicesAutoMovePauseTitle', desc: 'Auto move pause slider title when managing a device');
 
 String manageDevicesBatteryGraphTitle() => Intl.message('Battery Graph', name: 'manageDevicesBatteryGraphTitle', desc: 'battery graph expansion tile title');
 
