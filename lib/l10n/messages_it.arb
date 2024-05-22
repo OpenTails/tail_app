@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Attiva un'azione mentre cammini",
+  "triggerWalkingDescription": "Ricerca di attrezzi. Assicurati che la tua attrezzatura sia accesa e nelle vicinanze",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "A piedi",
+  "moreManualTitle": "politica sulla riservatezza",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -819,7 +819,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Batteria scarica. Carica la tua attrezzatura almeno al 50%",
+  "otaLowBattery": "Rende le carte azione più grandi per essere toccate più facilmente",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
