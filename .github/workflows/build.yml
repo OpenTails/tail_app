@@ -67,8 +67,9 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('pubspec.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
-      - uses: actions/cache@v4
-        id: cache-podspec
+      - name: Podfile lock cache
+        uses: actions/cache@v4
+        id: cache-podfile
         with:
           path: ios/Podfile.lock
           key: ${{ runner.os }}-pods-${{ hashFiles('pubspec.lock') }}
@@ -82,6 +83,7 @@ jobs:
           OS: ${{ matrix.os }}
       - uses: actions/upload-artifact@v4
         continue-on-error: true
+        if: matrix.os == 'ubuntu-latest'
         with:
           name: artifact-${{ matrix.os }}
           path: |
