@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Главная Gear",
+  "sequencesEditHomeLabel": "Главная Шестерня",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканирование нового снаряжения",
+  "scanDevicesTitle": "Сканируйте новое снаряжение",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -759,13 +759,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Приятного виляния! ",
+  "doubleBackToClose": "Сделанный ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Включить вибрацию при нажатии на действие",
+  "settingsAlwaysScanningToggleTitle": "Светящийся наконечник",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
