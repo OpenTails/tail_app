@@ -205,6 +205,18 @@ Some of these values aren't actually secret and can be shared. Specifically the 
 | APPLE                   | {"key_id": "D383SF739", "issuer_id": "6053b7fe-68a8-4acb-89be-165aa6465141", "key": "-----BEGIN PRIVATE KEY-----MIGTAgEAMB----END PRIVATE KEY-----", "in_house": false } | Json file of apple credentials https://docs.fastlane.tools/app-store-connect-api/ | Authenticate with Apple to upload to TestFlight |
 | FASTLANE_PATCH_PASSWORD | hunter2                                                                                                                                                                  | Make a password                                                                   | Encrypt match certificates                      |
 
+### Repository Integrations
+
+#### Sentry
+
+A github app which allows Sentry to authenticate with Github and this repo. It allows Source Code stack trace linking and Creating issues from the Sentry UI.
+
+#### Weblate
+
+A Webhook to notify Weblate that code was pushed to this repo.
+
+A SSH key is installed in my account which allows weblate to push translation changes to the repo.
+
 ### Developer Mode Features
 
 - Gear console
