@@ -143,12 +143,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveSubTitle": "Tarjetas más grandes",
-  "@manageDevicesAutoMoveSubTitle": {
-    "description": "Auto move toggle subtitle when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerProximityTitle": "Equipo cercano",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
@@ -303,12 +297,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMovePauseTitle": "Frustrado",
-  "@manageDevicesAutoMovePauseTitle": {
-    "description": "Auto move pause slider title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggersAdd": "Agregar disparador",
   "@triggersAdd": {
     "description": "Floating Action Button on the triggers page",
@@ -360,18 +348,6 @@
   "manageDevicesAutoMoveGroupsCalm": "Mover grupos",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveTitle": "Modo informal",
-  "@manageDevicesAutoMoveTitle": {
-    "description": "Auto move toggle title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsTitle": "Mover grupos",
-  "@manageDevicesAutoMoveGroupsTitle": {
-    "description": "Auto move group selector title when managing a device",
     "type": "text",
     "placeholders": {}
   },
