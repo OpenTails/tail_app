@@ -136,12 +136,13 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 
 ##### For IOS
 
+The xcode project is configured to to use automatic code signing for develop builds. make sure to open xcode and sign in with your developer account. Check the Signing and Capabilities page of Runner to verify the signing configuration is correct. Release builds are set up to rely on Fastlane to provide the signing certificate.
+
 ```shell
 cd ios
 rm Podfile.lock # Handles a CocoaPods error about version management
-pod install
 cd ..
-flutter build ipa --debug --no-codesign
+flutter build ipa --debug
 ```
 
 > [!TIP]
@@ -188,7 +189,7 @@ dart run flutter_native_splash:create
 
 ### Fastlane
 
-[Fastlane](https://docs.fastlane.tools/) is a tool to automatically upload apps to the Apple App Store and Google Play Store. Inside the [IOS](ios/) and [Android](android/) folders is a fastlane folder. Inside is the FastFile which contains the upload config. Secrets are JSON files passed through repository secrets. The script [fastlane.sh](Scripts/fastlane.sh) selects the fastlane folder to use and begins the upload
+[Fastlane](https://docs.fastlane.tools/) is a tool to automatically upload apps to the Apple App Store and Google Play Store. Inside the [IOS](ios/) and [Android](android/) folders is a fastlane folder. Inside is the FastFile which contains the upload config. Secrets are JSON files passed through repository secrets. The script [fastlane.sh](Scripts/fastlane.sh) selects the fastlane folder to use and begins the upload.
 
 ### Repository Secrets
 
