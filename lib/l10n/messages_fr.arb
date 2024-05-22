@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Oreilles",
+  "deviceTypeEars": "Frustré et tendu",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -741,7 +741,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Fait",
+  "onboardingDoneButtonLabel": "Commencer la mise à jour OTA",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
