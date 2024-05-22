@@ -291,24 +291,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Modalità casuale",
-  "@manageDevicesAutoMoveTitle": {
-    "description": "Auto move toggle title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveSubTitle": "La coda selezionerà una mossa casuale, facendo una pausa per un numero casuale di secondi tra ogni mossa",
-  "@manageDevicesAutoMoveSubTitle": {
-    "description": "Auto move toggle subtitle when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsTitle": "Sposta gruppi",
-  "@manageDevicesAutoMoveGroupsTitle": {
-    "description": "Auto move group selector title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesAutoMoveGroupsFast": "Veloce",
   "@manageDevicesAutoMoveGroupsFast": {
     "description": "Auto move group fast option label when managing a device",
@@ -324,12 +306,6 @@
   "manageDevicesAutoMoveGroupsFrustrated": "Frustrato",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMovePauseTitle": "Pausa tra le mosse",
-  "@manageDevicesAutoMovePauseTitle": {
-    "description": "Auto move pause slider title when managing a device",
     "type": "text",
     "placeholders": {}
   },

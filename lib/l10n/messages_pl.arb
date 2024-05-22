@@ -243,24 +243,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Tryb swobodny",
-  "@manageDevicesAutoMoveTitle": {
-    "description": "Auto move toggle title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveSubTitle": "Ogon wybierze losowy ruch, zatrzymując się na losową liczbę sekund pomiędzy każdym ruchem",
-  "@manageDevicesAutoMoveSubTitle": {
-    "description": "Auto move toggle subtitle when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsTitle": "Przenieś grupy",
-  "@manageDevicesAutoMoveGroupsTitle": {
-    "description": "Auto move group selector title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesAutoMoveGroupsFast": "Szybko",
   "@manageDevicesAutoMoveGroupsFast": {
     "description": "Auto move group fast option label when managing a device",
@@ -276,12 +258,6 @@
   "manageDevicesAutoMoveGroupsFrustrated": "Sfrustrowany",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMovePauseTitle": "Pauza pomiędzy ruchami",
-  "@manageDevicesAutoMovePauseTitle": {
-    "description": "Auto move pause slider title when managing a device",
     "type": "text",
     "placeholders": {}
   },

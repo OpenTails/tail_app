@@ -237,24 +237,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Казуальный режим",
-  "@manageDevicesAutoMoveTitle": {
-    "description": "Auto move toggle title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveSubTitle": "Хвост выберет случайное движение, делая паузу на случайное количество секунд между каждым движением.",
-  "@manageDevicesAutoMoveSubTitle": {
-    "description": "Auto move toggle subtitle when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsTitle": "Переместить группы",
-  "@manageDevicesAutoMoveGroupsTitle": {
-    "description": "Auto move group selector title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesAutoMoveGroupsFast": "Быстрый",
   "@manageDevicesAutoMoveGroupsFast": {
     "description": "Auto move group fast option label when managing a device",
@@ -270,12 +252,6 @@
   "manageDevicesAutoMoveGroupsFrustrated": "Спокойствие",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMovePauseTitle": "Пауза между движениями",
-  "@manageDevicesAutoMovePauseTitle": {
-    "description": "Auto move pause slider title when managing a device",
     "type": "text",
     "placeholders": {}
   },

@@ -201,24 +201,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveTitle": "Casual-Modus",
-  "@manageDevicesAutoMoveTitle": {
-    "description": "Auto move toggle title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveSubTitle": "Der Schwanz wählt eine zufällige Bewegung aus und pausiert zwischen jeder Bewegung für eine zufällige Anzahl von Sekunden.",
-  "@manageDevicesAutoMoveSubTitle": {
-    "description": "Auto move toggle subtitle when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsTitle": "Gruppen verschieben",
-  "@manageDevicesAutoMoveGroupsTitle": {
-    "description": "Auto move group selector title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesAutoMoveGroupsFast": "Schnell",
   "@manageDevicesAutoMoveGroupsFast": {
     "description": "Auto move group fast option label when managing a device",
@@ -234,12 +216,6 @@
   "manageDevicesAutoMoveGroupsFrustrated": "Frustriert",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMovePauseTitle": "Pause zwischen den Bewegungen",
-  "@manageDevicesAutoMovePauseTitle": {
-    "description": "Auto move pause slider title when managing a device",
     "type": "text",
     "placeholders": {}
   },
