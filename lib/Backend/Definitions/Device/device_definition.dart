@@ -18,7 +18,6 @@ import 'package:tail_app/Backend/firmware_update.dart';
 import '../../../Frontend/intn_defs.dart';
 import '../../../Frontend/utils.dart';
 import '../../Bluetooth/bluetooth_message.dart';
-import '../../auto_move.dart';
 
 part 'device_definition.g.dart';
 
@@ -120,9 +119,6 @@ class BaseStatefulDevice extends ChangeNotifier {
         Future.delayed(const Duration(seconds: 5), () {
           commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: Type.system, responseMSG: "VER "));
           commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: Type.system, responseMSG: "HWVER "));
-          if (baseStoredDevice.autoMove) {
-            changeAutoMove(this);
-          }
         });
       }
     });
@@ -219,16 +215,6 @@ extension AutoActionCategoryExtension on AutoActionCategory {
 class BaseStoredDevice extends ChangeNotifier {
   @HiveField(0)
   String name = "New Gear";
-  @HiveField(1)
-  bool autoMove = false;
-  @HiveField(2)
-  double autoMoveMinPause = 15;
-  @HiveField(3)
-  double autoMoveMaxPause = 240;
-  @HiveField(4)
-  double autoMoveTotal = 60;
-  @HiveField(5)
-  double noPhoneDelayTime = 1;
   @HiveField(6)
   List<AutoActionCategory> selectedAutoCategories = [AutoActionCategory.calm];
   @HiveField(7)
@@ -305,6 +291,17 @@ class CommandQueue {
         try {
           bluetoothLog.fine("Sending command to ${device.baseStoredDevice.name}:${message.message}");
           await sendMessage(device, const Utf8Encoder().convert(message.message));
+          Future<String>? response;
+          //Start listening before the response is received
+          Duration timeoutDuration = const Duration(seconds: 10);
+          if (message.responseMSG != null) {
+            // We use a timeout as sometimes a response isn't sent by the gear
+            response = message.device.rxCharacteristicStream.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
+              bluetoothLog.info('Response:$event');
+              return event.contains(message.responseMSG!);
+            }).first;
+          }
+
           device.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.send, message: message.message));
           if (message.onCommandSent != null) {
             // Callback when the specific command is run
@@ -312,17 +309,11 @@ class CommandQueue {
           }
           try {
             if (message.responseMSG != null) {
-              Duration timeoutDuration = const Duration(seconds: 10);
               bluetoothLog.fine("Waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
               Timer timer = Timer(timeoutDuration, () {});
 
-              // We use a timeout as sometimes a response isn't sent by the gear
-              Future<String> response = message.device.rxCharacteristicStream.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
-                bluetoothLog.info('Response:$event');
-                return event.contains(message.responseMSG!);
-              }).first;
               // Handles response value
-              response.then((value) {
+              response!.then((value) {
                 timer.cancel();
                 if (message.onResponseReceived != null) {
                   //callback when the command response is received
@@ -341,11 +332,13 @@ class CommandQueue {
                 if (state.isNotEmpty && state.first.priority.index > bluetoothMessage.priority.index) {
                   timer.cancel();
                 }
-                await Future.delayed(const Duration(milliseconds: 50)); // Prevent the loop from consuming too many resources
+                await Future.delayed(const Duration(milliseconds: 100)); // Prevent the loop from consuming too many resources
               }
               bluetoothLog.fine("Finished waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
             } else {
-              await Future.delayed(const Duration(milliseconds: 200));
+              if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
+                await Future.delayed(const Duration(milliseconds: 200)); // delay before the next command can be sent
+              }
             }
           } catch (e, s) {
             bluetoothLog.warning('Command timed out or threw error: $e', e, s);

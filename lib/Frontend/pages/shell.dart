@@ -17,7 +17,6 @@ import 'package:tail_app/Frontend/Widgets/known_gear_scan_controller.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 
-import '../../Backend/auto_move.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/known_gear.dart';
@@ -344,67 +343,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               ).whenComplete(() => setState(() {}));
             },
           ),
-          const ListTile(
-            title: Divider(),
-            dense: true,
-          ),
-          ListTile(
-            title: Text(manageDevicesAutoMoveTitle()),
-            subtitle: Text(manageDevicesAutoMoveSubTitle()),
-            trailing: Switch(
-              value: widget.device.baseStoredDevice.autoMove,
-              onChanged: (bool value) {
-                setState(() {
-                  widget.device.baseStoredDevice.autoMove = value;
-                });
-                widget.ref.read(knownDevicesProvider.notifier).store();
-                changeAutoMove(widget.device);
-              },
-            ),
-          ),
-          ListTile(
-            title: Text(manageDevicesAutoMoveGroupsTitle()),
-            subtitle: SegmentedButton<AutoActionCategory>(
-              multiSelectionEnabled: true,
-              selected: widget.device.baseStoredDevice.selectedAutoCategories.toSet(),
-              onSelectionChanged: (Set<AutoActionCategory> value) {
-                setState(() {
-                  widget.device.baseStoredDevice.selectedAutoCategories = value.toList();
-                });
-                widget.ref.read(knownDevicesProvider.notifier).store();
-                changeAutoMove(widget.device);
-              },
-              segments: AutoActionCategory.values.map<ButtonSegment<AutoActionCategory>>(
-                (AutoActionCategory value) {
-                  return ButtonSegment<AutoActionCategory>(
-                    value: value,
-                    label: Text(value.friendly),
-                  );
-                },
-              ).toList(),
-            ),
-          ),
-          ListTile(
-            title: Text(manageDevicesAutoMovePauseTitle()),
-            subtitle: RangeSlider(
-              labels: RangeLabels("${widget.device.baseStoredDevice.autoMoveMinPause.round()}", "${widget.device.baseStoredDevice.autoMoveMaxPause.round()}"),
-              min: 15,
-              max: 240,
-              divisions: 225,
-              values: RangeValues(widget.device.baseStoredDevice.autoMoveMinPause, widget.device.baseStoredDevice.autoMoveMaxPause),
-              onChanged: (RangeValues value) {
-                setState(() {
-                  widget.device.baseStoredDevice.autoMoveMinPause = value.start;
-                  widget.device.baseStoredDevice.autoMoveMaxPause = value.end;
-                });
-                widget.ref.read(knownDevicesProvider.notifier).store();
-              },
-              onChangeEnd: (values) {
-                changeAutoMove(widget.device);
-              },
-            ),
-          ),
           if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+            const ListTile(
+              title: Divider(),
+            ),
             ListTile(
               title: const Text("Debug"),
               subtitle: Column(
