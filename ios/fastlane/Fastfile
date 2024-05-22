@@ -15,7 +15,9 @@ platform :ios do
       team_id: "SKRSQZ43AV",
       api_key_path:"APPLE_SECRETS.json",
     )
-    sh "flutter build ipa --build-number=$BUILD_NUMBER --build-name=$VERSION --export-options-plist ios/Runner/export.plist"
+     chdir ".." do
+        sh "echo pwd && flutter build ipa --build-number=$BUILD_NUMBER --build-name=$VERSION --export-options-plist Runner/export.plist"
+     end
     build_app(
       skip_build_archive: true,
       archive_path: "../build/ios/archive/Runner.xcarchive",

@@ -67,6 +67,11 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('pubspec.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
+      - uses: actions/cache@v4
+        id: cache podspec
+        with:
+          path: ios/Podfile.lock
+          key: ${{ runner.os }}-pods-${{ hashFiles('pubspec.lock') }}
       - name: Run build script
         id: build
         run: bash ${GITHUB_WORKSPACE}/Scripts/launchBuild.sh
