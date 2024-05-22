@@ -8,40 +8,27 @@ platform :ios do
   lane :beta do
     setup_ci if ENV['CI']
     #   note the `..`, since fastlane runs in the _fastlane_ directory
-    changelog = File.read("../../CHANGELOG.md")
-    disable_automatic_code_signing
+    #changelog = File.read("../../CHANGELOG.md")
     sync_code_signing(
       type: "appstore",
       readonly: false,
-      team_id: "SKRSQZ43AV",
+      #team_id: "SKRSQZ43AV",
       api_key_path:"APPLE_SECRETS.json",
-      force: true,
-      verbose: true,
     )
-    update_code_signing_settings(
-      use_automatic_signing: false,
-      path: "Runner.xcodeproj",
-      code_sign_identity: "iPhone Distribution",
-      team_id: "SKRSQZ43AV",
-      bundle_identifier: "com.codel1417.tailApp",
-      profile_name: ENV['sigh_com.codel1417.tailApp_appstore_profile-name'],
-      profile_uuid: ENV['sigh_com.codel1417.tailApp_appstore'],
-    )
-    sh "flutter build ipa --build-number=$BUILD_NUMBER --build-name=$VERSION "
+    Dir.chdir "../.." do
+      puts "*** Build flutter iOS release for version #{version_name}+#{build_number} ***"
+      sh("flutter", "build", "ipa", "--release", "--build-number=$BUILD_NUMBER", "--build-name=$VERSION")
+    end
     build_app(
-      workspace: "Runner.xcworkspace",
-      scheme: "Runner",
       skip_build_archive: true,
-      export_team_id: "SKRSQZ43AV" ,
       archive_path: "../build/ios/archive/Runner.xcarchive",
-      xcconfig: "Flutter/Generated.xcconfig"
     )
     upload_to_testflight(
       skip_waiting_for_build_processing: true, 
-      changelog: changelog, 
+      #changelog: changelog,
       build_number: ENV['BUILD_NUMBER'], 
       app_version: ENV['VERSION'], 
-      reject_build_waiting_for_review: true, 
+      #reject_build_waiting_for_review: true,
       api_key_path:"APPLE_SECRETS.json"
     )
   end
