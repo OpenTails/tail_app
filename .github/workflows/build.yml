@@ -68,7 +68,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
       - uses: actions/cache@v4
-        id: cache podspec
+        id: cache-podspec
         with:
           path: ios/Podfile.lock
           key: ${{ runner.os }}-pods-${{ hashFiles('pubspec.lock') }}
