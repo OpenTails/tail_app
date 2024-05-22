@@ -59,7 +59,7 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           ruby-version: '3.3' # Not needed with a .ruby-version file
       - name: Cocoapods Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: cocoapods-cache
         if: matrix.os == 'macos-latest'
         with:
@@ -82,19 +82,8 @@ jobs:
           path: |
             build/app/outputs/apk
             build/app/outputs/bundle
-      - name: Upload debug symbols
-        run: dart pub global activate sentry_dart_plugin && dart pub global run sentry_dart_plugin
-        if: github.event_name == 'push' || github.event_name == 'release'
-        continue-on-error: true
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-          SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
-          SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
       - name: Upload Beta
-        if: github.event_name == 'push' || github.event_name == 'release1' # Disabled for now
+        if: github.event_name == 'push' && matrix.os == 'macos-latest'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
         continue-on-error: true
@@ -106,6 +95,17 @@ jobs:
           OS: ${{ matrix.os }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
           MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
+      - name: Upload debug symbols
+        run: dart pub global activate sentry_dart_plugin && dart pub global run sentry_dart_plugin
+        if: github.event_name == 'push' || github.event_name == 'release'
+        continue-on-error: true
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
+          SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
+          SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
   release-job:
     name: Releasing
     needs: [ build_android ]
