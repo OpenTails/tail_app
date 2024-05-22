@@ -21,7 +21,10 @@ class KnownGear extends ConsumerStatefulWidget {
 class _KnownGearState extends ConsumerState<KnownGear> {
   @override
   Widget build(BuildContext context) {
-    List<BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider).values.toList();
+    List<BaseStatefulDevice> knownDevices = ref
+        .watch(knownDevicesProvider)
+        .values
+        .toList();
     return Row(
       children: [
         ...knownDevices.map((BaseStatefulDevice baseStatefulDevice) => KnownGearCard(baseStatefulDevice: baseStatefulDevice)),
@@ -45,7 +48,10 @@ class ScanForNewGearButton extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
             height: 50 * MediaQuery.textScalerOf(context).scale(1),
-            width: ref.watch(knownDevicesProvider).values.length > 1 ? 100 * MediaQuery.textScalerOf(context).scale(1) : 200 * MediaQuery.textScalerOf(context).scale(1),
+            width: ref
+                .watch(knownDevicesProvider)
+                .values
+                .length > 1 ? 100 * MediaQuery.textScalerOf(context).scale(1) : 200 * MediaQuery.textScalerOf(context).scale(1),
             child: Center(
               child: Text(
                 scanDevicesTitle(),
@@ -72,7 +78,10 @@ class ScanForNewGearButton extends ConsumerWidget {
                       ListTile(
                         title: Text(
                           scanDevicesTitle(),
-                          style: Theme.of(context).textTheme.titleLarge,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleLarge,
                         ),
                       ),
                       Expanded(
@@ -116,7 +125,9 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                 return Badge(
                   isLabelVisible: value,
                   largeSize: 35,
-                  backgroundColor: Theme.of(context).primaryColor,
+                  backgroundColor: Theme
+                      .of(context)
+                      .primaryColor,
                   label: const Icon(Icons.system_update),
                   child: child,
                 );
@@ -190,6 +201,12 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                                         );
                                       },
                                     ),
+                                    AnimatedCrossFade(
+                                      firstChild: const Icon(Icons.warning),
+                                      secondChild: Container(),
+                                      crossFadeState: widget.baseStatefulDevice.baseDeviceDefinition.unsupported ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                      duration: animationTransitionDuration,
+                                    ),
                                     ValueListenableBuilder(
                                       valueListenable: widget.baseStatefulDevice.rssi,
                                       builder: (BuildContext context, value, Widget? child) {
@@ -215,7 +232,9 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                 builder: (BuildContext context, double value, Widget? child) {
                   return Card(
                     clipBehavior: Clip.antiAlias,
-                    color: Color.lerp(Theme.of(context).cardColor, Color(widget.baseStatefulDevice.baseStoredDevice.color), value),
+                    color: Color.lerp(Theme
+                        .of(context)
+                        .cardColor, Color(widget.baseStatefulDevice.baseStoredDevice.color), value),
                     child: child,
                   );
                 },

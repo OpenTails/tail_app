@@ -18,6 +18,7 @@ import 'package:upgrader/upgrader.dart';
 
 import '../../constants.dart';
 import '../../main.dart';
+import '../Widgets/base_card.dart';
 import '../Widgets/known_gear.dart';
 import '../intn_defs.dart';
 
@@ -172,6 +173,27 @@ class _ManageGearState extends ConsumerState<ManageGear> {
         shrinkWrap: true,
         controller: widget.controller,
         children: [
+          if (widget.device.baseDeviceDefinition.unsupported) ...[
+            BaseCard(
+              elevation: 3,
+              color: Colors.red,
+              child: ListTile(
+                leading: const Icon(
+                  Icons.warning,
+                  color: Colors.white,
+                ),
+                trailing: const Icon(
+                  Icons.warning,
+                  color: Colors.white,
+                ),
+                title: Text(
+                  noLongerSupported(),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          ],
           ValueListenableBuilder(
             valueListenable: widget.device.batteryLevel,
             builder: (BuildContext context, double value, Widget? child) {

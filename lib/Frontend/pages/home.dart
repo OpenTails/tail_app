@@ -7,6 +7,7 @@ import 'package:logging/logging.dart' as log;
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
+import 'package:tail_app/Frontend/Widgets/base_card.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -78,67 +79,57 @@ class _HomeState extends ConsumerState<Home> {
                   ),
                 ),
               ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+              BaseCard(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      leading: const Icon(Icons.waving_hand),
+                      title: Text(homeWelcomeMessageTitle()),
+                      subtitle: Text(homeWelcomeMessage()),
+                    ),
+                    ButtonBar(
                       children: <Widget>[
-                        ListTile(
-                          leading: const Icon(Icons.waving_hand),
-                          title: Text(homeWelcomeMessageTitle()),
-                          subtitle: Text(homeWelcomeMessage()),
+                        TextButton(
+                          onPressed: () async {
+                            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()));
+                          },
+                          child: Text(homeChangelogLinkTitle()),
                         ),
-                        ButtonBar(
-                          children: <Widget>[
-                            TextButton(
-                              onPressed: () async {
-                                context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()));
-                              },
-                              child: Text(homeChangelogLinkTitle()),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
-                              },
-                              child: const Text('Tail Company Store'),
-                            ),
-                          ],
+                        TextButton(
+                          onPressed: () async {
+                            await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
+                          },
+                          child: const Text('Tail Company Store'),
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
               ),
               AnimatedCrossFade(
-                firstChild: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
+                firstChild: BaseCard(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const ListTile(
+                        leading: Icon(Icons.bluetooth_disabled),
+                        title: Text('Bluetooth is Unavailable'),
+                        subtitle: Text('Bluetooth is required to connect to Gear'),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          const ListTile(
-                            leading: Icon(Icons.bluetooth_disabled),
-                            title: Text('Bluetooth is Unavailable'),
-                            subtitle: Text('Bluetooth is required to connect to Gear'),
+                          TextButton(
+                            onPressed: () async {
+                              AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
+                            },
+                            child: const Text('Open Settings'),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              TextButton(
-                                onPressed: () async {
-                                  AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
-                                },
-                                child: const Text('Open Settings'),
-                              ),
-                              const SizedBox(width: 8),
-                            ],
-                          ),
+                          const SizedBox(width: 8),
                         ],
                       ),
-                    ),
+                    ],
                   ),
                 ),
                 secondChild: Container(),

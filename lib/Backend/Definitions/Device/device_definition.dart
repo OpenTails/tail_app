@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
@@ -67,8 +68,10 @@ class BaseDeviceDefinition {
   final String bleTxCharacteristic;
   final DeviceType deviceType;
   final String fwURL;
+  final Version? minVersion;
+  final bool unsupported;
 
-  const BaseDeviceDefinition(this.uuid, this.btName, this.bleDeviceService, this.bleRxCharacteristic, this.bleTxCharacteristic, this.deviceType, this.fwURL);
+  const BaseDeviceDefinition({required this.uuid, required this.btName, required this.bleDeviceService, required this.bleRxCharacteristic, required this.bleTxCharacteristic, required this.deviceType, this.fwURL = "", this.minVersion, this.unsupported = false});
 
   @override
   String toString() {
@@ -85,7 +88,7 @@ class BaseStatefulDevice extends ChangeNotifier {
   final ValueNotifier<bool> batteryLow = ValueNotifier(false);
   final ValueNotifier<bool> gearReturnedError = ValueNotifier(false);
 
-  final ValueNotifier<String> fwVersion = ValueNotifier("");
+  final ValueNotifier<Version> fwVersion = ValueNotifier(Version.none);
   final ValueNotifier<String> hwVersion = ValueNotifier("");
   final ValueNotifier<bool> hasGlowtip = ValueNotifier(false);
   final ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
@@ -102,7 +105,7 @@ class BaseStatefulDevice extends ChangeNotifier {
   Stopwatch stopWatch = Stopwatch();
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
-
+  ValueNotifier<bool> mandatoryOtaRequired = ValueNotifier(false);
   final CircularBuffer<MessageHistoryEntry> messageHistory = CircularBuffer(50);
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
@@ -116,7 +119,7 @@ class BaseStatefulDevice extends ChangeNotifier {
         reset();
       } else if (deviceConnectionState.value == ConnectivityState.connected) {
         // Add initial commands to the queue
-        Future.delayed(const Duration(seconds: 5), () {
+        Future.delayed(const Duration(seconds: 2), () {
           commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: Type.system, responseMSG: "VER "));
           commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: Type.system, responseMSG: "HWVER "));
         });
@@ -127,10 +130,18 @@ class BaseStatefulDevice extends ChangeNotifier {
       batteryLow.value = batteryLevel.value < 20;
     });
     fwInfo.addListener(() {
-      if (fwInfo.value != null && fwVersion.value.isNotEmpty) {
-        if (fwInfo.value?.version.split(" ")[1] != fwVersion.value) {
-          hasUpdate.value = true;
+      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(Version.parse(fwInfo.value!.version)) < 0) {
+        hasUpdate.value = true;
+      }
+    });
+    fwVersion.addListener(() {
+      if (baseDeviceDefinition.minVersion != null) {
+        if (baseDeviceDefinition.minVersion!.compareTo(fwVersion.value) < 0) {
+          mandatoryOtaRequired.value = true;
         }
+      }
+      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
+        hasUpdate.value = true;
       }
     });
     getFirmwareInfo();
@@ -148,11 +159,6 @@ class BaseStatefulDevice extends ChangeNotifier {
         (value) {
           if (value.statusCode == 200) {
             fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
-            if (fwVersion.value != "") {
-              if (fwInfo.value?.version.split(" ")[1] != fwVersion.value) {
-                hasUpdate.value = true;
-              }
-            }
           }
         },
       ).onError((error, stackTrace) {
@@ -172,6 +178,7 @@ class BaseStatefulDevice extends ChangeNotifier {
     batlevels = [];
     stopWatch.reset();
     mtu.value = -1;
+    mandatoryOtaRequired.value = false;
   }
 }
 

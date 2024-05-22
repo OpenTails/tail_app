@@ -14,6 +14,7 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../Frontend/utils.dart';
 import '../../constants.dart';
 import '../sensors.dart';
 import 'bluetooth_manager.dart';
@@ -208,7 +209,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
       // Firmware Version
       if (value.startsWith("VER")) {
-        statefulDevice.fwVersion.value = value.substring(value.indexOf(" "));
+        statefulDevice.fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
         // Sent after VER message
       } else if (value.startsWith("GLOWTIP")) {
         statefulDevice.hasGlowtip.value = "TRUE" == value.substring(value.indexOf(" "));

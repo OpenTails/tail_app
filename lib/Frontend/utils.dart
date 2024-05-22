@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:logging/logging.dart';
 import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
@@ -48,4 +49,21 @@ Dio initDio({skipSentry = false}) {
 
 WordpressClient getWordpressClient() {
   return WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: initDio());
+}
+
+Version getVersionSemVer(String input) {
+  String major = "0";
+  String minor = "0";
+  String patch = "0";
+  List<String> split = input.split(".");
+  if (split.isNotEmpty && int.tryParse(split[0]) != null) {
+    major = split[0];
+  }
+  if (split.length > 1 && int.tryParse(split[1]) != null) {
+    minor = split[1];
+  }
+  if (split.length > 2 && int.tryParse(split[2]) != null) {
+    patch = split[2];
+  }
+  return Version(int.parse(major), int.parse(minor), int.parse(patch));
 }
