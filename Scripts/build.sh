@@ -36,9 +36,7 @@ dart pub global run build_runner build --delete-conflicting-outputs
 if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which doesn't require a full build
   # Build
   if [[ $OS == 'macos-latest' ]]; then
-    cd ios
-    pod install
-    cd ..
+    echo doing nothing
     #flutter build ipa $DEBUG --no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION"
   else
     flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION" #--dart-define=cronetHttpNoPlay=true
