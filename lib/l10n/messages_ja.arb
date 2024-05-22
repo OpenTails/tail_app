@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "DigiTail マニュアル",
+  "moreManualDigitailTitle": "デジテールマニュアル",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "ギアに接続するにはBluetoothの許可が必要です",
+  "onboardingBluetoothRequestButtonLabel": "ブルートゥース",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
