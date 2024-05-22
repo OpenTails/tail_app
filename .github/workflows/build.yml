@@ -86,7 +86,7 @@ jobs:
         if: github.event_name == 'push' && matrix.os == 'macos-latest'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
-        continue-on-error: true
+        continue-on-error: false
         env:
           VERSION: ${{ steps.build.outputs.SENTRY_RELEASE }}
           BUILD_NUMBER: ${{ steps.build.outputs.SENTRY_DIST }}
