@@ -1,5 +1,5 @@
 {
-  "title": "Start OTA-update",
+  "title": "Het Staartbedrijf",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -59,7 +59,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "OK",
+  "ok": "Actie verwijderen",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Wijzig de app-kleur, configureer haptiek en meer",
+  "settingsDescription": "Wijzig de kleur van de app, configureer haptiek en meer",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Actie verwijderen",
+  "triggersSelectClearLabel": "Acties verwijderen",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -807,13 +807,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleTitle": "Nieuwsbriefmeldingen toestaan",
+  "settingsNewsletterToggleTitle": "Sta staartblogmeldingen toe",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Ontvang automatisch notificaties als er een nieuwe nieuwsbrief is",
+  "settingsNewsletterToggleSubTitle": "Ontvang automatisch meldingen wanneer er een nieuw Tail Blog-bericht is",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -846,6 +846,54 @@
   "otaLowBattery": "Lage batterij. Laad uw uitrusting op tot minimaal 50%",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessage": "Je kunt al je Tail Co-uitrusting hier in deze app bedienen, verkennen en updaten. Er zijn ook instructies en handleidingen beschikbaar. Veel plezier met kwispelen!",
+  "@homeWelcomeMessage": {
+    "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "Acties opslaan",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "Gevonden uitrusting. Tik op de naam van het toestel om verbinding te maken",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeNewsTitle": "Vers van de Tail Blog",
+  "@homeNewsTitle": {
+    "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessageTitle": "Welkom bij de Tail Company-app",
+  "@homeWelcomeMessageTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffTitle": "Scannen altijd uitgeschakeld",
+  "@homeContinuousScanningOffTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffDescription": "Veeg horizontaal over het bekende apparaatgebied hierboven om te beginnen met scannen. U kunt continu scannen inschakelen in de instellingen.",
+  "@homeContinuousScanningOffDescription": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "Wijzigingslog",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
     "type": "text",
     "placeholders": {}
   }

@@ -1,5 +1,5 @@
 {
-  "title": "Ausrüstung für unterwegs",
+  "title": "Die Tail Company",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -369,7 +369,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Keine Aktion festgelegt",
+  "triggerActionNotSet": "Shake",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Wählen Sie einen Triggertyp aus",
+  "triggersSelectClearLabel": "Aktionen entfernen",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -807,13 +807,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Automatisch benachrichtigt werden, wenn ein neuer Newsletter erscheint",
+  "settingsNewsletterToggleSubTitle": "Erhalten Sie automatisch Benachrichtigungen, wenn es einen neuen Tail-Blog-Beitrag gibt",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleTitle": "Newsletter-Benachrichtigungen zulassen",
+  "settingsNewsletterToggleTitle": "Tail-Blog-Benachrichtigungen zulassen",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
     "type": "text",
@@ -846,6 +846,54 @@
   "otaLowBattery": "Schwache Batterie. Bitte laden Sie Ihre Ausrüstung zu mindestens 50 % auf",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessage": "Sie können Ihre gesamte Tail Co-Ausrüstung direkt hier in dieser App steuern, erkunden und aktualisieren. Es sind auch Anleitungen und Leitfäden verfügbar. Viel Spaß beim Wedeln!",
+  "@homeWelcomeMessage": {
+    "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeNewsTitle": "Frisch vom Schwanz-Blog",
+  "@homeNewsTitle": {
+    "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessageTitle": "Willkommen bei der Tail Company App",
+  "@homeWelcomeMessageTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffTitle": "Immer scannen deaktiviert",
+  "@homeContinuousScanningOffTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffDescription": "Wischen Sie horizontal über den Bereich mit den bekannten Geräten oben, um mit dem Scannen zu beginnen. Sie können das kontinuierliche Scannen in den Einstellungen aktivieren.",
+  "@homeContinuousScanningOffDescription": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "Aktionen speichern",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "Ausrüstung gefunden. Tippen Sie auf den Namen der Ausrüstung, um eine Verbindung herzustellen",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "Änderungsprotokoll",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
     "type": "text",
     "placeholders": {}
   }

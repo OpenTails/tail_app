@@ -1,5 +1,5 @@
 {
-  "title": "Gear på farten",
+  "title": "Halekompagniet",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Tilpassede handlinger",
+  "sequencesPage": "Brugerdefinerede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Lyd registreret",
+  "triggerEarMicSound": "Lyd fundet",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Fjern handling",
+  "triggersSelectClearLabel": "Fjern handlinger",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -807,13 +807,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleTitle": "Tillad nyhedsbrevsmeddelelser",
+  "settingsNewsletterToggleTitle": "Tillad haleblog-meddelelser",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Modtag automatisk notifikationer, når der er et nyt nyhedsbrev",
+  "settingsNewsletterToggleSubTitle": "Modtag automatisk meddelelser, når der er et nyt Tail Blog-indlæg",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -837,7 +837,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Opdaterer Gear. Sluk ikke dit gear eller luk appen",
+  "otaInProgressTitle": "Opdaterer Gear. Sluk ikke for dit udstyr eller luk appen",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -846,6 +846,54 @@
   "otaLowBattery": "Lavt batteri. Oplad venligst dit gear til mindst 50 %",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessage": "Du kan styre, udforske og opdatere alt dit Tail Co-udstyr lige her i denne app. Der er også instruktioner og vejledninger tilgængelige. Godt logrende!",
+  "@homeWelcomeMessage": {
+    "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeNewsTitle": "Frisk fra Halebloggen",
+  "@homeNewsTitle": {
+    "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessageTitle": "Velkommen til Tail Company-appen",
+  "@homeWelcomeMessageTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffTitle": "Scanning er altid deaktiveret",
+  "@homeContinuousScanningOffTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffDescription": "Stryg vandret på det kendte enhedsområde ovenfor for at begynde scanningen. Du kan aktivere kontinuerlig scanning i indstillingerne.",
+  "@homeContinuousScanningOffDescription": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "Gem handlinger",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "Fundet gear. Tryk på gearnavnet for at oprette forbindelse",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "Ændringslog",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
     "type": "text",
     "placeholders": {}
   }
