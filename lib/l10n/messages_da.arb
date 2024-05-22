@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Gear i nærheden",
+  "triggerProximityTitle": "Handlinger",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -495,7 +495,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Denne tilstand forhindrer skærmen i at slukke, mens dit udstyr er tilsluttet",
+  "settingsKeepScreenOnToggleSubTitle": "Hold skærmen tændt",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Færdig ",
+  "doubleBackToClose": "Slå Bluetooth til ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -813,7 +813,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Opdaterer Gear. Sluk ikke for dit udstyr eller luk appen",
+  "otaInProgressTitle": "Opdaterer Gear. Sluk ikke dit gear eller luk appen",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
