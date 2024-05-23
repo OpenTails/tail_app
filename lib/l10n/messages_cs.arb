@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Zapněte Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Aktualizace dokončena",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -843,7 +843,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -870,6 +870,18 @@
   "homeChangelogLinkTitle": "Seznam změn",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Toto zařízení již není podporováno. Některé funkce aplikace nemusí fungovat",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "Aby tato aplikace podporovala vaše zařízení, je vyžadována aktualizace firmwaru",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }

@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Desconectar",
+  "manageDevicesDisconnect": "Color de la aplicación",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -831,7 +831,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Deslice horizontalmente el área conocida del dispositivo arriba para comenzar a escanear. Puede activar el escaneo continuo en la configuración.",
+  "homeContinuousScanningOffDescription": "Deslice horizontalmente el área del dispositivo conocido arriba para comenzar a escanear. Puede activar el escaneo continuo en la configuración.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -870,6 +870,18 @@
   "homeWelcomeMessageTitle": "Bienvenido a la aplicación Tail Company",
   "@homeWelcomeMessageTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Este equipo ya no es compatible. Es posible que algunas funciones de la aplicación no funcionen",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "Se requiere una actualización de firmware para que esta aplicación sea compatible con su equipo",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }

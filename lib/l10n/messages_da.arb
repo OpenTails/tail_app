@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Brugerdefinerede handlinger",
+  "sequencesPage": "Tilpassede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -447,7 +447,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Lyd fundet",
+  "triggerEarMicSound": "Lyd registreret",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Færdig",
+  "onboardingDoneButtonLabel": "Slå Bluetooth til",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
@@ -813,7 +813,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Opdaterer Gear. Sluk ikke dit gear eller luk appen",
+  "otaInProgressTitle": "Opdatering af Gear. Sluk ikke for dit udstyr eller luk appen",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -831,7 +831,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Frisk fra Halebloggen",
+  "homeNewsTitle": "Frisk fra halebloggen",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -870,6 +870,18 @@
   "homeChangelogLinkTitle": "Ændringslog",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Dette gear understøttes ikke længere. Nogle appfunktioner virker muligvis ikke",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "En firmwareopdatering er påkrævet for at denne app kan understøtte dit udstyr",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }

@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per essere toccate più facilmente",
+  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per facilitarne il tocco",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -741,7 +741,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Fatto",
+  "onboardingDoneButtonLabel": "Concedere l'autorizzazione",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
@@ -870,6 +870,18 @@
   "homeContinuousScanningOffTitle": "Scansione sempre disabilitata",
   "@homeContinuousScanningOffTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Questo equipaggiamento non è più supportato. Alcune funzionalità dell'app potrebbero non funzionare",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "È necessario un aggiornamento del firmware affinché questa app supporti la tua attrezzatura",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }

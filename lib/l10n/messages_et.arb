@@ -47,7 +47,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Muutke rakenduse värvi, seadistage Haptics ja palju muud",
+  "triggersPage": "Alustage OTA värskendamist",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Parema servo asend",
+  "cancel": "Salvesta toimingud",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -309,7 +309,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Käiguvärv",
+  "manageDevicesColor": "Leevenduse tüüp",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuskaardid kogu rakenduses",
+  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuse kaardid kogu rakenduses",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -870,6 +870,18 @@
   "homeChangelogLinkTitle": "Muudatuste logi",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Seda käiku enam ei toetata. Mõned rakenduse funktsioonid ei pruugi töötada",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "Selle rakenduse jaoks on teie varustuse toetamiseks vaja püsivara värskendust",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }
