@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-22T15:45:52.925891",
+  "@@last_modified": "2024-05-23T01:17:26.544146",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -872,6 +872,18 @@
   "doubleBackToClose": "Press again to exit ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "This gear is no longer supported. Some app features may not work",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "A firmware update is required for this app to support your gear",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }
