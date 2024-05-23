@@ -1,5 +1,5 @@
 {
-  "title": "Het Staartbedrijf",
+  "title": "Het staartbedrijf",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Schakel trillingen in wanneer op een actie wordt getikt",
+  "settingsHapticsToggleSubTitle": "Schakel trillen in wanneer op een actie wordt getikt",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Toestel kleur",
+  "manageDevicesColor": "Kleur uitrusting",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "Anonieme analyses toestaan",
+  "settingsAnalyticsToggleSubTitle": "App-kleur",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Start OTA-update",
+  "otaDownloadButtonLabel": "OTA-update starten",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Toestemming geven",
+  "onboardingBluetoothRequestButtonLabel": "Bluetooth-toestemming is vereist om verbinding te maken met uitrusting",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Veel plezier met kwispelen! ",
+  "doubleBackToClose": "Activeer een actie als er uitrusting in de buurt is ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -879,9 +879,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Voor deze app is een firmware-update vereist om je uitrusting te ondersteunen",
+  "mandatoryOtaRequired": "Er is een firmware-update vereist om deze app je uitrusting te laten ondersteunen",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "Druk lang op een actie om te favoriet te maken",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are favorited on the actions page",
     "type": "text",
     "placeholders": {}
   }
