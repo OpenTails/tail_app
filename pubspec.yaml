@@ -44,6 +44,7 @@ dependencies:
     git:
       url: https://github.com/undreeyyy/flutter_plugin_install_referrer
       ref: fd87e9b8f0d5ed909e929388244456f72b9b63c7
+  quick_actions: ^1.0.7 # puts favorites on the home screen
 
   # Riverpod
   flutter_riverpod: ^2.5.1
