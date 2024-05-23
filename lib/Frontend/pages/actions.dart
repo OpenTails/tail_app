@@ -8,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_listenable_builder/multi_listenable_builder.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Frontend/pages/triggers.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
@@ -17,6 +16,7 @@ import '../../Backend/action_registry.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
+import '../Widgets/tutorial_card.dart';
 import '../intn_defs.dart';
 import 'home.dart';
 
@@ -67,18 +67,20 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                         itemCount: actionsCatMap.values.flattened
                             .where(
                               (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                            )
+                        )
                             .length,
                         itemBuilder: (BuildContext context, int index) {
                           BaseAction baseAction = actionsCatMap.values.flattened
                               .where(
                                 (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                              )
+                          )
                               .toList()[index];
                           return getActionCard(index, knownDevices, baseAction, largerCards);
                         },
                       ),
-                      crossFadeState: actionsCatMap.values.flattened.where((element) => ref.read(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                      crossFadeState: actionsCatMap.values.flattened
+                          .where((element) => ref.read(favoriteActionsProvider.notifier).contains(element))
+                          .isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                       duration: animationTransitionDuration),
                   ListView.builder(
                     shrinkWrap: true,
@@ -95,7 +97,10 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                             Center(
                               child: Text(
                                 catList[categoryIndex].friendly,
-                                style: Theme.of(context).textTheme.titleLarge,
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleLarge,
                               ),
                             ),
                             GridView.builder(
@@ -108,7 +113,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                                   valueListenables: knownDevices.values
                                       .where(
                                         (element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-                                      )
+                                  )
                                       .map((e) => e.deviceState)
                                       .toList(),
                                   builder: (BuildContext context, List<dynamic> values, Widget? child) {
@@ -139,14 +144,19 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
       delay: Duration(milliseconds: 100 * actionIndex),
       child: Card(
         clipBehavior: Clip.antiAlias,
-        color: Color(knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseStoredDevice.color),
+        color: Color(knownDevices.values
+            .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
+            .where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType))
+            .first
+            .baseStoredDevice
+            .color),
         elevation: 1,
         child: InkWell(
           onLongPress: () {
             if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
               HapticFeedback.mediumImpact();
               setState(
-                () {
+                    () {
                   if (ref.read(favoriteActionsProvider.notifier).contains(action)) {
                     ref.read(favoriteActionsProvider.notifier).remove(action);
                   } else {
@@ -160,7 +170,8 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
             if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
               HapticFeedback.selectionClick();
             }
-            for (var device in ref.read(getByActionProvider(action)).toList()..shuffle()) {
+            for (var device in ref.read(getByActionProvider(action)).toList()
+              ..shuffle()) {
               if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
                 await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
               }
@@ -186,11 +197,12 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                         .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
                         .where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType))
                         .map(
-                          (e) => Text(
+                          (e) =>
+                          Text(
                             e.baseDeviceDefinition.deviceType.name.substring(0, 1),
                             textScaler: TextScaler.linear(largerCards ? 2 : 1),
                           ),
-                        )
+                    )
                         .toList(),
                   ),
                 ),
@@ -200,9 +212,9 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                     alignment: Alignment.bottomRight,
                     child: ref.read(favoriteActionsProvider.notifier).contains(action)
                         ? Transform.scale(
-                            scale: largerCards ? 1.8 : 0.8,
-                            child: const Icon(Icons.favorite),
-                          )
+                      scale: largerCards ? 1.8 : 0.8,
+                      child: const Icon(Icons.favorite),
+                    )
                         : null,
                   ),
                 ),

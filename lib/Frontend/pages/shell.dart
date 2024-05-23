@@ -635,23 +635,3 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
     _scrollController?.dispose();
   }
 }
-
-class NewAppBar extends StatelessWidget {
-  const NewAppBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverAppBar(
-      title: Text(title()),
-      leading: const Image(image: AssetImage('assets/copilot_fox_icon.png')),
-      pinned: true,
-      expandedHeight: 200.0,
-      flexibleSpace: FlexibleSpaceBar(
-        title: Text(title()),
-        background: const Center(
-          child: DeviceStatusWidget(),
-        ),
-      ),
-    );
-  }
-}

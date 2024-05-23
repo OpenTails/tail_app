@@ -10,7 +10,7 @@ import 'Bluetooth/bluetooth_manager.dart';
 import 'Bluetooth/bluetooth_manager_plus.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
-import 'appShortcuts.dart';
+import 'app_shortcuts.dart';
 
 part 'action_registry.g.dart';
 

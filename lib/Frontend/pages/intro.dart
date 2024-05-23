@@ -11,6 +11,7 @@ import 'package:tail_app/Frontend/intn_defs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
+import '../../gen/assets.gen.dart';
 import '../../main.dart';
 import '../utils.dart';
 
@@ -35,7 +36,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
 
   Widget _buildImage(String assetName, [double width = 350]) {
     return Image.asset(
-      'assets/$assetName',
+      assetName,
       width: width,
       cacheWidth: width.toInt(),
     );
@@ -80,7 +81,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 16, right: 16),
-                  child: _buildImage('TC_Logo_Transparent_NoText.png', 60),
+                  child: _buildImage(Assets.tCLogoTransparentNoText.path, 60),
                 ),
               ),
             ),
@@ -89,7 +90,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 title: homeWelcomeMessageTitle(),
                 body: homeWelcomeMessage(),
                 image: LottieLazyLoad(
-                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834354.tgs',
+                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834354,
                   renderCache: true,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -99,7 +100,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 title: morePrivacyPolicyLinkTitle(),
                 body: onboardingPrivacyPolicyDescription(),
                 image: LottieLazyLoad(
-                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834359.tgs',
+                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834359,
                   renderCache: true,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -143,7 +144,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 title: onboardingBluetoothTitle(),
                 body: onboardingBluetoothDescription(),
                 image: LottieLazyLoad(
-                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834357.tgs',
+                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834357,
                   renderCache: true,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -195,7 +196,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 title: onboardingCompletedTitle(),
                 body: "",
                 image: LottieLazyLoad(
-                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834338.tgs',
+                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834338,
                   renderCache: true,
                   width: MediaQuery.of(context).size.width,
                 ),

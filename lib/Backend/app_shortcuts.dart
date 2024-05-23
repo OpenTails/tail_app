@@ -9,7 +9,7 @@ import 'package:tail_app/Backend/sensors.dart';
 
 import 'Definitions/Device/device_definition.dart';
 
-part 'appShortcuts.g.dart';
+part 'app_shortcuts.g.dart';
 
 const QuickActions quickActions = QuickActions();
 

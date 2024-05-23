@@ -2,7 +2,6 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/sensors.dart';
@@ -12,6 +11,7 @@ import 'package:uuid/uuid.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/device_type_widget.dart';
+import '../Widgets/tutorial_card.dart';
 import '../intn_defs.dart';
 import 'action_selector.dart';
 
@@ -38,11 +38,11 @@ class _TriggersState extends ConsumerState<Triggers> {
               return const TriggerSelect();
             },
           ).then(
-            (TriggerDefinition? value) {
+                (TriggerDefinition? value) {
               if (value != null) {
                 // The user selected a Trigger Definition
                 setState(
-                  () {
+                      () {
                     Trigger trigger = Trigger.trigDef(value, const Uuid().v4());
                     ref.watch(triggerListProvider.notifier).add(trigger);
                     plausible.event(name: "Add Trigger", props: {"Trigger Type": value.runtimeType.toString()});
@@ -104,7 +104,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                         value: triggersList[index].enabled,
                         onChanged: (bool value) {
                           setState(
-                            () {
+                                () {
                               triggersList[index].enabled = value;
                               ref.watch(triggerListProvider.notifier).store();
                             },
@@ -123,30 +123,6 @@ class _TriggersState extends ConsumerState<Triggers> {
   }
 }
 
-class PageInfoCard extends StatelessWidget {
-  final String text;
-
-  const PageInfoCard({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    bool show = !SentryHive.box(settings).get(hideTutorialCards, defaultValue: hideTutorialCardsDefault);
-    return show
-        ? Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Card(
-              clipBehavior: Clip.antiAlias,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Center(
-                  child: Text(text),
-                ),
-              ),
-            ),
-          )
-        : Container();
-  }
-}
 
 class TriggerEdit extends ConsumerStatefulWidget {
   final ScrollController scrollController;
@@ -192,9 +168,13 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                 value: widget.trigger.enabled,
                 onChanged: (bool value) {
                   setState(
-                    () {
+                        () {
                       widget.trigger.enabled = value;
-                      plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == widget.trigger.triggerDefUUID).first.toString()});
+                      plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref
+                          .watch(triggerDefinitionListProvider)
+                          .where((element) => element.uuid == widget.trigger.triggerDefUUID)
+                          .first
+                          .toString()});
                     },
                   );
                 },
@@ -206,7 +186,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
           selected: widget.trigger.deviceType,
           onSelectionChanged: (Set<DeviceType> value) {
             setState(
-              () {
+                  () {
                 widget.trigger.deviceType = value.toList();
                 ref.watch(triggerListProvider.notifier).store();
               },
@@ -217,74 +197,83 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
           text: triggerInfoEditActionDescription(),
         ),
         ...widget.trigger.actions.map(
-          (TriggerAction e) => ListTile(
-            title: Text(widget.trigger.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
-            subtitle: ValueListenableBuilder(
-              valueListenable: e.isActive,
-              builder: (BuildContext context, value, Widget? child) {
-                return AnimatedCrossFade(
-                  duration: animationTransitionDuration,
-                  secondChild: const LinearProgressIndicator(),
-                  firstChild: Builder(builder: (context) {
-                    String text = "";
-                    for (String actionUUID in e.actions) {
-                      BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
-                      if (baseAction != null) {
-                        if (text.isNotEmpty) {
-                          text += ', ';
+              (TriggerAction e) =>
+              ListTile(
+                title: Text(widget.trigger.triggerDefinition!
+                    .actionTypes
+                    .where((element) => e.uuid == element.uuid)
+                    .first
+                    .translated),
+                subtitle: ValueListenableBuilder(
+                  valueListenable: e.isActive,
+                  builder: (BuildContext context, value, Widget? child) {
+                    return AnimatedCrossFade(
+                      duration: animationTransitionDuration,
+                      secondChild: const LinearProgressIndicator(),
+                      firstChild: Builder(builder: (context) {
+                        String text = "";
+                        for (String actionUUID in e.actions) {
+                          BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
+                          if (baseAction != null) {
+                            if (text.isNotEmpty) {
+                              text += ', ';
+                            }
+                            text += baseAction.name;
+                          }
                         }
-                        text += baseAction.name;
-                      }
-                    }
-                    return Text(text.isNotEmpty ? text : triggerActionNotSet());
-                  }),
-                  crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                );
-              },
-            ),
-            trailing: IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: () async {
-                Object? result = await showDialog(
-                  useRootNavigator: true,
-                  barrierDismissible: true,
-                  barrierColor: Theme.of(context).canvasColor,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog.fullscreen(
-                        backgroundColor: Theme.of(context).canvasColor,
-                        child: ActionSelector(
-                          actionSelectorInfo: ActionSelectorInfo(deviceType: widget.trigger.deviceType.toSet(), selectedActions: []),
-                        ));
+                        return Text(text.isNotEmpty ? text : triggerActionNotSet());
+                      }),
+                      crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                    );
                   },
-                );
-                if (result is List<BaseAction>) {
-                  setState(
-                    () {
-                      e.actions = result.map((element) => element.uuid).toList();
-                      ref.watch(triggerListProvider.notifier).store();
-                    },
-                  );
-                } else if (result is bool) {
-                  if (!result) {
-                    setState(
-                      () {
-                        e.actions = [];
-                        ref.watch(triggerListProvider.notifier).store();
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () async {
+                    Object? result = await showDialog(
+                      useRootNavigator: true,
+                      barrierDismissible: true,
+                      barrierColor: Theme
+                          .of(context)
+                          .canvasColor,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog.fullscreen(
+                            backgroundColor: Theme
+                                .of(context)
+                                .canvasColor,
+                            child: ActionSelector(
+                              actionSelectorInfo: ActionSelectorInfo(deviceType: widget.trigger.deviceType.toSet(), selectedActions: []),
+                            ));
                       },
                     );
-                  }
-                }
-              },
-            ),
-          ),
+                    if (result is List<BaseAction>) {
+                      setState(
+                            () {
+                          e.actions = result.map((element) => element.uuid).toList();
+                          ref.watch(triggerListProvider.notifier).store();
+                        },
+                      );
+                    } else if (result is bool) {
+                      if (!result) {
+                        setState(
+                              () {
+                            e.actions = [];
+                            ref.watch(triggerListProvider.notifier).store();
+                          },
+                        );
+                      }
+                    }
+                  },
+                ),
+              ),
         ),
         ButtonBar(
           children: [
             TextButton(
               onPressed: () {
                 setState(
-                  () {
+                      () {
                     ref.watch(triggerListProvider).remove(widget.trigger);
                     ref.watch(triggerListProvider.notifier).store();
                     Navigator.of(context).pop();

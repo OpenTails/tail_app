@@ -8,6 +8,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
 import '../../constants.dart';
+import '../../gen/assets.gen.dart';
 import '../../main.dart';
 import '../intn_defs.dart';
 import 'lottie_lazy_load.dart';
@@ -110,8 +111,8 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                     duration: const Duration(seconds: 1, milliseconds: 500),
                                     child: Transform.flip(
                                       flipX: true,
-                                      child: const LottieLazyLoad(
-                                        asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs',
+                                      child: LottieLazyLoad(
+                                        asset: Assets.tailcostickers.tgs.tailCoStickersFile144834340,
                                         renderCache: false,
                                         width: 200,
                                       ),

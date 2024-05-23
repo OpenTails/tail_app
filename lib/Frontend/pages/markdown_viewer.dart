@@ -7,32 +7,22 @@ class MarkdownInfo {
   final String content;
   final String title;
 
-  MarkdownInfo({required this.content, required this.title});
+  const MarkdownInfo({required this.content, required this.title});
 }
 
-class MarkdownViewer extends StatefulWidget {
+class MarkdownViewer extends StatelessWidget {
   const MarkdownViewer({super.key, required this.markdownInfo});
 
   final MarkdownInfo markdownInfo;
 
   @override
-  State<MarkdownViewer> createState() => _MarkdownViewerState();
-}
-
-class _MarkdownViewerState extends State<MarkdownViewer> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.markdownInfo.title),
+        title: Text(markdownInfo.title),
       ),
       body: Markdown(
-        data: widget.markdownInfo.content,
+        data: markdownInfo.content,
         extensionSet: md.ExtensionSet(
           md.ExtensionSet.gitHubFlavored.blockSyntaxes,
           <md.InlineSyntax>[md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 
 import '../../../constants.dart';
+import '../../../gen/assets.gen.dart';
 import '../../Widgets/lottie_lazy_load.dart';
 
 class DeveloperPincode extends StatefulWidget {
@@ -18,8 +19,8 @@ class _DeveloperPincodeState extends State<DeveloperPincode> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScreenLock(
-        title: const LottieLazyLoad(
-          asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834344.tgs',
+        title: LottieLazyLoad(
+          asset: Assets.tailcostickers.tgs.tailCoStickersFile144834344,
           renderCache: true,
           width: 80,
         ),

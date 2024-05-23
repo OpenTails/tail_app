@@ -15,6 +15,7 @@ import 'package:tail_app/Frontend/pages/markdown_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
+import '../../gen/assets.gen.dart';
 import '../utils.dart';
 
 class More extends ConsumerStatefulWidget {
@@ -81,7 +82,7 @@ class _MoreState extends ConsumerState<More> {
           title: Text(moreManualResponsibleWaggingTitle()),
           subtitle: Text(moreManualSubTitle()),
           onTap: () async {
-            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('assets/Responsible_Wagging.md'), title: moreManualResponsibleWaggingTitle()));
+            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString(Assets.responsibleWagging), title: moreManualResponsibleWaggingTitle()));
           },
         ),
         ListTile(
@@ -140,7 +141,7 @@ class _MoreState extends ConsumerState<More> {
           title: Text(morePrivacyPolicyLinkTitle()),
           leading: const Icon(Icons.privacy_tip),
           onTap: () async {
-            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('PRIVACY.md'), title: morePrivacyPolicyLinkTitle()));
+            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString(Assets.privacy), title: morePrivacyPolicyLinkTitle()));
           },
         ),
         ListTile(
@@ -154,8 +155,8 @@ class _MoreState extends ConsumerState<More> {
                     builder: (context) => AboutDialog(
                           applicationName: title(),
                           applicationVersion: "${value.version}+${value.buildNumber}",
-                          applicationIcon: const Image(
-                            image: AssetImage('assets/TC_Logo.jpg'),
+                          applicationIcon: Image(
+                            image: AssetImage(Assets.tCLogo.path),
                             height: 60,
                             width: 60,
                           ),

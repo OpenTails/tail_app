@@ -16,6 +16,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Backend/firmware_update.dart';
 import '../../constants.dart';
+import '../../gen/assets.gen.dart';
 import '../../main.dart';
 import '../Widgets/lottie_lazy_load.dart';
 import '../intn_defs.dart';
@@ -174,7 +175,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
                 LottieLazyLoad(
-                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834339.tgs',
+                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834339,
                   renderCache: true,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -188,7 +189,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
                 LottieLazyLoad(
-                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834348.tgs',
+                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834348,
                   renderCache: true,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -202,7 +203,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
                 LottieLazyLoad(
-                  asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834342.tgs',
+                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834342,
                   renderCache: true,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -221,7 +222,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   child: Transform.flip(
                     flipX: true,
                     child: LottieLazyLoad(
-                      asset: 'assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs',
+                      asset: Assets.tailcostickers.tgs.tailCoStickersFile144834340,
                       renderCache: false,
                       width: MediaQuery.of(context).size.width,
                     ),
