@@ -7,6 +7,7 @@ import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging/logging.dart';
@@ -105,8 +106,9 @@ void initFlogger() {
 }
 
 void initFlutter() {
-  WidgetsFlutterBinding.ensureInitialized();
-  WidgetsBinding.instance.addObserver(WidgetBindingLogger());
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  widgetsBinding.addObserver(WidgetBindingLogger());
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); // keeps the splash screen visible
 }
 
 class WidgetBindingLogger extends WidgetsBindingObserver {
@@ -195,8 +197,9 @@ class _TailAppState extends State<TailApp> {
           child: ValueListenableBuilder(
             valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
             builder: (BuildContext context, value, Widget? child) {
+              Future(() => FlutterNativeSplash.remove()); //remove the splash screen one frame later
               return MaterialApp.router(
-                title: subTitle(),
+                title: title(),
                 color: Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault)),
                 theme: buildTheme(Brightness.light, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
                 darkTheme: buildTheme(Brightness.dark, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
