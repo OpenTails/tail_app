@@ -20,6 +20,9 @@ class KnownDevices extends _$KnownDevices {
     try {
       if (storedDevices.isNotEmpty) {
         for (BaseStoredDevice e in storedDevices) {
+          if (e.btMACAddress.contains("DEV")) {
+            continue;
+          }
           BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID(e.deviceDefinitionUUID);
           BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(baseDeviceDefinition, e, ref);
           results[e.btMACAddress] = baseStatefulDevice;
