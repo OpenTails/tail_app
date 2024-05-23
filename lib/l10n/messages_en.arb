@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-23T01:17:26.544146",
+  "@@last_modified": "2024-05-23T16:32:09.584608",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -884,6 +884,12 @@
   "mandatoryOtaRequired": "A firmware update is required for this app to support your gear",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "Long press an action to favorite",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are favorited on the actions page",
     "type": "text",
     "placeholders": {}
   }
