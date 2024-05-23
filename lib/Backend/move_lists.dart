@@ -169,7 +169,13 @@ class EarsMoveList extends MoveList {
 class MoveLists extends _$MoveLists {
   @override
   List<MoveList> build() {
-    return SentryHive.box<MoveList>('sequences').values.toList();
+    List<MoveList> results = [];
+    try {
+      results = SentryHive.box<MoveList>('sequences').values.toList(growable: true);
+    } catch (e, s) {
+      sequencesLogger.severe("Unable to load sequences: $e", e, s);
+    }
+    return results;
   }
 
   void add(MoveList moveList) {

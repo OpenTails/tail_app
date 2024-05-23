@@ -144,7 +144,6 @@ Future<void> initHive() async {
   await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
-  await SentryHive.openBox<BaseStoredDevice>('devices');
   await SentryHive.openBox('notificationsStuff');
 }
 

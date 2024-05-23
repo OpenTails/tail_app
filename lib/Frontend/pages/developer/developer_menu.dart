@@ -109,19 +109,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             ),
           ),
           ListTile(
-            title: const Text(firstLaunchSensors),
-            trailing: Switch(
-              value: SentryHive.box(settings).get(firstLaunchSensors, defaultValue: firstLaunchSensorsDefault),
-              onChanged: (bool value) {
-                setState(
-                  () {
-                    SentryHive.box(settings).put(firstLaunchSensors, value);
-                  },
-                );
-              },
-            ),
-          ),
-          ListTile(
             title: const Text(showDebugging),
             trailing: Switch(
               value: SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault),

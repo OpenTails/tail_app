@@ -195,7 +195,13 @@ class FavoriteAction implements Comparable<FavoriteAction> {
 class FavoriteActions extends _$FavoriteActions {
   @override
   List<FavoriteAction> build() {
-    return List.of([if (SentryHive.box<FavoriteAction>(favoriteActionsBox).isNotEmpty) ...SentryHive.box<FavoriteAction>(favoriteActionsBox).values]);
+    List<FavoriteAction> results = [];
+    try {
+      results = SentryHive.box<FavoriteAction>(favoriteActionsBox).values.toList(growable: true);
+    } catch (e, s) {
+      actionRegistryLogger.severe("Unable to load favorites: $e", e, s);
+    }
+    return results;
   }
 
   void add(BaseAction action) {

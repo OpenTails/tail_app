@@ -619,24 +619,28 @@ class TriggerAction {
 class TriggerList extends _$TriggerList {
   @override
   List<Trigger> build() {
-    if (SentryHive.box(settings).get(firstLaunchSensors, defaultValue: firstLaunchSensorsDefault)) {
-      TriggerDefinition triggerDefinition = ref.read(triggerDefinitionListProvider).where((element) => element.uuid == 'ee9379e2-ec4f-40bb-8674-fd223a6edfda').first;
-      Trigger trigger = Trigger.trigDef(triggerDefinition, '91e3d421-6a52-45ab-a23e-f38e4987a8f5');
-      trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'c53e980e-899e-4148-a13e-f57a8f9707f4').uuid);
-      trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid);
-      SentryHive.box(settings).put(firstLaunchSensors, false);
-      SentryHive.box<Trigger>(triggerBox)
-        ..clear()
-        ..addAll([trigger]);
-      return [trigger];
-    } else {
-      return SentryHive.box<Trigger>(triggerBox).values.map((trigger) {
+    List<Trigger> results = [];
+    try {
+      results = SentryHive.box<Trigger>(triggerBox).values.map((trigger) {
         Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.uuid == trigger.triggerDefUUID), trigger.uuid);
         trigger2.actions = trigger.actions;
         trigger2.deviceType = trigger.deviceType;
         return trigger2;
-      }).toList();
+      }).toList(growable: true);
+    } catch (e, s) {
+      sensorsLogger.severe("Unable to load stored triggers: $e", e, s);
     }
+    if (results.isEmpty) {
+      TriggerDefinition triggerDefinition = ref.read(triggerDefinitionListProvider).where((element) => element.uuid == 'ee9379e2-ec4f-40bb-8674-fd223a6edfda').first;
+      Trigger trigger = Trigger.trigDef(triggerDefinition, '91e3d421-6a52-45ab-a23e-f38e4987a8f5');
+      trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'c53e980e-899e-4148-a13e-f57a8f9707f4').uuid);
+      trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid);
+      SentryHive.box<Trigger>(triggerBox)
+        ..clear()
+        ..addAll([trigger]);
+      return [trigger];
+    }
+    return results;
   }
 
   void add(Trigger trigger) {
