@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_listenable_builder/multi_listenable_builder.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:sentry_hive/sentry_hive.dart';
+import 'package:tail_app/Frontend/pages/triggers.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
@@ -16,6 +17,7 @@ import '../../Backend/action_registry.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
+import '../intn_defs.dart';
 import 'home.dart';
 
 class ActionPage extends ConsumerWidget {
@@ -55,7 +57,9 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                 shrinkWrap: true,
                 children: [
                   AnimatedCrossFade(
-                      firstChild: Container(),
+                      firstChild: PageInfoCard(
+                        text: actionsFavoriteTip(),
+                      ),
                       secondChild: GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

@@ -316,3 +316,5 @@ String doubleBackToClose() => Intl.message("Press again to exit ", name: 'double
 String noLongerSupported() => Intl.message("This gear is no longer supported. Some app features may not work", name: 'noLongerSupported', desc: 'Warning message which appears for unsupported gear on the manage gear page');
 
 String mandatoryOtaRequired() => Intl.message("A firmware update is required for this app to support your gear", name: 'mandatoryOtaRequired', desc: 'Warning message which appears for gear which have old firmware on the manage gear page');
+
+String actionsFavoriteTip() => Intl.message("Long press an action to favorite", name: 'actionsFavoriteTip', desc: 'tip message which appears when no actions are favorited on the actions page');
