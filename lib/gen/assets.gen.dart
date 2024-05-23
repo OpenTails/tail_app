@@ -12,108 +12,101 @@ import 'package:flutter/widgets.dart';
 class $AssetsTailcostickersGen {
   const $AssetsTailcostickersGen();
 
-  /// Directory path: assets/tailcostickers/tgs
-  $AssetsTailcostickersTgsGen get tgs => const $AssetsTailcostickersTgsGen();
-}
-
-class $AssetsTailcostickersTgsGen {
-  const $AssetsTailcostickersTgsGen();
-
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834334.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834334.json
   String get tailCoStickersFile144834334 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834334.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834334.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834335.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834335.json
   String get tailCoStickersFile144834335 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834335.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834335.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834336.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834336.json
   String get tailCoStickersFile144834336 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834336.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834336.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834337.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834337.json
   String get tailCoStickersFile144834337 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834337.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834337.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834338.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834338.json
   String get tailCoStickersFile144834338 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834338.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834338.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834339.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834339.json
   String get tailCoStickersFile144834339 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834339.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834339.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834340.json
   String get tailCoStickersFile144834340 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834340.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834340.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834341.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834341.json
   String get tailCoStickersFile144834341 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834341.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834341.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834342.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834342.json
   String get tailCoStickersFile144834342 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834342.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834342.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834343.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834343.json
   String get tailCoStickersFile144834343 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834343.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834343.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834344.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834344.json
   String get tailCoStickersFile144834344 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834344.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834344.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834345.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834345.json
   String get tailCoStickersFile144834345 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834345.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834345.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834346.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834346.json
   String get tailCoStickersFile144834346 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834346.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834346.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834347.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834347.json
   String get tailCoStickersFile144834347 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834347.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834347.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834348.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834348.json
   String get tailCoStickersFile144834348 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834348.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834348.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834349.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834349.json
   String get tailCoStickersFile144834349 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834349.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834349.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834350.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834350.json
   String get tailCoStickersFile144834350 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834350.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834350.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834352.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834352.json
   String get tailCoStickersFile144834352 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834352.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834352.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834353.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834353.json
   String get tailCoStickersFile144834353 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834353.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834353.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834354.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834354.json
   String get tailCoStickersFile144834354 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834354.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834354.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834355.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834355.json
   String get tailCoStickersFile144834355 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834355.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834355.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834356.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834356.json
   String get tailCoStickersFile144834356 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834356.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834356.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834357.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834357.json
   String get tailCoStickersFile144834357 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834357.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834357.json';
 
-  /// File path: assets/tailcostickers/tgs/TailCoStickers_file_144834359.tgs
+  /// File path: assets/tailcostickers/TailCoStickers_file_144834359.json
   String get tailCoStickersFile144834359 =>
-      'assets/tailcostickers/tgs/TailCoStickers_file_144834359.tgs';
+      'assets/tailcostickers/TailCoStickers_file_144834359.json';
 
   /// List of all assets
   List<String> get values => [

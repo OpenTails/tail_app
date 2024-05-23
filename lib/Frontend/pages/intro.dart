@@ -90,8 +90,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 title: homeWelcomeMessageTitle(),
                 body: homeWelcomeMessage(),
                 image: LottieLazyLoad(
-                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834354,
-                  renderCache: true,
+                  asset: Assets.tailcostickers.tailCoStickersFile144834354,
                   width: MediaQuery.of(context).size.width,
                 ),
                 decoration: pageDecoration,
@@ -100,8 +99,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 title: morePrivacyPolicyLinkTitle(),
                 body: onboardingPrivacyPolicyDescription(),
                 image: LottieLazyLoad(
-                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834359,
-                  renderCache: true,
+                  asset: Assets.tailcostickers.tailCoStickersFile144834359,
                   width: MediaQuery.of(context).size.width,
                 ),
                 footer: Center(
@@ -144,8 +142,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 title: onboardingBluetoothTitle(),
                 body: onboardingBluetoothDescription(),
                 image: LottieLazyLoad(
-                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834357,
-                  renderCache: true,
+                  asset: Assets.tailcostickers.tailCoStickersFile144834357,
                   width: MediaQuery.of(context).size.width,
                 ),
                 footer: Center(
@@ -196,8 +193,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 title: onboardingCompletedTitle(),
                 body: "",
                 image: LottieLazyLoad(
-                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834338,
-                  renderCache: true,
+                  asset: Assets.tailcostickers.tailCoStickersFile144834338,
                   width: MediaQuery.of(context).size.width,
                 ),
                 decoration: pageDecoration.copyWith(

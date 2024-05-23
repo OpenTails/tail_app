@@ -175,8 +175,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
                 LottieLazyLoad(
-                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834339,
-                  renderCache: true,
+                  asset: Assets.tailcostickers.tailCoStickersFile144834339,
                   width: MediaQuery.of(context).size.width,
                 ),
               ],
@@ -189,8 +188,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
                 LottieLazyLoad(
-                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834348,
-                  renderCache: true,
+                  asset: Assets.tailcostickers.tailCoStickersFile144834348,
                   width: MediaQuery.of(context).size.width,
                 ),
               ],
@@ -203,8 +201,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
                 LottieLazyLoad(
-                  asset: Assets.tailcostickers.tgs.tailCoStickersFile144834342,
-                  renderCache: true,
+                  asset: Assets.tailcostickers.tailCoStickersFile144834342,
                   width: MediaQuery.of(context).size.width,
                 ),
               ],
@@ -222,8 +219,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   child: Transform.flip(
                     flipX: true,
                     child: LottieLazyLoad(
-                      asset: Assets.tailcostickers.tgs.tailCoStickersFile144834340,
-                      renderCache: false,
+                      asset: Assets.tailcostickers.tailCoStickersFile144834340,
                       width: MediaQuery.of(context).size.width,
                     ),
                   ),

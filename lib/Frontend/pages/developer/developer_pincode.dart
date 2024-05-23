@@ -20,8 +20,7 @@ class _DeveloperPincodeState extends State<DeveloperPincode> {
     return Scaffold(
       body: ScreenLock(
         title: LottieLazyLoad(
-          asset: Assets.tailcostickers.tgs.tailCoStickersFile144834344,
-          renderCache: true,
+          asset: Assets.tailcostickers.tailCoStickersFile144834344,
           width: 80,
         ),
         onCancelled: () => context.pop(),

@@ -53,7 +53,6 @@ dependencies:
   # Widgets / UI
   flutter_screen_lock: ^9.1.0 # used to hide dev mode toggle
   introduction_screen: ^3.1.14 # Onboarding
-  lottie: ^3.1.2
   flex_color_picker: ^3.5.0
   flutter_adaptive_scaffold: ^0.1.10+2
   animate_do: ^3.3.4
@@ -68,6 +67,7 @@ dependencies:
   #video_player: ^2.8.6
   fading_edge_scrollview: ^4.1.1
   flutter_native_splash: ^2.4.0
+  lottie_native: ^0.1.3
 
   # Dio HTTP
   dio: ^5.4.3+1
@@ -127,7 +127,8 @@ flutter:
   generate: true # Generate app_localizations.dart
   assets:
     - assets/
-    - assets/tailcostickers/tgs/ # Apparently this isn't recursive
+    #- assets/tailcostickers/tgs/ # Apparently this isn't recursive
+    - assets/tailcostickers/
     - CHANGELOG.md
     - PRIVACY.md
 
@@ -183,7 +184,7 @@ flutter_gen:
 
   # Optional
   integrations:
-    #flutter_svg: true
-    #flare_flutter: true
-    #rive: true
-    lottie: true
+  #flutter_svg: true
+  #flare_flutter: true
+  #rive: true
+  #lottie: true

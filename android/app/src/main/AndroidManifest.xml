@@ -68,6 +68,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="true" />
         <!-- Add android:stopWithTask option only when necessary. -->
         <service
             android:name="com.pravera.flutter_foreground_task.service.ForegroundService"

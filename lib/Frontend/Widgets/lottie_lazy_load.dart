@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:lottie_native/lottie_native.dart';
 
 import '../../constants.dart';
 
 class LottieLazyLoad extends StatefulWidget {
-  const LottieLazyLoad({super.key, required this.asset, required this.renderCache, required this.width});
+  const LottieLazyLoad({super.key, required this.asset, required this.width});
 
   final String asset;
-  final bool renderCache;
   final double width;
 
   @override
@@ -16,50 +15,30 @@ class LottieLazyLoad extends StatefulWidget {
 
 class _LottieLazyLoadState extends State<LottieLazyLoad> with TickerProviderStateMixin {
   bool isLoaded = false;
-  late final AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  LottieController? lottieController;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      opacity: _controller.isAnimating ? 1 : 0,
+      opacity: isLoaded ? 1 : 0,
       duration: animationTransitionDuration,
-      child: Lottie.asset(
+      child: SizedBox(
         width: widget.width,
-        renderCache: widget.renderCache ? RenderCache.raster : null,
-        widget.asset,
-        decoder: LottieComposition.decodeGZip,
-        controller: _controller,
-        onLoaded: (p0) {
-          // Configure the AnimationController with the duration of the
-          // Lottie file and start the animation.
-          _controller
-            ..duration = p0.duration
-            ..forward()
-            ..addListener(
-              () {
-                if (_controller.isCompleted && context.mounted) {
-                  _controller.repeat();
-                }
-              },
-            );
-          setState(() {
-            isLoaded = true;
-          });
-        },
+        height: widget.width,
+        child: LottieView.fromAsset(
+          filePath: widget.asset,
+          autoPlay: true,
+          loop: true,
+          onViewCreated: onViewCreated,
+        ),
       ),
     );
+  }
+
+  void onViewCreated(LottieController lottieController) {
+    this.lottieController = lottieController;
+    setState(() {
+      isLoaded = true;
+    });
   }
 }

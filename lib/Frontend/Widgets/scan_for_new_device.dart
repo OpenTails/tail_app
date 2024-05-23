@@ -112,8 +112,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                     child: Transform.flip(
                                       flipX: true,
                                       child: LottieLazyLoad(
-                                        asset: Assets.tailcostickers.tgs.tailCoStickersFile144834340,
-                                        renderCache: false,
+                                        asset: Assets.tailcostickers.tailCoStickersFile144834340,
                                         width: 200,
                                       ),
                                     ),
