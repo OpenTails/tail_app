@@ -1,3 +1,4 @@
+import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
@@ -133,6 +134,8 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
             appBar: AppBar(
               title: const DeviceStatusWidget(),
               centerTitle: true,
+              leadingWidth: 0,
+              titleSpacing: 0,
               toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1),
             ),
           ),
@@ -188,6 +191,27 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 ),
                 title: Text(
                   noLongerSupported(),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          ],
+          if (widget.device.mandatoryOtaRequired.value) ...[
+            BaseCard(
+              elevation: 3,
+              color: Colors.red,
+              child: ListTile(
+                leading: const Icon(
+                  Icons.warning,
+                  color: Colors.white,
+                ),
+                trailing: const Icon(
+                  Icons.warning,
+                  color: Colors.white,
+                ),
+                title: Text(
+                  mandatoryOtaRequired(),
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -347,6 +371,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   Text("DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}"),
                   Text("DEV FW URL: ${widget.device.baseDeviceDefinition.fwURL}"),
                   Text("MTU: ${widget.device.mtu.value}"),
+                  Text("RSSI: ${widget.device.rssi.value}"),
+                  Text("BATT: ${widget.device.batteryLevel.value}"),
+                  Text("UNSUPPORTED: ${widget.device.baseDeviceDefinition.unsupported}"),
+                  Text("MIN FIRMWARE: ${widget.device.baseDeviceDefinition.minVersion}"),
                 ],
               ),
             ),
@@ -357,6 +385,17 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 onChanged: (bool value) {
                   setState(() {
                     widget.device.hasUpdate.value = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text("Mandatory OTA Required"),
+              trailing: Switch(
+                value: widget.device.mandatoryOtaRequired.value,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.mandatoryOtaRequired.value = value;
                   });
                 },
               ),
@@ -486,7 +525,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
             ListTile(
               title: const Text("RSSI Level"),
               subtitle: Slider(
-                min: -80,
+                min: -150,
                 max: -1,
                 value: widget.device.rssi.value.toDouble(),
                 onChanged: (double value) {
@@ -565,18 +604,35 @@ class DeviceStatusWidget extends ConsumerStatefulWidget {
 }
 
 class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
+  ScrollController? _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const KnownGearScanController(
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
+    return KnownGearScanController(
+      child: FadingEdgeScrollView.fromSingleChildScrollView(
         child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
+          controller: _scrollController,
+          physics: const AlwaysScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
-          child: KnownGear(),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: KnownGear(),
+          ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController?.dispose();
   }
 }
 

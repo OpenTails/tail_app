@@ -313,4 +313,6 @@ String onboardingCompletedTitle() => Intl.message("Happy Wagging!", name: 'onboa
 
 String doubleBackToClose() => Intl.message("Press again to exit ", name: 'doubleBackToClose', desc: 'Snackbar message which appears when the back button is pressed at the main screen');
 
-String noLongerSupported() => Intl.message("This gear is no longer supported.", name: 'noLongerSupported', desc: 'Warning message which appears for unsupported gear on the manage gear page');
+String noLongerSupported() => Intl.message("This gear is no longer supported. Some app features may not work", name: 'noLongerSupported', desc: 'Warning message which appears for unsupported gear on the manage gear page');
+
+String mandatoryOtaRequired() => Intl.message("A firmware update is required for this app to support your gear", name: 'mandatoryOtaRequired', desc: 'Warning message which appears for gear which have old firmware on the manage gear page');

@@ -43,6 +43,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
 
   @override
   Widget build(BuildContext context) {
+    Iterable<String> knownDeviceIds = ref.read(knownDevicesProvider).keys;
     return ValueListenableBuilder(
       valueListenable: isBluetoothEnabled,
       builder: (BuildContext context, bool value, Widget? child) {
@@ -53,7 +54,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
               StreamBuilder<List<ScanResult>>(
                 stream: FlutterBluePlus.scanResults,
                 builder: (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
-                  anyGearFound = snapshot.hasData && snapshot.data!.isNotEmpty;
+                  anyGearFound = snapshot.hasData && snapshot.data!.isNotEmpty && snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).isNotEmpty;
                   return ListView(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -73,9 +74,9 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                   ListView.builder(
                                     shrinkWrap: true,
                                     physics: const NeverScrollableScrollPhysics(),
-                                    itemCount: snapshot.data!.length,
+                                    itemCount: snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).length,
                                     itemBuilder: (BuildContext context, int index) {
-                                      ScanResult e = snapshot.data![index];
+                                      ScanResult e = snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).toList()[index];
                                       return ListTile(
                                         title: Text(getNameFromBTName(e.device.advName)),
                                         trailing: Text(SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),

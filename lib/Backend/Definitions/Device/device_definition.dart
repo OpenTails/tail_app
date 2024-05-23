@@ -130,17 +130,15 @@ class BaseStatefulDevice extends ChangeNotifier {
       batteryLow.value = batteryLevel.value < 20;
     });
     fwInfo.addListener(() {
-      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(Version.parse(fwInfo.value!.version)) < 0) {
+      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(Version.parse(fwInfo.value!.version)) > 0) {
         hasUpdate.value = true;
       }
     });
     fwVersion.addListener(() {
-      if (baseDeviceDefinition.minVersion != null) {
-        if (baseDeviceDefinition.minVersion!.compareTo(fwVersion.value) < 0) {
-          mandatoryOtaRequired.value = true;
-        }
+      if (baseDeviceDefinition.minVersion != null && fwVersion.value.compareTo(baseDeviceDefinition.minVersion!) < 0) {
+        mandatoryOtaRequired.value = true;
       }
-      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
+      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) > 0) {
         hasUpdate.value = true;
       }
     });

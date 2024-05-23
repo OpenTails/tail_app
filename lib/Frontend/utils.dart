@@ -63,7 +63,7 @@ Version getVersionSemVer(String input) {
     minor = split[1];
   }
   if (split.length > 2 && int.tryParse(split[2]) != null) {
-    patch = split[2];
+    patch = split[2].replaceAll(RegExp(r"\D"), "");
   }
   return Version(int.parse(major), int.parse(minor), int.parse(patch));
 }

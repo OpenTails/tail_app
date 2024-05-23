@@ -64,7 +64,8 @@ dependencies:
   multi_listenable_builder: ^1.0.0
   logging_flutter: ^3.0.0
   flutter_markdown: ^0.7.1
-  video_player: ^2.8.6
+  #video_player: ^2.8.6
+  fading_edge_scrollview: ^4.1.1
 
   # Dio HTTP
   dio: ^5.4.3+1

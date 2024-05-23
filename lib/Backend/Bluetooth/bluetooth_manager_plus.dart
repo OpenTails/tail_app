@@ -222,9 +222,9 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       } else if (value.contains("HWVER")) {
         // Hardware Version
         statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
-      } else if (value.contains("BATT")) {
+      } else if (int.tryParse(value) != null) {
         // Battery Level
-        statefulDevice.batteryLevel.value = int.parse(value.substring(value.indexOf(" "))).toDouble();
+        statefulDevice.batteryLevel.value = int.parse(value).toDouble();
       }
     }
   });

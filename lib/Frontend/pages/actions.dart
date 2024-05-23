@@ -135,7 +135,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
       delay: Duration(milliseconds: 100 * actionIndex),
       child: Card(
         clipBehavior: Clip.antiAlias,
-        color: Color(knownDevices.values.where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseStoredDevice.color),
+        color: Color(knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseStoredDevice.color),
         elevation: 1,
         child: InkWell(
           onLongPress: () {
@@ -179,6 +179,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: knownDevices.values
+                        .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
                         .where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType))
                         .map(
                           (e) => Text(
