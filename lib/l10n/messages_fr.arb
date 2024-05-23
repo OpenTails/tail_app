@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Frustré et tendu",
+  "deviceTypeEars": "Ajouter un déplacement",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Retardez le prochain coup pendant {howMany} ms.",
+  "sequenceEditListDelayLabel": "Retardez le prochain coup de {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -135,7 +135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Oreilles",
+  "actionsCategoryEars": "Ajouter un déplacement",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesConnect": "Connecter",
+  "manageDevicesConnect": "Accepter la politique de confidentialité",
   "@manageDevicesConnect": {
     "description": "manage devices connect button title when managing a device",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Plus",
+  "sequencesInfoDescription": "Déclenchez une action si un équipement est à proximité",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -867,9 +867,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeChangelogLinkTitle": "Journal des modifications",
+  "homeChangelogLinkTitle": "Manuels",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Cet équipement n'est plus pris en charge. Certaines fonctionnalités de l'application peuvent ne pas fonctionner",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "Une mise à jour du micrologiciel est requise pour que cette application prenne en charge votre équipement",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }
