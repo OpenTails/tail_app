@@ -279,7 +279,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "切断",
+  "manageDevicesDisconnect": "アップデートに失敗しました。機器を再起動してもう一度お試しください。",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。カスタムアクションを編集するには、鉛筆をタップします。",
+  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。鉛筆をタップしてカスタムアクションを編集します。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -831,7 +831,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "常にスキャンを無効",
+  "homeContinuousScanningOffTitle": "常にスキャンを無効にします",
   "@homeContinuousScanningOffTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -870,6 +870,18 @@
   "scanDevicesFoundTitle": "ギアが見つかりました。ギア名をタップして接続してください",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "このギアはサポートされていません。一部のアプリ機能は動作しない可能性があります",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "このアプリがあなたのギアをサポートするにはファームウェアのアップデートが必要です",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }
