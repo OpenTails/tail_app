@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Nascondi le varie schede tutorial in tutta l'app",
+  "settingsTutorialCardToggleSubTitle": "Nascondi le schede tutorial",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -759,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Premere di nuovo per uscire ",
+  "doubleBackToClose": "Attiva il Bluetooth ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -882,6 +882,12 @@
   "mandatoryOtaRequired": "È necessario un aggiornamento del firmware affinché questa app supporti la tua attrezzatura",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "Premi a lungo un'azione da aggiungere ai preferiti",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are favorited on the actions page",
     "type": "text",
     "placeholders": {}
   }
