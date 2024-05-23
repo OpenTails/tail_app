@@ -699,7 +699,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Datenschutzrichtlinie anzeigen",
+  "onboardingPrivacyPolicyViewButtonLabel": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -870,6 +870,18 @@
   "homeChangelogLinkTitle": "Änderungsprotokoll",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Diese Ausrüstung wird nicht mehr unterstützt. Einige App-Funktionen funktionieren möglicherweise nicht",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "Zur Unterstützung Ihrer Ausrüstung ist für diese App ein Firmware-Update erforderlich",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }
