@@ -147,7 +147,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Schnell",
+  "actionsCategoryCalm": "App-Farbe ändern, Haptik konfigurieren und mehr",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Nach links kippen",
+  "triggerEarTiltLeft": "EarGear Neigungssensor",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualMiTailTitle": "Verantwortungsvolles Wedeln",
+  "moreManualMiTailTitle": "Ausrüstung gefunden. Tippen Sie auf den Namen der Ausrüstung, um eine Verbindung herzustellen",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -645,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Batteriestand in % anzeigen",
+  "settingsBatteryPercentageToggleTitle": "Batterieprozentsatz anzeigen",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzrichtlinie akzeptieren",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",

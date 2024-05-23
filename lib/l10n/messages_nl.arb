@@ -1,5 +1,5 @@
 {
-  "title": "Het Staartbedrijf",
+  "title": "Het staartbedrijf",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Oren",
+  "deviceTypeEars": "GlowTip",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Oren",
+  "actionsCategoryEars": "GlowTip",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "Rapporteer niet-identificerend functiegebruik aan Plausible voor het verbeteren van de app",
+  "settingsAnalyticsToggleSubTitle": "Anonieme analyses toestaan",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang indrukken om deze opnieuw te rangschikken.",
+  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang ingedrukt houden om deze opnieuw te rangschikken.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Start OTA-update",
+  "otaDownloadButtonLabel": "OTA-update starten",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -741,7 +741,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Klaar",
+  "onboardingDoneButtonLabel": "Bluetooth-toestemming is vereist om verbinding te maken met uitrusting",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",

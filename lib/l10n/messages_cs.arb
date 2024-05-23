@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Povolit vibrace při klepnutí na akci",
+  "settingsHapticsToggleSubTitle": "Frustrovaný a napjatý",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -741,7 +741,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Zapněte Bluetooth",
+  "onboardingDoneButtonLabel": "Pro připojení k zařízení je vyžadováno oprávnění Bluetooth",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
