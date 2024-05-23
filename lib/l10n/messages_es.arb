@@ -339,7 +339,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Escaneando en busca de equipo. Asegúrate de que tu equipo esté encendido y cerca",
+  "scanDevicesScanMessage": "Buscando equipo. Asegúrate de que tu equipo esté encendido y cerca",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Ver política de privacidad",
+  "onboardingPrivacyPolicyViewButtonLabel": "Si bien los datos recopilados son anónimos y no pueden usarse para identificar a un usuario específico, aún debes aceptar la política de privacidad.",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Conceder permiso",
+  "onboardingBluetoothRequestButtonLabel": "Se requiere permiso de Bluetooth para conectarse al equipo",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -879,9 +879,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Se requiere una actualización de firmware para que esta aplicación sea compatible con su equipo",
+  "mandatoryOtaRequired": "Se requiere una actualización de firmware para que esta aplicación admita su equipo",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "Mantenga presionada una acción para marcarla como favorita",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are favorited on the actions page",
     "type": "text",
     "placeholders": {}
   }
