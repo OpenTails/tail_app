@@ -201,11 +201,24 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     if (bluetoothCharacteristic.characteristicUuid == Guid("2a19")) {
       statefulDevice.batteryLevel.value = values.first.toDouble();
     } else if (bluetoothCharacteristic.characteristicUuid == Guid("5073792e-4fc0-45a0-b0a5-78b6c1756c91")) {
-      String value = const Utf8Decoder().convert(values);
-      statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
-      statefulDevice.batteryCharging.value = value == "CHARGE ON";
+      try {
+        String value = const Utf8Decoder().convert(values);
+        statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
+        statefulDevice.batteryCharging.value = value == "CHARGE ON";
+      } catch (e, s) {
+        _bluetoothPlusLogger.warning("Unable to read values: $values", e, s);
+        statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
+        return;
+      }
     } else if (bluetoothCharacteristic.characteristicUuid == Guid(statefulDevice.baseDeviceDefinition.bleRxCharacteristic)) {
-      String value = const Utf8Decoder().convert(values);
+      String value = "";
+      try {
+        value = const Utf8Decoder().convert(values);
+      } catch (e, s) {
+        _bluetoothPlusLogger.warning("Unable to read values: $values", e, s);
+        statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
+        return;
+      }
       statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
       // Firmware Version
       if (value.startsWith("VER")) {

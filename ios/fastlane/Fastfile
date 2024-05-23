@@ -27,11 +27,10 @@ platform :ios do
       archive_path: "../build/ios/archive/Runner.xcarchive",
     )
     upload_to_testflight(
-      skip_waiting_for_build_processing: true, 
       changelog: changelog,
       build_number: ENV['BUILD_NUMBER'], 
       app_version: ENV['VERSION'], 
-      #reject_build_waiting_for_review: true,
+      reject_build_waiting_for_review: true,
       api_key_path:"APPLE_SECRETS.json"
     )
   end

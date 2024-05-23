@@ -110,10 +110,14 @@ class BaseStatefulDevice extends ChangeNotifier {
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
     commandQueue = CommandQueue(ref, this);
-    rxCharacteristicStream = FlutterBluePlus.events.onCharacteristicReceived
-        .asBroadcastStream()
-        .where((event) => event.device.remoteId.str == baseStoredDevice.btMACAddress && event.characteristic.characteristicUuid.str == baseDeviceDefinition.bleRxCharacteristic)
-        .map((event) => const Utf8Decoder().convert(event.value));
+    rxCharacteristicStream = FlutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) => event.device.remoteId.str == baseStoredDevice.btMACAddress && event.characteristic.characteristicUuid.str == baseDeviceDefinition.bleRxCharacteristic).map((event) {
+      try {
+        return const Utf8Decoder().convert(event.value);
+      } catch (e, s) {
+        bluetoothLog.warning("Unable to read values: ${event.value}", e, s);
+      }
+      return "";
+    }).where((event) => event.isNotEmpty);
     deviceConnectionState.addListener(() {
       if (deviceConnectionState.value == ConnectivityState.disconnected) {
         reset();
