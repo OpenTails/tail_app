@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Którego biegu to ma dotyczyć?",
+  "deviceType": "Którego biegu to powinno dotyczyć?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Kliknij, aby wyświetlić",
+  "moreManualSubTitle": "Instrukcje",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Zaktualizuj sprzęt",
+  "otaTitle": "Kolor przekładni",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Mimo, że zbierane dane są anonimowe i nie pozwalają na identyfikację konkretnego użytkownika, nadal musisz zaakceptować politykę prywatności",
+  "onboardingPrivacyPolicyViewButtonLabel": "Każda Akcja Własna składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -870,6 +870,18 @@
   "homeNewsTitle": "Świeżo z bloga Tail",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Ten sprzęt nie jest już obsługiwany. Niektóre funkcje aplikacji mogą nie działać",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "Aby ta aplikacja mogła obsługiwać Twój sprzęt, wymagana jest aktualizacja oprogramowania sprzętowego",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }
