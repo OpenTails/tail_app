@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Главная Шестерня",
+  "sequencesEditHomeLabel": "Главная Gear",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -870,6 +870,18 @@
   "homeChangelogLinkTitle": "Журнал изменений",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Это снаряжение больше не поддерживается. Некоторые функции приложения могут не работать",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "Чтобы это приложение поддерживало ваше оборудование, требуется обновление прошивки.",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
     "placeholders": {}
   }
