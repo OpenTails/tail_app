@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "穏やかでリラックスした",
+  "actionsCategoryCalm": "次の動きを[X20X]ミリ秒遅らせます。",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "デジテールマニュアル",
+  "moreManualDigitailTitle": "DigiTail マニュアル",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -699,7 +699,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります。",
+  "onboardingPrivacyPolicyDescription": "各カスタムアクションは 1 ～ 6 個の動きから構成され、最大 5 回繰り返すことができます。動きを長押しすると順序を変更できます。",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -831,7 +831,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "常にスキャンを無効にします",
+  "homeContinuousScanningOffTitle": "常にスキャンを無効",
   "@homeContinuousScanningOffTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -882,6 +882,12 @@
   "mandatoryOtaRequired": "このアプリがあなたのギアをサポートするにはファームウェアのアップデートが必要です",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "お気に入りに追加するアクションを長押しします",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are favorited on the actions page",
     "type": "text",
     "placeholders": {}
   }
