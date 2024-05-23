@@ -20,7 +20,7 @@ class DeviceRegistry {
         bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
         bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
         deviceType: DeviceType.tail,
-        fwURL: "https://thetailcompany.com/fw/mitail",
+        fwURL: "https://thetailcompany.com/fw/mitailfw",
         minVersion: Version(5, 0, 0)),
     const BaseDeviceDefinition(
         uuid: "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee",
