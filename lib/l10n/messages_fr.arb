@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Nouvelle action",
+  "sequencesAdd": "Queue",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -111,7 +111,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Calme et détendu",
+  "actionsCategoryCalm": "Êtes-vous sûr de vouloir supprimer cette action ?",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -699,7 +699,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothTitle": "Bluetooth",
+  "onboardingBluetoothTitle": "Accepter la politique de confidentialité",
   "@onboardingBluetoothTitle": {
     "description": "Title for bluetooth section on the onboarding screen",
     "type": "text",
@@ -855,7 +855,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Tout frais du blog Tail",
+  "homeNewsTitle": "Fraîchement sorti du blog Tail",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Appuyez longuement sur une action pour la mettre en favori",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Code source",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }
