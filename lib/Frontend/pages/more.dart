@@ -124,7 +124,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: const Text("Source Code"),
+          title: Text(moreSourceCode()),
           leading: const Icon(Icons.code),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {

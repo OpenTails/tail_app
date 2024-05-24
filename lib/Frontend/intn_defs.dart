@@ -318,3 +318,5 @@ String noLongerSupported() => Intl.message("This gear is no longer supported. So
 String mandatoryOtaRequired() => Intl.message("A firmware update is required for this app to support your gear", name: 'mandatoryOtaRequired', desc: 'Warning message which appears for gear which have old firmware on the manage gear page');
 
 String actionsFavoriteTip() => Intl.message("Long press an action to favorite", name: 'actionsFavoriteTip', desc: 'tip message which appears when no actions are favorited on the actions page');
+
+String moreSourceCode() => Intl.message("Source Code", name: 'moreSourceCode', desc: 'Label for the github and dev mode button on the more tab');
