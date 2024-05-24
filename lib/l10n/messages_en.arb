@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-23T16:32:09.584608",
+  "@@last_modified": "2024-05-24T17:04:41.374995",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -890,6 +890,12 @@
   "actionsFavoriteTip": "Long press an action to favorite",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Source Code",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }
