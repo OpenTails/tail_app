@@ -225,6 +225,6 @@ class FavoriteActions extends _$FavoriteActions {
     SentryHive.box<FavoriteAction>(favoriteActionsBox)
       ..clear()
       ..addAll(state);
-    updateShortcuts(ref);
+    updateShortcuts(state, ref);
   }
 }

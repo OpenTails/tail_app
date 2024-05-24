@@ -25,13 +25,13 @@ Future<void> appShortcuts(AppShortcutsRef ref) async {
       }
     }
   });
-  updateShortcuts(ref);
+  updateShortcuts(ref.read(favoriteActionsProvider), ref);
 }
 
-Future<void> updateShortcuts(Ref ref) async {
-  Iterable<BaseAction> allActions = ref.read(favoriteActionsProvider).map(
-        (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)) as BaseAction,
-      );
+Future<void> updateShortcuts(List<FavoriteAction> favoriteActions, Ref ref) async {
+  Iterable<BaseAction> allActions = favoriteActions.map(
+    (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)) as BaseAction,
+  );
 
   quickActions.setShortcutItems(allActions
       .map(
