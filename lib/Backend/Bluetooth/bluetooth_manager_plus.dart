@@ -215,7 +215,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       try {
         value = const Utf8Decoder().convert(values);
       } catch (e, s) {
-        _bluetoothPlusLogger.warning("Unable to read values: $values", e, s);
+        _bluetoothPlusLogger.warning("Unable to read values: $values $e");
         statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
         return;
       }
