@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:dio/dio.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,7 @@ class _MoreState extends ConsumerState<More> {
         ),
         ListTile(
           title: const Text("Tail Company Wiki"),
-          leading: const Icon(Icons.notes),
+          leading: const Icon(CommunityMaterialIcons.book),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchUrl(Uri.parse('https://docs.thetailcompany.com/?utm_source=Tail_App'));
@@ -124,7 +125,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: const Text("GitHub"),
+          title: const Text("Source Code"),
           leading: const Icon(Icons.code),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -149,20 +150,16 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.info),
           onTap: () {
             PackageInfo.fromPlatform().then(
-              (value) => Navigator.push(
-                context,
-                DialogRoute(
-                    builder: (context) => AboutDialog(
-                          applicationName: title(),
-                          applicationVersion: "${value.version}+${value.buildNumber}",
-                          applicationIcon: Image(
-                            image: AssetImage(Assets.tCLogo.path),
-                            height: 60,
-                            width: 60,
-                          ),
-                          applicationLegalese: "This is a fan made app to control 'The Tail Company' tails and ears",
-                        ),
-                    context: context),
+              (value) => showLicensePage(
+                context: context,
+                useRootNavigator: true,
+                applicationVersion: "${value.version} (${value.buildNumber})",
+                applicationLegalese: "Developed by the community for the community. Open Source GPL 3.0 Licensed",
+                applicationIcon: Image.asset(
+                  Assets.tCLogoTransparentNoText.path,
+                  width: 150,
+                  height: 150,
+                ),
               ),
             );
           },
