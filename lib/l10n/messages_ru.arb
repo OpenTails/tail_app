@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Отправить отзыв",
+  "feedbackPage": "Непосредственно контролируйте положение шестерни.",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Нажмите и удерживайте действие в избранном",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Исходный код",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }
