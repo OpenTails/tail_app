@@ -29,7 +29,7 @@ class KnownDevices extends _$KnownDevices {
         }
       }
     } catch (e, s) {
-      bluetoothLog.shout("Unable to load stored devices due to $e", e, s);
+      bluetoothLog.severe("Unable to load stored devices due to $e", e, s);
     }
 
     return results;
