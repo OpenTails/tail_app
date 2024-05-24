@@ -2,11 +2,13 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
+import '../../Backend/device_registry.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../../main.dart';
@@ -129,6 +131,52 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                   );
                 },
               ),
+              if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                ListTile(
+                  title: const Text("Add demo gear"),
+                  leading: const Icon(Icons.add),
+                  trailing: DropdownMenu<BaseDeviceDefinition>(
+                    initialSelection: null,
+                    onSelected: (value) {
+                      if (value != null) {
+                        setState(
+                          () {
+                            BaseStoredDevice baseStoredDevice;
+                            BaseStatefulDevice statefulDevice;
+                            baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color.value);
+                            baseStoredDevice.name = getNameFromBTName(value.btName);
+                            statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
+                            statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
+                            isAnyGearConnected.value = true;
+                            if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
+                              ref.read(knownDevicesProvider.notifier).add(statefulDevice);
+                            }
+                            context.pop();
+                          },
+                        );
+                      }
+                    },
+                    dropdownMenuEntries: DeviceRegistry.allDevices.map((e) => DropdownMenuEntry(value: e, label: e.btName)).toList(),
+                  ),
+                ),
+                ListTile(
+                  title: const Text("Remove demo gear"),
+                  leading: const Icon(Icons.delete),
+                  onTap: () {
+                    ref.read(knownDevicesProvider).removeWhere((key, value) => key.contains("DEV"));
+                    ref.read(knownDevicesProvider.notifier).remove(""); // force update
+                    if (ref
+                        .read(knownDevicesProvider)
+                        .values
+                        .where(
+                          (element) => element.deviceConnectionState.value == ConnectivityState.connected,
+                        )
+                        .isEmpty) {
+                      isAnyGearConnected.value = false;
+                    }
+                  },
+                ),
+              ]
             ],
           );
         } else {

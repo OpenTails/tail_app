@@ -4,10 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 
-import '../../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../../../Backend/Definitions/Device/device_definition.dart';
-import '../../../Backend/device_registry.dart';
 import '../../../constants.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {
@@ -48,12 +45,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             onTap: () {
               throw Exception('Sentry Test');
             },
-          ),
-          ListTile(
-            title: Text(
-              "Internal Settings Debug",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
           ),
           ListTile(
             title: const Text(hasCompletedOnboarding),
@@ -121,55 +112,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 );
               },
             ),
-          ),
-          ListTile(
-            title: Text(
-              "Gear Debug",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          ListTile(
-            title: const Text("Add new Device"),
-            leading: const Icon(Icons.add),
-            trailing: DropdownMenu<BaseDeviceDefinition>(
-              initialSelection: null,
-              onSelected: (value) {
-                if (value != null) {
-                  setState(
-                    () {
-                      BaseStoredDevice baseStoredDevice;
-                      BaseStatefulDevice statefulDevice;
-                      baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color.value);
-                      baseStoredDevice.name = getNameFromBTName(value.btName);
-                      statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
-                      statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
-                      isAnyGearConnected.value = true;
-                      if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
-                        ref.read(knownDevicesProvider.notifier).add(statefulDevice);
-                      }
-                    },
-                  );
-                }
-              },
-              dropdownMenuEntries: DeviceRegistry.allDevices.map((e) => DropdownMenuEntry(value: e, label: e.btName)).toList(),
-            ),
-          ),
-          ListTile(
-            title: const Text("Remove Dev Gear"),
-            leading: const Icon(Icons.delete),
-            onTap: () {
-              ref.read(knownDevicesProvider).removeWhere((key, value) => key.contains("DEV"));
-              ref.read(knownDevicesProvider.notifier).remove(""); // force update
-              if (ref
-                  .read(knownDevicesProvider)
-                  .values
-                  .where(
-                    (element) => element.deviceConnectionState.value == ConnectivityState.connected,
-                  )
-                  .isEmpty) {
-                isAnyGearConnected.value = false;
-              }
-            },
           ),
           ListTile(
             title: const Text("isAnyGearConnected"),
