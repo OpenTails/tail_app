@@ -288,7 +288,8 @@ class CommandQueue {
   StreamSubscription<BluetoothMessage>? messageQueueStreamSubscription;
 
   void addCommand(BluetoothMessage bluetoothMessage) {
-    if (device.deviceConnectionState.value != ConnectivityState.connected) {
+    if (device.deviceConnectionState.value != ConnectivityState.connected || device.baseStoredDevice.btMACAddress.startsWith("DEV")) {
+      device.deviceState.value = DeviceState.standby; //Mainly for dev gear. Marks the gear as being idle
       return;
     }
     messageQueueStreamSubscription ??= messageQueueStream().listen((message) async {
@@ -303,10 +304,15 @@ class CommandQueue {
           if (message.responseMSG != null) {
             // We use a timeout as sometimes a response isn't sent by the gear
             timer = Timer(timeoutDuration, () {});
-            response = device.rxCharacteristicStream.timeout(timeoutDuration, onTimeout: (sink) => sink.close()).where((event) {
-              bluetoothLog.info('Response:$event');
-              return event.contains(message.responseMSG!);
-            }).first;
+            response = device.rxCharacteristicStream
+                .timeout(timeoutDuration, onTimeout: (sink) => sink.close())
+                .where((event) {
+                  bluetoothLog.info('Response:$event');
+                  return event.contains(message.responseMSG!);
+                })
+                .handleError((string) => "")
+                .first;
+            response.catchError((string) => "");
           }
           await sendMessage(device, const Utf8Encoder().convert(message.message));
           device.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.send, message: message.message));
@@ -319,13 +325,16 @@ class CommandQueue {
               bluetoothLog.fine("Waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
 
               // Handles response value
-              response!.then((value) {
-                timer?.cancel();
-                if (message.onResponseReceived != null) {
-                  //callback when the command response is received
-                  message.onResponseReceived!(value);
-                }
-              });
+              response!.then(
+                (value) {
+                  timer?.cancel();
+                  if (message.onResponseReceived != null) {
+                    //callback when the command response is received
+                    message.onResponseReceived!(value);
+                  }
+                },
+                onError: (e) => "",
+              );
               response.timeout(
                 timeoutDuration,
                 onTimeout: () {
