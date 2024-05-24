@@ -81,7 +81,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     } else {
       baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, deviceID, deviceDefinition.deviceType.color.value);
       baseStoredDevice.name = getNameFromBTName(deviceDefinition.btName);
-      statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice, ref);
+      statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice);
       //transaction.setTag('Known Device', 'No');
       Future(() => ref.read(knownDevicesProvider.notifier).add(statefulDevice));
     }

@@ -141,7 +141,9 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                       BaseStatefulDevice statefulDevice;
                       baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color.value);
                       baseStoredDevice.name = getNameFromBTName(value.btName);
-                      statefulDevice = BaseStatefulDevice(value, baseStoredDevice, null);
+                      statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
+                      statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
+                      isAnyGearConnected.value = true;
                       if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
                         ref.read(knownDevicesProvider.notifier).add(statefulDevice);
                       }
@@ -158,6 +160,15 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             onTap: () {
               ref.read(knownDevicesProvider).removeWhere((key, value) => key.contains("DEV"));
               ref.read(knownDevicesProvider.notifier).remove(""); // force update
+              if (ref
+                  .read(knownDevicesProvider)
+                  .values
+                  .where(
+                    (element) => element.deviceConnectionState.value == ConnectivityState.connected,
+                  )
+                  .isEmpty) {
+                isAnyGearConnected.value = false;
+              }
             },
           ),
           ListTile(

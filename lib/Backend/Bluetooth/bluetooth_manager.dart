@@ -24,7 +24,7 @@ class KnownDevices extends _$KnownDevices {
             continue;
           }
           BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID(e.deviceDefinitionUUID);
-          BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(baseDeviceDefinition, e, ref);
+          BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(baseDeviceDefinition, e);
           results[e.btMACAddress] = baseStatefulDevice;
         }
       }

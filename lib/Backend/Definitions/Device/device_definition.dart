@@ -8,7 +8,6 @@ import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -99,7 +98,6 @@ class BaseStatefulDevice extends ChangeNotifier {
   final ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
   final ValueNotifier<bool> hasUpdate = ValueNotifier(false);
   late final Stream<String> rxCharacteristicStream;
-  Ref? ref;
   late final CommandQueue commandQueue;
   List<FlSpot> batlevels = [];
   Stopwatch stopWatch = Stopwatch();
@@ -108,8 +106,8 @@ class BaseStatefulDevice extends ChangeNotifier {
   ValueNotifier<bool> mandatoryOtaRequired = ValueNotifier(false);
   final CircularBuffer<MessageHistoryEntry> messageHistory = CircularBuffer(50);
 
-  BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice, this.ref) {
-    commandQueue = CommandQueue(ref, this);
+  BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice) {
+    commandQueue = CommandQueue(this);
     rxCharacteristicStream = FlutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) => event.device.remoteId.str == baseStoredDevice.btMACAddress && event.characteristic.characteristicUuid.str == baseDeviceDefinition.bleRxCharacteristic).map((event) {
       try {
         return const Utf8Decoder().convert(event.value);
@@ -267,11 +265,10 @@ String getNameFromBTName(String bluetoothDeviceName) {
 }
 
 class CommandQueue {
-  late final Ref? ref;
   final PriorityQueue<BluetoothMessage> state = PriorityQueue();
   final BaseStatefulDevice device;
 
-  CommandQueue(this.ref, this.device);
+  CommandQueue(this.device);
 
   Stream<BluetoothMessage> messageQueueStream() async* {
     while (device.deviceConnectionState.value == ConnectivityState.connected) {
