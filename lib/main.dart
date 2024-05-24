@@ -10,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
@@ -31,6 +32,7 @@ import 'Backend/sensors.dart';
 import 'Frontend/go_router_config.dart';
 import 'Frontend/intn_defs.dart';
 import 'constants.dart';
+import 'l10n/messages_all_locales.dart';
 
 //late SharedPreferences prefs;
 
@@ -59,10 +61,7 @@ Future<void> main() async {
   initFlutter();
   initNotifications();
   initBackgroundTasks();
-  //var localeLoaded = await initializeMessages('ace');
-  //Intl.defaultLocale = 'ace';
-  //Flogger.i("Loaded local: $localeLoaded");
-  mainLogger.fine("Init Hive");
+  initLocale();
   await initHive();
   //initDio();
   mainLogger.fine("Init Sentry");
@@ -122,9 +121,15 @@ class WidgetBindingLogger extends WidgetsBindingObserver {
     mainLogger.info("didRequestAppExit");
     return super.didRequestAppExit();
   }
+
+  @override
+  void didChangeLocales(List<Locale>? locales) async {
+    await initLocale();
+  }
 }
 
 Future<void> initHive() async {
+  mainLogger.fine("Init Hive");
   final Directory appDir = await getApplicationSupportDirectory();
   SentryHive
     ..init(appDir.path)
@@ -150,6 +155,15 @@ Future<void> initHive() async {
   await SentryHive.openBox('notificationsStuff');
 }
 
+Future<void> initLocale() async {
+  final String defaultLocale = Platform.localeName; // Returns locale string in the form 'en_US'
+  mainLogger.info("Locale: $defaultLocale");
+
+  bool localeLoaded = await initializeMessages(defaultLocale);
+  Intl.defaultLocale = defaultLocale;
+  mainLogger.info("Loaded locale: $defaultLocale $localeLoaded");
+}
+
 class TailApp extends StatefulWidget {
   TailApp({super.key}) {
     //Init Plausible
@@ -162,6 +176,7 @@ class TailApp extends StatefulWidget {
       SentryHive.box(settings).put(showDebugging, true);
       SentryHive.box(settings).put(allowAnalytics, false);
       SentryHive.box(settings).put(allowErrorReporting, false);
+      SentryHive.box(settings).put(hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
     }
   }
 
