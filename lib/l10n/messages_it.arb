@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Controllare direttamente la posizione del cambio.",
+  "joyStickPageDescription": "Controlla direttamente la posizione del cambio.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per facilitarne il tocco",
+  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per essere toccate più facilmente",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Fatto",
+  "onboardingCompletedTitle": "Attiva il Bluetooth",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Premi a lungo un'azione da aggiungere ai preferiti",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Codice sorgente",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }
