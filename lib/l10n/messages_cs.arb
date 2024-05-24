@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "název",
+  "sequencesEditName": "zrušení",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStopped": "Zastavil",
+  "triggerWalkingStopped": "Hledání vybavení. Ujistěte se, že je vaše zařízení zapnuté a poblíž",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
     "type": "text",
@@ -543,7 +543,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Klepnutím zobrazíte",
+  "moreManualSubTitle": "Manuál FlutterWings",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -843,7 +843,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Dlouhým stisknutím akci zařadíte mezi oblíbené",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Zdrojový kód",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }
