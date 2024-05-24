@@ -173,14 +173,19 @@ class _TailBlogState extends State<TailBlog> {
         }
       }
       if (await file.exists()) {
-        if (context.mounted) {
-          return Image.file(
-            file,
-            alignment: Alignment.bottomCenter,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-            height: 300,
-          );
+        try {
+          if (context.mounted) {
+            return Image.file(
+              file,
+              alignment: Alignment.bottomCenter,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
+              height: 300,
+            );
+          }
+        } catch (e) {
+          // delete invalid media
+          file.delete();
         }
       }
     }
