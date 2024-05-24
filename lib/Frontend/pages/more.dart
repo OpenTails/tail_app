@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:dio/dio.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +101,7 @@ class _MoreState extends ConsumerState<More> {
         ),
         ListTile(
           title: const Text("Tail Company Wiki"),
-          leading: const Icon(CommunityMaterialIcons.book),
+          leading: const Icon(Icons.menu_book),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchUrl(Uri.parse('https://docs.thetailcompany.com/?utm_source=Tail_App'));
