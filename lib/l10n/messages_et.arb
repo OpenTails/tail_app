@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Viivitage järgmist liigutust [X20X] ms.",
+  "actionsCategoryFast": "Kas olete kindel, et soovite selle toimingu kustutada?",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Seadmega kaetud",
+  "triggerCoverNear": "Käivitage toiming, kattes lähedusanduri",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Tagasi kallutamine",
+  "triggerEarTiltBackward": "Kallutamine tahapoole",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -717,13 +717,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothTitle": "Bluetooth",
+  "onboardingBluetoothTitle": "Nõustuge privaatsuspoliitikaga",
   "@onboardingBluetoothTitle": {
     "description": "Title for bluetooth section on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Nõustuge privaatsuspoliitikaga",
+  "onboardingBluetoothDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse muutmiseks võite pikalt vajutada.",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -882,6 +882,12 @@
   "mandatoryOtaRequired": "Selle rakenduse jaoks on teie varustuse toetamiseks vaja püsivara värskendust",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "Lemmikusse lisamiseks vajutage toimingut pikalt",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are favorited on the actions page",
     "type": "text",
     "placeholders": {}
   }

@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsPage": "O",
+  "settingsPage": "Przechylenie do tyłu",
   "@settingsPage": {
     "description": "The label and title of the settings page",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Akcje niestandardowe umożliwiają tworzenie własnych akcji dla sprzętu. Kliknięcie akcji niestandardowej spowoduje jej odtworzenie. Kliknij ołówek, aby edytować akcję niestandardową.",
+  "sequencesInfoDescription": "Stuknij ołówek, aby wybrać akcję, która ma zostać odtworzona po wystąpieniu zdarzenia. Aby usunąć akcję, naciśnij ikonę Wstecz na ekranie wyboru.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -882,6 +882,12 @@
   "mandatoryOtaRequired": "Aby ta aplikacja mogła obsługiwać Twój sprzęt, wymagana jest aktualizacja oprogramowania sprzętowego",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "Naciśnij i przytrzymaj akcję, aby dodać ją do ulubionych",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are favorited on the actions page",
     "type": "text",
     "placeholders": {}
   }
