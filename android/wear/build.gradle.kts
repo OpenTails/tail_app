@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.codel1417.tailApp"
+    namespace = "com.codel1417.tail_App"
     compileSdk = 34
 
     defaultConfig {
