@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Klepnutím na tužku vyberte akci, kterou chcete přehrát, když k události dojde. Chcete-li akci odebrat, stiskněte ikonu zpět na obrazovce výběru.",
+  "triggerInfoEditActionDescription": "Klepnutím na tužku vyberte akci, kterou chcete přehrát, když k události dojde. Chcete-li akci odebrat, klepněte na ni znovu a odeberte ji. Nezapomeňte uložit pomocí ikony uložit nahoře",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -843,7 +843,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
