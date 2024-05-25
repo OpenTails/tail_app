@@ -48,11 +48,13 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
     var actionsMap: MutableMap<String, String> = mutableMapOf();
     override fun onResume() {
         super.onResume()
+        println("onResume()")
         Wearable.getDataClient(this).addListener(this)
     }
 
     override fun onPause() {
         super.onPause()
+        println("onPause()")
         Wearable.getDataClient(this).removeListener(this)
     }
 
@@ -62,7 +64,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
             if (event.type == DataEvent.TYPE_CHANGED) {
                 event.dataItem.also { item ->
                     if (item.uri.path!!.compareTo("/actions") == 0) {
-                        Log.i("", "Loading Actions")
+                        println("Loading Actions")
                         DataMapItem.fromDataItem(item).dataMap.apply {
                             println(this)
                             val actions: List<String> = this.getString("actions")!!.split("_")
@@ -83,19 +85,25 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
     // Create a data map and put data in it
     private fun increaseCounter(uuid: String) {
         try {
-            Log.i("", "Sending action $uuid")
+            println("Preparing to send action $uuid")
             val putDataReq: PutDataRequest = PutDataMapRequest.create("/triggerMove").run {
                 dataMap.putString("uuid", uuid)
                 asPutDataRequest()
             }
+            println("Sending action $uuid $putDataReq")
             val putDataTask: Task<DataItem> = dataClient.putDataItem(putDataReq)
+            putDataTask.addOnFailureListener { println("Failed to send action") }
+            putDataTask.addOnCanceledListener { println("Failed to send action (Canceled)") }
+            putDataTask.addOnCompleteListener { println("Action Sent") }
+
         } catch (e: Exception) {
-            Log.e("", "Error triggering action $e", e)
+            println("Error triggering action $e")
         }
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        println("onCreate()")
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
@@ -109,6 +117,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
 
     @Composable
     fun WearApp(greetingName: String) {
+        println("WearApp()")
         dataClient = Wearable.getDataClient(LocalContext.current)
 
         _androidTheme {
