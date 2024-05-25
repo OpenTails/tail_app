@@ -34,7 +34,7 @@ class _TailBlogState extends State<TailBlog> {
       firstChild: feedState == FeedState.loading ? const LinearProgressIndicator() : Container(),
       secondChild: GridView.builder(
         controller: widget.controller,
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 500),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 500, mainAxisExtent: 300),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: results.length,
