@@ -179,26 +179,66 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
     actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == name).uuid == e.uuid).forEach(
       (TriggerAction triggerAction) async {
         if (triggerAction.isActive.value) {
-          // 15 second cooldown between moves
+          // 15 second cool-down between moves
           return;
         }
         if (triggerAction.actions.isNotEmpty) {
           String action = triggerAction.actions[_random.nextInt(triggerAction.actions.length)];
           BaseAction? baseAction = ref.read(getActionFromUUIDProvider(action));
+          // This shouldn't be the case but it can happen with custom actions
           if (baseAction == null) {
             return;
           }
-          triggerAction.isActive.value = true;
+          List<BaseAction> actionsToRun = [baseAction];
+          Set<DeviceType> flattenedDeviceTypes = deviceTypes.values.flattened.toSet();
           Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
-          List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceTypes.values.flattened.toSet().contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
-          for (BaseStatefulDevice baseStatefulDevice in List.of(devices)..shuffle()) {
-            if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
-              await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+
+          if (!baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes)) {
+            // find the missing device type
+            // The goal here is if a user selects multiple moves, send a move to all gear
+            Set<DeviceType> missingGearAction = baseAction.deviceCategory.toSet().difference(baseAction.deviceCategory.toSet());
+            List<BaseAction> remainingActions = triggerAction.actions
+                .map((element) => ref.read(getActionFromUUIDProvider(action)))
+                .where(
+                  // filter out missing actions
+                  (element) => element != null,
+                )
+                .map(
+                  // mark remaining not null
+                  (e) => e!,
+                )
+                .where(
+                  // Check if any actions contain the device type of the gear the first action is missing
+                  (element) => element.deviceCategory.toSet().intersection(missingGearAction).isNotEmpty,
+                )
+                .toList();
+            if (remainingActions.isNotEmpty) {
+              BaseAction otherAction = remainingActions[_random.nextInt(remainingActions.length)];
+              actionsToRun.add(otherAction);
             }
-            runAction(baseAction, baseStatefulDevice);
           }
-          await Future.delayed(const Duration(seconds: 15));
-          triggerAction.isActive.value = false;
+          triggerAction.isActive.value = true;
+          List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => flattenedDeviceTypes.contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
+
+          Set<DeviceType> sentDeviceTypes = {};
+          for (BaseAction baseAction in actionsToRun) {
+            for (BaseStatefulDevice baseStatefulDevice in List.of(devices)
+                .where(
+                  (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
+                )
+                .where(
+                  // support sending to next device type if 2 actions+ actions are set
+                  (element) => !sentDeviceTypes.contains(element.baseDeviceDefinition.deviceType),
+                )
+                .toList()
+              ..shuffle()) {
+              if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+                await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+              }
+              runAction(baseAction, baseStatefulDevice);
+              sentDeviceTypes.add(baseStatefulDevice.baseDeviceDefinition.deviceType);
+            }
+          }
         }
       },
     );
@@ -598,13 +638,38 @@ class TriggerActionDef {
 
 @HiveType(typeId: 8)
 class TriggerAction {
+  Timer? _timer;
+  Timer? _periodicTimer;
   @HiveField(1)
   String uuid; //uuid matches triggerActionDef
   @HiveField(2)
   List<String> actions = [];
   ValueNotifier<bool> isActive = ValueNotifier(false);
+  ValueNotifier<double> isActiveProgress = ValueNotifier(0);
 
-  TriggerAction(this.uuid);
+  TriggerAction(this.uuid) {
+    isActive.addListener(
+      () {
+        if (isActive.value) {
+          _timer = Timer(
+            const Duration(seconds: 15),
+            () {
+              isActive.value = false;
+              _periodicTimer?.cancel();
+            },
+          );
+          _periodicTimer = Timer.periodic(
+            const Duration(milliseconds: 500),
+            (Timer timer) {
+              timer.tick;
+              double change = timer.tick / 30;
+              isActiveProgress.value = change;
+            },
+          );
+        }
+      },
+    );
+  }
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is TriggerAction && runtimeType == other.runtimeType && uuid == other.uuid;
