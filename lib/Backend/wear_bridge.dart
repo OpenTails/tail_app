@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/sensors.dart';
 
@@ -11,6 +12,7 @@ import 'move_lists.dart';
 
 part 'wear_bridge.g.dart';
 
+final Logger _wearLogger = Logger('Wear');
 FlutterWearOsConnectivity _flutterWearOsConnectivity = FlutterWearOsConnectivity();
 
 @Riverpod(keepAlive: true)
@@ -19,6 +21,7 @@ Future<void> initWear(InitWearRef ref) async {
   //List<WearOsDevice> _connectedDevices = await _flutterWearOsConnectivity.getConnectedDevices();
   _flutterWearOsConnectivity.dataChanged(pathURI: Uri(scheme: "wear", host: "*", path: "/triggerMove")).expand((element) => element).listen(
     (dataEvent) {
+      _wearLogger.info("Data Changed $dataEvent");
       if (!dataEvent.isDataValid || dataEvent.type != DataEventType.changed) {
         return;
       }
@@ -41,17 +44,19 @@ Future<void> initWear(InitWearRef ref) async {
 }
 
 Future<void> updateWearActions(List<FavoriteAction> favoriteActions, Ref ref) async {
-  Iterable<BaseAction> allActions = favoriteActions.map(
-    (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)) as BaseAction,
-  );
-  Map<String, String> favoriteMap = Map.fromEntries(allActions.map((e) => MapEntry(e.uuid, e.name)));
-  DataItem? _dataItem = await _flutterWearOsConnectivity.syncData(
-      path: "/actions",
-      data: Map.fromEntries(
-        [
-          MapEntry("actions", favoriteMap.values.toList()),
-          MapEntry("uuid", favoriteMap.keys.toList()),
-        ],
-      ),
-      isUrgent: false);
+  try {
+    Iterable<BaseAction> allActions = favoriteActions.map(
+      (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)) as BaseAction,
+    );
+    Map<String, String> favoriteMap = Map.fromEntries(allActions.map((e) => MapEntry(e.uuid, e.name)));
+    Map<String, String> map = Map.fromEntries(
+      [
+        MapEntry("actions", favoriteMap.values.join("_")),
+        MapEntry("uuid", favoriteMap.keys.join("_")),
+      ],
+    );
+    DataItem? _dataItem = await _flutterWearOsConnectivity.syncData(path: "/actions", data: map, isUrgent: false);
+  } catch (e, s) {
+    _wearLogger.severe("Unable to send favorite actions to watch", e, s);
+  }
 }

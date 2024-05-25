@@ -8,6 +8,7 @@ package com.codel1417.tailApp.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -63,8 +64,8 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
                     if (item.uri.path!!.compareTo("/actions") == 0) {
                         DataMapItem.fromDataItem(item).dataMap.apply {
                             println(this)
-                            val actions: Array<String> = this.getStringArray("actions")!!
-                            val uuids: Array<String> = this.getStringArray("uuid")!!
+                            val actions: List<String> = this.getString("actions")!!.split("_")
+                            val uuids: List<String> = this.getString("uuid")!!.split("_")
                             for (nums in 0..actions.size) {
                                 actionsMap[uuids[nums]] = actions[nums]
                             }
@@ -80,11 +81,15 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
 
     // Create a data map and put data in it
     private fun increaseCounter(uuid: String) {
-        val putDataReq: PutDataRequest = PutDataMapRequest.create("/triggerMove").run {
-            dataMap.putString("uuid", uuid)
-            asPutDataRequest()
+        try {
+            val putDataReq: PutDataRequest = PutDataMapRequest.create("/triggerMove").run {
+                dataMap.putString("uuid", uuid)
+                asPutDataRequest()
+            }
+            val putDataTask: Task<DataItem> = dataClient.putDataItem(putDataReq)
+        } catch (e: Exception) {
+            Log.e("", "Error triggering action $e", e)
         }
-        val putDataTask: Task<DataItem> = dataClient.putDataItem(putDataReq)
     }
 
 
