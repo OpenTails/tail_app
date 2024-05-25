@@ -19,6 +19,9 @@ Future<void> initWear(InitWearRef ref) async {
   //List<WearOsDevice> _connectedDevices = await _flutterWearOsConnectivity.getConnectedDevices();
   _flutterWearOsConnectivity.dataChanged(pathURI: Uri(scheme: "wear", host: "*", path: "/triggerMove")).expand((element) => element).listen(
     (dataEvent) {
+      if (!dataEvent.isDataValid || dataEvent.type != DataEventType.changed) {
+        return;
+      }
       Map<String, dynamic> mapData = dataEvent.dataItem.mapData;
       bool containsKey = mapData.containsKey("uuid");
       if (containsKey) {
