@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Retardez le prochain coup pendant {howMany} ms.",
+  "sequenceEditListDelayLabel": "Retardez le prochain coup de {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -105,7 +105,7 @@
       }
     }
   },
-  "actionsNoBluetooth": "Le Bluetooth n'est pas disponible",
+  "actionsNoBluetooth": "Êtes-vous sûr de vouloir supprimer cette action ?",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Secouer",
+  "triggerShakeTitle": "Frustré",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Appuyez sur le crayon pour sélectionner l'action à jouer lorsque l'événement se produit. Pour supprimer une action, appuyez sur l'icône de retour sur l'écran de sélection.",
+  "triggerInfoEditActionDescription": "Appuyez sur le crayon pour sélectionner l'action à jouer lorsque l'événement se produit. Pour supprimer une action, appuyez à nouveau sur l'action pour la supprimer. N'oubliez pas de sauvegarder en utilisant l'icône de sauvegarde en haut",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Accepter la politique de confidentialité",
+  "onboardingCompletedTitle": "Journal des modifications du micrologiciel",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
