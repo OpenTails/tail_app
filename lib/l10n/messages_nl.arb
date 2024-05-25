@@ -1,5 +1,5 @@
 {
-  "title": "Het staartbedrijf",
+  "title": "Het Staartbedrijf",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Vleugels",
+  "deviceTypeWings": "Staart",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -405,7 +405,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Uitrusting in de buurt",
+  "triggerProximityTitle": "Instellingen",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Om een actie te verwijderen, drukt u op het terug-pictogram op het selectiescherm.",
+  "triggerInfoEditActionDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Om een actie te verwijderen, tikt u nogmaals op de actie om deze te verwijderen. Vergeet niet op te slaan via het opslagpictogram bovenaan",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang ingedrukt houden om deze opnieuw te rangschikken.",
+  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang indrukken om deze opnieuw te rangschikken.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
