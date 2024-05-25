@@ -544,9 +544,9 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
     }
     subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
       sensorsLogger.fine("Volume press detected:${event.name}");
-      if (event == HardwareButton.volume_down) {
+      if (event == HardwareButton.volume_up) {
         sendCommands("Volume Up", ref);
-      } else if (event == HardwareButton.volume_up) {
+      } else if (event == HardwareButton.volume_down) {
         sendCommands("Volume Down", ref);
       }
     });
@@ -651,18 +651,26 @@ class TriggerAction {
     isActive.addListener(
       () {
         if (isActive.value) {
+          isActiveProgress.value = 0.01;
           _timer = Timer(
             const Duration(seconds: 15),
             () {
               isActive.value = false;
               _periodicTimer?.cancel();
+              _timer?.cancel();
+              isActiveProgress.value = 0;
+              _periodicTimer = null;
+              _timer = null;
             },
           );
           _periodicTimer = Timer.periodic(
             const Duration(milliseconds: 500),
             (Timer timer) {
               timer.tick;
-              double change = timer.tick / 30;
+              double change = (timer.tick + 1) / 30;
+              if (change > 1) {
+                change = 1;
+              }
               isActiveProgress.value = change;
             },
           );

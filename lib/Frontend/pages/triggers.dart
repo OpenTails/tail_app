@@ -1,5 +1,4 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
@@ -67,6 +66,7 @@ class _TriggersState extends ConsumerState<Triggers> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
+                Trigger trigger = triggersList[index];
                 return ListTile(
                   onTap: () {
                     showModalBottomSheet(
@@ -87,16 +87,27 @@ class _TriggersState extends ConsumerState<Triggers> {
                       },
                     ).whenComplete(() => setState(() {}));
                   },
-                  title: Text(triggersList[index].triggerDefinition!.name),
+                  title: Text(trigger.triggerDefinition!.name),
                   subtitle: MultiValueListenableBuilder(
                       builder: (BuildContext context, List<dynamic> values, Widget? child) {
                         return AnimatedCrossFade(
-                          firstChild: Text(triggersList[index].triggerDefinition!.description),
+                          firstChild: Text(trigger.triggerDefinition!.description),
                           secondChild: MultiValueListenableBuilder(
-                            valueListenables: triggersList[index].actions.map((e) => e.isActiveProgress).toList(),
+                            valueListenables: trigger.actions.map((e) => e.isActiveProgress).toList(),
                             builder: (context, values, child) {
-                              return LinearProgressIndicator(
-                                value: values.firstWhereOrNull((element) => element < 1 && element > 0),
+                              return TweenAnimationBuilder<double>(
+                                duration: const Duration(milliseconds: 250),
+                                curve: Curves.easeInOut,
+                                tween: Tween<double>(
+                                  begin: 0,
+                                  end: values.map((e) => e as double).firstWhere(
+                                    orElse: () => 0,
+                                    (element) {
+                                      return element > 0 && element <= 1;
+                                    },
+                                  ),
+                                ),
+                                builder: (context, value, _) => LinearProgressIndicator(value: value),
                               );
                             },
                           ),
@@ -104,16 +115,16 @@ class _TriggersState extends ConsumerState<Triggers> {
                           duration: animationTransitionDuration,
                         );
                       },
-                      valueListenables: triggersList[index].actions.map((e) => e.isActive).toList()),
+                      valueListenables: trigger.actions.map((e) => e.isActive).toList()),
                   leading: ListenableBuilder(
-                    listenable: triggersList[index],
+                    listenable: trigger,
                     builder: (BuildContext context, Widget? child) {
                       return Switch(
-                        value: triggersList[index].enabled,
+                        value: trigger.enabled,
                         onChanged: (bool value) {
                           setState(
                             () {
-                              triggersList[index].enabled = value;
+                              trigger.enabled = value;
                               ref.watch(triggerListProvider.notifier).store();
                             },
                           );
@@ -207,7 +218,25 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
               builder: (BuildContext context, value, Widget? child) {
                 return AnimatedCrossFade(
                   duration: animationTransitionDuration,
-                  secondChild: const LinearProgressIndicator(),
+                  secondChild: MultiValueListenableBuilder(
+                    valueListenables: widget.trigger.actions.map((e) => e.isActiveProgress).toList(),
+                    builder: (context, values, child) {
+                      return TweenAnimationBuilder<double>(
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeInOut,
+                        tween: Tween<double>(
+                          begin: 0,
+                          end: values.map((e) => e as double).firstWhere(
+                            orElse: () => 0,
+                            (element) {
+                              return element > 0 && element <= 1;
+                            },
+                          ),
+                        ),
+                        builder: (context, value, _) => LinearProgressIndicator(value: value),
+                      );
+                    },
+                  ),
                   firstChild: Builder(builder: (context) {
                     String text = "";
                     for (String actionUUID in e.actions) {
