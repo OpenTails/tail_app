@@ -19,41 +19,37 @@ final actionRegistryLogger = Logger('ActionRegistry');
 @immutable
 class ActionRegistry {
   static Set<BaseAction> allCommands = {
-    CommandAction("Slow 1", "TAILS1", [DeviceType.tail, DeviceType.wings], ActionCategory.calm, "TAILS1 END", "c53e980e-899e-4148-a13e-f57a8f9707f4"),
-    CommandAction("Slow 2", "TAILS2", [DeviceType.tail, DeviceType.wings], ActionCategory.calm, "TAILS2 END", "eb1bdfe7-d374-4e97-943a-13e89f27ddcd"),
-    CommandAction("Slow 3", "TAILS3", [DeviceType.tail, DeviceType.wings], ActionCategory.calm, "TAILS3 END", "6937b9af-3ff7-43fb-ae62-a403e5dfaf95"),
-    CommandAction("Fast", "TAILFA", [DeviceType.tail, DeviceType.wings], ActionCategory.fast, "TAILFA END", "a04b558f-0ad5-410f-8e39-8f5c594791d2"),
-    CommandAction("Short", "TAILSH", [DeviceType.tail, DeviceType.wings], ActionCategory.fast, "TAILSH END", "05a4c47b-45ee-4da8-bec2-4a46f4e04a7f"),
-    CommandAction("Happy", "TAILHA", [DeviceType.tail, DeviceType.wings], ActionCategory.fast, "TAILHA END", "86b13d13-b09c-46ba-a887-b40d8118b00a"),
-    CommandAction("Erect", "TAILER", [DeviceType.tail, DeviceType.wings], ActionCategory.fast, "TAILER END", "5b04ca3d-a22a-4aff-8f40-99363248fcaa"),
-    CommandAction("Pulse", "TAILEP", [DeviceType.tail, DeviceType.wings], ActionCategory.tense, "TAILEP END", "39bbe39d-aa92-4189-ac90-4bb821a59f5e"),
-    CommandAction("Tremble 1", "TAILT1", [DeviceType.tail, DeviceType.wings], ActionCategory.tense, "TAILT1 END", "8cc3fc60-b8d2-4f22-810a-1e042d3984f7"),
-    CommandAction("Tremble 2", "TAILT2", [DeviceType.tail, DeviceType.wings], ActionCategory.tense, "TAILT2 END", "123557a2-5489-43da-99e2-da37a36f055a"),
-    CommandAction("Tremble 3", "TAILET", [DeviceType.tail, DeviceType.wings], ActionCategory.tense, "TAILET END", "4909d4c2-0054-4f16-9589-6273ef6bf6c9"),
-    CommandAction("LEDs off", "LEDOFF", [DeviceType.tail], ActionCategory.glowtip, null, "6b2a7fae-b58c-43f3-81bf-070aa21c2242"),
-    CommandAction("Rectangle wave", "LEDREC", [DeviceType.tail], ActionCategory.glowtip, null, "34269c91-90bd-4a34-851d-d49daa6ac863"),
-    CommandAction("Triangle wave", "LEDTRI", [DeviceType.tail], ActionCategory.glowtip, null, "64142e0b-4cc0-4b1e-845f-9c560875f993"),
-    CommandAction("Sawtooth wave", "LEDSAW", [DeviceType.tail], ActionCategory.glowtip, null, "047b84ad-3eb8-4d9c-b59b-13186cf965ca"),
-    CommandAction("SOS", "LEDSOS", [DeviceType.tail], ActionCategory.glowtip, null, "66164945-840f-4302-b27c-e7a7623bf475"),
-    CommandAction("Beacon", "LEDBEA", [DeviceType.tail], ActionCategory.glowtip, null, "4955a936-7703-4ce6-8d4a-b18857c0ea0a"),
-    CommandAction("Flame", "LEDFLA", [DeviceType.tail], ActionCategory.glowtip, null, "e46566b4-1071-4866-815b-1aefbf06b573"),
-    //CommandAction("Left Twist", "LETWIST", [DeviceType.ears], ActionCategory.ears, "LETWIST END", "0d5a9dfa-38f2-4b09-9be1-cd36236a03b0"),
-    //CommandAction("Right Twist", "RITWIST", [DeviceType.ears], ActionCategory.ears, "RITWIST END", "9a6be63e-36f5-4f50-88b6-7adf2680aa5c"),
-    //CommandAction("Both Twist", "BOTWIST", [DeviceType.ears], ActionCategory.ears, "BOTWIST END", "2bc43e6c-65e7-4a35-834e-b2c31b8f83fe"),
-    //CommandAction("Home Ears", "EARHOME", [DeviceType.ears], ActionCategory.ears, "EARHOME END", "cdd2e0ac-97a2-41d7-9ece-8d4dce4829d7"),
-    EarsMoveList.builtIn(
-      "Ears Wide",
-      "d8384bcf-31ed-4b5d-a25a-da3a2f96e406",
-      [
+    CommandAction(name: "Slow 1", command: "TAILS1", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.calm, response: "TAILS1 END", uuid: "c53e980e-899e-4148-a13e-f57a8f9707f4"),
+    CommandAction(name: "Slow 2", command: "TAILS2", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.calm, response: "TAILS2 END", uuid: "eb1bdfe7-d374-4e97-943a-13e89f27ddcd"),
+    CommandAction(name: "Slow 3", command: "TAILS3", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.calm, response: "TAILS3 END", uuid: "6937b9af-3ff7-43fb-ae62-a403e5dfaf95"),
+    CommandAction(name: "Fast", command: "TAILFA", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.fast, response: "TAILFA END", uuid: "a04b558f-0ad5-410f-8e39-8f5c594791d2"),
+    CommandAction(name: "Short", command: "TAILSH", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.fast, response: "TAILSH END", uuid: "05a4c47b-45ee-4da8-bec2-4a46f4e04a7f"),
+    CommandAction(name: "Happy", command: "TAILHA", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.fast, response: "TAILHA END", uuid: "86b13d13-b09c-46ba-a887-b40d8118b00a"),
+    CommandAction(name: "Erect", command: "TAILER", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.fast, response: "TAILER END", uuid: "5b04ca3d-a22a-4aff-8f40-99363248fcaa"),
+    CommandAction(name: "Pulse", command: "TAILEP", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.tense, response: "TAILEP END", uuid: "39bbe39d-aa92-4189-ac90-4bb821a59f5e"),
+    CommandAction(name: "Tremble 1", command: "TAILT1", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.tense, response: "TAILT1 END", uuid: "8cc3fc60-b8d2-4f22-810a-1e042d3984f7"),
+    CommandAction(name: "Tremble 2", command: "TAILT2", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.tense, response: "TAILT2 END", uuid: "123557a2-5489-43da-99e2-da37a36f055a"),
+    CommandAction(name: "Tremble 3", command: "TAILET", deviceCategory: [DeviceType.tail, DeviceType.wings], actionCategory: ActionCategory.tense, response: "TAILET END", uuid: "4909d4c2-0054-4f16-9589-6273ef6bf6c9"),
+    CommandAction(name: "LEDs off", command: "LEDOFF", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.glowtip, uuid: "6b2a7fae-b58c-43f3-81bf-070aa21c2242"),
+    CommandAction(name: "Rectangle wave", command: "LEDREC", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.glowtip, uuid: "34269c91-90bd-4a34-851d-d49daa6ac863"),
+    CommandAction(name: "Triangle wave", command: "LEDTRI", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.glowtip, uuid: "64142e0b-4cc0-4b1e-845f-9c560875f993"),
+    CommandAction(name: "Sawtooth wave", command: "LEDSAW", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.glowtip, uuid: "047b84ad-3eb8-4d9c-b59b-13186cf965ca"),
+    CommandAction(name: "SOS", command: "LEDSOS", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.glowtip, uuid: "66164945-840f-4302-b27c-e7a7623bf475"),
+    CommandAction(name: "Beacon", command: "LEDBEA", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.glowtip, uuid: "4955a936-7703-4ce6-8d4a-b18857c0ea0a"),
+    CommandAction(name: "Flame", command: "LEDFLA", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.glowtip, uuid: "e46566b4-1071-4866-815b-1aefbf06b573"),
+    EarsMoveList(
+      name: "Ears Wide",
+      uuid: "d8384bcf-31ed-4b5d-a25a-da3a2f96e406",
+      commandMoves: [
         CommandAction.hiddenEars("BOTWIST 30", "BOTWIST END"),
         Move.delay(100),
         CommandAction.hiddenEars("EARHOME", "EARHOME END"),
       ],
     ),
-    EarsMoveList.builtIn(
-      "Double Left",
-      "0d5a9dfa-38f2-4b09-9be1-cd36236a03b0",
-      [
+    EarsMoveList(
+      name: "Double Left",
+      uuid: "0d5a9dfa-38f2-4b09-9be1-cd36236a03b0",
+      commandMoves: [
         CommandAction.hiddenEars("LETWIST 20", "LETWIST END"),
         Move.delay(25),
         CommandAction.hiddenEars("LETWIST 90", "LETWIST END"),
@@ -62,10 +58,10 @@ class ActionRegistry {
         CommandAction.hiddenEars("EARHOME", "EARHOME END"),
       ],
     ),
-    EarsMoveList.builtIn(
-      "Double Right",
-      "9a6be63e-36f5-4f50-88b6-7adf2680aa5c",
-      [
+    EarsMoveList(
+      name: "Double Right",
+      uuid: "9a6be63e-36f5-4f50-88b6-7adf2680aa5c",
+      commandMoves: [
         CommandAction.hiddenEars("RITWIST 20", "RITWIST END"),
         Move.delay(25),
         CommandAction.hiddenEars("RITWIST 90", "RITWIST END"),
@@ -74,48 +70,48 @@ class ActionRegistry {
         CommandAction.hiddenEars("EARHOME", "EARHOME END"),
       ],
     ),
-    EarsMoveList.builtIn(
-      "Left Listen",
-      "83590dc9-f9de-4134-bcc7-8157a62a33ef",
-      [
+    EarsMoveList(
+      name: "Left Listen",
+      uuid: "83590dc9-f9de-4134-bcc7-8157a62a33ef",
+      commandMoves: [
         CommandAction.hiddenEars("LETWIST 20", "LETWIST END"),
         CommandAction.hiddenEars("RITWIST 100", "RITWIST END"),
         Move.delay(100),
         CommandAction.hiddenEars("EARHOME", "EARHOME END"),
       ],
     ),
-    EarsMoveList.builtIn(
-      "Right Listen",
-      "007c52d3-242a-4e27-bccc-b4b737502bfb",
-      [
+    EarsMoveList(
+      name: "Right Listen",
+      uuid: "007c52d3-242a-4e27-bccc-b4b737502bfb",
+      commandMoves: [
         CommandAction.hiddenEars("RITWIST 20", "RITWIST END"),
         CommandAction.hiddenEars("LETWIST 100", "LETWIST END"),
         Move.delay(100),
         CommandAction.hiddenEars("EARHOME", "EARHOME END"),
       ],
     ),
-    EarsMoveList.builtIn(
-      "Flick Right",
-      "769dbe84-3a6e-440d-8b20-234983d36cb6",
-      [
+    EarsMoveList(
+      name: "Flick Right",
+      uuid: "769dbe84-3a6e-440d-8b20-234983d36cb6",
+      commandMoves: [
         CommandAction.hiddenEars("RITWIST 30", "RITWIST END"),
         Move.delay(100),
         CommandAction.hiddenEars("EARHOME", "EARHOME END"),
       ],
     ),
-    EarsMoveList.builtIn(
-      "Flick Left",
-      "23144b42-6d3c-4822-8510-ec03c63c7808",
-      [
+    EarsMoveList(
+      name: "Flick Left",
+      uuid: "23144b42-6d3c-4822-8510-ec03c63c7808",
+      commandMoves: [
         CommandAction.hiddenEars("LETWIST 30", "LETWIST END"),
         Move.delay(100),
         CommandAction.hiddenEars("EARHOME", "EARHOME END"),
       ],
     ),
-    EarsMoveList.builtIn(
-      "Hewo",
-      "fdaff205-0a51-46a0-a5fc-4ea283dce079",
-      [
+    EarsMoveList(
+      name: "Hewo",
+      uuid: "fdaff205-0a51-46a0-a5fc-4ea283dce079",
+      commandMoves: [
         CommandAction.hiddenEars("LETWIST 30", "LETWIST END"),
         Move.delay(50),
         CommandAction.hiddenEars("RITWIST 30", "RITWIST END"),

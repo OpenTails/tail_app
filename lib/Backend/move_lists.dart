@@ -146,23 +146,13 @@ class MoveList extends BaseAction {
   @HiveField(6)
   double repeat = 1;
 
-  MoveList(super.name, super.deviceCategory, super.actionCategory, super.uuid) {
-    super.actionCategory = ActionCategory.sequence;
-  }
-
-  MoveList.builtIn(super.name, super.deviceCategory, super.actionCategory, super.uuid, this.moves);
+  MoveList({required super.name, required super.deviceCategory, super.actionCategory = ActionCategory.sequence, required super.uuid, this.moves = const []});
 }
 
 class EarsMoveList extends MoveList {
   List<Object> commandMoves = [];
 
-  EarsMoveList(super.name, super.deviceCategory, super.actionCategory, super.uuid);
-
-  factory EarsMoveList.builtIn(name, uuid, commandMoves) {
-    var earsMoveList = EarsMoveList(name, [DeviceType.ears], ActionCategory.hidden, uuid);
-    earsMoveList.commandMoves = commandMoves;
-    return earsMoveList;
-  }
+  EarsMoveList({required super.name, super.deviceCategory = const [DeviceType.ears], required super.uuid, super.actionCategory = ActionCategory.hidden, required this.commandMoves});
 }
 
 @Riverpod(keepAlive: true)

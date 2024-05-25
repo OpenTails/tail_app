@@ -56,7 +56,9 @@ class BaseAction {
   @HiveField(4)
   final String uuid;
 
-  BaseAction(this.name, this.deviceCategory, this.actionCategory, this.uuid);
+  final Map<DeviceType, String> nameAlias;
+
+  BaseAction({required this.name, required this.deviceCategory, required this.actionCategory, required this.uuid, this.nameAlias = const {}});
 
   @override
   String toString() {
@@ -74,9 +76,16 @@ class CommandAction extends BaseAction {
   final String command;
   final String? response;
 
-  CommandAction(super.name, this.command, super.deviceCategory, super.actionCategory, this.response, super.uuid);
+  CommandAction({
+    required this.command,
+    this.response,
+    required super.name,
+    required super.deviceCategory,
+    required super.actionCategory,
+    required super.uuid,
+  });
 
   factory CommandAction.hiddenEars(String command, String response) {
-    return CommandAction(command, command, [DeviceType.ears], ActionCategory.hidden, response, const Uuid().v4());
+    return CommandAction(command: command, response: response, deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: const Uuid().v4(), name: command);
   }
 }
