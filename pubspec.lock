@@ -637,10 +637,11 @@ packages:
   flutter_wear_os_connectivity:
     dependency: "direct main"
     description:
-      name: flutter_wear_os_connectivity
-      sha256: e94b7c2b2ade5b5abbda8137adab48d98b418660bf292f5e729797130364a9c9
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "892502783a8428c7e001b53c36d8777c2b240054"
+      url: "https://github.com/Codel1417/flutter_wear_os_connectivity"
+    source: git
     version: "1.0.0"
   flutter_web_plugins:
     dependency: transitive
