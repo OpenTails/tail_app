@@ -65,6 +65,18 @@ class BaseAction {
     return 'BaseAction{name: $name, deviceCategory: $deviceCategory, actionCategory: $actionCategory}';
   }
 
+  // Priority is Wings -> Ears -> Tail -> default
+  String getName(Set<DeviceType> connectedDeviceTypes) {
+    if (connectedDeviceTypes.contains(DeviceType.wings) && deviceCategory.contains(DeviceType.wings) && nameAlias.containsKey(DeviceType.wings)) {
+      return nameAlias[DeviceType.wings]!;
+    } else if (connectedDeviceTypes.contains(DeviceType.ears) && deviceCategory.contains(DeviceType.ears) && nameAlias.containsKey(DeviceType.ears)) {
+      return nameAlias[DeviceType.ears]!;
+    } else if (connectedDeviceTypes.contains(DeviceType.tail) && deviceCategory.contains(DeviceType.tail) && nameAlias.containsKey(DeviceType.tail)) {
+      return nameAlias[DeviceType.tail]!;
+    }
+    return name;
+  }
+
   @override
   bool operator ==(Object other) => identical(this, other) || other is BaseAction && runtimeType == other.runtimeType && uuid == other.uuid;
 
