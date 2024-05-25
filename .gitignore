@@ -57,3 +57,5 @@ ios/fastlane/report.xml
 ios/Runner.app.dSYM.zip
 /symbols/
 /pub_cache/
+
+android/build/
