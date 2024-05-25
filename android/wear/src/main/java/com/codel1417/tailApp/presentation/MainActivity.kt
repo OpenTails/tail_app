@@ -119,9 +119,9 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
                     // DecayAnimationSpec.
                 )
             ) {
-                item {Text(text = "Favorite Actionsf")}
-                item { TextItem(contentModifier, "Slow 1","") }
-                item { TextItem(contentModifier, "Slow 2","") }
+                item { Text(text = "Favorite Actions") }
+                item { TextItem(contentModifier, "Slow 1", "") }
+                item { TextItem(contentModifier, "Slow 2", "") }
                 actionsMap.map {
                     item { TextItem(contentModifier, it.key, it.value) }
                 }

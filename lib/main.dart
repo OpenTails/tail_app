@@ -20,6 +20,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/action_registry.dart';
+import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
 
 import 'Backend/Definitions/Action/base_action.dart';
@@ -313,6 +314,8 @@ class _EagerInitialization extends ConsumerWidget {
     //ref.watch(moveListsProvider);
     //ref.watch(favoriteActionsProvider);
     ref.watch(appShortcutsProvider);
+    ref.watch(initWearProvider);
+
     return child;
   }
 }
