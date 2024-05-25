@@ -62,6 +62,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
             if (event.type == DataEvent.TYPE_CHANGED) {
                 event.dataItem.also { item ->
                     if (item.uri.path!!.compareTo("/actions") == 0) {
+                        Log.i("", "Loading Actions")
                         DataMapItem.fromDataItem(item).dataMap.apply {
                             println(this)
                             val actions: List<String> = this.getString("actions")!!.split("_")

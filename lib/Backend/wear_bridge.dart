@@ -18,7 +18,13 @@ FlutterWearOsConnectivity _flutterWearOsConnectivity = FlutterWearOsConnectivity
 @Riverpod(keepAlive: true)
 Future<void> initWear(InitWearRef ref) async {
   _flutterWearOsConnectivity.configureWearableAPI();
-  //List<WearOsDevice> _connectedDevices = await _flutterWearOsConnectivity.getConnectedDevices();
+  _flutterWearOsConnectivity
+      .getConnectedDevices()
+      .asStream()
+      .expand(
+        (element) => element,
+      )
+      .listen((event) => _wearLogger.info("Connected Wear Device$event"));
   _flutterWearOsConnectivity.dataChanged(pathURI: Uri(scheme: "wear", host: "*", path: "/triggerMove")).expand((element) => element).listen(
     (dataEvent) {
       _wearLogger.info("Data Changed $dataEvent");
