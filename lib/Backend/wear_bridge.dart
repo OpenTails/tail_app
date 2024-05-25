@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
 import 'package:logging/logging.dart';
@@ -14,9 +16,15 @@ part 'wear_bridge.g.dart';
 
 final Logger _wearLogger = Logger('Wear');
 FlutterWearOsConnectivity _flutterWearOsConnectivity = FlutterWearOsConnectivity();
+StreamSubscription<DataEvent>? _dataChangedStreamSubscription;
+StreamSubscription<WearOSMessage>? _messagereceivedStreamSubscription;
+StreamSubscription<CapabilityInfo>? capabilityChangedStreamSubscription;
 
 @Riverpod(keepAlive: true)
 Future<void> initWear(InitWearRef ref) async {
+  if (!await _flutterWearOsConnectivity.isSupported()) {
+    return;
+  }
   _flutterWearOsConnectivity.configureWearableAPI();
   _flutterWearOsConnectivity
       .getConnectedDevices()
@@ -24,10 +32,11 @@ Future<void> initWear(InitWearRef ref) async {
       .expand(
         (element) => element,
       )
-      .listen((event) => _wearLogger.info("Connected Wear Device$event"));
-  _flutterWearOsConnectivity.dataChanged(pathURI: Uri(scheme: "wear", host: "*", path: "/triggerMove")).expand((element) => element).listen(
+      .listen((event) => _wearLogger.info("Connected Wear Device${event.name}"));
+
+  _dataChangedStreamSubscription = _flutterWearOsConnectivity.dataChanged().expand((element) => element).listen(
     (dataEvent) {
-      _wearLogger.info("Data Changed $dataEvent");
+      _wearLogger.info("dataChanged $dataEvent");
       if (!dataEvent.isDataValid || dataEvent.type != DataEventType.changed) {
         return;
       }
@@ -46,6 +55,12 @@ Future<void> initWear(InitWearRef ref) async {
       }
     },
   );
+  _messagereceivedStreamSubscription = _flutterWearOsConnectivity.messageReceived().listen(
+        (message) => _wearLogger.info("messageReceived $message"),
+      );
+  capabilityChangedStreamSubscription = _flutterWearOsConnectivity.capabilityChanged(capabilityPathURI: Uri(scheme: "wear", host: "*", path: "/*")).listen((event) => _wearLogger.info(
+        "capabilityChanged $event",
+      ));
   updateWearActions(ref.read(favoriteActionsProvider), ref);
 }
 
@@ -61,7 +76,7 @@ Future<void> updateWearActions(List<FavoriteAction> favoriteActions, Ref ref) as
         MapEntry("uuid", favoriteMap.keys.join("_")),
       ],
     );
-    DataItem? _dataItem = await _flutterWearOsConnectivity.syncData(path: "/actions", data: map, isUrgent: false);
+    DataItem? _dataItem = await _flutterWearOsConnectivity.syncData(path: "/actions", data: map, isUrgent: true);
   } catch (e, s) {
     _wearLogger.severe("Unable to send favorite actions to watch", e, s);
   }
