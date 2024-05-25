@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "Zodpovědné Wagging",
+  "moreManualResponsibleWaggingTitle": "Naklonění vpřed",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
