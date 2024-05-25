@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Informe automático de errores",
+  "settingsErrorReportingToggleTitle": "Hace que las tarjetas de acción sean más grandes para tocarlas más fácilmente.",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -339,7 +339,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Escaneando en busca de equipo. Asegúrate de que tu equipo esté encendido y cerca",
+  "scanDevicesScanMessage": "Buscando equipo. Asegúrate de que tu equipo esté encendido y cerca",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, presione el ícono Atrás en la pantalla de selección.",
+  "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, toque la acción nuevamente para eliminarla. No olvides guardar usando el ícono de guardar en la parte superior.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
