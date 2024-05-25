@@ -82,6 +82,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
     // Create a data map and put data in it
     private fun increaseCounter(uuid: String) {
         try {
+            Log.i("", "Sending action $uuid")
             val putDataReq: PutDataRequest = PutDataMapRequest.create("/triggerMove").run {
                 dataMap.putString("uuid", uuid)
                 asPutDataRequest()
@@ -107,7 +108,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
 
     @Composable
     fun WearApp(greetingName: String) {
-        val dataClient: DataClient = Wearable.getDataClient(LocalContext.current)
+        dataClient = Wearable.getDataClient(LocalContext.current)
 
         _androidTheme {
             // Hoist the list state to remember scroll position across compositions.
