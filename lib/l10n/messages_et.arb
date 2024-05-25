@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Teisalda rühmad",
+  "manageDevicesDisconnect": "Eemalda toimingud",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Kallutamine tahapoole",
+  "triggerEarTiltBackward": "Tagasi kallutamine",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -561,7 +561,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "See režiim peatab ekraani väljalülitamise, kui teie varustus on ühendatud",
+  "settingsKeepScreenOnToggleSubTitle": "See režiim ei lülitu ekraani välja, kui teie varustus on ühendatud",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Lemmikusse lisamiseks vajutage toimingut pikalt",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Lähtekood",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

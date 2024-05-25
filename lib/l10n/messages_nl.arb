@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang indrukken om deze opnieuw te rangschikken.",
+  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang ingedrukt houden om deze opnieuw te rangschikken.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -867,7 +867,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeChangelogLinkTitle": "Wijzigingslog",
+  "homeChangelogLinkTitle": "Update uitrusting",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
     "type": "text",
@@ -879,7 +879,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Er is een firmware-update vereist om deze app je uitrusting te laten ondersteunen",
+  "mandatoryOtaRequired": "Voor deze app is een firmware-update vereist om je uitrusting te ondersteunen",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Druk lang op een actie om te favoriet te maken",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Broncode",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

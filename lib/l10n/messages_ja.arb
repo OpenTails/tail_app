@@ -369,7 +369,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "近接センサーを覆うことでアクションをトリガーする",
+  "triggerShakeTitle": "音量ボタン",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "DigiTail マニュアル",
+  "moreManualDigitailTitle": "デジテールマニュアル",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "お気に入りに追加するアクションを長押しします",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "ソースコード",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

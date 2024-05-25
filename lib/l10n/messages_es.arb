@@ -339,7 +339,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Buscando equipo. Asegúrate de que tu equipo esté encendido y cerca",
+  "scanDevicesScanMessage": "Escaneando en busca de equipo. Asegúrate de que tu equipo esté encendido y cerca",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Mantenga presionada una acción para marcarla como favorita",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Código fuente",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }
