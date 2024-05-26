@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "link utili",
+  "moreUsefulLinksTitle": "Tocca per visualizzare",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Controlla direttamente la posizione del cambio.",
+  "joyStickPageDescription": "Controllare direttamente la posizione del cambio.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tocca la matita per selezionare l'azione da eseguire quando si verifica l'evento. Per rimuovere un'azione, premere l'icona Indietro nella schermata di selezione.",
+  "triggerInfoEditActionDescription": "Tocca la matita per selezionare l'azione da eseguire quando si verifica l'evento. Per rimuovere un'azione, tocca nuovamente l'azione per rimuoverla. Non dimenticare di salvare utilizzando l'icona di salvataggio in alto",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
