@@ -22,46 +22,54 @@ StreamSubscription<CapabilityInfo>? capabilityChangedStreamSubscription;
 
 @Riverpod(keepAlive: true)
 Future<void> initWear(InitWearRef ref) async {
-  if (!await _flutterWearOsConnectivity.isSupported()) {
-    return;
-  }
-  _flutterWearOsConnectivity.configureWearableAPI();
-  _flutterWearOsConnectivity
-      .getConnectedDevices()
-      .asStream()
-      .expand(
-        (element) => element,
-      )
-      .listen((event) => _wearLogger.info("Connected Wear Device${event.name}"));
+  try {
+    if (!await _flutterWearOsConnectivity.isSupported()) {
+      return;
+    }
+    _flutterWearOsConnectivity.configureWearableAPI();
+    _flutterWearOsConnectivity
+        .getConnectedDevices()
+        .asStream()
+        .expand(
+          (element) => element,
+        )
+        .listen((event) => _wearLogger.info("Connected Wear Device${event.name}"));
 
-  _dataChangedStreamSubscription = _flutterWearOsConnectivity.dataChanged().expand((element) => element).listen(
-    (dataEvent) {
-      _wearLogger.info("dataChanged $dataEvent");
-      if (!dataEvent.isDataValid || dataEvent.type != DataEventType.changed) {
-        return;
-      }
-      Map<String, dynamic> mapData = dataEvent.dataItem.mapData;
-      bool containsKey = mapData.containsKey("uuid");
-      if (containsKey) {
-        String uuid = mapData["uuid"];
-        BaseAction? action = ref.read(getActionFromUUIDProvider(uuid));
-        if (action != null) {
-          Iterable<BaseStatefulDevice> knownDevices =
-              ref.read(knownDevicesProvider).values.where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceConnectionState.value == ConnectivityState.connected).where((element) => element.deviceState.value == DeviceState.standby);
-          for (BaseStatefulDevice device in knownDevices) {
-            runAction(action, device);
+    _dataChangedStreamSubscription = _flutterWearOsConnectivity.dataChanged().expand((element) => element).listen(
+      (dataEvent) {
+        _wearLogger.info("dataChanged $dataEvent");
+        if (!dataEvent.isDataValid || dataEvent.type != DataEventType.changed) {
+          return;
+        }
+        Map<String, dynamic> mapData = dataEvent.dataItem.mapData;
+        bool containsKey = mapData.containsKey("uuid");
+        if (containsKey) {
+          String uuid = mapData["uuid"];
+          BaseAction? action = ref.read(getActionFromUUIDProvider(uuid));
+          if (action != null) {
+            Iterable<BaseStatefulDevice> knownDevices = ref
+                .read(knownDevicesProvider)
+                .values
+                .where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType))
+                .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
+                .where((element) => element.deviceState.value == DeviceState.standby);
+            for (BaseStatefulDevice device in knownDevices) {
+              runAction(action, device);
+            }
           }
         }
-      }
-    },
-  );
-  _messagereceivedStreamSubscription = _flutterWearOsConnectivity.messageReceived().listen(
-        (message) => _wearLogger.info("messageReceived $message"),
-      );
-  capabilityChangedStreamSubscription = _flutterWearOsConnectivity.capabilityChanged(capabilityPathURI: Uri(scheme: "wear", host: "*", path: "/*")).listen((event) => _wearLogger.info(
-        "capabilityChanged $event",
-      ));
-  updateWearActions(ref.read(favoriteActionsProvider), ref);
+      },
+    );
+    _messagereceivedStreamSubscription = _flutterWearOsConnectivity.messageReceived().listen(
+          (message) => _wearLogger.info("messageReceived $message"),
+        );
+    capabilityChangedStreamSubscription = _flutterWearOsConnectivity.capabilityChanged(capabilityPathURI: Uri(scheme: "wear", host: "*", path: "/*")).listen((event) => _wearLogger.info(
+          "capabilityChanged $event",
+        ));
+    updateWearActions(ref.read(favoriteActionsProvider), ref);
+  } catch (e, s) {
+    _wearLogger.severe("exception setting up Wear $e", e, s);
+  }
 }
 
 Future<void> updateWearActions(List<FavoriteAction> favoriteActions, Ref ref) async {
