@@ -33,11 +33,11 @@ Future<void> initWear(InitWearRef ref) async {
         .expand(
           (element) => element,
         )
-        .listen((event) => _wearLogger.info("Connected Wear Device${event.name}"));
+        .listen((event) => _wearLogger.info("Connected Wear Device${event.name}, isNearby ${event.isNearby}"));
 
     _dataChangedStreamSubscription = _flutterWearOsConnectivity.dataChanged().expand((element) => element).listen(
       (dataEvent) {
-        _wearLogger.info("dataChanged $dataEvent");
+        _wearLogger.info("dataChanged ${dataEvent.type}, ${dataEvent.dataItem.mapData}");
         if (!dataEvent.isDataValid || dataEvent.type != DataEventType.changed) {
           return;
         }
@@ -77,14 +77,15 @@ Future<void> updateWearActions(List<FavoriteAction> favoriteActions, Ref ref) as
     Iterable<BaseAction> allActions = favoriteActions.map(
       (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)) as BaseAction,
     );
-    Map<String, String> favoriteMap = Map.fromEntries(allActions.map((e) => MapEntry(e.uuid, e.name)));
-    Map<String, String> map = Map.fromEntries(
+    final Map<String, String> favoriteMap = Map.fromEntries(allActions.map((e) => MapEntry(e.uuid, e.name)));
+    final Map<String, String> map = Map.fromEntries(
       [
         MapEntry("actions", favoriteMap.values.join("_")),
         MapEntry("uuid", favoriteMap.keys.join("_")),
       ],
     );
-    DataItem? _dataItem = await _flutterWearOsConnectivity.syncData(path: "/actions", data: map, isUrgent: true);
+    DataItem? dataItem = await _flutterWearOsConnectivity.syncData(path: "/actions", data: map, isUrgent: true);
+    _wearLogger.info("Message Sent successfully? ${dataItem != null}");
   } catch (e, s) {
     _wearLogger.severe("Unable to send favorite actions to watch", e, s);
   }
