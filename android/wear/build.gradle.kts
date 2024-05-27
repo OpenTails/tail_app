@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.codel1417.tailApp"
+    namespace = "com.codel1417.tail_App"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.codel1417.tailApp"
+        applicationId = "com.codel1417.tail_App"
         minSdk = 30
         targetSdk = 34
         versionCode = 1
