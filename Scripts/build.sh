@@ -39,6 +39,10 @@ if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which does
     echo doing nothing
     #flutter build ipa $DEBUG --no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION"
   else
+    if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
+        echo "ANDROID_KEY_PROPERTIES" > ./android/key.properties
+        echo -n "ANDROID_KEY_JKS" | base64 -d > ./android/AndroidKeystoreCodel1417.jks
+    fi
     flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION" #--dart-define=cronetHttpNoPlay=true
     flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" #--dart-define=cronetHttpNoPlay=true
   fi
