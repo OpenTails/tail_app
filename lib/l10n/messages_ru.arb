@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Отправить отзыв",
+  "feedbackPage": "Непосредственно контролируйте положение шестерни.",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизводиться при возникновении события. Чтобы удалить действие, нажмите значок «Назад» на экране выбора.",
+  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизведено при возникновении события. Чтобы удалить действие, коснитесь действия еще раз, чтобы удалить его. Не забудьте сохраниться, используя значок сохранения вверху.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Посмотреть политику конфиденциальности",
+  "onboardingPrivacyPolicyViewButtonLabel": "Обновить снаряжение",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Светящийся наконечник",
+  "settingsAlwaysScanningToggleTitle": "Задержка следующего хода на [X20X] мс.",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Нажмите и удерживайте действие в избранном",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Исходный код",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

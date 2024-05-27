@@ -32,9 +32,9 @@ class _TailBlogState extends State<TailBlog> {
     return AnimatedCrossFade(
       alignment: Alignment.center,
       firstChild: feedState == FeedState.loading ? const LinearProgressIndicator() : Container(),
-      secondChild: ListView.builder(
-        itemExtent: 300,
+      secondChild: GridView.builder(
         controller: widget.controller,
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 500, mainAxisExtent: 300),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: results.length,
@@ -61,7 +61,7 @@ class _TailBlogState extends State<TailBlog> {
                               return AnimatedOpacity(
                                 duration: animationTransitionDuration,
                                 opacity: snapshot.hasData ? 1 : 0,
-                                child: snapshot.hasData ? snapshot.data! : Container(),
+                                child: snapshot.hasData ? snapshot.data! : const CircularProgressIndicator(),
                               );
                             },
                           )

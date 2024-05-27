@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "音量ボタンを押してアクションをトリガーする",
+  "triggerVolumeButtonDescription": "音量ボタン",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -363,13 +363,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "ボリュームダウン",
+  "triggerVolumeButtonVolumeDown": "選択したアクションをランダムに実行する",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "近接センサーを覆うことでアクションをトリガーする",
+  "triggerShakeTitle": "音量ボタン",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "後方傾斜",
+  "triggerEarTiltBackward": "前方傾斜",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "鉛筆をタップして、イベントが発生したときに実行するアクションを選択します。アクションを削除するには、選択画面で戻るアイコンを押します。",
+  "triggerInfoEditActionDescription": "鉛筆をタップして、イベントが発生したときに実行するアクションを選択します。アクションを削除するには、アクションをもう一度タップして削除します。上部の保存アイコンを使用して保存することを忘れないでください。",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "お気に入りに追加するアクションを長押しします",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "ソースコード",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

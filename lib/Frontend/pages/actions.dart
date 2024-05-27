@@ -67,20 +67,18 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                         itemCount: actionsCatMap.values.flattened
                             .where(
                               (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                        )
+                            )
                             .length,
                         itemBuilder: (BuildContext context, int index) {
                           BaseAction baseAction = actionsCatMap.values.flattened
                               .where(
                                 (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                          )
+                              )
                               .toList()[index];
                           return getActionCard(index, knownDevices, baseAction, largerCards);
                         },
                       ),
-                      crossFadeState: actionsCatMap.values.flattened
-                          .where((element) => ref.read(favoriteActionsProvider.notifier).contains(element))
-                          .isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                      crossFadeState: actionsCatMap.values.flattened.where((element) => ref.read(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                       duration: animationTransitionDuration),
                   ListView.builder(
                     shrinkWrap: true,
@@ -97,10 +95,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                             Center(
                               child: Text(
                                 catList[categoryIndex].friendly,
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleLarge,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                             ),
                             GridView.builder(
@@ -113,7 +108,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                                   valueListenables: knownDevices.values
                                       .where(
                                         (element) => actionsForCat[actionIndex].deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-                                  )
+                                      )
                                       .map((e) => e.deviceState)
                                       .toList(),
                                   builder: (BuildContext context, List<dynamic> values, Widget? child) {
@@ -144,19 +139,14 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
       delay: Duration(milliseconds: 100 * actionIndex),
       child: Card(
         clipBehavior: Clip.antiAlias,
-        color: Color(knownDevices.values
-            .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
-            .where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType))
-            .first
-            .baseStoredDevice
-            .color),
+        color: Color(knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseStoredDevice.color),
         elevation: 1,
         child: InkWell(
           onLongPress: () {
             if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
               HapticFeedback.mediumImpact();
               setState(
-                    () {
+                () {
                   if (ref.read(favoriteActionsProvider.notifier).contains(action)) {
                     ref.read(favoriteActionsProvider.notifier).remove(action);
                   } else {
@@ -170,8 +160,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
             if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
               HapticFeedback.selectionClick();
             }
-            for (var device in ref.read(getByActionProvider(action)).toList()
-              ..shuffle()) {
+            for (var device in ref.read(getByActionProvider(action)).toList()..shuffle()) {
               if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
                 await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
               }
@@ -181,28 +170,33 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
           child: SizedBox.expand(
             child: Stack(
               children: [
-                if (knownDevices.values
-                    .where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType))
-                    .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
-                    .where((element) => element.deviceState.value == DeviceState.runAction)
-                    .isNotEmpty) ...[
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                ],
+                // Shows when an action is in progress
+                AnimatedCrossFade(
+                  firstChild: Container(),
+                  secondChild: const Center(child: CircularProgressIndicator()),
+                  crossFadeState: knownDevices.values
+                          .where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType))
+                          .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
+                          .where((element) => element.deviceState.value == DeviceState.runAction)
+                          .isNotEmpty
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  alignment: Alignment.center,
+                  duration: animationTransitionDuration,
+                ),
                 Padding(
+                  // Indicator of which gear type this would be sent to
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: knownDevices.values
                         .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
                         .where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType))
                         .map(
-                          (e) =>
-                          Text(
+                          (e) => Text(
                             e.baseDeviceDefinition.deviceType.name.substring(0, 1),
                             textScaler: TextScaler.linear(largerCards ? 2 : 1),
                           ),
-                    )
+                        )
                         .toList(),
                   ),
                 ),
@@ -212,15 +206,15 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                     alignment: Alignment.bottomRight,
                     child: ref.read(favoriteActionsProvider.notifier).contains(action)
                         ? Transform.scale(
-                      scale: largerCards ? 1.8 : 0.8,
-                      child: const Icon(Icons.favorite),
-                    )
+                            scale: largerCards ? 1.8 : 0.8,
+                            child: const Icon(Icons.favorite),
+                          )
                         : null,
                   ),
                 ),
                 Center(
                   child: Text(
-                    action.name,
+                    action.getName(knownDevices.values.map((e) => e.baseDeviceDefinition.deviceType).toSet()),
                     semanticsLabel: action.name,
                     overflow: TextOverflow.fade,
                     textAlign: TextAlign.center,

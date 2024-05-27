@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Rahulik ja lõdvestunud",
+  "actionsCategoryCalm": "Kui kaua oodata, enne kui asute selle kohandatud toimingu järgmise käigu juurde",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Teisalda rühmad",
+  "manageDevicesDisconnect": "Eemalda toimingud",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Kallutamine tahapoole",
+  "triggerEarTiltBackward": "Tagasi kallutamine",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Püsivara muudatuste logi",
+  "otaChangelogLabel": "Kasulikud lingid",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Puudutage pliiatsit, et valida sündmuse toimumisel esitatav toiming. Toimingu eemaldamiseks vajutage valikukuval tagasiikooni.",
+  "triggerInfoEditActionDescription": "Puudutage pliiatsit, et valida sündmuse toimumisel esitatav toiming. Toimingu eemaldamiseks puudutage toimingut selle eemaldamiseks uuesti. Ärge unustage salvestada, kasutades ülaosas olevat salvestamisikooni",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Lemmikusse lisamiseks vajutage toimingut pikalt",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Lähtekood",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

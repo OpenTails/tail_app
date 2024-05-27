@@ -1,5 +1,5 @@
 {
-  "title": "Het staartbedrijf",
+  "title": "Het Staartbedrijf",
   "@title": {
     "description": "The name of the app",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Vleugels",
+  "deviceTypeWings": "Staart",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -405,7 +405,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Uitrusting in de buurt",
+  "triggerProximityTitle": "Instellingen",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Om een actie te verwijderen, drukt u op het terug-pictogram op het selectiescherm.",
+  "triggerInfoEditActionDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Om een actie te verwijderen, tikt u nogmaals op de actie om deze te verwijderen. Vergeet niet op te slaan via het opslagpictogram bovenaan",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -867,7 +867,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeChangelogLinkTitle": "Wijzigingslog",
+  "homeChangelogLinkTitle": "Update uitrusting",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
     "type": "text",
@@ -879,7 +879,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Er is een firmware-update vereist om deze app je uitrusting te laten ondersteunen",
+  "mandatoryOtaRequired": "Voor deze app is een firmware-update vereist om je uitrusting te ondersteunen",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Druk lang op een actie om te favoriet te maken",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Broncode",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

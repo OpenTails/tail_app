@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Informe automático de errores",
+  "settingsErrorReportingToggleTitle": "Hace que las tarjetas de acción sean más grandes para tocarlas más fácilmente.",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, presione el ícono Atrás en la pantalla de selección.",
+  "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, toque la acción nuevamente para eliminarla. No olvides guardar usando el ícono de guardar en la parte superior.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Mantenga presionada una acción para marcarla como favorita",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Código fuente",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

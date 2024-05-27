@@ -1,4 +1,3 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -33,21 +32,9 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
   @override
   void initState() {
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
     actionsCatMap = ref.read(getAllActionsProvider(widget.actionSelectorInfo.deviceType));
     catList = actionsCatMap.keys.toList();
     selected = widget.actionSelectorInfo.selectedActions;
-  }
-
-  @override
-  void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
-    super.dispose();
-  }
-
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    Navigator.of(context).pop();
-    return true;
   }
 
   @override

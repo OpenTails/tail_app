@@ -178,27 +178,77 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
     }
     actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == name).uuid == e.uuid).forEach(
       (TriggerAction triggerAction) async {
-        if (triggerAction.isActive.value) {
-          // 15 second cooldown between moves
+        if (triggerAction.isActive.value || triggerAction.actions.isEmpty) {
+          // 15 second cool-down between moves
           return;
         }
-        if (triggerAction.actions.isNotEmpty) {
-          String action = triggerAction.actions[_random.nextInt(triggerAction.actions.length)];
-          BaseAction? baseAction = ref.read(getActionFromUUIDProvider(action));
-          if (baseAction == null) {
-            return;
+        final List<BaseAction> allActionsMapped = triggerAction.actions.map((element) => ref.read(getActionFromUUIDProvider(element))).where(
+            // filter out missing actions
+            (element) => element != null).map(
+            // mark remaining not null
+            (e) => e!).toList();
+
+        // no moves exist
+        if (allActionsMapped.isEmpty) {
+          return;
+        }
+        final List<BaseAction> nonGlowActions = allActionsMapped.where((element) => !const [ActionCategory.glowtip].contains(element.actionCategory)).toList();
+        final List<BaseAction> glowActions = allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList();
+        BaseAction? baseAction;
+        List<BaseAction> actionsToRun = [];
+
+        // check if non glowy actions are set
+        if (nonGlowActions.isNotEmpty) {
+          baseAction = nonGlowActions[_random.nextInt(nonGlowActions.length)];
+          actionsToRun.add(baseAction);
+        }
+        // add a glowtip action if it exists
+        if (glowActions.isNotEmpty) {
+          final BaseAction glowAction = glowActions[_random.nextInt(glowActions.length)];
+          actionsToRun.add(glowAction);
+        }
+
+        final Set<DeviceType> flattenedDeviceTypes = deviceTypes.values.flattened.toSet();
+        final Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+
+        if (baseAction != null && !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes)) {
+          // find the missing device type
+          // The goal here is if a user selects multiple moves, send a move to all gear
+          final Set<DeviceType> missingGearAction = baseAction.deviceCategory.toSet().difference(baseAction.deviceCategory.toSet());
+          final List<BaseAction> remainingActions = nonGlowActions
+              .where(
+                // Check if any actions contain the device type of the gear the first action is missing
+                (element) => element.deviceCategory.toSet().intersection(missingGearAction).isNotEmpty,
+              )
+              .toList();
+          if (remainingActions.isNotEmpty) {
+            final BaseAction otherAction = remainingActions[_random.nextInt(remainingActions.length)];
+            actionsToRun.add(otherAction);
           }
-          triggerAction.isActive.value = true;
-          Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
-          List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => deviceTypes.values.flattened.toSet().contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
-          for (BaseStatefulDevice baseStatefulDevice in List.of(devices)..shuffle()) {
+        }
+        triggerAction.isActive.value = true;
+        final List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => flattenedDeviceTypes.contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
+
+        Set<DeviceType> sentDeviceTypes = {};
+        for (BaseAction baseAction in actionsToRun) {
+          for (BaseStatefulDevice baseStatefulDevice in List.of(devices)
+              .where(
+                (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
+              )
+              .where(
+                // support sending to next device type if 2 actions+ actions are set
+                (element) => !sentDeviceTypes.contains(element.baseDeviceDefinition.deviceType),
+              )
+              .toList()
+            ..shuffle()) {
             if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
               await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
             }
             runAction(baseAction, baseStatefulDevice);
+            if (!const [ActionCategory.glowtip].contains(baseAction.actionCategory)) {
+              sentDeviceTypes.add(baseStatefulDevice.baseDeviceDefinition.deviceType);
+            }
           }
-          await Future.delayed(const Duration(seconds: 15));
-          triggerAction.isActive.value = false;
         }
       },
     );
@@ -504,9 +554,9 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
     }
     subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
       sensorsLogger.fine("Volume press detected:${event.name}");
-      if (event == HardwareButton.volume_down) {
+      if (event == HardwareButton.volume_up) {
         sendCommands("Volume Up", ref);
-      } else if (event == HardwareButton.volume_up) {
+      } else if (event == HardwareButton.volume_down) {
         sendCommands("Volume Down", ref);
       }
     });
@@ -598,13 +648,46 @@ class TriggerActionDef {
 
 @HiveType(typeId: 8)
 class TriggerAction {
+  Timer? _timer;
+  Timer? _periodicTimer;
   @HiveField(1)
   String uuid; //uuid matches triggerActionDef
   @HiveField(2)
   List<String> actions = [];
   ValueNotifier<bool> isActive = ValueNotifier(false);
+  ValueNotifier<double> isActiveProgress = ValueNotifier(0);
 
-  TriggerAction(this.uuid);
+  TriggerAction(this.uuid) {
+    isActive.addListener(
+      () {
+        if (isActive.value) {
+          isActiveProgress.value = 0.01;
+          _timer = Timer(
+            const Duration(seconds: 15),
+            () {
+              isActive.value = false;
+              _periodicTimer?.cancel();
+              _timer?.cancel();
+              isActiveProgress.value = 0;
+              _periodicTimer = null;
+              _timer = null;
+            },
+          );
+          _periodicTimer = Timer.periodic(
+            const Duration(milliseconds: 500),
+            (Timer timer) {
+              timer.tick;
+              double change = (timer.tick + 1) / 30;
+              if (change > 1) {
+                change = 1;
+              }
+              isActiveProgress.value = change;
+            },
+          );
+        }
+      },
+    );
+  }
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is TriggerAction && runtimeType == other.runtimeType && uuid == other.uuid;

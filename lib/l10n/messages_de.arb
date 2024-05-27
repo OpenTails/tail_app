@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tippen Sie auf den Stift, um die Aktion auszuwählen, die ausgeführt werden soll, wenn das Ereignis eintritt. Um eine Aktion zu entfernen, drücken Sie auf dem Auswahlbildschirm auf das Zurück-Symbol.",
+  "triggerInfoEditActionDescription": "Tippen Sie auf den Stift, um die Aktion auszuwählen, die ausgeführt werden soll, wenn das Ereignis eintritt. Um eine Aktion zu entfernen, tippen Sie erneut auf die Aktion. Vergessen Sie nicht, mit dem Speichersymbol oben zu speichern.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Zeigt den tatsächlichen Akkustand anstelle eines Symbols an",
+  "settingsBatteryPercentageToggleSubTitle": "Bildschirm eingeschaltet lassen",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -813,7 +813,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Gear wird aktualisiert. Bitte schalte dein Gear nicht aus und schließe die App nicht.",
+  "otaInProgressTitle": "Gear wird aktualisiert. Bitte schalten Sie Ihr Gear nicht aus und schließen Sie die App nicht.",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Zum Favoriten eine Aktion lange drücken",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Quellcode",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

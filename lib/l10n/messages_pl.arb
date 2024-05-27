@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Zmień kolor aplikacji, skonfiguruj dotyk i nie tylko",
+  "actionsPage": "Przechylenie do tyłu",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Uszy",
+  "deviceTypeEars": "Ogon",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -155,13 +155,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Usuń akcję",
+  "sequencesEditDeleteDescription": "Jak długo czekać przed przejściem do następnego ruchu w tej akcji niestandardowej",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Opóźnij następny ruch o {howMany} ms.",
+  "sequenceEditListDelayLabel": "Jak długo czekać przed przejściem do następnego ruchu w tej akcji niestandardowej",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -201,7 +201,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Uszy",
+  "actionsCategoryEars": "Ogon",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Wykryto dźwięk",
+  "triggerEarMicSound": "Uruchom działanie, gdy EarGear wykryje dźwięk",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -465,7 +465,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Ile razy powtórzyć tę akcję?",
+  "sequenceEditRepeatTitle": "Pochylenie do przodu",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Stuknij ołówek, aby wybrać akcję, która ma zostać odtworzona po wystąpieniu zdarzenia. Aby usunąć akcję, naciśnij ikonę Wstecz na ekranie wyboru.",
+  "triggerInfoEditActionDescription": "Stuknij ołówek, aby wybrać akcję, która ma zostać odtworzona po wystąpieniu zdarzenia. Aby usunąć akcję, dotknij akcji ponownie, aby ją usunąć. Nie zapomnij zapisać, korzystając z ikony zapisu u góry",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Naciśnij i przytrzymaj akcję, aby dodać ją do ulubionych",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Kod źródłowy",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

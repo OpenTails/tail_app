@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "link utili",
+  "moreUsefulLinksTitle": "Tocca per visualizzare",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tocca la matita per selezionare l'azione da eseguire quando si verifica l'evento. Per rimuovere un'azione, premere l'icona Indietro nella schermata di selezione.",
+  "triggerInfoEditActionDescription": "Tocca la matita per selezionare l'azione da eseguire quando si verifica l'evento. Per rimuovere un'azione, tocca nuovamente l'azione per rimuoverla. Non dimenticare di salvare utilizzando l'icona di salvataggio in alto",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per facilitarne il tocco",
+  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per essere toccate più facilmente",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Fatto",
+  "onboardingCompletedTitle": "Attiva il Bluetooth",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Premi a lungo un'azione da aggiungere ai preferiti",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Codice sorgente",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Hjem Gearet",
+  "sequencesEditHomeLabel": "Hvor længe skal du vente, før du går til næste træk i denne tilpassede handling",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -681,7 +681,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Fremskridt for download af firmware",
+  "triggerInfoEditActionDescription": "Tryk på blyanten for at vælge den handling, der skal afspilles, når begivenheden finder sted. For at fjerne en handling skal du trykke på handlingen igen for at fjerne den. Glem ikke at gemme ved at bruge gem-ikonet øverst",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Der kræves Bluetooth-tilladelse for at oprette forbindelse til gear",
+  "onboardingBluetoothDescription": "Bluetooth-tilladelse er påkrævet for at oprette forbindelse til gear",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -741,7 +741,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Slå Bluetooth til",
+  "onboardingBluetoothEnableButtonLabel": "Hvor mange gange skal denne handling gentages?",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -813,7 +813,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Opdatering af Gear. Sluk ikke for dit udstyr eller luk appen",
+  "otaInProgressTitle": "Opdatering af Gear. Sluk ikke dit gear eller luk appen",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -843,7 +843,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "Scanning er altid deaktiveret",
+  "homeContinuousScanningOffTitle": "Altid scanning deaktiveret",
   "@homeContinuousScanningOffTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -888,6 +888,12 @@
   "actionsFavoriteTip": "Tryk længe på en handling for at favorit",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Kildekode",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
     "placeholders": {}
   }

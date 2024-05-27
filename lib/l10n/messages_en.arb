@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-24T17:04:41.374995",
+  "@@last_modified": "2024-05-25T17:42:52.603806",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -797,7 +797,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tap the pencil to select the Action to play when the event happens. To remove an Action, press the back icon on the selection screen.",
+  "triggerInfoEditActionDescription": "Tap the pencil to select the Action to play when the event happens. To remove an Action, Tap the action again to remove it. Don't forget to save using the save icon at the top",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",

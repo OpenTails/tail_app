@@ -284,8 +284,8 @@ String otaLowBattery() => Intl.message("Low Battery. Please charge your gear to 
 String triggerInfoDescription() => Intl.message('Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, use the toggle on the left to enable the trigger.',
     name: 'triggerInfoDescription', desc: 'Description for what a trigger is and how to use them on the triggers page');
 
-String triggerInfoEditActionDescription() =>
-    Intl.message('Tap the pencil to select the Action to play when the event happens. To remove an Action, press the back icon on the selection screen.', name: 'triggerInfoEditActionDescription', desc: 'Instruction on how to select an action on the trigger edit page');
+String triggerInfoEditActionDescription() => Intl.message("Tap the pencil to select the Action to play when the event happens. To remove an Action, Tap the action again to remove it. Don't forget to save using the save icon at the top",
+    name: 'triggerInfoEditActionDescription', desc: 'Instruction on how to select an action on the trigger edit page');
 
 String sequencesInfoDescription() =>
     Intl.message('Custom Actions allow you to make your own Actions for gear. Tapping on a Custom Action will play it. Tap the pencil to edit a Custom Action.', name: 'sequencesInfoDescription', desc: 'Description for what a custom action is and how to use them on the Custom Actions page');
