@@ -4,11 +4,9 @@
  * changes to the libraries and their usages.
  */
 
-package com.codel1417.tailApp.presentation
+package com.codel1417.tail_App.presentation
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -22,21 +20,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Text
-import com.codel1417.tailApp.presentation.theme._androidTheme
+import com.codel1417.tail_App.presentation.theme._androidTheme
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataEvent
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataItem
 import com.google.android.gms.wearable.DataMapItem
-import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
@@ -45,7 +41,7 @@ import com.google.android.gms.wearable.Wearable
 class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
 
     private lateinit var dataClient: DataClient
-    var actionsMap: MutableMap<String, String> = mutableMapOf();
+    private var actionsMap: MutableMap<String, String> = mutableMapOf();
     override fun onResume() {
         super.onResume()
         println("onResume()")

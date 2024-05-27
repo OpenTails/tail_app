@@ -1,4 +1,4 @@
-package com.codel1417.tailApp.presentation.theme
+package com.codel1417.tail_App.presentation.theme
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.MaterialTheme

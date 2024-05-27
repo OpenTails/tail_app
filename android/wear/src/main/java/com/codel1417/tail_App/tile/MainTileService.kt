@@ -1,4 +1,4 @@
-package com.codel1417.tailApp.tile
+package com.codel1417.tail_App.tile
 
 import android.content.Context
 import androidx.compose.runtime.Composable
