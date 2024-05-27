@@ -48,7 +48,7 @@ if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which does
     #flutter build ipa $DEBUG --no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION"
   else
     if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
-        echo $ANDROID_KEY_PROPERTIES" > ./android/key.properties
+        echo $ANDROID_KEY_PROPERTIES > ./android/key.properties
         echo -n $ANDROID_KEY_JKS | base64 -d > ./android/AndroidKeystoreCodel1417.jks
     fi
     echo "::group::Build APK"
