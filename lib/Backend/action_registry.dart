@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/move_lists.dart';
+import 'package:tail_app/Backend/wear_bridge.dart';
 
 import '../constants.dart';
 import 'Bluetooth/bluetooth_manager.dart';
@@ -222,5 +223,6 @@ class FavoriteActions extends _$FavoriteActions {
       ..clear()
       ..addAll(state);
     updateShortcuts(state, ref);
+    updateWearActions(state, ref);
   }
 }

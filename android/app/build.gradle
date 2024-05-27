@@ -26,6 +26,7 @@ def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     //ndkVersion flutter.ndkVersion
@@ -54,6 +55,14 @@ android {
         minSdkVersion 28
         targetSdkVersion rootProject.ext.targetSdkVersion
     }
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -61,14 +70,11 @@ android {
             // so `flutter run --release` works.
             signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
         }
-
-    }
-    signingConfigs {
-        release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-            storePassword keystoreProperties['storePassword']
+        debug {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now,
+            // so `flutter run --release` works.
+            signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
         }
     }
     namespace 'com.codel1417.tail_app'
@@ -80,7 +86,7 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${localProperties.getProperty('kotlin.version')}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.0.0"
     testImplementation 'junit:junit:4.13.2'
     // https://developer.android.com/jetpack/androidx/releases/test/#1.2.0
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'

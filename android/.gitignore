@@ -11,3 +11,5 @@ GeneratedPluginRegistrant.java
 app/key.properties
 **/*.keystore
 **/*.jks
+/wear/debug/
+/wear/release/
