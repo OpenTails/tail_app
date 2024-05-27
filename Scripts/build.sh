@@ -36,10 +36,10 @@ else
   DEBUG="--release"
 fi
 echo "::group::Generate Translation Files"
-dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb --color
+dart pub global run --color intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
 echo "::endgroup::"
 echo "::group::Generate Dart .g Files"
-dart pub global run build_runner build --delete-conflicting-outputs --color
+dart pub global run --color build_runner build --delete-conflicting-outputs
 echo "::endgroup::"
 if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which doesn't require a full build
   # Build
