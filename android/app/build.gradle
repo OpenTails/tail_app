@@ -23,9 +23,8 @@ if (flutterVersionName == null) {
 }
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-}
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     //ndkVersion flutter.ndkVersion
@@ -54,23 +53,8 @@ android {
         minSdkVersion 28
         targetSdkVersion rootProject.ext.targetSdkVersion
     }
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now,
-            // so `flutter run --release` works.
-            signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
-        }
-        debug {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now,
-            // so `flutter run --release` works.
-            signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
-        }
-
-    }
     signingConfigs {
-        release {
+        config {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
