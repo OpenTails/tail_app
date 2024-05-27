@@ -19,20 +19,28 @@ if [[ -v RELEASE_TAG ]] && [[ -n $RELEASE_TAG ]]; then
 fi
 
 # Configure flutter & pre-build tasks
-flutter config --no-cli-animations
-dart pub global activate flutter_gen
-dart pub global activate intl_translation
-dart pub global activate build_runner
+echo "::group::Configure tools"
+flutter config --no-cli-animations --enable-analytics --color
+dart pub global activate flutter_gen --color
+dart pub global activate intl_translation --color
+dart pub global activate build_runner --color
+echo "::endgroup::"
 
-flutter pub get
+echo "::group::Get Dependencies"
+flutter pub get --color
+echo "::endgroup::"
 DEBUG=""
 if [[ $GITHUB_EVENT_NAME == 'pull_request'  ]]; then
   DEBUG="--debug"
 else
   DEBUG="--release"
 fi
-dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
-dart pub global run build_runner build --delete-conflicting-outputs
+echo "::group::Generate Translation Files"
+dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb --color
+echo "::endgroup::"
+echo "::group::Generate Dart .g Files"
+dart pub global run build_runner build --delete-conflicting-outputs --color
+echo "::endgroup::"
 if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which doesn't require a full build
   # Build
   if [[ $OS == 'macos-latest' ]]; then
@@ -43,8 +51,12 @@ if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which does
         echo "ANDROID_KEY_PROPERTIES" > ./android/key.properties
         echo -n "ANDROID_KEY_JKS" | base64 -d > ./android/AndroidKeystoreCodel1417.jks
     fi
-    flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION" #--dart-define=cronetHttpNoPlay=true
-    flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" #--dart-define=cronetHttpNoPlay=true
+    echo "::group::Build APK"
+    flutter build apk --split-debug-info=./symbols $DEBUG --build-number="$BUILD_NUMBER" --build-name="$VERSION" --color #--dart-define=cronetHttpNoPlay=true
+    echo "::endgroup::"
+    echo "::group::Build APK"
+    flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --color #--dart-define=cronetHttpNoPlay=true
+    echo "::endgroup::"
   fi
   if [[ -v GITHUB_OUTPUT ]]; then
     echo "SENTRY_DIST=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
