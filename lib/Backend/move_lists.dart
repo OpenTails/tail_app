@@ -152,7 +152,7 @@ class MoveList extends BaseAction {
 class EarsMoveList extends MoveList {
   List<Object> commandMoves = [];
 
-  EarsMoveList({required super.name, super.deviceCategory = const [DeviceType.ears], required super.uuid, super.actionCategory = ActionCategory.hidden, required this.commandMoves});
+  EarsMoveList({required super.name, super.deviceCategory = const [DeviceType.ears], required super.uuid, super.actionCategory = ActionCategory.ears, required this.commandMoves});
 }
 
 @Riverpod(keepAlive: true)
