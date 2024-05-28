@@ -16,9 +16,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-java@v4
         if: runner.os == 'Linux'
         with:
