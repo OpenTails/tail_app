@@ -1,4 +1,4 @@
-git_url("https://github.com/Codel1417/tail_app_deploy.git")
+git_url("https://github.com/OpenTails/tail_app_deploy.git")
 
 storage_mode("git")
 
