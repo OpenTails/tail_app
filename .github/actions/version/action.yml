@@ -16,7 +16,7 @@ runs:
       - name: Get version
         shell: bash
         id: get-version
-        with:
+        env:
           RELEASE_TAG: ${{ inputs.release-tag }}
         run: |
           # get the Build Bumber & version from git
