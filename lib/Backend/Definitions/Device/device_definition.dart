@@ -175,6 +175,7 @@ class BaseStatefulDevice extends ChangeNotifier {
     deviceState.value = DeviceState.standby;
     rssi.value = -1;
     hasUpdate.value = false;
+    fwVersion.value = Version.none;
     batlevels = [];
     stopWatch.reset();
     mtu.value = -1;
