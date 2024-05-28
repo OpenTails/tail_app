@@ -21,6 +21,9 @@ jobs:
       SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
       SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Setup Environment
         uses: ./.github/actions/setup_build
       - name: Run build script
