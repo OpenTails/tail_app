@@ -1,0 +1,15 @@
+name: 'Pre Build Tail App builds'
+description: 'Internal Action for Tail App'
+runs:
+  using: "composite"
+  steps:
+      - name: Configure Flutter CLI
+        run: flutter config --no-cli-animations --enable-analytics --color
+      - name: Enable Flutter tools
+        run: dart pub global activate flutter_gen --color && dart pub global activate intl_translation --color && dart pub global activate build_runner --color
+      - name: Get dependencies
+        run: flutter pub get --color
+      - name: Generate translation files
+        run: dart pub global run --color intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
+      - name: Generate dart .g files
+        run: dart pub global run --color build_runner build --delete-conflicting-outputs
