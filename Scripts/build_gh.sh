@@ -33,8 +33,4 @@ if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which does
     flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --color #--dart-define=cronetHttpNoPlay=true
     echo "::endgroup::"
   fi
-  if [[ -v GITHUB_OUTPUT ]]; then
-    echo "SENTRY_DIST=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
-    echo "SENTRY_RELEASE=$VERSION" >> "$GITHUB_OUTPUT"
-  fi
 fi
