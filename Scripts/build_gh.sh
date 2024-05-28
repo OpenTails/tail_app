@@ -8,17 +8,6 @@ set -x
 if [[ "$(pwd)" == *"/Scripts" ]]; then
   cd ..
 fi
-# get the Build Bumber & version from git
-VERSION="$(cat VERSION)"
-BUILD_NUMBER="$(git rev-list HEAD --count)"
-# Gets the release tag from github if it exists (Github Actions)
-# Assumes tags start with V
-if [[ -v RELEASE_TAG ]] && [[ -n $RELEASE_TAG ]]; then
-  TAG="${RELEASE_TAG,,}"
-  VERSION="${TAG//"v"}"
-fi
-echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
-echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
 
 DEBUG=""
 if [[ $GITHUB_EVENT_NAME == 'pull_request'  ]]; then
