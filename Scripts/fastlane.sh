@@ -13,7 +13,7 @@ if [[ $GITHUB_EVENT_NAME == 'pull_request'  ]]; then
   exit 1
 fi
 
-  if [[ $OS == 'macos-latest' ]]; then
+  if [[ $RUNNER_OS == 'macOS' ]]; then
     cd ios
     echo "$APPLE_SECRETS" > APPLE_SECRETS.json
     bundle exec fastlane beta
