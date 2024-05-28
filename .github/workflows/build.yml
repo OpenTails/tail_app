@@ -35,8 +35,8 @@ jobs:
         run: bash ${GITHUB_WORKSPACE}/Scripts/launchBuild.sh
         working-directory: Scripts
         env:
-          VERSION: ${{ steps.version.outputs.VERSION }}
-          BUILD_NUMBER: ${{ steps.version.outputs.BUILD_NUMBER }}
+          VERSION: ${{ steps.version.outputs.version }}
+          BUILD_NUMBER: ${{ steps.version.outputs.build-number }}
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           OS: ${{ matrix.os }}
           ANDROID_KEY_JKS: ${{ secrets.ANDROID_KEY_JKS }}
@@ -55,8 +55,8 @@ jobs:
         working-directory: Scripts
         continue-on-error: false
         env:
-          VERSION: ${{ steps.version.outputs.VERSION }}
-          BUILD_NUMBER: ${{ steps.version.outputs.BUILD_NUMBER }}
+          VERSION: ${{ steps.version.outputs.version }}
+          BUILD_NUMBER: ${{ steps.version.outputs.build-number }}
           GOOGLE_SECRETS: ${{ secrets.GOOGLE_PLAY }}
           APPLE_SECRETS: ${{ secrets.APPLE }}
           OS: ${{ matrix.os }}
@@ -71,5 +71,5 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_RELEASE: ${{ steps.build.outputs.VERSION }}
-          SENTRY_DIST: ${{ steps.build.outputs.BUILD_NUMBER }}
+          SENTRY_RELEASE: ${{ steps.build.outputs.version }}
+          SENTRY_DIST: ${{ steps.build.outputs.build-number }}
