@@ -12,12 +12,12 @@ outputs:
     value: ${{ steps.get-version.outputs.BUILD_NUMBER }}
 runs:
   using: "composite"
-  with:
-    RELEASE_TAG: ${{ inputs.release-tag }}
   steps:
       - name: Get version
         shell: bash
         id: get-version
+        with:
+          RELEASE_TAG: ${{ inputs.release-tag }}
         run: |
           # get the Build Bumber & version from git
           VERSION="$(cat VERSION)"
