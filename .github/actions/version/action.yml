@@ -11,6 +11,7 @@ runs:
   using: "composite"
   steps:
       - name: Get version
+        shell: bash
         id: get-version
         run: |
         # get the Build Bumber & version from git
