@@ -22,8 +22,7 @@ jobs:
       SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
     steps:
       - name: Setup Environment
-        uses: Codel1417/tail_app_ci_action@v1
-        
+        uses: ./.github/actions/setup_build
       - name: Run build script
         id: build
         run: bash ${GITHUB_WORKSPACE}/Scripts/launchBuild.sh
