@@ -17,9 +17,6 @@ jobs:
         os: [ ubuntu-latest, macos-latest ]
     name: Build
     runs-on: ${{ matrix.os }}
-    outputs:
-      SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
-      SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
     steps:
       - uses: actions/checkout@v4
         with:
