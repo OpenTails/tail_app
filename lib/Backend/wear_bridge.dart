@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
 import 'package:logging/logging.dart';
@@ -23,7 +24,7 @@ StreamSubscription<CapabilityInfo>? capabilityChangedStreamSubscription;
 @Riverpod(keepAlive: true)
 Future<void> initWear(InitWearRef ref) async {
   try {
-    if (!await _flutterWearOsConnectivity.isSupported()) {
+    if (!Platform.isAndroid || !await _flutterWearOsConnectivity.isSupported()) {
       return;
     }
     _flutterWearOsConnectivity.configureWearableAPI();
