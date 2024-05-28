@@ -34,5 +34,12 @@ platform :ios do
       api_key_path:"APPLE_SECRETS.json",
       skip_waiting_for_build_processing: true,
     )
+    sentry_debug_files_upload(
+      auth_token: ENV['SENTRY_AUTH_TOKEN'],
+      org_slug: ENV['SENTRY_ORG'],
+      project_slug: ENV['SENTRY_PROJECT'],
+      url: ENV['SENTRY_URL'],
+      include_sources: true, # Optional. For source context.
+    )
   end
 end

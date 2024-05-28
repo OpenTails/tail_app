@@ -39,6 +39,10 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           ANDROID_KEY_JKS: ${{ secrets.ANDROID_KEY_JKS }}
           ANDROID_KEY_PROPERTIES: ${{ secrets.ANDROID_KEY_PROPERTIES }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
       - uses: actions/upload-artifact@v4
         continue-on-error: true
         if: runner.os == 'Linux'
@@ -59,7 +63,11 @@ jobs:
           APPLE_SECRETS: ${{ secrets.APPLE }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
           MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
-      - name: Upload debug symbols
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
+      - name: Upload Dart/Flutter debug symbols
         run: dart pub global activate sentry_dart_plugin && dart pub global run sentry_dart_plugin
         if: github.event_name == 'push'
         continue-on-error: true

@@ -25,7 +25,7 @@ dependencies:
   #pod_player: ^0.2.2
   #tivy: ^0.1.1
   circular_buffer: ^0.11.0  # Used for serial console
-  wordpress_client: ^8.4.8 # Used for tail blog
+  wordpress_client: ^8.4.10 # Used for tail blog
   pub_semver: ^2.1.4 # used for comparing firmware versions
 
   # Platform Interfaces
@@ -103,7 +103,7 @@ dependencies:
 
   # Spicy
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
-  background_fetch: ^1.3.4
+  background_fetch: ^1.3.5
   awesome_notifications_core: ^0.9.3 # <~ always ensure to use the latest version
   awesome_notifications: any # <~ this version is managed by awesome_notifications_core package
 
@@ -130,15 +130,14 @@ flutter:
   generate: true # Generate app_localizations.dart
   assets:
     - assets/
-    #- assets/tailcostickers/tgs/ # Apparently this isn't recursive
     - assets/tailcostickers/
     - CHANGELOG.md
     - PRIVACY.md
 
 sentry: # used by the sentry-dart-plugin to upload symbols. Credentials are provided as environment variables
   upload_debug_symbols: true
-  upload_source_maps: false
-  upload_sources: false
+  upload_source_maps: true
+  upload_sources: true
 
 icons_launcher:
   image_path: "assets/TC_Logo.jpg"
@@ -178,6 +177,7 @@ flutter_native_splash:
     color_dark: "#212121"
     image: "assets/TC_Logo_Transparent.png"
     image_dark: "assets/TC_Logo_Transparent_dark.png"
+
 dependency_overrides:
   device_info_plus: any # PDFx uses an older version, but v10 and newer is required for IOS publishing
   meta: any

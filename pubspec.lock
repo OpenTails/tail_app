@@ -106,10 +106,10 @@ packages:
     dependency: "direct main"
     description:
       name: background_fetch
-      sha256: "2fe367c9be0e256dadb75b8b637b0b58a2a2d2317b7c8420bb1ae8b41e23fde3"
+      sha256: b5c298c911bc2ce41152668bc72eb0488f0665d75bc6d1e69e7d8367763eddcd
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.4"
+    version: "1.3.5"
   boolean_selector:
     dependency: transitive
     description:
@@ -1717,10 +1717,10 @@ packages:
     dependency: "direct main"
     description:
       name: wordpress_client
-      sha256: "372056c7b6c89caece208296febe37dd93c747760d0a91dcf620a480bfd73956"
+      sha256: "0693e15f030c204a060bc832b293f76e2c301a5ecd2cb3484d1184a2a4503389"
       url: "https://pub.dev"
     source: hosted
-    version: "8.4.8"
+    version: "8.4.10"
   xdg_directories:
     dependency: transitive
     description:
