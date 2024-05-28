@@ -21,47 +21,9 @@ jobs:
       SENTRY_RELEASE: ${{ steps.build.outputs.SENTRY_RELEASE }}
       SENTRY_DIST: ${{ steps.build.outputs.SENTRY_DIST }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Prevent SH file change in PR
-        uses: xalvarez/prevent-file-change-action@v1
-        with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          pattern: /\.(yml|sh)$/i
-          trustedAuthors: codel1417
-          allowNewFiles: false
-      - uses: actions/setup-java@v4
-        if: matrix.os == 'ubuntu-latest'
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-          cache: "gradle"
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.22.0'
-          cache: true
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-          ruby-version: '3.3' # Not needed with a .ruby-version file
-      - name: Cocoapods Cache
-        uses: actions/cache@v4
-        id: cocoapods-cache
-        if: matrix.os == 'macos-latest'
-        with:
-          path: ios/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('pubspec.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
-      - name: Podfile lock cache
-        uses: actions/cache@v4
-        id: cache-podfile
-        if: matrix.os == 'macos-latest'
-        with:
-          path: ios/Podfile.lock
-          key: ${{ runner.os }}-pods-${{ hashFiles('pubspec.lock') }}
+      - name: Setup Environment
+        uses: Codel1417/tail_app_ci_action@v1
+        
       - name: Run build script
         id: build
         run: bash ${GITHUB_WORKSPACE}/Scripts/launchBuild.sh
