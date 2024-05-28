@@ -32,6 +32,7 @@ jobs:
         id: build
         run: bash ${GITHUB_WORKSPACE}/Scripts/launchBuild.sh
         working-directory: Scripts
+        if: runner.os == 'Linux'
         env:
           VERSION: ${{ steps.version.outputs.version }}
           BUILD_NUMBER: ${{ steps.version.outputs.build-number }}
