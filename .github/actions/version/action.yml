@@ -20,12 +20,13 @@ runs:
         env:
           OS: ${{ runner.os }}
         run: |
-            if [[ $OS == 'macos-latest' ]]; then
-              interpreter=zsh
-            else
-                interpreter=bash
-            fi
-           "interpreter=$interpreter" >> "$GITHUB_OUTPUT"
+          if [[ $OS == 'macos-latest' ]]; then
+            interpreter=zsh
+          else
+              interpreter=bash
+          fi
+          echo "interpreter=$interpreter" >> "$GITHUB_OUTPUT"
+
       - name: Get version
         shell: ${{ steps.get-interpreter.outputs.interpreter }}
         id: get-version
