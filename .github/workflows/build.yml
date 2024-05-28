@@ -42,14 +42,14 @@ jobs:
           ANDROID_KEY_PROPERTIES: ${{ secrets.ANDROID_KEY_PROPERTIES }}
       - uses: actions/upload-artifact@v4
         continue-on-error: true
-        if: matrix.os == 'ubuntu-latest'
+        if: runner.os == 'Linux'
         with:
           name: artifact-${{ matrix.os }}
           path: |
             build/app/outputs/apk
             build/app/outputs/bundle
       - name: Upload Beta
-        if: github.event_name == 'push' && matrix.os == 'macos-latest'
+        if: github.event_name == 'push' && runner.os == 'macOS'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
         continue-on-error: false
@@ -58,7 +58,6 @@ jobs:
           BUILD_NUMBER: ${{ steps.version.outputs.build-number }}
           GOOGLE_SECRETS: ${{ secrets.GOOGLE_PLAY }}
           APPLE_SECRETS: ${{ secrets.APPLE }}
-          OS: ${{ matrix.os }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
           MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
       - name: Upload debug symbols
