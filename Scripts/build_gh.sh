@@ -18,7 +18,7 @@ fi
 
 if [[ ! -v SKIP_BUILD ]]; then # This is re-used for the linting job, which doesn't require a full build
   # Build
-  if [[ $OS == 'macos-latest' ]]; then
+  if [[ $RUNNER_OS == 'macOS' ]]; then
     echo doing nothing Awoo
     #flutter build ipa $DEBUG --no-codesign --build-number="$BUILD_NUMBER" --build-name="$VERSION"
   else
