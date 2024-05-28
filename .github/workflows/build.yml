@@ -68,5 +68,5 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_RELEASE: ${{ steps.build.outputs.version }}
-          SENTRY_DIST: ${{ steps.build.outputs.build-number }}
+          SENTRY_RELEASE: ${{ steps.version.outputs.version }}
+          SENTRY_DIST: ${{ steps.version.outputs.build-number }}
