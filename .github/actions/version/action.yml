@@ -1,0 +1,26 @@
+name: 'Get Version from git'
+description: 'Internal Action for Tail App'
+outputs:
+  version:
+    description: "Version from File or Tag"
+    value: ${{ steps.get-version.outputs.VERSION }}
+  build-number:
+    description: "build number from git history"
+    value: ${{ steps.get-version.outputs.BUILD_NUMBER }}
+runs:
+  using: "composite"
+  steps:
+      - name: Get version
+        id: get-version
+        run: |
+        # get the Build Bumber & version from git
+        VERSION="$(cat VERSION)"
+        BUILD_NUMBER="$(git rev-list HEAD --count)"
+        # Gets the release tag from github if it exists (Github Actions)
+        # Assumes tags start with V
+        if [[ -v RELEASE_TAG ]] && [[ -n $RELEASE_TAG ]]; then
+          TAG="${RELEASE_TAG,,}"
+          VERSION="${TAG//"v"}"
+        fi
+        echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
+        echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
