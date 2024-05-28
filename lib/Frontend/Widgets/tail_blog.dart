@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sentry_file/sentry_file.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
@@ -149,12 +151,19 @@ class _TailBlogState extends State<TailBlog> {
   }
 
   Future<Widget> getImage(FeedItem item, BuildContext context) async {
+    // Start a transaction if there's no active transaction
+    final transaction = Sentry.startTransaction(
+      'getImageTailBlog',
+      'file',
+      bindToScope: true,
+    );
     String? mediaUrl;
     if (item.imageId != null) {
       String filePath = '${(await getTemporaryDirectory()).path}/media/${item.imageId}';
 
       File file = File(filePath);
-      if (!await file.exists()) {
+      File sentryFile = file.sentryTrace();
+      if (!await sentryFile.exists()) {
         // Get image url from wordpress api
         if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
           mediaUrl = item.imageUrl;
@@ -172,11 +181,11 @@ class _TailBlogState extends State<TailBlog> {
           await initDio().download(mediaUrl, filePath);
         }
       }
-      if (await file.exists()) {
+      if (await sentryFile.exists()) {
         try {
           if (context.mounted) {
             return Image.file(
-              file,
+              sentryFile,
               alignment: Alignment.bottomCenter,
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover,
@@ -185,7 +194,7 @@ class _TailBlogState extends State<TailBlog> {
           }
         } catch (e) {
           // delete invalid media
-          file.delete();
+          sentryFile.delete();
         }
       }
     }
