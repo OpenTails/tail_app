@@ -24,5 +24,3 @@ echo "::endgroup::"
 echo "::group::Build APK"
 flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --color #--dart-define=cronetHttpNoPlay=true
 echo "::endgroup::"
-
-fi
