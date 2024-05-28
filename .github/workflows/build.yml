@@ -26,6 +26,8 @@ jobs:
           fetch-depth: 0
       - name: Setup Environment
         uses: ./.github/actions/setup_build
+      - name: Pre Build Tasks
+        uses: ./.github/actions/pre_build
       - name: Run build script
         id: build
         run: bash ${GITHUB_WORKSPACE}/Scripts/launchBuild.sh
