@@ -1,8 +1,5 @@
 name: 'Get Version from git'
 description: 'Internal Action for Tail App'
-inputs:
-  release-tag:
-    description: 'The Release tag from github'
 outputs:
   version:
     description: "Version from File or Tag"
@@ -28,7 +25,7 @@ runs:
         shell: ${{ steps.get-interpreter.outputs.interpreter }}
         id: get-version
         env:
-          RELEASE_TAG: ${{ inputs.release-tag }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
           # get the Build Bumber & version from git
           VERSION="$(cat VERSION)"
