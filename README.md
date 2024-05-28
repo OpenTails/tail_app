@@ -256,6 +256,13 @@ These services are self-hosted in a mini-pc on my tv stand in my apartment
 [Plausible](https://plausible.codel1417.xyz/tail-app)
 [Uptime](https://uptime.codel1417.xyz/status/public)
 
+#### Infrastructure notes
+
+Services are hosted in a [Proxmox](https://www.proxmox.com/en/) based machine using unprivileged LXC containers.
+These containers are based on [Ubuntu Server] (https://ubuntu.com/download/server) and have unattended upgrades enabled.
+This machine doesn't use port forwarding, but instead uses [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/).
+Services go down daily at 6:00 AM UTC for offline backups. This Can take up to an hour.
+
 #### Other URLS
 
 [Apple App Store connect](https://appstoreconnect.apple.com/apps)
