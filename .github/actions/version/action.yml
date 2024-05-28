@@ -1,5 +1,8 @@
 name: 'Get Version from git'
 description: 'Internal Action for Tail App'
+inputs:
+  release-tag:
+    description: 'The Release tag from github'
 outputs:
   version:
     description: "Version from File or Tag"
@@ -9,6 +12,8 @@ outputs:
     value: ${{ steps.get-version.outputs.BUILD_NUMBER }}
 runs:
   using: "composite"
+  with:
+    RELEASE_TAG: ${{ inputs.java-distribution }}
   steps:
       - name: Get version
         shell: bash
