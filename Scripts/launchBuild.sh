@@ -10,4 +10,4 @@ if [[ $OS == 'macos-latest' ]]; then
 else
     interpreter=bash
 fi
-exec "$interpreter" "./build.sh" "$@"
+exec "$interpreter" "./build_gh.sh" "$@"
