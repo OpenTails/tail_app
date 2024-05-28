@@ -39,6 +39,7 @@ enum OtaState {
   manual,
   completed,
   lowBattery,
+  rebooting,
 }
 
 class _OtaUpdateState extends ConsumerState<OtaUpdate> {
@@ -332,10 +333,12 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
           try {
             await sendMessage(baseStatefulDevice!, chunk, withoutResponse: true);
           } catch (e, s) {
-            _otaLogger.severe("Exception during ota upload:$e", e, s);
-            setState(() {
-              otaState = OtaState.error;
-            });
+            if ((current + chunk.length) / total < 0.999) {
+              _otaLogger.severe("Exception during ota upload:$e", e, s);
+              setState(() {
+                otaState = OtaState.error;
+              });
+            }
             return;
           }
           current = current + chunk.length;
@@ -349,7 +352,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       }
       if (uploadProgress == 1) {
         //await Future.delayed(const Duration(seconds: 10));
-        otaState = OtaState.completed;
+        otaState = OtaState.rebooting;
         plausible.event(name: "Update Gear");
       }
       baseStatefulDevice!.deviceState.value = DeviceState.standby; // hold the command queue
