@@ -18,7 +18,7 @@ runs:
         id: get-interpreter
         run: |
           if [[ $RUNNER_OS == 'macOS' ]]; then
-            interpreter=zsh
+            interpreter='zsh {0}'
           else
               interpreter=bash
           fi
