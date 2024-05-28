@@ -13,7 +13,7 @@ outputs:
 runs:
   using: "composite"
   with:
-    RELEASE_TAG: ${{ inputs.java-distribution }}
+    RELEASE_TAG: ${{ inputs.release-tag }}
   steps:
       - name: Get version
         shell: bash
