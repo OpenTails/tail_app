@@ -14,14 +14,14 @@ runs:
         shell: bash
         id: get-version
         run: |
-        # get the Build Bumber & version from git
-        VERSION="$(cat VERSION)"
-        BUILD_NUMBER="$(git rev-list HEAD --count)"
-        # Gets the release tag from github if it exists (Github Actions)
-        # Assumes tags start with V
-        if [[ -v RELEASE_TAG ]] && [[ -n $RELEASE_TAG ]]; then
-          TAG="${RELEASE_TAG,,}"
-          VERSION="${TAG//"v"}"
-        fi
-        echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
-        echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+          # get the Build Bumber & version from git
+          VERSION="$(cat VERSION)"
+          BUILD_NUMBER="$(git rev-list HEAD --count)"
+          # Gets the release tag from github if it exists (Github Actions)
+          # Assumes tags start with V
+          if [[ -v RELEASE_TAG ]] && [[ -n $RELEASE_TAG ]]; then
+            TAG="${RELEASE_TAG,,}"
+            VERSION="${TAG//"v"}"
+          fi
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
