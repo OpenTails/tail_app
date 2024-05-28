@@ -56,8 +56,8 @@ jobs:
         working-directory: Scripts
         continue-on-error: false
         env:
-          VERSION: ${{ steps.version.outputs.BUILD_NUMBER }}
-          BUILD_NUMBER: ${{ steps.version.outputs.VERSION }}
+          VERSION: ${{ steps.version.outputs.VERSION }}
+          BUILD_NUMBER: ${{ steps.version.outputs.BUILD_NUMBER }}
           GOOGLE_SECRETS: ${{ secrets.GOOGLE_PLAY }}
           APPLE_SECRETS: ${{ secrets.APPLE }}
           OS: ${{ matrix.os }}
@@ -72,5 +72,5 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_RELEASE: ${{ steps.build.outputs.BUILD_NUMBER }}
-          SENTRY_DIST: ${{ steps.build.outputs.VERSION }}
+          SENTRY_RELEASE: ${{ steps.build.outputs.VERSION }}
+          SENTRY_DIST: ${{ steps.build.outputs.BUILD_NUMBER }}
