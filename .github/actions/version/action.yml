@@ -16,11 +16,8 @@ runs:
       - name: get interpreter
         shell: bash
         id: get-interpreter
-        if: runner.os == 'Linux'
-        env:
-          OS: ${{ runner.os }}
         run: |
-          if [[ $OS == 'macos-latest' ]]; then
+          if [[ $RUNNER_OS == 'macOS' ]]; then
             interpreter=zsh
           else
               interpreter=bash
