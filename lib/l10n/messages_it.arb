@@ -29,7 +29,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsPage": "Di",
+  "settingsPage": "Impostazioni",
   "@settingsPage": {
     "description": "The label and title of the settings page",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "A quale attrezzatura dovrebbe applicarsi?",
+  "deviceTypeTail": "Coda",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -143,7 +143,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Aggiungi mossa",
+  "sequencesEditName": "Nome",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -161,7 +161,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Ritardo",
+  "sequencesEditLeftServo": "Posizione del servo sinistro",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Fermare",
+  "manageDevicesColor": "Colore dell'ingranaggio",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -363,13 +363,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Ricerca di attrezzi. Assicurati che la tua attrezzatura sia accesa e nelle vicinanze",
+  "triggerWalkingDescription": "Attiva un'azione mentre cammini",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStopped": "Attiva un'azione mentre cammini",
+  "triggerWalkingStopped": "Fermato",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
     "type": "text",
@@ -435,13 +435,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Attiva un'azione scuotendo il dispositivo",
+  "triggerProximityDescription": "Attiva un'azione se l'attrezzatura è nelle vicinanze",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Attiva un'azione scuotendo il dispositivo",
+  "triggerActionNotSet": "Nessuna serie di azioni",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "politica sulla riservatezza",
+  "moreManualTitle": "Manuali",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Tocca per visualizzare",
+  "moreUsefulLinksTitle": "link utili",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Tieni lo schermo acceso",
+  "settingsKeepScreenOnToggleSubTitle": "Questa modalità impedisce allo schermo di spegnersi mentre l'attrezzatura è collegata",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Nascondi le schede tutorial",
+  "settingsTutorialCardToggleSubTitle": "Nascondi le varie schede tutorial in tutta l'app",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -741,13 +741,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Concedere l'autorizzazione",
+  "onboardingDoneButtonLabel": "Fatto",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Attiva il Bluetooth",
+  "onboardingCompletedTitle": "Buon scodinzolante!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -759,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Attiva il Bluetooth ",
+  "doubleBackToClose": "Premere di nuovo per uscire ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -819,7 +819,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Rende le carte azione più grandi per essere toccate più facilmente",
+  "otaLowBattery": "Batteria scarica. Carica la tua attrezzatura almeno al 50%",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -894,6 +894,12 @@
   "moreSourceCode": "Codice sorgente",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Suono",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
