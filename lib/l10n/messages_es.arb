@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "Frustrado y tenso",
+  "actionsCategoryGlowtip": "punta luminosa",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -89,7 +89,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Seleccione una acción",
+  "settingsHapticsToggleTitle": "Retroalimentación háptica",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Agregar movimiento",
+  "sequencesEditName": "Nombre",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -119,13 +119,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Comenzar la actualización OTA",
+  "triggerProximityDescription": "Activa una acción si hay equipo cerca",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Hace que las tarjetas de acción sean más grandes para tocarlas más fácilmente.",
+  "settingsErrorReportingToggleTitle": "Informe automático de errores",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Bajar volumen",
+  "triggerShakeDescription": "Activa una acción agitando tu dispositivo",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -201,7 +201,7 @@
       }
     }
   },
-  "feedbackPage": "Controla directamente la posición del engranaje.",
+  "feedbackPage": "Enviar comentarios",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Sube el volumen",
+  "triggerVolumeButtonDescription": "Activa una acción presionando el botón de volumen",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Sube el volumen",
+  "triggerShakeTitle": "Agitar",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -315,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Color de la aplicación",
+  "manageDevicesDisconnect": "Desconectar",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -339,13 +339,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Buscando equipo. Asegúrate de que tu equipo esté encendido y cerca",
+  "scanDevicesScanMessage": "Escaneando en busca de equipo. Asegúrate de que tu equipo esté encendido y cerca",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsCalm": "Mover grupos",
+  "manageDevicesAutoMoveGroupsCalm": "Calma",
   "@manageDevicesAutoMoveGroupsCalm": {
     "description": "Auto move group  calm option label when managing a device",
     "type": "text",
@@ -405,7 +405,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesBatteryGraphTitle": "Pausa entre movimientos",
+  "manageDevicesBatteryGraphTitle": "Gráfico de batería",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Busque siempre equipo conocido",
+  "settingsKeepScreenOnToggleTitle": "Mantener la pantalla encendida",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Si bien los datos recopilados son anónimos y no pueden usarse para identificar a un usuario específico, aún debes aceptar la política de privacidad.",
+  "onboardingPrivacyPolicyViewButtonLabel": "Ver política de privacidad",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -729,13 +729,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Se requiere permiso de Bluetooth para conectarse al equipo",
+  "onboardingBluetoothRequestButtonLabel": "Conceder permiso",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Se requiere permiso de Bluetooth para conectarse al equipo",
+  "onboardingBluetoothEnableButtonLabel": "Activar Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Hecho",
+  "onboardingCompletedTitle": "¡Feliz meneo!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -894,6 +894,12 @@
   "moreSourceCode": "Código fuente",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Sonido",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
