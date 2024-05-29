@@ -21,7 +21,10 @@ enum ActionCategory {
   @HiveField(6)
   ears,
   @HiveField(7)
-  hidden
+  hidden,
+  @HiveField(8)
+  audio
+
 }
 
 extension ActionCategoryExtension on ActionCategory {
@@ -41,6 +44,8 @@ extension ActionCategoryExtension on ActionCategory {
         return sequencesPage();
       case ActionCategory.hidden:
         return "";
+      case ActionCategory.audio:
+        return audioActionCategory();
     }
   }
 }
@@ -100,4 +105,12 @@ class CommandAction extends BaseAction {
   factory CommandAction.hiddenEars(String command, String response) {
     return CommandAction(command: command, response: response, deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: const Uuid().v4(), name: command);
   }
+
+}
+class AudioAction extends BaseAction {
+  String file;
+
+  AudioAction({required super.name, super.deviceCategory = DeviceType.values, super.actionCategory = ActionCategory.audio, required super.uuid, required this.file});
+
+
 }

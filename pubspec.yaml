@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   cross_platform: ^3.0.1
   logging: ^1.2.0
-  go_router: ^14.1.3
+  go_router: ^14.1.4
   vector_math: ^2.1.4 # used for joystick
   collection: ^1.18.0 # Priority Queue
   intl: #pinned to flutter version?
@@ -27,6 +27,9 @@ dependencies:
   circular_buffer: ^0.11.0  # Used for serial console
   wordpress_client: ^8.4.10 # Used for tail blog
   pub_semver: ^2.1.4 # used for comparing firmware versions
+  just_audio: ^0.9.38
+  audio_session: ^0.1.19
+
 
   # Platform Interfaces
   device_info_plus: ^10.1.0

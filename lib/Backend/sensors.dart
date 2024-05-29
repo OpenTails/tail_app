@@ -192,14 +192,16 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         if (allActionsMapped.isEmpty) {
           return;
         }
-        final List<BaseAction> nonGlowActions = allActionsMapped.where((element) => !const [ActionCategory.glowtip].contains(element.actionCategory)).toList();
+        final List<BaseAction> moveActions = allActionsMapped.where((element) => !const [ActionCategory.glowtip, ActionCategory.audio].contains(element.actionCategory)).toList();
         final List<BaseAction> glowActions = allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList();
+        final List<BaseAction> audioActions = allActionsMapped.where((element) => const [ActionCategory.audio].contains(element.actionCategory)).toList();
+
         BaseAction? baseAction;
         List<BaseAction> actionsToRun = [];
 
         // check if non glowy actions are set
-        if (nonGlowActions.isNotEmpty) {
-          baseAction = nonGlowActions[_random.nextInt(nonGlowActions.length)];
+        if (moveActions.isNotEmpty) {
+          baseAction = moveActions[_random.nextInt(moveActions.length)];
           actionsToRun.add(baseAction);
         }
         // add a glowtip action if it exists
@@ -207,7 +209,11 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           final BaseAction glowAction = glowActions[_random.nextInt(glowActions.length)];
           actionsToRun.add(glowAction);
         }
-
+        // add a glowtip action if it exists
+        if (audioActions.isNotEmpty) {
+          final BaseAction glowAction = audioActions[_random.nextInt(audioActions.length)];
+          actionsToRun.add(glowAction);
+        }
         final Set<DeviceType> flattenedDeviceTypes = deviceTypes.values.flattened.toSet();
         final Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
 
@@ -215,7 +221,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           // find the missing device type
           // The goal here is if a user selects multiple moves, send a move to all gear
           final Set<DeviceType> missingGearAction = baseAction.deviceCategory.toSet().difference(baseAction.deviceCategory.toSet());
-          final List<BaseAction> remainingActions = nonGlowActions
+          final List<BaseAction> remainingActions = moveActions
               .where(
                 // Check if any actions contain the device type of the gear the first action is missing
                 (element) => element.deviceCategory.toSet().intersection(missingGearAction).isNotEmpty,

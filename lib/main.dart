@@ -25,6 +25,7 @@ import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
 
 import 'Backend/Definitions/Action/base_action.dart';
 import 'Backend/app_shortcuts.dart';
+import 'Backend/audio.dart';
 import 'Backend/background_update.dart';
 import 'Backend/move_lists.dart';
 import 'Backend/notifications.dart';
@@ -63,6 +64,7 @@ Future<void> main() async {
   initNotifications();
   initBackgroundTasks();
   initLocale();
+  setUpAudio();
   await initHive();
   //initDio();
   mainLogger.fine("Init Sentry");

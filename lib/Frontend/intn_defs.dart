@@ -320,3 +320,4 @@ String mandatoryOtaRequired() => Intl.message("A firmware update is required for
 String actionsFavoriteTip() => Intl.message("Long press an action to favorite", name: 'actionsFavoriteTip', desc: 'tip message which appears when no actions are favorited on the actions page');
 
 String moreSourceCode() => Intl.message("Source Code", name: 'moreSourceCode', desc: 'Label for the github and dev mode button on the more tab');
+String audioActionCategory() => Intl.message("Sound", name: 'audioActionCategory', desc: 'Label for sound files');
