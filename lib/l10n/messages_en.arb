@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-25T17:42:52.603806",
+  "@@last_modified": "2024-05-29T21:03:26.254755",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -896,6 +896,12 @@
   "moreSourceCode": "Source Code",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Sound",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
