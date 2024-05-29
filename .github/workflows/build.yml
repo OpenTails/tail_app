@@ -59,7 +59,7 @@ jobs:
         env:
           VERSION: ${{ steps.version.outputs.version }}
           BUILD_NUMBER: ${{ steps.version.outputs.build-number }}
-          GOOGLE_SECRETS: ${{ secrets.GOOGLE_PLAY }}
+          GOOGLE_SECRETS: ${{ secrets.GOOGLE_SECRETS }}
           APPLE_SECRETS: ${{ secrets.APPLE }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
           MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
