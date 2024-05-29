@@ -32,5 +32,7 @@ default_platform(:android)
         #release_notes: changelog,
         version_code: ENV['BUILD_NUMBER'],
         version_name: ENV['VERSION'],
-        json_key_data: ENV['GOOGLE_SECRETS'])
+        json_key_data: ENV['GOOGLE_SECRETS'],
+        release_status: "draft", #TODO: Remove
+        )
 end
