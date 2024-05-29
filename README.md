@@ -210,6 +210,7 @@ Some of these values aren't actually secret and can be shared. Specifically the 
 | FASTLANE_PATCH_PASSWORD | hunter2                                                                                                                                                                  | Make a password                                                                                               | Encrypt match certificates                      |
 | ANDROID_KEY_PROPERTIES  | storePassword=hunter2 <br> keyPassword=hunter2 <br> keyAlias=upload <br> storeFile=key.jks                                                                               | generate an android signing certificate and fill out [key.example.properties](android/key.example.properties) | sign apks                                       |
 | ANDROID_KEY_JKS         | sdfsfasdFSDgjklsgklsjdfASGHSDLGHJFSD=                                                                                                                                    | cat AndroidKeystoreCodel1417.jks \| base64 -w 0                                                               | base64 form of the jks file                     |
+| GOOGLE_SECRETS          | {"type": "service_account",                                                                                                                                              | Json file of google credentials https://docs.fastlane.tools/actions/upload_to_play_store/                     | Authenticate to google to upload builds         |
 
 ### Repository Integrations
 

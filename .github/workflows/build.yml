@@ -52,7 +52,7 @@ jobs:
             build/app/outputs/apk
             build/app/outputs/bundle
       - name: Upload Beta
-        if: github.event_name == 'push' && runner.os == 'macOS'
+        if: github.event_name == 'push'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
         continue-on-error: false
