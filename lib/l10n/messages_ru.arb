@@ -1,5 +1,5 @@
 {
-  "aboutPage": "Непосредственно контролируйте положение шестерни.",
+  "aboutPage": "О",
   "@aboutPage": {
     "description": "The label and title of the about page",
     "type": "text",
@@ -71,13 +71,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Крылья",
+  "sequencesAdd": "Новое действие",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Новое действие",
+  "sequencesEdit": "Изменить действие",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Уши",
+  "settingsHapticsToggleSubTitle": "Включить вибрацию при нажатии на действие",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFrustrated": "Спокойствие",
+  "manageDevicesAutoMoveGroupsFrustrated": "Расстроенный",
   "@manageDevicesAutoMoveGroupsFrustrated": {
     "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканирование нового снаряжения",
+  "scanDevicesTitle": "Сканируйте новое снаряжение",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Непосредственно контролируйте положение шестерни.",
+  "feedbackPage": "Отправить отзыв",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -369,7 +369,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Нашел механизм. Нажмите на название механизма, чтобы подключиться.",
+  "triggerCoverNear": "Устройство покрыто",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Кнопки громкости",
+  "triggerVolumeButtonDescription": "Запуск действия нажатием кнопки громкости",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "Кнопки громкости",
+  "triggerVolumeButtonVolumeDown": "Звук тише",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
@@ -645,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleTitle": "Отправляет отчеты об ошибках в Sentry",
+  "settingsTutorialCardToggleTitle": "Скрыть карточки обучения",
   "@settingsTutorialCardToggleTitle": {
     "description": "Settings page tutorial card display toggle title",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизведено при возникновении события. Чтобы удалить действие, коснитесь действия еще раз, чтобы удалить его. Не забудьте сохраниться, используя значок сохранения вверху.",
+  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизводиться при возникновении события. Чтобы удалить действие, коснитесь действия еще раз, чтобы удалить его. Не забудьте сохраниться, используя значок сохранения вверху.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -699,7 +699,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Руководство по DigiTail",
+  "onboardingPrivacyPolicyDescription": "Хотя собранные данные являются анонимными и не могут быть использованы для идентификации конкретного пользователя, вам все равно необходимо принять политику конфиденциальности.",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Обновить снаряжение",
+  "onboardingPrivacyPolicyViewButtonLabel": "Посмотреть политику конфиденциальности",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -759,19 +759,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Сделанный ",
+  "doubleBackToClose": "Нажмите еще раз, чтобы выйти ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Задержка следующего хода на [X20X] мс.",
+  "settingsAlwaysScanningToggleTitle": "Всегда сканируйте известное снаряжение",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "otaCompletedTitle": "Более",
+  "otaCompletedTitle": "Обновление завершено",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomButtonDescription": "Казуальный режим",
+  "triggerRandomButtonDescription": "Случайное воспроизведение выбранного действия",
   "@triggerRandomButtonDescription": {
     "description": "Casual Mode trigger description",
     "type": "text",
@@ -894,6 +894,12 @@
   "moreSourceCode": "Исходный код",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Звук",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
