@@ -29,7 +29,7 @@ default_platform(:android)
     upload_to_play_store(
         aab: "../build/app/outputs/bundle/release/app-release.aab",
         track:"internal",
-        release_notes: changelog,
+        #release_notes: changelog,
         version_code: ENV['BUILD_NUMBER'],
         version_name: ENV['VERSION'],
         json_key_data: ENV['GOOGLE_SECRETS'])
