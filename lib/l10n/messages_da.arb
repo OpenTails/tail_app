@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Højre tilt",
+  "triggerCoverTitle": "Dække over",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Tilpassede handlinger",
+  "sequencesPage": "Brugerdefinerede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -101,7 +101,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Hale",
+  "deviceTypeWings": "Vinger",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -137,13 +137,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "Bevæge sig",
+  "sequencesEditDelay": "Forsinke",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Bevæge sig",
+  "sequencesEditLeftServo": "Venstre servos position",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Hvor længe skal du vente, før du går til næste træk i denne tilpassede handling",
+  "sequencesEditHomeLabel": "Hjem Gearet",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -255,13 +255,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Gør handlingskortene større for nemmere at trykke",
+  "settingsErrorReportingToggleTitle": "Automatisk fejlrapportering",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Gør handlingskortene større for nemmere at trykke",
+  "settingsErrorReportingToggleSubTitle": "Sender fejlrapporter til Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesBatteryGraphTitle": "Frustreret",
+  "manageDevicesBatteryGraphTitle": "Batterigraf",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
     "type": "text",
@@ -339,7 +339,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingTitle": "Scan efter nyt gear",
+  "triggerWalkingTitle": "Gåture",
   "@triggerWalkingTitle": {
     "description": "Walking/Step trigger title",
     "type": "text",
@@ -399,13 +399,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "Lydstyrke op",
+  "triggerVolumeButtonVolumeDown": "Skrue ned",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Handling",
+  "triggerShakeTitle": "Ryste",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Handling",
+  "triggerProximityTitle": "Nærliggende Gear",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -495,7 +495,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Hold skærmen tændt",
+  "settingsKeepScreenOnToggleSubTitle": "Denne tilstand forhindrer skærmen i at slukke, mens dit udstyr er tilsluttet",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -531,7 +531,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "MiTail manual",
+  "moreManualDigitailTitle": "DigiTail manual",
   "@moreManualDigitailTitle": {
     "description": "Title for Digitail manual button on More page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "Se privatlivspolitik",
+  "sequencesPageDescription": "Opret tilpassede handlinger til dit udstyr",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Firmware-ændringslog",
+  "triggerInfoDescription": "Udløsere sender automatisk handlinger til dit udstyr. Du kan have flere udløsere aktive på samme tid. Tryk på en trigger for at redigere den, brug knappen til venstre for at aktivere triggeren.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Udløs en handling, når EarGear registrerer lyd",
+  "sequencesInfoDescription": "Custom Actions giver dig mulighed for at lave dine egne Actions for gear. Hvis du trykker på en brugerdefineret handling, afspilles den. Tryk på blyanten for at redigere en tilpasset handling.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Slå Bluetooth til",
+  "onboardingDoneButtonLabel": "Færdig",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
@@ -735,13 +735,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Bluetooth",
+  "onboardingBluetoothRequestButtonLabel": "Giv tilladelse",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Hvor mange gange skal denne handling gentages?",
+  "onboardingBluetoothEnableButtonLabel": "Slå Bluetooth til",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Slå Bluetooth til ",
+  "doubleBackToClose": "Tryk igen for at afslutte ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -813,7 +813,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Opdatering af Gear. Sluk ikke dit gear eller luk appen",
+  "otaInProgressTitle": "Opdaterer Gear. Sluk ikke for dit udstyr eller luk appen",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -831,7 +831,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Frisk fra Halebloggen",
+  "homeNewsTitle": "Frisk fra halebloggen",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -894,6 +894,12 @@
   "moreSourceCode": "Kildekode",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Lyd",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
