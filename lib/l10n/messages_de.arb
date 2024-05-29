@@ -23,7 +23,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "aboutPage": "App-Farbe ändern, Haptik konfigurieren und mehr",
+  "aboutPage": "Um",
   "@aboutPage": {
     "description": "The label and title of the about page",
     "type": "text",
@@ -89,7 +89,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Frustriert und angespannt",
+  "deviceTypeEars": "Ohren",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -147,13 +147,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "App-Farbe ändern, Haptik konfigurieren und mehr",
+  "actionsCategoryCalm": "Ruhig und entspannt",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "OK",
+  "actionsCategoryFast": "Schnell und aufgeregt",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -171,7 +171,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Frustriert und angespannt",
+  "actionsCategoryEars": "Ohren",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -345,7 +345,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Shake",
+  "triggerActionNotSet": "Keine Aktion festgelegt",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Position des linken Servos",
+  "sequencesEditSpeed": "Wie schnell soll das Getriebe in diese Position gelangen?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "EarGear Neigungssensor",
+  "triggerEarTiltLeft": "Nach links kippen",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualMiTailTitle": "Ausrüstung gefunden. Tippen Sie auf den Namen der Ausrüstung, um eine Verbindung herzustellen",
+  "moreManualMiTailTitle": "MiTail Handbuch",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Datenschutzrichtlinie",
+  "moreTitle": "Mehr",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Bildschirm eingeschaltet lassen",
+  "settingsBatteryPercentageToggleSubTitle": "Zeigt den tatsächlichen Akkustand anstelle eines Symbols an",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Tutorial-Karten ausblenden",
+  "settingsTutorialCardToggleSubTitle": "Die verschiedenen Lernkarten in der gesamten App ausblenden",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Ausrüstung aktualisieren",
+  "otaChangelogLabel": "Firmware-Änderungsprotokoll",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -699,7 +699,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
+  "onboardingPrivacyPolicyViewButtonLabel": "Datenschutzrichtlinie anzeigen",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -711,13 +711,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzrichtlinie akzeptieren",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothTitle": "Datenschutzrichtlinie akzeptieren",
+  "onboardingBluetoothTitle": "Bluetooth",
   "@onboardingBluetoothTitle": {
     "description": "Title for bluetooth section on the onboarding screen",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Berechtigung erteilen",
+  "onboardingBluetoothEnableButtonLabel": "Bluetooth einschalten",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Erledigt",
+  "onboardingCompletedTitle": "Viel Spaß beim Wedeln!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -813,7 +813,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Gear wird aktualisiert. Bitte schalten Sie Ihr Gear nicht aus und schließen Sie die App nicht.",
+  "otaInProgressTitle": "Gear wird aktualisiert. Bitte schalte dein Gear nicht aus und schließe die App nicht.",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -894,6 +894,12 @@
   "moreSourceCode": "Quellcode",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Klang",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
