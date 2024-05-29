@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Stuur feedback",
+  "feedbackPage": "Feedback verzenden",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -53,13 +53,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Update voltooid",
+  "triggersSelectLabel": "Selecteer een triggertype",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Actie verwijderen",
+  "ok": "OK",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -77,13 +77,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "GlowTip",
+  "deviceTypeEars": "Oren",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Staart",
+  "deviceTypeWings": "Vleugels",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
@@ -143,7 +143,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Hoe snel moet het tandwiel naar deze positie bewegen?",
+  "sequencesEditEasing": "Versoepelingstype",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -161,7 +161,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "OTA-update starten",
+  "sequencesEditDeleteTitle": "Actie verwijderen",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "GlowTip",
+  "actionsCategoryEars": "Oren",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Kleur uitrusting",
+  "manageDevicesColor": "Toestel kleur",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -333,7 +333,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStopped": "Activeer een actie tijdens het lopen",
+  "triggerWalkingStopped": "Gestopt",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
     "type": "text",
@@ -405,7 +405,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Instellingen",
+  "triggerProximityTitle": "Uitrusting in de buurt",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -543,7 +543,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Handleidingen",
+  "moreManualSubTitle": "Tik om te bekijken",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "App-kleur",
+  "settingsAnalyticsToggleSubTitle": "Rapporteer niet-identificerend functiegebruik aan Plausible voor het verbeteren van de app",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -639,13 +639,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Leskaarten verbergen",
+  "settingsTutorialCardToggleSubTitle": "Verberg de verschillende leskaarten in de hele app",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Update voltooid",
+  "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijk actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "OTA-update starten",
+  "otaDownloadButtonLabel": "Start OTA-update",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Bluetooth-toestemming is vereist om verbinding te maken met uitrusting",
+  "onboardingBluetoothRequestButtonLabel": "Toestemming geven",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -741,19 +741,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Bluetooth-toestemming is vereist om verbinding te maken met uitrusting",
+  "onboardingDoneButtonLabel": "Klaar",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Klaar",
+  "onboardingCompletedTitle": "Veel plezier met kwispelen!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Activeer een actie als er uitrusting in de buurt is ",
+  "doubleBackToClose": "Druk nogmaals om af te sluiten ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -867,7 +867,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeChangelogLinkTitle": "Update uitrusting",
+  "homeChangelogLinkTitle": "Wijzigingslog",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
     "type": "text",
@@ -879,7 +879,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Voor deze app is een firmware-update vereist om je uitrusting te ondersteunen",
+  "mandatoryOtaRequired": "Er is een firmware-update vereist om deze app je uitrusting te laten ondersteunen",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -894,6 +894,12 @@
   "moreSourceCode": "Broncode",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Geluid",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
