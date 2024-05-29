@@ -46,7 +46,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
   }
   _didInitFlutterBluePlus = true;
 
-  await FlutterBluePlus.setLogLevel(LogLevel.warning, color: false);
+  await FlutterBluePlus.setLogLevel(LogLevel.warning, color: true);
   // first, check if bluetooth is supported by your hardware
   // Note: The platform is initialized on the first call to any FlutterBluePlus method.
   if (await FlutterBluePlus.isSupported == false) {
@@ -365,6 +365,14 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
   if (bluetoothDevice != null) {
     BluetoothCharacteristic? bluetoothCharacteristic =
         bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid == Guid(device.baseDeviceDefinition.bleDeviceService))?.characteristics.firstWhereOrNull((element) => element.characteristicUuid == Guid(device.baseDeviceDefinition.bleTxCharacteristic));
-    await bluetoothCharacteristic?.write(message, withoutResponse: withoutResponse && bluetoothCharacteristic.properties.writeWithoutResponse);
+    if (bluetoothCharacteristic == null) {
+      return;
+    }
+
+    Future<void> future = bluetoothCharacteristic.write(message, withoutResponse: withoutResponse && bluetoothCharacteristic.properties.writeWithoutResponse);
+    future.catchError((e) {
+      _bluetoothPlusLogger.severe("Unable to send message to ${device.baseDeviceDefinition.btName} $e", e);
+    });
+    await future;
   }
 }

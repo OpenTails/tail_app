@@ -79,7 +79,7 @@ Future<void> main() async {
       options.beforeSend = beforeSend;
       options.enableMetrics = true;
       options.debug = kDebugMode;
-      options.diagnosticLevel = SentryLevel.debug;
+      options.diagnosticLevel = SentryLevel.info;
       //options.platformChecker = CustomSentryPlatformChecker();
       //options.httpClient = SentryDioClient(); // This doesn't do much :/. Sentry flutter uses native to send data
     },

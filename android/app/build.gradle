@@ -2,7 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id "io.sentry.android.gradle" version "4.6.0"
+    id "io.sentry.android.gradle"
 }
 
 def localProperties = new Properties()
@@ -93,7 +93,9 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 
 }
+
 sentry {
+    ignoredBuildTypes = ["debug"]
     // Disables or enables debug log output, e.g. for for sentry-cli.
     // Default is disabled.
     debug = false
@@ -167,5 +169,4 @@ sentry {
     autoInstallation {
         enabled = false
     }
-
 }

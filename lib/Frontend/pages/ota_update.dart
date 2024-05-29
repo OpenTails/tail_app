@@ -1,12 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
+import 'package:duration/duration.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
@@ -53,7 +56,9 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   bool wakelockEnabledBeforehand = false;
   BaseStatefulDevice? baseStatefulDevice;
   int current = 0;
-  final _otaLogger = Logger('otaLogger');
+  Duration timeRemainingMS = Duration.zero;
+  Timer? timer;
+  final Logger _otaLogger = Logger('otaLogger');
 
   @override
   void initState() {
@@ -61,6 +66,8 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
     firmwareInfo ??= baseStatefulDevice?.fwInfo.value;
     WakelockPlus.enabled.then((value) => wakelockEnabledBeforehand = value);
+    baseStatefulDevice!.fwVersion.addListener(verListener);
+    beginScan();
   }
 
   @override
@@ -73,6 +80,11 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       otaState == OtaState.error;
     }
     baseStatefulDevice?.deviceState.value = DeviceState.standby;
+    baseStatefulDevice!.fwVersion.removeListener(verListener);
+    if (!SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault)) {
+      stopScan();
+    }
+    timer?.cancel();
   }
 
   @override
@@ -80,93 +92,78 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     return Scaffold(
       appBar: AppBar(title: Text(otaTitle())),
       body: Center(
-        child: AnimatedCrossFade(
-          layoutBuilder: (topChild, topChildKey, bottomChild, bottomChildKey) => Stack(
-            clipBehavior: Clip.none,
-            fit: StackFit.expand,
-            children: <Widget>[
-              Positioned(
-                key: bottomChildKey,
-                child: bottomChild,
-              ),
-              Positioned(
-                key: topChildKey,
-                child: topChild,
-              ),
-            ],
-          ),
-          firstChild: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
-                ListTile(
-                  title: const Text("Debug"),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("MD5: ${firmwareInfo?.md5sum}"),
-                      Text("DL MD5: $downloadedMD5"),
-                      Text("URL: ${baseStatefulDevice?.baseDeviceDefinition.fwURL}"),
-                      Text("AVAILABLE VERSION: ${firmwareInfo?.version}"),
-                      Text("CURRENT VERSION: ${baseStatefulDevice?.fwVersion.value}"),
-                      Text("STATE: $otaState"),
-                    ],
-                  ),
-                ),
-              ],
-              ListTile(
-                title: Text(otaChangelogLabel()),
-                subtitle: Text(firmwareInfo?.changelog ?? "Unavailable"),
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ButtonBar(
-                        alignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
-                            child: Text(
-                              otaDownloadButtonLabel(),
-                            ),
-                          ),
-                          if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
-                            ElevatedButton(
-                              onPressed: () async {
-                                FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                  type: FileType.custom,
-                                  withData: true,
-                                  allowedExtensions: ['bin'],
-                                );
-                                if (result != null) {
-                                  setState(() {
-                                    firmwareFile = result.files.single.bytes?.toList(growable: false);
-                                    Digest digest = md5.convert(firmwareFile!);
-                                    downloadProgress = 1;
-                                    downloadedMD5 = digest.toString();
-                                    otaState = OtaState.manual;
-                                  });
-                                } else {
-                                  // User canceled the picker
-                                }
-                              },
-                              child: const Text("Select file"),
-                            )
-                          ],
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-          secondChild: Column(
+        child: AnimatedSwitcher(
+          duration: animationTransitionDuration,
+          child: Column(
+            key: ValueKey(otaState),
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              if ([OtaState.standby, OtaState.manual].contains(otaState)) ...[
+                if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                  ListTile(
+                    title: const Text("Debug"),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("MD5: ${firmwareInfo?.md5sum}"),
+                        Text("DL MD5: $downloadedMD5"),
+                        Text("URL: ${baseStatefulDevice?.baseDeviceDefinition.fwURL}"),
+                        Text("AVAILABLE VERSION: ${firmwareInfo?.version}"),
+                        Text("CURRENT VERSION: ${baseStatefulDevice?.fwVersion.value}"),
+                        Text("STATE: $otaState"),
+                      ],
+                    ),
+                  ),
+                ],
+                ListTile(
+                  title: Text(otaChangelogLabel()),
+                  subtitle: Text(firmwareInfo?.changelog ?? "Unavailable"),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ButtonBar(
+                          alignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
+                              child: Text(
+                                otaDownloadButtonLabel(),
+                              ),
+                            ),
+                            if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                              ElevatedButton(
+                                onPressed: () async {
+                                  FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                    type: FileType.custom,
+                                    withData: true,
+                                    allowedExtensions: ['bin'],
+                                  );
+                                  if (result != null) {
+                                    setState(() {
+                                      firmwareFile = result.files.single.bytes?.toList(growable: false);
+                                      Digest digest = md5.convert(firmwareFile!);
+                                      downloadProgress = 1;
+                                      downloadedMD5 = digest.toString();
+                                      otaState = OtaState.manual;
+                                    });
+                                  } else {
+                                    // User canceled the picker
+                                  }
+                                },
+                                child: const Text("Select file"),
+                              )
+                            ],
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
               if (otaState == OtaState.completed) ...[
                 ListTile(
                   title: Text(
@@ -206,7 +203,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   width: MediaQuery.of(context).size.width,
                 ),
               ],
-              if ([OtaState.download, OtaState.upload].contains(otaState)) ...[
+              if ([OtaState.download, OtaState.upload, OtaState.rebooting].contains(otaState)) ...[
                 ListTile(
                   title: Text(
                     otaInProgressTitle(),
@@ -226,7 +223,10 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
                 ListTile(
-                  subtitle: LinearProgressIndicator(value: downloadProgress < 1 ? downloadProgress : uploadProgress),
+                  subtitle: Builder(builder: (context) {
+                    double progress = downloadProgress < 1 ? downloadProgress : uploadProgress;
+                    return LinearProgressIndicator(value: otaState == OtaState.rebooting ? null : progress);
+                  }),
                 ),
                 if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
                   ListTile(
@@ -235,6 +235,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                       children: [
                         Text('Upload Progress: $current / ${firmwareFile?.length} = ${uploadProgress.toStringAsPrecision(3)}'),
                         Text('MTU: ${baseStatefulDevice!.mtu.value}'),
+                        Text('REMAINING: ${printDuration(timeRemainingMS)}'),
                         Text('OtaState: ${otaState.name}'),
                         Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),
                         Text('ConnectivityState: ${baseStatefulDevice!.deviceConnectionState.value}'),
@@ -245,8 +246,6 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
               ],
             ],
           ),
-          duration: animationTransitionDuration,
-          crossFadeState: [OtaState.standby, OtaState.manual].contains(otaState) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
         ),
       ),
     );
@@ -277,6 +276,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       downloadProgress = 0;
     });
     final transaction = Sentry.startTransaction('OTA Download', 'http');
+    transaction.setTag("GearType", baseStatefulDevice!.baseDeviceDefinition.btName);
     try {
       final Response<List<int>> rs = await initDio().get<List<int>>(firmwareInfo!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
         setState(() {
@@ -302,60 +302,108 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     transaction.finish();
   }
 
+  Future<void> verListener() async {
+    Version version = baseStatefulDevice!.fwVersion.value;
+    FWInfo? fwInfo = firmwareInfo;
+    if (fwInfo != null && version.compareTo(Version.none) > 0 && otaState == OtaState.rebooting) {
+      bool updated = version.compareTo(getVersionSemVer(fwInfo.version)) <= 0;
+      if (mounted) {
+        setState(() {
+          otaState = updated ? OtaState.completed : OtaState.error;
+        });
+      }
+    }
+  }
+
   Future<void> uploadFirmware() async {
     setState(() {
       otaState = OtaState.upload;
       uploadProgress = 0;
+      if (baseStatefulDevice == null) {
+        otaState = OtaState.error;
+        return;
+      }
     });
-    if (baseStatefulDevice == null) {
-      otaState = OtaState.error;
-      return;
-    }
-    if (firmwareFile != null && baseStatefulDevice != null) {
-      baseStatefulDevice?.gearReturnedError.value = false;
-      int mtu = baseStatefulDevice!.mtu.value - 10;
-      int total = firmwareFile!.length;
-      current = 0;
-      baseStatefulDevice!.gearReturnedError.value = false;
-      List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
-      await sendMessage(baseStatefulDevice!, beginOTA);
-      while (uploadProgress < 1 || otaState == OtaState.error) {
-        if (baseStatefulDevice!.gearReturnedError.value) {
-          setState(() {
-            otaState = OtaState.error;
-          });
-          break;
-        }
-        baseStatefulDevice!.deviceState.value = DeviceState.busy; // hold the command queue
 
-        List<int> chunk = firmwareFile!.skip(current).take(mtu).toList();
-        if (chunk.isNotEmpty) {
-          try {
-            await sendMessage(baseStatefulDevice!, chunk, withoutResponse: true);
-          } catch (e, s) {
-            if ((current + chunk.length) / total < 0.999) {
-              _otaLogger.severe("Exception during ota upload:$e", e, s);
+    Stopwatch timeToUpdate = Stopwatch();
+    final transaction = Sentry.startTransaction('updateGear()', 'task');
+    try {
+      if (firmwareFile != null && baseStatefulDevice != null) {
+        transaction.setTag("GearType", baseStatefulDevice!.baseDeviceDefinition.btName);
+        baseStatefulDevice?.gearReturnedError.value = false;
+        int mtu = baseStatefulDevice!.mtu.value - 10;
+        int total = firmwareFile!.length;
+        current = 0;
+        baseStatefulDevice!.gearReturnedError.value = false;
+
+        _otaLogger.info("Holding the command queue");
+        baseStatefulDevice!.deviceState.value = DeviceState.busy; // hold the command queue
+        timeToUpdate.start();
+        _otaLogger.info("Send OTA begin message");
+        List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
+        await sendMessage(baseStatefulDevice!, beginOTA);
+
+        while (uploadProgress < 1 && otaState != OtaState.error) {
+          if (baseStatefulDevice!.gearReturnedError.value) {
+            transaction.status = const SpanStatus.unavailable();
+            if (mounted) {
               setState(() {
                 otaState = OtaState.error;
               });
             }
-            return;
+            break;
           }
-          current = current + chunk.length;
-        } else {
-          current = total;
-        }
 
-        setState(() {
-          uploadProgress = current / total;
-        });
+          List<int> chunk = firmwareFile!.skip(current).take(mtu).toList();
+          if (chunk.isNotEmpty) {
+            try {
+              _otaLogger.info("Updating $uploadProgress");
+              if (current > 0){
+                timeRemainingMS = Duration(milliseconds: ((timeToUpdate.elapsedMilliseconds / current) * (total - current)).toInt());
+              }
+
+              await sendMessage(baseStatefulDevice!, chunk, withoutResponse: true);
+            } catch (e, s) {
+              _otaLogger.severe("Exception during ota upload:$e", e, s);
+              if ((current + chunk.length) / total < 0.99) {
+                transaction.status = const SpanStatus.unknownError();
+                transaction.throwable = e;
+                setState(() {
+                  otaState = OtaState.error;
+                });
+                return;
+              }
+            }
+            current = current + chunk.length;
+          } else {
+            current = total;
+          }
+
+          setState(() {
+            uploadProgress = current / total;
+          });
+        }
+        if (uploadProgress == 1) {
+          _otaLogger.info("File Uploaded");
+          //await Future.delayed(const Duration(seconds: 10));
+          otaState = OtaState.rebooting;
+          timer = Timer(
+            const Duration(seconds: 15),
+            () {
+              if (otaState != OtaState.completed && mounted) {
+                setState(() {
+                  _otaLogger.warning("Gear did not return correct version after reboot");
+                  otaState = OtaState.error;
+                });
+              }
+            },
+          );
+          plausible.event(name: "Update Gear");
+        }
+        baseStatefulDevice!.deviceState.value = DeviceState.standby; // release the command queue
       }
-      if (uploadProgress == 1) {
-        //await Future.delayed(const Duration(seconds: 10));
-        otaState = OtaState.rebooting;
-        plausible.event(name: "Update Gear");
-      }
-      baseStatefulDevice!.deviceState.value = DeviceState.standby; // hold the command queue
+    } finally {
+      transaction.finish();
     }
   }
 }
