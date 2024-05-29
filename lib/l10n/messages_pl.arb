@@ -5,19 +5,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsPage": "Przechylenie do tyłu",
+  "settingsPage": "Ustawienia",
   "@settingsPage": {
     "description": "The label and title of the settings page",
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Przechylenie do tyłu",
+  "actionsPage": "działania",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Więcej",
+  "triggersPage": "Wyzwalacze",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Ogon",
+  "deviceTypeEars": "Uszy",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -149,19 +149,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Strona główna Gear",
+  "sequencesEditDeleteTitle": "Usuń akcję",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Jak długo czekać przed przejściem do następnego ruchu w tej akcji niestandardowej",
+  "sequencesEditDeleteDescription": "Czy na pewno chcesz usunąć tę akcję?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Jak długo czekać przed przejściem do następnego ruchu w tej akcji niestandardowej",
+  "sequenceEditListDelayLabel": "Opóźnij następny ruch o {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -201,7 +201,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Ogon",
+  "actionsCategoryEars": "Uszy",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -327,13 +327,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStep": "Zatrzymany",
+  "triggerWalkingStep": "Krok",
   "@triggerWalkingStep": {
     "description": "Walking/Step trigger Step action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Zatrzymany",
+  "triggerCoverTitle": "Okładka",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Uruchom działanie, gdy EarGear wykryje dźwięk",
+  "triggerEarMicSound": "Wykryto dźwięk",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -465,7 +465,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Pochylenie do przodu",
+  "sequenceEditRepeatTitle": "Ile razy powtórzyć tę akcję?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -489,7 +489,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Bezpośrednio kontroluj położenie przekładni.",
+  "feedbackPage": "Wyślij opinię",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -501,13 +501,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "Pochylenie do przodu",
+  "moreManualResponsibleWaggingTitle": "Odpowiedzialne machanie",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
     "placeholders": {}
   },
-  "moreManualMiTailTitle": "Pochylenie do przodu",
+  "moreManualMiTailTitle": "Instrukcja MiTail’a",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
     "type": "text",
@@ -537,13 +537,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Instrukcje",
+  "moreManualSubTitle": "Kliknij, aby wyświetlić",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Instrukcje",
+  "moreUsefulLinksTitle": "Przydatne linki",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "Wyzwalacze",
+  "sequencesPageDescription": "Twórz niestandardowe akcje dla swojego sprzętu",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Ukryj karty samouczków",
+  "settingsTutorialCardToggleSubTitle": "Ukryj różne karty samouczków w całej aplikacji",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Stuknij ołówek, aby wybrać akcję, która ma zostać odtworzona po wystąpieniu zdarzenia. Aby usunąć akcję, naciśnij ikonę Wstecz na ekranie wyboru.",
+  "sequencesInfoDescription": "Akcje niestandardowe umożliwiają tworzenie własnych akcji dla sprzętu. Kliknięcie akcji niestandardowej spowoduje jej odtworzenie. Kliknij ołówek, aby edytować akcję niestandardową.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Kolor przekładni",
+  "otaTitle": "Zaktualizuj sprzęt",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -711,19 +711,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Stuknij ołówek, aby wybrać akcję, która ma zostać odtworzona po wystąpieniu zdarzenia. Aby usunąć akcję, naciśnij ikonę Wstecz na ekranie wyboru.",
+  "onboardingPrivacyPolicyDescription": "Mimo, że zbierane dane są anonimowe i nie pozwalają na identyfikację konkretnego użytkownika, nadal musisz zaakceptować politykę prywatności",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Każda Akcja Własna składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
+  "onboardingPrivacyPolicyViewButtonLabel": "Zobacz Politykę prywatności",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Zobacz Politykę prywatności",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Zaakceptuj Politykę prywatności",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -879,7 +879,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Aby ta aplikacja mogła obsługiwać Twój sprzęt, wymagana jest aktualizacja oprogramowania sprzętowego",
+  "mandatoryOtaRequired": "Aby ta aplikacja obsługiwała Twój sprzęt, wymagana jest aktualizacja oprogramowania sprzętowego",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -894,6 +894,12 @@
   "moreSourceCode": "Kod źródłowy",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Dźwięk",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
