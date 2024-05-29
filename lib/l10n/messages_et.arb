@@ -41,13 +41,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Muutke rakenduse värvi, seadistage Haptics ja palju muud",
+  "actionsPage": "Tegevused",
   "@actionsPage": {
     "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Alustage OTA värskendamist",
+  "triggersPage": "Päästikud",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Salvesta toimingud",
+  "cancel": "Tühista",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Helitugevuse suurendamine",
+  "deviceType": "Millise käigu kohta see peaks kehtima?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -207,13 +207,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Kui kaua oodata, enne kui asute selle kohandatud toimingu järgmise käigu juurde",
+  "actionsCategoryCalm": "Rahulik ja lõdvestunud",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Kas olete kindel, et soovite selle toimingu kustutada?",
+  "actionsCategoryFast": "Kiire ja põnev",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -273,7 +273,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Juhuslik režiim",
+  "manageDevicesAutoMoveGroupsFast": "Kiire",
   "@manageDevicesAutoMoveGroupsFast": {
     "description": "Auto move group fast option label when managing a device",
     "type": "text",
@@ -297,19 +297,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Eemalda toimingud",
+  "manageDevicesDisconnect": "Katkesta ühendus",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "Teisalda rühmad",
+  "manageDevicesShutdown": "Lülita välja",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Leevenduse tüüp",
+  "manageDevicesColor": "Käiguvärv",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Käivitage toiming, kattes lähedusanduri",
+  "triggerCoverNear": "Seadmega kaetud",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonTitle": "Seade katmata",
+  "triggerVolumeButtonTitle": "Helitugevuse nupud",
   "@triggerVolumeButtonTitle": {
     "description": "Volume Button trigger title",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Tagasi kallutamine",
+  "triggerShakeDescription": "Käivitage toiming, raputades seadet",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -429,7 +429,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Käivitage toiming, raputades seadet",
+  "triggerProximityDescription": "Käivitage toiming, kui läheduses on varustus",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "Käik liikvel olles",
+  "shellDeviceBarToggleLabel": "Lülitage käiguriba sisse",
   "@shellDeviceBarToggleLabel": {
     "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleTitle": "Saadab Sentryle veateate",
+  "settingsTutorialCardToggleTitle": "Peida õpetuskaardid",
   "@settingsTutorialCardToggleTitle": {
     "description": "Settings page tutorial card display toggle title",
     "type": "text",
@@ -669,13 +669,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Privaatsuspoliitika",
+  "otaTitle": "Värskendage Geari",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Kasulikud lingid",
+  "otaChangelogLabel": "Püsivara muudatuste logi",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -717,25 +717,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothTitle": "Nõustuge privaatsuspoliitikaga",
+  "onboardingBluetoothTitle": "Bluetooth",
   "@onboardingBluetoothTitle": {
     "description": "Title for bluetooth section on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse muutmiseks võite pikalt vajutada.",
+  "onboardingBluetoothDescription": "Geariga ühendamiseks on vaja Bluetoothi luba",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Raputama",
+  "onboardingBluetoothRequestButtonLabel": "Andke luba",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Andke luba",
+  "onboardingBluetoothEnableButtonLabel": "Lülitage Bluetooth sisse",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -894,6 +894,12 @@
   "moreSourceCode": "Lähtekood",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Heli",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
