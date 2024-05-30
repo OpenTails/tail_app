@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
+import 'package:tail_app/Backend/audio.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
 
@@ -130,7 +131,9 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
   }
   Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
-  for (BaseAction baseAction in List.from(ActionRegistry.allCommands)..addAll(ref.read(moveListsProvider))) {
+  for (BaseAction baseAction in List.from(ActionRegistry.allCommands)
+    ..addAll(ref.read(moveListsProvider))
+    ..addAll(ref.read(userAudioActionsProvider))) {
     Set<BaseAction>? baseActions = {};
     for (BaseStatefulDevice baseStatefulDevice in knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected)) {
       // check if command matches device type
@@ -154,7 +157,9 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
 @riverpod
 Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref, Set<DeviceType> deviceType) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
-  for (BaseAction baseAction in List.from(ActionRegistry.allCommands)..addAll(ref.read(moveListsProvider))) {
+  for (BaseAction baseAction in List.from(ActionRegistry.allCommands)
+    ..addAll(ref.read(moveListsProvider))
+    ..addAll(ref.read(userAudioActionsProvider))) {
     Set<BaseAction>? baseActions = {};
     // check if command matches device type
     if (baseAction.deviceCategory.toSet().intersection(deviceType).isNotEmpty) {

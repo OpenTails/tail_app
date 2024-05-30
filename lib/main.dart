@@ -152,6 +152,7 @@ Future<void> initHive() async {
   await SentryHive.openBox(settings); // Do not set type here
   await SentryHive.openBox<Trigger>(triggerBox);
   await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
+  await SentryHive.openBox<AudioAction>(audioActionsBox);
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
   await SentryHive.openBox('notificationsStuff');
