@@ -50,8 +50,9 @@ extension DeviceTypeExtension on DeviceType {
   Color get color {
     switch (this) {
       case DeviceType.tail:
-      case DeviceType.miniTail:
         return Colors.orangeAccent;
+      case DeviceType.miniTail:
+        return Colors.redAccent;
       case DeviceType.ears:
         return Colors.blueAccent;
       case DeviceType.wings:

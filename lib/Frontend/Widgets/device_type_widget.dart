@@ -21,6 +21,7 @@ class DeviceTypeWidget extends StatelessWidget {
         itemBuilder: (state, i) {
           DeviceType deviceType = DeviceType.values[i];
           return ChoiceChip(
+            selectedColor: deviceType.color,
             selected: state.selected(deviceType),
             onSelected: state.onSelected(deviceType),
             label: Text(deviceType.name),
