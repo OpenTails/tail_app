@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Retardez le prochain coup pendant {howMany} ms.",
+  "sequenceEditListDelayLabel": "Retardez le prochain coup de {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -309,7 +309,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "À quel équipement cela devrait-il s'appliquer ?",
+  "deviceType": "À quel matériel cela devrait-il s'appliquer ?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de déplacement, ce qui lui donnera un effet visuel différent.",
+  "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de mouvement, lui donnant un effet visuel différent.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Les déclencheurs envoient automatiquement des actions à votre équipement. Vous pouvez avoir plusieurs déclencheurs actifs en même temps. Appuyez sur un déclencheur pour le modifier, utilisez la bascule à gauche pour activer le déclencheur.",
+  "triggerInfoDescription": "Fait",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -882,6 +882,18 @@
   "audioAdd": "Ajouter un effet sonore",
   "@audioAdd": {
     "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "Êtes-vous sûr de vouloir supprimer cet effet sonore ?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "Vous pouvez ajouter des sons personnalisés qui apparaissent dans l'onglet Actions et peuvent être utilisés avec des déclencheurs.",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
     "type": "text",
     "placeholders": {}
   }
