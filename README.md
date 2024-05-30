@@ -179,6 +179,7 @@ flutter build ipa --debug
 Android looks for a [key.properties](android/key.example.properties) file.
 If this file is missing the apk is not signed.
 A keystore jks is also expected at the location specified in the keystore.properties file.
+The Sentry plugin will run on release builds and expects the sentry env variables to be set
 
 ```shell
 # Build APK
