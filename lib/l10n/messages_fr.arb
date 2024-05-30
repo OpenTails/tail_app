@@ -309,7 +309,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "À quel matériel cela devrait-il s'appliquer ?",
+  "deviceType": "À quel équipement cela devrait-il s'appliquer ?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de mouvement, lui donnant un effet visuel différent.",
+  "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de déplacement, ce qui lui donnera un effet visuel différent.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -849,8 +849,38 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioActionCategory": "Son",
+  "audioActionCategory": "Effets sonores",
   "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Sons personnalisés",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Gérer les effets sonores personnalisés",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Renommer l'effet sonore",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Supprimer l'effet sonore",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Ajouter un effet sonore",
+  "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
