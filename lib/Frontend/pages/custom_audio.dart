@@ -49,7 +49,11 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
               await ioSinkWrite.addStream(openRead);
               ioSinkWrite.close();
               _audioLogger.info("Wrote file to app storage");
-              AudioAction action = AudioAction(name: file.name, uuid: const Uuid().v4(), file: storedAudioFilePath.path);
+              AudioAction action = AudioAction(
+                name: file.name.substring(0, file.name.lastIndexOf(".")).replaceAll("_", " ").replaceAll("-", " "),
+                uuid: const Uuid().v4(),
+                file: storedAudioFilePath.path,
+              );
               setState(() {
                 ref.read(userAudioActionsProvider.notifier).add(action);
               });
