@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Annulla",
+  "cancel": "OK",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Coda",
+  "deviceTypeTail": "Collegare",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -161,7 +161,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Con quale velocità l'ingranaggio dovrebbe spostarsi in questa posizione?",
+  "sequencesEditSpeed": "Quanto velocemente dovrebbe spostarsi l'ingranaggio in questa posizione?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Abilita la vibrazione quando viene toccata un'azione",
+  "settingsHapticsToggleSubTitle": "Seleziona un'azione",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Invia segnalazioni di errori a Sentry",
+  "settingsErrorReportingToggleSubTitle": "Posizione del servo destro",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -345,7 +345,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStep": "Fare un passo",
+  "triggerWalkingStep": "Ricerca di attrezzi. Assicurati che la tua attrezzatura sia accesa e nelle vicinanze",
   "@triggerWalkingStep": {
     "description": "Walking/Step trigger Step action label",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Di più",
+  "moreTitle": "Manuale di FlutterWings",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Attiva il Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Per connettersi all'attrezzatura è necessaria l'autorizzazione Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -894,6 +894,12 @@
   "audioTipCard": "Puoi aggiungere suoni personalizzati che appaiono nella scheda Azioni e possono essere utilizzati con i Trigger",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Mini coda",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   }
