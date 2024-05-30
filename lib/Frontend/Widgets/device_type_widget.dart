@@ -9,7 +9,7 @@ class DeviceTypeWidget extends ConsumerWidget {
   const DeviceTypeWidget({super.key, required this.selected, required this.onSelectionChanged});
 
   final List<DeviceType> selected;
-  final Function(Set<DeviceType> value) onSelectionChanged;
+  final Function(List<DeviceType> value) onSelectionChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,6 +18,7 @@ class DeviceTypeWidget extends ConsumerWidget {
       subtitle: InlineChoice<DeviceType>.multiple(
         clearable: true,
         value: selected,
+        onChanged: onSelectionChanged,
         itemCount: DeviceType.values.length,
         itemBuilder: (state, i) {
           DeviceType deviceType = DeviceType.values[i];

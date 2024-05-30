@@ -212,7 +212,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
             ),
             DeviceTypeWidget(
               selected: moveList!.deviceCategory,
-              onSelectionChanged: (Set<DeviceType> value) {
+              onSelectionChanged: (List<DeviceType> value) {
                 setState(() => moveList!.deviceCategory = value.toList());
                 ref.watch(moveListsProvider.notifier).store();
               },

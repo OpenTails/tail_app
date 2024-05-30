@@ -198,7 +198,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
         ),
         DeviceTypeWidget(
           selected: widget.trigger.deviceType,
-          onSelectionChanged: (Set<DeviceType> value) {
+          onSelectionChanged: (List<DeviceType> value) {
             setState(
               () {
                 widget.trigger.deviceType = value.toList();

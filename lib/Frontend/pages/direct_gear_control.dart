@@ -161,8 +161,8 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                   ),
                   DeviceTypeWidget(
                     selected: deviceTypes.toList(),
-                    onSelectionChanged: (Set<DeviceType> value) {
-                      setState(() => deviceTypes = value);
+                    onSelectionChanged: (List<DeviceType> value) {
+                      setState(() => deviceTypes = value.toSet());
                     },
                   ),
                 ],
