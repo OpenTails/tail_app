@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканирование нового снаряжения",
+  "scanDevicesTitle": "Сканируйте новое снаряжение",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Нажмите еще раз, чтобы выйти ",
+  "doubleBackToClose": "Приятного виляния! ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -882,6 +882,18 @@
   "audioAdd": "Добавить звуковой эффект",
   "@audioAdd": {
     "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "Вы уверены, что хотите удалить этот звуковой эффект?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "Вы можете добавить собственные звуки, которые отображаются на вкладке «Действия» и могут использоваться с триггерами.",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
     "type": "text",
     "placeholders": {}
   }
