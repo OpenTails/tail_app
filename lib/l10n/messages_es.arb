@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Ver política de privacidad",
+  "onboardingPrivacyPolicyViewButtonLabel": "Si bien los datos recopilados son anónimos y no pueden usarse para identificar a un usuario específico, aún debes aceptar la política de privacidad.",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -882,6 +882,18 @@
   "audioAdd": "Agregar efecto de sonido",
   "@audioAdd": {
     "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "¿Estás seguro de que deseas eliminar este efecto de sonido?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "Puede agregar sonidos personalizados que aparecen en la pestaña Acciones y se pueden usar con activadores.",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
     "type": "text",
     "placeholders": {}
   }
