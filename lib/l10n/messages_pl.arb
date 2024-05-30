@@ -849,9 +849,39 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioActionCategory": "Dźwięk",
+  "audioActionCategory": "Efekty dźwiękowe",
   "@audioActionCategory": {
     "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Zarządzaj niestandardowymi efektami dźwiękowymi",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Zmień nazwę efektu dźwiękowego",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Usuń efekt dźwiękowy",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Dodaj efekt dźwiękowy",
+  "@audioAdd": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Niestandardowe dźwięki",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
     "type": "text",
     "placeholders": {}
   }
