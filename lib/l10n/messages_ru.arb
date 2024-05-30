@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканируйте новое снаряжение",
+  "scanDevicesTitle": "Сканирование нового снаряжения",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
