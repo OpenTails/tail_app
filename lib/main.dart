@@ -148,7 +148,7 @@ Future<void> initHive() async {
     ..registerAdapter(MoveTypeAdapter())
     ..registerAdapter(EasingTypeAdapter())
     ..registerAdapter(
-      AutoActionCategoryAdapter(),
+      AudioActionAdapter(),
     )
     ..registerAdapter(FavoriteActionAdapter());
   await SentryHive.openBox(settings); // Do not set type here

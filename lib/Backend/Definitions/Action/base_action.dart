@@ -24,7 +24,6 @@ enum ActionCategory {
   hidden,
   @HiveField(8)
   audio
-
 }
 
 extension ActionCategoryExtension on ActionCategory {
@@ -105,12 +104,12 @@ class CommandAction extends BaseAction {
   factory CommandAction.hiddenEars(String command, String response) {
     return CommandAction(command: command, response: response, deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: const Uuid().v4(), name: command);
   }
-
 }
+
+@HiveType(typeId: 12)
 class AudioAction extends BaseAction {
+  @HiveField(5)
   String file;
 
   AudioAction({required super.name, super.deviceCategory = DeviceType.values, super.actionCategory = ActionCategory.audio, required super.uuid, required this.file});
-
-
 }
