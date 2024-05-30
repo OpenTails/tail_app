@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Как долго ждать, прежде чем перейти к следующему шагу в этом специальном действии?",
+  "sequencesEditTime": "С какой скоростью шестерня должна переместиться в это положение?",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканирование нового снаряжения",
+  "scanDevicesTitle": "Сканируйте новое снаряжение",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Наклон влево",
+  "triggerEarTiltLeft": "Запуск действия, когда EarGear обнаруживает наклон",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Наклон назад",
+  "triggerEarTiltBackward": "Положение левого сервопривода",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Оставьте экран включенным",
+  "settingsKeepScreenOnToggleTitle": "Всегда сканируйте известное снаряжение",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -681,7 +681,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Принять политику конфиденциальности",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Обновление завершено",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -807,7 +807,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Только что из блога Tail",
+  "homeNewsTitle": "EarGear микрофон",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -879,7 +879,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioAdd": "Добавить звуковой эффект",
+  "audioAdd": "Удалить звуковой эффект",
   "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
@@ -894,6 +894,12 @@
   "audioTipCard": "Вы можете добавить собственные звуки, которые отображаются на вкладке «Действия» и могут использоваться с триггерами.",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Мини Хвост",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   }
