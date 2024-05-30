@@ -1,5 +1,3 @@
-
-
 import 'package:audio_session/audio_session.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
@@ -29,16 +27,16 @@ Future<void> setUpAudio() async {
     androidWillPauseWhenDucked: true,
   ));
 }
+
 Future<void> playSound(String file) async {
   _audioLogger.info("Playing sound file $file");
   final AudioPlayer player = AudioPlayer();
-  await player.setAsset(file);
+  await player.setFilePath(file);
   await player.play();
   await player.processingStateStream.where((event) => event == ProcessingState.completed).first;
   _audioLogger.info("Finished playing sound file $file");
   await player.dispose();
 }
-
 
 @Riverpod(keepAlive: true)
 class UserAudioActions extends _$UserAudioActions {
