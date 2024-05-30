@@ -17,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "フィードバックを送信",
+  "feedbackPage": "カスタムアクション",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "許可を与える",
+  "onboardingBluetoothRequestButtonLabel": "ギアに接続するにはBluetoothの許可が必要です",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -882,6 +882,18 @@
   "audioAdd": "サウンド効果を追加する",
   "@audioAdd": {
     "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "このサウンド効果を削除してもよろしいですか?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "アクションタブに表示され、トリガーで使用できるカスタムサウンドを追加できます。",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
     "type": "text",
     "placeholders": {}
   }
