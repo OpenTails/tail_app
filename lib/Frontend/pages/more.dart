@@ -55,6 +55,14 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
+          title: Text(audioPage()),
+          subtitle: Text(audioEditDescription()),
+          leading: const Icon(Icons.audio_file),
+          onTap: () {
+            context.push('/customAudio');
+          },
+        ),
+        ListTile(
           title: Text(settingsPage()),
           subtitle: Text(settingsDescription()),
           leading: const Icon(Icons.settings),

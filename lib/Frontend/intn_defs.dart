@@ -6,20 +6,14 @@ import 'package:intl/intl.dart';
 // dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
 String title() => Intl.message('The Tail Company', name: 'title', desc: 'The name of the app');
 
-String subTitle() => Intl.message('All of the Tails', name: 'subTitle', desc: 'The sub-title which displays in the navigation drawer');
-
 String homeNewsTitle() => Intl.message('Fresh from the Tail Blog', name: 'homeNewsTitle', desc: 'The title header for the news in the home screen when no gear is connected');
 
 String homeWelcomeMessageTitle() => Intl.message('Welcome to the Tail Company App', name: 'homeWelcomeMessageTitle', desc: 'The welcome message title on the home screen when no gear is connected');
-
-String homeContinuousScanningOffTitle() => Intl.message('Always scanning disabled', name: 'homeContinuousScanningOffTitle', desc: 'The welcome message title on the home screen when no gear is connected');
 
 String homeContinuousScanningOffDescription() =>
     Intl.message('Swipe horizontally on the known device area above to begin scanning. You can turn on continuous scanning in settings.', name: 'homeContinuousScanningOffDescription', desc: 'The welcome message title on the home screen when no gear is connected');
 
 String homeWelcomeMessage() => Intl.message('You can control, explore and update all your Tail Co gear right here in this app. There are also instructions and guides available too. Happy Wagging!', name: 'homeWelcomeMessage', desc: 'The welcome message on the home screen when no gear is connected');
-
-String shellDeviceBarToggleLabel() => Intl.message('Toggle Gear Bar', name: 'shellDeviceBarToggleLabel', desc: 'Tooltip for the Gear bar display button on the shell / main UI app bar');
 
 String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'The label and title of the joystick page');
 
@@ -27,13 +21,15 @@ String joyStickPageDescription() => Intl.message('Directly control the gear posi
 
 String feedbackPage() => Intl.message('Send Feedback', name: 'feedbackPage', desc: 'The label and title of the feedback page');
 
+String audioPage() => Intl.message('Custom Sounds', name: 'audioPage', desc: 'The label and title of the custom audio management page');
+
 String aboutPage() => Intl.message('About', name: 'aboutPage', desc: 'The label and title of the about page');
 
 String settingsPage() => Intl.message('Settings', name: 'settingsPage', desc: 'The label and title of the settings page');
 
 String settingsDescription() => Intl.message('Change app color, configure Haptics, and more', name: 'settingsDescription', desc: 'The description of the settings page on the more page');
 
-String actionsPage() => Intl.message('Actions', name: 'actionsPage', desc: 'The label and title of the action page');
+//String actionsPage() => Intl.message('Actions', name: 'actionsPage', desc: 'The label and title of the action page');
 
 String homePage() => Intl.message('Actions', name: 'actionsPage', desc: 'The label and title of the action page');
 
@@ -158,12 +154,6 @@ String settingsNewsletterToggleSubTitle() => Intl.message('Automatically receive
 
 String settingsAppColor() => Intl.message('App Color', name: 'settingsAppColor', desc: 'Settings page app color picker button title');
 
-String manageDevicesAutoMoveGroupsFast() => Intl.message('Fast', name: 'manageDevicesAutoMoveGroupsFast', desc: 'Auto move group fast option label when managing a device');
-
-String manageDevicesAutoMoveGroupsCalm() => Intl.message('Calm', name: 'manageDevicesAutoMoveGroupsCalm', desc: 'Auto move group  calm option label when managing a device');
-
-String manageDevicesAutoMoveGroupsFrustrated() => Intl.message('Frustrated', name: 'manageDevicesAutoMoveGroupsFrustrated', desc: 'Auto move group frustrated option label when managing a device');
-
 String manageDevicesBatteryGraphTitle() => Intl.message('Battery Graph', name: 'manageDevicesBatteryGraphTitle', desc: 'battery graph expansion tile title');
 
 String manageDevicesDisconnect() => Intl.message('Disconnect', name: 'manageDevicesDisconnect', desc: 'manage devices disconnect button title when managing a device');
@@ -249,8 +239,6 @@ String moreManualResponsibleWaggingTitle() => Intl.message("Responsible Wagging"
 
 String moreManualMiTailTitle() => Intl.message("MiTail Manual", name: 'moreManualMiTailTitle', desc: 'Title for MiTail manual button on More page');
 
-String moreManualDigitailTitle() => Intl.message("DigiTail Manual", name: 'moreManualDigitailTitle', desc: 'Title for Digitail manual button on More page');
-
 String moreManualEargearTitle() => Intl.message("EarGear Manual", name: 'moreManualEargearTitle', desc: 'Title for EarGear manual button on More page');
 
 String moreManualFlutterWingsTitle() => Intl.message("FlutterWings Manual", name: 'moreManualFlutterWingsTitle', desc: 'Title for FlutterWings manual button on More page');
@@ -320,4 +308,13 @@ String mandatoryOtaRequired() => Intl.message("A firmware update is required for
 String actionsFavoriteTip() => Intl.message("Long press an action to favorite", name: 'actionsFavoriteTip', desc: 'tip message which appears when no actions are favorited on the actions page');
 
 String moreSourceCode() => Intl.message("Source Code", name: 'moreSourceCode', desc: 'Label for the github and dev mode button on the more tab');
-String audioActionCategory() => Intl.message("Sound", name: 'audioActionCategory', desc: 'Label for sound files');
+
+String audioActionCategory() => Intl.message("Sound Effects", name: 'audioActionCategory', desc: 'Label for sound files');
+
+String audioEditDescription() => Intl.message("Manage custom sound effects", name: 'audioEditDescription', desc: 'Label for sound files');
+
+String audioEdit() => Intl.message("Rename Sound Effect", name: 'audioEdit', desc: 'Label for sound files');
+
+String audioDelete() => Intl.message("Delete Sound Effect", name: 'audioDelete', desc: 'Label for sound files');
+
+String audioAdd() => Intl.message("Add Sound Effect", name: 'audioAdd', desc: 'Label for sound files');

@@ -4,6 +4,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/pages/action_selector.dart';
+import 'package:tail_app/Frontend/pages/custom_audio.dart';
 import 'package:tail_app/Frontend/pages/developer/bluetooth_console.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
 import 'package:tail_app/Frontend/pages/developer/developer_pincode.dart';
@@ -156,6 +157,16 @@ final GoRouter router = GoRouter(
         }
         return null;
       },
+    ),
+    GoRoute(
+      name: 'CustomAudio',
+      path: '/customAudio',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+        key: state.pageKey,
+        name: 'CustomAudio',
+        child: const CustomAudio(),
+      ),
     ),
     GoRoute(
       name: 'Sequences',
