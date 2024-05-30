@@ -681,7 +681,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Pro připojení k zařízení je vyžadováno oprávnění Bluetooth",
+  "onboardingBluetoothDescription": "Bluetooth",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -795,7 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -882,6 +882,18 @@
   "audioAdd": "Přidat zvukový efekt",
   "@audioAdd": {
     "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "Opravdu chcete smazat tento zvukový efekt?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "Můžete přidat vlastní zvuky, které se zobrazí na kartě Akce a lze je použít se spouštěči",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
     "type": "text",
     "placeholders": {}
   }
