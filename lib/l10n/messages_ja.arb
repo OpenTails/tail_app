@@ -11,12 +11,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "全てのしっぽ",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "ジョイスティック",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -38,12 +32,6 @@
   "settingsPage": "設定",
   "@settingsPage": {
     "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsPage": "行動",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
@@ -107,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "翼",
+  "sequencesAdd": "新しいアクション",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -119,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "音量を上げる",
+  "sequencesEditAdd": "移動を追加",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -201,13 +189,13 @@
       }
     }
   },
-  "actionsNoBluetooth": "次の動きを[X20X]ミリ秒遅らせます。",
+  "actionsNoBluetooth": "Bluetoothは利用できません",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "次の動きを[X20X]ミリ秒遅らせます。",
+  "actionsCategoryCalm": "穏やかでリラックスした",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -261,25 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "速い",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "落ち着いた",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "イライラ",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesDisconnect": "アップデートに失敗しました。機器を再起動してもう一度お試しください。",
+  "manageDevicesDisconnect": "切断",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -351,7 +321,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "音量ボタン",
+  "triggerVolumeButtonDescription": "音量ボタンを押してアクションをトリガーする",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -363,13 +333,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "選択したアクションをランダムに実行する",
+  "triggerVolumeButtonVolumeDown": "ボリュームダウン",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "音量ボタン",
+  "triggerShakeTitle": "シェイク",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -399,7 +369,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "接続する",
+  "manageDevicesShutdown": "シャットダウン",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
@@ -411,7 +381,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "アップデートに失敗しました。機器を再起動してもう一度お試しください。",
+  "manageDevicesOtaButton": "タップしてファームウェアを更新",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -423,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "前方傾斜",
+  "triggerEarTiltBackward": "後方傾斜",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -513,12 +483,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "DigiTail マニュアル",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
   "moreManualEargearTitle": "イヤーギアマニュアル",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
@@ -573,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "常に既知のギアをスキャンする",
+  "settingsKeepScreenOnToggleTitle": "画面をオンにしたままにする",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -591,13 +555,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "ギアバーを切り替える",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPageDescription": "カスタムアクション",
+  "sequencesPageDescription": "ギアのカスタムアクションを作成する",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -687,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "もっと",
+  "otaTitle": "ギアのアップデート",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
@@ -699,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "各カスタムアクションは 1 ～ 6 個の動きから構成され、最大 5 回繰り返すことができます。動きを長押しすると順序を変更できます。",
+  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります。",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -735,13 +693,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "ブルートゥース",
+  "onboardingBluetoothRequestButtonLabel": "許可を与える",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります。",
+  "onboardingBluetoothEnableButtonLabel": "Bluetoothをオンにする",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -753,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "尻尾を振って幸せに！ ",
+  "doubleBackToClose": "終了するにはもう一度押してください ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -831,12 +789,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "常にスキャンを無効",
-  "@homeContinuousScanningOffTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
   "homeContinuousScanningOffDescription": "スキャンを開始するには、上記の既知のデバイス領域を水平にスワイプします。設定で連続スキャンをオンにすることができます。",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
@@ -894,6 +846,42 @@
   "moreSourceCode": "ソースコード",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "音響効果",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "カスタムサウンド",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "カスタムサウンドエフェクトを管理する",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "サウンド効果の名前を変更する",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "サウンド効果を削除",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "サウンド効果を追加する",
+  "@audioAdd": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }

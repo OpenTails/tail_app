@@ -11,12 +11,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Kõik sabad",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "Juhtkang",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -41,13 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Muutke rakenduse värvi, seadistage Haptics ja palju muud",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersPage": "Alustage OTA värskendamist",
+  "triggersPage": "Päästikud",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -71,7 +59,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Salvesta toimingud",
+  "cancel": "Tühista",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -83,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Helitugevuse suurendamine",
+  "deviceType": "Millise käigu kohta see peaks kehtima?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -119,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Lisa Liikumine",
+  "sequencesEditAdd": "Lisa liiguta",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -207,13 +195,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Kui kaua oodata, enne kui asute selle kohandatud toimingu järgmise käigu juurde",
+  "actionsCategoryCalm": "Rahulik ja lõdvestunud",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "Kas olete kindel, et soovite selle toimingu kustutada?",
+  "actionsCategoryFast": "Kiire ja põnev",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -273,43 +261,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Juhuslik režiim",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Rahune",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Pettunud",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesBatteryGraphTitle": "Aku graafik",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Eemalda toimingud",
+  "manageDevicesDisconnect": "Katkesta ühendus",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "Teisalda rühmad",
+  "manageDevicesShutdown": "Lülita välja",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Leevenduse tüüp",
+  "manageDevicesColor": "Käiguvärv",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -375,7 +345,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Käivitage toiming, kattes lähedusanduri",
+  "triggerCoverNear": "Seadmega kaetud",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -387,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonTitle": "Seade katmata",
+  "triggerVolumeButtonTitle": "Helitugevuse nupud",
   "@triggerVolumeButtonTitle": {
     "description": "Volume Button trigger title",
     "type": "text",
@@ -417,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Tagasi kallutamine",
+  "triggerShakeDescription": "Käivitage toiming, raputades seadet",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -429,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Käivitage toiming, raputades seadet",
+  "triggerProximityDescription": "Käivitage toiming, kui läheduses on varustus",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -483,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Tagasi kallutamine",
+  "triggerEarTiltBackward": "Kallutamine tahapoole",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -516,12 +486,6 @@
   "moreManualMiTailTitle": "MiTaili käsiraamat",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualDigitailTitle": "DigiTaili käsiraamat",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
     "type": "text",
     "placeholders": {}
   },
@@ -582,12 +546,6 @@
   "morePrivacyPolicyLinkTitle": "Privaatsuspoliitika",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "Käik liikvel olles",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -657,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleTitle": "Saadab Sentryle veateate",
+  "settingsTutorialCardToggleTitle": "Peida õpetuskaardid",
   "@settingsTutorialCardToggleTitle": {
     "description": "Settings page tutorial card display toggle title",
     "type": "text",
@@ -669,13 +627,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaTitle": "Privaatsuspoliitika",
+  "otaTitle": "Värskendage Geari",
   "@otaTitle": {
     "description": "Title for OTA page",
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Kasulikud lingid",
+  "otaChangelogLabel": "Püsivara muudatuste logi",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -717,25 +675,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothTitle": "Nõustuge privaatsuspoliitikaga",
+  "onboardingBluetoothTitle": "Bluetooth",
   "@onboardingBluetoothTitle": {
     "description": "Title for bluetooth section on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse muutmiseks võite pikalt vajutada.",
+  "onboardingBluetoothDescription": "Geariga ühendamiseks on vaja Bluetoothi luba",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Raputama",
+  "onboardingBluetoothRequestButtonLabel": "Andke luba",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Andke luba",
+  "onboardingBluetoothEnableButtonLabel": "Lülitage Bluetooth sisse",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -825,12 +783,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "Alati skannimine keelatud",
-  "@homeContinuousScanningOffTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
   "homeContinuousScanningOffDescription": "Skannimise alustamiseks pühkige ülaltoodud teadaoleval seadmealal horisontaalselt. Pideva skannimise saate seadetes sisse lülitada.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
@@ -894,6 +846,42 @@
   "moreSourceCode": "Lähtekood",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Heliefektid",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Kohandatud helid",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Hallake kohandatud heliefekte",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Heliefekti ümbernimetamine",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Heliefekti kustutamine",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Lisa heliefekt",
+  "@audioAdd": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }

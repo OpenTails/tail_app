@@ -5,12 +5,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Všechny Tails",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "Joystick",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -38,12 +32,6 @@
   "settingsPage": "Nastavení",
   "@settingsPage": {
     "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsPage": "Akce",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
@@ -95,25 +83,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Rychlý a nadšený",
+  "deviceTypeEars": "Uši",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeWings": "Přidat spouštěč",
+  "deviceTypeWings": "Křídla",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Povolit anonymní analýzu",
+  "sequencesAdd": "Nová akce",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "Přidat spouštěč",
+  "sequencesEdit": "Upravit akci",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -125,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "zrušení",
+  "sequencesEditName": "název",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -237,13 +225,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Rychlý a nadšený",
+  "actionsCategoryEars": "Uši",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Rychlý a nadšený",
+  "actionsSelectScreen": "Vyberte akci",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -255,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Frustrovaný a napjatý",
+  "settingsHapticsToggleSubTitle": "Povolit vibrace při klepnutí na akci",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -276,24 +264,6 @@
   "settingsAppColor": "Barva aplikace",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFast": "Rychle",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Uklidnit",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Frustrovaný",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
@@ -351,7 +321,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStopped": "Hledání vybavení. Ujistěte se, že je vaše zařízení zapnuté a poblíž",
+  "triggerWalkingStopped": "Zastavil",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
     "type": "text",
@@ -363,13 +333,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Pokrýt",
+  "triggerCoverDescription": "Spusťte akci zakrytím senzoru přiblížení",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Pokrýt",
+  "triggerCoverNear": "Zařízení kryté",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -453,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "Zvuk detekován",
+  "triggerEarTiltTitle": "EarGear Tilt Sensor",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -507,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "Naklonění vpřed",
+  "moreManualResponsibleWaggingTitle": "Zodpovědné Wagging",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
@@ -516,12 +486,6 @@
   "moreManualMiTailTitle": "Manuál MiTail",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualDigitailTitle": "Návod na DigiTail",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
     "type": "text",
     "placeholders": {}
   },
@@ -543,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Manuál FlutterWings",
+  "moreManualSubTitle": "Klepnutím zobrazíte",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -555,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "morePrivacyPolicyLinkTitle": "Manuál FlutterWings",
+  "morePrivacyPolicyLinkTitle": "Zásady ochrany osobních údajů",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
@@ -582,12 +546,6 @@
   "settingsAnalyticsToggleSubTitle": "Nahlaste použití neidentifikujících funkcí společnosti Plausible za účelem vylepšení aplikace",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "Přepnout Gear Bar",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -723,25 +681,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Bluetooth",
+  "onboardingBluetoothDescription": "Pro připojení k zařízení je vyžadováno oprávnění Bluetooth",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Zapněte Bluetooth",
+  "onboardingBluetoothRequestButtonLabel": "Udělení povolení",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Aktualizace dokončena",
+  "onboardingBluetoothEnableButtonLabel": "Zapněte Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Pro připojení k zařízení je vyžadováno oprávnění Bluetooth",
+  "onboardingDoneButtonLabel": "Hotovo",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
@@ -795,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomButtonTitle": "Povolit anonymní analýzu",
+  "triggerRandomButtonTitle": "Příležitostný režim",
   "@triggerRandomButtonTitle": {
     "description": "Casual Mode trigger title",
     "type": "text",
@@ -837,13 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "Skenování je vždy zakázáno",
-  "@homeContinuousScanningOffTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -894,6 +846,42 @@
   "moreSourceCode": "Zdrojový kód",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Zvukové efekty",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Vlastní zvuky",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Spravujte vlastní zvukové efekty",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Přejmenovat zvukový efekt",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Smazat zvukový efekt",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Přidat zvukový efekt",
+  "@audioAdd": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }

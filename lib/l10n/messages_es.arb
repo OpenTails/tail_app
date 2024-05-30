@@ -5,19 +5,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Rápido",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "deviceTypeWings": "Alas",
   "@deviceTypeWings": {
     "description": "Wings option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "Frustrado y tenso",
+  "actionsCategoryGlowtip": "punta luminosa",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -89,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Seleccione una acción",
+  "settingsHapticsToggleTitle": "Retroalimentación háptica",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -107,7 +101,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Agregar movimiento",
+  "sequencesEditName": "Nombre",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -119,13 +113,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Comenzar la actualización OTA",
+  "triggerProximityDescription": "Activa una acción si hay equipo cerca",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Hace que las tarjetas de acción sean más grandes para tocarlas más fácilmente.",
+  "settingsErrorReportingToggleTitle": "Informe automático de errores",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -137,7 +131,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Bajar volumen",
+  "triggerShakeDescription": "Activa una acción agitando tu dispositivo",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -152,12 +146,6 @@
   "sequencesEditTime": "Cuánto tiempo esperar antes de pasar al siguiente movimiento en esta acción personalizada",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Frustrado",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
@@ -201,7 +189,7 @@
       }
     }
   },
-  "feedbackPage": "Controla directamente la posición del engranaje.",
+  "feedbackPage": "Enviar comentarios",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -213,7 +201,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Sube el volumen",
+  "triggerVolumeButtonDescription": "Activa una acción presionando el botón de volumen",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
@@ -243,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Sube el volumen",
+  "triggerShakeTitle": "Agitar",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -291,12 +279,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Comportamiento",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggersAdd": "Agregar disparador",
   "@triggersAdd": {
     "description": "Floating Action Button on the triggers page",
@@ -315,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Color de la aplicación",
+  "manageDevicesDisconnect": "Desconectar",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -327,27 +309,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "todas las colas",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesAdd": "Nueva acción",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Buscando equipo. Asegúrate de que tu equipo esté encendido y cerca",
+  "scanDevicesScanMessage": "Escaneando en busca de equipo. Asegúrate de que tu equipo esté encendido y cerca",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Mover grupos",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
@@ -405,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesBatteryGraphTitle": "Pausa entre movimientos",
+  "manageDevicesBatteryGraphTitle": "Gráfico de batería",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
     "type": "text",
@@ -543,12 +513,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "Manual de cola digital",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
   "moreManualEargearTitle": "Manual de EarGear",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
@@ -567,7 +531,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Busque siempre equipo conocido",
+  "settingsKeepScreenOnToggleTitle": "Mantener la pantalla encendida",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -582,12 +546,6 @@
   "morePrivacyPolicyLinkTitle": "política de privacidad",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "Alternar barra de engranajes",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -705,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Si bien los datos recopilados son anónimos y no pueden usarse para identificar a un usuario específico, aún debes aceptar la política de privacidad.",
+  "onboardingPrivacyPolicyViewButtonLabel": "Ver política de privacidad",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -729,13 +687,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Se requiere permiso de Bluetooth para conectarse al equipo",
+  "onboardingBluetoothRequestButtonLabel": "Conceder permiso",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Se requiere permiso de Bluetooth para conectarse al equipo",
+  "onboardingBluetoothEnableButtonLabel": "Activar Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -747,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Hecho",
+  "onboardingCompletedTitle": "¡Feliz meneo!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -825,12 +783,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "Exploración siempre desactivada",
-  "@homeContinuousScanningOffTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
   "homeContinuousScanningOffDescription": "Deslice horizontalmente el área del dispositivo conocido arriba para comenzar a escanear. Puede activar el escaneo continuo en la configuración.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
@@ -894,6 +846,42 @@
   "moreSourceCode": "Código fuente",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Efectos de sonido",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Sonidos personalizados",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Administrar efectos de sonido personalizados",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Cambiar el nombre del efecto de sonido",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Eliminar efecto de sonido",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Agregar efecto de sonido",
+  "@audioAdd": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }

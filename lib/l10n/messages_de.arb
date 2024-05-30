@@ -5,12 +5,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Alle Schwänze",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "Joystick",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -23,7 +17,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "aboutPage": "App-Farbe ändern, Haptik konfigurieren und mehr",
+  "aboutPage": "Um",
   "@aboutPage": {
     "description": "The label and title of the about page",
     "type": "text",
@@ -32,12 +26,6 @@
   "settingsPage": "Einstellungen",
   "@settingsPage": {
     "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsPage": "Aktionen",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
@@ -89,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Frustriert und angespannt",
+  "deviceTypeEars": "Ohren",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -147,13 +135,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "App-Farbe ändern, Haptik konfigurieren und mehr",
+  "actionsCategoryCalm": "Ruhig und entspannt",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryFast": "OK",
+  "actionsCategoryFast": "Schnell und aufgeregt",
   "@actionsCategoryFast": {
     "description": "fast action group label",
     "type": "text",
@@ -171,7 +159,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Frustriert und angespannt",
+  "actionsCategoryEars": "Ohren",
   "@actionsCategoryEars": {
     "description": "ears action group label",
     "type": "text",
@@ -198,24 +186,6 @@
   "settingsErrorReportingToggleSubTitle": "Sendet Fehlerberichte an Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFast": "Schnell",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Ruhig",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Frustriert",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
@@ -345,7 +315,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Shake",
+  "triggerActionNotSet": "Keine Aktion festgelegt",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -387,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Position des linken Servos",
+  "sequencesEditSpeed": "Wie schnell soll das Getriebe in diese Position gelangen?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -423,13 +393,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "EarGear Neigungssensor",
+  "triggerEarTiltLeft": "Nach links kippen",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Nach rechts neigen",
+  "triggerEarTiltRight": "Neigung nach rechts",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -513,15 +483,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualMiTailTitle": "Ausrüstung gefunden. Tippen Sie auf den Namen der Ausrüstung, um eine Verbindung herzustellen",
+  "moreManualMiTailTitle": "MiTail Handbuch",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualDigitailTitle": "DigiTail Handbuch",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
     "type": "text",
     "placeholders": {}
   },
@@ -585,13 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "Zahnradleiste umschalten",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreTitle": "Datenschutzrichtlinie",
+  "moreTitle": "Mehr",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -645,13 +603,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Batterieprozentsatz anzeigen",
+  "settingsBatteryPercentageToggleTitle": "Batteriestand in % anzeigen",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Bildschirm eingeschaltet lassen",
+  "settingsBatteryPercentageToggleSubTitle": "Zeigt den tatsächlichen Akkustand anstelle eines Symbols an",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -675,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Tutorial-Karten ausblenden",
+  "settingsTutorialCardToggleSubTitle": "Die verschiedenen Lernkarten in der gesamten App ausblenden",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -687,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Ausrüstung aktualisieren",
+  "otaChangelogLabel": "Firmware-Änderungsprotokoll",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -699,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
+  "onboardingPrivacyPolicyViewButtonLabel": "Datenschutzrichtlinie anzeigen",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -711,13 +669,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzrichtlinie akzeptieren",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothTitle": "Datenschutzrichtlinie akzeptieren",
+  "onboardingBluetoothTitle": "Bluetooth",
   "@onboardingBluetoothTitle": {
     "description": "Title for bluetooth section on the onboarding screen",
     "type": "text",
@@ -735,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Berechtigung erteilen",
+  "onboardingBluetoothEnableButtonLabel": "Bluetooth einschalten",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -747,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Erledigt",
+  "onboardingCompletedTitle": "Viel Spaß beim Wedeln!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -843,12 +801,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "Immer scannen deaktiviert",
-  "@homeContinuousScanningOffTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
   "homeContinuousScanningOffDescription": "Wischen Sie horizontal über den Bereich mit den bekannten Geräten oben, um mit dem Scannen zu beginnen. Sie können das kontinuierliche Scannen in den Einstellungen aktivieren.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
@@ -894,6 +846,42 @@
   "moreSourceCode": "Quellcode",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Soundeffekte",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Benutzerdefinierte Sounds",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Verwalten Sie benutzerdefinierte Soundeffekte",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Soundeffekt umbenennen",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Soundeffekt löschen",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Soundeffekt hinzufügen",
+  "@audioAdd": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }

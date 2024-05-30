@@ -5,12 +5,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Tutte le code",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "Telecomando da gioco",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -29,15 +23,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsPage": "Di",
+  "settingsPage": "Impostazioni",
   "@settingsPage": {
     "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsPage": "Azioni",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
@@ -107,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "A quale attrezzatura dovrebbe applicarsi?",
+  "deviceTypeTail": "Coda",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -143,7 +131,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditName": "Aggiungi mossa",
+  "sequencesEditName": "Nome",
   "@sequencesEditName": {
     "description": "Label for the name field on sequence edit page",
     "type": "text",
@@ -161,7 +149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Ritardo",
+  "sequencesEditLeftServo": "Posizione del servo sinistro",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
@@ -291,24 +279,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Veloce",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Calma",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Frustrato",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesBatteryGraphTitle": "Grafico della batteria",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
@@ -327,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Fermare",
+  "manageDevicesColor": "Colore dell'ingranaggio",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -363,13 +333,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Ricerca di attrezzi. Assicurati che la tua attrezzatura sia accesa e nelle vicinanze",
+  "triggerWalkingDescription": "Attiva un'azione mentre cammini",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStopped": "Attiva un'azione mentre cammini",
+  "triggerWalkingStopped": "Fermato",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
     "type": "text",
@@ -435,13 +405,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Attiva un'azione scuotendo il dispositivo",
+  "triggerProximityDescription": "Attiva un'azione se l'attrezzatura è nelle vicinanze",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Attiva un'azione scuotendo il dispositivo",
+  "triggerActionNotSet": "Nessuna serie di azioni",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -507,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "politica sulla riservatezza",
+  "moreManualTitle": "Manuali",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -519,7 +489,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Tocca per visualizzare",
+  "moreUsefulLinksTitle": "link utili",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -543,12 +513,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "Manuale DigiTail",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
   "settingsDescription": "Cambia il colore dell'app, configura Haptics e altro ancora",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
@@ -567,7 +531,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Tieni lo schermo acceso",
+  "settingsKeepScreenOnToggleSubTitle": "Questa modalità impedisce allo schermo di spegnersi mentre l'attrezzatura è collegata",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -585,19 +549,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "shellDeviceBarToggleLabel": "Attiva/disattiva la barra degli ingranaggi",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
-    "type": "text",
-    "placeholders": {}
-  },
   "moreTitle": "Di più",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Controllare direttamente la posizione del cambio.",
+  "joyStickPageDescription": "Controlla direttamente la posizione del cambio.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -687,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Nascondi le schede tutorial",
+  "settingsTutorialCardToggleSubTitle": "Nascondi le varie schede tutorial in tutta l'app",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -741,13 +699,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Concedere l'autorizzazione",
+  "onboardingDoneButtonLabel": "Fatto",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Attiva il Bluetooth",
+  "onboardingCompletedTitle": "Buon scodinzolante!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -759,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Attiva il Bluetooth ",
+  "doubleBackToClose": "Premere di nuovo per uscire ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -819,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Rende le carte azione più grandi per essere toccate più facilmente",
+  "otaLowBattery": "Batteria scarica. Carica la tua attrezzatura almeno al 50%",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -867,12 +825,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "Scansione sempre disabilitata",
-  "@homeContinuousScanningOffTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
   "noLongerSupported": "Questo equipaggiamento non è più supportato. Alcune funzionalità dell'app potrebbero non funzionare",
   "@noLongerSupported": {
     "description": "Warning message which appears for unsupported gear on the manage gear page",
@@ -894,6 +846,42 @@
   "moreSourceCode": "Codice sorgente",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Effetti sonori",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Suoni personalizzati",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Gestisci effetti sonori personalizzati",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Rinomina effetto sonoro",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Elimina effetto sonoro",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Aggiungi effetto sonoro",
+  "@audioAdd": {
+    "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
   }
