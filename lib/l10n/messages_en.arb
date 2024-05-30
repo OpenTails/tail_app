@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-30T16:12:59.587515",
+  "@@last_modified": "2024-05-30T16:48:58.254893",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -881,9 +881,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "audioDeleteDescription": "Are you sure you want to delete this sound effect?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
   "audioAdd": "Add Sound Effect",
   "@audioAdd": {
     "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "You can add custom sounds that appear on the Actions tab and can be used with Triggers",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
     "type": "text",
     "placeholders": {}
   }
