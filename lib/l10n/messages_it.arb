@@ -161,7 +161,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Quanto velocemente dovrebbe spostarsi l'ingranaggio in questa posizione?",
+  "sequencesEditSpeed": "Con quale velocità l'ingranaggio dovrebbe spostarsi in questa posizione?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per essere toccate più facilmente",
+  "settingsLargerCardsToggleSubTitle": "Rende le carte azione più grandi per facilitarne il tocco",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
