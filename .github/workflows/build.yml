@@ -30,28 +30,18 @@ jobs:
         uses: ./.github/actions/version
       - name: Run build script
         id: build
-        run: bash ${GITHUB_WORKSPACE}/Scripts/launchBuild.sh
-        working-directory: Scripts
-        if: runner.os == 'Linux'
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
-          BUILD_NUMBER: ${{ steps.version.outputs.build-number }}
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          ANDROID_KEY_JKS: ${{ secrets.ANDROID_KEY_JKS }}
-          ANDROID_KEY_PROPERTIES: ${{ secrets.ANDROID_KEY_PROPERTIES }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-          SENTRY_URL: ${{ secrets.SENTRY_URL }}
-      - uses: actions/upload-artifact@v4
-        continue-on-error: true
+        uses: ./.github/actions/build_android
         if: runner.os == 'Linux'
         with:
-          name: artifact-${{ matrix.os }}
-          path: |
-            build/app/outputs/apk
-            build/app/outputs/bundle
-      - name: Upload Beta
+          version: ${{ steps.version.outputs.version }}
+          build-number: ${{ steps.version.outputs.build-number }}
+          android-key-jks: ${{ secrets.ANDROID_KEY_JKS }}
+          android-key-properties: ${{ secrets.ANDROID_KEY_PROPERTIES }}
+          sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          sentry-org: ${{ secrets.SENTRY_ORG }}
+          sentry-project: ${{ secrets.SENTRY_PROJECT }}
+          sentry-url: ${{ secrets.SENTRY_URL }}
+      - name: Build IOS / Upload Beta
         if: github.event_name == 'push'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts

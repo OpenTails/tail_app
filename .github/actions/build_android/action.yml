@@ -1,0 +1,71 @@
+name: 'Build Tail App builds'
+description: 'Internal Action for Tail App'
+inputs:
+  version:
+    description: 'Release Version'
+    required: true
+  build-number:
+    description: 'Git build number'
+    required: true
+  android-key-properties:
+    description: 'Properties file containing signing info'
+    required: true
+  android-key-jks:
+    description: 'Base64 version of the jks file'
+    required: true
+  sentry-org:
+    description: 'The sentry org for uploading debug symbols'
+    required: true
+  sentry-project:
+    description: 'The sentry project for uploading debug symbols'
+    required: true
+  sentry-url:
+    description: 'The sentry url for uploading debug symbols'
+    required: true
+  sentry-auth-token:
+    description: 'The sentry auth token for uploading debug symbols'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Write Key Properties
+      shell: bash
+      if: github.event_name == 'push'
+      run: echo "$ANDROID_KEY_PROPERTIES" > ./android/key.properties
+      env:
+        ANDROID_KEY_PROPERTIES: ${{ inputs.android-key-properties }}
+    - name: Write Certificate
+      shell: bash
+      if: github.event_name == 'push'
+      run: echo -n "$ANDROID_KEY_JKS" | base64 -d > ./android/AndroidKeystoreCodel1417.jks
+      env:
+        ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
+    - name: Build APK
+      shell: bash
+      run: flutter build apk --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+      env:
+        VERSION: ${{ inputs.version }}
+        BUILD_NUMBER: ${{ inputs.build-number }}
+        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
+        SENTRY_ORG: ${{ inputs.sentry-org }}
+        SENTRY_PROJECT: ${{ inputs.sentry-project }}
+        SENTRY_URL: ${{ inputs.sentry-url }}
+    - name: Build AppBundle
+      shell: bash
+      run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" #--dart-define=cronetHttpNoPlay=true
+      env:
+        VERSION: ${{ inputs.version }}
+        BUILD_NUMBER: ${{ inputs.build-number }}
+        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
+        SENTRY_ORG: ${{ inputs.sentry-org }}
+        SENTRY_PROJECT: ${{ inputs.sentry-project }}
+        SENTRY_URL: ${{ inputs.sentry-url }}
+
+    - uses: actions/upload-artifact@v4
+      continue-on-error: true
+      if: runner.os == 'Linux'
+      with:
+        name: artifact-${{ runner.os }}
+        path: |
+          build/app/outputs/apk
+          build/app/outputs/bundle
