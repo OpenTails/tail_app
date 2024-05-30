@@ -111,6 +111,7 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
                 )
               ],
             ),
+            onTap: () => playSound(audioAction.file),
           );
         },
       ),
