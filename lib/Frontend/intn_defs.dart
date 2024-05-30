@@ -317,4 +317,8 @@ String audioEdit() => Intl.message("Rename Sound Effect", name: 'audioEdit', des
 
 String audioDelete() => Intl.message("Delete Sound Effect", name: 'audioDelete', desc: 'Label for sound files');
 
+String audioDeleteDescription() => Intl.message("Are you sure you want to delete this sound effect?", name: 'audioDeleteDescription', desc: 'Label for the body of the delete confirmation dialog');
+
 String audioAdd() => Intl.message("Add Sound Effect", name: 'audioAdd', desc: 'Label for sound files');
+
+String audioTipCard() => Intl.message("You can add custom sounds that appear on the Actions tab and can be used with Triggers", name: 'audioTipCard', desc: 'Tutorial card for the audio page');

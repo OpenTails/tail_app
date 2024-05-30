@@ -58,6 +58,7 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
           label: Text(audioAdd())),
       body: ListView.builder(
         itemCount: userAudioActions.length,
+        shrinkWrap: true,
         itemBuilder: (context, index) {
           AudioAction audioAction = userAudioActions[index];
           return ListTile(
@@ -71,11 +72,33 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
                   icon: const Icon(Icons.edit),
                 ),
                 IconButton(
-                  onPressed: () async {
-                    ref.read(userAudioActionsProvider.notifier).remove(audioAction);
-                    File storedAudioFilePath = File(audioAction.file);
-                    await storedAudioFilePath.delete();
-                    _audioLogger.info("Deleted audio file");
+                  onPressed: () {
+                    showDialog<bool>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: Text(audioDelete()),
+                        content: Text(audioDeleteDescription()),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, false),
+                            child: Text(cancel()),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, true),
+                            child: Text(ok()),
+                          ),
+                        ],
+                      ),
+                    ).then((value) async {
+                      if (value == true) {
+                        ref.read(userAudioActionsProvider.notifier).remove(audioAction);
+                        File storedAudioFilePath = File(audioAction.file);
+                        await storedAudioFilePath.delete();
+                        setState(() {
+                          _audioLogger.info("Deleted audio file");
+                        });
+                      }
+                    });
                   }, //TODO: Show dialog, then delete record and file.
                   tooltip: audioDelete(),
                   icon: const Icon(Icons.delete),
