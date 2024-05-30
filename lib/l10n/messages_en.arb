@@ -1,15 +1,9 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-29T21:03:26.254755",
+  "@@last_modified": "2024-05-30T16:12:59.587515",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "subTitle": "All of the Tails",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
     "placeholders": {}
   },
@@ -25,12 +19,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffTitle": "Always scanning disabled",
-  "@homeContinuousScanningOffTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
   "homeContinuousScanningOffDescription": "Swipe horizontally on the known device area above to begin scanning. You can turn on continuous scanning in settings.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
@@ -40,12 +28,6 @@
   "homeWelcomeMessage": "You can control, explore and update all your Tail Co gear right here in this app. There are also instructions and guides available too. Happy Wagging!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "Toggle Gear Bar",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -67,6 +49,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "audioPage": "Custom Sounds",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
   "aboutPage": "About",
   "@aboutPage": {
     "description": "The label and title of the about page",
@@ -82,12 +70,6 @@
   "settingsDescription": "Change app color, configure Haptics, and more",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsPage": "Actions",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
@@ -425,24 +407,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Fast",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Calm",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Frustrated",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesBatteryGraphTitle": "Battery Graph",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
@@ -695,12 +659,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "DigiTail Manual",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
   "moreManualEargearTitle": "EarGear Manual",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
@@ -899,8 +857,32 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioActionCategory": "Sound",
+  "audioActionCategory": "Sound Effects",
   "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Manage custom sound effects",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Rename Sound Effect",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Delete Sound Effect",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Add Sound Effect",
+  "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
