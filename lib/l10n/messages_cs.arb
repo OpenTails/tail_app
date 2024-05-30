@@ -849,8 +849,38 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioActionCategory": "Zvuk",
+  "audioActionCategory": "Zvukové efekty",
   "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Vlastní zvuky",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Spravujte vlastní zvukové efekty",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Přejmenovat zvukový efekt",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Smazat zvukový efekt",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Přidat zvukový efekt",
+  "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
