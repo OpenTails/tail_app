@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Nach rechts neigen",
+  "triggerEarTiltRight": "Neigung nach rechts",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Batterieprozentsatz anzeigen",
+  "settingsBatteryPercentageToggleTitle": "Batteriestand in % anzeigen",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
@@ -849,8 +849,38 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioActionCategory": "Klang",
+  "audioActionCategory": "Soundeffekte",
   "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Benutzerdefinierte Sounds",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Verwalten Sie benutzerdefinierte Soundeffekte",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Soundeffekt umbenennen",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Soundeffekt löschen",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Soundeffekt hinzufügen",
+  "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
