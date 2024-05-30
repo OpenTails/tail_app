@@ -32,9 +32,7 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () async {
               _audioLogger.info("Opening file dialog");
-              FilePickerResult? result = await FilePicker.platform.pickFiles(
-                type: FileType.audio,
-              );
+              FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.audio, withReadStream: true);
               if (result != null) {
                 _audioLogger.info("Selected file");
                 PlatformFile file = result.files.first;
@@ -43,9 +41,8 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
                 await audioDir.create();
                 File storedAudioFilePath = File("${audioDir.path}/${file.name}");
                 _audioLogger.info("File path ${storedAudioFilePath.path}");
-                File selectedFile = File(file.path!);
-                _audioLogger.info("Selected file Path ${selectedFile.path}");
-                Stream<List<int>> openRead = selectedFile.openRead();
+                _audioLogger.info("Selected file Path ${file.path}");
+                Stream<List<int>> openRead = file.readStream!;
                 IOSink ioSinkWrite = storedAudioFilePath.openWrite();
                 await ioSinkWrite.addStream(openRead);
                 ioSinkWrite.close();

@@ -224,6 +224,20 @@ A Webhook to notify Weblate that code was pushed to this repo.
 
 A SSH key is installed in my account which allows weblate to push translation changes to the repo.
 
+### Updating EN Localizations
+
+To update EN localization strings, the file [intn_defs.dart](lib/Frontend/intn_defs.dart) needs to be updated.
+
+```dart
+String message() => Intl.message('Displayed Message', name: 'message', desc: 'A description of the string and where it is used');
+```
+
+The `Displayed Message` is the string that appears in the UI.
+The `name` is the variable name. This must match the variable name used such as `message()` but without the `()`.
+The `desc` is a description of the string for use by translators.
+
+When [intn_defs.dart](lib/Frontend/intn_defs.dart) is updated, the job [localization_strings_update.yml](.github/workflows/localization_strings_update.yml) updates the generated localization file [messages_en.arb](lib/l10n/messages_en.arb) which makes the strings available to [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/).
+
 ### Developer Mode Features
 
 - Gear console
