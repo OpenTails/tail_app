@@ -10,8 +10,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Frontend/intn_defs.dart';
 import 'package:tail_app/Frontend/pages/markdown_viewer.dart';
+import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';

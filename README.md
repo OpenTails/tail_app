@@ -66,6 +66,23 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 - [Git](https://git-scm.com/downloads)
 - [Ruby](https://www.ruby-lang.org/en/) for FastLane
 
+### Updating EN Localizations
+
+To update EN localization strings, the file `[translation_string_definitions.dart](lib/Frontend/translation_string_definitions.dart)` needs to be updated.
+
+```dart
+String message() => Intl.message('Displayed Message', name: 'message', desc: 'A description of the string and where it is used');
+```
+
+The `Displayed Message` is the string that appears in the UI.
+The `name` is the variable name. This must match the variable name used such as `message()` but without the `()`.
+The `desc` is a description of the string for use by translators.
+
+When `[translation_string_definitions.dart](lib/Frontend/translation_string_definitions.dart)` is updated, the job `[localization_strings_update.yml](.github/workflows/localization_strings_update.yml)` updates the generated localization file [messages_en.arb](lib/l10n/messages_en.arb) which makes the strings available to [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/).
+New Strings are auto translated by Google Translate but will not overwrite manually translated strings.
+
+When non EN translations are updated in [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/), A pull request will automatically open with the changes. This may take a few minutes.
+
 ### Building
 
 #### Preparing for build
@@ -83,7 +100,7 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 > dart pub global activate intl_translation
 > 
 > flutter pub get # Downloads Dependencies
-> dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
+> dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
 > flutter pub run build_runner build --delete-conflicting-outputs  # Generates .g files
 > ```
 
@@ -92,14 +109,14 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 >
 > ```shell
 > dart pub global activate intl_translation
-> dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/intn_defs.dart
+> dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/translation_string_definitions.dart
 > ```
 >
 > To build localization files, run
 >
 > ```shell
 > dart pub global activate intl_translation
-> dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/intn_defs.dart lib/l10n/*.arb
+> dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
 > ```
 >
 > To build generated `.g` files, run
@@ -216,27 +233,13 @@ Some of these values aren't actually secret and can be shared. Specifically the 
 
 #### Sentry
 
-A github app which allows Sentry to authenticate with Github and this repo. It allows Source Code stack trace linking and Creating issues from the Sentry UI.
+A github app which allows [Sentry](https://sentry.codel1417.xyz/organizations/sentry/projects/tail_app/?project=2) to authenticate with Github and this repo. It allows Source Code stack trace linking and Creating issues from the [Sentry](https://sentry.codel1417.xyz/organizations/sentry/projects/tail_app/?project=2) UI.
 
 #### Weblate
 
-A Webhook to notify Weblate that code was pushed to this repo.
+A Webhook to notify [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/) that code was pushed to this repo.
 
-A SSH key is installed in my account which allows weblate to push translation changes to the repo.
-
-### Updating EN Localizations
-
-To update EN localization strings, the file [intn_defs.dart](lib/Frontend/intn_defs.dart) needs to be updated.
-
-```dart
-String message() => Intl.message('Displayed Message', name: 'message', desc: 'A description of the string and where it is used');
-```
-
-The `Displayed Message` is the string that appears in the UI.
-The `name` is the variable name. This must match the variable name used such as `message()` but without the `()`.
-The `desc` is a description of the string for use by translators.
-
-When [intn_defs.dart](lib/Frontend/intn_defs.dart) is updated, the job [localization_strings_update.yml](.github/workflows/localization_strings_update.yml) updates the generated localization file [messages_en.arb](lib/l10n/messages_en.arb) which makes the strings available to [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/).
+A SSH key is installed in my account which allows [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/) to push translation changes to the repo.
 
 ### Developer Mode Features
 

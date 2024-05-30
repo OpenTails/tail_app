@@ -6,7 +6,7 @@ import 'package:tail_app/constants.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/action_registry.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 
 class ActionSelectorInfo {
   final Set<DeviceType> deviceType;

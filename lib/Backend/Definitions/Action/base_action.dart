@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:tail_app/Frontend/intn_defs.dart';
+import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:uuid/uuid.dart';
 
 import '../Device/device_definition.dart';

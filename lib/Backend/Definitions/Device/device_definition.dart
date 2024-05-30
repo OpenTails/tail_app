@@ -15,7 +15,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/firmware_update.dart';
 
-import '../../../Frontend/intn_defs.dart';
+import '../../../Frontend/translation_string_definitions.dart';
 import '../../../Frontend/utils.dart';
 import '../../Bluetooth/bluetooth_message.dart';
 

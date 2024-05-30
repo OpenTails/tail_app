@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../Backend/Definitions/Device/device_definition.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 
 class DeviceTypeWidget extends StatelessWidget {
   const DeviceTypeWidget({super.key, required this.selected, required this.onSelectionChanged});

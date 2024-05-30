@@ -12,7 +12,7 @@ import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Widgets/tail_blog.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 import 'markdown_viewer.dart';
 
 final log.Logger homeLogger = log.Logger('Home');

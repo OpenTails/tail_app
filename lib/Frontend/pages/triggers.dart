@@ -12,7 +12,7 @@ import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/device_type_widget.dart';
 import '../Widgets/tutorial_card.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 import 'action_selector.dart';
 
 class Triggers extends ConsumerStatefulWidget {

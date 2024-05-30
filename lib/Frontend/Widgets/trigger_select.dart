@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Backend/sensors.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 
 class TriggerSelect extends ConsumerStatefulWidget {
   const TriggerSelect({super.key});

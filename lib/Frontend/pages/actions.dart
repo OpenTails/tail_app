@@ -17,7 +17,7 @@ import '../../Backend/device_registry.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 import 'home.dart';
 
 class ActionPage extends ConsumerWidget {

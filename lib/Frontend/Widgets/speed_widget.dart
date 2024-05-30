@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 
 class SpeedWidget extends StatelessWidget {
   const SpeedWidget({super.key, required this.value, required this.onChanged});

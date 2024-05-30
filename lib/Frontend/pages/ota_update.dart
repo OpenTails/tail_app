@@ -22,7 +22,7 @@ import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../../main.dart';
 import '../Widgets/lottie_lazy_load.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 import '../utils.dart';
 
 class OtaUpdate extends ConsumerStatefulWidget {
@@ -358,7 +358,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
           if (chunk.isNotEmpty) {
             try {
               _otaLogger.info("Updating $uploadProgress");
-              if (current > 0){
+              if (current > 0) {
                 timeRemainingMS = Duration(milliseconds: ((timeToUpdate.elapsedMilliseconds / current) * (total - current)).toInt());
               }
 

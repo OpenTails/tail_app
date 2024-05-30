@@ -14,7 +14,7 @@ import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 
 class DirectGearControl extends ConsumerStatefulWidget {
   const DirectGearControl({super.key});

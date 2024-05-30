@@ -12,7 +12,7 @@ import '../../Backend/device_registry.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../../main.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 import 'lottie_lazy_load.dart';
 
 class ScanForNewDevice extends ConsumerStatefulWidget {

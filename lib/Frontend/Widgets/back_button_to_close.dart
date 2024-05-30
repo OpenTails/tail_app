@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 
 class BackButtonToClose extends ConsumerStatefulWidget {
   const BackButtonToClose({required this.child, super.key});

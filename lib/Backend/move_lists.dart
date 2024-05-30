@@ -1,8 +1,6 @@
-import 'package:audio_session/audio_session.dart';
 import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
@@ -10,7 +8,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/audio.dart';
-import 'package:tail_app/Frontend/intn_defs.dart';
+import 'package:tail_app/Frontend/translation_string_definitions.dart';
 
 import '../main.dart';
 
@@ -257,12 +255,10 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
         }
       }
     }
-  }
-  else if (action is AudioAction){
+  } else if (action is AudioAction) {
     String file = action.file;
 
     playSound(file);
-
   }
 }
 

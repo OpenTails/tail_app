@@ -21,7 +21,7 @@ import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/base_card.dart';
 import '../Widgets/known_gear.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 
 /// Flutter code sample for [NavigationDrawer].
 

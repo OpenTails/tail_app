@@ -9,7 +9,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../constants.dart';
 import '../../main.dart';
-import '../intn_defs.dart';
+import '../translation_string_definitions.dart';
 
 class Settings extends ConsumerStatefulWidget {
   const Settings({super.key});

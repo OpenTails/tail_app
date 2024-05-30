@@ -32,7 +32,7 @@ import 'Backend/notifications.dart';
 import 'Backend/plausible_dio.dart';
 import 'Backend/sensors.dart';
 import 'Frontend/go_router_config.dart';
-import 'Frontend/intn_defs.dart';
+import 'Frontend/translation_string_definitions.dart';
 import 'constants.dart';
 import 'l10n/messages_all_locales.dart';
 
