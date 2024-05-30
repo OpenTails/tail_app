@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditMove": "Hýbat se",
+  "sequencesEditMove": "název",
   "@sequencesEditMove": {
     "description": "Label for the move tab on sequence move edit page",
     "type": "text",
@@ -795,7 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -813,7 +813,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Nalezeno zařízení. Klepnutím na název zařízení se připojte",
+  "scanDevicesFoundTitle": "Nalezen Gear. Klepnutím na název zařízení se připojte",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
