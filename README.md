@@ -255,7 +255,7 @@ A SSH key is installed in my account which allows [Weblate](https://weblate.code
 
 To enter the in-app Developer Mode, follow these instructions
 
-1. Long press Github button, enter the following code
+1. Long press `Source Code` button, enter the following code
 2. `🦊🐉🦦🦖`
 
 To Turn off Developer Mode
