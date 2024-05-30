@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Strona główna Gear",
+  "sequencesEditHomeLabel": "Kolor przekładni",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -345,7 +345,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "Zwiększ głośność",
+  "triggerVolumeButtonVolumeUp": "Urządzenie odkryte",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualEargearTitle": "Instrukcja obsługi słuchawek EarGear",
+  "moreManualEargearTitle": "Instrukcja obsługi EarGear",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Kliknij, aby wyświetlić",
+  "moreManualSubTitle": "Instrukcje",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Niski poziom baterii. Naładuj swój sprzęt przynajmniej do 50%",
+  "otaLowBattery": "Naciśnij ponownie, aby wyjść",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -843,7 +843,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreSourceCode": "Kod źródłowy",
+  "moreSourceCode": "Naciśnij i przytrzymaj akcję, aby dodać ją do ulubionych",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
@@ -894,6 +894,12 @@
   "audioTipCard": "Możesz dodać niestandardowe dźwięki, które pojawiają się na karcie Działania i których można używać z wyzwalaczami",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Miniogon",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   }
