@@ -831,7 +831,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Aby ta aplikacja obsługiwała Twój sprzęt, wymagana jest aktualizacja oprogramowania sprzętowego",
+  "mandatoryOtaRequired": "Aby ta aplikacja mogła obsługiwać Twój sprzęt, wymagana jest aktualizacja oprogramowania sprzętowego",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -882,6 +882,18 @@
   "audioPage": "Niestandardowe dźwięki",
   "@audioPage": {
     "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "Czy na pewno chcesz usunąć ten efekt dźwiękowy?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "Możesz dodać niestandardowe dźwięki, które pojawiają się na karcie Działania i których można używać z wyzwalaczami",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
     "type": "text",
     "placeholders": {}
   }
