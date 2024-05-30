@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканируйте новое снаряжение",
+  "scanDevicesTitle": "Сканирование нового снаряжения",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -849,8 +849,38 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioActionCategory": "Звук",
+  "audioActionCategory": "Звуковые эффекты",
   "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Пользовательские звуки",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Управление пользовательскими звуковыми эффектами",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Переименовать звуковой эффект",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Удалить звуковой эффект",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Добавить звуковой эффект",
+  "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
     "placeholders": {}
