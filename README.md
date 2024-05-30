@@ -68,7 +68,7 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 
 ### Updating EN Localizations
 
-To update EN localization strings, the file `[translation_string_definitions.dart](lib/Frontend/translation_string_definitions.dart)` needs to be updated.
+To update EN localization strings, the file [`translation_string_definitions.dart`](lib/Frontend/translation_string_definitions.dart) needs to be updated.
 
 ```dart
 String message() => Intl.message('Displayed Message', name: 'message', desc: 'A description of the string and where it is used');
@@ -78,7 +78,7 @@ The `Displayed Message` is the string that appears in the UI.
 The `name` is the variable name. This must match the variable name used such as `message()` but without the `()`.
 The `desc` is a description of the string for use by translators.
 
-When `[translation_string_definitions.dart](lib/Frontend/translation_string_definitions.dart)` is updated, the job `[localization_strings_update.yml](.github/workflows/localization_strings_update.yml)` updates the generated localization file [messages_en.arb](lib/l10n/messages_en.arb) which makes the strings available to [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/).
+When [`translation_string_definitions.dart`](lib/Frontend/translation_string_definitions.dart) is updated, the job [`localization_strings_update.yml`](.github/workflows/localization_strings_update.yml) updates the generated localization file [`messages_en.arb`](lib/l10n/messages_en.arb) which makes the strings available to [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/).
 New Strings are auto translated by Google Translate but will not overwrite manually translated strings.
 
 When non EN translations are updated in [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/), A pull request will automatically open with the changes. This may take a few minutes.
