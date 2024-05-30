@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-30T17:30:38.313173",
+  "@@last_modified": "2024-05-30T19:26:33.395736",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -135,6 +135,12 @@
   },
   "deviceTypeTail": "Tail",
   "@deviceTypeTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Mini Tail",
+  "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
