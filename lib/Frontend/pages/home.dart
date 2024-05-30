@@ -84,7 +84,6 @@ class _HomeState extends ConsumerState<Home> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
-                      leading: const Icon(Icons.waving_hand),
                       title: Text(homeWelcomeMessageTitle()),
                       subtitle: Text(homeWelcomeMessage()),
                     ),
