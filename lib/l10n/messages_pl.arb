@@ -11,12 +11,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "działania",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggersPage": "Wyzwalacze",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
@@ -243,24 +237,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Szybko",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Spokój",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Sfrustrowany",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesBatteryGraphTitle": "Wykres baterii",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
@@ -477,12 +453,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Wszystkie Tailsy",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "Drążek sterowy",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -510,12 +480,6 @@
   "moreManualMiTailTitle": "Instrukcja MiTail’a",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualDigitailTitle": "Instrukcja DigiTail",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
     "type": "text",
     "placeholders": {}
   },
@@ -588,12 +552,6 @@
   "moreTitle": "Więcej",
   "@moreTitle": {
     "description": "Title for More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "Przełącz pasek zębaty",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -827,12 +785,6 @@
   },
   "homeWelcomeMessageTitle": "Witamy w aplikacji Tail Company",
   "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffTitle": "Skanowanie zawsze wyłączone",
-  "@homeContinuousScanningOffTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}

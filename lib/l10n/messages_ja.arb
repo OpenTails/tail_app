@@ -11,12 +11,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "全てのしっぽ",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "ジョイスティック",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -38,12 +32,6 @@
   "settingsPage": "設定",
   "@settingsPage": {
     "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsPage": "行動",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
@@ -258,24 +246,6 @@
   "settingsErrorReportingToggleSubTitle": "Sentryにエラーレポートを送信します",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFast": "速い",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "落ち着いた",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "イライラ",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
@@ -513,12 +483,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "デジテールマニュアル",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
   "moreManualEargearTitle": "イヤーギアマニュアル",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
@@ -588,12 +552,6 @@
   "moreTitle": "もっと",
   "@moreTitle": {
     "description": "Title for More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "ギアバーを切り替える",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -827,12 +785,6 @@
   },
   "homeWelcomeMessageTitle": "テールカンパニーアプリへようこそ",
   "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffTitle": "常にスキャンを無効",
-  "@homeContinuousScanningOffTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}

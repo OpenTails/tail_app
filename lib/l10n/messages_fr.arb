@@ -165,24 +165,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Rapide",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Calme",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Frustré",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesDisconnect": "Déconnecter",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
@@ -267,12 +249,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Toutes les queues",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "Manette",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -294,12 +270,6 @@
   "settingsPage": "Paramètres",
   "@settingsPage": {
     "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsPage": "Actions",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
@@ -507,12 +477,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "Manuel DigiTail",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
   "moreManualEargearTitle": "Manuel d'utilisation des écouteurs",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
@@ -582,12 +546,6 @@
   "morePrivacyPolicyLinkTitle": "politique de confidentialité",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "Basculer la barre de vitesse",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -822,12 +780,6 @@
   "otaLowBattery": "Batterie faible. Veuillez charger votre équipement à au moins 50 %",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffTitle": "Analyse toujours désactivée",
-  "@homeContinuousScanningOffTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },

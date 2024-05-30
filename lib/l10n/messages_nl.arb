@@ -5,12 +5,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Alle staarten",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "Joystick",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -32,12 +26,6 @@
   "settingsPage": "Instellingen",
   "@settingsPage": {
     "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsPage": "Acties",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
@@ -252,24 +240,6 @@
   "settingsAppColor": "App-kleur",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFast": "Snel",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Kalm",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Gefrustreerd",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
     "type": "text",
     "placeholders": {}
   },
@@ -519,12 +489,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "DigiTail-handleiding",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
   "moreManualEargearTitle": "EarGear-handleiding",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
@@ -582,12 +546,6 @@
   "morePrivacyPolicyLinkTitle": "Privacybeleid",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "Schakel de versnellingsbalk in",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -851,12 +809,6 @@
   },
   "homeWelcomeMessageTitle": "Welkom bij de Tail Company-app",
   "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffTitle": "Scannen altijd uitgeschakeld",
-  "@homeContinuousScanningOffTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}

@@ -5,12 +5,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "subTitle": "Tutte le code",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
-    "type": "text",
-    "placeholders": {}
-  },
   "joyStickPage": "Telecomando da gioco",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
@@ -32,12 +26,6 @@
   "settingsPage": "Impostazioni",
   "@settingsPage": {
     "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsPage": "Azioni",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
     "type": "text",
     "placeholders": {}
   },
@@ -291,24 +279,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Veloce",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Calma",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Frustrato",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesBatteryGraphTitle": "Grafico della batteria",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
@@ -543,12 +513,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "Manuale DigiTail",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
   "settingsDescription": "Cambia il colore dell'app, configura Haptics e altro ancora",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
@@ -582,12 +546,6 @@
   "morePrivacyPolicyLinkTitle": "politica sulla riservatezza",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "Attiva/disattiva la barra degli ingranaggi",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -863,12 +821,6 @@
   },
   "homeWelcomeMessageTitle": "Benvenuto nell'app Tail Company",
   "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffTitle": "Scansione sempre disabilitata",
-  "@homeContinuousScanningOffTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}

@@ -11,12 +11,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsPage": "Действия",
-  "@actionsPage": {
-    "description": "The label and title of the action page",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggersPage": "Триггеры",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
@@ -237,24 +231,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesAutoMoveGroupsFast": "Быстрый",
-  "@manageDevicesAutoMoveGroupsFast": {
-    "description": "Auto move group fast option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsCalm": "Спокойствие",
-  "@manageDevicesAutoMoveGroupsCalm": {
-    "description": "Auto move group  calm option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAutoMoveGroupsFrustrated": "Расстроенный",
-  "@manageDevicesAutoMoveGroupsFrustrated": {
-    "description": "Auto move group frustrated option label when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
   "manageDevicesBatteryGraphTitle": "График батареи",
   "@manageDevicesBatteryGraphTitle": {
     "description": "battery graph expansion tile title",
@@ -342,12 +318,6 @@
   "title": "Хвостовая компания",
   "@title": {
     "description": "The name of the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "subTitle": "Все хвосты",
-  "@subTitle": {
-    "description": "The sub-title which displays in the navigation drawer",
     "type": "text",
     "placeholders": {}
   },
@@ -519,12 +489,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualDigitailTitle": "Руководство по DigiTail",
-  "@moreManualDigitailTitle": {
-    "description": "Title for Digitail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
   "moreManualEargearTitle": "Руководство по эксплуатации наушников",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
@@ -582,12 +546,6 @@
   "morePrivacyPolicyLinkTitle": "политика конфиденциальности",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "shellDeviceBarToggleLabel": "Переключить панель передач",
-  "@shellDeviceBarToggleLabel": {
-    "description": "Tooltip for the Gear bar display button on the shell / main UI app bar",
     "type": "text",
     "placeholders": {}
   },
@@ -827,12 +785,6 @@
   },
   "homeWelcomeMessageTitle": "Добро пожаловать в приложение Tail Company",
   "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffTitle": "Всегда сканирование отключено",
-  "@homeContinuousScanningOffTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
