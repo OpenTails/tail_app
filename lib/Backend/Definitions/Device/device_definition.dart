@@ -195,36 +195,11 @@ class MessageHistoryEntry {
   MessageHistoryEntry({required this.type, required this.message});
 }
 
-@HiveType(typeId: 12)
-enum AutoActionCategory {
-  @HiveField(1)
-  calm,
-  @HiveField(2)
-  fast,
-  @HiveField(3)
-  tense,
-}
-
-extension AutoActionCategoryExtension on AutoActionCategory {
-  String get friendly {
-    switch (this) {
-      case AutoActionCategory.calm:
-        return manageDevicesAutoMoveGroupsCalm();
-      case AutoActionCategory.fast:
-        return manageDevicesAutoMoveGroupsFast();
-      case AutoActionCategory.tense:
-        return manageDevicesAutoMoveGroupsFrustrated();
-    }
-  }
-}
-
 // All serialized/stored data
 @HiveType(typeId: 1)
 class BaseStoredDevice extends ChangeNotifier {
   @HiveField(0)
   String name = "New Gear";
-  @HiveField(6)
-  List<AutoActionCategory> selectedAutoCategories = [AutoActionCategory.calm];
   @HiveField(7)
   final String btMACAddress;
   @HiveField(8)
