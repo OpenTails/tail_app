@@ -44,7 +44,7 @@ const bool allowNewsletterNotificationsDefault = false;
 const String triggerBox = 'triggers';
 
 const String favoriteActionsBox = 'favoriteActions';
-
+const String audioActionsBox = 'audioActions';
 const int hasCompletedOnboardingVersionToAgree = 1;
 
 // Notifications
