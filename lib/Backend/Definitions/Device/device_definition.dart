@@ -29,6 +29,8 @@ enum DeviceType {
   ears,
   @HiveField(3)
   wings,
+  @HiveField(4)
+  miniTail
 } //TODO extend with icon
 
 extension DeviceTypeExtension on DeviceType {
@@ -40,12 +42,15 @@ extension DeviceTypeExtension on DeviceType {
         return deviceTypeEars();
       case DeviceType.wings:
         return deviceTypeWings();
+      case DeviceType.miniTail:
+        return deviceTypeMiniTail();
     }
   }
 
   Color get color {
     switch (this) {
       case DeviceType.tail:
+      case DeviceType.miniTail:
         return Colors.orangeAccent;
       case DeviceType.ears:
         return Colors.blueAccent;

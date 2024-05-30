@@ -1,3 +1,4 @@
+import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
 
 import '../../Backend/Definitions/Device/device_definition.dart';
@@ -13,18 +14,22 @@ class DeviceTypeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(deviceType()),
-      subtitle: SegmentedButton<DeviceType>(
-        multiSelectionEnabled: true,
-        selected: selected.toSet(),
-        onSelectionChanged: onSelectionChanged,
-        segments: DeviceType.values.map<ButtonSegment<DeviceType>>(
-          (DeviceType value) {
-            return ButtonSegment<DeviceType>(
-              value: value,
-              label: Text(value.name),
-            );
-          },
-        ).toList(),
+      subtitle: InlineChoice<DeviceType>.multiple(
+        clearable: true,
+        value: selected,
+        itemCount: DeviceType.values.length,
+        itemBuilder: (state, i) {
+          DeviceType deviceType = DeviceType.values[i];
+          return ChoiceChip(
+            selected: state.selected(deviceType),
+            onSelected: state.onSelected(deviceType),
+            label: Text(deviceType.name),
+          );
+        },
+        listBuilder: ChoiceList.createWrapped(
+          spacing: 10,
+          alignment: WrapAlignment.center,
+        ),
       ),
     );
   }

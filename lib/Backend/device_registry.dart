@@ -36,7 +36,7 @@ class DeviceRegistry {
       bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
       bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
       bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
-      deviceType: DeviceType.tail,
+      deviceType: DeviceType.miniTail,
       fwURL: "https://thetailcompany.com/fw/mini",
       minVersion: Version(5, 0, 0),
     ),

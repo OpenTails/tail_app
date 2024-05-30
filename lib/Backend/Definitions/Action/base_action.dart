@@ -75,7 +75,7 @@ class BaseAction {
       return nameAlias[DeviceType.wings]!;
     } else if (connectedDeviceTypes.contains(DeviceType.ears) && deviceCategory.contains(DeviceType.ears) && nameAlias.containsKey(DeviceType.ears)) {
       return nameAlias[DeviceType.ears]!;
-    } else if (connectedDeviceTypes.contains(DeviceType.tail) && deviceCategory.contains(DeviceType.tail) && nameAlias.containsKey(DeviceType.tail)) {
+    } else if ((connectedDeviceTypes.contains(DeviceType.tail) || connectedDeviceTypes.contains(DeviceType.miniTail)) && (deviceCategory.contains(DeviceType.tail) || deviceCategory.contains(DeviceType.miniTail)) && nameAlias.containsKey(DeviceType.tail)) {
       return nameAlias[DeviceType.tail]!;
     }
     return name;

@@ -56,6 +56,8 @@ String deviceType() => Intl.message('Which gear should this apply to?', name: 'd
 
 String deviceTypeTail() => Intl.message('Tail', name: 'deviceTypeTail', desc: 'Tail option for the selector to select which device to send moves to');
 
+String deviceTypeMiniTail() => Intl.message('Mini Tail', name: 'deviceTypeMiniTail', desc: 'Tail option for the selector to select which device to send moves to');
+
 String deviceTypeEars() => Intl.message('Ears', name: 'deviceTypeEars', desc: 'Ears option for the selector to select which device to send moves to');
 
 String deviceTypeWings() => Intl.message('Wings', name: 'deviceTypeWings', desc: 'Wings option for the selector to select which device to send moves to');

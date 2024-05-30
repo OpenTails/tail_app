@@ -66,8 +66,8 @@ class Trigger extends ChangeNotifier {
     }
   }
 
-  @HiveField(2, defaultValue: [DeviceType.tail, DeviceType.ears, DeviceType.wings])
-  List<DeviceType> _deviceType = [DeviceType.tail, DeviceType.ears, DeviceType.wings];
+  @HiveField(2, defaultValue: DeviceType.values)
+  List<DeviceType> _deviceType = DeviceType.values.toList();
 
   List<DeviceType> get deviceType => _deviceType;
 
