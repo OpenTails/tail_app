@@ -143,7 +143,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                           () {
                             BaseStoredDevice baseStoredDevice;
                             BaseStatefulDevice statefulDevice;
-                            baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color.value);
+                            baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color(ref: ref).value);
                             baseStoredDevice.name = getNameFromBTName(value.btName);
                             statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
                             statefulDevice.deviceConnectionState.value = ConnectivityState.connected;

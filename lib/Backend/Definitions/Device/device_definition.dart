@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -47,7 +48,26 @@ extension DeviceTypeExtension on DeviceType {
     }
   }
 
-  Color get color {
+  Color color({Object? ref}) {
+    if (ref != null && (ref is WidgetRef || ref is Ref)) {
+      Iterable<BaseStatefulDevice> knownDevices = [];
+      if (ref is WidgetRef) {
+        knownDevices = ref.read(knownDevicesProvider).values;
+      } else if (ref is Ref) {
+        knownDevices = ref.read(knownDevicesProvider).values;
+      }
+      int? color = knownDevices
+          .where(
+            (element) => element.baseDeviceDefinition.deviceType == this,
+          )
+          .map(
+            (e) => e.baseStoredDevice.color,
+          )
+          .firstOrNull;
+      if (color != null) {
+        return Color(color);
+      }
+    }
     switch (this) {
       case DeviceType.tail:
         return Colors.orangeAccent;
