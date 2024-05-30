@@ -67,7 +67,7 @@ class UserAudioActions extends _$UserAudioActions {
   }
 
   Future<void> store() async {
-    _audioLogger.info("Storing favorites");
+    _audioLogger.info("Storing Custom Audio");
     SentryHive.box<AudioAction>(audioActionsBox)
       ..clear()
       ..addAll(state);

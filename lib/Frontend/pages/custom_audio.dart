@@ -77,8 +77,10 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        onPressed: () {},
-                        tooltip: audioEdit(), //TODO: Edit record name
+                        onPressed: () {
+                          editModal(context, audioAction);
+                        },
+                        tooltip: audioEdit(),
                         icon: const Icon(Icons.edit),
                       ),
                       IconButton(
@@ -121,5 +123,59 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
             ),
           ],
         ));
+  }
+
+  void editModal(BuildContext context, AudioAction audioAction) {
+    showModalBottomSheet<AudioAction>(
+      context: context,
+      showDragHandle: true,
+      enableDrag: true,
+      isDismissible: true,
+      isScrollControlled: true,
+      clipBehavior: Clip.antiAlias,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.3,
+          expand: false,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return ListView(
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  children: [
+                    ListTile(
+                      subtitle: TextField(
+                        controller: TextEditingController(text: audioAction.name),
+                        decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName()),
+                        maxLines: 1,
+                        scrollPhysics: const NeverScrollableScrollPhysics(),
+                        maxLength: 30,
+                        autocorrect: false,
+                        onSubmitted: (nameValue) {
+                          setState(
+                            () {
+                              audioAction.name = nameValue;
+                            },
+                          );
+                          ref.watch(userAudioActionsProvider.notifier).store();
+                        },
+                      ),
+                    )
+                  ],
+                );
+              },
+            );
+          },
+        );
+      },
+    ).whenComplete(
+      () {
+        setState(
+          () {},
+        );
+        ref.watch(userAudioActionsProvider.notifier).store();
+      },
+    );
   }
 }

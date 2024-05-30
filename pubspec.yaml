@@ -27,8 +27,6 @@ dependencies:
   circular_buffer: ^0.11.0  # Used for serial console
   wordpress_client: ^8.4.10 # Used for tail blog
   pub_semver: ^2.1.4 # used for comparing firmware versions
-  just_audio: ^0.9.38
-  audio_session: ^0.1.19
 
 
   # Platform Interfaces
@@ -51,6 +49,9 @@ dependencies:
   flutter_wear_os_connectivity:
     git:
       url: https://github.com/Codel1417/flutter_wear_os_connectivity
+  just_audio: ^0.9.38 # Used for Sound Effects
+  audio_session: ^0.1.19 # Used to configure the audio session for just_audio
+
 
   # Riverpod
   flutter_riverpod: ^2.5.1
@@ -75,7 +76,7 @@ dependencies:
   flutter_native_splash: ^2.4.0
   lottie_native: ^0.1.3
   duration: ^3.0.13
-  choice: ^2.3.2
+  choice: ^2.3.2 # used for device choice ui
 
   # Dio HTTP
   dio: ^5.4.3+1
