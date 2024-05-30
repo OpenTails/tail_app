@@ -32,7 +32,7 @@ class _TailBlogState extends State<TailBlog> {
   @override
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
-      alignment: Alignment.center,
+      alignment: Alignment.topCenter,
       firstChild: feedState == FeedState.loading ? const LinearProgressIndicator() : Container(),
       secondChild: GridView.builder(
         controller: widget.controller,
