@@ -795,7 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
