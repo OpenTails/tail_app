@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Lisa Liikumine",
+  "sequencesEditAdd": "Lisa liiguta",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -381,7 +381,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Raputama",
+  "triggerShakeTitle": "Läheduses Gear",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -525,7 +525,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "See režiim peatab ekraani väljalülitamise, kui teie varustus on ühendatud",
+  "settingsKeepScreenOnToggleSubTitle": "See režiim ei lülitu ekraani välja, kui teie varustus on ühendatud",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -621,7 +621,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuskaardid kogu rakenduses",
+  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuse kaardid kogu rakenduses",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Saate juhtida, uurida ja värskendada kõiki oma Tail Co varustust just siin selles rakenduses. Saadaval on ka juhised ja juhendid. Head vehkimist!",
+  "homeWelcomeMessage": "Seadmega kaetud",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
