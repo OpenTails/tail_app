@@ -92,14 +92,7 @@ class CommandAction extends BaseAction {
   final String command;
   final String? response;
 
-  CommandAction({
-    required this.command,
-    this.response,
-    required super.name,
-    required super.deviceCategory,
-    required super.actionCategory,
-    required super.uuid,
-  });
+  CommandAction({required this.command, this.response, required super.name, required super.deviceCategory, required super.actionCategory, required super.uuid, super.nameAlias});
 
   factory CommandAction.hiddenEars(String command, String response) {
     return CommandAction(command: command, response: response, deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: const Uuid().v4(), name: command);
