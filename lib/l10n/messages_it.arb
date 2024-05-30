@@ -161,7 +161,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Con quale velocità l'ingranaggio dovrebbe spostarsi in questa posizione?",
+  "sequencesEditSpeed": "Quanto velocemente dovrebbe spostarsi l'ingranaggio in questa posizione?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -477,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "Manuali",
+  "moreManualTitle": "A piedi",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -555,7 +555,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Controlla direttamente la posizione del cambio.",
+  "joyStickPageDescription": "Controllare direttamente la posizione del cambio.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -882,6 +882,18 @@
   "audioAdd": "Aggiungi effetto sonoro",
   "@audioAdd": {
     "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "Sei sicuro di voler eliminare questo effetto sonoro?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "Puoi aggiungere suoni personalizzati che appaiono nella scheda Azioni e possono essere utilizzati con i Trigger",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
     "type": "text",
     "placeholders": {}
   }
