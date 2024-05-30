@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Loskoppelen",
+  "manageDevicesDisconnect": "Batterijgrafiek",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Activeer een actie tijdens het lopen",
+  "triggerWalkingDescription": "Houd het scherm ingeschakeld",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
@@ -381,13 +381,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Activeer een actie als er uitrusting in de buurt is",
+  "triggerProximityDescription": "Over",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Geen actieset",
+  "triggerActionNotSet": "Scannen naar uitrusting. Zorg ervoor dat uw uitrusting is ingeschakeld en in de buurt is",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleTitle": "Leskaarten verbergen",
+  "settingsTutorialCardToggleTitle": "Stuurt foutrapporten naar Sentry",
   "@settingsTutorialCardToggleTitle": {
     "description": "Settings page tutorial card display toggle title",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Om een actie te verwijderen, tikt u nogmaals op de actie om deze te verwijderen. Vergeet niet op te slaan via het opslagpictogram bovenaan",
+  "triggerInfoEditActionDescription": "Start OTA-update",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Start OTA-update",
+  "otaDownloadButtonLabel": "OTA-update starten",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -831,7 +831,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Er is een firmware-update vereist om deze app je uitrusting te laten ondersteunen",
+  "mandatoryOtaRequired": "Voor deze app is een firmware-update vereist om je uitrusting te ondersteunen",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -894,6 +894,12 @@
   "audioTipCard": "U kunt aangepaste geluiden toevoegen die op het tabblad Acties verschijnen en die met Triggers kunnen worden gebruikt",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Mini-staart",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   }
