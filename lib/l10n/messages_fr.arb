@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Type d'assouplissement",
+  "sequencesEditEasing": "Retardez le prochain coup pendant [X20X] ms.",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -225,7 +225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Appareil découvert",
+  "triggerCoverFar": "Oublier",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -279,7 +279,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Actions personnalisées",
+  "sequencesPage": "Déclencheurs",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -339,7 +339,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Déclenchez une action en secouant votre appareil",
+  "triggerShakeDescription": "Couleur de l'application",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "Capteur d'inclinaison EarGear",
+  "triggerEarTiltTitle": "Déclenchez une action lorsque EarGear détecte un son",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -681,7 +681,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Accepter la politique de confidentialité",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Journal des modifications du micrologiciel",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Activer Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Activer le Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -894,6 +894,12 @@
   "audioTipCard": "Vous pouvez ajouter des sons personnalisés qui apparaissent dans l'onglet Actions et peuvent être utilisés avec des déclencheurs.",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Mini-queue",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   }
