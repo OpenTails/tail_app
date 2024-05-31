@@ -76,18 +76,6 @@ final GoRouter router = GoRouter(
               ),
             ]),
         GoRoute(
-          name: 'Direct Gear Control',
-          path: '/joystick',
-          parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (context, state) {
-            return MaterialPage(
-              key: state.pageKey,
-              name: 'Direct Gear Control',
-              child: const DirectGearControl(),
-            );
-          },
-        ),
-        GoRoute(
           name: 'More',
           path: '/more',
           parentNavigatorKey: _shellNavigatorKey,
@@ -120,6 +108,18 @@ final GoRouter router = GoRouter(
         child: NavigationDrawerExample(child, state.matchedLocation),
         key: state.pageKey,
       ),
+    ),
+    GoRoute(
+      name: 'Direct Gear Control',
+      path: '/joystick',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          name: 'Direct Gear Control',
+          child: const DirectGearControl(),
+        );
+      },
     ),
     GoRoute(
       name: 'OTA',

@@ -43,6 +43,7 @@ const bool showDebuggingDefault = false;
 const bool alwaysScanningDefault = true;
 const bool allowNewsletterNotificationsDefault = false;
 const bool showDemoGearDefault = false;
+
 // Triggers labels
 const String triggerBox = 'triggers';
 
