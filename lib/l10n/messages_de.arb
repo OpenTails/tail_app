@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Stornieren",
+  "cancel": "OK",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -113,7 +113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Möchten Sie diese Aktion wirklich löschen?",
+  "sequencesEditDeleteDescription": "Aktion löschen",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -279,7 +279,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "Lautstärke erhöhen",
+  "triggerVolumeButtonVolumeUp": "Lautstärketasten",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -405,7 +405,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Vorwärtsneigung",
+  "triggerEarTiltForward": "Abschalten",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Bildschirm eingeschaltet lassen",
+  "settingsKeepScreenOnToggleTitle": "Glühspitze",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -555,7 +555,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Steuern Sie die Gangposition direkt.",
+  "joyStickPageDescription": "Soundeffekt hinzufügen",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen desselben Geräts verbinden, fügt dieser Modus den Startzeiten der einzelnen Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Berechtigung erteilen",
+  "onboardingBluetoothRequestButtonLabel": "Schwache Batterie. Bitte laden Sie Ihre Ausrüstung zu mindestens 50 % auf",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -894,6 +894,12 @@
   "audioTipCard": "Sie können benutzerdefinierte Sounds hinzufügen, die auf der Registerkarte Aktionen angezeigt werden und mit Triggern verwendet werden können",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Mini-Schwanz",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   }

@@ -143,7 +143,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "ギアはこの位置にどのくらいの速さで移動する必要がありますか?",
+  "sequencesEditSpeed": "右サーボの位置",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Sentryにエラーレポートを送信します",
+  "settingsErrorReportingToggleSubTitle": "自動エラー報告",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "近くのギア",
+  "triggerProximityTitle": "デバイスを振ってアクションをトリガーします",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "このアクションを何回繰り返しますか?",
+  "sequenceEditRepeatTitle": "前方傾斜",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "便利なリンク",
+  "moreUsefulLinksTitle": "更新が完了しました",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。鉛筆をタップしてカスタムアクションを編集します。",
+  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。カスタムアクションを編集するには、鉛筆をタップします。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomAction": "アクション",
+  "triggerRandomAction": "各カスタムアクションは 1 ～ 6 個の動きから構成され、最大 5 回繰り返すことができます。動きを長押しすると順序を変更できます。",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
     "type": "text",
@@ -894,6 +894,12 @@
   "audioTipCard": "アクションタブに表示され、トリガーで使用できるカスタムサウンドを追加できます。",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "ミニテール",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   }
