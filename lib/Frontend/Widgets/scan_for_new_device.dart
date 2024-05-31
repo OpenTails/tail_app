@@ -161,7 +161,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                         );
                       }
                     },
-                    dropdownMenuEntries: DeviceRegistry.allDevices.map((e) => DropdownMenuEntry(value: e, label: e.btName)).toList(),
+                    dropdownMenuEntries: DeviceRegistry.allDevices.map((e) => DropdownMenuEntry(value: e, label: getNameFromBTName(e.btName))).toList(),
                   ),
                 ),
                 ListTile(

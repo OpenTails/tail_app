@@ -325,10 +325,11 @@ String audioAdd() => Intl.message("Add Sound Effect", name: 'audioAdd', desc: 'L
 
 String audioTipCard() => Intl.message("You can add custom sounds that appear on the Actions tab and can be used with Triggers", name: 'audioTipCard', desc: 'Tutorial card for the audio page');
 
-String scanDemoGear() => Intl.message("Demo Gear", name: 'scanDemoGear', desc: 'Label for the expansion tile to show the demo gear options on the scan for new devices page');
+String scanDemoGear() => Intl.message("Fake Gear", name: 'scanDemoGear', desc: 'Label for the expansion tile to show the demo gear options on the scan for new devices page');
 
-String scanAddDemoGear() => Intl.message("Add Demo Gear", name: 'scanAddDemoGear', desc: 'Label for the dropdown to select a demo gear to add on the scan for new devices page');
+String scanAddDemoGear() => Intl.message("Add Fake Gear", name: 'scanAddDemoGear', desc: 'Label for the dropdown to select a demo gear to add on the scan for new devices page');
 
-String scanRemoveDemoGear() => Intl.message("Remove all demo gear", name: 'scanRemoveDemoGear', desc: 'Label for the button to remove all demo gear on the scan for new devices page');
+String scanRemoveDemoGear() => Intl.message("Remove all fake gear", name: 'scanRemoveDemoGear', desc: 'Label for the button to remove all demo gear on the scan for new devices page');
 
-String scanDemoGearTip() => Intl.message("Want to try out the app but are waiting for your gear to arrive? Add a demo gear.", name: 'scanDemoGearTip', desc: 'Tip Card description for the  demo gear on the scan for new devices page');
+String scanDemoGearTip() => Intl.message("Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you had gear you currently do not own",
+    name: 'scanDemoGearTip', desc: 'Tip Card description for the  demo gear on the scan for new devices page');
