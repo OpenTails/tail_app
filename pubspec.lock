@@ -663,8 +663,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ec4df8a3dcfe6f36a91dd80b30d808da6650db68
-      url: "https://github.com/offline-first/flutter_wear_os_connectivity"
+      resolved-ref: "892502783a8428c7e001b53c36d8777c2b240054"
+      url: "https://github.com/Codel1417/flutter_wear_os_connectivity"
     source: git
     version: "1.0.0"
   flutter_web_plugins:
