@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-30T19:26:33.395736",
+  "@@last_modified": "2024-05-31T15:41:16.593930",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -902,6 +902,30 @@
   "audioTipCard": "You can add custom sounds that appear on the Actions tab and can be used with Triggers",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Demo Gear",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Add Demo Gear",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Remove all demo gear",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Want to try out the app but are waiting for your gear to arrive? Add a demo gear.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
