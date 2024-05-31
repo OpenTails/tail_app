@@ -16,7 +16,7 @@ class DeviceTypeWidget extends ConsumerWidget {
     return ListTile(
       title: Text(deviceType()),
       subtitle: InlineChoice<DeviceType>.multiple(
-        clearable: true,
+        clearable: false,
         value: selected,
         onChanged: onSelectionChanged,
         itemCount: DeviceType.values.length,
@@ -27,6 +27,7 @@ class DeviceTypeWidget extends ConsumerWidget {
             selected: state.selected(deviceType),
             onSelected: state.onSelected(deviceType),
             label: Text(deviceType.name),
+            elevation: 1,
           );
         },
         listBuilder: ChoiceList.createWrapped(
