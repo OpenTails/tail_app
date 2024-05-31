@@ -8,17 +8,26 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
-Future<bool> getBluetoothPermission() async {
+Future<bool> getBluetoothPermission(Logger logger) async {
   bool granted = false;
   if (Platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
-    granted = PermissionStatus.granted == await Permission.bluetoothScan.request();
-    granted = granted && PermissionStatus.granted == await Permission.bluetoothConnect.request();
+    PermissionStatus permissionStatusScan = await Permission.bluetoothScan.request();
+    logger.info("permissionStatusScan $permissionStatusScan");
+    granted = PermissionStatus.granted == permissionStatusScan;
+    PermissionStatus permissionStatusConnect = await Permission.bluetoothConnect.request();
+    logger.info("permissionStatusConnect $permissionStatusConnect");
+    granted = granted && PermissionStatus.granted == permissionStatusConnect;
   } else if (Platform.isAndroid) {
-    granted = PermissionStatus.granted == await Permission.location.request();
-    granted = granted && PermissionStatus.granted == await Permission.locationWhenInUse.request();
-    granted = granted && PermissionStatus.granted == await Permission.bluetooth.request();
+    PermissionStatus permissionStatusLocation = await Permission.location.request();
+    logger.info("permissionStatusLocation $permissionStatusLocation");
+    granted = PermissionStatus.granted == permissionStatusLocation;
+    PermissionStatus permissionStatusLocationInUse = await Permission.locationWhenInUse.request();
+    logger.info("permissionStatusLocationInUse $permissionStatusLocationInUse");
+    granted = granted && PermissionStatus.granted == permissionStatusLocationInUse;
   } else {
-    granted = PermissionStatus.granted == await Permission.bluetooth.request();
+    PermissionStatus permissionStatusBluetooth = await Permission.bluetooth.request();
+    logger.info("permissionStatusBluetooth $permissionStatusBluetooth");
+    granted = PermissionStatus.granted == permissionStatusBluetooth;
   }
   return granted;
 }

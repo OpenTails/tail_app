@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:logging/logging.dart';
+import 'package:logging_flutter/logging_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Frontend/Widgets/lottie_lazy_load.dart';
@@ -23,6 +25,7 @@ class OnBoardingPage extends ConsumerStatefulWidget {
 }
 
 class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
+  Logger _introLogger = Logger("Onboarding");
   final introKey = GlobalKey<IntroductionScreenState>();
   bool bluetoothAccepted = false;
   bool privacyAccepted = false;
@@ -30,6 +33,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   void _onIntroEnd(BuildContext context) {
     // Navigator.of(context).pushReplacement()
     plausible.event(name: "Complete Onboarding");
+    _introLogger.info("Complete Onboarding");
     SentryHive.box(settings).put(hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
     context.pushReplacement('/');
   }
@@ -81,7 +85,13 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 16, right: 16),
-                  child: _buildImage(Assets.tCLogoTransparentNoText.path, 60),
+                  child: InkWell(
+                    child: _buildImage(Assets.tCLogoTransparentNoText.path, 60),
+                    onLongPress: () {
+                      _introLogger.info("Open Logs");
+                      LogConsole.open(context);
+                    },
+                  ),
                 ),
               ),
             ),
@@ -119,6 +129,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                             ? null
                             : () {
                                 setState(() {
+                                  _introLogger.info("Accepted Privact Policy");
                                   privacyAccepted = true;
                                   SentryHive.box(settings).put(allowErrorReporting, true);
                                   SentryHive.box(settings).put(allowAnalytics, true);
@@ -163,7 +174,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                         onPressed: bluetoothAccepted
                             ? null
                             : () async {
-                                if (await getBluetoothPermission()) {
+                                if (await getBluetoothPermission(_introLogger)) {
                                   setState(
                                     () {
                                       // Start FlutterBluePlus
