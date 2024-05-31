@@ -7,6 +7,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 
 import '../../Backend/device_registry.dart';
 import '../../constants.dart';
@@ -51,92 +52,96 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
       valueListenable: isBluetoothEnabled,
       builder: (BuildContext context, bool value, Widget? child) {
         if (value) {
-          return ListView(
-            controller: widget.scrollController,
-            children: [
-              StreamBuilder<List<ScanResult>>(
-                stream: FlutterBluePlus.scanResults,
-                builder: (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
-                  anyGearFound = snapshot.hasData && snapshot.data!.isNotEmpty && snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).isNotEmpty;
-                  return ListView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      AnimatedCrossFade(
-                        firstChild: anyGearFound
-                            ? ListView(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                children: [
-                                  ListTile(
-                                    title: Text(
-                                      scanDevicesFoundTitle(),
-                                      style: Theme.of(context).textTheme.titleMedium,
+          return ListView(controller: widget.scrollController, children: [
+            StreamBuilder<List<ScanResult>>(
+              stream: FlutterBluePlus.scanResults,
+              builder: (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
+                anyGearFound = snapshot.hasData && snapshot.data!.isNotEmpty && snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).isNotEmpty;
+                return ListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    AnimatedCrossFade(
+                      firstChild: anyGearFound
+                          ? ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    scanDevicesFoundTitle(),
+                                    style: Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    ScanResult e = snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).toList()[index];
+                                    return ListTile(
+                                      title: Text(getNameFromBTName(e.device.advName)),
+                                      trailing: Text(SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
+                                      onTap: () async {
+                                        await e.device.connect();
+                                        plausible.event(name: "Connect New Gear", props: {"Gear Type": e.device.advName});
+                                        if (context.mounted) {
+                                          Navigator.pop(context);
+                                        }
+                                      },
+                                    );
+                                  },
+                                )
+                              ],
+                            )
+                          : Container(),
+                      secondChild: Container(),
+                      crossFadeState: anyGearFound ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                      duration: animationTransitionDuration,
+                    ),
+                    AnimatedOpacity(
+                      opacity: anyGearFound ? 0.5 : 1,
+                      duration: animationTransitionDuration,
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Spin(
+                                  infinite: true,
+                                  duration: const Duration(seconds: 1, milliseconds: 500),
+                                  child: Transform.flip(
+                                    flipX: true,
+                                    child: LottieLazyLoad(
+                                      asset: Assets.tailcostickers.tailCoStickersFile144834340,
+                                      width: 200,
                                     ),
                                   ),
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemCount: snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      ScanResult e = snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).toList()[index];
-                                      return ListTile(
-                                        title: Text(getNameFromBTName(e.device.advName)),
-                                        trailing: Text(SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
-                                        onTap: () async {
-                                          await e.device.connect();
-                                          plausible.event(name: "Connect New Gear", props: {"Gear Type": e.device.advName});
-                                          if (context.mounted) {
-                                            Navigator.pop(context);
-                                          }
-                                        },
-                                      );
-                                    },
-                                  )
-                                ],
-                              )
-                            : Container(),
-                        secondChild: Container(),
-                        crossFadeState: anyGearFound ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                        duration: animationTransitionDuration,
-                      ),
-                      AnimatedOpacity(
-                        opacity: anyGearFound ? 0.5 : 1,
-                        duration: animationTransitionDuration,
-                        child: Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Spin(
-                                    infinite: true,
-                                    duration: const Duration(seconds: 1, milliseconds: 500),
-                                    child: Transform.flip(
-                                      flipX: true,
-                                      child: LottieLazyLoad(
-                                        asset: Assets.tailcostickers.tailCoStickersFile144834340,
-                                        width: 200,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Text(scanDevicesScanMessage()),
-                                  )
-                                ],
-                              ),
-                            )),
-                      ),
-                    ],
-                  );
-                },
-              ),
-              if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text(scanDevicesScanMessage()),
+                                )
+                              ],
+                            ),
+                          )),
+                    ),
+                  ],
+                );
+              },
+            ),
+            ExpansionTile(
+              title: Text(scanDemoGear()),
+              children: [
+                PageInfoCard(
+                  text: scanDemoGearTip(),
+                ),
                 ListTile(
-                  title: const Text("Add demo gear"),
                   leading: const Icon(Icons.add),
-                  trailing: DropdownMenu<BaseDeviceDefinition>(
+                  subtitle: DropdownMenu<BaseDeviceDefinition>(
                     initialSelection: null,
+                    expandedInsets: EdgeInsets.zero,
+                    label: Text(scanAddDemoGear()),
                     onSelected: (value) {
                       if (value != null) {
                         setState(
@@ -160,7 +165,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                   ),
                 ),
                 ListTile(
-                  title: const Text("Remove demo gear"),
+                  title: Text(scanRemoveDemoGear()),
                   leading: const Icon(Icons.delete),
                   onTap: () {
                     ref.read(knownDevicesProvider).removeWhere((key, value) => key.contains("DEV"));
@@ -174,11 +179,12 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                         .isEmpty) {
                       isAnyGearConnected.value = false;
                     }
+                    context.pop();
                   },
                 ),
-              ]
-            ],
-          );
+              ],
+            )
+          ]);
         } else {
           return Center(
             child: Text(actionsNoBluetooth()), //TODO: More detail
