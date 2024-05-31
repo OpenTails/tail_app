@@ -918,7 +918,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "7d0c93843971b6498caa65337f00e22ec4ffe944"
+      resolved-ref: "0e1cd27abec2d0852ad89032189597db377d64a2"
       url: "https://github.com/Codel1417/logarte"
     source: git
     version: "0.1.6"
