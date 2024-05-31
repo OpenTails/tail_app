@@ -59,7 +59,7 @@ post_install do |installer|
           '$(inherited)',
 
           ## audio_player
-          'AUDIO_SESSION_MICROPHONE=0'
+          'AUDIO_SESSION_MICROPHONE=0',
 
           ## dart: PermissionGroup.calendar
           'PERMISSION_EVENTS=0',
