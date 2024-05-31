@@ -331,5 +331,5 @@ String scanAddDemoGear() => Intl.message("Add Fake Gear", name: 'scanAddDemoGear
 
 String scanRemoveDemoGear() => Intl.message("Remove all fake gear", name: 'scanRemoveDemoGear', desc: 'Label for the button to remove all demo gear on the scan for new devices page');
 
-String scanDemoGearTip() => Intl.message("Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own",
+String scanDemoGearTip() => Intl.message("Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own. This enables a new section on the 'Scan For New Gear' page.",
     name: 'scanDemoGearTip', desc: 'Tip Card description for the  demo gear on the scan for new devices page');

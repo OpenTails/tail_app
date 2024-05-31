@@ -20,6 +20,8 @@ const String hideTutorialCards = 'hideTutorialCards';
 const String hasCompletedOnboarding = 'hasCompletedOnboardingVersion';
 const String showDebugging = 'showDebugging';
 const String alwaysScanning = 'alwaysScanning';
+const String showDemoGear = 'showDemoGear';
+
 // Notification Settings
 const String allowNewsletterNotifications = 'allowNewsletterNotifications';
 
@@ -40,6 +42,7 @@ const int hasCompletedOnboardingDefault = 0;
 const bool showDebuggingDefault = false;
 const bool alwaysScanningDefault = true;
 const bool allowNewsletterNotificationsDefault = false;
+const bool showDemoGearDefault = false;
 // Triggers labels
 const String triggerBox = 'triggers';
 

@@ -130,60 +130,62 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                 );
               },
             ),
-            ExpansionTile(
-              title: Text(scanDemoGear()),
-              children: [
-                PageInfoCard(
-                  text: scanDemoGearTip(),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.add),
-                  subtitle: DropdownMenu<BaseDeviceDefinition>(
-                    initialSelection: null,
-                    expandedInsets: EdgeInsets.zero,
-                    label: Text(scanAddDemoGear()),
-                    onSelected: (value) {
-                      if (value != null) {
-                        setState(
-                          () {
-                            BaseStoredDevice baseStoredDevice;
-                            BaseStatefulDevice statefulDevice;
-                            baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color(ref: ref).value);
-                            baseStoredDevice.name = getNameFromBTName(value.btName);
-                            statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
-                            statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
-                            isAnyGearConnected.value = true;
-                            if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
-                              ref.read(knownDevicesProvider.notifier).add(statefulDevice);
-                            }
-                            context.pop();
-                          },
-                        );
-                      }
-                    },
-                    dropdownMenuEntries: DeviceRegistry.allDevices.map((e) => DropdownMenuEntry(value: e, label: getNameFromBTName(e.btName))).toList(),
+            if (SentryHive.box(settings).get(showDemoGear, defaultValue: showDemoGearDefault)) ...[
+              ExpansionTile(
+                title: Text(scanDemoGear()),
+                children: [
+                  PageInfoCard(
+                    text: scanDemoGearTip(),
                   ),
-                ),
-                ListTile(
-                  title: Text(scanRemoveDemoGear()),
-                  leading: const Icon(Icons.delete),
-                  onTap: () {
-                    ref.read(knownDevicesProvider).removeWhere((key, value) => key.contains("DEV"));
-                    ref.read(knownDevicesProvider.notifier).remove(""); // force update
-                    if (ref
-                        .read(knownDevicesProvider)
-                        .values
-                        .where(
-                          (element) => element.deviceConnectionState.value == ConnectivityState.connected,
-                        )
-                        .isEmpty) {
-                      isAnyGearConnected.value = false;
-                    }
-                    context.pop();
-                  },
-                ),
-              ],
-            )
+                  ListTile(
+                    leading: const Icon(Icons.add),
+                    subtitle: DropdownMenu<BaseDeviceDefinition>(
+                      initialSelection: null,
+                      expandedInsets: EdgeInsets.zero,
+                      label: Text(scanAddDemoGear()),
+                      onSelected: (value) {
+                        if (value != null) {
+                          setState(
+                            () {
+                              BaseStoredDevice baseStoredDevice;
+                              BaseStatefulDevice statefulDevice;
+                              baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color(ref: ref).value);
+                              baseStoredDevice.name = getNameFromBTName(value.btName);
+                              statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
+                              statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
+                              isAnyGearConnected.value = true;
+                              if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
+                                ref.read(knownDevicesProvider.notifier).add(statefulDevice);
+                              }
+                              context.pop();
+                            },
+                          );
+                        }
+                      },
+                      dropdownMenuEntries: DeviceRegistry.allDevices.map((e) => DropdownMenuEntry(value: e, label: getNameFromBTName(e.btName))).toList(),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(scanRemoveDemoGear()),
+                    leading: const Icon(Icons.delete),
+                    onTap: () {
+                      ref.read(knownDevicesProvider).removeWhere((key, value) => key.contains("DEV"));
+                      ref.read(knownDevicesProvider.notifier).remove(""); // force update
+                      if (ref
+                          .read(knownDevicesProvider)
+                          .values
+                          .where(
+                            (element) => element.deviceConnectionState.value == ConnectivityState.connected,
+                          )
+                          .isEmpty) {
+                        isAnyGearConnected.value = false;
+                      }
+                      context.pop();
+                    },
+                  ),
+                ],
+              ),
+            ]
           ]);
         } else {
           return Center(

@@ -208,6 +208,21 @@ class _SettingsState extends ConsumerState<Settings> {
               },
             ),
           ),
+          ListTile(
+            title: Text(scanDemoGear()),
+            leading: const Icon(Icons.explore),
+            subtitle: Text(scanDemoGearTip()),
+            trailing: Switch(
+              value: SentryHive.box(settings).get(showDemoGear, defaultValue: showDemoGearDefault),
+              onChanged: (bool value) {
+                setState(
+                  () {
+                    SentryHive.box(settings).put(showDemoGear, value);
+                  },
+                );
+              },
+            ),
+          ),
           const ListTile(
             title: Divider(),
           ),
