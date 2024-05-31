@@ -119,7 +119,7 @@ String settingsHapticsToggleSubTitle() => Intl.message('Enable vibration when an
 
 String settingsAlwaysScanningToggleTitle() => Intl.message('Always scan for known gear', name: 'settingsAlwaysScanningToggleTitle', desc: 'Settings page always scanning toggle title');
 
-String settingsAlwaysScanningToggleSubTitle() => Intl.message('Continuously scan for known gear. When disabled, you must swipe on the gear bar to scan.', name: 'settingsHapticsToggleSubTitle', desc: 'Settings page always scanning toggle subtitle');
+String settingsAlwaysScanningToggleSubTitle() => Intl.message('Continuously scan for known gear. When disabled, you must swipe on the gear bar to scan.', name: 'settingsAlwaysScanningToggleSubTitle', desc: 'Settings page always scanning toggle subtitle');
 
 String settingsKeepScreenOnToggleTitle() => Intl.message('Keep Screen On', name: 'settingsKeepScreenOnToggleTitle', desc: 'Settings page Keep Awake toggle title');
 
