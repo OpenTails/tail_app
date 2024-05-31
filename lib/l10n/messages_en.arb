@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-31T15:41:16.593930",
+  "@@last_modified": "2024-05-31T15:48:13.484557",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -905,25 +905,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGear": "Demo Gear",
+  "scanDemoGear": "Fake Gear",
   "@scanDemoGear": {
     "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "scanAddDemoGear": "Add Demo Gear",
+  "scanAddDemoGear": "Add Fake Gear",
   "@scanAddDemoGear": {
     "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "scanRemoveDemoGear": "Remove all demo gear",
+  "scanRemoveDemoGear": "Remove all fake gear",
   "@scanRemoveDemoGear": {
     "description": "Label for the button to remove all demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "Want to try out the app but are waiting for your gear to arrive? Add a demo gear.",
+  "scanDemoGearTip": "Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you had gear you currently do not own",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
