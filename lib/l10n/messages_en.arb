@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-05-31T15:48:13.484557",
+  "@@last_modified": "2024-05-31T15:50:07.340670",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -923,7 +923,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you had gear you currently do not own",
+  "scanDemoGearTip": "Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
