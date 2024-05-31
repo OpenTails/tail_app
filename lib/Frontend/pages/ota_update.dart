@@ -11,12 +11,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../Backend/LoggingWrappers.dart';
 import '../../Backend/firmware_update.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
@@ -81,7 +81,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     }
     baseStatefulDevice?.deviceState.value = DeviceState.standby;
     baseStatefulDevice!.fwVersion.removeListener(verListener);
-    if (!SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault)) {
+    if (!HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault)) {
       stopScan();
     }
     timer?.cancel();
@@ -99,7 +99,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if ([OtaState.standby, OtaState.manual].contains(otaState)) ...[
-                if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
                   ListTile(
                     title: const Text("Debug"),
                     subtitle: Column(
@@ -134,7 +134,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                                 otaDownloadButtonLabel(),
                               ),
                             ),
-                            if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                            if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
                               ElevatedButton(
                                 onPressed: () async {
                                   FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -228,7 +228,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                     return LinearProgressIndicator(value: otaState == OtaState.rebooting ? null : progress);
                   }),
                 ),
-                if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
                   ListTile(
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

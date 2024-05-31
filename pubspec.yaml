@@ -27,7 +27,10 @@ dependencies:
   circular_buffer: ^0.11.0  # Used for serial console
   wordpress_client: ^8.4.10 # Used for tail blog
   pub_semver: ^2.1.4 # used for comparing firmware versions
-
+  logarte:
+    git:
+      url: https://github.com/Codel1417/logarte
+  stack_trace: ^1.11.1
 
   # Platform Interfaces
   device_info_plus: ^10.1.0
@@ -69,7 +72,6 @@ dependencies:
   flutter_joystick: ^0.0.4
   multi_value_listenable_builder: ^0.0.2
   multi_listenable_builder: ^1.0.0
-  logging_flutter: ^3.0.0
   flutter_markdown: ^0.7.1
   #video_player: ^2.8.6
   fading_edge_scrollview: ^4.1.1 # used for known gear bar

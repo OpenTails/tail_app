@@ -9,11 +9,11 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/pages/markdown_viewer.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Backend/LoggingWrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../utils.dart';
@@ -139,7 +139,7 @@ class _MoreState extends ConsumerState<More> {
             await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app'));
           },
           onLongPress: () {
-            if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) {
+            if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) {
               return;
             }
             context.push('/settings/developer/pin');

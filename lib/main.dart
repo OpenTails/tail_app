@@ -13,7 +13,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
-import 'package:logging_flutter/logging_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -25,6 +24,7 @@ import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
 
 import 'Backend/Definitions/Action/base_action.dart';
+import 'Backend/LoggingWrappers.dart';
 import 'Backend/app_shortcuts.dart';
 import 'Backend/audio.dart';
 import 'Backend/background_update.dart';
@@ -40,7 +40,7 @@ import 'l10n/messages_all_locales.dart';
 //late SharedPreferences prefs;
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
-  bool reportingEnabled = SentryHive.box(settings).get("allowErrorReporting", defaultValue: true);
+  bool reportingEnabled = HiveProxy.getOrDefault(settings, "allowErrorReporting", defaultValue: true);
   if (reportingEnabled) {
     if (kDebugMode) {
       print('Before sending sentry event');
@@ -60,7 +60,13 @@ final mainLogger = Logger('Main');
 Future<void> main() async {
   Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
-  initFlogger();
+  Logger.root.onRecord.listen((event) {
+    if (event.level.value < 1000) {
+      logarte.info("[${event.loggerName}] ${event.message}");
+    } else {
+      logarte.error(event.message, stackTrace: event.stackTrace);
+    }
+  });
   initFlutter();
   initNotifications();
   initBackgroundTasks();
@@ -94,16 +100,6 @@ Future<void> main() async {
         ),
       ),
     ),
-  );
-}
-
-void initFlogger() {
-  Flogger.init(config: const FloggerConfig(showDebugLogs: true, printClassName: true, printMethodName: true, showDateTime: false));
-  Flogger.registerListener(
-    (record) {
-      LogConsole.add(OutputEvent(record.level, [record.printable()]), bufferSize: 1000);
-      //log(record.printable(), stackTrace: record.stackTrace);
-    },
   );
 }
 
@@ -177,10 +173,10 @@ class TailApp extends StatefulWidget {
     mainLogger.info('Starting app');
     if (kDebugMode) {
       mainLogger.info('Debug Mode Enabled');
-      SentryHive.box(settings).put(showDebugging, true);
-      SentryHive.box(settings).put(allowAnalytics, false);
-      SentryHive.box(settings).put(allowErrorReporting, false);
-      SentryHive.box(settings).put(hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
+      HiveProxy.put(settings, showDebugging, true);
+      HiveProxy.put(settings, allowAnalytics, false);
+      HiveProxy.put(settings, allowErrorReporting, false);
+      HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
     }
   }
 
@@ -224,9 +220,9 @@ class _TailAppState extends State<TailApp> {
               Future(() => FlutterNativeSplash.remove()); //remove the splash screen one frame later
               return MaterialApp.router(
                 title: title(),
-                color: Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault)),
-                theme: buildTheme(Brightness.light, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
-                darkTheme: buildTheme(Brightness.dark, Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault))),
+                color: Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault)),
+                theme: buildTheme(Brightness.light, Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault))),
+                darkTheme: buildTheme(Brightness.dark, Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault))),
                 routerConfig: router,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 supportedLocales: AppLocalizations.supportedLocales,

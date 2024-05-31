@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/pages/action_selector.dart';
 import 'package:tail_app/Frontend/pages/custom_audio.dart';
@@ -20,6 +20,7 @@ import 'package:tail_app/Frontend/pages/triggers.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 import 'package:tail_app/constants.dart';
 
+import '../Backend/LoggingWrappers.dart';
 import '../Backend/NavigationObserver/custom_go_router_navigation_observer.dart';
 import '../main.dart';
 import 'pages/actions.dart';
@@ -30,7 +31,11 @@ final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>()
 final GoRouter router = GoRouter(
   debugLogDiagnostics: true,
   navigatorKey: _rootNavigatorKey,
-  observers: [SentryNavigatorObserver(), CustomNavObserver(plausible)],
+  observers: [
+    SentryNavigatorObserver(),
+    CustomNavObserver(plausible),
+    LogarteNavigatorObserver(logarte),
+  ],
   routes: [
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -47,7 +52,7 @@ final GoRouter router = GoRouter(
                   name: 'Actions',
                 ),
             redirect: (context, state) {
-              if (SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree) {
+              if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree) {
                 return '/onboarding';
               }
               return null;
@@ -152,7 +157,7 @@ final GoRouter router = GoRouter(
         );
       },
       redirect: (context, state) {
-        if (SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree) {
+        if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree) {
           return '/';
         }
         return null;
@@ -215,6 +220,15 @@ final GoRouter router = GoRouter(
               path: 'console',
               parentNavigatorKey: _rootNavigatorKey,
               builder: (BuildContext context, GoRouterState state) => BluetoothConsole(device: state.extra! as BaseStatefulDevice),
+            ),
+            GoRoute(
+              name: 'Settings/Developer Menu/Logs',
+              path: 'logs',
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (BuildContext context, GoRouterState state) => LogarteDashboardScreen(
+                logarte,
+                showBackButton: true,
+              ),
             ),
             GoRoute(
               name: 'Settings/Developer Menu/Pin',

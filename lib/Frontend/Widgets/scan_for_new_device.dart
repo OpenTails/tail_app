@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 
+import '../../Backend/LoggingWrappers.dart';
 import '../../Backend/device_registry.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
@@ -38,7 +38,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
   @override
   void dispose() {
     super.dispose();
-    if (!SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault) || !anyKnownGear) {
+    if (!HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault) || !anyKnownGear) {
       stopScan();
     }
   }
@@ -81,7 +81,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                     ScanResult e = snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).toList()[index];
                                     return ListTile(
                                       title: Text(getNameFromBTName(e.device.advName)),
-                                      trailing: Text(SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
+                                      trailing: Text(HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
                                       onTap: () async {
                                         await e.device.connect();
                                         plausible.event(name: "Connect New Gear", props: {"Gear Type": e.device.advName});
@@ -130,7 +130,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                 );
               },
             ),
-            if (SentryHive.box(settings).get(showDemoGear, defaultValue: showDemoGearDefault)) ...[
+            if (HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault)) ...[
               ExpansionTile(
                 title: Text(scanDemoGear()),
                 children: [

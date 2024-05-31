@@ -13,7 +13,6 @@ import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:shake/shake.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
@@ -24,6 +23,7 @@ import '../constants.dart';
 import 'Bluetooth/bluetooth_manager.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
+import 'LoggingWrappers.dart';
 import 'move_lists.dart';
 
 part 'sensors.g.dart';
@@ -247,7 +247,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
               )
               .toList()
             ..shuffle()) {
-            if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+            if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
               await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
             }
             runAction(baseAction, baseStatefulDevice);
@@ -710,7 +710,7 @@ class TriggerList extends _$TriggerList {
   List<Trigger> build() {
     List<Trigger> results = [];
     try {
-      results = SentryHive.box<Trigger>(triggerBox).values.map((trigger) {
+      results = HiveProxy.getAll<Trigger>(triggerBox).map((trigger) {
         Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.uuid == trigger.triggerDefUUID), trigger.uuid);
         trigger2.actions = trigger.actions;
         trigger2.deviceType = trigger.deviceType;
@@ -724,9 +724,9 @@ class TriggerList extends _$TriggerList {
       Trigger trigger = Trigger.trigDef(triggerDefinition, '91e3d421-6a52-45ab-a23e-f38e4987a8f5');
       trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'c53e980e-899e-4148-a13e-f57a8f9707f4').uuid);
       trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid);
-      SentryHive.box<Trigger>(triggerBox)
-        ..clear()
-        ..addAll([trigger]);
+
+      HiveProxy.clear<Trigger>(triggerBox);
+      HiveProxy.addAll<Trigger>(triggerBox, [trigger]);
       return [trigger];
     }
     return results;
@@ -745,9 +745,8 @@ class TriggerList extends _$TriggerList {
 
   Future<void> store() async {
     sensorsLogger.info("Storing triggers");
-    SentryHive.box<Trigger>(triggerBox)
-      ..clear()
-      ..addAll(state);
+    await HiveProxy.clear<Trigger>(triggerBox);
+    await HiveProxy.addAll<Trigger>(triggerBox, state);
   }
 }
 

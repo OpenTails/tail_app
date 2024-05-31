@@ -2,10 +2,10 @@ import 'package:audio_session/audio_session.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 
 import '../constants.dart';
+import 'LoggingWrappers.dart';
 
 part 'audio.g.dart';
 
@@ -44,7 +44,7 @@ class UserAudioActions extends _$UserAudioActions {
   List<AudioAction> build() {
     List<AudioAction> results = [];
     try {
-      results = SentryHive.box<AudioAction>(audioActionsBox).values.toList(growable: true);
+      results = HiveProxy.getAll<AudioAction>(audioActionsBox).toList(growable: true);
     } catch (e, s) {
       _audioLogger.severe("Unable to load audio: $e", e, s);
     }
@@ -68,8 +68,7 @@ class UserAudioActions extends _$UserAudioActions {
 
   Future<void> store() async {
     _audioLogger.info("Storing Custom Audio");
-    SentryHive.box<AudioAction>(audioActionsBox)
-      ..clear()
-      ..addAll(state);
+    await HiveProxy.clear<AudioAction>(audioActionsBox);
+    await HiveProxy.addAll<AudioAction>(audioActionsBox, state);
   }
 }

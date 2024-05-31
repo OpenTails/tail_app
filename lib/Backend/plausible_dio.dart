@@ -8,13 +8,13 @@ import 'package:install_referrer/install_referrer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 
 import '../Frontend/utils.dart';
 import '../constants.dart';
 import '../main.dart';
 import 'Definitions/Device/device_definition.dart';
+import 'LoggingWrappers.dart';
 import 'sensors.dart';
 
 class PlausibleDio extends Plausible {
@@ -25,7 +25,7 @@ class PlausibleDio extends Plausible {
   /// Post event to plausible
   @override
   Future<int> event({String name = "pageview", String referrer = "", String page = "", Map<String, String> props = const {}}) async {
-    if (!enabled && SentryHive.box(settings).get(allowAnalytics, defaultValue: allowAnalyticsDefault)) {
+    if (!enabled && HiveProxy.getOrDefault(settings, allowAnalytics, defaultValue: allowAnalyticsDefault)) {
       return 0;
     }
     final transaction = Sentry.startTransaction('Plausible Event', 'http');
@@ -37,9 +37,9 @@ class PlausibleDio extends Plausible {
     page = "app://localhost/$page?utm_source=${(await InstallReferrer.referrer).name}";
     referrer = "app://localhost/$referrer";
     props = Map.of(props);
-    props['Number Of Devices'] = SentryHive.box<BaseStoredDevice>('devices').length.toString();
-    props['Number Of Sequences'] = SentryHive.box<MoveList>('sequences').length.toString();
-    props['Number Of Triggers'] = SentryHive.box<Trigger>(triggerBox).length.toString();
+    props['Number Of Devices'] = HiveProxy.getAll<BaseStoredDevice>('devices').length.toString();
+    props['Number Of Sequences'] = HiveProxy.getAll<MoveList>('sequences').length.toString();
+    props['Number Of Triggers'] = HiveProxy.getAll<Trigger>(triggerBox).length.toString();
     props['App Version'] = (await PackageInfo.fromPlatform()).version;
     props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
 

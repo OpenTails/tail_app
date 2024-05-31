@@ -496,10 +496,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_adaptive_scaffold
-      sha256: "9a1d5e9f728815e27b7b612883db19107ba8a35a46a97c757ea00896cb027451"
+      sha256: "794791e6fc0cc23e375d07ea987e76cf7f0eb7cd753532e45dc35b7e90575e2d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.10+2"
+    version: "0.1.11"
   flutter_android_volume_keydown:
     dependency: "direct main"
     description:
@@ -913,6 +913,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  logarte:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "7d0c93843971b6498caa65337f00e22ec4ffe944"
+      url: "https://github.com/Codel1417/logarte"
+    source: git
+    version: "0.1.6"
   logging:
     dependency: "direct main"
     description:
@@ -921,14 +930,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  logging_flutter:
-    dependency: "direct main"
-    description:
-      name: logging_flutter
-      sha256: "8b418504617a55de0d3e0582b25365894fe8a8936b934953caeddb13db4a190b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   lottie_native:
     dependency: "direct main"
     description:
@@ -1498,7 +1499,7 @@ packages:
     source: hosted
     version: "7.0.0"
   stack_trace:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: stack_trace
       sha256: "73713990125a6d93122541237550ee3352a2d84baad52d375a4cad2eb9b7ce0b"

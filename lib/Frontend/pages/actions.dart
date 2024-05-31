@@ -7,11 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_listenable_builder/multi_listenable_builder.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/LoggingWrappers.dart';
 import '../../Backend/action_registry.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/move_lists.dart';
@@ -41,7 +41,7 @@ class ActionPageBuilder extends ConsumerStatefulWidget {
 class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
   @override
   Widget build(BuildContext context) {
-    bool largerCards = SentryHive.box(settings).get(largerActionCardSize, defaultValue: largerActionCardSizeDefault);
+    bool largerCards = HiveProxy.getOrDefault(settings, largerActionCardSize, defaultValue: largerActionCardSizeDefault);
     Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
 
     return MultiValueListenableBuilder(
@@ -143,7 +143,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
         elevation: 1,
         child: InkWell(
           onLongPress: () {
-            if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
+            if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
               HapticFeedback.mediumImpact();
               setState(
                 () {
@@ -157,11 +157,11 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
             }
           },
           onTap: () async {
-            if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
+            if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
               HapticFeedback.selectionClick();
             }
             for (var device in ref.read(getByActionProvider(action)).toList()..shuffle()) {
-              if (SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+              if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
                 await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
               }
               runAction(action, device);

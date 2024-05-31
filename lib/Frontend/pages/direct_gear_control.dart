@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/Widgets/speed_widget.dart';
 import 'package:vector_math/vector_math.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/LoggingWrappers.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';
@@ -83,7 +83,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         listener: (details) {
                           setState(
                             () {
-                              if (SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault)) {
+                              if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
                                 HapticFeedback.selectionClick();
                               }
                               x = details.x;
@@ -111,7 +111,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                     ),
                   ],
                 ),
-                if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+                if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 400, 8, 8),
                     child: Align(

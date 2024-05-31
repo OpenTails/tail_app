@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/audio.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
@@ -12,6 +11,7 @@ import 'Bluetooth/bluetooth_manager.dart';
 import 'Bluetooth/bluetooth_manager_plus.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
+import 'LoggingWrappers.dart';
 import 'app_shortcuts.dart';
 
 part 'action_registry.g.dart';
@@ -352,7 +352,7 @@ class FavoriteActions extends _$FavoriteActions {
   List<FavoriteAction> build() {
     List<FavoriteAction> results = [];
     try {
-      results = SentryHive.box<FavoriteAction>(favoriteActionsBox).values.toList(growable: true);
+      results = HiveProxy.getAll<FavoriteAction>(favoriteActionsBox).toList(growable: true);
     } catch (e, s) {
       actionRegistryLogger.severe("Unable to load favorites: $e", e, s);
     }
@@ -376,9 +376,8 @@ class FavoriteActions extends _$FavoriteActions {
 
   Future<void> store() async {
     actionRegistryLogger.info("Storing favorites");
-    SentryHive.box<FavoriteAction>(favoriteActionsBox)
-      ..clear()
-      ..addAll(state);
+    await HiveProxy.clear<FavoriteAction>(favoriteActionsBox);
+    await HiveProxy.addAll<FavoriteAction>(favoriteActionsBox, state);
     updateShortcuts(state, ref);
     updateWearActions(state, ref);
   }

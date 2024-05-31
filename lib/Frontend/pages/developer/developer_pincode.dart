@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 
+import '../../../Backend/LoggingWrappers.dart';
 import '../../../constants.dart';
 import '../../../gen/assets.gen.dart';
 import '../../Widgets/lottie_lazy_load.dart';
@@ -25,7 +25,7 @@ class _DeveloperPincodeState extends State<DeveloperPincode> {
         ),
         onCancelled: () => context.pop(),
         onUnlocked: () {
-          SentryHive.box(settings).put(showDebugging, true);
+          HiveProxy.put(settings, showDebugging, true);
           context.pop();
         },
         // One at top left, 9 at bottom right

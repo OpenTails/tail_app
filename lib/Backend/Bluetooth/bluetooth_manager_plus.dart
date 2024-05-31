@@ -9,13 +9,13 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Frontend/utils.dart';
 import '../../constants.dart';
+import '../LoggingWrappers.dart';
 import '../sensors.dart';
 import 'bluetooth_manager.dart';
 import 'bluetooth_message.dart';
@@ -96,7 +96,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       // The timer used for the time value on the battery level graph
       statefulDevice.stopWatch.start();
       isAnyGearConnected.value = true;
-      if (SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault)) {
+      if (HiveProxy.getOrDefault(settings, keepAwake, defaultValue: keepAwakeDefault)) {
         _bluetoothPlusLogger.fine('Enabling wakelock');
         WakelockPlus.enable();
       }
@@ -129,12 +129,12 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     if (bluetoothConnectionState == BluetoothConnectionState.disconnected) {
       _bluetoothPlusLogger.info("Disconnected from device: ${bluetoothDevice.remoteId.str}");
       // We don't want to display the app review screen right away. We keep track of gear disconnects and after 5 we try to display the review dialog.
-      int count = SentryHive.box(settings).get(gearDisconnectCount, defaultValue: gearDisconnectCountDefault) + 1;
-      if (count > 5 && SentryHive.box(settings).get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
-        SentryHive.box(settings).put(shouldDisplayReview, true);
+      int count = HiveProxy.getOrDefault(settings, gearDisconnectCount, defaultValue: gearDisconnectCountDefault) + 1;
+      if (count > 5 && HiveProxy.getOrDefault(settings, hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)!) {
+        HiveProxy.put(settings, shouldDisplayReview, true);
         _bluetoothPlusLogger.finer('Setting shouldDisplayReview to true');
       } else {
-        SentryHive.box(settings).put(gearDisconnectCount, count);
+        HiveProxy.put(settings, gearDisconnectCount, count);
         _bluetoothPlusLogger.finer('Setting gearDisconnectCount to $count');
       }
       //ref.read(snackbarStreamProvider.notifier).add(SnackBar(content: Text("Disconnected from ${baseStatefulDevice.baseStoredDevice.name}")));
@@ -215,7 +215,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       try {
         value = const Utf8Decoder().convert(values);
       } catch (e, s) {
-        _bluetoothPlusLogger.warning("Unable to read values: $values $e");
+        _bluetoothPlusLogger.warning("Unable to read values: $values $e", e, s);
         statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
         return;
       }

@@ -2,11 +2,11 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/LoggingWrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../translation_string_definitions.dart';
@@ -25,7 +25,7 @@ class _SettingsState extends ConsumerState<Settings> {
   @override
   void initState() {
     super.initState();
-    appColorValue = Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault));
+    appColorValue = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
   }
 
   @override
@@ -46,7 +46,7 @@ class _SettingsState extends ConsumerState<Settings> {
               width: 44,
               height: 44,
               borderRadius: 22,
-              color: Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault)),
+              color: Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault)),
             ),
             onTap: () {
               plausible.event(page: "Settings/App Color");
@@ -63,7 +63,7 @@ class _SettingsState extends ConsumerState<Settings> {
                       actions: [
                         TextButton(
                           onPressed: () {
-                            SentryHive.box(settings).put(appColor, appColorValue.value);
+                            HiveProxy.put(settings, appColor, appColorValue.value);
                             Navigator.of(context).pop();
                           },
                           child: Text(
@@ -72,7 +72,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         ),
                         TextButton(
                           onPressed: () {
-                            appColorValue = Color(SentryHive.box(settings).get(appColor, defaultValue: appColorDefault));
+                            appColorValue = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
                             Navigator.of(context).pop();
                           },
                           child: Text(
@@ -104,11 +104,11 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.battery_unknown),
             subtitle: Text(settingsBatteryPercentageToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(showAccurateBattery, defaultValue: showAccurateBatteryDefault),
+              value: HiveProxy.getOrDefault(settings, showAccurateBattery, defaultValue: showAccurateBatteryDefault),
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(showAccurateBattery, value);
+                    HiveProxy.put(settings, showAccurateBattery, value);
                   },
                 );
               },
@@ -119,11 +119,11 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.format_size),
             subtitle: Text(settingsLargerCardsToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(largerActionCardSize, defaultValue: largerActionCardSizeDefault),
+              value: HiveProxy.getOrDefault(settings, largerActionCardSize, defaultValue: largerActionCardSizeDefault),
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(largerActionCardSize, value);
+                    HiveProxy.put(settings, largerActionCardSize, value);
                   },
                 );
               },
@@ -134,11 +134,11 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.help),
             subtitle: Text(settingsTutorialCardToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(hideTutorialCards, defaultValue: hideTutorialCardsDefault),
+              value: HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault),
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(hideTutorialCards, value);
+                    HiveProxy.put(settings, hideTutorialCards, value);
                   },
                 );
               },
@@ -152,10 +152,10 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.bluetooth_searching),
             subtitle: Text(settingsAlwaysScanningToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(alwaysScanning, defaultValue: alwaysScanningDefault),
+              value: HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box(settings).put(alwaysScanning, value);
+                  HiveProxy.put(settings, alwaysScanning, value);
                 });
               },
             ),
@@ -165,10 +165,10 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.vibration),
             subtitle: Text(settingsHapticsToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(haptics, defaultValue: hapticsDefault),
+              value: HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box(settings).put(haptics, value);
+                  HiveProxy.put(settings, haptics, value);
                 });
               },
             ),
@@ -178,10 +178,10 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.phone_android),
             subtitle: Text(settingsKeepScreenOnToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(keepAwake, defaultValue: keepAwakeDefault),
+              value: HiveProxy.getOrDefault(settings, keepAwake, defaultValue: keepAwakeDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box(settings).put(keepAwake, value);
+                  HiveProxy.put(settings, keepAwake, value);
                   if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).isNotEmpty) {
                     if (value) {
                       WakelockPlus.enable();
@@ -198,11 +198,11 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.more_time),
             subtitle: Text(settingsKitsuneToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(kitsuneModeToggle, defaultValue: kitsuneModeDefault),
+              value: HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault),
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(kitsuneModeToggle, value);
+                    HiveProxy.put(settings, kitsuneModeToggle, value);
                   },
                 );
               },
@@ -213,11 +213,11 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.explore),
             subtitle: Text(scanDemoGearTip()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(showDemoGear, defaultValue: showDemoGearDefault),
+              value: HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault),
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(showDemoGear, value);
+                    HiveProxy.put(settings, showDemoGear, value);
                   },
                 );
               },
@@ -231,10 +231,10 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.notifications),
             subtitle: Text(settingsNewsletterToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(allowNewsletterNotifications, defaultValue: allowNewsletterNotificationsDefault),
+              value: HiveProxy.getOrDefault(settings, allowNewsletterNotifications, defaultValue: allowNewsletterNotificationsDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box(settings).put(allowNewsletterNotifications, value);
+                  HiveProxy.put(settings, allowNewsletterNotifications, value);
                 });
               },
             ),
@@ -247,10 +247,10 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.analytics),
             subtitle: Text(settingsAnalyticsToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(allowAnalytics, defaultValue: allowAnalyticsDefault),
+              value: HiveProxy.getOrDefault(settings, allowAnalytics, defaultValue: allowAnalyticsDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box(settings).put(allowAnalytics, value);
+                  HiveProxy.put(settings, allowAnalytics, value);
                 });
               },
             ),
@@ -261,15 +261,15 @@ class _SettingsState extends ConsumerState<Settings> {
             leading: const Icon(Icons.error),
             subtitle: Text(settingsErrorReportingToggleSubTitle()),
             trailing: Switch(
-              value: SentryHive.box(settings).get(allowErrorReporting, defaultValue: allowErrorReportingDefault),
+              value: HiveProxy.getOrDefault(settings, allowErrorReporting, defaultValue: allowErrorReportingDefault),
               onChanged: (bool value) {
                 setState(() {
-                  SentryHive.box(settings).put(allowErrorReporting, value);
+                  HiveProxy.put(settings, allowErrorReporting, value);
                 });
               },
             ),
           ),
-          if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+          if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
             ListTile(
               title: const Text("Development Menu"),
               leading: const Icon(Icons.bug_report),

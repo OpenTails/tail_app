@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logging_flutter/logging_flutter.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../../Backend/LoggingWrappers.dart';
 import '../../../constants.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {
@@ -35,7 +34,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             leading: const Icon(Icons.list),
             subtitle: const Text("Application Logs"),
             onTap: () {
-              LogConsole.open(context);
+              context.push("/settings/developer/logs");
             },
           ),
           ListTile(
@@ -49,11 +48,11 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text(hasCompletedOnboarding),
             trailing: Switch(
-              value: SentryHive.box(settings).get(hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree,
+              value: HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree,
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
+                    HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
                   },
                 );
               },
@@ -62,11 +61,11 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text(shouldDisplayReview),
             trailing: Switch(
-              value: SentryHive.box(settings).get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault),
+              value: HiveProxy.getOrDefault(settings, shouldDisplayReview, defaultValue: shouldDisplayReviewDefault),
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(shouldDisplayReview, value);
+                    HiveProxy.put(settings, shouldDisplayReview, value);
                   },
                 );
               },
@@ -75,11 +74,11 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text(hasDisplayedReview),
             trailing: Switch(
-              value: SentryHive.box(settings).get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault),
+              value: HiveProxy.getOrDefault(settings, hasDisplayedReview, defaultValue: hasDisplayedReviewDefault),
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(hasDisplayedReview, value);
+                    HiveProxy.put(settings, hasDisplayedReview, value);
                   },
                 );
               },
@@ -91,10 +90,10 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               divisions: 6,
               max: 6,
               min: 0,
-              value: SentryHive.box(settings).get(gearDisconnectCount, defaultValue: gearDisconnectCountDefault).toDouble(),
+              value: HiveProxy.getOrDefault(settings, gearDisconnectCount, defaultValue: gearDisconnectCountDefault).toDouble(),
               onChanged: (double value) {
                 setState(() {
-                  SentryHive.box(settings).put(gearDisconnectCount, value.toInt());
+                  HiveProxy.put(settings, gearDisconnectCount, value.toInt());
                 });
               },
             ),
@@ -102,11 +101,11 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text(showDebugging),
             trailing: Switch(
-              value: SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault),
+              value: HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault),
               onChanged: (bool value) {
                 setState(
                   () {
-                    SentryHive.box(settings).put(showDebugging, value);
+                    HiveProxy.put(settings, showDebugging, value);
                     context.pop();
                   },
                 );

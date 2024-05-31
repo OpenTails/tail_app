@@ -18,6 +18,7 @@ import 'package:tail_app/Frontend/Widgets/known_gear_scan_controller.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 
+import '../../Backend/LoggingWrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/base_card.dart';
@@ -75,8 +76,8 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                     Future(
                       // Don't refresh widget in same frame
                       () {
-                        SentryHive.box(settings).put(hasDisplayedReview, true);
-                        SentryHive.box(settings).put(shouldDisplayReview, false);
+                        HiveProxy.put(settings, hasDisplayedReview, true);
+                        HiveProxy.put(settings, shouldDisplayReview, false);
                       },
                     );
                   }
@@ -255,7 +256,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               );
             },
           ),
-          if (widget.device.hasUpdate.value || SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+          if (widget.device.hasUpdate.value || HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: FilledButton(
@@ -353,7 +354,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               ).whenComplete(() => setState(() {}));
             },
           ),
-          if (SentryHive.box(settings).get(showDebugging, defaultValue: showDebuggingDefault)) ...[
+          if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
             const ListTile(
               title: Divider(),
             ),

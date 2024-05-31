@@ -5,11 +5,12 @@ import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_file/sentry_file.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wordpress_client/wordpress_client.dart';
+
+import '../../Backend/LoggingWrappers.dart';
 
 final _wpLogger = Logger('Main');
 
@@ -117,7 +118,7 @@ class _TailBlogState extends State<TailBlog> {
         if (data != null) {
           _wordpressPosts = data;
           // Store the latest post id for checking for new posts
-          SentryHive.box(notificationBox).put(latestPost, data.first.id);
+          HiveProxy.put(notificationBox, latestPost, data.first.id);
         }
       } catch (e, s) {
         setState(() {

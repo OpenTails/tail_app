@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sentry_hive/sentry_hive.dart';
+import 'package:tail_app/Backend/LoggingWrappers.dart';
 
 import '../Definitions/Device/device_definition.dart';
 import '../device_registry.dart';
@@ -15,7 +15,7 @@ final log.Logger bluetoothLog = log.Logger('Bluetooth');
 class KnownDevices extends _$KnownDevices {
   @override
   Map<String, BaseStatefulDevice> build() {
-    List<BaseStoredDevice> storedDevices = SentryHive.box<BaseStoredDevice>('devices').values.toList();
+    List<BaseStoredDevice> storedDevices = HiveProxy.getAll<BaseStoredDevice>('devices').toList();
     Map<String, BaseStatefulDevice> results = {};
     try {
       if (storedDevices.isNotEmpty) {
@@ -50,8 +50,7 @@ class KnownDevices extends _$KnownDevices {
   }
 
   Future<void> store() async {
-    SentryHive.box<BaseStoredDevice>('devices')
-      ..clear()
-      ..addAll(state.values.map((e) => e.baseStoredDevice));
+    await HiveProxy.clear('devices');
+    await HiveProxy.addAll('devices', state.values.map((e) => e.baseStoredDevice));
   }
 }

@@ -5,13 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
-import 'package:logging_flutter/logging_flutter.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Frontend/Widgets/lottie_lazy_load.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Backend/LoggingWrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../../main.dart';
@@ -25,7 +24,7 @@ class OnBoardingPage extends ConsumerStatefulWidget {
 }
 
 class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
-  Logger _introLogger = Logger("Onboarding");
+  final Logger _introLogger = Logger("Onboarding");
   final introKey = GlobalKey<IntroductionScreenState>();
   bool bluetoothAccepted = false;
   bool privacyAccepted = false;
@@ -34,7 +33,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     // Navigator.of(context).pushReplacement()
     plausible.event(name: "Complete Onboarding");
     _introLogger.info("Complete Onboarding");
-    SentryHive.box(settings).put(hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
+    HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
     context.pushReplacement('/');
   }
 
@@ -89,7 +88,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                     child: _buildImage(Assets.tCLogoTransparentNoText.path, 60),
                     onLongPress: () {
                       _introLogger.info("Open Logs");
-                      LogConsole.open(context);
+                      context.push("/settings/developer/logs");
                     },
                   ),
                 ),
@@ -129,10 +128,10 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                             ? null
                             : () {
                                 setState(() {
-                                  _introLogger.info("Accepted Privact Policy");
+                                  _introLogger.info("Accepted Privacy Policy");
                                   privacyAccepted = true;
-                                  SentryHive.box(settings).put(allowErrorReporting, true);
-                                  SentryHive.box(settings).put(allowAnalytics, true);
+                                  HiveProxy.put(settings, allowErrorReporting, true);
+                                  HiveProxy.put(settings, allowAnalytics, true);
                                   introKey.currentState?.next();
                                 });
                               },

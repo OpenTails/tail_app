@@ -3,10 +3,11 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:logging/logging.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 import 'package:wordpress_client/wordpress_client.dart';
+
+import 'LoggingWrappers.dart';
 
 final _backgroundLogger = Logger('BackgroundLogger');
 
@@ -51,7 +52,7 @@ Future<void> initBackgroundTasks() async {
 }
 
 Future<void> checkForNewPosts() async {
-  if (!SentryHive.box(settings).get(allowNewsletterNotifications, defaultValue: allowNewsletterNotificationsDefault)) {
+  if (!HiveProxy.getOrDefault(settings, allowNewsletterNotifications, defaultValue: allowNewsletterNotificationsDefault)) {
     return;
   }
   _backgroundLogger.info("Checking for new posts");
@@ -70,10 +71,10 @@ Future<void> checkForNewPosts() async {
     if (data != null) {
       final Post post = data.first;
       final int id = post.id;
-      final int oldID = SentryHive.box(notificationBox).get(latestPost, defaultValue: defaultPostId);
+      final int oldID = HiveProxy.getOrDefault(notificationBox, latestPost, defaultValue: defaultPostId);
       if (oldID < id) {
         _backgroundLogger.info("Found a new post");
-        SentryHive.box(notificationBox).put(showAccurateBattery, id);
+        HiveProxy.put(notificationBox, showAccurateBattery, id);
         AwesomeNotifications().createNotification(
           content: NotificationContent(
             id: id,

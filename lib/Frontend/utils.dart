@@ -1,12 +1,15 @@
 import 'package:cross_platform/cross_platform.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:wordpress_client/wordpress_client.dart';
+
+import '../Backend/LoggingWrappers.dart';
 
 Future<bool> getBluetoothPermission(Logger logger) async {
   bool granted = false;
@@ -40,7 +43,7 @@ Dio initDio({skipSentry = false}) {
   /// This *must* be the last initialization step of the Dio setup, otherwise
   /// your configuration of Dio might overwrite the Sentry configuration.
   dio.httpClientAdapter = NativeAdapter();
-  dio.interceptors.add(
+  /*dio.interceptors.add(
     LogInterceptor(
       requestBody: false,
       requestHeader: false,
@@ -49,7 +52,8 @@ Dio initDio({skipSentry = false}) {
       request: false,
       logPrint: (o) => dioLogger.finer(o.toString()),
     ),
-  );
+  );*/
+  dio.interceptors.add(LogarteDioInterceptor(logarte));
   if (!skipSentry) {
     dio.addSentry(failedRequestStatusCodes: []);
   }

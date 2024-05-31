@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
@@ -11,6 +10,7 @@ import 'package:tail_app/Backend/audio.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 
 import '../main.dart';
+import 'LoggingWrappers.dart';
 
 part 'move_lists.g.dart';
 
@@ -162,7 +162,7 @@ class MoveLists extends _$MoveLists {
   List<MoveList> build() {
     List<MoveList> results = [];
     try {
-      results = SentryHive.box<MoveList>('sequences').values.toList(growable: true);
+      results = HiveProxy.getAll<MoveList>('sequences').toList(growable: true);
     } catch (e, s) {
       sequencesLogger.severe("Unable to load sequences: $e", e, s);
     }
@@ -183,9 +183,8 @@ class MoveLists extends _$MoveLists {
 
   Future<void> store() async {
     sequencesLogger.info("Storing sequences");
-    SentryHive.box<MoveList>('sequences')
-      ..clear()
-      ..addAll(state);
+    HiveProxy.clear<MoveList>('sequences');
+    HiveProxy.addAll<MoveList>('sequences', state);
   }
 }
 

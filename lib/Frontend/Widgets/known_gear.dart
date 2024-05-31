@@ -1,11 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/LoggingWrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../pages/shell.dart';
@@ -263,7 +263,7 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
   }
 
   Widget getBattery(double level) {
-    if (SentryHive.box(settings).get(showAccurateBattery, defaultValue: showAccurateBatteryDefault)) {
+    if (HiveProxy.getOrDefault(settings, showAccurateBattery, defaultValue: showAccurateBatteryDefault)) {
       if (level < 0) {
         // battery level is unknown
         return const Text('?%');

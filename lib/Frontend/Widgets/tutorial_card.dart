@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 
+import '../../Backend/LoggingWrappers.dart';
 import '../../constants.dart';
 
 class PageInfoCard extends StatelessWidget {
@@ -10,20 +10,20 @@ class PageInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool show = !SentryHive.box(settings).get(hideTutorialCards, defaultValue: hideTutorialCardsDefault);
+    bool show = !HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault);
     return show
         ? Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(
-            child: Text(text),
-          ),
-        ),
-      ),
-    )
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Text(text),
+                ),
+              ),
+            ),
+          )
         : Container();
   }
 }
