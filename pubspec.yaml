@@ -48,7 +48,7 @@ dependencies:
   quick_actions: ^1.0.7 # puts favorites on the home screen
   flutter_wear_os_connectivity:
     git:
-      url: https://github.com/Codel1417/flutter_wear_os_connectivity
+      url: https://github.com/offline-first/flutter_wear_os_connectivity
   just_audio: ^0.9.38 # Used for Sound Effects
   audio_session: ^0.1.19 # Used to configure the audio session for just_audio
 

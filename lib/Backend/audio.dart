@@ -46,7 +46,7 @@ class UserAudioActions extends _$UserAudioActions {
     try {
       results = SentryHive.box<AudioAction>(audioActionsBox).values.toList(growable: true);
     } catch (e, s) {
-      _audioLogger.severe("Unable to load favorites: $e", e, s);
+      _audioLogger.severe("Unable to load audio: $e", e, s);
     }
     return results;
   }
