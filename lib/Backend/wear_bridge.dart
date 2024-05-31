@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -85,6 +87,13 @@ Future<void> updateWearActions(List<FavoriteAction> favoriteActions, Ref ref) as
         MapEntry("uuid", favoriteMap.keys.join("_")),
       ],
     );
+    String msgJson = const JsonEncoder().convert(map);
+    List<int> msgBytes = const Utf8Encoder().convert(msgJson);
+    List<WearOsDevice> connectedDevices = await _flutterWearOsConnectivity.getConnectedDevices();
+    for (WearOsDevice wearOsDevice in connectedDevices) {
+      await _flutterWearOsConnectivity.sendMessage(Uint8List.fromList(msgBytes), deviceId: wearOsDevice.id, path: "/actions");
+    }
+
     DataItem? dataItem = await _flutterWearOsConnectivity.syncData(path: "/actions", data: map, isUrgent: true);
     _wearLogger.info("Message Sent successfully? ${dataItem != null}");
   } catch (e, s) {

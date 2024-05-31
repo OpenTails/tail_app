@@ -6,10 +6,11 @@
 
 package com.codel1417.tail_App.presentation
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
@@ -28,17 +30,22 @@ import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Text
 import com.codel1417.tail_App.presentation.theme._androidTheme
 import com.google.android.gms.tasks.Task
+import com.google.android.gms.wearable.CapabilityClient
+import com.google.android.gms.wearable.CapabilityInfo
 import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataEvent
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataItem
 import com.google.android.gms.wearable.DataMapItem
+import com.google.android.gms.wearable.MessageClient
+import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
 
 
-class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
+class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
+    MessageClient.OnMessageReceivedListener, CapabilityClient.OnCapabilityChangedListener {
 
     private lateinit var dataClient: DataClient
     private var actionsMap: MutableMap<String, String> = mutableMapOf();
@@ -46,16 +53,24 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
         super.onResume()
         println("onResume()")
         Wearable.getDataClient(this).addListener(this)
+        Wearable.getMessageClient(this).addListener(this)
+
     }
 
     override fun onPause() {
         super.onPause()
         println("onPause()")
         Wearable.getDataClient(this).removeListener(this)
+        Wearable.getCapabilityClient(this).removeListener(this)
+        Wearable.getMessageClient(this).removeListener(this)
+
     }
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onDataChanged(dataEvents: DataEventBuffer) {
+        println("onDataChanged()")
         dataEvents.forEach { event ->
+            println("onDataChanged() ${event.type}")
             // DataItem changed
             if (event.type == DataEvent.TYPE_CHANGED) {
                 event.dataItem.also { item ->
@@ -79,7 +94,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
     }
 
     // Create a data map and put data in it
-    private fun increaseCounter(uuid: String) {
+    private fun triggerActionOnPhone(uuid: String) {
         try {
             println("Preparing to send action $uuid")
             val putDataReq: PutDataRequest = PutDataMapRequest.create("/triggerMove").run {
@@ -156,8 +171,16 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener {
         Chip(
             modifier = modifier,
             label = { Text(text = contents, textAlign = TextAlign.Center) },
-            onClick = { increaseCounter(uuid) },
+            onClick = { triggerActionOnPhone(uuid) },
         )
+    }
+
+    override fun onMessageReceived(p0: MessageEvent) {
+        println("onMessageReceived() ${p0.path} ${p0.data}")
+    }
+
+    override fun onCapabilityChanged(p0: CapabilityInfo) {
+        println("onCapabilityChanged() ${p0.name} ${p0.nodes}")
     }
 }
 
