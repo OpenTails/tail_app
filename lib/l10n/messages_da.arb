@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Dække over",
+  "triggerCoverTitle": "Udløs en handling ved at dække nærhedssensoren",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -41,7 +41,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Tilpassede handlinger",
+  "sequencesPage": "Brugerdefinerede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Hvilket gear skal dette gælde for?",
+  "deviceType": "Hvilket gear skal det gælde for?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "GlowTip",
+  "actionsCategoryGlowtip": "Frustreret og anspændt",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Automatisk fejlrapportering",
+  "settingsErrorReportingToggleTitle": "Gør handlingskortene større for nemmere at trykke",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Nærliggende Gear",
+  "triggerProximityTitle": "Gear i nærheden",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
@@ -525,7 +525,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "morePrivacyPolicyLinkTitle": "Fortrolighedspolitik",
+  "morePrivacyPolicyLinkTitle": "Manualer",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, vil denne tilstand tilføje tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
+  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Modtag automatisk meddelelser, når der er et nyt Tail Blog-indlæg",
+  "settingsNewsletterToggleSubTitle": "Gear farve",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -765,13 +765,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomAction": "Handling",
+  "triggerRandomAction": "Afslappet tilstand",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Opdatering af Gear. Sluk ikke dit gear eller luk appen",
+  "otaInProgressTitle": "Opdaterer Gear. Sluk ikke for dit udstyr eller luk appen",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Frisk fra halebloggen",
+  "homeNewsTitle": "Frisk fra Halebloggen",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -819,7 +819,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeChangelogLinkTitle": "Ændringslog",
+  "homeChangelogLinkTitle": "Lyd fundet",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
     "type": "text",
@@ -894,6 +894,12 @@
   "audioTipCard": "Du kan tilføje brugerdefinerede lyde, der vises på fanen Handlinger og kan bruges sammen med udløsere",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Mini hale",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   }

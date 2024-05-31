@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Loskoppelen",
+  "manageDevicesDisconnect": "Batterijgrafiek",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Activeer een actie tijdens het lopen",
+  "triggerWalkingDescription": "Houd het scherm ingeschakeld",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
@@ -381,13 +381,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Activeer een actie als er uitrusting in de buurt is",
+  "triggerProximityDescription": "Over",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Geen actieset",
+  "triggerActionNotSet": "Scannen naar uitrusting. Zorg ervoor dat uw uitrusting is ingeschakeld en in de buurt is",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Wijzig de app-kleur, configureer haptiek en meer",
+  "settingsDescription": "Wijzig de kleur van de app, configureer haptiek en meer",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleTitle": "Leskaarten verbergen",
+  "settingsTutorialCardToggleTitle": "Stuurt foutrapporten naar Sentry",
   "@settingsTutorialCardToggleTitle": {
     "description": "Settings page tutorial card display toggle title",
     "type": "text",
@@ -603,13 +603,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijk actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
+  "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijkertijd actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Om een actie te verwijderen, tikt u nogmaals op de actie om deze te verwijderen. Vergeet niet op te slaan via het opslagpictogram bovenaan",
+  "triggerInfoEditActionDescription": "Start OTA-update",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -621,7 +621,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang ingedrukt houden om deze opnieuw te rangschikken.",
+  "sequencesInfoEditDescription": "Elke aangepaste actie bestaat uit 1-6 zetten en kan maximaal 5 keer worden herhaald. U kunt een zet lang indrukken om deze opnieuw te rangschikken.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Start OTA-update",
+  "otaDownloadButtonLabel": "OTA-update starten",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -894,6 +894,12 @@
   "audioTipCard": "U kunt aangepaste geluiden toevoegen die op het tabblad Acties verschijnen en die met Triggers kunnen worden gebruikt",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Mini-staart",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   }
