@@ -37,13 +37,6 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
-    # audio_player
-          target.build_configurations.each do |config|
-            config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
-              '$(inherited)',
-              'AUDIO_SESSION_MICROPHONE=0'
-            ]
-            end
   end
 
 
@@ -64,6 +57,9 @@ post_install do |installer|
         # e.g. when you don't need camera permission, just add 'PERMISSION_CAMERA=0'
         config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
           '$(inherited)',
+
+          ## audio_player
+          'AUDIO_SESSION_MICROPHONE=0'
 
           ## dart: PermissionGroup.calendar
           'PERMISSION_EVENTS=0',
