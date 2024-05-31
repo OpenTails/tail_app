@@ -173,6 +173,8 @@ flutter build ipa --debug
 > 5. Click Delete
 >
 > If CocoaPods returns a version error, delete [`ios/Podfile.lock`](ios/Podfile.lock)
+>
+> If Permissions are not working, revert any changes you may have done to [`ios/Podfile`](ios/Podfile)
 
 ##### For Android
 
