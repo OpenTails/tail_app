@@ -81,7 +81,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
                       builder: (context, value, child) => Card(
                         clipBehavior: Clip.antiAlias,
                         elevation: 2,
-                        color: Color.lerp(Theme.of(context).cardColor, Theme.of(context).primaryColor, value),
+                        color: Color.lerp(Theme.of(context).cardColor, Theme.of(context).colorScheme.primary, value),
                         child: child,
                       ),
                       tween: isSelected ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),

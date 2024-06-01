@@ -244,7 +244,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                           maxY: 100,
                           minX: 0,
                           maxX: widget.device.stopWatch.elapsed.inSeconds.toDouble(),
-                          lineBarsData: [LineChartBarData(spots: widget.device.batlevels, color: Theme.of(context).primaryColor, dotData: const FlDotData(show: false), isCurved: true, show: widget.device.batlevels.isNotEmpty)],
+                          lineBarsData: [LineChartBarData(spots: widget.device.batlevels, color: Theme.of(context).colorScheme.primary, dotData: const FlDotData(show: false), isCurved: true, show: widget.device.batlevels.isNotEmpty)],
                         ),
                       ),
                     ),

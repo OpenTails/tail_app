@@ -45,7 +45,7 @@ class ScanForNewGearButton extends ConsumerWidget {
       tween: ref.watch(knownDevicesProvider).isEmpty ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
       duration: animationTransitionDuration,
       builder: (context, value, child) {
-        Color? color = Color.lerp(Theme.of(context).cardColor, Theme.of(context).primaryColor, value);
+        Color? color = Color.lerp(Theme.of(context).cardColor, Theme.of(context).colorScheme.primary, value);
         return Card(
           clipBehavior: Clip.antiAlias,
           color: color,

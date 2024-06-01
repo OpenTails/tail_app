@@ -77,7 +77,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         stick: Card(
                           elevation: 2,
                           shape: const CircleBorder(),
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                           child: const SizedBox.square(dimension: 100),
                         ),
                         listener: (details) {
