@@ -13,7 +13,7 @@ String homeWelcomeMessageTitle() => Intl.message('Welcome to the Tail Company Ap
 String homeContinuousScanningOffDescription() =>
     Intl.message('Swipe horizontally on the known device area above to begin scanning. You can turn on continuous scanning in settings.', name: 'homeContinuousScanningOffDescription', desc: 'The welcome message title on the home screen when no gear is connected');
 
-String homeWelcomeMessage() => Intl.message('You can control, explore and update all your Tail Co gear right here in this app. There are also instructions and guides available too. Happy Wagging!', name: 'homeWelcomeMessage', desc: 'The welcome message on the home screen when no gear is connected');
+String homeWelcomeMessage() => Intl.message('You can control, explore and update all your Tail Co gear right here. There are instructions and guides available too. Happy Wagging!', name: 'homeWelcomeMessage', desc: 'The welcome message on the home screen when no gear is connected');
 
 String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'The label and title of the joystick page');
 
