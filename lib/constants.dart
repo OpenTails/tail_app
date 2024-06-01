@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 const int kitsuneDelayRange = 1000;
 const Duration animationTransitionDuration = Duration(milliseconds: 500);
 
@@ -25,7 +27,7 @@ const String allowNewsletterNotifications = 'allowNewsletterNotifications';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
-const int appColorDefault = 0xE46E26;
+final int appColorDefault = const Color.fromARGB(255, 228, 110, 38).value;
 const bool hapticsDefault = true;
 const bool keepAwakeDefault = false;
 const bool allowAnalyticsDefault = false;
