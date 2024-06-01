@@ -2,24 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>compileBitcode</key>
-    <true/>
-    <key>method</key>
-    <string>app-store</string>
-    <key>provisioningProfiles</key>
-    <dict>
-        <key>com.codel1417.tailApp</key>
-        <string>match AppStore com.codel1417.tailApp</string>
-    </dict>
-    <key>signingCertificate</key>
-    <string>iOS Distribution</string>
-    <key>signingStyle</key>
-    <string>manual</string>
-    <key>stripSwiftSymbols</key>
-    <true/>
-    <key>teamID</key>
-    <string>SKRSQZ43AV</string>
-    <key>thinning</key>
-    <string>&lt;none&gt;</string>
+	<key>compileBitcode</key>
+	<true/>
+	<key>method</key>
+	<string>app-store</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.codel1417.tailApp</key>
+		<string>match AppStore com.codel1417.tailApp</string>
+	</dict>
+	<key>signingCertificate</key>
+	<string>iOS Distribution</string>
+	<key>signingStyle</key>
+	<string>manual</string>
+	<key>stripSwiftSymbols</key>
+	<true/>
+	<key>teamID</key>
+	<string>SKRSQZ43AV</string>
+	<key>thinning</key>
+	<string>&lt;thin-for-all-variants&gt;</string>
 </dict>
 </plist>
