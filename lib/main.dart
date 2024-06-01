@@ -22,6 +22,7 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/action_registry.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
+import 'package:tail_app/Frontend/utils.dart';
 
 import 'Backend/Definitions/Action/base_action.dart';
 import 'Backend/LoggingWrappers.dart';
@@ -250,7 +251,12 @@ ThemeData buildTheme(Brightness brightness, Color color) {
       ),
       appBarTheme: const AppBarTheme(elevation: 2),
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
-      typography: Typography.material2021(platform: defaultTargetPlatform),
+      typography: Typography.material2021(),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: getTextColor(color),
+        ),
+      ),
     );
   } else {
     return ThemeData(
@@ -261,7 +267,12 @@ ThemeData buildTheme(Brightness brightness, Color color) {
       ),
       appBarTheme: const AppBarTheme(elevation: 2),
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
-      typography: Typography.material2021(platform: defaultTargetPlatform),
+      typography: Typography.material2021(),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: getTextColor(color),
+        ),
+      ),
     );
   }
 }

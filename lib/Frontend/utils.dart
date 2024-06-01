@@ -1,6 +1,7 @@
 import 'package:cross_platform/cross_platform.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:native_dio_adapter/native_dio_adapter.dart';
@@ -79,4 +80,17 @@ Version getVersionSemVer(String input) {
     patch = split[2].replaceAll(RegExp(r"\D"), "");
   }
   return Version(int.parse(major), int.parse(minor), int.parse(patch));
+}
+
+Color getTextColor(Color color) {
+  int d = 0;
+
+  // Counting the perceptive luminance - human eye favors green color...
+  double luminance = (0.299 * color.red + 0.587 * color.green + 0.114 * color.blue) / 255;
+
+  if (luminance > 0.5) {
+    return Typography.material2021().black.labelLarge!.color!;
+  } else {
+    return Typography.material2021().white.labelLarge!.color!;
+  }
 }

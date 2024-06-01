@@ -18,6 +18,7 @@ import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';
+import '../utils.dart';
 import 'home.dart';
 
 class ActionPage extends ConsumerWidget {
@@ -135,11 +136,13 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
   }
 
   FadeIn getActionCard(int actionIndex, Map<String, BaseStatefulDevice> knownDevices, BaseAction action, bool largerCards) {
+    Color color = Color(knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseStoredDevice.color);
+    Color textColor = getTextColor(color);
     return FadeIn(
       delay: Duration(milliseconds: 100 * actionIndex),
       child: Card(
         clipBehavior: Clip.antiAlias,
-        color: Color(knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).first.baseStoredDevice.color),
+        color: color,
         elevation: 1,
         child: InkWell(
           onLongPress: () {
@@ -195,6 +198,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                           (e) => Text(
                             e.baseDeviceDefinition.deviceType.name.substring(0, 1),
                             textScaler: TextScaler.linear(largerCards ? 2 : 1),
+                            style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),
                           ),
                         )
                         .toList(),
@@ -207,7 +211,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                     child: ref.read(favoriteActionsProvider.notifier).contains(action)
                         ? Transform.scale(
                             scale: largerCards ? 1.8 : 0.8,
-                            child: const Icon(Icons.favorite),
+                            child: Icon(Icons.favorite, color: textColor),
                           )
                         : null,
                   ),
@@ -218,6 +222,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                     semanticsLabel: action.name,
                     overflow: TextOverflow.fade,
                     textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),
                     textScaler: TextScaler.linear(largerCards ? 2 : 1),
                   ),
                 )
