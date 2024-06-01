@@ -222,11 +222,12 @@ class _TailAppState extends State<TailApp> {
                 statusBarColor: Colors.black.withOpacity(0.002), // Status bar
               );
               Future(() => FlutterNativeSplash.remove()); //remove the splash screen one frame later
+              Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
               return MaterialApp.router(
                 title: title(),
-                color: Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault)),
-                theme: buildTheme(Brightness.light, Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault))),
-                darkTheme: buildTheme(Brightness.dark, Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault))),
+                color: color,
+                theme: buildTheme(Brightness.light, color),
+                darkTheme: buildTheme(Brightness.dark, color),
                 routerConfig: router,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 supportedLocales: AppLocalizations.supportedLocales,
