@@ -159,6 +159,7 @@ class _TailBlogState extends State<TailBlog> {
       bindToScope: true,
     );
     String? mediaUrl;
+    Widget? widget;
     if (item.imageId != null) {
       String filePath = '${(await getTemporaryDirectory()).path}/media/${item.imageId}';
 
@@ -185,7 +186,7 @@ class _TailBlogState extends State<TailBlog> {
       if (await sentryFile.exists()) {
         try {
           if (context.mounted) {
-            return Image.file(
+            widget = Image.file(
               sentryFile,
               alignment: Alignment.bottomCenter,
               width: MediaQuery.of(context).size.width,
@@ -195,11 +196,14 @@ class _TailBlogState extends State<TailBlog> {
           }
         } catch (e) {
           // delete invalid media
+          transaction.status = const SpanStatus.unknownError();
+          transaction.throwable = e;
           sentryFile.delete();
         }
       }
     }
-    return Container();
+    transaction.finish();
+    return widget ?? Container();
   }
 }
 
