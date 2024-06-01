@@ -330,8 +330,9 @@ class _EagerInitialization extends ConsumerWidget {
     //ref.watch(moveListsProvider);
     //ref.watch(favoriteActionsProvider);
     ref.watch(appShortcutsProvider);
-    ref.watch(initWearProvider);
-
+    if (!kDebugMode) {
+      ref.watch(initWearProvider);
+    }
     return child;
   }
 }
