@@ -161,7 +161,7 @@ class _MoreState extends ConsumerState<More> {
                 context: context,
                 useRootNavigator: true,
                 applicationVersion: "${value.version} (${value.buildNumber})",
-                applicationLegalese: "Developed by the community for the community. Open Source GPL 3.0 Licensed",
+                applicationLegalese: "Developed by Code-Floof for the community. Open Source GPL 3.0 Licensed",
                 applicationIcon: Image.asset(
                   Assets.tCLogoTransparentNoText.path,
                   width: 150,
