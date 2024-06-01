@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 
 import '../../Backend/Definitions/Action/base_action.dart';
@@ -78,15 +79,17 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
                     BaseAction baseAction = actionsForCat[actionIndex];
                     bool isSelected = selected.contains(baseAction);
                     return TweenAnimationBuilder(
-                      builder: (context, value, child) => Card(
-                        clipBehavior: Clip.antiAlias,
-                        elevation: 2,
-                        color: Color.lerp(Theme.of(context).cardColor, Theme.of(context).colorScheme.primary, value),
-                        child: child,
-                      ),
+                      builder: (context, value, child) {
+                        Color? color = Color.lerp(Theme.of(context).cardColor, Theme.of(context).colorScheme.primary, value);
+                        return Card(
+                          clipBehavior: Clip.antiAlias,
+                          elevation: 2,
+                          color: color,
+                          child: cardChild(isSelected, baseAction, color!),
+                        );
+                      },
                       tween: isSelected ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
                       duration: animationTransitionDuration,
-                      child: cardChild(isSelected, baseAction),
                     );
                   })
             ],
@@ -96,7 +99,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
     );
   }
 
-  InkWell cardChild(bool isSelected, BaseAction baseAction) {
+  InkWell cardChild(bool isSelected, BaseAction baseAction, Color color) {
     return InkWell(
       onTap: () {
         if (isSelected) {
@@ -113,7 +116,13 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
         height: 50,
         width: 50,
         child: Center(
-          child: Text(baseAction.name, semanticsLabel: baseAction.name, overflow: TextOverflow.fade, textAlign: TextAlign.center),
+          child: Text(
+            baseAction.name,
+            semanticsLabel: baseAction.name,
+            overflow: TextOverflow.fade,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(color: getTextColor(color)),
+          ),
         ),
       ),
     );
