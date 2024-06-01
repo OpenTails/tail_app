@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-01T05:55:01.254756",
+  "@@last_modified": "2024-06-01T17:41:41.229603",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -278,12 +278,6 @@
   "actionsCategoryGlowtip": "GlowTip",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryEars": "Ears",
-  "@actionsCategoryEars": {
-    "description": "ears action group label",
     "type": "text",
     "placeholders": {}
   },
