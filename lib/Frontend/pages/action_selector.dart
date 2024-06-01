@@ -46,12 +46,22 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
         title: Text(actionsSelectScreen()),
         actions: [
           IconButton(
-            onPressed: () => context.pop(selected),
+            onPressed: () {
+              if (selected.isEmpty) {
+                context.pop(true);
+              } else {
+                context.pop(selected);
+              }
+            },
             icon: const Icon(Icons.save),
             tooltip: triggersSelectSaveLabel(),
           ),
           IconButton(
-            onPressed: () => context.pop(true),
+            onPressed: () {
+              setState(() {
+                selected.clear();
+              });
+            },
             icon: const Icon(Icons.clear),
             tooltip: triggersSelectClearLabel(),
           )
