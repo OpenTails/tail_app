@@ -58,10 +58,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "6bd38d335f0954f5fad9c79e614604fbf03a0e5b975923dd001b6ea965ef5b4b"
+      sha256: cb6a278ef2dbb298455e1a713bda08524a175630ec643a242c399c932a0a1f7d
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.0"
+    version: "3.6.1"
   args:
     dependency: transitive
     description:
@@ -217,10 +217,11 @@ packages:
   choice:
     dependency: "direct main"
     description:
-      name: choice
-      sha256: "52d07065e8056beba5b26cff7786134cbfa24927b1f5bf60a05d50058597b2d9"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: ba4dc8b3579620e3fac0944dcab97f9b22e7c3eb
+      url: "https://github.com/Codel1417/flutter_choice"
+    source: git
     version: "2.3.2"
   circular_buffer:
     dependency: "direct main"

@@ -1,11 +1,11 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/sensors.dart';
-import 'package:tail_app/Frontend/Widgets/trigger_select.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../constants.dart';
@@ -27,20 +27,42 @@ class _TriggersState extends ConsumerState<Triggers> {
   Widget build(BuildContext context) {
     final List<Trigger> triggersList = ref.watch(triggerListProvider);
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.add),
-        onPressed: () {
-          showDialog<TriggerDefinition>(
-            context: context,
-            useRootNavigator: true,
-            builder: (BuildContext context) {
-              plausible.event(page: "/Triggers/AddTrigger");
-              return const TriggerSelect();
+      floatingActionButton: Builder(
+        builder: (context) {
+          List<TriggerDefinition> triggerDefinitions = ref.watch(triggerDefinitionListProvider.notifier).get();
+          return PromptedChoice<TriggerDefinition>.single(
+            itemCount: triggerDefinitions.length,
+            itemBuilder: (ChoiceController<TriggerDefinition> state, int index) {
+              TriggerDefinition triggerDefinition = triggerDefinitions[index];
+              return RadioListTile(
+                value: triggerDefinition,
+                groupValue: state.single,
+                onChanged: (value) {
+                  state.select(triggerDefinition);
+                },
+                secondary: triggerDefinition.icon,
+                subtitle: ChoiceText(
+                  triggerDefinition.description,
+                  highlight: state.search?.value,
+                ),
+                title: ChoiceText(
+                  triggerDefinition.name,
+                  highlight: state.search?.value,
+                ),
+              );
             },
-          ).then(
-            (TriggerDefinition? value) {
+            promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
+            modalHeaderBuilder: ChoiceModal.createHeader(
+              automaticallyImplyLeading: true,
+              actionsBuilder: [
+                ChoiceModal.createConfirmButton(),
+                ChoiceModal.createSpacer(width: 10),
+              ],
+            ),
+            title: triggersSelectLabel(),
+            confirmation: true,
+            onChanged: (value) {
               if (value != null) {
-                // The user selected a Trigger Definition
                 setState(
                   () {
                     Trigger trigger = Trigger.trigDef(value, const Uuid().v4());
@@ -50,9 +72,15 @@ class _TriggersState extends ConsumerState<Triggers> {
                 );
               }
             },
+            anchorBuilder: (state, openModal) {
+              return FloatingActionButton.extended(
+                icon: const Icon(Icons.add),
+                label: Text(triggersAdd()),
+                onPressed: openModal,
+              );
+            },
           );
         },
-        label: Text(triggersAdd()),
       ),
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
