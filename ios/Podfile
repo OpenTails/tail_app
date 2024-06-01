@@ -26,6 +26,7 @@ end
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 
 flutter_ios_podfile_setup
+Pod::PICKER_MEDIA  = false
 
 target 'Runner' do
   use_frameworks!
