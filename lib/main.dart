@@ -61,7 +61,7 @@ Future<void> main() async {
   Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
   Logger.root.onRecord.listen((event) {
-    if (event.loggerName == "GoLogger") {
+    if (event.loggerName == "GoRouter") {
       return;
     }
     if (event.level.value < 1000 && event.stackTrace == null) {
