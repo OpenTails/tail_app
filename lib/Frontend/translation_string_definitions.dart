@@ -109,8 +109,6 @@ String actionsCategoryTense() => Intl.message('Frustrated and Tense', name: 'act
 
 String actionsCategoryGlowtip() => Intl.message('GlowTip', name: 'actionsCategoryGlowtip', desc: 'glowtip action group label');
 
-String actionsCategoryEars() => Intl.message('Ears', name: 'actionsCategoryEars', desc: 'ears action group label');
-
 String actionsSelectScreen() => Intl.message('Select an Action', name: 'actionsSelectScreen', desc: 'Title for action select menu on triggers page');
 //Settings
 String settingsHapticsToggleTitle() => Intl.message('Haptic Feedback', name: 'settingsHapticsToggleTitle', desc: 'Settings page haptic feedback toggle title');

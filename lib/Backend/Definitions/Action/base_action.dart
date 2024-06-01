@@ -38,7 +38,7 @@ extension ActionCategoryExtension on ActionCategory {
       case ActionCategory.glowtip:
         return actionsCategoryGlowtip();
       case ActionCategory.ears:
-        return actionsCategoryEars();
+        return "EarGear";
       case ActionCategory.sequence:
         return sequencesPage();
       case ActionCategory.hidden:
