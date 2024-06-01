@@ -70,6 +70,9 @@ android {
             // Signing with the debug keys for now,
             // so `flutter run --release` works.
             signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
         }
         debug {
             // TODO: Add your own signing config for the release build.
@@ -137,7 +140,7 @@ sentry {
     // for Sentry. This executes sentry-cli automatically so
     // you don't need to do it manually.
     // Default is disabled.
-    uploadNativeSymbols = false
+    uploadNativeSymbols = true
 
     // Whether the plugin should attempt to auto-upload the native debug symbols to Sentry or not.
     // If disabled the plugin will run a dry-run.
@@ -167,6 +170,6 @@ sentry {
     // Default is enabled.
     // Only available v3.1.0 and above.
     autoInstallation {
-        enabled = false
+        enabled = true
     }
 }
