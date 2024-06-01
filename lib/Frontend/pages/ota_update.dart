@@ -388,7 +388,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
           //await Future.delayed(const Duration(seconds: 10));
           otaState = OtaState.rebooting;
           timer = Timer(
-            const Duration(seconds: 15),
+            const Duration(seconds: 60),
             () {
               if (otaState != OtaState.completed && mounted) {
                 setState(() {
