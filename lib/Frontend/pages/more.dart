@@ -100,7 +100,7 @@ class _MoreState extends ConsumerState<More> {
           ),
         ),
         ListTile(
-          title: const Text("Tail Company Store"),
+          title: const Text("Store"),
           leading: const Icon(Icons.store),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -108,7 +108,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: const Text("Tail Company Wiki"),
+          title: const Text("Wiki"),
           leading: const Icon(Icons.menu_book),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -116,7 +116,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: const Text("Tail Company Telegram"),
+          title: const Text("Telegram"),
           leading: const Icon(Icons.telegram),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -124,7 +124,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: const Text("Tail Company Support Email"),
+          title: const Text("Support Email"),
           leading: const Icon(Icons.email),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
