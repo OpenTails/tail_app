@@ -62,7 +62,7 @@ Future<void> main() async {
   mainLogger.info("Begin");
   Logger.root.onRecord.listen((event) {
     if (event.level.value < 1000 && event.stackTrace == null) {
-      logarte.info("[${event.loggerName}] ${event.message}");
+      logarte.info("[${event.loggerName}] ${event.message}", source: event.loggerName);
     } else {
       logarte.error("[${event.loggerName}] ${event.message}", stackTrace: event.stackTrace);
     }
