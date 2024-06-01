@@ -128,7 +128,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         ButtonBar(
                           alignment: MainAxisAlignment.center,
                           children: [
-                            ElevatedButton(
+                            FilledButton(
                               onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
                               child: Text(
                                 otaDownloadButtonLabel(),
