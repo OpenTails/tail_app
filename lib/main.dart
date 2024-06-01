@@ -181,6 +181,7 @@ class TailApp extends StatefulWidget {
       HiveProxy.put(settings, allowAnalytics, false);
       HiveProxy.put(settings, allowErrorReporting, false);
       HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
+      HiveProxy.put(settings, showDemoGear, true);
     }
   }
 
