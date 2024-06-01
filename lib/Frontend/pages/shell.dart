@@ -135,10 +135,6 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
             // overridden.
             smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
             appBar: AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                systemNavigationBarColor: Colors.black.withOpacity(0.002), // Navigation bar
-                statusBarColor: Colors.black.withOpacity(0.002), // Status bar
-              ),
               title: const DeviceStatusWidget(),
               centerTitle: true,
               leadingWidth: 0,
