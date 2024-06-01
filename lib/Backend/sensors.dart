@@ -772,5 +772,5 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
   }
 
   //Filter by unused sensors
-  List<TriggerDefinition> get() => ref.read(triggerListProvider).map((Trigger e) => e.triggerDefinition!).toSet().difference(state.toSet()).toList();
+  List<TriggerDefinition> get() => state.toSet().difference(ref.read(triggerListProvider).map((Trigger e) => e.triggerDefinition!).toSet()).toList();
 }
