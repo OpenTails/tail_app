@@ -50,7 +50,7 @@ class KnownDevices extends _$KnownDevices {
   }
 
   Future<void> store() async {
-    await HiveProxy.clear('devices');
-    await HiveProxy.addAll('devices', state.values.map((e) => e.baseStoredDevice));
+    await HiveProxy.clear<BaseStoredDevice>('devices');
+    await HiveProxy.addAll<BaseStoredDevice>('devices', state.values.map((e) => e.baseStoredDevice));
   }
 }
