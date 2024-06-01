@@ -24,6 +24,7 @@ import '../../main.dart';
 import '../Widgets/base_card.dart';
 import '../Widgets/known_gear.dart';
 import '../translation_string_definitions.dart';
+import '../utils.dart';
 
 /// Flutter code sample for [NavigationDrawer].
 
@@ -259,6 +260,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   onPressed: () {
                     context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
                   },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: getTextColor(color),
+                    elevation: 1,
+                  ),
                   child: Text(manageDevicesOtaButton())),
             )
           ],

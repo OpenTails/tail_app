@@ -269,9 +269,7 @@ ThemeData buildTheme(Brightness brightness, Color color) {
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(),
       filledButtonTheme: FilledButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: getTextColor(color),
-        ),
+        style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color), elevation: 1),
       ),
     );
   }
