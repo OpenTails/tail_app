@@ -1,6 +1,5 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -47,21 +46,18 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      Theme.of(context).brightness == Brightness.dark
-          ? SystemUiOverlayStyle.light.copyWith(statusBarColor: Theme.of(context).canvasColor, systemNavigationBarColor: Theme.of(context).canvasColor)
-          : SystemUiOverlayStyle.dark.copyWith(statusBarColor: Theme.of(context).canvasColor, systemNavigationBarColor: Theme.of(context).canvasColor),
-    );
-    const bodyStyle = TextStyle(fontSize: 19.0);
     var pageDecoration = PageDecoration(
-      titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
-      bodyTextStyle: bodyStyle,
-      bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Theme.of(context).canvasColor,
-      imagePadding: EdgeInsets.zero,
-      footerFlex: 0,
-      footerPadding: EdgeInsets.zero,
-    );
+        titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+        bodyTextStyle: const TextStyle(fontSize: 19.0),
+        bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+        pageColor: Theme.of(context).canvasColor,
+        imagePadding: EdgeInsets.zero,
+        footerFlex: 3,
+        bodyAlignment: Alignment.center,
+        footerPadding: const EdgeInsets.symmetric(vertical: 16),
+        imageFlex: 5,
+        bodyFlex: 6,
+        safeArea: 0);
 
     return SafeArea(
       child: ValueListenableBuilder(
@@ -111,42 +107,36 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   asset: Assets.tailcostickers.tailCoStickersFile144834359,
                   width: MediaQuery.of(context).size.width,
                 ),
-                footer: Center(
-                  child: Wrap(
-                    spacing: 10,
-                    children: [
-                      FilledButton(
-                        onPressed: () async {
-                          await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app/blob/master/PRIVACY.md'));
-                        },
-                        child: Text(
-                          onboardingPrivacyPolicyViewButtonLabel(),
-                        ),
+                footer: ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app/blob/master/PRIVACY.md'));
+                      },
+                      child: Text(
+                        onboardingPrivacyPolicyViewButtonLabel(),
                       ),
-                      FilledButton(
-                        onPressed: privacyAccepted
-                            ? null
-                            : () {
-                                setState(() {
-                                  _introLogger.info("Accepted Privacy Policy");
-                                  privacyAccepted = true;
-                                  HiveProxy.put(settings, allowErrorReporting, true);
-                                  HiveProxy.put(settings, allowAnalytics, true);
-                                  introKey.currentState?.next();
-                                });
-                              },
-                        child: Text(
-                          onboardingPrivacyPolicyAcceptButtonLabel(),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    FilledButton(
+                      onPressed: privacyAccepted
+                          ? null
+                          : () {
+                              setState(() {
+                                _introLogger.info("Accepted Privacy Policy");
+                                privacyAccepted = true;
+                                HiveProxy.put(settings, allowErrorReporting, true);
+                                HiveProxy.put(settings, allowAnalytics, true);
+                                introKey.currentState?.next();
+                              });
+                            },
+                      child: Text(
+                        onboardingPrivacyPolicyAcceptButtonLabel(),
+                      ),
+                    )
+                  ],
                 ),
-                decoration: pageDecoration.copyWith(
-                  bodyFlex: 6,
-                  imageFlex: 6,
-                  safeArea: 80,
-                ),
+                decoration: pageDecoration,
               ),
               PageViewModel(
                 title: onboardingBluetoothTitle(),
@@ -155,49 +145,43 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   asset: Assets.tailcostickers.tailCoStickersFile144834357,
                   width: MediaQuery.of(context).size.width,
                 ),
-                footer: Center(
-                  child: Wrap(
-                    spacing: 10,
-                    children: [
-                      FilledButton(
-                        onPressed: bluetoothEnabled
-                            ? null
-                            : () {
-                                AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
-                              },
-                        child: Text(
-                          onboardingBluetoothEnableButtonLabel(),
-                        ),
+                footer: ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  children: [
+                    FilledButton(
+                      onPressed: bluetoothEnabled
+                          ? null
+                          : () {
+                              AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
+                            },
+                      child: Text(
+                        onboardingBluetoothEnableButtonLabel(),
                       ),
-                      FilledButton(
-                        onPressed: bluetoothAccepted
-                            ? null
-                            : () async {
-                                if (await getBluetoothPermission(_introLogger)) {
-                                  setState(
-                                    () {
-                                      // Start FlutterBluePlus
-                                      if (!ref.exists(initFlutterBluePlusProvider)) {
-                                        ref.read(initFlutterBluePlusProvider);
-                                      }
-                                      bluetoothAccepted = true;
-                                    },
-                                  );
-                                  introKey.currentState?.next();
-                                }
-                              },
-                        child: Text(
-                          onboardingBluetoothRequestButtonLabel(),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    FilledButton(
+                      onPressed: bluetoothAccepted
+                          ? null
+                          : () async {
+                              if (await getBluetoothPermission(_introLogger)) {
+                                setState(
+                                  () {
+                                    // Start FlutterBluePlus
+                                    if (!ref.exists(initFlutterBluePlusProvider)) {
+                                      ref.read(initFlutterBluePlusProvider);
+                                    }
+                                    bluetoothAccepted = true;
+                                  },
+                                );
+                                introKey.currentState?.next();
+                              }
+                            },
+                      child: Text(
+                        onboardingBluetoothRequestButtonLabel(),
+                      ),
+                    )
+                  ],
                 ),
-                decoration: pageDecoration.copyWith(
-                  bodyFlex: 6,
-                  imageFlex: 6,
-                  safeArea: 80,
-                ),
+                decoration: pageDecoration,
               ),
               PageViewModel(
                 title: onboardingCompletedTitle(),
@@ -211,6 +195,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   imageFlex: 4,
                   bodyAlignment: Alignment.bottomCenter,
                   imageAlignment: Alignment.topCenter,
+                  imagePadding: const EdgeInsets.symmetric(vertical: 32),
+                  contentMargin: const EdgeInsets.only(top: 32),
                 ),
                 reverse: true,
               ),
@@ -229,6 +215,16 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 _onIntroEnd(context);
               },
               child: Text(onboardingDoneButtonLabel(), style: const TextStyle(fontWeight: FontWeight.w600)),
+            ),
+            dotsFlex: 1,
+            controlsPadding: const EdgeInsets.symmetric(vertical: 32),
+            dotsDecorator: DotsDecorator(
+              size: const Size.square(10.0),
+              activeSize: const Size(40.0, 10.0),
+              activeColor: Color(appColorDefault),
+              color: Colors.black26,
+              spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+              activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
             ),
           );
         },
