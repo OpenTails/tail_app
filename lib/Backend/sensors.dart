@@ -79,7 +79,16 @@ class Trigger extends ChangeNotifier {
   }
 
   @HiveField(3)
-  List<TriggerAction> actions = [];
+  List<TriggerAction> _actions = [];
+
+  List<TriggerAction> get actions => _actions;
+
+  set actions(List<TriggerAction> value) {
+    _actions = value;
+    if (_enabled) {
+      triggerDefinition?.actions[uuid] = actions;
+    }
+  }
 
   Trigger(this.triggerDefUUID, this.uuid) {
     // called by hive when loading object
