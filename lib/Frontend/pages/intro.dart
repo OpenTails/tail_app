@@ -47,17 +47,18 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     var pageDecoration = PageDecoration(
-        titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
-        bodyTextStyle: const TextStyle(fontSize: 19.0),
-        bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-        pageColor: Theme.of(context).canvasColor,
-        imagePadding: EdgeInsets.zero,
-        footerFlex: 3,
-        bodyAlignment: Alignment.center,
-        footerPadding: const EdgeInsets.symmetric(vertical: 16),
-        imageFlex: 5,
-        bodyFlex: 6,
-        safeArea: 0);
+      titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      bodyTextStyle: const TextStyle(fontSize: 19.0),
+      bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+      pageColor: Theme.of(context).canvasColor,
+      imagePadding: EdgeInsets.zero,
+      footerFlex: 3,
+      bodyAlignment: Alignment.center,
+      footerPadding: const EdgeInsets.symmetric(vertical: 16),
+      imageFlex: 5,
+      bodyFlex: 6,
+      safeArea: 0,
+    );
 
     return SafeArea(
       child: ValueListenableBuilder(
@@ -221,8 +222,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
             dotsDecorator: DotsDecorator(
               size: const Size.square(10.0),
               activeSize: const Size(40.0, 10.0),
-              activeColor: Color(appColorDefault),
-              color: Colors.black26,
+              activeColor: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.tertiary,
               spacing: const EdgeInsets.symmetric(horizontal: 3.0),
               activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
             ),
