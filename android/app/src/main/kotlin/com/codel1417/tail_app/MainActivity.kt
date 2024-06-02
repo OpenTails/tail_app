@@ -1,5 +1,7 @@
 package com.codel1417.tail_app
 
+import android.os.Build
+import android.os.Bundle
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_VOLUME_DOWN
 import android.view.KeyEvent.KEYCODE_VOLUME_UP
@@ -8,6 +10,13 @@ import io.flutter.embedding.android.FlutterActivity
 
 
 class MainActivity : FlutterActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+        }
+    }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KEYCODE_VOLUME_DOWN && eventSink != null) {

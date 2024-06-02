@@ -6,7 +6,6 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -217,11 +216,7 @@ class _TailAppState extends State<TailApp> {
           child: ValueListenableBuilder(
             valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
             builder: (BuildContext context, value, Widget? child) {
-              SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-              SystemUiOverlayStyle(
-                systemNavigationBarColor: Colors.black.withOpacity(0.002), // Navigation bar
-                statusBarColor: Colors.black.withOpacity(0.002), // Status bar
-              );
+              setupSystemColor(context);
               Future(() => FlutterNativeSplash.remove()); //remove the splash screen one frame later
               Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
               return MaterialApp.router(

@@ -2,7 +2,6 @@ import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -63,7 +62,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    setupSystemColor(context);
     return BackButtonToClose(
       child: UpgradeAlert(
         child: ValueListenableBuilder(

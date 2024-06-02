@@ -2,6 +2,7 @@ import 'package:cross_platform/cross_platform.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:native_dio_adapter/native_dio_adapter.dart';
@@ -91,4 +92,37 @@ Color getTextColor(Color color) {
   } else {
     return Typography.material2021().white.labelLarge!.color!;
   }
+}
+
+Future<void> setupSystemColor(BuildContext context) async {
+  final SystemUiOverlayStyle dark = SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent /*Android=23*/,
+    statusBarBrightness: Brightness.light /*iOS*/,
+    statusBarIconBrightness: Brightness.dark /*Android=23*/,
+    systemStatusBarContrastEnforced: false /*Android=29*/,
+    systemNavigationBarColor: Colors.transparent /*Android=27*/,
+    systemNavigationBarDividerColor: Colors.transparent.withAlpha(1) /*Android=28,不能用全透明 */,
+    systemNavigationBarIconBrightness: Brightness.dark /*Android=27*/,
+    systemNavigationBarContrastEnforced: false /*Android=29*/,
+  );
+  final SystemUiOverlayStyle light = SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    // 23
+    statusBarIconBrightness: Brightness.dark,
+    // 23
+    systemNavigationBarColor: Colors.transparent,
+    // 27
+    systemStatusBarContrastEnforced: false /*Android=29*/,
+    systemNavigationBarDividerColor: Colors.transparent.withAlpha(1) /* 不能用全透明 */,
+    // 28
+    systemNavigationBarIconBrightness: Brightness.dark,
+    // 27
+    systemNavigationBarContrastEnforced: false, // 29
+  );
+  if (Theme.of(context).colorScheme.brightness == Brightness.light) {
+    SystemChrome.setSystemUIOverlayStyle(light);
+  } else {
+    SystemChrome.setSystemUIOverlayStyle(dark);
+  }
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 }
