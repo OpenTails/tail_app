@@ -72,7 +72,7 @@ android {
             signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled false
-            shrinkResources true
+            shrinkResources false
         }
         debug {
             // TODO: Add your own signing config for the release build.
