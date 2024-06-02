@@ -71,7 +71,7 @@ android {
             // so `flutter run --release` works.
             signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources true
         }
         debug {
