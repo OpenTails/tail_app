@@ -61,3 +61,5 @@ ios/Runner.app.dSYM.zip
 android/build/
 
 android/key.properties
+
+lib/gen/assets.gen.dart
