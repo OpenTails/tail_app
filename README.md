@@ -15,10 +15,11 @@ A Cross Platform Tail Company gear control App
 - Custom Actions
 - Custom Sound Effects
 - Joystick for manually moving gear
-- Dark Mode (Based on system setting)
+- Dark Mode (Based on system settings)
 - Color Themes
 - Background mode on IOS
 - Tail Blog
+- Tablet support
 
 > [!WARNING]
 > Google Play Services is required for android, so non Play Store Android devices are unsupported
