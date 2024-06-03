@@ -336,13 +336,13 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
         baseStatefulDevice!.gearReturnedError.value = false;
 
         _otaLogger.info("Holding the command queue");
-        baseStatefulDevice!.deviceState.value = DeviceState.busy; // hold the command queue
         timeToUpdate.start();
         _otaLogger.info("Send OTA begin message");
         List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
         await sendMessage(baseStatefulDevice!, beginOTA);
 
         while (uploadProgress < 1 && otaState != OtaState.error) {
+          baseStatefulDevice!.deviceState.value = DeviceState.busy; // hold the command queue
           if (baseStatefulDevice!.gearReturnedError.value) {
             transaction.status = const SpanStatus.unavailable();
             if (mounted) {
