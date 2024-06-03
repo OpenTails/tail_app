@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_file/sentry_file.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -152,12 +151,6 @@ class _TailBlogState extends State<TailBlog> {
   }
 
   Future<Widget> getImage(FeedItem item, BuildContext context) async {
-    // Start a transaction if there's no active transaction
-    final transaction = Sentry.startTransaction(
-      'getImageTailBlog',
-      'file',
-      bindToScope: true,
-    );
     String? mediaUrl;
     Widget? widget;
     if (item.imageId != null) {
@@ -196,13 +189,10 @@ class _TailBlogState extends State<TailBlog> {
           }
         } catch (e) {
           // delete invalid media
-          transaction.status = const SpanStatus.unknownError();
-          transaction.throwable = e;
           sentryFile.delete();
         }
       }
     }
-    transaction.finish();
     return widget ?? Container();
   }
 }
