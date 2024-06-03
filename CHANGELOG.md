@@ -8,7 +8,7 @@ Theres so many improvements over our old app - heres the headlines
 - Much better Paw support
 - Instant connecting to known gear
 - Sound support! (Early days, but very cool)
-- Read the blog in the app
+- Read the blog in the app, as well as links to Telegram, website and more
 - Easy to see firmware updates
 - Triggers become global, rather than per gear. What will you dream up?
 - Joystick control. Waaaat?!
