@@ -305,7 +305,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     Version version = baseStatefulDevice!.fwVersion.value;
     FWInfo? fwInfo = firmwareInfo;
     if (fwInfo != null && version.compareTo(Version.none) > 0 && otaState == OtaState.rebooting) {
-      bool updated = version.compareTo(getVersionSemVer(fwInfo.version)) <= 0;
+      bool updated = version.compareTo(getVersionSemVer(fwInfo.version)) >= 0;
       if (mounted) {
         setState(() {
           otaState = updated ? OtaState.completed : OtaState.error;
@@ -356,7 +356,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
           List<int> chunk = firmwareFile!.skip(current).take(mtu).toList();
           if (chunk.isNotEmpty) {
             try {
-              _otaLogger.info("Updating $uploadProgress");
+              //_otaLogger.info("Updating $uploadProgress");
               if (current > 0) {
                 timeRemainingMS = Duration(milliseconds: ((timeToUpdate.elapsedMilliseconds / current) * (total - current)).toInt());
               }
