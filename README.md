@@ -13,6 +13,7 @@ A Cross Platform Tail Company gear control App
 - The same actions/moves from Crumpet
 - Triggers for walking, shaking and other gestures
 - Custom Actions
+- Custom Sound Effects
 - Joystick for manually moving gear
 - Dark Mode (Based on system setting)
 - Color Themes
