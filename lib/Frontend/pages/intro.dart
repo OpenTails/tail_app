@@ -40,7 +40,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     return Image.asset(
       assetName,
       width: width,
-      cacheWidth: width.toInt(),
     );
   }
 
@@ -94,9 +93,14 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
             PageViewModel(
               title: homeWelcomeMessageTitle(),
               body: homeWelcomeMessage(),
-              image: LottieLazyLoad(
-                asset: Assets.tailcostickers.tailCoStickersFile144834354,
-                width: MediaQuery.of(context).size.width,
+              image: Builder(
+                builder: (context) {
+                  if (Theme.of(context).colorScheme.brightness == Brightness.light) {
+                    return _buildImage(Assets.splashLightTransparent.path, MediaQuery.of(context).size.width);
+                  } else {
+                    return _buildImage(Assets.splashDarkTransparent.path, MediaQuery.of(context).size.width);
+                  }
+                },
               ),
               decoration: pageDecoration,
             ),
