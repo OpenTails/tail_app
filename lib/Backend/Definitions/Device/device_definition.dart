@@ -307,7 +307,9 @@ class CommandQueue {
             // We use a timeout as sometimes a response isn't sent by the gear
             timer = Timer(timeoutDuration, () {});
             response = device.rxCharacteristicStream
-                .timeout(timeoutDuration, onTimeout: (sink) => sink.close())
+                .timeout(timeoutDuration, onTimeout: (sink) {
+                  sink.addError("");
+                })
                 .where((event) {
                   bluetoothLog.info('Response:$event');
                   return event.contains(message.responseMSG!);
@@ -332,7 +334,7 @@ class CommandQueue {
                   timer?.cancel();
                   if (message.onResponseReceived != null) {
                     //callback when the command response is received
-                    message.onResponseReceived!(value);
+                    message.onResponseReceived!(value!);
                   }
                 },
                 onError: (e) => "",
