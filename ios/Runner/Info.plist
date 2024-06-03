@@ -29,9 +29,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Need BLE permission to connect to Gear</string>
+	<string>Bluetooth is necessary to find and connect to The Tail Company&apos;s wings, ears, and tails</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Need BLE permission to connect to Gear</string>
+	<string>Bluetooth is necessary to find and connect to The Tail Company&apos;s wings, ears, and tails</string>
 	<key>NSMotionUsageDescription</key>
 	<string>This application uses motion to trigger actions when you are walking</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -64,6 +64,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSAppleMusicUsageDescription</key>
-    <string>Allow selecting found files to use as sound effects</string>
+	<string>Allow selecting found files to use as sound effects</string>
 </dict>
 </plist>
