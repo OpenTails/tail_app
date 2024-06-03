@@ -13,6 +13,7 @@ Theres so many improvements over our old app - heres the headlines
 - Triggers become global, rather than per gear. What will you dream up?
 - Joystick control. Waaaat?!
 - Tail Co links in the app
+- Lots of easy-to-use gestures to control your gear, like the volume keys
 - Haptic feedback, Kitsune Mode and Fake Gear mode (for those wishing to test the app before purchasing)
 - Much better handling of app crashes and errors.
 - And a "Send feedback" button that lets you navigate and illustrate the issue!
