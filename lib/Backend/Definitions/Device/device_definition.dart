@@ -158,7 +158,7 @@ class BaseStatefulDevice extends ChangeNotifier {
       batteryLow.value = batteryLevel.value < 20;
     });
     fwInfo.addListener(() {
-      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(Version.parse(fwInfo.value!.version)) > 0) {
+      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
         hasUpdate.value = true;
       }
     });
@@ -166,7 +166,7 @@ class BaseStatefulDevice extends ChangeNotifier {
       if (baseDeviceDefinition.minVersion != null && fwVersion.value.compareTo(baseDeviceDefinition.minVersion!) < 0) {
         mandatoryOtaRequired.value = true;
       }
-      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) > 0) {
+      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
         hasUpdate.value = true;
       }
     });
@@ -299,7 +299,7 @@ class CommandQueue {
       if (message.delay == null) {
         try {
           bluetoothLog.fine("Sending command to ${device.baseStoredDevice.name}:${message.message}");
-          Future<String>? response;
+          Future<String?>? response;
           //Start listening before the response is received
           Duration timeoutDuration = const Duration(seconds: 10);
           Timer? timer;
