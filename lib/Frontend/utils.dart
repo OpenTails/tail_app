@@ -70,7 +70,7 @@ Version getVersionSemVer(String input) {
   String major = "0";
   String minor = "0";
   String patch = "0";
-  List<String> split = input.split(".");
+  List<String> split = input.split(" ").last.split(".");
   if (split.isNotEmpty && int.tryParse(split[0]) != null) {
     major = split[0];
   }
