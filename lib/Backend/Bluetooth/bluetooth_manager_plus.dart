@@ -133,7 +133,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       if (count > 5 && HiveProxy.getOrDefault(settings, hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)!) {
         HiveProxy.put(settings, shouldDisplayReview, true);
         _bluetoothPlusLogger.finer('Setting shouldDisplayReview to true');
-      } else {
+      } else if (count <= 5) {
         HiveProxy.put(settings, gearDisconnectCount, count);
         _bluetoothPlusLogger.finer('Setting gearDisconnectCount to $count');
       }
