@@ -22,6 +22,9 @@ plugins {
     id "com.android.application" version '8.4.1' apply false
     id "org.jetbrains.kotlin.android" version "2.0.0" apply false
     id "io.sentry.android.gradle" version "4.6.0" apply false
+    id "org.jetbrains.kotlin.plugin.compose" version "2.0.0" apply false
+    // this version matches your Kotlin version
+
 }
 
 include ":app"
