@@ -2,8 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
+import 'package:tail_app/Backend/LoggingWrappers.dart';
 import 'package:tail_app/Backend/favorite_actions.dart';
 import 'package:tail_app/Backend/sensors.dart';
+import 'package:tail_app/constants.dart';
 
 import '../testing_utils/hive_utils.dart';
 
@@ -19,12 +21,15 @@ void main() {
     final container = ProviderContainer(
       overrides: [],
     );
+    expect(HiveProxy.getAll<FavoriteAction>(favoriteActionsBox).length, 0);
+    expect(container.read(favoriteActionsProvider).length, 0);
+
     BaseAction? baseAction = container.read(getActionFromUUIDProvider('c53e980e-899e-4148-a13e-f57a8f9707f4'));
     expect(baseAction != null, true);
     await container.read(favoriteActionsProvider.notifier).add(baseAction!);
     expect(container.read(favoriteActionsProvider).length, 1);
     expect(container.read(favoriteActionsProvider).first.actionUUID, 'c53e980e-899e-4148-a13e-f57a8f9707f4');
-
+    expect(HiveProxy.getAll<FavoriteAction>(favoriteActionsBox).length, 1);
     // force re-open of provider
 
     container.invalidate(favoriteActionsProvider);
@@ -34,5 +39,6 @@ void main() {
     // remove
     await container.read(favoriteActionsProvider.notifier).remove(baseAction);
     expect(container.read(favoriteActionsProvider).length, 0);
+    expect(HiveProxy.getAll<FavoriteAction>(favoriteActionsBox).length, 0);
   });
 }
