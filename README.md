@@ -3,6 +3,7 @@
 ![Translation](https://img.shields.io/weblate/progress/tail_app?server=https%3A%2F%2Fweblate.codel1417.xyz&style=for-the-badge)
 ![Sponsor](https://img.shields.io/github/sponsors/codel1417?style=for-the-badge)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/codel1417/tail_app/build.yml?style=for-the-badge)
+![Codecov](https://img.shields.io/codecov/c/github/OpenTails/tail_app)
 
 A Cross Platform Tail Company gear control App
 
@@ -298,7 +299,7 @@ Services go down daily at 6:00 AM UTC for offline backups. This Can take up to a
 #### Other URLS
 
 [Apple App Store connect](https://appstoreconnect.apple.com/apps)
-[Codecov Code Coverage](https://about.codecov.io/)
+[Codecov Code Coverage](https://app.codecov.io/gh/OpenTails/tail_app)
 ### Misc
 
 UUIDs were generated using https://www.uuidgenerator.net/version4
