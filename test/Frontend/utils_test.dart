@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:platform/platform.dart';
 import 'package:tail_app/Frontend/utils.dart';
+import 'package:tail_app/constants.dart';
 import 'package:test/test.dart';
 
 // Annotation which generates the cat.mocks.dart library and the MockCat class.
-@GenerateNiceMocks([MockSpec<LocalPlatform>()])
+@GenerateNiceMocks([MockSpec<LocalPlatform>(), MockSpec<BuildContext>(), MockSpec<Theme>(), MockSpec<ColorScheme>()])
 import 'utils_test.mocks.dart';
 
 void main() {
@@ -20,5 +22,16 @@ void main() {
     when(platform.isIOS).thenReturn(true);
     response = getOutboundUtm();
     expect(response, "?utm_medium=Tail_App?utm_source=tailappios");
+  });
+
+  test('Get text color', () {
+    Color color = getTextColor(Colors.white);
+    expect(color, Typography.material2021().black.labelLarge!.color!);
+    color = getTextColor(Colors.black);
+    expect(color, Typography.material2021().white.labelLarge!.color!);
+    color = getTextColor(Colors.yellowAccent);
+    expect(color, Typography.material2021().black.labelLarge!.color!);
+    color = getTextColor(Color(appColorDefault));
+    expect(color, Typography.material2021().white.labelLarge!.color!);
   });
 }
