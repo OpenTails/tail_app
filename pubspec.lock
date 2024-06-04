@@ -543,10 +543,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_foreground_task
-      sha256: d40a1ddd5f275450d2e32055e7f884796c028a02ac26c751c20916576f79e132
+      sha256: "1f9974fa9b322cca33d091857926165f5be46387f489d2335395b3cf6ac91b74"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.0"
+    version: "6.4.0"
   flutter_gen_core:
     dependency: transitive
     description:
@@ -1220,10 +1220,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_apple
-      sha256: e9ad66020b89ff1b63908f247c2c6f931c6e62699b756ef8b3c4569350cd8662
+      sha256: e6f6d73b12438ef13e648c4ae56bd106ec60d17e90a59c4545db6781229082a0
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.4"
+    version: "9.4.5"
   permission_handler_html:
     dependency: transitive
     description:
@@ -1755,10 +1755,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "6ce1e04375be4eed30548f10a315826fd933c1e493206eab82eed01f438c8d2e"
+      sha256: "21b704ce5fa560ea9f3b525b43601c678728ba46725bab9b01187b4831377ed3"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.6"
+    version: "6.3.0"
   url_launcher_android:
     dependency: transitive
     description:
@@ -1947,10 +1947,10 @@ packages:
     dependency: "direct main"
     description:
       name: wordpress_client
-      sha256: "0693e15f030c204a060bc832b293f76e2c301a5ecd2cb3484d1184a2a4503389"
+      sha256: "7f599dfdfc09fcaddff645542c5978c14fa32f0d876be3b2969cae9e0dbe3733"
       url: "https://pub.dev"
     source: hosted
-    version: "8.4.10"
+    version: "8.5.0"
   xdg_directories:
     dependency: transitive
     description:
