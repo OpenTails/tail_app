@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:quick_actions_platform_interface/quick_actions_platform_interface.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/LoggingWrappers.dart';
 import 'package:tail_app/Backend/favorite_actions.dart';
@@ -12,6 +15,7 @@ import '../testing_utils/hive_utils.dart';
 void main() {
   setUp(() async {
     flTest.TestWidgetsFlutterBinding.ensureInitialized();
+    QuickActionsPlatform.instance = MockQuickActionsPlatform();
     await setupHive();
   });
   tearDown(() async {
@@ -41,4 +45,15 @@ void main() {
     expect(container.read(favoriteActionsProvider).length, 0);
     expect(HiveProxy.getAll<FavoriteAction>(favoriteActionsBox).length, 0);
   });
+}
+
+class MockQuickActionsPlatform extends Mock with MockPlatformInterfaceMixin implements QuickActionsPlatform {
+  @override
+  Future<void> clearShortcutItems() async => super.noSuchMethod(Invocation.method(#clearShortcutItems, <Object?>[]));
+
+  @override
+  Future<void> initialize(QuickActionHandler? handler) async => super.noSuchMethod(Invocation.method(#initialize, <Object?>[handler]));
+
+  @override
+  Future<void> setShortcutItems(List<ShortcutItem>? items) async => super.noSuchMethod(Invocation.method(#setShortcutItems, <Object?>[items]));
 }
