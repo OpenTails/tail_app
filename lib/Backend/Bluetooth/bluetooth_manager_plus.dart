@@ -106,7 +106,6 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         _bluetoothPlusLogger.finer('Requesting notification permission result${await Permission.notification.request()}'); // Used only for Foreground service
         FlutterForegroundTask.init(
           androidNotificationOptions: AndroidNotificationOptions(
-            foregroundServiceType: AndroidForegroundServiceType.CONNECTED_DEVICE,
             channelId: 'foreground_service',
             channelName: 'Gear Connected',
             channelDescription: 'This notification appears when any gear is running.',
