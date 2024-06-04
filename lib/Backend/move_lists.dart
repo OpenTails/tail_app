@@ -147,7 +147,11 @@ class MoveList extends BaseAction {
   @HiveField(6)
   double repeat = 1;
 
-  MoveList({required super.name, required super.deviceCategory, super.actionCategory = ActionCategory.sequence, required super.uuid, this.moves = const []});
+  MoveList({required super.name, required super.deviceCategory, super.actionCategory = ActionCategory.sequence, required super.uuid, this.moves = const []}) {
+    if (moves.isEmpty) {
+      moves = [];
+    }
+  }
 }
 
 class EarsMoveList extends MoveList {
