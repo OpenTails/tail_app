@@ -1,17 +1,14 @@
 on:
   push:
+    branches:
+      - master
     paths-ignore:
       - '*.md'
   pull_request:
 jobs:
   run-tests:
-    permissions:
-      pull-requests: read
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, macos-latest ]
     name: Build
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
