@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/action_registry.dart';
 
 import '../testing_utils/gear_utils.dart';
@@ -66,6 +67,51 @@ void main() {
         overrides: [],
       );
       Map<ActionCategory, Set<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
+      expect(actions.length, 0);
+    });
+  });
+
+  group('getAllActions', () {
+    test('All Actions', () {
+      final container = ProviderContainer(
+        overrides: [],
+      );
+      var actions = container.read(getAllActionsProvider(DeviceType.values.toSet()));
+      expect(actions.length, 5);
+    });
+    test('Tail Actions', () {
+      final container = ProviderContainer(
+        overrides: [],
+      );
+      var actions = container.read(getAllActionsProvider({DeviceType.tail}));
+      expect(actions.length, 4);
+    });
+    test('Ear Actions', () {
+      final container = ProviderContainer(
+        overrides: [],
+      );
+      var actions = container.read(getAllActionsProvider({DeviceType.ears}));
+      expect(actions.length, 1);
+    });
+    test('Wings Actions', () {
+      final container = ProviderContainer(
+        overrides: [],
+      );
+      var actions = container.read(getAllActionsProvider({DeviceType.wings}));
+      expect(actions.length, 3);
+    });
+    test('Mini Tail Actions', () {
+      final container = ProviderContainer(
+        overrides: [],
+      );
+      var actions = container.read(getAllActionsProvider({DeviceType.miniTail}));
+      expect(actions.length, 3);
+    });
+    test('No Actions', () {
+      final container = ProviderContainer(
+        overrides: [],
+      );
+      var actions = container.read(getAllActionsProvider({}));
       expect(actions.length, 0);
     });
   });
