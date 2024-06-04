@@ -135,12 +135,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Oreilles",
-  "@actionsCategoryEars": {
-    "description": "ears action group label",
-    "type": "text",
-    "placeholders": {}
-  },
   "settingsHapticsToggleTitle": "Retour haptique",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",

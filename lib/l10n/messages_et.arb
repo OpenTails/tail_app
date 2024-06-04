@@ -219,12 +219,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Kõrvad",
-  "@actionsCategoryEars": {
-    "description": "ears action group label",
-    "type": "text",
-    "placeholders": {}
-  },
   "actionsSelectScreen": "Valige toiming",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",

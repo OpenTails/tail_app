@@ -201,12 +201,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Oren",
-  "@actionsCategoryEars": {
-    "description": "ears action group label",
-    "type": "text",
-    "placeholders": {}
-  },
   "actionsSelectScreen": "Selecteer een actie",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",

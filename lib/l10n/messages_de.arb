@@ -159,12 +159,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Ohren",
-  "@actionsCategoryEars": {
-    "description": "ears action group label",
-    "type": "text",
-    "placeholders": {}
-  },
   "settingsHapticsToggleTitle": "Haptisches Feedback",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
