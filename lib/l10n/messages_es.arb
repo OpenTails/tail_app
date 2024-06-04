@@ -327,12 +327,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Orejas",
-  "@actionsCategoryEars": {
-    "description": "ears action group label",
-    "type": "text",
-    "placeholders": {}
-  },
   "sequencesEditLeftServo": "Posición del servo izquierdo",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",

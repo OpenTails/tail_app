@@ -237,12 +237,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Orecchie",
-  "@actionsCategoryEars": {
-    "description": "ears action group label",
-    "type": "text",
-    "placeholders": {}
-  },
   "actionsSelectScreen": "Seleziona un'azione",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
