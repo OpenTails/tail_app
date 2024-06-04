@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Backend/LoggingWrappers.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 
 Future<BaseStatefulDevice> createAndStoreGear(String gearBtName, ProviderContainer ref) async {
@@ -17,4 +19,19 @@ Future<BaseStatefulDevice> createAndStoreGear(String gearBtName, ProviderContain
     await ref.read(knownDevicesProvider.notifier).add(statefulDevice);
   }
   return statefulDevice;
+}
+
+Future<ProviderContainer> testGearAdd(String name) async {
+  final container = ProviderContainer(
+    overrides: [],
+  );
+  expect(container.read(knownDevicesProvider).length, 0);
+  expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 0);
+  BaseStatefulDevice baseStatefulDevice = await createAndStoreGear(name, container);
+  expect(baseStatefulDevice.baseDeviceDefinition.btName, name);
+  expect(container.read(knownDevicesProvider).length, 1);
+  expect(container.read(knownDevicesProvider).values.first, baseStatefulDevice);
+  expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 1);
+  expect(HiveProxy.getAll<BaseStoredDevice>('devices').first, baseStatefulDevice.baseStoredDevice);
+  return container;
 }

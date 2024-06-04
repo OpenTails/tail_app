@@ -359,15 +359,15 @@ class FavoriteActions extends _$FavoriteActions {
     return results;
   }
 
-  void add(BaseAction action) {
+  Future<void> add(BaseAction action) async {
     state.add(FavoriteAction(actionUUID: action.uuid, id: state.length + 1));
     state.sort();
-    store();
+    await store();
   }
 
-  void remove(BaseAction action) {
+  Future<void> remove(BaseAction action) async {
     state.removeWhere((element) => element.actionUUID == action.uuid);
-    store();
+    await store();
   }
 
   bool contains(BaseAction action) {

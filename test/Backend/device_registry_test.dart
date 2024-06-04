@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
@@ -11,20 +9,6 @@ import 'package:test/test.dart';
 
 import '../testing_utils/gear_utils.dart';
 import '../testing_utils/hive_utils.dart';
-
-Future<void> testGearAdd(String name) async {
-  final container = ProviderContainer(
-    overrides: [],
-  );
-  expect(container.read(knownDevicesProvider).length, 0);
-  expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 0);
-  BaseStatefulDevice baseStatefulDevice = await createAndStoreGear(name, container);
-  expect(baseStatefulDevice.baseDeviceDefinition.btName, name);
-  expect(container.read(knownDevicesProvider).length, 1);
-  expect(container.read(knownDevicesProvider).values.first, baseStatefulDevice);
-  expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 1);
-  expect(HiveProxy.getAll<BaseStoredDevice>('devices').first, baseStatefulDevice.baseStoredDevice);
-}
 
 void main() {
   setUp(() async {
