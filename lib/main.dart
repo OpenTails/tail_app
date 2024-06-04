@@ -135,20 +135,18 @@ Future<void> initHive() async {
   final Directory appDir = await getApplicationSupportDirectory();
   SentryHive
     ..init(appDir.path)
-    ..registerAdapter(BaseStoredDeviceAdapter())
-    ..registerAdapter(MoveListAdapter())
-    ..registerAdapter(MoveAdapter())
-    ..registerAdapter(BaseActionAdapter())
-    ..registerAdapter(TriggerAdapter())
-    ..registerAdapter(TriggerActionAdapter())
-    ..registerAdapter(ActionCategoryAdapter())
-    ..registerAdapter(DeviceTypeAdapter())
-    ..registerAdapter(MoveTypeAdapter())
-    ..registerAdapter(EasingTypeAdapter())
-    ..registerAdapter(
-      AudioActionAdapter(),
-    )
-    ..registerAdapter(FavoriteActionAdapter());
+    ..registerAdapter(BaseStoredDeviceAdapter(), override: true)
+    ..registerAdapter(MoveListAdapter(), override: true)
+    ..registerAdapter(MoveAdapter(), override: true)
+    ..registerAdapter(BaseActionAdapter(), override: true)
+    ..registerAdapter(TriggerAdapter(), override: true)
+    ..registerAdapter(TriggerActionAdapter(), override: true)
+    ..registerAdapter(ActionCategoryAdapter(), override: true)
+    ..registerAdapter(DeviceTypeAdapter(), override: true)
+    ..registerAdapter(MoveTypeAdapter(), override: true)
+    ..registerAdapter(EasingTypeAdapter(), override: true)
+    ..registerAdapter(AudioActionAdapter(), override: true)
+    ..registerAdapter(FavoriteActionAdapter(), override: true);
   await SentryHive.openBox(settings); // Do not set type here
   await SentryHive.openBox<Trigger>(triggerBox);
   await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);

@@ -79,7 +79,7 @@ class DeviceRegistry {
   }
 
   static List<String> getAllIds() {
-    return allDevices.map((BaseDeviceDefinition e) => e.bleDeviceService).toList();
+    return allDevices.map((BaseDeviceDefinition e) => e.bleDeviceService).toSet().toList();
   }
 }
 
