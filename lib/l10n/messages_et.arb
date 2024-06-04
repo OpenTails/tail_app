@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPage": "Juhtkang",
+  "joyStickPage": "Okei",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Lisa Liikumine",
+  "sequencesEditAdd": "Lisa liiguta",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "Viivitus",
+  "sequencesEditDelay": "Liiguta",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryTense": "Pettunud ja pinges",
+  "actionsCategoryTense": "Redigeeri toimingut",
   "@actionsCategoryTense": {
     "description": "tense action group label",
     "type": "text",
@@ -333,7 +333,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Käivitage toiming, kattes lähedusanduri",
+  "triggerCoverDescription": "Kaas",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonTitle": "Helitugevuse nupud",
+  "triggerVolumeButtonTitle": "Käivitage kõndimisel toiming",
   "@triggerVolumeButtonTitle": {
     "description": "Volume Button trigger title",
     "type": "text",
@@ -645,13 +645,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Puudutage pliiatsit, et valida sündmuse toimumisel esitatav toiming. Toimingu eemaldamiseks puudutage toimingut selle eemaldamiseks uuesti. Ärge unustage salvestada, kasutades ülaosas olevat salvestamisikooni",
+  "triggerInfoEditActionDescription": "Läheduses Gear",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Kuigi kogutud andmed on anonüümsed ja neid ei saa kasutada konkreetse kasutaja tuvastamiseks, peate siiski nõustuma privaatsuspoliitikaga",
+  "onboardingPrivacyPolicyDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit.",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Seadmega kaetud",
+  "homeWelcomeMessage": "Siin saate juhtida, uurida ja värskendada kogu oma Tail Co varustust. Saadaval on ka juhised ja juhendid. Head vehkimist!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -894,6 +894,36 @@
   "deviceTypeMiniTail": "Mini Tail",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Lisage Fake Gear",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Kas soovite rakendust proovida, kuid ootate, kuni teie varustus kohale jõuab? Lisage võltsvarustus. See võimaldab teil kasutada rakendust nii, nagu oleks teil oma varustus või kui soovite proovida varustust, mida te praegu ei oma. See lubab lehel „Uue varustuse otsimine” uue jaotise.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Otsige pidevalt teadaolevat käiku. Kui see on keelatud, peate skannimiseks pühkima käiguribal.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Võltsitud varustus",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Eemaldage kõik võltsvarustus",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
