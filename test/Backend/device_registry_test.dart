@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/LoggingWrappers.dart';
 import 'package:tail_app/Backend/device_registry.dart';
@@ -80,6 +81,49 @@ void main() {
     test('Test getting EarGear by id', () async {
       BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID("ba2f2b00-8f65-4cc3-afad-58ba1fccd62d");
       expect(baseDeviceDefinition.uuid, "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d");
+    });
+  });
+  group('Get known gear by action', () {
+    test('Get Tail from action', () async {
+      final container = ProviderContainer(
+        overrides: [],
+      );
+      String name = 'MiTail';
+      String name2 = 'EG2';
+      expect(container.read(knownDevicesProvider).length, 0);
+      expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 0);
+      BaseStatefulDevice baseStatefulDevice = await createAndStoreGear(name, container);
+      expect(baseStatefulDevice.baseDeviceDefinition.btName, name);
+      expect(container.read(knownDevicesProvider).length, 1);
+      expect(container.read(knownDevicesProvider).values.first, baseStatefulDevice);
+      expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 1);
+      expect(HiveProxy.getAll<BaseStoredDevice>('devices').first, baseStatefulDevice.baseStoredDevice);
+
+      BaseStatefulDevice baseStatefulDevice2 = await createAndStoreGear(name2, container);
+      expect(baseStatefulDevice2.baseDeviceDefinition.btName, name2);
+      expect(container.read(knownDevicesProvider).length, 2);
+      expect(container.read(knownDevicesProvider).values.contains(baseStatefulDevice2), true);
+      expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 2);
+      expect(HiveProxy.getAll<BaseStoredDevice>('devices').contains(baseStatefulDevice2.baseStoredDevice), true);
+
+      BaseAction baseAction = BaseAction(name: "name", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.hidden, uuid: "uuid");
+      BaseAction baseAction2 = BaseAction(name: "name1", deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: "uuid1");
+      BaseAction baseAction3 = BaseAction(name: "name2", deviceCategory: [DeviceType.tail, DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: "uuid2");
+
+      Set<BaseStatefulDevice> devices = container.read(getByActionProvider(baseAction));
+      expect(devices.length, 1);
+      expect(devices.first, baseStatefulDevice);
+
+      devices = {};
+      devices = container.read(getByActionProvider(baseAction2));
+      expect(devices.length, 1);
+      expect(devices.first, baseStatefulDevice2);
+
+      devices = {};
+      devices = container.read(getByActionProvider(baseAction3));
+      expect(devices.length, 2);
+      expect(devices.contains(baseStatefulDevice), true);
+      expect(devices.contains(baseStatefulDevice2), true);
     });
   });
   test('Get all service IDs', () {
