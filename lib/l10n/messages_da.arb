@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAppColor": "App farve",
+  "settingsAppColor": "Rapportér ikke-identificerende funktionsbrug til Plausible for at forbedre appen",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
     "type": "text",
@@ -339,7 +339,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Enhed afdækket",
+  "triggerCoverFar": "Enhed dækket",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Udløs en handling, hvis gear er i nærheden",
+  "triggerProximityDescription": "Nærliggende Gear",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "Ansvarlig logning",
+  "moreManualResponsibleWaggingTitle": "Tilt bagud",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
@@ -531,7 +531,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Tryk for at se",
+  "moreManualSubTitle": "Manualer",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Custom Actions giver dig mulighed for at lave dine egne Actions for gear. Hvis du trykker på en brugerdefineret handling, afspilles den. Tryk på blyanten for at redigere en tilpasset handling.",
+  "sequencesInfoDescription": "Godt logrende!",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -777,13 +777,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Du kan styre, udforske og opdatere alt dit Tail Co-udstyr lige her i denne app. Der er også instruktioner og vejledninger tilgængelige. Godt logrende!",
+  "homeWelcomeMessage": "Du kan styre, udforske og opdatere alt dit Tail Co-udstyr lige her. Der er også instruktioner og vejledninger tilgængelige. Godt logrende!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Frisk fra Halebloggen",
+  "homeNewsTitle": "Frisk fra halebloggen",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -873,7 +873,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioAdd": "Tilføj lydeffekt",
+  "audioAdd": "Skjul de forskellige vejledningskort i hele appen",
   "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
@@ -894,6 +894,36 @@
   "deviceTypeMiniTail": "Mini hale",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Falsk gear",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Tilføj Fake Gear",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Fjern alt falsk gear",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Scan kontinuerligt for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Vil du prøve appen, men venter på, at dit udstyr kommer? Tilføj et falsk gear. Dette giver dig mulighed for at opleve appen, som om du havde dit udstyr, eller hvis du vil prøve udstyr, du ikke ejer i øjeblikket. Dette aktiverer et nyt afsnit på siden 'Scan efter nyt gear'.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
