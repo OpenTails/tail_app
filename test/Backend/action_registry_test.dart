@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/action_registry.dart';
 
@@ -15,6 +16,7 @@ void main() {
   });
   tearDown(() async {
     await deleteHive();
+    isAnyGearConnected.value = false;
   });
   test('All actions count', () {
     expect(ActionRegistry.allCommands.length, 26);
