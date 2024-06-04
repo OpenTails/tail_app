@@ -1,4 +1,3 @@
-import 'package:cross_platform/cross_platform.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -7,22 +6,25 @@ import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:platform/platform.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
 import '../Backend/LoggingWrappers.dart';
 
+LocalPlatform platform = const LocalPlatform();
+
 Future<bool> getBluetoothPermission(Logger logger) async {
   bool granted = false;
-  if (Platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
+  if (platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
     PermissionStatus permissionStatusScan = await Permission.bluetoothScan.request();
     logger.info("permissionStatusScan $permissionStatusScan");
     granted = PermissionStatus.granted == permissionStatusScan;
     PermissionStatus permissionStatusConnect = await Permission.bluetoothConnect.request();
     logger.info("permissionStatusConnect $permissionStatusConnect");
     granted = granted && PermissionStatus.granted == permissionStatusConnect;
-  } else if (Platform.isAndroid) {
+  } else if (platform.isAndroid) {
     PermissionStatus permissionStatusLocation = await Permission.location.request();
     logger.info("permissionStatusLocation $permissionStatusLocation");
     granted = PermissionStatus.granted == permissionStatusLocation;
@@ -129,11 +131,10 @@ Future<void> setupSystemColor(BuildContext context) async {
 
 String getOutboundUtm() {
   String utm = "?utm_medium=Tail_App";
-
-  if (Platform.isAndroid) {
-    utm = "$utm?utm_source=tailappandr'";
-  } else if (Platform.isIOS) {
-    utm = "$utm?utm_source=tailappios'";
+  if (platform.isAndroid) {
+    utm = "$utm?utm_source=tailappandr";
+  } else if (platform.isIOS) {
+    utm = "$utm?utm_source=tailappios";
   }
 
   return utm;
