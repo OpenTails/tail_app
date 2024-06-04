@@ -159,7 +159,7 @@
       }
     }
   },
-  "actionsNoBluetooth": "Bluetooth недоступен",
+  "actionsNoBluetooth": "Задерживать",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Автоматическое сообщение об ошибках",
+  "settingsErrorReportingToggleTitle": "Карты действий становятся больше, чтобы их было легче нажимать.",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -723,7 +723,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaCompletedTitle": "Обновление завершено",
+  "otaCompletedTitle": "Журнал изменений прошивки",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Низкий заряд батареи. Пожалуйста, зарядите свое снаряжение минимум на 50 %.",
+  "otaLowBattery": "Управление пользовательскими звуковыми эффектами",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Вы можете контролировать, исследовать и обновлять все свое снаряжение Tail Co прямо здесь, в этом приложении. Также доступны инструкции и руководства. Приятного виляния!",
+  "homeWelcomeMessage": "Вы можете контролировать, исследовать и обновлять все свое снаряжение Tail Co прямо здесь. Также имеются инструкции и руководства. Приятного виляния!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -894,6 +894,36 @@
   "deviceTypeMiniTail": "Мини Хвост",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Поддельное снаряжение",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Постоянно сканируйте известное снаряжение. Если этот параметр отключен, для сканирования необходимо провести пальцем по шестеренке.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Добавить поддельное снаряжение",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Удалите все поддельное снаряжение",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Хотите опробовать приложение, но ждете доставки своего оборудования? Добавьте фальшивое снаряжение. Это позволяет вам использовать приложение так, как будто у вас есть свое оборудование или вы хотите опробовать снаряжение, которого у вас в настоящее время нет. Это активирует новый раздел на странице «Поиск нового снаряжения».",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
