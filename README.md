@@ -298,7 +298,7 @@ Services go down daily at 6:00 AM UTC for offline backups. This Can take up to a
 #### Other URLS
 
 [Apple App Store connect](https://appstoreconnect.apple.com/apps)
-
+[Codecov Code Coverage](https://about.codecov.io/)
 ### Misc
 
 UUIDs were generated using https://www.uuidgenerator.net/version4
