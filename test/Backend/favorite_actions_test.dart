@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:flutter_test/flutter_test.dart';
@@ -40,6 +41,8 @@ void main() {
     expect(container.read(favoriteActionsProvider).length, 1);
     expect(container.read(favoriteActionsProvider).first.actionUUID, 'c53e980e-899e-4148-a13e-f57a8f9707f4');
 
+    expect(container.read(favoriteActionsProvider.notifier).contains(baseAction), true);
+    container.read(favoriteActionsProvider).sorted();
     // remove
     await container.read(favoriteActionsProvider.notifier).remove(baseAction);
     expect(container.read(favoriteActionsProvider).length, 0);
