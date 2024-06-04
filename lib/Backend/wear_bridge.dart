@@ -12,7 +12,7 @@ import 'package:tail_app/Backend/sensors.dart';
 import 'Bluetooth/bluetooth_manager.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
-import 'action_registry.dart';
+import 'favorite_actions.dart';
 import 'move_lists.dart';
 
 part 'wear_bridge.g.dart';

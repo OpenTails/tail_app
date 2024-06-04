@@ -3,11 +3,11 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
-import 'package:tail_app/Backend/action_registry.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Backend/sensors.dart';
 
 import 'Definitions/Device/device_definition.dart';
+import 'favorite_actions.dart';
 
 part 'app_shortcuts.g.dart';
 

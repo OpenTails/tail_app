@@ -14,6 +14,7 @@ import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/LoggingWrappers.dart';
 import '../../Backend/action_registry.dart';
 import '../../Backend/device_registry.dart';
+import '../../Backend/favorite_actions.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
