@@ -35,18 +35,18 @@ class KnownDevices extends _$KnownDevices {
     return results;
   }
 
-  void add(BaseStatefulDevice baseStatefulDevice) {
+  Future<void> add(BaseStatefulDevice baseStatefulDevice) async {
     Map<String, BaseStatefulDevice> state2 = Map.from(state);
     state2[baseStatefulDevice.baseStoredDevice.btMACAddress] = baseStatefulDevice;
     state = state2;
-    store();
+    await store();
   }
 
-  void remove(String id) {
+  Future<void> remove(String id) async {
     Map<String, BaseStatefulDevice> state2 = Map.from(state);
     state2.remove(id);
     state = state2;
-    store();
+    await store();
   }
 
   Future<void> store() async {

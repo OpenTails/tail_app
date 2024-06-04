@@ -63,3 +63,7 @@ android/build/
 android/key.properties
 
 lib/gen/assets.gen.dart
+
+coverage/
+
+*.mocks.dart
