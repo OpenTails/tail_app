@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Attiva un'azione quando EarGear rileva il suono",
+  "triggerEarMicDescription": "Microfono EarGear",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Inclinazione in avanti",
+  "triggerEarTiltForward": "Scuotere",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Premere di nuovo per uscire ",
+  "doubleBackToClose": "Buon scodinzolante! ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Puoi controllare, esplorare e aggiornare tutta la tua attrezzatura Tail Co proprio qui in questa app. Sono disponibili anche istruzioni e guide. Buon scodinzolante!",
+  "homeWelcomeMessage": "Puoi controllare, esplorare e aggiornare tutta la tua attrezzatura Tail Co proprio qui. Sono disponibili anche istruzioni e guide. Buon scodinzolante!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -855,7 +855,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioEditDescription": "Gestisci effetti sonori personalizzati",
+  "audioEditDescription": "Fatto",
   "@audioEditDescription": {
     "description": "Label for sound files",
     "type": "text",
@@ -894,6 +894,36 @@
   "deviceTypeMiniTail": "Mini coda",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Cerca continuamente attrezzi conosciuti. Quando disabilitato, è necessario scorrere sulla barra degli ingranaggi per eseguire la scansione.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Ingranaggio falso",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Aggiungi attrezzatura falsa",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Rimuovi tutti gli attrezzi falsi",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Vuoi provare l'app ma stai aspettando che arrivi la tua attrezzatura? Aggiungi un equipaggiamento falso. Ciò ti consente di provare l'app come se avessi la tua attrezzatura o se desideri provare l'attrezzatura che attualmente non possiedi. Ciò abilita una nuova sezione nella pagina \"Cerca nuova attrezzatura\".",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
