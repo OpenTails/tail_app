@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Retardez le prochain coup pendant {howMany} ms.",
+  "sequenceEditListDelayLabel": "Mise à jour du matériel. Veuillez ne pas éteindre votre équipement ni fermer l'application",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -429,7 +429,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAppColor": "Couleur de l'application",
+  "settingsAppColor": "Signaler l'utilisation non identifiante des fonctionnalités à Plausible pour améliorer l'application",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Journal des modifications du micrologiciel",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Fermer",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Vous pouvez contrôler, explorer et mettre à jour tout votre équipement Tail Co ici même dans cette application. Des instructions et des guides sont également disponibles. Bonne agitation !",
+  "homeWelcomeMessage": "Vous pouvez contrôler, explorer et mettre à jour tout votre équipement Tail Co ici. Des instructions et des guides sont également disponibles. Bonne agitation !",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -849,7 +849,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioPage": "Sons personnalisés",
+  "audioPage": "Déclenchez une action en recouvrant le capteur de proximité",
   "@audioPage": {
     "description": "The label and title of the custom audio management page",
     "type": "text",
@@ -894,6 +894,36 @@
   "deviceTypeMiniTail": "Mini-queue",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Recherchez en permanence les équipements connus. Lorsqu'il est désactivé, vous devez faire glisser votre doigt sur la barre d'engrenage pour numériser.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Faux équipement",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Ajouter du faux équipement",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Supprimez tous les faux équipements",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Vous souhaitez essayer l'application mais vous attendez l'arrivée de votre matériel ? Ajoutez un faux équipement. Cela vous permet de découvrir l'application comme si vous aviez votre équipement ou si vous souhaitez essayer un équipement que vous ne possédez pas actuellement. Cela active une nouvelle section sur la page « Rechercher de nouveaux équipements ».",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
