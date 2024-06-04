@@ -225,12 +225,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Uši",
-  "@actionsCategoryEars": {
-    "description": "ears action group label",
-    "type": "text",
-    "placeholders": {}
-  },
   "actionsSelectScreen": "Vyberte akci",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",

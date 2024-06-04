@@ -195,12 +195,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryEars": "Uszy",
-  "@actionsCategoryEars": {
-    "description": "ears action group label",
-    "type": "text",
-    "placeholders": {}
-  },
   "actionsSelectScreen": "Wybierz akcję",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
