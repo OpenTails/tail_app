@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsPage": "Ajustes",
+  "settingsPage": "Controla directamente la posición del engranaje.",
   "@settingsPage": {
     "description": "The label and title of the settings page",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Envía informes de errores a Sentry",
+  "settingsErrorReportingToggleSubTitle": "Tarjetas más grandes",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -543,7 +543,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Más",
+  "moreTitle": "Enlaces útiles",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Hace que las tarjetas de acción sean más grandes para tocarlas más fácilmente.",
+  "settingsLargerCardsToggleSubTitle": "Registro de cambios",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Si bien los datos recopilados son anónimos y no pueden usarse para identificar a un usuario específico, aún debes aceptar la política de privacidad.",
+  "onboardingPrivacyPolicyDescription": "Inclinación hacia la derecha",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Puedes controlar, explorar y actualizar todo tu equipo de Tail Co aquí mismo en esta aplicación. También hay instrucciones y guías disponibles. ¡Feliz meneo!",
+  "homeWelcomeMessage": "Puedes controlar, explorar y actualizar todo tu equipo de Tail Co aquí mismo. También hay instrucciones y guías disponibles. ¡Feliz meneo!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -807,7 +807,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Recién salido del blog Tail",
+  "homeNewsTitle": "Alas",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -888,6 +888,42 @@
   "audioTipCard": "Puede agregar sonidos personalizados que aparecen en la pestaña Acciones y se pueden usar con activadores.",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Busque continuamente equipos conocidos. Cuando está deshabilitado, debes deslizar el dedo sobre la barra de engranajes para escanear.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Equipo falso",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Agregar equipo falso",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "mini cola",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Quitar todo el equipo falso",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "¿Quieres probar la aplicación pero estás esperando que llegue tu equipo? Añade un equipo falso. Esto le permite experimentar la aplicación como si tuviera su equipo, o si desea probar equipo que actualmente no posee. Esto habilita una nueva sección en la página 'Buscar equipo nuevo'.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
