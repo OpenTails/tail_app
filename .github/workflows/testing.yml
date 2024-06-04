@@ -1,0 +1,34 @@
+on:
+  push:
+    paths-ignore:
+      - '*.md'
+  pull_request:
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    permissions:
+      pull-requests: read
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+    name: Build
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Environment
+        uses: ./.github/actions/setup_build
+      - name: Pre Build Tasks
+        uses: ./.github/actions/pre_build
+      - name: Run Tests
+        run: dart pub run test --coverage="coverage"
+      - name: format coverage
+        run: $HOME/.pub-cache/bin/format_coverage --lcov --in=coverage --out=coverage.lcov --packages=.packages --report-on=lib
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.lcov
