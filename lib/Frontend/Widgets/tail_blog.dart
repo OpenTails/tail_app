@@ -51,7 +51,7 @@ class _TailBlogState extends State<TailBlog> {
                   height: 300,
                   child: InkWell(
                     onTap: () async {
-                      await launchUrl(Uri.parse("${feedItem.url}?utm_source=Tail_App'"));
+                      await launchUrl(Uri.parse("${feedItem.url}${getOutboundUtm()}"));
                     },
                     child: Stack(
                       alignment: Alignment.bottomCenter,

@@ -126,3 +126,15 @@ Future<void> setupSystemColor(BuildContext context) async {
   }
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 }
+
+String getOutboundUtm() {
+  String utm = "?utm_medium=Tail_App";
+
+  if (Platform.isAndroid) {
+    utm = "$utm?utm_source=tailappandr'";
+  } else if (Platform.isIOS) {
+    utm = "$utm?utm_source=tailappios'";
+  }
+
+  return utm;
+}

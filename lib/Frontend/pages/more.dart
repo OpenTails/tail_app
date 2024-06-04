@@ -83,9 +83,9 @@ class _MoreState extends ConsumerState<More> {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
-        PdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf"),
-        PdfWidget(name: moreManualEargearTitle(), url: "https://thetailcompany.com/eargear.pdf"),
-        PdfWidget(name: moreManualFlutterWingsTitle(), url: "https://thetailcompany.com/flutterwings.pdf"),
+        PdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf${getOutboundUtm()}"),
+        PdfWidget(name: moreManualEargearTitle(), url: "https://thetailcompany.com/eargear.pdf${getOutboundUtm()}"),
+        PdfWidget(name: moreManualFlutterWingsTitle(), url: "https://thetailcompany.com/flutterwings.pdf${getOutboundUtm()}"),
         ListTile(
           title: Text(moreManualResponsibleWaggingTitle()),
           subtitle: Text(moreManualSubTitle()),
@@ -104,7 +104,7 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.store),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
+            await launchUrl(Uri.parse('https://thetailcompany.com/${getOutboundUtm()}'));
           },
         ),
         ListTile(
@@ -112,7 +112,7 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.menu_book),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('https://docs.thetailcompany.com/?utm_source=Tail_App'));
+            await launchUrl(Uri.parse('https://docs.thetailcompany.com/${getOutboundUtm()}'));
           },
         ),
         ListTile(
