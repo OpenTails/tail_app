@@ -59,5 +59,12 @@ void main() {
       expect(actions[ActionCategory.fast]?.length, 4);
       expect(actions[ActionCategory.tense]?.length, 4);
     });
+    test('No Actions', () async {
+      final providerContainer = ProviderContainer(
+        overrides: [],
+      );
+      Map<ActionCategory, Set<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
+      expect(actions.length, 0);
+    });
   });
 }
