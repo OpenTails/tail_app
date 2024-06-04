@@ -53,8 +53,38 @@ void main() {
       await testGearAdd('EarGear');
     });
   });
+  group('Test getting gear by id', () {
+    test('verify number of device definitions', () {
+      expect(DeviceRegistry.allDevices.length, 6);
+    });
+    test('Test getting MiTail by id', () async {
+      BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID("798e1528-2832-4a87-93d7-4d1b25a2f418");
+      expect(baseDeviceDefinition.uuid, "798e1528-2832-4a87-93d7-4d1b25a2f418");
+    });
+    test('Test getting (!)Tail1 by id', () async {
+      BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID("9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee");
+      expect(baseDeviceDefinition.uuid, "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee");
+    });
+    test('Test getting minitail by id', () async {
+      BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID("5fb21175-fef4-448a-a38b-c472d935abab");
+      expect(baseDeviceDefinition.uuid, "5fb21175-fef4-448a-a38b-c472d935abab");
+    });
+    test('Test getting flutter by id', () async {
+      BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID("e790f509-f95b-4eb4-b649-5b43ee1eee9c");
+      expect(baseDeviceDefinition.uuid, "e790f509-f95b-4eb4-b649-5b43ee1eee9c");
+    });
+    test('Test getting EG2 by id', () async {
+      BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID("927dee04-ddd4-4582-8e42-69dc9fbfae66");
+      expect(baseDeviceDefinition.uuid, "927dee04-ddd4-4582-8e42-69dc9fbfae66");
+    });
+    test('Test getting EarGear by id', () async {
+      BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID("ba2f2b00-8f65-4cc3-afad-58ba1fccd62d");
+      expect(baseDeviceDefinition.uuid, "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d");
+    });
+  });
   test('Get all service IDs', () {
     List<String> allIds = DeviceRegistry.getAllIds();
+    expect(allIds.length, 2);
     String itemsAsList = allIds.toString();
     expect(itemsAsList, "[3af2108b-d066-42da-a7d4-55648fa0a9b6, 927dee04-ddd4-4582-8e42-69dc9fbfae66]");
   });
