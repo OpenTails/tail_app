@@ -3,7 +3,7 @@
 ![Translation](https://img.shields.io/weblate/progress/tail_app?server=https%3A%2F%2Fweblate.codel1417.xyz&style=for-the-badge)
 ![Sponsor](https://img.shields.io/github/sponsors/codel1417?style=for-the-badge)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/codel1417/tail_app/build.yml?style=for-the-badge)
-![Codecov](https://img.shields.io/codecov/c/github/OpenTails/tail_app)
+![Codecov](https://img.shields.io/codecov/c/github/OpenTails/tail_app?style=for-the-badge)
 
 A Cross Platform Tail Company gear control App
 
