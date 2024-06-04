@@ -79,8 +79,8 @@ Version getVersionSemVer(String input) {
   if (split.length > 1 && int.tryParse(split[1]) != null) {
     minor = split[1];
   }
-  if (split.length > 2 && int.tryParse(split[2]) != null) {
-    patch = split[2].replaceAll(RegExp(r"\D"), "");
+  if (split.length > 2 && int.tryParse(split[2].replaceAll(RegExp(r'[^0-9]'), '')) != null) {
+    patch = split[2].replaceAll(RegExp(r'[^0-9]'), '');
   }
   return Version(int.parse(major), int.parse(minor), int.parse(patch));
 }
