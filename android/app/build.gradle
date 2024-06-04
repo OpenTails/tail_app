@@ -73,6 +73,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled true
             shrinkResources true
+            ndk {
+                debugSymbolLevel 'full'
+            }
         }
         debug {
             // TODO: Add your own signing config for the release build.
