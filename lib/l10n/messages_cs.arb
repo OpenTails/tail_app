@@ -309,7 +309,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Skrýt výukové karty",
+  "triggerWalkingDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
@@ -441,7 +441,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Naklonění vpřed",
+  "triggerEarTiltForward": "Vypnout",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Klepnutím zobrazíte",
+  "moreManualSubTitle": "Zásady ochrany osobních údajů",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Odebrat akce",
+  "triggersSelectClearLabel": "Vyberte možnost Žádný",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -795,7 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Zde můžete ovládat, prozkoumávat a aktualizovat veškeré své vybavení Tail Co. K dispozici jsou také návody a návody. Happy Wagging!",
+  "homeWelcomeMessage": "Veškeré vybavení Tail Co můžete ovládat, prozkoumávat a aktualizovat přímo zde. K dispozici jsou také návody a návody. Happy Wagging!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -924,6 +924,18 @@
   "scanRemoveDemoGear": "Odstraňte veškeré falešné vybavení",
   "@scanRemoveDemoGear": {
     "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Vyberte tolik akcí, kolik chcete. Náhodně bude vybrána akce, která je kompatibilní s připojeným zařízením. Akce GlowTip a Sound se spustí spolu s akcemi Move.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Vybrat vše",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }
