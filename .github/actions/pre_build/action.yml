@@ -9,9 +9,7 @@ runs:
       run: flutter config --no-cli-animations --enable-analytics
     - name: Enable Flutter tools
       shell: bash
-      run: \
-        dart pub global activate flutter_gen
-        dart pub global activate intl_translation
+      run: dart pub global activate intl_translation
     - name: Get dependencies
       shell: bash
       run: flutter pub get
