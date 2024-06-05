@@ -149,6 +149,9 @@ Future<void> initHive() async {
   if (!SentryHive.isAdapterRegistered(TriggerActionAdapter().typeId)) {
     SentryHive.registerAdapter(TriggerActionAdapter());
   }
+  if (!SentryHive.isAdapterRegistered(TriggerAdapter().typeId)) {
+    SentryHive.registerAdapter(TriggerAdapter());
+  }
   if (!SentryHive.isAdapterRegistered(ActionCategoryAdapter().typeId)) {
     SentryHive.registerAdapter(ActionCategoryAdapter());
   }
