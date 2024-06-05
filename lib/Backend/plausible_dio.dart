@@ -25,7 +25,7 @@ class PlausibleDio extends Plausible {
   /// Post event to plausible
   @override
   Future<int> event({String name = "pageview", String referrer = "", String page = "", Map<String, String> props = const {}}) async {
-    if (!enabled && HiveProxy.getOrDefault(settings, allowAnalytics, defaultValue: allowAnalyticsDefault)) {
+    if (!enabled || HiveProxy.getOrDefault(settings, allowAnalytics, defaultValue: allowAnalyticsDefault)) {
       return 0;
     }
     final transaction = Sentry.startTransaction('Plausible Event', 'http');

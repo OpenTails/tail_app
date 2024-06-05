@@ -185,12 +185,16 @@ Future<void> initLocale() async {
   mainLogger.info("Loaded locale: $defaultLocale $localeLoaded");
 }
 
+void initPlausible({bool enabled = false}) {
+  plausible = PlausibleDio(serverUrl, domain);
+  plausible.enabled = enabled;
+}
+
 class TailApp extends StatefulWidget {
   TailApp({super.key}) {
     //Init Plausible
+    initPlausible();
     // Platform messages may fail, so we use a try/catch PlatformException.
-    plausible = PlausibleDio(serverUrl, domain);
-    plausible.enabled = true;
     mainLogger.info('Starting app');
     if (kDebugMode) {
       mainLogger.info('Debug Mode Enabled');
