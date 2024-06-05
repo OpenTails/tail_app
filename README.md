@@ -222,6 +222,14 @@ dart run flutter_native_splash:create
 > <item name="android:statusBarColor">@android:color/transparent</item>
 > ```
 
+#### Running tests
+
+To run tests, simply run the command
+
+```shell
+flutter test
+```
+
 ### Fastlane
 
 [Fastlane](https://docs.fastlane.tools/) is a tool to automatically upload apps to the Apple App Store and Google Play Store. Inside the [IOS](ios/) and [Android](android/) folders is a fastlane folder. Inside is the FastFile which contains the upload config. Secrets are JSON files passed through repository secrets. The script [fastlane.sh](Scripts/fastlane.sh) selects the fastlane folder to use and begins the upload.
