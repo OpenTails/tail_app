@@ -136,6 +136,7 @@ void main() {
         moveList.moves.add(Move.move(leftServo: 50, rightServo: 50));
         moveList.moves.add(Move.delay(50));
         moveList.moves.add(Move.move(leftServo: 50, rightServo: 50));
+        moveList.repeat = 2;
         BaseStatefulDevice baseStatefulDevice = container.read(knownDevicesProvider).values.first;
         runAction(moveList, baseStatefulDevice);
       });
@@ -144,9 +145,10 @@ void main() {
         expect(container.read(knownDevicesProvider).values.length, 1);
         expect(container.read(knownDevicesProvider).values.first.baseDeviceDefinition.btName, 'MiTail');
         MoveList moveList = MoveList(name: 'Test', uuid: 'test', deviceCategory: DeviceType.values);
-        moveList.moves.add(Move.move(leftServo: 50, rightServo: 50));
+        moveList.moves.add(Move.move(leftServo: 50, rightServo: 50, easingType: EasingType.cubic));
         moveList.moves.add(Move.delay(50));
         moveList.moves.add(Move.move(leftServo: 50, rightServo: 50));
+        moveList.repeat = 2;
         BaseStatefulDevice baseStatefulDevice = container.read(knownDevicesProvider).values.first;
         runAction(moveList, baseStatefulDevice);
       });
