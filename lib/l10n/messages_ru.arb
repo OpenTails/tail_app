@@ -165,7 +165,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Спокойный и расслабленный",
+  "actionsCategoryCalm": "Задерживать",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Отключить",
+  "manageDevicesDisconnect": "Поддельное снаряжение",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Удалить действия",
+  "triggersSelectClearLabel": "Выберите Нет",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -924,6 +924,18 @@
   "scanDemoGearTip": "Хотите опробовать приложение, но ждете доставки своего оборудования? Добавьте фальшивое снаряжение. Это позволяет вам использовать приложение так, как будто у вас есть свое оборудование или вы хотите опробовать снаряжение, которого у вас в настоящее время нет. Это активирует новый раздел на странице «Поиск нового снаряжения».",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Выберите столько действий, сколько хотите. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Выбрать все",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }
