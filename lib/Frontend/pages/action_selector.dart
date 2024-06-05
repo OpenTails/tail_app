@@ -32,24 +32,51 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
   Map<ActionCategory, Set<BaseAction>> actionsCatMap = {};
   List<ActionCategory> catList = [];
   List<BaseAction> selected = [];
+  Set<DeviceType> knownDeviceTypes = {};
 
   @override
   void initState() {
     super.initState();
-    actionsCatMap = ref.read(getAllActionsProvider(widget.actionSelectorInfo.deviceType));
-    catList = actionsCatMap.keys.toList();
-    selected = widget.actionSelectorInfo.selectedActions;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Set<DeviceType> knownDeviceTypes = ref
-        .watch(knownDevicesProvider)
+    knownDeviceTypes = ref
+        .read(knownDevicesProvider)
         .values
         .map(
           (e) => e.baseDeviceDefinition.deviceType,
         )
         .toSet();
+    actionsCatMap = Map.fromEntries(
+      ref.read(getAllActionsProvider(widget.actionSelectorInfo.deviceType)).entries.sorted(
+        (a, b) {
+          int first = a.value
+                  .map(
+                    (e) => e.deviceCategory,
+                  )
+                  .flattened
+                  .toSet()
+                  .intersection(knownDeviceTypes)
+                  .isNotEmpty
+              ? 1
+              : -1;
+          int second = b.value
+                  .map(
+                    (e) => e.deviceCategory,
+                  )
+                  .flattened
+                  .toSet()
+                  .intersection(knownDeviceTypes)
+                  .isNotEmpty
+              ? 1
+              : -1;
+          return second.compareTo(first);
+        },
+      ),
+    );
+    selected = widget.actionSelectorInfo.selectedActions;
+    catList = actionsCatMap.keys.toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         primary: true,
         appBar: AppBar(
