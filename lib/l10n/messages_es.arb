@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Oculta las distintas tarjetas de tutoriales en toda la aplicación.",
+  "settingsTutorialCardToggleSubTitle": "Registro de cambios",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -891,7 +891,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleSubTitle": "Busque continuamente equipos conocidos. Cuando está deshabilitado, debes deslizar el dedo sobre la barra de engranajes para escanear.",
+  "settingsAlwaysScanningToggleSubTitle": "Busque continuamente equipos conocidos. Cuando está deshabilitado, debes deslizar la barra de engranajes para escanear.",
   "@settingsAlwaysScanningToggleSubTitle": {
     "description": "Settings page always scanning toggle subtitle",
     "type": "text",
