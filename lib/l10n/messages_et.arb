@@ -303,7 +303,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingTitle": "Jalutamine",
+  "triggerWalkingTitle": "Leitud Gear. Ühenduse loomiseks puudutage hammasratta nime",
   "@triggerWalkingTitle": {
     "description": "Walking/Step trigger title",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Kaas",
+  "triggerCoverTitle": "Käikude otsimine. Veenduge, et teie varustus oleks sisse lülitatud ja läheduses",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuskaardid kogu rakenduses",
+  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuse kaardid kogu rakenduses",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga võib olla aktiivne mitu päästikut. Selle muutmiseks puudutage päästikut, päästiku lubamiseks kasutage vasakpoolset lülitit.",
+  "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga saab aktiveerida mitu päästikut. Selle muutmiseks puudutage päästikut, päästiku lubamiseks kasutage vasakpoolset lülitit.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Eemalda toimingud",
+  "triggersSelectClearLabel": "Valige Puudub",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -924,6 +924,18 @@
   "scanRemoveDemoGear": "Eemaldage kõik võltsvarustus",
   "@scanRemoveDemoGear": {
     "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Valige nii palju toiminguid, kui soovite. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Vali kõik",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }
