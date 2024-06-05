@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "Volume basso",
+  "triggerVolumeButtonVolumeDown": "Copertina",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "Segnala l'utilizzo di funzionalità non identificative a Plausible per migliorare l'app",
+  "settingsAnalyticsToggleSubTitle": "Nascondi le schede tutorial",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Accetta l'informativa sulla privacy",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Sebbene i dati raccolti siano anonimi e non possano essere utilizzati per identificare un utente specifico, è comunque necessario accettare l'informativa sulla privacy",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
