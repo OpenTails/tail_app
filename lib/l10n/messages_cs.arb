@@ -309,7 +309,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Spusťte akci při chůzi",
+  "triggerWalkingDescription": "Skrýt výukové karty",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
@@ -789,13 +789,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Zde můžete ovládat, prozkoumávat a aktualizovat veškeré své vybavení Tail Co. K dispozici jsou také návody a návody. Happy Wagging!",
+  "homeWelcomeMessage": "Veškeré vybavení Tail Co můžete ovládat, prozkoumávat a aktualizovat přímo zde. K dispozici jsou také návody a návody. Happy Wagging!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -807,7 +807,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Nalezen Gear. Klepnutím na název zařízení se připojte",
+  "scanDevicesFoundTitle": "Nalezeno zařízení. Klepnutím na název zařízení se připojte",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
