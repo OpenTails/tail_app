@@ -59,7 +59,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Tühista",
+  "cancel": "Saba",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditAdd": "Lisa liiguta",
+  "sequencesEditAdd": "Lisa Liikumine",
   "@sequencesEditAdd": {
     "description": "Label for the add Floating Action Button on edit sequence page",
     "type": "text",
@@ -447,7 +447,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Tagasi kallutamine",
+  "triggerEarTiltBackward": "Kallutamine tahapoole",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
