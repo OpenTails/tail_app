@@ -635,7 +635,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
     if (btConnectStream != null) {
       return;
     }
-    btConnectStream = FlutterBluePlus.onScanResults.listen(
+    btConnectStream = flutterBluePlus.onScanResults.listen(
       (event) {
         if (event.where((element) => !ref.read(knownDevicesProvider).keys.contains(element.device.remoteId.str)).isNotEmpty && btnearbyCooldown != null && btnearbyCooldown!.isActive) {
           sendCommands("Nearby Gear", ref);

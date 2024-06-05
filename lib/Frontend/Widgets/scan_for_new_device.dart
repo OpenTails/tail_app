@@ -54,7 +54,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
         if (value) {
           return ListView(controller: widget.scrollController, children: [
             StreamBuilder<List<ScanResult>>(
-              stream: FlutterBluePlus.scanResults,
+              stream: flutterBluePlus.scanResults,
               builder: (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
                 anyGearFound = snapshot.hasData && snapshot.data!.isNotEmpty && snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).isNotEmpty;
                 return ListView(

@@ -9,6 +9,7 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_utils.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -38,6 +39,7 @@ ValueNotifier<bool> isAnyGearConnected = ValueNotifier(false);
 ValueNotifier<bool> isBluetoothEnabled = ValueNotifier(false);
 
 bool _didInitFlutterBluePlus = false;
+FlutterBluePlusMockable flutterBluePlus = FlutterBluePlusMockable();
 
 @Riverpod(keepAlive: true)
 Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
@@ -46,16 +48,16 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
   }
   _didInitFlutterBluePlus = true;
 
-  await FlutterBluePlus.setLogLevel(LogLevel.warning, color: true);
+  await flutterBluePlus.setLogLevel(LogLevel.warning, color: true);
   // first, check if bluetooth is supported by your hardware
   // Note: The platform is initialized on the first call to any FlutterBluePlus method.
-  if (await FlutterBluePlus.isSupported == false) {
+  if (await flutterBluePlus.isSupported == false) {
     _bluetoothPlusLogger.info("Bluetooth not supported by this device");
     return;
   }
 
   // listen to *any device* connection state changes
-  _onConnectionStateChangedStreamSubscription = FlutterBluePlus.events.onConnectionStateChanged.listen((event) async {
+  _onConnectionStateChangedStreamSubscription = flutterBluePlus.events.onConnectionStateChanged.listen((event) async {
     _bluetoothPlusLogger.info('${event.device.advName} ${event.connectionState}');
     Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
     BluetoothDevice bluetoothDevice = event.device;
@@ -166,17 +168,17 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       }
     }
   });
-  _onReadRssiStreamSubscription = FlutterBluePlus.events.onReadRssi.listen((event) {
+  _onReadRssiStreamSubscription = flutterBluePlus.events.onReadRssi.listen((event) {
     _bluetoothPlusLogger.info('${event.device.advName} RSSI:${event.rssi}');
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     statefulDevice?.rssi.value = event.rssi;
   });
-  _onMtuChanged = FlutterBluePlus.events.onMtuChanged.listen((event) {
+  _onMtuChanged = flutterBluePlus.events.onMtuChanged.listen((event) {
     _bluetoothPlusLogger.info('${event.device.advName} MTU:${event.mtu}');
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     statefulDevice?.mtu.value = event.mtu;
   });
-  _onDiscoveredServicesStreamSubscription = FlutterBluePlus.events.onDiscoveredServices.listen((event) async {
+  _onDiscoveredServicesStreamSubscription = flutterBluePlus.events.onDiscoveredServices.listen((event) async {
     //_bluetoothPlusLogger.info('${event.device} ${event.services}');
     //Subscribes to all characteristics
     for (BluetoothService service in event.services) {
@@ -185,7 +187,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       }
     }
   });
-  _onCharacteristicReceivedStreamSubscription = FlutterBluePlus.events.onCharacteristicReceived.listen((event) {
+  _onCharacteristicReceivedStreamSubscription = flutterBluePlus.events.onCharacteristicReceived.listen((event) {
     _bluetoothPlusLogger.info('onCharacteristicReceived ${event.device.advName} ${event.characteristic.uuid.str} ${event.value}');
 
     BluetoothDevice bluetoothDevice = event.device;
@@ -240,18 +242,18 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       }
     }
   });
-  _onServicesResetStreamSubscription = FlutterBluePlus.events.onServicesReset.listen((event) async {
+  _onServicesResetStreamSubscription = flutterBluePlus.events.onServicesReset.listen((event) async {
     _bluetoothPlusLogger.info("${event.device.advName} onServicesReset");
     await event.device.discoverServices();
   });
   // handle bluetooth on & off
   // note: for iOS the initial state is typically BluetoothAdapterState.unknown
   // note: if you have permissions issues you will get stuck at BluetoothAdapterState.unauthorized
-  _adapterStateStreamSubscription = FlutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
+  _adapterStateStreamSubscription = flutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
     _bluetoothPlusLogger.info(state);
     isBluetoothEnabled.value = state == BluetoothAdapterState.on;
   });
-  _onScanResultsStreamSubscription = FlutterBluePlus.onScanResults.listen(
+  _onScanResultsStreamSubscription = flutterBluePlus.onScanResults.listen(
     (results) async {
       if (results.isNotEmpty) {
         ScanResult r = results.last; // the most recently found device
@@ -268,7 +270,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
 
   _keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen((event) async {
     Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
-    for (var element in FlutterBluePlus.connectedDevices) {
+    for (var element in flutterBluePlus.connectedDevices) {
       BaseStatefulDevice? device = knownDevices[element.remoteId.str];
       if (device != null) {
         device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: CommandType.system));
@@ -282,7 +284,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
   ref.onDispose(() async {
     stopScan();
     //Disconnect any gear
-    for (var element in FlutterBluePlus.connectedDevices) {
+    for (var element in flutterBluePlus.connectedDevices) {
       await disconnect(element.remoteId.str);
     }
     //cancel streams
@@ -315,7 +317,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
 }
 
 Future<void> disconnect(String id) async {
-  BluetoothDevice? device = FlutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == id);
+  BluetoothDevice? device = flutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == id);
   if (device != null) {
     _bluetoothPlusLogger.info("disconnecting from ${device.advName}");
     await device.disconnect(queue: false);
@@ -326,7 +328,7 @@ Future<void> connect(String id) async {
   if (!_didInitFlutterBluePlus) {
     return;
   }
-  List<ScanResult> results = await FlutterBluePlus.onScanResults.first;
+  List<ScanResult> results = await flutterBluePlus.onScanResults.first;
   ScanResult? result = results.where((element) => element.device.remoteId.str == id).firstOrNull;
   if (result != null) {
     result.device.connect();
@@ -334,18 +336,18 @@ Future<void> connect(String id) async {
 }
 
 Future<void> beginScan({Duration? timeout}) async {
-  if (_didInitFlutterBluePlus && !FlutterBluePlus.isScanningNow) {
+  if (_didInitFlutterBluePlus && !flutterBluePlus.isScanningNow) {
     _bluetoothPlusLogger.info("Starting scan");
-    await FlutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map((e) => Guid(e)).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
+    await flutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map((e) => Guid(e)).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
   }
 }
 
 bool isScanningNow() {
-  return FlutterBluePlus.isScanningNow;
+  return flutterBluePlus.isScanningNow;
 }
 
 Stream<bool> isScanning() {
-  return FlutterBluePlus.isScanning;
+  return flutterBluePlus.isScanning;
 }
 
 Future<void> stopScan() async {
@@ -353,14 +355,14 @@ Future<void> stopScan() async {
     return;
   }
   _bluetoothPlusLogger.info("stopScan called");
-  await FlutterBluePlus.stopScan();
+  await flutterBluePlus.stopScan();
 }
 
 Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool withoutResponse = false}) async {
   if (!_didInitFlutterBluePlus) {
     return;
   }
-  BluetoothDevice? bluetoothDevice = FlutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == device.baseStoredDevice.btMACAddress);
+  BluetoothDevice? bluetoothDevice = flutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == device.baseStoredDevice.btMACAddress);
   if (bluetoothDevice != null) {
     BluetoothCharacteristic? bluetoothCharacteristic =
         bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid == Guid(device.baseDeviceDefinition.bleDeviceService))?.characteristics.firstWhereOrNull((element) => element.characteristicUuid == Guid(device.baseDeviceDefinition.bleTxCharacteristic));

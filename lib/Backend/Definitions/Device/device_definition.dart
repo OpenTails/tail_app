@@ -7,7 +7,6 @@ import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -134,7 +133,7 @@ class BaseStatefulDevice extends ChangeNotifier {
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice) {
     commandQueue = CommandQueue(this);
-    rxCharacteristicStream = FlutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) => event.device.remoteId.str == baseStoredDevice.btMACAddress && event.characteristic.characteristicUuid.str == baseDeviceDefinition.bleRxCharacteristic).map((event) {
+    rxCharacteristicStream = flutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) => event.device.remoteId.str == baseStoredDevice.btMACAddress && event.characteristic.characteristicUuid.str == baseDeviceDefinition.bleRxCharacteristic).map((event) {
       try {
         return const Utf8Decoder().convert(event.value);
       } catch (e) {
