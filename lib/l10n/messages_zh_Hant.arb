@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "發光提示",
+  "actionsCategoryGlowtip": "發光頭",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "刪除操作",
+  "triggersSelectClearLabel": "選擇無",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
@@ -897,7 +897,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioTipCard": "您可以新增出現在「動作」標籤上並可與觸發器一起使用的自訂聲音",
+  "audioTipCard": "您可以新增出現在「動作」標籤上並可與「觸發器」一起使用的自訂聲音",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
     "type": "text",
@@ -921,9 +921,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "想要試用該應用程序，但正在等待您的裝備到達嗎？添加一個假齒輪。這可以讓您體驗該應用程序，就像您擁有自己的裝備一樣，或者如果您想嘗試當前不擁有的裝備。這將在「掃描新裝備」頁面上啟用一個新部分。",
+  "scanDemoGearTip": "刪除所有假裝備",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "全選",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "選擇您想要的任意數量的操作。將隨機選擇與連接的裝備相容的動作。 GlowTip 和聲音操作將與移動操作一起觸發。",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   }
