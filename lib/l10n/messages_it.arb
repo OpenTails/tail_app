@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "Copertina",
+  "triggerVolumeButtonVolumeDown": "Scodinzolare responsabile",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Attiva un'azione quando EarGear rileva l'inclinazione",
+  "triggerEarTiltDescription": "Sensore di inclinazione EarGear",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Per connettersi all'attrezzatura è necessaria l'autorizzazione Bluetooth",
+  "onboardingBluetoothDescription": "Bluetooth",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Rimuovi azioni",
+  "triggersSelectClearLabel": "Non selezionare niente",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Cerca sempre l'attrezzatura conosciuta",
+  "settingsAlwaysScanningToggleTitle": "Seleziona un'azione",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
@@ -903,7 +903,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGear": "Ingranaggio falso",
+  "scanDemoGear": "Rinomina effetto sonoro",
   "@scanDemoGear": {
     "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
@@ -924,6 +924,18 @@
   "scanDemoGearTip": "Vuoi provare l'app ma stai aspettando che arrivi la tua attrezzatura? Aggiungi un equipaggiamento falso. Ciò ti consente di provare l'app come se avessi la tua attrezzatura o se desideri provare l'attrezzatura che attualmente non possiedi. Ciò abilita una nuova sezione nella pagina \"Cerca nuova attrezzatura\".",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Seleziona tutte le azioni che desideri. Verrà selezionata casualmente un'azione compatibile con l'attrezzatura connessa. Le azioni GlowTip e Sound si attiveranno insieme alle azioni Move.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Seleziona tutto",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }
