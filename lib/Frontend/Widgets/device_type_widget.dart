@@ -1,6 +1,7 @@
 import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../translation_string_definitions.dart';
@@ -13,6 +14,10 @@ class DeviceTypeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (ref.watch(knownDevicesProvider).length <= 1) {
+      //onSelectionChanged(DeviceType.values);
+      return Container();
+    }
     return ListTile(
       title: Text(deviceType()),
       subtitle: InlineChoice<DeviceType>.multiple(
