@@ -42,7 +42,9 @@ String sequencesPageDescription() => Intl.message('Create custom Actions for you
 // Triggers Page
 String triggersSelectLabel() => Intl.message('Select a Trigger Type', name: 'triggersSelectLabel', desc: 'The title of the add trigger dialog');
 
-String triggersSelectClearLabel() => Intl.message('Remove Actions', name: 'triggersSelectClearLabel', desc: 'The button label on the trigger select screen for clearing the selected actions');
+String triggersSelectClearLabel() => Intl.message('Select None', name: 'triggersSelectClearLabel', desc: 'The button label on the trigger select screen for clearing the selected actions');
+
+String triggersSelectAllLabel() => Intl.message('Select All', name: 'triggersSelectAllLabel', desc: 'The button label on the trigger select screen for clearing the selected actions');
 
 String triggersSelectSaveLabel() => Intl.message('Save Actions', name: 'triggersSelectSaveLabel', desc: 'The button label on the trigger select screen for saving the selected actions');
 
@@ -331,3 +333,6 @@ String scanRemoveDemoGear() => Intl.message("Remove all fake gear", name: 'scanR
 
 String scanDemoGearTip() => Intl.message("Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own. This enables a new section on the 'Scan For New Gear' page.",
     name: 'scanDemoGearTip', desc: 'Tip Card description for the  demo gear on the scan for new devices page');
+
+String triggerActionSelectorTutorialLabel() => Intl.message("Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions.",
+    name: 'triggerActionSelectorTutorialLabel', desc: 'Label for the tutorial card on the Action selector for triggers');

@@ -1,8 +1,10 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:choice/choice.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/sensors.dart';
@@ -267,9 +269,16 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                   ),
                   firstChild: Builder(builder: (context) {
                     String text = "";
+                    Iterable<BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider).values;
                     for (String actionUUID in e.actions) {
                       BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
-                      if (baseAction != null) {
+                      if (baseAction != null &&
+                          (knownDevices.isEmpty ||
+                              knownDevices
+                                  .where(
+                                    (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
+                                  )
+                                  .isNotEmpty)) {
                         if (text.isNotEmpty) {
                           text += ', ';
                         }
@@ -294,7 +303,14 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                     return Dialog.fullscreen(
                         backgroundColor: Theme.of(context).canvasColor,
                         child: ActionSelector(
-                          actionSelectorInfo: ActionSelectorInfo(deviceType: widget.trigger.deviceType.toSet(), selectedActions: []),
+                          actionSelectorInfo: ActionSelectorInfo(
+                              deviceType: widget.trigger.deviceType.toSet(),
+                              selectedActions: e.actions
+                                  .map(
+                                    (e) => ref.read(getActionFromUUIDProvider(e)),
+                                  )
+                                  .whereNotNull()
+                                  .toList()),
                         ));
                   },
                 );
