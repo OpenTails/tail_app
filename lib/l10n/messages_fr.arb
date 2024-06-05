@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Appareil couvert",
+  "triggerCoverNear": "À quel matériel cela devrait-il s'appliquer ?",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Fait",
+  "triggerInfoDescription": "Commencer la mise à jour OTA",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Fermer",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Faux équipement",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
