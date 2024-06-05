@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-01T17:41:41.229603",
+  "@@last_modified": "2024-06-05T20:26:38.152312",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -97,8 +97,14 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Remove Actions",
+  "triggersSelectClearLabel": "Select None",
   "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Select All",
+  "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
@@ -926,6 +932,12 @@
   "scanDemoGearTip": "Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own. This enables a new section on the 'Scan For New Gear' page.",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   }
