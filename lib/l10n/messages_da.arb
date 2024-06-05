@@ -333,7 +333,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Enhed dækket",
+  "triggerCoverNear": "Trin",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Lyd registreret",
+  "triggerEarMicSound": "Lyd fundet",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "nyttige links",
+  "moreUsefulLinksTitle": "Manualer",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, vil denne tilstand tilføje tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
+  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Fjern handlinger",
+  "triggersSelectClearLabel": "Vælg Ingen",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -807,7 +807,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Fundet gear. Tryk på gearnavnet for at oprette forbindelse",
+  "scanDevicesFoundTitle": "Rapportér ikke-identificerende funktionsbrug til Plausible for at forbedre appen",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
@@ -837,7 +837,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreSourceCode": "Kildekode",
+  "moreSourceCode": "Tryk længe på en handling for at favorit",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
@@ -873,7 +873,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioAdd": "Scan kontinuerligt for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
+  "audioAdd": "Scan løbende for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
   "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
@@ -915,7 +915,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleSubTitle": "Scan løbende for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
+  "settingsAlwaysScanningToggleSubTitle": "Scan kontinuerligt for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
   "@settingsAlwaysScanningToggleSubTitle": {
     "description": "Settings page always scanning toggle subtitle",
     "type": "text",
@@ -924,6 +924,18 @@
   "scanDemoGearTip": "Vil du prøve appen, men venter på, at dit udstyr kommer? Tilføj et falsk gear. Dette giver dig mulighed for at opleve appen, som om du havde dit udstyr, eller hvis du vil prøve udstyr, du ikke ejer i øjeblikket. Dette aktiverer et nyt afsnit på siden 'Scan efter nyt gear'.",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Vælg alle",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Vælg så mange handlinger, du vil. En handling vil blive valgt tilfældigt, som er kompatibel med tilsluttet gear. GlowTip og Sound-handlinger udløses sammen med Move-handlinger.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   }
