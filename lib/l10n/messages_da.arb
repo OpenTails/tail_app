@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "GlowTip",
+  "deviceTypeEars": "Skjul de forskellige vejledningskort i hele appen",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
+  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, vil denne tilstand tilføje tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Giv tilladelse",
+  "onboardingBluetoothRequestButtonLabel": "Der kræves Bluetooth-tilladelse for at oprette forbindelse til gear",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Scan altid for kendt gear",
+  "settingsAlwaysScanningToggleTitle": "Afslappet tilstand",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Frisk fra Halebloggen",
+  "homeNewsTitle": "Frisk fra halebloggen",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -873,7 +873,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioAdd": "Skjul de forskellige vejledningskort i hele appen",
+  "audioAdd": "Scan kontinuerligt for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
   "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
@@ -915,7 +915,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleSubTitle": "Scan kontinuerligt for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
+  "settingsAlwaysScanningToggleSubTitle": "Scan løbende for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
   "@settingsAlwaysScanningToggleSubTitle": {
     "description": "Settings page always scanning toggle subtitle",
     "type": "text",
