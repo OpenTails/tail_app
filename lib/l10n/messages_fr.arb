@@ -219,7 +219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Oublier",
+  "triggerCoverFar": "Rend les cartes d'action plus grandes pour faciliter l'exploitation",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Son détecté",
+  "triggerEarMicSound": "Micro EarGear",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de mouvement, lui donnant un effet visuel différent.",
+  "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de déplacement, ce qui lui donnera un effet visuel différent.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Bien que les données collectées soient anonymes et ne puissent pas être utilisées pour identifier un utilisateur spécifique, vous devez néanmoins accepter la politique de confidentialité.",
+  "onboardingPrivacyPolicyDescription": "Mise à jour du matériel. Veuillez ne pas éteindre votre équipement ni fermer l'application",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
