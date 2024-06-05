@@ -149,7 +149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Typ uvolnění",
+  "sequencesEditEasing": "Jak rychle by se měl převod do této polohy přesunout?",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Spusťte akci zakrytím senzoru přiblížení",
+  "triggerCoverDescription": "Krok",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -429,7 +429,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Naklonění doleva",
+  "triggerEarTiltLeft": "Zapomenout",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -561,7 +561,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleTitle": "Kitsune režim",
+  "settingsKitsuneToggleTitle": "Tento režim zastaví vypínání obrazovky, když je vaše zařízení připojeno",
   "@settingsKitsuneToggleTitle": {
     "description": "Settings page Kitsune mode toggle title",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Firmware Changelog",
+  "otaChangelogLabel": "Snížit hlasitost",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Zobrazit Zásady ochrany osobních údajů",
+  "onboardingPrivacyPolicyViewButtonLabel": "I když jsou shromážděná data anonymní a nelze je použít k identifikaci konkrétního uživatele, stále musíte přijmout zásady ochrany osobních údajů",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -789,13 +789,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Zde v této aplikaci můžete ovládat, prozkoumávat a aktualizovat veškeré své vybavení Tail Co. K dispozici jsou také návody a návody. Happy Wagging!",
+  "homeWelcomeMessage": "Zde můžete ovládat, prozkoumávat a aktualizovat veškeré své vybavení Tail Co. K dispozici jsou také návody a návody. Happy Wagging!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Aby tato aplikace podporovala vaše zařízení, je vyžadována aktualizace firmwaru",
+  "mandatoryOtaRequired": "Toto zařízení již není podporováno. Některé funkce aplikace nemusí fungovat",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -879,7 +879,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioDeleteDescription": "Opravdu chcete smazat tento zvukový efekt?",
+  "audioDeleteDescription": "Slabá baterie. Nabijte prosím své zařízení alespoň na 50 %",
   "@audioDeleteDescription": {
     "description": "Label for the body of the delete confirmation dialog",
     "type": "text",
@@ -894,6 +894,36 @@
   "deviceTypeMiniTail": "Mini ocas",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Chcete si aplikaci vyzkoušet, ale čekáte, až dorazí vaše zařízení? Přidejte falešnou výbavu. To vám umožní zažít aplikaci, jako byste měli své vybavení, nebo pokud si chcete vyzkoušet vybavení, které aktuálně nevlastníte. To umožňuje novou sekci na stránce „Vyhledat nové zařízení“.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Průběžně hledejte známé vybavení. Je-li zakázáno, musíte ke skenování přejet prstem po liště ozubeného kola.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Falešné vybavení",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Přidejte Fake Gear",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Odstraňte veškeré falešné vybavení",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
