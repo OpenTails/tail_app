@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Feedback abschicken",
+  "feedbackPage": "Soundeffekt hinzufügen",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Neigung nach rechts",
+  "triggerEarTiltRight": "Tutorial-Karten ausblenden",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Batterieprozentsatz anzeigen",
+  "settingsBatteryPercentageToggleTitle": "Batteriestand in % anzeigen",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
