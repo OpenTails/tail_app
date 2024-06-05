@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Anulować",
+  "cancel": "Wybierz typ wyzwalacza",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -165,7 +165,7 @@
       }
     }
   },
-  "actionsNoBluetooth": "Bluetooth jest niedostępny",
+  "actionsNoBluetooth": "Opóźnij następny ruch o [X20X] ms.",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Brak ustawionej akcji",
+  "triggerActionNotSet": "Uruchom akcję, jeśli w pobliżu znajduje się sprzęt",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Każda Akcja Własna składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
+  "sequencesInfoEditDescription": "Każda akcja niestandardowa składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Mimo, że zbierane dane są anonimowe i nie pozwalają na identyfikację konkretnego użytkownika, nadal musisz zaakceptować politykę prywatności",
+  "onboardingPrivacyPolicyDescription": "Zaakceptuj Politykę prywatności",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -783,13 +783,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Przesuń poziomo po znanym obszarze urządzenia powyżej, aby rozpocząć skanowanie. Możesz włączyć ciągłe skanowanie w ustawieniach.",
+  "homeContinuousScanningOffDescription": "Automatycznie otrzymuj powiadomienia, gdy pojawi się nowy post na blogu Tail",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "W tej aplikacji możesz kontrolować, eksplorować i aktualizować cały swój sprzęt Tail Co. Dostępne są także instrukcje i przewodniki. Szczęśliwego machania!",
+  "homeWelcomeMessage": "Tutaj możesz kontrolować, eksplorować i aktualizować cały swój sprzęt Tail Co. Dostępne są także instrukcje i przewodniki. Szczęśliwego machania!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -894,6 +894,36 @@
   "deviceTypeMiniTail": "Miniogon",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Stale skanuj w poszukiwaniu znanego sprzętu. Gdy opcja jest wyłączona, aby skanować, należy przesunąć palcem po pasku narzędzi.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Fałszywy sprzęt",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Dodaj fałszywy sprzęt",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Usuń cały fałszywy sprzęt",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Chcesz wypróbować aplikację, ale czekasz na dostawę sprzętu? Dodaj fałszywy sprzęt. Dzięki temu możesz korzystać z aplikacji tak, jakbyś miał swój sprzęt lub gdybyś chciał wypróbować sprzęt, którego aktualnie nie posiadasz. Włącza to nową sekcję na stronie „Wyszukaj nowy sprzęt”.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
