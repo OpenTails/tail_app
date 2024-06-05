@@ -37,7 +37,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
               autocorrect: false,
               onEditingComplete: () {
                 widget.device.commandQueue.addCommand(
-                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: Type.system),
+                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: CommandType.system),
                 );
                 setState(() {
                   cmd = "";
@@ -53,7 +53,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
             child: IconButton(
               onPressed: () {
                 widget.device.commandQueue.addCommand(
-                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: Type.system),
+                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: CommandType.system),
                 );
                 setState(() {
                   cmd = "";

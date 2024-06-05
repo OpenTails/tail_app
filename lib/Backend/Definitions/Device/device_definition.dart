@@ -148,8 +148,8 @@ class BaseStatefulDevice extends ChangeNotifier {
       } else if (deviceConnectionState.value == ConnectivityState.connected) {
         // Add initial commands to the queue
         Future.delayed(const Duration(seconds: 2), () {
-          commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: Type.system, responseMSG: "VER "));
-          commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: Type.system, responseMSG: "HWVER "));
+          commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: CommandType.system, responseMSG: "VER "));
+          commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: CommandType.system, responseMSG: "HWVER "));
         });
       }
     });
@@ -376,8 +376,8 @@ class CommandQueue {
       device.deviceState.value = DeviceState.standby; //Without setting state to standby, another command can not run
     });
     // preempt queue
-    if (bluetoothMessage.type == Type.direct) {
-      state.toUnorderedList().where((element) => [Type.move, Type.direct].contains(element.type)).forEach((element) => state.remove(element));
+    if (bluetoothMessage.type == CommandType.direct) {
+      state.toUnorderedList().where((element) => [CommandType.move, CommandType.direct].contains(element.type)).forEach((element) => state.remove(element));
     }
     state.add(bluetoothMessage);
   }

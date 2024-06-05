@@ -4,7 +4,7 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
 enum Priority { low, normal, high }
 
-enum Type { system, move, direct }
+enum CommandType { system, move, direct }
 
 class BluetoothMessage implements Comparable<BluetoothMessage> {
   late final String message;
@@ -15,7 +15,7 @@ class BluetoothMessage implements Comparable<BluetoothMessage> {
   Function? onCommandSent;
   Function(String)? onResponseReceived;
   double? delay;
-  Type type;
+  CommandType type;
 
   BluetoothMessage({required this.message, required this.device, required this.priority, required this.type, this.responseMSG, this.onCommandSent, this.onResponseReceived});
 

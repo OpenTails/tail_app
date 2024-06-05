@@ -271,8 +271,8 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     for (var element in FlutterBluePlus.connectedDevices) {
       BaseStatefulDevice? device = knownDevices[element.remoteId.str];
       if (device != null) {
-        device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: Type.system));
-        device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: Type.system));
+        device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: CommandType.system));
+        device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: CommandType.system));
         element.readRssi();
       }
     }

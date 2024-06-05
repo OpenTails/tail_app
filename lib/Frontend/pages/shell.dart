@@ -562,7 +562,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      widget.device.commandQueue.addCommand(BluetoothMessage(message: "SHUTDOWN", device: widget.device, priority: Priority.high, type: Type.system));
+                      widget.device.commandQueue.addCommand(BluetoothMessage(message: "SHUTDOWN", device: widget.device, priority: Priority.high, type: CommandType.system));
                     });
                     Navigator.pop(context);
                   },
