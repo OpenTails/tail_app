@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Bluetooth není k dispozici",
+  "settingsKeepScreenOnToggleTitle": "Tento režim zastaví vypínání obrazovky, když je vaše zařízení připojeno",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -879,7 +879,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioDeleteDescription": "Slabá baterie. Nabijte prosím své zařízení alespoň na 50 %",
+  "audioDeleteDescription": "Můžete přidat vlastní zvuky, které se zobrazí na kartě Akce a lze je použít se spouštěči",
   "@audioDeleteDescription": {
     "description": "Label for the body of the delete confirmation dialog",
     "type": "text",
