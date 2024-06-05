@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Этот режим предотвращает выключение экрана, пока ваше оборудование подключено.",
+  "settingsKeepScreenOnToggleSubTitle": "Положение левого сервопривода",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
