@@ -133,27 +133,47 @@ class WidgetBindingLogger extends WidgetsBindingObserver {
 Future<void> initHive() async {
   mainLogger.fine("Init Hive");
   final Directory appDir = await getApplicationSupportDirectory();
-  SentryHive
-    ..init(appDir.path)
-    ..registerAdapter(BaseStoredDeviceAdapter(), override: true)
-    ..registerAdapter(MoveListAdapter(), override: true)
-    ..registerAdapter(MoveAdapter(), override: true)
-    ..registerAdapter(BaseActionAdapter(), override: true)
-    ..registerAdapter(TriggerAdapter(), override: true)
-    ..registerAdapter(TriggerActionAdapter(), override: true)
-    ..registerAdapter(ActionCategoryAdapter(), override: true)
-    ..registerAdapter(DeviceTypeAdapter(), override: true)
-    ..registerAdapter(MoveTypeAdapter(), override: true)
-    ..registerAdapter(EasingTypeAdapter(), override: true)
-    ..registerAdapter(AudioActionAdapter(), override: true)
-    ..registerAdapter(FavoriteActionAdapter(), override: true);
+  SentryHive.init(appDir.path);
+  if (!SentryHive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
+    SentryHive.registerAdapter(BaseStoredDeviceAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(MoveListAdapter().typeId)) {
+    SentryHive.registerAdapter(MoveListAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(MoveAdapter().typeId)) {
+    SentryHive.registerAdapter(MoveAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(BaseActionAdapter().typeId)) {
+    SentryHive.registerAdapter(BaseActionAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(TriggerActionAdapter().typeId)) {
+    SentryHive.registerAdapter(TriggerActionAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(ActionCategoryAdapter().typeId)) {
+    SentryHive.registerAdapter(ActionCategoryAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(DeviceTypeAdapter().typeId)) {
+    SentryHive.registerAdapter(DeviceTypeAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(MoveTypeAdapter().typeId)) {
+    SentryHive.registerAdapter(MoveTypeAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(EasingTypeAdapter().typeId)) {
+    SentryHive.registerAdapter(EasingTypeAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(AudioActionAdapter().typeId)) {
+    SentryHive.registerAdapter(AudioActionAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(FavoriteActionAdapter().typeId)) {
+    SentryHive.registerAdapter(FavoriteActionAdapter());
+  }
   await SentryHive.openBox(settings); // Do not set type here
   await SentryHive.openBox<Trigger>(triggerBox);
   await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
   await SentryHive.openBox<AudioAction>(audioActionsBox);
   await SentryHive.openBox<MoveList>('sequences');
   await SentryHive.openBox<BaseStoredDevice>('devices');
-  await SentryHive.openBox('notificationsStuff');
+  await SentryHive.openBox(notificationBox); // Do not set type here
 }
 
 Future<void> initLocale() async {
