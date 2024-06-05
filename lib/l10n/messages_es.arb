@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingTitle": "Caminando",
+  "triggerWalkingTitle": "Bienvenido a la aplicación Tail Company",
   "@triggerWalkingTitle": {
     "description": "Walking/Step trigger title",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "Cerrar",
+  "manageDevicesShutdown": "Paso",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualEargearTitle": "Manual de EarGear",
+  "moreManualEargearTitle": "¿Cuántas veces repetir esta acción?",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "Informar el uso de funciones no identificables a Plausible para mejorar la aplicación",
+  "settingsAnalyticsToggleSubTitle": "Permitir análisis anónimos",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "morePrivacyPolicyLinkTitle": "política de privacidad",
+  "morePrivacyPolicyLinkTitle": "Inclinación hacia atrás",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Eliminar acciones",
+  "triggersSelectClearLabel": "Seleccionar Ninguno",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -924,6 +924,18 @@
   "scanDemoGearTip": "¿Quieres probar la aplicación pero estás esperando que llegue tu equipo? Añade un equipo falso. Esto le permite experimentar la aplicación como si tuviera su equipo, o si desea probar equipo que actualmente no posee. Esto habilita una nueva sección en la página 'Buscar equipo nuevo'.",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Seleccionar todo",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Selecciona tantas acciones como quieras. Se seleccionará aleatoriamente una acción que sea compatible con el equipo conectado. Las acciones GlowTip y Sound se activarán junto con las acciones Move.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   }
