@@ -8,7 +8,7 @@ import 'package:tail_app/constants.dart';
 import 'package:test/test.dart';
 
 // Annotation which generates the cat.mocks.dart library and the MockCat class.
-@GenerateNiceMocks([MockSpec<LocalPlatform>(), MockSpec<BuildContext>(), MockSpec<Theme>(), MockSpec<ColorScheme>()])
+@GenerateNiceMocks([MockSpec<LocalPlatform>(), MockSpec<BuildContext>()])
 import 'utils_test.mocks.dart';
 
 void main() {
