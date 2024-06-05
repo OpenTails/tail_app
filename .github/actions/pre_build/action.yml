@@ -6,16 +6,18 @@ runs:
   steps:
     - name: Configure Flutter CLI
       shell: bash
-      run: flutter config --no-cli-animations --enable-analytics --color
+      run: flutter config --no-cli-animations --enable-analytics
     - name: Enable Flutter tools
       shell: bash
-      run: export TERM=xterm-color && dart pub global activate flutter_gen --color && dart pub global activate intl_translation --color && dart pub global activate build_runner --color
+      run: \
+        dart pub global activate flutter_gen
+        dart pub global activate intl_translation
     - name: Get dependencies
       shell: bash
-      run: export TERM=xterm-color && flutter pub get --color
+      run: flutter pub get
     - name: Generate translation files
       shell: bash
-      run: export TERM=xterm-color && dart pub global run --color intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
+      run: dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
     - name: Generate dart .g files
       shell: bash
-      run: export TERM=xterm-color && dart pub global run --color build_runner build --delete-conflicting-outputs
+      run: dart pub run build_runner build --delete-conflicting-outputs
