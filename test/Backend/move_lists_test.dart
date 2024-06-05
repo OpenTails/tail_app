@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart' as flTest;
-import 'package:mockito/annotations.dart';
 import 'package:riverpod/src/framework.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
@@ -11,6 +10,7 @@ import 'package:tail_app/Backend/sensors.dart';
 import 'package:tail_app/main.dart';
 import 'package:test/test.dart';
 
+import '../testing_utils/bluetooth_test_utils.dart';
 import '../testing_utils/gear_utils.dart';
 import '../testing_utils/hive_utils.dart';
 
@@ -111,7 +111,8 @@ void main() {
         initPlausible(enabled: false);
       });
       test('run Ear Move', () async {
-        ProviderContainer container = await testGearAdd('EG2');
+        setupBTMock('EG2', 'TestEG2');
+        ProviderContainer container = await testGearAdd('EG2', gearMacPrefix: 'Test');
         expect(container.read(knownDevicesProvider).values.length, 1);
         expect(container.read(knownDevicesProvider).values.first.baseDeviceDefinition.btName, 'EG2');
         BaseAction? baseAction = container.read(getActionFromUUIDProvider("9a6be63e-36f5-4f50-88b6-7adf2680aa5c"));
@@ -120,7 +121,8 @@ void main() {
         runAction(baseAction!, baseStatefulDevice);
       });
       test('run Tail Move', () async {
-        ProviderContainer container = await testGearAdd('MiTail');
+        setupBTMock('MiTail', 'TestMiTail');
+        ProviderContainer container = await testGearAdd('MiTail', gearMacPrefix: 'Test');
         expect(container.read(knownDevicesProvider).values.length, 1);
         expect(container.read(knownDevicesProvider).values.first.baseDeviceDefinition.btName, 'MiTail');
         BaseAction? baseAction = container.read(getActionFromUUIDProvider("c53e980e-899e-4148-a13e-f57a8f9707f4"));
@@ -130,7 +132,8 @@ void main() {
       });
 
       test('run Ear Custom Move', () async {
-        ProviderContainer container = await testGearAdd('EG2');
+        setupBTMock('EG2', 'TestEG2');
+        ProviderContainer container = await testGearAdd('EG2', gearMacPrefix: 'Test');
         expect(container.read(knownDevicesProvider).values.length, 1);
         expect(container.read(knownDevicesProvider).values.first.baseDeviceDefinition.btName, 'EG2');
         MoveList moveList = MoveList(name: 'Test', uuid: 'test', deviceCategory: DeviceType.values);
@@ -142,7 +145,8 @@ void main() {
         runAction(moveList, baseStatefulDevice);
       });
       test('run Tail Custom Move', () async {
-        ProviderContainer container = await testGearAdd('MiTail', gearMacPrefix: 'test');
+        setupBTMock('MiTail', 'TestMiTail');
+        ProviderContainer container = await testGearAdd('MiTail', gearMacPrefix: 'Test');
         expect(container.read(knownDevicesProvider).values.length, 1);
         expect(container.read(knownDevicesProvider).values.first.baseDeviceDefinition.btName, 'MiTail');
         MoveList moveList = MoveList(name: 'Test', uuid: 'test', deviceCategory: DeviceType.values);

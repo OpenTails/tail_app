@@ -22,7 +22,7 @@ void setupBTMock(String btName, String btMac) {
       Stream.value([ScanResult(rssi: 50, advertisementData: AdvertisementData(advName: btName, txPowerLevel: null, appearance: null, connectable: true, manufacturerData: {}, serviceData: {}, serviceUuids: []), device: BluetoothDevice(remoteId: DeviceIdentifier(btMac)), timeStamp: DateTime.now())]));
   when(flutterBluePlusMock.onScanResults).thenAnswer((_) =>
       Stream.value([ScanResult(rssi: 50, advertisementData: AdvertisementData(advName: btName, txPowerLevel: null, appearance: null, connectable: true, manufacturerData: {}, serviceData: {}, serviceUuids: []), device: BluetoothDevice(remoteId: DeviceIdentifier(btMac)), timeStamp: DateTime.now())]));
-  when(flutterBluePlusMock.setLogLevel(any, color: any)).thenReturn(Future(() {}));
+  when(flutterBluePlusMock.setLogLevel(any)).thenAnswer((_) async {});
 
   BluetoothEvents bluetoothEvents = MockBluetoothEvents();
   when(flutterBluePlusMock.events).thenAnswer((_) => bluetoothEvents);
