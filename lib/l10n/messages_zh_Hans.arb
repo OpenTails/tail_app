@@ -275,7 +275,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "編輯操作",
+  "sequencesEdit": "编辑操作",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -477,7 +477,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "向 Plasible 报告非识别性功能的使用情况，以增强应用程序",
+  "settingsAnalyticsToggleSubTitle": "向 Plasible 报告非识别功能的使用情况，以增强应用程序",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "更新失败。请重启设备并重试",
+  "otaFailedTitle": "更新失败。请重启您的设备并重试",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
