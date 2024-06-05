@@ -209,7 +209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "删除操作",
+  "triggersSelectClearLabel": "选择无",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "更新失败。请重启您的设备并重试",
+  "otaFailedTitle": "更新失败。请重启设备并重试",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -921,9 +921,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "想要试用该应用，但正在等待装备到货？添加一个假装备。这样，您就可以像拥有装备一样体验该应用，或者如果您想试用您目前没有的装备。这将在“扫描新装备”页面上启用一个新部分。",
+  "scanDemoGearTip": "移除所有假装备",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "选择任意数量的操作。将随机选择一个与连接设备兼容的操作。GlowTip 和 Sound 操作将与 Move 操作一起触发。",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "全选",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }
