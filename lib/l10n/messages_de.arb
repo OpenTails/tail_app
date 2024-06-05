@@ -597,13 +597,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Batteriestand in % anzeigen",
+  "settingsBatteryPercentageToggleTitle": "Batterieprozentsatz anzeigen",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Zeigt den tatsächlichen Akkustand anstelle eines Symbols an",
+  "settingsBatteryPercentageToggleSubTitle": "Glühspitze",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
