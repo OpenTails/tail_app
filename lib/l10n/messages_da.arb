@@ -41,7 +41,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Brugerdefinerede handlinger",
+  "sequencesPage": "Tilpassede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Frisk fra halebloggen",
+  "homeNewsTitle": "Frisk fra Halebloggen",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
