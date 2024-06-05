@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Scuotere",
+  "triggerEarTiltForward": "Scodinzolare responsabile",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -525,7 +525,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Questa modalità impedisce allo schermo di spegnersi mentre l'attrezzatura è collegata",
+  "settingsKeepScreenOnToggleSubTitle": "Premi a lungo un'azione da aggiungere ai preferiti",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
