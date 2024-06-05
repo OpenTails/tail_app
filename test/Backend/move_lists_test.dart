@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart' as flTest;
+import 'package:mockito/annotations.dart';
 import 'package:riverpod/src/framework.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
@@ -141,7 +142,7 @@ void main() {
         runAction(moveList, baseStatefulDevice);
       });
       test('run Tail Custom Move', () async {
-        ProviderContainer container = await testGearAdd('MiTail');
+        ProviderContainer container = await testGearAdd('MiTail', gearMacPrefix: 'test');
         expect(container.read(knownDevicesProvider).values.length, 1);
         expect(container.read(knownDevicesProvider).values.first.baseDeviceDefinition.btName, 'MiTail');
         MoveList moveList = MoveList(name: 'Test', uuid: 'test', deviceCategory: DeviceType.values);

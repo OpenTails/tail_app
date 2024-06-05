@@ -444,7 +444,7 @@ packages:
     description:
       path: feedback_sentry
       ref: HEAD
-      resolved-ref: b9b78756085e0326eb745d0ba5d2e7c1f5466fe5
+      resolved-ref: e4f8a8f2c06b856c6ef77f68d8bb13149438fdd8
       url: "https://github.com/ueman/feedback"
     source: git
     version: "3.0.1"

@@ -6,11 +6,11 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/LoggingWrappers.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 
-Future<BaseStatefulDevice> createAndStoreGear(String gearBtName, ProviderContainer ref) async {
+Future<BaseStatefulDevice> createAndStoreGear(String gearBtName, ProviderContainer ref, {String gearMacPrefix = 'Dev'}) async {
   BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByName(gearBtName)!;
   BaseStoredDevice baseStoredDevice;
   BaseStatefulDevice statefulDevice;
-  baseStoredDevice = BaseStoredDevice(baseDeviceDefinition.uuid, "DEV${baseDeviceDefinition.deviceType.name}", baseDeviceDefinition.deviceType.color(ref: ref).value);
+  baseStoredDevice = BaseStoredDevice(baseDeviceDefinition.uuid, "$gearMacPrefix${baseDeviceDefinition.deviceType.name}", baseDeviceDefinition.deviceType.color(ref: ref).value);
   baseStoredDevice.name = getNameFromBTName(baseDeviceDefinition.btName);
   statefulDevice = BaseStatefulDevice(baseDeviceDefinition, baseStoredDevice);
   statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
@@ -21,13 +21,13 @@ Future<BaseStatefulDevice> createAndStoreGear(String gearBtName, ProviderContain
   return statefulDevice;
 }
 
-Future<ProviderContainer> testGearAdd(String name) async {
+Future<ProviderContainer> testGearAdd(String name, {String gearMacPrefix = 'DEV'}) async {
   final container = ProviderContainer(
     overrides: [],
   );
   expect(container.read(knownDevicesProvider).length, 0);
   expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 0);
-  BaseStatefulDevice baseStatefulDevice = await createAndStoreGear(name, container);
+  BaseStatefulDevice baseStatefulDevice = await createAndStoreGear(name, container, gearMacPrefix: gearMacPrefix);
   expect(baseStatefulDevice.baseDeviceDefinition.btName, name);
   expect(container.read(knownDevicesProvider).length, 1);
   expect(container.read(knownDevicesProvider).values.first, baseStatefulDevice);
