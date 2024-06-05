@@ -171,7 +171,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Spokojny i zrelaksowany",
+  "actionsCategoryCalm": "Czy na pewno chcesz usunąć tę akcję?",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -201,7 +201,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleTitle": "Informacje zwrotne dotykowe",
+  "settingsHapticsToggleTitle": "Szybki i podekscytowany",
   "@settingsHapticsToggleTitle": {
     "description": "Settings page haptic feedback toggle title",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Każda Akcja Własna składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
+  "sequencesInfoEditDescription": "Każda akcja niestandardowa składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Włącz Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Pieszy",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Usuń akcje",
+  "triggersSelectClearLabel": "Wybierz opcję Brak",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -924,6 +924,18 @@
   "scanDemoGearTip": "Chcesz wypróbować aplikację, ale czekasz na dostawę sprzętu? Dodaj fałszywy sprzęt. Dzięki temu możesz korzystać z aplikacji tak, jakbyś miał swój sprzęt lub chciał wypróbować sprzęt, którego aktualnie nie posiadasz. Włącza to nową sekcję na stronie „Skanuj w poszukiwaniu nowego sprzętu”.",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Wybierz dowolną liczbę akcji. Akcja zostanie losowo wybrana i będzie kompatybilna z podłączonym sprzętem. Akcje GlowTip i Dźwięk będą uruchamiane wraz z akcjami Ruchu.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Zaznacz wszystko",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }
