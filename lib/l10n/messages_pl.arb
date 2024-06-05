@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Kliknij, aby zaktualizować oprogramowanie sprzętowe",
+  "manageDevicesOtaButton": "Automatycznie otrzymuj powiadomienia, gdy pojawi się nowy post na blogu Tail",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Każda akcja niestandardowa składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
+  "sequencesInfoEditDescription": "Każda Akcja Własna składa się z 1-6 ruchów i może się powtarzać maksymalnie 5 razy. Możesz długo nacisnąć ruch, aby zmienić jego kolejność.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -921,7 +921,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "Chcesz wypróbować aplikację, ale czekasz na dostawę sprzętu? Dodaj fałszywy sprzęt. Dzięki temu możesz korzystać z aplikacji tak, jakbyś miał swój sprzęt lub gdybyś chciał wypróbować sprzęt, którego aktualnie nie posiadasz. Włącza to nową sekcję na stronie „Wyszukaj nowy sprzęt”.",
+  "scanDemoGearTip": "Chcesz wypróbować aplikację, ale czekasz na dostawę sprzętu? Dodaj fałszywy sprzęt. Dzięki temu możesz korzystać z aplikacji tak, jakbyś miał swój sprzęt lub chciał wypróbować sprzęt, którego aktualnie nie posiadasz. Włącza to nową sekcję na stronie „Skanuj w poszukiwaniu nowego sprzętu”.",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
