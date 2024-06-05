@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Ohren",
+  "deviceTypeEars": "Aktion bearbeiten",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Wie oft soll diese Aktion wiederholt werden?",
+  "sequenceEditRepeatTitle": "OTA-Update starten",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -489,7 +489,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "FlutterWings Handbuch",
+  "moreManualFlutterWingsTitle": "Ausrüstung in der Nähe",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -561,7 +561,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleTitle": "Kitsune-Modus",
+  "settingsKitsuneToggleTitle": "Ton erkannt",
   "@settingsKitsuneToggleTitle": {
     "description": "Settings page Kitsune mode toggle title",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Batteriestand in % anzeigen",
+  "settingsBatteryPercentageToggleTitle": "Batterieprozentsatz anzeigen",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Aktionen entfernen",
+  "triggersSelectClearLabel": "Nichts ausgewählt",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Sie können Ihre gesamte Tail Co-Ausrüstung direkt hier steuern, erkunden und aktualisieren. Es sind auch Anleitungen und Leitfäden verfügbar. Viel Spaß beim Wedeln!",
+  "homeWelcomeMessage": "Sie möchten die App ausprobieren, warten aber noch auf die Lieferung Ihrer Ausrüstung? Fügen Sie eine gefälschte Ausrüstung hinzu. So können Sie die App so erleben, als hätten Sie Ihre Ausrüstung, oder wenn Sie Ausrüstung ausprobieren möchten, die Sie derzeit nicht besitzen. Dadurch wird ein neuer Abschnitt auf der Seite „Nach neuer Ausrüstung suchen“ aktiviert.",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -924,6 +924,18 @@
   "scanDemoGearTip": "Sie möchten die App ausprobieren, warten aber noch auf die Lieferung Ihrer Ausrüstung? Fügen Sie eine gefälschte Ausrüstung hinzu. So können Sie die App so erleben, als hätten Sie Ihre Ausrüstung, oder wenn Sie Ausrüstung ausprobieren möchten, die Sie derzeit nicht besitzen. Dadurch wird ein neuer Abschnitt auf der Seite „Nach neuer Ausrüstung suchen“ aktiviert.",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Wählen Sie Alle",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Wählen Sie so viele Aktionen aus, wie Sie möchten. Es wird eine zufällig ausgewählte Aktion ausgewählt, die mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden neben Move-Aktionen ausgelöst.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   }
