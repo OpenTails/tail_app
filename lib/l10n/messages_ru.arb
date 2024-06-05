@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Хорошо",
+  "ok": "Крылья",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -423,7 +423,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
+  "triggerEarTiltDescription": "Запускайте действие, когда EarGear обнаруживает наклон",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Триггеры автоматически отправляют действия на ваше снаряжение. Вы можете одновременно активировать несколько триггеров. Нажмите на триггер, чтобы отредактировать его, используйте переключатель слева, чтобы включить триггер.",
+  "triggerInfoDescription": "Более",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Журнал изменений прошивки",
+  "otaChangelogLabel": "Начать OTA-обновление",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Сделанный",
+  "onboardingDoneButtonLabel": "Включите Bluetooth",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
