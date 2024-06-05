@@ -147,7 +147,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Rapport d'erreur automatique",
+  "settingsErrorReportingToggleTitle": "Rend les cartes d'action plus grandes pour faciliter l'exploitation",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "À quel matériel cela devrait-il s'appliquer ?",
+  "triggerCoverNear": "Commencer la mise à jour OTA",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -333,7 +333,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Couleur de l'application",
+  "triggerShakeDescription": "Autoriser les analyses anonymes",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Changez la couleur de l'application, configurez Haptics, et plus encore",
+  "settingsDescription": "Envoyer des commentaires",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Supprimer des actions",
+  "triggersSelectClearLabel": "Ne rien sélectionner",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Tout frais du blog Tail",
+  "homeNewsTitle": "Fraîchement sorti du blog Tail",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -924,6 +924,18 @@
   "scanDemoGearTip": "Vous souhaitez essayer l'application mais vous attendez l'arrivée de votre matériel ? Ajoutez un faux équipement. Cela vous permet de découvrir l'application comme si vous aviez votre équipement ou si vous souhaitez essayer un équipement que vous ne possédez pas actuellement. Cela active une nouvelle section sur la page « Rechercher de nouveaux équipements ».",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Sélectionnez autant d'actions que vous le souhaitez. Une action sera sélectionnée au hasard et compatible avec les équipements connectés. Les actions GlowTip et Sound se déclencheront parallèlement aux actions Move.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Tout sélectionner",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }
