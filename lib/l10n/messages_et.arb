@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "Liiguta",
+  "sequencesEditDelay": "Võltsitud varustus",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
@@ -447,7 +447,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Kallutamine tahapoole",
+  "triggerEarTiltBackward": "Tagasi kallutamine",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse muutmiseks võite pikalt vajutada.",
+  "sequencesInfoEditDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuse kaardid kogu rakenduses",
+  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuskaardid kogu rakenduses",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomButtonDescription": "Mängige juhuslikult valitud tegevust",
+  "triggerRandomButtonDescription": "Juhuslik režiim",
   "@triggerRandomButtonDescription": {
     "description": "Casual Mode trigger description",
     "type": "text",
