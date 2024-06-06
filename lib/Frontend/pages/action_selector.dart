@@ -103,22 +103,34 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
           ],
         ),
         extendBody: true,
-        bottomNavigationBar: ButtonBar(
-          alignment: MainAxisAlignment.center,
-          children: [
-            FilledButton(
-              onPressed: () {
-                setState(() {
-                  if (selected.isEmpty) {
-                    context.pop(true);
-                  } else {
-                    context.pop(selected);
-                  }
-                });
-              },
-              child: Text(triggersSelectSaveLabel()),
-            )
-          ],
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              Colors.transparent,
+              Theme.of(context).colorScheme.primary.withAlpha(128),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            tileMode: TileMode.clamp,
+          )),
+          child: ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: [
+              FilledButton(
+                onPressed: () {
+                  setState(() {
+                    if (selected.isEmpty) {
+                      context.pop(true);
+                    } else {
+                      context.pop(selected);
+                    }
+                  });
+                },
+                child: Text(triggersSelectSaveLabel()),
+              )
+            ],
+          ),
         ),
         body: ListView(
           primary: true,
