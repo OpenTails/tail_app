@@ -125,8 +125,6 @@ When non EN translations are updated in [Weblate](https://weblate.codel1417.xyz/
 > To build generated `.g` files, run
 >
 > ```shell
-> dart pub global activate build_runner
-> dart pub global activate flutter_gen
 > flutter pub run build_runner build --delete-conflicting-outputs
 > ```
 
