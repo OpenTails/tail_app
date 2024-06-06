@@ -274,7 +274,7 @@ String otaLowBattery() => Intl.message("Low Battery. Please charge your gear to 
 String triggerInfoDescription() => Intl.message('Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, use the toggle on the left to enable the trigger.',
     name: 'triggerInfoDescription', desc: 'Description for what a trigger is and how to use them on the triggers page');
 
-String triggerInfoEditActionDescription() => Intl.message("Tap the pencil to select the Action to play when the event happens. To remove an Action, Tap the action again to remove it. Don't forget to save using the save icon at the top",
+String triggerInfoEditActionDescription() => Intl.message("Tap the pencil to select the Action to play when the event happens. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions.",
     name: 'triggerInfoEditActionDescription', desc: 'Instruction on how to select an action on the trigger edit page');
 
 String sequencesInfoDescription() =>
@@ -334,5 +334,5 @@ String scanRemoveDemoGear() => Intl.message("Remove all fake gear", name: 'scanR
 String scanDemoGearTip() => Intl.message("Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own. This enables a new section on the 'Scan For New Gear' page.",
     name: 'scanDemoGearTip', desc: 'Tip Card description for the  demo gear on the scan for new devices page');
 
-String triggerActionSelectorTutorialLabel() => Intl.message("Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions.",
+String triggerActionSelectorTutorialLabel() => Intl.message("Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions. Don't forget to save.",
     name: 'triggerActionSelectorTutorialLabel', desc: 'Label for the tutorial card on the Action selector for triggers');
