@@ -63,6 +63,11 @@ class Trigger extends ChangeNotifier {
   void triggerDefListener() {
     if (triggerDefinition?.enabled != _enabled && _enabled) {
       enabled = false;
+      notifyListeners();
+    }
+    if (triggerDefinition?.enabled != _enabled && !_enabled) {
+      enabled = true;
+      notifyListeners();
     }
   }
 
@@ -155,6 +160,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
     if (!value && actions.isEmpty) {
       _enabled = false;
       onDisable();
+      notifyListeners();
     } else if (requiredPermission != null && value) {
       requiredPermission?.hasAllPermissions().then((granted) {
         if (granted) {
@@ -166,8 +172,8 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
     } else if (value) {
       _enabled = true;
       onEnable();
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   Ref ref;

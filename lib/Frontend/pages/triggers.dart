@@ -155,7 +155,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                           setState(
                             () {
                               trigger.enabled = value;
-                              ref.watch(triggerListProvider.notifier).store();
+                              //ref.watch(triggerListProvider.notifier).store();
                             },
                           );
                         },
