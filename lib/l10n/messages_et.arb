@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPage": "Juhtkang",
+  "joyStickPage": "Okei",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Päästikud",
+  "triggersPage": "Saba ettevõte",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -59,7 +59,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Tühista",
+  "cancel": "Saba",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDelay": "Viivitus",
+  "sequencesEditDelay": "Võltsitud varustus",
   "@sequencesEditDelay": {
     "description": "Label for the delay tab on sequence move edit page",
     "type": "text",
@@ -179,7 +179,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Viivitage järgmist liigutust {howMany} ms.",
+  "sequenceEditListDelayLabel": "Kas olete kindel, et soovite selle toimingu kustutada?",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryTense": "Pettunud ja pinges",
+  "actionsCategoryTense": "Redigeeri toimingut",
   "@actionsCategoryTense": {
     "description": "tense action group label",
     "type": "text",
@@ -303,7 +303,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingTitle": "Jalutamine",
+  "triggerWalkingTitle": "Leitud Gear. Ühenduse loomiseks puudutage hammasratta nime",
   "@triggerWalkingTitle": {
     "description": "Walking/Step trigger title",
     "type": "text",
@@ -327,13 +327,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Kaas",
+  "triggerCoverTitle": "Käikude otsimine. Veenduge, et teie varustus oleks sisse lülitatud ja läheduses",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Käivitage toiming, kattes lähedusanduri",
+  "triggerCoverDescription": "Seade katmata",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonTitle": "Helitugevuse nupud",
+  "triggerVolumeButtonTitle": "Käivitage kõndimisel toiming",
   "@triggerVolumeButtonTitle": {
     "description": "Volume Button trigger title",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "Anonüümse analüüsi lubamine",
+  "triggerEarMicTitle": "Tegevus",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Kasulikud lingid",
+  "moreUsefulLinksTitle": "FlutterWingsi käsiraamat",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse muutmiseks võite pikalt vajutada.",
+  "sequencesInfoEditDescription": "Peida erinevad õpetuse kaardid kogu rakenduses",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -645,13 +645,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Puudutage pliiatsit, et valida sündmuse toimumisel esitatav toiming. Toimingu eemaldamiseks puudutage toimingut selle eemaldamiseks uuesti. Ärge unustage salvestada, kasutades ülaosas olevat salvestamisikooni",
+  "triggerInfoEditActionDescription": "Puudutage pliiatsit, et valida sündmuse toimumisel esitatav toiming. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Kuigi kogutud andmed on anonüümsed ja neid ei saa kasutada konkreetse kasutaja tuvastamiseks, peate siiski nõustuma privaatsuspoliitikaga",
+  "onboardingPrivacyPolicyDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit.",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Eemalda toimingud",
+  "triggersSelectClearLabel": "Valige Puudub",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomButtonDescription": "Mängige juhuslikult valitud tegevust",
+  "triggerRandomButtonDescription": "Juhuslik režiim",
   "@triggerRandomButtonDescription": {
     "description": "Casual Mode trigger description",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Seadmega kaetud",
+  "homeWelcomeMessage": "Siin saate juhtida, uurida ja värskendada kogu oma Tail Co varustust. Saadaval on ka juhised ja juhendid. Head vehkimist!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -894,6 +894,48 @@
   "deviceTypeMiniTail": "Mini Tail",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Lisage Fake Gear",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Kas soovite rakendust proovida, kuid ootate, kuni teie varustus kohale jõuab? Lisage võltsvarustus. See võimaldab teil kasutada rakendust nii, nagu oleks teil oma varustus või kui soovite proovida varustust, mida te praegu ei oma. See lubab lehel „Uue varustuse otsimine” uue jaotise.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Otsige pidevalt teadaolevat käiku. Kui see on keelatud, peate skannimiseks pühkima käiguribal.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Võltsitud varustus",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Eemaldage kõik võltsvarustus",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Valige nii palju toiminguid kui soovite. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega. Ärge unustage salvestada.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Vali kõik",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }

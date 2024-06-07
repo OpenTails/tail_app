@@ -131,7 +131,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Главная Gear",
+  "sequencesEditHomeLabel": "Главная Шестерня",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -159,13 +159,13 @@
       }
     }
   },
-  "actionsNoBluetooth": "Bluetooth недоступен",
+  "actionsNoBluetooth": "Задерживать",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Спокойный и расслабленный",
+  "actionsCategoryCalm": "Задерживать",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Автоматическое сообщение об ошибках",
+  "settingsErrorReportingToggleTitle": "Карты действий становятся больше, чтобы их было легче нажимать.",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -231,7 +231,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Отключить",
+  "manageDevicesDisconnect": "Поддельное снаряжение",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Нажмите, чтобы обновить прошивку",
+  "manageDevicesOtaButton": "Положение левого сервопривода",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Хорошо",
+  "ok": "Крылья",
   "@ok": {
     "description": "Ok on dialog boxes",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Этот режим предотвращает выключение экрана, пока ваше оборудование подключено.",
+  "settingsKeepScreenOnToggleSubTitle": "Положение левого сервопривода",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -609,13 +609,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизводиться при возникновении события. Чтобы удалить действие, коснитесь действия еще раз, чтобы удалить его. Не забудьте сохраниться, используя значок сохранения вверху.",
+  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизводиться при возникновении события. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Триггеры автоматически отправляют действия на ваше снаряжение. Вы можете одновременно активировать несколько триггеров. Нажмите на триггер, чтобы отредактировать его, используйте переключатель слева, чтобы включить триггер.",
+  "triggerInfoDescription": "Более",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Журнал изменений прошивки",
+  "otaChangelogLabel": "Начать OTA-обновление",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Сделанный",
+  "onboardingDoneButtonLabel": "Включите Bluetooth",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Удалить действия",
+  "triggersSelectClearLabel": "Выберите Нет",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -723,7 +723,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaCompletedTitle": "Обновление завершено",
+  "otaCompletedTitle": "Журнал изменений прошивки",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Низкий заряд батареи. Пожалуйста, зарядите свое снаряжение минимум на 50 %.",
+  "otaLowBattery": "Управление пользовательскими звуковыми эффектами",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Вы можете контролировать, исследовать и обновлять все свое снаряжение Tail Co прямо здесь, в этом приложении. Также доступны инструкции и руководства. Приятного виляния!",
+  "homeWelcomeMessage": "Вы можете контролировать, исследовать и обновлять все свое снаряжение Tail Co прямо здесь. Также имеются инструкции и руководства. Приятного виляния!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -894,6 +894,48 @@
   "deviceTypeMiniTail": "Мини Хвост",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Поддельное снаряжение",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Постоянно сканируйте известное снаряжение. Если этот параметр отключен, для сканирования необходимо провести пальцем по шестеренке.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Добавить поддельное снаряжение",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Удалите все поддельное снаряжение",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Хотите опробовать приложение, но ждете доставки своего оборудования? Добавьте фальшивое снаряжение. Это позволяет вам использовать приложение так, как будто у вас есть свое оборудование или вы хотите опробовать снаряжение, которого у вас в настоящее время нет. Это активирует новый раздел на странице «Поиск нового снаряжения».",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Выберите столько действий, сколько хотите. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move. Не забудьте сохранить.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Выбрать все",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }

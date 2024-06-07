@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Retardez le prochain coup pendant {howMany} ms.",
+  "sequenceEditListDelayLabel": "Mise à jour du matériel. Veuillez ne pas éteindre votre équipement ni fermer l'application",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -147,7 +147,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Rapport d'erreur automatique",
+  "settingsErrorReportingToggleTitle": "Rend les cartes d'action plus grandes pour faciliter l'exploitation",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -213,13 +213,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Appareil couvert",
+  "triggerCoverNear": "Commencer la mise à jour OTA",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Oublier",
+  "triggerCoverFar": "Rend les cartes d'action plus grandes pour faciliter l'exploitation",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -333,7 +333,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Couleur de l'application",
+  "triggerShakeDescription": "Autoriser les analyses anonymes",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Son détecté",
+  "triggerEarMicSound": "Micro EarGear",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -429,7 +429,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAppColor": "Couleur de l'application",
+  "settingsAppColor": "Signaler l'utilisation non identifiante des fonctionnalités à Plausible pour améliorer l'application",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Changez la couleur de l'application, configurez Haptics, et plus encore",
+  "settingsDescription": "Envoyer des commentaires",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Contrôlez directement la position de la vitesse.",
+  "joyStickPageDescription": "Manette",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de mouvement, lui donnant un effet visuel différent.",
+  "settingsKitsuneToggleSubTitle": "Si vous connectez plusieurs instances des mêmes appareils, ce mode ajoutera des pauses aléatoires à leurs heures de début de déplacement, ce qui lui donnera un effet visuel différent.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -597,13 +597,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Fait",
+  "triggerInfoDescription": "Commencer la mise à jour OTA",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Appuyez sur le crayon pour sélectionner l'action à jouer lorsque l'événement se produit. Pour supprimer une action, appuyez à nouveau sur l'action pour la supprimer. N'oubliez pas de sauvegarder en utilisant l'icône de sauvegarde en haut",
+  "triggerInfoEditActionDescription": "Appuyez sur le crayon pour sélectionner l'action à jouer lorsque l'événement se produit. Une action sera sélectionnée au hasard et compatible avec les équipements connectés. Les actions GlowTip et Sound se déclencheront parallèlement aux actions Move.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Bien que les données collectées soient anonymes et ne puissent pas être utilisées pour identifier un utilisateur spécifique, vous devez néanmoins accepter la politique de confidentialité.",
+  "onboardingPrivacyPolicyDescription": "Mise à jour du matériel. Veuillez ne pas éteindre votre équipement ni fermer l'application",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Journal des modifications du micrologiciel",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Faux équipement",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Supprimer des actions",
+  "triggersSelectClearLabel": "Ne rien sélectionner",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Vous pouvez contrôler, explorer et mettre à jour tout votre équipement Tail Co ici même dans cette application. Des instructions et des guides sont également disponibles. Bonne agitation !",
+  "homeWelcomeMessage": "Vous pouvez contrôler, explorer et mettre à jour tout votre équipement Tail Co ici. Des instructions et des guides sont également disponibles. Bonne agitation !",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -849,7 +849,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioPage": "Sons personnalisés",
+  "audioPage": "Déclenchez une action en recouvrant le capteur de proximité",
   "@audioPage": {
     "description": "The label and title of the custom audio management page",
     "type": "text",
@@ -894,6 +894,48 @@
   "deviceTypeMiniTail": "Mini-queue",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Recherchez en permanence les équipements connus. Lorsqu'il est désactivé, vous devez faire glisser votre doigt sur la barre d'engrenage pour numériser.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Faux équipement",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Ajouter du faux équipement",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Supprimez tous les faux équipements",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Vous souhaitez essayer l'application mais vous attendez l'arrivée de votre matériel ? Ajoutez un faux équipement. Cela vous permet de découvrir l'application comme si vous aviez votre équipement ou si vous souhaitez essayer un équipement que vous ne possédez pas actuellement. Cela active une nouvelle section sur la page « Rechercher de nouveaux équipements ».",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Sélectionnez autant d'actions que vous le souhaitez. Une action sera sélectionnée au hasard et compatible avec les équipements connectés. Les actions GlowTip et Sound se déclencheront parallèlement aux actions Move. N'oubliez pas de sauvegarder.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Tout sélectionner",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }

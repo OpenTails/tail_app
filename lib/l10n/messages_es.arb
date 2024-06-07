@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingTitle": "Caminando",
+  "triggerWalkingTitle": "Bienvenido a la aplicación Tail Company",
   "@triggerWalkingTitle": {
     "description": "Walking/Step trigger title",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsPage": "Ajustes",
+  "settingsPage": "Controla directamente la posición del engranaje.",
   "@settingsPage": {
     "description": "The label and title of the settings page",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Envía informes de errores a Sentry",
+  "settingsErrorReportingToggleSubTitle": "Tarjetas más grandes",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "Cerrar",
+  "manageDevicesShutdown": "Paso",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualEargearTitle": "Manual de EarGear",
+  "moreManualEargearTitle": "¿Cuántas veces repetir esta acción?",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "Informar el uso de funciones no identificables a Plausible para mejorar la aplicación",
+  "settingsAnalyticsToggleSubTitle": "Permitir análisis anónimos",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -537,13 +537,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "morePrivacyPolicyLinkTitle": "política de privacidad",
+  "morePrivacyPolicyLinkTitle": "Inclinación hacia atrás",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Más",
+  "moreTitle": "Enlaces útiles",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Cada acción personalizada consta de 1 a 6 movimientos y puede repetirse hasta 5 veces. Puedes mantener presionado un movimiento para reordenarlo.",
+  "sequencesInfoEditDescription": "Toca para ver",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Hace que las tarjetas de acción sean más grandes para tocarlas más fácilmente.",
+  "settingsLargerCardsToggleSubTitle": "Registro de cambios",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Oculta las distintas tarjetas de tutoriales en toda la aplicación.",
+  "settingsTutorialCardToggleSubTitle": "Registro de cambios",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Comenzar la actualización OTA",
+  "otaDownloadButtonLabel": "Iniciar actualización OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -645,13 +645,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, toque la acción nuevamente para eliminarla. No olvides guardar usando el ícono de guardar en la parte superior.",
+  "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Se seleccionará aleatoriamente una acción que sea compatible con el equipo conectado. Las acciones GlowTip y Sound se activarán junto con las acciones Move.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Si bien los datos recopilados son anónimos y no pueden usarse para identificar a un usuario específico, aún debes aceptar la política de privacidad.",
+  "onboardingPrivacyPolicyDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, toque la acción nuevamente para eliminarla. No olvides guardar usando el ícono de guardar en la parte superior.",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Eliminar acciones",
+  "triggersSelectClearLabel": "Seleccionar Ninguno",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Puedes controlar, explorar y actualizar todo tu equipo de Tail Co aquí mismo en esta aplicación. También hay instrucciones y guías disponibles. ¡Feliz meneo!",
+  "homeWelcomeMessage": "Puedes controlar, explorar y actualizar todo tu equipo de Tail Co aquí mismo. También hay instrucciones y guías disponibles. ¡Feliz meneo!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -807,7 +807,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Recién salido del blog Tail",
+  "homeNewsTitle": "Quitar todo el equipo falso",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -888,6 +888,54 @@
   "audioTipCard": "Puede agregar sonidos personalizados que aparecen en la pestaña Acciones y se pueden usar con activadores.",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Busque continuamente equipos conocidos. Cuando está deshabilitado, debes deslizar la barra de engranajes para escanear.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Equipo falso",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Agregar equipo falso",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "mini cola",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Quitar todo el equipo falso",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "¿Quieres probar la aplicación pero estás esperando que llegue tu equipo? Añade un equipo falso. Esto le permite experimentar la aplicación como si tuviera su equipo, o si desea probar equipo que actualmente no posee. Esto habilita una nueva sección en la página 'Buscar equipo nuevo'.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Seleccionar todo",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Selecciona tantas acciones como quieras. Se seleccionará aleatoriamente una acción que sea compatible con el equipo conectado. Las acciones GlowTip y Sound se activarán junto con las acciones Move. No olvides guardar.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   }

@@ -29,13 +29,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsPage": "設定",
+  "settingsPage": "について",
   "@settingsPage": {
     "description": "The label and title of the settings page",
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "トリガー",
+  "triggersPage": "について",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "右サーボの位置",
+  "sequencesEditRightServo": "左サーボの位置",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "切断",
+  "manageDevicesDisconnect": "更新が完了しました",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -333,7 +333,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "シェイク",
+  "triggerShakeTitle": "音量ボタン",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -381,13 +381,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "前方傾斜",
+  "triggerEarTiltForward": "EarGearが傾きを検知するとアクションがトリガーされます",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "後方傾斜",
+  "triggerEarTiltBackward": "EarGearが傾きを検知するとアクションがトリガーされます",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "EarGear 傾斜センサー",
+  "triggerEarTiltTitle": "EarGearが音を検知するとアクションが実行されます",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "右傾き",
+  "triggerEarTiltRight": "シェイク",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -531,13 +531,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "画面をオンにしたままにする",
+  "settingsKeepScreenOnToggleTitle": "常に既知のギアをスキャンする",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "このモードでは、ギアが接続されている間は画面がオフにならないようにします。",
+  "settingsKeepScreenOnToggleSubTitle": "画面をオンにしたままにする",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "ギアのカスタムアクションを作成する",
+  "sequencesPageDescription": "について",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "各カスタムアクションは 1 ～ 6 個の動きから構成され、最大 5 回繰り返すことができます。動きを長押しすると順序を変更できます。",
+  "sequencesInfoEditDescription": "OTAアップデートを開始",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -645,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "鉛筆をタップして、イベントが発生したときに実行するアクションを選択します。アクションを削除するには、アクションをもう一度タップして削除します。上部の保存アイコンを使用して保存することを忘れないでください。",
+  "triggerInfoEditActionDescription": "鉛筆をタップして、イベントが発生したときに実行するアクションを選択します。接続されたギアと互換性のあるアクションがランダムに選択されます。GlowTip アクションと Sound アクションは、Move アクションとともにトリガーされます。",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "アクションの削除",
+  "triggersSelectClearLabel": "なしを選択",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "アップデートに失敗しました。機器を再起動してもう一度お試しください。",
+  "otaFailedTitle": "更新が完了しました",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "このアプリで、Tail Co のすべてのギアを制御、検索、更新できます。また、説明とガイドも用意されています。楽しく尻尾を振ってください!",
+  "homeWelcomeMessage": "ここで、Tail Co のすべてのギアを制御、探索、更新できます。手順とガイドも用意されています。楽しく振ってください!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -894,6 +894,48 @@
   "deviceTypeMiniTail": "ミニテール",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "既知のギアを継続的にスキャンします。無効にすると、スキャンするにはギア バーをスワイプする必要があります。",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "偽のギア",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "偽装ギアを追加",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "偽のギアをすべて取り除く",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "アプリを試してみたいけれど、ギアが届くのを待っている場合は、偽のギアを追加してください。これにより、ギアを持っているかのようにアプリを体験したり、現在所有していないギアを試したりできます。これにより、「新しいギアのスキャン」ページに新しいセクションが有効になります。",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "アクションは好きなだけ選択できます。接続されたギアと互換性のあるアクションがランダムに選択されます。GlowTip アクションと Sound アクションは Move アクションと並行してトリガーされます。保存することを忘れないでください。",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "すべて選択",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }

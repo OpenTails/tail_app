@@ -5,13 +5,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPage": "Joystick",
+  "joyStickPage": "Die Tail Company",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Feedback abschicken",
+  "feedbackPage": "Soundeffekt hinzufügen",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "OK",
+  "cancel": "Trigger hinzufügen",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Ohren",
+  "deviceTypeEars": "Aktion bearbeiten",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -119,7 +119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Nächsten Zug um {howMany} ms verzögern.",
+  "sequenceEditListDelayLabel": "Startseite die Ausrüstung",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Neigung nach rechts",
+  "triggerEarTiltRight": "Tutorial-Karten ausblenden",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "Wie oft soll diese Aktion wiederholt werden?",
+  "sequenceEditRepeatTitle": "OTA-Update starten",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "Abschalten",
+  "manageDevicesShutdown": "Verbinden",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
@@ -483,13 +483,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualEargearTitle": "EarGear Handbuch",
+  "moreManualEargearTitle": "Ton erkannt",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "FlutterWings Handbuch",
+  "moreManualFlutterWingsTitle": "Ausrüstung in der Nähe",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -561,7 +561,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleTitle": "Kitsune-Modus",
+  "settingsKitsuneToggleTitle": "Ton erkannt",
   "@settingsKitsuneToggleTitle": {
     "description": "Settings page Kitsune mode toggle title",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tippen Sie auf den Stift, um die Aktion auszuwählen, die ausgeführt werden soll, wenn das Ereignis eintritt. Um eine Aktion zu entfernen, tippen Sie erneut auf die Aktion. Vergessen Sie nicht, mit dem Speichersymbol oben zu speichern.",
+  "triggerInfoEditActionDescription": "Tippen Sie auf den Stift, um die Aktion auszuwählen, die ausgeführt werden soll, wenn das Ereignis eintritt. Es wird eine zufällig ausgewählte Aktion ausgewählt, die mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden neben Move-Aktionen ausgelöst.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Zeigt den tatsächlichen Akkustand anstelle eines Symbols an",
+  "settingsBatteryPercentageToggleSubTitle": "Glühspitze",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Aktionen entfernen",
+  "triggersSelectClearLabel": "Nichts ausgewählt",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Sie können Ihre gesamte Tail Co-Ausrüstung direkt hier in dieser App steuern, erkunden und aktualisieren. Es sind auch Anleitungen und Leitfäden verfügbar. Viel Spaß beim Wedeln!",
+  "homeWelcomeMessage": "Sie möchten die App ausprobieren, warten aber noch auf die Lieferung Ihrer Ausrüstung? Fügen Sie eine gefälschte Ausrüstung hinzu. So können Sie die App so erleben, als hätten Sie Ihre Ausrüstung, oder wenn Sie Ausrüstung ausprobieren möchten, die Sie derzeit nicht besitzen. Dadurch wird ein neuer Abschnitt auf der Seite „Nach neuer Ausrüstung suchen“ aktiviert.",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -894,6 +894,48 @@
   "deviceTypeMiniTail": "Mini-Schwanz",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Kontinuierlich nach bekannter Ausrüstung suchen. Wenn deaktiviert, müssen Sie zum Scannen auf der Ausrüstungsleiste wischen.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Gefälschte Ausrüstung",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Gefälschte Ausrüstung hinzufügen",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Entfernen Sie sämtliche gefälschte Ausrüstung",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Sie möchten die App ausprobieren, warten aber noch auf die Lieferung Ihrer Ausrüstung? Fügen Sie eine gefälschte Ausrüstung hinzu. So können Sie die App so erleben, als hätten Sie Ihre Ausrüstung, oder wenn Sie Ausrüstung ausprobieren möchten, die Sie derzeit nicht besitzen. Dadurch wird ein neuer Abschnitt auf der Seite „Nach neuer Ausrüstung suchen“ aktiviert.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Wählen Sie Alle",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Wählen Sie so viele Aktionen aus, wie Sie möchten. Es wird eine zufällig ausgewählte Aktion ausgewählt, die mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden neben Move-Aktionen ausgelöst. Vergessen Sie nicht, zu speichern.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   }

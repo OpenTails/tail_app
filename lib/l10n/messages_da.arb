@@ -41,7 +41,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Brugerdefinerede handlinger",
+  "sequencesPage": "Tilpassede handlinger",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",
@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "GlowTip",
+  "deviceTypeEars": "Skjul de forskellige vejledningskort i hele appen",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAppColor": "App farve",
+  "settingsAppColor": "Rapportér ikke-identificerende funktionsbrug til Plausible for at forbedre appen",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
     "type": "text",
@@ -333,13 +333,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Enhed dækket",
+  "triggerCoverNear": "Trin",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Enhed afdækket",
+  "triggerCoverFar": "Enhed dækket",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Udløs en handling ved at ryste din enhed",
+  "triggerShakeDescription": "Udløs en handling ved at dække nærhedssensoren",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Udløs en handling, hvis gear er i nærheden",
+  "triggerProximityDescription": "Nærliggende Gear",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "Ansvarlig logning",
+  "moreManualResponsibleWaggingTitle": "Tilt bagud",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
@@ -531,13 +531,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Tryk for at se",
+  "moreManualSubTitle": "Manualer",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "nyttige links",
+  "moreUsefulLinksTitle": "Manualer",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
+  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, vil denne tilstand tilføje tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -633,13 +633,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tryk på blyanten for at vælge den handling, der skal afspilles, når begivenheden finder sted. For at fjerne en handling skal du trykke på handlingen igen for at fjerne den. Glem ikke at gemme ved at bruge gem-ikonet øverst",
+  "triggerInfoEditActionDescription": "Tryk på blyanten for at vælge den handling, der skal afspilles, når begivenheden finder sted. En handling vil blive valgt tilfældigt, som er kompatibel med tilsluttet gear. GlowTip og Sound-handlinger udløses sammen med Move-handlinger.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Custom Actions giver dig mulighed for at lave dine egne Actions for gear. Hvis du trykker på en brugerdefineret handling, afspilles den. Tryk på blyanten for at redigere en tilpasset handling.",
+  "sequencesInfoDescription": "Godt logrende!",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Se privatlivspolitik",
+  "onboardingPrivacyPolicyViewButtonLabel": "Selvom de indsamlede data er anonyme og ikke kan bruges til at identificere en bestemt bruger, skal du stadig acceptere privatlivspolitikken",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Giv tilladelse",
+  "onboardingBluetoothRequestButtonLabel": "Der kræves Bluetooth-tilladelse for at oprette forbindelse til gear",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -711,13 +711,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Fjern handlinger",
+  "triggersSelectClearLabel": "Vælg Ingen",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Scan altid for kendt gear",
+  "settingsAlwaysScanningToggleTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Du kan styre, udforske og opdatere alt dit Tail Co-udstyr lige her i denne app. Der er også instruktioner og vejledninger tilgængelige. Godt logrende!",
+  "homeWelcomeMessage": "Du kan styre, udforske og opdatere alt dit Tail Co-udstyr lige her. Der er også instruktioner og vejledninger tilgængelige. Godt logrende!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -807,7 +807,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Fundet gear. Tryk på gearnavnet for at oprette forbindelse",
+  "scanDevicesFoundTitle": "Rapportér ikke-identificerende funktionsbrug til Plausible for at forbedre appen",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
@@ -837,7 +837,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreSourceCode": "Kildekode",
+  "moreSourceCode": "Tryk længe på en handling for at favorit",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
@@ -873,7 +873,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioAdd": "Tilføj lydeffekt",
+  "audioAdd": "Scan løbende for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
   "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
@@ -894,6 +894,48 @@
   "deviceTypeMiniTail": "Mini hale",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Falsk gear",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Tilføj Fake Gear",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Fjern alt falsk gear",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Scan kontinuerligt for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Vil du prøve appen, men venter på, at dit udstyr kommer? Tilføj et falsk gear. Dette giver dig mulighed for at opleve appen, som om du havde dit udstyr, eller hvis du vil prøve udstyr, du ikke ejer i øjeblikket. Dette aktiverer et nyt afsnit på siden 'Scan efter nyt gear'.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Vælg alle",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Vælg så mange handlinger, du vil. En handling vil blive valgt tilfældigt, som er kompatibel med tilsluttet gear. GlowTip og Sound-handlinger udløses sammen med Move-handlinger. Glem ikke at gemme.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   }
