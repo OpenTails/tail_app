@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Contrôlez directement la position de la vitesse.",
+  "joyStickPageDescription": "Manette",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Appuyez sur le crayon pour sélectionner l'action à jouer lorsque l'événement se produit. Pour supprimer une action, appuyez à nouveau sur l'action pour la supprimer. N'oubliez pas de sauvegarder en utilisant l'icône de sauvegarde en haut",
+  "triggerInfoEditActionDescription": "Appuyez sur le crayon pour sélectionner l'action à jouer lorsque l'événement se produit. Une action sera sélectionnée au hasard et compatible avec les équipements connectés. Les actions GlowTip et Sound se déclencheront parallèlement aux actions Move.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Fraîchement sorti du blog Tail",
+  "homeNewsTitle": "Tout frais du blog Tail",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -927,7 +927,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Sélectionnez autant d'actions que vous le souhaitez. Une action sera sélectionnée au hasard et compatible avec les équipements connectés. Les actions GlowTip et Sound se déclencheront parallèlement aux actions Move.",
+  "triggerActionSelectorTutorialLabel": "Sélectionnez autant d'actions que vous le souhaitez. Une action sera sélectionnée au hasard et compatible avec les équipements connectés. Les actions GlowTip et Sound se déclencheront parallèlement aux actions Move. N'oubliez pas de sauvegarder.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
