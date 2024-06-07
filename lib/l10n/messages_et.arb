@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Päästikud",
+  "triggersPage": "Saba ettevõte",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -179,7 +179,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Viivitage järgmist liigutust {howMany} ms.",
+  "sequenceEditListDelayLabel": "Kas olete kindel, et soovite selle toimingu kustutada?",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -333,7 +333,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Kaas",
+  "triggerCoverDescription": "Seade katmata",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Kasulikud lingid",
+  "moreUsefulLinksTitle": "FlutterWingsi käsiraamat",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit.",
+  "sequencesInfoEditDescription": "Peida erinevad õpetuse kaardid kogu rakenduses",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -639,13 +639,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga saab aktiveerida mitu päästikut. Selle muutmiseks puudutage päästikut, päästiku lubamiseks kasutage vasakpoolset lülitit.",
+  "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga võib olla aktiivne mitu päästikut. Selle muutmiseks puudutage päästikut, päästiku lubamiseks kasutage vasakpoolset lülitit.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Läheduses Gear",
+  "triggerInfoEditActionDescription": "Puudutage pliiatsit, et valida sündmuse toimumisel esitatav toiming. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
