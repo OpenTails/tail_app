@@ -37,7 +37,7 @@ runs:
     - name: Write Certificate
       shell: bash
       if: github.event_name == 'push'
-      run: echo -n "$ANDROID_KEY_JKS" | base64 -d > ./android/AndroidKeystoreCodel1417.jks
+      run: echo -n "$ANDROID_KEY_JKS" | base64 -d > ./android/tailCo.jks
       env:
         ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
     - name: Build APK
