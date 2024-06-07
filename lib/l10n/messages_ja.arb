@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "トリガー",
+  "triggersPage": "について",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "切断",
+  "manageDevicesDisconnect": "更新が完了しました",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "後方傾斜",
+  "triggerEarTiltBackward": "EarGearが傾きを検知するとアクションがトリガーされます",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -645,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "OTAアップデートを開始",
+  "triggerInfoEditActionDescription": "鉛筆をタップして、イベントが発生したときに実行するアクションを選択します。接続されたギアと互換性のあるアクションがランダムに選択されます。GlowTip アクションと Sound アクションは、Move アクションとともにトリガーされます。",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -927,7 +927,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "アクションは好きなだけ選択できます。接続されたギアと互換性のあるアクションがランダムに選択されます。GlowTip アクションと Sound アクションは Move アクションと並行してトリガーされます。",
+  "triggerActionSelectorTutorialLabel": "アクションは好きなだけ選択できます。接続されたギアと互換性のあるアクションがランダムに選択されます。GlowTip アクションと Sound アクションは Move アクションと並行してトリガーされます。保存することを忘れないでください。",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
