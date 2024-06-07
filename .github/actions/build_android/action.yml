@@ -50,6 +50,16 @@ runs:
         SENTRY_ORG: ${{ inputs.sentry-org }}
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
         SENTRY_URL: ${{ inputs.sentry-url }}
+
+    - uses: actions/upload-artifact@v4
+      continue-on-error: true
+      if: runner.os == 'Linux'
+      with:
+        name: artifact-${{ runner.os }}
+        path: |
+          build/app/outputs/apk
+          build/app/outputs/bundle
+
     - name: Build AppBundle
       shell: bash
       run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=cronetHttpNoPlay=true
@@ -60,12 +70,3 @@ runs:
         SENTRY_ORG: ${{ inputs.sentry-org }}
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
         SENTRY_URL: ${{ inputs.sentry-url }}
-
-    - uses: actions/upload-artifact@v4
-      continue-on-error: true
-      if: runner.os == 'Linux'
-      with:
-        name: artifact-${{ runner.os }}
-        path: |
-          build/app/outputs/apk
-          build/app/outputs/bundle
