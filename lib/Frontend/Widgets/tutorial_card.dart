@@ -37,32 +37,37 @@ class GearOutOfDateWarning extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MultiValueListenableBuilder(
-      valueListenables: ref
-          .watch(knownDevicesProvider)
-          .values
-          .map(
-            (e) => e.mandatoryOtaRequired,
-          )
-          .toList(),
-      builder: (context, values, child) {
-        if (values.contains(true)) {
-          Color color = Theme.of(context).colorScheme.primary;
-          return BaseCard(
-              color: color,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    featureLimitedOtaRequiredLabel(),
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color)),
+    List<ValueNotifier<bool>> valueNotifiers = ref
+        .watch(knownDevicesProvider)
+        .values
+        .map(
+          (e) => e.mandatoryOtaRequired,
+        )
+        .toList();
+    if (valueNotifiers.isNotEmpty) {
+      return MultiValueListenableBuilder(
+        valueListenables: valueNotifiers,
+        builder: (context, values, child) {
+          if (values.contains(true)) {
+            Color color = Theme.of(context).colorScheme.primary;
+            return BaseCard(
+                color: color,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      featureLimitedOtaRequiredLabel(),
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color)),
+                    ),
                   ),
-                ),
-              ));
-        } else {
-          return Container();
-        }
-      },
-    );
+                ));
+          } else {
+            return Container();
+          }
+        },
+      );
+    } else {
+      return Container();
+    }
   }
 }
