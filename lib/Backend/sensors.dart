@@ -738,7 +738,18 @@ class TriggerList extends _$TriggerList {
       TriggerDefinition triggerDefinition = ref.read(triggerDefinitionListProvider).where((element) => element.uuid == 'ee9379e2-ec4f-40bb-8674-fd223a6edfda').first;
       Trigger trigger = Trigger.trigDef(triggerDefinition, '91e3d421-6a52-45ab-a23e-f38e4987a8f5');
       trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'c53e980e-899e-4148-a13e-f57a8f9707f4').uuid);
+      trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').actions.addAll(
+            ActionRegistry.allCommands
+                .where(
+                  (element) => element.actionCategory == ActionCategory.glowtip,
+                )
+                .map(
+                  (e) => e.uuid,
+                ),
+          );
+      trigger.actions.firstWhere((element) => element.uuid == '77d22961-5a69-465a-bd27-5cf5508d10a6').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'fdaff205-0a51-46a0-a5fc-4ea283dce079').uuid);
       trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid);
+      trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'd8384bcf-31ed-4b5d-a25a-da3a2f96e406').uuid);
 
       HiveProxy.clear<Trigger>(triggerBox);
       HiveProxy.addAll<Trigger>(triggerBox, [trigger]);
