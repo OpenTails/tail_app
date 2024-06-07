@@ -81,7 +81,7 @@ class ActionRegistry {
       },
     ),
     CommandAction(
-      name: "Erect",
+      name: "Stand Up",
       command: "TAILER",
       deviceCategory: [DeviceType.tail, DeviceType.wings],
       actionCategory: ActionCategory.fast,
@@ -277,8 +277,7 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
   Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   for (BaseAction baseAction in List.from(ActionRegistry.allCommands)
-    ..addAll(ref.read(moveListsProvider))
-    ..addAll(ref.read(userAudioActionsProvider))) {
+    ..addAll(ref.read(moveListsProvider))..addAll(ref.read(userAudioActionsProvider))) {
     Set<BaseAction>? baseActions = {};
     for (BaseStatefulDevice baseStatefulDevice in knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected)) {
       // check if command matches device type
@@ -303,11 +302,13 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
 Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref, Set<DeviceType> deviceType) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   for (BaseAction baseAction in List.from(ActionRegistry.allCommands)
-    ..addAll(ref.read(moveListsProvider))
-    ..addAll(ref.read(userAudioActionsProvider))) {
+    ..addAll(ref.read(moveListsProvider))..addAll(ref.read(userAudioActionsProvider))) {
     Set<BaseAction>? baseActions = {};
     // check if command matches device type
-    if (baseAction.deviceCategory.toSet().intersection(deviceType).isNotEmpty) {
+    if (baseAction.deviceCategory
+        .toSet()
+        .intersection(deviceType)
+        .isNotEmpty) {
       // get category if it exists
       if (sortedActions.containsKey(baseAction.actionCategory)) {
         baseActions = sortedActions[baseAction.actionCategory];
