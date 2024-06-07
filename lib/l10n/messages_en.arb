@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-05T20:26:38.152312",
+  "@@last_modified": "2024-06-07T00:10:57.940392",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -767,7 +767,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tap the pencil to select the Action to play when the event happens. To remove an Action, Tap the action again to remove it. Don't forget to save using the save icon at the top",
+  "triggerInfoEditActionDescription": "Tap the pencil to select the Action to play when the event happens. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -935,7 +935,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions.",
+  "triggerActionSelectorTutorialLabel": "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions. Don't forget to save.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
