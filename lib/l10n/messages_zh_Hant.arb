@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "透過覆蓋接近感應器來觸發動作",
+  "triggerCoverDescription": "已停止",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -579,7 +579,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "點擊鉛筆以選擇事件發生時要播放的操作。若要刪除某個操作，請再次點選該操作即可刪除。不要忘記使用頂部的儲存圖示進行儲存",
+  "triggerInfoEditActionDescription": "點擊鉛筆以選擇事件發生時要播放的操作。將隨機選擇與連接的裝備相容的動作。 GlowTip 和聲音操作將與移動操作一起觸發。",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "發光頭",
+  "actionsCategoryGlowtip": "發光提示",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -897,7 +897,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioTipCard": "您可以新增出現在「動作」標籤上並可與「觸發器」一起使用的自訂聲音",
+  "audioTipCard": "您可以新增出現在「動作」標籤上並可與觸發器一起使用的自訂聲音",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
     "type": "text",
@@ -933,7 +933,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "選擇您想要的任意數量的操作。將隨機選擇與連接的裝備相容的動作。 GlowTip 和聲音操作將與移動操作一起觸發。",
+  "triggerActionSelectorTutorialLabel": "選擇您想要的任意數量的操作。將隨機選擇與連接的裝備相容的動作。 GlowTip 和聲音操作將與移動操作一起觸發。別忘了保存。",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
