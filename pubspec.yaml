@@ -40,10 +40,10 @@ dependencies:
   package_info_plus: ^8.0.0
   permission_handler: ^11.3.1
   back_button_interceptor: ^7.0.3 # for rejecting the back button in some places due to flutter/Go Router bugs
-  url_launcher: ^6.2.6 # Open URLS in external apps
+  url_launcher: ^6.3.0 # Open URLS in external apps
   app_settings: ^5.1.1 # Open bluetooth settings
   flutter_blue_plus: ^1.32.7
-  flutter_foreground_task: ^6.2.0 # Keep the app running in the background on android
+  flutter_foreground_task: ^6.4.0 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
     git:
       url: https://github.com/undreeyyy/flutter_plugin_install_referrer
@@ -69,7 +69,7 @@ dependencies:
   fl_chart: ^0.68.0 # Used for the battery graph
   chart_sparkline: ^1.0.15+1 # used for the move easing visual
   pdfx: ^2.6.0
-  flutter_joystick: ^0.0.4
+  flutter_joystick: ^0.1.0
   multi_value_listenable_builder: ^0.0.2
   multi_listenable_builder: ^1.0.0
   flutter_markdown: ^0.7.1
@@ -80,7 +80,7 @@ dependencies:
   duration: ^3.0.13
   choice:
     git:
-      url: https://github.com/Codel1417/flutter_choice
+      url: https://github.com/davigmacode/flutter_choice
 
   # Dio HTTP
   dio: ^5.4.3+1

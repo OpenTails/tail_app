@@ -162,18 +162,18 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "1414d6d733a85d8ad2f1dfcb3ea7945759e35a123cb99ccfac75d0758f75edfa"
+      sha256: "644dc98a0f179b872f612d3eb627924b578897c629788e858157fa5e704ca0c7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.10"
+    version: "2.4.11"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
-      sha256: "4ae8ffe5ac758da294ecf1802f2aff01558d8b1b00616aa7538ea9a8a5d50799"
+      sha256: e3c79f69a64bdfcd8a776a3c28db4eb6e3fb5356d013ae5eb2e52007706d5dbe
       url: "https://pub.dev"
     source: hosted
-    version: "7.3.0"
+    version: "7.3.1"
   built_collection:
     dependency: transitive
     description:
@@ -219,8 +219,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ba4dc8b3579620e3fac0944dcab97f9b22e7c3eb
-      url: "https://github.com/Codel1417/flutter_choice"
+      resolved-ref: be50fe78525b02fa1709465de05bb897b9438527
+      url: "https://github.com/davigmacode/flutter_choice"
     source: git
     version: "2.3.2"
   circular_buffer:
@@ -283,10 +283,10 @@ packages:
     dependency: transitive
     description:
       name: cronet_http
-      sha256: f6b4f39b93affe542cc1a0dd3fc42844a93937eb1b250bad864f0936c7d5cf29
+      sha256: "76336da9084672970bc830b88061b179467e9132c180a9c126352420697ad814"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.0"
+    version: "1.3.1"
   cross_file:
     dependency: transitive
     description:
@@ -444,7 +444,7 @@ packages:
     description:
       path: feedback_sentry
       ref: HEAD
-      resolved-ref: b9b78756085e0326eb745d0ba5d2e7c1f5466fe5
+      resolved-ref: e4f8a8f2c06b856c6ef77f68d8bb13149438fdd8
       url: "https://github.com/ueman/feedback"
     source: git
     version: "3.0.1"
@@ -567,10 +567,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_joystick
-      sha256: "9fee6b7f69501ecf78c02c924169f17311737cc84990205d6affb7d9ccda5388"
+      sha256: adea7571e05fcbdfc490b8fbc1dfa841e563e123c33456ee8aaa24fd905563ac
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.4"
+    version: "0.1.0"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
