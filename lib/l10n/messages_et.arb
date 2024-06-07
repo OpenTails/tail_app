@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "Anonüümse analüüsi lubamine",
+  "triggerEarMicTitle": "Tegevus",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -927,7 +927,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Valige nii palju toiminguid, kui soovite. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega.",
+  "triggerActionSelectorTutorialLabel": "Valige nii palju toiminguid kui soovite. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega. Ärge unustage salvestada.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
