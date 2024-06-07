@@ -621,7 +621,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Klepnutím na tužku vyberte akci, kterou chcete přehrát, když k události dojde. Chcete-li akci odebrat, klepněte na ni znovu a odeberte ji. Nezapomeňte uložit pomocí ikony uložit nahoře",
+  "triggerInfoEditActionDescription": "Klepnutím na tužku vyberte akci, kterou chcete přehrát, když k události dojde. Náhodně bude vybrána akce, která je kompatibilní s připojeným zařízením. Akce GlowTip a Sound se spustí spolu s akcemi Move.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Slabá baterie. Nabijte prosím své zařízení alespoň na 50 %",
+  "otaLowBattery": "Vlastní akce vám umožňují vytvářet vlastní akce pro zařízení. Klepnutím na vlastní akci ji přehrajete. Klepnutím na tužku upravíte vlastní akci.",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "homeContinuousScanningOffDescription": "Chcete-li zahájit skenování, přejeďte vodorovným prstem po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -927,7 +927,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Vyberte tolik akcí, kolik chcete. Náhodně bude vybrána akce, která je kompatibilní s připojeným zařízením. Akce GlowTip a Sound se spustí spolu s akcemi Move.",
+  "triggerActionSelectorTutorialLabel": "Vyberte tolik akcí, kolik chcete. Náhodně bude vybrána akce, která je kompatibilní s připojeným zařízením. Akce GlowTip a Sound se spustí spolu s akcemi Move. Nezapomeňte uložit.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
