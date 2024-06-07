@@ -131,7 +131,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Главная Gear",
+  "sequencesEditHomeLabel": "Главная Шестерня",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Нажмите, чтобы обновить прошивку",
+  "manageDevicesOtaButton": "Положение левого сервопривода",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизводиться при возникновении события. Чтобы удалить действие, коснитесь действия еще раз, чтобы удалить его. Не забудьте сохраниться, используя значок сохранения вверху.",
+  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизводиться при возникновении события. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -927,7 +927,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Выберите столько действий, сколько хотите. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move.",
+  "triggerActionSelectorTutorialLabel": "Выберите столько действий, сколько хотите. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move. Не забудьте сохранить.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
