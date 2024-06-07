@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Udløs en handling ved at ryste din enhed",
+  "triggerShakeDescription": "Udløs en handling ved at dække nærhedssensoren",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -411,7 +411,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Lyd fundet",
+  "triggerEarMicSound": "Lyd registreret",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -567,7 +567,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
+  "settingsKitsuneToggleSubTitle": "Hvis du forbinder mange forekomster af de samme enheder, vil denne tilstand tilføje tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tryk på blyanten for at vælge den handling, der skal afspilles, når begivenheden finder sted. For at fjerne en handling skal du trykke på handlingen igen for at fjerne den. Glem ikke at gemme ved at bruge gem-ikonet øverst",
+  "triggerInfoEditActionDescription": "Tryk på blyanten for at vælge den handling, der skal afspilles, når begivenheden finder sted. En handling vil blive valgt tilfældigt, som er kompatibel med tilsluttet gear. GlowTip og Sound-handlinger udløses sammen med Move-handlinger.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Se privatlivspolitik",
+  "onboardingPrivacyPolicyViewButtonLabel": "Selvom de indsamlede data er anonyme og ikke kan bruges til at identificere en bestemt bruger, skal du stadig acceptere privatlivspolitikken",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Afslappet tilstand",
+  "settingsAlwaysScanningToggleTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Frisk fra halebloggen",
+  "homeNewsTitle": "Frisk fra Halebloggen",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -933,7 +933,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Vælg så mange handlinger, du vil. En handling vil blive valgt tilfældigt, som er kompatibel med tilsluttet gear. GlowTip og Sound-handlinger udløses sammen med Move-handlinger.",
+  "triggerActionSelectorTutorialLabel": "Vælg så mange handlinger, du vil. En handling vil blive valgt tilfældigt, som er kompatibel med tilsluttet gear. GlowTip og Sound-handlinger udløses sammen med Move-handlinger. Glem ikke at gemme.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
