@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Feedback verzenden",
+  "feedbackPage": "Stuur feedback",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Batterijgrafiek",
+  "manageDevicesDisconnect": "Kitsune-modus",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Wijzig de app-kleur, configureer haptiek en meer",
+  "settingsDescription": "Wijzig de kleur van de app, configureer haptiek en meer",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Start OTA-update",
+  "triggerInfoEditActionDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Er wordt willekeurig een actie geselecteerd die compatibel is met aangesloten uitrusting. GlowTip- en Sound-acties worden geactiveerd naast Move-acties.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -933,7 +933,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Selecteer zoveel acties als je wilt. Er wordt willekeurig een actie geselecteerd die compatibel is met aangesloten uitrusting. GlowTip- en Sound-acties worden geactiveerd naast Move-acties.",
+  "triggerActionSelectorTutorialLabel": "Selecteer zoveel acties als je wilt. Er wordt willekeurig een actie geselecteerd die compatibel is met aangesloten uitrusting. GlowTip- en Sound-acties worden geactiveerd naast Move-acties. Vergeet niet op te slaan.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
