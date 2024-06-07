@@ -11,7 +11,7 @@ class BaseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Card(
           color: color,
           elevation: elevation,

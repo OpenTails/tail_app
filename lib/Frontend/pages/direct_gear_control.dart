@@ -14,6 +14,7 @@ import '../../Backend/LoggingWrappers.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';
+import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';
 
 class DirectGearControl extends ConsumerStatefulWidget {
@@ -45,11 +46,16 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
           Expanded(
             child: Stack(
               children: [
-                Column(
+                Flex(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  direction: Axis.vertical,
                   children: [
-                    Align(
+                    const Padding(padding: EdgeInsets.only(top: 32)),
+                    PageInfoCard(text: joystickWarning()),
+                    const GearOutOfDateWarning(),
+                    Expanded(
+                        child: Align(
                       alignment: Alignment.center,
                       child: Joystick(
                         mode: JoystickMode.all,
@@ -108,7 +114,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         },
                         period: Duration(milliseconds: (speed * 20).toInt()),
                       ),
-                    ),
+                    )),
                   ],
                 ),
                 if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[

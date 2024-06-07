@@ -55,6 +55,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
               PageInfoCard(
                 text: sequencesInfoDescription(),
               ),
+              const GearOutOfDateWarning(),
               ListView.builder(
                 itemCount: allMoveLists.length,
                 shrinkWrap: true,
