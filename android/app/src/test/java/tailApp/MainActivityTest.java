@@ -1,11 +1,13 @@
-package com.codel1417.tail_app;
+package tailApp;
 
 import androidx.test.rule.ActivityTestRule;
 
-import dev.flutter.plugins.integration_test.FlutterTestRunner;
+import com.codel1417.tailApp.MainActivity;
 
 import org.junit.Rule;
 import org.junit.runner.RunWith;
+
+import dev.flutter.plugins.integration_test.FlutterTestRunner;
 
 @RunWith(FlutterTestRunner.class)
 public class MainActivityTest {

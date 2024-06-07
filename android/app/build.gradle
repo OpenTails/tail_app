@@ -89,7 +89,7 @@ android {
             signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
         }
     }
-    namespace 'com.codel1417.tail_app'
+    namespace 'com.codel1417.tailApp'
     ndkVersion '26.1.10909125'
 }
 

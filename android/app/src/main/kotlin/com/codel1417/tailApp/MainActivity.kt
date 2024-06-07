@@ -1,4 +1,4 @@
-package com.codel1417.tail_app
+package com.codel1417.tailApp
 
 import android.os.Build
 import android.os.Bundle
