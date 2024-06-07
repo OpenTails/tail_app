@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "Comenzar la actualización OTA",
+  "otaDownloadButtonLabel": "Iniciar actualización OTA",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -645,13 +645,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, toque la acción nuevamente para eliminarla. No olvides guardar usando el ícono de guardar en la parte superior.",
+  "triggerInfoEditActionDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Se seleccionará aleatoriamente una acción que sea compatible con el equipo conectado. Las acciones GlowTip y Sound se activarán junto con las acciones Move.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Inclinación hacia la derecha",
+  "onboardingPrivacyPolicyDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, toque la acción nuevamente para eliminarla. No olvides guardar usando el ícono de guardar en la parte superior.",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -933,7 +933,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Selecciona tantas acciones como quieras. Se seleccionará aleatoriamente una acción que sea compatible con el equipo conectado. Las acciones GlowTip y Sound se activarán junto con las acciones Move.",
+  "triggerActionSelectorTutorialLabel": "Selecciona tantas acciones como quieras. Se seleccionará aleatoriamente una acción que sea compatible con el equipo conectado. Las acciones GlowTip y Sound se activarán junto con las acciones Move. No olvides guardar.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
