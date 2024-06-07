@@ -275,7 +275,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEdit": "编辑操作",
+  "sequencesEdit": "編輯操作",
   "@sequencesEdit": {
     "description": "Label for the edit icon on a sequence",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "自动错误报告",
+  "settingsErrorReportingToggleTitle": "您可以添加在“操作”选项卡上显示的自定义声音，并可与触发器一起使用",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -747,7 +747,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeChangelogLinkTitle": "更新日志",
+  "homeChangelogLinkTitle": "变更日志",
   "@homeChangelogLinkTitle": {
     "description": "Title for Changelog on Home page",
     "type": "text",
@@ -789,13 +789,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "触发器会自动向您的装备发送动作。您可以同时激活多个触发器。点击触发器进行编辑，使用左侧的切换按钮启用触发器。",
+  "triggerInfoDescription": "触发器会自动向您的装备发送动作。您可以同时激活多个触发器。点击触发器进行编辑，使用左侧的开关启用触发器。",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "点击铅笔以选择事件发生时要执行的操作。要删除操作，请再次点击该操作以将其删除。不要忘记使用顶部的保存图标进行保存",
+  "triggerInfoEditActionDescription": "点击铅笔以选择事件发生时要执行的操作。系统将随机选择与连接设备兼容的操作。GlowTip 和 Sound 操作将与 Move 操作一起触发。",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -927,7 +927,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "选择任意数量的操作。将随机选择一个与连接设备兼容的操作。GlowTip 和 Sound 操作将与 Move 操作一起触发。",
+  "triggerActionSelectorTutorialLabel": "选择任意数量的操作。将随机选择一个与连接设备兼容的操作。GlowTip 和 Sound 操作将与 Move 操作一起触发。别忘了保存。",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
