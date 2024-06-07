@@ -81,6 +81,7 @@ dependencies:
   choice:
     git:
       url: https://github.com/davigmacode/flutter_choice
+  feedback: ^3.1.0
 
   # Dio HTTP
   dio: ^5.4.3+1
@@ -127,6 +128,7 @@ dependencies:
     git:
       url: https://github.com/ueman/feedback
       path: feedback_sentry
+      ref: b9b78756085e0326eb745d0ba5d2e7c1f5466fe5
   mockito: ^5.4.4
   platform: ^3.1.4
 
