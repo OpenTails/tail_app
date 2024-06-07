@@ -5,13 +5,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPage": "Joystick",
+  "joyStickPage": "Het Staartbedrijf",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Feedback verzenden",
+  "feedbackPage": "Stuur feedback",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Oren",
+  "deviceTypeEars": "Staart",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Nieuwe actie",
+  "sequencesAdd": "Vleugels",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -225,7 +225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Stuurt foutrapporten naar Sentry",
+  "settingsErrorReportingToggleSubTitle": "Maakt de actiekaarten groter, zodat je er gemakkelijker op kunt tikken",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Batterijgrafiek",
+  "manageDevicesDisconnect": "Kitsune-modus",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -399,13 +399,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Geluid gedetecteerd",
+  "triggerEarMicSound": "Activeer een actie wanneer EarGear geluid detecteert",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "EarGear-kantelsensor",
+  "triggerEarTiltTitle": "Activeer een actie wanneer EarGear geluid detecteert",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -453,13 +453,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Voor welke uitrusting moet dit gelden?",
+  "deviceType": "Trigger toevoegen",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "handige links",
+  "moreUsefulLinksTitle": "Handleidingen",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -495,7 +495,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "Handleidingen",
+  "moreManualTitle": "EarGear-handleiding",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Toon het werkelijke batterijniveau in plaats van een pictogram",
+  "settingsBatteryPercentageToggleSubTitle": "Toon batterij%",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -597,13 +597,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijkertijd actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
+  "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijk actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Start OTA-update",
+  "triggerInfoEditActionDescription": "Tik op het potlood om de actie te selecteren die moet worden afgespeeld wanneer de gebeurtenis plaatsvindt. Er wordt willekeurig een actie geselecteerd die compatibel is met aangesloten uitrusting. GlowTip- en Sound-acties worden geactiveerd naast Move-acties.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -645,7 +645,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaDownloadButtonLabel": "OTA-update starten",
+  "otaDownloadButtonLabel": "Start OTA-update",
   "@otaDownloadButtonLabel": {
     "description": "Label for download firmware button at bottom of OTA page",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Accepteer het privacybeleid",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Bekijk privacybeleid",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Acties verwijderen",
+  "triggersSelectClearLabel": "Selecteer Geen",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Update mislukt. Start uw uitrusting opnieuw op en probeer het opnieuw",
+  "otaFailedTitle": "Snel en opgewonden",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -777,7 +777,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Je kunt al je Tail Co-uitrusting hier in deze app bedienen, verkennen en updaten. Er zijn ook instructies en handleidingen beschikbaar. Veel plezier met kwispelen!",
+  "homeWelcomeMessage": "Je kunt hier al je Tail Co-uitrusting beheren, verkennen en updaten. Er zijn ook instructies en handleidingen beschikbaar. Veel plezier met kwispelen!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -819,7 +819,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "noLongerSupported": "Deze uitrusting wordt niet langer ondersteund. Sommige app-functies werken mogelijk niet",
+  "noLongerSupported": "Schakel Bluetooth in",
   "@noLongerSupported": {
     "description": "Warning message which appears for unsupported gear on the manage gear page",
     "type": "text",
@@ -855,7 +855,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioEditDescription": "Beheer aangepaste geluidseffecten",
+  "audioEditDescription": "Schakel Bluetooth in",
   "@audioEditDescription": {
     "description": "Label for sound files",
     "type": "text",
@@ -894,6 +894,48 @@
   "deviceTypeMiniTail": "Mini-staart",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Scan voortdurend naar bekende uitrusting. Indien uitgeschakeld, moet u over de tandwielbalk vegen om te scannen.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Valse uitrusting",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Wil je de app uitproberen, maar wacht je tot je spullen arriveren? Voeg een nepuitrusting toe. Hierdoor kun je de app ervaren alsof je je uitrusting al bij je hebt, of uitrusting wilt uitproberen die je momenteel niet hebt. Hierdoor wordt een nieuwe sectie op de pagina 'Scannen naar nieuwe uitrusting' mogelijk gemaakt.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Voeg nepuitrusting toe",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Verwijder alle nepuitrusting",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Selecteer alles",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Selecteer zoveel acties als je wilt. Er wordt willekeurig een actie geselecteerd die compatibel is met aangesloten uitrusting. GlowTip- en Sound-acties worden geactiveerd naast Move-acties. Vergeet niet op te slaan.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   }

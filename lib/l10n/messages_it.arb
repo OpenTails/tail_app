@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "Volume basso",
+  "triggerVolumeButtonVolumeDown": "Scodinzolare responsabile",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Attiva un'azione quando EarGear rileva il suono",
+  "triggerEarMicDescription": "Microfono EarGear",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Attiva un'azione quando EarGear rileva l'inclinazione",
+  "triggerEarTiltDescription": "Sensore di inclinazione EarGear",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Inclinazione in avanti",
+  "triggerEarTiltForward": "Scodinzolare responsabile",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "Segnala l'utilizzo di funzionalità non identificative a Plausible per migliorare l'app",
+  "settingsAnalyticsToggleSubTitle": "Nascondi le schede tutorial",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -525,7 +525,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Questa modalità impedisce allo schermo di spegnersi mentre l'attrezzatura è collegata",
+  "settingsKeepScreenOnToggleSubTitle": "Premi a lungo un'azione da aggiungere ai preferiti",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tocca la matita per selezionare l'azione da eseguire quando si verifica l'evento. Per rimuovere un'azione, tocca nuovamente l'azione per rimuoverla. Non dimenticare di salvare utilizzando l'icona di salvataggio in alto",
+  "triggerInfoEditActionDescription": "Tocca la matita per selezionare l'azione da eseguire quando si verifica l'evento. Verrà selezionata casualmente un'azione compatibile con l'attrezzatura connessa. Le azioni GlowTip e Sound si attiveranno insieme alle azioni Move.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
@@ -669,13 +669,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Accetta l'informativa sulla privacy",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Sebbene i dati raccolti siano anonimi e non possano essere utilizzati per identificare un utente specifico, è comunque necessario accettare l'informativa sulla privacy",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Per connettersi all'attrezzatura è necessaria l'autorizzazione Bluetooth",
+  "onboardingBluetoothDescription": "Bluetooth",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -705,19 +705,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Rimuovi azioni",
+  "triggersSelectClearLabel": "Non selezionare niente",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Premere di nuovo per uscire ",
+  "doubleBackToClose": "Buon scodinzolante! ",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Cerca sempre l'attrezzatura conosciuta",
+  "settingsAlwaysScanningToggleTitle": "Seleziona un'azione",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Aggiornamento non riuscito. Riavvia la tua attrezzatura e riprova",
+  "otaFailedTitle": "Premi a lungo un'azione da aggiungere ai preferiti",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Puoi controllare, esplorare e aggiornare tutta la tua attrezzatura Tail Co proprio qui in questa app. Sono disponibili anche istruzioni e guide. Buon scodinzolante!",
+  "homeWelcomeMessage": "Puoi controllare, esplorare e aggiornare tutta la tua attrezzatura Tail Co proprio qui. Sono disponibili anche istruzioni e guide. Buon scodinzolante!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -855,7 +855,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioEditDescription": "Gestisci effetti sonori personalizzati",
+  "audioEditDescription": "Fatto",
   "@audioEditDescription": {
     "description": "Label for sound files",
     "type": "text",
@@ -894,6 +894,48 @@
   "deviceTypeMiniTail": "Mini coda",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Cerca continuamente attrezzi conosciuti. Quando disabilitato, è necessario scorrere sulla barra degli ingranaggi per eseguire la scansione.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Rinomina effetto sonoro",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Aggiungi attrezzatura falsa",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Rimuovi tutti gli attrezzi falsi",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Vuoi provare l'app ma stai aspettando che arrivi la tua attrezzatura? Aggiungi un equipaggiamento falso. Ciò ti consente di provare l'app come se avessi la tua attrezzatura o se desideri provare l'attrezzatura che attualmente non possiedi. Ciò abilita una nuova sezione nella pagina \"Cerca nuova attrezzatura\".",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Seleziona tutte le azioni che desideri. Verrà selezionata casualmente un'azione compatibile con l'attrezzatura connessa. Le azioni GlowTip e Sound si attiveranno insieme alle azioni Move. Non dimenticare di salvare.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Seleziona tutto",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",
     "placeholders": {}
   }

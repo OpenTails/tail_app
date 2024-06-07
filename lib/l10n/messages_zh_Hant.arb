@@ -1,0 +1,942 @@
+{
+  "feedbackPage": "傳送回饋",
+  "@feedbackPage": {
+    "description": "The label and title of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "自訂聲音",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsPage": "設定",
+  "@settingsPage": {
+    "description": "The label and title of the settings page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsDescription": "更改應用程式顏色、配置觸覺等",
+  "@settingsDescription": {
+    "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersPage": "觸發器",
+  "@triggersPage": {
+    "description": "The label and title of the trigger page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPage": "自訂操作",
+  "@sequencesPage": {
+    "description": "The label and title of the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceType": "這應該適用於哪些齒輪？",
+  "@deviceType": {
+    "description": "Title for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeTail": "尾巴",
+  "@deviceTypeTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "迷你尾",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEdit": "編輯動作",
+  "@sequencesEdit": {
+    "description": "Label for the edit icon on a sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditAdd": "添加移動",
+  "@sequencesEditAdd": {
+    "description": "Label for the add Floating Action Button on edit sequence page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditName": "姓名",
+  "@sequencesEditName": {
+    "description": "Label for the name field on sequence edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditMove": "移動",
+  "@sequencesEditMove": {
+    "description": "Label for the move tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDelay": "延遲",
+  "@sequencesEditDelay": {
+    "description": "Label for the delay tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditLeftServo": "左舵機位置",
+  "@sequencesEditLeftServo": {
+    "description": "Label for the left servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditRightServo": "右舵機位置",
+  "@sequencesEditRightServo": {
+    "description": "Label for the right servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDeleteTitle": "刪除操作",
+  "@sequencesEditDeleteTitle": {
+    "description": "Title of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDeleteDescription": "您確定要刪除此操作嗎？",
+  "@sequencesEditDeleteDescription": {
+    "description": "Message of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditListDelayLabel": "將下一步移動延遲 {howMany} 毫秒。",
+  "@sequenceEditListDelayLabel": {
+    "description": "Delay move label on the edit sequences page.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": "42"
+      }
+    }
+  },
+  "actionsNoBluetooth": "藍牙不可用",
+  "@actionsNoBluetooth": {
+    "description": "Label on the actions page when bluetooth is unavailable",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryCalm": "平靜和放鬆",
+  "@actionsCategoryCalm": {
+    "description": "calm action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryFast": "快速而興奮",
+  "@actionsCategoryFast": {
+    "description": "fast action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryTense": "沮喪和緊張",
+  "@actionsCategoryTense": {
+    "description": "tense action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsSelectScreen": "選擇一個操作",
+  "@actionsSelectScreen": {
+    "description": "Title for action select menu on triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsHapticsToggleTitle": "觸覺回饋",
+  "@settingsHapticsToggleTitle": {
+    "description": "Settings page haptic feedback toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsHapticsToggleSubTitle": "點擊某個操作時啟用振動",
+  "@settingsHapticsToggleSubTitle": {
+    "description": "Settings page haptic feedback toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "始終掃描已知裝備",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "連續掃描已知齒輪。停用後，您必須在齒輪欄上滑動才能進行掃描。",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleTitle": "保持螢幕開啟",
+  "@settingsKeepScreenOnToggleTitle": {
+    "description": "Settings page Keep Awake toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleSubTitle": "當您的裝置連線時，此模式會阻止螢幕關閉",
+  "@settingsKeepScreenOnToggleSubTitle": {
+    "description": "Settings page Keep Awake toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "狐狸模式",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "如果您連接相同裝置的多個實例，此模式將在其移動開始時間中新增隨機暫停，產生不同的視覺效果。",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "顯示電池百分比",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "顯示實際電池電量而不是圖標",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "更大的卡片",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "讓動作卡更大以便於點擊",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleTitle": "自動錯誤報告",
+  "@settingsErrorReportingToggleTitle": {
+    "description": "Settings page error reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleSubTitle": "向 Sentry 發送錯誤報告",
+  "@settingsErrorReportingToggleSubTitle": {
+    "description": "Settings page error reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "隱藏教學卡",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "隱藏整個應用程式中的各種教學卡",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleTitle": "允許匿名分析",
+  "@settingsAnalyticsToggleTitle": {
+    "description": "Settings page analytics reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleSubTitle": "向 Plausible 報告非識別功能的使用情況，以增強應用程式",
+  "@settingsAnalyticsToggleSubTitle": {
+    "description": "Settings page analytics reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "允許尾部博客通知",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "有新的 Tail 部落格貼文時自動接收通知",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAppColor": "應用程式顏色",
+  "@settingsAppColor": {
+    "description": "Settings page app color picker button title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesBatteryGraphTitle": "電池圖",
+  "@manageDevicesBatteryGraphTitle": {
+    "description": "battery graph expansion tile title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesDisconnect": "斷開",
+  "@manageDevicesDisconnect": {
+    "description": "manage devices disconnect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesConnect": "連接",
+  "@manageDevicesConnect": {
+    "description": "manage devices connect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesShutdown": "關閉",
+  "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesColor": "齒輪顏色",
+  "@manageDevicesColor": {
+    "description": "manage devices color picker button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesForget": "忘記",
+  "@manageDevicesForget": {
+    "description": "manage devices forget button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesTitle": "掃描新裝備",
+  "@scanDevicesTitle": {
+    "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "找到齒輪。點擊齒輪名稱進行連接",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesScanMessage": "掃描齒輪。請確保您的設備已通電且位於附近",
+  "@scanDevicesScanMessage": {
+    "description": "scan for devices scan in progress message when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingTitle": "行人徒步區",
+  "@triggerWalkingTitle": {
+    "description": "Walking/Step trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingDescription": "步行時觸發動作",
+  "@triggerWalkingDescription": {
+    "description": "Walking/Step trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStopped": "已停止",
+  "@triggerWalkingStopped": {
+    "description": "Walking/Step trigger Stopped action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStep": "步",
+  "@triggerWalkingStep": {
+    "description": "Walking/Step trigger Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverDescription": "已停止",
+  "@triggerCoverDescription": {
+    "description": "Cover trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverFar": "設備被發現",
+  "@triggerCoverFar": {
+    "description": "Cover trigger far action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "休閒模式",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "隨機播放選定的動作",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "行動",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonTitle": "音量按鈕",
+  "@triggerVolumeButtonTitle": {
+    "description": "Volume Button trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeDown": "音量減小",
+  "@triggerVolumeButtonVolumeDown": {
+    "description": "Volume Button trigger volume down action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeTitle": "搖",
+  "@triggerShakeTitle": {
+    "description": "Shake trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeDescription": "透過搖動設備觸發操作",
+  "@triggerShakeDescription": {
+    "description": "Shake trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityTitle": "附近的裝備",
+  "@triggerProximityTitle": {
+    "description": "Proximity trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityDescription": "如果齒輪在附近則觸發動作",
+  "@triggerProximityDescription": {
+    "description": "Proximity trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionNotSet": "沒有設定行動",
+  "@triggerActionNotSet": {
+    "description": "Trigger action label when no action set",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicTitle": "耳麥",
+  "@triggerEarMicTitle": {
+    "description": "EarGear internal mic trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicDescription": "當 EarGear 偵測到聲音時觸發操作",
+  "@triggerEarMicDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicSound": "偵測到聲音",
+  "@triggerEarMicSound": {
+    "description": "EarGear internal mic trigger sound detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltTitle": "EarGear 傾斜感測器",
+  "@triggerEarTiltTitle": {
+    "description": "EarGear internal gesture sensor trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltDescription": "當 EarGear 偵測到傾斜時觸發操作",
+  "@triggerEarTiltDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltLeft": "左傾斜",
+  "@triggerEarTiltLeft": {
+    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltRight": "右傾斜",
+  "@triggerEarTiltRight": {
+    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltForward": "前傾",
+  "@triggerEarTiltForward": {
+    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltBackward": "向後傾斜",
+  "@triggerEarTiltBackward": {
+    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditRepeatTitle": "重複這個動作幾次？",
+  "@sequenceEditRepeatTitle": {
+    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualResponsibleWaggingTitle": "負責任的搖擺",
+  "@moreManualResponsibleWaggingTitle": {
+    "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualMiTailTitle": "米泰手冊",
+  "@moreManualMiTailTitle": {
+    "description": "Title for MiTail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualEargearTitle": "耳機手冊",
+  "@moreManualEargearTitle": {
+    "description": "Title for EarGear manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualFlutterWingsTitle": "FlutterWings 手冊",
+  "@moreManualFlutterWingsTitle": {
+    "description": "Title for FlutterWings manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreUsefulLinksTitle": "有用的連結",
+  "@moreUsefulLinksTitle": {
+    "description": "Title for Useful Links header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePrivacyPolicyLinkTitle": "隱私權政策",
+  "@morePrivacyPolicyLinkTitle": {
+    "description": "Title for Privacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "變更日誌",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "更多的",
+  "@moreTitle": {
+    "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "更新裝備",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "韌體更新日誌",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "開始OTA更新",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "更新裝備。請不要關閉您的裝置或關閉應用程式",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "更新完成",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "更新失敗。請重新啟動您的裝置並重試",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "低電量。請將您的裝備充電至至少 50%",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "觸發器會自動將動作傳送到您的裝備。您可以同時啟動多個觸發器。點擊觸發器進行編輯，使用左側的開關啟用觸發器。",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "點擊鉛筆以選擇事件發生時要播放的操作。將隨機選擇與連接的裝備相容的動作。 GlowTip 和聲音操作將與移動操作一起觸發。",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "自訂操作可讓您為裝備制定自己的操作。點擊自訂操作即可播放它。點擊鉛筆以編輯自訂操作。",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "每個自訂操作由 1-6 個動作組成，最多可重複 5 次。您可以長按一個動作來重新排序。",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyDescription": "雖然收集的資料是匿名的，不能用於識別特定用戶，但您仍然需要接受隱私權政策",
+  "@onboardingPrivacyPolicyDescription": {
+    "description": "Description for there being a privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyAcceptButtonLabel": "接受隱私權政策",
+  "@onboardingPrivacyPolicyAcceptButtonLabel": {
+    "description": "Button label to accept privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothTitle": "藍牙",
+  "@onboardingBluetoothTitle": {
+    "description": "Title for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothDescription": "連接到裝置需要藍牙權限",
+  "@onboardingBluetoothDescription": {
+    "description": "Description for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothRequestButtonLabel": "授予權限",
+  "@onboardingBluetoothRequestButtonLabel": {
+    "description": "Label for the button to request bluetooth permission on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "此應用程式需要更新韌體才能支援您的設備",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "長按一個動作即可收藏",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "原始碼",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "聲音特效",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "管理自訂音效",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "重命名音效",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "刪除音效",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryGlowtip": "發光提示",
+  "@actionsCategoryGlowtip": {
+    "description": "glowtip action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "title": "尾巴公司",
+  "@title": {
+    "description": "The name of the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeNewsTitle": "來自尾巴部落格的新鮮事",
+  "@homeNewsTitle": {
+    "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessageTitle": "歡迎使用尾公司應用程式",
+  "@homeWelcomeMessageTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffDescription": "在上面的已知設備區域水平滑動即可開始掃描。您可以在設定中開啟連續掃描。",
+  "@homeContinuousScanningOffDescription": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessage": "您可以在這裡控制、探索和更新您的所有 Tail Co 裝備。也有可用的說明和指南。快樂搖擺！",
+  "@homeWelcomeMessage": {
+    "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPage": "搖桿",
+  "@joyStickPage": {
+    "description": "The label and title of the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "直接控制檔位。",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutPage": "關於",
+  "@aboutPage": {
+    "description": "The label and title of the about page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "為您的裝備建立自訂操作",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectLabel": "選擇觸發類型",
+  "@triggersSelectLabel": {
+    "description": "The title of the add trigger dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "選擇無",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "儲存操作",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "好的",
+  "@ok": {
+    "description": "Ok on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "取消",
+  "@cancel": {
+    "description": "Cancel on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersAdd": "新增觸發器",
+  "@triggersAdd": {
+    "description": "Floating Action Button on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeEars": "耳朵",
+  "@deviceTypeEars": {
+    "description": "Ears option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeWings": "翅膀",
+  "@deviceTypeWings": {
+    "description": "Wings option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesAdd": "新行動",
+  "@sequencesAdd": {
+    "description": "Floating Action Button on the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditSpeed": "齒輪應該要以多快的速度移動到這個位置？",
+  "@sequencesEditSpeed": {
+    "description": "Label for the speed selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditEasing": "緩動型",
+  "@sequencesEditEasing": {
+    "description": "Label for the easing selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditTime": "在此自訂操作中進行下一步之前需要等待多長時間",
+  "@sequencesEditTime": {
+    "description": "Label for the time slider on the delay tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditHomeLabel": "裝備回家",
+  "@sequencesEditHomeLabel": {
+    "description": "Label on the home tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaButton": "點選更新韌體",
+  "@manageDevicesOtaButton": {
+    "description": "manage devices ota available button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverTitle": "覆蓋",
+  "@triggerCoverTitle": {
+    "description": "Cover trigger Title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverNear": "設備覆蓋",
+  "@triggerCoverNear": {
+    "description": "Cover trigger near action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonDescription": "按音量按鈕觸發操作",
+  "@triggerVolumeButtonDescription": {
+    "description": "Volume Button trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeUp": "提高音量",
+  "@triggerVolumeButtonVolumeUp": {
+    "description": "Volume Button trigger volume up action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualTitle": "手冊",
+  "@moreManualTitle": {
+    "description": "Title for manual header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualSubTitle": "點擊查看",
+  "@moreManualSubTitle": {
+    "description": "Subtitle for each manual on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyViewButtonLabel": "查看隱私權政策",
+  "@onboardingPrivacyPolicyViewButtonLabel": {
+    "description": "Button label to view privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothEnableButtonLabel": "開啟藍牙",
+  "@onboardingBluetoothEnableButtonLabel": {
+    "description": "Label for the button to open bluetooth settings on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingDoneButtonLabel": "完畢",
+  "@onboardingDoneButtonLabel": {
+    "description": "Label for the button to close the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingCompletedTitle": "快樂搖擺！",
+  "@onboardingCompletedTitle": {
+    "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "再按一次退出 ",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "不再支援此裝備。某些應用程式功能可能無法使用",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "您確定要刪除此音效嗎？",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "新增音效",
+  "@audioAdd": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "您可以新增出現在「動作」標籤上並可與觸發器一起使用的自訂聲音",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "假裝備",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "增加假裝備",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "刪除所有假裝備",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "刪除所有假裝備",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "全選",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "選擇您想要的任意數量的操作。將隨機選擇與連接的裝備相容的動作。 GlowTip 和聲音操作將與移動操作一起觸發。別忘了保存。",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  }
+}
