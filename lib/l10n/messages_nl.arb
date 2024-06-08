@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Bluetooth",
+  "onboardingBluetoothDescription": "Om verbinding te maken met de apparatuur is Bluetooth-toestemming vereist",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
