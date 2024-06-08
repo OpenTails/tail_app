@@ -21,7 +21,7 @@ inputs:
     required: true
   sentry-url:
     description: 'The sentry url for uploading debug symbols'
-    required: true
+    required: false
   sentry-auth-token:
     description: 'The sentry auth token for uploading debug symbols'
     required: true
@@ -49,7 +49,7 @@ runs:
         SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
         SENTRY_ORG: ${{ inputs.sentry-org }}
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
-        SENTRY_URL: ${{ inputs.sentry-url }}
+        #SENTRY_URL: ${{ inputs.sentry-url }}
     - name: Build AppBundle
       shell: bash
       run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=cronetHttpNoPlay=true
@@ -59,7 +59,7 @@ runs:
         SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
         SENTRY_ORG: ${{ inputs.sentry-org }}
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
-        SENTRY_URL: ${{ inputs.sentry-url }}
+        #SENTRY_URL: ${{ inputs.sentry-url }}
 
     - uses: actions/upload-artifact@v4
       continue-on-error: true
