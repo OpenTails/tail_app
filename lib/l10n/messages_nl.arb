@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Hoe snel moet de servo deze positie bereiken?",
+  "sequencesEditSpeed": "Hoe snel moet de apparatuur deze positie bereiken?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -155,7 +155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Weet u zeker dat u deze actie wilt verwijderen?",
+  "sequencesEditDeleteDescription": "Weet u zeker dat je deze actie wilt verwijderen?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -195,7 +195,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "GlowTip",
+  "actionsCategoryGlowtip": "Gloeitip",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Trigger toevoegen",
+  "deviceType": "Op welke apparatuur moet het van toepassing zijn?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -555,7 +555,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Directe controle van de versnellingspositie.",
+  "joyStickPageDescription": "Directe controle van de positie van de apparatuur.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -819,13 +819,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "noLongerSupported": "Schakel Bluetooth in",
+  "noLongerSupported": "Deze apparatuur wordt niet langer ondersteund. Sommige app-functies werken mogelijk niet",
   "@noLongerSupported": {
     "description": "Warning message which appears for unsupported gear on the manage gear page",
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Voor deze app is een firmware-update vereist om jouw uitrusting te ondersteunen",
+  "mandatoryOtaRequired": "Deze app vereist een firmware-update om uw apparatuur te ondersteunen",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -855,7 +855,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioEditDescription": "Schakel Bluetooth in",
+  "audioEditDescription": "Beheer aangepaste geluidseffecten",
   "@audioEditDescription": {
     "description": "Label for sound files",
     "type": "text",
@@ -885,7 +885,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioTipCard": "U kunt aangepaste geluiden toevoegen die op het tabblad Acties verschijnen en die met Triggers kunnen worden gebruikt",
+  "audioTipCard": "Je kunt aangepaste geluiden toevoegen die op het tabblad Acties verschijnen en die met Triggers kunnen worden gebruikt",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
     "type": "text",
@@ -903,7 +903,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGear": "Valse uitrusting",
+  "scanDemoGear": "Gesimuleerde apparatuur",
   "@scanDemoGear": {
     "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
@@ -915,13 +915,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanAddDemoGear": "Voeg nepuitrusting toe",
+  "scanAddDemoGear": "Voeg gesimuleerde apparatuur toe",
   "@scanAddDemoGear": {
     "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "scanRemoveDemoGear": "Verwijder alle nepuitrusting",
+  "scanRemoveDemoGear": "Verwijder alle gesimuleerde apparatuur",
   "@scanRemoveDemoGear": {
     "description": "Label for the button to remove all demo gear on the scan for new devices page",
     "type": "text",

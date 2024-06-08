@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Feedback geben",
+  "feedbackPage": "Gib Feedback",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Für welche Ausrüstung soll das gelten?",
+  "deviceType": "Für welche Ausrüstung soll es gelten?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -101,7 +101,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Ruheposition",
+  "sequencesEditHomeLabel": "Setze die Ausrüstung auf Ruheposition",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Wie schnell soll das Servo in diese Position gelangen?",
+  "sequencesEditSpeed": "Wie schnell soll die Ausrüstung in diese Position gelangen?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Wählen eine Aktion aus",
+  "actionsSelectScreen": "Wähle eine Aktion aus",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Bildschirm bleibt eingeschaltet",
+  "settingsKeepScreenOnToggleTitle": "Lass den Bildschirm eingeschaltet",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Manuelle Steuerung der Position",
+  "joyStickPageDescription": "Direkte Steuerung der Ausrüstungsposition.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, musst du dennoch die Datenschutzrichtlinie akzeptieren.",
+  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, musst du dennoch die Datenschutzrichtlinie akzeptieren",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -681,7 +681,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Schwache Batterie. Bitte laden Sie Ihre Ausrüstung zu mindestens 50 % auf",
+  "onboardingBluetoothRequestButtonLabel": "Zugriff erlauben",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Erledigt",
+  "onboardingDoneButtonLabel": "Fertig",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Ausrüstung wird aktualisiert. Bitte schalte deine Ausrüstung nicht aus und schließe die App nicht.",
+  "otaInProgressTitle": "Ausrüstung wird aktualisiert. Bitte schalte deine Ausrüstung nicht aus und schließe die App nicht",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -831,7 +831,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsFavoriteTip": "Zum Favoriten eine Aktion lange drücken",
+  "actionsFavoriteTip": "Aktion lange drücken um sie zu einem Favoriten zu machen",
   "@actionsFavoriteTip": {
     "description": "tip message which appears when no actions are favorited on the actions page",
     "type": "text",
@@ -879,13 +879,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioDeleteDescription": "Möchten Sie diesen Soundeffekt wirklich löschen?",
+  "audioDeleteDescription": "Möchtest du diesen Soundeffekt wirklich löschen?",
   "@audioDeleteDescription": {
     "description": "Label for the body of the delete confirmation dialog",
     "type": "text",
     "placeholders": {}
   },
-  "audioTipCard": "Sie können benutzerdefinierte Sounds hinzufügen, die auf der Registerkarte Aktionen angezeigt werden und mit Triggern verwendet werden können",
+  "audioTipCard": "Du kannst benutzerdefinierte Sounds hinzufügen, die auf der Registerkarte Aktionen angezeigt werden und mit Triggern verwendet werden können",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
     "type": "text",
@@ -903,25 +903,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGear": "Gefälschte Ausrüstung",
+  "scanDemoGear": "Simulierte Ausrüstung",
   "@scanDemoGear": {
     "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "scanAddDemoGear": "Gefälschte Ausrüstung hinzufügen",
+  "scanAddDemoGear": "Simulierte Ausrüstung hinzufügen",
   "@scanAddDemoGear": {
     "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "scanRemoveDemoGear": "Entfernen Sie sämtliche gefälschte Ausrüstung",
+  "scanRemoveDemoGear": "Entferne alle simulierten Ausrüstungen",
   "@scanRemoveDemoGear": {
     "description": "Label for the button to remove all demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "Sie möchten die App ausprobieren, warten aber noch auf die Lieferung Ihrer Ausrüstung? Fügen Sie eine gefälschte Ausrüstung hinzu. So können Sie die App so erleben, als hätten Sie Ihre Ausrüstung, oder wenn Sie Ausrüstung ausprobieren möchten, die Sie derzeit nicht besitzen. Dadurch wird ein neuer Abschnitt auf der Seite „Nach neuer Ausrüstung suchen“ aktiviert.",
+  "scanDemoGearTip": "Du möchtest die App ausprobieren, wartest aber noch auf die Lieferung deiner Ausrüstung? Füge eine simulierte Ausrüstung hinzu. So kannst du die App so erleben, als hättest du deine Ausrüstung, oder wenn du Ausrüstungen ausprobieren möchtest, die du derzeit nicht besitzt. Dadurch wird ein neuer Abschnitt auf der Seite „Nach neuer Ausrüstung suchen“ aktiviert.",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
@@ -933,7 +933,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Wählen Sie so viele Aktionen aus, wie Sie möchten. Es wird eine zufällig ausgewählte Aktion ausgewählt, die mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden neben Move-Aktionen ausgelöst. Vergessen Sie nicht, zu speichern.",
+  "triggerActionSelectorTutorialLabel": "Wähle so viele Aktionen aus, wie du möchtest. Es wird eine Aktion zufällig ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig mit Bewegungs-Aktionen ausgelöst. Vergiss nicht zu speichern.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
