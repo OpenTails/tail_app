@@ -21,9 +21,7 @@ A Cross Platform Tail Company gear control App
 - Background mode on IOS
 - Tail Blog
 - Tablet support
-
-> [!WARNING]
-> Google Play Services is required for android, so non Play Store Android devices are unsupported
+- Sound Actions
 
 ## Have a suggestion?
 
