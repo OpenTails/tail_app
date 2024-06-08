@@ -49,36 +49,39 @@ class _TailBlogState extends State<TailBlog> {
                 clipBehavior: Clip.antiAlias,
                 child: SizedBox(
                   height: 300,
-                  child: InkWell(
-                    onTap: () async {
-                      await launchUrl(Uri.parse("${feedItem.url}${getOutboundUtm()}"));
-                    },
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: <Widget>[
-                        if (feedItem.imageId != null) ...[
-                          FutureBuilder(
-                            future: getImage(feedItem, context),
-                            builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                              return AnimatedOpacity(
-                                duration: animationTransitionDuration,
-                                opacity: snapshot.hasData ? 1 : 0,
-                                child: snapshot.hasData ? snapshot.data! : const CircularProgressIndicator(),
-                              );
-                            },
-                          )
-                        ],
-                        Card(
-                          clipBehavior: Clip.antiAlias,
-                          margin: EdgeInsets.zero,
-                          elevation: 2,
-                          child: ListTile(
-                            //leading: Icon(feedItem.feedType.icon),
-                            trailing: const Icon(Icons.open_in_browser),
-                            title: Text(feedItem.title),
+                  child: Semantics(
+                    label: 'A button to view the blog post: ${feedItem.title}',
+                    child: InkWell(
+                      onTap: () async {
+                        await launchUrl(Uri.parse("${feedItem.url}${getOutboundUtm()}"));
+                      },
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: <Widget>[
+                          if (feedItem.imageId != null) ...[
+                            FutureBuilder(
+                              future: getImage(feedItem, context),
+                              builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+                                return AnimatedOpacity(
+                                  duration: animationTransitionDuration,
+                                  opacity: snapshot.hasData ? 1 : 0,
+                                  child: snapshot.hasData ? snapshot.data! : const CircularProgressIndicator(),
+                                );
+                              },
+                            )
+                          ],
+                          Card(
+                            clipBehavior: Clip.antiAlias,
+                            margin: EdgeInsets.zero,
+                            elevation: 2,
+                            child: ListTile(
+                              //leading: Icon(feedItem.feedType.icon),
+                              trailing: const Icon(Icons.open_in_browser),
+                              title: Text(feedItem.title),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

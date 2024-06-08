@@ -69,7 +69,7 @@ dependencies:
   fl_chart: ^0.68.0 # Used for the battery graph
   chart_sparkline: ^1.0.15+1 # used for the move easing visual
   pdfx: ^2.6.0
-  flutter_joystick: ^0.1.0
+  flutter_joystick: ^0.2.0
   multi_value_listenable_builder: ^0.0.2
   multi_listenable_builder: ^1.0.0
   flutter_markdown: ^0.7.1
@@ -82,6 +82,7 @@ dependencies:
     git:
       url: https://github.com/davigmacode/flutter_choice
   feedback: ^3.1.0
+  accessibility_tools: ^2.1.0
 
   # Dio HTTP
   dio: ^5.4.3+1

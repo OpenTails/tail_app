@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:accessibility_tools/accessibility_tools.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/foundation.dart';
@@ -235,29 +236,32 @@ class _TailAppState extends State<TailApp> {
       ],
       child: _EagerInitialization(
         child: BtAppStateController(
-            child: BetterFeedback(
-          themeMode: ThemeMode.system,
-          darkTheme: FeedbackThemeData.dark(),
-          child: ValueListenableBuilder(
-            valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
-            builder: (BuildContext context, value, Widget? child) {
-              setupSystemColor(context);
-              Future(() => FlutterNativeSplash.remove()); //remove the splash screen one frame later
-              Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-              return MaterialApp.router(
-                title: title(),
-                color: color,
-                theme: buildTheme(Brightness.light, color),
-                darkTheme: buildTheme(Brightness.dark, color),
-                routerConfig: router,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-                themeMode: ThemeMode.system,
-                debugShowCheckedModeBanner: false,
-              );
-            },
+          child: BetterFeedback(
+            themeMode: ThemeMode.system,
+            darkTheme: FeedbackThemeData.dark(),
+            child: AccessibilityTools(
+              child: ValueListenableBuilder(
+                valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
+                builder: (BuildContext context, value, Widget? child) {
+                  setupSystemColor(context);
+                  Future(() => FlutterNativeSplash.remove()); //remove the splash screen one frame later
+                  Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
+                  return MaterialApp.router(
+                    title: title(),
+                    color: color,
+                    theme: buildTheme(Brightness.light, color),
+                    darkTheme: buildTheme(Brightness.dark, color),
+                    routerConfig: router,
+                    localizationsDelegates: AppLocalizations.localizationsDelegates,
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    themeMode: ThemeMode.system,
+                    debugShowCheckedModeBanner: false,
+                  );
+                },
+              ),
+            ),
           ),
-        )),
+        ),
       ),
     );
   }

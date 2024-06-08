@@ -163,7 +163,11 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         },
                         segments: EasingType.values.map<ButtonSegment<EasingType>>(
                           (EasingType value) {
-                            return ButtonSegment<EasingType>(value: value, icon: value.widget(context), tooltip: value.name);
+                            return ButtonSegment<EasingType>(
+                              value: value,
+                              icon: value.widget(context),
+                              tooltip: value.name,
+                            );
                           },
                         ).toList(),
                       ),

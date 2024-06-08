@@ -14,6 +14,14 @@ packages:
     description: dart
     source: sdk
     version: "0.1.0"
+  accessibility_tools:
+    dependency: "direct main"
+    description:
+      name: accessibility_tools
+      sha256: "3236b596ed0656bfa9c0cd18fcbdfa907c8fcf715b1dc3effb2c5e08c5ef4427"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   analyzer:
     dependency: transitive
     description:
@@ -443,8 +451,8 @@ packages:
     dependency: "direct main"
     description:
       path: feedback_sentry
-      ref: HEAD
-      resolved-ref: e4f8a8f2c06b856c6ef77f68d8bb13149438fdd8
+      ref: b9b78756085e0326eb745d0ba5d2e7c1f5466fe5
+      resolved-ref: b9b78756085e0326eb745d0ba5d2e7c1f5466fe5
       url: "https://github.com/ueman/feedback"
     source: git
     version: "3.0.1"
@@ -567,10 +575,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_joystick
-      sha256: adea7571e05fcbdfc490b8fbc1dfa841e563e123c33456ee8aaa24fd905563ac
+      sha256: "499e2363a16faf316140e05ba1cb048ba54e86494aa90513e20b64a2667c0556"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.0"
   flutter_keyboard_visibility:
     dependency: transitive
     description:

@@ -149,17 +149,19 @@ class _TriggersState extends ConsumerState<Triggers> {
                   leading: ListenableBuilder(
                     listenable: trigger,
                     builder: (BuildContext context, Widget? child) {
-                      return Switch(
-                        value: trigger.enabled,
-                        onChanged: (bool value) {
-                          setState(
-                            () {
-                              trigger.enabled = value;
-                              //ref.watch(triggerListProvider.notifier).store();
+                      return Semantics(
+                          label: 'A switch to toggle the trigger ${trigger.triggerDefinition?.name}',
+                          child: Switch(
+                            value: trigger.enabled,
+                            onChanged: (bool value) {
+                              setState(
+                                () {
+                                  trigger.enabled = value;
+                                  //ref.watch(triggerListProvider.notifier).store();
+                                },
+                              );
                             },
-                          );
-                        },
-                      );
+                          ));
                     },
                   ),
                 );
@@ -212,16 +214,19 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
           leading: ListenableBuilder(
             listenable: widget.trigger,
             builder: (BuildContext context, Widget? child) {
-              return Switch(
-                value: widget.trigger.enabled,
-                onChanged: (bool value) {
-                  setState(
-                    () {
-                      widget.trigger.enabled = value;
-                      plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == widget.trigger.triggerDefUUID).first.toString()});
-                    },
-                  );
-                },
+              return Semantics(
+                label: 'A switch to toggle the trigger ${widget.trigger.triggerDefinition?.name}',
+                child: Switch(
+                  value: widget.trigger.enabled,
+                  onChanged: (bool value) {
+                    setState(
+                      () {
+                        widget.trigger.enabled = value;
+                        plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == widget.trigger.triggerDefUUID).first.toString()});
+                      },
+                    );
+                  },
+                ),
               );
             },
           ),
@@ -292,6 +297,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
               },
             ),
             trailing: IconButton(
+              tooltip: actionsSelectScreen(),
               icon: const Icon(Icons.edit),
               onPressed: () async {
                 Object? result = await showDialog(
