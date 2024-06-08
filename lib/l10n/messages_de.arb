@@ -579,19 +579,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tippen Sie auf den Stift, um die Aktion auszuwählen, die ausgeführt werden soll, wenn das Ereignis eintritt. Es wird eine zufällig ausgewählte Aktion ausgewählt, die mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden neben Move-Aktionen ausgelöst.",
+  "triggerInfoEditActionDescription": "Tippe auf den Stift um die Aktion auszuwählen welche durch das Ereignis auslöst werden soll. Es wird eine zufällige Aktion ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig zu Move-Aktionen ausgelöst.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Mit benutzerdefinierten Aktionen können Sie Ihre eigenen Aktionen für Ausrüstung erstellen. Wenn Sie auf eine benutzerdefinierte Aktion tippen, wird sie ausgeführt. Tippen Sie auf den Stift, um eine benutzerdefinierte Aktion zu bearbeiten.",
+  "sequencesInfoDescription": "Benutzerdefinierte Aktionen erlauben dir, deine eigenen Aktionen für Ausrüstungen zu erstellen. Wenn du auf eine benutzerdefinierte Aktion tippst, wird sie ausgeführt. Tippe auf den Stift, um eine benutzerdefinierte Aktion zu bearbeiten.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Jede benutzerdefinierte Aktion besteht aus 1-6 Zügen und kann bis zu 5 Mal wiederholt werden. Sie können einen Zug lange drücken, um ihn neu anzuordnen.",
+  "sequencesInfoEditDescription": "Jede benutzerdefinierte Aktion besteht aus 1-6 Bewegungen und kann bis zu 5 Mal wiederholt werden. Du kannst eine Bewegung lange drücken, um sie neu anzuordnen.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
