@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Wähle eine Aktion aus",
+  "actionsSelectScreen": "Wähle Aktionen aus",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
