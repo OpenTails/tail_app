@@ -19,3 +19,13 @@ Theres so many improvements over our old app - heres the headlines
 - And a "Send feedback" button that lets you navigate and illustrate the issue!
 
   Theres actually even more than this - the best way to discover our new app is to have a really good wag.
+
+### V 1.0.1
+
+- Fixed some bugs with Custom Actions
+
+### V 1.0.2
+
+- Added warnings for outdated gear to Custom Actions and Joystick
+- UI/UX changes to selecting actions for triggers to reduce confusion
+- Fix bug where trigger doesn't activate after accepting permission
