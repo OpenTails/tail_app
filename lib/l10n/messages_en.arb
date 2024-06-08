@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-08T19:09:42.438986",
+  "@@last_modified": "2024-06-08T19:18:24.321358",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -287,7 +287,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Select Action",
+  "actionsSelectScreen": "Select Actions",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
