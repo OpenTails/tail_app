@@ -195,7 +195,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Suche nach Ausrüstung. Bitte stelle sicher, dass Ihre Ausrüstung eingeschaltet und in der Nähe ist",
+  "scanDevicesScanMessage": "Suche nach Ausrüstung. Bitte stelle sicher, dass deine Ausrüstung eingeschaltet und in der Nähe ist",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Abgedecktes Gerät",
+  "triggerCoverNear": "Gerät abgedeckt",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -447,7 +447,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Tippen, um die Firmware zu aktualisieren",
+  "manageDevicesOtaButton": "Tippe, um die Firmware zu aktualisieren",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Tippen zum Anzeigen",
+  "moreManualSubTitle": "Tippe zum Anzeigen",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -531,7 +531,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "Melden Sie die Nutzung nicht identifizierender Funktionen an Plausible, um die App zu verbessern",
+  "settingsAnalyticsToggleSubTitle": "Melde die Nutzung nicht identifizierender Funktionen an Plausible, um die App zu verbessern",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -735,7 +735,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Erhalten Sie automatisch Benachrichtigungen, wenn es einen neuen Tail-Blog Beitrag gibt",
+  "settingsNewsletterToggleSubTitle": "Erhalte automatisch Benachrichtigungen, wenn es einen neuen Tail-Blog Beitrag gibt",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomButtonDescription": "Zufällig eine ausgewählte Aktion abspielen",
+  "triggerRandomButtonDescription": "Zufällig eine ausgewählte Aktion starten",
   "@triggerRandomButtonDescription": {
     "description": "Casual Mode trigger description",
     "type": "text",
