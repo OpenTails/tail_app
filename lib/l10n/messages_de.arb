@@ -5,19 +5,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPage": "Die Tail Company",
+  "joyStickPage": "Joystick",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Soundeffekt hinzufügen",
+  "feedbackPage": "Feedback geben",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
     "type": "text",
     "placeholders": {}
   },
-  "aboutPage": "Um",
+  "aboutPage": "Über",
   "@aboutPage": {
     "description": "The label and title of the about page",
     "type": "text",
@@ -29,7 +29,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Löst aus",
+  "triggersPage": "Auslöser",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -41,7 +41,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Wählen Sie einen Triggertyp aus",
+  "triggersSelectLabel": "Wähle einen Trigger Typ aus",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Trigger hinzufügen",
+  "cancel": "Abbrechen",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Für welches Getriebe soll das gelten?",
+  "deviceType": "Für welche Ausrüstung soll das gelten?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Aktion bearbeiten",
+  "deviceTypeEars": "Ohren",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -89,19 +89,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Lockerungstyp",
+  "sequencesEditEasing": "Glättungstyp",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Wie lange soll gewartet werden, bevor mit dem nächsten Schritt in dieser benutzerdefinierten Aktion fortgefahren wird?",
+  "sequencesEditTime": "Wie lange soll gewartet werden, bevor mit dem nächsten Schritt in dieser benutzerdefinierten Aktion fortgefahren wird",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Startseite die Ausrüstung",
+  "sequencesEditHomeLabel": "Ruheposition",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -113,13 +113,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteDescription": "Aktion löschen",
+  "sequencesEditDeleteDescription": "Bist du sicher das du diese Aktion löschen möchtest?",
   "@sequencesEditDeleteDescription": {
     "description": "Message of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Startseite die Ausrüstung",
+  "sequenceEditListDelayLabel": "Verzögere die nächste Bewegung um {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
@@ -165,19 +165,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Aktivieren Sie die Vibration, wenn auf eine Aktion getippt wird",
+  "settingsHapticsToggleSubTitle": "Aktiviere die Vibration, wenn auf eine Aktion getippt wird",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Automatische Fehlerberichterstattung",
+  "settingsErrorReportingToggleTitle": "Automatischer Fehlerbericht",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Sendet Fehlerberichte an Sentry",
+  "settingsErrorReportingToggleSubTitle": "Sende Fehlerberichte an Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -195,7 +195,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Suche nach Ausrüstung. Bitte stellen Sie sicher, dass Ihre Ausrüstung eingeschaltet und in der Nähe ist",
+  "scanDevicesScanMessage": "Suche nach Ausrüstung. Bitte stelle sicher, dass Ihre Ausrüstung eingeschaltet und in der Nähe ist",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -225,7 +225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStopped": "Gestoppt",
+  "triggerWalkingStopped": "Angehalten",
   "@triggerWalkingStopped": {
     "description": "Walking/Step trigger Stopped action label",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Gerät entdeckt",
+  "triggerCoverFar": "Gerät aufgedeckt",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -267,31 +267,31 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonDescription": "Durch Drücken der Lautstärketaste eine Aktion auslösen",
+  "triggerVolumeButtonDescription": "Durch Drücken einer Lautstärketaste eine Aktion auslösen",
   "@triggerVolumeButtonDescription": {
     "description": "Volume Button trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "Lautstärketasten",
+  "triggerVolumeButtonVolumeUp": "Lauter Taste",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "Lautstärke runter",
+  "triggerVolumeButtonVolumeDown": "Leiser Taste",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Shake",
+  "triggerShakeTitle": "Schütteln",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Lösen Sie eine Aktion aus, indem Sie Ihr Gerät schütteln",
+  "triggerShakeDescription": "Löse eine Aktion aus, indem du dein Gerät schüttelst",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditMove": "Bewegen",
+  "sequencesEditMove": "Bewegung",
   "@sequencesEditMove": {
     "description": "Label for the move tab on sequence move edit page",
     "type": "text",
@@ -351,13 +351,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Wie schnell soll das Getriebe in diese Position gelangen?",
+  "sequencesEditSpeed": "Wie schnell soll das Servo in diese Position gelangen?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "EarGear-Mikrofon",
+  "triggerEarMicTitle": "EarGear Mikrofon",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -369,7 +369,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Ton erkannt",
+  "triggerEarMicSound": "Geräusch erkannt",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
@@ -387,19 +387,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Nach links kippen",
+  "triggerEarTiltLeft": "Linksneigung",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Tutorial-Karten ausblenden",
+  "triggerEarTiltRight": "Rechtsneigung",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Abschalten",
+  "triggerEarTiltForward": "Vorwärtsneigung",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -411,19 +411,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "OTA-Update starten",
+  "sequenceEditRepeatTitle": "Wie oft soll die Aktion wiederholt werden?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Wählen Sie eine Aktion aus",
+  "actionsSelectScreen": "Wählen eine Aktion aus",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "settingsAppColor": "App-Farbe",
+  "settingsAppColor": "App Farbe",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
     "type": "text",
@@ -435,13 +435,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesShutdown": "Verbinden",
+  "manageDevicesShutdown": "Abschalten",
   "@manageDevicesShutdown": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Zahnradfarbe",
+  "manageDevicesColor": "Farbe der Ausrüstung",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -483,13 +483,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualEargearTitle": "Ton erkannt",
+  "moreManualEargearTitle": "EarGear Handbuch",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "Ausrüstung in der Nähe",
+  "moreManualFlutterWingsTitle": "FlutterWings Handbuch",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -501,7 +501,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Zum Anzeigen tippen",
+  "moreManualSubTitle": "Tippen zum Anzeigen",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -513,13 +513,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Glühspitze",
+  "settingsKeepScreenOnToggleTitle": "Bildschirm bleibt eingeschaltet",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Dieser Modus verhindert, dass der Bildschirm ausgeschaltet wird, während Ihr Gerät angeschlossen ist",
+  "settingsKeepScreenOnToggleSubTitle": "Dieser Modus verhindert, dass der Bildschirm ausgeschaltet wird, während dein Gerät angeschlossen ist",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -549,61 +549,61 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Soundeffekt hinzufügen",
+  "joyStickPageDescription": "Manuelle Steuerung der Position",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "Erstellen Sie benutzerdefinierte Aktionen für Ihre Ausrüstung",
+  "sequencesPageDescription": "Erstelle benutzerdefinierte Aktionen für deine Ausrüstung",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleTitle": "Ton erkannt",
+  "settingsKitsuneToggleTitle": "Kitsune Modus",
   "@settingsKitsuneToggleTitle": {
     "description": "Settings page Kitsune mode toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "Wenn Sie viele Instanzen derselben Geräte verbinden, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+  "settingsKitsuneToggleSubTitle": "Wenn du viele Instanzen desselben Gerätes verbindest, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page kitsune toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Trigger senden automatisch Aktionen an Ihre Ausrüstung. Sie können mehrere Trigger gleichzeitig aktiv haben. Tippen Sie auf einen Trigger, um ihn zu bearbeiten, und aktivieren Sie den Trigger mit dem Schalter auf der linken Seite.",
+  "triggerInfoDescription": "Trigger senden automatisch Aktionen an deine Ausrüstung. Du kannst mehrere Trigger gleichzeitig aktiv haben. Tippe auf einen Trigger, um ihn zu bearbeiten und aktiviere den Trigger mit dem Schalter auf der linken Seite.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoEditActionDescription": "Tippen Sie auf den Stift, um die Aktion auszuwählen, die ausgeführt werden soll, wenn das Ereignis eintritt. Es wird eine zufällig ausgewählte Aktion ausgewählt, die mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden neben Move-Aktionen ausgelöst.",
+  "triggerInfoEditActionDescription": "Tippe auf den Stift um die Aktion auszuwählen welche durch das Ereignis auslöst werden soll. Es wird eine zufällige Aktion ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig zu Move-Aktionen ausgelöst.",
   "@triggerInfoEditActionDescription": {
     "description": "Instruction on how to select an action on the trigger edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Mit benutzerdefinierten Aktionen können Sie Ihre eigenen Aktionen für Ausrüstung erstellen. Wenn Sie auf eine benutzerdefinierte Aktion tippen, wird sie ausgeführt. Tippen Sie auf den Stift, um eine benutzerdefinierte Aktion zu bearbeiten.",
+  "sequencesInfoDescription": "Benutzerdefinierte Aktionen erlauben dir, deine eigenen Aktionen für Ausrüstungen zu erstellen. Wenn du auf eine benutzerdefinierte Aktion tippst, wird sie ausgeführt. Tippe auf den Stift, um eine benutzerdefinierte Aktion zu bearbeiten.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Jede benutzerdefinierte Aktion besteht aus 1-6 Zügen und kann bis zu 5 Mal wiederholt werden. Sie können einen Zug lange drücken, um ihn neu anzuordnen.",
+  "sequencesInfoEditDescription": "Jede benutzerdefinierte Aktion besteht aus 1-6 Bewegungen und kann bis zu 5 Mal wiederholt werden. Du kannst eine Bewegung lange drücken, um sie neu anzuordnen.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleTitle": "Batterieprozentsatz anzeigen",
+  "settingsBatteryPercentageToggleTitle": "Batterieanzeige in %",
   "@settingsBatteryPercentageToggleTitle": {
     "description": "Settings page Battery Percentage mode toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Glühspitze",
+  "settingsBatteryPercentageToggleSubTitle": "Zeige die aktuelle Batterieladung statt einem Symbol",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Firmware-Änderungsprotokoll",
+  "otaChangelogLabel": "Änderungsprotokoll Firmware",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -651,13 +651,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
+  "onboardingPrivacyPolicyViewButtonLabel": "Datenschutzrichtlinie anzeigen",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, müssen Sie dennoch die Datenschutzrichtlinie akzeptieren.",
+  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, musst du dennoch die Datenschutzrichtlinie akzeptieren.",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectClearLabel": "Nichts ausgewählt",
+  "triggersSelectClearLabel": "Keine Auswahl",
   "@triggersSelectClearLabel": {
     "description": "The button label on the trigger select screen for clearing the selected action",
     "type": "text",
@@ -735,13 +735,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Erhalten Sie automatisch Benachrichtigungen, wenn es einen neuen Tail-Blog-Beitrag gibt",
+  "settingsNewsletterToggleSubTitle": "Erhalten Sie automatisch Benachrichtigungen, wenn es einen neuen Tail-Blog Beitrag gibt",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleTitle": "Tail-Blog-Benachrichtigungen zulassen",
+  "settingsNewsletterToggleTitle": "Tail-Blog Benachrichtigungen zulassen",
   "@settingsNewsletterToggleTitle": {
     "description": "Settings page newsletter notification toggle title",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomButtonDescription": "Eine ausgewählte Aktion nach dem Zufallsprinzip ausführen",
+  "triggerRandomButtonDescription": "Zufällig eine ausgewählte Aktion abspielen",
   "@triggerRandomButtonDescription": {
     "description": "Casual Mode trigger description",
     "type": "text",
@@ -765,25 +765,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Gear wird aktualisiert. Bitte schalte dein Gear nicht aus und schließe die App nicht.",
+  "otaInProgressTitle": "Ausrüstung wird aktualisiert. Bitte schalte deine Ausrüstung nicht aus und schließe die App nicht.",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Schwache Batterie. Bitte laden Sie Ihre Ausrüstung zu mindestens 50 % auf",
+  "otaLowBattery": "Schwache Batterie. Bitte laden Sie Ihre Ausrüstung zu mindestens 50% auf",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Sie möchten die App ausprobieren, warten aber noch auf die Lieferung Ihrer Ausrüstung? Fügen Sie eine gefälschte Ausrüstung hinzu. So können Sie die App so erleben, als hätten Sie Ihre Ausrüstung, oder wenn Sie Ausrüstung ausprobieren möchten, die Sie derzeit nicht besitzen. Dadurch wird ein neuer Abschnitt auf der Seite „Nach neuer Ausrüstung suchen“ aktiviert.",
+  "homeWelcomeMessage": "Du kannst deine gesamte Tail Co Ausrüstung hier kontrollieren, verwalten und aktualisieren. Hier findest du auch Anleitungen und Wegweiser. Viel Spaß beim Wedeln!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Frisch vom Schwanz-Blog",
+  "homeNewsTitle": "Frisch vom Tail-Blog",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -795,7 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Wischen Sie horizontal über den Bereich mit den bekannten Geräten oben, um mit dem Scannen zu beginnen. Sie können das kontinuierliche Scannen in den Einstellungen aktivieren.",
+  "homeContinuousScanningOffDescription": "Wische horizontal über den Bereich mit den bekannten Geräten oben, um mit dem Scannen zu beginnen. Du kannst das kontinuierliche Scannen in den Einstellungen aktivieren.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -807,7 +807,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Ausrüstung gefunden. Tippen Sie auf den Namen der Ausrüstung, um eine Verbindung herzustellen",
+  "scanDevicesFoundTitle": "Ausrüstung gefunden. Tippe auf den Namen der Ausrüstung, um eine Verbindung herzustellen",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
@@ -897,7 +897,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleSubTitle": "Kontinuierlich nach bekannter Ausrüstung suchen. Wenn deaktiviert, müssen Sie zum Scannen auf der Ausrüstungsleiste wischen.",
+  "settingsAlwaysScanningToggleSubTitle": "Kontinuierlich nach bekannter Ausrüstung suchen. Wenn deaktiviert, musst du zum Scannen auf der Ausrüstungsleiste wischen.",
   "@settingsAlwaysScanningToggleSubTitle": {
     "description": "Settings page always scanning toggle subtitle",
     "type": "text",
@@ -927,7 +927,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectAllLabel": "Wählen Sie Alle",
+  "triggersSelectAllLabel": "Alle auswählen",
   "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
     "type": "text",

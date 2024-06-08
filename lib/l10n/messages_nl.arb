@@ -1,11 +1,11 @@
 {
-  "title": "Het Staartbedrijf",
+  "title": "De Tail Company",
   "@title": {
     "description": "The name of the app",
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPage": "Het Staartbedrijf",
+  "joyStickPage": "Joystick",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
@@ -29,7 +29,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Triggers",
+  "triggersPage": "trekker",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Staart",
+  "deviceTypeEars": "Oren",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -77,7 +77,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesAdd": "Vleugels",
+  "sequencesAdd": "Nieuwe actie",
   "@sequencesAdd": {
     "description": "Floating Action Button on the sequences page",
     "type": "text",
@@ -125,13 +125,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Hoe snel moet het tandwiel naar deze positie bewegen?",
+  "sequencesEditSpeed": "Hoe snel moet de servo deze positie bereiken?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Versoepelingstype",
+  "sequencesEditEasing": "Gladmakende soort",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -143,7 +143,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Thuis de uitrusting",
+  "sequencesEditHomeLabel": "Zet de uitrusting in rustpositie",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -225,7 +225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Maakt de actiekaarten groter, zodat je er gemakkelijker op kunt tikken",
+  "settingsErrorReportingToggleSubTitle": "Verzend bugrapporten naar Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -243,7 +243,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Kitsune-modus",
+  "manageDevicesDisconnect": "Loskoppelen",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Toestel kleur",
+  "manageDevicesColor": "Kleur uitrusting",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
@@ -279,7 +279,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Scannen naar uitrusting. Zorg ervoor dat uw uitrusting is ingeschakeld en in de buurt is",
+  "scanDevicesScanMessage": "Scannen naar uitrusting. Zorg ervoor dat jouw uitrusting is ingeschakeld en in de buurt is",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Houd het scherm ingeschakeld",
+  "triggerWalkingDescription": "Activeer een actie tijdens het lopen",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
@@ -321,7 +321,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Toestel gedekt",
+  "triggerCoverNear": "Overdekt apparaat",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Activeer een actie door uw apparaat te schudden",
+  "triggerShakeDescription": "Activeer een actie door jouw apparaat te schudden",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -375,19 +375,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Over",
+  "triggerProximityDescription": "Activeer een actie wanneer apparatuur in de buurt is",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionNotSet": "Scannen naar uitrusting. Zorg ervoor dat uw uitrusting is ingeschakeld en in de buurt is",
+  "triggerActionNotSet": "Geen actie gespecificeerd",
   "@triggerActionNotSet": {
     "description": "Trigger action label when no action set",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "EarGear-microfoon",
+  "triggerEarMicTitle": "EarGear microfoon",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -399,13 +399,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Activeer een actie wanneer EarGear geluid detecteert",
+  "triggerEarMicSound": "Ruis gedetecteerd",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "Activeer een actie wanneer EarGear geluid detecteert",
+  "triggerEarTiltTitle": "EarGear kantelsensor",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Handleidingen",
+  "moreUsefulLinksTitle": "Handige links",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -495,7 +495,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "EarGear-handleiding",
+  "moreManualTitle": "Handleidingen",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Deze modus voorkomt dat het scherm wordt uitgeschakeld terwijl uw apparatuur is aangesloten",
+  "settingsKeepScreenOnToggleSubTitle": "Deze modus voorkomt dat het scherm wordt uitgeschakeld terwijl jouw apparatuur is aangesloten",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -561,7 +561,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "Maak aangepaste acties voor je uitrusting",
+  "sequencesPageDescription": "Maak aangepaste acties voor jouw uitrusting",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -573,7 +573,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Toon batterij%",
+  "settingsBatteryPercentageToggleSubTitle": "Toon de huidige batterijlading in plaats van een pictogram",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleTitle": "Stuurt foutrapporten naar Sentry",
+  "settingsTutorialCardToggleTitle": "Leskaarten verbergen",
   "@settingsTutorialCardToggleTitle": {
     "description": "Settings page tutorial card display toggle title",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Triggers sturen automatisch acties naar je uitrusting. U kunt meerdere triggers tegelijk actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
+  "triggerInfoDescription": "Triggers sturen automatisch acties naar jouw uitrusting. Je kunt meerdere triggers tegelijk actief hebben. Tik op een trigger om deze te bewerken, gebruik de schakelaar aan de linkerkant om de trigger in te schakelen.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Met aangepaste acties kun je je eigen acties voor uitrusting maken. Als u op een aangepaste actie tikt, wordt deze afgespeeld. Tik op het potlood om een aangepaste actie te bewerken.",
+  "sequencesInfoDescription": "Met aangepaste acties kun je je eigen acties voor uitrusting maken. Als je op een aangepaste actie tikt, wordt deze afgespeeld. Tik op het potlood om een aangepaste actie te bewerken.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -657,13 +657,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Hoewel de verzamelde gegevens anoniem zijn en niet kunnen worden gebruikt om een specifieke gebruiker te identificeren, moet u nog steeds het privacybeleid accepteren",
+  "onboardingPrivacyPolicyDescription": "Hoewel de verzamelde gegevens anoniem zijn en niet kunnen worden gebruikt om een specifieke gebruiker te identificeren, moet je nog steeds het privacybeleid accepteren",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Bekijk privacybeleid",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Accepteer het privacybeleid",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Bluetooth",
+  "onboardingBluetoothDescription": "Om verbinding te maken met de apparatuur is Bluetooth-toestemming vereist",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Snel en opgewonden",
+  "otaFailedTitle": "Update mislukt. Start uw uitrusting opnieuw op en probeer het opnieuw",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -741,7 +741,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Ontvang automatisch meldingen wanneer er een nieuw Tail Blog-bericht is",
+  "settingsNewsletterToggleSubTitle": "Ontvang automatisch meldingen wanneer er een nieuw Tail Blog bericht is",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Uitrusting bijwerken. Schakel uw apparatuur niet uit en sluit de app niet",
+  "otaInProgressTitle": "Uitrusting bijwerken. Schakel jouw uitrusting niet uit en sluit de app niet",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -795,19 +795,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Vers van de Tail Blog",
+  "homeNewsTitle": "Vers van de Tail-Blog",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessageTitle": "Welkom bij de Tail Company-app",
+  "homeWelcomeMessageTitle": "Welkom bij de Tail Company App",
   "@homeWelcomeMessageTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Veeg horizontaal over het bekende apparaatgebied hierboven om te beginnen met scannen. U kunt continu scannen inschakelen in de instellingen.",
+  "homeContinuousScanningOffDescription": "Veeg horizontaal over het bekende apparaatgebied hierboven om te beginnen met scannen. Je kunt continu scannen inschakelen in de instellingen.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Voor deze app is een firmware-update vereist om je uitrusting te ondersteunen",
+  "mandatoryOtaRequired": "Voor deze app is een firmware-update vereist om jouw uitrusting te ondersteunen",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -897,7 +897,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleSubTitle": "Scan voortdurend naar bekende uitrusting. Indien uitgeschakeld, moet u over de tandwielbalk vegen om te scannen.",
+  "settingsAlwaysScanningToggleSubTitle": "Scan voortdurend naar bekende uitrusting. Indien uitgeschakeld, moet je over de tandwielbalk vegen om te scannen.",
   "@settingsAlwaysScanningToggleSubTitle": {
     "description": "Settings page always scanning toggle subtitle",
     "type": "text",
@@ -909,7 +909,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "Wil je de app uitproberen, maar wacht je tot je spullen arriveren? Voeg een nepuitrusting toe. Hierdoor kun je de app ervaren alsof je je uitrusting al bij je hebt, of uitrusting wilt uitproberen die je momenteel niet hebt. Hierdoor wordt een nieuwe sectie op de pagina 'Scannen naar nieuwe uitrusting' mogelijk gemaakt.",
+  "scanDemoGearTip": "Wil je de app uitproberen, maar wacht je tot je spullen arriveren? Voeg een nepuitrusting toe. Hierdoor kun je de app ervaren alsof je jouw uitrusting al bij je hebt, of uitrusting wilt uitproberen die je momenteel niet hebt. Hierdoor wordt een nieuwe sectie op de pagina 'Scannen naar nieuwe uitrusting' mogelijk gemaakt.",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
@@ -933,7 +933,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Selecteer zoveel acties als je wilt. Er wordt willekeurig een actie geselecteerd die compatibel is met aangesloten uitrusting. GlowTip- en Sound-acties worden geactiveerd naast Move-acties. Vergeet niet op te slaan.",
+  "triggerActionSelectorTutorialLabel": "Selecteer zoveel acties als je wilt. Er wordt willekeurig een actie geselecteerd die compatibel is met jouw aangesloten uitrusting. GlowTip- en Sound-acties worden geactiveerd naast Move-acties. Vergeet niet op te slaan.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
