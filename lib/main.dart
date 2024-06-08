@@ -79,11 +79,11 @@ Future<void> main() async {
   //initDio();
   mainLogger.fine("Init Sentry");
   await SentryFlutter.init(
-    (options) async {
-      options.dsn = 'https://a2d00e5fef5103984087f0ee8c39b3b0@sentry.codel1417.xyz/2';
+        (options) async {
+      options.dsn = 'https://cd338ff75dd419608f4704e517904a1d@o4507396530307072.ingest.de.sentry.io/4507396677501008';
       options.addIntegration(LoggingIntegration());
       options.attachScreenshot = true; //not supported on GlitchTip
-      options.tracesSampleRate = 0.5;
+      options.tracesSampleRate = 0.3;
       //options.profilesSampleRate = 1.0;
       options.enableBreadcrumbTrackingForCurrentPlatform();
       options.attachThreads = true;
@@ -95,14 +95,15 @@ Future<void> main() async {
     },
     // Init your App.
     // ignore: missing_provider_scope
-    appRunner: () => runApp(
-      DefaultAssetBundle(
-        bundle: SentryAssetBundle(),
-        child: SentryScreenshotWidget(
-          child: TailApp(),
+    appRunner: () =>
+        runApp(
+          DefaultAssetBundle(
+            bundle: SentryAssetBundle(),
+            child: SentryScreenshotWidget(
+              child: TailApp(),
+            ),
+          ),
         ),
-      ),
-    ),
   );
 }
 
@@ -236,28 +237,28 @@ class _TailAppState extends State<TailApp> {
       child: _EagerInitialization(
         child: BtAppStateController(
             child: BetterFeedback(
-          themeMode: ThemeMode.system,
-          darkTheme: FeedbackThemeData.dark(),
-          child: ValueListenableBuilder(
-            valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
-            builder: (BuildContext context, value, Widget? child) {
-              setupSystemColor(context);
-              Future(() => FlutterNativeSplash.remove()); //remove the splash screen one frame later
-              Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-              return MaterialApp.router(
-                title: title(),
-                color: color,
-                theme: buildTheme(Brightness.light, color),
-                darkTheme: buildTheme(Brightness.dark, color),
-                routerConfig: router,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-                themeMode: ThemeMode.system,
-                debugShowCheckedModeBanner: false,
-              );
-            },
-          ),
-        )),
+              themeMode: ThemeMode.system,
+              darkTheme: FeedbackThemeData.dark(),
+              child: ValueListenableBuilder(
+                valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
+                builder: (BuildContext context, value, Widget? child) {
+                  setupSystemColor(context);
+                  Future(() => FlutterNativeSplash.remove()); //remove the splash screen one frame later
+                  Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
+                  return MaterialApp.router(
+                    title: title(),
+                    color: color,
+                    theme: buildTheme(Brightness.light, color),
+                    darkTheme: buildTheme(Brightness.dark, color),
+                    routerConfig: router,
+                    localizationsDelegates: AppLocalizations.localizationsDelegates,
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    themeMode: ThemeMode.system,
+                    debugShowCheckedModeBanner: false,
+                  );
+                },
+              ),
+            )),
       ),
     );
   }
@@ -301,39 +302,31 @@ class RiverpodProviderObserver extends ProviderObserver {
   final Logger riverpodLogger = Logger('Riverpod');
 
   @override
-  void didAddProvider(
-    ProviderBase<Object?> provider,
-    Object? value,
-    ProviderContainer container,
-  ) {
+  void didAddProvider(ProviderBase<Object?> provider,
+      Object? value,
+      ProviderContainer container,) {
     riverpodLogger.info('Provider $provider was initialized with $value');
   }
 
   @override
-  void didDisposeProvider(
-    ProviderBase<Object?> provider,
-    ProviderContainer container,
-  ) {
+  void didDisposeProvider(ProviderBase<Object?> provider,
+      ProviderContainer container,) {
     riverpodLogger.info('Provider $provider was disposed');
   }
 
   @override
-  void didUpdateProvider(
-    ProviderBase<Object?> provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
-  ) {
+  void didUpdateProvider(ProviderBase<Object?> provider,
+      Object? previousValue,
+      Object? newValue,
+      ProviderContainer container,) {
     riverpodLogger.info('Provider $provider updated from $previousValue to $newValue');
   }
 
   @override
-  void providerDidFail(
-    ProviderBase<Object?> provider,
-    Object error,
-    StackTrace stackTrace,
-    ProviderContainer container,
-  ) {
+  void providerDidFail(ProviderBase<Object?> provider,
+      Object error,
+      StackTrace stackTrace,
+      ProviderContainer container,) {
     riverpodLogger.warning('Provider $provider threw $error at $stackTrace', error, stackTrace);
   }
 }
