@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Gevonden uitrusting. Tik op de naam van het toestel om verbinding te maken",
+  "scanDevicesFoundTitle": "Gevonden uitrusting. Tik op de naam van het apparaat om verbinding te maken",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
