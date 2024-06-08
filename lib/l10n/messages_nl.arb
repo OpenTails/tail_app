@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Met aangepaste acties kun je je eigen acties voor uitrusting maken. Als je op een aangepaste actie tikt, wordt deze afgespeeld. Tik op het potlood om een aangepaste actie te bewerken.",
+  "sequencesInfoDescription": "Met aangepaste acties kun je jouw eigen acties voor uitrusting maken. Als je op een aangepaste actie tikt, wordt deze afgespeeld. Tik op het potlood om een aangepaste actie te bewerken. Zorg ervoor dat de firmware van uw uitrusting up-to-date is.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Deze app vereist een firmware-update om uw apparatuur te ondersteunen",
+  "mandatoryOtaRequired": "Een firmware-update is nodig om de app jouw apparatuur te laten ondersteunen",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -936,6 +936,18 @@
   "triggerActionSelectorTutorialLabel": "Selecteer zoveel acties als je wilt. Er wordt willekeurig een actie geselecteerd die compatibel is met jouw aangesloten uitrusting. GlowTip- en Sound-acties worden geactiveerd naast Move-acties. Vergeet niet op te slaan.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Update uw uitrusting om deze functie te gebruiken.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "De joystickfunctie is experimenteel. Gebruik ze op eigen risico.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
     "type": "text",
     "placeholders": {}
   }
