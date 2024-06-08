@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Benutzerdefinierte Aktionen erlauben dir, deine eigenen Aktionen für Ausrüstungen zu erstellen. Wenn du auf eine benutzerdefinierte Aktion tippst, wird sie ausgeführt. Tippe auf den Stift, um eine benutzerdefinierte Aktion zu bearbeiten.",
+  "sequencesInfoDescription": "Benutzerdefinierte Aktionen erlauben dir, deine eigenen Aktionen für Ausrüstungen zu erstellen. Wenn du auf eine benutzerdefinierte Aktion tippst, wird sie ausgeführt. Tippe auf den Stift, um eine benutzerdefinierte Aktion zu bearbeiten. Bitte stelle sicher das die Firmware deiner Ausrüstung auf dem aktuellsten Stand ist.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Schwache Batterie. Bitte laden Sie Ihre Ausrüstung zu mindestens 50% auf",
+  "otaLowBattery": "Schwache Batterie. Bitte lade deine Ausrüstung zu mindestens 50% auf",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Zur Unterstützung Ihrer Ausrüstung ist für diese App ein Firmware-Update erforderlich",
+  "mandatoryOtaRequired": "Es ist ein Firmware Update notwendig, damit die App deine Ausrüstung unterstützt",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -936,6 +936,18 @@
   "triggerActionSelectorTutorialLabel": "Wähle so viele Aktionen aus, wie du möchtest. Es wird eine Aktion zufällig ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig mit Bewegungs-Aktionen ausgelöst. Vergiss nicht zu speichern.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Bitte aktualisiere deine Ausrüstung um diese Funktion zu verwenden.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "Die Joystick Funktion ist experimentell. Verwende sie auf eigene Gefahr.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
     "type": "text",
     "placeholders": {}
   }
