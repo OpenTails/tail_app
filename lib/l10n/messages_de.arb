@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
+  "onboardingPrivacyPolicyViewButtonLabel": "Datenschutzrichtlinie anzeigen",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
