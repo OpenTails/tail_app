@@ -29,3 +29,8 @@ Theres so many improvements over our old app - heres the headlines
 - Added warnings for outdated gear to Custom Actions and Joystick
 - UI/UX changes to selecting actions for triggers to reduce confusion
 - Fix bug where trigger doesn't activate after accepting permission
+
+### V 1.0.3
+
+- Changed trigger select button to be more visible
+- Reload actions when glowtip is found
