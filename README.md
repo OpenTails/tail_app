@@ -224,6 +224,14 @@ To run tests, simply run the command
 flutter test
 ```
 
+#### Detecting the environment
+
+In order to filter sentry logs from testing and production, the 'Environment' is guessed
+
+- debug: if the app was built in debug mode or if the app is in an emulator
+- staging: if the app is on testflight or in firebase test lab
+- production: everything else
+
 ### Fastlane
 
 [Fastlane](https://docs.fastlane.tools/) is a tool to automatically upload apps to the Apple App Store and Google Play Store. Inside the [IOS](ios/) and [Android](android/) folders is a fastlane folder. Inside is the FastFile which contains the upload config. Secrets are JSON files passed through repository secrets. The script [fastlane.sh](Scripts/fastlane.sh) selects the fastlane folder to use and begins the upload.
