@@ -950,5 +950,11 @@
     "description": "Label for the warning tutorial card on the joystick page",
     "type": "text",
     "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Auswählen",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
   }
 }
