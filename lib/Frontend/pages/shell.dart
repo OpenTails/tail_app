@@ -263,7 +263,24 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                     foregroundColor: getTextColor(color),
                     elevation: 1,
                   ),
-                  child: Text(manageDevicesOtaButton())),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.system_update,
+                        color: getTextColor(color),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                      ),
+                      Text(
+                        manageDevicesOtaButton(),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: getTextColor(color),
+                            ),
+                      ),
+                    ],
+                  )),
             )
           ],
           Padding(

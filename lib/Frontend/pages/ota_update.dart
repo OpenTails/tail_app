@@ -129,8 +129,26 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                           children: [
                             FilledButton(
                               onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
-                              child: Text(
-                                otaDownloadButtonLabel(),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.system_update,
+                                    color: getTextColor(
+                                      Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 4),
+                                  ),
+                                  Text(
+                                    otaDownloadButtonLabel(),
+                                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                          color: getTextColor(
+                                            Theme.of(context).colorScheme.primary,
+                                          ),
+                                        ),
+                                  ),
+                                ],
                               ),
                             ),
                             if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[

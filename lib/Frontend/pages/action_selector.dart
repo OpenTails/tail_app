@@ -127,7 +127,27 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
                     }
                   });
                 },
-                child: Text(triggersSelectSaveLabel()),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.save,
+                      color: getTextColor(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                    ),
+                    Text(
+                      triggersSelectSaveLabel(),
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            color: getTextColor(
+                              Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                    )
+                  ],
+                ),
               )
             ],
           ),

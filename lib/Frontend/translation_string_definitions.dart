@@ -48,6 +48,8 @@ String triggersSelectAllLabel() => Intl.message('Select All', name: 'triggersSel
 
 String triggersSelectSaveLabel() => Intl.message('Save Actions', name: 'triggersSelectSaveLabel', desc: 'The button label on the trigger select screen for saving the selected actions');
 
+String triggersDefSelectSaveLabel() => Intl.message('Select', name: 'triggersDefSelectSaveLabel', desc: 'The button label on the trigger select screen for saving the selected actions');
+
 String ok() => Intl.message('Ok', name: 'ok', desc: 'Ok on dialog boxes');
 
 String cancel() => Intl.message('Cancel', name: 'cancel', desc: 'Cancel on dialog boxes');

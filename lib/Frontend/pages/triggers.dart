@@ -8,6 +8,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/sensors.dart';
+import 'package:tail_app/Frontend/utils.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../constants.dart';
@@ -56,9 +57,30 @@ class _TriggersState extends ConsumerState<Triggers> {
             promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
             modalHeaderBuilder: ChoiceModal.createHeader(
               automaticallyImplyLeading: true,
-              actionsBuilder: [
-                ChoiceModal.createConfirmButton(),
-                ChoiceModal.createSpacer(width: 10),
+              actionsBuilder: [],
+            ),
+            modalFooterBuilder: ChoiceModal.createFooter(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                (choiceController) => FilledButton(
+                      onPressed: () => choiceController.closeModal(confirmed: true),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.check),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 4),
+                          ),
+                          Text(
+                            triggersDefSelectSaveLabel(),
+                            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                    color: getTextColor(
+                                  Theme.of(context).colorScheme.primary,
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
               ],
             ),
             title: triggersSelectLabel(),
