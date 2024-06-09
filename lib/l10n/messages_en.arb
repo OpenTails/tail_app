@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-08T19:18:24.321358",
+  "@@last_modified": "2024-06-09T02:08:09.330913",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -111,6 +111,12 @@
   },
   "triggersSelectSaveLabel": "Save Actions",
   "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Select",
+  "@triggersDefSelectSaveLabel": {
     "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
