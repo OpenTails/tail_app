@@ -54,7 +54,7 @@ dependencies:
       url: https://github.com/Codel1417/flutter_wear_os_connectivity
   just_audio: ^0.9.38 # Used for Sound Effects
   audio_session: ^0.1.19 # Used to configure the audio session for just_audio
-
+  firebase_testlab_detector: ^1.0.1
 
   # Riverpod
   flutter_riverpod: ^2.5.1

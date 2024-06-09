@@ -4,13 +4,16 @@ import 'dart:ui';
 
 import 'package:accessibility_tools/accessibility_tools.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
+import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:install_referrer/install_referrer.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
@@ -58,6 +61,35 @@ const String domain = "tail-app";
 late final Plausible plausible;
 final mainLogger = Logger('Main');
 
+Future<String> getSentryEnvironment() async {
+  if (!kReleaseMode) {
+    return 'debug';
+  }
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  if (Platform.isIOS) {
+    var installationAppReferrer = await InstallReferrer.referrer;
+    if (installationAppReferrer == InstallationAppReferrer.iosTestFlight) {
+      return 'staging';
+    }
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    if (!iosInfo.isPhysicalDevice) {
+      return 'debug';
+    }
+  }
+
+  if (Platform.isAndroid) {
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if (!androidInfo.isPhysicalDevice) {
+      return 'debug';
+    }
+    final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
+    if (isRunningInTestlab) {
+      return 'staging';
+    }
+  }
+  return 'production';
+}
+
 Future<void> main() async {
   Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
@@ -79,20 +111,30 @@ Future<void> main() async {
   await initHive();
   //initDio();
   mainLogger.fine("Init Sentry");
+  String environment = await getSentryEnvironment();
+  mainLogger.info("Detected Environment: $environment");
   await SentryFlutter.init(
     (options) async {
       options.dsn = 'https://cd338ff75dd419608f4704e517904a1d@o4507396530307072.ingest.de.sentry.io/4507396677501008';
       options.addIntegration(LoggingIntegration());
-      options.attachScreenshot = true; //not supported on GlitchTip
+      options.enableBreadcrumbTrackingForCurrentPlatform();
+      options.debug = kDebugMode;
+      options.diagnosticLevel = SentryLevel.info;
+      options.environment = environment;
       options.tracesSampleRate = 0.3;
       //options.profilesSampleRate = 1.0;
-      options.enableBreadcrumbTrackingForCurrentPlatform();
+
       options.attachThreads = true;
       options.anrEnabled = true;
       options.beforeSend = beforeSend;
       options.enableMetrics = true;
-      options.debug = kDebugMode;
-      options.diagnosticLevel = SentryLevel.info;
+      options.attachStacktrace = true;
+      options.attachScreenshot = true;
+      options.attachViewHierarchy = true;
+      options.sendClientReports = true;
+      options.captureFailedRequests = true;
+      options.enableAutoSessionTracking = true;
+      options.enableAutoPerformanceTracing = true;
     },
     // Init your App.
     // ignore: missing_provider_scope
