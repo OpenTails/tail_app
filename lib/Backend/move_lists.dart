@@ -221,7 +221,13 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
     plausible.event(name: "Run Sequence", props: {"Sequence Repeat": action.repeat.toInt().toString(), "Sequence Device Type": device.baseDeviceDefinition.deviceType.name, "Sequence Moves": action.moves.length.toString()});
     if (action.moves.isNotEmpty && action.moves.length <= 5 && device.baseDeviceDefinition.deviceType != DeviceType.ears) {
       int preset = 1; //TODO: store
-      String cmd = "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt()}H1";
+      String cmd = "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt() - 1}";
+      String a = '';
+      String b = '';
+      String e = '';
+      String f = '';
+      String sl = '';
+      String m = '';
       for (int i = 0; i < action.moves.length; i++) {
         Move move = action.moves[i];
         if (i == 0 && move.moveType == MoveType.delay) {
@@ -230,11 +236,22 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
         if (move.moveType == MoveType.delay) {
           if (i > 0 && action.moves[i + 1].moveType == MoveType.move) {
             Move prevMove = action.moves[i + 1];
-            cmd = "$cmd E${prevMove.easingType.num}F${prevMove.easingType.num}A${prevMove.leftServo.round().clamp(0, 128) ~/ 16}B${prevMove.rightServo.round().clamp(0, 128) ~/ 16}S${move.time.toInt()}";
+            e = '${e}E${prevMove.easingType.num}';
+            f = '${f}F${prevMove.easingType.num}';
+            a = '${a}A${prevMove.leftServo.round().clamp(0, 128) ~/ 16}';
+            b = '${b}B${prevMove.rightServo.round().clamp(0, 128) ~/ 16}';
+            sl = '${sl}S${move.speed.toInt()}';
+            m = '${m}M${move.speed.toInt()}';
           }
         }
-        cmd = "$cmd E${move.easingType.num}F${move.easingType.num}A${move.leftServo.round().clamp(0, 128) ~/ 16}B${move.rightServo.round().clamp(0, 128) ~/ 16}L${move.speed.toInt()}";
+        e = '${e}E${move.easingType.num}';
+        f = '${f}F${move.easingType.num}';
+        a = '${a}A${move.leftServo.round().clamp(0, 128) ~/ 16}';
+        b = '${b}B${move.rightServo.round().clamp(0, 128) ~/ 16}';
+        sl = '${sl}L${move.speed.toInt()}';
+        m = '${m}M${move.speed.toInt()}';
       }
+      cmd = '$cmd $a $b $e $f $sl H1';
       device.commandQueue.addCommand(BluetoothMessage(message: cmd, device: device, priority: Priority.normal, type: CommandType.move));
       device.commandQueue.addCommand(BluetoothMessage(message: "TAILU$preset", device: device, priority: Priority.normal, responseMSG: "TAILU$preset END", type: CommandType.move));
     } else {
