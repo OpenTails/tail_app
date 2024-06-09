@@ -62,25 +62,27 @@ class _TriggersState extends ConsumerState<Triggers> {
             modalFooterBuilder: ChoiceModal.createFooter(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                (choiceController) => FilledButton(
-                      onPressed: () => choiceController.closeModal(confirmed: true),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.check),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 4),
-                          ),
-                          Text(
-                            triggersDefSelectSaveLabel(),
-                            style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                    color: getTextColor(
-                                  Theme.of(context).colorScheme.primary,
-                                )),
-                          )
-                        ],
-                      ),
+                (choiceController) {
+                  return FilledButton(
+                    onPressed: choiceController.value.isNotEmpty ? () => choiceController.closeModal(confirmed: true) : null,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.check),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                        ),
+                        Text(
+                          triggersDefSelectSaveLabel(),
+                          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                  color: getTextColor(
+                                Theme.of(context).colorScheme.primary,
+                              )),
+                        )
+                      ],
                     ),
+                  );
+                },
               ],
             ),
             title: triggersSelectLabel(),
