@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tail_app/main.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../../Backend/LoggingWrappers.dart';
@@ -23,12 +24,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
       body: ListView(
         primary: true,
         children: [
-          ListTile(
-            title: Text(
-              "Logging Debug",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
           ListTile(
             title: const Text("Logs"),
             leading: const Icon(Icons.list),
@@ -124,6 +119,20 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 );
               },
             ),
+          ),
+          ListTile(
+            title: const Text("SentryEnvironment"),
+            subtitle: FutureBuilder(
+              future: getSentryEnvironment(),
+              builder: (context, snapshot) {
+                String value = snapshot.data ?? '';
+                return Text(value);
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("LatestPostId"),
+            subtitle: Text('${HiveProxy.getOrDefault(notificationBox, latestPost, defaultValue: defaultPostId)}'),
           )
         ],
       ),
