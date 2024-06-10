@@ -305,8 +305,6 @@ String onboardingCompletedTitle() => Intl.message("Happy Wagging!", name: 'onboa
 
 String doubleBackToClose() => Intl.message("Press again to exit", name: 'doubleBackToClose', desc: 'Snackbar message which appears when the back button is pressed at the main screen');
 
-String doubleBackToCloseTitle() => Intl.message("Gear is still connected", name: 'doubleBackToCloseTitle', desc: 'Snackbar message which appears when the back button is pressed at the main screen');
-
 String noLongerSupported() => Intl.message("This gear is no longer supported. Some app features may not work", name: 'noLongerSupported', desc: 'Warning message which appears for unsupported gear on the manage gear page');
 
 String mandatoryOtaRequired() => Intl.message("A firmware update is required for this app to support your gear", name: 'mandatoryOtaRequired', desc: 'Warning message which appears for gear which have old firmware on the manage gear page');
@@ -344,3 +342,11 @@ String triggerActionSelectorTutorialLabel() => Intl.message("Select as many acti
 String featureLimitedOtaRequiredLabel() => Intl.message("Please update your gear to use this feature.", name: 'featureLimitedOtaRequiredLabel', desc: 'Label for the warning card when a feature requires a firmware update');
 
 String joystickWarning() => Intl.message("The Joystick feature is experimental. Use at your own risk.", name: 'joystickWarning', desc: 'Label for the warning tutorial card on the joystick page');
+
+String otaAvailableSnackbarLabel() => Intl.message("Please update your gear", name: 'otaAvailableSnackbarLabel', desc: 'Label for the snackbar that appears when gear has an update');
+
+String otaAvailableSnackbarTitle() => Intl.message("Update Available", name: 'otaAvailableSnackbarTitle', desc: 'Label for the snackbar that appears when gear has an update');
+
+String newGearConnectedSnackbarTitle() => Intl.message("Gear Connected", name: 'newGearConnectedSnackbarTitle', desc: 'Label for the snackbar that appears when new gear is paired and connected');
+
+String newGearConnectedSnackbarLabel() => Intl.message("Happy Wagging", name: 'newGearConnectedSnackbarLabel', desc: 'Label for the snackbar that appears when new gear is paired and connected');

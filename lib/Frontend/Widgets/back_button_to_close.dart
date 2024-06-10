@@ -48,8 +48,8 @@ class _BackButtonToCloseState extends ConsumerState<BackButtonToClose> {
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: doubleBackToCloseTitle(),
-            message: doubleBackToClose(),
+            title: doubleBackToClose(),
+            message: '',
 
             /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
             contentType: ContentType.help,
