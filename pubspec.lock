@@ -5,15 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "5aaf60d96c4cd00fe7f21594b5ad6a1b699c80a27420f8a837f4d68473ef09e3"
+      sha256: "0b2f2bd91ba804e53a61d757b986f89f1f9eaed5b11e4b2f5a2468d86d6c9fc7"
       url: "https://pub.dev"
     source: hosted
-    version: "68.0.0"
-  _macros:
-    dependency: transitive
-    description: dart
-    source: sdk
-    version: "0.1.0"
+    version: "67.0.0"
   accessibility_tools:
     dependency: "direct main"
     description:
@@ -26,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "21f1d3720fd1c70316399d5e2bccaebb415c434592d778cce8acb967b8578808"
+      sha256: "37577842a27e4338429a1cbc32679d508836510b056f1eedf0c8d20e39c1383d"
       url: "https://pub.dev"
     source: hosted
-    version: "6.5.0"
+    version: "6.4.1"
   analyzer_plugin:
     dependency: transitive
     description:
@@ -240,6 +235,14 @@ packages:
       url: "https://github.com/davigmacode/flutter_choice"
     source: git
     version: "2.3.2"
+  ci:
+    dependency: transitive
+    description:
+      name: ci
+      sha256: "145d095ce05cddac4d797a158bc4cf3b6016d1fe63d8c3d2fbd7212590adca13"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   circular_buffer:
     dependency: "direct main"
     description:
@@ -248,6 +251,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.0"
+  cli_util:
+    dependency: transitive
+    description:
+      name: cli_util
+      sha256: c05b7406fdabc7a49a3929d4af76bcaccbbffcbcdcf185b082e1ae07da323d19
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.1"
   clock:
     dependency: transitive
     description:
@@ -344,14 +355,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
+  custom_lint:
+    dependency: transitive
+    description:
+      name: custom_lint
+      sha256: "22bd87a362f433ba6aae127a7bac2838645270737f3721b180916d7c5946cb5d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.11"
   custom_lint_core:
     dependency: transitive
     description:
       name: custom_lint_core
-      sha256: a85e8f78f4c52f6c63cdaf8c872eb573db0231dcdf3c3a5906d493c1f8bc20e6
+      sha256: "2952837953022de610dacb464f045594854ced6506ac7f76af28d4a6490e189b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.3"
+    version: "0.5.14"
   dart_style:
     dependency: transitive
     description:
@@ -509,10 +528,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_testlab_detector
-      sha256: fd0cb56e41c075e654c32eb378672970098823c76b571374df420acd3de94821
+      sha256: "1de7421239370c62bbdea3c6da15619e0f9aeefa796a21f81e8617157ebf45d8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   fixnum:
     dependency: transitive
     description:
@@ -1048,14 +1067,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.3"
-  macros:
-    dependency: transitive
-    description:
-      name: macros
-      sha256: "12e8a9842b5a7390de7a781ec63d793527582398d16ea26c60fed58833c9ae79"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0-main.0"
   markdown:
     dependency: transitive
     description:
@@ -1414,10 +1425,10 @@ packages:
     dependency: transitive
     description:
       name: riverpod_analyzer_utils
-      sha256: ee72770090078e6841d51355292335f1bc254907c6694283389dcb8156d99a4d
+      sha256: "22a089135785f27e601075023f93c6622c43ef28c3ba1bef303cfbc314028e64"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.3"
+    version: "0.4.3"
   riverpod_annotation:
     dependency: "direct main"
     description:
@@ -1430,10 +1441,10 @@ packages:
     dependency: "direct dev"
     description:
       name: riverpod_generator
-      sha256: "1ad626afbd8b01d168870b13c0b036f8a5bdb57c14cd426dc5b4595466bd6e2f"
+      sha256: "49e36ca4c7e78f97ae6a2ab3b43c53fd688429482c253b5c3bf5670d2dec6c87"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "3.0.0-dev.6"
   rxdart:
     dependency: transitive
     description:
