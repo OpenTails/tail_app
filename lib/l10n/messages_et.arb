@@ -179,7 +179,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditListDelayLabel": "Kas olete kindel, et soovite selle toimingu kustutada?",
+  "sequenceEditListDelayLabel": "Viivitage järgmist liigutust {howMany} ms.",
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
