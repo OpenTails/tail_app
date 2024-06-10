@@ -1,4 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:tail_app/Frontend/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
@@ -41,7 +42,7 @@ class NotificationController {
   static Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
     // New Tail Blog Post
     if (receivedAction.channelKey == blogChannelKey && receivedAction.payload != null && receivedAction.payload!.containsKey('url')) {
-      await launchUrl(Uri.parse("${receivedAction.payload!['url']}?utm_source=Tail_App'"));
+      await launchUrl(Uri.parse("${receivedAction.payload!['url']}${getOutboundUtm()}"));
     }
     // Navigate into pages, avoiding to open the notification details page over another details page already opened
     //MyApp.navigatorKey.currentState?.pushNamedAndRemoveUntil('/notification-page', (route) => (route.settings.name != '/notification-page') || route.isFirst, arguments: receivedAction);
