@@ -87,7 +87,7 @@ void main() {
         await container.read(moveListsProvider.notifier).add(moveList);
         expect(container.read(moveListsProvider).length, 1);
         expect(container.read(moveListsProvider).first, moveList);
-        expect(HiveProxy.getAll<MoveList>('sequences').length, 1);
+        expect(HiveProxy.getAll<MoveList>(sequencesBox).length, 1);
         //verify movelists are read again from hive
         container.invalidate(moveListsProvider);
         expect(container.read(moveListsProvider).length, 1);
@@ -95,7 +95,7 @@ void main() {
 
         await container.read(moveListsProvider.notifier).remove(moveList);
         expect(container.read(moveListsProvider).isEmpty, true);
-        expect(HiveProxy.getAll<MoveList>('sequences').isEmpty, true);
+        expect(HiveProxy.getAll<MoveList>(sequencesBox).isEmpty, true);
       });
     });
     test('Editing Move List record', () {

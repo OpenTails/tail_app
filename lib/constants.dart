@@ -21,6 +21,7 @@ const String hasCompletedOnboarding = 'hasCompletedOnboardingVersion';
 const String showDebugging = 'showDebugging';
 const String alwaysScanning = 'alwaysScanning';
 const String showDemoGear = 'showDemoGear';
+const String showAdvancedSettings = 'showAdvancedSettings';
 
 // Notification Settings
 const String allowNewsletterNotifications = 'allowNewsletterNotifications';
@@ -43,10 +44,11 @@ const bool showDebuggingDefault = false;
 const bool alwaysScanningDefault = true;
 const bool allowNewsletterNotificationsDefault = false;
 const bool showDemoGearDefault = false;
+const bool showAdvancedSettingsDefault = false;
 
-// Triggers labels
 const String triggerBox = 'triggers';
-
+const String sequencesBox = 'sequences';
+const String devicesBox = 'devices';
 const String favoriteActionsBox = 'favoriteActions';
 const String audioActionsBox = 'audioActions';
 const int hasCompletedOnboardingVersionToAgree = 1;

@@ -166,7 +166,7 @@ class MoveLists extends _$MoveLists {
   List<MoveList> build() {
     List<MoveList> results = [];
     try {
-      results = HiveProxy.getAll<MoveList>('sequences').toList(growable: true);
+      results = HiveProxy.getAll<MoveList>(sequencesBox).toList(growable: true);
     } catch (e, s) {
       sequencesLogger.severe("Unable to load sequences: $e", e, s);
     }
@@ -189,8 +189,8 @@ class MoveLists extends _$MoveLists {
 
   Future<void> store() async {
     sequencesLogger.info("Storing sequences");
-    await HiveProxy.clear<MoveList>('sequences');
-    await HiveProxy.addAll<MoveList>('sequences', state);
+    await HiveProxy.clear<MoveList>(sequencesBox);
+    await HiveProxy.addAll<MoveList>(sequencesBox, state);
   }
 }
 

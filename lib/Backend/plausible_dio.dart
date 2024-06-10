@@ -35,8 +35,8 @@ class PlausibleDio extends Plausible {
     page = "app://localhost/$page?utm_source=${(await InstallReferrer.referrer).name}";
     referrer = "app://localhost/$referrer";
     props = Map.of(props);
-    props['Number Of Devices'] = HiveProxy.getAll<BaseStoredDevice>('devices').length.toString();
-    props['Number Of Sequences'] = HiveProxy.getAll<MoveList>('sequences').length.toString();
+    props['Number Of Devices'] = HiveProxy.getAll<BaseStoredDevice>(devicesBox).length.toString();
+    props['Number Of Sequences'] = HiveProxy.getAll<MoveList>(sequencesBox).length.toString();
     props['Number Of Triggers'] = HiveProxy.getAll<Trigger>(triggerBox).length.toString();
     props['App Version'] = (await PackageInfo.fromPlatform()).version;
     props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;

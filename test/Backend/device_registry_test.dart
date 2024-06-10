@@ -75,20 +75,20 @@ void main() {
       String name = 'MiTail';
       String name2 = 'EG2';
       expect(container.read(knownDevicesProvider).length, 0);
-      expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 0);
+      expect(HiveProxy.getAll<BaseStoredDevice>(devicesBox).length, 0);
       BaseStatefulDevice baseStatefulDevice = await createAndStoreGear(name, container);
       expect(baseStatefulDevice.baseDeviceDefinition.btName, name);
       expect(container.read(knownDevicesProvider).length, 1);
       expect(container.read(knownDevicesProvider).values.first, baseStatefulDevice);
-      expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 1);
-      expect(HiveProxy.getAll<BaseStoredDevice>('devices').first, baseStatefulDevice.baseStoredDevice);
+      expect(HiveProxy.getAll<BaseStoredDevice>(devicesBox).length, 1);
+      expect(HiveProxy.getAll<BaseStoredDevice>(devicesBox).first, baseStatefulDevice.baseStoredDevice);
 
       BaseStatefulDevice baseStatefulDevice2 = await createAndStoreGear(name2, container);
       expect(baseStatefulDevice2.baseDeviceDefinition.btName, name2);
       expect(container.read(knownDevicesProvider).length, 2);
       expect(container.read(knownDevicesProvider).values.contains(baseStatefulDevice2), true);
-      expect(HiveProxy.getAll<BaseStoredDevice>('devices').length, 2);
-      expect(HiveProxy.getAll<BaseStoredDevice>('devices').contains(baseStatefulDevice2.baseStoredDevice), true);
+      expect(HiveProxy.getAll<BaseStoredDevice>(devicesBox).length, 2);
+      expect(HiveProxy.getAll<BaseStoredDevice>(devicesBox).contains(baseStatefulDevice2.baseStoredDevice), true);
 
       BaseAction baseAction = BaseAction(name: "name", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.hidden, uuid: "uuid");
       BaseAction baseAction2 = BaseAction(name: "name1", deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: "uuid1");

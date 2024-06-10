@@ -15,7 +15,7 @@ final log.Logger bluetoothLog = log.Logger('Bluetooth');
 class KnownDevices extends _$KnownDevices {
   @override
   Map<String, BaseStatefulDevice> build() {
-    List<BaseStoredDevice> storedDevices = HiveProxy.getAll<BaseStoredDevice>('devices').toList();
+    List<BaseStoredDevice> storedDevices = HiveProxy.getAll<BaseStoredDevice>(devicesBox).toList();
     Map<String, BaseStatefulDevice> results = {};
     try {
       if (storedDevices.isNotEmpty) {
@@ -50,7 +50,7 @@ class KnownDevices extends _$KnownDevices {
   }
 
   Future<void> store() async {
-    await HiveProxy.clear<BaseStoredDevice>('devices');
-    await HiveProxy.addAll<BaseStoredDevice>('devices', state.values.map((e) => e.baseStoredDevice));
+    await HiveProxy.clear<BaseStoredDevice>(devicesBox);
+    await HiveProxy.addAll<BaseStoredDevice>(devicesBox, state.values.map((e) => e.baseStoredDevice));
   }
 }
