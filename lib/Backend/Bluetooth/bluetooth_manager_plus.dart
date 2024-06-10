@@ -228,9 +228,9 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       } else if (value.startsWith("GLOWTIP")) {
         String substring = value.substring(value.indexOf(" ")).trim();
         if (substring == 'TRUE') {
-          statefulDevice.hasGlowtip.value == GlowtipStatus.glowtip;
+          statefulDevice.hasGlowtip.value = GlowtipStatus.glowtip;
         } else if (substring == 'FALSE') {
-          statefulDevice.hasGlowtip.value == GlowtipStatus.noGlowtip;
+          statefulDevice.hasGlowtip.value = GlowtipStatus.noGlowtip;
         }
       } else if (value.contains("BUSY")) {
         //statefulDevice.deviceState.value = DeviceState.busy;
