@@ -47,8 +47,6 @@ final dioLogger = Logger('Dio');
 Future<Dio> initDio({skipSentry = false}) async {
   final Dio dio = Dio();
 
-  /// This *must* be the last initialization step of the Dio setup, otherwise
-  /// your configuration of Dio might overwrite the Sentry configuration.
   dio.httpClientAdapter = NativeAdapter();
   /*dio.interceptors.add(
     LogInterceptor(
@@ -83,6 +81,8 @@ Future<Dio> initDio({skipSentry = false}) async {
   );
   dio.interceptors.add(DioCacheInterceptor(options: options));
   if (!skipSentry) {
+    /// This *must* be the last initialization step of the Dio setup, otherwise
+    /// your configuration of Dio might overwrite the Sentry configuration.
     dio.addSentry(failedRequestStatusCodes: []);
   }
   return dio;

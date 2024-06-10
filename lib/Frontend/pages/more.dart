@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/markdown_viewer.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
@@ -212,14 +209,6 @@ class _PdfWidgetState extends State<PdfWidget> {
         duration: animationTransitionDuration,
       ),
       onTap: () async {
-        filePath = '${(await getTemporaryDirectory()).path}${widget.name}.pdf';
-        if (await File(filePath).exists()) {
-          if (context.mounted) {
-            progress = 0;
-            context.push('/more/viewPDF', extra: filePath);
-          }
-          return;
-        }
         final transaction = Sentry.startTransaction('GET PDF', 'http', description: widget.url);
         try {
           setState(() {
