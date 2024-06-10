@@ -14,6 +14,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/Widgets/back_button_to_close.dart';
 import 'package:tail_app/Frontend/Widgets/known_gear_scan_controller.dart';
+import 'package:tail_app/Frontend/Widgets/logging_shake.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 
@@ -63,83 +64,85 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
   @override
   Widget build(BuildContext context) {
     setupSystemColor(context);
-    return BackButtonToClose(
-      child: UpgradeAlert(
-        child: ValueListenableBuilder(
-          valueListenable: SentryHive.box(settings).listenable(keys: [shouldDisplayReview]),
-          builder: (BuildContext context, Box<dynamic> value, Widget? child) {
-            if (value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
-              inAppReview.isAvailable().then(
-                (isAvailable) {
-                  if (isAvailable && value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault) && mounted) {
-                    inAppReview.requestReview();
-                    Future(
-                      // Don't refresh widget in same frame
-                      () {
-                        HiveProxy.put(settings, hasDisplayedReview, true);
-                        HiveProxy.put(settings, shouldDisplayReview, false);
-                      },
-                    );
-                  }
-                },
-              );
-            }
+    return LoggingShake(
+      child: BackButtonToClose(
+        child: UpgradeAlert(
+          child: ValueListenableBuilder(
+            valueListenable: SentryHive.box(settings).listenable(keys: [shouldDisplayReview]),
+            builder: (BuildContext context, Box<dynamic> value, Widget? child) {
+              if (value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
+                inAppReview.isAvailable().then(
+                  (isAvailable) {
+                    if (isAvailable && value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault) && mounted) {
+                      inAppReview.requestReview();
+                      Future(
+                        // Don't refresh widget in same frame
+                        () {
+                          HiveProxy.put(settings, hasDisplayedReview, true);
+                          HiveProxy.put(settings, shouldDisplayReview, false);
+                        },
+                      );
+                    }
+                  },
+                );
+              }
 
-            return child!;
-          },
-          child: AdaptiveScaffold(
-            // An option to override the default breakpoints used for small, medium,
-            // and large.
-            smallBreakpoint: const WidthPlatformBreakpoint(end: 700),
-            mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
-            largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
-            useDrawer: false,
-            appBarBreakpoint: const WidthPlatformBreakpoint(begin: 0),
-            selectedIndex: screenIndex,
-            onSelectedIndexChange: (int index) {
-              setState(
-                () {
-                  screenIndex = index;
-                  return GoRouter.of(context).go(destinations[index].path);
-                },
-              );
+              return child!;
             },
-            destinations: destinations.map(
-              (NavDestination destination) {
-                return NavigationDestination(
-                  label: destination.label,
-                  icon: destination.icon,
-                  selectedIcon: destination.selectedIcon,
-                  tooltip: destination.label,
+            child: AdaptiveScaffold(
+              // An option to override the default breakpoints used for small, medium,
+              // and large.
+              smallBreakpoint: const WidthPlatformBreakpoint(end: 700),
+              mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
+              largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
+              useDrawer: false,
+              appBarBreakpoint: const WidthPlatformBreakpoint(begin: 0),
+              selectedIndex: screenIndex,
+              onSelectedIndexChange: (int index) {
+                setState(
+                  () {
+                    screenIndex = index;
+                    return GoRouter.of(context).go(destinations[index].path);
+                  },
                 );
               },
-            ).toList(),
-            body: (_) => SafeArea(
-              bottom: false,
-              top: false,
-              child: SnackBarOverlay(
-                child: widget.child,
+              destinations: destinations.map(
+                (NavDestination destination) {
+                  return NavigationDestination(
+                    label: destination.label,
+                    icon: destination.icon,
+                    selectedIcon: destination.selectedIcon,
+                    tooltip: destination.label,
+                  );
+                },
+              ).toList(),
+              body: (_) => SafeArea(
+                bottom: false,
+                top: false,
+                child: SnackBarOverlay(
+                  child: widget.child,
+                ),
               ),
-            ),
-            // smallBody: (_) => SafeArea(
-            //   bottom: false,
-            //   top: false,
-            //   child: SnackBarOverlay(
-            //     child: widget.child,
-            //   ),
-            // ),
-            // Define a default secondaryBody.
-            //secondaryBody: AdaptiveScaffold.emptyBuilder,
-            // Override the default secondaryBody during the smallBreakpoint to be
-            // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
-            // overridden.
-            smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
-            appBar: AppBar(
-              title: const DeviceStatusWidget(),
-              centerTitle: true,
-              leadingWidth: 0,
-              titleSpacing: 0,
-              toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1),
+              // smallBody: (_) => SafeArea(
+              //   bottom: false,
+              //   top: false,
+              //   child: SnackBarOverlay(
+              //     child: widget.child,
+              //   ),
+              // ),
+              // Define a default secondaryBody.
+              //secondaryBody: AdaptiveScaffold.emptyBuilder,
+              // Override the default secondaryBody during the smallBreakpoint to be
+              // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
+              // overridden.
+              smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
+              appBar: AppBar(
+                title: const DeviceStatusWidget(),
+                centerTitle: true,
+                leadingWidth: 0,
+                titleSpacing: 0,
+                toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1),
+              ),
             ),
           ),
         ),
