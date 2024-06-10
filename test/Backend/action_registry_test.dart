@@ -32,7 +32,7 @@ void main() {
       expect(actions[ActionCategory.fast]?.length, 4);
       expect(actions[ActionCategory.tense]?.length, 4);
 
-      providerContainer.read(knownDevicesProvider).values.first.hasGlowtip.value = true;
+      providerContainer.read(knownDevicesProvider).values.first.hasGlowtip.value = GlowtipStatus.glowtip;
       providerContainer.invalidate(getAvailableActionsProvider);
       Map<ActionCategory, Set<BaseAction>> actions2 = providerContainer.read(getAvailableActionsProvider);
       expect(actions2.length, 4);

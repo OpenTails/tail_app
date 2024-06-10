@@ -5,6 +5,7 @@ import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/LoggingWrappers.dart';
 import 'package:tail_app/Backend/device_registry.dart';
+import 'package:tail_app/constants.dart';
 import 'package:test/test.dart';
 
 import '../testing_utils/gear_utils.dart';

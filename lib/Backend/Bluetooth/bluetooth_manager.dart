@@ -4,6 +4,7 @@ import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/LoggingWrappers.dart';
 
+import '../../constants.dart';
 import '../Definitions/Device/device_definition.dart';
 import '../device_registry.dart';
 

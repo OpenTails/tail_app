@@ -9,6 +9,7 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/audio.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 
+import '../constants.dart';
 import '../main.dart';
 import 'LoggingWrappers.dart';
 
