@@ -303,7 +303,9 @@ String onboardingDoneButtonLabel() => Intl.message("Done", name: 'onboardingDone
 
 String onboardingCompletedTitle() => Intl.message("Happy Wagging!", name: 'onboardingCompletedTitle', desc: 'Title of the final page of the onboarding screen');
 
-String doubleBackToClose() => Intl.message("Press again to exit ", name: 'doubleBackToClose', desc: 'Snackbar message which appears when the back button is pressed at the main screen');
+String doubleBackToClose() => Intl.message("Press again to exit", name: 'doubleBackToClose', desc: 'Snackbar message which appears when the back button is pressed at the main screen');
+
+String doubleBackToCloseTitle() => Intl.message("Gear is still connected", name: 'doubleBackToCloseTitle', desc: 'Snackbar message which appears when the back button is pressed at the main screen');
 
 String noLongerSupported() => Intl.message("This gear is no longer supported. Some app features may not work", name: 'noLongerSupported', desc: 'Warning message which appears for unsupported gear on the manage gear page');
 

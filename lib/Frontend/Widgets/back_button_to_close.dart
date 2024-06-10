@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,7 +43,17 @@ class _BackButtonToCloseState extends ConsumerState<BackButtonToClose> {
       timer = Timer(const Duration(seconds: 1), () {});
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(doubleBackToClose()),
+          /// need to set following properties for best effect of awesome_snackbar_content
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: doubleBackToCloseTitle(),
+            message: doubleBackToClose(),
+
+            /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+            contentType: ContentType.help,
+          ),
         ),
       );
       return true;
