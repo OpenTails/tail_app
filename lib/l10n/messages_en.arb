@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-09T02:08:09.330913",
+  "@@last_modified": "2024-06-10T18:08:04.996105",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -845,8 +845,14 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Press again to exit ",
+  "doubleBackToClose": "Press again to exit",
   "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToCloseTitle": "Gear is still connected",
+  "@doubleBackToCloseTitle": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
     "placeholders": {}
