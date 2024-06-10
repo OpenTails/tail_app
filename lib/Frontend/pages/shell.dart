@@ -426,13 +426,21 @@ class _ManageGearState extends ConsumerState<ManageGear> {
             ),
             ListTile(
               title: const Text("Has Glowtip"),
-              trailing: Switch(
-                value: widget.device.hasGlowtip.value,
-                onChanged: (bool value) {
+              trailing: DropdownMenu<GlowtipStatus>(
+                initialSelection: widget.device.hasGlowtip.value,
+                onSelected: (GlowtipStatus? value) {
+                  if (value == null) {
+                    return;
+                  }
                   setState(() {
                     widget.device.hasGlowtip.value = value;
                   });
                 },
+                dropdownMenuEntries: GlowtipStatus.values
+                    .map(
+                      (e) => DropdownMenuEntry(value: e, label: e.name),
+                    )
+                    .toList(),
               ),
             ),
             ListTile(

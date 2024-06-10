@@ -84,6 +84,8 @@ enum ConnectivityState { connected, disconnected, connecting }
 
 enum DeviceState { standby, runAction, busy }
 
+enum GlowtipStatus { glowtip, noGlowtip, unknown }
+
 class BaseDeviceDefinition {
   final String uuid;
   final String btName;
@@ -114,7 +116,7 @@ class BaseStatefulDevice extends ChangeNotifier {
 
   final ValueNotifier<Version> fwVersion = ValueNotifier(Version.none);
   final ValueNotifier<String> hwVersion = ValueNotifier("");
-  final ValueNotifier<bool> hasGlowtip = ValueNotifier(false);
+  final ValueNotifier<GlowtipStatus> hasGlowtip = ValueNotifier(GlowtipStatus.unknown);
   final ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
   final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(ConnectivityState.disconnected);
   final ValueNotifier<int> rssi = ValueNotifier(-1);

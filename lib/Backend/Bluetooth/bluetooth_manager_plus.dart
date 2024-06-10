@@ -226,7 +226,12 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         statefulDevice.fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
         // Sent after VER message
       } else if (value.startsWith("GLOWTIP")) {
-        statefulDevice.hasGlowtip.value = "TRUE" == value.substring(value.indexOf(" "));
+        String substring = value.substring(value.indexOf(" ")).trim();
+        if (substring == 'TRUE') {
+          statefulDevice.hasGlowtip.value == GlowtipStatus.glowtip;
+        } else if (substring == 'FALSE') {
+          statefulDevice.hasGlowtip.value == GlowtipStatus.noGlowtip;
+        }
       } else if (value.contains("BUSY")) {
         //statefulDevice.deviceState.value = DeviceState.busy;
       } else if (value.contains("LOWBATT")) {
