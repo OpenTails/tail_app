@@ -63,6 +63,9 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                           await Future.delayed(Duration(milliseconds: (speed * 20).toInt()));
                           Move move = Move();
                           move.moveType = MoveType.home;
+                          if (!context.mounted) {
+                            return;
+                          }
                           ref.read(knownDevicesProvider).values.forEach(
                             (element) {
                               generateMoveCommand(move, element, CommandType.direct).forEach(
