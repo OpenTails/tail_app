@@ -55,6 +55,15 @@ android {
         versionName flutterVersionName
         minSdkVersion 28
         targetSdkVersion rootProject.ext.targetSdkVersion
+        ndk {
+            jobs = Runtime.runtime.availableProcessors()
+        }
+
+        externalNativeBuild {
+            ndkBuild {
+                arguments "-j" + Runtime.runtime.availableProcessors()
+            }
+        }
     }
     signingConfigs {
         release {
