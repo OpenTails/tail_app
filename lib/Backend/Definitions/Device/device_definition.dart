@@ -177,18 +177,18 @@ class BaseStatefulDevice extends ChangeNotifier {
     return 'BaseStatefulDevice{baseDeviceDefinition: $baseDeviceDefinition, baseStoredDevice: $baseStoredDevice, battery: $batteryLevel}';
   }
 
-  void getFirmwareInfo() {
+  Future<void> getFirmwareInfo() async {
     // Try to get firmware update information from Tail Company site
     if (baseDeviceDefinition.fwURL != "" && fwInfo.value == null) {
-      initDio().get(baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json)).then(
-        (value) {
-          if (value.statusCode == 200) {
-            fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
-          }
-        },
-      ).onError((error, stackTrace) {
+      Future<Response<String>> valueFuture = (await initDio()).get(baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json));
+      valueFuture.onError((error, stackTrace) {
         bluetoothLog.warning("Unable to get Firmware info for ${baseDeviceDefinition.fwURL} :$error", error, stackTrace);
+        return Response(requestOptions: RequestOptions(), statusCode: 500);
       });
+      Response<String> value = await valueFuture;
+      if (value.statusCode == 200) {
+        fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
+      }
     }
   }
 

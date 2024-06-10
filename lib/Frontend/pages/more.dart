@@ -225,11 +225,13 @@ class _PdfWidgetState extends State<PdfWidget> {
           setState(() {
             progress = 0.1;
           });
-          final rs = await initDio().download(
+          final Response<List<int>> rs = await (await initDio()).get(
             widget.url,
-            filePath,
-            deleteOnError: true,
             cancelToken: cancelToken,
+            options: Options(
+              contentType: 'application/pdf',
+              responseType: ResponseType.bytes,
+            ),
             onReceiveProgress: (current, total) {
               setState(
                 () {
@@ -238,10 +240,10 @@ class _PdfWidgetState extends State<PdfWidget> {
               );
             },
           );
-          if (rs.statusCode == 200) {
+          if (rs.statusCode! < 400) {
             if (context.mounted) {
               progress = 0;
-              context.push('/more/viewPDF', extra: filePath);
+              context.push('/more/viewPDF', extra: Uint8List.fromList(rs.data!));
             }
           } else {
             setState(

@@ -20,8 +20,6 @@ import 'sensors.dart';
 class PlausibleDio extends Plausible {
   PlausibleDio(super.serverUrl, super.domain);
 
-  Dio dio = initDio();
-
   /// Post event to plausible
   @override
   Future<int> event({String name = "pageview", String referrer = "", String page = "", Map<String, String> props = const {}}) async {
@@ -59,6 +57,7 @@ class PlausibleDio extends Plausible {
         "referrer": referrer,
         "props": props,
       };
+      Dio dio = await initDio();
       await dio.post(
         Uri.parse('$serverUrl/api/event').toString(),
         data: json.encode(body),

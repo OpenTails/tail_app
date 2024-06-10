@@ -57,7 +57,7 @@ Future<void> checkForNewPosts() async {
   }
   _backgroundLogger.info("Checking for new posts");
   try {
-    final WordpressClient client = getWordpressClient();
+    final WordpressClient client = await getWordpressClient();
     final ListPostRequest request = ListPostRequest(
       page: 1,
       perPage: 1,

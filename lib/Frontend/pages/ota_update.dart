@@ -295,7 +295,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     final transaction = Sentry.startTransaction('OTA Download', 'http');
     transaction.setTag("GearType", baseStatefulDevice!.baseDeviceDefinition.btName);
     try {
-      final Response<List<int>> rs = await initDio().get<List<int>>(firmwareInfo!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
+      final Response<List<int>> rs = await (await initDio()).get<List<int>>(firmwareInfo!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
         setState(() {
           downloadProgress = current / total;
         });

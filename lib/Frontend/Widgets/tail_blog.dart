@@ -1,9 +1,8 @@
-import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sentry_file/sentry_file.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,7 +26,7 @@ List<Post> _wordpressPosts = [];
 class _TailBlogState extends State<TailBlog> {
   FeedState feedState = FeedState.loading;
   List<FeedItem> results = [];
-  final WordpressClient client = getWordpressClient();
+  WordpressClient? client;
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +114,8 @@ class _TailBlogState extends State<TailBlog> {
           page: 1, perPage: 10, order: Order.desc, queryParameters: {'_fields': 'id,title,link,featured_media_src_url,featured_media,sticky,slug,author,date'},
           //context: RequestContext.embed,
         );
-        final WordpressResponse<List<Post>> wordpressPostResponse = await client.posts.list(request);
+        client ??= await getWordpressClient();
+        final WordpressResponse<List<Post>> wordpressPostResponse = await client!.posts.list(request);
         List<Post>? data = wordpressPostResponse.dataOrNull();
         if (data != null) {
           _wordpressPosts = data;
@@ -157,45 +157,40 @@ class _TailBlogState extends State<TailBlog> {
     String? mediaUrl;
     Widget? widget;
     if (item.imageId != null) {
-      String filePath = '${(await getTemporaryDirectory()).path}/media/${item.imageId}';
-
-      File file = File(filePath);
-      File sentryFile = file.sentryTrace();
-      if (!await sentryFile.exists()) {
-        // Get image url from wordpress api
-        if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
-          mediaUrl = item.imageUrl;
-        } else {
-          final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
-          WordpressResponse<Media> retrieveMediaResponse = await client.media.retrieve(retrieveMediaRequest);
-          if (retrieveMediaResponse.dataOrNull() != null) {
-            Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
-            mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
-          }
-        }
-
-        if (mediaUrl != null) {
-          // download the image
-          await initDio().download(mediaUrl, filePath);
+      // Get image url from wordpress api
+      if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
+        mediaUrl = item.imageUrl;
+      } else {
+        final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
+        WordpressResponse<Media> retrieveMediaResponse = await client!.media.retrieve(retrieveMediaRequest);
+        if (retrieveMediaResponse.dataOrNull() != null) {
+          Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
+          mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
         }
       }
-      if (await sentryFile.exists()) {
-        try {
-          if (context.mounted) {
-            widget = Image.file(
-              sentryFile,
-              alignment: Alignment.bottomCenter,
-              width: MediaQuery.of(context).size.width,
-              fit: BoxFit.cover,
-              height: 300,
-            );
-          }
-        } catch (e) {
-          // delete invalid media
-          sentryFile.delete();
+
+      if (mediaUrl != null) {
+        // download the image
+        Dio dio = await initDio();
+        Response<List<int>> response = await dio.get(
+          mediaUrl,
+          options: Options(
+            responseType: ResponseType.bytes,
+            followRedirects: true,
+          ),
+        );
+        if (context.mounted && response.statusCode! < 400) {
+          widget = Image.memory(
+            Uint8List.fromList(response.data!),
+            alignment: Alignment.bottomCenter,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
+            height: 300,
+          );
         }
       }
     }
+
     return widget ?? Container();
   }
 }

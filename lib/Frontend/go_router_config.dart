@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
@@ -89,7 +91,7 @@ final GoRouter router = GoRouter(
               name: 'More/viewPDF',
               path: 'viewPDF',
               parentNavigatorKey: _rootNavigatorKey,
-              builder: (BuildContext context, GoRouterState state) => ViewPDF(assetPath: state.extra! as String),
+              builder: (BuildContext context, GoRouterState state) => ViewPDF(asset: state.extra! as Uint8List),
             ),
             GoRoute(
               name: 'More/viewMarkdown',

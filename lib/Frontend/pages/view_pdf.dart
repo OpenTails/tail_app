@@ -1,21 +1,20 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:pdfx/pdfx.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 class ViewPDF extends StatelessWidget {
-  ViewPDF({super.key, required String assetPath}) {
-    pdfPinchController = PdfControllerPinch(
-      document: PdfDocument.openFile(assetPath),
-    );
-  }
+  final Uint8List asset;
 
-  late final PdfControllerPinch pdfPinchController;
+  const ViewPDF({super.key, required this.asset});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: PdfViewPinch(
-        controller: pdfPinchController,
+      body: PdfViewer.data(
+        asset,
+        sourceName: '',
       ),
     );
   }

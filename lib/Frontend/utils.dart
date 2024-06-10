@@ -1,5 +1,8 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
+import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logarte/logarte.dart';
@@ -41,7 +44,7 @@ Future<bool> getBluetoothPermission(Logger logger) async {
 
 final dioLogger = Logger('Dio');
 
-Dio initDio({skipSentry = false}) {
+Future<Dio> initDio({skipSentry = false}) async {
   final Dio dio = Dio();
 
   /// This *must* be the last initialization step of the Dio setup, otherwise
@@ -50,22 +53,43 @@ Dio initDio({skipSentry = false}) {
   /*dio.interceptors.add(
     LogInterceptor(
       requestBody: false,
-      requestHeader: false,
+      requestHeader: true,
       responseBody: false,
-      responseHeader: false,
-      request: false,
+      responseHeader: true,
+      request: true,
       logPrint: (o) => dioLogger.finer(o.toString()),
     ),
   );*/
   dio.interceptors.add(LogarteDioInterceptor(logarte));
+  dio.interceptors.add(RetryInterceptor(
+    dio: dio,
+    logPrint: dioLogger.info, // specify log function (optional)
+    retries: 3, // retry count (optional)
+    retryDelays: const [
+      // set delays between retries (optional)
+      Duration(seconds: 1), // wait 1 sec before first retry
+      Duration(seconds: 2), // wait 2 sec before second retry
+      Duration(seconds: 3), // wait 3 sec before third retry
+    ],
+  ));
+
+  // Global options
+  final options = CacheOptions(
+    // A default store is required for interceptor.
+    store: HiveCacheStore(null),
+    priority: CachePriority.high,
+    policy: CachePolicy.forceCache,
+    maxStale: const Duration(days: 7),
+  );
+  dio.interceptors.add(DioCacheInterceptor(options: options));
   if (!skipSentry) {
     dio.addSentry(failedRequestStatusCodes: []);
   }
   return dio;
 }
 
-WordpressClient getWordpressClient() {
-  return WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: initDio());
+Future<WordpressClient> getWordpressClient() async {
+  return WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: await initDio());
 }
 
 Version getVersionSemVer(String input) {
