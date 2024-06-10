@@ -14,7 +14,7 @@ import '../Frontend/utils.dart';
 import '../constants.dart';
 import '../main.dart';
 import 'Definitions/Device/device_definition.dart';
-import 'LoggingWrappers.dart';
+import 'logging_wrappers.dart';
 import 'sensors.dart';
 
 class PlausibleDio extends Plausible {

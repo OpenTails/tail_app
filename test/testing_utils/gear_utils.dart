@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Backend/LoggingWrappers.dart';
+import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 import 'package:tail_app/constants.dart';
 

@@ -7,7 +7,7 @@ import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
-import 'LoggingWrappers.dart';
+import 'logging_wrappers.dart';
 
 final _backgroundLogger = Logger('BackgroundLogger');
 

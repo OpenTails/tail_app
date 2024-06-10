@@ -6,7 +6,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../translation_string_definitions.dart';
@@ -58,7 +58,10 @@ class _SettingsState extends ConsumerState<Settings> {
                     return AlertDialog(
                       title: Text(
                         settingsAppColor(),
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleLarge,
                       ),
                       actions: [
                         TextButton(
@@ -107,7 +110,7 @@ class _SettingsState extends ConsumerState<Settings> {
               value: HiveProxy.getOrDefault(settings, showAccurateBattery, defaultValue: showAccurateBatteryDefault),
               onChanged: (bool value) {
                 setState(
-                  () {
+                      () {
                     HiveProxy.put(settings, showAccurateBattery, value);
                   },
                 );
@@ -122,7 +125,7 @@ class _SettingsState extends ConsumerState<Settings> {
               value: HiveProxy.getOrDefault(settings, largerActionCardSize, defaultValue: largerActionCardSizeDefault),
               onChanged: (bool value) {
                 setState(
-                  () {
+                      () {
                     HiveProxy.put(settings, largerActionCardSize, value);
                   },
                 );
@@ -137,7 +140,7 @@ class _SettingsState extends ConsumerState<Settings> {
               value: HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault),
               onChanged: (bool value) {
                 setState(
-                  () {
+                      () {
                     HiveProxy.put(settings, hideTutorialCards, value);
                   },
                 );
@@ -182,7 +185,11 @@ class _SettingsState extends ConsumerState<Settings> {
               onChanged: (bool value) {
                 setState(() {
                   HiveProxy.put(settings, keepAwake, value);
-                  if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).isNotEmpty) {
+                  if (ref
+                      .read(knownDevicesProvider)
+                      .values
+                      .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
+                      .isNotEmpty) {
                     if (value) {
                       WakelockPlus.enable();
                     } else {
@@ -201,7 +208,7 @@ class _SettingsState extends ConsumerState<Settings> {
               value: HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault),
               onChanged: (bool value) {
                 setState(
-                  () {
+                      () {
                     HiveProxy.put(settings, kitsuneModeToggle, value);
                   },
                 );
@@ -216,7 +223,7 @@ class _SettingsState extends ConsumerState<Settings> {
               value: HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault),
               onChanged: (bool value) {
                 setState(
-                  () {
+                      () {
                     HiveProxy.put(settings, showDemoGear, value);
                   },
                 );

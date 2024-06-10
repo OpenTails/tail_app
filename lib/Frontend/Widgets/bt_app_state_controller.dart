@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 
 class BtAppStateController extends ConsumerStatefulWidget {

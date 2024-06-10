@@ -10,7 +10,7 @@ import 'package:vector_math/vector_math.dart';
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';

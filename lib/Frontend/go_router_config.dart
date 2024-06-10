@@ -22,8 +22,8 @@ import 'package:tail_app/Frontend/pages/triggers.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 import 'package:tail_app/constants.dart';
 
-import '../Backend/LoggingWrappers.dart';
 import '../Backend/NavigationObserver/custom_go_router_navigation_observer.dart';
+import '../Backend/logging_wrappers.dart';
 import '../main.dart';
 import 'pages/actions.dart';
 

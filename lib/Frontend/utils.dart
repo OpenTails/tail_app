@@ -14,7 +14,7 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
-import '../Backend/LoggingWrappers.dart';
+import '../Backend/logging_wrappers.dart';
 
 LocalPlatform platform = const LocalPlatform();
 

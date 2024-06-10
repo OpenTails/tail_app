@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../Backend/LoggingWrappers.dart';
+import '../../../Backend/logging_wrappers.dart';
 import '../../../constants.dart';
 import '../../../gen/assets.gen.dart';
 import '../../Widgets/lottie_lazy_load.dart';

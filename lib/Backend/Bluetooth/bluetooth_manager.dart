@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/LoggingWrappers.dart';
+import 'package:tail_app/Backend/logging_wrappers.dart';
 
 import '../../constants.dart';
 import '../Definitions/Device/device_definition.dart';

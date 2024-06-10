@@ -11,7 +11,7 @@ import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Frontend/Widgets/speed_widget.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/device_type_widget.dart';

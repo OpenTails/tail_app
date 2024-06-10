@@ -23,7 +23,7 @@ import '../constants.dart';
 import 'Bluetooth/bluetooth_manager.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
-import 'LoggingWrappers.dart';
+import 'logging_wrappers.dart';
 import 'move_lists.dart';
 
 part 'sensors.g.dart';

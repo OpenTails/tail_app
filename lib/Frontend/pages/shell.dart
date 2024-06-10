@@ -18,7 +18,7 @@ import 'package:tail_app/Frontend/Widgets/logging_shake.dart';
 import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/base_card.dart';

@@ -4,7 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:shake/shake.dart';
 
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 
 class LoggingShake extends StatefulWidget {

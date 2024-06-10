@@ -10,7 +10,7 @@ import 'package:tail_app/Frontend/Widgets/base_card.dart';
 import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../Widgets/tail_blog.dart';
 import '../translation_string_definitions.dart';
 import 'markdown_viewer.dart';
@@ -68,7 +68,9 @@ class _HomeState extends ConsumerState<Home> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        if (ref.read(knownDevicesProvider).isNotEmpty && !HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault) && !HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault)) ...[
+                        if (ref
+                            .read(knownDevicesProvider)
+                            .isNotEmpty && !HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault) && !HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault)) ...[
                           ListTile(
                             leading: const Icon(Icons.info),
                             subtitle: Text(homeContinuousScanningOffDescription()),
@@ -138,7 +140,10 @@ class _HomeState extends ConsumerState<Home> {
               ListTile(
                 title: Text(
                   homeNewsTitle(),
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .titleLarge,
                 ),
               ),
               child!,

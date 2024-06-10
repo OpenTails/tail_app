@@ -27,11 +27,11 @@ import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
 import 'package:tail_app/Frontend/utils.dart';
 
 import 'Backend/Definitions/Action/base_action.dart';
-import 'Backend/LoggingWrappers.dart';
 import 'Backend/app_shortcuts.dart';
 import 'Backend/audio.dart';
 import 'Backend/background_update.dart';
 import 'Backend/favorite_actions.dart';
+import 'Backend/logging_wrappers.dart';
 import 'Backend/move_lists.dart';
 import 'Backend/notifications.dart';
 import 'Backend/plausible_dio.dart';

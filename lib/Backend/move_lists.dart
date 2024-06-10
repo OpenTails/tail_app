@@ -11,7 +11,7 @@ import 'package:tail_app/Frontend/translation_string_definitions.dart';
 
 import '../constants.dart';
 import '../main.dart';
-import 'LoggingWrappers.dart';
+import 'logging_wrappers.dart';
 
 part 'move_lists.g.dart';
 

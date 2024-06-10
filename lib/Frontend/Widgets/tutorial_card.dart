@@ -4,7 +4,7 @@ import 'package:multi_value_listenable_builder/multi_value_listenable_builder.da
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Frontend/Widgets/base_card.dart';
 
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';

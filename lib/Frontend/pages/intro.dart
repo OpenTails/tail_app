@@ -9,7 +9,7 @@ import 'package:tail_app/Frontend/Widgets/lottie_lazy_load.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../../main.dart';

@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 
 import '../constants.dart';
-import 'LoggingWrappers.dart';
+import 'logging_wrappers.dart';
 
 part 'audio.g.dart';
 

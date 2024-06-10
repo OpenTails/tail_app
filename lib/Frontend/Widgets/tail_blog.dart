@@ -8,7 +8,7 @@ import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 
 final _wpLogger = Logger('Main');
 

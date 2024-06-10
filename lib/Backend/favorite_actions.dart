@@ -5,7 +5,7 @@ import 'package:tail_app/Backend/wear_bridge.dart';
 
 import '../constants.dart';
 import 'Definitions/Action/base_action.dart';
-import 'LoggingWrappers.dart';
+import 'logging_wrappers.dart';
 import 'app_shortcuts.dart';
 
 part 'favorite_actions.g.dart';

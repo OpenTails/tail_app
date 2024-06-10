@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tail_app/main.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../../../Backend/LoggingWrappers.dart';
+import '../../../Backend/logging_wrappers.dart';
 import '../../../constants.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {

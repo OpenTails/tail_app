@@ -16,7 +16,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Frontend/utils.dart';
 import '../../constants.dart';
-import '../LoggingWrappers.dart';
+import '../logging_wrappers.dart';
 import '../sensors.dart';
 import 'bluetooth_manager.dart';
 import 'bluetooth_message.dart';

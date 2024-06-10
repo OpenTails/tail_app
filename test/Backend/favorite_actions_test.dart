@@ -6,8 +6,8 @@ import 'package:mockito/mockito.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:quick_actions_platform_interface/quick_actions_platform_interface.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
-import 'package:tail_app/Backend/LoggingWrappers.dart';
 import 'package:tail_app/Backend/favorite_actions.dart';
+import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/sensors.dart';
 import 'package:tail_app/constants.dart';
 

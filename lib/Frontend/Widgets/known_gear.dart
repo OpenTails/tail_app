@@ -6,7 +6,7 @@ import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/utils.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../pages/shell.dart';

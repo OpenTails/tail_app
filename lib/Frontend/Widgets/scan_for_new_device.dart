@@ -8,8 +8,8 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 
-import '../../Backend/LoggingWrappers.dart';
 import '../../Backend/device_registry.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../../main.dart';

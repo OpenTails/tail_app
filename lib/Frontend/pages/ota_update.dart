@@ -16,8 +16,8 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-import '../../Backend/LoggingWrappers.dart';
 import '../../Backend/firmware_update.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../../main.dart';

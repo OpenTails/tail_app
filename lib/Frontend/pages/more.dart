@@ -10,7 +10,7 @@ import 'package:tail_app/Frontend/pages/markdown_viewer.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../Backend/LoggingWrappers.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../utils.dart';
@@ -77,7 +77,10 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(
             moreManualTitle(),
-            style: Theme.of(context).textTheme.headlineLarge,
+            style: Theme
+                .of(context)
+                .textTheme
+                .headlineLarge,
           ),
         ),
         PdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf${getOutboundUtm()}"),
@@ -93,7 +96,10 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(
             moreUsefulLinksTitle(),
-            style: Theme.of(context).textTheme.headlineLarge,
+            style: Theme
+                .of(context)
+                .textTheme
+                .headlineLarge,
           ),
         ),
         ListTile(
@@ -154,17 +160,18 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.info),
           onTap: () {
             PackageInfo.fromPlatform().then(
-              (value) => showLicensePage(
-                context: context,
-                useRootNavigator: true,
-                applicationVersion: "${value.version} (${value.buildNumber})",
-                applicationLegalese: "Developed by Code-Floof for the community. Open Source GPL 3.0 Licensed",
-                applicationIcon: Image.asset(
-                  Assets.tCLogoTransparentNoText.path,
-                  width: 150,
-                  height: 150,
-                ),
-              ),
+                  (value) =>
+                  showLicensePage(
+                    context: context,
+                    useRootNavigator: true,
+                    applicationVersion: "${value.version} (${value.buildNumber})",
+                    applicationLegalese: "Developed by Code-Floof for the community. Open Source GPL 3.0 Licensed",
+                    applicationIcon: Image.asset(
+                      Assets.tCLogoTransparentNoText.path,
+                      width: 150,
+                      height: 150,
+                    ),
+                  ),
             );
           },
         ),
@@ -223,7 +230,7 @@ class _PdfWidgetState extends State<PdfWidget> {
             ),
             onReceiveProgress: (current, total) {
               setState(
-                () {
+                    () {
                   progress = current / total;
                 },
               );
@@ -236,7 +243,7 @@ class _PdfWidgetState extends State<PdfWidget> {
             }
           } else {
             setState(
-              () {
+                  () {
                 progress = 0;
               },
             );
@@ -245,7 +252,7 @@ class _PdfWidgetState extends State<PdfWidget> {
           transaction.throwable = e;
           transaction.status = const SpanStatus.internalError();
           setState(
-            () {
+                () {
               progress = 0;
             },
           );

@@ -11,10 +11,10 @@ import 'package:multi_value_listenable_builder/multi_value_listenable_builder.da
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/LoggingWrappers.dart';
 import '../../Backend/action_registry.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/favorite_actions.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
