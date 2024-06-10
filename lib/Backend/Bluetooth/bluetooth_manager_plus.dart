@@ -46,6 +46,11 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
   if (_didInitFlutterBluePlus) {
     return;
   }
+  if (!await getBluetoothPermission(bluetoothLog)) {
+    ref.invalidateSelf();
+    _bluetoothPlusLogger.info("Bluetooth permission not granted");
+    return;
+  }
   _didInitFlutterBluePlus = true;
 
   await flutterBluePlus.setLogLevel(LogLevel.warning, color: true);
