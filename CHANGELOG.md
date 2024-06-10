@@ -35,3 +35,4 @@ Theres so many improvements over our old app - heres the headlines
 - Changed trigger select button to be more visible
 - Reload actions when glowtip is found
 - Fix Custom Actions not working on tails and wings
+- Fix PDF renderer on android for Gear manuals
