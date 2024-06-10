@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-10T18:08:04.996105",
+  "@@last_modified": "2024-06-10T19:06:30.070428",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -851,12 +851,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToCloseTitle": "Gear is still connected",
-  "@doubleBackToCloseTitle": {
-    "description": "Snackbar message which appears when the back button is pressed at the main screen",
-    "type": "text",
-    "placeholders": {}
-  },
   "noLongerSupported": "This gear is no longer supported. Some app features may not work",
   "@noLongerSupported": {
     "description": "Warning message which appears for unsupported gear on the manage gear page",
@@ -962,6 +956,30 @@
   "joystickWarning": "The Joystick feature is experimental. Use at your own risk.",
   "@joystickWarning": {
     "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Please update your gear",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Update Available",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Gear Connected",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Happy Wagging",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
     "type": "text",
     "placeholders": {}
   }
