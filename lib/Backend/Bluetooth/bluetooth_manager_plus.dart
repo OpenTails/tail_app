@@ -281,6 +281,9 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: CommandType.system));
         device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: CommandType.system));
         element.readRssi();
+        if (device.baseDeviceDefinition.deviceType != DeviceType.ears && device.hasGlowtip.value == GlowtipStatus.unknown) {
+          device.commandQueue.addCommand(BluetoothMessage(message: "VER", device: device, priority: Priority.low, type: CommandType.system, responseMSG: "VER "));
+        }
       }
     }
   }, cancelOnError: true);
