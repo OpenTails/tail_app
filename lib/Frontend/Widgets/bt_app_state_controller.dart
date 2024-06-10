@@ -22,10 +22,13 @@ class _BtAppStateControllerState extends ConsumerState<BtAppStateController> {
     super.initState();
     _listener = AppLifecycleListener(
       onResume: () {
-        ref.read(initFlutterBluePlusProvider);
+        // start FlutterBluePlus if its not started already
+        if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) >= hasCompletedOnboardingVersionToAgree) {
+          ref.read(initFlutterBluePlusProvider);
+        }
       },
       onPause: () {
-        if (!isAnyGearConnected.value) {
+        if (!isAnyGearConnected.value && ref.exists(initFlutterBluePlusProvider)) {
           ref.invalidate(initFlutterBluePlusProvider);
         }
       },
