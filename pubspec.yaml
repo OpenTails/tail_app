@@ -165,7 +165,7 @@ sentry: # used by the sentry-dart-plugin to upload symbols. Credentials are prov
   upload_sources: true
 
 icons_launcher:
-  image_path: "assets/TC_Logo.jpg"
+  image_path: "assets/TC_Logo.png"
   platforms:
     android:
       enable: true
