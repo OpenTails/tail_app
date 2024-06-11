@@ -23,6 +23,7 @@ const String alwaysScanning = 'alwaysScanning';
 const String showDemoGear = 'showDemoGear';
 const String showAdvancedSettings = 'showAdvancedSettings';
 const String dynamicConfigJsonString = 'dynamicConfigJsonString';
+const String dynamicConfigStoredBuildNumber = 'dynamicConfigStoredBuildNumber';
 
 // Notification Settings
 const String allowNewsletterNotifications = 'allowNewsletterNotifications';

@@ -313,6 +313,17 @@ These containers are based on [Ubuntu Server](https://ubuntu.com/download/server
 This machine doesn't use port forwarding, but instead uses [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/).
 Services go down daily at 6:00 AM UTC for offline backups. This Can take up to an hour.
 
+### Dynamic Configuration
+
+This app supports updating some config values remotely.
+These values are located in [`dynamic_config.json`](assets/dynamic_config.json).
+The file is included in builds and updated after app launch, so changes may not appear immediately.
+
+| Json Key       | Description                                  |
+|----------------|----------------------------------------------|
+| sentryProfiles | sets `options.profilesSampleRate` for sentry |
+| sentryTraces   | sets `options.tracesSampleRate` for sentry   |
+
 #### Other URLS
 
 [Apple App Store connect](https://appstoreconnect.apple.com/apps)
