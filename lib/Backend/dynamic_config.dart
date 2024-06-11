@@ -39,10 +39,11 @@ Future<DynamicConfigInfo> getDynamicConfigInfo() async {
   String buildNumber = (await PackageInfo.fromPlatform()).buildNumber;
   String storedBuildNumber = HiveProxy.getOrDefault(settings, dynamicConfigStoredBuildNumber, defaultValue: '');
   if (storedBuildNumber != buildNumber) {
-    HiveProxy.put(settings, dynamicConfigJsonString, null);
+    HiveProxy.deleteKey(settings, dynamicConfigJsonString);
   }
 
-  String dynamicConfigJson = HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: await rootBundle.loadString(Assets.dynamicConfig));
+  String dynamicConfigJsonDefault = await rootBundle.loadString(Assets.dynamicConfig);
+  String dynamicConfigJson = HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: dynamicConfigJsonDefault);
   String embeddedDynamicConfig = dynamicConfigJson;
   DynamicConfigInfo dynamicConfigInfo = DynamicConfigInfo.fromJson(const JsonDecoder().convert(embeddedDynamicConfig));
   _dynamicConfigInfo = dynamicConfigInfo;

@@ -20,6 +20,14 @@ class _HiveProxyImpl {
     }
   }
 
+  Future<void> deleteKey<E>(String box, dynamic key) {
+    if (genericBoxes.contains(box)) {
+      return SentryHive.box(box).delete(key);
+    } else {
+      return SentryHive.box<E>(box).delete(key);
+    }
+  }
+
   E getOrDefault<E>(String box, dynamic key, {E? defaultValue}) {
     if (genericBoxes.contains(box)) {
       return SentryHive.box(box).get(key, defaultValue: defaultValue)!;
