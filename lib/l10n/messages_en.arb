@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-10T19:06:30.070428",
+  "@@last_modified": "2024-06-11T15:05:15.478800",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -857,7 +857,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "A firmware update is required for this app to support your gear",
+  "mandatoryOtaRequired": "A firmware update is available to better support your gear",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
