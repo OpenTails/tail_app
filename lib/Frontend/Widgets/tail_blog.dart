@@ -26,6 +26,7 @@ List<Post> _wordpressPosts = [];
 class _TailBlogState extends State<TailBlog> {
   FeedState feedState = FeedState.loading;
   List<FeedItem> results = [];
+  Map<int, Uint8List> images = {};
   WordpressClient? client;
 
   @override
@@ -157,37 +158,47 @@ class _TailBlogState extends State<TailBlog> {
     String? mediaUrl;
     Widget? widget;
     if (item.imageId != null) {
-      // Get image url from wordpress api
-      if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
-        mediaUrl = item.imageUrl;
-      } else {
-        final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
-        WordpressResponse<Media> retrieveMediaResponse = await client!.media.retrieve(retrieveMediaRequest);
-        if (retrieveMediaResponse.dataOrNull() != null) {
-          Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
-          mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
+      Uint8List? data;
+      if (images.containsKey(item.imageId)) {
+        data = images[item.imageId];
+      }
+      if (data == null) {
+        // Get image url from wordpress api
+        if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
+          mediaUrl = item.imageUrl;
+        } else {
+          final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
+          WordpressResponse<Media> retrieveMediaResponse = await client!.media.retrieve(retrieveMediaRequest);
+          if (retrieveMediaResponse.dataOrNull() != null) {
+            Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
+            mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
+          }
+        }
+        if (mediaUrl != null) {
+          // download the image
+          Dio dio = await initDio();
+          Response<List<int>> response = await dio.get(
+            mediaUrl,
+            options: Options(
+              responseType: ResponseType.bytes,
+              followRedirects: true,
+            ),
+          );
+          if (context.mounted && response.statusCode! < 400) {
+            data = Uint8List.fromList(response.data!);
+            images[item.imageId!] = data;
+          }
         }
       }
 
-      if (mediaUrl != null) {
-        // download the image
-        Dio dio = await initDio();
-        Response<List<int>> response = await dio.get(
-          mediaUrl,
-          options: Options(
-            responseType: ResponseType.bytes,
-            followRedirects: true,
-          ),
+      if (data != null && context.mounted) {
+        widget = Image.memory(
+          data,
+          alignment: Alignment.bottomCenter,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
+          height: 300,
         );
-        if (context.mounted && response.statusCode! < 400) {
-          widget = Image.memory(
-            Uint8List.fromList(response.data!),
-            alignment: Alignment.bottomCenter,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-            height: 300,
-          );
-        }
       }
     }
 
