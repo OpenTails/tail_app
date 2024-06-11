@@ -1,13 +1,14 @@
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:native_dio_adapter/native_dio_adapter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:platform/platform.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -46,40 +47,40 @@ final dioLogger = Logger('Dio');
 
 Future<Dio> initDio({skipSentry = false}) async {
   final Dio dio = Dio();
-
+  final Directory cacheDir = await getApplicationCacheDirectory();
+  final Directory browserCache = Directory('${cacheDir.path}/browser');
+  await browserCache.create();
   dio.httpClientAdapter = NativeAdapter();
-  /*dio.interceptors.add(
+  dio.interceptors.add(
     LogInterceptor(
       requestBody: false,
-      requestHeader: true,
+      requestHeader: false,
       responseBody: false,
-      responseHeader: true,
+      responseHeader: false,
       request: true,
       logPrint: (o) => dioLogger.finer(o.toString()),
     ),
-  );*/
+  );
   dio.interceptors.add(LogarteDioInterceptor(logarte));
   dio.interceptors.add(RetryInterceptor(
     dio: dio,
     logPrint: dioLogger.info, // specify log function (optional)
-    retries: 3, // retry count (optional)
+    retries: 15, // retry count (optional)
     retryDelays: const [
       // set delays between retries (optional)
-      Duration(seconds: 1), // wait 1 sec before first retry
-      Duration(seconds: 2), // wait 2 sec before second retry
-      Duration(seconds: 3), // wait 3 sec before third retry
+      Duration(seconds: 1),
+      Duration(seconds: 2),
+      Duration(seconds: 3),
+      Duration(seconds: 4),
+      Duration(seconds: 5),
+      Duration(seconds: 10),
+      Duration(seconds: 20),
+      Duration(seconds: 40),
+      Duration(seconds: 80),
+      Duration(seconds: 160),
+      Duration(seconds: 320),
     ],
   ));
-
-  // Global options
-  final options = CacheOptions(
-    // A default store is required for interceptor.
-    store: HiveCacheStore(null),
-    priority: CachePriority.high,
-    policy: CachePolicy.forceCache,
-    maxStale: const Duration(days: 7),
-  );
-  dio.interceptors.add(DioCacheInterceptor(options: options));
   if (!skipSentry) {
     /// This *must* be the last initialization step of the Dio setup, otherwise
     /// your configuration of Dio might overwrite the Sentry configuration.
