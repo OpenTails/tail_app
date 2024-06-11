@@ -193,7 +193,7 @@ class ActionRegistry {
       ],
     ),
     EarsMoveList(
-      name: "Double Left",
+      name: "Double Right",
       uuid: "0d5a9dfa-38f2-4b09-9be1-cd36236a03b0",
       commandMoves: [
         CommandAction.hiddenEars("LETWIST 20", "LETWIST END"),
@@ -205,7 +205,7 @@ class ActionRegistry {
       ],
     ),
     EarsMoveList(
-      name: "Double Right",
+      name: "Double Left",
       uuid: "9a6be63e-36f5-4f50-88b6-7adf2680aa5c",
       commandMoves: [
         CommandAction.hiddenEars("RITWIST 20", "RITWIST END"),
@@ -217,7 +217,7 @@ class ActionRegistry {
       ],
     ),
     EarsMoveList(
-      name: "Left Listen",
+      name: "Right Listen",
       uuid: "83590dc9-f9de-4134-bcc7-8157a62a33ef",
       commandMoves: [
         CommandAction.hiddenEars("LETWIST 20", "LETWIST END"),
@@ -227,7 +227,7 @@ class ActionRegistry {
       ],
     ),
     EarsMoveList(
-      name: "Right Listen",
+      name: "Left Listen",
       uuid: "007c52d3-242a-4e27-bccc-b4b737502bfb",
       commandMoves: [
         CommandAction.hiddenEars("RITWIST 20", "RITWIST END"),
@@ -237,7 +237,7 @@ class ActionRegistry {
       ],
     ),
     EarsMoveList(
-      name: "Flick Right",
+      name: "Flick Left",
       uuid: "769dbe84-3a6e-440d-8b20-234983d36cb6",
       commandMoves: [
         CommandAction.hiddenEars("RITWIST 30", "RITWIST END"),
@@ -246,7 +246,7 @@ class ActionRegistry {
       ],
     ),
     EarsMoveList(
-      name: "Flick Left",
+      name: "Flick Right",
       uuid: "23144b42-6d3c-4822-8510-ec03c63c7808",
       commandMoves: [
         CommandAction.hiddenEars("LETWIST 30", "LETWIST END"),
@@ -276,8 +276,7 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
   Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   for (BaseAction baseAction in List.from(ActionRegistry.allCommands)
-    ..addAll(ref.read(moveListsProvider))
-    ..addAll(ref.read(userAudioActionsProvider))) {
+    ..addAll(ref.read(moveListsProvider))..addAll(ref.read(userAudioActionsProvider))) {
     Set<BaseAction>? baseActions = {};
     for (BaseStatefulDevice baseStatefulDevice in knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected)) {
       // check if command matches device type
@@ -302,11 +301,13 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
 Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref, Set<DeviceType> deviceType) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   for (BaseAction baseAction in List.from(ActionRegistry.allCommands)
-    ..addAll(ref.read(moveListsProvider))
-    ..addAll(ref.read(userAudioActionsProvider))) {
+    ..addAll(ref.read(moveListsProvider))..addAll(ref.read(userAudioActionsProvider))) {
     Set<BaseAction>? baseActions = {};
     // check if command matches device type
-    if (baseAction.deviceCategory.toSet().intersection(deviceType).isNotEmpty) {
+    if (baseAction.deviceCategory
+        .toSet()
+        .intersection(deviceType)
+        .isNotEmpty) {
       // get category if it exists
       if (sortedActions.containsKey(baseAction.actionCategory)) {
         baseActions = sortedActions[baseAction.actionCategory];
