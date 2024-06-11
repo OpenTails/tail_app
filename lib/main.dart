@@ -22,6 +22,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
 import 'package:tail_app/Frontend/utils.dart';
 
@@ -93,7 +94,7 @@ Future<void> main() async {
   Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
   Logger.root.onRecord.listen((event) {
-    if (event.loggerName == "GoRouter") {
+    if (["GoRouter", "Dio"].contains(event.loggerName)) {
       return;
     }
     if (event.level.value < 1000 && event.stackTrace == null) {
@@ -111,6 +112,7 @@ Future<void> main() async {
   //initDio();
   mainLogger.fine("Init Sentry");
   String environment = await getSentryEnvironment();
+  DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
   mainLogger.info("Detected Environment: $environment");
   await SentryFlutter.init(
     (options) async {
@@ -120,9 +122,9 @@ Future<void> main() async {
       options.debug = kDebugMode;
       options.diagnosticLevel = SentryLevel.info;
       options.environment = environment;
-      options.tracesSampleRate = 0.3;
-      //options.profilesSampleRate = 1.0;
-
+      options.tracesSampleRate = dynamicConfigInfo.sentryTraces;
+      options.profilesSampleRate = dynamicConfigInfo.sentryProfiles;
+      options.enableDefaultTagsForMetrics = true;
       options.attachThreads = true;
       options.anrEnabled = true;
       options.beforeSend = beforeSend;
@@ -281,6 +283,7 @@ class _TailAppState extends State<TailApp> {
             themeMode: ThemeMode.system,
             darkTheme: FeedbackThemeData.dark(),
             child: AccessibilityTools(
+              logLevel: LogLevel.none,
               child: ValueListenableBuilder(
                 valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
                 builder: (BuildContext context, value, Widget? child) {

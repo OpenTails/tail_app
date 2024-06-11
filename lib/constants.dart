@@ -22,6 +22,7 @@ const String showDebugging = 'showDebugging';
 const String alwaysScanning = 'alwaysScanning';
 const String showDemoGear = 'showDemoGear';
 const String showAdvancedSettings = 'showAdvancedSettings';
+const String dynamicConfigJsonString = 'dynamicConfigJsonString';
 
 // Notification Settings
 const String allowNewsletterNotifications = 'allowNewsletterNotifications';
