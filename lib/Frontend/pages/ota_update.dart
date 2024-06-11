@@ -68,6 +68,9 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     WakelockPlus.enabled.then((value) => wakelockEnabledBeforehand = value);
     baseStatefulDevice!.fwVersion.addListener(verListener);
     baseStatefulDevice!.fwInfo.addListener(fwInfoListener);
+    if (firmwareInfo == null) {
+      baseStatefulDevice!.getFirmwareInfo();
+    }
   }
 
   @override
