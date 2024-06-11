@@ -41,7 +41,11 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
             plausible.event(name: "Add Sequence");
             context.push<MoveList>("/moveLists/editMoveList", extra: ref.watch(moveListsProvider).last).then((value) => setState(() {
                   if (value != null) {
-                    ref.watch(moveListsProvider).last = value;
+                    if (ref.watch(moveListsProvider).isNotEmpty) {
+                      ref.watch(moveListsProvider).last = value;
+                    } else {
+                      ref.watch(moveListsProvider).add(value);
+                    }
                     ref.watch(moveListsProvider.notifier).store();
                   }
                 }));
