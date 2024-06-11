@@ -22,7 +22,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
 import 'package:tail_app/Frontend/utils.dart';
 
@@ -399,7 +398,7 @@ class _EagerInitialization extends ConsumerWidget {
     //ref.watch(favoriteActionsProvider);
     ref.watch(appShortcutsProvider);
     if (kDebugMode) {
-      ref.watch(initWearProvider);
+      //ref.watch(initWearProvider);
     }
     return child;
   }
