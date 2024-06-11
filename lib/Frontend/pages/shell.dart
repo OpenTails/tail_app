@@ -207,19 +207,24 @@ class _ManageGearState extends ConsumerState<ManageGear> {
             BaseCard(
               elevation: 3,
               color: Colors.red,
-              child: ListTile(
-                leading: const Icon(
-                  Icons.warning,
-                  color: Colors.white,
-                ),
-                trailing: const Icon(
-                  Icons.warning,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  mandatoryOtaRequired(),
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
-                  textAlign: TextAlign.center,
+              child: InkWell(
+                onTap: () {
+                  context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
+                },
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.warning,
+                    color: Colors.white,
+                  ),
+                  trailing: const Icon(
+                    Icons.warning,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    mandatoryOtaRequired(),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             )

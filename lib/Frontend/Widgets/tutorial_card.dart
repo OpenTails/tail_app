@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Frontend/Widgets/base_card.dart';
@@ -52,12 +53,28 @@ class GearOutOfDateWarning extends ConsumerWidget {
             Color color = Theme.of(context).colorScheme.primary;
             return BaseCard(
                 color: color,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      featureLimitedOtaRequiredLabel(),
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color)),
+                child: InkWell(
+                  onTap: () {
+                    String? mac = ref
+                        .read(knownDevicesProvider)
+                        .values
+                        .where(
+                          (element) => element.mandatoryOtaRequired.value,
+                        )
+                        .firstOrNull
+                        ?.baseStoredDevice
+                        .btMACAddress;
+                    if (mac != null) {
+                      context.push("/ota", extra: mac);
+                    }
+                  },
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        featureLimitedOtaRequiredLabel(),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color)),
+                      ),
                     ),
                   ),
                 ));
