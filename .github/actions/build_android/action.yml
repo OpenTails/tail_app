@@ -52,7 +52,7 @@ runs:
         #SENTRY_URL: ${{ inputs.sentry-url }}
     - name: Build AppBundle
       shell: bash
-      run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=cronetHttpNoPlay=true
+      run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
       env:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
