@@ -1,4 +1,4 @@
 {
-  "sentryTraces": 1.0,
-  "sentryProfiles": 1.0
+  "sentryTraces": 0.5,
+  "sentryProfiles": 0.5
 }
