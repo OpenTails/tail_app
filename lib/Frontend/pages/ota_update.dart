@@ -67,6 +67,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     firmwareInfo ??= baseStatefulDevice?.fwInfo.value;
     WakelockPlus.enabled.then((value) => wakelockEnabledBeforehand = value);
     baseStatefulDevice!.fwVersion.addListener(verListener);
+    baseStatefulDevice!.fwInfo.addListener(fwInfoListener);
   }
 
   @override
@@ -80,6 +81,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     }
     baseStatefulDevice?.deviceState.value = DeviceState.standby;
     baseStatefulDevice!.fwVersion.removeListener(verListener);
+    baseStatefulDevice!.fwInfo.removeListener(fwInfoListener);
     if (!HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault)) {
       stopScan();
     }
@@ -330,6 +332,12 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
         });
       }
     }
+  }
+
+  void fwInfoListener() {
+    setState(() {
+      firmwareInfo = baseStatefulDevice!.fwInfo.value;
+    });
   }
 
   Future<void> uploadFirmware() async {
