@@ -330,6 +330,9 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
 }
 
 Future<void> disconnect(String id) async {
+  if (!_didInitFlutterBluePlus) {
+    return;
+  }
   BluetoothDevice? device = flutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == id);
   if (device != null) {
     _bluetoothPlusLogger.info("disconnecting from ${device.advName}");
@@ -356,10 +359,16 @@ Future<void> beginScan({Duration? timeout}) async {
 }
 
 bool isScanningNow() {
+  if (!_didInitFlutterBluePlus) {
+    return false;
+  }
   return flutterBluePlus.isScanningNow;
 }
 
 Stream<bool> isScanning() {
+  if (!_didInitFlutterBluePlus) {
+    return Stream.value(false);
+  }
   return flutterBluePlus.isScanning;
 }
 
