@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Scodinzolare responsabile",
+  "triggerEarTiltForward": "Inclinazione in avanti",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
@@ -471,7 +471,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "A piedi",
+  "moreManualTitle": "Manuali",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Buon scodinzolante! ",
+  "doubleBackToClose": "Premere di nuovo per uscire",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
