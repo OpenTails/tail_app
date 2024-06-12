@@ -98,13 +98,15 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       body: Center(
         child: AnimatedSwitcher(
           duration: animationTransitionDuration,
-          child: Column(
+          child: Flex(
             key: ValueKey(otaState),
             mainAxisAlignment: MainAxisAlignment.center,
+            direction: Axis.vertical,
             children: [
               if ([OtaState.standby, OtaState.manual].contains(otaState)) ...[
                 if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
-                  ListTile(
+                  Expanded(
+                      child: ListTile(
                     title: const Text("Debug"),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,153 +119,197 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         Text("STATE: $otaState"),
                       ],
                     ),
-                  ),
+                  )),
                 ],
-                ListTile(
-                  title: Text(otaChangelogLabel()),
-                  subtitle: Text(firmwareInfo?.changelog ?? "Unavailable"),
+                Expanded(
+                  child: Center(
+                    child: LottieLazyLoad(
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      asset: Assets.tailcostickers.tailCoStickersFile144834357,
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                  child: SingleChildScrollView(
+                    child: ListTile(
+                      title: Text(otaChangelogLabel()),
+                      subtitle: Text(firmwareInfo?.changelog ?? "Unavailable"),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SafeArea(
+                    child: ButtonBar(
+                      alignment: MainAxisAlignment.center,
                       children: [
-                        SafeArea(
-                          child: ButtonBar(
-                            alignment: MainAxisAlignment.center,
+                        FilledButton(
+                          onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
+                          child: Row(
                             children: [
-                              FilledButton(
-                                onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.system_update,
+                              Icon(
+                                Icons.system_update,
+                                color: getTextColor(
+                                  Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4),
+                              ),
+                              Text(
+                                otaDownloadButtonLabel(),
+                                style: Theme.of(context).textTheme.labelLarge!.copyWith(
                                       color: getTextColor(
                                         Theme.of(context).colorScheme.primary,
                                       ),
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 4),
-                                    ),
-                                    Text(
-                                      otaDownloadButtonLabel(),
-                                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                            color: getTextColor(
-                                              Theme.of(context).colorScheme.primary,
-                                            ),
-                                          ),
-                                    ),
-                                  ],
-                                ),
                               ),
-                              if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
-                                ElevatedButton(
-                                  onPressed: () async {
-                                    FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                      type: FileType.custom,
-                                      withData: true,
-                                      allowedExtensions: ['bin'],
-                                    );
-                                    if (result != null) {
-                                      setState(() {
-                                        firmwareFile = result.files.single.bytes?.toList(growable: false);
-                                        Digest digest = md5.convert(firmwareFile!);
-                                        downloadProgress = 1;
-                                        downloadedMD5 = digest.toString();
-                                        otaState = OtaState.manual;
-                                      });
-                                    } else {
-                                      // User canceled the picker
-                                    }
-                                  },
-                                  child: const Text("Select file"),
-                                )
-                              ],
                             ],
                           ),
-                        )
+                        ),
+                        if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                          ElevatedButton(
+                            onPressed: () async {
+                              FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                type: FileType.custom,
+                                withData: true,
+                                allowedExtensions: ['bin'],
+                              );
+                              if (result != null) {
+                                setState(() {
+                                  firmwareFile = result.files.single.bytes?.toList(growable: false);
+                                  Digest digest = md5.convert(firmwareFile!);
+                                  downloadProgress = 1;
+                                  downloadedMD5 = digest.toString();
+                                  otaState = OtaState.manual;
+                                });
+                              } else {
+                                // User canceled the picker
+                              }
+                            },
+                            child: const Text("Select file"),
+                          )
+                        ],
                       ],
                     ),
                   ),
                 )
               ],
               if (otaState == OtaState.completed) ...[
-                ListTile(
-                  title: Text(
-                    otaCompletedTitle(),
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.center,
+                Expanded(
+                  child: Center(
+                    child: ListTile(
+                      title: Text(
+                        otaCompletedTitle(),
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
                 ),
-                LottieLazyLoad(
-                  asset: Assets.tailcostickers.tailCoStickersFile144834339,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ],
-              if (otaState == OtaState.error) ...[
-                ListTile(
-                  title: Text(
-                    otaFailedTitle(),
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                LottieLazyLoad(
-                  asset: Assets.tailcostickers.tailCoStickersFile144834348,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ],
-              if (otaState == OtaState.lowBattery) ...[
-                ListTile(
-                  title: Text(
-                    otaLowBattery(),
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                LottieLazyLoad(
-                  asset: Assets.tailcostickers.tailCoStickersFile144834342,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ],
-              if ([OtaState.download, OtaState.upload, OtaState.rebooting].contains(otaState)) ...[
-                ListTile(
-                  title: Text(
-                    otaInProgressTitle(),
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Spin(
-                  infinite: true,
-                  duration: const Duration(seconds: 1, milliseconds: 500),
-                  child: Transform.flip(
-                    flipX: true,
+                Expanded(
+                  flex: 2,
+                  child: Center(
                     child: LottieLazyLoad(
-                      asset: Assets.tailcostickers.tailCoStickersFile144834340,
+                      asset: Assets.tailcostickers.tailCoStickersFile144834339,
                       width: MediaQuery.of(context).size.width,
                     ),
                   ),
                 ),
-                ListTile(
-                  subtitle: Builder(builder: (context) {
-                    double progress = downloadProgress < 1 ? downloadProgress : uploadProgress;
-                    return LinearProgressIndicator(value: otaState == OtaState.rebooting ? null : progress);
-                  }),
+              ],
+              if (otaState == OtaState.error) ...[
+                Expanded(
+                  child: Center(
+                    child: ListTile(
+                      title: Text(
+                        otaFailedTitle(),
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: LottieLazyLoad(
+                      asset: Assets.tailcostickers.tailCoStickersFile144834348,
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                  ),
+                ),
+              ],
+              if (otaState == OtaState.lowBattery) ...[
+                Expanded(
+                  child: Center(
+                    child: ListTile(
+                      title: Text(
+                        otaLowBattery(),
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: LottieLazyLoad(
+                      asset: Assets.tailcostickers.tailCoStickersFile144834342,
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                  ),
+                ),
+              ],
+              if ([OtaState.download, OtaState.upload, OtaState.rebooting].contains(otaState)) ...[
+                Expanded(
+                  child: Center(
+                    child: ListTile(
+                      title: Text(
+                        otaInProgressTitle(),
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Spin(
+                    infinite: true,
+                    duration: const Duration(seconds: 1, milliseconds: 500),
+                    child: Transform.flip(
+                      flipX: true,
+                      child: LottieLazyLoad(
+                        asset: Assets.tailcostickers.tailCoStickersFile144834340,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: ListTile(
+                      subtitle: Builder(builder: (context) {
+                        double progress = downloadProgress < 1 ? downloadProgress : uploadProgress;
+                        return LinearProgressIndicator(value: otaState == OtaState.rebooting ? null : progress);
+                      }),
+                    ),
+                  ),
                 ),
                 if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
-                  ListTile(
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Upload Progress: $current / ${firmwareFile?.length} = ${uploadProgress.toStringAsPrecision(3)}'),
-                        Text('MTU: ${baseStatefulDevice!.mtu.value}'),
-                        Text('REMAINING: ${printDuration(timeRemainingMS)}'),
-                        Text('OtaState: ${otaState.name}'),
-                        Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),
-                        Text('ConnectivityState: ${baseStatefulDevice!.deviceConnectionState.value}'),
-                      ],
+                  Expanded(
+                    child: ListTile(
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Upload Progress: $current / ${firmwareFile?.length} = ${uploadProgress.toStringAsPrecision(3)}'),
+                          Text('MTU: ${baseStatefulDevice!.mtu.value}'),
+                          Text('REMAINING: ${printDuration(timeRemainingMS)}'),
+                          Text('OtaState: ${otaState.name}'),
+                          Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),
+                          Text('ConnectivityState: ${baseStatefulDevice!.deviceConnectionState.value}'),
+                        ],
+                      ),
                     ),
                   )
                 ],
