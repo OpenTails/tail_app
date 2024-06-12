@@ -219,7 +219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Vælg en handling",
+  "actionsSelectScreen": "Vælg Handlinger",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Gør handlingskortene større for nemmere at trykke",
+  "settingsErrorReportingToggleTitle": "Automatisk fejlrapportering",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Godt logrende!",
+  "sequencesInfoDescription": "Custom Actions giver dig mulighed for at lave dine egne Actions for gear. Hvis du trykker på en brugerdefineret handling, afspilles den. Tryk på blyanten for at redigere en tilpasset handling. Sørg for, at din gear-firmware er opdateret.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Tryk igen for at afslutte ",
+  "doubleBackToClose": "Tryk igen for at afslutte",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "En firmwareopdatering er påkrævet for at denne app kan understøtte dit udstyr",
+  "mandatoryOtaRequired": "En firmwareopdatering er tilgængelig for bedre at understøtte dit udstyr",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -936,6 +936,48 @@
   "triggerActionSelectorTutorialLabel": "Vælg så mange handlinger, du vil. En handling vil blive valgt tilfældigt, som er kompatibel med tilsluttet gear. GlowTip og Sound-handlinger udløses sammen med Move-handlinger. Glem ikke at gemme.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Opdater venligst dit udstyr",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "Joystick-funktionen er eksperimentel. Brug på eget ansvar.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Opdatering tilgængelig",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Glad logrende",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Gear tilsluttet",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Vælg",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Opdater venligst dit udstyr for at bruge denne funktion.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
     "type": "text",
     "placeholders": {}
   }
