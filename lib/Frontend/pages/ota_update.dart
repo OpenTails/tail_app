@@ -129,58 +129,60 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ButtonBar(
-                          alignment: MainAxisAlignment.center,
-                          children: [
-                            FilledButton(
-                              onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.system_update,
-                                    color: getTextColor(
-                                      Theme.of(context).colorScheme.primary,
+                        SafeArea(
+                          child: ButtonBar(
+                            alignment: MainAxisAlignment.center,
+                            children: [
+                              FilledButton(
+                                onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.system_update,
+                                      color: getTextColor(
+                                        Theme.of(context).colorScheme.primary,
+                                      ),
                                     ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 4),
-                                  ),
-                                  Text(
-                                    otaDownloadButtonLabel(),
-                                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                          color: getTextColor(
-                                            Theme.of(context).colorScheme.primary,
+                                    const Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 4),
+                                    ),
+                                    Text(
+                                      otaDownloadButtonLabel(),
+                                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                            color: getTextColor(
+                                              Theme.of(context).colorScheme.primary,
+                                            ),
                                           ),
-                                        ),
-                                  ),
-                                ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
-                              ElevatedButton(
-                                onPressed: () async {
-                                  FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                    type: FileType.custom,
-                                    withData: true,
-                                    allowedExtensions: ['bin'],
-                                  );
-                                  if (result != null) {
-                                    setState(() {
-                                      firmwareFile = result.files.single.bytes?.toList(growable: false);
-                                      Digest digest = md5.convert(firmwareFile!);
-                                      downloadProgress = 1;
-                                      downloadedMD5 = digest.toString();
-                                      otaState = OtaState.manual;
-                                    });
-                                  } else {
-                                    // User canceled the picker
-                                  }
-                                },
-                                child: const Text("Select file"),
-                              )
+                              if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                      type: FileType.custom,
+                                      withData: true,
+                                      allowedExtensions: ['bin'],
+                                    );
+                                    if (result != null) {
+                                      setState(() {
+                                        firmwareFile = result.files.single.bytes?.toList(growable: false);
+                                        Digest digest = md5.convert(firmwareFile!);
+                                        downloadProgress = 1;
+                                        downloadedMD5 = digest.toString();
+                                        otaState = OtaState.manual;
+                                      });
+                                    } else {
+                                      // User canceled the picker
+                                    }
+                                  },
+                                  child: const Text("Select file"),
+                                )
+                              ],
                             ],
-                          ],
-                        ),
+                          ),
+                        )
                       ],
                     ),
                   ),

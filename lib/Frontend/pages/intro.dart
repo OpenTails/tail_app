@@ -56,7 +56,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       bodyAlignment: Alignment.center,
       footerPadding: const EdgeInsets.symmetric(vertical: 16),
       imageFlex: 5,
-      bodyFlex: 6,
+      bodyFlex: 5,
       safeArea: 0,
     );
     return ValueListenableBuilder(

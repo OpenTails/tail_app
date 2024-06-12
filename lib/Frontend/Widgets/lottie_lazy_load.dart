@@ -25,11 +25,13 @@ class _LottieLazyLoadState extends State<LottieLazyLoad> with TickerProviderStat
       child: SizedBox(
         width: widget.width,
         height: widget.width,
-        child: LottieView.fromAsset(
-          filePath: widget.asset,
-          autoPlay: true,
-          loop: true,
-          onViewCreated: onViewCreated,
+        child: SafeArea(
+          child: LottieView.fromAsset(
+            filePath: widget.asset,
+            autoPlay: true,
+            loop: true,
+            onViewCreated: onViewCreated,
+          ),
         ),
       ),
     );
