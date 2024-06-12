@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ class _HtmlPageState extends State<HtmlPage> {
           child: HtmlWidget(
             body,
             renderMode: RenderMode.listView,
+            factoryBuilder: MyWidgetFactory.new,
             onTapUrl: (p0) async => launchUrlString('$p0$getOutboundUtm()'),
           ),
         ),
@@ -65,5 +67,63 @@ class _HtmlPageState extends State<HtmlPage> {
         body = pageContentResponse.data!;
       });
     }
+  }
+}
+
+class MyWidgetFactory extends WidgetFactory {
+  @override
+  Widget? buildImageWidget(BuildMetadata tree, ImageSource src) {
+    final url = src.url;
+    return LoadImage(url: src.url);
+  }
+}
+
+class LoadImage extends StatefulWidget {
+  final String url;
+
+  const LoadImage({required this.url, super.key});
+
+  @override
+  State<StatefulWidget> createState() => _LoadImageState();
+}
+
+class _LoadImageState extends State<LoadImage> {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: loadImage(),
+      builder: (context, snapshot) {
+        return AnimatedSwitcher(
+          duration: animationTransitionDuration,
+          child: Builder(
+            builder: (context) {
+              if (snapshot.hasData) {
+                return snapshot.data!;
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Future<Widget> loadImage() async {
+    Dio dio = await initDio();
+    Response<List<int>> response = await dio.get(
+      widget.url,
+      options: Options(
+        responseType: ResponseType.bytes,
+        followRedirects: true,
+      ),
+    );
+    if (response.statusCode! < 400 && mounted) {
+      return Image.memory(
+        Uint8List.fromList(response.data!),
+        fit: BoxFit.fill,
+      );
+    }
+    return Container();
   }
 }
