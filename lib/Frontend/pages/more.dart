@@ -13,6 +13,7 @@ import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
+import 'html_page.dart';
 import 'markdown_viewer.dart';
 
 class More extends ConsumerStatefulWidget {
@@ -80,14 +81,56 @@ class _MoreState extends ConsumerState<More> {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
-        PdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf${getOutboundUtm()}"),
-        PdfWidget(name: moreManualEargearTitle(), url: "https://thetailcompany.com/eargear.pdf${getOutboundUtm()}"),
-        PdfWidget(name: moreManualFlutterWingsTitle(), url: "https://thetailcompany.com/flutterwings.pdf${getOutboundUtm()}"),
+        ListTile(
+          title: Text(moreManualMiTailTitle()),
+          subtitle: Text(moreManualSubTitle()),
+          onTap: () async {
+            context.push(
+              '/more/viewHTML/',
+              extra: HtmlPageInfo(
+                url: "https://docs.thetailcompany.com/doku.php?id=en:man:mitail&do=export_xhtmlbody",
+                title: moreManualMiTailTitle(),
+              ),
+            );
+          },
+        ),
+        ListTile(
+          title: Text(moreManualEargearTitle()),
+          subtitle: Text(moreManualSubTitle()),
+          onTap: () async {
+            context.push(
+              '/more/viewHTML/',
+              extra: HtmlPageInfo(
+                url: "https://docs.thetailcompany.com/doku.php?id=en:man:eg2&do=export_xhtmlbody",
+                title: moreManualEargearTitle(),
+              ),
+            );
+          },
+        ),
+        ListTile(
+          title: Text(moreManualFlutterWingsTitle()),
+          subtitle: Text(moreManualSubTitle()),
+          onTap: () async {
+            context.push(
+              '/more/viewHTML/',
+              extra: HtmlPageInfo(
+                url: "https://docs.thetailcompany.com/doku.php?id=en:man:flutterwings&do=export_xhtmlbody",
+                title: moreManualFlutterWingsTitle(),
+              ),
+            );
+          },
+        ),
         ListTile(
           title: Text(moreManualResponsibleWaggingTitle()),
           subtitle: Text(moreManualSubTitle()),
           onTap: () async {
-            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString(Assets.responsibleWagging), title: moreManualResponsibleWaggingTitle()));
+            context.push(
+              '/more/viewHTML/',
+              extra: HtmlPageInfo(
+                url: "https://docs.thetailcompany.com/doku.php?id=en:safety&do=export_xhtmlbody",
+                title: moreManualResponsibleWaggingTitle(),
+              ),
+            );
           },
         ),
         ListTile(

@@ -1,16 +1,21 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+
 import '../Backend/Definitions/Device/device_definition.dart';
+import '../Backend/NavigationObserver/custom_go_router_navigation_observer.dart';
+import '../Backend/logging_wrappers.dart';
+import '../constants.dart';
+import '../main.dart';
 import 'pages/action_selector.dart';
+import 'pages/actions.dart';
 import 'pages/custom_audio.dart';
 import 'pages/developer/bluetooth_console.dart';
 import 'pages/developer/developer_menu.dart';
 import 'pages/developer/developer_pincode.dart';
 import 'pages/direct_gear_control.dart';
+import 'pages/html_page.dart';
 import 'pages/intro.dart';
 import 'pages/markdown_viewer.dart';
 import 'pages/more.dart';
@@ -19,13 +24,6 @@ import 'pages/ota_update.dart';
 import 'pages/settings.dart';
 import 'pages/shell.dart';
 import 'pages/triggers.dart';
-import 'pages/view_pdf.dart';
-import '../constants.dart';
-
-import '../Backend/NavigationObserver/custom_go_router_navigation_observer.dart';
-import '../Backend/logging_wrappers.dart';
-import '../main.dart';
-import 'pages/actions.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -90,10 +88,10 @@ final GoRouter router = GoRouter(
           parentNavigatorKey: _shellNavigatorKey,
           routes: [
             GoRoute(
-              name: 'More/viewPDF',
-              path: 'viewPDF',
+              name: 'More/viewHTML',
+              path: 'viewHTML',
               parentNavigatorKey: _rootNavigatorKey,
-              builder: (BuildContext context, GoRouterState state) => ViewPDF(asset: state.extra! as Uint8List),
+              builder: (BuildContext context, GoRouterState state) => HtmlPage(htmlPageInfo: state.extra! as HtmlPageInfo),
             ),
             GoRoute(
               name: 'More/viewMarkdown',
