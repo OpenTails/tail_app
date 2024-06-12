@@ -56,7 +56,11 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
             StreamBuilder<List<ScanResult>>(
               stream: flutterBluePlus.scanResults,
               builder: (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
-                anyGearFound = snapshot.hasData && snapshot.data!.isNotEmpty && snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).isNotEmpty;
+                List<ScanResult> list = [];
+                if (snapshot.hasData) {
+                  list = snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).toList();
+                  anyGearFound = list.isNotEmpty;
+                }
                 return ListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -76,9 +80,9 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                 ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).length,
+                                  itemCount: list.length,
                                   itemBuilder: (BuildContext context, int index) {
-                                    ScanResult e = snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).toList()[index];
+                                    ScanResult e = list[index];
                                     return ListTile(
                                       title: Text(getNameFromBTName(e.device.advName)),
                                       trailing: Text(HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
@@ -91,7 +95,19 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                       },
                                     );
                                   },
-                                )
+                                ),
+                                if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                                  Center(
+                                    child: FilledButton(
+                                        onPressed: () {
+                                          for (ScanResult scanResult in list) {
+                                            scanResult.device.connect();
+                                          }
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Connect to all')),
+                                  )
+                                ]
                               ],
                             )
                           : Container(),
