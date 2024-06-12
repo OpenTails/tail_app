@@ -3,16 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/device_registry.dart';
+import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/constants.dart';
 
 Future<BaseStatefulDevice> createAndStoreGear(String gearBtName, ProviderContainer ref, {String gearMacPrefix = 'Dev'}) async {
   BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByName(gearBtName)!;
   BaseStoredDevice baseStoredDevice;
   BaseStatefulDevice statefulDevice;
-  baseStoredDevice = BaseStoredDevice(baseDeviceDefinition.uuid, "$gearMacPrefix${baseDeviceDefinition.deviceType.name}", baseDeviceDefinition.deviceType.color(ref: ref).value);
-  baseStoredDevice.name = getNameFromBTName(baseDeviceDefinition.btName);
+  baseStoredDevice = BaseStoredDevice(baseDeviceDefinition.uuid, "$gearMacPrefix${baseDeviceDefinition.deviceType.name}", baseDeviceDefinition.deviceType.color(ref: ref).value)..name = getNameFromBTName(baseDeviceDefinition.btName);
   statefulDevice = BaseStatefulDevice(baseDeviceDefinition, baseStoredDevice);
   statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
   isAnyGearConnected.value = true;

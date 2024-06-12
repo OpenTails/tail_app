@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Definitions/Device/device_definition.dart';
 import '../translation_string_definitions.dart';
 
 part 'snack_bar_overlay.g.dart';
@@ -24,7 +24,7 @@ class SnackbarStream extends _$SnackbarStream {
 }
 
 class SnackBarOverlay extends ConsumerWidget {
-  const SnackBarOverlay({super.key, required this.child});
+  const SnackBarOverlay({required this.child, super.key});
 
   final Widget child;
 
@@ -100,7 +100,7 @@ class SnackBarOverlay extends ConsumerWidget {
                   content: AwesomeSnackbarContent(
                     title: otaAvailableSnackbarTitle(),
                     message: otaAvailableSnackbarLabel(),
-                    onPressed: () {
+                    onPressed: () async {
                       ScaffoldMessenger.of(context).clearSnackBars();
                       return context.push("/ota", extra: baseStatefulDevice.baseStoredDevice.btMACAddress);
                     },

@@ -11,7 +11,7 @@ class MarkdownInfo {
 }
 
 class MarkdownViewer extends StatelessWidget {
-  const MarkdownViewer({super.key, required this.markdownInfo});
+  const MarkdownViewer({required this.markdownInfo, super.key});
 
   final MarkdownInfo markdownInfo;
 
@@ -27,7 +27,7 @@ class MarkdownViewer extends StatelessWidget {
           md.ExtensionSet.gitHubFlavored.blockSyntaxes,
           <md.InlineSyntax>[md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
         ),
-        onTapLink: (linkText, linkUrl, linkTitle) async => await launchUrl(Uri.parse(linkUrl!)),
+        onTapLink: (linkText, linkUrl, linkTitle) async => launchUrl(Uri.parse(linkUrl!)),
       ),
     );
   }

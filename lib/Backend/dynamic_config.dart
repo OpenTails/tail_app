@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tail_app/Backend/logging_wrappers.dart';
-import 'package:tail_app/Frontend/utils.dart';
-import 'package:tail_app/constants.dart';
+import 'logging_wrappers.dart';
+import '../Frontend/utils.dart';
+import '../constants.dart';
 
 import '../gen/assets.gen.dart';
 

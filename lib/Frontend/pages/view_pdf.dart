@@ -6,7 +6,7 @@ import 'package:pdfrx/pdfrx.dart';
 class ViewPDF extends StatelessWidget {
   final Uint8List asset;
 
-  const ViewPDF({super.key, required this.asset});
+  const ViewPDF({required this.asset, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,8 +3,8 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:logging/logging.dart';
-import 'package:tail_app/Frontend/utils.dart';
-import 'package:tail_app/constants.dart';
+import '../Frontend/utils.dart';
+import '../constants.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
 import 'logging_wrappers.dart';
@@ -30,7 +30,6 @@ Future<void> initBackgroundTasks() async {
     switch (taskId) {
       case 'com.codel1417.tail_app.blog':
         checkForNewPosts();
-        break;
       default:
         _backgroundLogger.info("Default fetch task");
     }

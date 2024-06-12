@@ -6,14 +6,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tail_app/Frontend/pages/markdown_viewer.dart';
-import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
+import '../translation_string_definitions.dart';
 import '../utils.dart';
+import 'markdown_viewer.dart';
 
 class More extends ConsumerStatefulWidget {
   const More({super.key});
@@ -39,7 +39,7 @@ class _MoreState extends ConsumerState<More> {
           title: Text(joyStickPage()),
           subtitle: Text(joyStickPageDescription()),
           leading: const Icon(Icons.gamepad),
-          onTap: () {
+          onTap: () async {
             context.push('/joystick');
           },
         ),
@@ -47,7 +47,7 @@ class _MoreState extends ConsumerState<More> {
           title: Text(sequencesPage()),
           subtitle: Text(sequencesPageDescription()),
           leading: const Icon(Icons.list),
-          onTap: () {
+          onTap: () async {
             context.push('/moveLists');
           },
         ),
@@ -55,7 +55,7 @@ class _MoreState extends ConsumerState<More> {
           title: Text(audioPage()),
           subtitle: Text(audioEditDescription()),
           leading: const Icon(Icons.audio_file),
-          onTap: () {
+          onTap: () async {
             context.push('/customAudio');
           },
         ),
@@ -63,7 +63,7 @@ class _MoreState extends ConsumerState<More> {
           title: Text(settingsPage()),
           subtitle: Text(settingsDescription()),
           leading: const Icon(Icons.settings),
-          onTap: () {
+          onTap: () async {
             context.push('/settings');
           },
         ),
@@ -77,10 +77,7 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(
             moreManualTitle(),
-            style: Theme
-                .of(context)
-                .textTheme
-                .headlineLarge,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
         PdfWidget(name: moreManualMiTailTitle(), url: "https://thetailcompany.com/mitail.pdf${getOutboundUtm()}"),
@@ -96,10 +93,7 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(
             moreUsefulLinksTitle(),
-            style: Theme
-                .of(context)
-                .textTheme
-                .headlineLarge,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
         ListTile(
@@ -141,7 +135,7 @@ class _MoreState extends ConsumerState<More> {
           onTap: () async {
             await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app'));
           },
-          onLongPress: () {
+          onLongPress: () async {
             if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) {
               return;
             }
@@ -158,20 +152,19 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(aboutPage()),
           leading: const Icon(Icons.info),
-          onTap: () {
+          onTap: () async {
             PackageInfo.fromPlatform().then(
-                  (value) =>
-                  showLicensePage(
-                    context: context,
-                    useRootNavigator: true,
-                    applicationVersion: "${value.version} (${value.buildNumber})",
-                    applicationLegalese: "Developed by Code-Floof for the community. Open Source GPL 3.0 Licensed",
-                    applicationIcon: Image.asset(
-                      Assets.tCLogoTransparentNoText.path,
-                      width: 150,
-                      height: 150,
-                    ),
-                  ),
+              (value) => showLicensePage(
+                context: context,
+                useRootNavigator: true,
+                applicationVersion: "${value.version} (${value.buildNumber})",
+                applicationLegalese: "Developed by Code-Floof for the community. Open Source GPL 3.0 Licensed",
+                applicationIcon: Image.asset(
+                  Assets.tCLogoTransparentNoText.path,
+                  width: 150,
+                  height: 150,
+                ),
+              ),
             );
           },
         ),
@@ -184,7 +177,7 @@ class PdfWidget extends StatefulWidget {
   final String name;
   final String url;
 
-  const PdfWidget({super.key, required this.name, required this.url});
+  const PdfWidget({required this.name, required this.url, super.key});
 
   @override
   State<PdfWidget> createState() => _PdfWidgetState();
@@ -230,7 +223,7 @@ class _PdfWidgetState extends State<PdfWidget> {
             ),
             onReceiveProgress: (current, total) {
               setState(
-                    () {
+                () {
                   progress = current / total;
                 },
               );
@@ -243,16 +236,17 @@ class _PdfWidgetState extends State<PdfWidget> {
             }
           } else {
             setState(
-                  () {
+              () {
                 progress = 0;
               },
             );
           }
         } catch (e) {
-          transaction.throwable = e;
-          transaction.status = const SpanStatus.internalError();
+          transaction
+            ..throwable = e
+            ..status = const SpanStatus.internalError();
           setState(
-                () {
+            () {
               progress = 0;
             },
           );

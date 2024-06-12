@@ -4,7 +4,7 @@ import 'package:lottie_native/lottie_native.dart';
 import '../../constants.dart';
 
 class LottieLazyLoad extends StatefulWidget {
-  const LottieLazyLoad({super.key, required this.asset, required this.width});
+  const LottieLazyLoad({required this.asset, required this.width, super.key});
 
   final String asset;
   final double width;

@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/wear_bridge.dart';
+import 'wear_bridge.dart';
 
 import '../constants.dart';
 import 'Definitions/Action/base_action.dart';
@@ -42,8 +42,9 @@ class FavoriteActions extends _$FavoriteActions {
   }
 
   Future<void> add(BaseAction action) async {
-    state.add(FavoriteAction(actionUUID: action.uuid, id: state.length + 1));
-    state.sort();
+    state
+      ..add(FavoriteAction(actionUUID: action.uuid, id: state.length + 1))
+      ..sort();
     await store();
   }
 

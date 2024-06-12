@@ -62,25 +62,27 @@ Future<Dio> initDio({skipSentry = false}) async {
     ),
   );
   dio.interceptors.add(LogarteDioInterceptor(logarte));
-  dio.interceptors.add(RetryInterceptor(
-    dio: dio,
-    logPrint: dioLogger.info, // specify log function (optional)
-    retries: 15, // retry count (optional)
-    retryDelays: const [
-      // set delays between retries (optional)
-      Duration(seconds: 1),
-      Duration(seconds: 2),
-      Duration(seconds: 3),
-      Duration(seconds: 4),
-      Duration(seconds: 5),
-      Duration(seconds: 10),
-      Duration(seconds: 20),
-      Duration(seconds: 40),
-      Duration(seconds: 80),
-      Duration(seconds: 160),
-      Duration(seconds: 320),
-    ],
-  ));
+  dio.interceptors.add(
+    RetryInterceptor(
+      dio: dio,
+      logPrint: dioLogger.info, // specify log function (optional)
+      retries: 15, // retry count (optional)
+      retryDelays: const [
+        // set delays between retries (optional)
+        Duration(seconds: 1),
+        Duration(seconds: 2),
+        Duration(seconds: 3),
+        Duration(seconds: 4),
+        Duration(seconds: 5),
+        Duration(seconds: 10),
+        Duration(seconds: 20),
+        Duration(seconds: 40),
+        Duration(seconds: 80),
+        Duration(seconds: 160),
+        Duration(seconds: 320),
+      ],
+    ),
+  );
   if (!skipSentry) {
     /// This *must* be the last initialization step of the Dio setup, otherwise
     /// your configuration of Dio might overwrite the Sentry configuration.
@@ -104,8 +106,8 @@ Version getVersionSemVer(String input) {
   if (split.length > 1 && int.tryParse(split[1]) != null) {
     minor = split[1];
   }
-  if (split.length > 2 && int.tryParse(split[2].replaceAll(RegExp(r'[^0-9]'), '')) != null) {
-    patch = split[2].replaceAll(RegExp(r'[^0-9]'), '');
+  if (split.length > 2 && int.tryParse(split[2].replaceAll(RegExp('[^0-9]'), '')) != null) {
+    patch = split[2].replaceAll(RegExp('[^0-9]'), '');
   }
   return Version(int.parse(major), int.parse(minor), int.parse(patch));
 }

@@ -2,18 +2,19 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/sensors.dart';
 
 import 'Bluetooth/bluetooth_manager.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'favorite_actions.dart';
 import 'move_lists.dart';
+import 'sensors.dart';
 
 part 'wear_bridge.g.dart';
 
@@ -66,9 +67,11 @@ Future<void> initWear(InitWearRef ref) async {
     _messagereceivedStreamSubscription = _flutterWearOsConnectivity.messageReceived().listen(
           (message) => _wearLogger.info("messageReceived $message"),
         );
-    capabilityChangedStreamSubscription = _flutterWearOsConnectivity.capabilityChanged(capabilityPathURI: Uri(scheme: "wear", host: "*", path: "/*")).listen((event) => _wearLogger.info(
-          "capabilityChanged $event",
-        ));
+    capabilityChangedStreamSubscription = _flutterWearOsConnectivity.capabilityChanged(capabilityPathURI: Uri(scheme: "wear", host: "*", path: "/*")).listen(
+          (event) => _wearLogger.info(
+            "capabilityChanged $event",
+          ),
+        );
     updateWearActions(ref.read(favoriteActionsProvider), ref);
   } catch (e, s) {
     _wearLogger.severe("exception setting up Wear $e", e, s);
@@ -77,9 +80,11 @@ Future<void> initWear(InitWearRef ref) async {
 
 Future<void> updateWearActions(List<FavoriteAction> favoriteActions, Ref ref) async {
   try {
-    Iterable<BaseAction> allActions = favoriteActions.map(
-      (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)) as BaseAction,
-    );
+    Iterable<BaseAction> allActions = favoriteActions
+        .map(
+          (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),
+        )
+        .whereNotNull();
     final Map<String, String> favoriteMap = Map.fromEntries(allActions.map((e) => MapEntry(e.uuid, e.name)));
     final Map<String, String> map = Map.fromEntries(
       [

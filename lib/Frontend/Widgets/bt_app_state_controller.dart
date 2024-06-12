@@ -6,7 +6,7 @@ import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 
 class BtAppStateController extends ConsumerStatefulWidget {
-  const BtAppStateController({super.key, required this.child});
+  const BtAppStateController({required this.child, super.key});
 
   final Widget child;
 

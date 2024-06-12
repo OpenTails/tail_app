@@ -1,16 +1,18 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
-import 'package:tail_app/Frontend/utils.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../pages/shell.dart';
 import '../translation_string_definitions.dart';
+import '../utils.dart';
+import 'scan_for_new_device.dart';
 
 class KnownGear extends ConsumerStatefulWidget {
   const KnownGear({super.key});
@@ -22,8 +24,7 @@ class KnownGear extends ConsumerStatefulWidget {
 class _KnownGearState extends ConsumerState<KnownGear> {
   @override
   Widget build(BuildContext context) {
-    List<BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider).values.toList();
-    knownDevices.sort((a, b) => a.deviceConnectionState.value.index.compareTo(b.deviceConnectionState.value.index));
+    List<BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider).values.toList()..sort((a, b) => a.deviceConnectionState.value.index.compareTo(b.deviceConnectionState.value.index));
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -64,9 +65,9 @@ class ScanForNewGearButton extends ConsumerWidget {
                 ),
               ),
             ),
-            onTap: () {
+            onTap: () async {
               plausible.event(page: "Scan For New Gear");
-              showModalBottomSheet(
+              await showModalBottomSheet(
                 context: context,
                 showDragHandle: true,
                 isScrollControlled: true,
@@ -105,7 +106,7 @@ class ScanForNewGearButton extends ConsumerWidget {
 }
 
 class KnownGearCard extends ConsumerStatefulWidget {
-  const KnownGearCard({super.key, required this.baseStatefulDevice});
+  const KnownGearCard({required this.baseStatefulDevice, super.key});
 
   final BaseStatefulDevice baseStatefulDevice;
 
@@ -143,8 +144,8 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                     clipBehavior: Clip.antiAlias,
                     color: cardColor,
                     child: InkWell(
-                      onTap: () {
-                        plausible.event(page: "Manage Gear");
+                      onTap: () async {
+                        unawaited(plausible.event(page: "Manage Gear"));
                         showModalBottomSheet(
                           context: context,
                           showDragHandle: true,
@@ -237,7 +238,7 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                                     duration: animationTransitionDuration,
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),

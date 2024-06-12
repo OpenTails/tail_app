@@ -2,9 +2,9 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
@@ -48,58 +48,56 @@ class _SettingsState extends ConsumerState<Settings> {
               borderRadius: 22,
               color: Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault)),
             ),
-            onTap: () {
+            onTap: () async {
               plausible.event(page: "Settings/App Color");
               showDialog<bool>(
-                  context: context,
-                  useRootNavigator: false,
-                  useSafeArea: true,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text(
-                        settingsAppColor(),
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleLarge,
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            HiveProxy.put(settings, appColor, appColorValue.value);
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            ok(),
-                          ),
+                context: context,
+                useRootNavigator: false,
+                useSafeArea: true,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text(
+                      settingsAppColor(),
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          HiveProxy.put(settings, appColor, appColorValue.value);
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          ok(),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            appColorValue = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            cancel(),
-                          ),
-                        )
-                      ],
-                      content: Wrap(
-                        children: [
-                          ColorPicker(
-                            color: appColorValue,
-                            padding: EdgeInsets.zero,
-                            onColorChanged: (Color color) => setState(() => appColorValue = color),
-                            pickersEnabled: const <ColorPickerType, bool>{
-                              ColorPickerType.both: false,
-                              ColorPickerType.primary: true,
-                              ColorPickerType.accent: true,
-                              ColorPickerType.wheel: true,
-                            },
-                          )
-                        ],
                       ),
-                    );
-                  }).whenComplete(() => setState(() {}));
+                      TextButton(
+                        onPressed: () {
+                          appColorValue = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          cancel(),
+                        ),
+                      ),
+                    ],
+                    content: Wrap(
+                      children: [
+                        ColorPicker(
+                          color: appColorValue,
+                          padding: EdgeInsets.zero,
+                          onColorChanged: (Color color) => setState(() => appColorValue = color),
+                          pickersEnabled: const <ColorPickerType, bool>{
+                            ColorPickerType.both: false,
+                            ColorPickerType.primary: true,
+                            ColorPickerType.accent: true,
+                            ColorPickerType.wheel: true,
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ).whenComplete(() => setState(() {}));
             },
           ),
           ListTile(
@@ -108,9 +106,9 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsBatteryPercentageToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, showAccurateBattery, defaultValue: showAccurateBatteryDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(
-                      () {
+                  () {
                     HiveProxy.put(settings, showAccurateBattery, value);
                   },
                 );
@@ -123,9 +121,9 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsLargerCardsToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, largerActionCardSize, defaultValue: largerActionCardSizeDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(
-                      () {
+                  () {
                     HiveProxy.put(settings, largerActionCardSize, value);
                   },
                 );
@@ -138,9 +136,9 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsTutorialCardToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(
-                      () {
+                  () {
                     HiveProxy.put(settings, hideTutorialCards, value);
                   },
                 );
@@ -156,7 +154,7 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsAlwaysScanningToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, alwaysScanning, value);
                 });
@@ -169,7 +167,7 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsHapticsToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, haptics, value);
                 });
@@ -182,14 +180,10 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsKeepScreenOnToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, keepAwake, defaultValue: keepAwakeDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, keepAwake, value);
-                  if (ref
-                      .read(knownDevicesProvider)
-                      .values
-                      .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
-                      .isNotEmpty) {
+                  if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).isNotEmpty) {
                     if (value) {
                       WakelockPlus.enable();
                     } else {
@@ -206,9 +200,9 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsKitsuneToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(
-                      () {
+                  () {
                     HiveProxy.put(settings, kitsuneModeToggle, value);
                   },
                 );
@@ -221,9 +215,9 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(scanDemoGearTip()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(
-                      () {
+                  () {
                     HiveProxy.put(settings, showDemoGear, value);
                   },
                 );
@@ -239,7 +233,7 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsNewsletterToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, allowNewsletterNotifications, defaultValue: allowNewsletterNotificationsDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, allowNewsletterNotifications, value);
                 });
@@ -255,7 +249,7 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsAnalyticsToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, allowAnalytics, defaultValue: allowAnalyticsDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, allowAnalytics, value);
                 });
@@ -269,7 +263,7 @@ class _SettingsState extends ConsumerState<Settings> {
             subtitle: Text(settingsErrorReportingToggleSubTitle()),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, allowErrorReporting, defaultValue: allowErrorReportingDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, allowErrorReporting, value);
                 });
@@ -281,10 +275,10 @@ class _SettingsState extends ConsumerState<Settings> {
               title: const Text("Development Menu"),
               leading: const Icon(Icons.bug_report),
               subtitle: const Text("It is illegal to read this message"),
-              onTap: () {
+              onTap: () async {
                 context.push('/settings/developer');
               },
-            )
+            ),
           ],
         ],
       ),

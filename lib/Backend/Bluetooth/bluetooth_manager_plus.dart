@@ -9,17 +9,17 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_utils.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Backend/device_registry.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Frontend/utils.dart';
 import '../../constants.dart';
+import '../Definitions/Device/device_definition.dart';
+import '../device_registry.dart';
 import '../logging_wrappers.dart';
 import '../sensors.dart';
 import 'bluetooth_manager.dart';
 import 'bluetooth_message.dart';
+import 'bluetooth_utils.dart';
 
 part 'bluetooth_manager_plus.g.dart';
 
@@ -86,8 +86,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       baseStoredDevice = statefulDevice.baseStoredDevice;
       //transaction.setTag('Known Device', 'Yes');
     } else {
-      baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, deviceID, deviceDefinition.deviceType.color(ref: ref).value);
-      baseStoredDevice.name = getNameFromBTName(deviceDefinition.btName);
+      baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, deviceID, deviceDefinition.deviceType.color(ref: ref).value)..name = getNameFromBTName(deviceDefinition.btName);
       statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice);
       //transaction.setTag('Known Device', 'No');
       Future(() => ref.read(knownDevicesProvider.notifier).add(statefulDevice));
@@ -109,8 +108,9 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       }
       if (Platform.isAndroid) {
         //start foreground service on device connected. Library handles duplicate start calls
-        _bluetoothPlusLogger.fine('Requesting notification permission');
-        _bluetoothPlusLogger.finer('Requesting notification permission result${await Permission.notification.request()}'); // Used only for Foreground service
+        _bluetoothPlusLogger
+          ..fine('Requesting notification permission')
+          ..finer('Requesting notification permission result${await Permission.notification.request()}'); // Used only for Foreground service
         FlutterForegroundTask.init(
           androidNotificationOptions: AndroidNotificationOptions(
             channelId: 'foreground_service',
@@ -275,23 +275,26 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         }
       }
     },
-    onError: (e) => _bluetoothPlusLogger.severe(e),
+    onError: (e, s) => _bluetoothPlusLogger.severe("", e, s),
   );
 
-  _keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen((event) async {
-    Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
-    for (var element in flutterBluePlus.connectedDevices) {
-      BaseStatefulDevice? device = knownDevices[element.remoteId.str];
-      if (device != null) {
-        device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: CommandType.system));
-        device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: CommandType.system));
-        element.readRssi();
-        if (device.baseDeviceDefinition.deviceType != DeviceType.ears && device.hasGlowtip.value == GlowtipStatus.unknown) {
-          device.commandQueue.addCommand(BluetoothMessage(message: "VER", device: device, priority: Priority.low, type: CommandType.system));
+  _keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen(
+    (event) async {
+      Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+      for (var element in flutterBluePlus.connectedDevices) {
+        BaseStatefulDevice? device = knownDevices[element.remoteId.str];
+        if (device != null) {
+          device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: CommandType.system));
+          device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: CommandType.system));
+          element.readRssi();
+          if (device.baseDeviceDefinition.deviceType != DeviceType.ears && device.hasGlowtip.value == GlowtipStatus.unknown) {
+            device.commandQueue.addCommand(BluetoothMessage(message: "VER", device: device, priority: Priority.low, type: CommandType.system));
+          }
         }
       }
-    }
-  }, cancelOnError: true);
+    },
+    cancelOnError: true,
+  );
 
   // Shut down bluetooth related things
   ref.onDispose(() async {
@@ -354,7 +357,7 @@ Future<void> connect(String id) async {
 Future<void> beginScan({Duration? timeout}) async {
   if (_didInitFlutterBluePlus && !flutterBluePlus.isScanningNow) {
     _bluetoothPlusLogger.info("Starting scan");
-    await flutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map((e) => Guid(e)).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
+    await flutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map(Guid.new).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
   }
 }
 
@@ -392,8 +395,7 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
       return;
     }
 
-    Future<void> future = bluetoothCharacteristic.write(message, withoutResponse: withoutResponse && bluetoothCharacteristic.properties.writeWithoutResponse);
-    future.catchError((e) {
+    Future<void> future = bluetoothCharacteristic.write(message, withoutResponse: withoutResponse && bluetoothCharacteristic.properties.writeWithoutResponse).catchError((e) {
       _bluetoothPlusLogger.severe("Unable to send message to ${device.baseDeviceDefinition.btName} $e", e);
     });
     await future;

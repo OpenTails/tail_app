@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
@@ -14,15 +16,15 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shake/shake.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
-import 'package:tail_app/Backend/action_registry.dart';
 
 import '../Frontend/translation_string_definitions.dart';
 import '../constants.dart';
 import 'Bluetooth/bluetooth_manager.dart';
+import 'Bluetooth/bluetooth_manager_plus.dart';
+import 'Bluetooth/bluetooth_message.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
+import 'action_registry.dart';
 import 'logging_wrappers.dart';
 import 'move_lists.dart';
 
@@ -159,19 +161,21 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
     }
     if (!value && actions.isEmpty) {
       _enabled = false;
-      onDisable();
+      unawaited(onDisable());
       notifyListeners();
     } else if (requiredPermission != null && value) {
-      requiredPermission?.hasAllPermissions().then((granted) {
-        if (granted) {
-          _enabled = true;
-          onEnable();
-        }
-        notifyListeners();
-      });
+      unawaited(
+        requiredPermission?.hasAllPermissions().then((granted) async {
+          if (granted) {
+            _enabled = true;
+            onEnable();
+          }
+          notifyListeners();
+        }),
+      );
     } else if (value) {
       _enabled = true;
-      onEnable();
+      unawaited(onEnable());
       notifyListeners();
     }
   }
@@ -197,11 +201,17 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           // 15 second cool-down between moves
           return;
         }
-        final List<BaseAction> allActionsMapped = triggerAction.actions.map((element) => ref.read(getActionFromUUIDProvider(element))).where(
-            // filter out missing actions
-            (element) => element != null).map(
-            // mark remaining not null
-            (e) => e!).toList();
+        final List<BaseAction> allActionsMapped = triggerAction.actions
+            .map((element) => ref.read(getActionFromUUIDProvider(element)))
+            .where(
+              // filter out missing actions
+              (element) => element != null,
+            )
+            .map(
+              // mark remaining not null
+              (e) => e!,
+            )
+            .toList();
 
         // no moves exist
         if (allActionsMapped.isEmpty) {
@@ -293,7 +303,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     super.actionTypes = [
       TriggerActionDef(name: "Walking", translated: triggerWalkingTitle(), uuid: "77d22961-5a69-465a-bd27-5cf5508d10a6"),
       TriggerActionDef(name: "Stopped", translated: triggerWalkingStopped(), uuid: "7424097d-ba24-4d85-b963-bf58e85e289d"),
-      TriggerActionDef(name: "Step", translated: triggerWalkingStep(), uuid: "c82b04ba-7d2e-475a-90ba-3d354e5b8ef0")
+      TriggerActionDef(name: "Step", translated: triggerWalkingStep(), uuid: "c82b04ba-7d2e-475a-90ba-3d354e5b8ef0"),
     ];
   }
 
@@ -610,10 +620,12 @@ class ShakeTriggerDefinition extends TriggerDefinition {
     if (detector != null) {
       return;
     }
-    detector = ShakeDetector.waitForStart(onPhoneShake: () {
-      sensorsLogger.fine("Shake Detected");
-      sendCommands("Shake", ref);
-    });
+    detector = ShakeDetector.waitForStart(
+      onPhoneShake: () {
+        sensorsLogger.fine("Shake Detected");
+        sendCommands("Shake", ref);
+      },
+    );
     detector?.startListening();
   }
 }
@@ -756,22 +768,21 @@ class TriggerList extends _$TriggerList {
       trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid);
       trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'd8384bcf-31ed-4b5d-a25a-da3a2f96e406').uuid);
 
-      HiveProxy.clear<Trigger>(triggerBox);
-      HiveProxy.addAll<Trigger>(triggerBox, [trigger]);
+      unawaited(store());
       return [trigger];
     }
     return results;
   }
 
-  void add(Trigger trigger) {
+  Future<void> add(Trigger trigger) async {
     state.add(trigger);
-    store();
+    await store();
   }
 
-  void remove(Trigger trigger) {
+  Future<void> remove(Trigger trigger) async {
     trigger.enabled = false;
     state.remove(trigger);
-    store();
+    await store();
   }
 
   Future<void> store() async {

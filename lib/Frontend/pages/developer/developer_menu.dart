@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tail_app/main.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../constants.dart';
+import '../../../main.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {
   const DeveloperMenu({super.key});
@@ -28,7 +28,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             title: const Text("Logs"),
             leading: const Icon(Icons.list),
             subtitle: const Text("Application Logs"),
-            onTap: () {
+            onTap: () async {
               context.push("/settings/developer/logs");
             },
           ),
@@ -44,7 +44,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             title: const Text(hasCompletedOnboarding),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree,
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(
                   () {
                     HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
@@ -57,7 +57,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             title: const Text(shouldDisplayReview),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, shouldDisplayReview, defaultValue: shouldDisplayReviewDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(
                   () {
                     HiveProxy.put(settings, shouldDisplayReview, value);
@@ -70,7 +70,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             title: const Text(hasDisplayedReview),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, hasDisplayedReview, defaultValue: hasDisplayedReviewDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(
                   () {
                     HiveProxy.put(settings, hasDisplayedReview, value);
@@ -86,7 +86,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               max: 6,
               min: 0,
               value: HiveProxy.getOrDefault(settings, gearDisconnectCount, defaultValue: gearDisconnectCountDefault).toDouble(),
-              onChanged: (double value) {
+              onChanged: (double value) async {
                 setState(() {
                   HiveProxy.put(settings, gearDisconnectCount, value.toInt());
                 });
@@ -97,7 +97,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             title: const Text(showDebugging),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault),
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(
                   () {
                     HiveProxy.put(settings, showDebugging, value);
@@ -133,7 +133,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text("LatestPostId"),
             subtitle: Text('${HiveProxy.getOrDefault(notificationBox, latestPost, defaultValue: defaultPostId)}'),
-          )
+          ),
         ],
       ),
     );

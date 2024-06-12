@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tail_app/Frontend/Widgets/speed_widget.dart';
 import 'package:vector_math/vector_math.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -14,6 +13,7 @@ import '../../Backend/logging_wrappers.dart';
 import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';
+import '../Widgets/speed_widget.dart';
 import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';
 
@@ -55,69 +55,70 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                     PageInfoCard(text: joystickWarning()),
                     const GearOutOfDateWarning(),
                     Expanded(
-                        child: Align(
-                      alignment: Alignment.center,
-                      child: Joystick(
-                        mode: JoystickMode.all,
-                        onStickDragEnd: () async {
-                          await Future.delayed(Duration(milliseconds: (speed * 20).toInt()));
-                          Move move = Move();
-                          move.moveType = MoveType.home;
-                          if (!context.mounted) {
-                            return;
-                          }
-                          ref.read(knownDevicesProvider).values.forEach(
-                            (element) {
-                              generateMoveCommand(move, element, CommandType.direct).forEach(
-                                (message) {
-                                  message.responseMSG = null;
-                                  message.priority = Priority.high;
-                                  element.commandQueue.addCommand(message);
-                                },
-                              );
-                            },
-                          );
-                        },
-                        base: const Card(
-                          elevation: 1,
-                          shape: CircleBorder(),
-                          child: SizedBox.square(dimension: 300),
-                        ),
-                        stick: Card(
-                          elevation: 2,
-                          shape: const CircleBorder(),
-                          color: Theme.of(context).colorScheme.primary,
-                          child: const SizedBox.square(dimension: 100),
-                        ),
-                        listener: (details) {
-                          setState(
-                            () {
-                              if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
-                                HapticFeedback.selectionClick();
-                              }
-                              x = details.x;
-                              y = details.y;
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Joystick(
+                          mode: JoystickMode.all,
+                          onStickDragEnd: () async {
+                            await Future.delayed(Duration(milliseconds: (speed * 20).toInt()));
+                            Move move = Move()..moveType = MoveType.home;
+                            if (!context.mounted) {
+                              return;
+                            }
+                            ref.read(knownDevicesProvider).values.forEach(
+                              (element) {
+                                generateMoveCommand(move, element, CommandType.direct).forEach(
+                                  (message) {
+                                    message
+                                      ..responseMSG = null
+                                      ..priority = Priority.high;
+                                    element.commandQueue.addCommand(message);
+                                  },
+                                );
+                              },
+                            );
+                          },
+                          base: const Card(
+                            elevation: 1,
+                            shape: CircleBorder(),
+                            child: SizedBox.square(dimension: 300),
+                          ),
+                          stick: Card(
+                            elevation: 2,
+                            shape: const CircleBorder(),
+                            color: Theme.of(context).colorScheme.primary,
+                            child: const SizedBox.square(dimension: 100),
+                          ),
+                          listener: (details) async {
+                            setState(
+                              () {
+                                if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
+                                  HapticFeedback.selectionClick();
+                                }
+                                x = details.x;
+                                y = details.y;
 
-                              double sign = x.sign;
-                              direction = degrees(atan2(y.abs(), x.abs())); // 0-90
-                              magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
+                                double sign = x.sign;
+                                direction = degrees(atan2(y.abs(), x.abs())); // 0-90
+                                magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
 
-                              double secondServo = ((((direction - 0) * (128 - 0)) / (90 - 0)) + 0).clamp(0, 128);
-                              double primaryServo = ((((magnitude - 0) * (128 - 0)) / (1 - 0)) + 0).clamp(0, 128);
-                              if (sign > 0) {
-                                left = primaryServo;
-                                right = secondServo;
-                              } else {
-                                right = primaryServo;
-                                left = secondServo;
-                              }
-                            },
-                          );
-                          sendMove();
-                        },
-                        period: Duration(milliseconds: (speed * 20).toInt()),
+                                double secondServo = ((((direction - 0) * (128 - 0)) / (90 - 0)) + 0).clamp(0, 128);
+                                double primaryServo = ((((magnitude - 0) * (128 - 0)) / (1 - 0)) + 0).clamp(0, 128);
+                                if (sign > 0) {
+                                  left = primaryServo;
+                                  right = secondServo;
+                                } else {
+                                  right = primaryServo;
+                                  left = secondServo;
+                                }
+                              },
+                            );
+                            sendMove();
+                          },
+                          period: Duration(milliseconds: (speed * 20).toInt()),
+                        ),
                       ),
-                    )),
+                    ),
                   ],
                 ),
                 if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
@@ -137,7 +138,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
                 ExpansionTile(
                   title: Text(settingsPage()),
@@ -182,7 +183,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                       },
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -192,17 +193,18 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
   }
 
   void sendMove() {
-    Move move = Move();
-    move.easingType = easingType;
-    move.speed = speed;
-    move.rightServo = right;
-    move.leftServo = left;
+    Move move = Move()
+      ..easingType = easingType
+      ..speed = speed
+      ..rightServo = right
+      ..leftServo = left;
     ref.read(knownDevicesProvider).values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach(
       (element) {
         generateMoveCommand(move, element, CommandType.direct).forEach(
           (message) {
-            message.responseMSG = null;
-            message.priority = Priority.high;
+            message
+              ..responseMSG = null
+              ..priority = Priority.high;
             element.commandQueue.addCommand(message);
           },
         );

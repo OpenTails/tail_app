@@ -11,11 +11,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/firmware_update.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
@@ -69,7 +69,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     baseStatefulDevice!.fwVersion.addListener(verListener);
     baseStatefulDevice!.fwInfo.addListener(fwInfoListener);
     if (firmwareInfo == null) {
-      baseStatefulDevice!.getFirmwareInfo();
+      unawaited(baseStatefulDevice!.getFirmwareInfo());
     }
   }
 
@@ -77,7 +77,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   void dispose() {
     super.dispose();
     if (!wakelockEnabledBeforehand) {
-      WakelockPlus.disable();
+      unawaited(WakelockPlus.disable());
     }
     if ([OtaState.download, OtaState.upload].contains(otaState)) {
       otaState == OtaState.error;
@@ -86,7 +86,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     baseStatefulDevice!.fwVersion.removeListener(verListener);
     baseStatefulDevice!.fwInfo.removeListener(fwInfoListener);
     if (!HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault)) {
-      stopScan();
+      unawaited(stopScan());
     }
     timer?.cancel();
   }
@@ -145,7 +145,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                       alignment: MainAxisAlignment.center,
                       children: [
                         FilledButton(
-                          onPressed: (firmwareInfo != null || firmwareFile != null) ? () => beginUpdate() : null,
+                          onPressed: (firmwareInfo != null || firmwareFile != null) ? beginUpdate : null,
                           child: Row(
                             children: [
                               Icon(
@@ -189,12 +189,12 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                               }
                             },
                             child: const Text("Select file"),
-                          )
+                          ),
                         ],
                       ],
                     ),
                   ),
-                )
+                ),
               ],
               if (otaState == OtaState.completed) ...[
                 Expanded(
@@ -291,10 +291,12 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   child: Center(
                     child: ListTile(
-                      subtitle: Builder(builder: (context) {
-                        double progress = downloadProgress < 1 ? downloadProgress : uploadProgress;
-                        return LinearProgressIndicator(value: otaState == OtaState.rebooting ? null : progress);
-                      }),
+                      subtitle: Builder(
+                        builder: (context) {
+                          double progress = downloadProgress < 1 ? downloadProgress : uploadProgress;
+                          return LinearProgressIndicator(value: otaState == OtaState.rebooting ? null : progress);
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -313,7 +315,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ],
             ],
@@ -347,14 +349,17 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       otaState = OtaState.download;
       downloadProgress = 0;
     });
-    final transaction = Sentry.startTransaction('OTA Download', 'http');
-    transaction.setTag("GearType", baseStatefulDevice!.baseDeviceDefinition.btName);
+    final transaction = Sentry.startTransaction('OTA Download', 'http')..setTag("GearType", baseStatefulDevice!.baseDeviceDefinition.btName);
     try {
-      final Response<List<int>> rs = await (await initDio()).get<List<int>>(firmwareInfo!.url, options: Options(responseType: ResponseType.bytes), onReceiveProgress: (current, total) {
-        setState(() {
-          downloadProgress = current / total;
-        });
-      });
+      final Response<List<int>> rs = await (await initDio()).get<List<int>>(
+        firmwareInfo!.url,
+        options: Options(responseType: ResponseType.bytes),
+        onReceiveProgress: (current, total) {
+          setState(() {
+            downloadProgress = current / total;
+          });
+        },
+      );
       if (rs.statusCode == 200) {
         downloadProgress = 1;
         Digest digest = md5.convert(rs.data!);
@@ -367,8 +372,9 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
         }
       }
     } catch (e) {
-      transaction.throwable = e;
-      transaction.status = const SpanStatus.internalError();
+      transaction
+        ..throwable = e
+        ..status = const SpanStatus.internalError();
       otaState = OtaState.error;
     }
     transaction.finish();
@@ -444,8 +450,9 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
             } catch (e, s) {
               _otaLogger.severe("Exception during ota upload:$e", e, s);
               if ((current + chunk.length) / total < 0.99) {
-                transaction.status = const SpanStatus.unknownError();
-                transaction.throwable = e;
+                transaction
+                  ..status = const SpanStatus.unknownError()
+                  ..throwable = e;
                 setState(() {
                   otaState = OtaState.error;
                 });

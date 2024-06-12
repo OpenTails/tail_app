@@ -21,23 +21,23 @@ import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Backend/dynamic_config.dart';
-import 'package:tail_app/Frontend/Widgets/bt_app_state_controller.dart';
-import 'package:tail_app/Frontend/utils.dart';
 
 import 'Backend/Definitions/Action/base_action.dart';
+import 'Backend/Definitions/Device/device_definition.dart';
 import 'Backend/app_shortcuts.dart';
 import 'Backend/audio.dart';
 import 'Backend/background_update.dart';
+import 'Backend/dynamic_config.dart';
 import 'Backend/favorite_actions.dart';
 import 'Backend/logging_wrappers.dart';
 import 'Backend/move_lists.dart';
 import 'Backend/notifications.dart';
 import 'Backend/plausible_dio.dart';
 import 'Backend/sensors.dart';
+import 'Frontend/Widgets/bt_app_state_controller.dart';
 import 'Frontend/go_router_config.dart';
 import 'Frontend/translation_string_definitions.dart';
+import 'Frontend/utils.dart';
 import 'constants.dart';
 import 'l10n/messages_all_locales.dart';
 
@@ -116,26 +116,27 @@ Future<void> main() async {
   mainLogger.info("Detected Environment: $environment");
   await SentryFlutter.init(
     (options) async {
-      options.dsn = const String.fromEnvironment('SENTRY_DSN', defaultValue: "");
-      options.addIntegration(LoggingIntegration());
-      options.enableBreadcrumbTrackingForCurrentPlatform();
-      options.debug = kDebugMode;
-      options.diagnosticLevel = SentryLevel.info;
-      options.environment = environment;
-      options.tracesSampleRate = dynamicConfigInfo.sentryTraces;
-      options.profilesSampleRate = dynamicConfigInfo.sentryProfiles;
-      options.enableDefaultTagsForMetrics = true;
-      options.attachThreads = true;
-      options.anrEnabled = true;
-      options.beforeSend = beforeSend;
-      options.enableMetrics = true;
-      options.attachStacktrace = true;
-      options.attachScreenshot = true;
-      options.attachViewHierarchy = true;
-      options.sendClientReports = true;
-      options.captureFailedRequests = true;
-      options.enableAutoSessionTracking = true;
-      options.enableAutoPerformanceTracing = true;
+      options
+        ..dsn = const String.fromEnvironment('SENTRY_DSN', defaultValue: "")
+        ..addIntegration(LoggingIntegration())
+        ..enableBreadcrumbTrackingForCurrentPlatform()
+        ..debug = kDebugMode
+        ..diagnosticLevel = SentryLevel.info
+        ..environment = environment
+        ..tracesSampleRate = dynamicConfigInfo.sentryTraces
+        ..profilesSampleRate = dynamicConfigInfo.sentryProfiles
+        ..enableDefaultTagsForMetrics = true
+        ..attachThreads = true
+        ..anrEnabled = true
+        ..beforeSend = beforeSend
+        ..enableMetrics = true
+        ..attachStacktrace = true
+        ..attachScreenshot = true
+        ..attachViewHierarchy = true
+        ..sendClientReports = true
+        ..captureFailedRequests = true
+        ..enableAutoSessionTracking = true
+        ..enableAutoPerformanceTracing = true;
     },
     // Init your App.
     // ignore: missing_provider_scope
@@ -151,8 +152,7 @@ Future<void> main() async {
 }
 
 void initFlutter() {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  widgetsBinding.addObserver(WidgetBindingLogger());
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized()..addObserver(WidgetBindingLogger());
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); // keeps the splash screen visible
 }
 
@@ -169,7 +169,7 @@ class WidgetBindingLogger extends WidgetsBindingObserver {
   }
 
   @override
-  void didChangeLocales(List<Locale>? locales) async {
+  Future<void> didChangeLocales(List<Locale>? locales) async {
     await initLocale();
   }
 }
@@ -245,11 +245,12 @@ class TailApp extends StatefulWidget {
     mainLogger.info('Starting app');
     if (kDebugMode) {
       mainLogger.info('Debug Mode Enabled');
-      HiveProxy.put(settings, showDebugging, true);
-      HiveProxy.put(settings, allowAnalytics, false);
-      HiveProxy.put(settings, allowErrorReporting, false);
-      HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
-      HiveProxy.put(settings, showDemoGear, true);
+      HiveProxy
+        ..put(settings, showDebugging, true)
+        ..put(settings, allowAnalytics, false)
+        ..put(settings, allowErrorReporting, false)
+        ..put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree)
+        ..put(settings, showDemoGear, true);
     }
   }
 
@@ -261,11 +262,14 @@ class _TailAppState extends State<TailApp> {
   @override
   void initState() {
     // Only after at least the action method is set, the notification events are delivered
-    AwesomeNotifications().setListeners(
+    unawaited(
+      AwesomeNotifications().setListeners(
         onActionReceivedMethod: NotificationController.onActionReceivedMethod,
         onNotificationCreatedMethod: NotificationController.onNotificationCreatedMethod,
         onNotificationDisplayedMethod: NotificationController.onNotificationDisplayedMethod,
-        onDismissActionReceivedMethod: NotificationController.onDismissActionReceivedMethod);
+        onDismissActionReceivedMethod: NotificationController.onDismissActionReceivedMethod,
+      ),
+    );
 
     super.initState();
   }
@@ -287,8 +291,8 @@ class _TailAppState extends State<TailApp> {
               child: ValueListenableBuilder(
                 valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
                 builder: (BuildContext context, value, Widget? child) {
-                  setupSystemColor(context);
-                  Future(() => FlutterNativeSplash.remove()); //remove the splash screen one frame later
+                  unawaited(setupSystemColor(context));
+                  Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
                   Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
                   return MaterialApp.router(
                     title: title(),

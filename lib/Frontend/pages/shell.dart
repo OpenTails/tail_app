@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
@@ -8,21 +10,21 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Frontend/Widgets/back_button_to_close.dart';
-import 'package:tail_app/Frontend/Widgets/known_gear_scan_controller.dart';
-import 'package:tail_app/Frontend/Widgets/logging_shake.dart';
-import 'package:tail_app/Frontend/Widgets/snack_bar_overlay.dart';
 import 'package:upgrader/upgrader.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Bluetooth/bluetooth_message.dart';
+import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
+import '../Widgets/back_button_to_close.dart';
 import '../Widgets/base_card.dart';
 import '../Widgets/known_gear.dart';
+import '../Widgets/known_gear_scan_controller.dart';
+import '../Widgets/logging_shake.dart';
+import '../Widgets/snack_bar_overlay.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
@@ -63,7 +65,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
 
   @override
   Widget build(BuildContext context) {
-    setupSystemColor(context);
+    unawaited(setupSystemColor(context));
     return LoggingShake(
       child: BackButtonToClose(
         child: UpgradeAlert(
@@ -77,9 +79,10 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
                       inAppReview.requestReview();
                       Future(
                         // Don't refresh widget in same frame
-                        () {
-                          HiveProxy.put(settings, hasDisplayedReview, true);
-                          HiveProxy.put(settings, shouldDisplayReview, false);
+                        () async {
+                          HiveProxy
+                            ..put(settings, hasDisplayedReview, true)
+                            ..put(settings, shouldDisplayReview, false);
                         },
                       );
                     }
@@ -152,7 +155,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
 }
 
 class ManageGear extends ConsumerStatefulWidget {
-  const ManageGear({super.key, required this.ref, required this.device, required this.controller});
+  const ManageGear({required this.ref, required this.device, required this.controller, super.key});
 
   final ScrollController controller;
   final WidgetRef ref;
@@ -201,14 +204,14 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   textAlign: TextAlign.center,
                 ),
               ),
-            )
+            ),
           ],
           if (widget.device.mandatoryOtaRequired.value) ...[
             BaseCard(
               elevation: 3,
               color: Colors.red,
               child: InkWell(
-                onTap: () {
+                onTap: () async {
                   context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
                 },
                 child: ListTile(
@@ -227,38 +230,39 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
           if (widget.device.hasUpdate.value || HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: FilledButton(
-                  onPressed: () {
-                    context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: getTextColor(color),
-                    elevation: 1,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.system_update,
-                        color: getTextColor(color),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4),
-                      ),
-                      Text(
-                        manageDevicesOtaButton(),
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              color: getTextColor(color),
-                            ),
-                      ),
-                    ],
-                  )),
-            )
+                onPressed: () async {
+                  context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: getTextColor(color),
+                  elevation: 1,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.system_update,
+                      color: getTextColor(color),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                    ),
+                    Text(
+                      manageDevicesOtaButton(),
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            color: getTextColor(color),
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -272,7 +276,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               maxLines: 1,
               maxLength: 30,
               autocorrect: false,
-              onSubmitted: (nameValue) {
+              onSubmitted: (nameValue) async {
                 setState(
                   () {
                     if (nameValue.isNotEmpty) {
@@ -296,7 +300,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               borderRadius: 22,
               color: Color(widget.device.baseStoredDevice.color),
             ),
-            onTap: () {
+            onTap: () async {
               plausible.event(page: "Manage Gear/Gear Color");
               showDialog<bool>(
                 context: context,
@@ -326,7 +330,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                         child: Text(
                           cancel(),
                         ),
-                      )
+                      ),
                     ],
                     content: Wrap(
                       children: [
@@ -340,7 +344,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                             ColorPickerType.accent: true,
                             ColorPickerType.wheel: true,
                           },
-                        )
+                        ),
                       ],
                     ),
                   );
@@ -366,9 +370,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                           LineChartData(
                             titlesData: const FlTitlesData(
                               rightTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                showTitles: false,
-                              )),
+                                sideTitles: SideTitles(
+                                  showTitles: false,
+                                ),
+                              ),
                               topTitles: AxisTitles(
                                 sideTitles: SideTitles(showTitles: false),
                               ),
@@ -390,7 +395,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 );
               },
@@ -401,7 +406,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FilledButton(
-                    onPressed: () {
+                    onPressed: () async {
                       context.push("/settings/developer/console", extra: widget.device);
                     },
                     child: const Text("Open console"),
@@ -595,7 +600,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
             children: [
               if (widget.device.deviceConnectionState.value == ConnectivityState.connected) ...[
                 TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       widget.device.disableAutoConnect = true;
                       disconnect(widget.device.baseStoredDevice.btMACAddress);
@@ -612,7 +617,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                     Navigator.pop(context);
                   },
                   child: Text(manageDevicesShutdown()),
-                )
+                ),
               ],
               if (widget.device.deviceConnectionState.value == ConnectivityState.disconnected && widget.device.disableAutoConnect) ...[
                 TextButton(
@@ -626,7 +631,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 ),
               ],
               TextButton(
-                onPressed: () {
+                onPressed: () async {
                   setState(() {
                     if (widget.device.deviceConnectionState.value == ConnectivityState.connected) {
                       disconnect(widget.device.baseStoredDevice.btMACAddress);
@@ -639,9 +644,9 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   Navigator.pop(context);
                 },
                 child: Text(manageDevicesForget()),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

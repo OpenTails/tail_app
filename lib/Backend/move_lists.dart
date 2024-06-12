@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
-import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Backend/audio.dart';
-import 'package:tail_app/Frontend/translation_string_definitions.dart';
 
+import '../Frontend/translation_string_definitions.dart';
 import '../constants.dart';
 import '../main.dart';
+import 'Bluetooth/bluetooth_message.dart';
+import 'Definitions/Action/base_action.dart';
+import 'Definitions/Device/device_definition.dart';
+import 'audio.dart';
 import 'logging_wrappers.dart';
 
 part 'move_lists.g.dart';
@@ -82,9 +82,8 @@ extension MoveTypeExtension on MoveType {
       case MoveType.delay:
         return Icons.timelapse;
       case MoveType.home:
-        Icons.home;
+        return Icons.home;
     }
-    return Icons.question_mark;
   }
 }
 
@@ -148,7 +147,7 @@ class MoveList extends BaseAction {
   @HiveField(6)
   double repeat = 1;
 
-  MoveList({required super.name, required super.deviceCategory, super.actionCategory = ActionCategory.sequence, required super.uuid, this.moves = const []}) {
+  MoveList({required super.name, required super.deviceCategory, required super.uuid, super.actionCategory = ActionCategory.sequence, this.moves = const []}) {
     if (moves.isEmpty) {
       moves = [];
     }
@@ -158,7 +157,7 @@ class MoveList extends BaseAction {
 class EarsMoveList extends MoveList {
   List<Object> commandMoves = [];
 
-  EarsMoveList({required super.name, super.deviceCategory = const [DeviceType.ears], required super.uuid, super.actionCategory = ActionCategory.ears, required this.commandMoves});
+  EarsMoveList({required super.name, required super.uuid, required this.commandMoves, super.deviceCategory = const [DeviceType.ears], super.actionCategory = ActionCategory.ears});
 }
 
 @Riverpod(keepAlive: true)
@@ -175,15 +174,13 @@ class MoveLists extends _$MoveLists {
   }
 
   Future<void> add(MoveList moveList) async {
-    List<MoveList> state2 = List.from(state);
-    state2.add(moveList);
+    List<MoveList> state2 = List.from(state)..add(moveList);
     state = state2;
     await store();
   }
 
   Future<void> remove(MoveList moveList) async {
-    List<MoveList> state2 = List.from(state);
-    state2.remove(moveList);
+    List<MoveList> state2 = List.from(state)..remove(moveList);
     state = state2;
     await store();
   }
@@ -295,11 +292,19 @@ List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device,
     }
   } else if (move.moveType == MoveType.move) {
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
-      commands.add(BluetoothMessage(message: "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}", device: device, priority: Priority.normal, responseMSG: "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}", type: type));
-      commands.add(BluetoothMessage(message: "DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000", device: device, priority: Priority.normal, responseMSG: "DSSP END", type: CommandType.move));
+      commands
+        ..add(BluetoothMessage(message: "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}", device: device, priority: Priority.normal, responseMSG: "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}", type: type))
+        ..add(BluetoothMessage(message: "DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000", device: device, priority: Priority.normal, responseMSG: "DSSP END", type: CommandType.move));
     } else {
-      commands.add(BluetoothMessage(
-          message: "DSSP E${move.easingType.num} F${move.easingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.toInt()} M${move.speed.toInt()}", device: device, priority: Priority.normal, responseMSG: "OK", type: type));
+      commands.add(
+        BluetoothMessage(
+          message: "DSSP E${move.easingType.num} F${move.easingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.toInt()} M${move.speed.toInt()}",
+          device: device,
+          priority: Priority.normal,
+          responseMSG: "OK",
+          type: type,
+        ),
+      );
     }
   }
   return commands;

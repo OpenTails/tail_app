@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../translation_string_definitions.dart';
 
 class SpeedWidget extends StatelessWidget {
-  const SpeedWidget({super.key, required this.value, required this.onChanged});
+  const SpeedWidget({required this.value, required this.onChanged, super.key});
 
   final Function(double value) onChanged;
   final double value;

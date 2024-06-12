@@ -1,21 +1,22 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:tail_app/Frontend/utils.dart';
+import '../Frontend/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
 
 Future<void> initNotifications() async {
   AwesomeNotifications().initialize(
-      // set the icon to null if you want to use the default app icon
-      'resource://drawable/res_app_icon',
-      [
-        NotificationChannel(
-          channelKey: blogChannelKey,
-          channelName: 'Tail Blog',
-          channelDescription: 'New Posts in the Tail Blog',
-        )
-      ],
-      debug: true);
+    // set the icon to null if you want to use the default app icon
+    'resource://drawable/res_app_icon',
+    [
+      NotificationChannel(
+        channelKey: blogChannelKey,
+        channelName: 'Tail Blog',
+        channelDescription: 'New Posts in the Tail Blog',
+      ),
+    ],
+    debug: true,
+  );
 }
 
 class NotificationController {

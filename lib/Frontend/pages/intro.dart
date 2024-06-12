@@ -1,18 +1,20 @@
+import 'dart:async';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
-import 'package:tail_app/Frontend/Widgets/lottie_lazy_load.dart';
-import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../../main.dart';
+import '../Widgets/lottie_lazy_load.dart';
+import '../translation_string_definitions.dart';
 import '../utils.dart';
 
 class OnBoardingPage extends ConsumerStatefulWidget {
@@ -45,7 +47,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    setupSystemColor(context);
+    unawaited(setupSystemColor(context));
     var pageDecoration = PageDecoration(
       titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: const TextStyle(fontSize: 19.0),
@@ -81,7 +83,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 padding: const EdgeInsets.only(top: 16, right: 16),
                 child: InkWell(
                   child: _buildImage(Assets.tCLogoTransparentNoText.path, 60),
-                  onLongPress: () {
+                  onLongPress: () async {
                     _introLogger.info("Open Logs");
                     context.push("/settings/developer/logs");
                   },
@@ -125,19 +127,20 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   FilledButton(
                     onPressed: privacyAccepted
                         ? null
-                        : () {
+                        : () async {
                             setState(() {
                               _introLogger.info("Accepted Privacy Policy");
                               privacyAccepted = true;
-                              HiveProxy.put(settings, allowErrorReporting, true);
-                              HiveProxy.put(settings, allowAnalytics, true);
+                              HiveProxy
+                                ..put(settings, allowErrorReporting, true)
+                                ..put(settings, allowAnalytics, true);
                               introKey.currentState?.next();
                             });
                           },
                     child: Text(
                       onboardingPrivacyPolicyAcceptButtonLabel(),
                     ),
-                  )
+                  ),
                 ],
               ),
               decoration: pageDecoration,
@@ -155,7 +158,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   FilledButton(
                     onPressed: bluetoothEnabled
                         ? null
-                        : () {
+                        : () async {
                             AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
                           },
                     child: Text(
@@ -182,7 +185,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                     child: Text(
                       onboardingBluetoothRequestButtonLabel(),
                     ),
-                  )
+                  ),
                 ],
               ),
               decoration: pageDecoration,

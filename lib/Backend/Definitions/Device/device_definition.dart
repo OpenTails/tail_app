@@ -11,13 +11,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
-import 'package:tail_app/Backend/firmware_update.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 import '../../../Frontend/utils.dart';
+import '../../Bluetooth/bluetooth_manager.dart';
+import '../../Bluetooth/bluetooth_manager_plus.dart';
 import '../../Bluetooth/bluetooth_message.dart';
+import '../../firmware_update.dart';
 
 part 'device_definition.g.dart';
 
@@ -149,8 +149,9 @@ class BaseStatefulDevice extends ChangeNotifier {
       } else if (deviceConnectionState.value == ConnectivityState.connected) {
         // Add initial commands to the queue
         Future.delayed(const Duration(seconds: 2), () {
-          commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: CommandType.system));
-          commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: CommandType.system));
+          commandQueue
+            ..addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: CommandType.system))
+            ..addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: CommandType.system));
         });
       }
     });
@@ -182,11 +183,11 @@ class BaseStatefulDevice extends ChangeNotifier {
   Future<void> getFirmwareInfo() async {
     // Try to get firmware update information from Tail Company site
     if (baseDeviceDefinition.fwURL != "" && fwInfo.value == null) {
-      Future<Response<String>> valueFuture = (await initDio()).get(baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json));
-      valueFuture.onError((error, stackTrace) {
-        bluetoothLog.warning("Unable to get Firmware info for ${baseDeviceDefinition.fwURL} :$error", error, stackTrace);
-        return Response(requestOptions: RequestOptions(), statusCode: 500);
-      });
+      Future<Response<String>> valueFuture = (await initDio()).get(baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json))
+        ..onError((error, stackTrace) {
+          bluetoothLog.warning("Unable to get Firmware info for ${baseDeviceDefinition.fwURL} :$error", error, stackTrace);
+          return Response(requestOptions: RequestOptions(), statusCode: 500);
+        });
       Response<String> value = await valueFuture;
       if (value.statusCode == 200) {
         fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
@@ -308,16 +309,19 @@ class CommandQueue {
             // We use a timeout as sometimes a response isn't sent by the gear
             timer = Timer(timeoutDuration, () {});
             response = device.rxCharacteristicStream
-                .timeout(timeoutDuration, onTimeout: (sink) {
-                  sink.addError("");
-                })
+                .timeout(
+                  timeoutDuration,
+                  onTimeout: (sink) {
+                    sink.addError("");
+                  },
+                )
                 .where((event) {
                   bluetoothLog.info('Response:$event');
                   return event.contains(message.responseMSG!);
                 })
                 .handleError((string) => "")
-                .first;
-            response.catchError((string) => "");
+                .first
+              ..catchError((string) => "");
           }
           await sendMessage(device, const Utf8Encoder().convert(message.message));
           device.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.send, message: message.message));

@@ -8,13 +8,13 @@ import 'package:install_referrer/install_referrer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tail_app/Backend/move_lists.dart';
 
 import '../Frontend/utils.dart';
 import '../constants.dart';
 import '../main.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'logging_wrappers.dart';
+import 'move_lists.dart';
 import 'sensors.dart';
 
 class PlausibleDio extends Plausible {
@@ -66,8 +66,9 @@ class PlausibleDio extends Plausible {
         ),
       );
     } catch (e) {
-      transaction.throwable = e;
-      transaction.status = const SpanStatus.internalError();
+      transaction
+        ..throwable = e
+        ..status = const SpanStatus.internalError();
       if (kDebugMode) {
         print(e);
       }

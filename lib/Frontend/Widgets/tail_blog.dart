@@ -1,19 +1,20 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:tail_app/Frontend/utils.dart';
-import 'package:tail_app/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
 import '../../Backend/logging_wrappers.dart';
+import '../../constants.dart';
+import '../utils.dart';
 
 final _wpLogger = Logger('Main');
 
 class TailBlog extends StatefulWidget {
-  const TailBlog({super.key, required this.controller});
+  const TailBlog({required this.controller, super.key});
 
   final ScrollController controller;
 
@@ -68,7 +69,7 @@ class _TailBlogState extends State<TailBlog> {
                                   child: snapshot.hasData ? snapshot.data! : const CircularProgressIndicator(),
                                 );
                               },
-                            )
+                            ),
                           ],
                           Card(
                             clipBehavior: Clip.antiAlias,
@@ -104,7 +105,7 @@ class _TailBlogState extends State<TailBlog> {
   @override
   void initState() {
     super.initState();
-    getFeed();
+    unawaited(getFeed());
   }
 
   Future<void> getFeed() async {
@@ -133,14 +134,16 @@ class _TailBlogState extends State<TailBlog> {
 
     if (_wordpressPosts.isNotEmpty) {
       for (Post post in _wordpressPosts) {
-        results.add(FeedItem(
-          title: post.title!.parsedText,
-          publishDate: post.date!,
-          url: post.link,
-          feedType: FeedType.blog,
-          imageId: post.featuredMedia,
-          imageUrl: post.featuredImageUrl,
-        ));
+        results.add(
+          FeedItem(
+            title: post.title!.parsedText,
+            publishDate: post.date!,
+            url: post.link,
+            feedType: FeedType.blog,
+            imageId: post.featuredMedia,
+            imageUrl: post.featuredImageUrl,
+          ),
+        );
       }
     }
     if (results.isNotEmpty && context.mounted) {

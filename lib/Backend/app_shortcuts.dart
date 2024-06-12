@@ -1,13 +1,14 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
-import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
-import 'package:tail_app/Backend/move_lists.dart';
-import 'package:tail_app/Backend/sensors.dart';
 
+import 'Bluetooth/bluetooth_manager.dart';
+import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'favorite_actions.dart';
+import 'move_lists.dart';
+import 'sensors.dart';
 
 part 'app_shortcuts.g.dart';
 
@@ -29,13 +30,17 @@ Future<void> appShortcuts(AppShortcutsRef ref) async {
 }
 
 Future<void> updateShortcuts(List<FavoriteAction> favoriteActions, Ref ref) async {
-  Iterable<BaseAction> allActions = favoriteActions.map(
-    (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)) as BaseAction,
-  );
-
-  quickActions.setShortcutItems(allActions
+  Iterable<BaseAction> allActions = favoriteActions
       .map(
-        (e) => ShortcutItem(type: e.uuid, localizedTitle: e.name),
+        (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),
       )
-      .toList());
+      .whereNotNull();
+
+  quickActions.setShortcutItems(
+    allActions
+        .map(
+          (e) => ShortcutItem(type: e.uuid, localizedTitle: e.name),
+        )
+        .toList(),
+  );
 }

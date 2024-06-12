@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BaseCard extends StatelessWidget {
-  const BaseCard({super.key, required this.child, this.elevation = 1, this.color});
+  const BaseCard({required this.child, super.key, this.elevation = 1, this.color});
 
   final double elevation;
   final Widget child;

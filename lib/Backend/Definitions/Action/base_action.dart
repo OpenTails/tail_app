@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
-import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../Frontend/translation_string_definitions.dart';
 import '../Device/device_definition.dart';
 
 part 'base_action.g.dart';
@@ -92,7 +92,7 @@ class CommandAction extends BaseAction {
   final String command;
   final String? response;
 
-  CommandAction({required this.command, this.response, required super.name, required super.deviceCategory, required super.actionCategory, required super.uuid, super.nameAlias});
+  CommandAction({required this.command, required super.name, required super.deviceCategory, required super.actionCategory, required super.uuid, this.response, super.nameAlias});
 
   factory CommandAction.hiddenEars(String command, String response) {
     return CommandAction(command: command, response: response, deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: const Uuid().v4(), name: command);
@@ -104,5 +104,5 @@ class AudioAction extends BaseAction {
   @HiveField(5)
   String file;
 
-  AudioAction({required super.name, super.deviceCategory = DeviceType.values, super.actionCategory = ActionCategory.audio, required super.uuid, required this.file});
+  AudioAction({required super.name, required super.uuid, required this.file, super.deviceCategory = DeviceType.values, super.actionCategory = ActionCategory.audio});
 }

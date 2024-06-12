@@ -24,7 +24,7 @@ class _DeveloperPincodeState extends State<DeveloperPincode> {
           width: 80,
         ),
         onCancelled: () => context.pop(),
-        onUnlocked: () {
+        onUnlocked: () async {
           HiveProxy.put(settings, showDebugging, true);
           context.pop();
         },

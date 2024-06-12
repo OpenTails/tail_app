@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import '../../../Backend/Bluetooth/bluetooth_message.dart';
+import '../../../Backend/Definitions/Device/device_definition.dart';
 
 class BluetoothConsole extends StatefulWidget {
   final BaseStatefulDevice device;
 
-  const BluetoothConsole({super.key, required this.device});
+  const BluetoothConsole({required this.device, super.key});
 
   @override
   State<BluetoothConsole> createState() => _BluetoothConsoleState();
@@ -61,7 +61,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
               },
               icon: const Icon(Icons.send),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -70,8 +70,8 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
 
 class DisplayLog extends StatefulWidget {
   const DisplayLog({
-    super.key,
     required this.widget,
+    super.key,
   });
 
   final BluetoothConsole widget;

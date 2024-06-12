@@ -4,23 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Frontend/pages/action_selector.dart';
-import 'package:tail_app/Frontend/pages/custom_audio.dart';
-import 'package:tail_app/Frontend/pages/developer/bluetooth_console.dart';
-import 'package:tail_app/Frontend/pages/developer/developer_menu.dart';
-import 'package:tail_app/Frontend/pages/developer/developer_pincode.dart';
-import 'package:tail_app/Frontend/pages/direct_gear_control.dart';
-import 'package:tail_app/Frontend/pages/intro.dart';
-import 'package:tail_app/Frontend/pages/markdown_viewer.dart';
-import 'package:tail_app/Frontend/pages/more.dart';
-import 'package:tail_app/Frontend/pages/move_list.dart';
-import 'package:tail_app/Frontend/pages/ota_update.dart';
-import 'package:tail_app/Frontend/pages/settings.dart';
-import 'package:tail_app/Frontend/pages/shell.dart';
-import 'package:tail_app/Frontend/pages/triggers.dart';
-import 'package:tail_app/Frontend/pages/view_pdf.dart';
-import 'package:tail_app/constants.dart';
+import '../Backend/Definitions/Device/device_definition.dart';
+import 'pages/action_selector.dart';
+import 'pages/custom_audio.dart';
+import 'pages/developer/bluetooth_console.dart';
+import 'pages/developer/developer_menu.dart';
+import 'pages/developer/developer_pincode.dart';
+import 'pages/direct_gear_control.dart';
+import 'pages/intro.dart';
+import 'pages/markdown_viewer.dart';
+import 'pages/more.dart';
+import 'pages/move_list.dart';
+import 'pages/ota_update.dart';
+import 'pages/settings.dart';
+import 'pages/shell.dart';
+import 'pages/triggers.dart';
+import 'pages/view_pdf.dart';
+import '../constants.dart';
 
 import '../Backend/NavigationObserver/custom_go_router_navigation_observer.dart';
 import '../Backend/logging_wrappers.dart';
@@ -45,43 +45,45 @@ final GoRouter router = GoRouter(
       observers: [SentryNavigatorObserver(), CustomNavObserver(plausible)],
       routes: [
         GoRoute(
+          name: 'Actions',
+          path: '/',
+          parentNavigatorKey: _shellNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
+            child: const ActionPage(),
+            key: state.pageKey,
             name: 'Actions',
-            path: '/',
-            parentNavigatorKey: _shellNavigatorKey,
-            pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
-                  child: const ActionPage(),
-                  key: state.pageKey,
-                  name: 'Actions',
-                ),
-            redirect: (context, state) {
-              if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree) {
-                return '/onboarding';
-              }
-              return null;
-            }),
+          ),
+          redirect: (context, state) {
+            if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree) {
+              return '/onboarding';
+            }
+            return null;
+          },
+        ),
         GoRoute(
+          name: 'Triggers',
+          path: '/triggers',
+          parentNavigatorKey: _shellNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
+            child: const Triggers(),
+            key: state.pageKey,
             name: 'Triggers',
-            path: '/triggers',
-            parentNavigatorKey: _shellNavigatorKey,
-            pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
-                  child: const Triggers(),
-                  key: state.pageKey,
-                  name: 'Triggers',
+          ),
+          routes: [
+            GoRoute(
+              name: 'Triggers/Select Action',
+              path: 'select',
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+                child: ActionSelector(
+                  actionSelectorInfo: state.extra! as ActionSelectorInfo,
                 ),
-            routes: [
-              GoRoute(
+                key: state.pageKey,
                 name: 'Triggers/Select Action',
-                path: 'select',
-                parentNavigatorKey: _rootNavigatorKey,
-                pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
-                  child: ActionSelector(
-                    actionSelectorInfo: state.extra! as ActionSelectorInfo,
-                  ),
-                  key: state.pageKey,
-                  name: 'Triggers/Select Action',
-                ),
               ),
-            ]),
+            ),
+          ],
+        ),
         GoRoute(
           name: 'More',
           path: '/more',
@@ -237,7 +239,7 @@ final GoRouter router = GoRouter(
               path: 'pin',
               parentNavigatorKey: _rootNavigatorKey,
               builder: (BuildContext context, GoRouterState state) => const DeveloperPincode(),
-            )
+            ),
           ],
         ),
       ],

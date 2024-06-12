@@ -4,18 +4,18 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
-import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Backend/sensors.dart';
-import 'package:tail_app/Frontend/utils.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Definitions/Action/base_action.dart';
+import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/sensors.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/device_type_widget.dart';
 import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';
+import '../utils.dart';
 import 'action_selector.dart';
 
 class Triggers extends ConsumerStatefulWidget {
@@ -75,10 +75,11 @@ class _TriggersState extends ConsumerState<Triggers> {
                         Text(
                           triggersDefSelectSaveLabel(),
                           style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                  color: getTextColor(
-                                Theme.of(context).colorScheme.primary,
-                              )),
-                        )
+                                color: getTextColor(
+                                  Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                        ),
                       ],
                     ),
                   );
@@ -87,7 +88,7 @@ class _TriggersState extends ConsumerState<Triggers> {
             ),
             title: triggersSelectLabel(),
             confirmation: true,
-            onChanged: (value) {
+            onChanged: (value) async {
               if (value != null) {
                 setState(
                   () {
@@ -122,7 +123,7 @@ class _TriggersState extends ConsumerState<Triggers> {
               itemBuilder: (BuildContext context, int index) {
                 Trigger trigger = triggersList[index];
                 return ListTile(
-                  onTap: () {
+                  onTap: () async {
                     showModalBottomSheet(
                       isDismissible: true,
                       isScrollControlled: true,
@@ -143,54 +144,56 @@ class _TriggersState extends ConsumerState<Triggers> {
                   },
                   title: Text(trigger.triggerDefinition!.name),
                   subtitle: MultiValueListenableBuilder(
-                      builder: (BuildContext context, List<dynamic> values, Widget? child) {
-                        return AnimatedCrossFade(
-                          firstChild: Text(trigger.triggerDefinition!.description),
-                          secondChild: MultiValueListenableBuilder(
-                            valueListenables: trigger.actions.map((e) => e.isActiveProgress).toList(),
-                            builder: (context, values, child) {
-                              return TweenAnimationBuilder<double>(
-                                duration: const Duration(milliseconds: 250),
-                                curve: Curves.easeInOut,
-                                tween: Tween<double>(
-                                  begin: 0,
-                                  end: values.map((e) => e as double).firstWhere(
-                                    orElse: () => 0,
-                                    (element) {
-                                      return element > 0 && element <= 1;
-                                    },
-                                  ),
+                    builder: (BuildContext context, List<dynamic> values, Widget? child) {
+                      return AnimatedCrossFade(
+                        firstChild: Text(trigger.triggerDefinition!.description),
+                        secondChild: MultiValueListenableBuilder(
+                          valueListenables: trigger.actions.map((e) => e.isActiveProgress).toList(),
+                          builder: (context, values, child) {
+                            return TweenAnimationBuilder<double>(
+                              duration: const Duration(milliseconds: 250),
+                              curve: Curves.easeInOut,
+                              tween: Tween<double>(
+                                begin: 0,
+                                end: values.map((e) => e as double).firstWhere(
+                                  orElse: () => 0,
+                                  (element) {
+                                    return element > 0 && element <= 1;
+                                  },
                                 ),
-                                builder: (context, value, _) => LinearProgressIndicator(value: value),
-                              );
-                            },
-                          ),
-                          crossFadeState: !values.any((element) => element == true) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                          duration: animationTransitionDuration,
-                        );
-                      },
-                      valueListenables: trigger.actions.map((e) => e.isActive).toList()),
+                              ),
+                              builder: (context, value, _) => LinearProgressIndicator(value: value),
+                            );
+                          },
+                        ),
+                        crossFadeState: !values.any((element) => element == true) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                        duration: animationTransitionDuration,
+                      );
+                    },
+                    valueListenables: trigger.actions.map((e) => e.isActive).toList(),
+                  ),
                   leading: ListenableBuilder(
                     listenable: trigger,
                     builder: (BuildContext context, Widget? child) {
                       return Semantics(
-                          label: 'A switch to toggle the trigger ${trigger.triggerDefinition?.name}',
-                          child: Switch(
-                            value: trigger.enabled,
-                            onChanged: (bool value) {
-                              setState(
-                                () {
-                                  trigger.enabled = value;
-                                  //ref.watch(triggerListProvider.notifier).store();
-                                },
-                              );
-                            },
-                          ));
+                        label: 'A switch to toggle the trigger ${trigger.triggerDefinition?.name}',
+                        child: Switch(
+                          value: trigger.enabled,
+                          onChanged: (bool value) {
+                            setState(
+                              () {
+                                trigger.enabled = value;
+                                //ref.watch(triggerListProvider.notifier).store();
+                              },
+                            );
+                          },
+                        ),
+                      );
                     },
                   ),
                 );
               },
-            )
+            ),
           ],
         ),
       ),
@@ -202,7 +205,7 @@ class TriggerEdit extends ConsumerStatefulWidget {
   final ScrollController scrollController;
   final Trigger trigger;
 
-  const TriggerEdit({super.key, required this.trigger, required this.scrollController});
+  const TriggerEdit({required this.trigger, required this.scrollController, super.key});
 
   @override
   ConsumerState<TriggerEdit> createState() => _TriggerEditState();
@@ -244,7 +247,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                   value: widget.trigger.enabled,
                   onChanged: (bool value) {
                     setState(
-                      () {
+                      () async {
                         widget.trigger.enabled = value;
                         plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == widget.trigger.triggerDefUUID).first.toString()});
                       },
@@ -259,7 +262,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
           selected: widget.trigger.deviceType,
           onSelectionChanged: (List<DeviceType> value) {
             setState(
-              () {
+              () async {
                 widget.trigger.deviceType = value.toList();
                 ref.watch(triggerListProvider.notifier).store();
               },
@@ -296,26 +299,28 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                       );
                     },
                   ),
-                  firstChild: Builder(builder: (context) {
-                    String text = "";
-                    Iterable<BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider).values;
-                    for (String actionUUID in e.actions) {
-                      BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
-                      if (baseAction != null &&
-                          (knownDevices.isEmpty ||
-                              knownDevices
-                                  .where(
-                                    (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-                                  )
-                                  .isNotEmpty)) {
-                        if (text.isNotEmpty) {
-                          text += ', ';
+                  firstChild: Builder(
+                    builder: (context) {
+                      String text = "";
+                      Iterable<BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider).values;
+                      for (String actionUUID in e.actions) {
+                        BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
+                        if (baseAction != null &&
+                            (knownDevices.isEmpty ||
+                                knownDevices
+                                    .where(
+                                      (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
+                                    )
+                                    .isNotEmpty)) {
+                          if (text.isNotEmpty) {
+                            text += ', ';
+                          }
+                          text += baseAction.name;
                         }
-                        text += baseAction.name;
                       }
-                    }
-                    return Text(text.isNotEmpty ? text : triggerActionNotSet());
-                  }),
+                      return Text(text.isNotEmpty ? text : triggerActionNotSet());
+                    },
+                  ),
                   crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                 );
               },
@@ -331,17 +336,19 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                   context: context,
                   builder: (BuildContext context) {
                     return Dialog.fullscreen(
-                        backgroundColor: Theme.of(context).canvasColor,
-                        child: ActionSelector(
-                          actionSelectorInfo: ActionSelectorInfo(
-                              deviceType: widget.trigger.deviceType.toSet(),
-                              selectedActions: e.actions
-                                  .map(
-                                    (e) => ref.read(getActionFromUUIDProvider(e)),
-                                  )
-                                  .whereNotNull()
-                                  .toList()),
-                        ));
+                      backgroundColor: Theme.of(context).canvasColor,
+                      child: ActionSelector(
+                        actionSelectorInfo: ActionSelectorInfo(
+                          deviceType: widget.trigger.deviceType.toSet(),
+                          selectedActions: e.actions
+                              .map(
+                                (e) => ref.read(getActionFromUUIDProvider(e)),
+                              )
+                              .whereNotNull()
+                              .toList(),
+                        ),
+                      ),
+                    );
                   },
                 );
                 if (result is List<BaseAction>) {
@@ -368,7 +375,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
         ButtonBar(
           children: [
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 setState(
                   () {
                     ref.watch(triggerListProvider).remove(widget.trigger);
@@ -380,7 +387,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
               child: const Text("Delete Trigger"),
             ),
           ],
-        )
+        ),
       ],
     );
   }

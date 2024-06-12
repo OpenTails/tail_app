@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
-import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'Bluetooth/bluetooth_manager.dart';
+import 'Definitions/Action/base_action.dart';
+import 'Definitions/Device/device_definition.dart';
 
 part 'device_registry.g.dart';
 
@@ -14,22 +14,24 @@ final deviceRegistryLogger = log.Logger('DeviceRegistry');
 class DeviceRegistry {
   static Set<BaseDeviceDefinition> allDevices = {
     BaseDeviceDefinition(
-        uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
-        btName: "MiTail",
-        bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
-        bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
-        bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
-        deviceType: DeviceType.tail,
-        fwURL: "https://thetailcompany.com/fw/mitailfw",
-        minVersion: Version(5, 0, 0)),
+      uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
+      btName: "MiTail",
+      bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+      bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
+      bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
+      deviceType: DeviceType.tail,
+      fwURL: "https://thetailcompany.com/fw/mitailfw",
+      minVersion: Version(5, 0, 0),
+    ),
     const BaseDeviceDefinition(
-        uuid: "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee",
-        btName: "(!)Tail1",
-        bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
-        bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
-        bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
-        deviceType: DeviceType.tail,
-        unsupported: true),
+      uuid: "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee",
+      btName: "(!)Tail1",
+      bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+      bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
+      bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
+      deviceType: DeviceType.tail,
+      unsupported: true,
+    ),
     BaseDeviceDefinition(
       uuid: "5fb21175-fef4-448a-a38b-c472d935abab",
       btName: "minitail",
@@ -67,7 +69,7 @@ class DeviceRegistry {
       bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
       deviceType: DeviceType.ears,
       unsupported: true,
-    )
+    ),
   };
 
   static BaseDeviceDefinition getByUUID(String uuid) {

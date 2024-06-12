@@ -3,7 +3,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 /// Wrapper for FlutterBluePlus in order to easily mock it
 /// Wraps all static calls for testing purposes
 class FlutterBluePlusMockable {
-  get onScanResults => FlutterBluePlus.onScanResults;
+  Stream<List<ScanResult>> get onScanResults => FlutterBluePlus.onScanResults;
 
   Future<void> startScan({
     List<Guid> withServices = const [],

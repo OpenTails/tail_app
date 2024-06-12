@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/logging_wrappers.dart';
 
 import '../../constants.dart';
 import '../Definitions/Device/device_definition.dart';
 import '../device_registry.dart';
+import '../logging_wrappers.dart';
 
 part 'bluetooth_manager.g.dart';
 
@@ -44,8 +44,7 @@ class KnownDevices extends _$KnownDevices {
   }
 
   Future<void> remove(String id) async {
-    Map<String, BaseStatefulDevice> state2 = Map.from(state);
-    state2.remove(id);
+    Map<String, BaseStatefulDevice> state2 = Map.from(state)..remove(id);
     state = state2;
     await store();
   }

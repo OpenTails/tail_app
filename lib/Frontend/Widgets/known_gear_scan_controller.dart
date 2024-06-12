@@ -1,19 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:sentry_hive/sentry_hive.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/constants.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../constants.dart';
 
 final knownGearScanControllerLogger = log.Logger('KnownGearScanController');
 
 class KnownGearScanController extends ConsumerStatefulWidget {
-  const KnownGearScanController({super.key, required this.child});
+  const KnownGearScanController({required this.child, super.key});
 
   final Widget child;
 
@@ -36,9 +38,9 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
         );
       },
       //onResume: () => _handleTransition('resume'),
-      onHide: () {
+      onHide: () async {
         if (!isAnyGearConnected.value) {
-          stopScan();
+          await stopScan();
         }
       },
       //onInactive: () => _handleTransition('inactive'),
@@ -52,7 +54,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
   void dispose() {
     super.dispose();
     _listener.dispose();
-    stopScan();
+    unawaited(stopScan());
   }
 
   @override
@@ -76,11 +78,11 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
                     if (bluetoothEnabled) {
                       //when running, automatically reconnects to devices
                       knownGearScanControllerLogger.info("Scanning for gear");
-                      beginScan();
+                      unawaited(beginScan());
                     }
                   } else {
                     knownGearScanControllerLogger.info("All devices connected");
-                    stopScan();
+                    unawaited(stopScan());
                   }
                   return child!;
                 },
@@ -93,18 +95,19 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
                       },
                     ),
                     NotificationListener<OverscrollNotification>(
-                        onNotification: (OverscrollNotification notification) {
-                          //knownGearScanControllerLogger.info('Overscroll ${notification.overscroll}');
-                          if (notification.overscroll < 2 && notification.overscroll > -2) {
-                            // ignore, don't do anything
-                            return false;
-                          }
-                          if (!alwaysScan) {
-                            beginScan(timeout: scanDurationTimeout);
-                          }
-                          return true;
-                        },
-                        child: widget.child),
+                      onNotification: (OverscrollNotification notification) {
+                        //knownGearScanControllerLogger.info('Overscroll ${notification.overscroll}');
+                        if (notification.overscroll < 2 && notification.overscroll > -2) {
+                          // ignore, don't do anything
+                          return false;
+                        }
+                        if (!alwaysScan) {
+                          unawaited(beginScan(timeout: scanDurationTimeout));
+                        }
+                        return true;
+                      },
+                      child: widget.child,
+                    ),
                   ],
                 ),
               );
@@ -115,7 +118,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
         },
       );
     }
-    stopScan();
+    unawaited(stopScan());
     return widget.child;
   }
 }

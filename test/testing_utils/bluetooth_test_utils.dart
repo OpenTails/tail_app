@@ -8,7 +8,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_utils.dart';
 @GenerateNiceMocks([MockSpec<FlutterBluePlusMockable>(), MockSpec<BluetoothEvents>()])
 import 'bluetooth_test_utils.mocks.dart';
 
-void setupBTMock(String btName, String btMac) {
+Future<void> setupBTMock(String btName, String btMac) async {
   MockFlutterBluePlusMockable flutterBluePlusMock = MockFlutterBluePlusMockable();
   flutterBluePlus = flutterBluePlusMock;
   when(flutterBluePlusMock.isSupported).thenAnswer((_) async => true);
@@ -18,10 +18,16 @@ void setupBTMock(String btName, String btMac) {
   when(flutterBluePlusMock.isSupported).thenAnswer((_) async => true);
   when(flutterBluePlusMock.isSupported).thenAnswer((_) async => true);
   when(flutterBluePlusMock.connectedDevices).thenAnswer((_) => [BluetoothDevice(remoteId: DeviceIdentifier(btMac))]);
-  when(flutterBluePlusMock.scanResults).thenAnswer((_) =>
-      Stream.value([ScanResult(rssi: 50, advertisementData: AdvertisementData(advName: btName, txPowerLevel: null, appearance: null, connectable: true, manufacturerData: {}, serviceData: {}, serviceUuids: []), device: BluetoothDevice(remoteId: DeviceIdentifier(btMac)), timeStamp: DateTime.now())]));
-  when(flutterBluePlusMock.onScanResults).thenAnswer((_) =>
-      Stream.value([ScanResult(rssi: 50, advertisementData: AdvertisementData(advName: btName, txPowerLevel: null, appearance: null, connectable: true, manufacturerData: {}, serviceData: {}, serviceUuids: []), device: BluetoothDevice(remoteId: DeviceIdentifier(btMac)), timeStamp: DateTime.now())]));
+  when(flutterBluePlusMock.scanResults).thenAnswer(
+    (_) => Stream.value(
+      [ScanResult(rssi: 50, advertisementData: AdvertisementData(advName: btName, txPowerLevel: null, appearance: null, connectable: true, manufacturerData: {}, serviceData: {}, serviceUuids: []), device: BluetoothDevice(remoteId: DeviceIdentifier(btMac)), timeStamp: DateTime.now())],
+    ),
+  );
+  when(flutterBluePlusMock.onScanResults).thenAnswer(
+    (_) => Stream.value(
+      [ScanResult(rssi: 50, advertisementData: AdvertisementData(advName: btName, txPowerLevel: null, appearance: null, connectable: true, manufacturerData: {}, serviceData: {}, serviceUuids: []), device: BluetoothDevice(remoteId: DeviceIdentifier(btMac)), timeStamp: DateTime.now())],
+    ),
+  );
   when(flutterBluePlusMock.setLogLevel(any)).thenAnswer((_) async {});
 
   BluetoothEvents bluetoothEvents = MockBluetoothEvents();

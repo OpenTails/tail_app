@@ -2,9 +2,9 @@ import 'package:audio_session/audio_session.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 
 import '../constants.dart';
+import 'Definitions/Action/base_action.dart';
 import 'logging_wrappers.dart';
 
 part 'audio.g.dart';
@@ -14,18 +14,20 @@ final Logger _audioLogger = Logger('Audio');
 Future<void> setUpAudio() async {
   _audioLogger.info("Setting up audio session");
   final session = await AudioSession.instance;
-  await session.configure(const AudioSessionConfiguration(
-    avAudioSessionCategory: AVAudioSessionCategory.ambient,
-    avAudioSessionMode: AVAudioSessionMode.defaultMode,
-    avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
-    androidAudioAttributes: AndroidAudioAttributes(
-      contentType: AndroidAudioContentType.unknown,
-      flags: AndroidAudioFlags.none,
-      usage: AndroidAudioUsage.media,
+  await session.configure(
+    const AudioSessionConfiguration(
+      avAudioSessionCategory: AVAudioSessionCategory.ambient,
+      avAudioSessionMode: AVAudioSessionMode.defaultMode,
+      avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
+      androidAudioAttributes: AndroidAudioAttributes(
+        contentType: AndroidAudioContentType.unknown,
+        flags: AndroidAudioFlags.none,
+        usage: AndroidAudioUsage.media,
+      ),
+      androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
+      androidWillPauseWhenDucked: true,
     ),
-    androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
-    androidWillPauseWhenDucked: true,
-  ));
+  );
 }
 
 Future<void> playSound(String file) async {
@@ -51,13 +53,14 @@ class UserAudioActions extends _$UserAudioActions {
     return results;
   }
 
-  void add(AudioAction action) {
-    state.add(action);
-    state.sort();
+  Future<void> add(AudioAction action) async {
+    state
+      ..add(action)
+      ..sort();
     store();
   }
 
-  void remove(AudioAction action) {
+  Future<void> remove(AudioAction action) async {
     state.removeWhere((element) => element.uuid == action.uuid);
     store();
   }

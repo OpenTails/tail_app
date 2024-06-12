@@ -49,9 +49,11 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
     return MultiValueListenableBuilder(
       valueListenables: knownDevices.isEmpty ? [ValueNotifier(ConnectivityState.disconnected)] : knownDevices.values.map((e) => e.deviceConnectionState).toList(),
       builder: (BuildContext context, List<dynamic> values, Widget? child) {
-        Map<String, BaseStatefulDevice> knownDevicesFiltered = Map.fromEntries(knownDevices.entries.where(
-          (element) => element.value.deviceConnectionState.value == ConnectivityState.connected,
-        ));
+        Map<String, BaseStatefulDevice> knownDevicesFiltered = Map.fromEntries(
+          knownDevices.entries.where(
+            (element) => element.value.deviceConnectionState.value == ConnectivityState.connected,
+          ),
+        );
         return MultiValueListenableBuilder(
           builder: (context, values, child) {
             Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.read(getAvailableActionsProvider);
@@ -64,29 +66,30 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                     shrinkWrap: true,
                     children: [
                       AnimatedCrossFade(
-                          firstChild: PageInfoCard(
-                            text: actionsFavoriteTip(),
-                          ),
-                          secondChild: GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
-                            itemCount: actionsCatMap.values.flattened
+                        firstChild: PageInfoCard(
+                          text: actionsFavoriteTip(),
+                        ),
+                        secondChild: GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                          itemCount: actionsCatMap.values.flattened
+                              .where(
+                                (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
+                              )
+                              .length,
+                          itemBuilder: (BuildContext context, int index) {
+                            BaseAction baseAction = actionsCatMap.values.flattened
                                 .where(
                                   (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
                                 )
-                                .length,
-                            itemBuilder: (BuildContext context, int index) {
-                              BaseAction baseAction = actionsCatMap.values.flattened
-                                  .where(
-                                    (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                                  )
-                                  .toList()[index];
-                              return getActionCard(index, knownDevicesFiltered, baseAction, largerCards);
-                            },
-                          ),
-                          crossFadeState: actionsCatMap.values.flattened.where((element) => ref.read(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                          duration: animationTransitionDuration),
+                                .toList()[index];
+                            return getActionCard(index, knownDevicesFiltered, baseAction, largerCards);
+                          },
+                        ),
+                        crossFadeState: actionsCatMap.values.flattened.where((element) => ref.read(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                        duration: animationTransitionDuration,
+                      ),
                       ListView.builder(
                         shrinkWrap: true,
                         itemCount: catList.length,
@@ -123,7 +126,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                                       },
                                     );
                                   },
-                                )
+                                ),
                               ],
                             ),
                           );
@@ -152,7 +155,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
       color: color,
       elevation: 1,
       child: InkWell(
-        onLongPress: () {
+        onLongPress: () async {
           if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
             HapticFeedback.mediumImpact();
             setState(
@@ -225,7 +228,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),
                   textScaler: TextScaler.linear(largerCards ? 2 : 1),
                 ),
-              )
+              ),
             ],
           ),
         ),
