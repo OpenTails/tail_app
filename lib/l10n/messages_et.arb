@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit.",
+  "onboardingPrivacyPolicyDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Väljumiseks vajutage uuesti ",
+  "doubleBackToClose": "Väljumiseks vajutage uuesti",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
