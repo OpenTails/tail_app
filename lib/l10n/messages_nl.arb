@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "Hoe snel moet de apparatuur deze positie bereiken?",
+  "sequencesEditSpeed": "Hoe snel moet de uitrusting deze positie bereiken?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Activeer een actie wanneer apparatuur in de buurt is",
+  "triggerProximityDescription": "Activeer een actie wanneer uitrusting in de buurt is",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Op welke apparatuur moet het van toepassing zijn?",
+  "deviceType": "Op welke uitrusting moet het van toepassing zijn?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Deze modus voorkomt dat het scherm wordt uitgeschakeld terwijl jouw apparatuur is aangesloten",
+  "settingsKeepScreenOnToggleSubTitle": "Deze modus voorkomt dat het scherm wordt uitgeschakeld terwijl jouw uitrusting is aangesloten",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Om verbinding te maken met de apparatuur is Bluetooth-toestemming vereist",
+  "onboardingBluetoothDescription": "Om verbinding te maken met de uitrusting is Bluetooth-toestemming vereist",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Druk nogmaals om af te sluiten ",
+  "doubleBackToClose": "Druk nogmaals om af te sluiten",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -819,13 +819,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "noLongerSupported": "Deze apparatuur wordt niet langer ondersteund. Sommige app-functies werken mogelijk niet",
+  "noLongerSupported": "Deze uitrusting wordt niet langer ondersteund. Sommige app-functies werken mogelijk niet",
   "@noLongerSupported": {
     "description": "Warning message which appears for unsupported gear on the manage gear page",
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Een firmware-update is nodig om de app jouw apparatuur te laten ondersteunen",
+  "mandatoryOtaRequired": "Er is een firmware-update beschikbaar om jouw uitrusting beter te ondersteunen",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -903,7 +903,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGear": "Gesimuleerde apparatuur",
+  "scanDemoGear": "Gesimuleerde uitrusting",
   "@scanDemoGear": {
     "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
@@ -915,13 +915,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanAddDemoGear": "Voeg gesimuleerde apparatuur toe",
+  "scanAddDemoGear": "Voeg gesimuleerde uitrusting toe",
   "@scanAddDemoGear": {
     "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "scanRemoveDemoGear": "Verwijder alle gesimuleerde apparatuur",
+  "scanRemoveDemoGear": "Verwijder alle gesimuleerde uitrusting",
   "@scanRemoveDemoGear": {
     "description": "Label for the button to remove all demo gear on the scan for new devices page",
     "type": "text",
@@ -954,6 +954,30 @@
   "triggersDefSelectSaveLabel": "selecteer",
   "@triggersDefSelectSaveLabel": {
     "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Update alsjeblieft jouw uitrusting",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Uitrusting aangesloten",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Gelukkig kwispelen",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Update beschikbaar",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
     "type": "text",
     "placeholders": {}
   }
