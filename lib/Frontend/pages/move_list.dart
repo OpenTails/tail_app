@@ -173,7 +173,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
       floatingActionButton: moveList!.moves.length < 6
           ? FloatingActionButton.extended(
               icon: const Icon(Icons.add),
-              onPressed: () {
+              onPressed: () async {
                 setState(
                   () {
                     moveList!.moves.add(Move());
@@ -209,7 +209,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 maxLines: 1,
                 maxLength: 30,
                 autocorrect: false,
-                onSubmitted: (nameValue) {
+                onSubmitted: (nameValue) async {
                   setState(
                     () {
                       moveList!.name = nameValue;
@@ -221,7 +221,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
             ),
             DeviceTypeWidget(
               selected: moveList!.deviceCategory,
-              onSelectionChanged: (List<DeviceType> value) {
+              onSelectionChanged: (List<DeviceType> value) async {
                 setState(() => moveList!.deviceCategory = value.toList());
                 ref.watch(moveListsProvider.notifier).store();
               },
@@ -235,7 +235,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 max: 5,
                 divisions: 4,
                 label: "${moveList!.repeat.toInt()}",
-                onChanged: (double value) {
+                onChanged: (double value) async {
                   setState(() {
                     setState(() => moveList!.repeat = value);
                     ref.watch(moveListsProvider.notifier).store();
@@ -253,7 +253,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                     key: Key('$index'),
                     title: Text(moveList!.moves[index].toString()),
                     leading: Icon(moveList!.moves[index].moveType.icon),
-                    onTap: () {
+                    onTap: () async {
                       editModal(context, index);
                       //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
                     },
@@ -278,7 +278,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
     );
   }
 
-  void editModal(BuildContext context, int index) {
+  Future<void> editModal(BuildContext context, int index) async {
     Move move = moveList!.moves[index];
     if (_tabController != null) {
       //There is probably a much better way to remove listeners

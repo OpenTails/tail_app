@@ -26,7 +26,7 @@ import '../translation_string_definitions.dart';
 import '../utils.dart';
 
 class OtaUpdate extends ConsumerStatefulWidget {
-  const OtaUpdate({super.key, required this.device});
+  const OtaUpdate({required this.device, super.key});
 
   final String device;
 
@@ -78,9 +78,6 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     super.dispose();
     if (!wakelockEnabledBeforehand) {
       unawaited(WakelockPlus.disable());
-    }
-    if ([OtaState.download, OtaState.upload].contains(otaState)) {
-      otaState == OtaState.error;
     }
     baseStatefulDevice?.deviceState.value = DeviceState.standby;
     baseStatefulDevice!.fwVersion.removeListener(verListener);
@@ -426,7 +423,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
         List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
         await sendMessage(baseStatefulDevice!, beginOTA);
 
-        while (uploadProgress < 1 && otaState != OtaState.error) {
+        while (uploadProgress < 1 && otaState != OtaState.error && mounted) {
           baseStatefulDevice!.deviceState.value = DeviceState.busy; // hold the command queue
           if (baseStatefulDevice!.gearReturnedError.value) {
             transaction.status = const SpanStatus.unavailable();
