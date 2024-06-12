@@ -1,3 +1,31 @@
+### V 1.0.5
+
+- Send glowtip and sound actions before move actions
+- Minor bug fixes
+
+### V 1.0.4
+
+- Allow tapping on update notices to go to ota screen
+- Swap EarGear left/right moves
+- Minor bug fixes
+
+### V 1.0.3
+
+- Changed trigger select button to be more visible
+- Reload actions when glowtip is found
+- Fix Custom Actions not working on tails and wings
+- Fix PDF renderer on android for Gear manuals
+
+### V 1.0.2
+
+- Added warnings for outdated gear to Custom Actions and Joystick
+- UI/UX changes to selecting actions for triggers to reduce confusion
+- Fix bug where trigger doesn't activate after accepting permission
+
+### V 1.0.1
+
+- Fixed some bugs with Custom Actions
+
 # Welcome!
 
 This is the first release of the all new Tail Company App!
@@ -19,20 +47,3 @@ Theres so many improvements over our old app - heres the headlines
 - And a "Send feedback" button that lets you navigate and illustrate the issue!
 
   Theres actually even more than this - the best way to discover our new app is to have a really good wag.
-
-### V 1.0.1
-
-- Fixed some bugs with Custom Actions
-
-### V 1.0.2
-
-- Added warnings for outdated gear to Custom Actions and Joystick
-- UI/UX changes to selecting actions for triggers to reduce confusion
-- Fix bug where trigger doesn't activate after accepting permission
-
-### V 1.0.3
-
-- Changed trigger select button to be more visible
-- Reload actions when glowtip is found
-- Fix Custom Actions not working on tails and wings
-- Fix PDF renderer on android for Gear manuals
