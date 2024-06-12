@@ -23,11 +23,12 @@ class TailBlog extends StatefulWidget {
 }
 
 List<Post> _wordpressPosts = [];
+List<FeedItem> results = [];
+Map<int, Uint8List> images = {};
 
 class _TailBlogState extends State<TailBlog> {
   FeedState feedState = FeedState.loading;
-  List<FeedItem> results = [];
-  Map<int, Uint8List> images = {};
+
   WordpressClient? client;
 
   @override
@@ -187,7 +188,7 @@ class _TailBlogState extends State<TailBlog> {
               followRedirects: true,
             ),
           );
-          if (context.mounted && response.statusCode! < 400) {
+          if (response.statusCode! < 400) {
             data = Uint8List.fromList(response.data!);
             images[item.imageId!] = data;
           }
