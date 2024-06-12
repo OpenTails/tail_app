@@ -214,11 +214,6 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         BaseAction? baseAction;
         List<BaseAction> actionsToRun = [];
 
-        // check if non glowy actions are set
-        if (moveActions.isNotEmpty) {
-          baseAction = moveActions[_random.nextInt(moveActions.length)];
-          actionsToRun.add(baseAction);
-        }
         // add a glowtip action if it exists
         if (glowActions.isNotEmpty) {
           final BaseAction glowAction = glowActions[_random.nextInt(glowActions.length)];
@@ -231,7 +226,11 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         }
         final Set<DeviceType> flattenedDeviceTypes = deviceTypes.values.flattened.toSet();
         final Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
-
+        // check if non glowy actions are set
+        if (moveActions.isNotEmpty) {
+          baseAction = moveActions[_random.nextInt(moveActions.length)];
+          actionsToRun.add(baseAction);
+        }
         if (baseAction != null && !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes)) {
           // find the missing device type
           // The goal here is if a user selects multiple moves, send a move to all gear
