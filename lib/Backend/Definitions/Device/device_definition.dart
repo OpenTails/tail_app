@@ -149,7 +149,7 @@ class BaseStatefulDevice extends ChangeNotifier {
       } else if (deviceConnectionState.value == ConnectivityState.connected) {
         // Add initial commands to the queue
         Future.delayed(const Duration(seconds: 2), () {
-          commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: CommandType.system, responseMSG: "VER "));
+          commandQueue.addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: CommandType.system));
           commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: CommandType.system, responseMSG: baseDeviceDefinition.deviceType == DeviceType.ears ? "HWVER " : null));
         });
       }
