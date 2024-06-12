@@ -104,7 +104,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
             direction: Axis.vertical,
             children: [
               if ([OtaState.standby, OtaState.manual].contains(otaState)) ...[
-                if (!HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
                   Expanded(
                     child: ListTile(
                       title: const Text("Debug"),
