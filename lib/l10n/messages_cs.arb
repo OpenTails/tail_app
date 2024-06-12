@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Pro ukončení stiskněte znovu ",
+  "doubleBackToClose": "Pro ukončení stiskněte znovu",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
