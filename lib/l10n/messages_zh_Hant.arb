@@ -873,7 +873,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "再按一次退出 ",
+  "doubleBackToClose": "再按一次退出",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
