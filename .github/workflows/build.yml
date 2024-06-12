@@ -40,6 +40,7 @@ jobs:
           sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
           sentry-org: ${{ secrets.SENTRY_ORG }}
           sentry-project: ${{ secrets.SENTRY_PROJECT }}
+          sentry-dsn: ${{ secrets.SENTRY_DSN }}
           #sentry-url: ${{ secrets.SENTRY_URL }}
       - name: Build IOS / Upload Beta
         if: github.event_name == 'push'
@@ -56,6 +57,7 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           #SENTRY_URL: ${{ secrets.SENTRY_URL }}
       - name: Upload Dart/Flutter debug symbols
         run: dart pub global activate sentry_dart_plugin && dart pub global run sentry_dart_plugin

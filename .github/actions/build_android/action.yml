@@ -25,6 +25,9 @@ inputs:
   sentry-auth-token:
     description: 'The sentry auth token for uploading debug symbols'
     required: true
+  sentry-dsn:
+    description: 'The sentry dsn for sending error info'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -42,23 +45,26 @@ runs:
         ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
     - name: Build APK
       shell: bash
-      run: flutter build apk --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=cronetHttpNoPlay=true
+      run: flutter build apk --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=cronetHttpNoPlay=true --dart-define=SENTRY_DSN=$SENTRY_DSN
       env:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
         SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
         SENTRY_ORG: ${{ inputs.sentry-org }}
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
+        SENTRY_DSN: ${{ inputs.sentry-dsn }}
         #SENTRY_URL: ${{ inputs.sentry-url }}
     - name: Build AppBundle
       shell: bash
-      run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"
+      run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=SENTRY_DSN=$SENTRY_DSN
       env:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
         SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
         SENTRY_ORG: ${{ inputs.sentry-org }}
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
+        SENTRY_DSN: ${{ inputs.sentry-dsn }}
+
         #SENTRY_URL: ${{ inputs.sentry-url }}
 
     - uses: actions/upload-artifact@v4

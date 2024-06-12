@@ -116,7 +116,7 @@ Future<void> main() async {
   mainLogger.info("Detected Environment: $environment");
   await SentryFlutter.init(
     (options) async {
-      options.dsn = 'https://cd338ff75dd419608f4704e517904a1d@o4507396530307072.ingest.de.sentry.io/4507396677501008';
+      options.dsn = const String.fromEnvironment('SENTRY_DSN');
       options.addIntegration(LoggingIntegration());
       options.enableBreadcrumbTrackingForCurrentPlatform();
       options.debug = kDebugMode;
