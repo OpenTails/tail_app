@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "OTAアップデートを開始",
+  "sequencesInfoEditDescription": "各カスタムアクションは 1 ～ 6 個の動きから構成され、最大 5 回繰り返すことができます。動きを長押しすると順序を変更できます。",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります。",
+  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "終了するにはもう一度押してください ",
+  "doubleBackToClose": "終了するにはもう一度押してください",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -765,13 +765,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "ギアを更新しています。ギアをオフにしたり、アプリを閉じたりしないでください。",
+  "otaInProgressTitle": "ギアを更新しています。ギアをオフにしたり、アプリを閉じたりしないでください",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "バッテリー残量が少なくなっています。機器を少なくとも50%まで充電してください。",
+  "otaLowBattery": "バッテリー残量が少なくなっています。機器を少なくとも50%まで充電してください",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
