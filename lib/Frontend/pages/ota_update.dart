@@ -104,27 +104,29 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
             direction: Axis.vertical,
             children: [
               if ([OtaState.standby, OtaState.manual].contains(otaState)) ...[
-                if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                if (!HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
                   Expanded(
-                      child: ListTile(
-                    title: const Text("Debug"),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("MD5: ${firmwareInfo?.md5sum}"),
-                        Text("DL MD5: $downloadedMD5"),
-                        Text("URL: ${baseStatefulDevice?.baseDeviceDefinition.fwURL}"),
-                        Text("AVAILABLE VERSION: ${firmwareInfo?.version}"),
-                        Text("CURRENT VERSION: ${baseStatefulDevice?.fwVersion.value}"),
-                        Text("STATE: $otaState"),
-                      ],
+                    child: ListTile(
+                      title: const Text("Debug"),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("MD5: ${firmwareInfo?.md5sum}"),
+                          Text("DL MD5: $downloadedMD5"),
+                          Text("URL: ${baseStatefulDevice?.baseDeviceDefinition.fwURL}"),
+                          Text("AVAILABLE VERSION: ${firmwareInfo?.version}"),
+                          Text("CURRENT VERSION: ${baseStatefulDevice?.fwVersion.value}"),
+                          Text("STATE: $otaState"),
+                        ],
+                      ),
                     ),
-                  )),
+                  ),
                 ],
                 Expanded(
+                  flex: 2,
                   child: Center(
                     child: LottieLazyLoad(
-                      width: MediaQuery.of(context).size.width / 1.5,
+                      width: MediaQuery.of(context).size.width,
                       asset: Assets.tailcostickers.tailCoStickersFile144834357,
                     ),
                   ),
