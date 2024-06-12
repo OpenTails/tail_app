@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, toque la acción nuevamente para eliminarla. No olvides guardar usando el ícono de guardar en la parte superior.",
+  "onboardingPrivacyPolicyDescription": "Toque el lápiz para seleccionar la acción que se reproducirá cuando ocurra el evento. Para eliminar una acción, toque la acción nuevamente para eliminarla. No olvides guardar usando el ícono de guardar en la parte superior",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Presione nuevamente para salir ",
+  "doubleBackToClose": "Presione nuevamente para salir",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Error de actualización. Reinicia tu equipo e inténtalo de nuevo.",
+  "otaFailedTitle": "Error de actualización. Reinicia tu equipo e inténtalo de nuevo",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -765,13 +765,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Actualización de equipo. No apagues tu equipo ni cierres la aplicación.",
+  "otaInProgressTitle": "Actualización de equipo. No apagues tu equipo ni cierres la aplicación",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Batería baja. Cargue su equipo al menos al 50 %.",
+  "otaLowBattery": "Batería baja. Cargue su equipo al menos al 50%",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -795,7 +795,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Equipo encontrado. Toca el nombre del equipo para conectarte.",
+  "scanDevicesFoundTitle": "Equipo encontrado. Toca el nombre del equipo para conectarte",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
