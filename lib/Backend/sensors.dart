@@ -290,7 +290,11 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     super.icon = const Icon(Icons.directions_walk);
     super.requiredPermission = TriggerPermissionHandle(android: {Permission.activityRecognition});
     super.uuid = "ee9379e2-ec4f-40bb-8674-fd223a6edfda";
-    super.actionTypes = [TriggerActionDef("Walking", triggerWalkingTitle(), "77d22961-5a69-465a-bd27-5cf5508d10a6"), TriggerActionDef("Stopped", triggerWalkingStopped(), "7424097d-ba24-4d85-b963-bf58e85e289d"), TriggerActionDef("Step", triggerWalkingStep(), "c82b04ba-7d2e-475a-90ba-3d354e5b8ef0")];
+    super.actionTypes = [
+      TriggerActionDef(name: "Walking", translated: triggerWalkingTitle(), uuid: "77d22961-5a69-465a-bd27-5cf5508d10a6"),
+      TriggerActionDef(name: "Stopped", translated: triggerWalkingStopped(), uuid: "7424097d-ba24-4d85-b963-bf58e85e289d"),
+      TriggerActionDef(name: "Step", translated: triggerWalkingStep(), uuid: "c82b04ba-7d2e-475a-90ba-3d354e5b8ef0")
+    ];
   }
 
   @override
@@ -334,7 +338,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
     super.icon = const Icon(Icons.sensors);
     super.requiredPermission = null;
     super.uuid = "a390cd3c-c314-44c1-b89d-57be75bfc3a2";
-    super.actionTypes = [TriggerActionDef("Near", triggerCoverNear(), "bf3d0ce0-15c0-46db-95ce-e2cd6a5ecd0f"), TriggerActionDef("Far", triggerCoverFar(), "d121e4a8-a12d-4f0a-8348-89c62eb72a7a")];
+    super.actionTypes = [TriggerActionDef(name: "Near", translated: triggerCoverNear(), uuid: "bf3d0ce0-15c0-46db-95ce-e2cd6a5ecd0f"), TriggerActionDef(name: "Far", translated: triggerCoverFar(), uuid: "d121e4a8-a12d-4f0a-8348-89c62eb72a7a")];
   }
 
   @override
@@ -370,7 +374,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     super.requiredPermission = null;
     super.uuid = "3bbd2306-ea53-44f5-a930-474ff23ec23d";
     super.actionTypes = [
-      TriggerActionDef("Sound", triggerEarMicSound(), "839d8978-7b77-4ccb-b23f-28144bf95453"),
+      TriggerActionDef(name: "Sound", translated: triggerEarMicSound(), uuid: "839d8978-7b77-4ccb-b23f-28144bf95453"),
     ];
   }
 
@@ -446,10 +450,10 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     super.requiredPermission = null;
     super.uuid = "93d72792-145e-4b56-92b9-3279a5e7d839";
     super.actionTypes = [
-      TriggerActionDef("Left", triggerEarTiltLeft(), "0137efd7-5a6f-4ac3-8956-cd75e11e6fd4"),
-      TriggerActionDef("Right", triggerEarTiltRight(), "21d233cc-aeaf-4096-a997-7070e38a8801"),
-      TriggerActionDef("Forward", triggerEarTiltForward(), "7e32987a-588c-4969-a589-d95f94262da7"),
-      TriggerActionDef("Backward", triggerEarTiltBackward(), "a4ad813e-a867-4c73-8e73-c4a294829667"),
+      TriggerActionDef(name: "Left", translated: triggerEarTiltLeft(), uuid: "0137efd7-5a6f-4ac3-8956-cd75e11e6fd4"),
+      TriggerActionDef(name: "Right", translated: triggerEarTiltRight(), uuid: "21d233cc-aeaf-4096-a997-7070e38a8801"),
+      TriggerActionDef(name: "Forward", translated: triggerEarTiltForward(), uuid: "7e32987a-588c-4969-a589-d95f94262da7"),
+      TriggerActionDef(name: "Backward", translated: triggerEarTiltBackward(), uuid: "a4ad813e-a867-4c73-8e73-c4a294829667"),
     ];
   }
 
@@ -532,7 +536,7 @@ class RandomTriggerDefinition extends TriggerDefinition {
     super.icon = const Icon(Icons.timelapse);
     super.requiredPermission = null;
     super.uuid = "12e01dea-219a-40e7-b51d-d89d6d4460ac";
-    super.actionTypes = [TriggerActionDef("Action", triggerRandomAction(), "60011d58-1c29-49ae-ad31-6774b81df49b")];
+    super.actionTypes = [TriggerActionDef(name: "Action", translated: triggerRandomAction(), uuid: "60011d58-1c29-49ae-ad31-6774b81df49b")];
   }
 
   @override
@@ -558,7 +562,7 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
     super.icon = const Icon(Icons.volume_up);
     super.requiredPermission = null;
     super.uuid = "26c1eaef-5976-43cb-bc68-f67cfb29de51";
-    super.actionTypes = [TriggerActionDef("Volume Up", triggerVolumeButtonVolumeUp(), "834a9bef-9ae2-4623-81fa-bbead69eb28e"), TriggerActionDef("Volume Down", triggerVolumeButtonVolumeDown(), "2972aa14-33de-4d4f-ac67-4f572306b5c4")];
+    super.actionTypes = [TriggerActionDef(name: "Volume Up", translated: triggerVolumeButtonVolumeUp(), uuid: "834a9bef-9ae2-4623-81fa-bbead69eb28e"), TriggerActionDef(name: "Volume Down", translated: triggerVolumeButtonVolumeDown(), uuid: "2972aa14-33de-4d4f-ac67-4f572306b5c4")];
   }
 
   @override
@@ -592,7 +596,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
     super.icon = const Icon(Icons.vibration);
     super.requiredPermission = null;
     super.uuid = "059d445a-35fe-45a3-8d3d-de8bce213a05";
-    super.actionTypes = [TriggerActionDef("Shake", triggerShakeTitle(), "b84b4c7a-2330-4ede-82f4-dca7b6e74b0a")];
+    super.actionTypes = [TriggerActionDef(name: "Shake", translated: triggerShakeTitle(), uuid: "b84b4c7a-2330-4ede-82f4-dca7b6e74b0a")];
   }
 
   @override
@@ -624,7 +628,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
     super.icon = const Icon(Icons.bluetooth_connected);
     super.requiredPermission = TriggerPermissionHandle(android: {Permission.bluetoothScan}, ios: {Permission.bluetooth});
     super.uuid = "5418e7a5-850b-482e-ba35-163564c848ab";
-    super.actionTypes = [TriggerActionDef("Nearby Gear", triggerProximityTitle(), "e78a749b-8b78-47df-a5a1-1ed365292214")];
+    super.actionTypes = [TriggerActionDef(name: "Nearby Gear", translated: triggerProximityTitle(), uuid: "e78a749b-8b78-47df-a5a1-1ed365292214")];
   }
 
   @override
@@ -657,7 +661,9 @@ class TriggerActionDef {
   String name;
   String translated; //Translated name
   String uuid; // uuid
-  TriggerActionDef(this.name, this.translated, this.uuid);
+  bool defaultActions = false;
+
+  TriggerActionDef({required this.name, required this.translated, required this.uuid, this.defaultActions = false});
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is TriggerActionDef && runtimeType == other.runtimeType && uuid == other.uuid;
