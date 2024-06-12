@@ -1,0 +1,23 @@
+on:
+  push:
+    paths:
+      - '*.dart'
+jobs:
+  build_android:
+    name: Update Localization Files
+    runs-on: ubuntu-latest
+    permissions: # Job-level permissions configuration starts here
+      contents: write           # 'write' access to repository contents
+      pull-requests: write      # 'write' access to pull requests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.1'
+          cache: true
+      - name: Dart format
+        run: dart format
+      - name: Stage Changes
+        run: git config user.email "github-actions[bot]@users.noreply.github.com" && git config user.name "github-actions[bot]" && git commit -am "[skip ci] Dart Formatting"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
