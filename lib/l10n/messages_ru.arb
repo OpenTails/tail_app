@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Хотя собранные данные являются анонимными и не могут быть использованы для идентификации конкретного пользователя, вам все равно необходимо принять политику конфиденциальности.",
+  "onboardingPrivacyPolicyDescription": "Хотя собранные данные являются анонимными и не могут быть использованы для идентификации конкретного пользователя, вам все равно необходимо принять политику конфиденциальности",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Приятного виляния! ",
+  "doubleBackToClose": "Нажмите еще раз, чтобы выйти",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "Не удалось обновить. Перезапустите устройство и повторите попытку.",
+  "otaFailedTitle": "Не удалось обновить. Перезапустите устройство и повторите попытку",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -765,7 +765,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Обновление снаряжения. Пожалуйста, не выключайте свое оборудование и не закрывайте приложение.",
+  "otaInProgressTitle": "Обновление снаряжения. Пожалуйста, не выключайте свое оборудование и не закрывайте приложение",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -807,7 +807,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Нашел механизм. Нажмите на название механизма, чтобы подключиться.",
+  "scanDevicesFoundTitle": "Нашел механизм. Нажмите на название механизма, чтобы подключиться",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
