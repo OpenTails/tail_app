@@ -705,7 +705,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Naciśnij ponownie, aby wyjść ",
+  "doubleBackToClose": "Naciśnij ponownie, aby wyjść",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Naciśnij ponownie, aby wyjść",
+  "otaLowBattery": "Niski poziom baterii. Naładuj swój sprzęt przynajmniej do 50%",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
