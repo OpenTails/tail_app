@@ -207,7 +207,6 @@ flutter_native_splash:
     image_dark: "assets/TC_Logo_Transparent_dark.png"
 
 dependency_overrides:
-  device_info_plus: any # PDFx uses an older version, but v10 and newer is required for IOS publishing
   meta: any
 
 flutter_gen:
