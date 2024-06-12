@@ -711,7 +711,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "doubleBackToClose": "Appuyez à nouveau pour quitter ",
+  "doubleBackToClose": "Appuyez à nouveau pour quitter",
   "@doubleBackToClose": {
     "description": "Snackbar message which appears when the back button is pressed at the main screen",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Batterie faible. Veuillez charger votre équipement à au moins 50 %",
+  "otaLowBattery": "Batterie faible. Veuillez charger votre équipement à au moins 50%",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
