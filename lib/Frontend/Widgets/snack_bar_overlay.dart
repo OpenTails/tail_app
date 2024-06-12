@@ -97,7 +97,6 @@ class SnackBarOverlay extends ConsumerWidget {
                   elevation: 0,
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: Colors.transparent,
-                  duration: const Duration(seconds: 30),
                   content: AwesomeSnackbarContent(
                     title: otaAvailableSnackbarTitle(),
                     message: otaAvailableSnackbarLabel(),
