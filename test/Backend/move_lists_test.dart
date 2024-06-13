@@ -6,9 +6,9 @@ import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/move_lists.dart';
+import 'package:tail_app/Backend/plausible_dio.dart';
 import 'package:tail_app/Backend/sensors.dart';
 import 'package:tail_app/constants.dart';
-import 'package:tail_app/main.dart';
 import 'package:test/test.dart';
 
 import '../testing_utils/bluetooth_test_utils.dart';

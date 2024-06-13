@@ -11,11 +11,25 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../Frontend/utils.dart';
 import '../constants.dart';
-import '../main.dart';
+import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'logging_wrappers.dart';
-import 'move_lists.dart';
 import 'sensors.dart';
+
+Plausible get plausible {
+  if (_plausible != null) {
+    return _plausible!;
+  }
+  initPlausible();
+  return _plausible!;
+}
+
+late final Plausible? _plausible;
+
+void initPlausible({bool enabled = false}) {
+  _plausible = PlausibleDio("https://plausible.codel1417.xyz", "tail-app");
+  _plausible!.enabled = enabled;
+}
 
 class PlausibleDio extends Plausible {
   PlausibleDio(super.serverUrl, super.domain);
@@ -26,6 +40,7 @@ class PlausibleDio extends Plausible {
     if (!enabled || !HiveProxy.getOrDefault(settings, allowAnalytics, defaultValue: allowAnalyticsDefault)) {
       return 0;
     }
+
     final transaction = Sentry.startTransaction('Plausible Event', 'http');
     // Post-edit parameters
     if (serverUrl.toString().endsWith('/')) {

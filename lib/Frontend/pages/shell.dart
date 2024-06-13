@@ -17,6 +17,7 @@ import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
+import '../../Backend/plausible_dio.dart';
 import '../../constants.dart';
 import '../../main.dart';
 import '../Widgets/back_button_to_close.dart';

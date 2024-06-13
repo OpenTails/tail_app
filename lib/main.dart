@@ -17,7 +17,6 @@ import 'package:install_referrer/install_referrer.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
@@ -25,14 +24,12 @@ import 'package:sentry_logging/sentry_logging.dart';
 import 'Backend/Definitions/Action/base_action.dart';
 import 'Backend/Definitions/Device/device_definition.dart';
 import 'Backend/app_shortcuts.dart';
-import 'Backend/audio.dart';
 import 'Backend/background_update.dart';
 import 'Backend/dynamic_config.dart';
 import 'Backend/favorite_actions.dart';
 import 'Backend/logging_wrappers.dart';
 import 'Backend/move_lists.dart';
 import 'Backend/notifications.dart';
-import 'Backend/plausible_dio.dart';
 import 'Backend/sensors.dart';
 import 'Frontend/Widgets/bt_app_state_controller.dart';
 import 'Frontend/go_router_config.dart';
@@ -55,10 +52,6 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
   }
 }
 
-const String serverUrl = "https://plausible.codel1417.xyz";
-const String domain = "tail-app";
-
-late final Plausible plausible;
 final mainLogger = Logger('Main');
 
 Future<String> getSentryEnvironment() async {
@@ -104,12 +97,15 @@ Future<void> main() async {
     }
   });
   initFlutter();
-  initNotifications();
-  initBackgroundTasks();
+  Future.delayed(
+    const Duration(seconds: 2),
+    () {
+      initBackgroundTasks();
+      initNotifications();
+    },
+  );
   initLocale();
-  setUpAudio();
   await initHive();
-  //initDio();
   mainLogger.fine("Init Sentry");
   String environment = await getSentryEnvironment();
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
@@ -232,15 +228,8 @@ Future<void> initLocale() async {
   mainLogger.info("Loaded locale: $defaultLocale $localeLoaded");
 }
 
-void initPlausible({bool enabled = false}) {
-  plausible = PlausibleDio(serverUrl, domain);
-  plausible.enabled = enabled;
-}
-
 class TailApp extends StatefulWidget {
   TailApp({super.key}) {
-    //Init Plausible
-    initPlausible();
     // Platform messages may fail, so we use a try/catch PlatformException.
     mainLogger.info('Starting app');
     if (kDebugMode) {

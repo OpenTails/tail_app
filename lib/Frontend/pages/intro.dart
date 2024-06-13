@@ -10,9 +10,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/logging_wrappers.dart';
+import '../../Backend/plausible_dio.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
-import '../../main.dart';
 import '../Widgets/lottie_lazy_load.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
