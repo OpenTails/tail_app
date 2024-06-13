@@ -1,1 +1,306 @@
-{}
+{
+  "homeWelcomeMessageTitle": "Willkomme bim Tail Company App",
+  "@homeWelcomeMessageTitle": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPage": "Steuerknüppel",
+  "@joyStickPage": {
+    "description": "The label and title of the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joyStickPageDescription": "Dürekt d'Schaltstellig kontrolliere.",
+  "@joyStickPageDescription": {
+    "description": "The description of the joystick page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "feedbackPage": "Sänd Feedback",
+  "@feedbackPage": {
+    "description": "The label and title of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioPage": "Eigeni Sounds",
+  "@audioPage": {
+    "description": "The label and title of the custom audio management page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutPage": "über d'Site",
+  "@aboutPage": {
+    "description": "The label and title of the about page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsPage": "Istellige",
+  "@settingsPage": {
+    "description": "The label and title of the settings page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsDescription": "Stell d'App-Farb i, konfigurier d'Haptik und meh",
+  "@settingsDescription": {
+    "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersPage": "Trigger",
+  "@triggersPage": {
+    "description": "The label and title of the trigger page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPage": "Persönlichi Aktione",
+  "@sequencesPage": {
+    "description": "The label and title of the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesPageDescription": "Erstell persönlischi Aktione für diini Ausrüstig",
+  "@sequencesPageDescription": {
+    "description": "The description of the sequences page link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectLabel": "Wähl e Trigger-Typ us",
+  "@triggersSelectLabel": {
+    "description": "The title of the add trigger dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectAllLabel": "Wähl Alli",
+  "@triggersSelectAllLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectSaveLabel": "Ab Speichera",
+  "@triggersSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Uuswähle",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "Oke",
+  "@ok": {
+    "description": "Ok on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Abbruch",
+  "@cancel": {
+    "description": "Cancel on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersAdd": "Add Trigger",
+  "@triggersAdd": {
+    "description": "Floating Action Button on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceType": "Für welli Gear mues das passä?",
+  "@deviceType": {
+    "description": "Title for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeTail": "Schwanz",
+  "@deviceTypeTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeMiniTail": "Chliini Schwänzli",
+  "@deviceTypeMiniTail": {
+    "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeEars": "Öhrli",
+  "@deviceTypeEars": {
+    "description": "Ears option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeWings": "Schwinge",
+  "@deviceTypeWings": {
+    "description": "Wings option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesAdd": "Neui Aktion",
+  "@sequencesAdd": {
+    "description": "Floating Action Button on the sequences page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEdit": "Aktion ändere",
+  "@sequencesEdit": {
+    "description": "Label for the edit icon on a sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditAdd": "Bewegig ergänze",
+  "@sequencesEditAdd": {
+    "description": "Label for the add Floating Action Button on edit sequence page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditName": "Name",
+  "@sequencesEditName": {
+    "description": "Label for the name field on sequence edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditMove": "Bewegigg",
+  "@sequencesEditMove": {
+    "description": "Label for the move tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDelay": "Verzögerig",
+  "@sequencesEditDelay": {
+    "description": "Label for the delay tab on sequence move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditRightServo": "Stellung vom rechten Servo",
+  "@sequencesEditRightServo": {
+    "description": "Label for the right servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditSpeed": "Wie schnäll sött de Gäng det hi bewege?",
+  "@sequencesEditSpeed": {
+    "description": "Label for the speed selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditEasing": "Verlangsamigstyp",
+  "@sequencesEditEasing": {
+    "description": "Label for the easing selector on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditHomeLabel": "Bring d'Sachä ins Home",
+  "@sequencesEditHomeLabel": {
+    "description": "Label on the home tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDeleteTitle": "Lösche Aktiivität",
+  "@sequencesEditDeleteTitle": {
+    "description": "Title of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditDeleteDescription": "Bischt du sicher, dass du die Aktivität lösche wotsch?",
+  "@sequencesEditDeleteDescription": {
+    "description": "Message of the dialog on the sequence edit page to delete the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditListDelayLabel": "Verzöger nöchschte Zug für {howMany} ms.",
+  "@sequenceEditListDelayLabel": {
+    "description": "Delay move label on the edit sequences page.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": "42"
+      }
+    }
+  },
+  "actionsNoBluetooth": "Bluetooth isch nöd aktiv",
+  "@actionsNoBluetooth": {
+    "description": "Label on the actions page when bluetooth is unavailable",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryCalm": "Ganz rüehig und locker",
+  "@actionsCategoryCalm": {
+    "description": "calm action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryFast": "Schnäll und Ufgregt",
+  "@actionsCategoryFast": {
+    "description": "fast action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryTense": "Frustriert u Gschnurstracks",
+  "@actionsCategoryTense": {
+    "description": "tense action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryGlowtip": "Glüütlampa",
+  "@actionsCategoryGlowtip": {
+    "description": "glowtip action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsSelectScreen": "Wähl di Aktione us",
+  "@actionsSelectScreen": {
+    "description": "Title for action select menu on triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsHapticsToggleTitle": "Körperbewusstsii-Rückmäldig",
+  "@settingsHapticsToggleTitle": {
+    "description": "Settings page haptic feedback toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditTime": "Wie lang söll me warte, bevor me zur nägschtä Schritt i däm individuelle Aktiönli vorgoht",
+  "@sequencesEditTime": {
+    "description": "Label for the time slider on the delay tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeContinuousScanningOffDescription": "Wische waagrecht über de bekannte Gerätebereich obe, um mit em Scannen z'beginne. Du chasch d'kontinuierlichi Scanfunktion in de Istellige aktiviere.",
+  "@homeContinuousScanningOffDescription": {
+    "description": "The welcome message title on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "title": "Die Tail Company",
+  "@title": {
+    "description": "The name of the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeNewsTitle": "Früsch vom Tail-Blog",
+  "@homeNewsTitle": {
+    "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersSelectClearLabel": "Wähl kei",
+  "@triggersSelectClearLabel": {
+    "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesEditLeftServo": "Stellung vom linke Servomotor",
+  "@sequencesEditLeftServo": {
+    "description": "Label for the left servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeWelcomeMessage": "Du chasch all dini Tail Co-Ausrüstig do kontrolliere, erkunde und aktualisiere. Es het au Instruktione und Führige zur Verfüegig. Fröhlichs Wedele!",
+  "@homeWelcomeMessage": {
+    "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  }
+}
