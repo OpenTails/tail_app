@@ -284,11 +284,11 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       for (var element in flutterBluePlus.connectedDevices) {
         BaseStatefulDevice? device = knownDevices[element.remoteId.str];
         if (device != null) {
-          device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: CommandType.system));
-          device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: CommandType.system));
+          device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+          device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
           element.readRssi();
           if (device.baseDeviceDefinition.deviceType != DeviceType.ears && device.hasGlowtip.value == GlowtipStatus.unknown) {
-            device.commandQueue.addCommand(BluetoothMessage(message: "VER", device: device, priority: Priority.low, type: CommandType.system));
+            device.commandQueue.addCommand(BluetoothMessage(message: "VER", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
           }
         }
       }

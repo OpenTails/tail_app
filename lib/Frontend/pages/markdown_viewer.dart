@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:url_launcher/url_launcher.dart';
 
-class MarkdownInfo {
-  final String content;
-  final String title;
+part 'markdown_viewer.freezed.dart';
 
-  const MarkdownInfo({required this.content, required this.title});
+@freezed
+class MarkdownInfo with _$MarkdownInfo {
+  const factory MarkdownInfo({
+    required String content,
+    required String title,
+  }) = _MarkdownInfo;
 }
 
 class MarkdownViewer extends StatelessWidget {

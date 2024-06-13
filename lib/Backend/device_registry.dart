@@ -14,7 +14,7 @@ final deviceRegistryLogger = log.Logger('DeviceRegistry');
 
 @immutable
 class DeviceRegistry {
-  static BuiltSet<BaseDeviceDefinition> allDevices = {
+  static final BuiltSet<BaseDeviceDefinition> allDevices = {
     BaseDeviceDefinition(
       uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
       btName: "MiTail",

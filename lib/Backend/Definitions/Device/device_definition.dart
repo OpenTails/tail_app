@@ -148,8 +148,8 @@ class BaseStatefulDevice extends ChangeNotifier {
         // Add initial commands to the queue
         Future.delayed(const Duration(seconds: 2), () {
           commandQueue
-            ..addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: CommandType.system))
-            ..addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: CommandType.system));
+            ..addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()))
+            ..addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
         });
       }
     });
@@ -214,11 +214,12 @@ enum MessageHistoryType {
   receive,
 }
 
-class MessageHistoryEntry {
-  final MessageHistoryType type;
-  final String message;
-
-  MessageHistoryEntry({required this.type, required this.message});
+@freezed
+class MessageHistoryEntry with _$MessageHistoryEntry {
+  const factory MessageHistoryEntry({
+    required MessageHistoryType type,
+    required String message,
+  }) = _MessageHistoryEntry;
 }
 
 // All serialized/stored data

@@ -181,18 +181,18 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
         Object element = action.commandMoves[i];
         if (element is Move) {
           if (element.moveType == MoveType.delay) {
-            BluetoothMessage message = BluetoothMessage.delay(delay: element.time, device: device, priority: Priority.normal, type: CommandType.move);
+            BluetoothMessage message = BluetoothMessage(delay: element.time, device: device, priority: Priority.normal, type: CommandType.move, message: '', timestamp: DateTime.now());
             device.commandQueue.addCommand(message);
           }
         } else if (element is CommandAction) {
           //Generate move command
-          BluetoothMessage message = BluetoothMessage(message: element.command, device: device, priority: Priority.normal, type: CommandType.move, responseMSG: element.response);
+          BluetoothMessage message = BluetoothMessage(message: element.command, device: device, priority: Priority.normal, type: CommandType.move, responseMSG: element.response, timestamp: DateTime.now());
           device.commandQueue.addCommand(message);
         }
       }
     }
   } else if (action is CommandAction) {
-    device.commandQueue.addCommand(BluetoothMessage(message: action.command, device: device, priority: Priority.normal, responseMSG: action.response, type: CommandType.move));
+    device.commandQueue.addCommand(BluetoothMessage(message: action.command, device: device, priority: Priority.normal, responseMSG: action.response, type: CommandType.move, timestamp: DateTime.now()));
     plausible.event(name: "Run Action", props: {"Action Name": action.name, "Action Type": action.actionCategory.name});
   } else if (action is MoveList) {
     sequencesLogger.info("Starting MoveList ${action.name}.");
@@ -230,8 +230,8 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
         m = '${m}M${move.speed.toInt()}';
       }
       cmd = '$cmd $a $b $e $f $sl H1';
-      device.commandQueue.addCommand(BluetoothMessage(message: cmd, device: device, priority: Priority.normal, type: CommandType.move));
-      device.commandQueue.addCommand(BluetoothMessage(message: "TAILU$preset", device: device, priority: Priority.normal, responseMSG: "TAILU$preset END", type: CommandType.move));
+      device.commandQueue.addCommand(BluetoothMessage(message: cmd, device: device, priority: Priority.normal, type: CommandType.move, timestamp: DateTime.now()));
+      device.commandQueue.addCommand(BluetoothMessage(message: "TAILU$preset", device: device, priority: Priority.normal, responseMSG: "TAILU$preset END", type: CommandType.move, timestamp: DateTime.now()));
     } else {
       List<Move> newMoveList = List.from(action.moves); //prevent home move from being added to original MoveList
       if (action.repeat.toInt() > 1) {
@@ -243,7 +243,7 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
       for (Move element in newMoveList) {
         //run move command
         if (element.moveType == MoveType.delay) {
-          BluetoothMessage message = BluetoothMessage.delay(delay: element.time, device: device, priority: Priority.normal, type: CommandType.move);
+          BluetoothMessage message = BluetoothMessage(delay: element.time, device: device, priority: Priority.normal, type: CommandType.move, message: '', timestamp: DateTime.now());
           device.commandQueue.addCommand(message);
         } else {
           //Generate move command
@@ -262,27 +262,37 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
   }
 }
 
-List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device, CommandType type) {
+List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device, CommandType type, {bool noResponseMsg = false, Priority priority = Priority.normal}) {
   List<BluetoothMessage> commands = [];
   if (move.moveType == MoveType.home) {
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
-      commands.add(BluetoothMessage(message: "EARHOME", device: device, priority: Priority.normal, responseMSG: "EARHOME END", type: type));
+      commands.add(BluetoothMessage(message: "EARHOME", device: device, priority: priority, responseMSG: noResponseMsg ? null : "EARHOME END", type: type, timestamp: DateTime.now()));
     } else {
-      commands.add(BluetoothMessage(message: "TAILHM", device: device, priority: Priority.normal, responseMSG: "END TAILHM", type: type));
+      commands.add(BluetoothMessage(message: "TAILHM", device: device, priority: priority, responseMSG: noResponseMsg ? null : "END TAILHM", type: type, timestamp: DateTime.now()));
     }
   } else if (move.moveType == MoveType.move) {
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
       commands
-        ..add(BluetoothMessage(message: "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}", device: device, priority: Priority.normal, responseMSG: "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}", type: type))
-        ..add(BluetoothMessage(message: "DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000", device: device, priority: Priority.normal, responseMSG: "DSSP END", type: CommandType.move));
+        ..add(
+          BluetoothMessage(
+            message: "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}",
+            device: device,
+            priority: priority,
+            responseMSG: noResponseMsg ? null : "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}",
+            type: type,
+            timestamp: DateTime.now(),
+          ),
+        )
+        ..add(BluetoothMessage(message: "DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000", device: device, priority: priority, responseMSG: noResponseMsg ? null : "DSSP END", type: CommandType.move, timestamp: DateTime.now()));
     } else {
       commands.add(
         BluetoothMessage(
           message: "DSSP E${move.easingType.num} F${move.easingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.toInt()} M${move.speed.toInt()}",
           device: device,
-          priority: Priority.normal,
-          responseMSG: "OK",
+          priority: priority,
+          responseMSG: noResponseMsg ? null : "OK",
           type: type,
+          timestamp: DateTime.now(),
         ),
       );
     }

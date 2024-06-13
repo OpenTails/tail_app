@@ -1,38 +1,31 @@
 import 'dart:core';
 
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../Definitions/Device/device_definition.dart';
+
+part 'bluetooth_message.freezed.dart';
 
 enum Priority { low, normal, high }
 
 enum CommandType { system, move, direct }
 
-class BluetoothMessage implements Comparable<BluetoothMessage> {
-  late final String message;
-  String? responseMSG; // the message to listen for;
-  final BaseStatefulDevice device;
-  final DateTime timestamp = DateTime.now();
-  Priority priority;
-  Function? onCommandSent;
-  Function(String)? onResponseReceived;
-  double? delay;
-  CommandType type;
+@freezed
+class BluetoothMessage with _$BluetoothMessage implements Comparable<BluetoothMessage> {
+  const BluetoothMessage._();
 
-  BluetoothMessage({required this.message, required this.device, required this.priority, required this.type, this.responseMSG, this.onCommandSent, this.onResponseReceived});
-
-  BluetoothMessage.delay({required this.delay, required this.device, required this.priority, required this.type}) {
-    message = "";
-  }
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || other is BluetoothMessage && runtimeType == other.runtimeType && message == other.message && device == other.device;
-
-  @override
-  int get hashCode => message.hashCode ^ device.hashCode;
-
-  @override
-  String toString() {
-    return 'btMessage{message: $message, device: , timestamp: $timestamp}';
-  }
+  @Implements<Comparable<BluetoothMessage>>()
+  const factory BluetoothMessage({
+    required String message,
+    final String? responseMSG,
+    required BaseStatefulDevice device,
+    @Default(Priority.normal) final Priority priority,
+    required DateTime timestamp,
+    final Function? onCommandSent,
+    final Function(String)? onResponseReceived,
+    final double? delay,
+    @Default(CommandType.system) CommandType type,
+  }) = _BluetoothMessage;
 
   @override
   int compareTo(other) {

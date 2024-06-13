@@ -24,7 +24,7 @@ Plausible get plausible {
   return _plausible!;
 }
 
-late final Plausible? _plausible;
+Plausible? _plausible;
 
 void initPlausible({bool enabled = false}) {
   _plausible = PlausibleDio("https://plausible.codel1417.xyz", "tail-app");

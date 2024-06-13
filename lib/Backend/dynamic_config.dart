@@ -3,29 +3,28 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'logging_wrappers.dart';
+
 import '../Frontend/utils.dart';
 import '../constants.dart';
-
 import '../gen/assets.gen.dart';
+import 'logging_wrappers.dart';
 
+part 'dynamic_config.freezed.dart';
 part 'dynamic_config.g.dart';
 
 final _dynamicConfigLogger = Logger('DynamicConfig');
 
-@JsonSerializable()
-class DynamicConfigInfo {
-  double sentryTraces = 0.5;
-  double sentryProfiles = 0.5;
-
-  DynamicConfigInfo();
+@freezed
+class DynamicConfigInfo with _$DynamicConfigInfo {
+  factory DynamicConfigInfo({
+    @Default(0.5) double sentryTraces,
+    @Default(0.5) double sentryProfiles,
+  }) = _DynamicConfigInfo;
 
   factory DynamicConfigInfo.fromJson(Map<String, dynamic> json) => _$DynamicConfigInfoFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DynamicConfigInfoToJson(this);
 }
 
 DynamicConfigInfo? _dynamicConfigInfo;

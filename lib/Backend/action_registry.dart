@@ -13,7 +13,7 @@ part 'action_registry.g.dart';
 
 @immutable
 class ActionRegistry {
-  static BuiltSet<BaseAction> allCommands = {
+  static final BuiltSet<BaseAction> allCommands = {
     CommandAction(
       name: "Slow 1",
       command: "TAILS1",

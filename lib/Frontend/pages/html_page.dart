@@ -4,16 +4,20 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../constants.dart';
 import '../utils.dart';
 
-class HtmlPageInfo {
-  String url;
-  String title;
+part 'html_page.freezed.dart';
 
-  HtmlPageInfo({required this.url, required this.title});
+@freezed
+class HtmlPageInfo with _$HtmlPageInfo {
+  const factory HtmlPageInfo({
+    required String url,
+    required String title,
+  }) = _HtmlPageInfo;
 }
 
 class HtmlPage extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../../Backend/Definitions/Device/device_definition.dart';
 
@@ -37,7 +38,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
               autocorrect: false,
               onEditingComplete: () {
                 widget.device.commandQueue.addCommand(
-                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: CommandType.system),
+                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()),
                 );
                 setState(() {
                   cmd = "";
@@ -53,7 +54,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
             child: IconButton(
               onPressed: () {
                 widget.device.commandQueue.addCommand(
-                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: CommandType.system),
+                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()),
                 );
                 setState(() {
                   cmd = "";

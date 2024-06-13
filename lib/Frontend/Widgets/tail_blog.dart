@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -11,6 +12,8 @@ import 'package:wordpress_client/wordpress_client.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../utils.dart';
+
+part 'tail_blog.freezed.dart';
 
 final _wpLogger = Logger('Main');
 
@@ -23,7 +26,6 @@ class TailBlog extends StatefulWidget {
   State<TailBlog> createState() => _TailBlogState();
 }
 
-List<Post> _wordpressPosts = [];
 List<FeedItem> results = [];
 Map<int, Uint8List> images = {};
 
@@ -104,7 +106,8 @@ class _TailBlogState extends State<TailBlog> {
   }
 
   Future<void> getFeed() async {
-    if (_wordpressPosts.isEmpty) {
+    if (results.isEmpty) {
+      List<Post> wordpressPosts = [];
       try {
         // Slug, Sticky, and Author are not used
         final ListPostRequest request = ListPostRequest(
@@ -115,7 +118,7 @@ class _TailBlogState extends State<TailBlog> {
         final WordpressResponse<List<Post>> wordpressPostResponse = await client!.posts.list(request);
         List<Post>? data = wordpressPostResponse.dataOrNull();
         if (data != null) {
-          _wordpressPosts = data;
+          wordpressPosts = data;
           // Store the latest post id for checking for new posts
           HiveProxy.put(notificationBox, latestPost, data.first.id);
         }
@@ -125,8 +128,8 @@ class _TailBlogState extends State<TailBlog> {
         });
         _wpLogger.warning('Error when getting blog posts: $e', e, s);
       }
-      if (_wordpressPosts.isNotEmpty) {
-        for (Post post in _wordpressPosts) {
+      if (wordpressPosts.isNotEmpty) {
+        for (Post post in wordpressPosts) {
           results.add(
             FeedItem(
               title: post.title!.parsedText,
@@ -152,17 +155,20 @@ class _TailBlogState extends State<TailBlog> {
   }
 }
 
-class FeedItem implements Comparable<FeedItem> {
-  String title;
-  DateTime publishDate;
-  String url;
-  FeedType feedType;
-
+@freezed
+class FeedItem with _$FeedItem implements Comparable<FeedItem> {
   //Image ID is used as the wordpress image ID and the unique id to identify the image in cache
-  int? imageId;
-  String? imageUrl;
+  const FeedItem._();
 
-  FeedItem({required this.title, required this.publishDate, required this.url, required this.feedType, this.imageId, this.imageUrl});
+  @Implements<Comparable<FeedItem>>()
+  const factory FeedItem({
+    required String url,
+    required String title,
+    required DateTime publishDate,
+    required FeedType feedType,
+    final int? imageId,
+    final String? imageUrl,
+  }) = _FeedItem;
 
   @override
   int compareTo(FeedItem other) {

@@ -1,25 +1,29 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'wear_bridge.dart';
 
 import '../constants.dart';
 import 'Definitions/Action/base_action.dart';
-import 'logging_wrappers.dart';
 import 'app_shortcuts.dart';
+import 'logging_wrappers.dart';
+import 'wear_bridge.dart';
 
+part 'favorite_actions.freezed.dart';
 part 'favorite_actions.g.dart';
 
 final _favoriteActionsLogger = Logger('Favorites');
 
 @HiveType(typeId: 13)
-class FavoriteAction implements Comparable<FavoriteAction> {
-  @HiveField(1)
-  String actionUUID;
-  @HiveField(2)
-  int id;
+@freezed
+class FavoriteAction with _$FavoriteAction implements Comparable<FavoriteAction> {
+  const FavoriteAction._();
 
-  FavoriteAction({required this.actionUUID, required this.id});
+  @Implements<Comparable<FavoriteAction>>()
+  const factory FavoriteAction({
+    @HiveField(1) required String actionUUID,
+    @HiveField(2) required int id,
+  }) = _FavoriteAction;
 
   @override
   int compareTo(other) {
