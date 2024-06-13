@@ -86,6 +86,7 @@ dependencies:
     git:
       url: https://github.com/tbro2020/awesome_snackbar_content
   flutter_widget_from_html_core: ^0.15.1
+  visibility_detector: ^0.4.0+2
 
   # Dio HTTP
   dio: ^5.4.3+1

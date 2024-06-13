@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
 import '../../Backend/logging_wrappers.dart';
@@ -61,15 +62,8 @@ class _TailBlogState extends State<TailBlog> {
                         alignment: Alignment.bottomCenter,
                         children: <Widget>[
                           if (feedItem.imageId != null) ...[
-                            FutureBuilder(
-                              future: getImage(feedItem, context),
-                              builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                                return AnimatedOpacity(
-                                  duration: animationTransitionDuration,
-                                  opacity: snapshot.hasData ? 1 : 0,
-                                  child: snapshot.hasData ? snapshot.data! : const CircularProgressIndicator(),
-                                );
-                              },
+                            TailBlogImage(
+                              feedItem: feedItem,
                             ),
                           ],
                           Card(
@@ -131,82 +125,30 @@ class _TailBlogState extends State<TailBlog> {
         });
         _wpLogger.warning('Error when getting blog posts: $e', e, s);
       }
-    }
-
-    if (_wordpressPosts.isNotEmpty) {
-      for (Post post in _wordpressPosts) {
-        results.add(
-          FeedItem(
-            title: post.title!.parsedText,
-            publishDate: post.date!,
-            url: post.link,
-            feedType: FeedType.blog,
-            imageId: post.featuredMedia,
-            imageUrl: post.featuredImageUrl,
-          ),
-        );
+      if (_wordpressPosts.isNotEmpty) {
+        for (Post post in _wordpressPosts) {
+          results.add(
+            FeedItem(
+              title: post.title!.parsedText,
+              publishDate: post.date!,
+              url: post.link,
+              feedType: FeedType.blog,
+              imageId: post.featuredMedia,
+              imageUrl: post.featuredImageUrl,
+            ),
+          );
+        }
       }
     }
     if (results.isNotEmpty && context.mounted) {
       setState(() {
         feedState = FeedState.loaded;
       });
-    } else {
+    } else if (context.mounted) {
       setState(() {
         feedState = FeedState.error;
       });
     }
-  }
-
-  Future<Widget> getImage(FeedItem item, BuildContext context) async {
-    String? mediaUrl;
-    Widget? widget;
-    if (item.imageId != null) {
-      Uint8List? data;
-      if (images.containsKey(item.imageId)) {
-        data = images[item.imageId];
-      }
-      if (data == null) {
-        // Get image url from wordpress api
-        if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
-          mediaUrl = item.imageUrl;
-        } else {
-          final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
-          WordpressResponse<Media> retrieveMediaResponse = await client!.media.retrieve(retrieveMediaRequest);
-          if (retrieveMediaResponse.dataOrNull() != null) {
-            Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
-            mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
-          }
-        }
-        if (mediaUrl != null) {
-          // download the image
-          Dio dio = await initDio();
-          Response<List<int>> response = await dio.get(
-            mediaUrl,
-            options: Options(
-              responseType: ResponseType.bytes,
-              followRedirects: true,
-            ),
-          );
-          if (response.statusCode! < 400) {
-            data = Uint8List.fromList(response.data!);
-            images[item.imageId!] = data;
-          }
-        }
-      }
-
-      if (data != null && context.mounted) {
-        widget = Image.memory(
-          data,
-          alignment: Alignment.bottomCenter,
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.cover,
-          height: 300,
-        );
-      }
-    }
-
-    return widget ?? Container();
   }
 }
 
@@ -247,5 +189,102 @@ extension FeedTypeExtension on FeedType {
       case FeedType.wiki:
         return Icons.notes;
     }
+  }
+}
+
+class TailBlogImage extends StatefulWidget {
+  const TailBlogImage({required this.feedItem, super.key});
+
+  final FeedItem feedItem;
+
+  @override
+  State<StatefulWidget> createState() => _TailBlogImageState();
+}
+
+class _TailBlogImageState extends State<TailBlogImage> {
+  bool isVisible = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return VisibilityDetector(
+      key: ValueKey(widget.feedItem),
+      onVisibilityChanged: (VisibilityInfo info) {
+        if (context.mounted) {
+          setState(() {
+            isVisible = info.visibleFraction > 0;
+          });
+        }
+      },
+      child: Builder(
+        builder: (context) {
+          if (isVisible || images.containsKey(widget.feedItem.imageId)) {
+            return FutureBuilder(
+              future: getImage(widget.feedItem, context),
+              builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+                return AnimatedOpacity(
+                  duration: animationTransitionDuration,
+                  opacity: snapshot.hasData ? 1 : 0,
+                  child: snapshot.hasData ? snapshot.data! : const CircularProgressIndicator(),
+                );
+              },
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
+    );
+  }
+
+  Future<Widget> getImage(FeedItem item, BuildContext context) async {
+    String? mediaUrl;
+    Widget? widget;
+    if (item.imageId != null) {
+      Uint8List? data;
+      if (images.containsKey(item.imageId)) {
+        data = images[item.imageId];
+      }
+      if (data == null) {
+        // Get image url from wordpress api
+        if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
+          mediaUrl = item.imageUrl;
+        } else {
+          final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
+          WordpressClient client = await getWordpressClient();
+          WordpressResponse<Media> retrieveMediaResponse = await client!.media.retrieve(retrieveMediaRequest);
+          if (retrieveMediaResponse.dataOrNull() != null) {
+            Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
+            mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
+          }
+        }
+        if (mediaUrl != null) {
+          // download the image
+          Dio dio = await initDio();
+          Response<List<int>> response = await dio.get(
+            mediaUrl,
+            options: Options(
+              responseType: ResponseType.bytes,
+              followRedirects: true,
+            ),
+          );
+          if (response.statusCode! < 400) {
+            data = Uint8List.fromList(response.data!);
+            images[item.imageId!] = data;
+          }
+        }
+      }
+
+      if (data != null && context.mounted) {
+        widget = Image.memory(
+          data,
+          alignment: Alignment.bottomCenter,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
+          height: 300,
+        );
+      }
+    }
+
+    return widget ?? Container();
   }
 }

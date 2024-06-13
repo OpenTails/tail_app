@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
@@ -8,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:native_dio_adapter/native_dio_adapter.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:platform/platform.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -45,11 +42,13 @@ Future<bool> getBluetoothPermission(Logger logger) async {
 
 final dioLogger = Logger('Dio');
 
+Dio? _dio;
+
 Future<Dio> initDio({skipSentry = false}) async {
+  if (_dio != null) {
+    return _dio!;
+  }
   final Dio dio = Dio();
-  final Directory cacheDir = await getApplicationCacheDirectory();
-  final Directory browserCache = Directory('${cacheDir.path}/browser');
-  await browserCache.create();
   dio.httpClientAdapter = NativeAdapter();
   dio.interceptors.add(
     LogInterceptor(
@@ -88,10 +87,16 @@ Future<Dio> initDio({skipSentry = false}) async {
     /// your configuration of Dio might overwrite the Sentry configuration.
     dio.addSentry(failedRequestStatusCodes: []);
   }
+  _dio = dio;
   return dio;
 }
 
+WordpressClient? _wordpressClient;
+
 Future<WordpressClient> getWordpressClient() async {
+  if (_wordpressClient != null) {
+    return _wordpressClient!;
+  }
   return WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: await initDio());
 }
 
