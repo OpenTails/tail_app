@@ -176,7 +176,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
               onPressed: () async {
                 setState(
                   () {
-                    moveList!.moves.add(Move());
+                    moveList!.moves = moveList!.moves.toList()..add(Move());
                   },
                 );
                 editModal(context, moveList!.moves.length - 1);
