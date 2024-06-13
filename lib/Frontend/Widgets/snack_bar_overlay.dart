@@ -24,8 +24,9 @@ class SnackbarStream extends _$SnackbarStream {
 }
 
 class SnackBarOverlay extends ConsumerWidget {
-  const SnackBarOverlay({required this.child, super.key});
+  SnackBarOverlay({required this.child, super.key});
 
+  final Map<String, bool> hasDisplayedNotice = {};
   final Widget child;
 
   @override
@@ -84,32 +85,38 @@ class SnackBarOverlay extends ConsumerWidget {
               .where(
                 (element) => element.hasUpdate.value,
               )
+              .where(
+                (element) => hasDisplayedNotice.keys.contains(element.baseStoredDevice.btMACAddress),
+              )
               .firstOrNull;
           if (baseStatefulDevice == null) {
             return child!;
           }
+          hasDisplayedNotice[baseStatefulDevice.baseStoredDevice.btMACAddress] = true;
           Future(
-            () => ScaffoldMessenger.of(context)
-              ..clearSnackBars()
-              ..showSnackBar(
-                SnackBar(
-                  /// need to set following properties for best effect of awesome_snackbar_content
-                  elevation: 0,
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.transparent,
-                  content: AwesomeSnackbarContent(
-                    title: otaAvailableSnackbarTitle(),
-                    message: otaAvailableSnackbarLabel(),
-                    onPressed: () async {
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                      return context.push("/ota", extra: baseStatefulDevice.baseStoredDevice.btMACAddress);
-                    },
+            () {
+              return ScaffoldMessenger.of(context)
+                ..clearSnackBars()
+                ..showSnackBar(
+                  SnackBar(
+                    /// need to set following properties for best effect of awesome_snackbar_content
+                    elevation: 0,
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.transparent,
+                    content: AwesomeSnackbarContent(
+                      title: otaAvailableSnackbarTitle(),
+                      message: otaAvailableSnackbarLabel(),
+                      onPressed: () async {
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        return context.push("/ota", extra: baseStatefulDevice.baseStoredDevice.btMACAddress);
+                      },
 
-                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                    contentType: ContentType.warning,
+                      /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                      contentType: ContentType.warning,
+                    ),
                   ),
-                ),
-              ),
+                );
+            },
           );
         }
         return child!;
