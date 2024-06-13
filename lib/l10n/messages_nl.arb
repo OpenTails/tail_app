@@ -980,5 +980,11 @@
     "description": "Label for the snackbar that appears when gear has an update",
     "type": "text",
     "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Verbinding maken met iedereen",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
   }
 }

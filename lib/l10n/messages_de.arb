@@ -980,5 +980,11 @@
     "description": "Label for the snackbar that appears when new gear is paired and connected",
     "type": "text",
     "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Mit allen verbinden",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
   }
 }
