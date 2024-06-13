@@ -699,7 +699,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Bonne agitation !",
+  "onboardingCompletedTitle": "Bonne agitation !",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -879,7 +879,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioDeleteDescription": "Êtes-vous sûr de vouloir supprimer cet effet sonore ?",
+  "audioDeleteDescription": "Êtes-vous sûr de vouloir supprimer cet effet sonore ?",
   "@audioDeleteDescription": {
     "description": "Label for the body of the delete confirmation dialog",
     "type": "text",
