@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-12T18:11:10.250798",
+  "@@last_modified": "2024-06-13T15:10:34.967324",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -668,6 +668,12 @@
   "moreManualResponsibleWaggingTitle": "Responsible Wagging",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Connect to all",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
     "type": "text",
     "placeholders": {}
   },
