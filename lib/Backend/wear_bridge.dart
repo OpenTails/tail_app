@@ -26,6 +26,7 @@ StreamSubscription<CapabilityInfo>? capabilityChangedStreamSubscription;
 
 @Riverpod(keepAlive: true)
 Future<void> initWear(InitWearRef ref) async {
+  await Future.delayed(const Duration(seconds: 5));
   try {
     if (!Platform.isAndroid || !await _flutterWearOsConnectivity.isSupported()) {
       return;

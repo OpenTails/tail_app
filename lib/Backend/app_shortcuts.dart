@@ -16,6 +16,7 @@ const QuickActions quickActions = QuickActions();
 
 @Riverpod(keepAlive: true)
 Future<void> appShortcuts(AppShortcutsRef ref) async {
+  await Future.delayed(const Duration(seconds: 5));
   quickActions.initialize((shortcutType) {
     BaseAction? action = ref.read(getActionFromUUIDProvider(shortcutType));
     if (action != null) {

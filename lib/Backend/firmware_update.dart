@@ -5,20 +5,13 @@ part 'firmware_update.g.dart';
 
 @freezed
 class FWInfo with _$FWInfo {
-  FWInfo._();
-
-  factory FWInfo({
+  const factory FWInfo({
     required String version,
     required String md5sum,
     required String url,
-    @Default("") String changelog,
-    @Default("") String glash,
+    @Default("") final String changelog,
+    @Default("") final String glash,
   }) = _FWInfo;
 
   factory FWInfo.fromJson(Map<String, dynamic> json) => _$FWInfoFromJson(json);
-
-  @override
-  String toString() {
-    return 'FWInfo{version: $version}';
-  }
 }
