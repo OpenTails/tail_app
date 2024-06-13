@@ -98,7 +98,7 @@ Future<void> main() async {
   });
   initFlutter();
   Future.delayed(
-    const Duration(seconds: 2),
+    const Duration(seconds: 5),
     () {
       initBackgroundTasks();
       initNotifications();
