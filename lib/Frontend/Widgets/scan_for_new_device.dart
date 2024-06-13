@@ -15,6 +15,7 @@ import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../../main.dart';
 import '../translation_string_definitions.dart';
+import '../utils.dart';
 import 'lottie_lazy_load.dart';
 import 'tutorial_card.dart';
 
@@ -100,7 +101,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                       );
                                     },
                                   ),
-                                  if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                                  if (list.length > 1) ...[
                                     Center(
                                       child: FilledButton(
                                         onPressed: () async {
@@ -109,10 +110,27 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                           }
                                           Navigator.pop(context);
                                         },
-                                        child: const Text('Connect to all'),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.select_all,
+                                              color: getTextColor(Theme.of(context).colorScheme.primary),
+                                            ),
+                                            const Padding(
+                                              padding: EdgeInsets.symmetric(horizontal: 4),
+                                            ),
+                                            Text(
+                                              scanConnectToAllButtonLabel(),
+                                              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                                    color: getTextColor(Theme.of(context).colorScheme.primary),
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ],
+                                  ]
                                 ],
                               )
                             : Container(),

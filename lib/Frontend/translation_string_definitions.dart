@@ -241,6 +241,8 @@ String sequenceEditRepeatTitle() => Intl.message("How many times to repeat this 
 
 String moreManualResponsibleWaggingTitle() => Intl.message("Responsible Wagging", name: 'moreManualResponsibleWaggingTitle', desc: 'Title for Responsible wagging manual button on More page');
 
+String scanConnectToAllButtonLabel() => Intl.message("Connect to all", name: 'scanConnectToAllButtonLabel', desc: 'Title for Connecting to all found gear on the scan page');
+
 String moreManualMiTailTitle() => Intl.message("MiTail Manual", name: 'moreManualMiTailTitle', desc: 'Title for MiTail manual button on More page');
 
 String moreManualEargearTitle() => Intl.message("EarGear Manual", name: 'moreManualEargearTitle', desc: 'Title for EarGear manual button on More page');
