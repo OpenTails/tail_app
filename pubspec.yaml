@@ -31,7 +31,8 @@ dependencies:
     git:
       url: https://github.com/Codel1417/logarte
   stack_trace: ^1.11.1
-
+  freezed_annotation: ^2.4.1
+  built_collection: ^5.1.1
   # Platform Interfaces
   device_info_plus: ^10.1.0
   wakelock_plus: ^1.2.5 # Keeps the screen awake
@@ -153,6 +154,8 @@ dev_dependencies:
   flutter_lints: # Dryer Lint
   custom_lint:
   riverpod_lint:
+
+  freezed: ^2.5.3
 
 flutter:
   uses-material-design: true

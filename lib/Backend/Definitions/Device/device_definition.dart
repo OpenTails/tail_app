@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -19,6 +20,7 @@ import '../../Bluetooth/bluetooth_manager_plus.dart';
 import '../../Bluetooth/bluetooth_message.dart';
 import '../../firmware_update.dart';
 
+part 'device_definition.freezed.dart';
 part 'device_definition.g.dart';
 
 @HiveType(typeId: 6)
@@ -86,23 +88,19 @@ enum DeviceState { standby, runAction, busy }
 
 enum GlowtipStatus { glowtip, noGlowtip, unknown }
 
-class BaseDeviceDefinition {
-  final String uuid;
-  final String btName;
-  final String bleDeviceService;
-  final String bleRxCharacteristic;
-  final String bleTxCharacteristic;
-  final DeviceType deviceType;
-  final String fwURL;
-  final Version? minVersion;
-  final bool unsupported;
-
-  const BaseDeviceDefinition({required this.uuid, required this.btName, required this.bleDeviceService, required this.bleRxCharacteristic, required this.bleTxCharacteristic, required this.deviceType, this.fwURL = "", this.minVersion, this.unsupported = false});
-
-  @override
-  String toString() {
-    return 'BaseDeviceDefinition{btName: $btName, deviceType: $deviceType}';
-  }
+@freezed
+class BaseDeviceDefinition with _$BaseDeviceDefinition {
+  const factory BaseDeviceDefinition({
+    required String uuid,
+    required String btName,
+    required String bleDeviceService,
+    required String bleRxCharacteristic,
+    required String bleTxCharacteristic,
+    required DeviceType deviceType,
+    @Default("") String fwURL,
+    Version? minVersion,
+    @Default(false) bool unsupported,
+  }) = _BaseDeviceDefinition;
 }
 
 // data that represents the current state of a device

@@ -1,9 +1,12 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
+import '../../move_lists.dart';
 import '../Device/device_definition.dart';
 
+part 'base_action.freezed.dart';
 part 'base_action.g.dart';
 
 @HiveType(typeId: 7)
@@ -52,22 +55,14 @@ extension ActionCategoryExtension on ActionCategory {
 @HiveType(typeId: 4)
 class BaseAction {
   @HiveField(1)
-  String name;
+  String name = "";
   @HiveField(2)
-  List<DeviceType> deviceCategory;
+  List<DeviceType> deviceCategory = DeviceType.values;
   @HiveField(3)
-  ActionCategory actionCategory;
+  ActionCategory actionCategory = ActionCategory.hidden;
   @HiveField(4)
-  final String uuid;
-
-  final Map<DeviceType, String> nameAlias;
-
-  BaseAction({required this.name, required this.deviceCategory, required this.actionCategory, required this.uuid, this.nameAlias = const {}});
-
-  @override
-  String toString() {
-    return 'BaseAction{name: $name, deviceCategory: $deviceCategory, actionCategory: $actionCategory}';
-  }
+  final String uuid = "";
+  Map<DeviceType, String> nameAlias = {};
 
   // Priority is Wings -> Ears -> Tail -> default
   String getName(Set<DeviceType> connectedDeviceTypes) {
@@ -80,19 +75,22 @@ class BaseAction {
     }
     return name;
   }
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || other is BaseAction && runtimeType == other.runtimeType && uuid == other.uuid;
-
-  @override
-  int get hashCode => uuid.hashCode;
 }
 
-class CommandAction extends BaseAction {
-  final String command;
-  final String? response;
+@unfreezed
+class CommandAction extends BaseAction with _$CommandAction {
+  CommandAction._();
 
-  CommandAction({required this.command, required super.name, required super.deviceCategory, required super.actionCategory, required super.uuid, this.response, super.nameAlias});
+  @Implements<BaseAction>()
+  factory CommandAction({
+    required String command,
+    final String? response,
+    required String name,
+    required String uuid,
+    required List<DeviceType> deviceCategory,
+    required ActionCategory actionCategory,
+    @Default({}) final Map<DeviceType, String> nameAlias,
+  }) = _CommandAction;
 
   factory CommandAction.hiddenEars(String command, String response) {
     return CommandAction(command: command, response: response, deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: const Uuid().v4(), name: command);
@@ -100,9 +98,48 @@ class CommandAction extends BaseAction {
 }
 
 @HiveType(typeId: 12)
-class AudioAction extends BaseAction {
-  @HiveField(5)
-  String file;
+@unfreezed
+class AudioAction extends BaseAction with _$AudioAction {
+  AudioAction._();
 
-  AudioAction({required super.name, required super.uuid, required this.file, super.deviceCategory = DeviceType.values, super.actionCategory = ActionCategory.audio});
+  @Implements<BaseAction>()
+  factory AudioAction({
+    @HiveField(5) required String file,
+    @HiveField(2) @Default(DeviceType.values) final List<DeviceType> deviceCategory,
+    @HiveField(3) @Default(ActionCategory.audio) final ActionCategory actionCategory,
+    @HiveField(1) required String name,
+    @HiveField(4) required String uuid,
+    @Default({}) final Map<DeviceType, String> nameAlias,
+  }) = _AudioAction;
+}
+
+@unfreezed
+@HiveType(typeId: 3)
+class MoveList extends BaseAction with _$MoveList {
+  MoveList._();
+
+  @Implements<BaseAction>()
+  factory MoveList({
+    @HiveField(2) @Default(DeviceType.values) List<DeviceType> deviceCategory,
+    @HiveField(3) @Default(ActionCategory.sequence) final ActionCategory actionCategory,
+    @HiveField(1) required String name,
+    @HiveField(4) required String uuid,
+    @HiveField(5) @Default([]) List<Move> moves,
+    @HiveField(6) @Default(1) double repeat,
+  }) = _MoveList;
+}
+
+@freezed
+class EarsMoveList extends BaseAction with _$EarsMoveList {
+  EarsMoveList._();
+
+  @Implements<BaseAction>()
+  factory EarsMoveList({
+    @HiveField(2) @Default([DeviceType.ears]) List<DeviceType> deviceCategory,
+    @HiveField(3) @Default(ActionCategory.ears) final ActionCategory actionCategory,
+    @HiveField(1) required String name,
+    @HiveField(4) required String uuid,
+    @Default({}) final Map<DeviceType, String> nameAlias,
+    required final List<Object> commandMoves,
+  }) = _EarsMoveList;
 }

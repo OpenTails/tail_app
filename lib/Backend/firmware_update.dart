@@ -1,20 +1,21 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'firmware_update.freezed.dart';
 part 'firmware_update.g.dart';
 
-@JsonSerializable()
-class FWInfo {
-  String version;
-  String md5sum;
-  String url;
-  String changelog;
-  String glash;
+@freezed
+class FWInfo with _$FWInfo {
+  FWInfo._();
 
-  FWInfo(this.version, this.md5sum, this.url, this.changelog, this.glash);
+  factory FWInfo({
+    required String version,
+    required String md5sum,
+    required String url,
+    @Default("") String changelog,
+    @Default("") String glash,
+  }) = _FWInfo;
 
   factory FWInfo.fromJson(Map<String, dynamic> json) => _$FWInfoFromJson(json);
-
-  Map<String, dynamic> toJson() => _$FWInfoToJson(this);
 
   @override
   String toString() {

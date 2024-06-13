@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,7 +13,7 @@ part 'action_registry.g.dart';
 
 @immutable
 class ActionRegistry {
-  static Set<BaseAction> allCommands = {
+  static BuiltSet<BaseAction> allCommands = {
     CommandAction(
       name: "Slow 1",
       command: "TAILS1",
@@ -265,7 +266,7 @@ class ActionRegistry {
         CommandAction.hiddenEars("EARHOME", "EARHOME END"),
       ],
     ),
-  };
+  }.build();
 }
 
 @Riverpod(keepAlive: false)
@@ -320,4 +321,11 @@ Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref, Set<Dev
     }
   }
   return sortedActions;
+}
+
+List<BaseAction> splitBaseAction(BaseAction baseAction) {
+  if (baseAction.deviceCategory.length <= 1) {
+    return [baseAction];
+  }
+  return [];
 }

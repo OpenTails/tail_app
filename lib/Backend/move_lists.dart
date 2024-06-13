@@ -140,26 +140,6 @@ class Move {
   int get hashCode => leftServo.hashCode ^ rightServo.hashCode ^ speed.hashCode ^ time.hashCode ^ easingType.hashCode ^ moveType.hashCode;
 }
 
-@HiveType(typeId: 3)
-class MoveList extends BaseAction {
-  @HiveField(5)
-  List<Move> moves = [];
-  @HiveField(6)
-  double repeat = 1;
-
-  MoveList({required super.name, required super.deviceCategory, required super.uuid, super.actionCategory = ActionCategory.sequence, this.moves = const []}) {
-    if (moves.isEmpty) {
-      moves = [];
-    }
-  }
-}
-
-class EarsMoveList extends MoveList {
-  List<Object> commandMoves = [];
-
-  EarsMoveList({required super.name, required super.uuid, required this.commandMoves, super.deviceCategory = const [DeviceType.ears], super.actionCategory = ActionCategory.ears});
-}
-
 @Riverpod(keepAlive: true)
 class MoveLists extends _$MoveLists {
   @override

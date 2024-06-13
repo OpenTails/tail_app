@@ -1,7 +1,9 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'Bluetooth/bluetooth_manager.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
@@ -12,7 +14,7 @@ final deviceRegistryLogger = log.Logger('DeviceRegistry');
 
 @immutable
 class DeviceRegistry {
-  static Set<BaseDeviceDefinition> allDevices = {
+  static BuiltSet<BaseDeviceDefinition> allDevices = {
     BaseDeviceDefinition(
       uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
       btName: "MiTail",
@@ -70,7 +72,7 @@ class DeviceRegistry {
       deviceType: DeviceType.ears,
       unsupported: true,
     ),
-  };
+  }.build();
 
   static BaseDeviceDefinition getByUUID(String uuid) {
     return allDevices.firstWhere((BaseDeviceDefinition element) => element.uuid == uuid);
