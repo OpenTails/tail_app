@@ -10,8 +10,13 @@ import 'logging_wrappers.dart';
 part 'audio.g.dart';
 
 final Logger _audioLogger = Logger('Audio');
+bool _hasSetUpAudio = false;
 
 Future<void> setUpAudio() async {
+  if (_hasSetUpAudio) {
+    return;
+  }
+  _hasSetUpAudio = true;
   _audioLogger.info("Setting up audio session");
   final session = await AudioSession.instance;
   await session.configure(
@@ -31,6 +36,7 @@ Future<void> setUpAudio() async {
 }
 
 Future<void> playSound(String file) async {
+  await setUpAudio();
   _audioLogger.info("Playing sound file $file");
   final AudioPlayer player = AudioPlayer();
   await player.setFilePath(file);
