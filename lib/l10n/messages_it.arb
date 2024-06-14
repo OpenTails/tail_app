@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "OK",
+  "cancel": "Annulla",
   "@cancel": {
     "description": "Cancel on dialog boxes",
     "type": "text",
@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeDown": "Scodinzolare responsabile",
+  "triggerVolumeButtonVolumeDown": "Volume basso",
   "@triggerVolumeButtonVolumeDown": {
     "description": "Volume Button trigger volume down action label",
     "type": "text",
@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeTail": "Collegare",
+  "deviceTypeTail": "Coda",
   "@deviceTypeTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -231,13 +231,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "GlowTip",
+  "actionsCategoryGlowtip": "Punta luminosa",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Seleziona un'azione",
+  "actionsSelectScreen": "Seleziona Azioni",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsHapticsToggleSubTitle": "Seleziona un'azione",
+  "settingsHapticsToggleSubTitle": "Abilita la vibrazione quando viene toccata un'azione",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
     "type": "text",
@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Posizione del servo destro",
+  "settingsErrorReportingToggleSubTitle": "Invia segnalazioni di errori a Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",
@@ -339,7 +339,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingStep": "Ricerca di attrezzi. Assicurati che la tua attrezzatura sia accesa e nelle vicinanze",
+  "triggerWalkingStep": "Fare un passo",
   "@triggerWalkingStep": {
     "description": "Walking/Step trigger Step action label",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Microfono EarGear",
+  "triggerEarMicDescription": "Attiva un'azione quando EarGear rileva il suono",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Sensore di inclinazione EarGear",
+  "triggerEarTiltDescription": "Attiva un'azione quando EarGear rileva l'inclinazione",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -513,7 +513,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "Nascondi le schede tutorial",
+  "settingsAnalyticsToggleSubTitle": "Segnala l'utilizzo di funzionalità non identificative a Plausible per migliorare l'app",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -543,7 +543,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreTitle": "Manuale di FlutterWings",
+  "moreTitle": "Di più",
   "@moreTitle": {
     "description": "Title for More page",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "I trigger inviano automaticamente azioni alla tua attrezzatura. Puoi avere più trigger attivi contemporaneamente. Tocca un trigger per modificarlo, usa l'interruttore a sinistra per abilitare il trigger.",
+  "triggerInfoDescription": "I trigger inviano automaticamente azioni alla tua attrezzatura. Puoi avere più trigger attivi contemporaneamente. Tocca un trigger per modificarlo, utilizza l'interruttore a sinistra per abilitare il trigger.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -597,7 +597,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Le azioni personalizzate ti consentono di creare le tue azioni per l'equipaggiamento. Toccando un'azione personalizzata verrà riprodotta. Tocca la matita per modificare un'azione personalizzata.",
+  "sequencesInfoDescription": "Le azioni personalizzate ti consentono di creare le tue azioni per l'equipaggiamento. Toccando un'azione personalizzata verrà riprodotta. Tocca la matita per modificare un'azione personalizzata. Assicurati che il firmware del tuo dispositivo sia aggiornato.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -669,13 +669,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Sebbene i dati raccolti siano anonimi e non possano essere utilizzati per identificare un utente specifico, è comunque necessario accettare l'informativa sulla privacy",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Accetta l'informativa sulla privacy",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Bluetooth",
+  "onboardingBluetoothDescription": "Per connettersi all'attrezzatura è necessaria l'autorizzazione Bluetooth",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Per connettersi all'attrezzatura è necessaria l'autorizzazione Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Attiva il Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Seleziona un'azione",
+  "settingsAlwaysScanningToggleTitle": "Cerca sempre l'attrezzatura conosciuta",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "È necessario un aggiornamento del firmware affinché questa app supporti la tua attrezzatura",
+  "mandatoryOtaRequired": "È disponibile un aggiornamento del firmware per supportare meglio la tua attrezzatura",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -855,7 +855,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioEditDescription": "Fatto",
+  "audioEditDescription": "Gestisci effetti sonori personalizzati",
   "@audioEditDescription": {
     "description": "Label for sound files",
     "type": "text",
@@ -903,7 +903,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGear": "Rinomina effetto sonoro",
+  "scanDemoGear": "Attrezzatura simulata",
   "@scanDemoGear": {
     "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
@@ -936,6 +936,54 @@
   "triggersSelectAllLabel": "Seleziona tutto",
   "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Aggiorna la tua attrezzatura per utilizzare questa funzione.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "La funzionalità Joystick è sperimentale. Utilizzare a proprio rischio.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Aggiorna la tua attrezzatura",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Aggiornamento disponibile",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Apparecchiature collegate",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Felice scodinzolante",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Connettiti a tutti",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Selezionare",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
