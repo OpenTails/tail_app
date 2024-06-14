@@ -147,7 +147,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Rend les cartes d'action plus grandes pour faciliter l'exploitation",
+  "settingsErrorReportingToggleTitle": "Rapport d'erreur automatique",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -213,13 +213,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Commencer la mise à jour OTA",
+  "triggerCoverNear": "Appareil couvert",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Rend les cartes d'action plus grandes pour faciliter l'exploitation",
+  "triggerCoverFar": "Appareil découvert",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
@@ -375,13 +375,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicSound": "Micro EarGear",
+  "triggerEarMicSound": "Son détecté",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "Déclenchez une action lorsque EarGear détecte un son",
+  "triggerEarTiltTitle": "Capteur d'inclinaison EarGear",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -423,13 +423,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Sélectionnez une action",
+  "actionsSelectScreen": "Sélectionner des actions",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "settingsAppColor": "Signaler l'utilisation non identifiante des fonctionnalités à Plausible pour améliorer l'application",
+  "settingsAppColor": "Couleur de l'application",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
     "type": "text",
@@ -609,7 +609,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Les actions personnalisées vous permettent de créer vos propres actions pour l'équipement. En appuyant sur une action personnalisée, vous la jouerez. Appuyez sur le crayon pour modifier une action personnalisée.",
+  "sequencesInfoDescription": "Les actions personnalisées vous permettent de créer vos propres actions pour l'équipement. En appuyant sur une action personnalisée, vous la jouerez. Appuyez sur le crayon pour modifier une action personnalisée. Veuillez vous assurer que le micrologiciel de votre équipement est à jour.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Mise à jour du matériel. Veuillez ne pas éteindre votre équipement ni fermer l'application",
+  "onboardingPrivacyPolicyDescription": "Bien que les données collectées soient anonymes et ne puissent pas être utilisées pour identifier un utilisateur spécifique, vous devez néanmoins accepter la politique de confidentialité",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Faux équipement",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Accepter la politique de confidentialité",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Une mise à jour du micrologiciel est requise pour que cette application prenne en charge votre équipement",
+  "mandatoryOtaRequired": "Une mise à jour du firmware est disponible pour mieux prendre en charge votre équipement",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -936,6 +936,54 @@
   "triggersSelectAllLabel": "Tout sélectionner",
   "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Connectez-vous à tous",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Veuillez mettre à jour votre équipement pour utiliser cette fonctionnalité.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "La fonctionnalité Joystick est expérimentale. À utiliser à vos risques et périls.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Veuillez mettre à jour votre équipement",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Mise à jour disponible",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Équipement connecté",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Joyeux remuement",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Sélectionner",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
