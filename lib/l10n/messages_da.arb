@@ -213,7 +213,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "Frustreret og anspændt",
+  "actionsCategoryGlowtip": "Glødespids",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -249,7 +249,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAppColor": "Rapportér ikke-identificerende funktionsbrug til Plausible for at forbedre appen",
+  "settingsAppColor": "App farve",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Udløs en handling ved at dække nærhedssensoren",
+  "triggerShakeDescription": "Udløs en handling ved at ryste din enhed",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -387,7 +387,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Nærliggende Gear",
+  "triggerProximityDescription": "Udløs en handling, hvis gear er i nærheden",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "EarGear Mic",
+  "triggerEarMicTitle": "EarGear mikrofon",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -417,7 +417,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "EarGear Tilt Sensor",
+  "triggerEarTiltTitle": "EarGear hældningssensor",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -483,7 +483,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualResponsibleWaggingTitle": "Tilt bagud",
+  "moreManualResponsibleWaggingTitle": "Ansvarlig logrende",
   "@moreManualResponsibleWaggingTitle": {
     "description": "Title for Responsible wagging manual button on More page",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "morePrivacyPolicyLinkTitle": "Manualer",
+  "morePrivacyPolicyLinkTitle": "Fortrolighedspolitik",
   "@morePrivacyPolicyLinkTitle": {
     "description": "Title for UPrivacy policy link under Useful Links on More page",
     "type": "text",
@@ -531,13 +531,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Manualer",
+  "moreManualSubTitle": "Tryk for at se",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "Manualer",
+  "moreUsefulLinksTitle": "nyttige links",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -651,7 +651,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Selvom de indsamlede data er anonyme og ikke kan bruges til at identificere en bestemt bruger, skal du stadig acceptere privatlivspolitikken",
+  "onboardingPrivacyPolicyViewButtonLabel": "Se privatlivspolitik",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Slå Bluetooth til",
+  "onboardingDoneButtonLabel": "Færdig",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "Der kræves Bluetooth-tilladelse for at oprette forbindelse til gear",
+  "onboardingBluetoothRequestButtonLabel": "Tillad adgang",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -717,7 +717,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Hvis du forbinder mange forekomster af de samme enheder, tilføjer denne tilstand tilfældige pauser til deres starttidspunkter, hvilket giver den en anden visuel effekt.",
+  "settingsAlwaysScanningToggleTitle": "Scan altid for kendt gear",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
@@ -741,7 +741,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Gear farve",
+  "settingsNewsletterToggleSubTitle": "Modtag automatiske meddelelser, når der er et nyt blogindlæg",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -759,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomAction": "Afslappet tilstand",
+  "triggerRandomAction": "handling",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
     "type": "text",
@@ -807,7 +807,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Rapportér ikke-identificerende funktionsbrug til Plausible for at forbedre appen",
+  "scanDevicesFoundTitle": "Udstyr fundet. Tryk på udstyrsnavnet for at oprette forbindelse",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
@@ -837,7 +837,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreSourceCode": "Tryk længe på en handling for at favorit",
+  "moreSourceCode": "Kildekode",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
@@ -873,7 +873,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioAdd": "Scan løbende for kendt gear. Når den er deaktiveret, skal du stryge på gearstangen for at scanne.",
+  "audioAdd": "Tilføj lydeffekt",
   "@audioAdd": {
     "description": "Label for sound files",
     "type": "text",
@@ -978,6 +978,12 @@
   "featureLimitedOtaRequiredLabel": "Opdater venligst dit udstyr for at bruge denne funktion.",
   "@featureLimitedOtaRequiredLabel": {
     "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Opret forbindelse til alle",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
     "type": "text",
     "placeholders": {}
   }
