@@ -257,7 +257,7 @@ class _TailBlogImageState extends State<TailBlogImage> {
         } else {
           final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
           WordpressClient client = await getWordpressClient();
-          WordpressResponse<Media> retrieveMediaResponse = await client!.media.retrieve(retrieveMediaRequest);
+          WordpressResponse<Media> retrieveMediaResponse = await client.media.retrieve(retrieveMediaRequest);
           if (retrieveMediaResponse.dataOrNull() != null) {
             Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
             mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;

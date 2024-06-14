@@ -6,6 +6,7 @@ import '../../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../constants.dart';
 import '../../../main.dart';
+import '../../go_router_config.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {
   const DeveloperMenu({super.key});
@@ -29,7 +30,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             leading: const Icon(Icons.list),
             subtitle: const Text("Application Logs"),
             onTap: () async {
-              context.push("/settings/developer/logs");
+              const LogsRoute().push(context);
             },
           ),
           ListTile(

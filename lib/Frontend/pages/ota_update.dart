@@ -9,7 +9,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -19,6 +18,7 @@ import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/firmware_update.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/plausible_dio.dart';
+import '../../Backend/version.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../Widgets/lottie_lazy_load.dart';
@@ -380,7 +380,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   Future<void> verListener() async {
     Version version = baseStatefulDevice!.fwVersion.value;
     FWInfo? fwInfo = firmwareInfo;
-    if (fwInfo != null && version.compareTo(Version.none) > 0 && otaState == OtaState.rebooting) {
+    if (fwInfo != null && version.compareTo(const Version()) > 0 && otaState == OtaState.rebooting) {
       bool updated = version.compareTo(getVersionSemVer(fwInfo.version)) >= 0;
       if (mounted) {
         setState(() {

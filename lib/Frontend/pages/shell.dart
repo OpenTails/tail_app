@@ -6,6 +6,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -29,24 +30,24 @@ import '../Widgets/snack_bar_overlay.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
-/// Flutter code sample for [NavigationDrawer].
+part 'shell.freezed.dart';
 
-@immutable
-class NavDestination {
-  const NavDestination(this.label, this.icon, this.selectedIcon, this.path);
-
-  final String label;
-  final Widget icon;
-  final Widget selectedIcon;
-  final String path;
+@freezed
+class NavDestination with _$NavDestination {
+  const factory NavDestination({
+    required String label,
+    required Widget icon,
+    required Widget selectedIcon,
+    required String path,
+  }) = _NavDestination;
 }
 
 List<NavDestination> destinations = <NavDestination>[
-  NavDestination(homePage(), const Icon(Icons.home_outlined), const Icon(Icons.home), "/"),
-  NavDestination(triggersPage(), const Icon(Icons.sensors_outlined), const Icon(Icons.sensors), "/triggers"),
+  NavDestination(label: homePage(), icon: const Icon(Icons.home_outlined), selectedIcon: const Icon(Icons.home), path: '/'),
+  NavDestination(label: triggersPage(), icon: const Icon(Icons.sensors_outlined), selectedIcon: const Icon(Icons.sensors), path: '/triggers'),
   //NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
   //NavDestination(joyStickPage(), const Icon(Icons.gamepad_outlined), const Icon(Icons.gamepad), "/joystick"),
-  NavDestination(moreTitle(), const Icon(Icons.menu), const Icon(Icons.menu_open), "/more"),
+  NavDestination(label: moreTitle(), icon: const Icon(Icons.menu), selectedIcon: const Icon(Icons.menu_open), path: "/more"),
 ];
 
 class NavigationDrawerExample extends ConsumerStatefulWidget {

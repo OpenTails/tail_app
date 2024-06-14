@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
+import '../Backend/Definitions/Action/base_action.dart';
 import '../Backend/Definitions/Device/device_definition.dart';
 import '../Backend/NavigationObserver/custom_go_router_navigation_observer.dart';
 import '../Backend/logging_wrappers.dart';
@@ -25,222 +28,293 @@ import 'pages/settings.dart';
 import 'pages/shell.dart';
 import 'pages/triggers.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
+part 'go_router_config.g.dart';
+
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
 // GoRouter configuration
 final GoRouter router = GoRouter(
   debugLogDiagnostics: true,
-  navigatorKey: _rootNavigatorKey,
+  navigatorKey: rootNavigatorKey,
   observers: [
     SentryNavigatorObserver(),
     CustomNavObserver(plausible),
     LogarteNavigatorObserver(logarte),
   ],
-  routes: [
-    ShellRoute(
-      navigatorKey: _shellNavigatorKey,
-      parentNavigatorKey: _rootNavigatorKey,
-      observers: [SentryNavigatorObserver(), CustomNavObserver(plausible)],
-      routes: [
-        GoRoute(
-          name: 'Actions',
-          path: '/',
-          parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
-            child: const ActionPage(),
-            key: state.pageKey,
-            name: 'Actions',
-          ),
-          redirect: (context, state) {
-            if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree) {
-              return '/onboarding';
-            }
-            return null;
-          },
-        ),
-        GoRoute(
-          name: 'Triggers',
-          path: '/triggers',
-          parentNavigatorKey: _shellNavigatorKey,
-          pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage(
-            child: const Triggers(),
-            key: state.pageKey,
-            name: 'Triggers',
-          ),
-          routes: [
-            GoRoute(
-              name: 'Triggers/Select Action',
-              path: 'select',
-              parentNavigatorKey: _rootNavigatorKey,
-              pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
-                child: ActionSelector(
-                  actionSelectorInfo: state.extra! as ActionSelectorInfo,
-                ),
-                key: state.pageKey,
-                name: 'Triggers/Select Action',
-              ),
-            ),
-          ],
-        ),
-        GoRoute(
-          name: 'More',
-          path: '/more',
-          parentNavigatorKey: _shellNavigatorKey,
-          routes: [
-            GoRoute(
-              name: 'More/viewHTML',
-              path: 'viewHTML',
-              parentNavigatorKey: _rootNavigatorKey,
-              builder: (BuildContext context, GoRouterState state) => HtmlPage(htmlPageInfo: state.extra! as HtmlPageInfo),
-            ),
-            GoRoute(
-              name: 'More/viewMarkdown',
-              path: 'viewMarkdown',
-              parentNavigatorKey: _rootNavigatorKey,
-              builder: (BuildContext context, GoRouterState state) {
-                return MarkdownViewer(markdownInfo: state.extra! as MarkdownInfo);
-              },
-            ),
-          ],
-          pageBuilder: (context, state) {
-            return NoTransitionPage(
-              key: state.pageKey,
-              name: 'More',
-              child: const More(),
-            );
-          },
-        ),
-      ],
-      pageBuilder: (BuildContext context, GoRouterState state, Widget child) => NoTransitionPage(
-        child: NavigationDrawerExample(child, state.matchedLocation),
-        key: state.pageKey,
-      ),
+  routes: $appRoutes,
+);
+
+class TriggersRoute extends GoRouteData {
+  const TriggersRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const Triggers();
+}
+
+@TypedShellRoute<NavigationDrawerExampleRoute>(
+  routes: <TypedRoute<RouteData>>[
+    TypedGoRoute<ActionPageRoute>(
+      path: '/',
+      name: 'Actions',
     ),
-    GoRoute(
-      name: 'Direct Gear Control',
-      path: '/joystick',
-      parentNavigatorKey: _rootNavigatorKey,
-      pageBuilder: (context, state) {
-        return MaterialPage(
-          key: state.pageKey,
-          name: 'Direct Gear Control',
-          child: const DirectGearControl(),
-        );
-      },
-    ),
-    GoRoute(
-      name: 'OTA',
-      path: '/ota',
-      parentNavigatorKey: _rootNavigatorKey,
-      pageBuilder: (BuildContext context, GoRouterState state) {
-        String device = state.extra! as String;
-        return MaterialPage(
-          child: OtaUpdate(device: device),
-          key: state.pageKey,
-          name: 'OTA',
-        );
-      },
-      redirect: (context, state) {
-        if (state.extra == null) {
-          return '/';
-        }
-        return null;
-      },
-    ),
-    GoRoute(
-      name: 'Onboarding',
-      path: '/onboarding',
-      parentNavigatorKey: _rootNavigatorKey,
-      pageBuilder: (BuildContext context, GoRouterState state) {
-        return MaterialPage(
-          child: const OnBoardingPage(),
-          key: state.pageKey,
-          name: 'Onboarding',
-        );
-      },
-      redirect: (context, state) {
-        if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree) {
-          return '/';
-        }
-        return null;
-      },
-    ),
-    GoRoute(
-      name: 'CustomAudio',
-      path: '/customAudio',
-      parentNavigatorKey: _rootNavigatorKey,
-      pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
-        key: state.pageKey,
-        name: 'CustomAudio',
-        child: const CustomAudio(),
-      ),
-    ),
-    GoRoute(
-      name: 'Sequences',
-      path: '/moveLists',
-      parentNavigatorKey: _rootNavigatorKey,
-      pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
-        key: state.pageKey,
-        name: 'Sequences',
-        child: const MoveListView(),
-      ),
-      routes: [
-        GoRoute(
-          name: 'Sequences/Edit Sequence',
-          path: 'editMoveList',
-          parentNavigatorKey: _rootNavigatorKey,
-          pageBuilder: (context, state) {
-            return MaterialPage(
-              key: state.pageKey,
-              name: 'Sequences/Edit Sequence',
-              child: const EditMoveList(),
-            );
-          },
+    TypedGoRoute<TriggersRoute>(
+      path: '/triggers',
+      name: 'Triggers',
+      routes: <TypedGoRoute<GoRouteData>>[
+        TypedGoRoute<ActionSelectorRoute>(
+          path: 'select',
+          name: 'Triggers/Select Action',
         ),
       ],
     ),
-    GoRoute(
-      name: 'Settings',
-      path: '/settings',
-      parentNavigatorKey: _rootNavigatorKey,
-      pageBuilder: (context, state) {
-        return MaterialPage(
-          key: state.pageKey,
-          name: 'Settings',
-          child: const Settings(),
-        );
-      },
-      routes: [
-        GoRoute(
-          name: 'Settings/Developer Menu',
-          path: 'developer',
-          parentNavigatorKey: _rootNavigatorKey,
-          builder: (BuildContext context, GoRouterState state) => const DeveloperMenu(),
-          routes: [
-            GoRoute(
-              name: 'Settings/Developer Menu/Console',
-              path: 'console',
-              parentNavigatorKey: _rootNavigatorKey,
-              builder: (BuildContext context, GoRouterState state) => BluetoothConsole(device: state.extra! as BaseStatefulDevice),
-            ),
-            GoRoute(
-              name: 'Settings/Developer Menu/Logs',
-              path: 'logs',
-              parentNavigatorKey: _rootNavigatorKey,
-              builder: (BuildContext context, GoRouterState state) => LogarteDashboardScreen(
-                logarte,
-                showBackButton: true,
-              ),
-            ),
-            GoRoute(
-              name: 'Settings/Developer Menu/Pin',
-              path: 'pin',
-              parentNavigatorKey: _rootNavigatorKey,
-              builder: (BuildContext context, GoRouterState state) => const DeveloperPincode(),
-            ),
-          ],
+    TypedGoRoute<MoreRoute>(
+      path: '/more',
+      name: 'More',
+      routes: <TypedGoRoute<GoRouteData>>[
+        TypedGoRoute<HtmlPageRoute>(
+          path: 'viewHTML',
+          name: 'More/viewHTML',
+        ),
+        TypedGoRoute<MarkdownViewerRoute>(
+          path: 'viewMarkdown',
+          name: 'More/viewMarkdown',
         ),
       ],
     ),
   ],
-);
+)
+class NavigationDrawerExampleRoute extends ShellRouteData {
+  const NavigationDrawerExampleRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
+
+  @override
+  Widget builder(BuildContext context, GoRouterState state, Widget navigator) {
+    return NavigationDrawerExample(navigator, state.matchedLocation);
+  }
+}
+
+@TypedGoRoute<OnBoardingPageRoute>(
+  path: '/onboarding',
+  name: 'Onboarding',
+)
+class OnBoardingPageRoute extends GoRouteData {
+  const OnBoardingPageRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
+    if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree) {
+      return const ActionPageRoute().location;
+    }
+    return null;
+  }
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const OnBoardingPage();
+}
+
+class HtmlPageRoute extends GoRouteData {
+  const HtmlPageRoute({required this.$extra});
+
+  final HtmlPageInfo $extra;
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => HtmlPage(
+        htmlPageInfo: $extra,
+      );
+}
+
+@TypedGoRoute<DirectGearControlRoute>(
+  path: '/joystick',
+  name: 'Direct Gear Control',
+)
+class DirectGearControlRoute extends GoRouteData {
+  const DirectGearControlRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const DirectGearControl();
+}
+
+@TypedGoRoute<CustomAudioRoute>(
+  path: '/customAudio',
+  name: 'CustomAudio',
+)
+class CustomAudioRoute extends GoRouteData {
+  const CustomAudioRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const CustomAudio();
+}
+
+class ActionPageRoute extends GoRouteData {
+  const ActionPageRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const ActionPage();
+
+  @override
+  FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
+    if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree) {
+      return const OnBoardingPageRoute().location;
+    }
+    return null;
+  }
+}
+
+class BluetoothConsoleRoute extends GoRouteData {
+  const BluetoothConsoleRoute({required this.$extra});
+
+  final BaseStatefulDevice $extra;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => BluetoothConsole(
+        device: $extra,
+      );
+}
+
+class ActionSelectorRoute extends GoRouteData {
+  const ActionSelectorRoute({required this.$extra});
+
+  final ActionSelectorInfo $extra;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => ActionSelector(
+        actionSelectorInfo: $extra,
+      );
+}
+
+class DeveloperMenuRoute extends GoRouteData {
+  const DeveloperMenuRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const DeveloperMenu();
+}
+
+class DeveloperPincodeRoute extends GoRouteData {
+  const DeveloperPincodeRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const DeveloperPincode();
+}
+
+class MarkdownViewerRoute extends GoRouteData {
+  const MarkdownViewerRoute({required this.$extra});
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  final MarkdownInfo $extra;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => MarkdownViewer(
+        markdownInfo: $extra,
+      );
+}
+
+class MoreRoute extends GoRouteData {
+  const MoreRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const More();
+}
+
+@TypedGoRoute<MoveListRoute>(
+  path: '/moveLists',
+  name: 'Sequences',
+  routes: [
+    TypedGoRoute<EditMoveListRoute>(
+      path: 'editMoveList',
+      name: 'Sequences/Edit Sequence',
+    ),
+  ],
+)
+class MoveListRoute extends GoRouteData {
+  const MoveListRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const MoveListView();
+}
+
+class EditMoveListRoute extends GoRouteData {
+  const EditMoveListRoute({required this.$extra});
+
+  final MoveList $extra;
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => EditMoveList(moveList: $extra);
+}
+
+@TypedGoRoute<OtaUpdateRoute>(
+  path: '/ota',
+  name: 'OTA',
+)
+class OtaUpdateRoute extends GoRouteData {
+  const OtaUpdateRoute({required this.device});
+
+  final String device;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => OtaUpdate(
+        device: device,
+      );
+}
+
+@TypedGoRoute<SettingsRoute>(
+  path: '/settings',
+  name: 'Settings',
+  routes: [
+    TypedGoRoute<DeveloperMenuRoute>(
+      path: 'developer',
+      name: 'Settings/Developer Menu',
+      routes: [
+        TypedGoRoute<BluetoothConsoleRoute>(
+          path: 'console',
+          name: 'Settings/Developer Menu/Console',
+        ),
+        TypedGoRoute<DeveloperPincodeRoute>(
+          path: 'pin',
+          name: 'Settings/Developer Menu/Pin',
+        ),
+        TypedGoRoute<LogsRoute>(
+          path: 'log',
+          name: 'Settings/Developer Menu/Logs',
+        ),
+      ],
+    ),
+  ],
+)
+class SettingsRoute extends GoRouteData {
+  const SettingsRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const Settings();
+}
+
+class LogsRoute extends GoRouteData {
+  const LogsRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => LogarteDashboardScreen(
+        logarte,
+        showBackButton: true,
+      );
+}

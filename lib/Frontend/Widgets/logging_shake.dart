@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:shake/shake.dart';
 
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
+import '../go_router_config.dart';
 
 class LoggingShake extends StatefulWidget {
   const LoggingShake({required this.child, super.key});
@@ -31,7 +31,7 @@ class _LoggingShakeState extends State<LoggingShake> {
           detector = ShakeDetector.waitForStart(
             onPhoneShake: () {
               if (context.mounted) {
-                unawaited(context.push("/settings/developer/logs"));
+                unawaited(const LogsRoute().push(context));
               } else {
                 detector?.stopListening();
                 detector = null;

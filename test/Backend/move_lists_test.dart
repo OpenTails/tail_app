@@ -4,10 +4,10 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Backend/action_registry.dart';
 import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Backend/plausible_dio.dart';
-import 'package:tail_app/Backend/sensors.dart';
 import 'package:tail_app/constants.dart';
 import 'package:test/test.dart';
 

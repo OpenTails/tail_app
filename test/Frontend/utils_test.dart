@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:platform/platform.dart';
-import 'package:pub_semver/pub_semver.dart';
+import 'package:tail_app/Backend/version.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 import 'package:test/test.dart';
@@ -38,10 +38,10 @@ void main() {
 
   test('Get version from string', () {
     Version version = getVersionSemVer("");
-    expect(version, Version(0, 0, 0));
+    expect(version, const Version());
     version = getVersionSemVer("5.1.3b");
-    expect(version, Version(5, 1, 3));
+    expect(version, const Version(major: 5, minor: 1, patch: 3));
     version = getVersionSemVer("VER 5.2.5");
-    expect(version, Version(5, 2, 5));
+    expect(version, const Version(major: 5, minor: 2, patch: 5));
   });
 }

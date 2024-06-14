@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../../Backend/Definitions/Device/device_definition.dart';
+import '../../go_router_config.dart';
 
 class BluetoothConsole extends StatefulWidget {
   final BaseStatefulDevice device;
@@ -76,6 +77,7 @@ class DisplayLog extends StatefulWidget {
   });
 
   final BluetoothConsole widget;
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
   State<DisplayLog> createState() => _DisplayLogState();

@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
-import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/device_registry.dart';
+import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/constants.dart';
 import 'package:test/test.dart';
 
@@ -118,9 +118,9 @@ void main() {
       );
       expect(HiveProxy.getAll<BaseStoredDevice>(devicesBox).contains(baseStatefulDevice2.baseStoredDevice), true);
 
-      BaseAction baseAction = BaseAction(name: "name", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.hidden, uuid: "uuid");
-      BaseAction baseAction2 = BaseAction(name: "name1", deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: "uuid1");
-      BaseAction baseAction3 = BaseAction(name: "name2", deviceCategory: [DeviceType.tail, DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: "uuid2");
+      BaseAction baseAction = CommandAction(name: "name", deviceCategory: [DeviceType.tail], actionCategory: ActionCategory.hidden, uuid: "uuid", command: '');
+      BaseAction baseAction2 = CommandAction(name: "name1", deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: "uuid1", command: '');
+      BaseAction baseAction3 = CommandAction(name: "name2", deviceCategory: [DeviceType.tail, DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: "uuid2", command: '');
 
       Set<BaseStatefulDevice> devices = container.read(getByActionProvider(baseAction));
       expect(devices.length, 1);

@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 import 'html_page.dart';
@@ -41,7 +42,7 @@ class _MoreState extends ConsumerState<More> {
           subtitle: Text(joyStickPageDescription()),
           leading: const Icon(Icons.gamepad),
           onTap: () async {
-            context.push('/joystick');
+            const DirectGearControlRoute().push(context);
           },
         ),
         ListTile(
@@ -49,7 +50,7 @@ class _MoreState extends ConsumerState<More> {
           subtitle: Text(sequencesPageDescription()),
           leading: const Icon(Icons.list),
           onTap: () async {
-            context.push('/moveLists');
+            const MoveListRoute().push(context);
           },
         ),
         ListTile(
@@ -57,7 +58,7 @@ class _MoreState extends ConsumerState<More> {
           subtitle: Text(audioEditDescription()),
           leading: const Icon(Icons.audio_file),
           onTap: () async {
-            context.push('/customAudio');
+            const CustomAudioRoute().push(context);
           },
         ),
         ListTile(
@@ -65,7 +66,7 @@ class _MoreState extends ConsumerState<More> {
           subtitle: Text(settingsDescription()),
           leading: const Icon(Icons.settings),
           onTap: () async {
-            context.push('/settings');
+            const SettingsRoute().push(context);
           },
         ),
         ListTile(
@@ -85,52 +86,48 @@ class _MoreState extends ConsumerState<More> {
           title: Text(moreManualMiTailTitle()),
           subtitle: Text(moreManualSubTitle()),
           onTap: () async {
-            context.push(
-              '/more/viewHTML/',
-              extra: HtmlPageInfo(
+            HtmlPageRoute(
+              $extra: HtmlPageInfo(
                 url: "https://docs.thetailcompany.com/doku.php?id=en:man:mitail&do=export_xhtmlbody",
                 title: moreManualMiTailTitle(),
               ),
-            );
+            ).push(context);
           },
         ),
         ListTile(
           title: Text(moreManualEargearTitle()),
           subtitle: Text(moreManualSubTitle()),
           onTap: () async {
-            context.push(
-              '/more/viewHTML/',
-              extra: HtmlPageInfo(
+            HtmlPageRoute(
+              $extra: HtmlPageInfo(
                 url: "https://docs.thetailcompany.com/doku.php?id=en:man:eg2&do=export_xhtmlbody",
                 title: moreManualEargearTitle(),
               ),
-            );
+            ).push(context);
           },
         ),
         ListTile(
           title: Text(moreManualFlutterWingsTitle()),
           subtitle: Text(moreManualSubTitle()),
           onTap: () async {
-            context.push(
-              '/more/viewHTML/',
-              extra: HtmlPageInfo(
+            HtmlPageRoute(
+              $extra: HtmlPageInfo(
                 url: "https://docs.thetailcompany.com/doku.php?id=en:man:flutterwings&do=export_xhtmlbody",
                 title: moreManualFlutterWingsTitle(),
               ),
-            );
+            ).push(context);
           },
         ),
         ListTile(
           title: Text(moreManualResponsibleWaggingTitle()),
           subtitle: Text(moreManualSubTitle()),
           onTap: () async {
-            context.push(
-              '/more/viewHTML/',
-              extra: HtmlPageInfo(
+            HtmlPageRoute(
+              $extra: HtmlPageInfo(
                 url: "https://docs.thetailcompany.com/doku.php?id=en:safety&do=export_xhtmlbody",
                 title: moreManualResponsibleWaggingTitle(),
               ),
-            );
+            ).push(context);
           },
         ),
         ListTile(
@@ -189,7 +186,12 @@ class _MoreState extends ConsumerState<More> {
           title: Text(morePrivacyPolicyLinkTitle()),
           leading: const Icon(Icons.privacy_tip),
           onTap: () async {
-            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString(Assets.privacy), title: morePrivacyPolicyLinkTitle()));
+            MarkdownViewerRoute(
+              $extra: MarkdownInfo(
+                content: await rootBundle.loadString(Assets.privacy),
+                title: morePrivacyPolicyLinkTitle(),
+              ),
+            ).push(context);
           },
         ),
         ListTile(

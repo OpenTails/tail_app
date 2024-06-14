@@ -76,42 +76,42 @@ void main() {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsProvider(DeviceType.values.toSet()));
+      var actions = container.read(getAllActionsProvider);
       expect(actions.length, 5);
     });
     test('Tail Actions', () {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsProvider({DeviceType.tail}));
+      var actions = container.read(getAllActionsFilteredProvider({DeviceType.tail}));
       expect(actions.length, 4);
     });
     test('Ear Actions', () {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsProvider({DeviceType.ears}));
+      var actions = container.read(getAllActionsFilteredProvider({DeviceType.ears}));
       expect(actions.length, 1);
     });
     test('Wings Actions', () {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsProvider({DeviceType.wings}));
+      var actions = container.read(getAllActionsFilteredProvider({DeviceType.wings}));
       expect(actions.length, 3);
     });
     test('Mini Tail Actions', () {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsProvider({DeviceType.miniTail}));
+      var actions = container.read(getAllActionsFilteredProvider({DeviceType.miniTail}));
       expect(actions.length, 3);
     });
     test('No Actions', () {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsProvider({}));
+      var actions = container.read(getAllActionsFilteredProvider({}));
       expect(actions.length, 0);
     });
   });

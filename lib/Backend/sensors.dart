@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:pedometer/pedometer.dart';
@@ -25,9 +26,11 @@ import 'Bluetooth/bluetooth_message.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'action_registry.dart';
+import 'device_registry.dart';
 import 'logging_wrappers.dart';
 import 'move_lists.dart';
 
+part 'sensors.freezed.dart';
 part 'sensors.g.dart';
 
 final sensorsLogger = log.Logger('Sensors');
@@ -36,11 +39,11 @@ final _random = Random();
 @HiveType(typeId: 2)
 class Trigger extends ChangeNotifier {
   @HiveField(1)
-  late String triggerDefUUID;
+  late final String triggerDefUUID;
   TriggerDefinition? triggerDefinition;
   bool _enabled = false;
   @HiveField(4)
-  String uuid;
+  final String uuid;
 
   bool get enabled => _enabled;
 
@@ -107,16 +110,6 @@ class Trigger extends ChangeNotifier {
   }
 }
 
-@Riverpod()
-BaseAction? getActionFromUUID(GetActionFromUUIDRef ref, String? uuid) {
-  if (uuid == null) {
-    return null;
-  }
-  List<BaseAction> actions = List.from(ActionRegistry.allCommands);
-  actions.addAll(ref.read(moveListsProvider));
-  return actions.where((element) => element.uuid == uuid).firstOrNull;
-}
-
 class TriggerPermissionHandle {
   final Set<Permission> android;
   final Set<Permission> ios;
@@ -145,10 +138,10 @@ class TriggerPermissionHandle {
 }
 
 abstract class TriggerDefinition extends ChangeNotifier implements Comparable<TriggerDefinition> {
-  late String name;
-  late String description;
-  late Widget icon;
-  late String uuid;
+  late final String name;
+  late final String description;
+  late final Widget icon;
+  late final String uuid;
   Map<String, Set<DeviceType>> deviceTypes = {};
   Map<String, List<TriggerAction>> actions = {};
   bool _enabled = false;
@@ -187,7 +180,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
   Future<void> onDisable();
 
   TriggerPermissionHandle? requiredPermission;
-  late List<TriggerActionDef> actionTypes;
+  late final List<TriggerActionDef> actionTypes;
 
   TriggerDefinition(this.ref);
 
@@ -201,25 +194,15 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           // 15 second cool-down between moves
           return;
         }
-        final List<BaseAction> allActionsMapped = triggerAction.actions
-            .map((element) => ref.read(getActionFromUUIDProvider(element)))
-            .where(
-              // filter out missing actions
-              (element) => element != null,
-            )
-            .map(
-              // mark remaining not null
-              (e) => e!,
-            )
-            .toList();
+        final List<BaseAction> allActionsMapped = triggerAction.actions.map((element) => ref.read(getActionFromUUIDProvider(element))).whereNotNull().toList();
 
         // no moves exist
         if (allActionsMapped.isEmpty) {
           return;
         }
         final List<BaseAction> moveActions = allActionsMapped.where((element) => !const [ActionCategory.glowtip, ActionCategory.audio].contains(element.actionCategory)).toList();
-        final List<BaseAction> glowActions = allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList();
-        final List<BaseAction> audioActions = allActionsMapped.where((element) => const [ActionCategory.audio].contains(element.actionCategory)).toList();
+        final List<BaseAction> glowActions = ref.read(getAllActionsForCategoryProvider(ActionCategory.glowtip));
+        final List<BaseAction> audioActions = ref.read(getAllActionsForCategoryProvider(ActionCategory.audio));
 
         BaseAction? baseAction;
         List<BaseAction> actionsToRun = [];
@@ -229,13 +212,12 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           final BaseAction glowAction = glowActions[_random.nextInt(glowActions.length)];
           actionsToRun.add(glowAction);
         }
-        // add a glowtip action if it exists
+        // add a audio action if it exists
         if (audioActions.isNotEmpty) {
-          final BaseAction glowAction = audioActions[_random.nextInt(audioActions.length)];
-          actionsToRun.add(glowAction);
+          final BaseAction audioAction = audioActions[_random.nextInt(audioActions.length)];
+          actionsToRun.add(audioAction);
         }
         final Set<DeviceType> flattenedDeviceTypes = deviceTypes.values.flattened.toSet();
-        final Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
         // check if non glowy actions are set
         if (moveActions.isNotEmpty) {
           baseAction = moveActions[_random.nextInt(moveActions.length)];
@@ -257,14 +239,10 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           }
         }
         triggerAction.isActive.value = true;
-        final List<BaseStatefulDevice> devices = knownDevices.values.where((BaseStatefulDevice element) => flattenedDeviceTypes.contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceState.value == DeviceState.standby).toList();
-
         Set<DeviceType> sentDeviceTypes = {};
         for (BaseAction baseAction in actionsToRun) {
-          for (BaseStatefulDevice baseStatefulDevice in List.of(devices)
-              .where(
-                (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-              )
+          for (BaseStatefulDevice baseStatefulDevice in ref
+              .read(getAvailableIdleGearForTypeProvider(baseAction.deviceCategory))
               .where(
                 // support sending to next device type if 2 actions+ actions are set
                 (element) => !sentDeviceTypes.contains(element.baseDeviceDefinition.deviceType),
@@ -391,14 +369,14 @@ class EarMicTriggerDefinition extends TriggerDefinition {
   @override
   Future<void> onDisable() async {
     deviceRefSubscription?.close();
-    ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+    ref.read(getKnownGearForTypeProvider([DeviceType.ears])).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+    ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).forEach((element) {
       element.commandQueue.addCommand(BluetoothMessage(message: "ENDLISTEN", device: element, priority: Priority.low, responseMSG: "LISTEN OFF", type: CommandType.system, timestamp: DateTime.now()));
     });
   }
@@ -408,7 +386,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+    ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).forEach((element) {
       element.commandQueue.addCommand(BluetoothMessage(message: "LISTEN FULL", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
@@ -418,7 +396,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
   }
 
   Future<void> onDeviceConnected() async {
-    ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).map((e) {
+    ref.read(getKnownGearForTypeProvider([DeviceType.ears])).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -433,7 +411,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).map(
+    rxSubscriptions = ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).map(
       (element) {
         element.commandQueue.addCommand(BluetoothMessage(message: "LISTEN FULL", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
         return element.rxCharacteristicStream.listen(
@@ -470,14 +448,14 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
   @override
   Future<void> onDisable() async {
     deviceRefSubscription?.close();
-    ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+    ref.read(getKnownGearForTypeProvider([DeviceType.ears])).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+    ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).forEach((element) {
       element.commandQueue.addCommand(BluetoothMessage(message: "ENDTILTMODE", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
   }
@@ -487,7 +465,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).forEach((element) {
+    ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).forEach((element) {
       element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE START", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
@@ -497,7 +475,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
   }
 
   Future<void> onDeviceConnected() async {
-    ref.read(knownDevicesProvider).values.where((element) => element.baseDeviceDefinition.deviceType == DeviceType.ears).map((e) {
+    ref.read(getKnownGearForTypeProvider([DeviceType.ears])).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -512,7 +490,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected && element.baseDeviceDefinition.deviceType == DeviceType.ears).map(
+    rxSubscriptions = ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).map(
       (element) {
         element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE START", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
         return element.rxCharacteristicStream.listen(
@@ -668,20 +646,15 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
   }
 }
 
-class TriggerActionDef {
+@freezed
+class TriggerActionDef with _$TriggerActionDef {
   //Store in trigger def instance
-  String name;
-  String translated; //Translated name
-  String uuid; // uuid
-  bool defaultActions = false;
-
-  TriggerActionDef({required this.name, required this.translated, required this.uuid, this.defaultActions = false});
-
-  @override
-  bool operator ==(Object other) => identical(this, other) || other is TriggerActionDef && runtimeType == other.runtimeType && uuid == other.uuid;
-
-  @override
-  int get hashCode => uuid.hashCode;
+  const factory TriggerActionDef({
+    required String name,
+    required String translated,
+    required String uuid,
+    @Default(false) final bool defaultActions,
+  }) = _TriggerActionDef;
 }
 
 @HiveType(typeId: 8)
@@ -689,7 +662,7 @@ class TriggerAction {
   Timer? _timer;
   Timer? _periodicTimer;
   @HiveField(1)
-  String uuid; //uuid matches triggerActionDef
+  final String uuid; //uuid matches triggerActionDef
   @HiveField(2)
   List<String> actions = [];
   ValueNotifier<bool> isActive = ValueNotifier(false);

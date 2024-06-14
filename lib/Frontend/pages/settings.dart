@@ -1,7 +1,6 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -9,6 +8,7 @@ import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/plausible_dio.dart';
 import '../../constants.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 
 class Settings extends ConsumerStatefulWidget {
@@ -276,7 +276,7 @@ class _SettingsState extends ConsumerState<Settings> {
               leading: const Icon(Icons.bug_report),
               subtitle: const Text("It is illegal to read this message"),
               onTap: () async {
-                context.push('/settings/developer');
+                const DeveloperMenuRoute().push(context);
               },
             ),
           ],

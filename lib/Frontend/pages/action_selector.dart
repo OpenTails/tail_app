@@ -1,26 +1,33 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
-import '../Widgets/tutorial_card.dart';
-import '../utils.dart';
-import '../../constants.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/action_registry.dart';
+import '../../constants.dart';
+import '../Widgets/tutorial_card.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
+import '../utils.dart';
 
-class ActionSelectorInfo {
-  final Set<DeviceType> deviceType;
-  final List<BaseAction> selectedActions;
+part 'action_selector.freezed.dart';
 
-  ActionSelectorInfo({required this.deviceType, required this.selectedActions});
+@freezed
+class ActionSelectorInfo with _$ActionSelectorInfo {
+  const factory ActionSelectorInfo({
+    required Set<DeviceType> deviceType,
+    required List<BaseAction> selectedActions,
+  }) = _ActionSelectorInfo;
 }
 
 class ActionSelector extends ConsumerStatefulWidget {
   const ActionSelector({required this.actionSelectorInfo, super.key});
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   final ActionSelectorInfo actionSelectorInfo;
 
@@ -45,7 +52,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
         )
         .toSet();
     actionsCatMap = Map.fromEntries(
-      ref.read(getAllActionsProvider(widget.actionSelectorInfo.deviceType)).entries.sorted(
+      ref.read(getAllActionsProvider).entries.sorted(
         (a, b) {
           int first = a.value
                   .map(

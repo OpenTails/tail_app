@@ -16,6 +16,7 @@ import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';
 import '../Widgets/speed_widget.dart';
 import '../Widgets/tutorial_card.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 
 class MoveListView extends ConsumerStatefulWidget {
@@ -38,7 +39,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
             ref.watch(moveListsProvider.notifier).add(MoveList(name: sequencesPage(), deviceCategory: DeviceType.values.toList(), actionCategory: ActionCategory.sequence, uuid: const Uuid().v4()));
           });
           plausible.event(name: "Add Sequence");
-          context.push<MoveList>("/moveLists/editMoveList", extra: ref.watch(moveListsProvider).last).then(
+          EditMoveListRoute($extra: ref.watch(moveListsProvider).last).push<MoveList>(context).then(
                 (value) => setState(() {
                   if (value != null) {
                     if (ref.watch(moveListsProvider).isNotEmpty) {
@@ -75,7 +76,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                     tooltip: sequencesEdit(),
                     icon: const Icon(Icons.edit),
                     onPressed: () async {
-                      context.push<MoveList>("/moveLists/editMoveList", extra: allMoveLists[index]).then(
+                      EditMoveListRoute($extra: allMoveLists[index]).push<MoveList>(context).then(
                             (value) => setState(
                               () {
                                 if (value != null) {
@@ -109,14 +110,15 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
 }
 
 class EditMoveList extends ConsumerStatefulWidget {
-  const EditMoveList({super.key});
+  const EditMoveList({required this.moveList, super.key});
+
+  final MoveList moveList;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _EditMoveList();
 }
 
 class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderStateMixin {
-  MoveList? moveList;
   TabController? _tabController;
   ScrollController? _scrollController;
 
@@ -128,14 +130,10 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      moveList ??= GoRouterState.of(context).extra! as MoveList; //Load stored data
-      moveList ??= MoveList(name: sequencesAdd(), deviceCategory: DeviceType.values.toList(), actionCategory: ActionCategory.sequence, uuid: const Uuid().v4()); // new if null, though it wont be stored
-    });
     return Scaffold(
       appBar: AppBar(
         title: Text(sequencesEdit()),
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop(moveList)),
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop(widget.moveList)),
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
@@ -159,7 +157,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 ),
               ).then((value) async {
                 if (value ?? true) {
-                  await ref.watch(moveListsProvider.notifier).remove(moveList!);
+                  await ref.watch(moveListsProvider.notifier).remove(widget.moveList);
                   await ref.watch(moveListsProvider.notifier).store();
                   if (context.mounted) {
                     context.pop();
@@ -170,16 +168,16 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
           ),
         ],
       ),
-      floatingActionButton: moveList!.moves.length < 6
+      floatingActionButton: widget.moveList.moves.length < 6
           ? FloatingActionButton.extended(
               icon: const Icon(Icons.add),
               onPressed: () async {
                 setState(
                   () {
-                    moveList!.moves = moveList!.moves.toList()..add(Move());
+                    widget.moveList.moves = widget.moveList.moves.toList()..add(Move());
                   },
                 );
-                editModal(context, moveList!.moves.length - 1);
+                editModal(context, widget.moveList.moves.length - 1);
                 //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves.last).then((value) => setState(() => moveList!.moves.last = value!));
               },
               label: Text(sequencesEditAdd()),
@@ -190,8 +188,8 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
           //This is broken >.<
           //https://github.com/flutter/flutter/issues/138737
           //https://github.com/flutter/flutter/issues/138525
-          if (moveList!.moves.isEmpty) {
-            ref.watch(moveListsProvider.notifier).remove(moveList!);
+          if (widget.moveList.moves.isEmpty) {
+            ref.watch(moveListsProvider.notifier).remove(widget.moveList);
           }
           ref.watch(moveListsProvider.notifier).store();
         },
@@ -204,7 +202,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
-                controller: TextEditingController(text: moveList!.name),
+                controller: TextEditingController(text: widget.moveList.name),
                 decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName()),
                 maxLines: 1,
                 maxLength: 30,
@@ -212,7 +210,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 onSubmitted: (nameValue) async {
                   setState(
                     () {
-                      moveList!.name = nameValue;
+                      widget.moveList.name = nameValue;
                     },
                   );
                   ref.watch(moveListsProvider.notifier).store();
@@ -220,9 +218,9 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
               ),
             ),
             DeviceTypeWidget(
-              selected: moveList!.deviceCategory,
+              selected: widget.moveList.deviceCategory,
               onSelectionChanged: (List<DeviceType> value) async {
-                setState(() => moveList!.deviceCategory = value.toList());
+                setState(() => widget.moveList.deviceCategory = value.toList());
                 ref.watch(moveListsProvider.notifier).store();
               },
             ),
@@ -230,14 +228,14 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
               title: Text(sequenceEditRepeatTitle()),
               leading: const Icon(Icons.repeat),
               subtitle: Slider(
-                value: moveList!.repeat,
+                value: widget.moveList.repeat,
                 min: 1,
                 max: 5,
                 divisions: 4,
-                label: "${moveList!.repeat.toInt()}",
+                label: "${widget.moveList.repeat.toInt()}",
                 onChanged: (double value) async {
                   setState(() {
-                    setState(() => moveList!.repeat = value);
+                    setState(() => widget.moveList.repeat = value);
                     ref.watch(moveListsProvider.notifier).store();
                   });
                 },
@@ -248,11 +246,11 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               children: <Widget>[
-                for (int index = 0; index < moveList!.moves.length; index += 1)
+                for (int index = 0; index < widget.moveList.moves.length; index += 1)
                   ListTile(
                     key: Key('$index'),
-                    title: Text(moveList!.moves[index].toString()),
-                    leading: Icon(moveList!.moves[index].moveType.icon),
+                    title: Text(widget.moveList.moves[index].toString()),
+                    leading: Icon(widget.moveList.moves[index].moveType.icon),
                     onTap: () async {
                       editModal(context, index);
                       //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
@@ -265,8 +263,8 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                 }
                 setState(
                   () {
-                    final Move item = moveList!.moves.removeAt(oldIndex);
-                    moveList!.moves.insert(newIndex, item);
+                    final Move item = widget.moveList.moves.removeAt(oldIndex);
+                    widget.moveList.moves.insert(newIndex, item);
                   },
                 );
                 ref.watch(moveListsProvider.notifier).store();
@@ -279,7 +277,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
   }
 
   Future<void> editModal(BuildContext context, int index) async {
-    Move move = moveList!.moves[index];
+    Move move = widget.moveList.moves[index];
     if (_tabController != null) {
       //There is probably a much better way to remove listeners
       _tabController?.dispose();
@@ -405,7 +403,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
       () async {
         setState(
           () {
-            moveList!.moves[index] = move;
+            widget.moveList.moves[index] = move;
           },
         );
         ref.watch(moveListsProvider.notifier).store();

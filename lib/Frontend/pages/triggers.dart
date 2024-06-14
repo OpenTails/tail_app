@@ -9,6 +9,7 @@ import 'package:uuid/uuid.dart';
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/action_registry.dart';
 import '../../Backend/plausible_dio.dart';
 import '../../Backend/sensors.dart';
 import '../../constants.dart';

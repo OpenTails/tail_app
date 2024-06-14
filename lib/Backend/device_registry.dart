@@ -1,12 +1,11 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart' as log;
-import 'package:pub_semver/pub_semver.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'Bluetooth/bluetooth_manager.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
+import 'version.dart';
 
 part 'device_registry.g.dart';
 
@@ -14,7 +13,7 @@ final deviceRegistryLogger = log.Logger('DeviceRegistry');
 
 @immutable
 class DeviceRegistry {
-  static final BuiltSet<BaseDeviceDefinition> allDevices = {
+  static const List<BaseDeviceDefinition> allDevices = [
     BaseDeviceDefinition(
       uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
       btName: "MiTail",
@@ -23,9 +22,9 @@ class DeviceRegistry {
       bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       deviceType: DeviceType.tail,
       fwURL: "https://thetailcompany.com/fw/mitailfw",
-      minVersion: Version(5, 0, 0),
+      minVersion: Version(major: 5, minor: 0, patch: 0),
     ),
-    const BaseDeviceDefinition(
+    BaseDeviceDefinition(
       uuid: "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee",
       btName: "(!)Tail1",
       bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
@@ -42,7 +41,7 @@ class DeviceRegistry {
       bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       deviceType: DeviceType.miniTail,
       fwURL: "https://thetailcompany.com/fw/mini",
-      minVersion: Version(5, 0, 0),
+      minVersion: Version(major: 5, minor: 0, patch: 0),
     ),
     BaseDeviceDefinition(
       uuid: "e790f509-f95b-4eb4-b649-5b43ee1eee9c",
@@ -52,9 +51,9 @@ class DeviceRegistry {
       bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       deviceType: DeviceType.wings,
       fwURL: "https://thetailcompany.com/fw/flutter",
-      minVersion: Version(5, 0, 0),
+      minVersion: Version(major: 5, minor: 0, patch: 0),
     ),
-    const BaseDeviceDefinition(
+    BaseDeviceDefinition(
       uuid: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
       btName: "EG2",
       bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
@@ -63,7 +62,7 @@ class DeviceRegistry {
       deviceType: DeviceType.ears,
       fwURL: "https://thetailcompany.com/fw/eg",
     ),
-    const BaseDeviceDefinition(
+    BaseDeviceDefinition(
       uuid: "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d",
       btName: "EarGear",
       bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
@@ -72,7 +71,7 @@ class DeviceRegistry {
       deviceType: DeviceType.ears,
       unsupported: true,
     ),
-  }.build();
+  ];
 
   static BaseDeviceDefinition getByUUID(String uuid) {
     return allDevices.firstWhere((BaseDeviceDefinition element) => element.uuid == uuid);
@@ -87,7 +86,7 @@ class DeviceRegistry {
   }
 }
 
-@Riverpod()
+@Riverpod(keepAlive: true, dependencies: [KnownDevices])
 Set<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseAction) {
   deviceRegistryLogger.info("Getting devices for action::$baseAction");
   Set<BaseStatefulDevice> foundDevices = {};
@@ -98,4 +97,40 @@ Set<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseAction) {
     }
   }
   return foundDevices;
+}
+
+@Riverpod(keepAlive: false, dependencies: [KnownDevices])
+Iterable<BaseStatefulDevice> getAvailableIdleGear(GetAvailableIdleGearRef ref) {
+  return ref.read(getAvailableGearProvider).where((element) => element.deviceState.value == DeviceState.standby);
+}
+
+@Riverpod(keepAlive: false, dependencies: [KnownDevices])
+Iterable<BaseStatefulDevice> getAvailableGear(GetAvailableGearRef ref) {
+  return ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected);
+}
+
+@Riverpod(keepAlive: false, dependencies: [getAvailableIdleGear])
+Iterable<BaseStatefulDevice> getAvailableIdleGearForAction(GetAvailableIdleGearForActionRef ref, BaseAction baseAction) {
+  return ref.read(getAvailableIdleGearProvider).where((element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType));
+}
+
+@Riverpod(keepAlive: false, dependencies: [getAvailableIdleGear])
+Iterable<BaseStatefulDevice> getAvailableIdleGearForType(GetAvailableIdleGearForTypeRef ref, Iterable<DeviceType> deviceTypes) {
+  return ref.read(getAvailableIdleGearProvider).where(
+        (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
+      );
+}
+
+@Riverpod(keepAlive: false, dependencies: [getAvailableGear])
+Iterable<BaseStatefulDevice> getAvailableGearForType(GetAvailableGearForTypeRef ref, Iterable<DeviceType> deviceTypes) {
+  return ref.read(getAvailableGearProvider).where(
+        (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
+      );
+}
+
+@Riverpod(keepAlive: true, dependencies: [KnownDevices])
+Iterable<BaseStatefulDevice> getKnownGearForType(GetKnownGearForTypeRef ref, Iterable<DeviceType> deviceTypes) {
+  return ref.read(knownDevicesProvider).values.where(
+        (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
+      );
 }

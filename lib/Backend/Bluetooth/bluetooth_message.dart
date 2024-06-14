@@ -17,10 +17,10 @@ class BluetoothMessage with _$BluetoothMessage implements Comparable<BluetoothMe
   @Implements<Comparable<BluetoothMessage>>()
   const factory BluetoothMessage({
     required String message,
-    final String? responseMSG,
     required BaseStatefulDevice device,
-    @Default(Priority.normal) final Priority priority,
     required DateTime timestamp,
+    final String? responseMSG,
+    @Default(Priority.normal) final Priority priority,
     final Function? onCommandSent,
     final Function(String)? onResponseReceived,
     final double? delay,

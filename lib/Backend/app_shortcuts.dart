@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'Bluetooth/bluetooth_manager.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
+import 'action_registry.dart';
+import 'device_registry.dart';
 import 'favorite_actions.dart';
 import 'move_lists.dart';
-import 'sensors.dart';
 
 part 'app_shortcuts.g.dart';
 
@@ -20,8 +20,7 @@ Future<void> appShortcuts(AppShortcutsRef ref) async {
   quickActions.initialize((shortcutType) {
     BaseAction? action = ref.read(getActionFromUUIDProvider(shortcutType));
     if (action != null) {
-      Iterable<BaseStatefulDevice> knownDevices =
-          ref.read(knownDevicesProvider).values.where((element) => action.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).where((element) => element.deviceConnectionState.value == ConnectivityState.connected).where((element) => element.deviceState.value == DeviceState.standby);
+      Iterable<BaseStatefulDevice> knownDevices = ref.read(getAvailableIdleGearProvider);
       for (BaseStatefulDevice device in knownDevices) {
         runAction(action, device);
       }

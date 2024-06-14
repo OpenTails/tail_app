@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,6 +13,7 @@ import '../../Backend/plausible_dio.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../Widgets/lottie_lazy_load.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
@@ -35,7 +35,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     plausible.event(name: "Complete Onboarding");
     _introLogger.info("Complete Onboarding");
     HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
-    context.pushReplacement('/');
+    const ActionPageRoute().pushReplacement(context);
   }
 
   Widget _buildImage(String assetName, [double width = 350]) {
@@ -85,7 +85,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   child: _buildImage(Assets.tCLogoTransparentNoText.path, 60),
                   onLongPress: () async {
                     _introLogger.info("Open Logs");
-                    context.push("/settings/developer/logs");
+                    const LogsRoute().push(context);
                   },
                 ),
               ),

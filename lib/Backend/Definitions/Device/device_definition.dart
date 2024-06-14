@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
-import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
@@ -19,6 +18,7 @@ import '../../Bluetooth/bluetooth_manager.dart';
 import '../../Bluetooth/bluetooth_manager_plus.dart';
 import '../../Bluetooth/bluetooth_message.dart';
 import '../../firmware_update.dart';
+import '../../version.dart';
 
 part 'device_definition.freezed.dart';
 part 'device_definition.g.dart';
@@ -112,7 +112,7 @@ class BaseStatefulDevice extends ChangeNotifier {
   final ValueNotifier<bool> batteryLow = ValueNotifier(false);
   final ValueNotifier<bool> gearReturnedError = ValueNotifier(false);
 
-  final ValueNotifier<Version> fwVersion = ValueNotifier(Version.none);
+  final ValueNotifier<Version> fwVersion = ValueNotifier(const Version());
   final ValueNotifier<String> hwVersion = ValueNotifier("");
   final ValueNotifier<GlowtipStatus> hasGlowtip = ValueNotifier(GlowtipStatus.unknown);
   final ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
@@ -158,7 +158,7 @@ class BaseStatefulDevice extends ChangeNotifier {
       batteryLow.value = batteryLevel.value < 20;
     });
     fwInfo.addListener(() {
-      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
+      if (fwInfo.value != null && fwVersion.value.compareTo(const Version()) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
         hasUpdate.value = true;
       }
     });
@@ -166,7 +166,7 @@ class BaseStatefulDevice extends ChangeNotifier {
       if (baseDeviceDefinition.minVersion != null && fwVersion.value.compareTo(baseDeviceDefinition.minVersion!) < 0) {
         mandatoryOtaRequired.value = true;
       }
-      if (fwInfo.value != null && fwVersion.value.compareTo(Version.none) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
+      if (fwInfo.value != null && fwVersion.value.compareTo(const Version()) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
         hasUpdate.value = true;
       }
     });
@@ -201,7 +201,7 @@ class BaseStatefulDevice extends ChangeNotifier {
     deviceState.value = DeviceState.standby;
     rssi.value = -1;
     hasUpdate.value = false;
-    fwVersion.value = Version.none;
+    fwVersion.value = const Version();
     batlevels = [];
     stopWatch.reset();
     mtu.value = -1;
@@ -381,7 +381,7 @@ class CommandQueue {
     });
     // preempt queue
     if (bluetoothMessage.type == CommandType.direct) {
-      state.toUnorderedList().where((element) => [CommandType.move, CommandType.direct].contains(element.type)).forEach((element) => state.remove(element));
+      state.toUnorderedList().where((element) => [CommandType.move, CommandType.direct].contains(element.type)).forEach(state.remove);
     }
     state.add(bluetoothMessage);
   }

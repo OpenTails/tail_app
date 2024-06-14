@@ -8,11 +8,11 @@ import 'package:logging/logging.dart';
 import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:platform/platform.dart';
-import 'package:pub_semver/pub_semver.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
 import '../Backend/logging_wrappers.dart';
+import '../Backend/version.dart';
 
 LocalPlatform platform = const LocalPlatform();
 
@@ -114,7 +114,7 @@ Version getVersionSemVer(String input) {
   if (split.length > 2 && int.tryParse(split[2].replaceAll(RegExp('[^0-9]'), '')) != null) {
     patch = split[2].replaceAll(RegExp('[^0-9]'), '');
   }
-  return Version(int.parse(major), int.parse(minor), int.parse(patch));
+  return Version(major: int.parse(major), minor: int.parse(minor), patch: int.parse(patch));
 }
 
 Color getTextColor(Color color) {
@@ -168,6 +168,5 @@ String getOutboundUtm() {
   } else if (platform.isIOS) {
     utm = "$utm?utm_source=tailappios";
   }
-
   return utm;
 }
