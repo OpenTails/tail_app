@@ -143,7 +143,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditSpeed": "右サーボの位置",
+  "sequencesEditSpeed": "ギアはこの位置にどのくらいの速さで移動する必要がありますか?",
   "@sequencesEditSpeed": {
     "description": "Label for the speed selector on the move tab of the move edit page",
     "type": "text",
@@ -381,19 +381,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "EarGearが傾きを検知するとアクションがトリガーされます",
+  "triggerEarTiltForward": "前方傾斜",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "EarGearが傾きを検知するとアクションがトリガーされます",
+  "triggerEarTiltBackward": "後方傾斜",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "sequenceEditRepeatTitle": "前方傾斜",
+  "sequenceEditRepeatTitle": "このアクションを何回繰り返しますか?",
   "@sequenceEditRepeatTitle": {
     "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
     "type": "text",
@@ -435,7 +435,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "EarGearが音を検知するとアクションが実行されます",
+  "triggerEarTiltTitle": "EarGear 傾斜センサー",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "カスタムアクションを使用すると、ギア用の独自のアクションを作成できます。カスタムアクションをタップすると、それが再生されます。カスタムアクションを編集するには、鉛筆をタップします。",
+  "sequencesInfoDescription": "カスタム アクションを使用すると、ギア用の独自のアクションを作成できます。カスタム アクションをタップすると、そのアクションが再生されます。鉛筆をタップしてカスタム アクションを編集します。ギアのファームウェアが最新であることを確認してください。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothRequestButtonLabel": "ギアに接続するにはBluetoothの許可が必要です",
+  "onboardingBluetoothRequestButtonLabel": "許可を与える",
   "@onboardingBluetoothRequestButtonLabel": {
     "description": "Label for the button to request bluetooth permission on the onboarding screen",
     "type": "text",
@@ -729,7 +729,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedTitle": "更新が完了しました",
+  "otaFailedTitle": "アップデートに失敗しました。機器を再起動してもう一度お試しください",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
     "type": "text",
@@ -759,7 +759,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomAction": "各カスタムアクションは 1 ～ 6 個の動きから構成され、最大 5 回繰り返すことができます。動きを長押しすると順序を変更できます。",
+  "triggerRandomAction": "アクション",
   "@triggerRandomAction": {
     "description": "Casual Mode trigger action label",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "このアプリがあなたのギアをサポートするにはファームウェアのアップデートが必要です",
+  "mandatoryOtaRequired": "お使いの機器をより良くサポートするためのファームウェアアップデートが利用可能です",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -885,7 +885,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioTipCard": "アクションタブに表示され、トリガーで使用できるカスタムサウンドを追加できます。",
+  "audioTipCard": "アクションタブに表示され、トリガーで使用できるカスタムサウンドを追加できます",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
     "type": "text",
@@ -936,6 +936,54 @@
   "triggersSelectAllLabel": "すべて選択",
   "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "ジョイスティック機能は実験段階です。自己責任でご使用ください。",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "この機能を使用するには、ギアを更新してください。",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "アップデートが利用可能",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "ギア接続",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "幸せに尻尾を振る",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "すべてに接続",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "ギアをアップデートしてください",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "選択する",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
