@@ -141,7 +141,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "選擇一個操作",
+  "actionsSelectScreen": "選擇操作",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -585,7 +585,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "自訂操作可讓您為裝備制定自己的操作。點擊自訂操作即可播放它。點擊鉛筆以編輯自訂操作。",
+  "sequencesInfoDescription": "自訂操作可讓您為裝備制定自己的操作。點擊自訂操作即可播放它。點擊鉛筆以編輯自訂操作。請確保您的齒輪韌體是最新的。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "此應用程式需要更新韌體才能支援您的設備",
+  "mandatoryOtaRequired": "韌體更新可更好地支援您的設備",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -921,7 +921,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "刪除所有假裝備",
+  "scanDemoGearTip": "想要試用該應用程序，但正在等待您的裝備到達嗎？增加一個假裝備。這可以讓您體驗該應用程序，就像您擁有自己的裝備一樣，或者如果您想嘗試當前不擁有的裝備。這將在「掃描新裝備」頁面上啟用一個新部分。",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
@@ -936,6 +936,54 @@
   "triggerActionSelectorTutorialLabel": "選擇您想要的任意數量的操作。將隨機選擇與連接的裝備相容的動作。 GlowTip 和聲音操作將與移動操作一起觸發。別忘了保存。",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "請更新您的裝備才能使用此功能。",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "操縱桿功能是實驗性的。使用風險自負。",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "快樂搖擺",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "請更新你的裝備",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "可用更新",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "連接的設備",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "連接到所有",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "選擇",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
