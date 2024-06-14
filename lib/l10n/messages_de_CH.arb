@@ -1,5 +1,5 @@
 {
-  "homeWelcomeMessageTitle": "Willkomme bim Tail Company App",
+  "homeWelcomeMessageTitle": "Willkomme in dr App vo de Tail Company",
   "@homeWelcomeMessageTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -47,7 +47,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Trigger",
+  "triggersPage": "Zünder",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersSelectLabel": "Wähl e Trigger-Typ us",
+  "triggersSelectLabel": "Wähl e Zünder-Typ us",
   "@triggersSelectLabel": {
     "description": "The title of the add trigger dialog",
     "type": "text",
@@ -219,7 +219,7 @@
       }
     }
   },
-  "actionsNoBluetooth": "Bluetooth isch nöd aktiv",
+  "actionsNoBluetooth": "Bluuetooth isch nöd aktiv",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
@@ -279,7 +279,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeNewsTitle": "Früsch vom Tail-Blog",
+  "homeNewsTitle": "Friisch vom Tail Blog",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
     "type": "text",
@@ -300,6 +300,690 @@
   "homeWelcomeMessage": "Du chasch all dini Tail Co-Ausrüstig do kontrolliere, erkunde und aktualisiere. Es het au Instruktione und Führige zur Verfüegig. Fröhlichs Wedele!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleTitle": "Verstecke Tutorial-Karten",
+  "@settingsTutorialCardToggleTitle": {
+    "description": "Settings page tutorial card display toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Verbärg d'verschiedene Tutorial-Chärtli i de ganze App",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingTitle": "Spaziere",
+  "@triggerWalkingTitle": {
+    "description": "Walking/Step trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingDescription": "Bim Spaziere e Handlig uslöse",
+  "@triggerWalkingDescription": {
+    "description": "Walking/Step trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicTitle": "Ohrgear Mikrofon",
+  "@triggerEarMicTitle": {
+    "description": "EarGear internal mic trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePrivacyPolicyLinkTitle": "Persönlichkeitschutz-Richtlinie",
+  "@morePrivacyPolicyLinkTitle": {
+    "description": "Title for Privacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltDescription": "Löse e Handlig us wenn de Ohrgear e Schräglage feststellt",
+  "@triggerEarTiltDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Update het nid klappet. Bitte start di Gerät neu und probiers nomal",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesColor": "Gearfàrb",
+  "@manageDevicesColor": {
+    "description": "manage devices color picker button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesScanMessage": "Uf der Suche nach em Gear. Bitte stells sicher, dass dis Gear isch ihgschalte und in dr Nöchi isch",
+  "@scanDevicesScanMessage": {
+    "description": "scan for devices scan in progress message when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverDescription": "Nöäch-Sensor abdecke, um en aktion uszlöse",
+  "@triggerCoverDescription": {
+    "description": "Cover trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Firmware Änderigsprotokoll",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "Änderigsprotokoll",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Triggers schicked automatisch Aktionen ah dini Ausrüstig. Du chascht mehre Triggers glichzitig aktiv ha. Tipp uf en Trigger fürs Ändere.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "A Firmware-Aktualisierung isch verfügbar, um dii besser z unterstütze bi dr Ausrüstung",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Individuelli Aktiona erlauben dir, diini eigene Aktiona für Usrüstig z'mache. Wenn du uf es individuells Aktion tippischch, wird's afspilt. Du kasch diini eigene Aktiona für Usrüstig mache mit individuelli Aktiona. Wenn du uf es individuells Aktion tippischch, wird's afspilt. Ticksch mit em Blyystift aazue, um es Bild z' redigiere. Sorg bitte dervo, dass dini Apparate-Software aktuell isch.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsHapticsToggleSubTitle": "Aktiviere Vibration, wenn eni Aktion tippd wird",
+  "@settingsHapticsToggleSubTitle": {
+    "description": "Settings page haptic feedback toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleTitle": "Immer nach bekannte Ausrüstig abscannen",
+  "@settingsAlwaysScanningToggleTitle": {
+    "description": "Settings page always scanning toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAlwaysScanningToggleSubTitle": "Luefschend naach bekanntem Züüg durchgschüsch iiberprüüfe. Wenn deaktiviert, muesch ufem Züügbarre swipe zum Scanne.",
+  "@settingsAlwaysScanningToggleSubTitle": {
+    "description": "Settings page always scanning toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleTitle": "Halt de Schirm a",
+  "@settingsKeepScreenOnToggleTitle": {
+    "description": "Settings page Keep Awake toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKeepScreenOnToggleSubTitle": "Dä Modus hindert d'Schirm dervo abzschalte, wenn dini Geräte aghänkt sind",
+  "@settingsKeepScreenOnToggleSubTitle": {
+    "description": "Settings page Keep Awake toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleTitle": "Fuchsmake",
+  "@settingsKitsuneToggleTitle": {
+    "description": "Settings page Kitsune mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsKitsuneToggleSubTitle": "Wenn du villi Instanze vom gliiche Gerät verbindsch, wird dere Modus zuefelligi Pausene zu ihre Move-Start-Ziite hinzuefüege, um es e anders Gschtalt z'ge.",
+  "@settingsKitsuneToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleTitle": "Zeig Batteriestand %",
+  "@settingsBatteryPercentageToggleTitle": {
+    "description": "Settings page Battery Percentage mode toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsBatteryPercentageToggleSubTitle": "Zeig de effektive Batteriestand stattdesse für en Iko",
+  "@settingsBatteryPercentageToggleSubTitle": {
+    "description": "Settings page show battery percentage toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleTitle": "Grösseri Chärtli",
+  "@settingsLargerCardsToggleTitle": {
+    "description": "Settings page Larger cards toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleTitle": "Automatischi Fehler Meldig",
+  "@settingsErrorReportingToggleTitle": {
+    "description": "Settings page error reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsErrorReportingToggleSubTitle": "Schickt Fählerbericht an Sentry",
+  "@settingsErrorReportingToggleSubTitle": {
+    "description": "Settings page error reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsLargerCardsToggleSubTitle": "Macht d Aktionskarte grösser, dass meh eifacher tüpfe chasch",
+  "@settingsLargerCardsToggleSubTitle": {
+    "description": "Settings page show larger cards toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleTitle": "Lösig anonymi Analytik aaluägä",
+  "@settingsAnalyticsToggleTitle": {
+    "description": "Settings page analytics reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleTitle": "Erlaub Tail Blog Benachrichtigige",
+  "@settingsNewsletterToggleTitle": {
+    "description": "Settings page newsletter notification toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNewsletterToggleSubTitle": "Chasch automatisch Benachrichtigunge becho, wenn es e neui Tail Blog Beitrag git",
+  "@settingsNewsletterToggleSubTitle": {
+    "description": "Settings page newsletter notification toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAppColor": "App Farb",
+  "@settingsAppColor": {
+    "description": "Settings page app color picker button title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesBatteryGraphTitle": "Batteerie-Grafik",
+  "@manageDevicesBatteryGraphTitle": {
+    "description": "battery graph expansion tile title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesDisconnect": "Abschlatte",
+  "@manageDevicesDisconnect": {
+    "description": "manage devices disconnect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesConnect": "Zämechonntschte",
+  "@manageDevicesConnect": {
+    "description": "manage devices connect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesShutdown": "Usschalte",
+  "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesForget": "Vergesse",
+  "@manageDevicesForget": {
+    "description": "manage devices forget button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaButton": "Tippe fir d'Firmware z'aktualisiere",
+  "@manageDevicesOtaButton": {
+    "description": "manage devices ota available button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesTitle": "Erscht abscanne für neui Ausrüstig",
+  "@scanDevicesTitle": {
+    "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleSubTitle": "Mälde nöd identifiziirbari Funktionalität-Nutzig an Plausible, um d'App z'verbessere",
+  "@settingsAnalyticsToggleSubTitle": {
+    "description": "Settings page analytics reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "Gear gfunde. Tapps uf de Gear, um z'verbindä",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStopped": "Stoppt",
+  "@triggerWalkingStopped": {
+    "description": "Walking/Step trigger Stopped action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStep": "Gang",
+  "@triggerWalkingStep": {
+    "description": "Walking/Step trigger Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverTitle": "Überzug",
+  "@triggerCoverTitle": {
+    "description": "Cover trigger Title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverNear": "Gadädli zudecke",
+  "@triggerCoverNear": {
+    "description": "Cover trigger near action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverFar": "Gadädli ufdecka",
+  "@triggerCoverFar": {
+    "description": "Cover trigger far action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Lässige Modus",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Zufällig es Bitzeli agiere",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Handlig",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonTitle": "Volumenknöpfli",
+  "@triggerVolumeButtonTitle": {
+    "description": "Volume Button trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonDescription": "Mit em Volümetaste chasch e Handlung ustrigge",
+  "@triggerVolumeButtonDescription": {
+    "description": "Volume Button trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeUp": "Mee luut",
+  "@triggerVolumeButtonVolumeUp": {
+    "description": "Volume Button trigger volume up action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeDown": "Lutstärche nider",
+  "@triggerVolumeButtonVolumeDown": {
+    "description": "Volume Button trigger volume down action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeTitle": "Schüttle",
+  "@triggerShakeTitle": {
+    "description": "Shake trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeDescription": "Schüttele dä Apparat und löse e Handlig us",
+  "@triggerShakeDescription": {
+    "description": "Shake trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityTitle": "Ausrüstig in de Nächi",
+  "@triggerProximityTitle": {
+    "description": "Proximity trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityDescription": "Fang e Aktion ah, wenn d' Ausrüstig in d'Nöchi isch",
+  "@triggerProximityDescription": {
+    "description": "Proximity trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionNotSet": "Keni Aktiivitäte",
+  "@triggerActionNotSet": {
+    "description": "Trigger action label when no action set",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicDescription": "Stell e Aktion i, wenn de Ohrgear Sound erfasst",
+  "@triggerEarMicDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicSound": "Tön Detäktiert",
+  "@triggerEarMicSound": {
+    "description": "EarGear internal mic trigger sound detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltTitle": "Ohrgear Kipp-Sensor",
+  "@triggerEarTiltTitle": {
+    "description": "EarGear internal gesture sensor trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltLeft": "Schräglinks",
+  "@triggerEarTiltLeft": {
+    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltRight": "Rechtischrägi",
+  "@triggerEarTiltRight": {
+    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltForward": "Vorwärts Neige",
+  "@triggerEarTiltForward": {
+    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltBackward": "Rückwartskipplig",
+  "@triggerEarTiltBackward": {
+    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditRepeatTitle": "Wi vil Mal sött mer das Aktion widerhole?",
+  "@sequenceEditRepeatTitle": {
+    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualResponsibleWaggingTitle": "Verantwortlich Wedle",
+  "@moreManualResponsibleWaggingTitle": {
+    "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Alles miteinander verbinden",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualMiTailTitle": "MiTail Anleitung",
+  "@moreManualMiTailTitle": {
+    "description": "Title for MiTail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualEargearTitle": "Ohrgear Anleitung",
+  "@moreManualEargearTitle": {
+    "description": "Title for EarGear manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualFlutterWingsTitle": "FlügleWings Anleitung",
+  "@moreManualFlutterWingsTitle": {
+    "description": "Title for FlutterWings manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualTitle": "Bschriibig",
+  "@moreManualTitle": {
+    "description": "Title for manual header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualSubTitle": "Tipp uff zum Aaluege",
+  "@moreManualSubTitle": {
+    "description": "Subtitle for each manual on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreUsefulLinksTitle": "Praktischi Linkis",
+  "@moreUsefulLinksTitle": {
+    "description": "Title for Useful Links header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Meh",
+  "@moreTitle": {
+    "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Aktualisiere di Usrüstig",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Starte das OTA Update",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Update abgschlosse",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Leerer Akku. Bitte lade dini Usrüstig uf mindestens 50%",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Tipp de Stift ah, um d'Funktion uswäählä, wo abgschpielt wird, wänn's Ereignis stattfindet. Es wird eni Zuegs ausgwählt, das mit em Usrüstig kompatibel isch. LampaTip und Sound-Handlige werded glichziitig mit de Move-Handlige usgelöst.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Jede individuell Aktion bestaht us 1 bis 6 Bewegige und cha bis zu 5 Mal widerhoolt werde. Du chasch es lang drucke, um d'Bewegige z'neu z'ordne.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyViewButtonLabel": "Privacy Vorschrifte aaluege",
+  "@onboardingPrivacyPolicyViewButtonLabel": {
+    "description": "Button label to view privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Akzeptiere d'Datesschutzrichtlinie",
+  "@onboardingPrivacyPolicyAcceptButtonLabel": {
+    "description": "Button label to accept privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothRequestButtonLabel": "Erloube ge",
+  "@onboardingBluetoothRequestButtonLabel": {
+    "description": "Label for the button to request bluetooth permission on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothEnableButtonLabel": "Schalt Bluuetooth a",
+  "@onboardingBluetoothEnableButtonLabel": {
+    "description": "Label for the button to open bluetooth settings on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingDoneButtonLabel": "Abgschlosse",
+  "@onboardingDoneButtonLabel": {
+    "description": "Label for the button to close the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingCompletedTitle": "Fröhlich wedelnd!",
+  "@onboardingCompletedTitle": {
+    "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Drück no einisch zum Uusstiege",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "Langscht drucke zum Lieblingsaktion mache",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are favorited on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Ürsprungskode",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Gaar wird aktüälisiert. Bitte schalts nöd ab oder schliess d'App",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyDescription": "Während d'Däta, wo g'sammlet wird, anonym isch und nid benutzt wird, um en spezifische Benutzer z'identifizierä, muesch du trotzdem d'Datenschutzrichtlinie akzeptierä",
+  "@onboardingPrivacyPolicyDescription": {
+    "description": "Description for there being a privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothDescription": "Bluuetooth Bewilligung isch nötig zum Verbinden mit em Gerät",
+  "@onboardingBluetoothDescription": {
+    "description": "Description for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Däne Ausrüdtig isch nüme unterstützt. Einigi App-Funktione chönd nid funktioniere",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothTitle": "Bluuetooth",
+  "@onboardingBluetoothTitle": {
+    "description": "Title for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Gerüüschteffekte",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Behandle individuell Soundeffektene",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Benenne Soundeffekt um",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Lösch Soundeffekt",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "Bisch du sicher, dass du das Soundeffekt lösche willsch?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Füeg Soundeffekt bii",
+  "@audioAdd": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Füeg falschi Ausrüschig",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Entfärnt alli falschi Ausrüstig",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Möchtisch d'App verusproche aber wartisch ufs Ausrüstig? Füeg e falschs Ausrüstig debi. Das letsch dech d App erläbe, als ob du dyni Ausrüstig hätsch, oder wänn du nödigs nutze wotsch, wo du aktuell nöd besitzisch. Das ermöglicht en neue Abschnitt uf dr \"Scan For New Ausrüstig\" Sita.",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Wähle eso vile Aktiona as du wosch. Es wird en Aktioni zuefallsmässig usgwählt, wo mit de verbundene Ausrüstig kompatibel isch. LampaTip- und Sound-Handlige werdet zämä mit de Move-Handlige uusglöst. Vergiss ned, z'speicherä.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Bitte aktualisiere dis Ausrüstig, um dis Funktione z'bruche.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "Die Joystick-Funktion isch experimäntell. Benutze uf eigets Risiko.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Bitte mach di Ausrüstig aktuell",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Update erhältlich",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Ausrüstung verbinde",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Glücklig Schwänzle",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "Du chasch eigene Sound hinzuefüege, wo ufem Actions-Tab erschint und mit Triggers verwändet werde chönd",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Gschmackts Ausrüstung",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   }
