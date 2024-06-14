@@ -789,7 +789,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "触发器会自动向您的装备发送动作。您可以同时激活多个触发器。点击触发器进行编辑，使用左侧的开关启用触发器。",
+  "triggerInfoDescription": "触发器会自动向您的装备发送动作。您可以同时激活多个触发器。点击触发器进行编辑，使用左侧的切换按钮启用触发器。",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -801,7 +801,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "自定义操作允许您为装备创建自己的操作。点击自定义操作即可播放。点击铅笔即可编辑自定义操作。",
+  "sequencesInfoDescription": "自定义操作允许您为设备创建自己的操作。点击自定义操作即可播放。点击铅笔即可编辑自定义操作。请确保您的设备固件是最新的。",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -861,7 +861,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "此应用程序需要固件更新才能支持您的设备",
+  "mandatoryOtaRequired": "固件更新可用来更好地支持您的设备",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -921,7 +921,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "移除所有假装备",
+  "scanDemoGearTip": "想要试用该应用，但正在等待装备到货？添加一个假装备。这样，您就可以像拥有装备一样体验该应用，或者如果您想试用您目前没有的装备。这将在“扫描新装备”页面上启用一个新部分。",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
@@ -936,6 +936,54 @@
   "triggersSelectAllLabel": "全选",
   "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "请更新您的装备以使用此功能。",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "操纵杆功能尚处于实验阶段。使用时请自负风险。",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "请更新你的装备",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "有更新",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "齿轮连接",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "快乐摇尾巴",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "连接到全部",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "选择",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
