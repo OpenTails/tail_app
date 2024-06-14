@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggersPage": "Saba ettevõte",
+  "triggersPage": "Päästikud",
   "@triggersPage": {
     "description": "The label and title of the trigger page",
     "type": "text",
@@ -137,7 +137,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Uus tegevus",
+  "sequencesEditRightServo": "Parema servo asend",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
@@ -213,13 +213,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "GlowTip",
+  "actionsCategoryGlowtip": "Helendav ots",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Valige toiming",
+  "actionsSelectScreen": "Valige Toimingud",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -303,7 +303,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingTitle": "Leitud Gear. Ühenduse loomiseks puudutage hammasratta nime",
+  "triggerWalkingTitle": "Jalutamine",
   "@triggerWalkingTitle": {
     "description": "Walking/Step trigger title",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Käikude otsimine. Veenduge, et teie varustus oleks sisse lülitatud ja läheduses",
+  "triggerCoverTitle": "Kaas",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "Tegevus",
+  "triggerEarMicTitle": "EarGear mikrofon",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -465,7 +465,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesConnect": "Aku graafik",
+  "manageDevicesConnect": "Ühendage",
   "@manageDevicesConnect": {
     "description": "manage devices connect button title when managing a device",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreUsefulLinksTitle": "FlutterWingsi käsiraamat",
+  "moreUsefulLinksTitle": "Kasulikud lingid",
   "@moreUsefulLinksTitle": {
     "description": "Title for Useful Links header on More page",
     "type": "text",
@@ -573,13 +573,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit.",
+  "sequencesInfoDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit. Veenduge, et teie varustuse püsivara on ajakohane.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoEditDescription": "Peida erinevad õpetuse kaardid kogu rakenduses",
+  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse ümberjärjestamiseks võite pikalt vajutada.",
   "@sequencesInfoEditDescription": {
     "description": "Description for making a custom action on the edit Custom Action page",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga võib olla aktiivne mitu päästikut. Selle muutmiseks puudutage päästikut, päästiku lubamiseks kasutage vasakpoolset lülitit.",
+  "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga saab aktiveerida mitu päästikut. Selle muutmiseks puudutage päästikut. Päästiku lubamiseks kasutage vasakpoolset lülitit.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Selle rakenduse jaoks on teie varustuse toetamiseks vaja püsivara värskendust",
+  "mandatoryOtaRequired": "Teie varustuse paremaks toetamiseks on saadaval püsivara värskendus",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -891,7 +891,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeMiniTail": "Mini Tail",
+  "deviceTypeMiniTail": "Mini kukk",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
     "type": "text",
@@ -936,6 +936,54 @@
   "triggersSelectAllLabel": "Vali kõik",
   "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Selle funktsiooni kasutamiseks värskendage oma varustust.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Ühendage kõigiga",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "Juhtkangi funktsioon on eksperimentaalne. Kasutage omal vastutusel.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Palun värskendage oma varustust",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Uuendus saadaval",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Gear ühendatud",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Head vehkimist",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Vali",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
