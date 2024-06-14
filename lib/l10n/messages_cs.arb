@@ -149,7 +149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditEasing": "Jak rychle by se měl převod do této polohy přesunout?",
+  "sequencesEditEasing": "Vyhlazující typ",
   "@sequencesEditEasing": {
     "description": "Label for the easing selector on the move tab of the move edit page",
     "type": "text",
@@ -161,7 +161,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Home the Gear",
+  "sequencesEditHomeLabel": "Umístěte zařízení do klidové polohy",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
@@ -219,7 +219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryGlowtip": "GlowTip",
+  "actionsCategoryGlowtip": "Svítící hrot",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
     "type": "text",
@@ -309,7 +309,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Skenování zahájíte vodorovným přejetím po známé oblasti zařízení výše. Nepřetržité skenování můžete zapnout v nastavení.",
+  "triggerWalkingDescription": "Spusťte akci při chůzi",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
@@ -327,7 +327,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Krok",
+  "triggerCoverDescription": "Spusťte akci zakrytím senzoru přiblížení",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -399,7 +399,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "EarGear Mic",
+  "triggerEarMicTitle": "Mikrofon EarGear",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -417,13 +417,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "EarGear Tilt Sensor",
+  "triggerEarTiltTitle": "Snímač náklonu EarGear",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "EarGear Tilt Sensor",
+  "triggerEarTiltDescription": "Spusťte akci, když EarGear detekuje naklonění",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -489,7 +489,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualFlutterWingsTitle": "Poslat zpětnou vazbu",
+  "moreManualFlutterWingsTitle": "Manuál FlutterWings",
   "@moreManualFlutterWingsTitle": {
     "description": "Title for FlutterWings manual button on More page",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleTitle": "Tento režim zastaví vypínání obrazovky, když je vaše zařízení připojeno",
+  "settingsKeepScreenOnToggleTitle": "Nechte obrazovku zapnutou",
   "@settingsKeepScreenOnToggleTitle": {
     "description": "Settings page Keep Awake toggle title",
     "type": "text",
@@ -561,7 +561,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleTitle": "Tento režim zastaví vypínání obrazovky, když je vaše zařízení připojeno",
+  "settingsKitsuneToggleTitle": "Kitsune režim",
   "@settingsKitsuneToggleTitle": {
     "description": "Settings page Kitsune mode toggle title",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Akce",
+  "otaChangelogLabel": "Protokol změn firmwaru",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Spouštěče automaticky posílají akce do vašeho zařízení. Můžete mít aktivních více spouštěčů současně. Klepnutím na spoušť jej upravíte, pomocí přepínače vlevo spoušť aktivujte.",
+  "triggerInfoDescription": "Spouštěče automaticky posílají akce do vašeho zařízení. Můžete mít aktivních více spouštěčů současně. Klepnutím na spoušť jej upravíte. Pomocí přepínače vlevo aktivujte spoušť.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Vlastní akce vám umožňují vytvářet vlastní akce pro zařízení. Klepnutím na vlastní akci ji přehrajete. Klepnutím na tužku upravíte vlastní akci.",
+  "sequencesInfoDescription": "Vlastní akce vám umožňují vytvářet vlastní akce pro zařízení. Klepnutím na vlastní akci ji přehrajete. Klepnutím na tužku upravíte vlastní akci. Ujistěte se, že je firmware vašeho zařízení aktuální.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "I když jsou shromážděná data anonymní a nelze je použít k identifikaci konkrétního uživatele, stále musíte přijmout zásady ochrany osobních údajů",
+  "onboardingPrivacyPolicyViewButtonLabel": "Zobrazit Zásady ochrany osobních údajů",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothDescription": "Bluetooth",
+  "onboardingBluetoothDescription": "K připojení k zařízení je vyžadováno oprávnění Bluetooth",
   "@onboardingBluetoothDescription": {
     "description": "Description for bluetooth section on the onboarding screen",
     "type": "text",
@@ -699,7 +699,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingCompletedTitle": "Happy Wagging!",
+  "onboardingCompletedTitle": "Bavte se při tkaní!",
   "@onboardingCompletedTitle": {
     "description": "Title of the final page of the onboarding screen",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Vlastní akce vám umožňují vytvářet vlastní akce pro zařízení. Klepnutím na vlastní akci ji přehrajete. Klepnutím na tužku upravíte vlastní akci.",
+  "otaLowBattery": "Slabá baterie. Nabijte prosím své zařízení alespoň na 50 %",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Toto zařízení již není podporováno. Některé funkce aplikace nemusí fungovat",
+  "mandatoryOtaRequired": "Pro lepší podporu vašeho zařízení je k dispozici aktualizace firmwaru",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -879,7 +879,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioDeleteDescription": "Můžete přidat vlastní zvuky, které se zobrazí na kartě Akce a lze je použít se spouštěči",
+  "audioDeleteDescription": "Opravdu chcete smazat tento zvukový efekt?",
   "@audioDeleteDescription": {
     "description": "Label for the body of the delete confirmation dialog",
     "type": "text",
@@ -936,6 +936,54 @@
   "triggersSelectAllLabel": "Vybrat vše",
   "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Chcete-li tuto funkci používat, aktualizujte své zařízení.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "Funkce joysticku je experimentální. Použití na vlastní nebezpečí.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Připojte se ke všem",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Aktualizujte prosím své vybavení",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Aktualizace k dispozici",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Zařízení je připojeno",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Šťastné vrtění",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Vybrat",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
