@@ -165,13 +165,13 @@
       }
     }
   },
-  "actionsNoBluetooth": "Opóźnij następny ruch o [X20X] ms.",
+  "actionsNoBluetooth": "Bluetooth jest niedostępny",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Czy na pewno chcesz usunąć tę akcję?",
+  "actionsCategoryCalm": "Spokojny i zrelaksowany",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -195,7 +195,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Wybierz akcję",
+  "actionsSelectScreen": "Wybierz Działania",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Automatycznie otrzymuj powiadomienia, gdy pojawi się nowy post na blogu Tail",
+  "manageDevicesOtaButton": "Kliknij, aby zaktualizować oprogramowanie sprzętowe",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -381,13 +381,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "Uruchom akcję, naciskając przycisk głośności",
+  "triggerEarMicTitle": "Mikrofon douszny",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Mikrofon douszny",
+  "triggerEarMicDescription": "Uruchom działanie, gdy EarGear wykryje dźwięk",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -495,7 +495,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Instrukcje",
+  "moreManualSubTitle": "Kliknij, aby wyświetlić",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Akcje niestandardowe umożliwiają tworzenie własnych akcji dla sprzętu. Kliknięcie akcji niestandardowej spowoduje jej odtworzenie. Kliknij ołówek, aby edytować akcję niestandardową.",
+  "sequencesInfoDescription": "Akcje niestandardowe umożliwiają tworzenie własnych akcji dla sprzętu. Kliknięcie akcji niestandardowej spowoduje jej odtworzenie. Kliknij ołówek, aby edytować akcję niestandardową. Upewnij się, że oprogramowanie sprzętowe Twojego sprzętu jest aktualne.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -645,13 +645,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Wyzwalacze automatycznie wysyłają akcje do Twojego sprzętu. Jednocześnie może być aktywnych wiele wyzwalaczy. Stuknij wyzwalacz, aby go edytować, użyj przełącznika po lewej stronie, aby włączyć wyzwalacz.",
+  "triggerInfoDescription": "Wyzwalacze automatycznie wysyłają akcje do Twojego sprzętu. Jednocześnie może być aktywnych wiele wyzwalaczy. Kliknij wyzwalacz, aby go edytować. Użyj przełącznika po lewej stronie, aby włączyć wyzwalacz.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Pieszy",
+  "onboardingBluetoothEnableButtonLabel": "Włącz Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -663,13 +663,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyDescription": "Zaakceptuj Politykę prywatności",
+  "onboardingPrivacyPolicyDescription": "Mimo, że zbierane dane są anonimowe i nie pozwalają na identyfikację konkretnego użytkownika, nadal musisz zaakceptować politykę prywatności",
   "@onboardingPrivacyPolicyDescription": {
     "description": "Description for there being a privacy policy on the onboarding screen",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Mimo, że zbierane dane są anonimowe i nie pozwalają na identyfikację konkretnego użytkownika, nadal musisz zaakceptować politykę prywatności",
+  "onboardingPrivacyPolicyViewButtonLabel": "Zobacz Politykę prywatności",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -783,7 +783,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Automatycznie otrzymuj powiadomienia, gdy pojawi się nowy post na blogu Tail",
+  "homeContinuousScanningOffDescription": "Przesuń poziomo po znanym obszarze urządzenia powyżej, aby rozpocząć skanowanie. Możesz włączyć ciągłe skanowanie w ustawieniach.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Aby ta aplikacja obsługiwała Twój sprzęt, wymagana jest aktualizacja oprogramowania sprzętowego",
+  "mandatoryOtaRequired": "Dostępna jest aktualizacja oprogramowania sprzętowego, która zapewnia lepszą obsługę Twojego sprzętu",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -837,7 +837,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreSourceCode": "Naciśnij i przytrzymaj akcję, aby dodać ją do ulubionych",
+  "moreSourceCode": "Kod źródłowy",
   "@moreSourceCode": {
     "description": "Label for the github and dev mode button on the more tab",
     "type": "text",
@@ -936,6 +936,54 @@
   "triggersSelectAllLabel": "Zaznacz wszystko",
   "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Połącz się ze wszystkimi",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Aby móc korzystać z tej funkcji, zaktualizuj swój sprzęt.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "Funkcja joysticka ma charakter eksperymentalny. Używaj na własne ryzyko.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Proszę zaktualizować swój sprzęt",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Dostępna aktualizacja",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Sprzęt podłączony",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Szczęśliwego machania",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Wybierać",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
