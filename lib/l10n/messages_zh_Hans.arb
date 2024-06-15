@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "您可以添加在“操作”选项卡上显示的自定义声音，并可与触发器一起使用",
+  "settingsErrorReportingToggleTitle": "自动错误报告",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
