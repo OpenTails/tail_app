@@ -3,11 +3,10 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'Bluetooth/bluetooth_manager.dart';
-import 'Bluetooth/bluetooth_manager_plus.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'audio.dart';
+import 'device_registry.dart';
 import 'move_lists.dart';
 
 part 'action_registry.g.dart';
@@ -270,16 +269,14 @@ class ActionRegistry {
   }.build();
 }
 
-@Riverpod(keepAlive: false, dependencies: [KnownDevices, getAllActions])
+@Riverpod(keepAlive: true)
 Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef ref) {
-  if (!isAnyGearConnected.value) {
-    return {};
-  }
-  Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
-  for (BaseAction baseAction in ref.read(getAllActionsProvider).values.flattened) {
+  final Map<ActionCategory, Set<BaseAction>> allActions = ref.watch(getAllActionsProvider);
+  final Iterable<BaseStatefulDevice> availableGear = ref.watch(getAvailableGearProvider);
+  for (BaseAction baseAction in allActions.values.flattened) {
     Set<BaseAction>? baseActions = {};
-    for (BaseStatefulDevice baseStatefulDevice in knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected)) {
+    for (BaseStatefulDevice baseStatefulDevice in availableGear) {
       // check if command matches device type
       if (baseAction.deviceCategory.contains(baseStatefulDevice.baseDeviceDefinition.deviceType) && ((baseAction.actionCategory == ActionCategory.glowtip && baseStatefulDevice.hasGlowtip.value == GlowtipStatus.glowtip) || baseAction.actionCategory != ActionCategory.glowtip)) {
         // get category if it exists
@@ -298,12 +295,14 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
   return sortedActions;
 }
 
-@Riverpod(dependencies: [MoveLists, UserAudioActions], keepAlive: true)
+@Riverpod(keepAlive: true)
 Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
+  final List<MoveList> moveLists = ref.watch(moveListsProvider);
+  final List<AudioAction> audioActions = ref.watch(userAudioActionsProvider);
   for (BaseAction baseAction in List.from(ActionRegistry.allCommands)
-    ..addAll(ref.read(moveListsProvider))
-    ..addAll(ref.read(userAudioActionsProvider))) {
+    ..addAll(moveLists)
+    ..addAll(audioActions)) {
     Set<BaseAction>? baseActions = {};
     // get category if it exists
     if (sortedActions.containsKey(baseAction.actionCategory)) {
@@ -319,10 +318,10 @@ Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref) {
   return sortedActions;
 }
 
-@Riverpod(dependencies: [getAllActions], keepAlive: true)
+@Riverpod(keepAlive: true)
 Map<ActionCategory, Set<BaseAction>> getAllActionsFiltered(GetAllActionsFilteredRef ref, Set<DeviceType> deviceType) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
-  Map<ActionCategory, Set<BaseAction>> read = ref.read(getAllActionsProvider);
+  final Map<ActionCategory, Set<BaseAction>> read = ref.watch(getAllActionsProvider);
   for (BaseAction baseAction in read.values.flattened) {
     Set<BaseAction>? baseActions = {};
     // check if command matches device type
@@ -342,9 +341,9 @@ Map<ActionCategory, Set<BaseAction>> getAllActionsFiltered(GetAllActionsFiltered
   return sortedActions;
 }
 
-@Riverpod(keepAlive: true, dependencies: [getAllActions])
+@Riverpod(keepAlive: true)
 List<BaseAction> getAllActionsForCategory(GetAllActionsForCategoryRef ref, ActionCategory actionCategory) {
-  Map<ActionCategory, Set<BaseAction>> allActions = ref.read(getAllActionsProvider);
+  final Map<ActionCategory, Set<BaseAction>> allActions = ref.watch(getAllActionsProvider);
   if (allActions.containsKey(actionCategory)) {
     return allActions[actionCategory]!.toList();
   }
@@ -358,10 +357,11 @@ Iterable<BaseAction> splitBaseAction(BaseAction baseAction) {
   return [];
 }
 
-@Riverpod(dependencies: [getAllActions], keepAlive: true)
+@Riverpod(keepAlive: true)
 BaseAction? getActionFromUUID(GetActionFromUUIDRef ref, String? uuid) {
   if (uuid == null) {
     return null;
   }
-  return ref.read(getAllActionsProvider).values.flattened.where((element) => element.uuid == uuid).firstOrNull;
+  final Map<ActionCategory, Set<BaseAction>> watch = ref.watch(getAllActionsProvider);
+  return watch.values.flattened.where((element) => element.uuid == uuid).firstOrNull;
 }

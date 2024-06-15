@@ -27,24 +27,26 @@ class KnownDevices extends _$KnownDevices {
           BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID(e.deviceDefinitionUUID);
           BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(baseDeviceDefinition, e);
           results[e.btMACAddress] = baseStatefulDevice;
+          baseStatefulDevice.addListener(_listener);
         }
       }
     } catch (e, s) {
       bluetoothLog.severe("Unable to load stored devices due to $e", e, s);
     }
-
     return results;
   }
 
   Future<void> add(BaseStatefulDevice baseStatefulDevice) async {
     Map<String, BaseStatefulDevice> state2 = Map.from(state);
     state2[baseStatefulDevice.baseStoredDevice.btMACAddress] = baseStatefulDevice;
+    baseStatefulDevice.addListener(_listener);
     state = state2;
     await store();
   }
 
   Future<void> remove(String id) async {
     Map<String, BaseStatefulDevice> state2 = Map.from(state)..remove(id);
+    state2[id]?.removeListener(_listener);
     state = state2;
     await store();
   }
@@ -52,5 +54,9 @@ class KnownDevices extends _$KnownDevices {
   Future<void> store() async {
     await HiveProxy.clear<BaseStoredDevice>(devicesBox);
     await HiveProxy.addAll<BaseStoredDevice>(devicesBox, state.values.map((e) => e.baseStoredDevice));
+  }
+
+  void _listener() {
+    ref.notifyListeners();
   }
 }
