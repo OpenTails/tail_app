@@ -125,7 +125,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "С какой скоростью шестерня должна переместиться в это положение?",
+  "sequencesEditTime": "Как долго ждать, прежде чем перейти к следующему шагу в этом специальном действии",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -165,7 +165,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Задерживать",
+  "actionsCategoryCalm": "Спокойный и расслабленный",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -189,7 +189,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsSelectScreen": "Выберите действие",
+  "actionsSelectScreen": "Выберите действия",
   "@actionsSelectScreen": {
     "description": "Title for action select menu on triggers page",
     "type": "text",
@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleTitle": "Карты действий становятся больше, чтобы их было легче нажимать.",
+  "settingsErrorReportingToggleTitle": "Автоматическое сообщение об ошибках",
   "@settingsErrorReportingToggleTitle": {
     "description": "Settings page error reporting toggle title",
     "type": "text",
@@ -255,7 +255,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesOtaButton": "Положение левого сервопривода",
+  "manageDevicesOtaButton": "Нажмите, чтобы обновить прошивку",
   "@manageDevicesOtaButton": {
     "description": "manage devices ota available button",
     "type": "text",
@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Сканирование снаряжения. Убедитесь, что ваше оборудование включено и находится поблизости.",
+  "scanDevicesScanMessage": "Сканирование снаряжения. Убедитесь, что ваше оборудование включено и находится поблизости",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -429,7 +429,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Запуск действия, когда EarGear обнаруживает наклон",
+  "triggerEarTiltLeft": "Наклон влево",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -447,7 +447,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Положение левого сервопривода",
+  "triggerEarTiltBackward": "Наклон назад",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -459,7 +459,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsDescription": "Измените цвет приложения, настройте Haptics и многое другое.",
+  "settingsDescription": "Измените цвет приложения, настройте Haptics и многое другое",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
     "type": "text",
@@ -519,7 +519,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKeepScreenOnToggleSubTitle": "Положение левого сервопривода",
+  "settingsKeepScreenOnToggleSubTitle": "Этот режим предотвращает выключение экрана, пока ваше оборудование подключено",
   "@settingsKeepScreenOnToggleSubTitle": {
     "description": "Settings page Keep Awake toggle subtitle",
     "type": "text",
@@ -531,7 +531,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAnalyticsToggleSubTitle": "Сообщайте об использовании неидентифицирующих функций в Plausible для улучшения приложения.",
+  "settingsAnalyticsToggleSubTitle": "Сообщайте об использовании неидентифицирующих функций в Plausible для улучшения приложения",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
     "type": "text",
@@ -591,7 +591,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsLargerCardsToggleSubTitle": "Карты действий становятся больше, чтобы их было легче нажимать.",
+  "settingsLargerCardsToggleSubTitle": "Карты действий становятся больше, чтобы их было легче нажимать",
   "@settingsLargerCardsToggleSubTitle": {
     "description": "Settings page show larger cards toggle subtitle",
     "type": "text",
@@ -603,7 +603,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Скройте различные обучающие карточки в приложении.",
+  "settingsTutorialCardToggleSubTitle": "Скройте различные обучающие карточки в приложении",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
@@ -615,7 +615,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Более",
+  "triggerInfoDescription": "Триггеры автоматически отправляют действия на ваше снаряжение. Вы можете одновременно активировать несколько триггеров. Нажмите на триггер, чтобы отредактировать его. Используйте переключатель слева, чтобы включить триггер.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
@@ -627,7 +627,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaChangelogLabel": "Начать OTA-обновление",
+  "otaChangelogLabel": "Журнал изменений прошивки",
   "@otaChangelogLabel": {
     "description": "Label for changelog section of OTA page",
     "type": "text",
@@ -639,7 +639,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие.",
+  "sequencesInfoDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие. Пожалуйста, убедитесь, что прошивка вашего устройства обновлена.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingDoneButtonLabel": "Включите Bluetooth",
+  "onboardingDoneButtonLabel": "Сделанный",
   "@onboardingDoneButtonLabel": {
     "description": "Label for the button to close the onboarding screen",
     "type": "text",
@@ -675,7 +675,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Обновление завершено",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Принять политику конфиденциальности",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
@@ -723,7 +723,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaCompletedTitle": "Журнал изменений прошивки",
+  "otaCompletedTitle": "Обновление завершено",
   "@otaCompletedTitle": {
     "description": "Title for the text that appears when an OTA update is completed",
     "type": "text",
@@ -741,7 +741,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsNewsletterToggleSubTitle": "Автоматически получать уведомления о появлении новой публикации в блоге Tail.",
+  "settingsNewsletterToggleSubTitle": "Автоматически получать уведомления о появлении новой публикации в блоге Tail",
   "@settingsNewsletterToggleSubTitle": {
     "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
@@ -771,7 +771,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaLowBattery": "Управление пользовательскими звуковыми эффектами",
+  "otaLowBattery": "Низкий заряд батареи. Пожалуйста, зарядите свое снаряжение минимум на 50%",
   "@otaLowBattery": {
     "description": "Title for the text that appears when an OTA update was blocked due to low battery",
     "type": "text",
@@ -825,7 +825,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "Чтобы это приложение поддерживало ваше оборудование, требуется обновление прошивки.",
+  "mandatoryOtaRequired": "Доступно обновление прошивки для лучшей поддержки вашего оборудования",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -885,7 +885,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioTipCard": "Вы можете добавить собственные звуки, которые отображаются на вкладке «Действия» и могут использоваться с триггерами.",
+  "audioTipCard": "Вы можете добавить собственные звуки, которые отображаются на вкладке «Действия» и могут использоваться с триггерами",
   "@audioTipCard": {
     "description": "Tutorial card for the audio page",
     "type": "text",
@@ -936,6 +936,54 @@
   "triggersSelectAllLabel": "Выбрать все",
   "@triggersSelectAllLabel": {
     "description": "The button label on the trigger select screen for clearing the selected actions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "Функция джойстика является экспериментальной. Используйте на свой риск.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Пожалуйста, обновите свое оборудование, чтобы использовать эту функцию.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Пожалуйста, обновите свое снаряжение",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Доступно обновление",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Шестерня подключена",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "счастливое виляние",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Подключайтесь ко всем",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggersDefSelectSaveLabel": "Выбирать",
+  "@triggersDefSelectSaveLabel": {
+    "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
   }
