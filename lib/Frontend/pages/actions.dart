@@ -192,10 +192,20 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                   children: ref
                       .watch(getAvailableGearForTypeProvider(widget.action.deviceCategory))
                       .map(
-                        (e) => Text(
-                          e.baseDeviceDefinition.deviceType.name.substring(0, 1),
-                          textScaler: TextScaler.linear(widget.largerCards ? 2 : 1),
-                          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),
+                        (e) => Card(
+                          color: Color(e.baseStoredDevice.color),
+                          elevation: 0,
+                          shape: const CircleBorder(),
+                          clipBehavior: Clip.antiAlias,
+                          margin: EdgeInsets.zero,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Text(
+                              e.baseDeviceDefinition.deviceType.name.substring(0, 1),
+                              textScaler: TextScaler.linear(widget.largerCards ? 2 : 1),
+                              style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(Color(e.baseStoredDevice.color))),
+                            ),
+                          ),
                         ),
                       )
                       .toList(),
