@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "已停止",
+  "triggerCoverDescription": "透過覆蓋接近感應器來觸發動作",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -489,7 +489,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualMiTailTitle": "米泰手冊",
+  "moreManualMiTailTitle": "甲基手努爾",
   "@moreManualMiTailTitle": {
     "description": "Title for MiTail manual button on More page",
     "type": "text",
