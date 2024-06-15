@@ -50,7 +50,7 @@ class TriggersRoute extends GoRouteData {
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const Triggers();
+  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: Triggers());
 }
 
 @TypedShellRoute<NavigationDrawerExampleRoute>(
@@ -161,7 +161,7 @@ class ActionPageRoute extends GoRouteData {
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const ActionPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: ActionPage());
 
   @override
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
@@ -229,7 +229,7 @@ class MoreRoute extends GoRouteData {
   const MoreRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const More();
+  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: More());
 }
 
 @TypedGoRoute<MoveListRoute>(
