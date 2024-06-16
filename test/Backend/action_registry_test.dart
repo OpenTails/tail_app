@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:flutter_test/flutter_test.dart';
@@ -83,35 +84,35 @@ void main() {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsFilteredProvider({DeviceType.tail}));
+      var actions = container.read(getAllActionsFilteredProvider(BuiltSet({DeviceType.tail})));
       expect(actions.length, 4);
     });
     test('Ear Actions', () {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsFilteredProvider({DeviceType.ears}));
+      var actions = container.read(getAllActionsFilteredProvider(BuiltSet({DeviceType.ears})));
       expect(actions.length, 1);
     });
     test('Wings Actions', () {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsFilteredProvider({DeviceType.wings}));
+      var actions = container.read(getAllActionsFilteredProvider(BuiltSet({DeviceType.wings})));
       expect(actions.length, 3);
     });
     test('Mini Tail Actions', () {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsFilteredProvider({DeviceType.miniTail}));
+      var actions = container.read(getAllActionsFilteredProvider(BuiltSet({DeviceType.miniTail})));
       expect(actions.length, 3);
     });
     test('No Actions', () {
       final container = ProviderContainer(
         overrides: [],
       );
-      var actions = container.read(getAllActionsFilteredProvider({}));
+      var actions = container.read(getAllActionsFilteredProvider(BuiltSet()));
       expect(actions.length, 0);
     });
   });

@@ -319,13 +319,13 @@ Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref) {
 }
 
 @Riverpod(keepAlive: true)
-Map<ActionCategory, Set<BaseAction>> getAllActionsFiltered(GetAllActionsFilteredRef ref, Set<DeviceType> deviceType) {
+Map<ActionCategory, Set<BaseAction>> getAllActionsFiltered(GetAllActionsFilteredRef ref, BuiltSet<DeviceType> deviceType) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   final Map<ActionCategory, Set<BaseAction>> read = ref.watch(getAllActionsProvider);
   for (BaseAction baseAction in read.values.flattened) {
     Set<BaseAction>? baseActions = {};
     // check if command matches device type
-    if (baseAction.deviceCategory.toSet().intersection(deviceType).isNotEmpty) {
+    if (baseAction.deviceCategory.toBuiltSet().intersection(deviceType).isNotEmpty) {
       // get category if it exists
       if (sortedActions.containsKey(baseAction.actionCategory)) {
         baseActions = sortedActions[baseAction.actionCategory];
@@ -342,19 +342,19 @@ Map<ActionCategory, Set<BaseAction>> getAllActionsFiltered(GetAllActionsFiltered
 }
 
 @Riverpod(keepAlive: true)
-List<BaseAction> getAllActionsForCategory(GetAllActionsForCategoryRef ref, ActionCategory actionCategory) {
+BuiltList<BaseAction> getAllActionsForCategory(GetAllActionsForCategoryRef ref, ActionCategory actionCategory) {
   final Map<ActionCategory, Set<BaseAction>> allActions = ref.watch(getAllActionsProvider);
   if (allActions.containsKey(actionCategory)) {
-    return allActions[actionCategory]!.toList();
+    return allActions[actionCategory]!.toBuiltList();
   }
-  return [];
+  return BuiltList();
 }
 
-Iterable<BaseAction> splitBaseAction(BaseAction baseAction) {
+BuiltList<BaseAction> splitBaseAction(BaseAction baseAction) {
   if (baseAction.deviceCategory.length <= 1) {
-    return [baseAction];
+    return [baseAction].build();
   }
-  return [];
+  return BuiltList();
 }
 
 @Riverpod(keepAlive: true)

@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
@@ -122,16 +123,16 @@ void main() {
       BaseAction baseAction2 = CommandAction(name: "name1", deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: "uuid1", command: '');
       BaseAction baseAction3 = CommandAction(name: "name2", deviceCategory: [DeviceType.tail, DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: "uuid2", command: '');
 
-      Set<BaseStatefulDevice> devices = container.read(getByActionProvider(baseAction));
+      BuiltSet<BaseStatefulDevice> devices = container.read(getByActionProvider(baseAction));
       expect(devices.length, 1);
       expect(devices.first, baseStatefulDevice);
 
-      devices = {};
+      devices = BuiltSet();
       devices = container.read(getByActionProvider(baseAction2));
       expect(devices.length, 1);
       expect(devices.first, baseStatefulDevice2);
 
-      devices = {};
+      devices = BuiltSet();
       devices = container.read(getByActionProvider(baseAction3));
       expect(devices.length, 2);
       expect(devices.contains(baseStatefulDevice), true);

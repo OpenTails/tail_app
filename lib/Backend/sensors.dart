@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
@@ -201,8 +202,8 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           return;
         }
         final List<BaseAction> moveActions = allActionsMapped.where((element) => !const [ActionCategory.glowtip, ActionCategory.audio].contains(element.actionCategory)).toList();
-        final List<BaseAction> glowActions = ref.read(getAllActionsForCategoryProvider(ActionCategory.glowtip));
-        final List<BaseAction> audioActions = ref.read(getAllActionsForCategoryProvider(ActionCategory.audio));
+        final BuiltList<BaseAction> glowActions = ref.read(getAllActionsForCategoryProvider(ActionCategory.glowtip));
+        final BuiltList<BaseAction> audioActions = ref.read(getAllActionsForCategoryProvider(ActionCategory.audio));
 
         BaseAction? baseAction;
         List<BaseAction> actionsToRun = [];
@@ -242,7 +243,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         Set<DeviceType> sentDeviceTypes = {};
         for (BaseAction baseAction in actionsToRun) {
           for (BaseStatefulDevice baseStatefulDevice in ref
-              .read(getAvailableIdleGearForTypeProvider(baseAction.deviceCategory))
+              .read(getAvailableIdleGearForTypeProvider(baseAction.deviceCategory.toBuiltSet()))
               .where(
                 // support sending to next device type if 2 actions+ actions are set
                 (element) => !sentDeviceTypes.contains(element.baseDeviceDefinition.deviceType),
@@ -369,14 +370,14 @@ class EarMicTriggerDefinition extends TriggerDefinition {
   @override
   Future<void> onDisable() async {
     deviceRefSubscription?.close();
-    ref.read(getKnownGearForTypeProvider([DeviceType.ears])).forEach((element) {
+    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).forEach((element) {
+    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
       element.commandQueue.addCommand(BluetoothMessage(message: "ENDLISTEN", device: element, priority: Priority.low, responseMSG: "LISTEN OFF", type: CommandType.system, timestamp: DateTime.now()));
     });
   }
@@ -386,7 +387,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).forEach((element) {
+    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
       element.commandQueue.addCommand(BluetoothMessage(message: "LISTEN FULL", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
@@ -396,7 +397,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
   }
 
   Future<void> onDeviceConnected() async {
-    ref.read(getKnownGearForTypeProvider([DeviceType.ears])).map((e) {
+    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -411,7 +412,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).map(
+    rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).map(
       (element) {
         element.commandQueue.addCommand(BluetoothMessage(message: "LISTEN FULL", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
         return element.rxCharacteristicStream.listen(
@@ -448,14 +449,14 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
   @override
   Future<void> onDisable() async {
     deviceRefSubscription?.close();
-    ref.read(getKnownGearForTypeProvider([DeviceType.ears])).forEach((element) {
+    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).forEach((element) {
+    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
       element.commandQueue.addCommand(BluetoothMessage(message: "ENDTILTMODE", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
   }
@@ -465,7 +466,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).forEach((element) {
+    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
       element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE START", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
@@ -475,7 +476,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
   }
 
   Future<void> onDeviceConnected() async {
-    ref.read(getKnownGearForTypeProvider([DeviceType.ears])).map((e) {
+    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -490,7 +491,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = ref.read(getAvailableGearForTypeProvider([DeviceType.ears])).map(
+    rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).map(
       (element) {
         element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE START", device: element, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
         return element.rxCharacteristicStream.listen(

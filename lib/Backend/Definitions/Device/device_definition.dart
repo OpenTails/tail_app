@@ -104,7 +104,7 @@ class BaseDeviceDefinition with _$BaseDeviceDefinition {
 }
 
 // data that represents the current state of a device
-class BaseStatefulDevice extends ChangeNotifier {
+class BaseStatefulDevice {
   final BaseDeviceDefinition baseDeviceDefinition;
   final BaseStoredDevice baseStoredDevice;
   final ValueNotifier<double> batteryLevel = ValueNotifier(-1);
@@ -132,8 +132,6 @@ class BaseStatefulDevice extends ChangeNotifier {
   final CircularBuffer<MessageHistoryEntry> messageHistory = CircularBuffer(50);
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice) {
-    deviceState.addListener(notifyListeners);
-    deviceConnectionState.addListener(notifyListeners);
     commandQueue = CommandQueue(this);
     rxCharacteristicStream = flutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) => event.device.remoteId.str == baseStoredDevice.btMACAddress && event.characteristic.characteristicUuid.str == baseDeviceDefinition.bleRxCharacteristic).map((event) {
       try {

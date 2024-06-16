@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -142,7 +143,7 @@ class ActionCard extends ConsumerStatefulWidget {
 class _ActionCardState extends ConsumerState<ActionCard> {
   @override
   Widget build(BuildContext context) {
-    Color color = ref.watch(getColorForDeviceTypeProvider(widget.action.deviceCategory));
+    Color color = ref.watch(getColorForDeviceTypeProvider(widget.action.deviceCategory.toBuiltSet()));
     Color textColor = getTextColor(color);
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -181,7 +182,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
               AnimatedCrossFade(
                 firstChild: Container(),
                 secondChild: const Center(child: CircularProgressIndicator()),
-                crossFadeState: ref.watch(isGearMoveRunningProvider(widget.action.deviceCategory)) ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                crossFadeState: ref.watch(isGearMoveRunningProvider(widget.action.deviceCategory.toBuiltSet())) ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                 alignment: Alignment.center,
                 duration: animationTransitionDuration,
               ),
@@ -190,7 +191,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: ref
-                      .watch(getAvailableGearForTypeProvider(widget.action.deviceCategory))
+                      .watch(getAvailableGearForTypeProvider(widget.action.deviceCategory.toBuiltSet()))
                       .map(
                         (e) => Card(
                           color: Color(e.baseStoredDevice.color),
