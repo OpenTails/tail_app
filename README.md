@@ -1,8 +1,8 @@
 # The Tail Company App
 
-![Weblate project translated](https://img.shields.io/weblate/progress/the-tailcompany-app?server=https%3A%2F%2Fweblate.stargazer.at&link=https%3A%2F%2Fweblate.stargazer.at%2Fprojects%2Fthe-tailcompany-app%2Ftailapp%2F)
+![Weblate project translated](https://img.shields.io/weblate/progress/the-tailcompany-app?server=https%3A%2F%2Fweblate.stargazer.at&style=for-the-badge&link=https%3A%2F%2Fweblate.stargazer.at%2Fprojects%2Fthe-tailcompany-app%2Ftailapp%2F)
 ![Sponsor](https://img.shields.io/github/sponsors/codel1417?style=for-the-badge)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OpenTails/tail_app/build.yml?link=https%3A%2F%2Fgithub.com%2FOpenTails%2Ftail_app%2Factions%2Fworkflows%2Fbuild.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OpenTails/tail_app/build.yml?style=for-the-badge&link=https%3A%2F%2Fgithub.com%2FOpenTails%2Ftail_app%2Factions%2Fworkflows%2Fbuild.yml)
 ![Codecov](https://img.shields.io/codecov/c/github/OpenTails/tail_app?style=for-the-badge)
 
 A Cross Platform Tail Company gear control App
