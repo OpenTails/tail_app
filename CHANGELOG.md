@@ -1,3 +1,7 @@
+### V 1.0.6
+
+- Improve indicating when an action card controls multiple gear
+
 ### V 1.0.5
 
 - Send glowtip and sound actions before move actions

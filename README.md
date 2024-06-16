@@ -1,8 +1,8 @@
 # The Tail Company App
 
-![Translation](https://img.shields.io/weblate/progress/tail_app?server=https%3A%2F%2Fweblate.codel1417.xyz&style=for-the-badge)
+![Weblate project translated](https://img.shields.io/weblate/progress/the-tailcompany-app?server=https%3A%2F%2Fweblate.stargazer.at&link=https%3A%2F%2Fweblate.stargazer.at%2Fprojects%2Fthe-tailcompany-app%2Ftailapp%2F)
 ![Sponsor](https://img.shields.io/github/sponsors/codel1417?style=for-the-badge)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/codel1417/tail_app/build.yml?style=for-the-badge)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OpenTails/tail_app/build.yml?link=https%3A%2F%2Fgithub.com%2FOpenTails%2Ftail_app%2Factions%2Fworkflows%2Fbuild.yml)
 ![Codecov](https://img.shields.io/codecov/c/github/OpenTails/tail_app?style=for-the-badge)
 
 A Cross Platform Tail Company gear control App
@@ -34,7 +34,7 @@ Small or large, feel free to leave suggestions for new features, or changes to e
 
 - [@darkgrue](https://github.com/darkgrue) for helping me with gear firmware behavior & developing the firmware the Gear uses
 - [@MasterTailer](https://github.com/MasterTailer) for providing useful feedback and suggestions, and creating the gear this app controls
-- [@ToeiRei](https://github.com/ToeiRei) for inspiring me to use more privacy-preserving infrastructure like plausible.
+- [@ToeiRei](https://github.com/ToeiRei) for inspiring me to use more privacy-preserving infrastructure like plausible, and for managing & assisting in the translation of this app
 - [@leinir](https://github.com/leinir) for creating the Crumpet Android app
 - The Tail Company Telegram Channel for motivating me over time.
 
@@ -79,10 +79,9 @@ The `Displayed Message` is the string that appears in the UI.
 The `name` is the variable name. This must match the variable name used such as `message()` but without the `()`.
 The `desc` is a description of the string for use by translators.
 
-When [`translation_string_definitions.dart`](lib/Frontend/translation_string_definitions.dart) is updated, the job [`localization_strings_update.yml`](.github/workflows/localization_strings_update.yml) updates the generated localization file [`messages_en.arb`](lib/l10n/messages_en.arb) which makes the strings available to [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/).
-New Strings are auto translated by Google Translate but will not overwrite manually translated strings.
+When [`translation_string_definitions.dart`](lib/Frontend/translation_string_definitions.dart) is updated, the job [`localization_strings_update.yml`](.github/workflows/localization_strings_update.yml) updates the generated localization file [`messages_en.arb`](lib/l10n/messages_en.arb) which makes the strings available to [Weblate](https://weblate.stargazer.at/projects/the-tailcompany-app/tailapp/).
 
-When non EN translations are updated in [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/), A pull request will automatically open with the changes. This may take a few minutes.
+When non EN translations are updated in [Weblate](https://weblate.stargazer.at/projects/the-tailcompany-app/tailapp/), A pull request will automatically open with the changes. This may take a few minutes.
 
 ### Building
 
@@ -104,7 +103,7 @@ When non EN translations are updated in [Weblate](https://weblate.codel1417.xyz/
 > ```
 
 > [!NOTE]
-> To generate base EN localalization file, run
+> To generate the base EN localization file, run
 >
 > ```shell
 > dart pub global activate intl_translation
@@ -209,7 +208,7 @@ dart run flutter_native_splash:create
 ```
 
 > [!TIP]
-> Once this command is run, you need to add the following to [styles.xml](android/app/src/main/res/values/styles.xml) to have transparent status and navigation bars on the splash screen on android.
+> Once this command is run, you may need to add the following to [styles.xml](android/app/src/main/res/values/styles.xml) to have transparent status and navigation bars on the splash screen on android.
 >
 > ```xml
 > <item name="android:windowTranslucentNavigation">true</item>
@@ -245,7 +244,7 @@ Some of these values aren't actually secret and can be shared. Specifically the 
 | SENTRY_AUTH_TOKEN       | sntrys_eyJpYXQiOjE3MTYyNTky...                                                                                                                                           | Go to Sentry -> Settings -> Auth Token                                                                        | Authenticate with sentry to upload symbols      |
 | SENTRY_ORG              | Sentry                                                                                                                                                                   | Listed at the top left of sentry when logged in                                                               | Which org to upload symbols to                  |
 | SENTRY_PROJECT          | tail_app                                                                                                                                                                 | Whatever the project is named in sentry                                                                       | Which project to upload symbols to              |
-| SENTRY_URL              | https://sentry.codel1417.xyz/                                                                                                                                            | The url to the sentry instance                                                                                | Which instance to upload symbols to             |
+| SENTRY_URL              | https://sentry.io/                                                                                                                                                       | The url to the sentry instance                                                                                | Which instance to upload symbols to             |
 | SENTRY_DSN              | https://sdfghjssdh.ingest.de.sentry.io/                                                                                                                                  | The dsn for the sentry project                                                                                | Which instance to upload errors to              |
 | FASTLANE_GITHUB         | JeqGFIV1yb7emBFLkBk/dA==                                                                                                                                                 | echo -n your_github_username:your_personal_access_token \| base64 -w 0                                        | Store certificates for fastlane match           |
 | APPLE                   | {"key_id": "D383SF739", "issuer_id": "6053b7fe-68a8-4acb-89be-165aa6465141", "key": "-----BEGIN PRIVATE KEY-----MIGTAgEAMB----END PRIVATE KEY-----", "in_house": false } | Json file of apple credentials https://docs.fastlane.tools/app-store-connect-api/                             | Authenticate with Apple to upload to TestFlight |
@@ -259,13 +258,13 @@ Some of these values aren't actually secret and can be shared. Specifically the 
 
 #### Sentry
 
-A github app which allows [Sentry](https://sentry.codel1417.xyz/organizations/sentry/projects/tail_app/?project=2) to authenticate with Github and this repo. It allows Source Code stack trace linking and Creating issues from the [Sentry](https://sentry.codel1417.xyz/organizations/sentry/projects/tail_app/?project=2) UI.
+A github app which allows [Sentry](https://sentry.io) to authenticate with Github and this repo. It allows Source Code stack trace linking and Creating issues from the [Sentry](https://sentry.codel1417.xyz/organizations/sentry/projects/tail_app/?project=2) UI.
 
 #### Weblate
 
-A Webhook to notify [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/) that code was pushed to this repo.
+A Webhook to notify [Weblate](https://weblate.stargazer.at/projects/the-tailcompany-app/tailapp/) that code was pushed to this repo.
 
-A SSH key is installed in my account which allows [Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/) to push translation changes to the repo.
+A SSH key is installed in my account which allows [Weblate](https://weblate.stargazer.at/projects/the-tailcompany-app/tailapp/) to push translation changes to the repo.
 
 #### Codecov
 
@@ -302,8 +301,6 @@ To Turn off Developer Mode
 
 These services are self-hosted in a mini-pc on my tv stand in my apartment
 
-[Sentry](https://sentry.codel1417.xyz/organizations/sentry/projects/tail_app/?project=2)
-[Weblate](https://weblate.codel1417.xyz/projects/tail_app/tail_app/)
 [Plausible](https://plausible.codel1417.xyz/tail-app)
 [Uptime](https://uptime.codel1417.xyz/status/public)
 
