@@ -45,7 +45,7 @@ runs:
         ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
     - name: Build APK
       shell: bash
-      run: flutter build apk --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=cronetHttpNoPlay=true --dart-define=SENTRY_DSN="$SENTRY_DSN"
+      run: flutter build apk --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=cronetHttpNoPlay=true --obfuscate --dart-define=SENTRY_DSN="$SENTRY_DSN"
       env:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
@@ -56,7 +56,7 @@ runs:
         #SENTRY_URL: ${{ inputs.sentry-url }}
     - name: Build AppBundle
       shell: bash
-      run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=SENTRY_DSN="$SENTRY_DSN"
+      run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --obfuscate --dart-define=SENTRY_DSN="$SENTRY_DSN"
       env:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
