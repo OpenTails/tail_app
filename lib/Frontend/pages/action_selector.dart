@@ -78,7 +78,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
         },
       ),
     );
-    selected = widget.actionSelectorInfo.selectedActions;
+    selected = widget.actionSelectorInfo.selectedActions.toList();
     catList = actionsCatMap.keys.toList();
   }
 

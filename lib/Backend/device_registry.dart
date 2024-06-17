@@ -102,49 +102,55 @@ BuiltSet<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseActi
 }
 
 @Riverpod(keepAlive: true)
-Iterable<BaseStatefulDevice> getAvailableIdleGear(GetAvailableIdleGearRef ref) {
-  final List<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
-  return watch.where((element) => element.deviceState.value == DeviceState.standby);
+BuiltList<BaseStatefulDevice> getAvailableIdleGear(GetAvailableIdleGearRef ref) {
+  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
+  return watch.where((element) => element.deviceState.value == DeviceState.standby).toBuiltList();
 }
 
 @Riverpod(keepAlive: true)
-Set<DeviceType> getAvailableGearTypes(GetAvailableGearTypesRef ref) {
-  final List<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
+BuiltSet<DeviceType> getAvailableGearTypes(GetAvailableGearTypesRef ref) {
+  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
   return watch
       .map(
         (e) => e.baseDeviceDefinition.deviceType,
       )
-      .toSet();
+      .toBuiltSet();
 }
 
 @Riverpod(keepAlive: true)
-Iterable<BaseStatefulDevice> getAvailableIdleGearForAction(GetAvailableIdleGearForActionRef ref, BaseAction baseAction) {
+BuiltList<BaseStatefulDevice> getAvailableIdleGearForAction(GetAvailableIdleGearForActionRef ref, BaseAction baseAction) {
+  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
+  return watch.where((element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
+}
+
+@Riverpod(keepAlive: true)
+BuiltList<BaseStatefulDevice> getAvailableIdleGearForType(GetAvailableIdleGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
   final Iterable<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
-  return watch.where((element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType));
+  return watch
+      .where(
+        (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
+      )
+      .toBuiltList();
 }
 
 @Riverpod(keepAlive: true)
-Iterable<BaseStatefulDevice> getAvailableIdleGearForType(GetAvailableIdleGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
-  final Iterable<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
-  return watch.where(
-    (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
-  );
+BuiltList<BaseStatefulDevice> getAvailableGearForType(GetAvailableGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
+  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
+  return watch
+      .where(
+        (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
+      )
+      .toBuiltList();
 }
 
 @Riverpod(keepAlive: true)
-Iterable<BaseStatefulDevice> getAvailableGearForType(GetAvailableGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
-  final Iterable<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
-  return watch.where(
-    (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
-  );
-}
-
-@Riverpod(keepAlive: true)
-Iterable<BaseStatefulDevice> getKnownGearForType(GetKnownGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
+BuiltList<BaseStatefulDevice> getKnownGearForType(GetKnownGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
   final Map<String, BaseStatefulDevice> watch = ref.watch(knownDevicesProvider);
-  return watch.values.where(
-    (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
-  );
+  return watch.values
+      .where(
+        (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
+      )
+      .toBuiltList();
 }
 
 @Riverpod(keepAlive: true)
@@ -171,7 +177,7 @@ class IsGearMoveRunning extends _$IsGearMoveRunning {
 @Riverpod(keepAlive: true)
 class GetAvailableGear extends _$GetAvailableGear {
   @override
-  List<BaseStatefulDevice> build() {
+  BuiltList<BaseStatefulDevice> build() {
     for (BaseStatefulDevice baseStatefulDevice in ref.watch(knownDevicesProvider).values) {
       baseStatefulDevice.deviceConnectionState
         ..removeListener(_listener)
@@ -180,8 +186,8 @@ class GetAvailableGear extends _$GetAvailableGear {
     return getState();
   }
 
-  List<BaseStatefulDevice> getState() {
-    return ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).toList();
+  BuiltList<BaseStatefulDevice> getState() {
+    return ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).toBuiltList();
   }
 
   void _listener() {
@@ -191,7 +197,7 @@ class GetAvailableGear extends _$GetAvailableGear {
 
 @Riverpod(keepAlive: true)
 Color getColorForDeviceType(GetColorForDeviceTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
-  final Iterable<BaseStatefulDevice> watch = ref.watch(getAvailableGearForTypeProvider(deviceTypes));
+  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearForTypeProvider(deviceTypes));
   if (watch.isEmpty) {
     return deviceTypes.first.color();
   }

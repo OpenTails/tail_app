@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
@@ -65,7 +66,7 @@ class BaseAction {
   final Map<DeviceType, String> nameAlias = {};
 
   // Priority is Wings -> Ears -> Tail -> default
-  String getName(Set<DeviceType> connectedDeviceTypes) {
+  String getName(BuiltSet<DeviceType> connectedDeviceTypes) {
     if (connectedDeviceTypes.contains(DeviceType.wings) && deviceCategory.contains(DeviceType.wings) && nameAlias.containsKey(DeviceType.wings)) {
       return nameAlias[DeviceType.wings]!;
     } else if (connectedDeviceTypes.contains(DeviceType.ears) && deviceCategory.contains(DeviceType.ears) && nameAlias.containsKey(DeviceType.ears)) {
