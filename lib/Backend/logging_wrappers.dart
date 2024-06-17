@@ -3,6 +3,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 
 import '../constants.dart';
 
+// ignore: library_private_types_in_public_api
 _HiveProxyImpl HiveProxy = _HiveProxyImpl();
 List<String> genericBoxes = [settings, notificationBox];
 

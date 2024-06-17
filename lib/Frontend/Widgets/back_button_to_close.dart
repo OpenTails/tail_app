@@ -32,6 +32,7 @@ class _BackButtonToCloseState extends ConsumerState<BackButtonToClose> {
     super.dispose();
   }
 
+  // ignore: avoid_positional_boolean_parameters
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     if (info.currentRoute(context)!.isFirst && info.currentRoute(context)!.isCurrent) {
       if (isAnyGearConnected.value) {

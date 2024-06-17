@@ -48,19 +48,19 @@ Future<Dio> initDio({skipSentry = false}) async {
   if (_dio != null) {
     return _dio!;
   }
-  final Dio dio = Dio();
-  dio.httpClientAdapter = NativeAdapter();
-  dio.interceptors.add(
-    LogInterceptor(
-      requestBody: false,
-      requestHeader: false,
-      responseBody: false,
-      responseHeader: false,
-      request: true,
-      logPrint: (o) => dioLogger.finer(o.toString()),
-    ),
-  );
-  dio.interceptors.add(LogarteDioInterceptor(logarte));
+  final Dio dio = Dio()
+    ..httpClientAdapter = NativeAdapter()
+    ..interceptors.add(
+      LogInterceptor(
+        requestBody: false,
+        requestHeader: false,
+        responseBody: false,
+        responseHeader: false,
+        request: true,
+        logPrint: (o) => dioLogger.finer(o.toString()),
+      ),
+    )
+    ..interceptors.add(LogarteDioInterceptor(logarte));
   dio.interceptors.add(
     RetryInterceptor(
       dio: dio,

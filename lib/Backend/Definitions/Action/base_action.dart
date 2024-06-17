@@ -85,11 +85,11 @@ class CommandAction extends BaseAction with _$CommandAction {
   @Implements<BaseAction>()
   factory CommandAction({
     required String command,
-    final String? response,
     required String name,
     required final String uuid,
     required List<DeviceType> deviceCategory,
     required final ActionCategory actionCategory,
+    final String? response,
     @Default({}) final Map<DeviceType, String> nameAlias,
   }) = _CommandAction;
 
@@ -106,10 +106,10 @@ class AudioAction extends BaseAction with _$AudioAction {
   @Implements<BaseAction>()
   factory AudioAction({
     @HiveField(5) required String file,
-    @HiveField(2) @Default(DeviceType.values) final List<DeviceType> deviceCategory,
-    @HiveField(3) @Default(ActionCategory.audio) final ActionCategory actionCategory,
     @HiveField(1) required String name,
     @HiveField(4) required final String uuid,
+    @HiveField(2) @Default(DeviceType.values) final List<DeviceType> deviceCategory,
+    @HiveField(3) @Default(ActionCategory.audio) final ActionCategory actionCategory,
     @Default({}) final Map<DeviceType, String> nameAlias,
   }) = _AudioAction;
 }
@@ -121,10 +121,10 @@ class MoveList extends BaseAction with _$MoveList {
 
   @Implements<BaseAction>()
   factory MoveList({
-    @HiveField(2) @Default(DeviceType.values) List<DeviceType> deviceCategory,
-    @HiveField(3) @Default(ActionCategory.sequence) final ActionCategory actionCategory,
     @HiveField(1) required String name,
     @HiveField(4) required final String uuid,
+    @HiveField(2) @Default(DeviceType.values) List<DeviceType> deviceCategory,
+    @HiveField(3) @Default(ActionCategory.sequence) final ActionCategory actionCategory,
     @HiveField(5) @Default([]) List<Move> moves,
     @HiveField(6) @Default(1) double repeat,
   }) = _MoveList;
@@ -136,11 +136,11 @@ class EarsMoveList extends BaseAction with _$EarsMoveList {
 
   @Implements<BaseAction>()
   factory EarsMoveList({
-    @HiveField(2) @Default([DeviceType.ears]) List<DeviceType> deviceCategory,
-    @HiveField(3) @Default(ActionCategory.ears) final ActionCategory actionCategory,
     @HiveField(1) required String name,
     @HiveField(4) required final String uuid,
-    @Default({}) final Map<DeviceType, String> nameAlias,
     required final List<Object> commandMoves,
+    @HiveField(2) @Default([DeviceType.ears]) List<DeviceType> deviceCategory,
+    @HiveField(3) @Default(ActionCategory.ears) final ActionCategory actionCategory,
+    @Default({}) final Map<DeviceType, String> nameAlias,
   }) = _EarsMoveList;
 }

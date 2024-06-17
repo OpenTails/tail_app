@@ -57,6 +57,7 @@ Future<void> getRemoteDynamicConfigInfo() async {
     Response<String> response = await dio.get('https://raw.githubusercontent.com/OpenTails/tail_app/master/assets/dynamic_config.json', options: Options(contentType: ContentType.json.mimeType, responseType: ResponseType.json));
     if (response.statusCode! < 400) {
       String jsonData = response.data!;
+      // ignore: unused_local_variable
       DynamicConfigInfo dynamicConfigInfo = DynamicConfigInfo.fromJson(const JsonDecoder().convert(jsonData)); //Throws if config invalid
       HiveProxy.put(settings, dynamicConfigJsonString, jsonData); //store it for next app launch
 

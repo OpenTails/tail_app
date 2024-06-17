@@ -77,7 +77,6 @@ class _HtmlPageState extends State<HtmlPage> {
 class MyWidgetFactory extends WidgetFactory {
   @override
   Widget? buildImageWidget(BuildMetadata tree, ImageSource src) {
-    final url = src.url;
     return LoadImage(url: src.url);
   }
 }

@@ -130,7 +130,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                         ),
                                       ),
                                     ),
-                                  ]
+                                  ],
                                 ],
                               )
                             : Container(),
