@@ -1,4 +1,5 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:choice/choice.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class Triggers extends ConsumerStatefulWidget {
 class _TriggersState extends ConsumerState<Triggers> {
   @override
   Widget build(BuildContext context) {
-    final List<Trigger> triggersList = ref.watch(triggerListProvider);
+    final BuiltList<Trigger> triggersList = ref.watch(triggerListProvider);
     return Scaffold(
       floatingActionButton: Builder(
         builder: (context) {
@@ -377,10 +378,9 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
           children: [
             TextButton(
               onPressed: () async {
+                await ref.watch(triggerListProvider.notifier).remove(widget.trigger);
                 setState(
                   () {
-                    ref.watch(triggerListProvider).remove(widget.trigger);
-                    ref.watch(triggerListProvider.notifier).store();
                     Navigator.of(context).pop();
                   },
                 );

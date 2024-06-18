@@ -25,7 +25,7 @@ void main() {
   group('GetAvailableActions', () {
     test('Tail Actions', () async {
       ProviderContainer providerContainer = await testGearAdd('MiTail');
-      Map<ActionCategory, Set<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
+      BuiltMap<ActionCategory, BuiltSet<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
       expect(actions.length, 3);
       expect(actions[ActionCategory.calm]?.length, 3);
       expect(actions[ActionCategory.fast]?.length, 4);
@@ -33,7 +33,7 @@ void main() {
 
       providerContainer.read(knownDevicesProvider).values.first.hasGlowtip.value = GlowtipStatus.glowtip;
       providerContainer.invalidate(getAvailableActionsProvider);
-      Map<ActionCategory, Set<BaseAction>> actions2 = providerContainer.read(getAvailableActionsProvider);
+      BuiltMap<ActionCategory, BuiltSet<BaseAction>> actions2 = providerContainer.read(getAvailableActionsProvider);
       expect(actions2.length, 4);
       expect(actions2[ActionCategory.calm]?.length, 3);
       expect(actions2[ActionCategory.fast]?.length, 4);
@@ -42,20 +42,20 @@ void main() {
     });
     test('Ear Actions', () async {
       ProviderContainer providerContainer = await testGearAdd('EG2');
-      Map<ActionCategory, Set<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
+      BuiltMap<ActionCategory, BuiltSet<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
       expect(actions.length, 1);
       expect(actions[ActionCategory.ears]?.length, 8);
     });
     test('Mini Tail Actions', () async {
       ProviderContainer providerContainer = await testGearAdd('minitail');
-      Map<ActionCategory, Set<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
+      BuiltMap<ActionCategory, BuiltSet<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
       expect(actions.length, 2);
       expect(actions[ActionCategory.calm]?.length, 3);
       expect(actions[ActionCategory.fast]?.length, 1);
     });
     test('Wings Actions', () async {
       ProviderContainer providerContainer = await testGearAdd('flutter');
-      Map<ActionCategory, Set<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
+      BuiltMap<ActionCategory, BuiltSet<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
       expect(actions.length, 3);
       expect(actions[ActionCategory.calm]?.length, 3);
       expect(actions[ActionCategory.fast]?.length, 4);
@@ -65,7 +65,7 @@ void main() {
       final providerContainer = ProviderContainer(
         overrides: [],
       );
-      Map<ActionCategory, Set<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
+      BuiltMap<ActionCategory, BuiltSet<BaseAction>> actions = providerContainer.read(getAvailableActionsProvider);
       expect(actions.length, 0);
     });
   });

@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +37,7 @@ class ActionSelector extends ConsumerStatefulWidget {
 }
 
 class _ActionSelectorState extends ConsumerState<ActionSelector> {
-  Map<ActionCategory, Set<BaseAction>> actionsCatMap = {};
+  BuiltMap<ActionCategory, BuiltSet<BaseAction>> actionsCatMap = BuiltMap();
   List<ActionCategory> catList = [];
   List<BaseAction> selected = [];
   Set<DeviceType> knownDeviceTypes = {};
@@ -51,7 +52,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
           (e) => e.baseDeviceDefinition.deviceType,
         )
         .toSet();
-    actionsCatMap = Map.fromEntries(
+    actionsCatMap = BuiltMap(
       ref.read(getAllActionsProvider).entries.sorted(
         (a, b) {
           int first = a.value

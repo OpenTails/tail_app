@@ -713,7 +713,7 @@ class TriggerAction {
 )
 class TriggerList extends _$TriggerList {
   @override
-  List<Trigger> build() {
+  BuiltList<Trigger> build() {
     List<Trigger> results = [];
     try {
       results = HiveProxy.getAll<Trigger>(triggerBox).map((trigger) {
@@ -743,19 +743,23 @@ class TriggerList extends _$TriggerList {
       trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'd8384bcf-31ed-4b5d-a25a-da3a2f96e406').uuid);
 
       unawaited(store());
-      return [trigger];
+      return [trigger].build();
     }
-    return results;
+    return results.build();
   }
 
   Future<void> add(Trigger trigger) async {
-    state.add(trigger);
+    state = state.rebuild(
+      (p0) => p0.add(trigger),
+    );
     await store();
   }
 
   Future<void> remove(Trigger trigger) async {
     trigger.enabled = false;
-    state.remove(trigger);
+    state = state.rebuild(
+      (p0) => p0.remove(trigger),
+    );
     await store();
   }
 

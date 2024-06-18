@@ -270,10 +270,10 @@ class ActionRegistry {
 }
 
 @Riverpod(keepAlive: true)
-Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef ref) {
+BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAvailableActions(GetAvailableActionsRef ref) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
-  final Map<ActionCategory, Set<BaseAction>> allActions = ref.watch(getAllActionsProvider);
-  final Iterable<BaseStatefulDevice> availableGear = ref.watch(getAvailableGearProvider);
+  final BuiltMap<ActionCategory, BuiltSet<BaseAction>> allActions = ref.watch(getAllActionsProvider);
+  final BuiltList<BaseStatefulDevice> availableGear = ref.watch(getAvailableGearProvider);
   for (BaseAction baseAction in allActions.values.flattened) {
     Set<BaseAction>? baseActions = {};
     for (BaseStatefulDevice baseStatefulDevice in availableGear) {
@@ -292,11 +292,15 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
       sortedActions[baseAction.actionCategory] = baseActions;
     }
   }
-  return sortedActions;
+  return BuiltMap(
+    sortedActions.map(
+      (key, value) => MapEntry(key, value.build()),
+    ),
+  );
 }
 
 @Riverpod(keepAlive: true)
-BuiltMap<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref) {
+BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAllActions(GetAllActionsRef ref) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   final BuiltList<MoveList> moveLists = ref.watch(moveListsProvider);
   final BuiltList<AudioAction> audioActions = ref.watch(userAudioActionsProvider);
@@ -315,13 +319,17 @@ BuiltMap<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref) {
       sortedActions[baseAction.actionCategory] = baseActions;
     }
   }
-  return BuiltMap(sortedActions);
+  return BuiltMap(
+    sortedActions.map(
+      (key, value) => MapEntry(key, value.build()),
+    ),
+  );
 }
 
 @Riverpod(keepAlive: true)
-Map<ActionCategory, Set<BaseAction>> getAllActionsFiltered(GetAllActionsFilteredRef ref, BuiltSet<DeviceType> deviceType) {
+BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAllActionsFiltered(GetAllActionsFilteredRef ref, BuiltSet<DeviceType> deviceType) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
-  final Map<ActionCategory, Set<BaseAction>> read = ref.watch(getAllActionsProvider);
+  final BuiltMap<ActionCategory, BuiltSet<BaseAction>> read = ref.watch(getAllActionsProvider);
   for (BaseAction baseAction in read.values.flattened) {
     Set<BaseAction>? baseActions = {};
     // check if command matches device type
@@ -338,12 +346,16 @@ Map<ActionCategory, Set<BaseAction>> getAllActionsFiltered(GetAllActionsFiltered
       sortedActions[baseAction.actionCategory] = baseActions;
     }
   }
-  return sortedActions;
+  return BuiltMap(
+    sortedActions.map(
+      (key, value) => MapEntry(key, value.build()),
+    ),
+  );
 }
 
 @Riverpod(keepAlive: true)
 BuiltList<BaseAction> getAllActionsForCategory(GetAllActionsForCategoryRef ref, ActionCategory actionCategory) {
-  final Map<ActionCategory, Set<BaseAction>> allActions = ref.watch(getAllActionsProvider);
+  final BuiltMap<ActionCategory, BuiltSet<BaseAction>> allActions = ref.watch(getAllActionsProvider);
   if (allActions.containsKey(actionCategory)) {
     return allActions[actionCategory]!.toBuiltList();
   }
@@ -362,6 +374,6 @@ BaseAction? getActionFromUUID(GetActionFromUUIDRef ref, String? uuid) {
   if (uuid == null) {
     return null;
   }
-  final Map<ActionCategory, Set<BaseAction>> watch = ref.watch(getAllActionsProvider);
+  final BuiltMap<ActionCategory, BuiltSet<BaseAction>> watch = ref.watch(getAllActionsProvider);
   return watch.values.flattened.where((element) => element.uuid == uuid).firstOrNull;
 }

@@ -48,7 +48,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
     List<BaseStatefulDevice> knownDevicesFiltered = ref.watch(getAvailableGearProvider).toList();
     return MultiValueListenableBuilder(
       builder: (context, values, child) {
-        Map<ActionCategory, Set<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
+        BuiltMap<ActionCategory, BuiltSet<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
         List<ActionCategory> catList = actionsCatMap.keys.toList();
         return AnimatedCrossFade(
           firstChild: const Home(),
