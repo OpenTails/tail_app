@@ -108,7 +108,7 @@ class OnBoardingPageRoute extends GoRouteData {
 }
 
 @TypedGoRoute<HtmlPageRoute>(
-  path: 'viewHTML',
+  path: '/viewHTML',
   name: 'viewHTML',
 )
 class HtmlPageRoute extends GoRouteData {
