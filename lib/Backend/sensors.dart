@@ -774,7 +774,7 @@ class TriggerList extends _$TriggerList {
 @Riverpod(keepAlive: true)
 class TriggerDefinitionList extends _$TriggerDefinitionList {
   @override
-  List<TriggerDefinition> build() {
+  BuiltList<TriggerDefinition> build() {
     List<TriggerDefinition> triggerDefinitions = [
       WalkingTriggerDefinition(ref),
       CoverTriggerDefinition(ref),
@@ -788,7 +788,7 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
       triggerDefinitions.add(VolumeButtonTriggerDefinition(ref));
     }
     triggerDefinitions.sort();
-    return triggerDefinitions;
+    return triggerDefinitions.build();
   }
 
   //Filter by unused sensors
