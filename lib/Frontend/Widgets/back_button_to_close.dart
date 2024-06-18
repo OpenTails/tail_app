@@ -5,7 +5,7 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/device_registry.dart';
 import '../translation_string_definitions.dart';
 
 class BackButtonToClose extends ConsumerStatefulWidget {
@@ -35,7 +35,7 @@ class _BackButtonToCloseState extends ConsumerState<BackButtonToClose> {
   // ignore: avoid_positional_boolean_parameters
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     if (info.currentRoute(context)!.isFirst && info.currentRoute(context)!.isCurrent) {
-      if (isAnyGearConnected.value) {
+      if (ref.read(getAvailableGearProvider).isNotEmpty) {
         return true;
       }
       if (timer.isActive) {

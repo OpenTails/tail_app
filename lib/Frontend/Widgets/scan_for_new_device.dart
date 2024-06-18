@@ -192,7 +192,6 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                 baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color(ref: ref).value)..name = getNameFromBTName(value.btName);
                                 statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
                                 statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
-                                isAnyGearConnected.value = true;
                                 if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
                                   ref.read(knownDevicesProvider.notifier).add(statefulDevice);
                                 }
@@ -216,9 +215,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                             .where(
                               (element) => element.deviceConnectionState.value == ConnectivityState.connected,
                             )
-                            .isEmpty) {
-                          isAnyGearConnected.value = false;
-                        }
+                            .isEmpty) {}
                         context.pop();
                       },
                     ),

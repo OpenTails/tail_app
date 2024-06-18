@@ -10,6 +10,7 @@ import 'package:sentry_hive/sentry_hive.dart';
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/device_registry.dart';
 import '../../constants.dart';
 
 final knownGearScanControllerLogger = log.Logger('KnownGearScanController');
@@ -39,7 +40,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
       },
       //onResume: () => _handleTransition('resume'),
       onHide: () async {
-        if (!isAnyGearConnected.value) {
+        if (ref.read(getAvailableGearProvider).isEmpty) {
           await stopScan();
         }
       },

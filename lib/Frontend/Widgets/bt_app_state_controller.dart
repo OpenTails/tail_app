@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/device_registry.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 
@@ -28,7 +29,7 @@ class _BtAppStateControllerState extends ConsumerState<BtAppStateController> {
         }
       },
       onPause: () {
-        if (!isAnyGearConnected.value && ref.exists(initFlutterBluePlusProvider)) {
+        if (ref.read(getAvailableGearProvider).isEmpty && ref.exists(initFlutterBluePlusProvider)) {
           ref.invalidate(initFlutterBluePlusProvider);
         }
       },
@@ -48,7 +49,7 @@ class _BtAppStateControllerState extends ConsumerState<BtAppStateController> {
   void dispose() {
     super.dispose();
     _listener.dispose();
-    if (!isAnyGearConnected.value && ref.exists(initFlutterBluePlusProvider)) {
+    if (ref.read(getAvailableGearProvider).isEmpty && ref.exists(initFlutterBluePlusProvider)) {
       ref.invalidate(initFlutterBluePlusProvider);
     }
   }

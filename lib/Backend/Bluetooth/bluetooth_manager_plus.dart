@@ -35,7 +35,6 @@ StreamSubscription<void>? _keepAliveStreamSubscription;
 
 final _bluetoothPlusLogger = log.Logger('BluetoothPlus');
 
-ValueNotifier<bool> isAnyGearConnected = ValueNotifier(false);
 ValueNotifier<bool> isBluetoothEnabled = ValueNotifier(false);
 
 bool _didInitFlutterBluePlus = false;
@@ -101,7 +100,6 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       }
       // The timer used for the time value on the battery level graph
       statefulDevice.stopWatch.start();
-      isAnyGearConnected.value = true;
       if (HiveProxy.getOrDefault(settings, keepAwake, defaultValue: keepAwakeDefault)) {
         _bluetoothPlusLogger.fine('Enabling wakelock');
         WakelockPlus.enable();
@@ -156,7 +154,6 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
             element.enabled = false;
           },
         );
-        isAnyGearConnected.value = false;
         _bluetoothPlusLogger.finer('Disabling wakelock');
         // stop wakelock if its started
         WakelockPlus.disable();
@@ -326,7 +323,6 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     ref.read(knownDevicesProvider).forEach(
           (key, value) => value.deviceConnectionState.value = ConnectivityState.disconnected,
         );
-    isAnyGearConnected.value = false;
     isBluetoothEnabled.value = false;
     _didInitFlutterBluePlus = false; // Allow restarting ble stack
   });

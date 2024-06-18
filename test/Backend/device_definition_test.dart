@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart' as flTest;
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:test/test.dart';
 
@@ -16,7 +15,6 @@ void main() {
   });
   tearDown(() async {
     await deleteHive();
-    isAnyGearConnected.value = false;
   });
   group('Stateful Device event listeners', () {
     test('Battery Levels', () async {

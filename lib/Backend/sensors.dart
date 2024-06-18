@@ -186,7 +186,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
   TriggerDefinition(this.ref);
 
   Future<void> sendCommands(String name, Ref ref) async {
-    if (!isAnyGearConnected.value) {
+    if (ref.read(getAvailableGearProvider).isEmpty) {
       return;
     }
     actions.values.flattened.where((e) => actionTypes.firstWhere((element) => element.name == name).uuid == e.uuid).forEach(

@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 import 'package:tail_app/Backend/logging_wrappers.dart';
@@ -14,7 +13,6 @@ Future<BaseStatefulDevice> createAndStoreGear(String gearBtName, ProviderContain
   baseStoredDevice = BaseStoredDevice(baseDeviceDefinition.uuid, "$gearMacPrefix${baseDeviceDefinition.deviceType.name}", baseDeviceDefinition.deviceType.color(ref: ref).value)..name = getNameFromBTName(baseDeviceDefinition.btName);
   statefulDevice = BaseStatefulDevice(baseDeviceDefinition, baseStoredDevice);
   statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
-  isAnyGearConnected.value = true;
   if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
     await ref.read(knownDevicesProvider.notifier).add(statefulDevice);
   }

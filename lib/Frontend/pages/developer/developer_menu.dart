@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../constants.dart';
 import '../../../main.dart';
@@ -103,19 +102,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                   () {
                     HiveProxy.put(settings, showDebugging, value);
                     context.pop();
-                  },
-                );
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text("isAnyGearConnected"),
-            trailing: Switch(
-              value: isAnyGearConnected.value,
-              onChanged: (bool value) {
-                setState(
-                  () {
-                    isAnyGearConnected.value = value;
                   },
                 );
               },
