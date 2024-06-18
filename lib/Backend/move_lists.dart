@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -143,25 +144,39 @@ class Move {
 @Riverpod(keepAlive: true)
 class MoveLists extends _$MoveLists {
   @override
-  List<MoveList> build() {
+  BuiltList<MoveList> build() {
     List<MoveList> results = [];
     try {
       results = HiveProxy.getAll<MoveList>(sequencesBox).toList(growable: true);
     } catch (e, s) {
       sequencesLogger.severe("Unable to load sequences: $e", e, s);
     }
-    return results;
+    return results.toBuiltList();
   }
 
   Future<void> add(MoveList moveList) async {
-    List<MoveList> state2 = List.from(state)..add(moveList);
-    state = state2;
+    state = state.rebuild(
+      (p0) => p0.add(moveList),
+    );
+    await store();
+  }
+
+  Future<void> replace(MoveList oldValue, MoveList newValue) async {
+    state = state.rebuild(
+      (p0) {
+        int index = state.indexOf(oldValue);
+        p0
+          ..removeAt(index)
+          ..insert(index, newValue);
+      },
+    );
     await store();
   }
 
   Future<void> remove(MoveList moveList) async {
-    List<MoveList> state2 = List.from(state)..remove(moveList);
-    state = state2;
+    state = state.rebuild(
+      (p0) => p0.remove(moveList),
+    );
     await store();
   }
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +25,7 @@ class CustomAudio extends ConsumerStatefulWidget {
 class _CustomAudioState extends ConsumerState<CustomAudio> {
   @override
   Widget build(BuildContext context) {
-    List<AudioAction> userAudioActions = ref.watch(userAudioActionsProvider);
+    BuiltList<AudioAction> userAudioActions = ref.watch(userAudioActionsProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(audioPage()),

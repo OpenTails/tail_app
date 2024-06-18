@@ -1,4 +1,5 @@
 import 'package:audio_session/audio_session.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -49,25 +50,29 @@ Future<void> playSound(String file) async {
 @Riverpod(keepAlive: true)
 class UserAudioActions extends _$UserAudioActions {
   @override
-  List<AudioAction> build() {
+  BuiltList<AudioAction> build() {
     List<AudioAction> results = [];
     try {
       results = HiveProxy.getAll<AudioAction>(audioActionsBox).toList(growable: true);
     } catch (e, s) {
       _audioLogger.severe("Unable to load audio: $e", e, s);
     }
-    return results;
+    return results.build();
   }
 
   Future<void> add(AudioAction action) async {
-    state
-      ..add(action)
-      ..sort();
+    state = state.rebuild(
+      (p0) => p0
+        ..add(action)
+        ..sort(),
+    );
     store();
   }
 
   Future<void> remove(AudioAction action) async {
-    state.removeWhere((element) => element.uuid == action.uuid);
+    state = state.rebuild(
+      (p0) => p0.removeWhere((element) => element.uuid == action.uuid),
+    );
     store();
   }
 

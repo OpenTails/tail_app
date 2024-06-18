@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,7 @@ class MoveListView extends ConsumerStatefulWidget {
 class _MoveListViewState extends ConsumerState<MoveListView> {
   @override
   Widget build(BuildContext context) {
-    final List<MoveList> allMoveLists = ref.watch(moveListsProvider);
+    final BuiltList<MoveList> allMoveLists = ref.watch(moveListsProvider);
     return Scaffold(
       appBar: AppBar(title: Text(sequencesPage())),
       floatingActionButton: FloatingActionButton.extended(
@@ -43,9 +44,9 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                 (value) => setState(() {
                   if (value != null) {
                     if (ref.watch(moveListsProvider).isNotEmpty) {
-                      ref.watch(moveListsProvider).last = value;
+                      ref.watch(moveListsProvider.notifier).replace(ref.read(moveListsProvider).last, value);
                     } else {
-                      ref.watch(moveListsProvider).add(value);
+                      ref.watch(moveListsProvider.notifier).add(value);
                     }
                     ref.watch(moveListsProvider.notifier).store();
                   }
@@ -80,8 +81,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                             (value) => setState(
                               () {
                                 if (value != null) {
-                                  allMoveLists[index] = value;
-                                  ref.watch(moveListsProvider.notifier).store();
+                                  ref.watch(moveListsProvider.notifier).replace(allMoveLists[index], value);
                                 }
                               },
                             ),

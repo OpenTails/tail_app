@@ -296,10 +296,10 @@ Map<ActionCategory, Set<BaseAction>> getAvailableActions(GetAvailableActionsRef 
 }
 
 @Riverpod(keepAlive: true)
-Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref) {
+BuiltMap<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
-  final List<MoveList> moveLists = ref.watch(moveListsProvider);
-  final List<AudioAction> audioActions = ref.watch(userAudioActionsProvider);
+  final BuiltList<MoveList> moveLists = ref.watch(moveListsProvider);
+  final BuiltList<AudioAction> audioActions = ref.watch(userAudioActionsProvider);
   for (BaseAction baseAction in List.from(ActionRegistry.allCommands)
     ..addAll(moveLists)
     ..addAll(audioActions)) {
@@ -315,7 +315,7 @@ Map<ActionCategory, Set<BaseAction>> getAllActions(GetAllActionsRef ref) {
       sortedActions[baseAction.actionCategory] = baseActions;
     }
   }
-  return sortedActions;
+  return BuiltMap(sortedActions);
 }
 
 @Riverpod(keepAlive: true)
