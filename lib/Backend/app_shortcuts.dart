@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -29,7 +30,7 @@ Future<void> appShortcuts(AppShortcutsRef ref) async {
   updateShortcuts(ref.read(favoriteActionsProvider), ref);
 }
 
-Future<void> updateShortcuts(List<FavoriteAction> favoriteActions, Ref ref) async {
+Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {
   Iterable<BaseAction> allActions = favoriteActions
       .map(
         (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),

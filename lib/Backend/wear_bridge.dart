@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -79,7 +80,7 @@ Future<void> initWear(InitWearRef ref) async {
   }
 }
 
-Future<void> updateWearActions(List<FavoriteAction> favoriteActions, Ref ref) async {
+Future<void> updateWearActions(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {
   try {
     Iterable<BaseAction> allActions = favoriteActions
         .map(

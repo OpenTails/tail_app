@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
@@ -35,25 +36,31 @@ class FavoriteAction with _$FavoriteAction implements Comparable<FavoriteAction>
 @Riverpod(keepAlive: true)
 class FavoriteActions extends _$FavoriteActions {
   @override
-  List<FavoriteAction> build() {
+  BuiltList<FavoriteAction> build() {
     List<FavoriteAction> results = [];
     try {
       results = HiveProxy.getAll<FavoriteAction>(favoriteActionsBox).toList(growable: true);
     } catch (e, s) {
       _favoriteActionsLogger.severe("Unable to load favorites: $e", e, s);
     }
-    return results;
+    return results.toBuiltList();
   }
 
   Future<void> add(BaseAction action) async {
-    state
-      ..add(FavoriteAction(actionUUID: action.uuid, id: state.length + 1))
-      ..sort();
+    state = state.rebuild(
+      (p0) {
+        p0
+          ..add(FavoriteAction(actionUUID: action.uuid, id: state.length + 1))
+          ..sort();
+      },
+    );
     await store();
   }
 
   Future<void> remove(BaseAction action) async {
-    state.removeWhere((element) => element.actionUUID == action.uuid);
+    state = state.rebuild(
+      (p0) => p0.removeWhere((element) => element.actionUUID == action.uuid),
+    );
     await store();
   }
 
