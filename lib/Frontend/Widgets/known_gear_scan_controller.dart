@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -60,7 +61,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
 
   @override
   Widget build(BuildContext context) {
-    Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
+    BuiltMap<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
     if (knownDevices.isNotEmpty) {
       return ValueListenableBuilder(
         valueListenable: isBluetoothEnabled,

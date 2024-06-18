@@ -354,7 +354,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
 class EarMicTriggerDefinition extends TriggerDefinition {
   List<StreamSubscription<String>?> rxSubscriptions = [];
-  ProviderSubscription<Map<String, BaseStatefulDevice>>? deviceRefSubscription;
+  ProviderSubscription<BuiltMap<String, BaseStatefulDevice>>? deviceRefSubscription;
 
   EarMicTriggerDefinition(super.ref) {
     super.name = triggerEarMicTitle();
@@ -430,7 +430,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
 
 class EarTiltTriggerDefinition extends TriggerDefinition {
   List<StreamSubscription<String>?> rxSubscriptions = [];
-  ProviderSubscription<Map<String, BaseStatefulDevice>>? deviceRefSubscription;
+  ProviderSubscription<BuiltMap<String, BaseStatefulDevice>>? deviceRefSubscription;
 
   EarTiltTriggerDefinition(super.ref) {
     super.name = triggerEarTiltTitle();

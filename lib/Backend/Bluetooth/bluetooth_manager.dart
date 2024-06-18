@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,8 +16,8 @@ final log.Logger bluetoothLog = log.Logger('Bluetooth');
 @Riverpod(keepAlive: true)
 class KnownDevices extends _$KnownDevices {
   @override
-  Map<String, BaseStatefulDevice> build() {
-    List<BaseStoredDevice> storedDevices = HiveProxy.getAll<BaseStoredDevice>(devicesBox).toList();
+  BuiltMap<String, BaseStatefulDevice> build() {
+    BuiltList<BaseStoredDevice> storedDevices = HiveProxy.getAll<BaseStoredDevice>(devicesBox).toBuiltList();
     Map<String, BaseStatefulDevice> results = {};
     try {
       if (storedDevices.isNotEmpty) {
@@ -32,24 +33,32 @@ class KnownDevices extends _$KnownDevices {
     } catch (e, s) {
       bluetoothLog.severe("Unable to load stored devices due to $e", e, s);
     }
-    return results;
+    return BuiltMap(results);
   }
 
   Future<void> add(BaseStatefulDevice baseStatefulDevice) async {
-    Map<String, BaseStatefulDevice> state2 = Map.from(state);
-    state2[baseStatefulDevice.baseStoredDevice.btMACAddress] = baseStatefulDevice;
-    state = state2;
+    state = state.rebuild((p0) => p0[baseStatefulDevice.baseStoredDevice.btMACAddress] = baseStatefulDevice);
     await store();
   }
 
   Future<void> remove(String id) async {
-    Map<String, BaseStatefulDevice> state2 = Map.from(state)..remove(id);
-    state = state2;
+    state = state.rebuild(
+      (p0) => p0.remove(id),
+    );
     await store();
   }
 
   Future<void> store() async {
     await HiveProxy.clear<BaseStoredDevice>(devicesBox);
     await HiveProxy.addAll<BaseStoredDevice>(devicesBox, state.values.map((e) => e.baseStoredDevice));
+  }
+
+  Future<void> removeDevGear() async {
+    state = state.rebuild(
+      (p0) => p0.removeWhere(
+        (p0, p1) => p0.contains("DEV"),
+      ),
+    );
+    await store();
   }
 }

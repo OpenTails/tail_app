@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
   // listen to *any device* connection state changes
   _onConnectionStateChangedStreamSubscription = flutterBluePlus.events.onConnectionStateChanged.listen((event) async {
     _bluetoothPlusLogger.info('${event.device.advName} ${event.connectionState}');
-    Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+    BuiltMap<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
     BluetoothDevice bluetoothDevice = event.device;
     BluetoothConnectionState bluetoothConnectionState = event.connectionState;
     String deviceID = bluetoothDevice.remoteId.str;
@@ -265,7 +266,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       if (results.isNotEmpty) {
         ScanResult r = results.last; // the most recently found device
         _bluetoothPlusLogger.info('${r.device.remoteId}: "${r.advertisementData.advName}" found!');
-        Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+        BuiltMap<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
         if (knownDevices.containsKey(r.device.remoteId.str) && knownDevices[r.device.remoteId.str]?.deviceConnectionState.value == ConnectivityState.disconnected && !knownDevices[r.device.remoteId.str]!.disableAutoConnect) {
           knownDevices[r.device.remoteId.str]?.deviceConnectionState.value = ConnectivityState.connecting;
           await r.device.connect();
@@ -277,7 +278,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
 
   _keepAliveStreamSubscription = Stream.periodic(const Duration(seconds: 15)).listen(
     (event) async {
-      Map<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+      BuiltMap<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
       for (var element in flutterBluePlus.connectedDevices) {
         BaseStatefulDevice? device = knownDevices[element.remoteId.str];
         if (device != null) {

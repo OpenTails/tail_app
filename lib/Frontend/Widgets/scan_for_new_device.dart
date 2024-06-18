@@ -207,8 +207,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                       title: Text(scanRemoveDemoGear()),
                       leading: const Icon(Icons.delete),
                       onTap: () async {
-                        ref.read(knownDevicesProvider).removeWhere((key, value) => key.contains("DEV"));
-                        ref.read(knownDevicesProvider.notifier).remove(""); // force update
+                        ref.read(knownDevicesProvider.notifier).removeDevGear();
                         if (ref
                             .read(knownDevicesProvider)
                             .values

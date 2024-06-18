@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
@@ -32,7 +33,7 @@ class SnackBarOverlay extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<SnackBar> value = ref.watch(snackbarStreamProvider);
-    Map<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
+    BuiltMap<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
     ref.listen(
       knownDevicesProvider,
       (previous, next) {

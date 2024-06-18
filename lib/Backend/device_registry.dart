@@ -91,8 +91,8 @@ class DeviceRegistry {
 BuiltSet<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseAction) {
   deviceRegistryLogger.info("Getting devices for action::$baseAction");
   Set<BaseStatefulDevice> foundDevices = {};
-  final Map<String, BaseStatefulDevice> watch = ref.watch(knownDevicesProvider);
-  for (BaseStatefulDevice device in watch.values.where((BaseStatefulDevice element) => element.deviceConnectionState.value == ConnectivityState.connected && element.deviceState.value == DeviceState.standby)) {
+  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
+  for (BaseStatefulDevice device in watch) {
     deviceRegistryLogger.info("Known Device::$device");
     if (baseAction.deviceCategory.contains(device.baseDeviceDefinition.deviceType)) {
       foundDevices.add(device);
@@ -145,7 +145,7 @@ BuiltList<BaseStatefulDevice> getAvailableGearForType(GetAvailableGearForTypeRef
 
 @Riverpod(keepAlive: true)
 BuiltList<BaseStatefulDevice> getKnownGearForType(GetKnownGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
-  final Map<String, BaseStatefulDevice> watch = ref.watch(knownDevicesProvider);
+  final BuiltMap<String, BaseStatefulDevice> watch = ref.watch(knownDevicesProvider);
   return watch.values
       .where(
         (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
