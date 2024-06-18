@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 import 'base_card.dart';
@@ -65,7 +65,7 @@ class GearOutOfDateWarning extends ConsumerWidget {
                       ?.baseStoredDevice
                       .btMACAddress;
                   if (mac != null) {
-                    context.push("/ota", extra: mac);
+                    OtaUpdateRoute(device: mac).push(context);
                   }
                 },
                 child: Center(

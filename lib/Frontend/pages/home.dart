@@ -2,16 +2,16 @@ import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' as log;
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../Widgets/base_card.dart';
-import '../../constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/logging_wrappers.dart';
+import '../../constants.dart';
+import '../Widgets/base_card.dart';
 import '../Widgets/tail_blog.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import 'markdown_viewer.dart';
 
@@ -91,7 +91,9 @@ class _HomeState extends ConsumerState<Home> {
                       children: <Widget>[
                         TextButton(
                           onPressed: () async {
-                            context.push('/more/viewMarkdown/', extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()));
+                            MarkdownViewerRoute(
+                              $extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()),
+                            ).push(context);
                           },
                           child: Text(homeChangelogLinkTitle()),
                         ),

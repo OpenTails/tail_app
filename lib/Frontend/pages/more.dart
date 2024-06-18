@@ -1,11 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Backend/logging_wrappers.dart';
@@ -179,7 +176,7 @@ class _MoreState extends ConsumerState<More> {
             if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) {
               return;
             }
-            context.push('/settings/developer/pin');
+            const DeveloperPincodeRoute().push(context);
           },
         ),
         ListTile(
@@ -214,90 +211,6 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
       ],
-    );
-  }
-}
-
-class PdfWidget extends StatefulWidget {
-  final String name;
-  final String url;
-
-  const PdfWidget({required this.name, required this.url, super.key});
-
-  @override
-  State<PdfWidget> createState() => _PdfWidgetState();
-}
-
-class _PdfWidgetState extends State<PdfWidget> {
-  CancelToken cancelToken = CancelToken();
-  String filePath = '';
-  double progress = 0;
-
-  @override
-  void dispose() {
-    super.dispose();
-    cancelToken.cancel();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        widget.name,
-      ),
-      subtitle: AnimatedCrossFade(
-        firstChild: Text(moreManualSubTitle()),
-        secondChild: LinearProgressIndicator(
-          value: progress,
-        ),
-        crossFadeState: progress < 1 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-        duration: animationTransitionDuration,
-      ),
-      onTap: () async {
-        final transaction = Sentry.startTransaction('GET PDF', 'http', description: widget.url);
-        try {
-          setState(() {
-            progress = 0.1;
-          });
-          final Response<List<int>> rs = await (await initDio()).get(
-            widget.url,
-            cancelToken: cancelToken,
-            options: Options(
-              contentType: 'application/pdf',
-              responseType: ResponseType.bytes,
-            ),
-            onReceiveProgress: (current, total) {
-              setState(
-                () {
-                  progress = current / total;
-                },
-              );
-            },
-          );
-          if (rs.statusCode! < 400) {
-            if (context.mounted) {
-              progress = 0;
-              context.push('/more/viewPDF', extra: Uint8List.fromList(rs.data!));
-            }
-          } else {
-            setState(
-              () {
-                progress = 0;
-              },
-            );
-          }
-        } catch (e) {
-          transaction
-            ..throwable = e
-            ..status = const SpanStatus.internalError();
-          setState(
-            () {
-              progress = 0;
-            },
-          );
-        }
-        transaction.finish();
-      },
     );
   }
 }

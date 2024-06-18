@@ -72,16 +72,6 @@ class TriggersRoute extends GoRouteData {
     TypedGoRoute<MoreRoute>(
       path: '/more',
       name: 'More',
-      routes: <TypedGoRoute<GoRouteData>>[
-        TypedGoRoute<HtmlPageRoute>(
-          path: 'viewHTML',
-          name: 'More/viewHTML',
-        ),
-        TypedGoRoute<MarkdownViewerRoute>(
-          path: 'viewMarkdown',
-          name: 'More/viewMarkdown',
-        ),
-      ],
     ),
   ],
 )
@@ -117,6 +107,10 @@ class OnBoardingPageRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) => const OnBoardingPage();
 }
 
+@TypedGoRoute<HtmlPageRoute>(
+  path: 'viewHTML',
+  name: 'viewHTML',
+)
 class HtmlPageRoute extends GoRouteData {
   const HtmlPageRoute({required this.$extra});
 
@@ -212,6 +206,10 @@ class DeveloperPincodeRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) => const DeveloperPincode();
 }
 
+@TypedGoRoute<MarkdownViewerRoute>(
+  path: '/viewMarkdown',
+  name: 'viewMarkdown',
+)
 class MarkdownViewerRoute extends GoRouteData {
   const MarkdownViewerRoute({required this.$extra});
 

@@ -27,6 +27,7 @@ import '../Widgets/known_gear.dart';
 import '../Widgets/known_gear_scan_controller.dart';
 import '../Widgets/logging_shake.dart';
 import '../Widgets/snack_bar_overlay.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
@@ -214,7 +215,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               color: Colors.red,
               child: InkWell(
                 onTap: () async {
-                  context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
+                  OtaUpdateRoute(device: widget.device.baseStoredDevice.btMACAddress).push(context);
                 },
                 child: ListTile(
                   leading: const Icon(
@@ -239,7 +240,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               padding: const EdgeInsets.all(16.0),
               child: FilledButton(
                 onPressed: () async {
-                  context.push("/ota", extra: widget.device.baseStoredDevice.btMACAddress);
+                  OtaUpdateRoute(device: widget.device.baseStoredDevice.btMACAddress).push(context);
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: getTextColor(color),
@@ -409,7 +410,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 children: [
                   FilledButton(
                     onPressed: () async {
-                      context.push("/settings/developer/console", extra: widget.device);
+                      BluetoothConsoleRoute($extra: widget.device).push(context);
                     },
                     child: const Text("Open console"),
                   ),
