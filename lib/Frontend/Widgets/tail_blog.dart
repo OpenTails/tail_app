@@ -3,8 +3,10 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:wordpress_client/wordpress_client.dart';
@@ -14,6 +16,7 @@ import '../../constants.dart';
 import '../utils.dart';
 
 part 'tail_blog.freezed.dart';
+part 'tail_blog.g.dart';
 
 final _wpLogger = Logger('Main');
 
@@ -27,7 +30,6 @@ class TailBlog extends StatefulWidget {
 }
 
 List<FeedItem> results = [];
-Map<int, Uint8List> images = {};
 
 class _TailBlogState extends State<TailBlog> {
   FeedState feedState = FeedState.loading;
@@ -198,16 +200,16 @@ extension FeedTypeExtension on FeedType {
   }
 }
 
-class TailBlogImage extends StatefulWidget {
+class TailBlogImage extends ConsumerStatefulWidget {
   const TailBlogImage({required this.feedItem, super.key});
 
   final FeedItem feedItem;
 
   @override
-  State<StatefulWidget> createState() => _TailBlogImageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TailBlogImageState();
 }
 
-class _TailBlogImageState extends State<TailBlogImage> {
+class _TailBlogImageState extends ConsumerState<TailBlogImage> {
   bool isVisible = false;
 
   @override
@@ -223,16 +225,12 @@ class _TailBlogImageState extends State<TailBlogImage> {
       },
       child: Builder(
         builder: (context) {
-          if (isVisible || images.containsKey(widget.feedItem.imageId)) {
-            return FutureBuilder(
-              future: getImage(widget.feedItem, context),
-              builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                return AnimatedOpacity(
-                  duration: animationTransitionDuration,
-                  opacity: snapshot.hasData ? 1 : 0,
-                  child: snapshot.hasData ? snapshot.data! : const CircularProgressIndicator(),
-                );
-              },
+          if (isVisible && widget.feedItem.imageUrl != null) {
+            var snapshot = ref.watch(getBlogImageProvider(widget.feedItem.imageUrl!));
+            return AnimatedOpacity(
+              duration: animationTransitionDuration,
+              opacity: snapshot.hasValue ? 1 : 0,
+              child: snapshot.hasValue ? snapshot.value! : const CircularProgressIndicator(),
             );
           } else {
             return Container();
@@ -241,56 +239,31 @@ class _TailBlogImageState extends State<TailBlogImage> {
       ),
     );
   }
+}
 
-  Future<Widget> getImage(FeedItem item, BuildContext context) async {
-    String? mediaUrl;
-    Widget? widget;
-    if (item.imageId != null) {
-      Uint8List? data;
-      if (images.containsKey(item.imageId)) {
-        data = images[item.imageId];
-      }
-      if (data == null) {
-        // Get image url from wordpress api
-        if (item.imageUrl != null && item.imageUrl!.isNotEmpty) {
-          mediaUrl = item.imageUrl;
-        } else {
-          final RetrieveMediaRequest retrieveMediaRequest = RetrieveMediaRequest(id: item.imageId!);
-          WordpressClient client = await getWordpressClient();
-          WordpressResponse<Media> retrieveMediaResponse = await client.media.retrieve(retrieveMediaRequest);
-          if (retrieveMediaResponse.dataOrNull() != null) {
-            Media mediaInfo = retrieveMediaResponse.dataOrNull()!;
-            mediaUrl = mediaInfo.mediaDetails!.sizes!['full']!.sourceUrl!;
-          }
-        }
-        if (mediaUrl != null) {
-          // download the image
-          Dio dio = await initDio();
-          Response<List<int>> response = await dio.get(
-            mediaUrl,
-            options: Options(
-              responseType: ResponseType.bytes,
-              followRedirects: true,
-            ),
-          );
-          if (response.statusCode! < 400) {
-            data = Uint8List.fromList(response.data!);
-            images[item.imageId!] = data;
-          }
-        }
-      }
+@Riverpod(keepAlive: true)
+Future<Widget> getBlogImage(GetBlogImageRef ref, String url) async {
+  Dio dio = await initDio();
+  Response<List<int>> response = await dio.get(
+    url,
+    options: Options(
+      responseType: ResponseType.bytes,
+      followRedirects: true,
+    ),
+  );
 
-      if (data != null && context.mounted) {
-        widget = Image.memory(
-          data,
-          alignment: Alignment.bottomCenter,
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.cover,
-          height: 300,
-        );
-      }
-    }
-
-    return widget ?? Container();
+  if (response.statusCode! < 400) {
+    ref.keepAlive();
+    Uint8List data = Uint8List.fromList(response.data!);
+    return Image.memory(
+      data,
+      alignment: Alignment.bottomCenter,
+      fit: BoxFit.cover,
+      height: 300,
+      width: 500,
+      cacheHeight: 300,
+      cacheWidth: 500,
+    );
   }
+  return Container();
 }

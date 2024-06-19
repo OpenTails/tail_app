@@ -1,4 +1,3 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:choice/choice.dart';
 import 'package:collection/collection.dart';
@@ -217,18 +216,11 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
   @override
   void initState() {
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
-  }
-
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    Navigator.of(context).pop();
-    return true;
   }
 
   @override
