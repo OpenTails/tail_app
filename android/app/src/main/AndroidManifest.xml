@@ -38,7 +38,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!--Awesome Notifications -->
     <application
         android:name="${applicationName}"
-        android:enableOnBackInvokedCallback="false"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
         android:label="The Tail Co"
         android:allowBackup="true"

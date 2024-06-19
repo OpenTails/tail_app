@@ -74,7 +74,7 @@ dependencies:
   flutter_joystick: ^0.2.0
   multi_value_listenable_builder: ^0.0.2
   multi_listenable_builder: ^1.0.0
-  flutter_markdown: ^0.7.2
+  flutter_markdown: ^0.7.2+1
   #video_player: ^2.8.6
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
   flutter_native_splash: ^2.4.0
@@ -128,11 +128,11 @@ dependencies:
   awesome_notifications: any # <~ this version is managed by awesome_notifications_core package
 
   # Sentry
-  sentry_flutter: ^8.2.0 # Base sentry + Flutter integration
-  sentry_logging: ^8.2.0 # Collects app logs
-  sentry_hive: ^8.2.0 # Collects Hive storage accesses
-  sentry_dio: ^8.2.0 # Collects Dio HTTP requests
-  sentry_file: ^8.2.0
+  sentry_flutter: ^8.3.0 # Base sentry + Flutter integration
+  sentry_logging: ^8.3.0 # Collects app logs
+  sentry_hive: ^8.3.0 # Collects Hive storage accesses
+  sentry_dio: ^8.3.0 # Collects Dio HTTP requests
+  sentry_file: ^8.3.0
   feedback_sentry: # need to update for sentry
     git:
       url: https://github.com/ueman/feedback
