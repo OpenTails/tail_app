@@ -53,30 +53,32 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
         )
         .toSet();
     actionsCatMap = BuiltMap(
-      ref.read(getAllActionsProvider).entries.sorted(
-        (a, b) {
-          int first = a.value
-                  .map(
-                    (e) => e.deviceCategory,
-                  )
-                  .flattened
-                  .toSet()
-                  .intersection(knownDeviceTypes)
-                  .isNotEmpty
-              ? 1
-              : -1;
-          int second = b.value
-                  .map(
-                    (e) => e.deviceCategory,
-                  )
-                  .flattened
-                  .toSet()
-                  .intersection(knownDeviceTypes)
-                  .isNotEmpty
-              ? 1
-              : -1;
-          return second.compareTo(first);
-        },
+      Map.fromEntries(
+        ref.read(getAllActionsProvider).entries.sorted(
+          (a, b) {
+            int first = a.value
+                    .map(
+                      (e) => e.deviceCategory,
+                    )
+                    .flattened
+                    .toSet()
+                    .intersection(knownDeviceTypes)
+                    .isNotEmpty
+                ? 1
+                : -1;
+            int second = b.value
+                    .map(
+                      (e) => e.deviceCategory,
+                    )
+                    .flattened
+                    .toSet()
+                    .intersection(knownDeviceTypes)
+                    .isNotEmpty
+                ? 1
+                : -1;
+            return second.compareTo(first);
+          },
+        ),
       ),
     );
     selected = widget.actionSelectorInfo.selectedActions.toList();
