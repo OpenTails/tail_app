@@ -253,7 +253,6 @@ Future<Widget> getBlogImage(GetBlogImageRef ref, String url) async {
   );
 
   if (response.statusCode! < 400) {
-    ref.keepAlive();
     Uint8List data = Uint8List.fromList(response.data!);
     return Image.memory(
       data,
