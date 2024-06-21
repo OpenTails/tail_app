@@ -50,13 +50,7 @@ class TriggersRoute extends GoRouteData {
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => CustomTransitionPage<void>(
-        key: state.pageKey,
-        child: const Triggers(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-      );
+  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: Triggers());
 }
 
 @TypedShellRoute<NavigationDrawerExampleRoute>(
@@ -161,13 +155,7 @@ class ActionPageRoute extends GoRouteData {
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => CustomTransitionPage<void>(
-        key: state.pageKey,
-        child: const ActionPage(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-      );
+  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: ActionPage());
 
   @override
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
@@ -239,13 +227,7 @@ class MoreRoute extends GoRouteData {
   const MoreRoute();
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => CustomTransitionPage<void>(
-        key: state.pageKey,
-        child: const More(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-      );
+  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: More());
 }
 
 @TypedGoRoute<MoveListRoute>(
