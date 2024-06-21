@@ -61,6 +61,9 @@ class _BackButtonToCloseState extends ConsumerState<BackButtonToClose> {
           ),
         ),
         onBackButtonPressed: () async {
+          if (Navigator.canPop(context)) {
+            return false;
+          }
           showSnackbar();
           return true;
         },
