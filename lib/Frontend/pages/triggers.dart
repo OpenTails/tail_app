@@ -15,6 +15,7 @@ import '../../Backend/sensors.dart';
 import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';
 import '../Widgets/tutorial_card.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 import 'action_selector.dart';
@@ -125,23 +126,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                 Trigger trigger = triggersList[index];
                 return ListTile(
                   onTap: () async {
-                    showModalBottomSheet(
-                      isDismissible: true,
-                      isScrollControlled: true,
-                      showDragHandle: true,
-                      enableDrag: true,
-                      useRootNavigator: true,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return DraggableScrollableSheet(
-                          expand: false,
-                          initialChildSize: 0.5,
-                          builder: (BuildContext context, ScrollController scrollController) {
-                            return TriggerEdit(trigger: triggersList[index], scrollController: scrollController);
-                          },
-                        );
-                      },
-                    ).whenComplete(() => setState(() {}));
+                    TriggersEditRoute(uuid: triggersList[index].uuid).push(context).whenComplete(() => setState(() {}));
                   },
                   title: Text(trigger.triggerDefinition!.name),
                   subtitle: MultiValueListenableBuilder(
@@ -203,18 +188,24 @@ class _TriggersState extends ConsumerState<Triggers> {
 }
 
 class TriggerEdit extends ConsumerStatefulWidget {
-  final ScrollController scrollController;
-  final Trigger trigger;
+  final String uuid;
 
-  const TriggerEdit({required this.trigger, required this.scrollController, super.key});
+  const TriggerEdit({required this.uuid, super.key});
 
   @override
   ConsumerState<TriggerEdit> createState() => _TriggerEditState();
 }
 
 class _TriggerEditState extends ConsumerState<TriggerEdit> {
+  Trigger? trigger;
+  TriggerDefinition? triggerDefinition;
+
   @override
   void initState() {
+    trigger = ref.read(triggerListProvider).firstWhereOrNull(
+          (element) => element.uuid == widget.uuid,
+        );
+    triggerDefinition = trigger?.triggerDefinition;
     super.initState();
   }
 
@@ -225,163 +216,175 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      controller: widget.scrollController,
-      children: [
-        ListTile(
-          title: Text(widget.trigger.triggerDefinition!.name),
-          subtitle: Text(widget.trigger.triggerDefinition!.description),
-          leading: ListenableBuilder(
-            listenable: widget.trigger,
-            builder: (BuildContext context, Widget? child) {
-              return Semantics(
-                label: 'A switch to toggle the trigger ${widget.trigger.triggerDefinition?.name}',
-                child: Switch(
-                  value: widget.trigger.enabled,
-                  onChanged: (bool value) {
-                    setState(
-                      () async {
-                        widget.trigger.enabled = value;
-                        plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == widget.trigger.triggerDefUUID).first.toString()});
-                      },
-                    );
-                  },
-                ),
-              );
-            },
-          ),
-        ),
-        DeviceTypeWidget(
-          selected: widget.trigger.deviceType,
-          onSelectionChanged: (List<DeviceType> value) {
-            setState(
-              () async {
-                widget.trigger.deviceType = value.toList();
-                ref.watch(triggerListProvider.notifier).store();
-              },
-            );
-          },
-        ),
-        PageInfoCard(
-          text: triggerInfoEditActionDescription(),
-        ),
-        ...widget.trigger.actions.map(
-          (TriggerAction e) => ListTile(
-            title: Text(widget.trigger.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
-            subtitle: ValueListenableBuilder(
-              valueListenable: e.isActive,
-              builder: (BuildContext context, value, Widget? child) {
-                return AnimatedCrossFade(
-                  duration: animationTransitionDuration,
-                  secondChild: MultiValueListenableBuilder(
-                    valueListenables: widget.trigger.actions.map((e) => e.isActiveProgress).toList(),
-                    builder: (context, values, child) {
-                      return TweenAnimationBuilder<double>(
-                        duration: const Duration(milliseconds: 250),
-                        curve: Curves.easeInOut,
-                        tween: Tween<double>(
-                          begin: 0,
-                          end: values.map((e) => e as double).firstWhere(
-                            orElse: () => 0,
-                            (element) {
-                              return element > 0 && element <= 1;
+    return DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: 0.5,
+      builder: (context, scrollController) {
+        if (trigger == null) {
+          return const Center(
+            child: Text(''),
+          );
+        } else {
+          return ListView(
+            shrinkWrap: true,
+            controller: scrollController,
+            children: [
+              ListTile(
+                title: Text(triggerDefinition!.name),
+                subtitle: Text(triggerDefinition!.description),
+                leading: ListenableBuilder(
+                  listenable: trigger!,
+                  builder: (BuildContext context, Widget? child) {
+                    return Semantics(
+                      label: 'A switch to toggle the trigger ${triggerDefinition?.name}',
+                      child: Switch(
+                        value: trigger!.enabled,
+                        onChanged: (bool value) {
+                          setState(
+                            () async {
+                              trigger!.enabled = value;
+                              plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger!.triggerDefUUID).first.toString()});
                             },
-                          ),
-                        ),
-                        builder: (context, value, _) => LinearProgressIndicator(value: value),
-                      );
-                    },
-                  ),
-                  firstChild: Builder(
-                    builder: (context) {
-                      String text = "";
-                      Iterable<BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider).values;
-                      for (String actionUUID in e.actions) {
-                        BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
-                        if (baseAction != null &&
-                            (knownDevices.isEmpty ||
-                                knownDevices
-                                    .where(
-                                      (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-                                    )
-                                    .isNotEmpty)) {
-                          if (text.isNotEmpty) {
-                            text += ', ';
-                          }
-                          text += baseAction.name;
-                        }
-                      }
-                      return Text(text.isNotEmpty ? text : triggerActionNotSet());
-                    },
-                  ),
-                  crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                );
-              },
-            ),
-            trailing: IconButton(
-              tooltip: actionsSelectScreen(),
-              icon: const Icon(Icons.edit),
-              onPressed: () async {
-                Object? result = await showDialog(
-                  useRootNavigator: true,
-                  barrierDismissible: true,
-                  barrierColor: Theme.of(context).canvasColor,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog.fullscreen(
-                      backgroundColor: Theme.of(context).canvasColor,
-                      child: ActionSelector(
-                        actionSelectorInfo: ActionSelectorInfo(
-                          deviceType: widget.trigger.deviceType.toSet(),
-                          selectedActions: e.actions
-                              .map(
-                                (e) => ref.read(getActionFromUUIDProvider(e)),
-                              )
-                              .whereNotNull()
-                              .toList(),
-                        ),
+                          );
+                        },
                       ),
                     );
                   },
-                );
-                if (result is List<BaseAction>) {
+                ),
+              ),
+              DeviceTypeWidget(
+                selected: trigger!.deviceType,
+                onSelectionChanged: (List<DeviceType> value) {
                   setState(
-                    () {
-                      e.actions = result.map((element) => element.uuid).toList();
+                    () async {
+                      trigger?.deviceType = value.toList();
                       ref.watch(triggerListProvider.notifier).store();
                     },
                   );
-                } else if (result is bool) {
-                  if (!result) {
-                    setState(
-                      () {
-                        e.actions = [];
-                        ref.watch(triggerListProvider.notifier).store();
-                      },
-                    );
-                  }
-                }
-              },
-            ),
-          ),
-        ),
-        ButtonBar(
-          children: [
-            TextButton(
-              onPressed: () async {
-                await ref.watch(triggerListProvider.notifier).remove(widget.trigger);
-                setState(
-                  () {
-                    Navigator.of(context).pop();
-                  },
-                );
-              },
-              child: const Text("Delete Trigger"),
-            ),
-          ],
-        ),
-      ],
+                },
+              ),
+              PageInfoCard(
+                text: triggerInfoEditActionDescription(),
+              ),
+              ...trigger!.actions.map(
+                (TriggerAction e) => ListTile(
+                  title: Text(trigger!.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
+                  subtitle: ValueListenableBuilder(
+                    valueListenable: e.isActive,
+                    builder: (BuildContext context, value, Widget? child) {
+                      return AnimatedCrossFade(
+                        duration: animationTransitionDuration,
+                        secondChild: MultiValueListenableBuilder(
+                          valueListenables: trigger!.actions.map((e) => e.isActiveProgress).toList(),
+                          builder: (context, values, child) {
+                            return TweenAnimationBuilder<double>(
+                              duration: const Duration(milliseconds: 250),
+                              curve: Curves.easeInOut,
+                              tween: Tween<double>(
+                                begin: 0,
+                                end: values.map((e) => e as double).firstWhere(
+                                  orElse: () => 0,
+                                  (element) {
+                                    return element > 0 && element <= 1;
+                                  },
+                                ),
+                              ),
+                              builder: (context, value, _) => LinearProgressIndicator(value: value),
+                            );
+                          },
+                        ),
+                        firstChild: Builder(
+                          builder: (context) {
+                            String text = "";
+                            Iterable<BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider).values;
+                            for (String actionUUID in e.actions) {
+                              BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
+                              if (baseAction != null &&
+                                  (knownDevices.isEmpty ||
+                                      knownDevices
+                                          .where(
+                                            (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
+                                          )
+                                          .isNotEmpty)) {
+                                if (text.isNotEmpty) {
+                                  text += ', ';
+                                }
+                                text += baseAction.name;
+                              }
+                            }
+                            return Text(text.isNotEmpty ? text : triggerActionNotSet());
+                          },
+                        ),
+                        crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                      );
+                    },
+                  ),
+                  trailing: IconButton(
+                    tooltip: actionsSelectScreen(),
+                    icon: const Icon(Icons.edit),
+                    onPressed: () async {
+                      Object? result = await showDialog(
+                        useRootNavigator: true,
+                        barrierDismissible: true,
+                        barrierColor: Theme.of(context).canvasColor,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog.fullscreen(
+                            backgroundColor: Theme.of(context).canvasColor,
+                            child: ActionSelector(
+                              actionSelectorInfo: ActionSelectorInfo(
+                                deviceType: trigger!.deviceType.toSet(),
+                                selectedActions: e.actions
+                                    .map(
+                                      (e) => ref.read(getActionFromUUIDProvider(e)),
+                                    )
+                                    .whereNotNull()
+                                    .toList(),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                      if (result is List<BaseAction>) {
+                        setState(
+                          () {
+                            e.actions = result.map((element) => element.uuid).toList();
+                            ref.watch(triggerListProvider.notifier).store();
+                          },
+                        );
+                      } else if (result is bool) {
+                        if (!result) {
+                          setState(
+                            () {
+                              e.actions = [];
+                              ref.watch(triggerListProvider.notifier).store();
+                            },
+                          );
+                        }
+                      }
+                    },
+                  ),
+                ),
+              ),
+              ButtonBar(
+                children: [
+                  TextButton(
+                    onPressed: () async {
+                      await ref.watch(triggerListProvider.notifier).remove(trigger!);
+                      setState(
+                        () {
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    },
+                    child: const Text("Delete Trigger"),
+                  ),
+                ],
+              ),
+            ],
+          );
+        }
+      },
     );
   }
 }

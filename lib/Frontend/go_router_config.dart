@@ -53,6 +53,20 @@ class TriggersRoute extends GoRouteData {
   Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: Triggers());
 }
 
+@TypedGoRoute<TriggersEditRoute>(
+  path: '/triggers/edit',
+  name: 'Triggers/Edit',
+)
+class TriggersEditRoute extends GoRouteData {
+  const TriggersEditRoute({required this.uuid});
+
+  final String uuid;
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(child: TriggerEdit(uuid: uuid));
+}
+
 @TypedShellRoute<NavigationDrawerExampleRoute>(
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<ActionPageRoute>(
@@ -227,7 +241,7 @@ class MoreRoute extends GoRouteData {
   const MoreRoute();
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: More());
+  Page<void> buildPage(BuildContext context, GoRouterState state) => NoTransitionPage(child: More());
 }
 
 @TypedGoRoute<MoveListRoute>(
@@ -315,4 +329,28 @@ class LogsRoute extends GoRouteData {
         logarte,
         showBackButton: true,
       );
+}
+
+/// A generic modal page class to demonstrate the issue with ModalBottomSheetRoute.
+class ModalPage<T> extends Page<T> {
+  const ModalPage({required this.child});
+
+  final Widget child;
+
+  @override
+  Route<T> createRoute(BuildContext context) {
+    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
+
+    return ModalBottomSheetRoute<T>(
+      barrierLabel: localizations.scrimLabel,
+      barrierOnTapHint: localizations.scrimOnTapHint(localizations.bottomSheetLabel),
+      modalBarrierColor: Theme.of(context).bottomSheetTheme.modalBarrierColor,
+      settings: this,
+      builder: (context) => child,
+      isScrollControlled: true,
+      isDismissible: true,
+      showDragHandle: true,
+      enableDrag: true,
+    );
+  }
 }
