@@ -9,8 +9,12 @@ import '../Backend/Definitions/Action/base_action.dart';
 import '../Backend/Definitions/Device/device_definition.dart';
 import '../Backend/NavigationObserver/custom_go_router_navigation_observer.dart';
 import '../Backend/logging_wrappers.dart';
+import '../Backend/move_lists.dart';
 import '../Backend/plausible_dio.dart';
 import '../constants.dart';
+import 'Widgets/color_picker_dialog.dart';
+import 'Widgets/manage_gear.dart';
+import 'Widgets/scan_for_new_device.dart';
 import 'pages/action_selector.dart';
 import 'pages/actions.dart';
 import 'pages/custom_audio.dart';
@@ -65,6 +69,57 @@ class TriggersEditRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(child: TriggerEdit(uuid: uuid));
+}
+
+@TypedGoRoute<ManageGearRoute>(
+  path: '/manageGear',
+  name: 'Manage Gear',
+)
+class ManageGearRoute extends GoRouteData {
+  const ManageGearRoute({required this.btMac});
+
+  final String btMac;
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(
+        child: ManageGear(
+          btMac: btMac,
+        ),
+      );
+}
+
+@TypedGoRoute<ColorPickerRoute>(
+  path: '/color',
+  name: 'Color Picker',
+)
+class ColorPickerRoute extends GoRouteData {
+  const ColorPickerRoute({required this.defaultColor});
+
+  final int defaultColor;
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) => DialogPage(
+        child: ColorPickerDialog(
+          defaultColor: defaultColor,
+        ),
+      );
+}
+
+@TypedGoRoute<ScanForGearRoute>(
+  path: '/scan',
+  name: 'Scan for new devices',
+)
+class ScanForGearRoute extends GoRouteData {
+  const ScanForGearRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) => const ModalPage(
+        child: ScanForNewDevice(),
+      );
 }
 
 @TypedShellRoute<NavigationDrawerExampleRoute>(
@@ -241,7 +296,7 @@ class MoreRoute extends GoRouteData {
   const MoreRoute();
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => NoTransitionPage(child: More());
+  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: More());
 }
 
 @TypedGoRoute<MoveListRoute>(
@@ -249,7 +304,7 @@ class MoreRoute extends GoRouteData {
   name: 'Sequences',
   routes: [
     TypedGoRoute<EditMoveListRoute>(
-      path: 'editMoveList',
+      path: 'editList',
       name: 'Sequences/Edit Sequence',
     ),
   ],
@@ -271,6 +326,24 @@ class EditMoveListRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) => EditMoveList(moveList: $extra);
+}
+
+@TypedGoRoute<EditMoveListMoveRoute>(
+  path: '/moveLists/editList/editMove',
+  name: 'Sequences/Edit Sequence/Edit Move',
+)
+class EditMoveListMoveRoute extends GoRouteData {
+  const EditMoveListMoveRoute({required this.$extra});
+
+  final Move $extra;
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(
+        child: EditMove(
+          move: $extra,
+        ),
+      );
 }
 
 @TypedGoRoute<OtaUpdateRoute>(
@@ -331,7 +404,6 @@ class LogsRoute extends GoRouteData {
       );
 }
 
-/// A generic modal page class to demonstrate the issue with ModalBottomSheetRoute.
 class ModalPage<T> extends Page<T> {
   const ModalPage({required this.child});
 
@@ -351,6 +423,25 @@ class ModalPage<T> extends Page<T> {
       isDismissible: true,
       showDragHandle: true,
       enableDrag: true,
+    );
+  }
+}
+
+class DialogPage<T> extends Page<T> {
+  const DialogPage({required this.child});
+
+  final Widget child;
+
+  @override
+  Route<T> createRoute(BuildContext context) {
+    return DialogRoute(
+      useSafeArea: true,
+      barrierDismissible: true,
+      settings: this,
+      context: context,
+      builder: (context) {
+        return child;
+      },
     );
   }
 }

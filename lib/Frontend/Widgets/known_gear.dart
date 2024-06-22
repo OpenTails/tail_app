@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,12 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
-import '../../Backend/plausible_dio.dart';
 import '../../constants.dart';
-import '../pages/shell.dart';
+import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
-import 'scan_for_new_device.dart';
 
 class KnownGear extends ConsumerStatefulWidget {
   const KnownGear({super.key});
@@ -66,37 +62,7 @@ class ScanForNewGearButton extends ConsumerWidget {
               ),
             ),
             onTap: () async {
-              plausible.event(page: "Scan For New Gear");
-              await showModalBottomSheet(
-                context: context,
-                showDragHandle: true,
-                isScrollControlled: true,
-                enableDrag: true,
-                isDismissible: true,
-                builder: (BuildContext context) {
-                  return DraggableScrollableSheet(
-                    initialChildSize: 0.5,
-                    expand: false,
-                    builder: (BuildContext context, ScrollController scrollController) {
-                      return Column(
-                        children: [
-                          ListTile(
-                            title: Text(
-                              scanDevicesTitle(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ),
-                          Expanded(
-                            child: ScanForNewDevice(
-                              scrollController: scrollController,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              );
+              const ScanForGearRoute().push(context);
             },
           ),
         );
@@ -145,27 +111,9 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                     color: cardColor,
                     child: InkWell(
                       onTap: () async {
-                        unawaited(plausible.event(page: "Manage Gear"));
-                        showModalBottomSheet(
-                          context: context,
-                          showDragHandle: true,
-                          isScrollControlled: true,
-                          enableDrag: true,
-                          isDismissible: true,
-                          builder: (BuildContext context) {
-                            return DraggableScrollableSheet(
-                              expand: false,
-                              initialChildSize: 0.7,
-                              builder: (BuildContext context, ScrollController scrollController) {
-                                return ManageGear(
-                                  ref: ref,
-                                  device: widget.baseStatefulDevice,
-                                  controller: scrollController,
-                                );
-                              },
-                            );
-                          },
-                        ).then((value) {
+                        ManageGearRoute(
+                          btMac: widget.baseStatefulDevice.baseStoredDevice.btMACAddress,
+                        ).push(context).then((value) {
                           setState(() {}); //force widget update
                           return;
                         });

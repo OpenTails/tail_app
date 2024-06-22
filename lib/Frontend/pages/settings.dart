@@ -6,7 +6,6 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
-import '../../Backend/plausible_dio.dart';
 import '../../constants.dart';
 import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
@@ -46,58 +45,17 @@ class _SettingsState extends ConsumerState<Settings> {
               width: 44,
               height: 44,
               borderRadius: 22,
-              color: Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault)),
+              color: appColorValue,
             ),
             onTap: () async {
-              plausible.event(page: "Settings/App Color");
-              showDialog<bool>(
-                context: context,
-                useRootNavigator: false,
-                useSafeArea: true,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text(
-                      settingsAppColor(),
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          HiveProxy.put(settings, appColor, appColorValue.value);
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          ok(),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          appColorValue = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          cancel(),
-                        ),
-                      ),
-                    ],
-                    content: Wrap(
-                      children: [
-                        ColorPicker(
-                          color: appColorValue,
-                          padding: EdgeInsets.zero,
-                          onColorChanged: (Color color) => setState(() => appColorValue = color),
-                          pickersEnabled: const <ColorPickerType, bool>{
-                            ColorPickerType.both: false,
-                            ColorPickerType.primary: true,
-                            ColorPickerType.accent: true,
-                            ColorPickerType.wheel: true,
-                          },
-                        ),
-                      ],
-                    ),
+              ColorPickerRoute(defaultColor: appColorValue.value).push(context).then(
+                    (color) => setState(() {
+                      if (color != null) {
+                        HiveProxy.put(settings, appColor, color.value);
+                        appColorValue = color;
+                      }
+                    }),
                   );
-                },
-              ).whenComplete(() => setState(() {}));
             },
           ),
           ListTile(

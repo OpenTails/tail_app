@@ -118,10 +118,7 @@ class EditMoveList extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _EditMoveList();
 }
 
-class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderStateMixin {
-  TabController? _tabController;
-  ScrollController? _scrollController;
-
+class _EditMoveList extends ConsumerState<EditMoveList> {
   //TODO: Only store on back/save
   @override
   void initState() {
@@ -177,7 +174,18 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                     widget.moveList.moves = widget.moveList.moves.toList()..add(Move());
                   },
                 );
-                editModal(context, widget.moveList.moves.length - 1);
+                Move move = widget.moveList.moves[widget.moveList.moves.length - 1];
+
+                EditMoveListMoveRoute($extra: move).push(context).whenComplete(
+                  () {
+                    setState(
+                      () {
+                        widget.moveList.moves[widget.moveList.moves.length - 1] = move;
+                      },
+                    );
+                    ref.watch(moveListsProvider.notifier).store();
+                  },
+                );
                 //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves.last).then((value) => setState(() => moveList!.moves.last = value!));
               },
               label: Text(sequencesEditAdd()),
@@ -194,7 +202,6 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
           ref.watch(moveListsProvider.notifier).store();
         },
         child: ListView(
-          controller: _scrollController,
           children: [
             PageInfoCard(
               text: sequencesInfoEditDescription(),
@@ -242,7 +249,6 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
               ),
             ),
             ReorderableListView(
-              scrollController: _scrollController,
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               children: <Widget>[
@@ -252,7 +258,18 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
                     title: Text(widget.moveList.moves[index].toString()),
                     leading: Icon(widget.moveList.moves[index].moveType.icon),
                     onTap: () async {
-                      editModal(context, index);
+                      Move move = widget.moveList.moves[index];
+
+                      EditMoveListMoveRoute($extra: move).push(context).whenComplete(
+                        () {
+                          setState(
+                            () {
+                              widget.moveList.moves[index] = move;
+                            },
+                          );
+                          ref.watch(moveListsProvider.notifier).store();
+                        },
+                      );
                       //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
                     },
                   ),
@@ -276,137 +293,133 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
     );
   }
 
-  Future<void> editModal(BuildContext context, int index) async {
-    Move move = widget.moveList.moves[index];
-    if (_tabController != null) {
-      //There is probably a much better way to remove listeners
-      _tabController?.dispose();
-    }
-    _tabController = TabController(length: 2, initialIndex: move.moveType.index, vsync: this);
+  @override
+  void dispose() {
+    super.dispose();
+  }
+}
+
+class EditMove extends ConsumerStatefulWidget {
+  const EditMove({required this.move, super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _EditMoveState();
+  final Move move;
+}
+
+class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMixin {
+  TabController? _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, initialIndex: widget.move.moveType.index, vsync: this);
     _tabController?.addListener(() {
-      move.moveType = MoveType.values[_tabController!.index];
+      widget.move.moveType = MoveType.values[_tabController!.index];
     });
-    showModalBottomSheet<Move>(
-      context: context,
-      showDragHandle: true,
-      enableDrag: true,
-      isDismissible: true,
-      isScrollControlled: true,
-      clipBehavior: Clip.antiAlias,
-      builder: (context) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.5,
-          expand: false,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setEditState) {
-                return Column(
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.5,
+      expand: false,
+      builder: (BuildContext context, ScrollController scrollController) {
+        return Column(
+          children: [
+            TabBar(
+              controller: _tabController,
+              tabs: <Widget>[
+                Tab(icon: const Icon(Icons.auto_graph), text: sequencesEditMove()),
+                Tab(
+                  icon: const Icon(Icons.timer_rounded),
+                  text: sequencesEditDelay(),
+                ),
+              ],
+            ),
+            Expanded(
+                child: TabBarView(
+              controller: _tabController,
+              children: <Widget>[
+                ListView(
+                  shrinkWrap: true,
+                  controller: scrollController,
                   children: [
-                    TabBar(
-                      controller: _tabController,
-                      tabs: <Widget>[
-                        Tab(icon: const Icon(Icons.auto_graph), text: sequencesEditMove()),
-                        Tab(
-                          icon: const Icon(Icons.timer_rounded),
-                          text: sequencesEditDelay(),
-                        ),
-                      ],
+                    ListTile(
+                      title: Text(sequencesEditLeftServo()),
+                      leading: const Icon(Icons.turn_slight_left),
+                      subtitle: Slider(
+                        value: widget.move.leftServo,
+                        max: 128,
+                        divisions: 8,
+                        label: "${widget.move.leftServo.round().clamp(0, 128) ~/ 16}",
+                        onChanged: (value) {
+                          setState(() => widget.move.leftServo = value);
+                        },
+                      ),
                     ),
-                    Expanded(
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: <Widget>[
-                          ListView(
-                            shrinkWrap: true,
-                            controller: scrollController,
-                            children: [
-                              ListTile(
-                                title: Text(sequencesEditLeftServo()),
-                                leading: const Icon(Icons.turn_slight_left),
-                                subtitle: Slider(
-                                  value: move.leftServo,
-                                  max: 128,
-                                  divisions: 8,
-                                  label: "${move.leftServo.round().clamp(0, 128) ~/ 16}",
-                                  onChanged: (value) {
-                                    setEditState(() => move.leftServo = value);
-                                  },
-                                ),
-                              ),
-                              ListTile(
-                                title: Text(sequencesEditRightServo()),
-                                leading: const Icon(Icons.turn_slight_right),
-                                subtitle: Slider(
-                                  value: move.rightServo,
-                                  max: 128,
-                                  divisions: 8,
-                                  label: "${move.rightServo.round().clamp(0, 128) ~/ 16}",
-                                  onChanged: (value) {
-                                    setEditState(() => move.rightServo = value);
-                                  },
-                                ),
-                              ),
-                              SpeedWidget(
-                                value: move.speed,
-                                onChanged: (double value) {
-                                  setEditState(() => move.speed = value.roundToDouble());
-                                },
-                              ),
-                              ListTile(
-                                title: Text(sequencesEditEasing()),
-                                subtitle: SegmentedButton<EasingType>(
-                                  selected: <EasingType>{move.easingType},
-                                  onSelectionChanged: (Set<EasingType> value) {
-                                    setEditState(() => move.easingType = value.first);
-                                  },
-                                  segments: EasingType.values.map<ButtonSegment<EasingType>>(
-                                    (EasingType value) {
-                                      return ButtonSegment<EasingType>(
-                                        value: value,
-                                        tooltip: value.name,
-                                        icon: value.widget(context),
-                                      );
-                                    },
-                                  ).toList(),
-                                ),
-                              ),
-                            ],
-                          ),
-                          ListView(
-                            children: [
-                              ListTile(
-                                title: Text(sequencesEditTime()),
-                                subtitle: Slider(
-                                  value: move.time,
-                                  label: "${move.time.toInt() * 20} ms",
-                                  max: 127,
-                                  min: 1,
-                                  divisions: 125,
-                                  onChanged: (value) {
-                                    setEditState(() => move.time = value.roundToDouble());
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                    ListTile(
+                      title: Text(sequencesEditRightServo()),
+                      leading: const Icon(Icons.turn_slight_right),
+                      subtitle: Slider(
+                        value: widget.move.rightServo,
+                        max: 128,
+                        divisions: 8,
+                        label: "${widget.move.rightServo.round().clamp(0, 128) ~/ 16}",
+                        onChanged: (value) {
+                          setState(() => widget.move.rightServo = value);
+                        },
+                      ),
+                    ),
+                    SpeedWidget(
+                      value: widget.move.speed,
+                      onChanged: (double value) {
+                        setState(() => widget.move.speed = value.roundToDouble());
+                      },
+                    ),
+                    ListTile(
+                      title: Text(sequencesEditEasing()),
+                      subtitle: SegmentedButton<EasingType>(
+                        selected: <EasingType>{widget.move.easingType},
+                        onSelectionChanged: (Set<EasingType> value) {
+                          setState(() => widget.move.easingType = value.first);
+                        },
+                        segments: EasingType.values.map<ButtonSegment<EasingType>>(
+                          (EasingType value) {
+                            return ButtonSegment<EasingType>(
+                              value: value,
+                              tooltip: value.name,
+                              icon: value.widget(context),
+                            );
+                          },
+                        ).toList(),
                       ),
                     ),
                   ],
-                );
-              },
-            );
-          },
+                ),
+                ListView(
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  children: [
+                    ListTile(
+                      title: Text(sequencesEditTime()),
+                      subtitle: Slider(
+                        value: widget.move.time,
+                        label: "${widget.move.time.toInt() * 20} ms",
+                        max: 127,
+                        min: 1,
+                        divisions: 125,
+                        onChanged: (value) {
+                          setState(() => widget.move.time = value.roundToDouble());
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )),
+          ],
         );
-      },
-    ).whenComplete(
-      () async {
-        setState(
-          () {
-            widget.moveList.moves[index] = move;
-          },
-        );
-        ref.watch(moveListsProvider.notifier).store();
       },
     );
   }
@@ -415,6 +428,5 @@ class _EditMoveList extends ConsumerState<EditMoveList> with TickerProviderState
   void dispose() {
     super.dispose();
     _tabController?.dispose();
-    _scrollController?.dispose();
   }
 }

@@ -168,6 +168,8 @@ String manageDevicesShutdown() => Intl.message('Shut Down', name: 'manageDevices
 
 String manageDevicesColor() => Intl.message('Gear Color', name: 'manageDevicesColor', desc: 'manage devices color picker button title when managing a device');
 
+String colorPickerTitle() => Intl.message('Pick a Color', name: 'colorPickerTitle', desc: 'The title of the color picker');
+
 String manageDevicesForget() => Intl.message('Forget', name: 'manageDevicesForget', desc: 'manage devices forget button title when managing a device');
 
 String manageDevicesOtaButton() => Intl.message('Tap to update firmware', name: 'manageDevicesOtaButton', desc: 'manage devices ota available button');
