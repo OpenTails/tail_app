@@ -33,6 +33,6 @@ default_platform(:android)
         version_code: ENV['BUILD_NUMBER'],
         version_name: ENV['VERSION'],
         json_key_data: ENV['GOOGLE_SECRETS'],
-        #release_status: "draft", #TODO: Remove
+        release_status: "draft", #TODO: Remove
         )
 end
