@@ -1,6 +1,7 @@
 ### V 1.0.6
 
 - Improve indicating when an action card controls multiple gear
+- Fix opening links on IOS
 
 ### V 1.0.5
 
