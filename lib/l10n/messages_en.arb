@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-06-13T15:10:34.967324",
+  "@@last_modified": "2024-06-24T03:06:43.372231",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -452,6 +452,12 @@
   "manageDevicesColor": "Gear Color",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "colorPickerTitle": "Pick a Color",
+  "@colorPickerTitle": {
+    "description": "The title of the color picker",
     "type": "text",
     "placeholders": {}
   },
