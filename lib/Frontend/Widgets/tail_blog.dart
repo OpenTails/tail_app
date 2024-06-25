@@ -254,14 +254,17 @@ Future<Widget> getBlogImage(GetBlogImageRef ref, String url) async {
 
   if (response.statusCode! < 400) {
     Uint8List data = Uint8List.fromList(response.data!);
-    return Image.memory(
-      data,
-      alignment: Alignment.bottomCenter,
-      fit: BoxFit.cover,
-      height: 300,
-      width: 500,
-      cacheHeight: 300,
-      cacheWidth: 500,
+    return SizedBox.expand(
+      child: FittedBox(
+        alignment: Alignment.center,
+        // TRY THIS: Try changing the fit types to see how they change the way
+        // the placeholder fits into the container.
+        fit: BoxFit.cover,
+        child: Image.memory(
+          data,
+          width: 300,
+        ),
+      ),
     );
   }
   return Container();
