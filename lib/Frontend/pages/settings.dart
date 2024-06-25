@@ -51,7 +51,7 @@ class _SettingsState extends ConsumerState<Settings> {
               ColorPickerRoute(defaultColor: appColorValue.value).push(context).then(
                     (color) => setState(() {
                       if (color != null) {
-                        HiveProxy.put(settings, appColor, color.value);
+                        HiveProxy.put(settings, appColor, color);
                         appColorValue = color;
                       }
                     }),

@@ -7,6 +7,7 @@ import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/device_registry.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
@@ -169,8 +170,9 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   ColorPickerRoute(defaultColor: color!.value).push(context).then(
                         (color) => setState(() {
                           if (color != null) {
-                            device!.baseStoredDevice.color = color.value;
-                            this.color = color;
+                            device!.baseStoredDevice.color = color;
+                            this.color = Color(color);
+                            ref.invalidate(getAvailableGearProvider);
                             ref.read(knownDevicesProvider.notifier).store();
                           }
                         }),

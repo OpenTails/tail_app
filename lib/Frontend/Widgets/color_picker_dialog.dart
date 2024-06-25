@@ -13,7 +13,7 @@ class ColorPickerDialog extends StatefulWidget {
 }
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
-  Color? color;
+  late Color color;
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.of(context).pop(color!.value);
+            Navigator.of(context).pop(color.value);
           },
           child: Text(
             ok(),
@@ -49,7 +49,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       content: Wrap(
         children: [
           ColorPicker(
-            color: color!,
+            color: color,
             padding: EdgeInsets.zero,
             onColorChanged: (Color color) => setState(() => this.color = color),
             pickersEnabled: const <ColorPickerType, bool>{

@@ -196,10 +196,27 @@ class GetAvailableGear extends _$GetAvailableGear {
 }
 
 @Riverpod(keepAlive: true)
-Color getColorForDeviceType(GetColorForDeviceTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
-  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearForTypeProvider(deviceTypes));
-  if (watch.isEmpty) {
-    return deviceTypes.first.color();
+class GetColorForDeviceType extends _$GetColorForDeviceType {
+  @override
+  Color build(BuiltSet<DeviceType> deviceTypes) {
+    final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearForTypeProvider(deviceTypes));
+    for (BaseStatefulDevice baseStatefulDevice in watch) {
+      baseStatefulDevice.baseStoredDevice
+        ..removeListener(_listener)
+        ..addListener(_listener);
+    }
+    return getState();
   }
-  return Color(watch.first.baseStoredDevice.color);
+
+  Color getState() {
+    final BuiltList<BaseStatefulDevice> watch = ref.read(getAvailableGearForTypeProvider(deviceTypes));
+    if (watch.isEmpty) {
+      return deviceTypes.first.color();
+    }
+    return Color(watch.first.baseStoredDevice.color);
+  }
+
+  void _listener() {
+    state = getState();
+  }
 }
