@@ -54,7 +54,7 @@ class TriggersRoute extends GoRouteData {
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: Triggers());
+  Page<void> buildPage(BuildContext context, GoRouterState state) => NoTransitionPage(key: state.pageKey, name: state.name, child: const Triggers());
 }
 
 @TypedGoRoute<TriggersEditRoute>(
@@ -68,7 +68,7 @@ class TriggersEditRoute extends GoRouteData {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(child: TriggerEdit(uuid: uuid));
+  Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(key: state.pageKey, name: state.name, child: TriggerEdit(uuid: uuid));
 }
 
 @TypedGoRoute<ManageGearRoute>(
@@ -83,6 +83,8 @@ class ManageGearRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(
+        key: state.pageKey,
+        name: state.name,
         child: ManageGear(
           btMac: btMac,
         ),
@@ -101,6 +103,8 @@ class ColorPickerRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) => DialogPage(
+        key: state.pageKey,
+        name: state.name,
         child: ColorPickerDialog(
           defaultColor: defaultColor,
         ),
@@ -117,8 +121,10 @@ class ScanForGearRoute extends GoRouteData {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => const ModalPage(
-        child: ScanForNewDevice(),
+  Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(
+        key: state.pageKey,
+        name: state.name,
+        child: const ScanForNewDevice(),
       );
 }
 
@@ -224,7 +230,7 @@ class ActionPageRoute extends GoRouteData {
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: ActionPage());
+  Page<void> buildPage(BuildContext context, GoRouterState state) => NoTransitionPage(child: const ActionPage(), name: state.name, key: state.pageKey);
 
   @override
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
@@ -296,7 +302,7 @@ class MoreRoute extends GoRouteData {
   const MoreRoute();
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) => const NoTransitionPage(child: More());
+  Page<void> buildPage(BuildContext context, GoRouterState state) => NoTransitionPage(child: const More(), key: state.pageKey, name: state.name);
 }
 
 @TypedGoRoute<MoveListRoute>(
@@ -340,6 +346,8 @@ class EditMoveListMoveRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(
+        key: state.pageKey,
+        name: state.name,
         child: EditMove(
           move: $extra,
         ),
@@ -405,7 +413,7 @@ class LogsRoute extends GoRouteData {
 }
 
 class ModalPage<T> extends Page<T> {
-  const ModalPage({required this.child});
+  const ModalPage({required this.child, required super.key, required super.name});
 
   final Widget child;
 
@@ -428,7 +436,7 @@ class ModalPage<T> extends Page<T> {
 }
 
 class DialogPage<T> extends Page<T> {
-  const DialogPage({required this.child});
+  const DialogPage({required this.child, required super.key, required super.name});
 
   final Widget child;
 
