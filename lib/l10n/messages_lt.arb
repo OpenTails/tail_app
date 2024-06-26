@@ -986,5 +986,11 @@
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
+  },
+  "colorPickerTitle": "Pasirinkite spalvą",
+  "@colorPickerTitle": {
+    "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
   }
 }
