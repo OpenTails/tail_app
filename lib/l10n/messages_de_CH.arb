@@ -986,5 +986,11 @@
     "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
     "placeholders": {}
+  },
+  "colorPickerTitle": "Wähl ei Farb us",
+  "@colorPickerTitle": {
+    "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
   }
 }
