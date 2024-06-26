@@ -986,5 +986,11 @@
     "description": "The button label on the trigger select screen for saving the selected actions",
     "type": "text",
     "placeholders": {}
+  },
+  "colorPickerTitle": "Vyber barvu",
+  "@colorPickerTitle": {
+    "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
   }
 }
