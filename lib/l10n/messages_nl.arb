@@ -986,5 +986,11 @@
     "description": "Title for Connecting to all found gear on the scan page",
     "type": "text",
     "placeholders": {}
+  },
+  "colorPickerTitle": "Kies een kleur",
+  "@colorPickerTitle": {
+    "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
   }
 }
