@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'Bluetooth/bluetooth_manager.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'audio.dart';
@@ -270,33 +271,49 @@ class ActionRegistry {
 }
 
 @Riverpod(keepAlive: true)
-BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAvailableActions(GetAvailableActionsRef ref) {
-  Map<ActionCategory, Set<BaseAction>> sortedActions = {};
-  final BuiltMap<ActionCategory, BuiltSet<BaseAction>> allActions = ref.watch(getAllActionsProvider);
-  final BuiltList<BaseStatefulDevice> availableGear = ref.watch(getAvailableGearProvider);
-  for (BaseAction baseAction in allActions.values.flattened) {
-    Set<BaseAction>? baseActions = {};
-    for (BaseStatefulDevice baseStatefulDevice in availableGear) {
-      // check if command matches device type
-      if (baseAction.deviceCategory.contains(baseStatefulDevice.baseDeviceDefinition.deviceType) && ((baseAction.actionCategory == ActionCategory.glowtip && baseStatefulDevice.hasGlowtip.value == GlowtipStatus.glowtip) || baseAction.actionCategory != ActionCategory.glowtip)) {
-        // get category if it exists
-        if (sortedActions.containsKey(baseAction.actionCategory)) {
-          baseActions = sortedActions[baseAction.actionCategory];
+class GetAvailableActions extends _$GetAvailableActions {
+  @override
+  BuiltMap<ActionCategory, BuiltSet<BaseAction>> build() {
+    for (BaseStatefulDevice baseStatefulDevice in ref.watch(knownDevicesProvider).values) {
+      baseStatefulDevice.hasGlowtip
+        ..removeListener(_listener)
+        ..addListener(_listener);
+    }
+    return getState();
+  }
+
+  BuiltMap<ActionCategory, BuiltSet<BaseAction>> getState() {
+    Map<ActionCategory, Set<BaseAction>> sortedActions = {};
+    final BuiltMap<ActionCategory, BuiltSet<BaseAction>> allActions = ref.watch(getAllActionsProvider);
+    final BuiltList<BaseStatefulDevice> availableGear = ref.watch(getAvailableGearProvider);
+    for (BaseAction baseAction in allActions.values.flattened) {
+      Set<BaseAction>? baseActions = {};
+      for (BaseStatefulDevice baseStatefulDevice in availableGear) {
+        // check if command matches device type
+        if (baseAction.deviceCategory.contains(baseStatefulDevice.baseDeviceDefinition.deviceType) && ((baseAction.actionCategory == ActionCategory.glowtip && baseStatefulDevice.hasGlowtip.value == GlowtipStatus.glowtip) || baseAction.actionCategory != ActionCategory.glowtip)) {
+          // get category if it exists
+          if (sortedActions.containsKey(baseAction.actionCategory)) {
+            baseActions = sortedActions[baseAction.actionCategory];
+          }
+          // add action to category
+          baseActions?.add(baseAction);
         }
-        // add action to category
-        baseActions?.add(baseAction);
+      }
+      // store result
+      if (baseActions != null && baseActions.isNotEmpty) {
+        sortedActions[baseAction.actionCategory] = baseActions;
       }
     }
-    // store result
-    if (baseActions != null && baseActions.isNotEmpty) {
-      sortedActions[baseAction.actionCategory] = baseActions;
-    }
+    return BuiltMap(
+      sortedActions.map(
+        (key, value) => MapEntry(key, value.build()),
+      ),
+    );
   }
-  return BuiltMap(
-    sortedActions.map(
-      (key, value) => MapEntry(key, value.build()),
-    ),
-  );
+
+  void _listener() {
+    state = getState();
+  }
 }
 
 @Riverpod(keepAlive: true)
