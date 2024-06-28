@@ -92,6 +92,8 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
               mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
               largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
               useDrawer: false,
+              internalAnimations: false,
+              transitionDuration: Duration.zero,
               appBarBreakpoint: const WidthPlatformBreakpoint(begin: 0),
               selectedIndex: screenIndex,
               onSelectedIndexChange: (int index) {
