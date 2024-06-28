@@ -102,9 +102,24 @@ BuiltSet<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseActi
 }
 
 @Riverpod(keepAlive: true)
-BuiltList<BaseStatefulDevice> getAvailableIdleGear(GetAvailableIdleGearRef ref) {
-  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
-  return watch.where((element) => element.deviceState.value == DeviceState.standby).toBuiltList();
+class GetAvailableIdleGear extends _$GetAvailableIdleGear {
+  @override
+  BuiltList<BaseStatefulDevice> build() {
+    for (BaseStatefulDevice baseStatefulDevice in ref.watch(knownDevicesProvider).values) {
+      baseStatefulDevice.deviceState
+        ..removeListener(_listener)
+        ..addListener(_listener);
+    }
+    return getState();
+  }
+
+  BuiltList<BaseStatefulDevice> getState() {
+    return ref.read(getAvailableGearProvider).where((element) => element.deviceState.value == DeviceState.standby).toBuiltList();
+  }
+
+  void _listener() {
+    state = getState();
+  }
 }
 
 @Riverpod(keepAlive: true)
