@@ -19,6 +19,7 @@ fi
     bundle exec fastlane beta
     rm APPLE_SECRETS.json
   else
+    exit 0 # disable android deploy
     cd android
     bundle exec fastlane beta
   fi
