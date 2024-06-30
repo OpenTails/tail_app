@@ -241,6 +241,8 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         statefulDevice.batteryLow.value = true;
       } else if (value.contains("ERR")) {
         statefulDevice.gearReturnedError.value = true;
+      } else if (value.contains("SHUTDOWN BEGIN")) {
+        statefulDevice.deviceConnectionState.value = ConnectivityState.disconnected;
       } else if (value.contains("HWVER")) {
         // Hardware Version
         statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
