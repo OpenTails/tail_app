@@ -987,7 +987,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "colorPickerTitle": "Wähl ei Farb us",
+  "colorPickerTitle": "Wähl a Farb us",
   "@colorPickerTitle": {
     "description": "The title of the color picker",
     "type": "text",
