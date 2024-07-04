@@ -46,72 +46,72 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
     List<BaseStatefulDevice> knownDevicesFiltered = ref.watch(getAvailableGearProvider).toList();
     BuiltMap<ActionCategory, BuiltSet<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
     List<ActionCategory> catList = actionsCatMap.keys.toList();
-    return AnimatedCrossFade(
-      firstChild: const Home(),
-      secondChild: ListView(
-        shrinkWrap: true,
-        children: [
-          AnimatedCrossFade(
-            firstChild: PageInfoCard(
-              text: actionsFavoriteTip(),
-            ),
-            secondChild: GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
-              itemCount: actionsCatMap.values.flattened
-                  .where(
-                    (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                  )
-                  .length,
-              itemBuilder: (BuildContext context, int index) {
-                BaseAction baseAction = actionsCatMap.values.flattened
-                    .where(
-                      (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                    )
-                    .toList()[index];
-                return ActionCard(actionIndex: index, knownDevices: knownDevicesFiltered, action: baseAction, largerCards: largerCards);
-              },
-            ),
-            crossFadeState: actionsCatMap.values.flattened.where((element) => ref.watch(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-            duration: animationTransitionDuration,
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: catList.length,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int categoryIndex) {
-              List<BaseAction> actionsForCat = actionsCatMap.values.toList()[categoryIndex].toList();
-              return FadeIn(
-                delay: Duration(milliseconds: 100 * categoryIndex),
-                child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  children: [
-                    Center(
-                      child: Text(
-                        catList[categoryIndex].friendly,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    GridView.builder(
-                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: actionsForCat.length,
-                      itemBuilder: (BuildContext context, int actionIndex) {
-                        return ActionCard(actionIndex: actionIndex, knownDevices: knownDevicesFiltered, action: actionsForCat[actionIndex], largerCards: largerCards);
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-      crossFadeState: actionsCatMap.isNotEmpty ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+    return AnimatedSwitcher(
       duration: animationTransitionDuration,
+      child: actionsCatMap.isNotEmpty
+          ? ListView(
+              shrinkWrap: true,
+              children: [
+                AnimatedCrossFade(
+                  firstChild: PageInfoCard(
+                    text: actionsFavoriteTip(),
+                  ),
+                  secondChild: GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                    itemCount: actionsCatMap.values.flattened
+                        .where(
+                          (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
+                        )
+                        .length,
+                    itemBuilder: (BuildContext context, int index) {
+                      BaseAction baseAction = actionsCatMap.values.flattened
+                          .where(
+                            (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
+                          )
+                          .toList()[index];
+                      return ActionCard(actionIndex: index, knownDevices: knownDevicesFiltered, action: baseAction, largerCards: largerCards);
+                    },
+                  ),
+                  crossFadeState: actionsCatMap.values.flattened.where((element) => ref.watch(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                  duration: animationTransitionDuration,
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: catList.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int categoryIndex) {
+                    List<BaseAction> actionsForCat = actionsCatMap.values.toList()[categoryIndex].toList();
+                    return FadeIn(
+                      delay: Duration(milliseconds: 100 * categoryIndex),
+                      child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: [
+                          Center(
+                            child: Text(
+                              catList[categoryIndex].friendly,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ),
+                          GridView.builder(
+                            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: actionsForCat.length,
+                            itemBuilder: (BuildContext context, int actionIndex) {
+                              return ActionCard(actionIndex: actionIndex, knownDevices: knownDevicesFiltered, action: actionsForCat[actionIndex], largerCards: largerCards);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            )
+          : const Home(),
     );
   }
 }
