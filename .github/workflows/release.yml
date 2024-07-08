@@ -1,0 +1,38 @@
+on:
+  workflow_dispatch
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  prepare_release:
+    permissions:
+      contents: write
+    name: Prepare Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: get Version
+        id: version
+        uses: ./.github/actions/version
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: build.yml
+          workflow_conclusion: success
+          branch: master
+          event: push
+          if_no_artifact_found: fail
+          allow_forks: true
+      - name: output_dir
+        run: ls -al artifact-Linux/
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifact-Linux/apk/release/app-release.apk
+          draft: true
+          tag_name: ${{ steps.version.outputs.version }}
+          fail_on_unmatched_files: true
+          generate_release_notes: true

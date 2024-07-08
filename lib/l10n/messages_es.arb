@@ -207,7 +207,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsErrorReportingToggleSubTitle": "Tarjetas más grandes",
+  "settingsErrorReportingToggleSubTitle": "Envía informes de errores a Sentry",
   "@settingsErrorReportingToggleSubTitle": {
     "description": "Settings page error reporting toggle subtitle",
     "type": "text",

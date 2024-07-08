@@ -387,25 +387,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Linksneigung",
+  "triggerEarTiltLeft": "Neigung links",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Rechtsneigung",
+  "triggerEarTiltRight": "Neigung rechts",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltForward": "Vorwärtsneigung",
+  "triggerEarTiltForward": "Neigung vorwärts",
   "@triggerEarTiltForward": {
     "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltBackward": "Rückwärtsneigung",
+  "triggerEarTiltBackward": "Neigung rückwärts",
   "@triggerEarTiltBackward": {
     "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
     "type": "text",
@@ -465,7 +465,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesConnect": "Verbinden",
+  "manageDevicesConnect": "Verbinde",
   "@manageDevicesConnect": {
     "description": "manage devices connect button title when managing a device",
     "type": "text",

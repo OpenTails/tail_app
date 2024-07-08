@@ -273,7 +273,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPage": "Déclencheurs",
+  "sequencesPage": "Actions personnalisées",
   "@sequencesPage": {
     "description": "The label and title of the sequences page",
     "type": "text",

@@ -83,7 +83,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceTypeEars": "Skjul de forskellige vejledningskort i hele appen",
+  "deviceTypeEars": "Ører",
   "@deviceTypeEars": {
     "description": "Ears option for the selector to select which device to send moves to",
     "type": "text",
@@ -333,13 +333,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverNear": "Trin",
+  "triggerCoverNear": "Enhed dækket",
   "@triggerCoverNear": {
     "description": "Cover trigger near action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverFar": "Enhed dækket",
+  "triggerCoverFar": "Enhed afdækket",
   "@triggerCoverFar": {
     "description": "Cover trigger far action label",
     "type": "text",
