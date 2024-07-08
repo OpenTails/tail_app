@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonTitle": "Käivitage kõndimisel toiming",
+  "triggerVolumeButtonTitle": "Helitugevuse nupud",
   "@triggerVolumeButtonTitle": {
     "description": "Volume Button trigger title",
     "type": "text",
@@ -375,7 +375,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeTitle": "Läheduses Gear",
+  "triggerShakeTitle": "Raputama",
   "@triggerShakeTitle": {
     "description": "Shake trigger title",
     "type": "text",
@@ -753,7 +753,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerRandomButtonDescription": "Juhuslik režiim",
+  "triggerRandomButtonDescription": "Esitage valitud tegevus juhuslikult",
   "@triggerRandomButtonDescription": {
     "description": "Casual Mode trigger description",
     "type": "text",
