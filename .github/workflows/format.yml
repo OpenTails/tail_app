@@ -3,8 +3,8 @@ on:
     paths:
       - '*.dart'
 jobs:
-  build_android:
-    name: Update Localization Files
+  format:
+    name: Format Dart Files
     runs-on: ubuntu-latest
     permissions: # Job-level permissions configuration starts here
       contents: write           # 'write' access to repository contents
