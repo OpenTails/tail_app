@@ -7,7 +7,7 @@ jobs:
   prepare_release:
     permissions:
       contents: write
-    name: Build
+    name: Prepare Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,11 +27,11 @@ jobs:
           if_no_artifact_found: fail
           allow_forks: true
       - name: output_dir
-        run: ls -al
+        run: ls -al artifact-Linux/
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: artifact-linux/apk/release/app-release.apk
+          files: artifact-Linux/apk/release/app-release.apk
           draft: true
           tag_name: ${{ steps.version.outputs.version }}
           fail_on_unmatched_files: true
