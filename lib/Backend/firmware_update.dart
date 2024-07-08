@@ -55,6 +55,7 @@ Future<bool> hasOtaUpdate(HasOtaUpdateRef ref, BaseStatefulDevice baseStatefulDe
     return false;
   }
   if (fwInfo != null && fwVersion.compareTo(const Version()) > 0 && fwVersion.compareTo(getVersionSemVer(fwInfo.version)) < 0) {
+    baseStatefulDevice.hasUpdate.value = false;
     return true;
   }
   return false;

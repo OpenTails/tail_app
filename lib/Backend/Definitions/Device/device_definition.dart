@@ -4,7 +4,6 @@ import 'dart:core';
 
 import 'package:circular_buffer/circular_buffer.dart';
 import 'package:collection/collection.dart';
-import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +12,6 @@ import 'package:hive/hive.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
-import '../../../Frontend/utils.dart';
 import '../../Bluetooth/bluetooth_manager.dart';
 import '../../Bluetooth/bluetooth_manager_plus.dart';
 import '../../Bluetooth/bluetooth_message.dart';
@@ -157,40 +155,11 @@ class BaseStatefulDevice {
       batlevels.add(FlSpot(stopWatch.elapsed.inSeconds.toDouble(), batteryLevel.value));
       batteryLow.value = batteryLevel.value < 20;
     });
-    fwInfo.addListener(() {
-      if (fwInfo.value != null && fwVersion.value.compareTo(const Version()) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
-        hasUpdate.value = true;
-      }
-    });
-    fwVersion.addListener(() {
-      if (baseDeviceDefinition.minVersion != null && fwVersion.value.compareTo(baseDeviceDefinition.minVersion!) < 0) {
-        mandatoryOtaRequired.value = true;
-      }
-      if (fwInfo.value != null && fwVersion.value.compareTo(const Version()) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
-        hasUpdate.value = true;
-      }
-    });
-    getFirmwareInfo();
   }
 
   @override
   String toString() {
     return 'BaseStatefulDevice{baseDeviceDefinition: $baseDeviceDefinition, baseStoredDevice: $baseStoredDevice, battery: $batteryLevel}';
-  }
-
-  Future<void> getFirmwareInfo() async {
-    // Try to get firmware update information from Tail Company site
-    if (baseDeviceDefinition.fwURL != "" && fwInfo.value == null) {
-      Future<Response<String>> valueFuture = (await initDio()).get(baseDeviceDefinition.fwURL, options: Options(responseType: ResponseType.json))
-        ..onError((error, stackTrace) {
-          bluetoothLog.warning("Unable to get Firmware info for ${baseDeviceDefinition.fwURL} :$error", error, stackTrace);
-          return Response(requestOptions: RequestOptions(), statusCode: 500);
-        });
-      Response<String> value = await valueFuture;
-      if (value.statusCode == 200) {
-        fwInfo.value = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
-      }
-    }
   }
 
   void reset() {

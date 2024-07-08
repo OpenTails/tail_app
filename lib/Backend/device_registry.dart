@@ -211,6 +211,13 @@ class GetAvailableGear extends _$GetAvailableGear {
 }
 
 @Riverpod(keepAlive: true)
+bool isAllKnownGearConnected(IsAllKnownGearConnectedRef ref) {
+  var knownGear = ref.watch(knownDevicesProvider);
+  BuiltList<BaseStatefulDevice> connectedGear = ref.watch(getAvailableGearProvider);
+  return knownGear.length == connectedGear.length;
+}
+
+@Riverpod(keepAlive: true)
 class GetColorForDeviceType extends _$GetColorForDeviceType {
   @override
   Color build(BuiltSet<DeviceType> deviceTypes) {

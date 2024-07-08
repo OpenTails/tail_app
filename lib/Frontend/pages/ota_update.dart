@@ -68,9 +68,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     WakelockPlus.enabled.then((value) => wakelockEnabledBeforehand = value);
     baseStatefulDevice!.fwVersion.addListener(verListener);
     baseStatefulDevice!.fwInfo.addListener(fwInfoListener);
-    if (firmwareInfo == null) {
-      unawaited(baseStatefulDevice!.getFirmwareInfo());
-    }
+    unawaited(ref.read(hasOtaUpdateProvider(baseStatefulDevice!).future));
   }
 
   @override
@@ -468,7 +466,10 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
         if (uploadProgress == 1) {
           _otaLogger.info("File Uploaded");
           otaState = OtaState.rebooting;
-          beginScan(); // start scanning for the gear to reconnect
+          beginScan(
+            scanReason: ScanReason.manual,
+            timeout: const Duration(seconds: 60),
+          ); // start scanning for the gear to reconnect
           timer = Timer(
             const Duration(seconds: 60),
             () {

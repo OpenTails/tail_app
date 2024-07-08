@@ -7,15 +7,18 @@ import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sentry_hive/sentry_hive.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Frontend/utils.dart';
 import '../../constants.dart';
 import '../Definitions/Device/device_definition.dart';
 import '../device_registry.dart';
+import '../firmware_update.dart';
 import '../logging_wrappers.dart';
 import '../sensors.dart';
 import 'bluetooth_manager.dart';
@@ -227,6 +230,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       // Firmware Version
       if (value.startsWith("VER")) {
         statefulDevice.fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
+        ref.read(hasOtaUpdateProvider(statefulDevice).future);
         // Sent after VER message
       } else if (value.startsWith("GLOWTIP")) {
         String substring = value.substring(value.indexOf(" ")).trim();
@@ -329,6 +333,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     isBluetoothEnabled.value = false;
     _didInitFlutterBluePlus = false; // Allow restarting ble stack
   });
+  ref.read(scanMonitorProvider);
 }
 
 Future<void> disconnect(String id) async {
@@ -353,9 +358,14 @@ Future<void> connect(String id) async {
   }
 }
 
-Future<void> beginScan({Duration? timeout}) async {
+enum ScanReason { background, addGear, manual, notScanning }
+
+ScanReason _scanReason = ScanReason.notScanning;
+
+Future<void> beginScan({required ScanReason scanReason, Duration? timeout}) async {
   if (_didInitFlutterBluePlus && !flutterBluePlus.isScanningNow) {
     _bluetoothPlusLogger.info("Starting scan");
+    _scanReason = scanReason;
     await flutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map(Guid.new).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
   }
 }
@@ -380,6 +390,7 @@ Future<void> stopScan() async {
   }
   _bluetoothPlusLogger.info("stopScan called");
   await flutterBluePlus.stopScan();
+  _scanReason = ScanReason.notScanning;
 }
 
 Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool withoutResponse = false}) async {
@@ -398,5 +409,25 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
       _bluetoothPlusLogger.severe("Unable to send message to ${device.baseDeviceDefinition.btName} $e", e);
     });
     await future;
+  }
+}
+
+@Riverpod(keepAlive: true)
+class ScanMonitor extends _$ScanMonitor {
+  void build() {
+    bool allConnected = ref.watch(isAllKnownGearConnectedProvider);
+    bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);
+    if (!allConnected && alwaysScanningValue) {
+      beginScan(scanReason: ScanReason.background);
+    } else if (allConnected && _scanReason == ScanReason.background) {
+      stopScan();
+    }
+    SentryHive.box(settings).listenable(keys: [alwaysScanning])
+      ..removeListener(listener)
+      ..addListener(listener);
+  }
+
+  void listener() {
+    ref.invalidateSelf();
   }
 }

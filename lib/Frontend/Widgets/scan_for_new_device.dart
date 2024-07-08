@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -31,16 +29,17 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
 
   @override
   void initState() {
-    unawaited(beginScan());
     super.initState();
     anyKnownGear = ref.read(knownDevicesProvider).isNotEmpty;
+    beginScan(scanReason: ScanReason.addGear);
   }
 
   @override
   void dispose() {
     super.dispose();
-    if (!HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault) || !anyKnownGear) {
-      unawaited(stopScan());
+    bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);
+    if (!alwaysScanningValue) {
+      stopScan();
     }
   }
 
