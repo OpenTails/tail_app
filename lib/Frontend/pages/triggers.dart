@@ -165,11 +165,12 @@ class _TriggersState extends ConsumerState<Triggers> {
                         label: 'A switch to toggle the trigger ${trigger.triggerDefinition?.name}',
                         child: Switch(
                           value: trigger.enabled,
-                          onChanged: (bool value) {
+                          onChanged: (bool value) async {
                             setState(
                               () {
-                                trigger.enabled = value;
-                                //ref.watch(triggerListProvider.notifier).store();
+                                trigger.storedEnable = !trigger.enabled;
+                                ref.read(triggerListProvider.notifier).store();
+                                plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger.triggerDefUUID).first.toString()});
                               },
                             );
                           },
@@ -242,7 +243,8 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                         onChanged: (bool value) {
                           setState(
                             () async {
-                              trigger!.enabled = value;
+                              trigger!.storedEnable = !trigger!.enabled;
+                              ref.read(triggerListProvider.notifier).store();
                               plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger!.triggerDefUUID).first.toString()});
                             },
                           );

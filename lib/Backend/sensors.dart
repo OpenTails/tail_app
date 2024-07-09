@@ -42,6 +42,16 @@ class Trigger extends ChangeNotifier {
   @HiveField(1)
   late final String triggerDefUUID;
   TriggerDefinition? triggerDefinition;
+  @HiveField(5, defaultValue: false)
+  bool _storedEnable = false;
+
+  bool get storedEnable => _storedEnable;
+
+  set storedEnable(bool value) {
+    _storedEnable = value;
+    enabled = value;
+  }
+
   bool _enabled = false;
   @HiveField(4)
   final String uuid;
@@ -715,6 +725,16 @@ class TriggerList extends _$TriggerList {
   @override
   BuiltList<Trigger> build() {
     List<Trigger> results = [];
+    ref.listen(
+      getAvailableGearProvider,
+      (previous, next) {
+        for (Trigger trigger in state) {
+          if (trigger.storedEnable) {
+            trigger.enabled = next.isNotEmpty;
+          }
+        }
+      },
+    );
     try {
       results = HiveProxy.getAll<Trigger>(triggerBox).map((trigger) {
         Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.uuid == trigger.triggerDefUUID), trigger.uuid);
