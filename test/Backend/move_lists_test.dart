@@ -103,7 +103,7 @@ void main() {
       MoveList moveList = MoveList(name: "Test", deviceCategory: DeviceType.values, uuid: 'uuid');
       expect(moveList.moves.isEmpty, true);
       Move move = Move.move(leftServo: 50, rightServo: 100, easingType: EasingType.cubic, speed: 5);
-      moveList.moves.add(move);
+      moveList.moves = [move];
       expect(moveList.moves.length, 1);
     });
     group('runAction', () {
@@ -138,6 +138,7 @@ void main() {
         expect(container.read(knownDevicesProvider).values.length, 1);
         expect(container.read(knownDevicesProvider).values.first.baseDeviceDefinition.btName, 'EG2');
         MoveList moveList = MoveList(name: 'Test', uuid: 'test', deviceCategory: DeviceType.values);
+        moveList.moves = List.from([]);
         moveList.moves.add(Move.move(leftServo: 50, rightServo: 50));
         moveList.moves.add(Move.delay(50));
         moveList.moves.add(Move.move(leftServo: 50, rightServo: 50));
@@ -151,6 +152,7 @@ void main() {
         expect(container.read(knownDevicesProvider).values.length, 1);
         expect(container.read(knownDevicesProvider).values.first.baseDeviceDefinition.btName, 'MiTail');
         MoveList moveList = MoveList(name: 'Test', uuid: 'test', deviceCategory: DeviceType.values);
+        moveList.moves = List.from([]);
         moveList.moves.add(Move.move(leftServo: 50, rightServo: 50, easingType: EasingType.cubic));
         moveList.moves.add(Move.delay(50));
         moveList.moves.add(Move.move(leftServo: 50, rightServo: 50));
