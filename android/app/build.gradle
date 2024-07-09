@@ -187,6 +187,6 @@ sentry {
     // Default is enabled.
     // Only available v3.1.0 and above.
     autoInstallation {
-        enabled = true
+        enabled = false
     }
 }
