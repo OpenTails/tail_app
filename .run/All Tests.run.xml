@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All Tests" type="FlutterTestConfigType" factoryName="Flutter Test">
+    <option name="testDir" value="F:\StudioProjects\tail_app\" />
+    <option name="useRegexp" value="false" />
+    <option name="additionalArgs" value="-j, --concurrency=1" />
+    <method v="2" />
+  </configuration>
+</component>

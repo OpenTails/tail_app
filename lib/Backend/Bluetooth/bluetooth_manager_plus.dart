@@ -414,6 +414,7 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
 
 @Riverpod(keepAlive: true)
 class ScanMonitor extends _$ScanMonitor {
+  @override
   void build() {
     bool allConnected = ref.watch(isAllKnownGearConnectedProvider);
     bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);

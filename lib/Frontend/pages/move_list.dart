@@ -338,86 +338,87 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
               ],
             ),
             Expanded(
-                child: TabBarView(
-              controller: _tabController,
-              children: <Widget>[
-                ListView(
-                  shrinkWrap: true,
-                  controller: scrollController,
-                  children: [
-                    ListTile(
-                      title: Text(sequencesEditLeftServo()),
-                      leading: const Icon(Icons.turn_slight_left),
-                      subtitle: Slider(
-                        value: widget.move.leftServo,
-                        max: 128,
-                        divisions: 8,
-                        label: "${widget.move.leftServo.round().clamp(0, 128) ~/ 16}",
-                        onChanged: (value) {
-                          setState(() => widget.move.leftServo = value);
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: Text(sequencesEditRightServo()),
-                      leading: const Icon(Icons.turn_slight_right),
-                      subtitle: Slider(
-                        value: widget.move.rightServo,
-                        max: 128,
-                        divisions: 8,
-                        label: "${widget.move.rightServo.round().clamp(0, 128) ~/ 16}",
-                        onChanged: (value) {
-                          setState(() => widget.move.rightServo = value);
-                        },
-                      ),
-                    ),
-                    SpeedWidget(
-                      value: widget.move.speed,
-                      onChanged: (double value) {
-                        setState(() => widget.move.speed = value.roundToDouble());
-                      },
-                    ),
-                    ListTile(
-                      title: Text(sequencesEditEasing()),
-                      subtitle: SegmentedButton<EasingType>(
-                        selected: <EasingType>{widget.move.easingType},
-                        onSelectionChanged: (Set<EasingType> value) {
-                          setState(() => widget.move.easingType = value.first);
-                        },
-                        segments: EasingType.values.map<ButtonSegment<EasingType>>(
-                          (EasingType value) {
-                            return ButtonSegment<EasingType>(
-                              value: value,
-                              tooltip: value.name,
-                              icon: value.widget(context),
-                            );
+              child: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  ListView(
+                    shrinkWrap: true,
+                    controller: scrollController,
+                    children: [
+                      ListTile(
+                        title: Text(sequencesEditLeftServo()),
+                        leading: const Icon(Icons.turn_slight_left),
+                        subtitle: Slider(
+                          value: widget.move.leftServo,
+                          max: 128,
+                          divisions: 8,
+                          label: "${widget.move.leftServo.round().clamp(0, 128) ~/ 16}",
+                          onChanged: (value) {
+                            setState(() => widget.move.leftServo = value);
                           },
-                        ).toList(),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                ListView(
-                  shrinkWrap: true,
-                  controller: scrollController,
-                  children: [
-                    ListTile(
-                      title: Text(sequencesEditTime()),
-                      subtitle: Slider(
-                        value: widget.move.time,
-                        label: "${widget.move.time.toInt() * 20} ms",
-                        max: 127,
-                        min: 1,
-                        divisions: 125,
-                        onChanged: (value) {
-                          setState(() => widget.move.time = value.roundToDouble());
+                      ListTile(
+                        title: Text(sequencesEditRightServo()),
+                        leading: const Icon(Icons.turn_slight_right),
+                        subtitle: Slider(
+                          value: widget.move.rightServo,
+                          max: 128,
+                          divisions: 8,
+                          label: "${widget.move.rightServo.round().clamp(0, 128) ~/ 16}",
+                          onChanged: (value) {
+                            setState(() => widget.move.rightServo = value);
+                          },
+                        ),
+                      ),
+                      SpeedWidget(
+                        value: widget.move.speed,
+                        onChanged: (double value) {
+                          setState(() => widget.move.speed = value.roundToDouble());
                         },
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            )),
+                      ListTile(
+                        title: Text(sequencesEditEasing()),
+                        subtitle: SegmentedButton<EasingType>(
+                          selected: <EasingType>{widget.move.easingType},
+                          onSelectionChanged: (Set<EasingType> value) {
+                            setState(() => widget.move.easingType = value.first);
+                          },
+                          segments: EasingType.values.map<ButtonSegment<EasingType>>(
+                            (EasingType value) {
+                              return ButtonSegment<EasingType>(
+                                value: value,
+                                tooltip: value.name,
+                                icon: value.widget(context),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  ListView(
+                    shrinkWrap: true,
+                    controller: scrollController,
+                    children: [
+                      ListTile(
+                        title: Text(sequencesEditTime()),
+                        subtitle: Slider(
+                          value: widget.move.time,
+                          label: "${widget.move.time.toInt() * 20} ms",
+                          max: 127,
+                          min: 1,
+                          divisions: 125,
+                          onChanged: (value) {
+                            setState(() => widget.move.time = value.roundToDouble());
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         );
       },

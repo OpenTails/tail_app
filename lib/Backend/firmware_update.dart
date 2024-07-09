@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/version.dart';
 
 import '../Frontend/utils.dart';
 import 'Definitions/Device/device_definition.dart';
+import 'version.dart';
 
 part 'firmware_update.freezed.dart';
 part 'firmware_update.g.dart';
