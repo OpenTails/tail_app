@@ -28,6 +28,14 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+
+project.gradle.taskGraph.whenReady { graph ->
+    project.tasks.findAll().forEach { task ->
+        if (task.name.contains("sentry")) {
+            task.onlyIf { System.getenv()["SENTRY_AUTH_TOKEN"] != null }
+        }
+    }
+}
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     //ndkVersion flutter.ndkVersion
@@ -176,12 +184,6 @@ sentry {
     // code as part of your stack traces in Sentry.
     includeSourceContext = true
 
-    // Enable or disable the tracing instrumentation.
-    // Does auto instrumentation for specified features through bytecode manipulation.
-    // Default is enabled.
-    tracingInstrumentation {
-        enabled = true
-    }
 
     // Enable auto-installation of Sentry components (sentry-android SDK and okhttp, timber and fragment integrations).
     // Default is enabled.

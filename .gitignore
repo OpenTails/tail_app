@@ -69,3 +69,7 @@ android/key.properties
 
 coverage/
 
+
+local.properties
+
+.gradle/
