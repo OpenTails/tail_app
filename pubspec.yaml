@@ -19,7 +19,7 @@ dependencies:
   vector_math: ^2.1.4 # used for joystick
   collection: ^1.18.0 # Priority Queue
   intl: #pinned to flutter version?
-  uuid: ^4.4.0 # Used to generate UUID v4 ids for custom actions & move lists
+  uuid: ^4.4.1 # Used to generate UUID v4 ids for custom actions & move lists
   json_annotation: ^4.9.0
   crypto: ^3.0.3 # used for md5 hash checking during ota download
   #pod_player: ^0.2.2
@@ -30,7 +30,7 @@ dependencies:
     git:
       url: https://github.com/Codel1417/logarte
   stack_trace: ^1.11.1
-  freezed_annotation: ^2.4.2
+  freezed_annotation: ^2.4.3
   built_collection: ^5.1.1
 
   # Platform Interfaces
@@ -53,8 +53,8 @@ dependencies:
   flutter_wear_os_connectivity:
     git:
       url: https://github.com/Codel1417/flutter_wear_os_connectivity
-  just_audio: ^0.9.38 # Used for Sound Effects
-  audio_session: ^0.1.19 # Used to configure the audio session for just_audio
+  just_audio: ^0.9.39 # Used for Sound Effects
+  audio_session: ^0.1.20 # Used to configure the audio session for just_audio
   firebase_testlab_detector: ^1.0.2
   mockito: ^5.4.4
   platform: ^3.1.4
@@ -147,7 +147,7 @@ dev_dependencies:
   json_serializable: ^6.8.0 # required for @JsonSerializable annotations
   hive_generator: ^2.0.1 # required for @HiveType annotations
   go_router_builder: ^2.7.0
-  freezed: ^2.5.4
+  freezed: ^2.5.6
 
   test:
   flutter_test:

@@ -90,10 +90,10 @@ packages:
     dependency: "direct main"
     description:
       name: audio_session
-      sha256: a49af9981eec5d7cd73b37bacb6ee73f8143a6a9f9bd5b6021e6c346b9b6cf4e
+      sha256: "4012d798e25a0ebfd4ad7203fefe7e386fdfedd2243afc52fa700b8bde6a3a4f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.19"
+    version: "0.1.20"
   awesome_notifications:
     dependency: "direct main"
     description:
@@ -784,18 +784,18 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "52aac9d13f089f2bf8074977c6f0c17499fd75e16b3f5792d784098c4c61c317"
+      sha256: a16ca81a9eb50c0aa236c62ff544c450119a107b4752020b152bea76f8ca4e63
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.4"
+    version: "2.5.6"
   freezed_annotation:
     dependency: "direct main"
     description:
       name: freezed_annotation
-      sha256: f54946fdb1fa7b01f780841937b1a80783a20b393485f3f6cdf336fd6f4705f2
+      sha256: f9f6597ac43cc262fa7d7f2e65259a6060c23a560525d1f2631be374540f2a9b
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.4.3"
   frontend_server_client:
     dependency: transitive
     description:
@@ -1027,10 +1027,10 @@ packages:
     dependency: "direct main"
     description:
       name: just_audio
-      sha256: "5abfab1d199e01ab5beffa61b3e782350df5dad036cb8c83b79fa45fc656614e"
+      sha256: ee50602364ba83fa6308f5512dd560c713ec3e1f2bc75f0db43618f0d82ef71a
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.38"
+    version: "0.9.39"
   just_audio_platform_interface:
     dependency: transitive
     description:
@@ -1284,10 +1284,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: "8bc9f22eee8690981c22aa7fc602f5c85b497a6fb2ceb35ee5a5e5ed85ad8170"
+      sha256: bd6f00dbd873bfb70d0761682da2b3a2c2fccc2b9e84c495821639601d81afe7
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
+    version: "2.3.0"
   pedometer:
     dependency: "direct main"
     description:
@@ -1900,10 +1900,10 @@ packages:
     dependency: "direct main"
     description:
       name: uuid
-      sha256: "814e9e88f21a176ae1359149021870e87f7cddaf633ab678a5d2b0bff7fd1ba8"
+      sha256: b3e1cb245a96993cfb11d0e53aaf75aa87302ba4d156dc1b0309c60b6650f3fa
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.0"
+    version: "4.4.1"
   vector_graphics:
     dependency: transitive
     description:
