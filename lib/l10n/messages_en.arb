@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-07-08T21:24:11.848087",
+  "@@last_modified": "2024-07-11T05:05:20.920941",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -266,6 +266,12 @@
   "actionsNoBluetooth": "Bluetooth is unavailable",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoBluetoothDescription": "Bluetooth is required to connect to Gear. Please turn on bluetooth in settings. Do not connect to gear while in your devices bluetooth settings.",
+  "@actionsNoBluetoothDescription": {
+    "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   },
@@ -839,7 +845,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Turn On Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Open Settings to turn On Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
