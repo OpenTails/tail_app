@@ -15,6 +15,7 @@ This data is only used in app to enable app functionality and is not transmitted
 - Settings, Custom Actions, Triggers, and the other features are stored locally.
 
 **All collected and transmitted data is anonymous and aggregated. No PII is stored**
+Data is encrypted in transit. Since data is aggregated and anonymous, there is no way to request data to be deleted.
 
 ### Analytics
 
