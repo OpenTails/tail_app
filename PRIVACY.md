@@ -1,10 +1,20 @@
 # Privacy Policy
 
-Updated 5/16/2024 to add this updated line for future use.
+Updated 7/10/2024 update the error reporting section and to add a contact info.
 
 ## What is Collected
 
-**All collected data is anonymous and aggregated. No PII is stored**
+### Locally collected data
+
+This data is only used in app to enable app functionality and is not transmitted off device.
+
+- Bluetooth MAC addresses are stored to identify known gear.
+- Step data is collected to enable the walking trigger.
+- Motion data is collected to enable the shake trigger.
+- Proximity data is collected to enable the proximity trigger.
+- Settings, Custom Actions, Triggers, and the other features are stored locally.
+
+**All collected and transmitted data is anonymous and aggregated. No PII is stored**
 
 ### Analytics
 
@@ -20,10 +30,12 @@ App usage data is stored in a self hosted [Plausible Analytics](https://plausibl
 - Trigger Type & Gear Type used
 - Action Name & Type used
 
+The analytics dashboard (public) can be found [here](https://plausible.codel1417.xyz/tail-app).
+
 ### Error Reporting
 
-if an error occurs, relevant data is collected and stored in a self hosted [Sentry](https://sentry.io/) instance.
-Data is stored for up to 90 days (the default for a self hosted sentry instance) and only used for fixing issues with the app. This is not shared with any 3rd parties.
+if an error occurs, relevant data is collected and stored in [Sentry](https://sentry.io/).
+Data is stored for up to 90 days and only used for fixing issues with the app. This data is not used for tracking or shared with any other 3rd parties.
 
 #### The following data is collected
 
@@ -35,4 +47,9 @@ Data is stored for up to 90 days (the default for a self hosted sentry instance)
 
 ## Third Parties
 
-I use [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/) to open my [Sentry](https://sentry.io/) and [Plausible Analytics](https://plausible.io/) instance to the public.
+I use [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/) to open my [Plausible Analytics](https://plausible.io/) instance to the public.
+[Sentry](https://sentry.io) is used for error collection.
+
+## Contact
+
+for any inquiries please contact us at info@thetailcompany.com
