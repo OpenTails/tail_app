@@ -105,6 +105,9 @@ String sequenceEditListDelayLabel(int howMany) => Intl.message(
 //Actions Page
 String actionsNoBluetooth() => Intl.message('Bluetooth is unavailable', name: 'actionsNoBluetooth', desc: 'Label on the actions page when bluetooth is unavailable');
 
+String actionsNoBluetoothDescription() =>
+    Intl.message('Bluetooth is required to connect to Gear. Please turn on bluetooth in settings. Do not connect to gear while in your devices bluetooth settings.', name: 'actionsNoBluetoothDescription', desc: 'description on the actions page when bluetooth is unavailable');
+
 String actionsCategoryCalm() => Intl.message('Calm and Relaxed', name: 'actionsCategoryCalm', desc: 'calm action group label');
 
 String actionsCategoryFast() => Intl.message('Fast and Excited', name: 'actionsCategoryFast', desc: 'fast action group label');
@@ -310,7 +313,7 @@ String onboardingBluetoothDescription() => Intl.message("Bluetooth permission is
 
 String onboardingBluetoothRequestButtonLabel() => Intl.message("Grant Permission", name: 'onboardingBluetoothRequestButtonLabel', desc: 'Label for the button to request bluetooth permission on the onboarding screen');
 
-String onboardingBluetoothEnableButtonLabel() => Intl.message("Turn On Bluetooth", name: 'onboardingBluetoothEnableButtonLabel', desc: 'Label for the button to open bluetooth settings on the onboarding screen');
+String onboardingBluetoothEnableButtonLabel() => Intl.message("Open Settings to turn On Bluetooth", name: 'onboardingBluetoothEnableButtonLabel', desc: 'Label for the button to open bluetooth settings on the onboarding screen');
 
 String onboardingDoneButtonLabel() => Intl.message("Done", name: 'onboardingDoneButtonLabel', desc: 'Label for the button to close the onboarding screen');
 

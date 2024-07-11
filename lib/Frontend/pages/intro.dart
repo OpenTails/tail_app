@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,185 +61,170 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       bodyFlex: 5,
       safeArea: 0,
     );
-    return ValueListenableBuilder(
-      valueListenable: isBluetoothEnabled,
-      builder: (BuildContext context, bool bluetoothEnabled, Widget? child) {
-        return IntroductionScreen(
-          key: introKey,
-          canProgress: (page) {
-            if (page == 2 && !bluetoothAccepted && bluetoothEnabled) {
-              return false;
-            } else if (page == 1 && !privacyAccepted) {
-              return false;
-            }
-            return true;
-          },
-          globalBackgroundColor: Theme.of(context).canvasColor,
-          allowImplicitScrolling: true,
-          globalHeader: Align(
-            alignment: Alignment.topRight,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16, right: 16),
-                child: InkWell(
-                  child: _buildImage(Assets.tCLogoTransparentNoText.path, 60),
-                  onLongPress: () async {
-                    _introLogger.info("Open Logs");
-                    const LogsRoute().push(context);
-                  },
+    return IntroductionScreen(
+      key: introKey,
+      canProgress: (page) {
+        if (page == 2 && !bluetoothAccepted) {
+          return false;
+        } else if (page == 1 && !privacyAccepted) {
+          return false;
+        }
+        return true;
+      },
+      globalBackgroundColor: Theme.of(context).canvasColor,
+      allowImplicitScrolling: true,
+      globalHeader: Align(
+        alignment: Alignment.topRight,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 16, right: 16),
+            child: InkWell(
+              child: _buildImage(Assets.tCLogoTransparentNoText.path, 60),
+              onLongPress: () async {
+                _introLogger.info("Open Logs");
+                const LogsRoute().push(context);
+              },
+            ),
+          ),
+        ),
+      ),
+      pages: [
+        PageViewModel(
+          title: homeWelcomeMessageTitle(),
+          body: homeWelcomeMessage(),
+          image: Builder(
+            builder: (context) {
+              if (Theme.of(context).colorScheme.brightness == Brightness.light) {
+                return _buildImage(Assets.splashLightTransparent.path, MediaQuery.of(context).size.width);
+              } else {
+                return _buildImage(Assets.splashDarkTransparent.path, MediaQuery.of(context).size.width);
+              }
+            },
+          ),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: morePrivacyPolicyLinkTitle(),
+          body: onboardingPrivacyPolicyDescription(),
+          image: LottieLazyLoad(
+            asset: Assets.tailcostickers.tailCoStickersFile144834359,
+            width: MediaQuery.of(context).size.width,
+          ),
+          footer: ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  MarkdownViewerRoute(
+                    $extra: MarkdownInfo(
+                      content: await rootBundle.loadString(Assets.privacy),
+                      title: morePrivacyPolicyLinkTitle(),
+                    ),
+                  ).push(context);
+                },
+                child: Text(
+                  onboardingPrivacyPolicyViewButtonLabel(),
                 ),
               ),
-            ),
+              FilledButton(
+                onPressed: privacyAccepted
+                    ? null
+                    : () async {
+                        setState(() {
+                          _introLogger.info("Accepted Privacy Policy");
+                          privacyAccepted = true;
+                          HiveProxy
+                            ..put(settings, allowErrorReporting, true)
+                            ..put(settings, allowAnalytics, true);
+                          introKey.currentState?.next();
+                        });
+                      },
+                child: Text(
+                  onboardingPrivacyPolicyAcceptButtonLabel(),
+                ),
+              ),
+            ],
           ),
-          pages: [
-            PageViewModel(
-              title: homeWelcomeMessageTitle(),
-              body: homeWelcomeMessage(),
-              image: Builder(
-                builder: (context) {
-                  if (Theme.of(context).colorScheme.brightness == Brightness.light) {
-                    return _buildImage(Assets.splashLightTransparent.path, MediaQuery.of(context).size.width);
-                  } else {
-                    return _buildImage(Assets.splashDarkTransparent.path, MediaQuery.of(context).size.width);
-                  }
-                },
-              ),
-              decoration: pageDecoration,
-            ),
-            PageViewModel(
-              title: morePrivacyPolicyLinkTitle(),
-              body: onboardingPrivacyPolicyDescription(),
-              image: LottieLazyLoad(
-                asset: Assets.tailcostickers.tailCoStickersFile144834359,
-                width: MediaQuery.of(context).size.width,
-              ),
-              footer: ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      MarkdownViewerRoute(
-                        $extra: MarkdownInfo(
-                          content: await rootBundle.loadString(Assets.privacy),
-                          title: morePrivacyPolicyLinkTitle(),
-                        ),
-                      ).push(context);
-                    },
-                    child: Text(
-                      onboardingPrivacyPolicyViewButtonLabel(),
-                    ),
-                  ),
-                  FilledButton(
-                    onPressed: privacyAccepted
-                        ? null
-                        : () async {
-                            setState(() {
-                              _introLogger.info("Accepted Privacy Policy");
-                              privacyAccepted = true;
-                              HiveProxy
-                                ..put(settings, allowErrorReporting, true)
-                                ..put(settings, allowAnalytics, true);
-                              introKey.currentState?.next();
-                            });
-                          },
-                    child: Text(
-                      onboardingPrivacyPolicyAcceptButtonLabel(),
-                    ),
-                  ),
-                ],
-              ),
-              decoration: pageDecoration,
-            ),
-            PageViewModel(
-              title: onboardingBluetoothTitle(),
-              body: onboardingBluetoothDescription(),
-              image: LottieLazyLoad(
-                asset: Assets.tailcostickers.tailCoStickersFile144834357,
-                width: MediaQuery.of(context).size.width,
-              ),
-              footer: ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: [
-                  FilledButton(
-                    onPressed: bluetoothEnabled
-                        ? null
-                        : () async {
-                            AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
-                          },
-                    child: Text(
-                      onboardingBluetoothEnableButtonLabel(),
-                    ),
-                  ),
-                  FilledButton(
-                    onPressed: bluetoothAccepted
-                        ? null
-                        : () async {
-                            if (await getBluetoothPermission(_introLogger)) {
-                              setState(
-                                () {
-                                  // Start FlutterBluePlus
-                                  if (!ref.exists(initFlutterBluePlusProvider)) {
-                                    ref.read(initFlutterBluePlusProvider);
-                                  }
-                                  bluetoothAccepted = true;
-                                },
-                              );
-                              introKey.currentState?.next();
-                            }
-                          },
-                    child: Text(
-                      onboardingBluetoothRequestButtonLabel(),
-                    ),
-                  ),
-                ],
-              ),
-              decoration: pageDecoration,
-            ),
-            PageViewModel(
-              title: onboardingCompletedTitle(),
-              body: "",
-              image: LottieLazyLoad(
-                asset: Assets.tailcostickers.tailCoStickersFile144834338,
-                width: MediaQuery.of(context).size.width,
-              ),
-              decoration: pageDecoration.copyWith(
-                bodyFlex: 2,
-                imageFlex: 4,
-                bodyAlignment: Alignment.bottomCenter,
-                imageAlignment: Alignment.topCenter,
-                imagePadding: const EdgeInsets.symmetric(vertical: 32),
-                contentMargin: const EdgeInsets.only(top: 32),
-              ),
-              reverse: true,
-            ),
-          ],
-          onDone: () => _onIntroEnd(context),
-          onSkip: () => _onIntroEnd(context),
-          // You can override onSkip callback
-          //rtl: true, // Display as right-to-left
-          back: const Icon(Icons.arrow_back),
-          next: const Icon(
-            Icons.arrow_forward,
-            key: Key('nextPage'),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: onboardingBluetoothTitle(),
+          body: onboardingBluetoothDescription(),
+          image: LottieLazyLoad(
+            asset: Assets.tailcostickers.tailCoStickersFile144834357,
+            width: MediaQuery.of(context).size.width,
           ),
-          done: FilledButton(
-            onPressed: () {
-              _onIntroEnd(context);
-            },
-            child: Text(onboardingDoneButtonLabel(), style: const TextStyle(fontWeight: FontWeight.w600)),
+          footer: ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: [
+              FilledButton(
+                onPressed: bluetoothAccepted
+                    ? null
+                    : () async {
+                        if (await getBluetoothPermission(_introLogger)) {
+                          setState(
+                            () {
+                              // Start FlutterBluePlus
+                              if (!ref.exists(initFlutterBluePlusProvider)) {
+                                ref.read(initFlutterBluePlusProvider);
+                              }
+                              bluetoothAccepted = true;
+                            },
+                          );
+                          introKey.currentState?.next();
+                        }
+                      },
+                child: Text(
+                  onboardingBluetoothRequestButtonLabel(),
+                ),
+              ),
+            ],
           ),
-          dotsFlex: 1,
-          controlsPadding: const EdgeInsets.symmetric(vertical: 32),
-          dotsDecorator: DotsDecorator(
-            size: const Size.square(10.0),
-            activeSize: const Size(40.0, 10.0),
-            activeColor: Theme.of(context).colorScheme.primary,
-            color: Theme.of(context).colorScheme.tertiary,
-            spacing: const EdgeInsets.symmetric(horizontal: 3.0),
-            activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: onboardingCompletedTitle(),
+          body: "",
+          image: LottieLazyLoad(
+            asset: Assets.tailcostickers.tailCoStickersFile144834338,
+            width: MediaQuery.of(context).size.width,
           ),
-        );
-      },
+          decoration: pageDecoration.copyWith(
+            bodyFlex: 2,
+            imageFlex: 4,
+            bodyAlignment: Alignment.bottomCenter,
+            imageAlignment: Alignment.topCenter,
+            imagePadding: const EdgeInsets.symmetric(vertical: 32),
+            contentMargin: const EdgeInsets.only(top: 32),
+          ),
+          reverse: true,
+        ),
+      ],
+      onDone: () => _onIntroEnd(context),
+      onSkip: () => _onIntroEnd(context),
+      // You can override onSkip callback
+      //rtl: true, // Display as right-to-left
+      back: const Icon(Icons.arrow_back),
+      next: const Icon(
+        Icons.arrow_forward,
+        key: Key('nextPage'),
+      ),
+      done: FilledButton(
+        onPressed: () {
+          _onIntroEnd(context);
+        },
+        child: Text(onboardingDoneButtonLabel(), style: const TextStyle(fontWeight: FontWeight.w600)),
+      ),
+      dotsFlex: 1,
+      controlsPadding: const EdgeInsets.symmetric(vertical: 32),
+      dotsDecorator: DotsDecorator(
+        size: const Size.square(10.0),
+        activeSize: const Size(40.0, 10.0),
+        activeColor: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.tertiary,
+        spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+        activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
+      ),
     );
   }
 }

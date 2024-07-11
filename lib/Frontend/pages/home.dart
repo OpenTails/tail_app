@@ -113,10 +113,10 @@ class _HomeState extends ConsumerState<Home> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      const ListTile(
-                        leading: Icon(Icons.bluetooth_disabled),
-                        title: Text('Bluetooth is Unavailable'),
-                        subtitle: Text('Bluetooth is required to connect to Gear'),
+                      ListTile(
+                        leading: const Icon(Icons.bluetooth_disabled),
+                        title: Text(actionsNoBluetooth()),
+                        subtitle: Text(actionsNoBluetoothDescription()),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -125,7 +125,7 @@ class _HomeState extends ConsumerState<Home> {
                             onPressed: () async {
                               AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
                             },
-                            child: const Text('Open Settings'),
+                            child: Text(onboardingBluetoothEnableButtonLabel()),
                           ),
                           const SizedBox(width: 8),
                         ],

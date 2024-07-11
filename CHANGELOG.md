@@ -2,6 +2,8 @@
 
 - Improve indicating when an action card controls multiple gear
 - Fix opening links on IOS
+- Support more android devices
+- Fix connecting to gear on older android versions
 
 ### V 1.0.5
 
