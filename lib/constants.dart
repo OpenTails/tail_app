@@ -53,7 +53,7 @@ const String sequencesBox = 'sequences';
 const String devicesBox = 'devices';
 const String favoriteActionsBox = 'favoriteActions';
 const String audioActionsBox = 'audioActions';
-const int hasCompletedOnboardingVersionToAgree = 1;
+const int hasCompletedOnboardingVersionToAgree = 2;
 
 // Notifications
 const String notificationBox = 'notificationsStuff';
