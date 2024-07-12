@@ -33,7 +33,7 @@ Future<FWInfo?> getFirmwareInfo(GetFirmwareInfoRef ref, String url) async {
       return Response(requestOptions: RequestOptions(), statusCode: 500);
     });
   Response<String> value = await valueFuture;
-  if (value.statusCode == 200) {
+  if (value.statusCode! < 400) {
     FWInfo fwInfo = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
     return fwInfo;
   }

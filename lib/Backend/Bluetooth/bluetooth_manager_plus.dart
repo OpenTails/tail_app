@@ -193,7 +193,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       }
     }
   });
-  _onCharacteristicReceivedStreamSubscription = flutterBluePlus.events.onCharacteristicReceived.listen((event) {
+  _onCharacteristicReceivedStreamSubscription = flutterBluePlus.events.onCharacteristicReceived.listen((event) async {
     _bluetoothPlusLogger.info('onCharacteristicReceived ${event.device.advName} ${event.characteristic.uuid.str} ${event.value}');
 
     BluetoothDevice bluetoothDevice = event.device;
@@ -230,7 +230,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       // Firmware Version
       if (value.startsWith("VER")) {
         statefulDevice.fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
-        ref.read(hasOtaUpdateProvider(statefulDevice).future);
+        await ref.read(hasOtaUpdateProvider(statefulDevice).future);
         // Sent after VER message
       } else if (value.startsWith("GLOWTIP")) {
         String substring = value.substring(value.indexOf(" ")).trim();
