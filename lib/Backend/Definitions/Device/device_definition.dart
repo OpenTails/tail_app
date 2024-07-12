@@ -12,6 +12,7 @@ import 'package:hive/hive.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
+import '../../../Frontend/utils.dart';
 import '../../Bluetooth/bluetooth_manager.dart';
 import '../../Bluetooth/bluetooth_manager_plus.dart';
 import '../../Bluetooth/bluetooth_message.dart';
@@ -154,6 +155,21 @@ class BaseStatefulDevice {
     batteryLevel.addListener(() {
       batlevels.add(FlSpot(stopWatch.elapsed.inSeconds.toDouble(), batteryLevel.value));
       batteryLow.value = batteryLevel.value < 20;
+    });
+
+    //todo: move to provider
+    fwInfo.addListener(() {
+      if (fwInfo.value != null && fwVersion.value.compareTo(const Version()) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
+        hasUpdate.value = true;
+      }
+    });
+    fwVersion.addListener(() {
+      if (baseDeviceDefinition.minVersion != null && fwVersion.value.compareTo(baseDeviceDefinition.minVersion!) < 0) {
+        mandatoryOtaRequired.value = true;
+      }
+      if (fwInfo.value != null && fwVersion.value.compareTo(const Version()) > 0 && fwVersion.value.compareTo(getVersionSemVer(fwInfo.value!.version)) < 0) {
+        hasUpdate.value = true;
+      }
     });
   }
 
