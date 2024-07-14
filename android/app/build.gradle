@@ -36,6 +36,10 @@ project.gradle.taskGraph.whenReady { graph ->
         }
     }
 }
+configurations.configureEach {
+  exclude group: "io.sentry", module: "sentry-android-ndk"
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     //ndkVersion flutter.ndkVersion
