@@ -333,7 +333,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerShakeDescription": "Autoriser les analyses anonymes",
+  "triggerShakeDescription": "Déclenchez une action en secouant votre appareil",
   "@triggerShakeDescription": {
     "description": "Shake trigger description",
     "type": "text",
@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Activer le Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Ouvrez les paramètres pour activer Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -990,6 +990,12 @@
   "colorPickerTitle": "Choisis une couleur",
   "@colorPickerTitle": {
     "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoBluetoothDescription": "Bluetooth est requis pour se connecter à Gear. Veuillez activer le Bluetooth dans les paramètres. Ne vous connectez pas à l'équipement dans les paramètres Bluetooth de votre appareil.",
+  "@actionsNoBluetoothDescription": {
+    "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   }
