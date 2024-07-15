@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Slå Bluetooth til",
+  "onboardingBluetoothEnableButtonLabel": "Åbn Indstillinger for at aktivere Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -990,6 +990,12 @@
   "colorPickerTitle": "Vælg en farve",
   "@colorPickerTitle": {
     "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoBluetoothDescription": "Bluetooth er påkrævet for at oprette forbindelse til Gear. Slå Bluetooth til i indstillingerne. Tilslut ikke gear, mens du er i din enheds bluetooth-indstillinger.",
+  "@actionsNoBluetoothDescription": {
+    "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   }
