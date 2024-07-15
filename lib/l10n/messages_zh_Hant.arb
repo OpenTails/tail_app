@@ -855,7 +855,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "開啟藍牙",
+  "onboardingBluetoothEnableButtonLabel": "開啟設定以開啟藍牙",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -990,6 +990,12 @@
   "colorPickerTitle": "選擇一種顏色",
   "@colorPickerTitle": {
     "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoBluetoothDescription": "連接 Gear 需要藍牙。請在設定中開啟藍牙。請勿在設備藍牙設定中連接到設備。",
+  "@actionsNoBluetoothDescription": {
+    "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   }
