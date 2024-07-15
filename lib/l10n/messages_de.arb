@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Bluetooth einschalten",
+  "onboardingBluetoothEnableButtonLabel": "Öffne die Einstellungen um Bluetooth einzuschalten",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -990,6 +990,12 @@
   "colorPickerTitle": "Wähle eine Farbe aus",
   "@colorPickerTitle": {
     "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoBluetoothDescription": "Für die Verbindung mit den Geräten wird Bluetooth benötigt. Bitte schalte Bluetooth in den Einstellungen ein. Verbinde dich nicht mit deinen Geräten während du in den Einstellungen bist.",
+  "@actionsNoBluetoothDescription": {
+    "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   }
