@@ -687,7 +687,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Attiva il Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Apri Impostazioni per attivare il Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -990,6 +990,12 @@
   "colorPickerTitle": "Scegli un colore",
   "@colorPickerTitle": {
     "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoBluetoothDescription": "Per connettersi al Gear è necessario il Bluetooth. Si prega di attivare il Bluetooth nelle impostazioni. Non connetterti all'attrezzatura mentre sei nelle impostazioni Bluetooth del tuo dispositivo.",
+  "@actionsNoBluetoothDescription": {
+    "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   }
