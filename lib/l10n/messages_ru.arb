@@ -693,7 +693,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Включите Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Откройте «Настройки», чтобы включить Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
@@ -990,6 +990,12 @@
   "colorPickerTitle": "Выбери цвет",
   "@colorPickerTitle": {
     "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsNoBluetoothDescription": "Для подключения к Gear требуется Bluetooth. Пожалуйста, включите Bluetooth в настройках. Не подключайтесь к устройству, пока на вашем устройстве установлены настройки Bluetooth.",
+  "@actionsNoBluetoothDescription": {
+    "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   }
