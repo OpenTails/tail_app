@@ -813,7 +813,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Öffne die Einstellige um Bluetooth izschalte",
+  "onboardingBluetoothEnableButtonLabel": "Mach die Ischtellige uf, um Bluetooth aazsschalte",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
