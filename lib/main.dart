@@ -8,6 +8,7 @@ import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -213,7 +214,7 @@ Future<void> initLocale() async {
   mainLogger.info("Loaded locale: $defaultLocale $localeLoaded");
 }
 
-class TailApp extends StatefulWidget {
+class TailApp extends ConsumerWidget {
   TailApp({super.key}) {
     // Platform messages may fail, so we use a try/catch PlatformException.
     mainLogger.info('Starting app');
@@ -228,49 +229,40 @@ class TailApp extends StatefulWidget {
     }
   }
 
-  @override
-  State<TailApp> createState() => _TailAppState();
-}
-
-class _TailAppState extends State<TailApp> {
-  @override
-  void initState() {
-    // Only after at least the action method is set, the notification events are delivered
-    super.initState();
-  }
-
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return ProviderScope(
-      observers: [
-        RiverpodProviderObserver(),
-      ],
-      child: _EagerInitialization(
-        child: BtAppStateController(
-          child: BetterFeedback(
-            themeMode: ThemeMode.system,
-            darkTheme: FeedbackThemeData.dark(),
-            child: AccessibilityTools(
-              logLevel: LogLevel.none,
-              child: ValueListenableBuilder(
-                valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
-                builder: (BuildContext context, value, Widget? child) {
-                  unawaited(setupSystemColor(context));
-                  Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
-                  Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-                  return MaterialApp.router(
-                    title: title(),
-                    color: color,
-                    theme: buildTheme(Brightness.light, color),
-                    darkTheme: buildTheme(Brightness.dark, color),
-                    routerConfig: router,
-                    localizationsDelegates: AppLocalizations.localizationsDelegates,
-                    supportedLocales: AppLocalizations.supportedLocales,
-                    themeMode: ThemeMode.system,
-                    debugShowCheckedModeBanner: false,
-                  );
-                },
+  Widget build(BuildContext context, WidgetRef ref) {
+    return WithForegroundTask(
+      child: ProviderScope(
+        observers: [
+          RiverpodProviderObserver(),
+        ],
+        child: _EagerInitialization(
+          child: BtAppStateController(
+            child: BetterFeedback(
+              themeMode: ThemeMode.system,
+              darkTheme: FeedbackThemeData.dark(),
+              child: AccessibilityTools(
+                logLevel: LogLevel.none,
+                child: ValueListenableBuilder(
+                  valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
+                  builder: (BuildContext context, value, Widget? child) {
+                    unawaited(setupSystemColor(context));
+                    Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
+                    Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
+                    return MaterialApp.router(
+                      title: title(),
+                      color: color,
+                      theme: buildTheme(Brightness.light, color),
+                      darkTheme: buildTheme(Brightness.dark, color),
+                      routerConfig: router,
+                      localizationsDelegates: AppLocalizations.localizationsDelegates,
+                      supportedLocales: AppLocalizations.supportedLocales,
+                      themeMode: ThemeMode.system,
+                      debugShowCheckedModeBanner: false,
+                    );
+                  },
+                ),
               ),
             ),
           ),

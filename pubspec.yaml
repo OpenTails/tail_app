@@ -19,7 +19,7 @@ dependencies:
   vector_math: ^2.1.4 # used for joystick
   collection: ^1.18.0 # Priority Queue
   intl: #pinned to flutter version?
-  uuid: ^4.4.1 # Used to generate UUID v4 ids for custom actions & move lists
+  uuid: ^4.4.2 # Used to generate UUID v4 ids for custom actions & move lists
   json_annotation: ^4.9.0
   crypto: ^3.0.3 # used for md5 hash checking during ota download
   #pod_player: ^0.2.2
@@ -29,7 +29,6 @@ dependencies:
   logarte:
     git:
       url: https://github.com/Codel1417/logarte
-  stack_trace: ^1.11.1
   freezed_annotation: ^2.4.4
   built_collection: ^5.1.1
 
