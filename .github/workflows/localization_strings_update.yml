@@ -11,10 +11,8 @@ jobs:
       pull-requests: write      # 'write' access to pull requests
     steps:
       - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.22.1'
-          cache: true
+      - name: Setup Environment
+        uses: ./.github/actions/setup_build
       - name: Install packages
         run: flutter config --no-cli-animations && flutter pub get
       - name: Generate intl_translation
