@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:built_collection/built_collection.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/firmware_update.dart';
 
 import '../../constants.dart';
 import '../Definitions/Device/device_definition.dart';
@@ -28,6 +29,7 @@ class KnownDevices extends _$KnownDevices {
           BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID(e.deviceDefinitionUUID);
           BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(baseDeviceDefinition, e);
           results[e.btMACAddress] = baseStatefulDevice;
+          getFwInfoListener(baseStatefulDevice);
         }
       }
     } catch (e, s) {
@@ -36,8 +38,13 @@ class KnownDevices extends _$KnownDevices {
     return BuiltMap(results);
   }
 
+  Future<void> getFwInfoListener(BaseStatefulDevice baseStatefulDevice) async {
+    ref.read(CheckForFWUpdateProvider(baseStatefulDevice));
+  }
+
   Future<void> add(BaseStatefulDevice baseStatefulDevice) async {
     state = state.rebuild((p0) => p0[baseStatefulDevice.baseStoredDevice.btMACAddress] = baseStatefulDevice);
+    getFwInfoListener(baseStatefulDevice);
     await store();
   }
 

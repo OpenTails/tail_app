@@ -41,14 +41,22 @@ Future<FWInfo?> getFirmwareInfo(GetFirmwareInfoRef ref, String url) async {
 }
 
 @Riverpod()
-Future<bool> hasOtaUpdate(HasOtaUpdateRef ref, BaseStatefulDevice baseStatefulDevice) async {
+Future<FWInfo?> checkForFWUpdate(CheckForFWUpdateRef ref, BaseStatefulDevice baseStatefulDevice) async {
+  if (baseStatefulDevice.fwInfo.value != null) {
+    return baseStatefulDevice.fwInfo.value;
+  }
   String url = baseStatefulDevice.baseDeviceDefinition.fwURL;
   if (url.isEmpty) {
-    return false;
+    return null;
   }
   FWInfo? fwInfo = await ref.read(getFirmwareInfoProvider(url).future);
   baseStatefulDevice.fwInfo.value = fwInfo;
+  return fwInfo;
+}
 
+@Riverpod()
+Future<bool> hasOtaUpdate(HasOtaUpdateRef ref, BaseStatefulDevice baseStatefulDevice) async {
+  FWInfo? fwInfo = await ref.read(checkForFWUpdateProvider(baseStatefulDevice).future);
   Version fwVersion = baseStatefulDevice.fwVersion.value;
 
   if (baseStatefulDevice.fwVersion.value == const Version()) {
