@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:accessibility_tools/accessibility_tools.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
@@ -24,12 +23,10 @@ import 'package:sentry_logging/sentry_logging.dart';
 import 'Backend/Definitions/Action/base_action.dart';
 import 'Backend/Definitions/Device/device_definition.dart';
 import 'Backend/app_shortcuts.dart';
-import 'Backend/background_update.dart';
 import 'Backend/dynamic_config.dart';
 import 'Backend/favorite_actions.dart';
 import 'Backend/logging_wrappers.dart';
 import 'Backend/move_lists.dart';
-import 'Backend/notifications.dart';
 import 'Backend/sensors.dart';
 import 'Frontend/Widgets/bt_app_state_controller.dart';
 import 'Frontend/go_router_config.dart';
@@ -97,13 +94,7 @@ Future<void> main() async {
     }
   });
   initFlutter();
-  Future.delayed(
-    const Duration(seconds: 5),
-    () {
-      initBackgroundTasks();
-      initNotifications();
-    },
-  );
+
   initLocale();
   await initHive();
   mainLogger.fine("Init Sentry");
@@ -121,18 +112,13 @@ Future<void> main() async {
         ..environment = environment
         ..tracesSampleRate = dynamicConfigInfo.sentryTraces
         ..profilesSampleRate = dynamicConfigInfo.sentryProfiles
-        ..enableDefaultTagsForMetrics = true
         ..attachThreads = true
         ..anrEnabled = true
         ..beforeSend = beforeSend
         ..enableMetrics = true
         ..attachStacktrace = true
         ..attachScreenshot = true
-        ..attachViewHierarchy = true
-        ..sendClientReports = true
-        ..captureFailedRequests = true
-        ..enableAutoSessionTracking = true
-        ..enableAutoPerformanceTracing = true;
+        ..attachViewHierarchy = true;
     },
     // Init your App.
     // ignore: missing_provider_scope
@@ -216,7 +202,6 @@ Future<void> initHive() async {
   await SentryHive.openBox<AudioAction>(audioActionsBox);
   await SentryHive.openBox<MoveList>(sequencesBox);
   await SentryHive.openBox<BaseStoredDevice>(devicesBox);
-  await SentryHive.openBox(notificationBox); // Do not set type here
 }
 
 Future<void> initLocale() async {
@@ -251,15 +236,6 @@ class _TailAppState extends State<TailApp> {
   @override
   void initState() {
     // Only after at least the action method is set, the notification events are delivered
-    unawaited(
-      AwesomeNotifications().setListeners(
-        onActionReceivedMethod: NotificationController.onActionReceivedMethod,
-        onNotificationCreatedMethod: NotificationController.onNotificationCreatedMethod,
-        onNotificationDisplayedMethod: NotificationController.onNotificationDisplayedMethod,
-        onDismissActionReceivedMethod: NotificationController.onDismissActionReceivedMethod,
-      ),
-    );
-
     super.initState();
   }
 

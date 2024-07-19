@@ -11,7 +11,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
-import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../utils.dart';
 
@@ -121,8 +120,6 @@ class _TailBlogState extends State<TailBlog> {
         List<Post>? data = wordpressPostResponse.dataOrNull();
         if (data != null) {
           wordpressPosts = data;
-          // Store the latest post id for checking for new posts
-          HiveProxy.put(notificationBox, latestPost, data.first.id);
         }
       } catch (e, s) {
         setState(() {

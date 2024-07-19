@@ -186,22 +186,6 @@ class _SettingsState extends ConsumerState<Settings> {
             title: Divider(),
           ),
           ListTile(
-            title: Text(settingsNewsletterToggleTitle()),
-            leading: const Icon(Icons.notifications),
-            subtitle: Text(settingsNewsletterToggleSubTitle()),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(settings, allowNewsletterNotifications, defaultValue: allowNewsletterNotificationsDefault),
-              onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, allowNewsletterNotifications, value);
-                });
-              },
-            ),
-          ),
-          const ListTile(
-            title: Divider(),
-          ),
-          ListTile(
             title: Text(settingsAnalyticsToggleTitle()),
             leading: const Icon(Icons.analytics),
             subtitle: Text(settingsAnalyticsToggleSubTitle()),

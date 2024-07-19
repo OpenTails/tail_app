@@ -5,7 +5,7 @@ import '../constants.dart';
 
 // ignore: library_private_types_in_public_api
 _HiveProxyImpl HiveProxy = _HiveProxyImpl();
-List<String> genericBoxes = [settings, notificationBox];
+List<String> genericBoxes = [settings];
 
 class _HiveProxyImpl {
   Future<void> put<E>(String box, dynamic key, E value) {

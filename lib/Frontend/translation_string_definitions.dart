@@ -155,10 +155,6 @@ String settingsAnalyticsToggleTitle() => Intl.message('Allow Anonymous Analytics
 
 String settingsAnalyticsToggleSubTitle() => Intl.message('Report non identifying feature usage to Plausible for enhancing the app', name: 'settingsAnalyticsToggleSubTitle', desc: 'Settings page analytics reporting toggle subtitle');
 
-String settingsNewsletterToggleTitle() => Intl.message('Allow Tail Blog Notifications', name: 'settingsNewsletterToggleTitle', desc: 'Settings page newsletter notification toggle title');
-
-String settingsNewsletterToggleSubTitle() => Intl.message('Automatically receive notifications when there is a new Tail Blog post', name: 'settingsNewsletterToggleSubTitle', desc: 'Settings page newsletter notification toggle subtitle');
-
 String settingsAppColor() => Intl.message('App Color', name: 'settingsAppColor', desc: 'Settings page app color picker button title');
 
 String manageDevicesBatteryGraphTitle() => Intl.message('Battery Graph', name: 'manageDevicesBatteryGraphTitle', desc: 'battery graph expansion tile title');

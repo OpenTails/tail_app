@@ -120,17 +120,19 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
             channelDescription: 'This notification appears when any gear is running.',
             channelImportance: NotificationChannelImportance.LOW,
             priority: NotificationPriority.LOW,
-            iconData: const NotificationIconData(
-              resType: ResourceType.drawable,
-              resPrefix: ResourcePrefix.img,
-              name: 'tc_logo_transparent_notext_small',
-            ),
-            buttons: [],
           ),
           iosNotificationOptions: const IOSNotificationOptions(),
           foregroundTaskOptions: const ForegroundTaskOptions(),
         );
-        FlutterForegroundTask.startService(notificationTitle: "Gear Connected", notificationText: "Gear is connected to The Tail Company app");
+        FlutterForegroundTask.startService(
+          notificationTitle: "Gear Connected",
+          notificationText: "Gear is connected to The Tail Company app",
+          notificationIcon: const NotificationIconData(
+            resType: ResourceType.drawable,
+            resPrefix: ResourcePrefix.img,
+            name: 'tc_logo_transparent_notext_small',
+          ),
+        );
       }
       await event.device.discoverServices();
     }

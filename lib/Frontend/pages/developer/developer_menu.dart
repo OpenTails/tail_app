@@ -117,10 +117,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               },
             ),
           ),
-          ListTile(
-            title: const Text("LatestPostId"),
-            subtitle: Text('${HiveProxy.getOrDefault(notificationBox, latestPost, defaultValue: defaultPostId)}'),
-          ),
         ],
       ),
     );

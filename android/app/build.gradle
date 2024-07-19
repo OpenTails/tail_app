@@ -28,16 +28,8 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
-
-project.gradle.taskGraph.whenReady { graph ->
-    project.tasks.findAll().forEach { task ->
-        if (task.name.contains("sentry")) {
-            task.onlyIf { System.getenv()["SENTRY_AUTH_TOKEN"] != null }
-        }
-    }
-}
 configurations.configureEach {
-  exclude group: "io.sentry", module: "sentry-android-ndk"
+    exclude group: "io.sentry", module: "sentry-android-ndk"
 }
 
 android {
@@ -128,7 +120,7 @@ dependencies {
 }
 
 sentry {
-    ignoredBuildTypes = ["debug"]
+    ignoredBuildTypes = System.getenv("SENTRY_ORG") != null ? ["debug"] : ["debug", "release"]
     // Disables or enables debug log output, e.g. for for sentry-cli.
     // Default is disabled.
     debug = false

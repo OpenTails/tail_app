@@ -25,9 +25,6 @@ const String showAdvancedSettings = 'showAdvancedSettings';
 const String dynamicConfigJsonString = 'dynamicConfigJsonString';
 const String dynamicConfigStoredBuildNumber = 'dynamicConfigStoredBuildNumber';
 
-// Notification Settings
-const String allowNewsletterNotifications = 'allowNewsletterNotifications';
-
 // Settings Default value
 const bool kitsuneModeDefault = false;
 final int appColorDefault = const Color.fromARGB(255, 228, 110, 38).value;
@@ -44,7 +41,6 @@ const bool hideTutorialCardsDefault = false;
 const int hasCompletedOnboardingDefault = 0;
 const bool showDebuggingDefault = false;
 const bool alwaysScanningDefault = true;
-const bool allowNewsletterNotificationsDefault = false;
 const bool showDemoGearDefault = false;
 const bool showAdvancedSettingsDefault = false;
 
@@ -54,9 +50,3 @@ const String devicesBox = 'devices';
 const String favoriteActionsBox = 'favoriteActions';
 const String audioActionsBox = 'audioActions';
 const int hasCompletedOnboardingVersionToAgree = 2;
-
-// Notifications
-const String notificationBox = 'notificationsStuff';
-const String latestPost = 'latestPost';
-const int defaultPostId = 0;
-const String blogChannelKey = 'tail_blog';
