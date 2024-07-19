@@ -1,12 +1,10 @@
 import 'dart:async';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../Backend/device_registry.dart';
 import '../translation_string_definitions.dart';
 
 class BackButtonToClose extends ConsumerStatefulWidget {
@@ -24,25 +22,11 @@ class _BackButtonToCloseState extends ConsumerState<BackButtonToClose> {
   @override
   void initState() {
     super.initState();
-    BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
-  }
-
-  // ignore: avoid_positional_boolean_parameters
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    if (info.currentRoute(context)!.isFirst && info.currentRoute(context)!.isCurrent) {
-      if (ref.read(getAvailableGearProvider).isNotEmpty) {
-        return true;
-      }
-      showSnackbar();
-      return true;
-    }
-    return false;
   }
 
   @override
