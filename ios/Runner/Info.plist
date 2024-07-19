@@ -66,9 +66,9 @@
 		<key>NSAppleMusicUsageDescription</key>
 		<string>Allow selecting found files to use as sound effects</string>
 		<key>LSApplicationQueriesSchemes</key>
-        <array>
-          <string>mailto</string>
-          <string>https</string>
-        </array>
+		<array>
+			<string>mailto</string>
+			<string>https</string>
+		</array>
 	</dict>
 </plist>

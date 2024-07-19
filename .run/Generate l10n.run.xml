@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Generate l10n" type="ShConfigurationType">
+  <configuration default="false" name="Generate l10n" type="ShConfigurationType" activateToolWindowBeforeRun="false">
     <option name="SCRIPT_TEXT" value="flutter gen-l10n &amp;&amp; dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
@@ -12,6 +12,8 @@
     <option name="EXECUTE_IN_TERMINAL" value="false" />
     <option name="EXECUTE_SCRIPT_FILE" value="false" />
     <envs />
-    <method v="2" />
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Activate intl_translation." run_configuration_type="ShConfigurationType" />
+    </method>
   </configuration>
 </component>

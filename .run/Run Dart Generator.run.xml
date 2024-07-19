@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run Dart Generator" type="ShConfigurationType">
+  <configuration default="false" name="Run Dart Generator" type="ShConfigurationType" activateToolWindowBeforeRun="false">
     <option name="SCRIPT_TEXT" value="flutter pub run build_runner build --delete-conflicting-outputs" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
