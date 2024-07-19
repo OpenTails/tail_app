@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-07-11T05:05:20.920941",
+  "@@last_modified": "2024-07-19T17:43:34.435428",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -410,18 +410,6 @@
   "settingsAnalyticsToggleSubTitle": "Report non identifying feature usage to Plausible for enhancing the app",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleTitle": "Allow Tail Blog Notifications",
-  "@settingsNewsletterToggleTitle": {
-    "description": "Settings page newsletter notification toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleSubTitle": "Automatically receive notifications when there is a new Tail Blog post",
-  "@settingsNewsletterToggleSubTitle": {
-    "description": "Settings page newsletter notification toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
