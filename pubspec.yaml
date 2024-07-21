@@ -40,7 +40,7 @@ dependencies:
   package_info_plus: ^8.0.0
   permission_handler: ^11.3.1
   url_launcher: ^6.3.0 # Open URLS in external apps
-  app_settings: ^5.1.1 # Open bluetooth settings
+  #app_settings: ^5.1.1 # Open bluetooth settings
   flutter_blue_plus: ^1.32.8
   flutter_foreground_task: ^7.5.0 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
@@ -54,7 +54,6 @@ dependencies:
   just_audio: ^0.9.39 # Used for Sound Effects
   audio_session: ^0.1.21 # Used to configure the audio session for just_audio
   firebase_testlab_detector: ^1.0.2
-  mockito: ^5.4.4
   platform: ^3.1.4
 
   # Riverpod
@@ -76,7 +75,7 @@ dependencies:
   #video_player: ^2.8.6
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
   flutter_native_splash: ^2.4.1
-  lottie_native: ^0.1.3
+  #lottie_native: ^0.1.3
   duration: ^3.0.13
   choice:
     git:
@@ -88,6 +87,7 @@ dependencies:
       url: https://github.com/tbro2020/awesome_snackbar_content
   flutter_widget_from_html_core: ^0.15.1
   visibility_detector: ^0.4.0+2 # used on the tail blog widgets
+  lottie: ^3.1.2
 
   # Dio HTTP
   dio: ^5.5.0+1
@@ -126,7 +126,7 @@ dependencies:
   sentry_logging: ^8.4.0 # Collects app logs
   sentry_hive: ^8.4.0 # Collects Hive storage accesses
   sentry_dio: ^8.4.0 # Collects Dio HTTP requests
-  sentry_file: ^8.4.0
+  #sentry_file: ^8.4.0
   feedback_sentry: # need to update for sentry
     git:
       url: https://github.com/ueman/feedback
@@ -142,6 +142,7 @@ dev_dependencies:
   hive_generator: ^2.0.1 # required for @HiveType annotations
   go_router_builder: ^2.7.0
   freezed: ^2.5.7
+  mockito: ^5.4.4
 
   test:
   flutter_test:
@@ -150,7 +151,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: # Dryer Lint
-  riverpod_lint:
+  #riverpod_lint:
 
 flutter:
   uses-material-design: true

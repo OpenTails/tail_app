@@ -54,14 +54,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
-  app_settings:
-    dependency: "direct main"
-    description:
-      name: app_settings
-      sha256: "09bc7fe0313a507087bec1a3baf555f0576e816a760cbb31813a88890a09d9e5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.1.1"
   archive:
     dependency: transitive
     description:
@@ -320,14 +312,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.11"
-  custom_lint_builder:
-    dependency: transitive
-    description:
-      name: custom_lint_builder
-      sha256: "0d48e002438950f9582e574ef806b2bea5719d8d14c0f9f754fbad729bcf3b19"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.14"
   custom_lint_core:
     dependency: transitive
     description:
@@ -825,14 +809,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  hotreloader:
-    dependency: transitive
-    description:
-      name: hotreloader
-      sha256: ed56fdc1f3a8ac924e717257621d09e9ec20e308ab6352a73a50a1d7a4d9158e
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.0"
   html:
     dependency: transitive
     description:
@@ -1032,14 +1008,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  lottie_native:
+  lottie:
     dependency: "direct main"
     description:
-      name: lottie_native
-      sha256: c6dc8b136b4d2951ba6bc6dcf6611d14402a89ceccb49ff5bb81dcf35f58d75b
+      name: lottie
+      sha256: "6a24ade5d3d918c306bb1c21a6b9a04aab0489d51a2582522eea820b4093b62b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.3"
+    version: "3.1.2"
   macros:
     dependency: transitive
     description:
@@ -1089,7 +1065,7 @@ packages:
     source: hosted
     version: "1.0.5"
   mockito:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: mockito
       sha256: "6841eed20a7befac0ce07df8116c8b8233ed1f4486a7647c7fc5a02ae6163917"
@@ -1410,14 +1386,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0-dev.6"
-  riverpod_lint:
-    dependency: "direct dev"
-    description:
-      name: riverpod_lint
-      sha256: a2602c6b7fc34a7e36be63ce6399ed0cab66827b6649ba4382e218df34b72754
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.4"
   rxdart:
     dependency: transitive
     description:
@@ -1455,14 +1423,6 @@ packages:
     description:
       name: sentry_dio
       sha256: c18043318f24e64a163f7b02c2c8737035f58f87738cca139edf7c96990c9f41
-      url: "https://pub.dev"
-    source: hosted
-    version: "8.4.0"
-  sentry_file:
-    dependency: "direct main"
-    description:
-      name: sentry_file
-      sha256: d9ebfe28f3353fe09b992cce06ab18a49a75f8c43a90eefa9507f8d41c7d2d24
       url: "https://pub.dev"
     source: hosted
     version: "8.4.0"
