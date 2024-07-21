@@ -159,6 +159,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                         child: LottieLazyLoad(
                                           asset: Assets.tailcostickers.tailCoStickersFile144834340,
                                           width: 200,
+                                          renderCache: false,
                                         ),
                                       ),
                                     ),

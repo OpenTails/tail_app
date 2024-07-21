@@ -568,10 +568,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_joystick
-      sha256: "499e2363a16faf316140e05ba1cb048ba54e86494aa90513e20b64a2667c0556"
+      sha256: "84178c47aee3080599b8b38c44be31a69d50358aaa8213222f7833ea2e1641a2"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.1"
   flutter_keyboard_visibility:
     dependency: transitive
     description:

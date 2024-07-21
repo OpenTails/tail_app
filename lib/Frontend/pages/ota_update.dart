@@ -279,6 +279,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                       child: LottieLazyLoad(
                         asset: Assets.tailcostickers.tailCoStickersFile144834340,
                         width: MediaQuery.of(context).size.width,
+                        renderCache: true,
                       ),
                     ),
                   ),
