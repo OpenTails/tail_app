@@ -546,8 +546,9 @@ class RandomTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onEnable() async {
-    randomTimer = Timer(Duration(seconds: Random().nextInt(240)), () {
+    randomTimer = Timer(Duration(seconds: Random().nextInt(120)), () {
       sendCommands("Action", ref);
+      onEnable();
     });
   }
 }
