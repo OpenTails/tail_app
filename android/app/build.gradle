@@ -60,6 +60,15 @@ android {
         // limited by flutter_foreground_task
         minSdkVersion 23
         targetSdkVersion rootProject.ext.targetSdkVersion
+        ndk {
+            jobs = Runtime.runtime.availableProcessors()
+        }
+
+        externalNativeBuild {
+            ndkBuild {
+                arguments "-j" + Runtime.runtime.availableProcessors()
+            }
+        }
     }
     signingConfigs {
         release {
@@ -83,6 +92,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled true
             shrinkResources true
+            ndk {
+                debugSymbolLevel 'full'
+            }
         }
         debug {
             // TODO: Add your own signing config for the release build.
@@ -150,17 +162,6 @@ sentry {
     // code as part of your stack traces in Sentry.
     includeSourceContext = true
 
-// Enable or disable the tracing instrumentation.
-    // Does auto instrumentation for specified features through bytecode manipulation.
-    // Default is enabled.
-    tracingInstrumentation {
-        enabled = true
-
-        // Specifies a set of instrumentation features that are eligible for bytecode manipulation.
-        // Defaults to all available values of InstrumentationFeature enum class.
-        features = []
-
-    }
 
     // Enable auto-installation of Sentry components (sentry-android SDK and okhttp, timber and fragment integrations).
     // Default is enabled.
