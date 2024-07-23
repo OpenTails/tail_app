@@ -1,3 +1,7 @@
+### V 1.0.8
+
+- Fix update available checks
+
 ### V 1.0.6
 
 - Improve indicating when an action card controls multiple gear
