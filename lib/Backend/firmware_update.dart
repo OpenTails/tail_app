@@ -59,11 +59,18 @@ Future<bool> hasOtaUpdate(HasOtaUpdateRef ref, BaseStatefulDevice baseStatefulDe
   FWInfo? fwInfo = await ref.read(checkForFWUpdateProvider(baseStatefulDevice).future);
   Version fwVersion = baseStatefulDevice.fwVersion.value;
 
+  // Check if fw version is not set (0.0.0)
   if (baseStatefulDevice.fwVersion.value == const Version()) {
     return false;
   }
-  if (fwInfo != null && fwVersion.compareTo(const Version()) > 0 && fwVersion.compareTo(getVersionSemVer(fwInfo.version)) < 0) {
-    baseStatefulDevice.hasUpdate.value = false;
+  // check if firmware info from firmware is set and is greater than (0.0.0)
+  if (fwInfo == null || fwVersion.compareTo(const Version()) <= 0) {
+    return false;
+  }
+
+  // Check that the firmware from the server is greater than the firmware on device
+  if (fwVersion.compareTo(getVersionSemVer(fwInfo.version)) < 0) {
+    baseStatefulDevice.hasUpdate.value = true;
     return true;
   }
   return false;

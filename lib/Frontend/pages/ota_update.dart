@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:animate_do/animate_do.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
-import 'package:duration/duration.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -304,7 +303,6 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         children: [
                           Text('Upload Progress: $current / ${firmwareFile?.length} = ${uploadProgress.toStringAsPrecision(3)}'),
                           Text('MTU: ${baseStatefulDevice!.mtu.value}'),
-                          Text('REMAINING: ${printDuration(timeRemainingMS)}'),
                           Text('OtaState: ${otaState.name}'),
                           Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),
                           Text('ConnectivityState: ${baseStatefulDevice!.deviceConnectionState.value}'),

@@ -392,14 +392,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-  duration:
-    dependency: "direct main"
-    description:
-      name: duration
-      sha256: "0548a12d235dab185c677ef660995f23fdc06a02a2b984aa23805f6a03d82815"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.13"
   equatable:
     dependency: transitive
     description:
@@ -501,10 +493,10 @@ packages:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: cb5b7ec4ba525d9846d8992858a1c6cfc88f9466d96b8850e2a061aa5f682539
+      sha256: cc08c81879ecfd2ab840664ce4770980da0b8a319e35f51bcf763849b7f7596b
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.1"
+    version: "3.1.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -531,10 +523,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_blue_plus
-      sha256: ce8241302bf955bfa885457aa571cc215c10444e0c75c3e55d90b5fc05cc7e93
+      sha256: "1bf31abe0c6d4992c10212fe80b3b9529b082eb62b451bf9858d3a172ca76a3a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.32.8"
+    version: "1.32.11"
   flutter_driver:
     dependency: transitive
     description: flutter
@@ -544,10 +536,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_foreground_task
-      sha256: "34b7a910d3b9959f3cd27765d5b09edf8c3f574cea85aca419c26de1ff787d2c"
+      sha256: "6db62031bf2412404dcf470ea814ba97cd2061357b6eb575e3977de27c17f89a"
       url: "https://pub.dev"
     source: hosted
-    version: "7.5.0"
+    version: "8.0.0"
   flutter_gen_core:
     dependency: transitive
     description:
@@ -996,7 +988,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9f8c643a2db6a1378f39e60300fbb9d141d0858b"
+      resolved-ref: "7412e0b02415b448b8e3a92677af4f3c9ad66fd3"
       url: "https://github.com/Codel1417/logarte"
     source: git
     version: "0.1.6"
@@ -1072,14 +1064,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.4"
-  multi_listenable_builder:
-    dependency: "direct main"
-    description:
-      name: multi_listenable_builder
-      sha256: "496062744fd0ccafc2254d79b148570b7437caf433a346eedda6dd8596799c9d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   multi_value_listenable_builder:
     dependency: "direct main"
     description:
@@ -1780,10 +1764,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_windows
-      sha256: ecf9725510600aa2bb6d7ddabe16357691b6d2805f66216a97d1b881e21beff7
+      sha256: "49c10f879746271804767cb45551ec5592cdab00ee105c06dddde1a98f73b185"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.1"
+    version: "3.1.2"
   uuid:
     dependency: "direct main"
     description:

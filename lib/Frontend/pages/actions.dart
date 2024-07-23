@@ -50,7 +50,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
       duration: animationTransitionDuration,
       child: actionsCatMap.isNotEmpty
           ? ListView(
-              shrinkWrap: true,
+              shrinkWrap: false,
               children: [
                 AnimatedCrossFade(
                   firstChild: PageInfoCard(
