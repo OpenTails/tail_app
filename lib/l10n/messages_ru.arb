@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Сканируйте новое снаряжение",
+  "scanDevicesTitle": "Поиск оборудования",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
