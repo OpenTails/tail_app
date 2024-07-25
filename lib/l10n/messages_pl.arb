@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Skanuj w poszukiwaniu nowego sprzętu",
+  "scanDevicesTitle": "Wyszukaj nowy sprzęt",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
