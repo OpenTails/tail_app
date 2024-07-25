@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Rechercher un nouvel équipement",
+  "scanDevicesTitle": "Rechercher du équipement",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
