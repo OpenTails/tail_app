@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPage": "Steuerknüppel",
+  "joyStickPage": "Schaltknüppel",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
@@ -173,7 +173,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditRightServo": "Stellung vom rechten Servo",
+  "sequencesEditRightServo": "Stellung vom rechte Servo",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
     "type": "text",
@@ -219,13 +219,13 @@
       }
     }
   },
-  "actionsNoBluetooth": "Bluuetooth isch nöd aktiv",
+  "actionsNoBluetooth": "Bluuetooth isch nüt verfügbar",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Ganz rüehig und locker",
+  "actionsCategoryCalm": "Ruhig und Reläxst",
   "@actionsCategoryCalm": {
     "description": "calm action group label",
     "type": "text",
@@ -237,7 +237,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryTense": "Frustriert u Gschnurstracks",
+  "actionsCategoryTense": "Frustriert und Gschnurstracks",
   "@actionsCategoryTense": {
     "description": "tense action group label",
     "type": "text",
@@ -261,7 +261,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Wie lang söll me warte, bevor me zur nägschtä Schritt i däm individuelle Aktiönli vorgoht",
+  "sequencesEditTime": "Wie lang sölls warte, bevor me zum nägschtä Schritt i däm individuelle Aktiönli vorgoht",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
@@ -291,7 +291,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditLeftServo": "Stellung vom linke Servomotor",
+  "sequencesEditLeftServo": "Stellung vom linke Servo",
   "@sequencesEditLeftServo": {
     "description": "Label for the left servo slider on the move tab of the move edit page",
     "type": "text",
@@ -321,13 +321,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerWalkingDescription": "Bim Spaziere e Handlig uslöse",
+  "triggerWalkingDescription": "Bim Spaziere e Handlig uslösa",
   "@triggerWalkingDescription": {
     "description": "Walking/Step trigger description",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicTitle": "Ohrgear Mikrofon",
+  "triggerEarMicTitle": "Öhrli Mikrofon",
   "@triggerEarMicTitle": {
     "description": "EarGear internal mic trigger title",
     "type": "text",
@@ -339,7 +339,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltDescription": "Löse e Handlig us wenn de Ohrgear e Schräglage feststellt",
+  "triggerEarTiltDescription": "Löse e Handlig us wenn de Öhrli e Schräglage feststellt",
   "@triggerEarTiltDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -357,7 +357,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Uf der Suche nach em Gear. Bitte stells sicher, dass dis Gear isch ihgschalte und in dr Nöchi isch",
+  "scanDevicesScanMessage": "Uf der Suchi nach neui Ausrüstig. Stell sicher, dass dini Ausrüstig ihgschalte und in dr Nöchi isch",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Erscht abscanne für neui Ausrüstig",
+  "scanDevicesTitle": "Scän für neui Ausrüstig",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Gear gfunde. Tapps uf de Gear, um z'verbindä",
+  "scanDevicesFoundTitle": "Ausrüstig gfunde. Tapps uf de Ausrüstig, um z'verbinda",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
@@ -657,7 +657,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarMicDescription": "Stell e Aktion i, wenn de Ohrgear Sound erfasst",
+  "triggerEarMicDescription": "Stell e Aktion i, wenn de Öhrli Sound erfasst",
   "@triggerEarMicDescription": {
     "description": "EarGear internal mic trigger description",
     "type": "text",
@@ -669,7 +669,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltTitle": "Ohrgear Kipp-Sensor",
+  "triggerEarTiltTitle": "Öhrli Kipp-Sensor",
   "@triggerEarTiltTitle": {
     "description": "EarGear internal gesture sensor trigger title",
     "type": "text",
@@ -723,7 +723,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualEargearTitle": "Ohrgear Anleitung",
+  "moreManualEargearTitle": "Öhrli Anleitung",
   "@moreManualEargearTitle": {
     "description": "Title for EarGear manual button on More page",
     "type": "text",
@@ -981,7 +981,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGear": "Gschmackts Ausrüstung",
+  "scanDemoGear": "Probe Ausrüstig",
   "@scanDemoGear": {
     "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
@@ -993,7 +993,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsNoBluetoothDescription": "Für d'Verbindig mit de Gerät wird Bluetooth benötigt. Bitte schalte Bluetooth in den Einstellungen ih. Verbind dich nöd mit dine grät während du i de istellige bisch.",
+  "actionsNoBluetoothDescription": "Für d'Verbindig mit de Gerät wird Bluuetooth benötigt. Bitte schalte Bluuetooth in den Einstellungen ih. Verbind dich nöd mit dine grät während du i de istellige bisch.",
   "@actionsNoBluetoothDescription": {
     "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
