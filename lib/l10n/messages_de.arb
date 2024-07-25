@@ -453,7 +453,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Nach neuer Ausrüstung suchen",
+  "scanDevicesTitle": "Neue Geräte suchen",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
