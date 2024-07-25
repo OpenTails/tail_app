@@ -273,7 +273,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Scannen naar nieuwe uitrusting",
+  "scanDevicesTitle": "Zoek nieuwe apparaten",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
