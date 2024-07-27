@@ -675,13 +675,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Schräglinks",
+  "triggerEarTiltLeft": "Neig nach links",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltRight": "Rechtischrägi",
+  "triggerEarTiltRight": "Neig nach rechts",
   "@triggerEarTiltRight": {
     "description": "EarGear internal gesture sensor trigger right tilt detected action label",
     "type": "text",
