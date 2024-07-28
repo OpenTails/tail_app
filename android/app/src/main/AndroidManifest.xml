@@ -51,7 +51,7 @@
         android:label="The Tail Co"
         android:allowBackup="true"
         android:roundIcon="@mipmap/ic_launcher_rounded">
-        >
+
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
