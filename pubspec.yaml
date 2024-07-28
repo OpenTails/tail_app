@@ -74,7 +74,6 @@ dependencies:
     git:
       url: https://github.com/davigmacode/flutter_choice
   feedback: ^3.1.0
-  accessibility_tools: ^2.2.1
   awesome_snackbar_content:
     git:
       url: https://github.com/tbro2020/awesome_snackbar_content
