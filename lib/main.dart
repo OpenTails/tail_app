@@ -4,7 +4,7 @@ import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
-import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
+//import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -72,10 +72,10 @@ Future<String> getSentryEnvironment() async {
     if (!androidInfo.isPhysicalDevice) {
       return 'debug';
     }
-    final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
-    if (isRunningInTestlab) {
-      return 'staging';
-    }
+    //final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
+    //if (isRunningInTestlab) {
+    //  return 'staging';
+    //}
   }
   return 'production';
 }
@@ -242,24 +242,24 @@ class TailApp extends ConsumerWidget {
               themeMode: ThemeMode.system,
               darkTheme: FeedbackThemeData.dark(),
               child: ValueListenableBuilder(
-                  valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
-                  builder: (BuildContext context, value, Widget? child) {
-                    unawaited(setupSystemColor(context));
-                    Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
-                    Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-                    return MaterialApp.router(
-                      title: title(),
-                      color: color,
-                      theme: buildTheme(Brightness.light, color),
-                      darkTheme: buildTheme(Brightness.dark, color),
-                      routerConfig: router,
-                      localizationsDelegates: AppLocalizations.localizationsDelegates,
-                      supportedLocales: AppLocalizations.supportedLocales,
-                      themeMode: ThemeMode.system,
-                      debugShowCheckedModeBanner: false,
-                    );
-                  },
-                ),
+                valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
+                builder: (BuildContext context, value, Widget? child) {
+                  unawaited(setupSystemColor(context));
+                  Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
+                  Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
+                  return MaterialApp.router(
+                    title: title(),
+                    color: color,
+                    theme: buildTheme(Brightness.light, color),
+                    darkTheme: buildTheme(Brightness.dark, color),
+                    routerConfig: router,
+                    localizationsDelegates: AppLocalizations.localizationsDelegates,
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    themeMode: ThemeMode.system,
+                    debugShowCheckedModeBanner: false,
+                  );
+                },
+              ),
             ),
           ),
         ),
