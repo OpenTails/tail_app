@@ -30,7 +30,6 @@ if (keystorePropertiesFile.exists()) {
 
 configurations.configureEach {
     exclude group: "io.sentry", module: "sentry-android-ndk"
-    exclude group: "dev.flutter.plugins.integration_test"
 }
 
 android {
