@@ -19,3 +19,6 @@ runs:
     - name: Generate dart .g files
       shell: bash
       run: dart pub run build_runner build --delete-conflicting-outputs
+    - name: list dependencies 
+      shell: bash
+      run: flutter pub deps --no-dev
