@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Dürekt d'Schaltstellig kontrolliere.",
+  "joyStickPageDescription": "Direkti Steuerig vo de Ausrüstvígsposition",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -59,7 +59,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesPageDescription": "Erstell persönlischi Aktione für diini Ausrüstig",
+  "sequencesPageDescription": "Erstell persönlischi Aktione für diini Usrüstig",
   "@sequencesPageDescription": {
     "description": "The description of the sequences page link on the more page",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deviceType": "Für welli Gear mues das passä?",
+  "deviceType": "Für welli Usrüstig mues das passä?",
   "@deviceType": {
     "description": "Title for the selector to select which device to send moves to",
     "type": "text",
@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Du chasch all dini Tail Co-Ausrüstig do kontrolliere, erkunde und aktualisiere. Es het au Instruktione und Führige zur Verfüegig. Fröhlichs Wedele!",
+  "homeWelcomeMessage": "Du chasch all dini Tail Co-Usrüstig do kontrolliere, erkunde und aktualisiere. Es het au Instruktione und Führige zur Verfüegig. Fröhlichs Wedele!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -351,13 +351,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesColor": "Gearfàrb",
+  "manageDevicesColor": "Usrüstigfàrb",
   "@manageDevicesColor": {
     "description": "manage devices color picker button title when managing a device",
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesScanMessage": "Uf der Suchi nach neui Ausrüstig. Stell sicher, dass dini Ausrüstig ihgschalte und in dr Nöchi isch",
+  "scanDevicesScanMessage": "Uf der Suchi nach neui Usrüstig. Stell sicher, dass dini Usrüstig ihgschalte und in dr Nöchi isch",
   "@scanDevicesScanMessage": {
     "description": "scan for devices scan in progress message when scanning for a device",
     "type": "text",
@@ -381,13 +381,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerInfoDescription": "Triggers schicked automatisch Aktionen ah dini Ausrüstig. Du chascht mehre Triggers glichzitig aktiv ha. Tipp uf en Trigger fürs Ändere.",
+  "triggerInfoDescription": "Triggers schicked automatisch Aktionen ah dini Usrüstig. Du chascht mehre Triggers glichzitig aktiv ha. Tipp uf en Trigger fürs Ändere.",
   "@triggerInfoDescription": {
     "description": "Description for what a trigger is and how to use them on the triggers page",
     "type": "text",
     "placeholders": {}
   },
-  "mandatoryOtaRequired": "A Firmware-Aktualisierung isch verfügbar, um dii besser z unterstütze bi dr Ausrüstung",
+  "mandatoryOtaRequired": "A Firmware-Aktualisierung isch verfügbar, um dii besser z unterstütze bi dr Usrüstig",
   "@mandatoryOtaRequired": {
     "description": "Warning message which appears for gear which have old firmware on the manage gear page",
     "type": "text",
@@ -405,13 +405,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleTitle": "Immer nach bekannte Ausrüstig abscannen",
+  "settingsAlwaysScanningToggleTitle": "Immer nach bekannte Usrüstig abscannen",
   "@settingsAlwaysScanningToggleTitle": {
     "description": "Settings page always scanning toggle title",
     "type": "text",
     "placeholders": {}
   },
-  "settingsAlwaysScanningToggleSubTitle": "Luefschend naach bekanntem Züüg durchgschüsch iiberprüüfe. Wenn deaktiviert, muesch ufem Züügbarre swipe zum Scanne.",
+  "settingsAlwaysScanningToggleSubTitle": "Kontinuierlich nach bekannter Usrüstig sueche. Wenn's deaktiviert isch, muessch du zum Scanne uf dr Usrüstigsleiste wische.",
   "@settingsAlwaysScanningToggleSubTitle": {
     "description": "Settings page always scanning toggle subtitle",
     "type": "text",
@@ -447,7 +447,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsBatteryPercentageToggleSubTitle": "Zeig de effektive Batteriestand stattdesse für en Iko",
+  "settingsBatteryPercentageToggleSubTitle": "Zeig de effektive Batteriestand stattdesse für en Ikon",
   "@settingsBatteryPercentageToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
@@ -507,7 +507,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageDevicesDisconnect": "Abschlatte",
+  "manageDevicesDisconnect": "Abkoppeln",
   "@manageDevicesDisconnect": {
     "description": "manage devices disconnect button title when managing a device",
     "type": "text",
@@ -537,7 +537,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesTitle": "Scän für neui Ausrüstig",
+  "scanDevicesTitle": "Scän für neui Usrüstig",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
     "type": "text",
@@ -549,7 +549,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesFoundTitle": "Ausrüstig gfunde. Tapps uf de Ausrüstig, um z'verbinda",
+  "scanDevicesFoundTitle": "Usrüstig gfunde. Tapps uf de Usrüstig, um z'verbinda",
   "@scanDevicesFoundTitle": {
     "description": "Title when gear is found on the scan for new gear page",
     "type": "text",
@@ -639,13 +639,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityTitle": "Ausrüstig in de Nächi",
+  "triggerProximityTitle": "Usrüstig in de Nöchi",
   "@triggerProximityTitle": {
     "description": "Proximity trigger title",
     "type": "text",
     "placeholders": {}
   },
-  "triggerProximityDescription": "Fang e Aktion ah, wenn d' Ausrüstig in d'Nöchi isch",
+  "triggerProximityDescription": "Fang e Aktion ah, wenn d' Usrüstig in d'Nöchi isch",
   "@triggerProximityDescription": {
     "description": "Proximity trigger description",
     "type": "text",
@@ -849,7 +849,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaInProgressTitle": "Gaar wird aktüälisiert. Bitte schalts nöd ab oder schliess d'App",
+  "otaInProgressTitle": "Usrüstig wird aktüälisiert. Bitte schalts nöd ab oder schliess d'App",
   "@otaInProgressTitle": {
     "description": "Label for ota in progress",
     "type": "text",
@@ -921,25 +921,25 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanRemoveDemoGear": "Entfärnt alli falschi Ausrüstig",
+  "scanRemoveDemoGear": "Entfärnt alli falschi Usrüstig",
   "@scanRemoveDemoGear": {
     "description": "Label for the button to remove all demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGearTip": "Möchtisch d'App verusproche aber wartisch ufs Ausrüstig? Füeg e falschs Ausrüstig debi. Das letsch dech d App erläbe, als ob du dyni Ausrüstig hätsch, oder wänn du nödigs nutze wotsch, wo du aktuell nöd besitzisch. Das ermöglicht en neue Abschnitt uf dr \"Scan For New Ausrüstig\" Sita.",
+  "scanDemoGearTip": "Möchtisch d'App verusproche aber wartisch ufs Usrüstig? Füeg e falschs Usrüstig debi. Das letsch dech d App erläbe, als ob du dyni Usrüstig hätsch, oder wänn du nödigs nutze wotsch, wo du aktuell nöd besitzisch. Das ermöglicht en neue Abschnitt uf dr \"Scan For New Usrüstig\" Sita.",
   "@scanDemoGearTip": {
     "description": "Tip Card description for the  demo gear on the scan for new devices page",
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Wähle eso vile Aktiona as du wosch. Es wird en Aktioni zuefallsmässig usgwählt, wo mit de verbundene Ausrüstig kompatibel isch. LampaTip- und Sound-Handlige werdet zämä mit de Move-Handlige uusglöst. Vergiss ned, z'speicherä.",
+  "triggerActionSelectorTutorialLabel": "Wähle eso vile Aktiona as du wosch. Es wird en Aktioni zuefallsmässig usgwählt, wo mit de verbundene Usrüstig kompatibel isch. LampaTip- und Sound-Handlige werdet zämä mit de Move-Handlige uusglöst. Vergiss ned, z'speicherä.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
     "placeholders": {}
   },
-  "featureLimitedOtaRequiredLabel": "Bitte aktualisiere dis Ausrüstig, um dis Funktione z'bruche.",
+  "featureLimitedOtaRequiredLabel": "Bitte aktualisiere dis Usrüstig, um dis Funktione z'bruche.",
   "@featureLimitedOtaRequiredLabel": {
     "description": "Label for the warning card when a feature requires a firmware update",
     "type": "text",
@@ -951,7 +951,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaAvailableSnackbarLabel": "Bitte mach di Ausrüstig aktuell",
+  "otaAvailableSnackbarLabel": "Bitte mach di Usrüstig aktuell",
   "@otaAvailableSnackbarLabel": {
     "description": "Label for the snackbar that appears when gear has an update",
     "type": "text",
@@ -981,7 +981,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDemoGear": "Probe Ausrüstig",
+  "scanDemoGear": "Probe Usrüstig",
   "@scanDemoGear": {
     "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
     "type": "text",
@@ -993,7 +993,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsNoBluetoothDescription": "Für d'Verbindig mit de Gerät wird Bluuetooth benötigt. Bitte schalte Bluuetooth in den Einstellungen ih. Verbind dich nöd mit dine grät während du i de istellige bisch.",
+  "actionsNoBluetoothDescription": "Für d'Verbindig mit de Usrüstig wird Bluuetooth benötigt. Bitte schalte Bluuetooth in den Einstellungen ih. Verbind dich nöd mit dine grät während du i de istellige bisch.",
   "@actionsNoBluetoothDescription": {
     "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
