@@ -68,7 +68,7 @@ runs:
         #SENTRY_URL: ${{ inputs.sentry-url }}
     - name: list dependencies 
       shell: bash
-      run: cd android && ./gradlew app:dependencies
+      run: cd android && ./gradlew app:dependencies --configuration releaseCompileClasspath
     - uses: actions/upload-artifact@v4
       continue-on-error: true
       if: runner.os == 'Linux'
