@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:accessibility_tools/accessibility_tools.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
@@ -242,9 +241,7 @@ class TailApp extends ConsumerWidget {
             child: BetterFeedback(
               themeMode: ThemeMode.system,
               darkTheme: FeedbackThemeData.dark(),
-              child: AccessibilityTools(
-                logLevel: LogLevel.none,
-                child: ValueListenableBuilder(
+              child: ValueListenableBuilder(
                   valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
                   builder: (BuildContext context, value, Widget? child) {
                     unawaited(setupSystemColor(context));
@@ -263,7 +260,6 @@ class TailApp extends ConsumerWidget {
                     );
                   },
                 ),
-              ),
             ),
           ),
         ),
