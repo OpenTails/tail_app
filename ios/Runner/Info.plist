@@ -33,8 +33,6 @@
 		</array>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
-		<key>NSAppleMusicUsageDescription</key>
-		<string>Allow selecting found files to use as sound effects</string>
 		<key>NSBluetoothAlwaysUsageDescription</key>
 		<string>Bluetooth is necessary to find and connect to The Tail Company's wings, ears, and tails</string>
 		<key>NSBluetoothPeripheralUsageDescription</key>

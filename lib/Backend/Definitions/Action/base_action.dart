@@ -100,7 +100,7 @@ class CommandAction extends BaseAction with _$CommandAction {
 
 @HiveType(typeId: 12)
 @unfreezed
-class AudioAction extends BaseAction with _$AudioAction {
+class AudioAction extends BaseAction with _$AudioAction implements Comparable<AudioAction> {
   AudioAction._();
 
   @Implements<BaseAction>()
@@ -112,6 +112,11 @@ class AudioAction extends BaseAction with _$AudioAction {
     @HiveField(3) @Default(ActionCategory.audio) final ActionCategory actionCategory,
     @Default({}) final Map<DeviceType, String> nameAlias,
   }) = _AudioAction;
+
+  @override
+  int compareTo(AudioAction other) {
+    return file.compareTo(other.file);
+  }
 }
 
 @unfreezed
