@@ -180,12 +180,12 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     _bluetoothPlusLogger.info('${event.device.advName} RSSI:${event.rssi}');
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     statefulDevice?.rssi.value = event.rssi;
-  });
+  }, onError: (e, s) => _bluetoothPlusLogger.warning("Unable to read rssi: $e", e, s));
   _onMtuChanged = flutterBluePlus.events.onMtuChanged.listen((event) {
     _bluetoothPlusLogger.info('${event.device.advName} MTU:${event.mtu}');
     BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
     statefulDevice?.mtu.value = event.mtu;
-  });
+  }, onError: (e, s) => _bluetoothPlusLogger.warning("Unable to read mtu: $e", e, s));
   _onDiscoveredServicesStreamSubscription = flutterBluePlus.events.onDiscoveredServices.listen((event) async {
     //_bluetoothPlusLogger.info('${event.device} ${event.services}');
     //Subscribes to all characteristics
@@ -194,7 +194,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         await characteristic.setNotifyValue(true);
       }
     }
-  });
+  }, onError: (e, s) => _bluetoothPlusLogger.warning("Unable to discover services: $e", e, s));
   _onCharacteristicReceivedStreamSubscription = flutterBluePlus.events.onCharacteristicReceived.listen((event) async {
     _bluetoothPlusLogger.info('onCharacteristicReceived ${event.device.advName} ${event.characteristic.uuid.str} ${event.value}');
 
@@ -408,9 +408,10 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
       return;
     }
 
-    Future<void> future = bluetoothCharacteristic.write(message, withoutResponse: withoutResponse && bluetoothCharacteristic.properties.writeWithoutResponse).catchError((e) {
-      _bluetoothPlusLogger.severe("Unable to send message to ${device.baseDeviceDefinition.btName} $e", e);
-    });
+    Future<void> future = bluetoothCharacteristic
+        .write(message, withoutResponse: withoutResponse && bluetoothCharacteristic.properties.writeWithoutResponse)
+        .catchError((e) => _bluetoothPlusLogger.warning("Unable to send message to ${device.baseDeviceDefinition.btName} $e", e))
+        .onError((e, s) => _bluetoothPlusLogger.severe("Unable to send message to ${device.baseDeviceDefinition.btName} $e", e));
     await future;
   }
 }

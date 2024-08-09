@@ -260,6 +260,7 @@ class CommandQueue {
   StreamSubscription<BluetoothMessage>? messageQueueStreamSubscription;
 
   void addCommand(BluetoothMessage bluetoothMessage) {
+    bluetoothLog.info("Adding commands to queue $bluetoothMessage");
     if (device.deviceConnectionState.value != ConnectivityState.connected || device.baseStoredDevice.btMACAddress.startsWith("DEV")) {
       device.deviceState.value = DeviceState.standby; //Mainly for dev gear. Marks the gear as being idle
       return;
