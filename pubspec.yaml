@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   cross_platform: ^3.0.1
   logging: ^1.2.0
-  go_router: ^14.2.1
+  go_router: ^14.2.3
   vector_math: ^2.1.4 # used for joystick
   collection: ^1.18.0 # Priority Queue
   intl: #pinned to flutter version?
@@ -31,15 +31,15 @@ dependencies:
   built_collection: ^5.1.1
 
   # Platform Interfaces
-  device_info_plus: ^10.1.0
-  wakelock_plus: ^1.2.5 # Keeps the screen awake
-  file_picker: ^8.0.6 # used to manually select firmware file
-  path_provider: ^2.1.3 # used to get paths for app storage and cache storage
-  package_info_plus: ^8.0.0
+  device_info_plus: ^10.1.2
+  wakelock_plus: ^1.2.7 # Keeps the screen awake
+  file_picker: ^8.0.7 # used to manually select firmware file
+  path_provider: ^2.1.4 # used to get paths for app storage and cache storage
+  package_info_plus: ^8.0.2
   permission_handler: ^11.3.1
   url_launcher: ^6.3.0 # Open URLS in external apps
   flutter_blue_plus: ^1.32.11
-  flutter_foreground_task: ^8.0.0 # Keep the app running in the background on android
+  flutter_foreground_task: ^8.3.0 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
     git:
       url: https://github.com/undreeyyy/flutter_plugin_install_referrer
@@ -48,8 +48,7 @@ dependencies:
   flutter_wear_os_connectivity:
     git:
       url: https://github.com/Codel1417/flutter_wear_os_connectivity
-  just_audio: ^0.9.39 # Used for Sound Effects
-  audio_session: ^0.1.21 # Used to configure the audio session for just_audio
+  audioplayers: ^6.0.0
   #firebase_testlab_detector: ^1.0.2
   platform: ^3.1.4
 
@@ -67,7 +66,7 @@ dependencies:
   chart_sparkline: ^1.0.15+1 # used for the move easing visual
   flutter_joystick: ^0.2.1
   multi_value_listenable_builder: ^0.0.2
-  flutter_markdown: ^0.7.2+1
+  flutter_markdown: ^0.7.3+1
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
   flutter_native_splash: ^2.4.1
   choice:
@@ -114,10 +113,10 @@ dependencies:
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
 
   # Sentry
-  sentry_flutter: ^8.4.0 # Base sentry + Flutter integration
-  sentry_logging: ^8.4.0 # Collects app logs
-  sentry_hive: ^8.4.0 # Collects Hive storage accesses
-  sentry_dio: ^8.4.0 # Collects Dio HTTP requests
+  sentry_flutter: ^8.7.0 # Base sentry + Flutter integration
+  sentry_logging: ^8.7.0 # Collects app logs
+  sentry_hive: ^8.7.0 # Collects Hive storage accesses
+  sentry_dio: ^8.7.0 # Collects Dio HTTP requests
   feedback_sentry: # need to update for sentry
     git:
       url: https://github.com/ueman/feedback
@@ -131,7 +130,7 @@ dev_dependencies:
   riverpod_generator: ^3.0.0-dev.6 #required for @Riverpod annotations
   json_serializable: ^6.8.0 # required for @JsonSerializable annotations
   hive_generator: ^2.0.1 # required for @HiveType annotations
-  go_router_builder: ^2.7.0
+  go_router_builder: ^2.7.1
   freezed: ^2.5.7
   mockito: ^5.4.4
 

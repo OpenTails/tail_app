@@ -4,7 +4,6 @@ import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
-//import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -72,10 +71,6 @@ Future<String> getSentryEnvironment() async {
     if (!androidInfo.isPhysicalDevice) {
       return 'debug';
     }
-    //final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
-    //if (isRunningInTestlab) {
-    //  return 'staging';
-    //}
   }
   return 'production';
 }
@@ -169,9 +164,6 @@ Future<void> initHive() async {
   if (!SentryHive.isAdapterRegistered(MoveAdapter().typeId)) {
     SentryHive.registerAdapter(MoveAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(BaseActionAdapter().typeId)) {
-    SentryHive.registerAdapter(BaseActionAdapter());
-  }
   if (!SentryHive.isAdapterRegistered(TriggerActionAdapter().typeId)) {
     SentryHive.registerAdapter(TriggerActionAdapter());
   }
@@ -195,6 +187,9 @@ Future<void> initHive() async {
   }
   if (!SentryHive.isAdapterRegistered(FavoriteActionAdapter().typeId)) {
     SentryHive.registerAdapter(FavoriteActionAdapter());
+  }
+  if (!SentryHive.isAdapterRegistered(BaseActionAdapter().typeId)) {
+    SentryHive.registerAdapter(BaseActionAdapter());
   }
   await SentryHive.openBox(settings); // Do not set type here
   await SentryHive.openBox<Trigger>(triggerBox);
