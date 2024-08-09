@@ -13,7 +13,11 @@ final Logger _audioLogger = Logger('Audio');
 
 Future<void> playSound(String file) async {
   final player = AudioPlayer();
-  await player.play(DeviceFileSource(file));
+  try {
+    await player.play(DeviceFileSource(file));
+  } finally {
+    player.dispose();
+  }
 }
 
 @Riverpod(keepAlive: true)

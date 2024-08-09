@@ -1,3 +1,8 @@
+### V 1.0.9
+
+- Fix custom sounds on android and IOS.
+- Other Bug Fixes
+
 ### V 1.0.8
 
 - Fix update available checks
