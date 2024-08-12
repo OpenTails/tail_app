@@ -663,7 +663,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Vaadake privaatsuspoliitikat",
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Nõustuge privaatsuspoliitikaga",
   "@onboardingPrivacyPolicyAcceptButtonLabel": {
     "description": "Button label to accept privacy policy on the onboarding screen",
     "type": "text",
