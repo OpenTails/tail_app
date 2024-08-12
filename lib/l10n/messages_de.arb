@@ -495,7 +495,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualTitle": "Anleitungen",
+  "moreManualTitle": "Handbücher",
   "@moreManualTitle": {
     "description": "Title for manual header on More page",
     "type": "text",
