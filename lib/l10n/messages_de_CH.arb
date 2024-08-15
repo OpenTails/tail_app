@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Direkti Steuerig vo de Ausrüstvígsposition.",
+  "joyStickPageDescription": "Direkti Steuerig vo de Ausrüstígsposition.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
