@@ -7,6 +7,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Frontend/Widgets/ear_speed_widget.dart';
 
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
@@ -52,6 +53,10 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
           ? ListView(
               shrinkWrap: false,
               children: [
+                AnimatedSwitcher(
+                  duration: animationTransitionDuration,
+                  child: ref.watch(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty ? const EarSpeedWidget() : null,
+                ),
                 AnimatedCrossFade(
                   firstChild: PageInfoCard(
                     text: actionsFavoriteTip(),

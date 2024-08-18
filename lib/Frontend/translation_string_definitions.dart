@@ -368,3 +368,9 @@ String otaAvailableSnackbarTitle() => Intl.message("Update Available", name: 'ot
 String newGearConnectedSnackbarTitle() => Intl.message("Gear Connected", name: 'newGearConnectedSnackbarTitle', desc: 'Label for the snackbar that appears when new gear is paired and connected');
 
 String newGearConnectedSnackbarLabel() => Intl.message("Happy Wagging", name: 'newGearConnectedSnackbarLabel', desc: 'Label for the snackbar that appears when new gear is paired and connected');
+
+String earSpeedTitle() => Intl.message("Ear Twist Speed", name: 'earSpeedTitle', desc: 'Title for the ear speed widget that appears when ears are connected');
+
+String earSpeedFast() => Intl.message("Fast", name: 'earSpeedFast', desc: 'Label for the fast option on the ear speed widget that appears when ears are connected');
+
+String earSpeedSlow() => Intl.message("Slow", name: 'earSpeedSlow', desc: 'Label for the slow option on the ear speed widget that appears when ears are connected');

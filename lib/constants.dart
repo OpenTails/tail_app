@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+
 const int kitsuneDelayRange = 1000;
 const Duration animationTransitionDuration = Duration(milliseconds: 500);
 
@@ -21,6 +23,7 @@ const String hasCompletedOnboarding = 'hasCompletedOnboardingVersion';
 const String showDebugging = 'showDebugging';
 const String alwaysScanning = 'alwaysScanning';
 const String showDemoGear = 'showDemoGear';
+const String earMoveSpeed = 'earMoveSpeed';
 const String showAdvancedSettings = 'showAdvancedSettings';
 const String dynamicConfigJsonString = 'dynamicConfigJsonString';
 const String dynamicConfigStoredBuildNumber = 'dynamicConfigStoredBuildNumber';
@@ -43,6 +46,7 @@ const bool showDebuggingDefault = false;
 const bool alwaysScanningDefault = true;
 const bool showDemoGearDefault = false;
 const bool showAdvancedSettingsDefault = false;
+const EarSpeed earMoveSpeedDefault = EarSpeed.fast;
 
 const String triggerBox = 'triggers';
 const String sequencesBox = 'sequences';

@@ -60,11 +60,6 @@ extension EasingTypeExtension on EasingType {
   }
 }
 
-enum Speed {
-  slow,
-  fast,
-}
-
 @HiveType(typeId: 11)
 enum MoveType {
   @HiveField(1)
@@ -192,6 +187,9 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
   if (action is EarsMoveList) {
     plausible.event(name: "Run Action", props: {"Action Name": action.name, "Action Type": action.actionCategory.name});
     if (action.commandMoves.isNotEmpty && device.baseDeviceDefinition.deviceType == DeviceType.ears) {
+      EarSpeed earSpeed = HiveProxy.getOrDefault(settings, earMoveSpeed, defaultValue: earMoveSpeedDefault);
+      BluetoothMessage speedMsg = BluetoothMessage(message: earSpeed.command, device: device, priority: Priority.normal, type: CommandType.move, responseMSG: earSpeed.command, timestamp: DateTime.now());
+      device.commandQueue.addCommand(speedMsg);
       for (int i = 0; i < action.commandMoves.length; i++) {
         Object element = action.commandMoves[i];
         if (element is Move) {
@@ -290,10 +288,14 @@ List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device,
       commands
         ..add(
           BluetoothMessage(
-            message: "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}",
+            message: move.speed > 60 ? EarSpeed.fast.command : EarSpeed.slow.command,
             device: device,
             priority: priority,
-            responseMSG: noResponseMsg ? null : "SPEED ${move.speed > 60 ? Speed.fast.name.toUpperCase() : Speed.slow.name.toUpperCase()}",
+            responseMSG: noResponseMsg
+                ? null
+                : move.speed > 60
+                    ? EarSpeed.fast.command
+                    : EarSpeed.slow.command,
             type: type,
             timestamp: DateTime.now(),
           ),

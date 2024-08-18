@@ -191,6 +191,9 @@ Future<void> initHive() async {
   if (!SentryHive.isAdapterRegistered(BaseActionAdapter().typeId)) {
     SentryHive.registerAdapter(BaseActionAdapter());
   }
+  if (!SentryHive.isAdapterRegistered(EarSpeedAdapter().typeId)) {
+    SentryHive.registerAdapter(EarSpeedAdapter());
+  }
   await SentryHive.openBox(settings); // Do not set type here
   await SentryHive.openBox<Trigger>(triggerBox);
   await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
