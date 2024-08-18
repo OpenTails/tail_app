@@ -96,6 +96,10 @@ Future<void> main() async {
   String environment = await getSentryEnvironment();
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
   mainLogger.info("Detected Environment: $environment");
+
+  if (Platform.isAndroid) {
+    FlutterForegroundTask.initCommunicationPort();
+  }
   await SentryFlutter.init(
     (options) async {
       options
@@ -230,6 +234,7 @@ class TailApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return WithForegroundTask(
+      key: GlobalKey(debugLabel: "foregroundTask"),
       child: ProviderScope(
         observers: [
           RiverpodProviderObserver(),

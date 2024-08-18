@@ -53,8 +53,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        // limited by flutter_foreground_task
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
         ndk {
             jobs = Runtime.runtime.availableProcessors()

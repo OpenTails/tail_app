@@ -133,6 +133,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
             name: 'tc_logo_transparent_notext_small',
           ),
         );
+        FlutterForegroundTask.setOnLockScreenVisibility(true);
       }
       await event.device.discoverServices();
     }
