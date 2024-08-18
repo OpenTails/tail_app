@@ -21,9 +21,9 @@ dependencies:
   intl: #pinned to flutter version?
   uuid: ^4.4.2 # Used to generate UUID v4 ids for custom actions & move lists
   json_annotation: ^4.9.0
-  crypto: ^3.0.3 # used for md5 hash checking during ota download
+  crypto: ^3.0.5 # used for md5 hash checking during ota download
   circular_buffer: ^0.11.0  # Used for serial console
-  wordpress_client: ^8.5.0 # Used for tail blog
+  wordpress_client: ^8.5.3 # Used for tail blog
   logarte:
     git:
       url: https://github.com/Codel1417/logarte
@@ -32,13 +32,13 @@ dependencies:
 
   # Platform Interfaces
   device_info_plus: ^10.1.2
-  wakelock_plus: ^1.2.7 # Keeps the screen awake
+  wakelock_plus: ^1.2.8 # Keeps the screen awake
   file_picker: ^8.0.7 # used to manually select firmware file
   path_provider: ^2.1.4 # used to get paths for app storage and cache storage
   package_info_plus: ^8.0.2
   permission_handler: ^11.3.1
   url_launcher: ^6.3.0 # Open URLS in external apps
-  flutter_blue_plus: ^1.32.11
+  flutter_blue_plus: ^1.32.12
   flutter_foreground_task: ^8.3.0 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
     git:
@@ -60,7 +60,7 @@ dependencies:
   flutter_screen_lock: ^9.1.0 # used to hide dev mode toggle
   introduction_screen: ^3.1.14 # Onboarding
   flex_color_picker: ^3.5.1
-  flutter_adaptive_scaffold: ^0.1.11+1
+  flutter_adaptive_scaffold: ^0.2.1
   animate_do: ^3.3.4
   fl_chart: ^0.68.0 # Used for the battery graph
   chart_sparkline: ^1.0.15+1 # used for the move easing visual
@@ -81,7 +81,7 @@ dependencies:
   lottie: ^3.1.2
 
   # Dio HTTP
-  dio: ^5.5.0+1
+  dio: ^5.6.0
   dio_smart_retry: ^6.0.0
 
   # Sensors

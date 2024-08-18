@@ -88,13 +88,13 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
             child: AdaptiveScaffold(
               // An option to override the default breakpoints used for small, medium,
               // and large.
-              smallBreakpoint: const WidthPlatformBreakpoint(end: 700),
-              mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
-              largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
+              smallBreakpoint: const Breakpoint(endWidth: 700),
+              mediumBreakpoint: const Breakpoint(beginWidth: 700, endWidth: 1000),
+              largeBreakpoint: const Breakpoint(beginWidth: 1000),
               useDrawer: false,
               internalAnimations: false,
               transitionDuration: Duration.zero,
-              appBarBreakpoint: const WidthPlatformBreakpoint(begin: 0),
+              appBarBreakpoint: const Breakpoint(beginWidth: 0),
               selectedIndex: screenIndex,
               onSelectedIndexChange: (int index) {
                 setState(
