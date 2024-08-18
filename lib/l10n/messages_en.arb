@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-08-18T14:44:02.250717",
+  "@@last_modified": "2024-08-18T15:05:25.558945",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1004,6 +1004,12 @@
   "earSpeedSlow": "Slow",
   "@earSpeedSlow": {
     "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "casualModeDelayTitle": "Min and Max delay",
+  "@casualModeDelayTitle": {
+    "description": "Label for the range slider to set the min and max delay time for casual mode",
     "type": "text",
     "placeholders": {}
   }
