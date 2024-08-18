@@ -374,6 +374,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                 children: [
                   TextButton(
                     onPressed: () async {
+                      trigger!.enabled = false;
                       await ref.watch(triggerListProvider.notifier).remove(trigger!);
                       setState(
                         () {
