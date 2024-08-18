@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-07-19T17:43:34.435428",
+  "@@last_modified": "2024-08-18T14:44:02.250717",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -986,6 +986,24 @@
   "newGearConnectedSnackbarLabel": "Happy Wagging",
   "@newGearConnectedSnackbarLabel": {
     "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedTitle": "Ear Twist Speed",
+  "@earSpeedTitle": {
+    "description": "Title for the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedFast": "Fast",
+  "@earSpeedFast": {
+    "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedSlow": "Slow",
+  "@earSpeedSlow": {
+    "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
     "type": "text",
     "placeholders": {}
   }
