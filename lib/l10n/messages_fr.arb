@@ -849,7 +849,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "audioPage": "Déclenchez une action en recouvrant le capteur de proximité",
+  "audioPage": "Sons personnalisés",
   "@audioPage": {
     "description": "The label and title of the custom audio management page",
     "type": "text",
