@@ -13,6 +13,7 @@ import '../../Backend/action_registry.dart';
 import '../../Backend/plausible_dio.dart';
 import '../../Backend/sensors.dart';
 import '../../constants.dart';
+import '../Widgets/casual_mode_delay_widget.dart';
 import '../Widgets/device_type_widget.dart';
 import '../Widgets/tutorial_card.dart';
 import '../go_router_config.dart';
@@ -265,6 +266,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                   );
                 },
               ),
+              if (triggerDefinition is RandomTriggerDefinition) ...[const CasualModeDelayWidget()],
               PageInfoCard(
                 text: triggerInfoEditActionDescription(),
               ),

@@ -374,3 +374,5 @@ String earSpeedTitle() => Intl.message("Ear Twist Speed", name: 'earSpeedTitle',
 String earSpeedFast() => Intl.message("Fast", name: 'earSpeedFast', desc: 'Label for the fast option on the ear speed widget that appears when ears are connected');
 
 String earSpeedSlow() => Intl.message("Slow", name: 'earSpeedSlow', desc: 'Label for the slow option on the ear speed widget that appears when ears are connected');
+
+String casualModeDelayTitle() => Intl.message("Min and Max delay", name: 'casualModeDelayTitle', desc: 'Label for the range slider to set the min and max delay time for casual mode');
