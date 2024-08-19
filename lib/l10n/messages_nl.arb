@@ -5,7 +5,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPage": "Joystick",
+  "joyStickPage": "Bedieningshendel",
   "@joyStickPage": {
     "description": "The label and title of the joystick page",
     "type": "text",
@@ -996,6 +996,30 @@
   "actionsNoBluetoothDescription": "Bluetooth is vereist om verbinding te maken met de apparaten. Schakel Bluetooth in de instellingen in. Maak geen verbinding met uw apparaten terwijl u zich in Instellingen bevindt.",
   "@actionsNoBluetoothDescription": {
     "description": "description on the actions page when bluetooth is unavailable",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedTitle": "Oordraaisnelheid",
+  "@earSpeedTitle": {
+    "description": "Title for the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedFast": "snel",
+  "@earSpeedFast": {
+    "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedSlow": "langzaam",
+  "@earSpeedSlow": {
+    "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "casualModeDelayTitle": "Min en Max vertraging",
+  "@casualModeDelayTitle": {
+    "description": "Label for the range slider to set the min and max delay time for casual mode",
     "type": "text",
     "placeholders": {}
   }
