@@ -190,6 +190,8 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
       EarSpeed earSpeed = HiveProxy.getOrDefault(settings, earMoveSpeed, defaultValue: earMoveSpeedDefault);
       BluetoothMessage speedMsg = BluetoothMessage(message: earSpeed.command, device: device, priority: Priority.normal, type: CommandType.move, responseMSG: earSpeed.command, timestamp: DateTime.now());
       device.commandQueue.addCommand(speedMsg);
+      BluetoothMessage delayMessage = BluetoothMessage(delay: 1, device: device, priority: Priority.normal, type: CommandType.move, message: '', timestamp: DateTime.now());
+      device.commandQueue.addCommand(delayMessage);
       for (int i = 0; i < action.commandMoves.length; i++) {
         Object element = action.commandMoves[i];
         if (element is Move) {
