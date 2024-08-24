@@ -21,4 +21,4 @@ runs:
       run: dart pub run build_runner build --delete-conflicting-outputs
     - name: list dependencies 
       shell: bash
-      run: flutter pub deps --no-dev && dart pub global activate dependency_platforms && dart pub global run dependency_platforms
+      run: flutter pub deps --no-dev
