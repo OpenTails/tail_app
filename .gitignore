@@ -73,3 +73,5 @@ coverage/
 local.properties
 
 .gradle/
+
+dependency_cache.json
