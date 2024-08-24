@@ -212,8 +212,8 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           return;
         }
         final List<BaseAction> moveActions = allActionsMapped.where((element) => !const [ActionCategory.glowtip, ActionCategory.audio].contains(element.actionCategory)).toList();
-        final BuiltList<BaseAction> glowActions = ref.read(getAllActionsForCategoryProvider(ActionCategory.glowtip));
-        final BuiltList<BaseAction> audioActions = ref.read(getAllActionsForCategoryProvider(ActionCategory.audio));
+        final List<BaseAction> glowActions = allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList();
+        final List<BaseAction> audioActions = allActionsMapped.where((element) => const [ActionCategory.audio].contains(element.actionCategory)).toList();
 
         BaseAction? baseAction;
         List<BaseAction> actionsToRun = [];
