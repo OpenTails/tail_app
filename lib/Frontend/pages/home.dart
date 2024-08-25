@@ -56,83 +56,81 @@ class _HomeState extends ConsumerState<Home> {
       valueListenable: isBluetoothEnabled,
       child: TailBlog(controller: _controller),
       builder: (BuildContext context, bool bluetoothEnabled, Widget? child) {
-        return SingleChildScrollView(
+        return ListView(
           controller: _controller,
-          child: Column(
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (ref.read(knownDevicesProvider).isNotEmpty && !HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault) && !HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault)) ...[
-                          ListTile(
-                            leading: const Icon(Icons.info),
-                            subtitle: Text(homeContinuousScanningOffDescription()),
-                          ),
-                        ],
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (ref.read(knownDevicesProvider).isNotEmpty && !HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault) && !HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault)) ...[
+                        ListTile(
+                          leading: const Icon(Icons.info),
+                          subtitle: Text(homeContinuousScanningOffDescription()),
+                        ),
                       ],
-                    ),
+                    ],
                   ),
                 ),
               ),
-              BaseCard(
+            ),
+            BaseCard(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    title: Text(homeWelcomeMessageTitle()),
+                    subtitle: Text(homeWelcomeMessage()),
+                  ),
+                  ButtonBar(
+                    children: <Widget>[
+                      TextButton(
+                        onPressed: () async {
+                          MarkdownViewerRoute(
+                            $extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()),
+                          ).push(context);
+                        },
+                        child: Text(homeChangelogLinkTitle()),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
+                        },
+                        child: const Text('Tail Company Store'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            AnimatedCrossFade(
+              firstChild: BaseCard(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
-                      title: Text(homeWelcomeMessageTitle()),
-                      subtitle: Text(homeWelcomeMessage()),
-                    ),
-                    ButtonBar(
-                      children: <Widget>[
-                        TextButton(
-                          onPressed: () async {
-                            MarkdownViewerRoute(
-                              $extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()),
-                            ).push(context);
-                          },
-                          child: Text(homeChangelogLinkTitle()),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
-                          },
-                          child: const Text('Tail Company Store'),
-                        ),
-                      ],
+                      leading: const Icon(Icons.bluetooth_disabled),
+                      title: Text(actionsNoBluetooth()),
+                      subtitle: Text(actionsNoBluetoothDescription()),
                     ),
                   ],
                 ),
               ),
-              AnimatedCrossFade(
-                firstChild: BaseCard(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        leading: const Icon(Icons.bluetooth_disabled),
-                        title: Text(actionsNoBluetooth()),
-                        subtitle: Text(actionsNoBluetoothDescription()),
-                      ),
-                    ],
-                  ),
-                ),
-                secondChild: Container(),
-                crossFadeState: !bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                duration: animationTransitionDuration,
+              secondChild: Container(),
+              crossFadeState: !bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              duration: animationTransitionDuration,
+            ),
+            ListTile(
+              title: Text(
+                homeNewsTitle(),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
-              ListTile(
-                title: Text(
-                  homeNewsTitle(),
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
-              child!,
-            ],
-          ),
+            ),
+            child!,
+          ],
         );
       },
     );
