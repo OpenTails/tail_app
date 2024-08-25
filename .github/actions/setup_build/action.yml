@@ -21,14 +21,14 @@ runs:
       with:
         distribution: ${{ inputs.java-distribution }}
         java-version: ${{ inputs.java-version }}
-        cache: "gradle"
+        #cache: "gradle"
     - uses: subosito/flutter-action@v2
       with:
         flutter-version: ${{ inputs.flutter-version }}
-        cache: true
+        cache: false
     - uses: ruby/setup-ruby@v1
       with:
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+        bundler-cache: false # runs 'bundle install' and caches installed gems automatically
         ruby-version: ${{ inputs.ruby-version }} # Not needed with a .ruby-version file
     - name: Cocoapods Cache
       uses: actions/cache@v4
