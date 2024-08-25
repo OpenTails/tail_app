@@ -9,11 +9,6 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-    groups:
-      sentry:
-        patterns:
-          - "sentry_*"
-          - "feedback_sentry"
   - package-ecosystem: "github-actions"
     directory: "/.github/workflows/"
     schedule:
