@@ -7,7 +7,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../Backend/Definitions/Action/base_action.dart';
 import '../Backend/Definitions/Device/device_definition.dart';
-import '../Backend/NavigationObserver/custom_go_router_navigation_observer.dart';
 import '../Backend/logging_wrappers.dart';
 import '../Backend/move_lists.dart';
 import '../Backend/plausible_dio.dart';
@@ -36,15 +35,24 @@ part 'go_router_config.g.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
+String _previousPageName = "";
 // GoRouter configuration
 final GoRouter router = GoRouter(
   debugLogDiagnostics: true,
   navigatorKey: rootNavigatorKey,
   observers: [
     SentryNavigatorObserver(),
-    CustomNavObserver(plausible),
+    //CustomNavObserver(plausible),
     LogarteNavigatorObserver(logarte),
   ],
+  redirect: (context, state) {
+    String name = state.uri.path;
+    if (name.isNotEmpty) {
+      unawaited(plausible.event(page: name.toString(), referrer: _previousPageName));
+      _previousPageName = name;
+    }
+    return null;
+  },
   routes: $appRoutes,
 );
 
