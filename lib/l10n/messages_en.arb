@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-08-18T15:05:25.558945",
+  "@@last_modified": "2024-08-30T16:20:36.488424",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1010,6 +1010,18 @@
   "casualModeDelayTitle": "Min and Max delay",
   "@casualModeDelayTitle": {
     "description": "Label for the range slider to set the min and max delay time for casual mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionTitle": "Set Home Position",
+  "@manageGearHomePositionTitle": {
+    "description": "Title for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionDescription": "Sets the position gear will move to after an action is finished",
+  "@manageGearHomePositionDescription": {
+    "description": "Description for the home position sliders on the manage gear screen",
     "type": "text",
     "placeholders": {}
   }
