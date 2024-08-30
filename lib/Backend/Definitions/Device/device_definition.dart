@@ -240,6 +240,11 @@ class BaseStoredDevice extends ChangeNotifier {
   @HiveField(9)
   int _color;
 
+  @HiveField(10, defaultValue: 1)
+  int leftHomePosition = 1;
+  @HiveField(11, defaultValue: 1)
+  int rightHomePosition = 1;
+
   int get color => _color;
 
   set color(int value) {

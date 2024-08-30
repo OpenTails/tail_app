@@ -376,3 +376,7 @@ String earSpeedFast() => Intl.message("Fast", name: 'earSpeedFast', desc: 'Label
 String earSpeedSlow() => Intl.message("Slow", name: 'earSpeedSlow', desc: 'Label for the slow option on the ear speed widget that appears when ears are connected');
 
 String casualModeDelayTitle() => Intl.message("Min and Max delay", name: 'casualModeDelayTitle', desc: 'Label for the range slider to set the min and max delay time for casual mode');
+
+String manageGearHomePositionTitle() => Intl.message("Set Home Position", name: 'manageGearHomePositionTitle', desc: 'Title for the home position sliders on the manage gear screen');
+
+String manageGearHomePositionDescription() => Intl.message("Sets the position gear will move to after an action is finished", name: 'manageGearHomePositionDescription', desc: 'Description for the home position sliders on the manage gear screen');

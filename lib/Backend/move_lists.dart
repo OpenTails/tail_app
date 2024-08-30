@@ -85,7 +85,7 @@ extension MoveTypeExtension on MoveType {
 
 @HiveType(typeId: 5)
 class Move {
-  //Range 0-180
+  //Range 0-127
   @HiveField(1)
   double leftServo = 0;
 
