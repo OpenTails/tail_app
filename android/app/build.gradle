@@ -110,7 +110,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:2.0.20"
     testImplementation 'junit:junit:4.13.2'
     // https://developer.android.com/jetpack/androidx/releases/test/#1.2.0
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 
 }
 
