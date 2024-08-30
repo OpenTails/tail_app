@@ -114,16 +114,17 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
           ..fine('Requesting notification permission')
           ..finer('Requesting notification permission result${await Permission.notification.request()}'); // Used only for Foreground service
         FlutterForegroundTask.init(
-          androidNotificationOptions: AndroidNotificationOptions(
-            channelId: 'foreground_service',
-            channelName: 'Gear Connected',
-            channelDescription: 'This notification appears when any gear is running.',
-            channelImportance: NotificationChannelImportance.LOW,
-            priority: NotificationPriority.LOW,
-          ),
-          iosNotificationOptions: const IOSNotificationOptions(),
-          foregroundTaskOptions: const ForegroundTaskOptions(),
-        );
+            androidNotificationOptions: AndroidNotificationOptions(
+              channelId: 'foreground_service',
+              channelName: 'Gear Connected',
+              channelDescription: 'This notification appears when any gear is running.',
+              channelImportance: NotificationChannelImportance.LOW,
+              priority: NotificationPriority.LOW,
+            ),
+            iosNotificationOptions: const IOSNotificationOptions(),
+            foregroundTaskOptions: ForegroundTaskOptions(
+              eventAction: ForegroundTaskEventAction.nothing(),
+            ));
         FlutterForegroundTask.startService(
           notificationTitle: "Gear Connected",
           notificationText: "Gear is connected to The Tail Company app",
