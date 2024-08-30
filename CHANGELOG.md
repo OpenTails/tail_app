@@ -1,7 +1,6 @@
 ### V 1.0.9
 
 - Allow setting ear twist speed
-- Add ear home position setting
 - Add casual mode delay controls
 - Fix custom sounds on android and IOS.
 - Other Bug Fixes
