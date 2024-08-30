@@ -74,10 +74,10 @@ packages:
     dependency: "direct main"
     description:
       name: audioplayers
-      sha256: "752039d6aa752597c98ec212e9759519061759e402e7da59a511f39d43aa07d2"
+      sha256: c346ba5a39dc208f1bab55fc239855f573d69b0e832402114bf0b793622adc4d
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.0"
+    version: "6.1.0"
   audioplayers_android:
     dependency: transitive
     description:
@@ -114,10 +114,10 @@ packages:
     dependency: transitive
     description:
       name: audioplayers_web
-      sha256: db8fc420dadf80da18e2286c18e746fb4c3b2c5adbf0c963299dde046828886d
+      sha256: "3609bdf0e05e66a3d9750ee40b1e37f2a622c4edb796cc600b53a90a30a2ace4"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "5.0.1"
   audioplayers_windows:
     dependency: transitive
     description:
@@ -219,10 +219,10 @@ packages:
     dependency: "direct main"
     description:
       name: chart_sparkline
-      sha256: "3d6c7091851a0483230e51776f51c8bf692da144928150ba254a1b578e098830"
+      sha256: "3b224a3d1d2dabfd1c8690153694d1c874b9d9f68a9dccd79151d345435dad0a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.15+1"
+    version: "1.1.1"
   checked_yaml:
     dependency: transitive
     description:
@@ -493,10 +493,18 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "825aec673606875c33cd8d3c4083f1a3c3999015a84178b317b7ef396b7384f3"
+      sha256: "167bb619cdddaa10ef2907609feb8a79c16dfa479d3afaf960f8e223f754bf12"
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.7"
+    version: "8.1.2"
+  firebase_testlab_detector:
+    dependency: "direct main"
+    description:
+      name: firebase_testlab_detector
+      sha256: "1de7421239370c62bbdea3c6da15619e0f9aeefa796a21f81e8617157ebf45d8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   fixnum:
     dependency: transitive
     description:
@@ -509,10 +517,10 @@ packages:
     dependency: "direct main"
     description:
       name: fl_chart
-      sha256: d0f0d49112f2f4b192481c16d05b6418bd7820e021e265a3c22db98acf7ed7fb
+      sha256: "94307bef3a324a0d329d3ab77b2f0c6e5ed739185ffc029ed28c0f9b019ea7ef"
       url: "https://pub.dev"
     source: hosted
-    version: "0.68.0"
+    version: "0.69.0"
   flex_color_picker:
     dependency: "direct main"
     description:
@@ -538,10 +546,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_adaptive_scaffold
-      sha256: "3b8f56e0282659db2ebb2edacf61332c1178e8dc03d933709c5af88f92f31dd5"
+      sha256: fe16ddead74e728c88aa33e3d0cef611a556b27194639f9e9ec4a0e32400d87e
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.2"
+    version: "0.2.3"
   flutter_android_volume_keydown:
     dependency: "direct main"
     description:
@@ -563,10 +571,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_foreground_task
-      sha256: "85ac9f9467c27b5f4f7aa1226788ef690ead7fa04bb2c78ff863e0ce09310091"
+      sha256: "6e89319a66f6a022773e8c698527e9cd80a92d7508154b82fb89d33e0dd64068"
       url: "https://pub.dev"
     source: hosted
-    version: "8.5.0"
+    version: "8.6.0"
   flutter_gen_core:
     dependency: transitive
     description:
@@ -1383,42 +1391,42 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "0f787e27ff617e4f88f7074977240406a9c5509444bac64a4dfa5b3200fb5632"
+      sha256: "1af8308298977259430d118ab25be8e1dda626cdefa1e6ce869073d530d39271"
       url: "https://pub.dev"
     source: hosted
-    version: "8.7.0"
+    version: "8.8.0"
   sentry_dio:
     dependency: "direct main"
     description:
       name: sentry_dio
-      sha256: "1577428b1f03d65f077cb0e667061f9ae8c2df0cc9c6e77f2616200abaf28d86"
+      sha256: "204ad3d22f6cb653d20350531d3cf0ec90ba98931c6ce6fb8e9fbb6706daf297"
       url: "https://pub.dev"
     source: hosted
-    version: "8.7.0"
+    version: "8.8.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: fbbb47d72ccca48be25bf3c2ced6ab6e872991af3a0ba78e54be8d138f2e053f
+      sha256: "18fe4d125c2d529bd6127200f0d2895768266a8c60b4fb50b2086fd97e1a4ab2"
       url: "https://pub.dev"
     source: hosted
-    version: "8.7.0"
+    version: "8.8.0"
   sentry_hive:
     dependency: "direct main"
     description:
       name: sentry_hive
-      sha256: a6e3bfce1fc83ea420faf84843740795a863554e32124d38c645399f73c3e562
+      sha256: "69b821b3db699690f4d83d79332bb5d969d23da84282e633b5a077449fda8bc5"
       url: "https://pub.dev"
     source: hosted
-    version: "8.7.0"
+    version: "8.8.0"
   sentry_logging:
     dependency: "direct main"
     description:
       name: sentry_logging
-      sha256: "64e8ab603877bb2d8cd844ec057477d6054c2bb5532c6f3b5c3021c25841194a"
+      sha256: c5bab2abb3e6419532676184f5c27c5e953556f678729cde4f4ff078101115a4
       url: "https://pub.dev"
     source: hosted
-    version: "8.7.0"
+    version: "8.8.0"
   shake:
     dependency: "direct main"
     description:
@@ -1845,10 +1853,10 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: "97da13628db363c635202ad97068d47c5b8aa555808e7a9411963c533b449b27"
+      sha256: d43c1d6b787bf0afad444700ae7f4db8827f701bc61c255ac8d328c6f4d52062
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "1.0.0"
   web_socket:
     dependency: transitive
     description:

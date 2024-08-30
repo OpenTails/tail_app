@@ -33,13 +33,13 @@ dependencies:
   # Platform Interfaces
   device_info_plus: ^10.1.2
   wakelock_plus: ^1.2.8 # Keeps the screen awake
-  file_picker: ^8.0.7 # used to manually select firmware file
+  file_picker: ^8.1.2 # used to manually select firmware file
   path_provider: ^2.1.4 # used to get paths for app storage and cache storage
   package_info_plus: ^8.0.2
   permission_handler: ^11.3.1
   url_launcher: ^6.3.0 # Open URLS in external apps
   flutter_blue_plus: ^1.32.12
-  flutter_foreground_task: ^8.5.0 # Keep the app running in the background on android
+  flutter_foreground_task: ^8.6.0 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
     git:
       url: https://github.com/undreeyyy/flutter_plugin_install_referrer
@@ -48,8 +48,8 @@ dependencies:
   flutter_wear_os_connectivity:
     git:
       url: https://github.com/Codel1417/flutter_wear_os_connectivity
-  audioplayers: ^6.0.0
-  #firebase_testlab_detector: ^1.0.2
+  audioplayers: ^6.1.0
+  firebase_testlab_detector: ^1.0.2
   platform: ^3.1.5
 
   # Riverpod
@@ -60,10 +60,10 @@ dependencies:
   flutter_screen_lock: ^9.1.0 # used to hide dev mode toggle
   introduction_screen: ^3.1.14 # Onboarding
   flex_color_picker: ^3.5.1
-  flutter_adaptive_scaffold: ^0.2.2
+  flutter_adaptive_scaffold: ^0.2.3
   animate_do: ^3.3.4
-  fl_chart: ^0.68.0 # Used for the battery graph
-  chart_sparkline: ^1.0.15+1 # used for the move easing visual
+  fl_chart: ^0.69.0 # Used for the battery graph
+  chart_sparkline: ^1.1.1 # used for the move easing visual
   flutter_joystick: ^0.2.1
   multi_value_listenable_builder: ^0.0.2
   flutter_markdown: ^0.7.3+1
@@ -113,10 +113,10 @@ dependencies:
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
 
   # Sentry
-  sentry_flutter: ^8.7.0 # Base sentry + Flutter integration
-  sentry_logging: ^8.7.0 # Collects app logs
-  sentry_hive: ^8.7.0 # Collects Hive storage accesses
-  sentry_dio: ^8.7.0 # Collects Dio HTTP requests
+  sentry_flutter: ^8.8.0 # Base sentry + Flutter integration
+  sentry_logging: ^8.8.0 # Collects app logs
+  sentry_hive: ^8.8.0 # Collects Hive storage accesses
+  sentry_dio: ^8.8.0 # Collects Dio HTTP requests
   feedback_sentry: # need to update for sentry
     git:
       url: https://github.com/ueman/feedback

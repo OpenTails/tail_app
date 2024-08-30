@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
+import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -70,6 +71,10 @@ Future<String> getSentryEnvironment() async {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     if (!androidInfo.isPhysicalDevice) {
       return 'debug';
+    }
+    final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
+    if (isRunningInTestlab) {
+      return 'staging';
     }
   }
   return 'production';
