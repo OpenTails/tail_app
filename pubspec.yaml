@@ -196,8 +196,7 @@ flutter_native_splash:
     image: "assets/TC_Logo_Transparent.png"
     image_dark: "assets/TC_Logo_Transparent_dark.png"
 
-dependency_overrides:
-  meta: any
+
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
