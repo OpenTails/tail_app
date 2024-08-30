@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:logging/logging.dart';
@@ -14,7 +16,10 @@ final Logger _audioLogger = Logger('Audio');
 Future<void> playSound(String file) async {
   final player = AudioPlayer();
   try {
-    await player.play(DeviceFileSource(file));
+    if (await File(file).exists()) {
+      await player.play(DeviceFileSource(file));
+      await player.onPlayerComplete.first;
+    }
   } finally {
     player.dispose();
   }
