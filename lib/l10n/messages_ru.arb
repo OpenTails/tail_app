@@ -998,5 +998,29 @@
     "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
+  },
+  "earSpeedTitle": "Скорость вращения уха",
+  "@earSpeedTitle": {
+    "description": "Title for the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedFast": "Быстрый",
+  "@earSpeedFast": {
+    "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedSlow": "Медленный",
+  "@earSpeedSlow": {
+    "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "casualModeDelayTitle": "Мин. и макс. задержка",
+  "@casualModeDelayTitle": {
+    "description": "Label for the range slider to set the min and max delay time for casual mode",
+    "type": "text",
+    "placeholders": {}
   }
 }
