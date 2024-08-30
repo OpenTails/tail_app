@@ -47,10 +47,10 @@ class _BtAppStateControllerState extends ConsumerState<BtAppStateController> {
 
   @override
   void dispose() {
-    super.dispose();
     _listener.dispose();
     if (ref.read(getAvailableGearProvider).isEmpty && ref.exists(initFlutterBluePlusProvider)) {
       ref.invalidate(initFlutterBluePlusProvider);
     }
+    super.dispose();
   }
 }
