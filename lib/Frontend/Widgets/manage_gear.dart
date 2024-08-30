@@ -180,10 +180,10 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                       );
                 },
               ),
-              if (device!.baseDeviceDefinition.deviceType == DeviceType.ears) ...[
-                ManageGearHomePosition(device: device!),
-              ],
               if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                if (device!.baseDeviceDefinition.deviceType == DeviceType.ears) ...[
+                  ManageGearHomePosition(device: device!),
+                ],
                 ManageGearDebug(device: device!),
               ],
               OverflowBar(
