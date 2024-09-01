@@ -1022,5 +1022,11 @@
     "description": "Label for the range slider to set the min and max delay time for casual mode",
     "type": "text",
     "placeholders": {}
+  },
+  "manageGearHomePositionDescription": "設定設備在完成動作後移動到的位置",
+  "@manageGearHomePositionDescription": {
+    "description": "Description for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
   }
 }
