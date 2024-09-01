@@ -103,6 +103,21 @@ class _SettingsState extends ConsumerState<Settings> {
               },
             ),
           ),
+          ListTile(
+            title: Text(settingsTailBlogWifiOnlyTitle()),
+            leading: const Icon(Icons.wifi),
+            subtitle: Text(settingsTailBlogWifiOnlyDescription()),
+            trailing: Switch(
+              value: HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault),
+              onChanged: (bool value) async {
+                setState(
+                  () {
+                    HiveProxy.put(settings, tailBlogWifiOnly, value);
+                  },
+                );
+              },
+            ),
+          ),
           const ListTile(
             title: Divider(),
           ),

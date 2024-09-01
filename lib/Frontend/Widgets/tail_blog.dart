@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,13 +9,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
+import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../utils.dart';
 
 part 'tail_blog.freezed.dart';
+
 part 'tail_blog.g.dart';
 
 final _wpLogger = Logger('Main');
@@ -39,7 +41,17 @@ class _TailBlogState extends State<TailBlog> {
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
       alignment: Alignment.topCenter,
-      firstChild: feedState == FeedState.loading ? const LinearProgressIndicator() : Container(),
+      firstChild: feedState == FeedState.loading
+          ? const LinearProgressIndicator()
+          : const Center(
+              child: Opacity(
+                opacity: 0.5,
+                child: Icon(
+                  Icons.signal_cellular_connected_no_internet_0_bar,
+                  size: 150,
+                ),
+              ),
+            ),
       secondChild: GridView.builder(
         controller: widget.controller,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 500, mainAxisExtent: 300),
@@ -108,6 +120,12 @@ class _TailBlogState extends State<TailBlog> {
 
   Future<void> getFeed() async {
     if (results.isEmpty) {
+      if (!await tailBlogConnectivityCheck()) {
+        setState(() {
+          feedState = FeedState.noInternet;
+        });
+        return;
+      }
       List<Post> wordpressPosts = [];
       try {
         // Slug, Sticky, and Author are not used
@@ -175,11 +193,7 @@ class FeedItem with _$FeedItem implements Comparable<FeedItem> {
   }
 }
 
-enum FeedState {
-  loading,
-  loaded,
-  error,
-}
+enum FeedState { loading, loaded, error, noInternet }
 
 enum FeedType {
   wiki,
@@ -207,39 +221,30 @@ class TailBlogImage extends ConsumerStatefulWidget {
 }
 
 class _TailBlogImageState extends ConsumerState<TailBlogImage> {
-  bool isVisible = false;
-
   @override
   Widget build(BuildContext context) {
-    return VisibilityDetector(
-      key: ValueKey(widget.feedItem),
-      onVisibilityChanged: (VisibilityInfo info) {
-        if (context.mounted) {
-          setState(() {
-            isVisible = info.visibleFraction > 0;
-          });
+    return Builder(
+      builder: (context) {
+        if (widget.feedItem.imageUrl != null) {
+          var snapshot = ref.watch(getBlogImageProvider(widget.feedItem.imageUrl!));
+          return AnimatedOpacity(
+            duration: animationTransitionDuration,
+            opacity: snapshot.hasValue ? 1 : 0,
+            child: snapshot.hasValue ? snapshot.value! : const CircularProgressIndicator(),
+          );
+        } else {
+          return Container();
         }
       },
-      child: Builder(
-        builder: (context) {
-          if (isVisible && widget.feedItem.imageUrl != null) {
-            var snapshot = ref.watch(getBlogImageProvider(widget.feedItem.imageUrl!));
-            return AnimatedOpacity(
-              duration: animationTransitionDuration,
-              opacity: snapshot.hasValue ? 1 : 0,
-              child: snapshot.hasValue ? snapshot.value! : const CircularProgressIndicator(),
-            );
-          } else {
-            return Container();
-          }
-        },
-      ),
     );
   }
 }
 
 @Riverpod(keepAlive: true)
 Future<Widget> getBlogImage(GetBlogImageRef ref, String url) async {
+  if (!await tailBlogConnectivityCheck()) {
+    return Container();
+  }
   Dio dio = await initDio();
   Response<List<int>> response = await dio.get(
     url,
@@ -265,4 +270,15 @@ Future<Widget> getBlogImage(GetBlogImageRef ref, String url) async {
     );
   }
   return Container();
+}
+
+Future<bool> tailBlogConnectivityCheck() async {
+  final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+  if (connectivityResult.contains(ConnectivityResult.none)) {
+    return false;
+  }
+  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) && {ConnectivityResult.wifi, ConnectivityResult.ethernet}.intersection(connectivityResult.toSet()).isEmpty) {
+    return false;
+  }
+  return true;
 }

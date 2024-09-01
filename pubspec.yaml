@@ -51,6 +51,7 @@ dependencies:
   audioplayers: ^6.1.0
   firebase_testlab_detector: ^1.0.2
   platform: ^3.1.5
+  connectivity_plus: ^6.0.5
 
   # Riverpod
   flutter_riverpod: ^2.5.1

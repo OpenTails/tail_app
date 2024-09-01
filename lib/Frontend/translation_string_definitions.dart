@@ -380,3 +380,7 @@ String casualModeDelayTitle() => Intl.message("Min and Max delay", name: 'casual
 String manageGearHomePositionTitle() => Intl.message("Set Home Position", name: 'manageGearHomePositionTitle', desc: 'Title for the home position sliders on the manage gear screen');
 
 String manageGearHomePositionDescription() => Intl.message("Sets the position gear will move to after an action is finished", name: 'manageGearHomePositionDescription', desc: 'Description for the home position sliders on the manage gear screen');
+
+String settingsTailBlogWifiOnlyTitle() => Intl.message("Tail Blog over WiFi only", name: 'settingsTailBlogWifiOnlyTitle', desc: 'Description for the tail blog wifi only setting');
+
+String settingsTailBlogWifiOnlyDescription() => Intl.message("Prevent loading Tail Blog content while connected to a mobile network", name: 'settingsTailBlogWifiOnlyDescription', desc: 'Description for the tail blog wifi only setting');

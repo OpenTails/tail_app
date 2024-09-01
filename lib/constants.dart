@@ -29,6 +29,7 @@ const String dynamicConfigJsonString = 'dynamicConfigJsonString';
 const String dynamicConfigStoredBuildNumber = 'dynamicConfigStoredBuildNumber';
 const String casualModeDelayMin = 'casualModeDelayMin';
 const String casualModeDelayMax = 'casualModeDelayMax';
+const String tailBlogWifiOnly = 'tailBlogWifiOnly';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -51,6 +52,7 @@ const bool showAdvancedSettingsDefault = false;
 const EarSpeed earMoveSpeedDefault = EarSpeed.fast;
 const int casualModeDelayMinDefault = 15;
 const int casualModeDelayMaxDefault = 120;
+const bool tailBlogWifiOnlyDefault = false;
 
 const String triggerBox = 'triggers';
 const String sequencesBox = 'sequences';
