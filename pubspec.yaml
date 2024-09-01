@@ -19,7 +19,7 @@ dependencies:
   vector_math: ^2.1.4 # used for joystick
   collection: ^1.18.0 # Priority Queue
   intl: #pinned to flutter version?
-  uuid: ^4.4.2 # Used to generate UUID v4 ids for custom actions & move lists
+  uuid: ^4.5.0 # Used to generate UUID v4 ids for custom actions & move lists
   json_annotation: ^4.9.0
   crypto: ^3.0.5 # used for md5 hash checking during ota download
   circular_buffer: ^0.11.0  # Used for serial console
@@ -60,7 +60,7 @@ dependencies:
   flutter_screen_lock: ^9.1.0 # used to hide dev mode toggle
   introduction_screen: ^3.1.14 # Onboarding
   flex_color_picker: ^3.5.1
-  flutter_adaptive_scaffold: ^0.2.3
+  flutter_adaptive_scaffold: ^0.2.4
   animate_do: ^3.3.4
   fl_chart: ^0.69.0 # Used for the battery graph
   chart_sparkline: ^1.1.1 # used for the move easing visual
