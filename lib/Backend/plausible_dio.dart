@@ -26,7 +26,7 @@ Plausible get plausible {
 
 Plausible? _plausible;
 
-void initPlausible({bool enabled = false}) {
+void initPlausible({bool enabled = true}) {
   _plausible = PlausibleDio("https://plausible.codel1417.xyz", "tail-app");
   _plausible!.enabled = enabled;
 }
