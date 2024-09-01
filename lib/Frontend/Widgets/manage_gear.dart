@@ -99,7 +99,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   ),
                 ),
               ],
-              if (device!.hasUpdate.value || HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+              if (device!.hasUpdate.value) ...[
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: FilledButton(
@@ -184,6 +184,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 if (device!.baseDeviceDefinition.deviceType == DeviceType.ears) ...[
                   ManageGearHomePosition(device: device!),
                 ],
+                ManageGearBatteryGraph(device: device!),
                 ManageGearDebug(device: device!),
               ],
               OverflowBar(
@@ -246,6 +247,60 @@ class _ManageGearState extends ConsumerState<ManageGear> {
   }
 }
 
+class ManageGearBatteryGraph extends StatelessWidget {
+  final BaseStatefulDevice device;
+
+  const ManageGearBatteryGraph({super.key, required this.device});
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      title: Text(manageDevicesBatteryGraphTitle()),
+      children: [
+        SizedBox(
+          height: 200,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 8),
+            child: ValueListenableBuilder(
+              valueListenable: device.batteryLevel,
+              builder: (context, value, child) {
+                return LineChart(
+                  LineChartData(
+                    titlesData: const FlTitlesData(
+                      rightTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: false,
+                        ),
+                      ),
+                      topTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      leftTitles: AxisTitles(
+                        axisNameWidget: Text('Battery'),
+                      ),
+                      bottomTitles: AxisTitles(
+                        axisNameWidget: Text('Time'),
+                        sideTitles: SideTitles(showTitles: true),
+                      ),
+                    ),
+                    lineTouchData: const LineTouchData(enabled: false),
+                    borderData: FlBorderData(show: false),
+                    minY: 0,
+                    maxY: 100,
+                    minX: 0,
+                    maxX: device.stopWatch.elapsed.inSeconds.toDouble(),
+                    lineBarsData: [LineChartBarData(spots: device.batlevels, color: Theme.of(context).colorScheme.primary, dotData: const FlDotData(show: false), isCurved: true, show: device.batlevels.isNotEmpty)],
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class ManageGearDebug extends StatefulWidget {
   final BaseStatefulDevice device;
 
@@ -259,62 +314,33 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: const Text("Debug"),
+      title: const Text("Debug (Dangerous)"),
       children: [
-        ValueListenableBuilder(
-          valueListenable: widget.device.batteryLevel,
-          builder: (BuildContext context, double value, Widget? child) {
-            return ExpansionTile(
-              title: Text(manageDevicesBatteryGraphTitle()),
-              children: [
-                SizedBox(
-                  height: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8, left: 8),
-                    child: LineChart(
-                      LineChartData(
-                        titlesData: const FlTitlesData(
-                          rightTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: false,
-                            ),
-                          ),
-                          topTitles: AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          leftTitles: AxisTitles(
-                            axisNameWidget: Text('Battery'),
-                          ),
-                          bottomTitles: AxisTitles(
-                            axisNameWidget: Text('Time'),
-                            sideTitles: SideTitles(showTitles: true),
-                          ),
-                        ),
-                        lineTouchData: const LineTouchData(enabled: false),
-                        borderData: FlBorderData(show: false),
-                        minY: 0,
-                        maxY: 100,
-                        minX: 0,
-                        maxX: widget.device.stopWatch.elapsed.inSeconds.toDouble(),
-                        lineBarsData: [LineChartBarData(spots: widget.device.batlevels, color: Theme.of(context).colorScheme.primary, dotData: const FlDotData(show: false), isCurved: true, show: widget.device.batlevels.isNotEmpty)],
-                      ),
-                    ),
-                  ),
+        OverflowBar(
+          children: [
+            FilledButton(
+              onPressed: () async {
+                BluetoothConsoleRoute($extra: widget.device).push(context);
+              },
+              child: const Text("Open console"),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FilledButton(
+                onPressed: () async {
+                  OtaUpdateRoute(device: widget.device.baseStoredDevice.btMACAddress).push(context);
+                },
+                child: Text(
+                  manageDevicesOtaButton(),
                 ),
-              ],
-            );
-          },
+              ),
+            )
+          ],
         ),
         ListTile(
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FilledButton(
-                onPressed: () async {
-                  BluetoothConsoleRoute($extra: widget.device).push(context);
-                },
-                child: const Text("Open console"),
-              ),
               Text("BT MAC: ${widget.device.baseStoredDevice.btMACAddress}"),
               Text("HW VER: ${widget.device.hwVersion.value}"),
               Text("FW VER: ${widget.device.fwVersion.value}"),
