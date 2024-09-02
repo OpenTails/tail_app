@@ -2,6 +2,7 @@
 
 - Allow setting ear twist speed
 - Add casual mode delay controls
+- Add option to disable tail blog on mobile data
 - Fix custom sounds on android and IOS.
 - Other Bug Fixes
 
