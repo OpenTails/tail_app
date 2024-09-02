@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-08-30T16:20:36.488424",
+  "@@last_modified": "2024-09-02T16:45:07.804747",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1022,6 +1022,18 @@
   "manageGearHomePositionDescription": "Sets the position gear will move to after an action is finished",
   "@manageGearHomePositionDescription": {
     "description": "Description for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyTitle": "Tail Blog over WiFi only",
+  "@settingsTailBlogWifiOnlyTitle": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyDescription": "Prevent loading Tail Blog content while connected to a mobile network",
+  "@settingsTailBlogWifiOnlyDescription": {
+    "description": "Description for the tail blog wifi only setting",
     "type": "text",
     "placeholders": {}
   }
