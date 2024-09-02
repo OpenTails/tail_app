@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -127,6 +128,17 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 InstallationAppReferrer? value = snapshot.data;
                 String referral = value != null ? value.name : "unknown";
                 return Text(referral);
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("ConnectivityType"),
+            subtitle: StreamBuilder(
+              stream: Connectivity().onConnectivityChanged,
+              builder: (BuildContext context, AsyncSnapshot<List<ConnectivityResult>> snapshot) {
+                var value = snapshot.data;
+                String text = value != null ? value.toString() : "unknown";
+                return Text(text);
               },
             ),
           ),
