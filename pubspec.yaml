@@ -39,15 +39,13 @@ dependencies:
   permission_handler: ^11.3.1
   url_launcher: ^6.3.0 # Open URLS in external apps
   flutter_blue_plus: ^1.32.12
-  flutter_foreground_task: ^8.6.0 # Keep the app running in the background on android
+  flutter_foreground_task: ^8.7.0 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
     git:
       url: https://github.com/undreeyyy/flutter_plugin_install_referrer
       ref: fd87e9b8f0d5ed909e929388244456f72b9b63c7
   quick_actions: ^1.0.7 # puts favorites on the home screen
-  flutter_wear_os_connectivity:
-    git:
-      url: https://github.com/Codel1417/flutter_wear_os_connectivity
+  watch_connectivity: ^0.2.0
   audioplayers: ^6.1.0
   firebase_testlab_detector: ^1.0.2
   platform: ^3.1.5

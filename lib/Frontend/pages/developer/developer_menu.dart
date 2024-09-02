@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:install_referrer/install_referrer.dart';
 
 import '../../../Backend/logging_wrappers.dart';
+import '../../../Backend/wear_bridge.dart';
 import '../../../constants.dart';
 import '../../../main.dart';
 import '../../go_router_config.dart';
@@ -114,6 +116,60 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               builder: (context, snapshot) {
                 String value = snapshot.data ?? '';
                 return Text(value);
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("InstallReferrer"),
+            subtitle: FutureBuilder(
+              future: InstallReferrer.referrer,
+              builder: (context, snapshot) {
+                InstallationAppReferrer? value = snapshot.data;
+                String referral = value != null ? value.name : "unknown";
+                return Text(referral);
+              },
+            ),
+          ),
+          const ListTile(
+            title: Divider(),
+          ),
+          ListTile(
+            title: const Text("WatchIsReachable"),
+            subtitle: FutureBuilder(
+              future: isReachable(),
+              builder: (context, snapshot) {
+                bool value = snapshot.data ?? false;
+                return Text(value.toString());
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("WatchIsSupported"),
+            subtitle: FutureBuilder(
+              future: isSupported(),
+              builder: (context, snapshot) {
+                bool value = snapshot.data ?? false;
+                return Text(value.toString());
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("WatchIsPaired"),
+            subtitle: FutureBuilder(
+              future: isPaired(),
+              builder: (context, snapshot) {
+                bool value = snapshot.data ?? false;
+                return Text(value.toString());
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("WatchApplicationContext"),
+            subtitle: FutureBuilder(
+              future: applicationContext(),
+              builder: (context, snapshot) {
+                Map<String, dynamic> value = snapshot.data ?? {};
+                return Text(value.toString());
               },
             ),
           ),
