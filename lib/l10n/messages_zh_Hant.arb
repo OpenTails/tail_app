@@ -1028,5 +1028,11 @@
     "description": "Description for the home position sliders on the manage gear screen",
     "type": "text",
     "placeholders": {}
+  },
+  "manageGearHomePositionTitle": "設置家居位置",
+  "@manageGearHomePositionTitle": {
+    "description": "Title for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
   }
 }
