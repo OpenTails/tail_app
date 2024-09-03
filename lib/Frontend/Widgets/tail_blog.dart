@@ -16,7 +16,6 @@ import '../../constants.dart';
 import '../utils.dart';
 
 part 'tail_blog.freezed.dart';
-
 part 'tail_blog.g.dart';
 
 final _wpLogger = Logger('Main');
@@ -43,15 +42,17 @@ class _TailBlogState extends State<TailBlog> {
       alignment: Alignment.topCenter,
       firstChild: feedState == FeedState.loading
           ? const LinearProgressIndicator()
-          : const Center(
-              child: Opacity(
-                opacity: 0.5,
-                child: Icon(
-                  Icons.signal_cellular_connected_no_internet_0_bar,
-                  size: 150,
-                ),
-              ),
-            ),
+          : [FeedState.noInternet, FeedState.error].contains(feedState)
+              ? const Center(
+                  child: Opacity(
+                    opacity: 0.5,
+                    child: Icon(
+                      Icons.signal_cellular_connected_no_internet_0_bar,
+                      size: 150,
+                    ),
+                  ),
+                )
+              : Container(),
       secondChild: GridView.builder(
         controller: widget.controller,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 500, mainAxisExtent: 300),
