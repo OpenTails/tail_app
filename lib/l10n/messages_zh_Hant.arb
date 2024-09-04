@@ -1034,5 +1034,17 @@
     "description": "Title for the home position sliders on the manage gear screen",
     "type": "text",
     "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyTitle": "僅通過 WiFi 進行尾部博客",
+  "@settingsTailBlogWifiOnlyTitle": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyDescription": "在連接到移動網絡時防止加載尾部博客內容",
+  "@settingsTailBlogWifiOnlyDescription": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
   }
 }
