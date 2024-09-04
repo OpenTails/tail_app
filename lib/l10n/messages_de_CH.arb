@@ -1034,5 +1034,17 @@
     "description": "Title for the home position sliders on the manage gear screen",
     "type": "text",
     "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyDescription": "Verhinder, dass der Tail Blog-Inhalt lädt, wenn du em Mobile-Netz verbunde bisch",
+  "@settingsTailBlogWifiOnlyDescription": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyTitle": "Tail Blog nur mit WiFi",
+  "@settingsTailBlogWifiOnlyTitle": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
   }
 }
