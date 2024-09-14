@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-09-04T10:52:40.335176",
+  "@@last_modified": "2024-09-14T00:13:20.043014",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -989,7 +989,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "earSpeedTitle": "Ear Twist Speed",
+  "earSpeedTitle": "Ear Move Speed",
   "@earSpeedTitle": {
     "description": "Title for the ear speed widget that appears when ears are connected",
     "type": "text",
