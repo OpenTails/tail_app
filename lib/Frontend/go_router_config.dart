@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
 
 import '../Backend/Definitions/Action/base_action.dart';
 import '../Backend/Definitions/Device/device_definition.dart';
@@ -377,6 +378,13 @@ class OtaUpdateRoute extends GoRouteData {
       );
 }
 
+class BulkOtaUpdateRoute extends GoRouteData {
+  const BulkOtaUpdateRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const BulkOTA();
+}
+
 @TypedGoRoute<SettingsRoute>(
   path: '/settings',
   name: 'Settings',
@@ -396,6 +404,10 @@ class OtaUpdateRoute extends GoRouteData {
         TypedGoRoute<LogsRoute>(
           path: 'log',
           name: 'Settings/Developer Menu/Logs',
+        ),
+        TypedGoRoute<BulkOtaUpdateRoute>(
+          path: 'bulkOta',
+          name: 'Settings/Developer Menu/bulkOta',
         ),
       ],
     ),

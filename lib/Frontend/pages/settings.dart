@@ -227,16 +227,6 @@ class _SettingsState extends ConsumerState<Settings> {
               },
             ),
           ),
-          if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
-            ListTile(
-              title: const Text("Development Menu"),
-              leading: const Icon(Icons.bug_report),
-              subtitle: const Text("It is illegal to read this message"),
-              onTap: () async {
-                const DeveloperMenuRoute().push(context);
-              },
-            ),
-          ],
         ],
       ),
     );

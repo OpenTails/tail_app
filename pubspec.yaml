@@ -23,7 +23,7 @@ dependencies:
   json_annotation: ^4.9.0
   crypto: ^3.0.5 # used for md5 hash checking during ota download
   circular_buffer: ^0.11.0  # Used for serial console
-  wordpress_client: ^8.5.3 # Used for tail blog
+  wordpress_client: ^8.5.4 # Used for tail blog
   logarte:
     git:
       url: https://github.com/Codel1417/logarte
@@ -39,7 +39,7 @@ dependencies:
   permission_handler: ^11.3.1
   url_launcher: ^6.3.0 # Open URLS in external apps
   flutter_blue_plus: ^1.32.12
-  flutter_foreground_task: ^8.7.0 # Keep the app running in the background on android
+  flutter_foreground_task: ^8.8.1+1 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
     git:
       url: https://github.com/undreeyyy/flutter_plugin_install_referrer
@@ -59,7 +59,7 @@ dependencies:
   flutter_screen_lock: ^9.1.0 # used to hide dev mode toggle
   introduction_screen: ^3.1.14 # Onboarding
   flex_color_picker: ^3.5.1
-  flutter_adaptive_scaffold: ^0.2.4
+  flutter_adaptive_scaffold: ^0.2.6
   animate_do: ^3.3.4
   fl_chart: ^0.69.0 # Used for the battery graph
   chart_sparkline: ^1.1.1 # used for the move easing visual
@@ -80,7 +80,7 @@ dependencies:
   lottie: ^3.1.2
 
   # Dio HTTP
-  dio: ^5.6.0
+  dio: ^5.7.0
   dio_smart_retry: ^6.0.0
 
   # Sensors
@@ -106,16 +106,16 @@ dependencies:
 
   # play services
   in_app_review: ^2.0.9
-  upgrader: ^10.3.0
+  upgrader: ^11.1.0
 
   # Spicy
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
 
   # Sentry
-  sentry_flutter: ^8.8.0 # Base sentry + Flutter integration
-  sentry_logging: ^8.8.0 # Collects app logs
-  sentry_hive: ^8.8.0 # Collects Hive storage accesses
-  sentry_dio: ^8.8.0 # Collects Dio HTTP requests
+  sentry_flutter: ^8.9.0 # Base sentry + Flutter integration
+  sentry_logging: ^8.9.0 # Collects app logs
+  sentry_hive: ^8.9.0 # Collects Hive storage accesses
+  sentry_dio: ^8.9.0 # Collects Dio HTTP requests
   feedback_sentry: # need to update for sentry
     git:
       url: https://github.com/ueman/feedback
