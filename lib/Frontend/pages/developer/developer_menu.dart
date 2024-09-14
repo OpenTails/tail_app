@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:install_referrer/install_referrer.dart';
@@ -7,6 +8,7 @@ import 'package:install_referrer/install_referrer.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../Backend/wear_bridge.dart';
 import '../../../constants.dart';
+import '../../../gen/assets.gen.dart';
 import '../../../main.dart';
 import '../../go_router_config.dart';
 
@@ -147,6 +149,19 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 var value = snapshot.data;
                 String text = value != null ? value.toString() : "unknown";
                 return Text(text);
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("DynamicConfig"),
+            subtitle: FutureBuilder(
+              future: rootBundle.loadString(Assets.dynamicConfig),
+              builder: (context, snapshot) {
+                String dynamicConfigJsonDefault = "";
+                if (snapshot.hasData) {
+                  dynamicConfigJsonDefault = snapshot.data!;
+                }
+                return Text(HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: dynamicConfigJsonDefault));
               },
             ),
           ),
