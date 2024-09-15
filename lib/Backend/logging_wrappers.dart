@@ -29,7 +29,7 @@ class _HiveProxyImpl {
     }
   }
 
-  E getOrDefault<E>(String box, dynamic key, {E? defaultValue}) {
+  E getOrDefault<E>(String box, dynamic key, {required E? defaultValue}) {
     if (genericBoxes.contains(box)) {
       return SentryHive.box(box).get(key, defaultValue: defaultValue)!;
     } else {
