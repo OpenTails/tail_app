@@ -999,7 +999,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "earSpeedTitle": "耳朵扭轉速度",
+  "earSpeedTitle": "耳朵移動速度",
   "@earSpeedTitle": {
     "description": "Title for the ear speed widget that appears when ears are connected",
     "type": "text",
