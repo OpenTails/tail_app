@@ -999,7 +999,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "earSpeedTitle": "Ohrdrehgeschwindigkeit",
+  "earSpeedTitle": "Ohrgeschwindigkeit",
   "@earSpeedTitle": {
     "description": "Title for the ear speed widget that appears when ears are connected",
     "type": "text",
@@ -1023,13 +1023,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageGearHomePositionTitle": "Setze Ruheposition",
+  "manageGearHomePositionTitle": "Ruheposition setzen",
   "@manageGearHomePositionTitle": {
     "description": "Title for the home position sliders on the manage gear screen",
     "type": "text",
     "placeholders": {}
   },
-  "manageGearHomePositionDescription": "Setzt die Position die das Gerät einnimmt nachdem eine Aktion beendet ist",
+  "manageGearHomePositionDescription": "Setzt die Position die das Gerät am Ende einer Aktion einnimmt",
   "@manageGearHomePositionDescription": {
     "description": "Description for the home position sliders on the manage gear screen",
     "type": "text",
@@ -1041,7 +1041,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTailBlogWifiOnlyDescription": "Verhindern, dass Tail Blog-Inhalte geladen werden, während eine mobile Verbindung besteht",
+  "settingsTailBlogWifiOnlyDescription": "Verhindert dass Tail Blog Inhalte bei einer mobilen Verbindung geladen werden",
   "@settingsTailBlogWifiOnlyDescription": {
     "description": "Description for the tail blog wifi only setting",
     "type": "text",
