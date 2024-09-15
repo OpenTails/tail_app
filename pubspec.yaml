@@ -59,7 +59,7 @@ dependencies:
   flutter_screen_lock: ^9.1.0 # used to hide dev mode toggle
   introduction_screen: ^3.1.14 # Onboarding
   flex_color_picker: ^3.5.1
-  flutter_adaptive_scaffold: ^0.2.6
+  flutter_adaptive_scaffold: ^0.3.1
   animate_do: ^3.3.4
   fl_chart: ^0.69.0 # Used for the battery graph
   chart_sparkline: ^1.1.1 # used for the move easing visual
