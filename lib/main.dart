@@ -122,7 +122,8 @@ Future<void> main() async {
         ..enableMetrics = true
         ..attachStacktrace = true
         ..attachScreenshot = true
-        ..attachViewHierarchy = true;
+        ..attachViewHierarchy = true
+        ..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryReplay;
     },
     // Init your App.
     // ignore: missing_provider_scope

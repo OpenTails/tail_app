@@ -22,6 +22,7 @@ class DynamicConfigInfo with _$DynamicConfigInfo {
   factory DynamicConfigInfo({
     @Default(0.5) double sentryTraces,
     @Default(0.5) double sentryProfiles,
+    @Default(0) double sentryReplay,
   }) = _DynamicConfigInfo;
 
   factory DynamicConfigInfo.fromJson(Map<String, dynamic> json) => _$DynamicConfigInfoFromJson(json);
