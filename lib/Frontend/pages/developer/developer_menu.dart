@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -164,6 +166,10 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 return Text(HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: dynamicConfigJsonDefault));
               },
             ),
+          ),
+          ListTile(
+            title: const Text("PlatformLocale"),
+            subtitle: Text(Platform.localeName),
           ),
           const ListTile(
             title: Divider(),

@@ -8,6 +8,7 @@ import 'package:install_referrer/install_referrer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:tail_app/Backend/wear_bridge.dart';
 
 import '../Frontend/utils.dart';
 import '../constants.dart';
@@ -55,6 +56,13 @@ class PlausibleDio extends Plausible {
     props['Number Of Triggers'] = HiveProxy.getAll<Trigger>(triggerBox).length.toString();
     props['App Version'] = (await PackageInfo.fromPlatform()).version;
     props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
+    props['Locale'] = Platform.localeName;
+    try {
+      props['Has Watch'] = (await isPaired()).toString();
+    } catch (e) {
+      props['Has Watch'] = false.toString();
+    }
+    props['Developer Mode'] = HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) ? 'Enabled' : 'disabled';
 
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidDeviceInfo = await DeviceInfoPlugin().androidInfo;
