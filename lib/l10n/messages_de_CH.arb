@@ -1011,7 +1011,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "earSpeedTitle": "Ohrverdrehspeed",
+  "earSpeedTitle": "Öhrli bewege Speed",
   "@earSpeedTitle": {
     "description": "Title for the ear speed widget that appears when ears are connected",
     "type": "text",

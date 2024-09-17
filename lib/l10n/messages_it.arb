@@ -999,7 +999,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "earSpeedTitle": "Velocità di torsione dell'orecchio",
+  "earSpeedTitle": "Velocità dell'orecchio",
   "@earSpeedTitle": {
     "description": "Title for the ear speed widget that appears when ears are connected",
     "type": "text",
