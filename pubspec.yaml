@@ -50,6 +50,7 @@ dependencies:
   firebase_testlab_detector: ^1.0.2
   platform: ^3.1.5
   connectivity_plus: ^6.0.5
+  flutter_isolate: ^2.0.4
 
   # Riverpod
   flutter_riverpod: ^2.5.1
@@ -82,6 +83,7 @@ dependencies:
   # Dio HTTP
   dio: ^5.7.0
   dio_smart_retry: ^6.0.0
+  native_dio_adapter: ^1.3.0
 
   # Sensors
   pedometer: # Needs gradle namespace

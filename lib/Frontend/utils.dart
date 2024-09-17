@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
+import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:platform/platform.dart';
 import 'package:sentry_dio/sentry_dio.dart';
@@ -80,6 +81,7 @@ Future<Dio> initDio({skipSentry = false}) async {
       ],
     ),
   );
+  dio.httpClientAdapter = NativeAdapter();
   if (!skipSentry) {
     /// This *must* be the last initialization step of the Dio setup, otherwise
     /// your configuration of Dio might overwrite the Sentry configuration.
