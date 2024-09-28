@@ -227,7 +227,7 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
           continue; // Skip first move if it is a delay
         }
         if (move.moveType == MoveType.delay) {
-          if (i > 0 && action.moves[i + 1].moveType == MoveType.move) {
+          if (i > 0 && action.moves.length > i + 1 && action.moves[i + 1].moveType == MoveType.move) {
             Move prevMove = action.moves[i + 1];
             e = '${e}E${prevMove.easingType.num}';
             f = '${f}F${prevMove.easingType.num}';
