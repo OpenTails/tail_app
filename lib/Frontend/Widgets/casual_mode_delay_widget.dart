@@ -12,18 +12,15 @@ class CasualModeDelayWidget extends StatefulWidget {
 }
 
 class _CasualModeDelayWidgetState extends State<CasualModeDelayWidget> {
-  int min = 0;
-  int max = 0;
-
   @override
   void initState() {
     super.initState();
-    min = HiveProxy.getOrDefault(settings, casualModeDelayMin, defaultValue: casualModeDelayMinDefault);
-    max = HiveProxy.getOrDefault(settings, casualModeDelayMax, defaultValue: casualModeDelayMaxDefault);
   }
 
   @override
   Widget build(BuildContext context) {
+    int min = HiveProxy.getOrDefault(settings, casualModeDelayMin, defaultValue: casualModeDelayMinDefault);
+    int max = HiveProxy.getOrDefault(settings, casualModeDelayMax, defaultValue: casualModeDelayMaxDefault);
     return ListTile(
       title: Text(casualModeDelayTitle()),
       subtitle: RangeSlider(
@@ -34,8 +31,8 @@ class _CasualModeDelayWidgetState extends State<CasualModeDelayWidget> {
         labels: RangeLabels(min.toString(), max.toString()),
         onChanged: (value) {
           setState(() {
-            min = value.start.toInt();
-            max = value.end.toInt();
+            min = value.start.toInt().clamp(15, 240);
+            max = value.end.toInt().clamp(15, 240);
           });
           HiveProxy.put(settings, casualModeDelayMin, min);
           HiveProxy.put(settings, casualModeDelayMax, max);
