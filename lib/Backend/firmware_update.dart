@@ -28,6 +28,7 @@ class FWInfo with _$FWInfo {
     required String version,
     required String md5sum,
     required String url,
+    required List<String> supportedHardwareVersions,
     @Default("") final String changelog,
     @Default("") final String glash,
   }) = _FWInfo;
@@ -36,7 +37,7 @@ class FWInfo with _$FWInfo {
 }
 
 @Riverpod(keepAlive: true)
-Future<FWInfo?> getFirmwareInfo(GetFirmwareInfoRef ref, String url) async {
+Future<List<FWInfo>?> getBaseFirmwareInfo(GetBaseFirmwareInfoRef ref, String url) async {
   Dio dio = await initDio();
   Future<Response<String>> valueFuture = dio.get(url, options: Options(responseType: ResponseType.json))
     ..onError((error, stackTrace) {
@@ -45,8 +46,34 @@ Future<FWInfo?> getFirmwareInfo(GetFirmwareInfoRef ref, String url) async {
     });
   Response<String> value = await valueFuture;
   if (value.statusCode! < 400) {
-    FWInfo fwInfo = FWInfo.fromJson(const JsonDecoder().convert(value.data.toString()));
-    return fwInfo;
+    return (const JsonDecoder().convert(value.data.toString()) as List)
+        .map(
+          (e) => FWInfo.fromJson(const JsonDecoder().convert(e)),
+        )
+        .toList();
+  }
+  return null;
+}
+
+@Riverpod()
+Future<FWInfo?> getFirmwareInfo(GetFirmwareInfoRef ref, String url, String hwVer) async {
+  if (url.isEmpty || hwVer.isEmpty) {
+    return null;
+  }
+  List<FWInfo>? fwInfos = await ref.read(getBaseFirmwareInfoProvider(url).future);
+  if (fwInfos == null) {
+    return null;
+  }
+  if (fwInfos.isNotEmpty) {
+    FWInfo? fwInfo = fwInfos.firstWhereOrNull(
+      (element) => element.supportedHardwareVersions.contains(hwVer),
+    );
+    fwInfo ??= fwInfos.firstWhereOrNull(
+      (element) => element.supportedHardwareVersions.isEmpty,
+    );
+    if (fwInfo != null) {
+      return fwInfo;
+    }
   }
   return null;
 }
@@ -60,7 +87,12 @@ Future<FWInfo?> checkForFWUpdate(CheckForFWUpdateRef ref, BaseStatefulDevice bas
   if (url.isEmpty) {
     return null;
   }
-  FWInfo? fwInfo = await ref.read(getFirmwareInfoProvider(url).future);
+  String hwVer = baseStatefulDevice.hwVersion.value;
+  if (hwVer.isEmpty) {
+    ref.invalidateSelf();
+    return null;
+  }
+  FWInfo? fwInfo = await ref.read(getFirmwareInfoProvider(url, hwVer).future);
   baseStatefulDevice.fwInfo.value = fwInfo;
   return fwInfo;
 }
