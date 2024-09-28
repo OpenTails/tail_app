@@ -164,12 +164,16 @@ icons_launcher:
   platforms:
     android:
       enable: true
+      notification_image: "assets/TC_Logo_Transparent_NoText_small.png"
       adaptive_background_color: "#ffffff"
       adaptive_foreground_image: "assets/TC_Logo_Transparent.png"
       adaptive_round_image: "assets/TC_Logo_Transparent.png"
       adaptive_monochrome_image: "assets/TC_Logo_Transparent_NoText_Adaptive.png"
     ios:
       enable: true
+      dark_path: "assets/TC_Logo_Transparent_dark.png"
+      tinted_path: "assets/TC_Logo_Transparent_NoText_greyscale.png"
+
 
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
