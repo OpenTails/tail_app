@@ -50,7 +50,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="The Tail Co"
         android:allowBackup="true"
-        android:roundIcon="@mipmap/ic_launcher_rounded">
+        android:roundIcon="@mipmap/ic_launcher_round">
 
         <activity
             android:name=".MainActivity"
