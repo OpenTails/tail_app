@@ -99,7 +99,7 @@ android {
         }
     }
     namespace 'com.codel1417.tailApp'
-    ndkVersion '26.1.10909125'
+    ndkVersion '27.0.12077973'
 }
 
 flutter {
