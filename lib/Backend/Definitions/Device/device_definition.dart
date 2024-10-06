@@ -146,7 +146,6 @@ class BaseStatefulDevice {
   final ValueNotifier<bool> batteryCharging = ValueNotifier(false);
   final ValueNotifier<bool> batteryLow = ValueNotifier(false);
   final ValueNotifier<bool> gearReturnedError = ValueNotifier(false);
-
   final ValueNotifier<Version> fwVersion = ValueNotifier(const Version());
   final ValueNotifier<String> hwVersion = ValueNotifier("");
   final ValueNotifier<GlowtipStatus> hasGlowtip = ValueNotifier(GlowtipStatus.unknown);
@@ -154,7 +153,7 @@ class BaseStatefulDevice {
   final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(ConnectivityState.disconnected);
   final ValueNotifier<int> rssi = ValueNotifier(-1);
   final ValueNotifier<int> mtu = ValueNotifier(-1);
-
+  final ValueNotifier<GearConfigInfo> gearConfigInfo = ValueNotifier(GearConfigInfo());
   final ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
   final ValueNotifier<bool> hasUpdate = ValueNotifier(false);
   late final Stream<String> rxCharacteristicStream;
@@ -221,6 +220,77 @@ enum MessageHistoryType {
 }
 
 @freezed
+// TailControl only
+class GearConfigInfo with _$GearConfigInfo {
+  const GearConfigInfo._();
+
+  const factory GearConfigInfo({
+    @Default("") String ver,
+    @Default("") String minsToSleep,
+    @Default("") String minsToNPM,
+    @Default("") String minNPMPauseSec,
+    @Default("") String maxNPMPauseSec,
+    @Default("") String groupsNPM,
+    @Default("") String servo1home,
+    @Default("") String servo2home,
+    @Default("") String listenModeNPMEnabled,
+    @Default("") String listenModeResponseOnly,
+    @Default("") String groupsLM,
+    @Default("") String tiltModeNPMEnabled,
+    @Default("") String tiltModeResponseOnly,
+    @Default("") String disconnectedCountdownEnabled,
+    @Default("") String homeOnAppPoweroff,
+    @Default("") String conferenceModeEnabled,
+    @Default("") String securityPasskey,
+  }) = _GearConfigInfo;
+
+  factory GearConfigInfo.fromGearString(String fwInput) {
+    String values = fwInput;
+    String ver = values[0];
+    String minsToSleep = values[1];
+    String minsToNPM = values[2];
+    String minNPMPauseSec = values[3];
+    String maxNPMPauseSec = values[4];
+    String groupsNPM = values[5];
+    String servo1home = values[6];
+    String servo2home = values[7];
+    String listenModeNPMEnabled = values[8];
+    String listenModeResponseOnly = values[9];
+    String groupsLM = values[10];
+    String tiltModeNPMEnabled = values[11];
+    String tiltModeResponseOnly = values[12];
+    String disconnectedCountdownEnabled = values[13];
+    String homeOnAppPoweroff = values[14];
+    String conferenceModeEnabled = values[15];
+    String securityPasskey = values[16];
+
+    return GearConfigInfo(
+      ver: ver,
+      minsToSleep: minsToSleep,
+      minsToNPM: minsToNPM,
+      minNPMPauseSec: minNPMPauseSec,
+      maxNPMPauseSec: maxNPMPauseSec,
+      groupsNPM: groupsNPM,
+      servo1home: servo1home,
+      servo2home: servo2home,
+      listenModeNPMEnabled: listenModeNPMEnabled,
+      listenModeResponseOnly: listenModeResponseOnly,
+      groupsLM: groupsLM,
+      tiltModeNPMEnabled: tiltModeNPMEnabled,
+      tiltModeResponseOnly: tiltModeResponseOnly,
+      disconnectedCountdownEnabled: disconnectedCountdownEnabled,
+      homeOnAppPoweroff: homeOnAppPoweroff,
+      conferenceModeEnabled: conferenceModeEnabled,
+      securityPasskey: securityPasskey,
+    );
+  }
+
+  String toGearString() {
+    return "$ver $minsToSleep $minsToNPM $minNPMPauseSec $maxNPMPauseSec $groupsNPM $servo1home $servo2home $listenModeNPMEnabled $listenModeResponseOnly $groupsLM $tiltModeNPMEnabled $tiltModeResponseOnly $disconnectedCountdownEnabled $homeOnAppPoweroff $conferenceModeEnabled $securityPasskey";
+  }
+}
+
+@freezed
 class MessageHistoryEntry with _$MessageHistoryEntry {
   const factory MessageHistoryEntry({
     required MessageHistoryType type,
@@ -244,6 +314,8 @@ class BaseStoredDevice extends ChangeNotifier {
   int leftHomePosition = 1;
   @HiveField(11, defaultValue: 1)
   int rightHomePosition = 1;
+  @HiveField(12, defaultValue: "")
+  String conModePin = "";
 
   int get color => _color;
 

@@ -234,6 +234,16 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       // Firmware Version
       if (value.startsWith("VER")) {
         statefulDevice.fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
+        if ((statefulDevice.fwVersion.value.major >= 5 && statefulDevice.fwVersion.value.minor >= 9) || statefulDevice.fwVersion.value.major > 5) {
+          //TODO: read response
+          statefulDevice.commandQueue.addCommand(
+            BluetoothMessage(
+              message: "READNVS",
+              device: statefulDevice,
+              timestamp: DateTime.timestamp(),
+            ),
+          );
+        }
         await ref.read(hasOtaUpdateProvider(statefulDevice).future);
         // Sent after VER message
       } else if (value.startsWith("GLOWTIP")) {

@@ -354,6 +354,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
               Text("BATT: ${widget.device.batteryLevel.value}"),
               Text("UNSUPPORTED: ${widget.device.baseDeviceDefinition.unsupported}"),
               Text("MIN FIRMWARE: ${widget.device.baseDeviceDefinition.minVersion}"),
+              Text("NVS Config: ${widget.device.gearConfigInfo.value}"),
             ],
           ),
         ),
