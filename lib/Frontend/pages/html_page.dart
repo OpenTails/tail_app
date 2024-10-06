@@ -48,7 +48,14 @@ class _HtmlPageState extends State<HtmlPage> {
             body,
             renderMode: RenderMode.listView,
             factoryBuilder: MyWidgetFactory.new,
-            onTapUrl: (p0) async => launchUrlString('$p0$getOutboundUtm()'),
+            onTapUrl: (p0) async {
+              bool isPDF = p0.endsWith('.pdf');
+              String url = p0;
+              if (!isPDF) {
+                url = url + getOutboundUtm();
+              }
+              return launchUrlString(url);
+            },
           ),
         ),
         crossFadeState: body.isNotEmpty ? CrossFadeState.showSecond : CrossFadeState.showFirst,
