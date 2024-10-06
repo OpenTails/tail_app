@@ -79,6 +79,7 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           leading: const Icon(Icons.feedback),
           title: Text(feedbackPage()),
+          subtitle: Text(feedbackPageDescription()),
           onTap: () {
             BetterFeedback.of(context).showAndUploadToSentry();
           },
@@ -168,11 +169,12 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: const Text("Support Email"),
-          leading: const Icon(Icons.email),
+          title: Text(supportTitle()),
+          leading: const Icon(Icons.message),
+          subtitle: Text(supportDescription()),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('mailto:info@thetailcompany.com'));
+            await launchUrl(Uri.parse('https://thetailcompany.com/${getOutboundUtm()}'));
           },
         ),
         ListTile(

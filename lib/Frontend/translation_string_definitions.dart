@@ -21,6 +21,8 @@ String joyStickPageDescription() => Intl.message('Directly control the gear posi
 
 String feedbackPage() => Intl.message('Send Feedback', name: 'feedbackPage', desc: 'The label and title of the feedback page');
 
+String feedbackPageDescription() => Intl.message('Have a suggestion or issue with the app? Let us know. Note: This is anonymous and can not be used to resolve issues with Gear', name: 'feedbackPageDescription', desc: 'The description of the feedback page');
+
 String audioPage() => Intl.message('Custom Sounds', name: 'audioPage', desc: 'The label and title of the custom audio management page');
 
 String aboutPage() => Intl.message('About', name: 'aboutPage', desc: 'The label and title of the about page');
@@ -95,8 +97,7 @@ String sequencesEditDeleteTitle() => Intl.message('Delete Action', name: 'sequen
 
 String sequencesEditDeleteDescription() => Intl.message('Are you sure you want to delete this action?', name: 'sequencesEditDeleteDescription', desc: 'Message of the dialog on the sequence edit page to delete the sequence');
 
-String sequenceEditListDelayLabel(int howMany) =>
-    Intl.message(
+String sequenceEditListDelayLabel(int howMany) => Intl.message(
       'Delay next move for $howMany ms.',
       name: 'sequenceEditListDelayLabel',
       args: [howMany],
@@ -277,22 +278,19 @@ String otaFailedTitle() => Intl.message("Update Failed. Please restart your gear
 
 String otaLowBattery() => Intl.message("Low Battery. Please charge your gear to at least 50%", name: 'otaLowBattery', desc: 'Title for the text that appears when an OTA update was blocked due to low battery');
 
-String triggerInfoDescription() =>
-    Intl.message(
+String triggerInfoDescription() => Intl.message(
       'Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, Use the toggle on the left to enable the trigger.',
       name: 'triggerInfoDescription',
       desc: 'Description for what a trigger is and how to use them on the triggers page',
     );
 
-String triggerInfoEditActionDescription() =>
-    Intl.message(
+String triggerInfoEditActionDescription() => Intl.message(
       "Tap the pencil to select the Action to play when the event happens. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions.",
       name: 'triggerInfoEditActionDescription',
       desc: 'Instruction on how to select an action on the trigger edit page',
     );
 
-String sequencesInfoDescription() =>
-    Intl.message(
+String sequencesInfoDescription() => Intl.message(
       'Custom Actions allow you to make your own Actions for gear. Tapping on a Custom Action will play it. Tap the pencil to edit a Custom Action. Please make sure your gear firmware is up to date.',
       name: 'sequencesInfoDescription',
       desc: 'Description for what a custom action is and how to use them on the Custom Actions page',
@@ -349,15 +347,13 @@ String scanAddDemoGear() => Intl.message("Add Fake Gear", name: 'scanAddDemoGear
 
 String scanRemoveDemoGear() => Intl.message("Remove all fake gear", name: 'scanRemoveDemoGear', desc: 'Label for the button to remove all demo gear on the scan for new devices page');
 
-String scanDemoGearTip() =>
-    Intl.message(
+String scanDemoGearTip() => Intl.message(
       "Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own. This enables a new section on the 'Scan For New Gear' page.",
       name: 'scanDemoGearTip',
       desc: 'Tip Card description for the  demo gear on the scan for new devices page',
     );
 
-String triggerActionSelectorTutorialLabel() =>
-    Intl.message(
+String triggerActionSelectorTutorialLabel() => Intl.message(
       "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions. Don't forget to save.",
       name: 'triggerActionSelectorTutorialLabel',
       desc: 'Label for the tutorial card on the Action selector for triggers',
@@ -390,3 +386,7 @@ String manageGearHomePositionDescription() => Intl.message("Sets the position ge
 String settingsTailBlogWifiOnlyTitle() => Intl.message("Tail Blog over WiFi only", name: 'settingsTailBlogWifiOnlyTitle', desc: 'Description for the tail blog wifi only setting');
 
 String settingsTailBlogWifiOnlyDescription() => Intl.message("Prevent loading Tail Blog content while connected to a mobile network", name: 'settingsTailBlogWifiOnlyDescription', desc: 'Description for the tail blog wifi only setting');
+
+String supportTitle() => Intl.message('Support', name: 'supportTitle', desc: 'The label and title of the email support link on the more page');
+
+String supportDescription() => Intl.message('Tap the blue chat icon to contact support', name: 'supportDescription', desc: 'The description of the email support link on the more page');

@@ -49,10 +49,12 @@ class _HtmlPageState extends State<HtmlPage> {
             renderMode: RenderMode.listView,
             factoryBuilder: MyWidgetFactory.new,
             onTapUrl: (p0) async {
-              bool isPDF = p0.endsWith('.pdf');
-              String url = p0;
-              if (!isPDF) {
-                url = url + getOutboundUtm();
+              String url = '';
+              if (!p0.endsWith('.pdf')) {
+                url = p0 + getOutboundUtm();
+              }
+              if (url.startsWith('/doku.php')) {
+                url = 'https://docs.thetailcompany.com$p0';
               }
               return launchUrlString(url);
             },
@@ -83,7 +85,7 @@ class _HtmlPageState extends State<HtmlPage> {
 
 class MyWidgetFactory extends WidgetFactory {
   @override
-  Widget? buildImageWidget(BuildMetadata tree, ImageSource src) {
+  Widget? buildImageWidget(BuildTree tree, ImageSource src) {
     return LoadImage(url: src.url);
   }
 }
