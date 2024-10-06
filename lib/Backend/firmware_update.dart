@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/plausible_dio.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -29,6 +30,7 @@ class FWInfo with _$FWInfo {
     required String md5sum,
     required String url,
     required List<String> supportedHardwareVersions,
+    required String minimumAppVersion,
     @Default("") final String changelog,
     @Default("") final String glash,
   }) = _FWInfo;
@@ -65,14 +67,21 @@ Future<FWInfo?> getFirmwareInfo(GetFirmwareInfoRef ref, String url, String hwVer
     return null;
   }
   if (fwInfos.isNotEmpty) {
+    // Find a FW file that matches the gear hardware version
     FWInfo? fwInfo = fwInfos.firstWhereOrNull(
       (element) => element.supportedHardwareVersions.contains(hwVer),
     );
+    // Fall back to a generic file if it exists
     fwInfo ??= fwInfos.firstWhereOrNull(
       (element) => element.supportedHardwareVersions.isEmpty,
     );
     if (fwInfo != null) {
-      return fwInfo;
+      //check that the app supports this firmware version
+      Version minimumAppVersion = getVersionSemVer(fwInfo.minimumAppVersion);
+      Version appVersion = getVersionSemVer((await PackageInfo.fromPlatform()).version);
+      if (appVersion.compareTo(minimumAppVersion) >= 0) {
+        return fwInfo;
+      }
     }
   }
   return null;
