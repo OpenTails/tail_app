@@ -37,8 +37,8 @@ dependencies:
   path_provider: ^2.1.4 # used to get paths for app storage and cache storage
   package_info_plus: ^8.0.2
   permission_handler: ^11.3.1
-  url_launcher: ^6.3.0 # Open URLS in external apps
-  flutter_blue_plus: ^1.33.2
+  url_launcher: ^6.3.1 # Open URLS in external apps
+  flutter_blue_plus: ^1.33.4
   flutter_foreground_task: ^8.10.4 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
     git:
