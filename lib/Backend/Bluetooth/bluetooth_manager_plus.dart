@@ -192,6 +192,13 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     //_bluetoothPlusLogger.info('${event.device} ${event.services}');
     //Subscribes to all characteristics
     for (BluetoothService service in event.services) {
+      BluetoothUartService? bluetoothUartService = uartServices.firstWhereOrNull(
+        (element) => element.bleDeviceService == service.serviceUuid.str,
+      );
+      if (bluetoothUartService != null) {
+        BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
+        statefulDevice?.bluetoothUartService.value = bluetoothUartService;
+      }
       for (BluetoothCharacteristic characteristic in service.characteristics) {
         await characteristic.setNotifyValue(true);
       }
@@ -221,7 +228,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
         return;
       }
-    } else if (bluetoothCharacteristic.characteristicUuid == Guid(statefulDevice.baseDeviceDefinition.bleRxCharacteristic)) {
+    } else if (statefulDevice.bluetoothUartService.value != null || bluetoothCharacteristic.characteristicUuid == Guid(statefulDevice.bluetoothUartService.value!.bleRxCharacteristic)) {
       String value = "";
       try {
         value = const Utf8Decoder().convert(values);
@@ -413,9 +420,9 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
     return;
   }
   BluetoothDevice? bluetoothDevice = flutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == device.baseStoredDevice.btMACAddress);
-  if (bluetoothDevice != null) {
+  if (bluetoothDevice != null && device.bluetoothUartService.value != null) {
     BluetoothCharacteristic? bluetoothCharacteristic =
-        bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid == Guid(device.baseDeviceDefinition.bleDeviceService))?.characteristics.firstWhereOrNull((element) => element.characteristicUuid == Guid(device.baseDeviceDefinition.bleTxCharacteristic));
+        bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid == Guid(device.bluetoothUartService.value!.bleDeviceService))?.characteristics.firstWhereOrNull((element) => element.characteristicUuid == Guid(device.bluetoothUartService.value!.bleTxCharacteristic));
     if (bluetoothCharacteristic == null) {
       return;
     }

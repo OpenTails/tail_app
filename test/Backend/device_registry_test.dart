@@ -140,7 +140,7 @@ void main() {
     });
   });
   test('Get all service IDs', () {
-    List<String> allIds = DeviceRegistry.getAllIds();
+    BuiltList<String> allIds = DeviceRegistry.getAllIds();
     expect(allIds.length, 2);
     String itemsAsList = allIds.toString();
     expect(itemsAsList, "[3af2108b-d066-42da-a7d4-55648fa0a9b6, 927dee04-ddd4-4582-8e42-69dc9fbfae66]");

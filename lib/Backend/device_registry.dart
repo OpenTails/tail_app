@@ -18,9 +18,6 @@ class DeviceRegistry {
     BaseDeviceDefinition(
       uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
       btName: "MiTail",
-      bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
-      bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
-      bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       deviceType: DeviceType.tail,
       fwURL: "https://thetailcompany.com/fw/mitailfw",
       minVersion: Version(major: 5, minor: 0, patch: 0),
@@ -28,18 +25,12 @@ class DeviceRegistry {
     BaseDeviceDefinition(
       uuid: "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee",
       btName: "(!)Tail1",
-      bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
-      bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
-      bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       deviceType: DeviceType.tail,
       unsupported: true,
     ),
     BaseDeviceDefinition(
       uuid: "5fb21175-fef4-448a-a38b-c472d935abab",
       btName: "minitail",
-      bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
-      bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
-      bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       deviceType: DeviceType.miniTail,
       fwURL: "https://thetailcompany.com/fw/mini",
       minVersion: Version(major: 5, minor: 0, patch: 0),
@@ -47,9 +38,6 @@ class DeviceRegistry {
     BaseDeviceDefinition(
       uuid: "e790f509-f95b-4eb4-b649-5b43ee1eee9c",
       btName: "flutter",
-      bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
-      bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
-      bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
       deviceType: DeviceType.wings,
       fwURL: "https://thetailcompany.com/fw/flutter",
       minVersion: Version(major: 5, minor: 0, patch: 0),
@@ -57,18 +45,12 @@ class DeviceRegistry {
     BaseDeviceDefinition(
       uuid: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
       btName: "EG2",
-      bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
-      bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
-      bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
       deviceType: DeviceType.ears,
       fwURL: "https://thetailcompany.com/fw/eg",
     ),
     BaseDeviceDefinition(
       uuid: "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d",
       btName: "EarGear",
-      bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
-      bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
-      bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
       deviceType: DeviceType.ears,
       unsupported: true,
     ),
@@ -82,8 +64,12 @@ class DeviceRegistry {
     return allDevices.firstWhere((BaseDeviceDefinition element) => element.btName.toLowerCase() == id.toLowerCase());
   }
 
-  static List<String> getAllIds() {
-    return allDevices.map((BaseDeviceDefinition e) => e.bleDeviceService).toSet().toList();
+  static BuiltList<String> getAllIds() {
+    return uartServices
+        .map(
+          (e) => e.bleDeviceService,
+        )
+        .toBuiltList();
   }
 }
 

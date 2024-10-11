@@ -124,13 +124,32 @@ enum DeviceState { standby, runAction, busy }
 enum GlowtipStatus { glowtip, noGlowtip, unknown }
 
 @freezed
+class BluetoothUartService with _$BluetoothUartService {
+  const factory BluetoothUartService({
+    required String bleDeviceService,
+    required String bleRxCharacteristic,
+    required String bleTxCharacteristic,
+  }) = _BluetoothUartService;
+}
+
+final List<BluetoothUartService> uartServices = const [
+  BluetoothUartService(
+    bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+    bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
+    bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
+  ),
+  BluetoothUartService(
+    bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
+    bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
+    bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
+  ),
+];
+
+@freezed
 class BaseDeviceDefinition with _$BaseDeviceDefinition {
   const factory BaseDeviceDefinition({
     required String uuid,
     required String btName,
-    required String bleDeviceService,
-    required String bleRxCharacteristic,
-    required String bleTxCharacteristic,
     required DeviceType deviceType,
     @Default("") String fwURL,
     Version? minVersion,
@@ -142,6 +161,7 @@ class BaseDeviceDefinition with _$BaseDeviceDefinition {
 class BaseStatefulDevice {
   final BaseDeviceDefinition baseDeviceDefinition;
   final BaseStoredDevice baseStoredDevice;
+  final ValueNotifier<BluetoothUartService?> bluetoothUartService = ValueNotifier(null);
   final ValueNotifier<double> batteryLevel = ValueNotifier(-1);
   final ValueNotifier<bool> batteryCharging = ValueNotifier(false);
   final ValueNotifier<bool> batteryLow = ValueNotifier(false);
@@ -167,7 +187,9 @@ class BaseStatefulDevice {
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice) {
     commandQueue = CommandQueue(this);
-    rxCharacteristicStream = flutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) => event.device.remoteId.str == baseStoredDevice.btMACAddress && event.characteristic.characteristicUuid.str == baseDeviceDefinition.bleRxCharacteristic).map((event) {
+    rxCharacteristicStream = flutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) {
+      return event.device.remoteId.str == baseStoredDevice.btMACAddress && bluetoothUartService.value != null && event.characteristic.characteristicUuid.str == bluetoothUartService.value!.bleRxCharacteristic;
+    }).map((event) {
       try {
         return const Utf8Decoder().convert(event.value);
       } catch (e) {
@@ -175,6 +197,7 @@ class BaseStatefulDevice {
       }
       return "";
     }).where((event) => event.isNotEmpty);
+
     deviceConnectionState.addListener(() {
       if (deviceConnectionState.value == ConnectivityState.disconnected) {
         reset();
