@@ -53,6 +53,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
           ? ListView(
               shrinkWrap: false,
               children: [
+                //TODO: Remove for TAILCoNTROL update
                 AnimatedSwitcher(
                   duration: animationTransitionDuration,
                   child: ref.watch(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty ? const EarSpeedWidget() : null,

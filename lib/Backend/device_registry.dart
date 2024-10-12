@@ -46,7 +46,7 @@ class DeviceRegistry {
       uuid: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
       btName: "EG2",
       deviceType: DeviceType.ears,
-      fwURL: "https://thetailcompany.com/fw/eg",
+      fwURL: "https://thetailcompany.com/fw/eg", //TODO: Set minimum version for TAILCoNTROL update
     ),
     BaseDeviceDefinition(
       uuid: "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d",

@@ -14,6 +14,10 @@ part 'action_registry.g.dart';
 
 @immutable
 class ActionRegistry {
+  /// TODO: Changes needed for TAILCoNTROL
+  /// Add DeviceType.ears to CommandAction actions
+  /// Remove legacy EarMoveList and CommandAction.hiddenEars
+  /// Add Ear action aliases
   static final BuiltSet<BaseAction> allCommands = {
     CommandAction(
       name: "Slow 1",

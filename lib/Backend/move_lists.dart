@@ -184,6 +184,7 @@ class MoveLists extends _$MoveLists {
 
 Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
   //cursed handling of ears specifically
+  //TODO: Remove with TAILCoNTROL update
   if (action is EarsMoveList) {
     plausible.event(name: "Run Action", props: {"Action Name": action.name, "Action Type": action.actionCategory.name});
     if (action.commandMoves.isNotEmpty && device.baseDeviceDefinition.deviceType == DeviceType.ears) {
@@ -280,12 +281,14 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
 List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device, CommandType type, {bool noResponseMsg = false, Priority priority = Priority.normal}) {
   List<BluetoothMessage> commands = [];
   if (move.moveType == MoveType.home) {
+    //TODO: Remove for TAILCoNTROL update
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
       commands.add(BluetoothMessage(message: "EARHOME", device: device, priority: priority, responseMSG: noResponseMsg ? null : "EARHOME END", type: type, timestamp: DateTime.now()));
     } else {
       commands.add(BluetoothMessage(message: "TAILHM", device: device, priority: priority, responseMSG: noResponseMsg ? null : "END TAILHM", type: type, timestamp: DateTime.now()));
     }
   } else if (move.moveType == MoveType.move) {
+    //TODO: Remove for TAILCoNTROL update
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
       commands
         ..add(

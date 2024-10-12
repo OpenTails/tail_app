@@ -93,6 +93,7 @@ class CommandAction extends BaseAction with _$CommandAction {
     @Default({}) final Map<DeviceType, String> nameAlias,
   }) = _CommandAction;
 
+  //TODO: Remove with TAILCoNTROL update
   factory CommandAction.hiddenEars(String command, String response) {
     return CommandAction(command: command, response: response, deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: const Uuid().v4(), name: command);
   }
