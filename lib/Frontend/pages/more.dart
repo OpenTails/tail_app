@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tail_app/Frontend/pages/view_pdf.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Backend/logging_wrappers.dart';
@@ -94,9 +95,9 @@ class _MoreState extends ConsumerState<More> {
           title: Text(moreManualMiTailTitle()),
           subtitle: Text(moreManualSubTitle()),
           onTap: () async {
-            HtmlPageRoute(
-              $extra: HtmlPageInfo(
-                url: "https://docs.thetailcompany.com/doku.php?id=en:man:mitail&do=export_xhtmlbody",
+            PDFPageRoute(
+              $extra: PDFInfo(
+                url: "https://thetailcompany.com/mitail.pdf",
                 title: moreManualMiTailTitle(),
               ),
             ).push(context);
@@ -106,9 +107,9 @@ class _MoreState extends ConsumerState<More> {
           title: Text(moreManualEargearTitle()),
           subtitle: Text(moreManualSubTitle()),
           onTap: () async {
-            HtmlPageRoute(
-              $extra: HtmlPageInfo(
-                url: "https://docs.thetailcompany.com/doku.php?id=en:man:eg2&do=export_xhtmlbody",
+            PDFPageRoute(
+              $extra: PDFInfo(
+                url: "https://thetailcompany.com/eargear.pdf",
                 title: moreManualEargearTitle(),
               ),
             ).push(context);
@@ -118,9 +119,9 @@ class _MoreState extends ConsumerState<More> {
           title: Text(moreManualFlutterWingsTitle()),
           subtitle: Text(moreManualSubTitle()),
           onTap: () async {
-            HtmlPageRoute(
-              $extra: HtmlPageInfo(
-                url: "https://docs.thetailcompany.com/doku.php?id=en:man:flutterwings&do=export_xhtmlbody",
+            PDFPageRoute(
+              $extra: PDFInfo(
+                url: "https://thetailcompany.com/flutterwings.pdf",
                 title: moreManualFlutterWingsTitle(),
               ),
             ).push(context);

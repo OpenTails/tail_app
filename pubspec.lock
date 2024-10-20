@@ -1256,6 +1256,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  pdfrx:
+    dependency: "direct main"
+    description:
+      name: pdfrx
+      sha256: "586ba63bf1c638de3986a220edf43941375ee2fe19de93a6c2706578605de060"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.84"
   pedometer:
     dependency: "direct main"
     description:
@@ -1956,10 +1964,10 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: cd3543bd5798f6ad290ea73d210f423502e71900302dde696f8bff84bf89a1cb
+      sha256: d43c1d6b787bf0afad444700ae7f4db8827f701bc61c255ac8d328c6f4d52062
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.0.0"
   web_socket:
     dependency: transitive
     description:

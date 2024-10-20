@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
+import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
 import '../Backend/Definitions/Action/base_action.dart';
 import '../Backend/Definitions/Device/device_definition.dart';
@@ -204,6 +205,22 @@ class HtmlPageRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) => HtmlPage(
         htmlPageInfo: $extra,
+      );
+}
+
+@TypedGoRoute<PDFPageRoute>(
+  path: '/viewPDF',
+  name: 'viewPDF',
+)
+class PDFPageRoute extends GoRouteData {
+  const PDFPageRoute({required this.$extra});
+
+  final PDFInfo $extra;
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => ViewPDF(
+        pdfInfo: $extra,
       );
 }
 
