@@ -102,6 +102,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         FilledButton(
                           onPressed: (otaUpdater.firmwareInfo != null || otaUpdater.firmwareFile != null) ? otaUpdater.beginUpdate : null,
                           child: Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
                                 Icons.system_update,

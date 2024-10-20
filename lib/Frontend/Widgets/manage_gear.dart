@@ -360,6 +360,23 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
           ),
         ),
         ListTile(
+          title: const Text("Hardware Version"),
+          subtitle: TextField(
+            controller: TextEditingController(text: widget.device.hwVersion.value),
+            decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName()),
+            maxLines: 1,
+            maxLength: 30,
+            autocorrect: false,
+            onSubmitted: (nameValue) async {
+              setState(
+                () {
+                  widget.device.hwVersion.value = nameValue;
+                },
+              );
+            },
+          ),
+        ),
+        ListTile(
           title: const Text("Has Update"),
           trailing: Switch(
             value: widget.device.hasUpdate.value,

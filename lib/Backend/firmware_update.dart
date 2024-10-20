@@ -48,11 +48,11 @@ Future<List<FWInfo>?> getBaseFirmwareInfo(GetBaseFirmwareInfoRef ref, String url
     });
   Response<String> value = await valueFuture;
   if (value.statusCode! < 400) {
-    return (const JsonDecoder().convert(value.data.toString()) as List)
-        .map(
-          (e) => FWInfo.fromJson(const JsonDecoder().convert(e)),
-        )
-        .toList();
+    return (const JsonDecoder().convert(value.data.toString()) as List).map(
+      (e) {
+        return FWInfo.fromJson(e);
+      },
+    ).toList();
   }
   return null;
 }
