@@ -131,8 +131,11 @@ class _TailBlogState extends State<TailBlog> {
       try {
         // Slug, Sticky, and Author are not used
         final ListPostRequest request = ListPostRequest(
-          page: 1, perPage: 10, order: Order.desc, queryParameters: {'_fields': 'id,title,link,featured_media_src_url,featured_media,sticky,slug,author,date'},
-          //context: RequestContext.embed,
+          page: 1,
+          perPage: 10,
+          order: Order.desc,
+          queryParameters: {'_embed': 'true', '_fields': '_links.wp:featuredmedia,id,link,title,date,featured_media'},
+          context: RequestContext.embed,
         );
         client ??= await getWordpressClient();
         final WordpressResponse<List<Post>> wordpressPostResponse = await client!.posts.list(request);
@@ -155,7 +158,7 @@ class _TailBlogState extends State<TailBlog> {
               url: post.link,
               feedType: FeedType.blog,
               imageId: post.featuredMedia,
-              imageUrl: post.featuredImageUrl,
+              imageUrl: post.self['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['medium']['source_url'],
             ),
           );
         }
