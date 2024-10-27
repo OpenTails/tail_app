@@ -19,7 +19,7 @@ class DeviceRegistry {
       uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
       btName: "MiTail",
       deviceType: DeviceType.tail,
-      fwURL: "https://thetailcompany.com/fw/mitailfw",
+      fwURL: "https://thetailcompany.com/fw/mitail.json",
       minVersion: Version(major: 5, minor: 0, patch: 0),
     ),
     BaseDeviceDefinition(
