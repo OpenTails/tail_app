@@ -268,7 +268,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         statefulDevice.gearReturnedError.value = true;
       } else if (value.contains("SHUTDOWN BEGIN")) {
         statefulDevice.deviceConnectionState.value = ConnectivityState.disconnected;
-      } else if (value.contains("HWVER")) {
+      } else if (value.contains("HWVER") || value.contains("MITAIL") || value.contains("MINITAIL") || value.contains("FLUTTERWINGS")) {
         // Hardware Version
         statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
         await ref.read(hasOtaUpdateProvider(statefulDevice).future);
