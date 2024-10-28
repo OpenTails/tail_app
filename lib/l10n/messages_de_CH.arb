@@ -393,7 +393,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesInfoDescription": "Individuelli Aktiona erlauben dir, diini eigene Aktiona für Usrüstig z'mache. Wenn du uf es individuells Aktion tippischch, wird's afspilt. Du kasch diini eigene Aktiona für Usrüstig mache mit individuelli Aktiona. Wenn du uf es individuells Aktion tippischch, wird's afspilt. Ticksch mit em Blyystift aazue, um es Bild z' redigiere. Sorg bitte dervo, dass dini Apparate-Software aktuell isch.",
+  "sequencesInfoDescription": "Persönlichi Aktione erlaubet dir, dini eigene Aktione für s'Usrüstig z'mache. Wenn du uf e Persönlichi Aktione tippisch, werd sie abgspielt. Tipp uf s'Bleistift, um e Persönlichi Aktione z'ändere. Sorg bitte davor, dass dini Apparate-Software aktuell isch.",
   "@sequencesInfoDescription": {
     "description": "Description for what a custom action is and how to use them on the Custom Actions page",
     "type": "text",
