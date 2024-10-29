@@ -999,7 +999,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "earSpeedTitle": "Rychlost otáčení ucha",
+  "earSpeedTitle": "Rychlost pohybu ucha",
   "@earSpeedTitle": {
     "description": "Title for the ear speed widget that appears when ears are connected",
     "type": "text",
@@ -1020,6 +1020,30 @@
   "casualModeDelayTitle": "Minimální a maximální zpoždění",
   "@casualModeDelayTitle": {
     "description": "Label for the range slider to set the min and max delay time for casual mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionDescription": "zvolte pozici do které se má zařízení vrátit po dokončení akce",
+  "@manageGearHomePositionDescription": {
+    "description": "Description for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyDescription": "Zabrání načítání obsahu z Tail Blogu během připojení přes mobilní data",
+  "@settingsTailBlogWifiOnlyDescription": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionTitle": "Zvolte základní pozici",
+  "@manageGearHomePositionTitle": {
+    "description": "Title for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyTitle": "Tail Blog pouze na WiFi",
+  "@settingsTailBlogWifiOnlyTitle": {
+    "description": "Description for the tail blog wifi only setting",
     "type": "text",
     "placeholders": {}
   }
