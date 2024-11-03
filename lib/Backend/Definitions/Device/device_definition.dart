@@ -143,6 +143,11 @@ final List<BluetoothUartService> uartServices = const [
     bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
     bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
   ),
+  BluetoothUartService(
+    bleDeviceService: "19F8ADE2-D0C6-4C0A-912A-30601D9B3060",
+    bleRxCharacteristic: "5E4D86AC-EF2F-466F-A857-8776D45FFBC2",
+    bleTxCharacteristic: "567A99D6-A442-4AC0-B676-4993BF95F805",
+  ),
 ];
 
 @freezed
