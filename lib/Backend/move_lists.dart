@@ -245,7 +245,7 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
         sl = '${sl}L${move.speed.toInt()}';
         m = '${m}M${move.speed.toInt()}';
       }
-      cmd = '$cmd $a $b $e $f $sl H1';
+      cmd = '$cmd $a $b $e $f $sl $m H1';
       device.commandQueue.addCommand(BluetoothMessage(message: cmd, device: device, priority: Priority.normal, type: CommandType.move, timestamp: DateTime.now()));
       device.commandQueue.addCommand(BluetoothMessage(message: "TAILU$preset", device: device, priority: Priority.normal, responseMSG: "TAILU$preset END", type: CommandType.move, timestamp: DateTime.now()));
     } else {
