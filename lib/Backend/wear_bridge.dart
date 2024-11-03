@@ -37,19 +37,29 @@ Future<void> initWear(InitWearRef ref) async {
 }
 
 Future<bool> isReachable() {
-  return _watch.isReachable;
+  return _watch.isReachable.catchError((e) => false).onError(
+        (error, stackTrace) => false,
+      );
+  ;
 }
 
 Future<bool> isSupported() {
-  return _watch.isSupported;
+  return _watch.isSupported.catchError((e) => false).onError(
+        (error, stackTrace) => false,
+      );
 }
 
 Future<bool> isPaired() {
-  return _watch.isPaired;
+  return _watch.isPaired.catchError((e) => false).onError(
+        (error, stackTrace) => false,
+      );
+  ;
 }
 
 Future<Map<String, dynamic>> applicationContext() {
-  return _watch.applicationContext;
+  return _watch.applicationContext.catchError((e) => <String, dynamic>{}).onError(
+        (error, stackTrace) => {},
+      );
 }
 
 Future<void> updateWearActions(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {
