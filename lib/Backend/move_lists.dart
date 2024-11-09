@@ -215,13 +215,13 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
     plausible.event(name: "Run Sequence", props: {"Sequence Repeat": action.repeat.toInt().toString(), "Sequence Device Type": device.baseDeviceDefinition.deviceType.name, "Sequence Moves": action.moves.length.toString()});
     if (action.moves.isNotEmpty && action.moves.length <= 5 && device.baseDeviceDefinition.deviceType != DeviceType.ears) {
       int preset = 1; //TODO: store
-      String cmd = "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt() - 1}";
-      String a = '';
-      String b = '';
-      String e = '';
-      String f = '';
-      String sl = '';
-      String m = '';
+      String cmd = "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt()}";
+      String a = ''; // servo 1 position
+      String b = ''; // servo 2 position
+      String e = ''; // servo 1 easing
+      String f = ''; // servo 2 easing
+      String sl = ''; // servo 1 speed
+      String m = ''; // servo 2 speed
       for (int i = 0; i < action.moves.length; i++) {
         Move move = action.moves[i];
         if (i == 0 && move.moveType == MoveType.delay) {

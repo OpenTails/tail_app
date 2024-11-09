@@ -1,6 +1,6 @@
 ext {
-    compileSdkVersion = 34
-    targetSdkVersion = 34
+    compileSdkVersion = 35
+    targetSdkVersion = 35
     appCompatVersion = "1.7.0"
 }
 
@@ -10,19 +10,19 @@ allprojects {
         mavenCentral()
     }
 }
-rootProject.buildDir = '../build'
+rootProject.buildDir = "../build"
 subprojects {
     afterEvaluate { project ->
         if (project.plugins.hasPlugin("com.android.application") ||
                 project.plugins.hasPlugin("com.android.library")) {
             project.android {
-                compileSdkVersion 34
+                compileSdkVersion rootProject.ext.compileSdkVersion
                 buildToolsVersion "34.0.0"
             }
         }
     }
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    project.evaluationDependsOn(':app')
+    project.evaluationDependsOn(":app")
 }
 
 tasks.register("clean", Delete) {
@@ -30,6 +30,6 @@ tasks.register("clean", Delete) {
 }
 configurations.all {
     resolutionStrategy {
-        force 'androidx.core:core-ktx:1.15.0'
+        force "androidx.core:core-ktx:1.15.0"
     }
 }
