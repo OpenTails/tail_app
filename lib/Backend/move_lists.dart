@@ -209,10 +209,10 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
     }
   } else if (action is CommandAction) {
     device.commandQueue.addCommand(BluetoothMessage(message: action.command, device: device, priority: Priority.normal, responseMSG: action.response, type: CommandType.move, timestamp: DateTime.now()));
-    plausible.event(name: "Run Action", props: {"Action Name": action.name, "Action Type": action.actionCategory.name});
+    //plausible.event(name: "Run Action", props: {"Action Name": action.name, "Action Type": action.actionCategory.name});
   } else if (action is MoveList) {
     sequencesLogger.info("Starting MoveList ${action.name}.");
-    plausible.event(name: "Run Sequence", props: {"Sequence Repeat": action.repeat.toInt().toString(), "Sequence Device Type": device.baseDeviceDefinition.deviceType.name, "Sequence Moves": action.moves.length.toString()});
+    //plausible.event(name: "Run Sequence", props: {"Sequence Repeat": action.repeat.toInt().toString(), "Sequence Device Type": device.baseDeviceDefinition.deviceType.name, "Sequence Moves": action.moves.length.toString()});
     if (action.moves.isNotEmpty && action.moves.length <= 5 && device.baseDeviceDefinition.deviceType != DeviceType.ears) {
       int preset = 1; //TODO: store
       String cmd = "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt()}";
