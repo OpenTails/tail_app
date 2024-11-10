@@ -9,7 +9,7 @@ inputs:
     default: 'zulu'
   flutter-version:
     description: 'Flutter Version'
-    default: '3.24.1'
+    default: '3.24.4'
   ruby-version:
     description: 'Ruby Version'
     default: '3.3'
