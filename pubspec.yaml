@@ -148,6 +148,7 @@ dev_dependencies:
 
 dependency_overrides:
   collection: 1.19.1
+  analyzer: 6.7.0
 
 flutter:
   uses-material-design: true
