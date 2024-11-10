@@ -85,7 +85,7 @@ android {
             // so `flutter run --release` works.
             signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
             ndk {
-                debugSymbolLevel "full"
+                debugSymbolLevel "SYMBOL_TABLE"
             }
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             minifyEnabled true
