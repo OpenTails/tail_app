@@ -999,7 +999,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "earSpeedTitle": "Vitesse de torsion des oreilles",
+  "earSpeedTitle": "Vitesse de déplacement des oreilles",
   "@earSpeedTitle": {
     "description": "Title for the ear speed widget that appears when ears are connected",
     "type": "text",
@@ -1020,6 +1020,30 @@
   "casualModeDelayTitle": "Délai min et max",
   "@casualModeDelayTitle": {
     "description": "Label for the range slider to set the min and max delay time for casual mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionTitle": "Définir la position d'origine",
+  "@manageGearHomePositionTitle": {
+    "description": "Title for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyTitle": "Blog Tail via WiFi uniquement",
+  "@settingsTailBlogWifiOnlyTitle": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyDescription": "Empêcher le chargement du contenu du blog Tail lorsque vous êtes connecté à un réseau mobile",
+  "@settingsTailBlogWifiOnlyDescription": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionDescription": "Définit la position vers laquelle l'engrenage se déplacera une fois une action terminée",
+  "@manageGearHomePositionDescription": {
+    "description": "Description for the home position sliders on the manage gear screen",
     "type": "text",
     "placeholders": {}
   }
