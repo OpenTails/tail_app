@@ -633,7 +633,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTutorialCardToggleSubTitle": "Skrýt výukové karty",
+  "settingsTutorialCardToggleSubTitle": "Skryjte různé výukové karty v celé aplikaci",
   "@settingsTutorialCardToggleSubTitle": {
     "description": "Settings page tutorial card display toggle subtitle",
     "type": "text",
