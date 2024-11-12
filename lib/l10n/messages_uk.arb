@@ -71,7 +71,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditTime": "Скільки чекати перед переходом до наступного Руху в цій Кастомізованій Дії?",
+  "sequencesEditTime": "Скільки чекати перед переходом до наступного Руху в цій Кастомізованій Дії",
   "@sequencesEditTime": {
     "description": "Label for the time slider on the delay tab of the move edit page",
     "type": "text",
