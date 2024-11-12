@@ -999,7 +999,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "earSpeedTitle": "Øre rotationshastighed",
+  "earSpeedTitle": "Ørebevægelseshastighed",
   "@earSpeedTitle": {
     "description": "Title for the ear speed widget that appears when ears are connected",
     "type": "text",
@@ -1020,6 +1020,30 @@
   "casualModeDelayTitle": "Min og Max forsinkelse",
   "@casualModeDelayTitle": {
     "description": "Label for the range slider to set the min and max delay time for casual mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionTitle": "Indstil hjemmeposition",
+  "@manageGearHomePositionTitle": {
+    "description": "Title for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionDescription": "Indstiller den position, gear vil flytte til efter en handling er afsluttet",
+  "@manageGearHomePositionDescription": {
+    "description": "Description for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyTitle": "Tail Blog kun over WiFi",
+  "@settingsTailBlogWifiOnlyTitle": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyDescription": "Undgå indlæsning af Tail Blog-indhold, mens du er tilsluttet et mobilnetværk",
+  "@settingsTailBlogWifiOnlyDescription": {
+    "description": "Description for the tail blog wifi only setting",
     "type": "text",
     "placeholders": {}
   }
