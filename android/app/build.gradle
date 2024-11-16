@@ -39,7 +39,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     sourceSets {
@@ -50,20 +50,8 @@ android {
         applicationId "com.codel1417.tailApp"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        minSdkVersion 21
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        ndk {
-            jobs = Runtime.runtime.availableProcessors()
-        }
-
-        externalNativeBuild {
-            ndkBuild {
-                arguments "-j" + Runtime.runtime.availableProcessors()
-            }
-        }
     }
     signingConfigs {
         release {

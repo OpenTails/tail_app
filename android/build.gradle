@@ -1,6 +1,7 @@
 ext {
     compileSdkVersion = 35
     targetSdkVersion = 35
+    minSdkVersion = 21
     appCompatVersion = "1.7.0"
 }
 
@@ -20,6 +21,9 @@ subprojects {
             project.android {
                 compileSdkVersion rootProject.ext.compileSdkVersion
                 buildToolsVersion "34.0.0"
+                defaultConfig {
+                    minSdkVersion rootProject.ext.minSdkVersion
+                }
             }
         }
     }
