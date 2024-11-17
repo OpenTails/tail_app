@@ -1,5 +1,5 @@
 {
   "sentryTraces": 0.1,
   "sentryProfiles": 0.01,
-  "sentryReplay": 0.01
+  "sentryReplay": 0
 }
