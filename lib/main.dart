@@ -117,12 +117,12 @@ Future<void> main() async {
         ..tracesSampleRate = dynamicConfigInfo.sentryTraces
         ..profilesSampleRate = dynamicConfigInfo.sentryProfiles
         ..attachThreads = true
-        ..anrEnabled = true
         ..beforeSend = beforeSend
-        ..enableMetrics = true
+        ..reportPackages = false
         ..attachStacktrace = true
         ..attachScreenshot = true
-        ..attachViewHierarchy = true
+        ..screenshotQuality = low
+        ..attachViewHierarchy = false
         ..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryReplay;
     },
     // Init your App.
