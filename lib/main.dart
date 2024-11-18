@@ -102,6 +102,7 @@ Future<void> main() async {
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
   mainLogger.info("Detected Environment: $environment");
 
+  //initialize the foreground service library
   if (Platform.isAndroid) {
     FlutterForegroundTask.initCommunicationPort();
   }
@@ -116,13 +117,10 @@ Future<void> main() async {
         ..environment = environment
         ..tracesSampleRate = dynamicConfigInfo.sentryTraces
         ..profilesSampleRate = dynamicConfigInfo.sentryProfiles
-        ..attachThreads = true
         ..beforeSend = beforeSend
         ..reportPackages = false
-        ..attachStacktrace = true
         ..attachScreenshot = true
-        ..screenshotQuality = low
-        ..attachViewHierarchy = false
+        ..screenshotQuality = SentryScreenshotQuality.low
         ..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryReplay;
     },
     // Init your App.
