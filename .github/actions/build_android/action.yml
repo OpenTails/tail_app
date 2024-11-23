@@ -29,8 +29,8 @@ inputs:
     description: 'The sentry dsn for sending error info'
     required: true
   build-mode:
-    description: 'Build an APK or App Bundle'
-    default: 'apk'
+    description: 'Build an apk or bundle'
+    required: true
 runs:
   using: "composite"
   steps:
