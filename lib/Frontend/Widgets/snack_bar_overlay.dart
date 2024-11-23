@@ -100,22 +100,24 @@ class SnackBarOverlay extends ConsumerWidget {
                 ..clearSnackBars()
                 ..showSnackBar(
                   SnackBar(
-                    /// need to set following properties for best effect of awesome_snackbar_content
-                    elevation: 0,
-                    behavior: SnackBarBehavior.floating,
-                    backgroundColor: Colors.transparent,
-                    content: AwesomeSnackbarContent(
-                      title: otaAvailableSnackbarTitle(),
-                      message: otaAvailableSnackbarLabel(),
-                      onPressed: () async {
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        return OtaUpdateRoute(device: baseStatefulDevice.baseStoredDevice.btMACAddress).push(context);
-                      },
 
-                      /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                      contentType: ContentType.warning,
-                    ),
-                  ),
+                      /// need to set following properties for best effect of awesome_snackbar_content
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: InkWell(
+                        child: AwesomeSnackbarContent(
+                          title: otaAvailableSnackbarTitle(),
+                          message: otaAvailableSnackbarLabel(),
+
+                          /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                          contentType: ContentType.warning,
+                        ),
+                        onTap: () async {
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          return OtaUpdateRoute(device: baseStatefulDevice.baseStoredDevice.btMACAddress).push(context);
+                        },
+                      )),
                 );
             },
           );
