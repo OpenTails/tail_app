@@ -47,7 +47,7 @@ runs:
       env:
         ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
     - name: Build APK
-      if: ${{ inputs.build-mode }} == 'apk'
+      if: inputs.build-mode == 'apk'
       shell: bash
       run: flutter build apk --split-debug-info=./symbols --obfuscate --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=SENTRY_DSN="$SENTRY_DSN" --dart-define=cronetHttpNoPlay=true
       env:
@@ -59,7 +59,7 @@ runs:
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
         #SENTRY_URL: ${{ inputs.sentry-url }}
     - name: Build AppBundle
-      if: ${{ inputs.build-mode }} == 'bundle'
+      if: inputs.build-mode == 'bundle'
       shell: bash
       run: flutter build appbundle --split-debug-info=./symbols --obfuscate --build-number="$BUILD_NUMBER" --build-name="$VERSION"  --dart-define=SENTRY_DSN="$SENTRY_DSN"
       env:
@@ -76,7 +76,7 @@ runs:
       run: cd android && ./gradlew app:dependencies --configuration releaseCompileClasspath
     - uses: actions/upload-artifact@v4
       continue-on-error: true
-      if: runner.os == 'Linux' && ${{ inputs.build-mode }} == 'apk'
+      if: runner.os == 'Linux' && inputs.build-mode == 'apk'
       with:
         name: artifact-${{ runner.os }}
         path: build/app/outputs/apk
