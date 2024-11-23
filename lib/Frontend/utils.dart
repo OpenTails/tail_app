@@ -9,6 +9,7 @@ import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:platform/platform.dart';
 import 'package:sentry_dio/sentry_dio.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
 import '../Backend/logging_wrappers.dart';
@@ -85,7 +86,7 @@ Future<Dio> initDio({skipSentry = false}) async {
   if (!skipSentry) {
     /// This *must* be the last initialization step of the Dio setup, otherwise
     /// your configuration of Dio might overwrite the Sentry configuration.
-    dio.addSentry(failedRequestStatusCodes: []);
+    dio.addSentry(failedRequestStatusCodes: [SentryStatusCode.range(400, 500)]);
   }
   _dio = dio;
   return dio;
