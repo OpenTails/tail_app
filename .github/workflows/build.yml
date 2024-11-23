@@ -15,11 +15,15 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
-        include:
+        build: [ apk, bundle, ipa ]
+        exclude:
           - os: ubuntu-latest
-            android_build: apk
-          - os: ubuntu-latest
-            android_build: bundle
+            build: ipa
+          - os: macos-latest
+            build: bundle
+          - os: macos-latest
+            build: apk
+
     name: Build
     runs-on: ${{ matrix.os }}
     steps:
