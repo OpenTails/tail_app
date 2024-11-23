@@ -28,6 +28,9 @@ inputs:
   sentry-dsn:
     description: 'The sentry dsn for sending error info'
     required: true
+  build-mode:
+    description: 'Build an APK or App Bundle'
+    default: 'apk'
 runs:
   using: "composite"
   steps:
@@ -44,6 +47,7 @@ runs:
       env:
         ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
     - name: Build APK
+      if: ${{ inputs.version }} == 'apk'
       shell: bash
       run: flutter build apk --split-debug-info=./symbols --obfuscate --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=SENTRY_DSN="$SENTRY_DSN" --dart-define=cronetHttpNoPlay=true
       env:
@@ -55,6 +59,7 @@ runs:
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
         #SENTRY_URL: ${{ inputs.sentry-url }}
     - name: Build AppBundle
+      if: ${{ inputs.version }} == 'bundle'
       shell: bash
       run: flutter build appbundle --split-debug-info=./symbols --obfuscate --build-number="$BUILD_NUMBER" --build-name="$VERSION"  --dart-define=SENTRY_DSN="$SENTRY_DSN"
       env:
@@ -71,9 +76,7 @@ runs:
       run: cd android && ./gradlew app:dependencies --configuration releaseCompileClasspath
     - uses: actions/upload-artifact@v4
       continue-on-error: true
-      if: runner.os == 'Linux'
+      if: runner.os == 'Linux' && ${{ inputs.version }} == 'apk'
       with:
         name: artifact-${{ runner.os }}
-        path: |
-          build/app/outputs/apk
-          build/app/outputs/bundle
+        path: build/app/outputs/apk

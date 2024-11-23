@@ -15,6 +15,11 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
+        include:
+          - os: ubuntu-latest
+            android_build: apk
+          - os: ubuntu-latest
+            android_build: bundle
     name: Build
     runs-on: ${{ matrix.os }}
     steps:
@@ -41,6 +46,7 @@ jobs:
           sentry-org: ${{ secrets.SENTRY_ORG }}
           sentry-project: ${{ secrets.SENTRY_PROJECT }}
           sentry-dsn: ${{ secrets.SENTRY_DSN }}
+          build-mode: ${{ matrix.os.android_build }}
           #sentry-url: ${{ secrets.SENTRY_URL }}
       - name: Build IOS / Upload Beta
         if: github.event_name == 'push'
