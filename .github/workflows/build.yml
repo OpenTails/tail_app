@@ -50,7 +50,7 @@ jobs:
           sentry-org: ${{ secrets.SENTRY_ORG }}
           sentry-project: ${{ secrets.SENTRY_PROJECT }}
           sentry-dsn: ${{ secrets.SENTRY_DSN }}
-          build-mode: ${{ matrix.os.android_build }}
+          build-mode: ${{ matrix.build }}
           #sentry-url: ${{ secrets.SENTRY_URL }}
       - name: Build IOS / Upload Beta
         if: github.event_name == 'push'
