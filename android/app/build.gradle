@@ -39,7 +39,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     sourceSets {
@@ -53,17 +53,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion rootProject.ext.targetSdkVersion
-        ndk {
-            jobs = Runtime.runtime.availableProcessors()
-        }
-
-        externalNativeBuild {
-            ndkBuild {
-                arguments "-j" + Runtime.runtime.availableProcessors()
-            }
-        }
     }
     signingConfigs {
         release {
