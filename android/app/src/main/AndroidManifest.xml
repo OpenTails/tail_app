@@ -41,10 +41,6 @@
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
 
-    <uses-permission
-        android:name="android.permission.BODY_SENSORS_BACKGROUND"
-        tools:node="remove" /> <!--proximity_sensor adds this permission -->
-
     <!-- In the permission part of your manifest, these permission are needed if you target Android 14 phones -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" /> <!-- Here, chose the type according to your app -->
