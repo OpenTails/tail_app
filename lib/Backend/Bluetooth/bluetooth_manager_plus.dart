@@ -97,7 +97,9 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     //transaction.setTag('Device Name', device.name);
     statefulDevice.deviceConnectionState.value = event.connectionState == BluetoothConnectionState.connected ? ConnectivityState.connected : ConnectivityState.disconnected;
     if (bluetoothConnectionState == BluetoothConnectionState.connected) {
-      bluetoothDevice.readRssi();
+      bluetoothDevice.readRssi().catchError((e) => -1).onError(
+            (error, stackTrace) => -1,
+          );
       BaseDeviceDefinition? baseDeviceDefinition = DeviceRegistry.getByName(event.device.advName);
       if (baseDeviceDefinition == null) {
         return;
@@ -312,7 +314,10 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         if (device != null) {
           device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
           device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
-          element.readRssi();
+          element.readRssi().catchError((e) => -1).onError(
+                (error, stackTrace) => -1,
+              );
+
           if (device.baseDeviceDefinition.deviceType != DeviceType.ears && device.hasGlowtip.value == GlowtipStatus.unknown) {
             device.commandQueue.addCommand(BluetoothMessage(message: "VER", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
           }
