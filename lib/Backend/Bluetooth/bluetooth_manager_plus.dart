@@ -377,13 +377,13 @@ Future<void> connect(String id) async {
   ScanResult? result = results.where((element) => element.device.remoteId.str == id).firstOrNull;
   if (result != null) {
     int retry = 0;
-    while (retry < 3) {
+    while (retry < HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)) {
       try {
         await result.device.connect();
         break;
       } on FlutterBluePlusException catch (e) {
         retry = retry + 1;
-        _bluetoothPlusLogger.warning("Failed to connect to ${result.device.advName}. Attempt $retry/3", e);
+        _bluetoothPlusLogger.warning("Failed to connect to ${result.device.advName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}", e);
         await Future.delayed(Duration(milliseconds: 250));
       }
     }
