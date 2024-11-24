@@ -109,6 +109,21 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             ),
           ),
           ListTile(
+            title: const Text(triggerActionCooldown),
+            subtitle: Slider(
+              divisions: 30,
+              max: 30,
+              min: 0,
+              label: HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault).toString(),
+              value: HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault).toDouble(),
+              onChanged: (double value) async {
+                setState(() {
+                  HiveProxy.put(settings, triggerActionCooldown, value.toInt());
+                });
+              },
+            ),
+          ),
+          ListTile(
             title: const Text(showDebugging),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault),

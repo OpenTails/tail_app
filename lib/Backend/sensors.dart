@@ -691,7 +691,7 @@ class TriggerAction {
         if (isActive.value) {
           isActiveProgress.value = 0.01;
           _timer = Timer(
-            const Duration(seconds: 15),
+            Duration(seconds: HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault)),
             () {
               isActive.value = false;
               _periodicTimer?.cancel();
