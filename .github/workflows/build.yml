@@ -53,7 +53,7 @@ jobs:
           build-mode: ${{ matrix.build }}
           #sentry-url: ${{ secrets.SENTRY_URL }}
       - name: Build IOS / Upload Beta
-        if: github.event_name == 'push' && ${{ matrix.build }} != 'apk'
+        if: github.event_name == 'push' && matrix.build != 'apk'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
         continue-on-error: false
