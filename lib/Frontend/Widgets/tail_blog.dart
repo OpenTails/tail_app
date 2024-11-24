@@ -164,7 +164,7 @@ class _TailBlogState extends State<TailBlog> {
         }
       }
     }
-    if (results.isNotEmpty && context.mounted) {
+    if (mounted && context.mounted && results.isNotEmpty) {
       setState(() {
         feedState = FeedState.loaded;
       });
