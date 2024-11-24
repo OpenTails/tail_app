@@ -79,8 +79,8 @@ android {
                 debugSymbolLevel "SYMBOL_TABLE"
             }
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
         }
         debug {
             // TODO: Add your own signing config for the release build.
