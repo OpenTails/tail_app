@@ -297,7 +297,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         BuiltMap<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
         if (knownDevices.containsKey(r.device.remoteId.str) && knownDevices[r.device.remoteId.str]?.deviceConnectionState.value == ConnectivityState.disconnected && !knownDevices[r.device.remoteId.str]!.disableAutoConnect) {
           knownDevices[r.device.remoteId.str]?.deviceConnectionState.value = ConnectivityState.connecting;
-          await r.device.connect();
+          await connect(r.device.remoteId.str);
         }
       }
     },
@@ -376,7 +376,17 @@ Future<void> connect(String id) async {
   List<ScanResult> results = await flutterBluePlus.onScanResults.first;
   ScanResult? result = results.where((element) => element.device.remoteId.str == id).firstOrNull;
   if (result != null) {
-    result.device.connect();
+    int retry = 0;
+    while (retry < 3) {
+      try {
+        await result.device.connect();
+        break;
+      } on FlutterBluePlusException catch (e) {
+        retry = retry + 1;
+        _bluetoothPlusLogger.warning("Failed to connect to ${result.device.advName}. Attempt $retry/3", e);
+        await Future.delayed(Duration(milliseconds: 250));
+      }
+    }
   }
 }
 
