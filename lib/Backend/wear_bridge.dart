@@ -7,9 +7,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/sensors.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
 
+import '../constants.dart';
 import 'Definitions/Action/base_action.dart';
 import 'action_registry.dart';
 import 'favorite_actions.dart';
+import 'logging_wrappers.dart';
 
 part 'wear_bridge.freezed.dart';
 part 'wear_bridge.g.dart';
@@ -41,7 +43,6 @@ Future<bool> isReachable() {
   return _watch.isReachable.catchError((e) => false).onError(
         (error, stackTrace) => false,
       );
-  ;
 }
 
 Future<bool> isSupported() {
@@ -54,7 +55,6 @@ Future<bool> isPaired() {
   return _watch.isPaired.catchError((e) => false).onError(
         (error, stackTrace) => false,
       );
-  ;
 }
 
 Future<Map<String, dynamic>> applicationContext() {
@@ -77,7 +77,7 @@ Future<void> updateWearActions(UpdateWearActionsRef ref) async {
     final List<WearActionData> favoriteMap = allActions.map((e) => WearActionData(uuid: e.uuid, name: e.name)).toList();
     final List<WearTriggerData> triggersMap = triggers.map((e) => WearTriggerData(uuid: e.uuid, name: e.triggerDefinition!.name, enabled: e.enabled)).toList();
 
-    final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap);
+    final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap, uiColor: HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
     if (await _watch.isReachable) {
       await _watch.updateApplicationContext(wearData.toJson());
     }
@@ -91,6 +91,7 @@ class WearData with _$WearData {
   const factory WearData({
     required List<WearActionData> favoriteActions,
     required List<WearTriggerData> configuredTriggers,
+    required int uiColor,
   }) = _WearData;
 
   factory WearData.fromJson(Map<String, dynamic> json) => _$WearDataFromJson(json);
