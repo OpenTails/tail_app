@@ -981,6 +981,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  is_wear:
+    dependency: "direct main"
+    description:
+      name: is_wear
+      sha256: "5bf37738940d37ed1a77873d520e9bd2e57d6356802d6274fa52ba23c6625263"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2+3"
   jni:
     dependency: transitive
     description:
@@ -1258,10 +1266,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "3f9439e02f1bc82393225fe825867246b9a476ae5bf65b6a3e0a9ea4032aa8e9"
+      sha256: "9a0a9659ff2a0fd1f0057d66e936395f9d9d1043242e58f3f203134055cbe5bf"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.88"
+    version: "1.0.91"
   pedometer:
     dependency: "direct main"
     description:
@@ -1960,10 +1968,10 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: d43c1d6b787bf0afad444700ae7f4db8827f701bc61c255ac8d328c6f4d52062
+      sha256: cd3543bd5798f6ad290ea73d210f423502e71900302dde696f8bff84bf89a1cb
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   web_socket:
     dependency: transitive
     description:

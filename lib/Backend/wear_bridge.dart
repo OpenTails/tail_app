@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/sensors.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
 
 import 'Definitions/Action/base_action.dart';
 import 'action_registry.dart';
 import 'favorite_actions.dart';
 
+part 'wear_bridge.freezed.dart';
 part 'wear_bridge.g.dart';
 
 final Logger _wearLogger = Logger('Wear');
@@ -30,7 +31,7 @@ Future<void> initWear(InitWearRef ref) async {
       (event) => _wearLogger.info("Watch Context: $event"),
     );
 
-    updateWearActions(ref.read(favoriteActionsProvider), ref);
+    ref.read(updateWearActionsProvider);
   } catch (e, s) {
     _wearLogger.severe("exception setting up Wear $e", e, s);
   }
@@ -62,24 +63,72 @@ Future<Map<String, dynamic>> applicationContext() {
       );
 }
 
-Future<void> updateWearActions(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {
+@Riverpod()
+Future<void> updateWearActions(UpdateWearActionsRef ref) async {
   try {
-    Iterable<BaseAction> allActions = favoriteActions
+    Iterable<BaseAction> allActions = ref
+        .read(favoriteActionsProvider)
         .map(
           (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),
         )
-        .whereNotNull();
-    final Map<String, String> favoriteMap = Map.fromEntries(allActions.map((e) => MapEntry(e.uuid, e.name)));
-    final Map<String, String> map = Map.fromEntries(
-      [
-        MapEntry("actions", favoriteMap.values.join("_")),
-        MapEntry("uuid", favoriteMap.keys.join("_")),
-      ],
-    );
+        .nonNulls;
+    //TODO: refresh when trigger toggled state changes
+    BuiltList<Trigger> triggers = ref.read(triggerListProvider);
+    final List<WearActionData> favoriteMap = allActions.map((e) => WearActionData(uuid: e.uuid, name: e.name)).toList();
+    final List<WearTriggerData> triggersMap = triggers.map((e) => WearTriggerData(uuid: e.uuid, name: e.triggerDefinition!.name, enabled: e.enabled)).toList();
+
+    final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap);
     if (await _watch.isReachable) {
-      await _watch.sendMessage(map);
+      await _watch.updateApplicationContext(wearData.toJson());
     }
   } catch (e, s) {
     _wearLogger.severe("Unable to send favorite actions to watch", e, s);
   }
+}
+
+@freezed
+class WearData with _$WearData {
+  const factory WearData({
+    required List<WearActionData> favoriteActions,
+    required List<WearTriggerData> configuredTriggers,
+  }) = _WearData;
+
+  factory WearData.fromJson(Map<String, dynamic> json) => _$WearDataFromJson(json);
+}
+
+@freezed
+class WearTriggerData with _$WearTriggerData {
+  const factory WearTriggerData({
+    required String name,
+    required String uuid,
+    required bool enabled,
+  }) = _WearTriggerData;
+
+  factory WearTriggerData.fromJson(Map<String, dynamic> json) => _$WearTriggerDataFromJson(json);
+}
+
+@freezed
+class WearActionData with _$WearActionData {
+  const factory WearActionData({
+    required String name,
+    required String uuid,
+  }) = _WearActionData;
+
+  factory WearActionData.fromJson(Map<String, dynamic> json) => _$WearActionDataFromJson(json);
+}
+
+@freezed
+class WearCommand with _$WearCommand {
+  const factory WearCommand({
+    required WearCommandType commandType,
+    required String uuid,
+    @Default(false) bool boolean,
+  }) = _WearCommand;
+
+  factory WearCommand.fromJson(Map<String, dynamic> json) => _$WearCommandFromJson(json);
+}
+
+enum WearCommandType {
+  runAction,
+  toggleTrigger,
 }

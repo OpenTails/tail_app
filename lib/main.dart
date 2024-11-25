@@ -14,6 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:install_referrer/install_referrer.dart';
 import 'package:intl/intl.dart';
+import 'package:is_wear/is_wear.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -28,6 +29,7 @@ import 'Backend/favorite_actions.dart';
 import 'Backend/logging_wrappers.dart';
 import 'Backend/move_lists.dart';
 import 'Backend/sensors.dart';
+import 'Backend/wear_bridge.dart';
 import 'Frontend/Widgets/bt_app_state_controller.dart';
 import 'Frontend/go_router_config.dart';
 import 'Frontend/translation_string_definitions.dart';
@@ -80,32 +82,20 @@ Future<String> getSentryEnvironment() async {
   return 'production';
 }
 
-Future<void> main() async {
-  Logger.root.level = Level.ALL;
-  mainLogger.info("Begin");
-  Logger.root.onRecord.listen((event) {
-    if (["GoRouter", "Dio"].contains(event.loggerName)) {
-      return;
-    }
-    if (event.level.value < 1000 && event.stackTrace == null) {
-      logarte.info(event.message, source: event.loggerName);
-    } else {
-      logarte.error(event.message, stackTrace: event.stackTrace);
-    }
-  });
-  initFlutter();
+Future<void> initMainApp() async {
+  //initialize the foreground service library
+  if (Platform.isAndroid) {
+    FlutterForegroundTask.initCommunicationPort();
+  }
+  await startSentryApp(TailApp());
+}
 
-  initLocale();
-  await initHive();
+Future<void> startSentryApp(Widget child) async {
   mainLogger.fine("Init Sentry");
   String environment = await getSentryEnvironment();
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
   mainLogger.info("Detected Environment: $environment");
 
-  //initialize the foreground service library
-  if (Platform.isAndroid) {
-    FlutterForegroundTask.initCommunicationPort();
-  }
   await SentryFlutter.init(
     (options) async {
       options
@@ -126,14 +116,53 @@ Future<void> main() async {
     // Init your App.
     // ignore: missing_provider_scope
     appRunner: () => runApp(
-      DefaultAssetBundle(
-        bundle: SentryAssetBundle(),
-        child: SentryScreenshotWidget(
-          child: TailApp(),
-        ),
+      SentryScreenshotWidget(
+        child: TailApp(),
       ),
     ),
   );
+}
+
+Future<void> initWearApp() async {
+  await startSentryApp(TailAppWear());
+}
+
+Future<void> main() async {
+  Logger.root.level = Level.ALL;
+  mainLogger.info("Begin");
+  Logger.root.onRecord.listen((event) {
+    if (["GoRouter", "Dio"].contains(event.loggerName)) {
+      return;
+    }
+    if (event.level.value < 1000 && event.stackTrace == null) {
+      logarte.info(event.message, source: event.loggerName);
+    } else {
+      logarte.error(event.message, stackTrace: event.stackTrace);
+    }
+  });
+  initFlutter();
+  await initLocale();
+  await initHive();
+
+  if (await isWear()) {
+    initWearApp();
+  } else {
+    initMainApp();
+  }
+}
+
+Future<bool> isWear() async {
+  final IsWear isWearPlugin = IsWear();
+  bool? result = await isWearPlugin.check().then((value) {
+    return value;
+  }).catchError((onError) {
+    return false;
+  });
+  if (result == null) {
+    return false;
+  } else {
+    return result;
+  }
 }
 
 void initFlutter() {
@@ -240,6 +269,7 @@ class TailApp extends ConsumerWidget {
     return WithForegroundTask(
       key: GlobalKey(debugLabel: "foregroundTask"),
       child: ProviderScope(
+        key: GlobalKey(debugLabel: "providerScope"),
         observers: [
           RiverpodProviderObserver(),
         ],
@@ -269,6 +299,45 @@ class TailApp extends ConsumerWidget {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class TailAppWear extends ConsumerWidget {
+  TailAppWear({super.key}) {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    mainLogger.info('Starting app');
+  }
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ProviderScope(
+      key: GlobalKey(debugLabel: "providerScope"),
+      observers: [
+        RiverpodProviderObserver(),
+      ],
+      child: _EagerInitialization(
+        child: ValueListenableBuilder(
+          valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
+          builder: (BuildContext context, value, Widget? child) {
+            unawaited(setupSystemColor(context));
+            Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
+            Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
+            return MaterialApp.router(
+              title: title(),
+              color: color,
+              theme: buildTheme(Brightness.light, color),
+              darkTheme: buildTheme(Brightness.dark, color),
+              routerConfig: router,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              themeMode: ThemeMode.system,
+              debugShowCheckedModeBanner: false,
+            );
+          },
         ),
       ),
     );
@@ -365,7 +434,7 @@ class _EagerInitialization extends ConsumerWidget {
     //ref.watch(favoriteActionsProvider);
     ref.watch(appShortcutsProvider);
     if (kDebugMode) {
-      //ref.watch(initWearProvider);
+      ref.watch(initWearProvider);
     }
     return child;
   }
