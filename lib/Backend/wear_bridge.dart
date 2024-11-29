@@ -87,6 +87,8 @@ Future<void> updateWearActions(UpdateWearActionsRef ref) async {
 }
 
 @freezed
+// ignore: invalid_annotation_target
+@JsonSerializable(explicitToJson: true)
 class WearData with _$WearData {
   const factory WearData({
     required List<WearActionData> favoriteActions,
