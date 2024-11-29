@@ -110,6 +110,7 @@ dependencies:
   # play services
   in_app_review: ^2.0.10
   upgrader: ^11.3.0
+  google_api_availability: ^5.0.0
 
   # Spicy
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
