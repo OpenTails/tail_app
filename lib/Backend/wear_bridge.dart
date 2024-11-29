@@ -79,7 +79,7 @@ Future<void> updateWearActions(UpdateWearActionsRef ref) async {
 
     final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap, uiColor: HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
     if (await _watch.isReachable) {
-      await _watch.updateApplicationContext(wearData.toJson());
+      //await _watch.updateApplicationContext(wearData.toJson());
     }
   } catch (e, s) {
     _wearLogger.severe("Unable to send favorite actions to watch", e, s);
@@ -87,8 +87,6 @@ Future<void> updateWearActions(UpdateWearActionsRef ref) async {
 }
 
 @freezed
-// ignore: invalid_annotation_target
-@JsonSerializable(explicitToJson: true)
 class WearData with _$WearData {
   const factory WearData({
     required List<WearActionData> favoriteActions,
