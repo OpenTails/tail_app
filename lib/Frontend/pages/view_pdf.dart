@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pdfrx/pdfrx.dart';
+import 'package:pdfx/pdfx.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 
@@ -31,6 +31,7 @@ class _ViewPDFState extends State<ViewPDF> {
   double progress = 0;
 
   Uint8List? data;
+  PdfControllerPinch? pdfPinchController;
 
   @override
   void dispose() {
@@ -88,9 +89,11 @@ class _ViewPDFState extends State<ViewPDF> {
               key: ValueKey(data != null),
               builder: (context) {
                 if (data != null) {
-                  return PdfViewer.data(
-                    data!,
-                    sourceName: widget.pdfInfo.title,
+                  pdfPinchController ??= PdfControllerPinch(
+                    document: PdfDocument.openData(data!),
+                  );
+                  return PdfViewPinch(
+                    controller: pdfPinchController!,
                   );
                 } else {
                   return Center(

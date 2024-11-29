@@ -81,8 +81,11 @@ dependencies:
   flutter_widget_from_html_core: ^0.15.2
   visibility_detector: ^0.4.0+2 # used on the tail blog widgets
   lottie: ^3.1.3
-  pdfrx: ^1.0.91
-
+  #pdfrx: ^1.0.91
+  pdfx:
+    git:
+      url: https://github.com/Codel1417/packages.flutter
+      path: packages/pdfx
   # Dio HTTP
   dio: ^5.7.0
   dio_smart_retry: ^7.0.1
