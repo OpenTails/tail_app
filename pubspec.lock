@@ -1112,10 +1112,11 @@ packages:
   klaviyo_flutter:
     dependency: "direct main"
     description:
-      name: klaviyo_flutter
-      sha256: "0ebeadf99f22b6a9456bc8b87f82663e82ee2862360709a0c284057f286b9b61"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: patch-1
+      resolved-ref: "6a759dc78d5e390f3ff60182a0878ca10c96eedd"
+      url: "https://github.com/Codel1417/klaviyo_flutter"
+    source: git
     version: "0.1.1"
   leak_tracker:
     dependency: transitive
@@ -1166,14 +1167,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
-  lottie:
+  lottie_native:
     dependency: "direct main"
     description:
-      name: lottie
-      sha256: "7afc60865a2429d994144f7d66ced2ae4305fe35d82890b8766e3359872d872c"
+      name: lottie_native
+      sha256: "7a581732655e995ad9b413916b384e6cf11280d327bae84acd4c23fd359d2953"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.3"
+    version: "0.1.4"
   macros:
     dependency: transitive
     description:
@@ -2113,10 +2114,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "84ba388638ed7a8cb3445a320c8273136ab2631cd5f2c57888335504ddab1bc2"
+      sha256: "8b338d4486ab3fbc0ba0db9f9b4f5239b6697fcee427939a40e720cbb9ee0a69"
       url: "https://pub.dev"
     source: hosted
-    version: "5.8.0"
+    version: "5.9.0"
   win32_registry:
     dependency: transitive
     description:

@@ -3,8 +3,14 @@ plugins {
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
     id "io.sentry.android.gradle"
-    id 'com.google.gms.google-services'
 
+}
+
+// Skip applying the google play services plugin if the config file is missing
+if (file("google-services.json").exists()) {
+    apply plugin: 'com.google.gms.google-services'
+} else {
+    println("Google Play Services config missing")
 }
 
 def localProperties = new Properties()

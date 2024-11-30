@@ -120,7 +120,7 @@
              notification message. See README(https://goo.gl/6BKBk7) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="#E46E26" />
+            android:value="#E46E26" />
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="false" />
