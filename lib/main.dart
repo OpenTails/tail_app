@@ -4,6 +4,8 @@ import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:install_referrer/install_referrer.dart';
 import 'package:intl/intl.dart';
 import 'package:is_wear/is_wear.dart';
+import 'package:klaviyo_flutter/klaviyo_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -437,5 +440,33 @@ class _EagerInitialization extends ConsumerWidget {
       ref.watch(initWearProvider);
     }
     return child;
+  }
+}
+
+//TODO: get APNs cert from apple
+// Eat snacks
+// Get google-services.json
+// Configure Github Actions to store and place the files
+Future<void> initMarketingNotifications() async {
+  await Klaviyo.instance.initialize(const String.fromEnvironment('KLAVIYO_KEY', defaultValue: ""));
+  final firebaseMessaging = FirebaseMessaging.instance;
+  final token = Platform.isIOS ? await firebaseMessaging.getAPNSToken() : await firebaseMessaging.getToken();
+
+  if (token != null && token.isNotEmpty) {
+    Klaviyo.instance.sendTokenToKlaviyo(token);
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  }
+}
+
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  final data = message.data;
+  final klaviyo = Klaviyo.instance;
+
+  if (klaviyo.isKlaviyoPush(data)) {
+    if (!klaviyo.isInitialized) {
+      await klaviyo.initialize(const String.fromEnvironment('KLAVIYO_KEY', defaultValue: ""));
+    }
+    final result = await klaviyo.handlePush(data);
   }
 }
