@@ -190,7 +190,8 @@ class OtaUpdater {
   double _previousProgress = 0;
 
   void _updateProgress() {
-    if ((_previousProgress - _progress).abs() < 0.1) {
+    //control how fast to update progress
+    if ((_previousProgress - _progress).abs() < 0.01) {
       return;
     }
     if (onProgress != null) {
