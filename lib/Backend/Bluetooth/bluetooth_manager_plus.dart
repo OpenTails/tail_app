@@ -88,6 +88,11 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
     if (knownDevices.containsKey(deviceID)) {
       statefulDevice = knownDevices[deviceID]!;
       baseStoredDevice = statefulDevice.baseStoredDevice;
+      if (statefulDevice.baseStoredDevice.conModePin.isEmpty) {
+        int code = Random().nextInt(899999) + 100000;
+        baseStoredDevice.conModePin = code.toString();
+        Future(() => ref.read(knownDevicesProvider.notifier).add(statefulDevice));
+      }
       //transaction.setTag('Known Device', 'Yes');
     } else {
       baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, deviceID, deviceDefinition.deviceType.color(ref: ref).value)..name = getNameFromBTName(deviceDefinition.btName);
