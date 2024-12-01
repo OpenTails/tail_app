@@ -135,7 +135,7 @@ sentry {
 
     // The url of your Sentry instance. If you're using SAAS (not self hosting) you do not have to
     // set this. If you are self hosting you can set your URL here
-    //url = System.getenv("SENTRY_URL")
+    url = System.getenv("SENTRY_URL")
 
     // Disables or enables the handling of Proguard mapping for Sentry.
     // If enabled the plugin will generate a UUID and will take care of

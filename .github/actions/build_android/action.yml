@@ -57,7 +57,7 @@ runs:
         SENTRY_ORG: ${{ inputs.sentry-org }}
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
-        #SENTRY_URL: ${{ inputs.sentry-url }}
+        SENTRY_URL: ${{ inputs.sentry-url }}
     - name: Build AppBundle
       if: inputs.build-mode == 'bundle'
       shell: bash
@@ -69,8 +69,7 @@ runs:
         SENTRY_ORG: ${{ inputs.sentry-org }}
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
-
-        #SENTRY_URL: ${{ inputs.sentry-url }}
+        SENTRY_URL: ${{ inputs.sentry-url }}
     - name: list dependencies
       shell: bash
       run: cd android && ./gradlew app:dependencies --configuration releaseCompileClasspath
