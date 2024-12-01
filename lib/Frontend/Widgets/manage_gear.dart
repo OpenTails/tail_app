@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
@@ -271,13 +272,14 @@ class ManageGearConventionMode extends ConsumerWidget {
             builder: (context, connectivityState, child) => Switch(
                 value: device.baseStoredDevice.conModeEnabled,
                 onChanged: connectivityState == ConnectivityState.connected
-                    ? (value) {
+                    ? (value) async {
                         //reject if gear disconnected
                         if (value) {
                           BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETPUSSKEY ${device.baseStoredDevice.conModePin}", device: device, timestamp: DateTime.timestamp());
                           device.commandQueue.addCommand(bluetoothMessage);
                           device.baseStoredDevice.conModeEnabled = true;
                           ref.read(knownDevicesProvider.notifier).store();
+                          await Clipboard.setData(ClipboardData(text: device.baseStoredDevice.conModePin));
                         } else {
                           BluetoothMessage bluetoothMessage = BluetoothMessage(message: "STOPPUSSKEY", device: device, timestamp: DateTime.timestamp());
                           device.commandQueue.addCommand(bluetoothMessage);
