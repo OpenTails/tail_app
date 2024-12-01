@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-09-14T00:13:20.043014",
+  "@@last_modified": "2024-12-01T02:38:35.803531",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -46,6 +46,12 @@
   "feedbackPage": "Send Feedback",
   "@feedbackPage": {
     "description": "The label and title of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "feedbackPageDescription": "Have a suggestion or issue with the app? Let us know. Note: This is anonymous and can not be used to resolve issues with Gear",
+  "@feedbackPageDescription": {
+    "description": "The description of the feedback page",
     "type": "text",
     "placeholders": {}
   },
@@ -1034,6 +1040,42 @@
   "settingsTailBlogWifiOnlyDescription": "Prevent loading Tail Blog content while connected to a mobile network",
   "@settingsTailBlogWifiOnlyDescription": {
     "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportTitle": "Support",
+  "@supportTitle": {
+    "description": "The label and title of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportDescription": "Tap the blue chat icon to contact support",
+  "@supportDescription": {
+    "description": "The description of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeTitle": "Convention Mode",
+  "@manageGearConModeTitle": {
+    "description": "The title for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeDescription": "Convention Mode is an additional security measure to prevent other devices from connecting to your gear.",
+  "@manageGearConModeDescription": {
+    "description": "The description for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeTitle": "View Pin Code",
+  "@manageGearConModePincodeTitle": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeToggleTitle": "Enable Convention Mode",
+  "@manageGearConModeToggleTitle": {
+    "description": "The description for the convention mode enabled button on the gear page",
     "type": "text",
     "placeholders": {}
   }
