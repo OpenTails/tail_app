@@ -94,6 +94,9 @@ Future<void> initMainApp() async {
 }
 
 Future<void> startSentryApp(Widget child) async {
+  if (kDebugMode) {
+    runApp(child);
+  }
   mainLogger.fine("Init Sentry");
   String environment = await getSentryEnvironment();
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
