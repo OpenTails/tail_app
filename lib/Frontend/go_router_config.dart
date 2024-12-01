@@ -15,6 +15,7 @@ import '../Backend/plausible_dio.dart';
 import '../constants.dart';
 import 'Widgets/color_picker_dialog.dart';
 import 'Widgets/manage_gear.dart';
+import 'Widgets/pincode_dialog.dart';
 import 'Widgets/scan_for_new_device.dart';
 import 'pages/action_selector.dart';
 import 'pages/actions.dart';
@@ -118,6 +119,24 @@ class ColorPickerRoute extends GoRouteData {
         child: ColorPickerDialog(
           defaultColor: defaultColor,
         ),
+      );
+}
+
+@TypedGoRoute<PinCodeRoute>(
+  path: '/pincode',
+  name: 'Pin Code',
+)
+class PinCodeRoute extends GoRouteData {
+  const PinCodeRoute({required this.pin});
+
+  final String pin;
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) => DialogPage(
+        key: state.pageKey,
+        name: state.name,
+        child: PincodeDialog(pin: pin),
       );
 }
 

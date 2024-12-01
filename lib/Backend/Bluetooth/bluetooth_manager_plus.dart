@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
@@ -90,6 +91,8 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
       //transaction.setTag('Known Device', 'Yes');
     } else {
       baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, deviceID, deviceDefinition.deviceType.color(ref: ref).value)..name = getNameFromBTName(deviceDefinition.btName);
+      int code = Random().nextInt(899999) + 100000;
+      baseStoredDevice.conModePin = code.toString();
       statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice);
       //transaction.setTag('Known Device', 'No');
       Future(() => ref.read(knownDevicesProvider.notifier).add(statefulDevice));

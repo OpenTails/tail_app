@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -198,6 +200,8 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                     baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color(ref: ref).value)..name = getNameFromBTName(value.btName);
                                     statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
                                     statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
+                                    int code = Random().nextInt(899999) + 100000;
+                                    baseStoredDevice.conModePin = code.toString();
                                     if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
                                       ref.read(knownDevicesProvider.notifier).add(statefulDevice);
                                     }

@@ -390,3 +390,11 @@ String settingsTailBlogWifiOnlyDescription() => Intl.message("Prevent loading Ta
 String supportTitle() => Intl.message('Support', name: 'supportTitle', desc: 'The label and title of the email support link on the more page');
 
 String supportDescription() => Intl.message('Tap the blue chat icon to contact support', name: 'supportDescription', desc: 'The description of the email support link on the more page');
+
+String manageGearConModeTitle() => Intl.message('Convention Mode', name: 'manageGearConModeTitle', desc: 'The title for the convention mode page on the gear page');
+
+String manageGearConModeDescription() => Intl.message('Convention Mode is an additional security measure to prevent other devices from connecting to your gear.', name: 'manageGearConModeDescription', desc: 'The description for the convention mode page on the gear page');
+
+String manageGearConModePincodeTitle() => Intl.message('View Pin Code', name: 'manageGearConModePincodeTitle', desc: 'The description for the pin mode button on the gear page');
+
+String manageGearConModeToggleTitle() => Intl.message('Enable Convention Mode', name: 'manageGearConModeToggleTitle', desc: 'The description for the convention mode enabled button on the gear page');

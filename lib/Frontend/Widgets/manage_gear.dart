@@ -3,6 +3,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/move_lists.dart';
+import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
@@ -185,6 +186,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   ManageGearHomePosition(device: device!),
                 ],
                 ManageGearBatteryGraph(device: device!),
+                ManageGearConventionMode(device: device!),
                 ManageGearDebug(device: device!),
               ],
               OverflowBar(
@@ -243,6 +245,48 @@ class _ManageGearState extends ConsumerState<ManageGear> {
           );
         },
       ),
+    );
+  }
+}
+
+class ManageGearConventionMode extends ConsumerWidget {
+  final BaseStatefulDevice device;
+
+  const ManageGearConventionMode({super.key, required this.device});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ExpansionTile(
+      title: Text(manageGearConModeTitle()),
+      subtitle: Text(manageGearConModeDescription()),
+      children: [
+        PageInfoCard(
+          text: "Super secret anti hacker power (Insert guide and reset instructions here)",
+        ),
+        ListTile(
+          title: Text(manageGearConModeToggleTitle()),
+          subtitle: Text("Upon enabling 'Convention Mode' your gear will be rebooted and you will be prompted to enter the pincode. Please view and memorize the pincode before enabling"),
+          trailing: Switch(
+              value: device.baseStoredDevice.conModeEnabled,
+              onChanged: (value) {
+                //reject if gear disconnected
+                if (value) {
+                  BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETPUSSKEY ${device.baseStoredDevice.conModePin}", device: device, timestamp: DateTime.timestamp());
+                  device.commandQueue.addCommand(bluetoothMessage);
+                  device.baseStoredDevice.conModeEnabled = true;
+                  ref.read(knownDevicesProvider.notifier).store();
+                } else {
+                  BluetoothMessage bluetoothMessage = BluetoothMessage(message: "STOPPUSSKEY", device: device, timestamp: DateTime.timestamp());
+                  device.commandQueue.addCommand(bluetoothMessage);
+                  device.baseStoredDevice.conModeEnabled = false;
+                  ref.read(knownDevicesProvider.notifier).store();
+                }
+              }),
+        ),
+        OverflowBar(
+          children: [FilledButton(onPressed: () => PinCodeRoute(pin: device.baseStoredDevice.conModePin).push(context), child: Text(manageGearConModePincodeTitle()))],
+        )
+      ],
     );
   }
 }

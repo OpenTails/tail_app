@@ -344,6 +344,8 @@ class BaseStoredDevice extends ChangeNotifier {
   int rightHomePosition = 1;
   @HiveField(12, defaultValue: "")
   String conModePin = "";
+  @HiveField(13, defaultValue: false)
+  bool conModeEnabled = false;
 
   int get color => _color;
 
