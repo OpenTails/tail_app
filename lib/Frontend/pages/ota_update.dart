@@ -27,6 +27,7 @@ class OtaUpdate extends ConsumerStatefulWidget {
 class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   late OtaUpdater otaUpdater;
   BaseStatefulDevice? baseStatefulDevice;
+  OtaError? otaError;
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       baseStatefulDevice: baseStatefulDevice!,
       onProgress: (p0) => setState(() {}),
       onStateChanged: (p0) => setState(() {}),
+      onError: (p0) => setState(() => otaError = p0),
     );
     unawaited(ref.read(hasOtaUpdateProvider(baseStatefulDevice!).future));
   }
@@ -44,6 +46,27 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   void dispose() {
     super.dispose();
     otaUpdater.dispose();
+  }
+
+  String getErrorMessage(OtaError otaError) {
+    switch (otaError) {
+      case OtaError.md5Mismatch:
+        return otaFailedReasonMD5Mismatch();
+      case OtaError.downloadFailed:
+        return otaFailedReasonDownloadFailed();
+      case OtaError.gearVersionMismatch:
+        return otaFailedReasonGearVersionMismatch();
+      case OtaError.gearReturnedError:
+        return otaFailedReasonGearReturnedError();
+      case OtaError.uploadFailed:
+        return otaFailedReasonUploadFailed();
+      case OtaError.gearReconnectTimeout:
+        return otaFailedReasonGearReconnectTimeout();
+      case OtaError.gearDisconnectTimeout:
+        return otaFailedReasonGearDisconnectTimeout();
+      case OtaError.gearOtaFinalTimeout:
+        return otaFailedReasonGearOtaFinalTimeout();
+    }
   }
 
   @override
@@ -179,6 +202,10 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),
+                      subtitle: Text(
+                        otaError != null ? getErrorMessage(otaError!) : "",
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
@@ -258,7 +285,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Upload Progress: ${otaUpdater.current} / ${otaUpdater.firmwareFile?.length} = ${otaUpdater.uploadProgress.toStringAsPrecision(3)}'),
+                          Text('Upload Progress: ${otaUpdater.currentFirmwareUploadPosition} / ${otaUpdater.firmwareFile?.length} = ${otaUpdater.uploadProgress.toStringAsPrecision(3)}'),
                           Text('MTU: ${baseStatefulDevice!.mtu.value}'),
                           Text('OtaState: ${otaUpdater.otaState.name}'),
                           Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),

@@ -276,6 +276,22 @@ String otaCompletedTitle() => Intl.message("Update Completed", name: 'otaComplet
 
 String otaFailedTitle() => Intl.message("Update Failed. Please restart your gear and try again", name: 'otaFailedTitle', desc: 'Title for the text that appears when an OTA update has failed');
 
+String otaFailedReasonMD5Mismatch() => Intl.message("The downloaded file failed verification", name: 'otaFailedReasonMD5Mismatch', desc: 'md5Mismatch error message for uploading firmware');
+
+String otaFailedReasonDownloadFailed() => Intl.message("Failed to download the firmware file", name: 'otaFailedReasonDownloadFailed', desc: 'downloadFailed error message for uploading firmware');
+
+String otaFailedReasonGearVersionMismatch() => Intl.message("The firmware version on your gear does not match the uploaded firmware version", name: 'otaFailedReasonGearVersionMismatch', desc: 'gearVersionMismatch error message for uploading firmware');
+
+String otaFailedReasonGearReturnedError() => Intl.message("The gear returned an unknown error", name: 'otaFailedReasonGearReturnedError', desc: 'gearReturnedError error message for uploading firmware');
+
+String otaFailedReasonUploadFailed() => Intl.message("Failed to upload firmware to gear", name: 'otaFailedReasonUploadFailed', desc: 'uploadFailed error message for uploading firmware');
+
+String otaFailedReasonGearReconnectTimeout() => Intl.message("The gear did not reconnect in time", name: 'otaFailedReasonGearReconnectTimeout', desc: 'gearReconnectTimeout error message for uploading firmware');
+
+String otaFailedReasonGearDisconnectTimeout() => Intl.message("The gear did not disconnect in time and likely didn't reboot", name: 'otaFailedReasonGearDisconnectTimeout', desc: 'gearDisconnectTimeout error message for uploading firmware');
+
+String otaFailedReasonGearOtaFinalTimeout() => Intl.message("Timed out waiting for gear to return its new firmware version", name: 'otaFailedReasonGearOtaFinalTimeout', desc: 'gearOtaFinalTimeout error message for uploading firmware');
+
 String otaLowBattery() => Intl.message("Low Battery. Please charge your gear to at least 50%", name: 'otaLowBattery', desc: 'Title for the text that appears when an OTA update was blocked due to low battery');
 
 String triggerInfoDescription() => Intl.message(
