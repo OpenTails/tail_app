@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-12-01T02:38:35.803531",
+  "@@last_modified": "2024-12-01T23:47:30.345469",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1070,6 +1070,12 @@
   "manageGearConModePincodeTitle": "View Pin Code",
   "@manageGearConModePincodeTitle": {
     "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeCopy": "Copy to Clipboard",
+  "@manageGearConModePincodeCopy": {
+    "description": "The description for copy to clipboard button on the pin code dialog",
     "type": "text",
     "placeholders": {}
   },
