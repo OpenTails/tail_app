@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-12-02T00:04:06.610064",
+  "@@last_modified": "2024-12-02T23:33:35.626988",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -770,6 +770,54 @@
   "otaFailedTitle": "Update Failed. Please restart your gear and try again",
   "@otaFailedTitle": {
     "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonMD5Mismatch": "The downloaded file failed verification",
+  "@otaFailedReasonMD5Mismatch": {
+    "description": "md5Mismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonDownloadFailed": "Failed to download the firmware file",
+  "@otaFailedReasonDownloadFailed": {
+    "description": "downloadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearVersionMismatch": "The firmware version on your gear does not match the uploaded firmware version",
+  "@otaFailedReasonGearVersionMismatch": {
+    "description": "gearVersionMismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReturnedError": "The gear returned an unknown error",
+  "@otaFailedReasonGearReturnedError": {
+    "description": "gearReturnedError error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonUploadFailed": "Failed to upload firmware to gear",
+  "@otaFailedReasonUploadFailed": {
+    "description": "uploadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReconnectTimeout": "The gear did not reconnect in time",
+  "@otaFailedReasonGearReconnectTimeout": {
+    "description": "gearReconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearDisconnectTimeout": "The gear did not disconnect in time and likely didn't reboot",
+  "@otaFailedReasonGearDisconnectTimeout": {
+    "description": "gearDisconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearOtaFinalTimeout": "Timed out waiting for gear to return its new firmware version",
+  "@otaFailedReasonGearOtaFinalTimeout": {
+    "description": "gearOtaFinalTimeout error message for uploading firmware",
     "type": "text",
     "placeholders": {}
   },
