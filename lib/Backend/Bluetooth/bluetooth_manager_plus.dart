@@ -382,6 +382,21 @@ Future<void> disconnect(String id) async {
   }
 }
 
+Future<void> forgetBond(String id) async {
+  if (!_didInitFlutterBluePlus) {
+    return;
+  }
+  // removing bonds is supported on android
+  if (Platform.isIOS) {
+    return;
+  }
+  BluetoothDevice? device = flutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == id);
+  if (device != null) {
+    _bluetoothPlusLogger.info("forgetting ${device.advName}");
+    await device.removeBond();
+  }
+}
+
 Future<void> connect(String id) async {
   if (!_didInitFlutterBluePlus) {
     return;

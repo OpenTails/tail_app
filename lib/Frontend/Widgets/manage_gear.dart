@@ -266,14 +266,14 @@ class ManageGearConventionMode extends ConsumerWidget {
         ),
         ListTile(
           title: Text(manageGearConModeToggleTitle()),
-          subtitle: Text("Upon enabling 'Convention Mode' your gear will be rebooted and you will be prompted to enter the pincode. Please view and memorize the pincode before enabling"),
+          subtitle: Text(manageGearConModePincodeEnableDescription()),
           trailing: ValueListenableBuilder(
             valueListenable: device.deviceConnectionState,
             builder: (context, connectivityState, child) => Switch(
                 value: device.baseStoredDevice.conModeEnabled,
                 onChanged: connectivityState == ConnectivityState.connected
                     ? (value) async {
-                        //reject if gear disconnected
+                        //TODO: Validate the setting took correctly. Reboot check?
                         if (value) {
                           BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETPUSSKEY ${device.baseStoredDevice.conModePin}", device: device, timestamp: DateTime.timestamp());
                           device.commandQueue.addCommand(bluetoothMessage);
@@ -281,10 +281,13 @@ class ManageGearConventionMode extends ConsumerWidget {
                           ref.read(knownDevicesProvider.notifier).store();
                           await Clipboard.setData(ClipboardData(text: device.baseStoredDevice.conModePin));
                         } else {
+                          //TODO? if gear is disconnected and this is attempted, offer instructions to reset gear
                           BluetoothMessage bluetoothMessage = BluetoothMessage(message: "STOPPUSSKEY", device: device, timestamp: DateTime.timestamp());
                           device.commandQueue.addCommand(bluetoothMessage);
                           device.baseStoredDevice.conModeEnabled = false;
                           ref.read(knownDevicesProvider.notifier).store();
+                          forgetBond(device.baseStoredDevice.btMACAddress);
+                          //TODO: add IOS instructions for clearing bonds
                         }
                       }
                     : null),

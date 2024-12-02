@@ -397,6 +397,9 @@ String manageGearConModeDescription() => Intl.message('Convention Mode is an add
 
 String manageGearConModePincodeTitle() => Intl.message('View Pin Code', name: 'manageGearConModePincodeTitle', desc: 'The description for the pin mode button on the gear page');
 
+String manageGearConModePincodeEnableDescription() =>
+    Intl.message("Upon enabling 'Convention Mode' your gear will be rebooted and you will be prompted to enter the pincode. The pincode will be copied to the clipboard", name: 'manageGearConModePincodeEnableDescription', desc: 'The description for the pin mode button on the gear page');
+
 String manageGearConModePincodeCopy() => Intl.message('Copy to Clipboard', name: 'manageGearConModePincodeCopy', desc: 'The description for copy to clipboard button on the pin code dialog');
 
 String manageGearConModeToggleTitle() => Intl.message('Enable Convention Mode', name: 'manageGearConModeToggleTitle', desc: 'The description for the convention mode enabled button on the gear page');
