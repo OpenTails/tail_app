@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-12-01T23:47:30.345469",
+  "@@last_modified": "2024-12-02T00:04:06.610064",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1069,6 +1069,12 @@
   },
   "manageGearConModePincodeTitle": "View Pin Code",
   "@manageGearConModePincodeTitle": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeEnableDescription": "Upon enabling 'Convention Mode' your gear will be rebooted and you will be prompted to enter the pincode. The pincode will be copied to the clipboard",
+  "@manageGearConModePincodeEnableDescription": {
     "description": "The description for the pin mode button on the gear page",
     "type": "text",
     "placeholders": {}
