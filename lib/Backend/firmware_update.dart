@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:isolate';
 
 import 'package:collection/collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/plausible_dio.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -190,6 +189,7 @@ class OtaUpdater {
   Timer? _reconnectTimer;
   Timer? _finalTimer;
   final Logger _otaLogger = Logger('otaLogger');
+  ISentrySpan? transaction;
 
   void setManualOtaFile(List<int>? bytes) {
     if (bytes == null) {
@@ -202,8 +202,9 @@ class OtaUpdater {
     downloadProgress = 1;
   }
 
-  void _onError(OtaError error) {
+  void _onError(OtaError error, ISentrySpan? span) {
     otaState = OtaState.error;
+    span?.status = SpanStatus.fromString(error.name);
     if (onError != null) {
       onError!(error);
     }
@@ -231,8 +232,16 @@ class OtaUpdater {
   }
 
   Future<void> beginUpdate() async {
+    transaction = Sentry.startTransaction('beginUpdate()', 'task');
+    transaction?.setData("Gear Model", baseStatefulDevice.baseDeviceDefinition.btName);
+    transaction?.setData("Current FW Version", baseStatefulDevice.fwVersion.value.toString());
+    transaction?.setData("Hardware Version", baseStatefulDevice.hwVersion.value);
+    transaction?.setData("Target Firmware Version", baseStatefulDevice.fwInfo.value?.version);
+
     if (baseStatefulDevice.batteryLevel.value < 50) {
       otaState = OtaState.lowBattery;
+      transaction?.status = SpanStatus.fromString("lowBattery");
+      transaction?.finish();
       return;
     }
     WakelockPlus.enable();
@@ -248,6 +257,7 @@ class OtaUpdater {
     if (firmwareInfo == null) {
       return;
     }
+    final ISentrySpan? downloadSpan = transaction?.startChild('downloadFirmware()', description: 'operation');
     otaState = OtaState.download;
     downloadProgress = 0;
     _updateProgress();
@@ -267,12 +277,14 @@ class OtaUpdater {
         if (digest.toString() == firmwareInfo!.md5sum) {
           firmwareFile = rs.data;
         } else {
-          _onError(OtaError.md5Mismatch);
+          _onError(OtaError.md5Mismatch, downloadSpan);
         }
       }
     } catch (e) {
-      _onError(OtaError.downloadFailed);
+      downloadSpan?.throwable = e;
+      _onError(OtaError.downloadFailed, downloadSpan);
     }
+    downloadSpan?.finish();
   }
 
   Future<void> _verListener() async {
@@ -281,9 +293,12 @@ class OtaUpdater {
     if (fwInfo != null && version.compareTo(const Version()) > 0 && otaState == OtaState.rebooting) {
       bool updated = version.compareTo(getVersionSemVer(fwInfo.version)) >= 0;
       if (!updated) {
-        _onError(OtaError.gearVersionMismatch);
+        _onError(OtaError.gearVersionMismatch, transaction);
       } else {
         otaState = OtaState.completed;
+      }
+      if (transaction != null && !transaction!.finished) {
+        transaction?.finish();
       }
     }
   }
@@ -301,7 +316,8 @@ class OtaUpdater {
           const Duration(seconds: 30),
           () {
             _otaLogger.warning("Gear did not reconnect");
-            _onError(OtaError.gearReconnectTimeout);
+            _onError(OtaError.gearReconnectTimeout, transaction);
+            transaction?.finish();
           },
         );
       } else if (connectivityState == ConnectivityState.connected) {
@@ -311,6 +327,7 @@ class OtaUpdater {
   }
 
   Future<void> _uploadFirmware() async {
+    final ISentrySpan? uploadSpan = transaction?.startChild('uploadFirmware()', description: 'operation');
     otaState = OtaState.upload;
     uploadProgress = 0;
     if (firmwareFile != null) {
@@ -322,11 +339,11 @@ class OtaUpdater {
       _otaLogger.info("Send OTA begin message");
       List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
       await sendMessage(baseStatefulDevice, beginOTA);
-
+      uploadSpan?.setData("Gear MTU", mtu);
       while (uploadProgress < 1 && otaState != OtaState.error) {
         baseStatefulDevice.deviceState.value = DeviceState.busy; // hold the command queue
         if (baseStatefulDevice.gearReturnedError.value) {
-          _onError(OtaError.gearReturnedError);
+          _onError(OtaError.gearReturnedError, uploadSpan);
           break;
         }
 
@@ -337,8 +354,9 @@ class OtaUpdater {
           } catch (e, s) {
             _otaLogger.severe("Exception during ota upload:$e", e, s);
             if ((currentFirmwareUploadPosition + chunk.length) / firmwareFile!.length < 0.99) {
-              _onError(OtaError.uploadFailed);
-
+              _onError(OtaError.uploadFailed, uploadSpan);
+              uploadSpan?.throwable = e;
+              uploadSpan?.finish();
               return;
             }
           }
@@ -353,7 +371,6 @@ class OtaUpdater {
       if (uploadProgress == 1) {
         _otaLogger.info("File Uploaded");
         otaState = OtaState.rebooting;
-        //TODO: check if gear disconnects
         beginScan(
           scanReason: ScanReason.manual,
           timeout: const Duration(seconds: 60),
@@ -363,7 +380,8 @@ class OtaUpdater {
           const Duration(seconds: 30),
           () {
             _otaLogger.warning("Gear did not disconnect");
-            _onError(OtaError.gearDisconnectTimeout);
+            _onError(OtaError.gearDisconnectTimeout, transaction);
+            transaction?.finish();
           },
         );
         // start scanning for the gear to reconnect
@@ -372,7 +390,8 @@ class OtaUpdater {
           () {
             if (otaState != OtaState.completed) {
               _otaLogger.warning("Gear did not return correct version after reboot");
-              _onError(OtaError.gearOtaFinalTimeout);
+              _onError(OtaError.gearOtaFinalTimeout, transaction);
+              transaction?.finish();
             }
           },
         );
@@ -380,6 +399,7 @@ class OtaUpdater {
       }
       baseStatefulDevice.deviceState.value = DeviceState.standby; // release the command queue
     }
+    uploadSpan?.finish();
   }
 
   OtaUpdater({this.onProgress, this.onStateChanged, required this.baseStatefulDevice, this.onError}) {
@@ -398,6 +418,9 @@ class OtaUpdater {
     if (!HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault)) {
       unawaited(stopScan());
     }
+    if (transaction != null && !transaction!.finished) {
+      transaction?.finish(status: SpanStatus.aborted());
+    }
   }
 
   void _cancelTimers() {
@@ -405,37 +428,4 @@ class OtaUpdater {
     _reconnectTimer?.cancel();
     _finalTimer?.cancel();
   }
-}
-
-@pragma('vm:entry-point')
-Future<void> updaterIsolate({required String macAddress, required String service, required String txCharacteristic, required List<int> firmwareFile, required String md5Hash, required SendPort port}) async {
-  BluetoothDevice? bluetoothDevice = FlutterBluePlus.connectedDevices.where((element) => element.remoteId.str == macAddress).firstOrNull;
-  if (bluetoothDevice == null) {
-    return;
-  }
-  BluetoothCharacteristic? bluetoothCharacteristic = bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid == Guid(service))?.characteristics.firstWhereOrNull((element) => element.characteristicUuid == Guid(txCharacteristic));
-  if (bluetoothCharacteristic == null) {
-    return;
-  }
-  List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile.length} $md5Hash"));
-  await bluetoothCharacteristic.write(beginOTA);
-  int current = 0;
-  double uploadProgress = 0;
-
-  List<int> chunk = firmwareFile.skip(current).take(bluetoothDevice.mtuNow).toList();
-  if (chunk.isNotEmpty) {
-    try {
-      await bluetoothCharacteristic.write(chunk);
-    } catch (e, s) {
-      if ((current + chunk.length) / firmwareFile.length < 0.99) {
-        port.send("Error");
-        return;
-      }
-    }
-    current = current + chunk.length;
-  } else {
-    current = firmwareFile.length;
-  }
-  uploadProgress = current / firmwareFile.length;
-  port.send(uploadProgress);
 }
