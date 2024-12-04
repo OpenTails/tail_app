@@ -117,10 +117,11 @@ Future<void> startSentryApp(Widget child) async {
         ..reportPackages = false
         ..attachScreenshot = true
         ..screenshotQuality = SentryScreenshotQuality.low
+        ..attachScreenshotOnlyWhenResumed = true
         ..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryReplay
         ..experimental.replay.maskAllText = false
         ..experimental.replay.maskAllImages = false
-        ..experimental.replay.onErrorSampleRate = 1.0;
+        ..experimental.replay.onErrorSampleRate = dynamicConfigInfo.sentryReplay;
     },
     // Init your App.
     // ignore: missing_provider_scope
