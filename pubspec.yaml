@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   cross_platform: ^3.0.1
   logging: ^1.3.0
-  go_router: ^14.6.1
+  go_router: ^14.6.2
   vector_math: ^2.1.4 # used for joystick
   collection: ^1.19.1 # Priority Queue
   intl: #pinned to flutter version?
@@ -39,7 +39,7 @@ dependencies:
   permission_handler: ^11.3.1
   url_launcher: ^6.3.1 # Open URLS in external apps
   flutter_blue_plus: ^1.34.5
-  flutter_foreground_task: ^8.14.0 # Keep the app running in the background on android
+  flutter_foreground_task: ^8.17.0 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
     git:
       url: https://github.com/undreeyyy/flutter_plugin_install_referrer
@@ -49,7 +49,6 @@ dependencies:
   firebase_testlab_detector: ^1.0.2
   platform: ^3.1.6
   connectivity_plus: ^6.1.0
-  flutter_isolate: ^2.1.0
 
   # Watch
   is_wear: ^0.0.2+3
@@ -165,6 +164,7 @@ sentry: # used by the sentry-dart-plugin to upload symbols. Credentials are prov
   upload_debug_symbols: true
   upload_source_maps: true
   upload_sources: true
+  symbols_path: ./symbols
 
 icons_launcher:
   image_path: "assets/TC_Logo.png"
