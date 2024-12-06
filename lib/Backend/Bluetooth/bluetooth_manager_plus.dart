@@ -180,7 +180,7 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         }
       }
       // if the forget button was used, remove the device
-      if (knownDevices[bluetoothDevice.remoteId.str]!.forgetOnDisconnect) {
+      if (knownDevices[bluetoothDevice.remoteId.str] != null && knownDevices[bluetoothDevice.remoteId.str]!.forgetOnDisconnect) {
         _bluetoothPlusLogger.finer('forgetting about gear');
         ref.read(knownDevicesProvider.notifier).remove(bluetoothDevice.remoteId.str);
       }
