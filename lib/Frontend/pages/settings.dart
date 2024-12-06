@@ -41,18 +41,33 @@ class _SettingsState extends ConsumerState<Settings> {
             title: Text(
               settingsAppColor(),
             ),
-            trailing: ColorIndicator(
-              width: 44,
-              height: 44,
-              borderRadius: 22,
-              color: appColorValue,
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault) != appColorDefault) ...[
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          HiveProxy.put(settings, appColor, appColorDefault);
+                          appColorValue = Color(appColorDefault);
+                        });
+                      },
+                      icon: Icon(Icons.clear)),
+                ],
+                ColorIndicator(
+                  width: 44,
+                  height: 44,
+                  borderRadius: 22,
+                  color: appColorValue,
+                )
+              ],
             ),
             onTap: () async {
               ColorPickerRoute(defaultColor: appColorValue.value).push(context).then(
                     (color) => setState(() {
                       if (color != null) {
                         HiveProxy.put(settings, appColor, color);
-                        appColorValue = color;
+                        appColorValue = Color(color);
                       }
                     }),
                   );
