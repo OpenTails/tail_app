@@ -164,13 +164,13 @@ class _TailBlogState extends State<TailBlog> {
         }
       }
     }
-    if (mounted && context.mounted && results.isNotEmpty) {
+    if (mounted && context.mounted) {
       setState(() {
-        feedState = FeedState.loaded;
-      });
-    } else if (context.mounted) {
-      setState(() {
-        feedState = FeedState.error;
+        if (results.isNotEmpty) {
+          feedState = FeedState.loaded;
+        } else {
+          feedState = FeedState.error;
+        }
       });
     }
   }
