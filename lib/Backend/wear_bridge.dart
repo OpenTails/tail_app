@@ -78,7 +78,7 @@ Future<void> updateWearActions(UpdateWearActionsRef ref) async {
     final List<WearTriggerData> triggersMap = triggers.map((e) => WearTriggerData(uuid: e.uuid, name: e.triggerDefinition!.name, enabled: e.enabled)).toList();
 
     final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap, uiColor: HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-    if (await _watch.isReachable) {
+    if (await isReachable()) {
       //await _watch.updateApplicationContext(wearData.toJson());
     }
   } catch (e, s) {
