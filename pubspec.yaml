@@ -110,8 +110,9 @@ dependencies:
   in_app_review: ^2.0.10
   upgrader: ^11.3.0
   google_api_availability: ^5.0.0
-  firebase_messaging: ^15.1.5
-  firebase_core: ^3.8.0
+  firebase_messaging: ^15.1.6
+  firebase_core: ^3.8.1
+  firebase_app_installations: ^0.3.1+7
 
   # Spicy
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics

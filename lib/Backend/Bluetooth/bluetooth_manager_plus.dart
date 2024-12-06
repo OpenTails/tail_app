@@ -138,10 +138,8 @@ Future<void> initFlutterBluePlus(InitFlutterBluePlusRef ref) async {
         FlutterForegroundTask.startService(
           notificationTitle: "Gear Connected",
           notificationText: "Gear is connected to The Tail Company app",
-          notificationIcon: const NotificationIconData(
-            resType: ResourceType.drawable,
-            resPrefix: ResourcePrefix.img,
-            name: 'tc_logo_transparent_notext_small',
+          notificationIcon: const NotificationIcon(
+            metaDataName: 'com.codel1417.tailApp.notificationIcon',
           ),
         );
         FlutterForegroundTask.setOnLockScreenVisibility(true);

@@ -454,6 +454,7 @@ class _EagerInitialization extends ConsumerWidget {
 // Eat snacks
 // Get google-services.json
 // Configure Github Actions to store and place the files
+// add way to generate/reset persistent IDs
 Future<void> initMarketingNotifications() async {
   await Klaviyo.instance.initialize(const String.fromEnvironment('KLAVIYO_KEY', defaultValue: ""));
   final firebaseMessaging = FirebaseMessaging.instance;
