@@ -550,7 +550,7 @@ class RandomTriggerDefinition extends TriggerDefinition {
     int max = HiveProxy.getOrDefault(settings, casualModeDelayMax, defaultValue: casualModeDelayMaxDefault);
     await Future.delayed(Duration(seconds: min));
     if (enabled) {
-      randomTimer = Timer(Duration(seconds: Random().nextInt(max - min)), () {
+      randomTimer = Timer(Duration(seconds: Random().nextInt((max - min).clamp(1, max))), () {
         sendCommands("Action", ref);
         onEnable();
       });
