@@ -119,8 +119,6 @@ Future<void> startSentryApp(Widget child) async {
         ..screenshotQuality = SentryScreenshotQuality.low
         ..attachScreenshotOnlyWhenResumed = true
         ..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryReplay
-        ..experimental.replay.maskAllText = false
-        ..experimental.replay.maskAllImages = false
         ..experimental.replay.onErrorSampleRate = dynamicConfigInfo.sentryReplay;
     },
     // Init your App.
