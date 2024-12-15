@@ -75,3 +75,7 @@ local.properties
 .gradle/
 
 dependency_cache.json
+
+android/app/google-services2.json
+
+ios/Runner/Assets.xcassets/LaunchImage.imageset/
