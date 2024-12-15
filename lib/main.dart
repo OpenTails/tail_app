@@ -175,7 +175,7 @@ Future<bool> isWear() async {
 }
 
 void initFlutter() {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized()..addObserver(WidgetBindingLogger());
+  WidgetsBinding widgetsBinding = SentryWidgetsFlutterBinding.ensureInitialized()..addObserver(WidgetBindingLogger());
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); // keeps the splash screen visible
 }
 
@@ -276,9 +276,7 @@ class TailApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return WithForegroundTask(
-      key: GlobalKey(debugLabel: "foregroundTask"),
       child: ProviderScope(
-        key: GlobalKey(debugLabel: "providerScope"),
         observers: [
           RiverpodProviderObserver(),
         ],
@@ -317,14 +315,13 @@ class TailApp extends ConsumerWidget {
 class TailAppWear extends ConsumerWidget {
   TailAppWear({super.key}) {
     // Platform messages may fail, so we use a try/catch PlatformException.
-    mainLogger.info('Starting app');
+    mainLogger.info('Starting Watch app');
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ProviderScope(
-      key: GlobalKey(debugLabel: "providerScope"),
       observers: [
         RiverpodProviderObserver(),
       ],
