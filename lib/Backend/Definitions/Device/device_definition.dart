@@ -147,9 +147,9 @@ final List<BluetoothUartService> uartServices = const [
   ),
   // TailCoNTROL uuids
   BluetoothUartService(
-    bleDeviceService: "19F8ADE2-D0C6-4C0A-912A-30601D9B3060",
-    bleRxCharacteristic: "5E4D86AC-EF2F-466F-A857-8776D45FFBC2",
-    bleTxCharacteristic: "567A99D6-A442-4AC0-B676-4993BF95F805",
+    bleDeviceService: "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
+    bleRxCharacteristic: "567a99d6-a442-4ac0-b676-4993bf95f805",
+    bleTxCharacteristic: "5e4d86ac-ef2f-466f-a857-8776d45ffbc2",
   ),
 ];
 
@@ -234,7 +234,7 @@ class BaseStatefulDevice {
 
         isTailCoNTROL.value = bluetoothUartService.value ==
                 uartServices.firstWhere(
-                  (element) => element.bleDeviceService == "19F8ADE2-D0C6-4C0A-912A-30601D9B3060",
+                  (element) => element.bleDeviceService == "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
                 )
             ? tailControlStatus.tailControl
             : tailControlStatus.legacy;

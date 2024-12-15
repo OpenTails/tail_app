@@ -58,7 +58,6 @@ class initFlutterBluePlus extends _$initFlutterBluePlus {
       return;
     }
 
-
     _onServicesResetStreamSubscription = flutterBluePlus.events.onServicesReset.listen((event) async {
       _bluetoothPlusLogger.info("${event.device.advName} onServicesReset");
       await event.device.discoverServices();
@@ -124,15 +123,16 @@ class _MTUChanged extends _$MTUChanged {
     statefulDevice?.mtu.value = event.mtu;
   }
 }
+
 @Riverpod(keepAlive: true)
 class _OnDiscoveredServices extends _$OnDiscoveredServices {
   StreamSubscription<OnDiscoveredServicesEvent>? streamSubscription;
 
   @override
   void build() {
-    streamSubscription = flutterBluePlus.events.onDiscoveredServices.listen(listener,onError: (e, s) => _bluetoothPlusLogger.warning("Unable to discover services: $e", e, s));
+    streamSubscription = flutterBluePlus.events.onDiscoveredServices.listen(listener, onError: (e, s) => _bluetoothPlusLogger.warning("Unable to discover services: $e", e, s));
     ref.onDispose(
-          () => streamSubscription?.cancel(),
+      () => streamSubscription?.cancel(),
     );
   }
 
@@ -141,7 +141,7 @@ class _OnDiscoveredServices extends _$OnDiscoveredServices {
     //Subscribes to all characteristics
     for (BluetoothService service in event.services) {
       BluetoothUartService? bluetoothUartService = uartServices.firstWhereOrNull(
-            (element) => element.bleDeviceService == service.serviceUuid.str,
+        (element) => element.bleDeviceService == service.serviceUuid.str,
       );
       if (bluetoothUartService != null) {
         BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
@@ -153,6 +153,7 @@ class _OnDiscoveredServices extends _$OnDiscoveredServices {
     }
   }
 }
+
 @Riverpod(keepAlive: true)
 class _RSSIChanged extends _$RSSIChanged {
   StreamSubscription<OnReadRssiEvent>? streamSubscription;
@@ -161,7 +162,7 @@ class _RSSIChanged extends _$RSSIChanged {
   void build() {
     streamSubscription = flutterBluePlus.events.onReadRssi.listen(listener, onError: (e, s) => _bluetoothPlusLogger.warning("Unable to read rssi: $e", e, s));
     ref.onDispose(
-          () => streamSubscription?.cancel(),
+      () => streamSubscription?.cancel(),
     );
   }
 
@@ -171,6 +172,7 @@ class _RSSIChanged extends _$RSSIChanged {
     statefulDevice?.rssi.value = event.rssi;
   }
 }
+
 @Riverpod(keepAlive: true)
 class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
   StreamSubscription<OnConnectionStateChangedEvent>? streamSubscription;
@@ -179,7 +181,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
   void build() {
     streamSubscription = flutterBluePlus.events.onConnectionStateChanged.listen(listener);
     ref.onDispose(
-          () => streamSubscription?.cancel(),
+      () => streamSubscription?.cancel(),
     );
   }
 
@@ -218,7 +220,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
     if (bluetoothConnectionState == BluetoothConnectionState.connected) {
       bluetoothDevice.readRssi().catchError((e) => -1).onError(
             (error, stackTrace) => -1,
-      );
+          );
       BaseDeviceDefinition? baseDeviceDefinition = DeviceRegistry.getByName(event.device.advName);
       if (baseDeviceDefinition == null) {
         return;
@@ -276,7 +278,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
         _bluetoothPlusLogger.fine('Last gear detected');
         // Disable all triggers on last device
         ref.read(triggerListProvider).where((element) => element.enabled).forEach(
-              (element) {
+          (element) {
             element.enabled = false;
           },
         );
@@ -297,6 +299,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
     }
   }
 }
+
 @Riverpod(keepAlive: true)
 class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
   StreamSubscription<OnCharacteristicReceivedEvent>? streamSubscription;
@@ -328,8 +331,8 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
         String value = const Utf8Decoder().convert(values);
         statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
         statefulDevice.batteryCharging.value = value == "CHARGE ON";
-      } catch (e, s) {
-        _bluetoothPlusLogger.warning("Unable to read values: $values", e, s);
+      } catch (e) {
+        _bluetoothPlusLogger.warning("Unable to read values: $values", e);
         statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
         return;
       }
@@ -337,8 +340,8 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
       String value = "";
       try {
         value = const Utf8Decoder().convert(values);
-      } catch (e, s) {
-        _bluetoothPlusLogger.warning("Unable to read values: $values $e", e);
+      } catch (e) {
+        _bluetoothPlusLogger.warning("Unable to read values: $values $e");
         statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
         return;
       }
@@ -385,7 +388,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
   }
 }
 
-@Riverpod(keepAlive: true,dependencies: [initFlutterBluePlus])
+@Riverpod(keepAlive: true, dependencies: [initFlutterBluePlus])
 class _KeepGearAwake extends _$KeepGearAwake {
   StreamSubscription? streamSubscription;
 

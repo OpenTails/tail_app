@@ -33,7 +33,7 @@ dependencies:
   # Platform Interfaces
   device_info_plus: ^11.2.0
   wakelock_plus: ^1.2.8 # Keeps the screen awake
-  file_picker: ^8.1.5 # used to manually select firmware file
+  file_picker: 8.1.4 # used to manually select firmware file
   path_provider: ^2.1.5 # used to get paths for app storage and cache storage
   package_info_plus: ^8.1.2
   permission_handler: ^11.3.1
@@ -150,10 +150,6 @@ dev_dependencies:
 
 dependency_overrides:
   collection: 1.19.1
-  file_picker:
-    git:
-      url: https://github.com/abdelaziz-mahdy/flutter_file_picker
-      ref: 3b299bb0cf7f553a150f9074168e9a53155d2a51
 #analyzer: 6.7.0
 
 flutter:

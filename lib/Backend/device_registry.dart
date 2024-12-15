@@ -32,7 +32,7 @@ class DeviceRegistry {
       uuid: "5fb21175-fef4-448a-a38b-c472d935abab",
       btName: "minitail",
       deviceType: DeviceType.miniTail,
-      fwURL: "https://thetailcompany.com/fw/mini",
+      fwURL: "https://thetailcompany.com/fw/mini.json",
       minVersion: Version(major: 5, minor: 0, patch: 0),
     ),
     BaseDeviceDefinition(
