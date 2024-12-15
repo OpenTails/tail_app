@@ -56,7 +56,14 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                 //TODO: Remove for TAILCoNTROL update
                 AnimatedSwitcher(
                   duration: animationTransitionDuration,
-                  child: ref.watch(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty ? const EarSpeedWidget() : null,
+                  child: ref
+                          .watch(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears])))
+                          .where(
+                            (p0) => p0.isTailCoNTROL.value == tailControlStatus.legacy,
+                          )
+                          .isNotEmpty
+                      ? const EarSpeedWidget()
+                      : null,
                 ),
                 AnimatedCrossFade(
                   firstChild: PageInfoCard(

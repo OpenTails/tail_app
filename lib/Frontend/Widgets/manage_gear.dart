@@ -583,6 +583,26 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
           ),
         ),
         ListTile(
+          title: const Text("isTailCoNTROL"),
+          trailing: DropdownMenu<tailControlStatus>(
+            initialSelection: widget.device.isTailCoNTROL.value,
+            onSelected: (value) {
+              if (value != null) {
+                setState(
+                  () {
+                    widget.device.isTailCoNTROL.value = value;
+                  },
+                );
+              }
+            },
+            dropdownMenuEntries: tailControlStatus.values
+                .map(
+                  (e) => DropdownMenuEntry(value: e, label: e.name),
+                )
+                .toList(),
+          ),
+        ),
+        ListTile(
           title: const Text("RSSI Level"),
           subtitle: Slider(
             min: -150,

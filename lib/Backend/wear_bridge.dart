@@ -8,6 +8,7 @@ import 'package:tail_app/Backend/sensors.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
 
 import '../constants.dart';
+import '../main.dart';
 import 'Definitions/Action/base_action.dart';
 import 'action_registry.dart';
 import 'favorite_actions.dart';
@@ -65,6 +66,9 @@ Future<Map<String, dynamic>> applicationContext() {
 
 @Riverpod()
 Future<void> updateWearActions(UpdateWearActionsRef ref) async {
+  if (await isWear()) {
+    return;
+  }
   try {
     Iterable<BaseAction> allActions = ref
         .read(favoriteActionsProvider)
@@ -79,7 +83,7 @@ Future<void> updateWearActions(UpdateWearActionsRef ref) async {
 
     final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap, uiColor: HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
     if (await isReachable()) {
-      //await _watch.updateApplicationContext(wearData.toJson());
+      await _watch.updateApplicationContext(wearData.toJson());
     }
   } catch (e, s) {
     _wearLogger.severe("Unable to send favorite actions to watch", e, s);

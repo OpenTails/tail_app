@@ -123,6 +123,8 @@ enum DeviceState { standby, runAction, busy }
 
 enum GlowtipStatus { glowtip, noGlowtip, unknown }
 
+enum tailControlStatus { tailControl, legacy, unknown }
+
 @freezed
 class BluetoothUartService with _$BluetoothUartService {
   const factory BluetoothUartService({
@@ -143,6 +145,7 @@ final List<BluetoothUartService> uartServices = const [
     bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
     bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
   ),
+  // TailCoNTROL uuids
   BluetoothUartService(
     bleDeviceService: "19F8ADE2-D0C6-4C0A-912A-30601D9B3060",
     bleRxCharacteristic: "5E4D86AC-EF2F-466F-A857-8776D45FFBC2",
@@ -181,6 +184,8 @@ class BaseStatefulDevice {
   final ValueNotifier<GearConfigInfo> gearConfigInfo = ValueNotifier(GearConfigInfo());
   final ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
   final ValueNotifier<bool> hasUpdate = ValueNotifier(false);
+  final ValueNotifier<tailControlStatus> isTailCoNTROL = ValueNotifier(tailControlStatus.unknown);
+
   late final Stream<String> rxCharacteristicStream;
   late final CommandQueue commandQueue;
   List<FlSpot> batlevels = [];
@@ -219,6 +224,22 @@ class BaseStatefulDevice {
       batlevels.add(FlSpot(stopWatch.elapsed.inSeconds.toDouble(), batteryLevel.value));
       batteryLow.value = batteryLevel.value < 20;
     });
+
+    bluetoothUartService.addListener(
+      () {
+        if (bluetoothUartService.value == null) {
+          isTailCoNTROL.value = tailControlStatus.unknown;
+          return;
+        }
+
+        isTailCoNTROL.value = bluetoothUartService.value ==
+                uartServices.firstWhere(
+                  (element) => element.bleDeviceService == "19F8ADE2-D0C6-4C0A-912A-30601D9B3060",
+                )
+            ? tailControlStatus.tailControl
+            : tailControlStatus.legacy;
+      },
+    );
   }
 
   @override

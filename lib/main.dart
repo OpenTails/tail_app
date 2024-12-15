@@ -24,6 +24,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 
+import 'Backend/Bluetooth/bluetooth_manager.dart';
 import 'Backend/Definitions/Action/base_action.dart';
 import 'Backend/Definitions/Device/device_definition.dart';
 import 'Backend/app_shortcuts.dart';
@@ -436,10 +437,10 @@ class _EagerInitialization extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Eagerly initialize providers by watching them.
     // By using "watch", the provider will stay alive and not be disposed.
-    //ref.watch(knownDevicesProvider);
-    //ref.watch(triggerListProvider);
-    //ref.watch(moveListsProvider);
-    //ref.watch(favoriteActionsProvider);
+    ref.watch(knownDevicesProvider);
+    ref.watch(triggerListProvider);
+    ref.watch(moveListsProvider);
+    ref.watch(favoriteActionsProvider);
     ref.watch(appShortcutsProvider);
     if (kDebugMode) {
       ref.watch(initWearProvider);

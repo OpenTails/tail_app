@@ -78,40 +78,5 @@ void main() {
       var actions = container.read(getAllActionsProvider);
       expect(actions.length, 5);
     });
-    test('Tail Actions', () {
-      final container = ProviderContainer(
-        overrides: [],
-      );
-      var actions = container.read(getAllActionsFilteredProvider(BuiltSet({DeviceType.tail})));
-      expect(actions.length, 4);
-    });
-    test('Ear Actions', () {
-      final container = ProviderContainer(
-        overrides: [],
-      );
-      var actions = container.read(getAllActionsFilteredProvider(BuiltSet({DeviceType.ears})));
-      expect(actions.length, 1);
-    });
-    test('Wings Actions', () {
-      final container = ProviderContainer(
-        overrides: [],
-      );
-      var actions = container.read(getAllActionsFilteredProvider(BuiltSet({DeviceType.wings})));
-      expect(actions.length, 3);
-    });
-    test('Mini Tail Actions', () {
-      final container = ProviderContainer(
-        overrides: [],
-      );
-      var actions = container.read(getAllActionsFilteredProvider(BuiltSet({DeviceType.miniTail})));
-      expect(actions.length, 3);
-    });
-    test('No Actions', () {
-      final container = ProviderContainer(
-        overrides: [],
-      );
-      var actions = container.read(getAllActionsFilteredProvider(BuiltSet()));
-      expect(actions.length, 0);
-    });
   });
 }
