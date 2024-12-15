@@ -290,7 +290,7 @@ List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device,
     }
   } else if (move.moveType == MoveType.move) {
     //TODO: Remove for TAILCoNTROL update
-    if (device.baseDeviceDefinition.deviceType == DeviceType.ears) {
+    if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value != tailControlStatus.tailControl) {
       commands
         ..add(
           BluetoothMessage(
