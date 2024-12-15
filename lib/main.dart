@@ -41,8 +41,6 @@ import 'Frontend/utils.dart';
 import 'constants.dart';
 import 'l10n/messages_all_locales.dart';
 
-//late SharedPreferences prefs;
-
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
   bool reportingEnabled = HiveProxy.getOrDefault(settings, "allowErrorReporting", defaultValue: true);
   if (reportingEnabled) {
