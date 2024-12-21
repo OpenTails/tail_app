@@ -32,8 +32,8 @@ dependencies:
 
   # Platform Interfaces
   device_info_plus: ^11.2.0
-  wakelock_plus: ^1.2.8 # Keeps the screen awake
-  file_picker: 8.1.4 # used to manually select firmware file
+  wakelock_plus: ^1.2.9 # Keeps the screen awake
+  file_picker: ^8.1.6 # used to manually select firmware file
   path_provider: ^2.1.5 # used to get paths for app storage and cache storage
   package_info_plus: ^8.1.2
   permission_handler: ^11.3.1
@@ -65,7 +65,7 @@ dependencies:
   flex_color_picker: ^3.6.0
   flutter_adaptive_scaffold: ^0.3.1
   animate_do: ^3.3.4
-  fl_chart: ^0.69.2 # Used for the battery graph
+  fl_chart: ^0.70.0 # Used for the battery graph
   chart_sparkline: ^1.1.1 # used for the move easing visual
   flutter_joystick: ^0.2.1
   multi_value_listenable_builder: ^0.0.2
@@ -111,7 +111,7 @@ dependencies:
   upgrader: ^11.3.1
   google_api_availability: ^5.0.0
   firebase_messaging: ^15.1.6
-  firebase_core: ^3.8.1
+  firebase_core: ^3.9.0
   firebase_app_installations: ^0.3.1+7
 
   # Spicy
@@ -122,10 +122,10 @@ dependencies:
       ref: acc2eb22f12e54e86df3541ddb23b6983ff5d2ac
 
   # Sentry
-  sentry_flutter: ^8.11.0 # Base sentry + Flutter integration
-  sentry_logging: ^8.11.0 # Collects app logs
-  sentry_hive: ^8.11.0 # Collects Hive storage accesses
-  sentry_dio: ^8.11.0 # Collects Dio HTTP requests
+  sentry_flutter: ^8.11.2 # Base sentry + Flutter integration
+  sentry_logging: ^8.11.2 # Collects app logs
+  sentry_hive: ^8.11.2 # Collects Hive storage accesses
+  sentry_dio: ^8.11.2 # Collects Dio HTTP requests
   feedback_sentry: ^3.1.0
 
 dev_dependencies:
