@@ -7,13 +7,15 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        FilledButton(onPressed: () {}, child: Text("Favorite Actions")),
-        FilledButton(onPressed: () {}, child: Text(homePage())),
-        FilledButton(onPressed: () {}, child: Text(triggersPage())),
-        FilledButton(onPressed: () {}, child: Text("Gear")),
-      ],
+    return SafeArea(
+      child: ListView(
+        children: [
+          FilledButton(onPressed: () {}, child: Text("Favorite Actions")),
+          FilledButton(onPressed: () {}, child: Text(homePage())),
+          FilledButton(onPressed: () {}, child: Text(triggersPage())),
+          FilledButton(onPressed: () {}, child: Text("Gear")),
+        ],
+      ),
     );
   }
 }

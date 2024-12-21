@@ -15,11 +15,11 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
-    namespace = "com.codel1417.tail_App"
+    namespace = "com.codel1417.tailApp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.codel1417.tail_App"
+        applicationId = "com.codel1417.tailApp"
         minSdk = 30
         targetSdk = 34
         versionCode = 1
