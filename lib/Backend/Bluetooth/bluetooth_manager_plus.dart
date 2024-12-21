@@ -36,7 +36,7 @@ bool _didInitFlutterBluePlus = false;
 FlutterBluePlusMockable flutterBluePlus = FlutterBluePlusMockable();
 
 @Riverpod(keepAlive: true)
-class initFlutterBluePlus extends _$initFlutterBluePlus {
+class InitFlutterBluePlus extends _$InitFlutterBluePlus {
   StreamSubscription<OnServicesResetEvent>? _onServicesResetStreamSubscription;
   StreamSubscription<BluetoothAdapterState>? _adapterStateStreamSubscription;
 
@@ -388,7 +388,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
   }
 }
 
-@Riverpod(keepAlive: true, dependencies: [initFlutterBluePlus])
+@Riverpod(keepAlive: true, dependencies: [InitFlutterBluePlus])
 class _KeepGearAwake extends _$KeepGearAwake {
   StreamSubscription? streamSubscription;
 

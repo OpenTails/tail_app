@@ -73,9 +73,13 @@ runs:
     - name: list dependencies
       shell: bash
       run: cd android && ./gradlew app:dependencies --configuration releaseCompileClasspath
+    - name: Rename APK
+      shell: bash
+      if: inputs.build-mode == 'apk'
+      run: cd build/app/outputs/apk/release/ && mv apk-release.apk tailCompanyApp-${{ inputs.version }}-${{ inputs.build-number }}.apk
     - uses: actions/upload-artifact@v4
       continue-on-error: true
-      if: runner.os == 'Linux' && inputs.build-mode == 'apk'
+      if: inputs.build-mode == 'apk'
       with:
-        name: artifact-${{ runner.os }}
-        path: build/app/outputs/apk
+        name: artifact-${{ inputs.version }}-${{ inputs.build-number }}
+        path: build/app/outputs/apk/release
