@@ -298,8 +298,8 @@ class GetAvailableActions extends _$GetAvailableActions {
       for (BaseStatefulDevice baseStatefulDevice in availableGear) {
         // check if command matches device type
         if (baseAction.deviceCategory.contains(baseStatefulDevice.baseDeviceDefinition.deviceType) && ((baseAction.actionCategory == ActionCategory.glowtip && baseStatefulDevice.hasGlowtip.value == GlowtipStatus.glowtip) || baseAction.actionCategory != ActionCategory.glowtip)) {
-          if (baseAction.deviceCategory.contains(DeviceType.ears)) {
-            // Handle migrating ears to unified firmware
+          // Handle migrating ears to unified firmware
+          if (baseAction.deviceCategory.contains(DeviceType.ears) && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears) {
             if (baseStatefulDevice.isTailCoNTROL.value == tailControlStatus.tailControl) {
               // skip legacy moves
               if (baseAction is EarsMoveList) {
