@@ -234,7 +234,7 @@ class BaseStatefulDevice {
 
         isTailCoNTROL.value = bluetoothUartService.value ==
                 uartServices.firstWhere(
-                  (element) => element.bleDeviceService == "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
+                  (element) => element.bleDeviceService.toLowerCase() == "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
                 )
             ? tailControlStatus.tailControl
             : tailControlStatus.legacy;
@@ -260,6 +260,8 @@ class BaseStatefulDevice {
     stopWatch.reset();
     mtu.value = -1;
     mandatoryOtaRequired.value = false;
+    isTailCoNTROL.value = tailControlStatus.unknown;
+    bluetoothUartService.value = null;
   }
 }
 
