@@ -110,7 +110,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
             asset: Assets.tailcostickers.tailCoStickersFile144834359,
             width: MediaQuery.of(context).size.width,
           ),
-          footer: ButtonBar(
+          footer: OverflowBar(
             alignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
@@ -154,7 +154,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
             asset: Assets.tailcostickers.tailCoStickersFile144834357,
             width: MediaQuery.of(context).size.width,
           ),
-          footer: ButtonBar(
+          footer: OverflowBar(
             alignment: MainAxisAlignment.center,
             children: [
               FilledButton(

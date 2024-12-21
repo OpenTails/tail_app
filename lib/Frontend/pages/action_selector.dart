@@ -125,7 +125,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
             tileMode: TileMode.clamp,
           ),
         ),
-        child: ButtonBar(
+        child: OverflowBar(
           alignment: MainAxisAlignment.center,
           children: [
             FilledButton(

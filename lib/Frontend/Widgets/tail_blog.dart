@@ -164,13 +164,13 @@ class _TailBlogState extends State<TailBlog> {
         }
       }
     }
-    if (mounted && context.mounted && results.isNotEmpty) {
+    if (mounted && context.mounted) {
       setState(() {
-        feedState = FeedState.loaded;
-      });
-    } else if (context.mounted) {
-      setState(() {
-        feedState = FeedState.error;
+        if (results.isNotEmpty) {
+          feedState = FeedState.loaded;
+        } else {
+          feedState = FeedState.error;
+        }
       });
     }
   }
@@ -245,7 +245,7 @@ class _TailBlogImageState extends ConsumerState<TailBlogImage> {
 }
 
 @Riverpod(keepAlive: true)
-Future<Widget> getBlogImage(GetBlogImageRef ref, String url) async {
+Future<Widget> getBlogImage(Ref ref, String url) async {
   if (!await tailBlogConnectivityCheck()) {
     return Container();
   }

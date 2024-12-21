@@ -56,7 +56,14 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                 //TODO: Remove for TAILCoNTROL update
                 AnimatedSwitcher(
                   duration: animationTransitionDuration,
-                  child: ref.watch(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty ? const EarSpeedWidget() : null,
+                  child: ref
+                          .watch(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears])))
+                          .where(
+                            (p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy,
+                          )
+                          .isNotEmpty
+                      ? const EarSpeedWidget()
+                      : null,
                 ),
                 AnimatedCrossFade(
                   firstChild: PageInfoCard(
@@ -174,7 +181,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
             children: [
               // Shows when an action is in progress
               AnimatedCrossFade(
-                firstChild: Container(),
+                firstChild: Center(child: Container()),
                 secondChild: const Center(child: CircularProgressIndicator()),
                 crossFadeState: ref.watch(isGearMoveRunningProvider(widget.action.deviceCategory.toBuiltSet())) ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                 alignment: Alignment.center,
@@ -186,6 +193,25 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                 child: Row(
                   children: ref
                       .watch(getAvailableGearForTypeProvider(widget.action.deviceCategory.toBuiltSet()))
+                      .where(
+                        (baseStatefulDevice) {
+                          //TODO: remove after tailcontrol migration period
+                          if (widget.action.deviceCategory.contains(DeviceType.ears) && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears) {
+                            if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
+                              // skip legacy moves
+                              if (widget.action is EarsMoveList) {
+                                return false;
+                              }
+                              // skip unified moves for legacy firmware ears
+                            } else if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.legacy) {
+                              if (widget.action is CommandAction) {
+                                return false;
+                              }
+                            }
+                          }
+                          return true;
+                        },
+                      )
                       .map(
                         (e) => Card(
                           color: Color(e.baseStoredDevice.color),

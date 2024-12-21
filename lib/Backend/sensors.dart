@@ -205,7 +205,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           // 15 second cool-down between moves
           return;
         }
-        final List<BaseAction> allActionsMapped = triggerAction.actions.map((element) => ref.read(getActionFromUUIDProvider(element))).whereNotNull().toList();
+        final List<BaseAction> allActionsMapped = triggerAction.actions.map((element) => ref.read(getActionFromUUIDProvider(element))).nonNulls.toList();
 
         // no moves exist
         if (allActionsMapped.isEmpty) {
@@ -217,7 +217,13 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
 
         BaseAction? baseAction;
         List<BaseAction> actionsToRun = [];
-
+        // we need to handle legacy ears for now
+        bool hasLegacyEars = ref
+            .read(getAvailableIdleGearForTypeProvider([DeviceType.ears].toBuiltSet()))
+            .where(
+              (p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy,
+            )
+            .isNotEmpty;
         // add a glowtip action if it exists
         if (glowActions.isNotEmpty) {
           final BaseAction glowAction = glowActions[_random.nextInt(glowActions.length)];
@@ -234,16 +240,36 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           baseAction = moveActions[_random.nextInt(moveActions.length)];
           actionsToRun.add(baseAction);
         }
-        if (baseAction != null && !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes)) {
+        //only adding a check here
+        if (baseAction != null && (!baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes) || (baseAction is CommandAction && hasLegacyEars))) {
           // find the missing device type
           // The goal here is if a user selects multiple moves, send a move to all gear
-          final Set<DeviceType> missingGearAction = baseAction.deviceCategory.toSet().difference(baseAction.deviceCategory.toSet());
-          final List<BaseAction> remainingActions = moveActions
-              .where(
-                // Check if any actions contain the device type of the gear the first action is missing
-                (element) => element.deviceCategory.toSet().intersection(missingGearAction).isNotEmpty,
+          final Set<DeviceType> missingGearAction = baseAction.deviceCategory
+              .whereNot(
+                // filtering out the first actions ears entry if its a unified move but legacy gear is connected
+                (element) => DeviceType.ears == element && baseAction is CommandAction && hasLegacyEars,
               )
-              .toList();
+              .toSet()
+              .difference(flattenedDeviceTypes);
+          final List<BaseAction> remainingActions = moveActions.where(
+            // Check if any actions contain the device type of the gear the first action is missing
+            (element) {
+              if (baseAction is CommandAction && missingGearAction.contains(DeviceType.ears)) {
+                if (element is EarsMoveList) {
+                  return true;
+                } else if (element is CommandAction) {
+                  return false;
+                }
+              } else if (baseAction is EarsMoveList && missingGearAction.contains(DeviceType.ears)) {
+                if (element is CommandAction) {
+                  return true;
+                } else if (element is EarsMoveList) {
+                  return false;
+                }
+              }
+              return element.deviceCategory.toSet().intersection(missingGearAction).isNotEmpty;
+            },
+          ).toList();
           if (remainingActions.isNotEmpty) {
             final BaseAction otherAction = remainingActions[_random.nextInt(remainingActions.length)];
             actionsToRun.add(otherAction);
@@ -265,6 +291,12 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
             }
             runAction(baseAction, baseStatefulDevice);
             if (!const [ActionCategory.glowtip].contains(baseAction.actionCategory)) {
+              // handle tailcontrol migration by not counting the actions as used.
+              if (baseAction is CommandAction && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears && baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.legacy) {
+                continue;
+              } else if (baseAction is EarsMoveList && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears && baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
+                continue;
+              }
               sentDeviceTypes.add(baseStatefulDevice.baseDeviceDefinition.deviceType);
             }
           }
@@ -550,7 +582,7 @@ class RandomTriggerDefinition extends TriggerDefinition {
     int max = HiveProxy.getOrDefault(settings, casualModeDelayMax, defaultValue: casualModeDelayMaxDefault);
     await Future.delayed(Duration(seconds: min));
     if (enabled) {
-      randomTimer = Timer(Duration(seconds: Random().nextInt(max - min)), () {
+      randomTimer = Timer(Duration(seconds: Random().nextInt((max - min).clamp(1, max))), () {
         sendCommands("Action", ref);
         onEnable();
       });

@@ -101,7 +101,9 @@
             android:foregroundServiceType="connectedDevice"
             android:stopWithTask="true" />
 
-
+        <meta-data
+            android:name="com.codel1417.tailApp.notificationIcon"
+            android:resource="@drawable/ic_notification" />
         <service
             android:name="com.klaviyo.pushFcm.KlaviyoPushService"
             android:exported="false">

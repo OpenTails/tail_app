@@ -1046,5 +1046,107 @@
     "description": "Description for the tail blog wifi only setting",
     "type": "text",
     "placeholders": {}
+  },
+  "manageGearConModePincodeEnableDescription": "Wenn du den 'Convention Mode' aktivierst, wird dis Gesr rebootet und du wirsch drum gebeten, de Pincode ii z'geh. De Pincode wird uf d’Zwischäboard kopier",
+  "@manageGearConModePincodeEnableDescription": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonDownloadFailed": "Es hät nüt funktioniert, die Firmware-Datei abzulade",
+  "@otaFailedReasonDownloadFailed": {
+    "description": "downloadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearVersionMismatch": "D'Firmware-Version vo dim Gerät passt nöd mit der uufgladene Firmware-Version zäme",
+  "@otaFailedReasonGearVersionMismatch": {
+    "description": "gearVersionMismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReturnedError": "D'Gear het en unbekannte Störung zruckgebracht",
+  "@otaFailedReasonGearReturnedError": {
+    "description": "gearReturnedError error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonUploadFailed": "Uflade vo Firmware uf d'Gear het nöd funktionier",
+  "@otaFailedReasonUploadFailed": {
+    "description": "uploadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReconnectTimeout": "D'Gears het sich nöd i der Zit wieder verbunde",
+  "@otaFailedReasonGearReconnectTimeout": {
+    "description": "gearReconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearDisconnectTimeout": "Gear het sich nöd rechtzeitig abgschaltet und eventuell nöd neu gestartet",
+  "@otaFailedReasonGearDisconnectTimeout": {
+    "description": "gearDisconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearOtaFinalTimeout": "Zit abgelaufen, während i uf Gear warte, dass es neui Firmware-Version zurücksendet",
+  "@otaFailedReasonGearOtaFinalTimeout": {
+    "description": "gearOtaFinalTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportDescription": "Tippe uf das blaue Chat-Icon, um Unterstützig z'kontaktierä",
+  "@supportDescription": {
+    "description": "The description of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeTitle": "Konventionsmodus",
+  "@manageGearConModeTitle": {
+    "description": "The title for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeTitle": "Pin Code aluga",
+  "@manageGearConModePincodeTitle": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeCopy": "I d'Zwüscheablage kopiere",
+  "@manageGearConModePincodeCopy": {
+    "description": "The description for copy to clipboard button on the pin code dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeToggleTitle": "Konventionsmodus aktivieren",
+  "@manageGearConModeToggleTitle": {
+    "description": "The description for the convention mode enabled button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonMD5Mismatch": "Ds File, wo mer abglade hämmer, isch bei dr Prüefig durchgefloge",
+  "@otaFailedReasonMD5Mismatch": {
+    "description": "md5Mismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportTitle": "Unterstützig",
+  "@supportTitle": {
+    "description": "The label and title of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeDescription": "De Konventionsmodus isch e zusätzliche Sicherheitsmassnahme, um z'verhinder, dass anden Geräte sich mit dinere Ausrüstig verbinden chönd.",
+  "@manageGearConModeDescription": {
+    "description": "The description for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "feedbackPageDescription": "Hesch e Idee oder e Problem mit dr App? Lass es üs wüsse. Hinweis: Das isch anonym und kann nüt helfe, um Problem mit Gear z'löse",
+  "@feedbackPageDescription": {
+    "description": "The description of the feedback page",
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -8,6 +9,7 @@ import 'package:tail_app/Backend/sensors.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
 
 import '../constants.dart';
+import '../main.dart';
 import 'Definitions/Action/base_action.dart';
 import 'action_registry.dart';
 import 'favorite_actions.dart';
@@ -22,7 +24,7 @@ StreamSubscription<Map<String, dynamic>>? _contextStreamSubscription;
 final _watch = WatchConnectivity();
 
 @Riverpod(keepAlive: true)
-Future<void> initWear(InitWearRef ref) async {
+Future<void> initWear(Ref ref) async {
   await Future.delayed(const Duration(seconds: 5));
   try {
     // Get the state of device connectivity
@@ -33,7 +35,7 @@ Future<void> initWear(InitWearRef ref) async {
       (event) => _wearLogger.info("Watch Context: $event"),
     );
 
-    ref.read(updateWearActionsProvider);
+    //ref.read(updateWearActionsProvider);
   } catch (e, s) {
     _wearLogger.severe("exception setting up Wear $e", e, s);
   }
@@ -64,7 +66,10 @@ Future<Map<String, dynamic>> applicationContext() {
 }
 
 @Riverpod()
-Future<void> updateWearActions(UpdateWearActionsRef ref) async {
+Future<void> updateWearActions(Ref ref) async {
+  if (await isWear()) {
+    return;
+  }
   try {
     Iterable<BaseAction> allActions = ref
         .read(favoriteActionsProvider)
@@ -78,8 +83,8 @@ Future<void> updateWearActions(UpdateWearActionsRef ref) async {
     final List<WearTriggerData> triggersMap = triggers.map((e) => WearTriggerData(uuid: e.uuid, name: e.triggerDefinition!.name, enabled: e.enabled)).toList();
 
     final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap, uiColor: HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-    if (await _watch.isReachable) {
-      //await _watch.updateApplicationContext(wearData.toJson());
+    if (await isReachable()) {
+      await _watch.updateApplicationContext(wearData.toJson());
     }
   } catch (e, s) {
     _wearLogger.severe("Unable to send favorite actions to watch", e, s);

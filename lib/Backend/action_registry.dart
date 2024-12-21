@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'Bluetooth/bluetooth_manager.dart';
@@ -22,7 +23,7 @@ class ActionRegistry {
     CommandAction(
       name: "Slow 1",
       command: "TAILS1",
-      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.calm,
       response: "TAILS1 END",
       uuid: "c53e980e-899e-4148-a13e-f57a8f9707f4",
@@ -33,7 +34,7 @@ class ActionRegistry {
     CommandAction(
       name: "Slow 2",
       command: "TAILS2",
-      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.calm,
       response: "TAILS2 END",
       uuid: "eb1bdfe7-d374-4e97-943a-13e89f27ddcd",
@@ -44,7 +45,7 @@ class ActionRegistry {
     CommandAction(
       name: "Slow 3",
       command: "TAILS3",
-      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.calm,
       response: "TAILS3 END",
       uuid: "6937b9af-3ff7-43fb-ae62-a403e5dfaf95",
@@ -55,7 +56,7 @@ class ActionRegistry {
     CommandAction(
       name: "Fast",
       command: "TAILFA",
-      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.fast,
       response: "TAILFA END",
       uuid: "a04b558f-0ad5-410f-8e39-8f5c594791d2",
@@ -66,7 +67,7 @@ class ActionRegistry {
     CommandAction(
       name: "Short",
       command: "TAILSH",
-      deviceCategory: [DeviceType.tail, DeviceType.wings],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.fast,
       response: "TAILSH END",
       uuid: "05a4c47b-45ee-4da8-bec2-4a46f4e04a7f",
@@ -77,7 +78,7 @@ class ActionRegistry {
     CommandAction(
       name: "Happy",
       command: "TAILHA",
-      deviceCategory: [DeviceType.tail, DeviceType.wings],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.fast,
       response: "TAILHA END",
       uuid: "86b13d13-b09c-46ba-a887-b40d8118b00a",
@@ -88,7 +89,7 @@ class ActionRegistry {
     CommandAction(
       name: "Stand Up",
       command: "TAILER",
-      deviceCategory: [DeviceType.tail, DeviceType.wings],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.fast,
       response: "TAILER END",
       uuid: "5b04ca3d-a22a-4aff-8f40-99363248fcaa",
@@ -99,7 +100,7 @@ class ActionRegistry {
     CommandAction(
       name: "Pulse",
       command: "TAILEP",
-      deviceCategory: [DeviceType.tail, DeviceType.wings],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.tense,
       response: "TAILEP END",
       uuid: "39bbe39d-aa92-4189-ac90-4bb821a59f5e",
@@ -110,7 +111,7 @@ class ActionRegistry {
     CommandAction(
       name: "Tremble 1",
       command: "TAILT1",
-      deviceCategory: [DeviceType.tail, DeviceType.wings],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.tense,
       response: "TAILT1 END",
       uuid: "8cc3fc60-b8d2-4f22-810a-1e042d3984f7",
@@ -121,7 +122,7 @@ class ActionRegistry {
     CommandAction(
       name: "Tremble 2",
       command: "TAILT2",
-      deviceCategory: [DeviceType.tail, DeviceType.wings],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.tense,
       response: "TAILT2 END",
       uuid: "123557a2-5489-43da-99e2-da37a36f055a",
@@ -132,7 +133,7 @@ class ActionRegistry {
     CommandAction(
       name: "Tremble 3",
       command: "TAILET",
-      deviceCategory: [DeviceType.tail, DeviceType.wings],
+      deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.tense,
       response: "TAILET END",
       uuid: "4909d4c2-0054-4f16-9589-6273ef6bf6c9",
@@ -143,49 +144,49 @@ class ActionRegistry {
     CommandAction(
       name: "LEDs off",
       command: "LEDOFF",
-      deviceCategory: [DeviceType.tail, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.glowtip,
       uuid: "6b2a7fae-b58c-43f3-81bf-070aa21c2242",
     ),
     CommandAction(
       name: "Rectangle wave",
       command: "LEDREC",
-      deviceCategory: [DeviceType.tail, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.glowtip,
       uuid: "34269c91-90bd-4a34-851d-d49daa6ac863",
     ),
     CommandAction(
       name: "Triangle wave",
       command: "LEDTRI",
-      deviceCategory: [DeviceType.tail, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.glowtip,
       uuid: "64142e0b-4cc0-4b1e-845f-9c560875f993",
     ),
     CommandAction(
       name: "Sawtooth wave",
       command: "LEDSAW",
-      deviceCategory: [DeviceType.tail, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.glowtip,
       uuid: "047b84ad-3eb8-4d9c-b59b-13186cf965ca",
     ),
     CommandAction(
       name: "SOS",
       command: "LEDSOS",
-      deviceCategory: [DeviceType.tail, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.glowtip,
       uuid: "66164945-840f-4302-b27c-e7a7623bf475",
     ),
     CommandAction(
       name: "Beacon",
       command: "LEDBEA",
-      deviceCategory: [DeviceType.tail, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.glowtip,
       uuid: "4955a936-7703-4ce6-8d4a-b18857c0ea0a",
     ),
     CommandAction(
       name: "Flame",
       command: "LEDFLA",
-      deviceCategory: [DeviceType.tail, DeviceType.miniTail],
+      deviceCategory: [DeviceType.tail, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.glowtip,
       uuid: "e46566b4-1071-4866-815b-1aefbf06b573",
     ),
@@ -282,6 +283,9 @@ class GetAvailableActions extends _$GetAvailableActions {
       baseStatefulDevice.hasGlowtip
         ..removeListener(_listener)
         ..addListener(_listener);
+      baseStatefulDevice.isTailCoNTROL
+        ..removeListener(_listener)
+        ..addListener(_listener);
     }
     return getState();
   }
@@ -295,6 +299,21 @@ class GetAvailableActions extends _$GetAvailableActions {
       for (BaseStatefulDevice baseStatefulDevice in availableGear) {
         // check if command matches device type
         if (baseAction.deviceCategory.contains(baseStatefulDevice.baseDeviceDefinition.deviceType) && ((baseAction.actionCategory == ActionCategory.glowtip && baseStatefulDevice.hasGlowtip.value == GlowtipStatus.glowtip) || baseAction.actionCategory != ActionCategory.glowtip)) {
+          // Handle migrating ears to unified firmware
+          if (baseAction.deviceCategory.contains(DeviceType.ears) && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears) {
+            if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
+              // skip legacy moves
+              if (baseAction is EarsMoveList) {
+                continue;
+              }
+              // skip unified moves for legacy firmware ears
+            } else if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.legacy) {
+              if (baseAction is CommandAction) {
+                continue;
+              }
+            }
+          }
+
           // get category if it exists
           if (sortedActions.containsKey(baseAction.actionCategory)) {
             baseActions = sortedActions[baseAction.actionCategory];
@@ -321,7 +340,7 @@ class GetAvailableActions extends _$GetAvailableActions {
 }
 
 @Riverpod(keepAlive: true)
-BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAllActions(GetAllActionsRef ref) {
+BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAllActions(Ref ref) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   final BuiltList<MoveList> moveLists = ref.watch(moveListsProvider);
   final BuiltList<AudioAction> audioActions = ref.watch(userAudioActionsProvider);
@@ -348,50 +367,7 @@ BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAllActions(GetAllActionsRef re
 }
 
 @Riverpod(keepAlive: true)
-BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAllActionsFiltered(GetAllActionsFilteredRef ref, BuiltSet<DeviceType> deviceType) {
-  Map<ActionCategory, Set<BaseAction>> sortedActions = {};
-  final BuiltMap<ActionCategory, BuiltSet<BaseAction>> read = ref.watch(getAllActionsProvider);
-  for (BaseAction baseAction in read.values.flattened) {
-    Set<BaseAction>? baseActions = {};
-    // check if command matches device type
-    if (baseAction.deviceCategory.toBuiltSet().intersection(deviceType).isNotEmpty) {
-      // get category if it exists
-      if (sortedActions.containsKey(baseAction.actionCategory)) {
-        baseActions = sortedActions[baseAction.actionCategory];
-      }
-      // add action to category
-      baseActions?.add(baseAction);
-    }
-    // store result
-    if (baseActions != null && baseActions.isNotEmpty) {
-      sortedActions[baseAction.actionCategory] = baseActions;
-    }
-  }
-  return BuiltMap(
-    sortedActions.map(
-      (key, value) => MapEntry(key, value.build()),
-    ),
-  );
-}
-
-@Riverpod(keepAlive: true)
-BuiltList<BaseAction> getAllActionsForCategory(GetAllActionsForCategoryRef ref, ActionCategory actionCategory) {
-  final BuiltMap<ActionCategory, BuiltSet<BaseAction>> allActions = ref.watch(getAllActionsProvider);
-  if (allActions.containsKey(actionCategory)) {
-    return allActions[actionCategory]!.toBuiltList();
-  }
-  return BuiltList();
-}
-
-BuiltList<BaseAction> splitBaseAction(BaseAction baseAction) {
-  if (baseAction.deviceCategory.length <= 1) {
-    return [baseAction].build();
-  }
-  return BuiltList();
-}
-
-@Riverpod(keepAlive: true)
-BaseAction? getActionFromUUID(GetActionFromUUIDRef ref, String? uuid) {
+BaseAction? getActionFromUUID(Ref ref, String? uuid) {
   if (uuid == null) {
     return null;
   }
