@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -23,7 +24,7 @@ StreamSubscription<Map<String, dynamic>>? _contextStreamSubscription;
 final _watch = WatchConnectivity();
 
 @Riverpod(keepAlive: true)
-Future<void> initWear(InitWearRef ref) async {
+Future<void> initWear(Ref ref) async {
   await Future.delayed(const Duration(seconds: 5));
   try {
     // Get the state of device connectivity
@@ -34,7 +35,7 @@ Future<void> initWear(InitWearRef ref) async {
       (event) => _wearLogger.info("Watch Context: $event"),
     );
 
-    ref.read(updateWearActionsProvider);
+    //ref.read(updateWearActionsProvider);
   } catch (e, s) {
     _wearLogger.severe("exception setting up Wear $e", e, s);
   }
@@ -65,7 +66,7 @@ Future<Map<String, dynamic>> applicationContext() {
 }
 
 @Riverpod()
-Future<void> updateWearActions(UpdateWearActionsRef ref) async {
+Future<void> updateWearActions(Ref ref) async {
   if (await isWear()) {
     return;
   }

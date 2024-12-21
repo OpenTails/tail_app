@@ -342,7 +342,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                                     .map(
                                       (e) => ref.read(getActionFromUUIDProvider(e)),
                                     )
-                                    .whereNotNull()
+                                    .nonNulls
                                     .toList(),
                               ),
                             ),
@@ -370,7 +370,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                   ),
                 ),
               ),
-              ButtonBar(
+              OverflowBar(
                 children: [
                   TextButton(
                     onPressed: () async {

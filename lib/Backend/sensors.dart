@@ -221,7 +221,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         bool hasLegacyEars = ref
             .read(getAvailableIdleGearForTypeProvider([DeviceType.ears].toBuiltSet()))
             .where(
-              (p0) => p0.isTailCoNTROL.value == tailControlStatus.legacy,
+              (p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy,
             )
             .isNotEmpty;
         // add a glowtip action if it exists
@@ -292,9 +292,9 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
             runAction(baseAction, baseStatefulDevice);
             if (!const [ActionCategory.glowtip].contains(baseAction.actionCategory)) {
               // handle tailcontrol migration by not counting the actions as used.
-              if (baseAction is CommandAction && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears && baseStatefulDevice.isTailCoNTROL.value == tailControlStatus.legacy) {
+              if (baseAction is CommandAction && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears && baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.legacy) {
                 continue;
-              } else if (baseAction is EarsMoveList && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears && baseStatefulDevice.isTailCoNTROL.value == tailControlStatus.tailControl) {
+              } else if (baseAction is EarsMoveList && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears && baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
                 continue;
               }
               sentDeviceTypes.add(baseStatefulDevice.baseDeviceDefinition.deviceType);

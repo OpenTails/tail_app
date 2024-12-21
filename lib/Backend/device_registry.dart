@@ -1,5 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -74,7 +75,7 @@ class DeviceRegistry {
 }
 
 @Riverpod(keepAlive: true)
-BuiltSet<BaseStatefulDevice> getByAction(GetByActionRef ref, BaseAction baseAction) {
+BuiltSet<BaseStatefulDevice> getByAction(Ref ref, BaseAction baseAction) {
   deviceRegistryLogger.info("Getting devices for action::$baseAction");
   Set<BaseStatefulDevice> foundDevices = {};
   final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
@@ -109,7 +110,7 @@ class GetAvailableIdleGear extends _$GetAvailableIdleGear {
 }
 
 @Riverpod(keepAlive: true)
-BuiltSet<DeviceType> getAvailableGearTypes(GetAvailableGearTypesRef ref) {
+BuiltSet<DeviceType> getAvailableGearTypes(Ref ref) {
   final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
   return watch
       .map(
@@ -119,13 +120,13 @@ BuiltSet<DeviceType> getAvailableGearTypes(GetAvailableGearTypesRef ref) {
 }
 
 @Riverpod(keepAlive: true)
-BuiltList<BaseStatefulDevice> getAvailableIdleGearForAction(GetAvailableIdleGearForActionRef ref, BaseAction baseAction) {
+BuiltList<BaseStatefulDevice> getAvailableIdleGearForAction(Ref ref, BaseAction baseAction) {
   final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
   return watch.where((element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
 }
 
 @Riverpod(keepAlive: true)
-BuiltList<BaseStatefulDevice> getAvailableIdleGearForType(GetAvailableIdleGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
+BuiltList<BaseStatefulDevice> getAvailableIdleGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
   final Iterable<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
   return watch
       .where(
@@ -135,7 +136,7 @@ BuiltList<BaseStatefulDevice> getAvailableIdleGearForType(GetAvailableIdleGearFo
 }
 
 @Riverpod(keepAlive: true)
-BuiltList<BaseStatefulDevice> getAvailableGearForType(GetAvailableGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
+BuiltList<BaseStatefulDevice> getAvailableGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
   final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
   return watch
       .where(
@@ -145,7 +146,7 @@ BuiltList<BaseStatefulDevice> getAvailableGearForType(GetAvailableGearForTypeRef
 }
 
 @Riverpod(keepAlive: true)
-BuiltList<BaseStatefulDevice> getKnownGearForType(GetKnownGearForTypeRef ref, BuiltSet<DeviceType> deviceTypes) {
+BuiltList<BaseStatefulDevice> getKnownGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
   final BuiltMap<String, BaseStatefulDevice> watch = ref.watch(knownDevicesProvider);
   return watch.values
       .where(
@@ -197,7 +198,7 @@ class GetAvailableGear extends _$GetAvailableGear {
 }
 
 @Riverpod(keepAlive: true)
-bool isAllKnownGearConnected(IsAllKnownGearConnectedRef ref) {
+bool isAllKnownGearConnected(Ref ref) {
   var knownGear = ref.watch(knownDevicesProvider);
   BuiltList<BaseStatefulDevice> connectedGear = ref.watch(getAvailableGearProvider);
   return knownGear.length == connectedGear.length;

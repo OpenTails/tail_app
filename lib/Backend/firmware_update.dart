@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -38,7 +39,7 @@ class FWInfo with _$FWInfo {
 }
 
 @Riverpod(keepAlive: true)
-Future<List<FWInfo>?> getBaseFirmwareInfo(GetBaseFirmwareInfoRef ref, String url) async {
+Future<List<FWInfo>?> getBaseFirmwareInfo(Ref ref, String url) async {
   Dio dio = await initDio();
   Future<Response<String>> valueFuture = dio.get(url, options: Options(responseType: ResponseType.json))
     ..onError((error, stackTrace) {
@@ -57,7 +58,7 @@ Future<List<FWInfo>?> getBaseFirmwareInfo(GetBaseFirmwareInfoRef ref, String url
 }
 
 @Riverpod()
-Future<FWInfo?> getFirmwareInfo(GetFirmwareInfoRef ref, String url, String hwVer) async {
+Future<FWInfo?> getFirmwareInfo(Ref ref, String url, String hwVer) async {
   if (url.isEmpty || hwVer.isEmpty) {
     return null;
   }
@@ -87,7 +88,7 @@ Future<FWInfo?> getFirmwareInfo(GetFirmwareInfoRef ref, String url, String hwVer
 }
 
 @Riverpod()
-Future<FWInfo?> checkForFWUpdate(CheckForFWUpdateRef ref, BaseStatefulDevice baseStatefulDevice) async {
+Future<FWInfo?> checkForFWUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async {
   if (baseStatefulDevice.fwInfo.value != null) {
     return baseStatefulDevice.fwInfo.value;
   }
@@ -106,7 +107,7 @@ Future<FWInfo?> checkForFWUpdate(CheckForFWUpdateRef ref, BaseStatefulDevice bas
 }
 
 @Riverpod()
-Future<bool> hasOtaUpdate(HasOtaUpdateRef ref, BaseStatefulDevice baseStatefulDevice) async {
+Future<bool> hasOtaUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async {
   FWInfo? fwInfo = await ref.read(checkForFWUpdateProvider(baseStatefulDevice).future);
   Version fwVersion = baseStatefulDevice.fwVersion.value;
 

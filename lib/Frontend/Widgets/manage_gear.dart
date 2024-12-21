@@ -409,7 +409,6 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
               Text("UNSUPPORTED: ${widget.device.baseDeviceDefinition.unsupported}"),
               Text("MIN FIRMWARE: ${widget.device.baseDeviceDefinition.minVersion}"),
               Text("NVS Config: ${widget.device.gearConfigInfo.value}"),
-              Text("UART Service: ${widget.device.bluetoothUartService.value}"),
             ],
           ),
         ),
@@ -584,7 +583,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
         ),
         ListTile(
           title: const Text("isTailCoNTROL"),
-          trailing: DropdownMenu<tailControlStatus>(
+          trailing: DropdownMenu<TailControlStatus>(
             initialSelection: widget.device.isTailCoNTROL.value,
             onSelected: (value) {
               if (value != null) {
@@ -595,9 +594,27 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                 );
               }
             },
-            dropdownMenuEntries: tailControlStatus.values
+            dropdownMenuEntries: TailControlStatus.values
                 .map(
                   (e) => DropdownMenuEntry(value: e, label: e.name),
+                )
+                .toList(),
+          ),
+        ),
+        ListTile(
+          title: const Text("bluetoothUartService"),
+          trailing: DropdownMenu<BluetoothUartService>(
+            initialSelection: widget.device.bluetoothUartService.value,
+            onSelected: (value) {
+              setState(
+                () {
+                  widget.device.bluetoothUartService.value = value;
+                },
+              );
+            },
+            dropdownMenuEntries: uartServices
+                .map(
+                  (e) => DropdownMenuEntry(value: e, label: e.label),
                 )
                 .toList(),
           ),

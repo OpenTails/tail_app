@@ -214,7 +214,7 @@ Future<void> runAction(BaseAction action, BaseStatefulDevice device) async {
   } else if (action is MoveList) {
     sequencesLogger.info("Starting MoveList ${action.name}.");
     //plausible.event(name: "Run Sequence", props: {"Sequence Repeat": action.repeat.toInt().toString(), "Sequence Device Type": device.baseDeviceDefinition.deviceType.name, "Sequence Moves": action.moves.length.toString()});
-    if (action.moves.isNotEmpty && action.moves.length <= 5 && (device.baseDeviceDefinition.deviceType != DeviceType.ears || device.isTailCoNTROL.value == tailControlStatus.tailControl)) {
+    if (action.moves.isNotEmpty && action.moves.length <= 5 && (device.baseDeviceDefinition.deviceType != DeviceType.ears || device.isTailCoNTROL.value == TailControlStatus.tailControl)) {
       int preset = 1; //TODO: store
       String cmd = "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt()}";
       String a = ''; // servo 1 position
@@ -283,14 +283,14 @@ List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device,
   List<BluetoothMessage> commands = [];
   if (move.moveType == MoveType.home) {
     //TODO: Remove for TAILCoNTROL update
-    if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value != tailControlStatus.tailControl) {
+    if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value != TailControlStatus.tailControl) {
       commands.add(BluetoothMessage(message: "EARHOME", device: device, priority: priority, responseMSG: noResponseMsg ? null : "EARHOME END", type: type, timestamp: DateTime.now()));
     } else {
       commands.add(BluetoothMessage(message: "TAILHM", device: device, priority: priority, responseMSG: noResponseMsg ? null : "END TAILHM", type: type, timestamp: DateTime.now()));
     }
   } else if (move.moveType == MoveType.move) {
     //TODO: Remove for TAILCoNTROL update
-    if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value != tailControlStatus.tailControl) {
+    if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value != TailControlStatus.tailControl) {
       commands
         ..add(
           BluetoothMessage(

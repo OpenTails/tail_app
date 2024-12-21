@@ -245,7 +245,7 @@ class _TailBlogImageState extends ConsumerState<TailBlogImage> {
 }
 
 @Riverpod(keepAlive: true)
-Future<Widget> getBlogImage(GetBlogImageRef ref, String url) async {
+Future<Widget> getBlogImage(Ref ref, String url) async {
   if (!await tailBlogConnectivityCheck()) {
     return Container();
   }

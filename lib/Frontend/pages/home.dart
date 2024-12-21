@@ -85,7 +85,7 @@ class _HomeState extends ConsumerState<Home> {
                     title: Text(homeWelcomeMessageTitle()),
                     subtitle: Text(homeWelcomeMessage()),
                   ),
-                  ButtonBar(
+                  OverflowBar(
                     children: <Widget>[
                       TextButton(
                         onPressed: () async {

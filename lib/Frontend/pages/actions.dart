@@ -59,7 +59,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                   child: ref
                           .watch(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears])))
                           .where(
-                            (p0) => p0.isTailCoNTROL.value == tailControlStatus.legacy,
+                            (p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy,
                           )
                           .isNotEmpty
                       ? const EarSpeedWidget()
@@ -197,13 +197,13 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                         (baseStatefulDevice) {
                           //TODO: remove after tailcontrol migration period
                           if (widget.action.deviceCategory.contains(DeviceType.ears) && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears) {
-                            if (baseStatefulDevice.isTailCoNTROL.value == tailControlStatus.tailControl) {
+                            if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
                               // skip legacy moves
                               if (widget.action is EarsMoveList) {
                                 return false;
                               }
                               // skip unified moves for legacy firmware ears
-                            } else if (baseStatefulDevice.isTailCoNTROL.value == tailControlStatus.legacy) {
+                            } else if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.legacy) {
                               if (widget.action is CommandAction) {
                                 return false;
                               }

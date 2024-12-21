@@ -1,5 +1,4 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,7 +15,7 @@ part 'app_shortcuts.g.dart';
 const QuickActions quickActions = QuickActions();
 
 @Riverpod(keepAlive: true)
-Future<void> appShortcuts(AppShortcutsRef ref) async {
+Future<void> appShortcuts(Ref ref) async {
   await Future.delayed(const Duration(seconds: 5));
   quickActions.initialize((shortcutType) {
     BaseAction? action = ref.read(getActionFromUUIDProvider(shortcutType));
@@ -35,7 +34,7 @@ Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions, Ref ref)
       .map(
         (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),
       )
-      .whereNotNull();
+      .nonNulls;
 
   quickActions.setShortcutItems(
     allActions

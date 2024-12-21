@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'Bluetooth/bluetooth_manager.dart';
@@ -300,13 +301,13 @@ class GetAvailableActions extends _$GetAvailableActions {
         if (baseAction.deviceCategory.contains(baseStatefulDevice.baseDeviceDefinition.deviceType) && ((baseAction.actionCategory == ActionCategory.glowtip && baseStatefulDevice.hasGlowtip.value == GlowtipStatus.glowtip) || baseAction.actionCategory != ActionCategory.glowtip)) {
           // Handle migrating ears to unified firmware
           if (baseAction.deviceCategory.contains(DeviceType.ears) && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears) {
-            if (baseStatefulDevice.isTailCoNTROL.value == tailControlStatus.tailControl) {
+            if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
               // skip legacy moves
               if (baseAction is EarsMoveList) {
                 continue;
               }
               // skip unified moves for legacy firmware ears
-            } else if (baseStatefulDevice.isTailCoNTROL.value == tailControlStatus.legacy) {
+            } else if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.legacy) {
               if (baseAction is CommandAction) {
                 continue;
               }
@@ -339,7 +340,7 @@ class GetAvailableActions extends _$GetAvailableActions {
 }
 
 @Riverpod(keepAlive: true)
-BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAllActions(GetAllActionsRef ref) {
+BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAllActions(Ref ref) {
   Map<ActionCategory, Set<BaseAction>> sortedActions = {};
   final BuiltList<MoveList> moveLists = ref.watch(moveListsProvider);
   final BuiltList<AudioAction> audioActions = ref.watch(userAudioActionsProvider);
@@ -366,7 +367,7 @@ BuiltMap<ActionCategory, BuiltSet<BaseAction>> getAllActions(GetAllActionsRef re
 }
 
 @Riverpod(keepAlive: true)
-BaseAction? getActionFromUUID(GetActionFromUUIDRef ref, String? uuid) {
+BaseAction? getActionFromUUID(Ref ref, String? uuid) {
   if (uuid == null) {
     return null;
   }
