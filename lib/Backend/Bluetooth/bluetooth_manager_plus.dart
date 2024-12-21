@@ -499,7 +499,7 @@ enum ScanReason { background, addGear, manual, notScanning }
 ScanReason _scanReason = ScanReason.notScanning;
 
 Future<void> beginScan({required ScanReason scanReason, Duration? timeout}) async {
-  if (_didInitFlutterBluePlus && !flutterBluePlus.isScanningNow) {
+  if (_didInitFlutterBluePlus && !flutterBluePlus.isScanningNow && isBluetoothEnabled.value) {
     _bluetoothPlusLogger.info("Starting scan");
     _scanReason = scanReason;
     await flutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map(Guid.new).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
