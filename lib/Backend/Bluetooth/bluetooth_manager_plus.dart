@@ -13,6 +13,7 @@ import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_hive/sentry_hive.dart';
+import 'package:tail_app/Backend/version.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Frontend/utils.dart';
@@ -131,7 +132,7 @@ class _OnDiscoveredServices extends _$OnDiscoveredServices {
 
   @override
   void build() {
-    streamSubscription = flutterBluePlus.events.onDiscoveredServices.listen(listener, onError: (e, s) => _bluetoothPlusLogger.warning("Unable to discover services: $e", e, s));
+    streamSubscription = flutterBluePlus.events.onDiscoveredServices.listen(listener, onError: (e) => _bluetoothPlusLogger.warning("Unable to discover services: $e", e));
     ref.onDispose(
       () => streamSubscription?.cancel(),
     );
@@ -161,7 +162,7 @@ class _RSSIChanged extends _$RSSIChanged {
 
   @override
   void build() {
-    streamSubscription = flutterBluePlus.events.onReadRssi.listen(listener, onError: (e, s) => _bluetoothPlusLogger.warning("Unable to read rssi: $e", e, s));
+    streamSubscription = flutterBluePlus.events.onReadRssi.listen(listener, onError: (e) => _bluetoothPlusLogger.warning("Unable to read rssi: $e", e));
     ref.onDispose(
       () => streamSubscription?.cancel(),
     );
@@ -406,14 +407,21 @@ class _KeepGearAwake extends _$KeepGearAwake {
     for (var element in flutterBluePlus.connectedDevices) {
       BaseStatefulDevice? device = knownDevices[element.remoteId.str];
       if (device != null) {
+        // required to keep the connection open on IOS, otherwise the app will suspend and walk mode will stop working
         device.commandQueue.addCommand(BluetoothMessage(message: "PING", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
-        device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+        // Battery characteristic works fine for tailcontrol, so we don't need to manually request the battery level
+        if (device.isTailCoNTROL.value != TailControlStatus.tailControl) {
+          device.commandQueue.addCommand(BluetoothMessage(message: "BATT", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+        }
         element.readRssi().catchError((e) => -1).onError(
               (error, stackTrace) => -1,
             );
 
-        if (device.baseDeviceDefinition.deviceType != DeviceType.ears && device.hasGlowtip.value == GlowtipStatus.unknown) {
+        if (device.fwVersion.value == Version()) {
           device.commandQueue.addCommand(BluetoothMessage(message: "VER", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+        }
+        if (device.hwVersion.value.isEmpty) {
+          device.commandQueue.addCommand(BluetoothMessage(message: "HWVER", device: device, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
         }
       }
     }
