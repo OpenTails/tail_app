@@ -69,6 +69,7 @@ class InitFlutterBluePlus extends _$InitFlutterBluePlus {
       _bluetoothPlusLogger.info(state);
       isBluetoothEnabled.value = state == BluetoothAdapterState.on;
     });
+    // starts the listener providers
     ref.watch(_keepGearAwakeProvider);
     ref.watch(_mTUChangedProvider);
     ref.watch(_onCharacteristicReceivedProvider);
@@ -555,12 +556,15 @@ class ScanMonitor extends _$ScanMonitor {
   void build() {
     bool allConnected = ref.watch(isAllKnownGearConnectedProvider);
     bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);
-    if (!allConnected && alwaysScanningValue) {
+    if (!allConnected && alwaysScanningValue && isBluetoothEnabled.value) {
       beginScan(scanReason: ScanReason.background);
-    } else if (allConnected && _scanReason == ScanReason.background) {
+    } else if ((allConnected && _scanReason == ScanReason.background) || !isBluetoothEnabled.value) {
       stopScan();
     }
     SentryHive.box(settings).listenable(keys: [alwaysScanning])
+      ..removeListener(listener)
+      ..addListener(listener);
+    isBluetoothEnabled
       ..removeListener(listener)
       ..addListener(listener);
   }
