@@ -361,7 +361,10 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
             ),
           );
         }
-        await ref.read(hasOtaUpdateProvider(statefulDevice).future);
+        // Don't check for updates unless both values are set
+        if (statefulDevice.hwVersion.value.isNotEmpty && statefulDevice.fwVersion.value != Version()) {
+          await ref.read(hasOtaUpdateProvider(statefulDevice).future).catchError((error, stackTrace) => true);
+        }
         // Sent after VER message
       } else if (value.startsWith("GLOWTIP")) {
         String substring = value.substring(value.indexOf(" ")).trim();
@@ -381,7 +384,11 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
       } else if (value.contains("HWVER") || value.contains("MITAIL") || value.contains("MINITAIL") || value.contains("FLUTTERWINGS")) {
         // Hardware Version
         statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
-        await ref.read(hasOtaUpdateProvider(statefulDevice).future);
+        // Don't check for updates unless both values are set
+        if (statefulDevice.hwVersion.value.isNotEmpty && statefulDevice.fwVersion.value != Version()) {
+          await ref.read(hasOtaUpdateProvider(statefulDevice).future).catchError((error, stackTrace) => true);
+        }
+        ;
       } else if (int.tryParse(value) != null) {
         // Battery Level
         statefulDevice.batteryLevel.value = int.parse(value).toDouble();

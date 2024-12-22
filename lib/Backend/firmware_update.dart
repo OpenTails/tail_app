@@ -98,8 +98,7 @@ Future<FWInfo?> checkForFWUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice)
   }
   String hwVer = baseStatefulDevice.hwVersion.value;
   if (hwVer.isEmpty) {
-    ref.invalidateSelf();
-    return null;
+    throw Exception("Hardware Version from gear is unknown");
   }
   FWInfo? fwInfo = await ref.read(getFirmwareInfoProvider(url, hwVer).future);
   baseStatefulDevice.fwInfo.value = fwInfo;
@@ -113,16 +112,22 @@ Future<bool> hasOtaUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async 
 
   // Check if fw version is not set (0.0.0)
   if (baseStatefulDevice.fwVersion.value == const Version()) {
-    return false;
+    throw Exception("Version from gear is unknown");
   }
   // check if firmware info from firmware is set and is greater than (0.0.0)
   if (fwInfo == null || fwVersion.compareTo(const Version()) <= 0) {
-    return false;
+    throw Exception("Version from gear or server is unavailable");
   }
 
   // Check that the firmware from the server is greater than the firmware on device
   if (fwVersion.compareTo(getVersionSemVer(fwInfo.version)) < 0) {
     baseStatefulDevice.hasUpdate.value = true;
+    // handle if the update is mandatory for app functionality
+    if (baseStatefulDevice.baseDeviceDefinition.minVersion != null) {
+      if (fwVersion.compareTo(baseStatefulDevice.baseDeviceDefinition.minVersion!) < 0) {
+        baseStatefulDevice.mandatoryOtaRequired.value = true;
+      }
+    }
     return true;
   }
   return false;
