@@ -175,6 +175,20 @@ String manageDevicesForget() => Intl.message('Forget', name: 'manageDevicesForge
 
 String manageDevicesOtaButton() => Intl.message('Tap to update firmware', name: 'manageDevicesOtaButton', desc: 'manage devices ota available button');
 
+String manageDevicesOtaCheckButtonLabel() => Intl.message('Check for update', name: 'manageDevicesOtaCheckButtonLabel', desc: 'manage devices button to check if an update is available');
+
+String manageDevicesOtaUpToDateButtonLabel() => Intl.message('Gear is up to date!', name: 'manageDevicesOtaUpToDateButtonLabel', desc: 'manage devices button label if gear is up to date');
+
+String manageDevicesOtaCheckInProgressButtonLabel() => Intl.message('Checking', name: 'manageDevicesOtaCheckInProgressButtonLabel', desc: 'manage devices button label if gear is checking for an update');
+
+String manageDevicesOtaCheckErrorButtonLabel() => Intl.message('Please try again later', name: 'manageDevicesOtaCheckErrorButtonLabel', desc: 'manage devices button label if an error occured while checking for an update');
+
+String manageDevicesAboutLabel() => Intl.message('About your gear', name: 'manageDevicesAboutLabel', desc: 'label for the about your gear section in the manage devices area');
+
+String manageDevicesAboutHardwareVersionLabel() => Intl.message('Hardware Version', name: 'manageDevicesAboutHardwareVersionLabel', desc: 'label for the hardware version on the manage devices page');
+
+String manageDevicesAboutSoftwareVersionLabel() => Intl.message('Software Version', name: 'manageDevicesAboutSoftwareVersionLabel', desc: 'label for the software version on the manage devices page');
+
 String scanDevicesTitle() => Intl.message('Scan For New Gear', name: 'scanDevicesTitle', desc: 'button which opens the scan window');
 
 String scanDevicesFoundTitle() => Intl.message('Found Gear. Tap the gear name to connect', name: 'scanDevicesFoundTitle', desc: 'Title when gear is found on the scan for new gear page');

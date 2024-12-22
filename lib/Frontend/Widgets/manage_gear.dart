@@ -3,6 +3,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Backend/firmware_update.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 
@@ -75,64 +76,73 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   ),
                 ),
               ],
-              if (device!.mandatoryOtaRequired.value) ...[
-                BaseCard(
-                  elevation: 3,
-                  color: Colors.red,
-                  child: InkWell(
-                    onTap: () async {
-                      OtaUpdateRoute(device: device!.baseStoredDevice.btMACAddress).push(context);
-                    },
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.warning,
-                        color: Colors.white,
-                      ),
-                      trailing: const Icon(
-                        Icons.warning,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        mandatoryOtaRequired(),
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-              if (device!.hasUpdate.value) ...[
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: FilledButton(
-                    onPressed: () async {
-                      OtaUpdateRoute(device: device!.baseStoredDevice.btMACAddress).push(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: getTextColor(color!),
-                      elevation: 1,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.system_update,
-                          color: getTextColor(color!),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                        ),
-                        Text(
-                          manageDevicesOtaButton(),
-                          style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                color: getTextColor(color!),
+              ValueListenableBuilder(
+                valueListenable: device!.hasUpdate,
+                builder: (context, value, child) {
+                  return Column(
+                    children: [
+                      if (device!.mandatoryOtaRequired.value) ...[
+                        BaseCard(
+                          elevation: 3,
+                          color: Colors.red,
+                          child: InkWell(
+                            onTap: () async {
+                              OtaUpdateRoute(device: device!.baseStoredDevice.btMACAddress).push(context);
+                            },
+                            child: ListTile(
+                              leading: const Icon(
+                                Icons.warning,
+                                color: Colors.white,
                               ),
+                              trailing: const Icon(
+                                Icons.warning,
+                                color: Colors.white,
+                              ),
+                              title: Text(
+                                mandatoryOtaRequired(),
+                                style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
-                    ),
-                  ),
-                ),
-              ],
+                      if (device!.hasUpdate.value) ...[
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: FilledButton(
+                            onPressed: () async {
+                              OtaUpdateRoute(device: device!.baseStoredDevice.btMACAddress).push(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: getTextColor(color!),
+                              elevation: 1,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.system_update,
+                                  color: getTextColor(color!),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
+                                ),
+                                Text(
+                                  manageDevicesOtaButton(),
+                                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                        color: getTextColor(color!),
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  );
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
@@ -189,6 +199,13 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 ManageGearBatteryGraph(device: device!),
                 ManageGearConventionMode(device: device!),
                 ManageGearDebug(device: device!),
+              ],
+              // We only know this info if the gear is connected
+              if (device!.deviceConnectionState.value == ConnectivityState.connected) ...[
+                ManageGearAbout(
+                  device: device!,
+                  color: color!,
+                ),
               ],
               OverflowBar(
                 alignment: MainAxisAlignment.end,
@@ -250,6 +267,95 @@ class _ManageGearState extends ConsumerState<ManageGear> {
   }
 }
 
+class ManageGearUpdateCheckButton extends ConsumerStatefulWidget {
+  final BaseStatefulDevice device;
+  final Color color;
+
+  const ManageGearUpdateCheckButton({super.key, required this.device, required this.color});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ManageGearUpdateCheckButtonState();
+}
+
+class _ManageGearUpdateCheckButtonState extends ConsumerState<ManageGearUpdateCheckButton> {
+  Future<bool>? _otaAvailable;
+
+  @override
+  Widget build(BuildContext context) {
+    return OverflowBar(
+      alignment: MainAxisAlignment.center,
+      children: [
+        FutureBuilder(
+          future: _otaAvailable,
+          builder: (context, snapshot) {
+            String buttonText = "";
+            IconData iconData = Icons.device_unknown;
+            if (snapshot.connectionState == ConnectionState.none) {
+              buttonText = manageDevicesOtaCheckButtonLabel();
+              iconData = Icons.question_mark;
+            } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+              if (snapshot.data == true) {
+                buttonText = manageDevicesOtaButton();
+                iconData = Icons.system_update;
+              } else {
+                buttonText = manageDevicesOtaUpToDateButtonLabel();
+                iconData = Icons.check;
+              }
+            } else if (snapshot.hasError) {
+              buttonText = manageDevicesOtaCheckErrorButtonLabel();
+              iconData = Icons.error;
+            } else if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting) {
+              buttonText = manageDevicesOtaCheckInProgressButtonLabel();
+            }
+            return FilledButton(
+              onPressed: (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting)
+                  ? null
+                  : () {
+                      if (snapshot.data == true) {
+                        OtaUpdateRoute(device: widget.device.baseStoredDevice.btMACAddress).push(context);
+                      } else {
+                        setState(() {
+                          _otaAvailable = ref.watch(hasOtaUpdateProvider(widget.device).future);
+                        });
+                      }
+                    },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: getTextColor(widget.color),
+                elevation: 1,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting) ...[
+                    CircularProgressIndicator(
+                      color: getTextColor(widget.color),
+                    )
+                  ] else ...[
+                    Icon(
+                      iconData,
+                      color: getTextColor(widget.color),
+                    )
+                  ],
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4),
+                  ),
+                  Text(
+                    buttonText,
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: getTextColor(widget.color),
+                        ),
+                  ),
+                ],
+              ),
+            );
+          },
+        )
+      ],
+    );
+  }
+}
+
 class ManageGearConventionMode extends ConsumerWidget {
   final BaseStatefulDevice device;
 
@@ -295,6 +401,60 @@ class ManageGearConventionMode extends ConsumerWidget {
         ),
         OverflowBar(
           children: [FilledButton(onPressed: () => PinCodeRoute(pin: device.baseStoredDevice.conModePin).push(context), child: Text(manageGearConModePincodeTitle()))],
+        )
+      ],
+    );
+  }
+}
+
+class ManageGearAbout extends StatelessWidget {
+  final BaseStatefulDevice device;
+  final Color color;
+
+  const ManageGearAbout({super.key, required this.device, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      title: Text(manageDevicesAboutLabel()),
+      children: [
+        ListTile(
+          dense: true,
+          title: Text(
+            manageDevicesAboutSoftwareVersionLabel(),
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          trailing: ValueListenableBuilder(
+            valueListenable: device.fwVersion,
+            builder: (context, value, child) {
+              return Text(
+                "${value.major}.${value.minor}.${value.patch}",
+              );
+            },
+          ),
+        ),
+        ListTile(
+          dense: true,
+          title: Text(
+            manageDevicesAboutHardwareVersionLabel(),
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          trailing: ValueListenableBuilder(
+            valueListenable: device.hwVersion,
+            builder: (context, value, child) {
+              return Text(
+                value,
+              );
+            },
+          ),
+        ),
+        OverflowBar(
+          children: [
+            ManageGearUpdateCheckButton(
+              device: device,
+              color: color,
+            ),
+          ],
         )
       ],
     );

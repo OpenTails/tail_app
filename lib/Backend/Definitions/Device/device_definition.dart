@@ -407,6 +407,7 @@ String getNameFromBTName(String bluetoothDeviceName) {
   return bluetoothDeviceName;
 }
 
+//todo: convert into a proper provider
 class CommandQueue {
   final PriorityQueue<BluetoothMessage> state = PriorityQueue();
   final BaseStatefulDevice device;
