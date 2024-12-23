@@ -315,6 +315,8 @@ class _ManageGearUpdateCheckButtonState extends ConsumerState<ManageGearUpdateCh
                         OtaUpdateRoute(device: widget.device.baseStoredDevice.btMACAddress).push(context);
                       } else {
                         setState(() {
+                          //force redownloading the json
+                          ref.invalidate(getBaseFirmwareInfoProvider(widget.device.baseDeviceDefinition.fwURL));
                           _otaAvailable = ref.watch(hasOtaUpdateProvider(widget.device).future);
                         });
                       }
