@@ -504,8 +504,8 @@ class ManageGearBatteryGraph extends StatelessWidget {
                     minY: 0,
                     maxY: 100,
                     minX: 0,
-                    maxX: device.stopWatch.elapsed.inSeconds.toDouble(),
-                    lineBarsData: [LineChartBarData(spots: device.batlevels, color: Theme.of(context).colorScheme.primary, dotData: const FlDotData(show: false), isCurved: true, show: device.batlevels.isNotEmpty)],
+                    maxX: device.batlevels.isNotEmpty ? device.batlevels.last.x : 1,
+                    lineBarsData: [LineChartBarData(spots: device.batlevels, color: Theme.of(context).colorScheme.primary, dotData: const FlDotData(show: false), isCurved: true, curveSmoothness: 0.1, preventCurveOverShooting: true, show: device.batlevels.isNotEmpty)],
                   ),
                 );
               },
