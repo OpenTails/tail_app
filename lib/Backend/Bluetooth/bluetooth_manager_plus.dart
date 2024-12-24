@@ -351,8 +351,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
       // Firmware Version
       if (value.startsWith("VER")) {
         statefulDevice.fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
-        if ((statefulDevice.fwVersion.value.major >= 5 && statefulDevice.fwVersion.value.minor >= 9) || statefulDevice.fwVersion.value.major > 5) {
-          //TODO: read response
+        if (statefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
           statefulDevice.commandQueue.addCommand(
             BluetoothMessage(
               message: "READNVS",
@@ -388,7 +387,12 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
         if (statefulDevice.hwVersion.value.isNotEmpty && statefulDevice.fwVersion.value != Version()) {
           await ref.read(hasOtaUpdateProvider(statefulDevice).future).catchError((error, stackTrace) => true);
         }
-        ;
+      } else if (value.contains("READNVS")) {
+        try {
+          statefulDevice.gearConfigInfo.value = GearConfigInfo.fromGearString(value.replaceFirst("READNVS ", ""));
+        } on Exception catch (e) {
+          _bluetoothPlusLogger.warning("Unable to parse NVS data: $e");
+        }
       } else if (int.tryParse(value) != null) {
         // Battery Level
         statefulDevice.batteryLevel.value = int.parse(value).toDouble();

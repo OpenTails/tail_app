@@ -300,7 +300,7 @@ class GearConfigInfo with _$GearConfigInfo {
   }) = _GearConfigInfo;
 
   factory GearConfigInfo.fromGearString(String fwInput) {
-    String values = fwInput;
+    List<String> values = fwInput.split(" ");
     String ver = values[0];
     String minsToSleep = values[1];
     String minsToNPM = values[2];
