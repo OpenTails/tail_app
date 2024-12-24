@@ -139,6 +139,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
                 });
               },
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.save,
