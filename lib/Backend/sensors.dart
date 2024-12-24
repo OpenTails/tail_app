@@ -284,7 +284,16 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
                 // support sending to next device type if 2 actions+ actions are set
                 (element) => !sentDeviceTypes.contains(element.baseDeviceDefinition.deviceType),
               )
-              .toList()
+              .where(
+            (element) {
+              // filter out devices without a glowtip if its a glowtip action
+              if ([ActionCategory.glowtip].contains(baseAction.actionCategory)) {
+                return element.hasGlowtip.value == GlowtipStatus.glowtip;
+              }
+              // return remaining gear if action is not a glowtip action
+              return true;
+            },
+          ).toList()
             ..shuffle()) {
             if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
               await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
