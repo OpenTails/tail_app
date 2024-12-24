@@ -290,6 +290,15 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
               if ([ActionCategory.glowtip].contains(baseAction.actionCategory)) {
                 return element.hasGlowtip.value == GlowtipStatus.glowtip;
               }
+
+              // tailcontrol migration
+              if (element.baseDeviceDefinition.deviceType == DeviceType.ears) {
+                if (baseAction is CommandAction && element.baseDeviceDefinition.deviceType == DeviceType.ears && element.isTailCoNTROL.value == TailControlStatus.legacy) {
+                  return false;
+                } else if (baseAction is EarsMoveList && element.baseDeviceDefinition.deviceType == DeviceType.ears && element.isTailCoNTROL.value == TailControlStatus.tailControl) {
+                  return false;
+                }
+              }
               // return remaining gear if action is not a glowtip action
               return true;
             },
