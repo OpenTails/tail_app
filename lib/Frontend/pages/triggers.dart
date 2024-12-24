@@ -10,6 +10,7 @@ import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/action_registry.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../Backend/plausible_dio.dart';
 import '../../Backend/sensors.dart';
 import '../../constants.dart';
@@ -243,7 +244,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                         value: trigger!.enabled,
                         onChanged: (bool value) {
                           setState(
-                            () async {
+                            () {
                               trigger!.storedEnable = !trigger!.enabled;
                               ref.read(triggerListProvider.notifier).store();
                               plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger!.triggerDefUUID).first.toString()});
@@ -271,104 +272,115 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                 text: triggerInfoEditActionDescription(),
               ),
               ...trigger!.actions.map(
-                (TriggerAction e) => ListTile(
-                  title: Text(trigger!.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first.translated),
-                  subtitle: ValueListenableBuilder(
-                    valueListenable: e.isActive,
-                    builder: (BuildContext context, value, Widget? child) {
-                      return AnimatedCrossFade(
-                        duration: animationTransitionDuration,
-                        secondChild: MultiValueListenableBuilder(
-                          valueListenables: trigger!.actions.map((e) => e.isActiveProgress).toList(),
-                          builder: (context, values, child) {
-                            return TweenAnimationBuilder<double>(
-                              duration: const Duration(milliseconds: 250),
-                              curve: Curves.easeInOut,
-                              tween: Tween<double>(
-                                begin: 0,
-                                end: values.map((e) => e as double).firstWhere(
-                                  orElse: () => 0,
-                                  (element) {
-                                    return element > 0 && element <= 1;
-                                  },
+                (TriggerAction e) {
+                  TriggerActionDef triggerActionDef = trigger!.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first;
+                  return ListTile(
+                    title: Text(triggerActionDef.translated),
+                    subtitle: ValueListenableBuilder(
+                      valueListenable: e.isActive,
+                      builder: (BuildContext context, value, Widget? child) {
+                        return AnimatedCrossFade(
+                          duration: animationTransitionDuration,
+                          secondChild: MultiValueListenableBuilder(
+                            valueListenables: trigger!.actions.map((e) => e.isActiveProgress).toList(),
+                            builder: (context, values, child) {
+                              return TweenAnimationBuilder<double>(
+                                duration: const Duration(milliseconds: 250),
+                                curve: Curves.easeInOut,
+                                tween: Tween<double>(
+                                  begin: 0,
+                                  end: values.map((e) => e as double).firstWhere(
+                                    orElse: () => 0,
+                                    (element) {
+                                      return element > 0 && element <= 1;
+                                    },
+                                  ),
+                                ),
+                                builder: (context, value, _) => LinearProgressIndicator(value: value),
+                              );
+                            },
+                          ),
+                          firstChild: Builder(
+                            builder: (context) {
+                              String text = "";
+                              Iterable<BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider).values;
+                              for (String actionUUID in e.actions) {
+                                BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
+                                if (baseAction != null &&
+                                    (knownDevices.isEmpty ||
+                                        knownDevices
+                                            .where(
+                                              (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
+                                            )
+                                            .isNotEmpty)) {
+                                  if (text.isNotEmpty) {
+                                    text += ', ';
+                                  }
+                                  text += baseAction.name;
+                                }
+                              }
+                              return Text(text.isNotEmpty ? text : triggerActionNotSet());
+                            },
+                          ),
+                          crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                        );
+                      },
+                    ),
+                    leading: HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)
+                        ? IconButton(
+                            onPressed: () {
+                              triggerDefinition!.sendCommands(triggerActionDef.name, triggerDefinition!.ref);
+                            },
+                            tooltip: "Run Action (Debug)",
+                            icon: Icon(Icons.play_arrow))
+                        : null,
+                    trailing: IconButton(
+                      tooltip: actionsSelectScreen(),
+                      icon: const Icon(Icons.edit),
+                      onPressed: () async {
+                        Object? result = await showDialog(
+                          useRootNavigator: true,
+                          barrierDismissible: true,
+                          barrierColor: Theme.of(context).canvasColor,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog.fullscreen(
+                              backgroundColor: Theme.of(context).canvasColor,
+                              child: ActionSelector(
+                                actionSelectorInfo: ActionSelectorInfo(
+                                  deviceType: trigger!.deviceType.toSet(),
+                                  selectedActions: e.actions
+                                      .map(
+                                        (e) => ref.read(getActionFromUUIDProvider(e)),
+                                      )
+                                      .nonNulls
+                                      .toList(),
                                 ),
                               ),
-                              builder: (context, value, _) => LinearProgressIndicator(value: value),
                             );
                           },
-                        ),
-                        firstChild: Builder(
-                          builder: (context) {
-                            String text = "";
-                            Iterable<BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider).values;
-                            for (String actionUUID in e.actions) {
-                              BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
-                              if (baseAction != null &&
-                                  (knownDevices.isEmpty ||
-                                      knownDevices
-                                          .where(
-                                            (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-                                          )
-                                          .isNotEmpty)) {
-                                if (text.isNotEmpty) {
-                                  text += ', ';
-                                }
-                                text += baseAction.name;
-                              }
-                            }
-                            return Text(text.isNotEmpty ? text : triggerActionNotSet());
-                          },
-                        ),
-                        crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                      );
-                    },
-                  ),
-                  trailing: IconButton(
-                    tooltip: actionsSelectScreen(),
-                    icon: const Icon(Icons.edit),
-                    onPressed: () async {
-                      Object? result = await showDialog(
-                        useRootNavigator: true,
-                        barrierDismissible: true,
-                        barrierColor: Theme.of(context).canvasColor,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Dialog.fullscreen(
-                            backgroundColor: Theme.of(context).canvasColor,
-                            child: ActionSelector(
-                              actionSelectorInfo: ActionSelectorInfo(
-                                deviceType: trigger!.deviceType.toSet(),
-                                selectedActions: e.actions
-                                    .map(
-                                      (e) => ref.read(getActionFromUUIDProvider(e)),
-                                    )
-                                    .nonNulls
-                                    .toList(),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                      if (result is List<BaseAction>) {
-                        setState(
-                          () {
-                            e.actions = result.map((element) => element.uuid).toList();
-                            ref.watch(triggerListProvider.notifier).store();
-                          },
                         );
-                      } else if (result is bool) {
-                        if (!result) {
+                        if (result is List<BaseAction>) {
                           setState(
                             () {
-                              e.actions = [];
+                              e.actions = result.map((element) => element.uuid).toList();
                               ref.watch(triggerListProvider.notifier).store();
                             },
                           );
+                        } else if (result is bool) {
+                          if (!result) {
+                            setState(
+                              () {
+                                e.actions = [];
+                                ref.watch(triggerListProvider.notifier).store();
+                              },
+                            );
+                          }
                         }
-                      }
-                    },
-                  ),
-                ),
+                      },
+                    ),
+                  );
+                },
               ),
               OverflowBar(
                 children: [

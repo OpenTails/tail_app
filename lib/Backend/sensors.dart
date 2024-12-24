@@ -275,7 +275,9 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
             actionsToRun.add(otherAction);
           }
         }
+        // updates the frontend that a trigger activated
         triggerAction.isActive.value = true;
+
         Set<DeviceType> sentDeviceTypes = {};
         for (BaseAction baseAction in actionsToRun) {
           for (BaseStatefulDevice baseStatefulDevice in ref
