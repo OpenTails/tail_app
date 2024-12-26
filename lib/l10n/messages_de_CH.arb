@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Du chasch all dini Tail Co-Usrüstig do kontrolliere, erkunde und aktualisiere. Es het au Instruktione und Führige zur Verfüegig. Fröhlichs Wedele!",
+  "homeWelcomeMessage": "Du chasch all dini Tail Co Usrüstig do kontrolliere, erkunde und aktualisiere. Es het au Instruktione und Führige zur Verfüegig. Fröhlichs Wedele!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
@@ -1047,7 +1047,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "manageGearConModePincodeEnableDescription": "Wenn du den 'Convention Mode' aktivierst, wird dis Gesr rebootet und du wirsch drum gebeten, de Pincode ii z'geh. De Pincode wird uf d’Zwischäboard kopier",
+  "manageGearConModePincodeEnableDescription": "Wenn du den 'Convention Mode' aktivierst, wird dis Usrüstig rebootet und du wirsch drum gebeten, de Pincode ii z'geh. De Pincode wird uf d’Zwischäboard kopier",
   "@manageGearConModePincodeEnableDescription": {
     "description": "The description for the pin mode button on the gear page",
     "type": "text",
@@ -1059,37 +1059,37 @@
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedReasonGearVersionMismatch": "D'Firmware-Version vo dim Gerät passt nöd mit der uufgladene Firmware-Version zäme",
+  "otaFailedReasonGearVersionMismatch": "D'Firmware-Version vo dinr Usrüstig passt nöd mit der upgladene Firmware-Version zäme",
   "@otaFailedReasonGearVersionMismatch": {
     "description": "gearVersionMismatch error message for uploading firmware",
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedReasonGearReturnedError": "D'Gear het en unbekannte Störung zruckgebracht",
+  "otaFailedReasonGearReturnedError": "D'Usrüstig het en unbekannte Störung zruckgebracht",
   "@otaFailedReasonGearReturnedError": {
     "description": "gearReturnedError error message for uploading firmware",
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedReasonUploadFailed": "Uflade vo Firmware uf d'Gear het nöd funktionier",
+  "otaFailedReasonUploadFailed": "Uflade vo Firmware uf d'Usrüstig het nöd funktionier",
   "@otaFailedReasonUploadFailed": {
     "description": "uploadFailed error message for uploading firmware",
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedReasonGearReconnectTimeout": "D'Gears het sich nöd i der Zit wieder verbunde",
+  "otaFailedReasonGearReconnectTimeout": "D'Usrüstig het sich nöd i der Zit wieder verbunde",
   "@otaFailedReasonGearReconnectTimeout": {
     "description": "gearReconnectTimeout error message for uploading firmware",
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedReasonGearDisconnectTimeout": "Gear het sich nöd rechtzeitig abgschaltet und eventuell nöd neu gestartet",
+  "otaFailedReasonGearDisconnectTimeout": "Usrüstig het sich nöd rechtzeitig abgschaltet und eventuell nöd neu gestartet",
   "@otaFailedReasonGearDisconnectTimeout": {
     "description": "gearDisconnectTimeout error message for uploading firmware",
     "type": "text",
     "placeholders": {}
   },
-  "otaFailedReasonGearOtaFinalTimeout": "Zit abgelaufen, während i uf Gear warte, dass es neui Firmware-Version zurücksendet",
+  "otaFailedReasonGearOtaFinalTimeout": "Zit abgelaufen, während i uf d’NeuiFirmware-Version vom Usrüstig warte",
   "@otaFailedReasonGearOtaFinalTimeout": {
     "description": "gearOtaFinalTimeout error message for uploading firmware",
     "type": "text",
@@ -1143,9 +1143,51 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPageDescription": "Hesch e Idee oder e Problem mit dr App? Lass es üs wüsse. Hinweis: Das isch anonym und kann nüt helfe, um Problem mit Gear z'löse",
+  "feedbackPageDescription": "Hesch e Idee oder e Problem mit dr App? Lass es üs wüsse. Hinweis: Das isch anonym und kann nüt helfe, um Problem mit der Usrüstig z'löse",
   "@feedbackPageDescription": {
     "description": "The description of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckButtonLabel": "Überprüefe, ob es Updates git",
+  "@manageDevicesOtaCheckButtonLabel": {
+    "description": "manage devices button to check if an update is available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckInProgressButtonLabel": "Überprüefä",
+  "@manageDevicesOtaCheckInProgressButtonLabel": {
+    "description": "manage devices button label if gear is checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckErrorButtonLabel": "Probier's später erneut",
+  "@manageDevicesOtaCheckErrorButtonLabel": {
+    "description": "manage devices button label if an error occured while checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutHardwareVersionLabel": "Hardware Version",
+  "@manageDevicesAboutHardwareVersionLabel": {
+    "description": "label for the hardware version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutSoftwareVersionLabel": "Software Version",
+  "@manageDevicesAboutSoftwareVersionLabel": {
+    "description": "label for the software version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutLabel": "Über dini Usrüstig",
+  "@manageDevicesAboutLabel": {
+    "description": "label for the about your gear section in the manage devices area",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaUpToDateButtonLabel": "Usrüstig isch aktuell!",
+  "@manageDevicesOtaUpToDateButtonLabel": {
+    "description": "manage devices button label if gear is up to date",
     "type": "text",
     "placeholders": {}
   }
