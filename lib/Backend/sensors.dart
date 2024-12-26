@@ -241,13 +241,22 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           actionsToRun.add(baseAction);
         }
         //only adding a check here
-        if (baseAction != null && (!baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes) || (baseAction is CommandAction && hasLegacyEars))) {
+        if (baseAction != null && ((baseAction is CommandAction && hasLegacyEars) || !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes) || (baseAction is EarsMoveList && !hasLegacyEars))) {
           // find the missing device type
           // The goal here is if a user selects multiple moves, send a move to all gear
           final Set<DeviceType> missingGearAction = baseAction.deviceCategory
-              .whereNot(
+              .where(
                 // filtering out the first actions ears entry if its a unified move but legacy gear is connected
-                (element) => DeviceType.ears == element && baseAction is CommandAction && hasLegacyEars,
+                (element) {
+                  if (DeviceType.ears == element) {
+                    if (baseAction is CommandAction && hasLegacyEars) {
+                      return false;
+                    } else if (baseAction is EarsMoveList && !hasLegacyEars) {
+                      return false;
+                    }
+                  }
+                  return true;
+                },
               )
               .toSet()
               .difference(flattenedDeviceTypes);
