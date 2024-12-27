@@ -267,7 +267,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeContinuousScanningOffDescription": "Wische waagrecht über de bekannte Gerätebereich obe, um mit em Scannen z'beginne. Du chasch d'kontinuierlichi Scanfunktion in de Istellige aktiviere.",
+  "homeContinuousScanningOffDescription": "Wische waagrecht über de bekannte Gerätebereich obe, um mit em Scannen z'beginne. Du chasch d'kontinuierlichi Scannfunktion in de Istellige aktiviere.",
   "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
@@ -297,7 +297,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "Du chasch all dini Tail Co Usrüstig do kontrolliere, erkunde und aktualisiere. Es het au Instruktione und Führige zur Verfüegig. Fröhlichs Wedele!",
+  "homeWelcomeMessage": "Du chasch all dini Tail Company Usrüstig do kontrolliere, erkunde und aktualisiere. Es het au Instruktione und Führige zur Verfüegig. Fröhlichs Wedele!",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
