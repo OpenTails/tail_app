@@ -184,12 +184,23 @@ class GetAvailableGear extends _$GetAvailableGear {
       baseStatefulDevice.deviceConnectionState
         ..removeListener(_listener)
         ..addListener(_listener);
+      baseStatefulDevice.bluetoothUartService
+        ..removeListener(_listener)
+        ..addListener(_listener);
     }
     return getState();
   }
 
   BuiltList<BaseStatefulDevice> getState() {
-    return ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).toBuiltList();
+    return ref
+        .read(knownDevicesProvider)
+        .values
+        .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
+        .where(
+          // don't consider gear connected until services have been discovered
+          (element) => element.bluetoothUartService.value != null,
+        )
+        .toBuiltList();
   }
 
   void _listener() {
