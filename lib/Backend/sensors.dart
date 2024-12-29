@@ -212,6 +212,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           return;
         }
         // we need to handle legacy ears for now
+        // assuming only legacy or tailcontrol ears are connected. no mixing
         bool hasLegacyEars = ref
             .read(getAvailableIdleGearForTypeProvider([DeviceType.ears].toBuiltSet()))
             .where(
@@ -248,38 +249,24 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           actionsToRun.add(baseAction);
         }
         //only adding a check here
-        if (baseAction != null && moveActions.length > 1 && ((baseAction is CommandAction && hasLegacyEars) || !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes) || (baseAction is EarsMoveList && !hasLegacyEars))) {
+        if (baseAction != null && moveActions.length > 1 && ((baseAction is CommandAction && hasLegacyEars) || !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes))) {
           // find the missing device type
           // The goal here is if a user selects multiple moves, send a move to all gear
           final Set<DeviceType> missingGearAction = baseAction.deviceCategory
-              .where(
+              .whereNot(
                 // filtering out the first actions ears entry if its a unified move but legacy gear is connected
-                (element) {
-                  if (DeviceType.ears == element) {
-                    if (baseAction is CommandAction && hasLegacyEars) {
-                      return false;
-                    } else if (baseAction is EarsMoveList && !hasLegacyEars) {
-                      return false;
-                    }
-                  }
-                  return true;
-                },
+                (element) => (DeviceType.ears == element && (baseAction is CommandAction && hasLegacyEars)),
               )
               .toSet()
               .difference(flattenedDeviceTypes);
           final List<BaseAction> remainingActions = moveActions.where(
             // Check if any actions contain the device type of the gear the first action is missing
             (element) {
-              if (baseAction is CommandAction && missingGearAction.contains(DeviceType.ears)) {
+              // filters out remaining CommandActions if legacy ears are connected. Assumes Custom Actions send to ears too
+              if (baseAction is CommandAction && hasLegacyEars) {
                 if (element is EarsMoveList) {
                   return true;
                 } else if (element is CommandAction) {
-                  return false;
-                }
-              } else if (baseAction is EarsMoveList && missingGearAction.contains(DeviceType.ears)) {
-                if (element is CommandAction) {
-                  return true;
-                } else if (element is EarsMoveList) {
                   return false;
                 }
               }
@@ -317,7 +304,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
                   return false;
                 }
               }
-              // return remaining gear if action is not a glowtip action
+              // return remaining gear
               return true;
             },
           ).toList()
