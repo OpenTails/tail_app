@@ -248,7 +248,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           actionsToRun.add(baseAction);
         }
         //only adding a check here
-        if (baseAction != null && ((baseAction is CommandAction && hasLegacyEars) || !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes) || (baseAction is EarsMoveList && !hasLegacyEars))) {
+        if (baseAction != null && moveActions.length > 1 && ((baseAction is CommandAction && hasLegacyEars) || !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes) || (baseAction is EarsMoveList && !hasLegacyEars))) {
           // find the missing device type
           // The goal here is if a user selects multiple moves, send a move to all gear
           final Set<DeviceType> missingGearAction = baseAction.deviceCategory
