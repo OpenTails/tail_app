@@ -232,9 +232,6 @@ Future<void> initHive() async {
   if (!SentryHive.isAdapterRegistered(FavoriteActionAdapter().typeId)) {
     SentryHive.registerAdapter(FavoriteActionAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(BaseActionAdapter().typeId)) {
-    SentryHive.registerAdapter(BaseActionAdapter());
-  }
   if (!SentryHive.isAdapterRegistered(EarSpeedAdapter().typeId)) {
     SentryHive.registerAdapter(EarSpeedAdapter());
   }

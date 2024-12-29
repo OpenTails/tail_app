@@ -193,6 +193,8 @@ class ActionRegistry {
     EarsMoveList(
       name: "Ears Wide",
       uuid: "d8384bcf-31ed-4b5d-a25a-da3a2f96e406",
+      deviceCategory: [DeviceType.ears],
+      actionCategory: ActionCategory.ears,
       commandMoves: [
         CommandAction.hiddenEars("BOTWIST 30", "BOTWIST END"),
         Move.delay(100),
@@ -202,6 +204,8 @@ class ActionRegistry {
     EarsMoveList(
       name: "Double Right",
       uuid: "0d5a9dfa-38f2-4b09-9be1-cd36236a03b0",
+      deviceCategory: [DeviceType.ears],
+      actionCategory: ActionCategory.ears,
       commandMoves: [
         CommandAction.hiddenEars("LETWIST 20", "LETWIST END"),
         Move.delay(25),
@@ -214,6 +218,8 @@ class ActionRegistry {
     EarsMoveList(
       name: "Double Left",
       uuid: "9a6be63e-36f5-4f50-88b6-7adf2680aa5c",
+      deviceCategory: [DeviceType.ears],
+      actionCategory: ActionCategory.ears,
       commandMoves: [
         CommandAction.hiddenEars("RITWIST 20", "RITWIST END"),
         Move.delay(25),
@@ -226,6 +232,8 @@ class ActionRegistry {
     EarsMoveList(
       name: "Right Listen",
       uuid: "83590dc9-f9de-4134-bcc7-8157a62a33ef",
+      deviceCategory: [DeviceType.ears],
+      actionCategory: ActionCategory.ears,
       commandMoves: [
         CommandAction.hiddenEars("LETWIST 20", "LETWIST END"),
         CommandAction.hiddenEars("RITWIST 100", "RITWIST END"),
@@ -236,6 +244,8 @@ class ActionRegistry {
     EarsMoveList(
       name: "Left Listen",
       uuid: "007c52d3-242a-4e27-bccc-b4b737502bfb",
+      deviceCategory: [DeviceType.ears],
+      actionCategory: ActionCategory.ears,
       commandMoves: [
         CommandAction.hiddenEars("RITWIST 20", "RITWIST END"),
         CommandAction.hiddenEars("LETWIST 100", "LETWIST END"),
@@ -246,6 +256,8 @@ class ActionRegistry {
     EarsMoveList(
       name: "Flick Left",
       uuid: "769dbe84-3a6e-440d-8b20-234983d36cb6",
+      deviceCategory: [DeviceType.ears],
+      actionCategory: ActionCategory.ears,
       commandMoves: [
         CommandAction.hiddenEars("RITWIST 30", "RITWIST END"),
         Move.delay(100),
@@ -255,6 +267,8 @@ class ActionRegistry {
     EarsMoveList(
       name: "Flick Right",
       uuid: "23144b42-6d3c-4822-8510-ec03c63c7808",
+      deviceCategory: [DeviceType.ears],
+      actionCategory: ActionCategory.ears,
       commandMoves: [
         CommandAction.hiddenEars("LETWIST 30", "LETWIST END"),
         Move.delay(100),
@@ -264,6 +278,8 @@ class ActionRegistry {
     EarsMoveList(
       name: "Hewo",
       uuid: "fdaff205-0a51-46a0-a5fc-4ea283dce079",
+      deviceCategory: [DeviceType.ears],
+      actionCategory: ActionCategory.ears,
       commandMoves: [
         CommandAction.hiddenEars("LETWIST 30", "LETWIST END"),
         Move.delay(50),

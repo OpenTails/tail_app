@@ -259,13 +259,18 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         if (baseAction != null && moveActions.length > 1 && ((baseAction is CommandAction && hasLegacyEars) || !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes))) {
           // find the missing device type
           // The goal here is if a user selects multiple moves, send a move to all gear
-          final Set<DeviceType> missingGearAction = baseAction.deviceCategory
-              .whereNot(
-                // filtering out the first actions ears entry if its a unified move but legacy gear is connected
-                (element) => (DeviceType.ears == element && (baseAction is CommandAction && hasLegacyEars)),
-              )
-              .toSet()
-              .difference(flattenedDeviceTypes);
+          final Set<DeviceType> baseActionDeviceCategories = baseAction.deviceCategory.where(
+            // filtering out the first actions ears entry if its a unified move but legacy gear is connected
+            (element) {
+              if (element == DeviceType.ears) {
+                if (baseAction is CommandAction) {
+                  return hasLegacyEars;
+                }
+              }
+              return true;
+            },
+          ).toSet();
+          final Set<DeviceType> missingGearAction = flattenedDeviceTypes.difference(baseActionDeviceCategories);
           final List<BaseAction> remainingActions = moveActions.where(
             // Check if any actions contain the device type of the gear the first action is missing
             (element) {
@@ -305,7 +310,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
 
               // tailcontrol migration
               if (element.baseDeviceDefinition.deviceType == DeviceType.ears) {
-                if (baseAction is CommandAction && element.baseDeviceDefinition.deviceType == DeviceType.ears && element.isTailCoNTROL.value == TailControlStatus.legacy) {
+                if (baseAction is CommandAction && baseAction.actionCategory != ActionCategory.glowtip && element.baseDeviceDefinition.deviceType == DeviceType.ears && element.isTailCoNTROL.value == TailControlStatus.legacy) {
                   return false;
                 } else if (baseAction is EarsMoveList && element.baseDeviceDefinition.deviceType == DeviceType.ears && element.isTailCoNTROL.value == TailControlStatus.tailControl) {
                   return false;

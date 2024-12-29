@@ -53,17 +53,16 @@ extension ActionCategoryExtension on ActionCategory {
   }
 }
 
-@HiveType(typeId: 4)
-class BaseAction {
-  @HiveField(1)
-  String name = "";
-  @HiveField(2)
-  List<DeviceType> deviceCategory = DeviceType.values;
-  @HiveField(3)
-  final ActionCategory actionCategory = ActionCategory.hidden;
-  @HiveField(4)
-  final String uuid = "";
-  final Map<DeviceType, String> nameAlias = {};
+abstract class BaseAction {
+  String get name;
+
+  List<DeviceType> get deviceCategory;
+
+  ActionCategory get actionCategory;
+
+  String get uuid;
+
+  Map<DeviceType, String> get nameAlias;
 
   // Priority is Wings -> Ears -> Tail -> default
   String getName(BuiltSet<DeviceType> connectedDeviceTypes) {
@@ -84,10 +83,10 @@ class CommandAction extends BaseAction with _$CommandAction {
 
   @Implements<BaseAction>()
   factory CommandAction({
-    required String command,
-    required String name,
+    required final String command,
+    required final String name,
     required final String uuid,
-    required List<DeviceType> deviceCategory,
+    required final List<DeviceType> deviceCategory,
     required final ActionCategory actionCategory,
     final String? response,
     @Default({}) final Map<DeviceType, String> nameAlias,
@@ -133,6 +132,7 @@ class MoveList extends BaseAction with _$MoveList {
     @HiveField(3) @Default(ActionCategory.sequence) final ActionCategory actionCategory,
     @HiveField(5) @Default([]) List<Move> moves,
     @HiveField(6) @Default(1) double repeat,
+    @Default({}) final Map<DeviceType, String> nameAlias,
   }) = _MoveList;
 }
 
@@ -142,11 +142,11 @@ class EarsMoveList extends BaseAction with _$EarsMoveList {
 
   @Implements<BaseAction>()
   factory EarsMoveList({
-    @HiveField(1) required String name,
-    @HiveField(4) required final String uuid,
+    required final String name,
+    required final String uuid,
     required final List<Object> commandMoves,
-    @HiveField(2) @Default([DeviceType.ears]) List<DeviceType> deviceCategory,
-    @HiveField(3) @Default(ActionCategory.ears) final ActionCategory actionCategory,
+    required final List<DeviceType> deviceCategory,
+    required final ActionCategory actionCategory,
     @Default({}) final Map<DeviceType, String> nameAlias,
   }) = _EarsMoveList;
 }
