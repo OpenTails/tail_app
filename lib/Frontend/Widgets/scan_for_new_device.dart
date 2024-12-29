@@ -200,6 +200,15 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                     baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color(ref: ref).value)..name = getNameFromBTName(value.btName);
                                     statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
                                     statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
+                                    if (value.deviceType == DeviceType.ears) {
+                                      statefulDevice.bluetoothUartService.value = uartServices.firstWhere(
+                                        (element) => element.label == "Legacy Ears",
+                                      );
+                                    } else {
+                                      statefulDevice.bluetoothUartService.value = uartServices.firstWhere(
+                                        (element) => element.label == "TailCoNTROL",
+                                      );
+                                    }
                                     int code = Random().nextInt(899999) + 100000;
                                     baseStoredDevice.conModePin = code.toString();
                                     if (!ref.read(knownDevicesProvider).containsKey(baseStoredDevice.btMACAddress)) {
