@@ -219,6 +219,12 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
               (p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy,
             )
             .isNotEmpty;
+        bool hasGlowtipGear = ref
+            .read(getAvailableIdleGearProvider)
+            .where(
+              (p0) => p0.hasGlowtip.value == GlowtipStatus.glowtip,
+            )
+            .isNotEmpty;
         final List<BaseAction> moveActions = allActionsMapped
             .where((element) => !const [ActionCategory.glowtip, ActionCategory.audio].contains(element.actionCategory))
             .whereNot(
@@ -226,7 +232,8 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
               (element) => (element is EarsMoveList && !hasLegacyEars),
             )
             .toList();
-        final List<BaseAction> glowActions = allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList();
+
+        final List<BaseAction> glowActions = hasGlowtipGear ? allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList() : [];
         final List<BaseAction> audioActions = allActionsMapped.where((element) => const [ActionCategory.audio].contains(element.actionCategory)).toList();
 
         BaseAction? baseAction;
