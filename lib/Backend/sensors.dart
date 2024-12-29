@@ -211,12 +211,6 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         if (allActionsMapped.isEmpty) {
           return;
         }
-        final List<BaseAction> moveActions = allActionsMapped.where((element) => !const [ActionCategory.glowtip, ActionCategory.audio].contains(element.actionCategory)).toList();
-        final List<BaseAction> glowActions = allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList();
-        final List<BaseAction> audioActions = allActionsMapped.where((element) => const [ActionCategory.audio].contains(element.actionCategory)).toList();
-
-        BaseAction? baseAction;
-        List<BaseAction> actionsToRun = [];
         // we need to handle legacy ears for now
         bool hasLegacyEars = ref
             .read(getAvailableIdleGearForTypeProvider([DeviceType.ears].toBuiltSet()))
@@ -224,6 +218,19 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
               (p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy,
             )
             .isNotEmpty;
+        final List<BaseAction> moveActions = allActionsMapped
+            .where((element) => !const [ActionCategory.glowtip, ActionCategory.audio].contains(element.actionCategory))
+            .whereNot(
+              // filter out legacy moves if legacy ears are not connected
+              (element) => (element is EarsMoveList && !hasLegacyEars),
+            )
+            .toList();
+        final List<BaseAction> glowActions = allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList();
+        final List<BaseAction> audioActions = allActionsMapped.where((element) => const [ActionCategory.audio].contains(element.actionCategory)).toList();
+
+        BaseAction? baseAction;
+        List<BaseAction> actionsToRun = [];
+
         // add a glowtip action if it exists
         if (glowActions.isNotEmpty) {
           final BaseAction glowAction = glowActions[_random.nextInt(glowActions.length)];
