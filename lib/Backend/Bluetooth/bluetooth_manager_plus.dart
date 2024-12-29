@@ -573,22 +573,23 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
 class ScanMonitor extends _$ScanMonitor {
   @override
   void build() {
-    bool allConnected = ref.watch(isAllKnownGearConnectedProvider);
-    bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);
-    if (!allConnected && alwaysScanningValue && isBluetoothEnabled.value) {
-      beginScan(scanReason: ScanReason.background);
-    } else if ((allConnected && _scanReason == ScanReason.background) || !isBluetoothEnabled.value) {
-      stopScan();
-    }
+    ref.watch(isAllKnownGearConnectedProvider);
     SentryHive.box(settings).listenable(keys: [alwaysScanning])
       ..removeListener(listener)
       ..addListener(listener);
     isBluetoothEnabled
       ..removeListener(listener)
       ..addListener(listener);
+    listener();
   }
 
   void listener() {
-    ref.invalidateSelf();
+    bool allConnected = ref.read(isAllKnownGearConnectedProvider);
+    bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);
+    if (!allConnected && alwaysScanningValue && isBluetoothEnabled.value) {
+      beginScan(scanReason: ScanReason.background);
+    } else if ((allConnected && _scanReason == ScanReason.background) || !isBluetoothEnabled.value) {
+      stopScan();
+    }
   }
 }
