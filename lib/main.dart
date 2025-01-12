@@ -93,7 +93,7 @@ Future<void> initMainApp() async {
 }
 
 Future<void> startSentryApp(Widget child) async {
-  if (kDebugMode) {
+  if (kDebugMode || const String.fromEnvironment('SENTRY_DSN', defaultValue: "").isEmpty) {
     runApp(child);
   }
   mainLogger.fine("Init Sentry");
@@ -113,19 +113,17 @@ Future<void> startSentryApp(Widget child) async {
         ..tracesSampleRate = dynamicConfigInfo.sentryTraces
         ..profilesSampleRate = dynamicConfigInfo.sentryProfiles
         ..beforeSend = beforeSend
-        ..reportPackages = false
-        ..attachScreenshot = true
-        ..screenshotQuality = SentryScreenshotQuality.low
-        ..attachScreenshotOnlyWhenResumed = true
-        ..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryReplay
-        ..experimental.replay.onErrorSampleRate = dynamicConfigInfo.sentryReplay;
+        ..reportPackages = false;
+      //..attachScreenshot = false
+      //..screenshotQuality = SentryScreenshotQuality.low
+      //..attachScreenshotOnlyWhenResumed = true
+      //..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryReplay
+      //..experimental.replay.onErrorSampleRate = dynamicConfigInfo.sentryReplay;
     },
     // Init your App.
     // ignore: missing_provider_scope
     appRunner: () => runApp(
-      SentryScreenshotWidget(
-        child: TailApp(),
-      ),
+      child,
     ),
   );
 }
