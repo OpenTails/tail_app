@@ -558,6 +558,7 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
     BluetoothCharacteristic? bluetoothCharacteristic =
         bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid == Guid(device.bluetoothUartService.value!.bleDeviceService))?.characteristics.firstWhereOrNull((element) => element.characteristicUuid == Guid(device.bluetoothUartService.value!.bleTxCharacteristic));
     if (bluetoothCharacteristic == null) {
+      _bluetoothPlusLogger.warning("Unable to find bluetooth characteristic to send command to");
       return;
     }
 
