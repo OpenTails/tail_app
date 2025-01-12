@@ -158,7 +158,7 @@ class _TailBlogState extends State<TailBlog> {
               url: post.link,
               feedType: FeedType.blog,
               imageId: post.featuredMedia,
-              imageUrl: post.self['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['medium']['source_url'],
+              imageUrl: getImageURL(post),
             ),
           );
         }
@@ -173,6 +173,15 @@ class _TailBlogState extends State<TailBlog> {
         }
       });
     }
+  }
+
+  String? getImageURL(Post post) {
+    try {
+      return post.self['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['medium']['source_url'];
+    } catch (e) {
+      _wpLogger.warning("Unable to load featured media for post ${post.title}. $e");
+    }
+    return null;
   }
 }
 
