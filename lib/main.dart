@@ -93,7 +93,7 @@ Future<void> initMainApp() async {
 }
 
 Future<void> startSentryApp(Widget child) async {
-  if (kDebugMode || const String.fromEnvironment('SENTRY_DSN', defaultValue: "").isEmpty) {
+  if (const String.fromEnvironment('SENTRY_DSN', defaultValue: "").isEmpty) {
     runApp(child);
   }
   mainLogger.fine("Init Sentry");
@@ -110,8 +110,8 @@ Future<void> startSentryApp(Widget child) async {
         ..debug = kDebugMode
         ..diagnosticLevel = SentryLevel.info
         ..environment = environment
-        ..tracesSampleRate = dynamicConfigInfo.sentryTraces
-        ..profilesSampleRate = dynamicConfigInfo.sentryProfiles
+        ..tracesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryTraces
+        ..profilesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryProfiles
         ..beforeSend = beforeSend
         ..reportPackages = false
         ..attachScreenshot = true
