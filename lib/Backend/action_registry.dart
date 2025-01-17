@@ -54,7 +54,7 @@ class ActionRegistry {
       },
     ),
     CommandAction(
-      name: "Fast",
+      name: "Fast 1",
       command: "TAILFA",
       deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.miniTail, DeviceType.ears],
       actionCategory: ActionCategory.fast,
@@ -65,7 +65,7 @@ class ActionRegistry {
       },
     ),
     CommandAction(
-      name: "Short",
+      name: "Fast 2",
       command: "TAILSH",
       deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.fast,
@@ -76,7 +76,7 @@ class ActionRegistry {
       },
     ),
     CommandAction(
-      name: "Happy",
+      name: "Fast 3",
       command: "TAILHA",
       deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.fast,
@@ -87,7 +87,7 @@ class ActionRegistry {
       },
     ),
     CommandAction(
-      name: "Stand Up",
+      name: "Fast 4",
       command: "TAILER",
       deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.fast,
@@ -98,7 +98,7 @@ class ActionRegistry {
       },
     ),
     CommandAction(
-      name: "Pulse",
+      name: "Tense 1",
       command: "TAILEP",
       deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.tense,
@@ -109,7 +109,7 @@ class ActionRegistry {
       },
     ),
     CommandAction(
-      name: "Tremble 1",
+      name: "Tense 2",
       command: "TAILT1",
       deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.tense,
@@ -120,7 +120,7 @@ class ActionRegistry {
       },
     ),
     CommandAction(
-      name: "Tremble 2",
+      name: "Tense 3",
       command: "TAILT2",
       deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.tense,
@@ -131,7 +131,7 @@ class ActionRegistry {
       },
     ),
     CommandAction(
-      name: "Tremble 3",
+      name: "Tense 4",
       command: "TAILET",
       deviceCategory: [DeviceType.tail, DeviceType.wings, DeviceType.ears],
       actionCategory: ActionCategory.tense,

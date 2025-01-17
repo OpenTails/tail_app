@@ -1,3 +1,9 @@
+### V 1.1.0
+
+- Lots of behind the scenes changes
+- Support the latest EarGear firmware
+- Various bug fixes
+
 ### V 1.0.9
 
 - Allow setting ear twist speed
