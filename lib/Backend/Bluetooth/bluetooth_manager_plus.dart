@@ -143,7 +143,7 @@ class _OnDiscoveredServices extends _$OnDiscoveredServices {
     //Subscribes to all characteristics
     for (BluetoothService service in event.services) {
       BluetoothUartService? bluetoothUartService = uartServices.firstWhereOrNull(
-        (element) => element.bleDeviceService == service.serviceUuid.str,
+        (element) => element.bleDeviceService.toLowerCase() == service.serviceUuid.str.toLowerCase(),
       );
       if (bluetoothUartService != null) {
         BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
@@ -326,9 +326,9 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
     if (statefulDevice == null) {
       return;
     }
-    if (bluetoothCharacteristic.characteristicUuid == Guid("2a19")) {
+    if (bluetoothCharacteristic.characteristicUuid.str.toLowerCase() == "2a19") {
       statefulDevice.batteryLevel.value = values.first.toDouble();
-    } else if (bluetoothCharacteristic.characteristicUuid == Guid("5073792e-4fc0-45a0-b0a5-78b6c1756c91")) {
+    } else if (bluetoothCharacteristic.characteristicUuid.str.toLowerCase() == "5073792e-4fc0-45a0-b0a5-78b6c1756c91") {
       try {
         String value = const Utf8Decoder().convert(values);
         statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
@@ -338,7 +338,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
         statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
         return;
       }
-    } else if (statefulDevice.bluetoothUartService.value != null || bluetoothCharacteristic.characteristicUuid == Guid(statefulDevice.bluetoothUartService.value!.bleRxCharacteristic)) {
+    } else if (statefulDevice.bluetoothUartService.value != null || bluetoothCharacteristic.characteristicUuid.str.toLowerCase() == statefulDevice.bluetoothUartService.value!.bleRxCharacteristic.toLowerCase()) {
       String value = "";
       try {
         value = const Utf8Decoder().convert(values);
@@ -555,8 +555,10 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
   }
   BluetoothDevice? bluetoothDevice = flutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == device.baseStoredDevice.btMACAddress);
   if (bluetoothDevice != null && device.bluetoothUartService.value != null) {
-    BluetoothCharacteristic? bluetoothCharacteristic =
-        bluetoothDevice.servicesList.firstWhereOrNull((element) => element.uuid == Guid(device.bluetoothUartService.value!.bleDeviceService))?.characteristics.firstWhereOrNull((element) => element.characteristicUuid == Guid(device.bluetoothUartService.value!.bleTxCharacteristic));
+    BluetoothCharacteristic? bluetoothCharacteristic = bluetoothDevice.servicesList
+        .firstWhereOrNull((element) => element.uuid.str.toLowerCase() == device.bluetoothUartService.value!.bleDeviceService.toLowerCase())
+        ?.characteristics
+        .firstWhereOrNull((element) => element.characteristicUuid.str.toLowerCase() == device.bluetoothUartService.value!.bleTxCharacteristic.toLowerCase());
     if (bluetoothCharacteristic == null) {
       _bluetoothPlusLogger.warning("Unable to find bluetooth characteristic to send command to");
       return;
