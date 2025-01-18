@@ -38,7 +38,7 @@ dependencies:
   package_info_plus: ^8.1.3
   permission_handler: ^11.3.1
   url_launcher: ^6.3.1 # Open URLS in external apps
-  flutter_blue_plus: ^1.35.0
+  flutter_blue_plus: 1.34.5
   flutter_foreground_task: ^8.17.0 # Keep the app running in the background on android
   install_referrer: # Needs gradle namespace
     git:
