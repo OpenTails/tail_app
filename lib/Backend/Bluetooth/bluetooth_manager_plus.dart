@@ -150,7 +150,11 @@ class _OnDiscoveredServices extends _$OnDiscoveredServices {
         statefulDevice?.bluetoothUartService.value = bluetoothUartService;
       }
       for (BluetoothCharacteristic characteristic in service.characteristics) {
-        await characteristic.setNotifyValue(true);
+          try {
+            await characteristic.setNotifyValue(true);
+          } on Exception catch (e) {
+            // TODO
+          }
       }
     }
   }
