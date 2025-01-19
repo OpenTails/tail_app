@@ -17,7 +17,7 @@ String homeWelcomeMessage() => Intl.message('You can control, explore and update
 
 String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'The label and title of the joystick page');
 
-String joyStickPageDescription() => Intl.message('Directly control the gear position.', name: 'joyStickPageDescription', desc: 'The description of the joystick page on the more page');
+String joyStickPageDescription() => Intl.message("Directly control your gears' position." , name: 'joyStickPageDescription', desc: 'The description of the joystick page on the more page');
 
 String feedbackPage() => Intl.message('Send Feedback', name: 'feedbackPage', desc: 'The label and title of the feedback page');
 
