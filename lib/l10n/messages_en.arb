@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2024-12-22T22:09:07.956316",
+  "@@last_modified": "2025-01-19T13:20:42.125452",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -37,7 +37,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Directly control the gear position.",
+  "joyStickPageDescription": "Directly control your gears' position.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
