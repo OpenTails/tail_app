@@ -1453,7 +1453,7 @@ packages:
     description:
       path: "packages/pedometer"
       ref: HEAD
-      resolved-ref: b45c8fc87325a48e0a9dfd049870c46f9899676e
+      resolved-ref: e8c6388bc876cb4971c3341aa8915a517ca68cfd
       url: "https://github.com/Codel1417/flutter-plugins"
     source: git
     version: "4.0.2"
