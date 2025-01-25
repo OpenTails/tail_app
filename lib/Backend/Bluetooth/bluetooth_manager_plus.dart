@@ -150,11 +150,11 @@ class _OnDiscoveredServices extends _$OnDiscoveredServices {
         statefulDevice?.bluetoothUartService.value = bluetoothUartService;
       }
       for (BluetoothCharacteristic characteristic in service.characteristics) {
-          try {
-            await characteristic.setNotifyValue(true);
-          } on Exception catch (e) {
-            // TODO
-          }
+        try {
+          await characteristic.setNotifyValue(true);
+        } on Exception catch (e) {
+          // TODO
+        }
       }
     }
   }
@@ -342,7 +342,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
         statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
         return;
       }
-    } else if (statefulDevice.bluetoothUartService.value != null || bluetoothCharacteristic.characteristicUuid.str.toLowerCase() == statefulDevice.bluetoothUartService.value!.bleRxCharacteristic.toLowerCase()) {
+    } else if (statefulDevice.bluetoothUartService.value != null && bluetoothCharacteristic.characteristicUuid.str.toLowerCase() == statefulDevice.bluetoothUartService.value!.bleRxCharacteristic.toLowerCase()) {
       String value = "";
       try {
         value = const Utf8Decoder().convert(values);
