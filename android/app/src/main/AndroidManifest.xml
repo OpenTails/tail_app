@@ -90,9 +90,6 @@
         <meta-data
             android:name="io.flutter.embedding.android.EnableImpeller"
             android:value="true" />
-        <meta-data
-            android:name="io.sentry.ndk.enable"
-            android:value="false" />
 
         <!-- Add android:stopWithTask option only when necessary. -->
         <service

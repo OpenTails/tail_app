@@ -113,9 +113,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
 
 }
-configurations.configureEach {
-    exclude group: "io.sentry", module: "sentry-android-ndk"
-}
 sentry {
     ignoredBuildTypes = System.getenv("SENTRY_ORG") != null ? ["debug"] : ["debug", "release"]
     // Disables or enables debug log output, e.g. for for sentry-cli.
