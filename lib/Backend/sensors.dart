@@ -195,6 +195,11 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
 
   TriggerDefinition(this.ref);
 
+  // add check here if a trigger is supported on a given device/platform
+  Future<bool> isSupported() {
+    return Future.value(true);
+  }
+
   Future<void> sendCommands(String name, Ref ref) async {
     if (ref.read(getAvailableGearProvider).isEmpty) {
       return;
@@ -364,6 +369,13 @@ class WalkingTriggerDefinition extends TriggerDefinition {
   }
 
   @override
+  Future<bool> isSupported() async {
+    bool isStepCountSupported = await Pedometer.isStepCountSupported == true;
+    bool isStepDetectionSupported = await Pedometer.isStepDetectionSupported == true;
+    return isStepDetectionSupported && isStepCountSupported;
+  }
+
+  @override
   Future<void> onDisable() async {
     pedestrianStatusStream?.cancel();
     stepCountStream?.cancel();
@@ -408,6 +420,11 @@ class CoverTriggerDefinition extends TriggerDefinition {
   }
 
   @override
+  Future<bool> isSupported() {
+    return Future.value(true);
+  }
+
+  @override
   Future<void> onDisable() async {
     proximityStream?.cancel();
     proximityStream = null;
@@ -418,6 +435,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
     if (proximityStream != null) {
       return;
     }
+
     proximityStream = ProximitySensor.events.listen((int event) {
       sensorsLogger.fine("CoverEvent:: $event");
       if (event >= 1) {
@@ -635,6 +653,11 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
     super.requiredPermission = null;
     super.uuid = "26c1eaef-5976-43cb-bc68-f67cfb29de51";
     super.actionTypes = [TriggerActionDef(name: "Volume Up", translated: triggerVolumeButtonVolumeUp(), uuid: "834a9bef-9ae2-4623-81fa-bbead69eb28e"), TriggerActionDef(name: "Volume Down", translated: triggerVolumeButtonVolumeDown(), uuid: "2972aa14-33de-4d4f-ac67-4f572306b5c4")];
+  }
+
+  @override
+  Future<bool> isSupported() {
+    return Future.value(Platform.isAndroid);
   }
 
   @override

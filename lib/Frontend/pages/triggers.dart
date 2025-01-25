@@ -165,17 +165,22 @@ class _TriggersState extends ConsumerState<Triggers> {
                     builder: (BuildContext context, Widget? child) {
                       return Semantics(
                         label: 'A switch to toggle the trigger ${trigger.triggerDefinition?.name}',
-                        child: Switch(
-                          value: trigger.enabled,
-                          onChanged: (bool value) async {
-                            setState(
-                              () {
-                                trigger.storedEnable = !trigger.enabled;
-                                ref.read(triggerListProvider.notifier).store();
-                                plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger.triggerDefUUID).first.toString()});
-                              },
-                            );
-                          },
+                        child: FutureBuilder(
+                          future: trigger.triggerDefinition!.isSupported(),
+                          builder: (context, snapshot) => Switch(
+                            value: trigger.enabled,
+                            onChanged: snapshot.data == true
+                                ? (bool value) async {
+                                    setState(
+                                      () {
+                                        trigger.storedEnable = !trigger.enabled;
+                                        ref.read(triggerListProvider.notifier).store();
+                                        plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger.triggerDefUUID).first.toString()});
+                                      },
+                                    );
+                                  }
+                                : null,
+                          ),
                         ),
                       );
                     },
@@ -240,17 +245,22 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                   builder: (BuildContext context, Widget? child) {
                     return Semantics(
                       label: 'A switch to toggle the trigger ${triggerDefinition?.name}',
-                      child: Switch(
-                        value: trigger!.enabled,
-                        onChanged: (bool value) {
-                          setState(
-                            () {
-                              trigger!.storedEnable = !trigger!.enabled;
-                              ref.read(triggerListProvider.notifier).store();
-                              plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger!.triggerDefUUID).first.toString()});
-                            },
-                          );
-                        },
+                      child: FutureBuilder(
+                        future: trigger!.triggerDefinition!.isSupported(),
+                        builder: (context, snapshot) => Switch(
+                          value: trigger!.enabled,
+                          onChanged: snapshot.data == true
+                              ? (bool value) {
+                                  setState(
+                                    () {
+                                      trigger!.storedEnable = !trigger!.enabled;
+                                      ref.read(triggerListProvider.notifier).store();
+                                      plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger!.triggerDefUUID).first.toString()});
+                                    },
+                                  );
+                                }
+                              : null,
+                        ),
                       ),
                     );
                   },
