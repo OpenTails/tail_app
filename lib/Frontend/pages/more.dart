@@ -59,6 +59,18 @@ class _MoreState extends ConsumerState<More> {
             const CustomAudioRoute().push(context);
           },
         ),
+        Builder(builder: (context) {
+          String couponCode = "APPCOV25";
+          return ListTile(
+            title: Text(morePageCoverPromoTitle()),
+            subtitle: Text(morePageCoverPromoDescription(couponCode: couponCode)),
+            leading: const Icon(Icons.store),
+            trailing: const Icon(Icons.open_in_browser),
+            onTap: () async {
+              await launchUrl(Uri.parse('https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&coupon=$couponCode'));
+            },
+          );
+        }),
         ListTile(
           title: Text(settingsPage()),
           subtitle: Text(settingsDescription()),

@@ -17,7 +17,7 @@ String homeWelcomeMessage() => Intl.message('You can control, explore and update
 
 String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'The label and title of the joystick page');
 
-String joyStickPageDescription() => Intl.message("Directly control your gears' position." , name: 'joyStickPageDescription', desc: 'The description of the joystick page on the more page');
+String joyStickPageDescription() => Intl.message("Directly control your gears' position.", name: 'joyStickPageDescription', desc: 'The description of the joystick page on the more page');
 
 String feedbackPage() => Intl.message('Send Feedback', name: 'feedbackPage', desc: 'The label and title of the feedback page');
 
@@ -433,3 +433,8 @@ String manageGearConModePincodeEnableDescription() =>
 String manageGearConModePincodeCopy() => Intl.message('Copy to Clipboard', name: 'manageGearConModePincodeCopy', desc: 'The description for copy to clipboard button on the pin code dialog');
 
 String manageGearConModeToggleTitle() => Intl.message('Enable Convention Mode', name: 'manageGearConModeToggleTitle', desc: 'The description for the convention mode enabled button on the gear page');
+
+String morePageCoverPromoTitle() => Intl.message('Change the look of your gear!', name: 'morePageCoverPromoTitle', desc: 'The title for the button on the More page to push users to buy a new cover');
+
+String morePageCoverPromoDescription({required String couponCode}) =>
+    Intl.message('Use code $couponCode to get 10% off a new MiTail or EarGear sleeve', args: [couponCode], name: 'morePageCoverPromoDescription', desc: 'The description & promo code for the button on the More page to push users to buy a new cover');
