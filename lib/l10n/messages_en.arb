@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-01-19T13:20:42.125452",
+  "@@last_modified": "2025-01-26T19:04:10.476463",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1178,6 +1178,12 @@
   "manageGearConModeToggleTitle": "Enable Convention Mode",
   "@manageGearConModeToggleTitle": {
     "description": "The description for the convention mode enabled button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageCoverPromoTitle": "Change the look of your gear!",
+  "@morePageCoverPromoTitle": {
+    "description": "The title for the button on the More page to push users to buy a new cover",
     "type": "text",
     "placeholders": {}
   }
