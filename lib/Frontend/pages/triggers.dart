@@ -34,82 +34,88 @@ class _TriggersState extends ConsumerState<Triggers> {
   Widget build(BuildContext context) {
     final BuiltList<Trigger> triggersList = ref.watch(triggerListProvider);
     return Scaffold(
-      floatingActionButton: Builder(
-        builder: (context) {
-          List<TriggerDefinition> triggerDefinitions = ref.watch(triggerDefinitionListProvider.notifier).get();
-          return PromptedChoice<TriggerDefinition>.single(
-            itemCount: triggerDefinitions.length,
-            itemBuilder: (ChoiceController<TriggerDefinition> state, int index) {
-              TriggerDefinition triggerDefinition = triggerDefinitions[index];
-              return RadioListTile(
-                value: triggerDefinition,
-                groupValue: state.single,
-                onChanged: (value) {
-                  state.select(triggerDefinition);
-                },
-                secondary: triggerDefinition.icon,
-                subtitle: ChoiceText(
-                  triggerDefinition.description,
-                  highlight: state.search?.value,
-                ),
-                title: ChoiceText(
-                  triggerDefinition.name,
-                  highlight: state.search?.value,
-                ),
-              );
-            },
-            promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
-            modalHeaderBuilder: ChoiceModal.createHeader(
-              automaticallyImplyLeading: true,
-              actionsBuilder: [],
-            ),
-            modalFooterBuilder: ChoiceModal.createFooter(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                (choiceController) {
-                  return FilledButton(
-                    onPressed: choiceController.value.isNotEmpty ? () => choiceController.closeModal(confirmed: true) : null,
-                    child: Row(
+      floatingActionButton: FutureBuilder(
+        future: ref.watch(triggerDefinitionListProvider.notifier).getSupported(),
+        builder: (context, snapshot) {
+          List<TriggerDefinition> triggerDefinitions = snapshot.data ?? [];
+          return AnimatedSwitcher(
+            duration: animationTransitionDuration,
+            child: triggerDefinitions.isEmpty
+                ? Container()
+                : PromptedChoice<TriggerDefinition>.single(
+                    itemCount: triggerDefinitions.length,
+                    itemBuilder: (ChoiceController<TriggerDefinition> state, int index) {
+                      TriggerDefinition triggerDefinition = triggerDefinitions[index];
+                      return RadioListTile(
+                        value: triggerDefinition,
+                        groupValue: state.single,
+                        onChanged: (value) {
+                          state.select(triggerDefinition);
+                        },
+                        secondary: triggerDefinition.icon,
+                        subtitle: ChoiceText(
+                          triggerDefinition.description,
+                          highlight: state.search?.value,
+                        ),
+                        title: ChoiceText(
+                          triggerDefinition.name,
+                          highlight: state.search?.value,
+                        ),
+                      );
+                    },
+                    promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
+                    modalHeaderBuilder: ChoiceModal.createHeader(
+                      automaticallyImplyLeading: true,
+                      actionsBuilder: [],
+                    ),
+                    modalFooterBuilder: ChoiceModal.createFooter(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.check),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                        ),
-                        Text(
-                          triggersDefSelectSaveLabel(),
-                          style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                color: getTextColor(
-                                  Theme.of(context).colorScheme.primary,
+                        (choiceController) {
+                          return FilledButton(
+                            onPressed: choiceController.value.isNotEmpty ? () => choiceController.closeModal(confirmed: true) : null,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.check),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
                                 ),
-                              ),
-                        ),
+                                Text(
+                                  triggersDefSelectSaveLabel(),
+                                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                        color: getTextColor(
+                                          Theme.of(context).colorScheme.primary,
+                                        ),
+                                      ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                       ],
                     ),
-                  );
-                },
-              ],
-            ),
-            title: triggersSelectLabel(),
-            confirmation: true,
-            onChanged: (value) async {
-              if (value != null) {
-                setState(
-                  () {
-                    Trigger trigger = Trigger.trigDef(value, const Uuid().v4());
-                    ref.watch(triggerListProvider.notifier).add(trigger);
-                    plausible.event(name: "Add Trigger", props: {"Trigger Type": value.runtimeType.toString()});
-                  },
-                );
-              }
-            },
-            anchorBuilder: (state, openModal) {
-              return FloatingActionButton.extended(
-                icon: const Icon(Icons.add),
-                label: Text(triggersAdd()),
-                onPressed: openModal,
-              );
-            },
+                    title: triggersSelectLabel(),
+                    confirmation: true,
+                    onChanged: (value) async {
+                      if (value != null) {
+                        setState(
+                          () {
+                            Trigger trigger = Trigger.trigDef(value, const Uuid().v4());
+                            ref.watch(triggerListProvider.notifier).add(trigger);
+                            plausible.event(name: "Add Trigger", props: {"Trigger Type": value.runtimeType.toString()});
+                          },
+                        );
+                      }
+                    },
+                    anchorBuilder: (state, openModal) {
+                      return FloatingActionButton.extended(
+                        icon: const Icon(Icons.add),
+                        label: Text(triggersAdd()),
+                        onPressed: openModal,
+                      );
+                    },
+                  ),
           );
         },
       ),

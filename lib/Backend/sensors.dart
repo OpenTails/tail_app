@@ -909,4 +909,15 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
 
   //Filter by unused sensors
   List<TriggerDefinition> get() => state.toSet().difference(ref.read(triggerListProvider).map((Trigger e) => e.triggerDefinition!).toSet()).toList();
+
+  Future<List<TriggerDefinition>> getSupported() async {
+    List<TriggerDefinition> unusedTriggerDefinitions = get();
+    List<TriggerDefinition> supportedTriggerDefinitions = [];
+    for (TriggerDefinition triggerDefinition in unusedTriggerDefinitions) {
+      if (await triggerDefinition.isSupported()) {
+        supportedTriggerDefinitions.add(triggerDefinition);
+      }
+    }
+    return supportedTriggerDefinitions;
+  }
 }
