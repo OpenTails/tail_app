@@ -12,10 +12,12 @@ import 'package:hive/hive.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
+import '../../../constants.dart';
 import '../../Bluetooth/bluetooth_manager.dart';
 import '../../Bluetooth/bluetooth_manager_plus.dart';
 import '../../Bluetooth/bluetooth_message.dart';
 import '../../firmware_update.dart';
+import '../../logging_wrappers.dart';
 import '../../version.dart';
 
 part 'device_definition.freezed.dart';
@@ -198,6 +200,7 @@ class BaseStatefulDevice {
   bool forgetOnDisconnect = false;
   ValueNotifier<bool> mandatoryOtaRequired = ValueNotifier(false);
   final CircularBuffer<MessageHistoryEntry> messageHistory = CircularBuffer(50);
+  Timer? deviceStateWatchdogTimer;
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice) {
     commandQueue = CommandQueue(this);
@@ -242,6 +245,22 @@ class BaseStatefulDevice {
                 )
             ? TailControlStatus.tailControl
             : TailControlStatus.legacy;
+      },
+    );
+    // prevent gear from being stuck in a move.
+    deviceState.addListener(
+      () {
+        if (deviceState.value == DeviceState.runAction && deviceStateWatchdogTimer == null) {
+          deviceStateWatchdogTimer = Timer(
+            Duration(seconds: HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault)),
+            () {
+              deviceState.value = DeviceState.standby;
+            },
+          );
+        } else if (deviceState.value != DeviceState.runAction && deviceStateWatchdogTimer != null) {
+          deviceStateWatchdogTimer?.cancel();
+          deviceStateWatchdogTimer = null;
+        }
       },
     );
   }
