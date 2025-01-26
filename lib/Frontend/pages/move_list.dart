@@ -92,12 +92,23 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                     if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
                       HapticFeedback.selectionClick();
                     }
-                    for (BaseStatefulDevice element in ref.watch(knownDevicesProvider).values.where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType))) {
-                      if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
-                        await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
-                      }
-                      runAction(allMoveLists[index], element);
-                    }
+                    ref
+                        .watch(knownDevicesProvider)
+                        .values
+                        .where(
+                          (element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType),
+                        )
+                        .where(
+                          (element) => element.deviceState.value == DeviceState.standby,
+                        )
+                        .forEach(
+                      (element) async {
+                        if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+                          await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+                        }
+                        runAction(allMoveLists[index], element);
+                      },
+                    );
                   },
                 );
               },
