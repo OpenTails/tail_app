@@ -145,6 +145,12 @@ final List<BluetoothUartService> uartServices = const [
     label: "Legacy Gear",
   ),
   BluetoothUartService(
+    bleDeviceService: "0000ffe0-0000-1000-8000-00805f9b34fb",
+    bleRxCharacteristic: "",
+    bleTxCharacteristic: "0000ffe1-0000-1000-8000-00805f9b34fb",
+    label: "DigiTail",
+  ),
+  BluetoothUartService(
     bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
     bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
     bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
