@@ -69,7 +69,11 @@ Future<FWInfo?> getFirmwareInfo(Ref ref, String url, String hwVer) async {
   if (fwInfos.isNotEmpty) {
     // Find a FW file that matches the gear hardware version
     FWInfo? fwInfo = fwInfos.firstWhereOrNull(
-      (element) => element.supportedHardwareVersions.contains(hwVer),
+      (element) =>
+          element.supportedHardwareVersions.firstWhereOrNull(
+            (element) => element.trim().toUpperCase() == hwVer.trim().toUpperCase(),
+          ) !=
+          null,
     );
     // Fall back to a generic file if it exists
     fwInfo ??= fwInfos.firstWhereOrNull(
