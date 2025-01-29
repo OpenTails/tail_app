@@ -67,7 +67,7 @@ class _MoreState extends ConsumerState<More> {
             leading: const Icon(Icons.store),
             trailing: const Icon(Icons.open_in_browser),
             onTap: () async {
-              await launchUrl(Uri.parse('https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&coupon=$couponCode'));
+              await launchUrl(Uri.parse('https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode'));
             },
           );
         }),
