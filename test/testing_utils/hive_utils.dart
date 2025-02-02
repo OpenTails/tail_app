@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/main.dart';
 
 Future<void> deleteHive() async {
-  await SentryHive.deleteFromDisk();
+  await Hive.deleteFromDisk();
 }
 
 class FakePathProviderPlatform extends Fake with MockPlatformInterfaceMixin implements PathProviderPlatform {

@@ -1,5 +1,5 @@
+import 'package:hive_ce/hive.dart';
 import 'package:logarte/logarte.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 
 import '../constants.dart';
 
@@ -15,42 +15,42 @@ class _HiveProxyImpl {
       source: box,
     );
     if (genericBoxes.contains(box)) {
-      return SentryHive.box(box).put(key, value);
+      return Hive.box(box).put(key, value);
     } else {
-      return SentryHive.box<E>(box).put(key, value);
+      return Hive.box<E>(box).put(key, value);
     }
   }
 
   Future<void> deleteKey<E>(String box, dynamic key) {
     if (genericBoxes.contains(box)) {
-      return SentryHive.box(box).delete(key);
+      return Hive.box(box).delete(key);
     } else {
-      return SentryHive.box<E>(box).delete(key);
+      return Hive.box<E>(box).delete(key);
     }
   }
 
   E getOrDefault<E>(String box, dynamic key, {required E? defaultValue}) {
     if (genericBoxes.contains(box)) {
-      return SentryHive.box(box).get(key, defaultValue: defaultValue)!;
+      return Hive.box(box).get(key, defaultValue: defaultValue)!;
     } else {
-      return SentryHive.box<E>(box).get(key, defaultValue: defaultValue)!;
+      return Hive.box<E>(box).get(key, defaultValue: defaultValue)!;
     }
   }
 
   Future<int> clear<E>(String box) {
     if (genericBoxes.contains(box)) {
-      return SentryHive.box(box).clear();
+      return Hive.box(box).clear();
     } else {
-      return SentryHive.box<E>(box).clear();
+      return Hive.box<E>(box).clear();
     }
   }
 
   Future<Iterable<int>> addAll<E>(String name, Iterable<E> values) {
-    return SentryHive.box<E>(name).addAll(values);
+    return Hive.box<E>(name).addAll(values);
   }
 
   Iterable<E> getAll<E>(String name) {
-    return SentryHive.box<E>(name).values;
+    return Hive.box<E>(name).values;
   }
 }
 

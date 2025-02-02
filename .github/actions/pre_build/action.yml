@@ -7,18 +7,24 @@ runs:
     - name: Configure Flutter CLI
       shell: bash
       run: flutter config --no-cli-animations --enable-analytics
-    - name: Enable Flutter tools
+    - name: Enable Flutter translation tool
       shell: bash
       run: dart pub global activate intl_translation
+    - name: Enable Flutter gen
+      shell: bash
+      run: dart pub global activate flutter_gen
     - name: Get dependencies
       shell: bash
       run: flutter pub get
     - name: Generate translation files
       shell: bash
       run: dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
+    - name: Generate FlutterGen dart .g files
+      shell: bash
+      run: fluttergen -c pubspec.yaml
     - name: Generate dart .g files
       shell: bash
       run: dart pub run build_runner build --delete-conflicting-outputs
-    - name: list dependencies 
+    - name: list dependencies
       shell: bash
       run: flutter pub deps --no-dev

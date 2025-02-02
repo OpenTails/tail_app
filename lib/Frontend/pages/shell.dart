@@ -6,9 +6,8 @@ import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:upgrader/upgrader.dart';
 
 import '../../Backend/logging_wrappers.dart';
@@ -63,7 +62,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
       child: BackButtonToClose(
         child: UpgradeAlert(
           child: ValueListenableBuilder(
-            valueListenable: SentryHive.box(settings).listenable(keys: [shouldDisplayReview]),
+            valueListenable: Hive.box(settings).listenable(keys: [shouldDisplayReview]),
             builder: (BuildContext context, Box<dynamic> value, Widget? child) {
               if (value.get(shouldDisplayReview, defaultValue: shouldDisplayReviewDefault) && !value.get(hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)) {
                 inAppReview.isAvailable().then(

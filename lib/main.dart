@@ -13,7 +13,7 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:install_referrer/install_referrer.dart';
 import 'package:intl/intl.dart';
 import 'package:is_wear/is_wear.dart';
@@ -21,7 +21,6 @@ import 'package:klaviyo_flutter/klaviyo_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 
 import 'Backend/Bluetooth/bluetooth_manager.dart';
@@ -198,49 +197,49 @@ class WidgetBindingLogger extends WidgetsBindingObserver {
 Future<void> initHive() async {
   mainLogger.fine("Init Hive");
   final Directory appDir = await getApplicationSupportDirectory();
-  SentryHive.init(appDir.path);
-  if (!SentryHive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
-    SentryHive.registerAdapter(BaseStoredDeviceAdapter());
+  Hive.init(appDir.path);
+  if (!Hive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
+    Hive.registerAdapter(BaseStoredDeviceAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(MoveListAdapter().typeId)) {
-    SentryHive.registerAdapter(MoveListAdapter());
+  if (!Hive.isAdapterRegistered(MoveListAdapter().typeId)) {
+    Hive.registerAdapter(MoveListAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(MoveAdapter().typeId)) {
-    SentryHive.registerAdapter(MoveAdapter());
+  if (!Hive.isAdapterRegistered(MoveAdapter().typeId)) {
+    Hive.registerAdapter(MoveAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(TriggerActionAdapter().typeId)) {
-    SentryHive.registerAdapter(TriggerActionAdapter());
+  if (!Hive.isAdapterRegistered(TriggerActionAdapter().typeId)) {
+    Hive.registerAdapter(TriggerActionAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(TriggerAdapter().typeId)) {
-    SentryHive.registerAdapter(TriggerAdapter());
+  if (!Hive.isAdapterRegistered(TriggerAdapter().typeId)) {
+    Hive.registerAdapter(TriggerAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(ActionCategoryAdapter().typeId)) {
-    SentryHive.registerAdapter(ActionCategoryAdapter());
+  if (!Hive.isAdapterRegistered(ActionCategoryAdapter().typeId)) {
+    Hive.registerAdapter(ActionCategoryAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(DeviceTypeAdapter().typeId)) {
-    SentryHive.registerAdapter(DeviceTypeAdapter());
+  if (!Hive.isAdapterRegistered(DeviceTypeAdapter().typeId)) {
+    Hive.registerAdapter(DeviceTypeAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(MoveTypeAdapter().typeId)) {
-    SentryHive.registerAdapter(MoveTypeAdapter());
+  if (!Hive.isAdapterRegistered(MoveTypeAdapter().typeId)) {
+    Hive.registerAdapter(MoveTypeAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(EasingTypeAdapter().typeId)) {
-    SentryHive.registerAdapter(EasingTypeAdapter());
+  if (!Hive.isAdapterRegistered(EasingTypeAdapter().typeId)) {
+    Hive.registerAdapter(EasingTypeAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(AudioActionAdapter().typeId)) {
-    SentryHive.registerAdapter(AudioActionAdapter());
+  if (!Hive.isAdapterRegistered(AudioActionAdapter().typeId)) {
+    Hive.registerAdapter(AudioActionAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(FavoriteActionAdapter().typeId)) {
-    SentryHive.registerAdapter(FavoriteActionAdapter());
+  if (!Hive.isAdapterRegistered(FavoriteActionAdapter().typeId)) {
+    Hive.registerAdapter(FavoriteActionAdapter());
   }
-  if (!SentryHive.isAdapterRegistered(EarSpeedAdapter().typeId)) {
-    SentryHive.registerAdapter(EarSpeedAdapter());
+  if (!Hive.isAdapterRegistered(EarSpeedAdapter().typeId)) {
+    Hive.registerAdapter(EarSpeedAdapter());
   }
-  await SentryHive.openBox(settings); // Do not set type here
-  await SentryHive.openBox<Trigger>(triggerBox);
-  await SentryHive.openBox<FavoriteAction>(favoriteActionsBox);
-  await SentryHive.openBox<AudioAction>(audioActionsBox);
-  await SentryHive.openBox<MoveList>(sequencesBox);
-  await SentryHive.openBox<BaseStoredDevice>(devicesBox);
+  await Hive.openBox(settings); // Do not set type here
+  await Hive.openBox<Trigger>(triggerBox);
+  await Hive.openBox<FavoriteAction>(favoriteActionsBox);
+  await Hive.openBox<AudioAction>(audioActionsBox);
+  await Hive.openBox<MoveList>(sequencesBox);
+  await Hive.openBox<BaseStoredDevice>(devicesBox);
 }
 
 Future<void> initLocale() async {
@@ -281,7 +280,7 @@ class TailApp extends ConsumerWidget {
               themeMode: ThemeMode.system,
               darkTheme: FeedbackThemeData.dark(),
               child: ValueListenableBuilder(
-                valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
+                valueListenable: Hive.box(settings).listenable(keys: [appColor]),
                 builder: (BuildContext context, value, Widget? child) {
                   unawaited(setupSystemColor(context));
                   Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
@@ -322,7 +321,7 @@ class TailAppWear extends ConsumerWidget {
       ],
       child: _EagerInitialization(
         child: ValueListenableBuilder(
-          valueListenable: SentryHive.box(settings).listenable(keys: [appColor]),
+          valueListenable: Hive.box(settings).listenable(keys: [appColor]),
           builder: (BuildContext context, value, Widget? child) {
             unawaited(setupSystemColor(context));
             Future(FlutterNativeSplash.remove); //remove the splash screen one frame later

@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
-import 'package:sentry_hive/sentry_hive.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
@@ -93,7 +92,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
                 ],
               );
             },
-            valueListenable: SentryHive.box(settings).listenable(keys: [alwaysScanning]),
+            valueListenable: Hive.box(settings).listenable(keys: [alwaysScanning]),
             child: widget.child,
           );
         },

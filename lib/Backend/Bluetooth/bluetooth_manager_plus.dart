@@ -8,11 +8,10 @@ import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sentry_hive/sentry_hive.dart';
 import 'package:tail_app/Backend/version.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -581,7 +580,7 @@ class ScanMonitor extends _$ScanMonitor {
   @override
   void build() {
     ref.watch(isAllKnownGearConnectedProvider);
-    SentryHive.box(settings).listenable(keys: [alwaysScanning])
+    Hive.box(settings).listenable(keys: [alwaysScanning])
       ..removeListener(listener)
       ..addListener(listener);
     isBluetoothEnabled

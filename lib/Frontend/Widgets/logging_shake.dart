@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:sentry_hive/sentry_hive.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:shake/shake.dart';
 
 import '../../Backend/logging_wrappers.dart';
@@ -24,7 +23,7 @@ class _LoggingShakeState extends State<LoggingShake> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: SentryHive.box(settings).listenable(keys: [showDebugging]),
+      valueListenable: Hive.box(settings).listenable(keys: [showDebugging]),
       builder: (context, value, child) {
         bool enabled = HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault);
         if (enabled && detector == null) {
