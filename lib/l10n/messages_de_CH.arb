@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Direkti Steuerig vo de Ausrüstígsposition.",
+  "joyStickPageDescription": "Steuere direkt d'Positio vo dinere Usrüstig.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -1188,6 +1188,12 @@
   "manageDevicesOtaUpToDateButtonLabel": "Usrüstig isch aktuell!",
   "@manageDevicesOtaUpToDateButtonLabel": {
     "description": "manage devices button label if gear is up to date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageCoverPromoTitle": "Änder s’Usse vo deiner Usrüstig!",
+  "@morePageCoverPromoTitle": {
+    "description": "The title for the button on the More page to push users to buy a new cover",
     "type": "text",
     "placeholders": {}
   }
