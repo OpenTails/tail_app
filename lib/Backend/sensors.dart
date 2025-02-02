@@ -421,7 +421,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() {
-    return Future.value(true);
+    return ProximitySensor.isSupported();
   }
 
   @override

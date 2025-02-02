@@ -154,6 +154,9 @@ dependency_overrides:
     git:
       url: https://github.com/Codel1417/flutter-plugins
       path: packages/pedometer
+  proximity_sensor:
+    git:
+      url: https://github.com/Codel1417/flutter-proximity-sensor-plugin
 #analyzer: 6.7.0
 
 flutter:
