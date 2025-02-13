@@ -1113,7 +1113,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPageDescription": "如果您对应用程序有建议或遇到问题，请与我们联系。请注意：您的反馈是匿名的，无法用于解决设备相关的问题。",
+  "feedbackPageDescription": "如果您对应用程序有建议或遇到问题，请与我们联系。请注意：您的反馈是匿名的，无法用于解决设备相关的问题",
   "@feedbackPageDescription": {
     "description": "The description of the feedback page",
     "type": "text",
