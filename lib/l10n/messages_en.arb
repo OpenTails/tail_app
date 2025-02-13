@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-01-26T19:04:10.476463",
+  "@@last_modified": "2025-02-13T19:10:12.176519",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1184,6 +1184,18 @@
   "morePageCoverPromoTitle": "Change the look of your gear!",
   "@morePageCoverPromoTitle": {
     "description": "The title for the button on the More page to push users to buy a new cover",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateTitle": "Localization",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateDescription": "Help us Translate the app into your language",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
     "type": "text",
     "placeholders": {}
   }
