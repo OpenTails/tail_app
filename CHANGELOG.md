@@ -1,3 +1,16 @@
+### V 1.1.3
+
+- Fix Triggers page on IOS crashing app
+
+### V 1.1.2
+
+- Disable triggers that are unsupported
+
+### V 1.1.1
+
+- Add discount code to More menu
+- Add limited Digitail support
+
 ### V 1.1.0
 
 - Lots of behind the scenes changes
