@@ -1,6 +1,7 @@
 ### V 1.1.3
 
 - Fix Triggers page on IOS crashing app
+- Add link to translate the app
 
 ### V 1.1.2
 

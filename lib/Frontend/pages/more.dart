@@ -182,6 +182,15 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
+          title: Text(morePageTranslateTitle()),
+          subtitle: Text(morePageTranslateDescription()),
+          leading: const Icon(Icons.language),
+          trailing: const Icon(Icons.open_in_browser),
+          onTap: () async {
+            await launchUrl(Uri.parse('https://weblate.stargazer.at'));
+          },
+        ),
+        ListTile(
           title: Text(supportTitle()),
           leading: const Icon(Icons.message),
           subtitle: Text(supportDescription()),

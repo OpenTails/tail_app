@@ -438,3 +438,7 @@ String morePageCoverPromoTitle() => Intl.message('Change the look of your gear!'
 
 String morePageCoverPromoDescription({required String couponCode}) =>
     Intl.message('Use code $couponCode to get 10% off a new MiTail or EarGear sleeve', args: [couponCode], name: 'morePageCoverPromoDescription', desc: 'The description & promo code for the button on the More page to push users to buy a new cover');
+
+String morePageTranslateTitle() => Intl.message('Localization', name: 'morePageTranslateTitle', desc: 'The title for the button on the More page to push users to assist in translating the app');
+
+String morePageTranslateDescription() => Intl.message('Help us Translate the app into your language', name: 'morePageTranslateDescription', desc: 'The description for the button on the More page to push users to assist in translating the app');
