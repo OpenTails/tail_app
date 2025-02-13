@@ -1196,5 +1196,17 @@
     "description": "The title for the button on the More page to push users to buy a new cover",
     "type": "text",
     "placeholders": {}
+  },
+  "morePageTranslateDescription": "Hälf uns, d'App i dinere Sproch z'übersetze",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateTitle": "Lokalisation",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
   }
 }
