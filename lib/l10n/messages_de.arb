@@ -1196,5 +1196,17 @@
     "description": "The description of the email support link on the more page",
     "type": "text",
     "placeholders": {}
+  },
+  "morePageTranslateTitle": "Lokalisierung",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateDescription": "Helfen Sie uns, die App in Ihre Sprache zu übersetzen",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
   }
 }
