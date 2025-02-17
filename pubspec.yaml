@@ -71,7 +71,7 @@ dependencies:
   multi_value_listenable_builder: ^0.0.2
   flutter_markdown: ^0.7.6+2
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
-  flutter_native_splash: ^2.4.4
+  flutter_native_splash: ^2.4.5
   choice:
     git:
       url: https://github.com/davigmacode/flutter_choice
