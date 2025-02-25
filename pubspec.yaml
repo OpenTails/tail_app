@@ -33,7 +33,7 @@ dependencies:
   # Platform Interfaces
   device_info_plus: ^11.3.0
   wakelock_plus: ^1.2.10 # Keeps the screen awake
-  file_picker: ^8.3.5 # used to manually select firmware file
+  file_picker: ^9.0.1 # used to manually select firmware file
   path_provider: ^2.1.5 # used to get paths for app storage and cache storage
   package_info_plus: ^8.2.1
   permission_handler: ^11.3.1
