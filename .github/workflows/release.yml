@@ -1,5 +1,12 @@
+# TODO: auto release the version before VERSION is updated
+
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        required: false
+        type: string
+        description: Override the ref used for this release
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -11,8 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        if: "${{ github.event.inputs.commit_sha == '' }}"
         with:
           fetch-depth: 0
+      - uses: actions/checkout@v4
+        if: "${{ github.event.inputs.commit_sha != '' }}"
+        with:
+          fetch-depth: 0
+          ref: ${{ steps.version.outputs.version }}
       - name: get Version
         id: version
         uses: ./.github/actions/version
@@ -25,14 +38,20 @@ jobs:
           branch: master
           event: push
           if_no_artifact_found: fail
-          allow_forks: true
+          allow_forks: false
       - name: output_dir
-        run: ls -al artifact-Linux/
+        run: ls -al artifact-*/
+      - id: extract-changelog
+        uses: sean0x42/markdown-extract@v4
+        with:
+          file: CHANGELOG.md
+          pattern: ${{ steps.version.outputs.version }}
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: artifact-Linux/apk/release/app-release.apk
-          draft: true
+          files: artifact-*/*.apk
+          draft: false
           tag_name: ${{ steps.version.outputs.version }}
           fail_on_unmatched_files: true
           generate_release_notes: true
+          body: ${{ steps.extract-changelog.outputs.markdown }}

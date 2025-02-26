@@ -81,3 +81,4 @@ dependency_cache.json
 android/app/google-services2.json
 
 ios/Runner/Assets.xcassets/LaunchImage.imageset/
+/android/app/.cxx/

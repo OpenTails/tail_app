@@ -124,7 +124,8 @@ Future<bool> hasOtaUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async 
   }
 
   // Check that the firmware from the server is greater than the firmware on device
-  if (fwVersion.compareTo(getVersionSemVer(fwInfo.version)) < 0) {
+  // changed to only compare if they are the same at MT's request. allows rolling back
+  if (fwVersion != getVersionSemVer(fwInfo.version)) {
     baseStatefulDevice.hasUpdate.value = true;
     // handle if the update is mandatory for app functionality
     if (baseStatefulDevice.baseDeviceDefinition.minVersion != null) {
