@@ -1,3 +1,7 @@
+### V 1.1.4
+
+- Add support for gear update checks to suggest a previous firmware version.
+
 ### V 1.1.3
 
 - Fix Triggers page on IOS crashing app

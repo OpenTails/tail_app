@@ -4,7 +4,6 @@ import 'package:cross_platform/cross_platform.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:install_referrer/install_referrer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -48,7 +47,7 @@ class PlausibleDio extends Plausible {
       // Remove trailing slash '/'
       super.serverUrl = serverUrl.substring(0, serverUrl.length - 1);
     }
-    page = "app://localhost/$page?utm_source=${(await InstallReferrer.referrer).name}";
+    page = "app://localhost/$page?utm_source=${(await PackageInfo.fromPlatform()).installerStore}";
     referrer = "app://localhost/$referrer";
     props = Map.of(props);
     props['Number Of Devices'] = HiveProxy.getAll<BaseStoredDevice>(devicesBox).length.toString();
