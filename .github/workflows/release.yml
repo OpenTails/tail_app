@@ -42,7 +42,7 @@ jobs:
       - name: output_dir
         run: ls -al artifact-*/
       - id: extract-changelog
-        uses: sean0x42/markdown-extract@v4
+        uses: sean0x42/markdown-extract@v2.1.0
         with:
           file: CHANGELOG.md
           pattern: ${{ steps.version.outputs.version }}
