@@ -60,7 +60,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                         child: Joystick(
                           mode: JoystickMode.all,
                           onStickDragEnd: () async {
-                            await Future.delayed(Duration(milliseconds: (speed * 20).toInt()));
+                            await Future.delayed(Duration(milliseconds: (speed * 20).toInt() + 500));
                             Move move = Move()..moveType = MoveType.home;
                             if (!context.mounted) {
                               return;

@@ -1,6 +1,7 @@
 ### V 1.1.4
 
 - Add support for gear update checks to suggest a previous firmware version.
+- Disable Joystick feature (sorry).
 
 ### V 1.1.3
 
