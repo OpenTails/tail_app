@@ -70,6 +70,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                                 generateMoveCommand(move, element, CommandType.direct, noResponseMsg: true, priority: Priority.high).forEach(
                                   (message) {
                                     element.commandQueue.addCommand(message);
+                                    element.commandQueue.addCommand(message);
                                   },
                                 );
                               },
@@ -126,6 +127,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Icon(Icons.bug_report),
                           Text("Magnitude: ${magnitude.toStringAsPrecision(2)}"),
                           Text("Direction: ${direction.toInt()}"),
                           Text("Left: ${left.toInt()}"),

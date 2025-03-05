@@ -35,14 +35,17 @@ class _MoreState extends ConsumerState<More> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ListTile(
-          title: Text(joyStickPage()),
-          subtitle: Text(joyStickPageDescription()),
-          leading: const Icon(Icons.gamepad),
-          onTap: () async {
-            const DirectGearControlRoute().push(context);
-          },
-        ),
+        if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+          ListTile(
+            title: Text(joyStickPage()),
+            subtitle: Text(joyStickPageDescription()),
+            leading: const Icon(Icons.gamepad),
+            trailing: const Icon(Icons.bug_report),
+            onTap: () async {
+              const DirectGearControlRoute().push(context);
+            },
+          ),
+        ],
         ListTile(
           title: Text(sequencesPage()),
           subtitle: Text(sequencesPageDescription()),

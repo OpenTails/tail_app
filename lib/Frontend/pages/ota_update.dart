@@ -282,6 +282,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
                   Expanded(
                     child: ListTile(
+                      trailing: const Icon(Icons.bug_report),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

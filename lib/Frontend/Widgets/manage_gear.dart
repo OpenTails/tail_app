@@ -531,6 +531,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      trailing: const Icon(Icons.bug_report),
       title: const Text("Debug (Dangerous)"),
       children: [
         OverflowBar(
