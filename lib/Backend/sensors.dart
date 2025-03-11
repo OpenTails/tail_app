@@ -463,6 +463,11 @@ class EarMicTriggerDefinition extends TriggerDefinition {
   }
 
   @override
+  Future<bool> isSupported() {
+    return Future.value(ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty);
+  }
+
+  @override
   Future<void> onDisable() async {
     deviceRefSubscription?.close();
     ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
@@ -539,6 +544,11 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       TriggerActionDef(name: "Forward", translated: triggerEarTiltForward(), uuid: "7e32987a-588c-4969-a589-d95f94262da7"),
       TriggerActionDef(name: "Backward", translated: triggerEarTiltBackward(), uuid: "a4ad813e-a867-4c73-8e73-c4a294829667"),
     ];
+  }
+
+  @override
+  Future<bool> isSupported() {
+    return Future.value(ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty);
   }
 
   @override
