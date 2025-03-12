@@ -18,7 +18,7 @@ part 'dynamic_config.g.dart';
 final _dynamicConfigLogger = Logger('DynamicConfig');
 
 @freezed
-class DynamicConfigInfo with _$DynamicConfigInfo {
+abstract class DynamicConfigInfo with _$DynamicConfigInfo {
   factory DynamicConfigInfo({
     @Default(0.5) double sentryTraces,
     @Default(0.5) double sentryProfiles,

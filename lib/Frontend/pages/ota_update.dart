@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:animate_do/animate_do.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -255,17 +254,10 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 ),
                 Expanded(
                   flex: 2,
-                  child: Spin(
-                    infinite: true,
-                    duration: const Duration(seconds: 1, milliseconds: 500),
-                    child: Transform.flip(
-                      flipX: true,
-                      child: LottieLazyLoad(
-                        asset: Assets.tailcostickers.tailCoStickersFile144834340,
-                        width: MediaQuery.of(context).size.width,
-                        renderCache: true,
-                      ),
-                    ),
+                  child: LottieLazyLoad(
+                    asset: Assets.tailcostickers.tailCoStickersFile144834340,
+                    width: MediaQuery.of(context).size.width,
+                    renderCache: true,
                   ),
                 ),
                 Expanded(

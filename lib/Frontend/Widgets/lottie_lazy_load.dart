@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lottie_native/lottie_native.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../constants.dart';
 
@@ -16,30 +16,49 @@ class LottieLazyLoad extends StatefulWidget {
 
 class _LottieLazyLoadState extends State<LottieLazyLoad> with TickerProviderStateMixin {
   bool isLoaded = false;
+  late final AnimationController _controller;
 
-  void onViewCreated(LottieController lottieController) {
-    setState(() {
-      isLoaded = true;
-    });
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: AnimatedOpacity(
-      opacity: isLoaded ? 1 : 0,
+      opacity: _controller.isAnimating ? 1 : 0,
       duration: animationTransitionDuration,
-      child: SizedBox(
+      child: Lottie.asset(
         width: widget.width,
-        height: widget.width,
-        child: SafeArea(
-          child: LottieView.fromAsset(
-            filePath: widget.asset,
-            autoPlay: true,
-            loop: true,
-            onViewCreated: onViewCreated,
-          ),
-        ),
+        renderCache: widget.renderCache ? RenderCache.raster : null,
+        widget.asset,
+        controller: _controller,
+        onLoaded: (p0) {
+          // Configure the AnimationController with the duration of the
+          // Lottie file and start the animation.
+          _controller
+            ..duration = p0.duration
+            ..forward()
+            ..addListener(
+              () {
+                if (_controller.isCompleted && context.mounted) {
+                  _controller.repeat();
+                }
+              },
+            );
+          setState(() {
+            isLoaded = true;
+          });
+        },
       ),
     ));
   }

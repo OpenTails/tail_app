@@ -78,7 +78,7 @@ abstract class BaseAction {
 }
 
 @unfreezed
-class CommandAction extends BaseAction with _$CommandAction {
+abstract class CommandAction extends BaseAction with _$CommandAction {
   CommandAction._();
 
   @Implements<BaseAction>()
@@ -100,7 +100,7 @@ class CommandAction extends BaseAction with _$CommandAction {
 
 @HiveType(typeId: 12)
 @unfreezed
-class AudioAction extends BaseAction with _$AudioAction implements Comparable<AudioAction> {
+abstract class AudioAction extends BaseAction with _$AudioAction implements Comparable<AudioAction> {
   AudioAction._();
 
   @Implements<BaseAction>()
@@ -121,7 +121,7 @@ class AudioAction extends BaseAction with _$AudioAction implements Comparable<Au
 
 @unfreezed
 @HiveType(typeId: 3)
-class MoveList extends BaseAction with _$MoveList {
+abstract class MoveList extends BaseAction with _$MoveList {
   MoveList._();
 
   @Implements<BaseAction>()
@@ -137,7 +137,7 @@ class MoveList extends BaseAction with _$MoveList {
 }
 
 @freezed
-class EarsMoveList extends BaseAction with _$EarsMoveList {
+abstract class EarsMoveList extends BaseAction with _$EarsMoveList {
   EarsMoveList._();
 
   @Implements<BaseAction>()

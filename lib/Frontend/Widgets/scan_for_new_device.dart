@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -153,17 +152,10 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                               child: Center(
                                 child: Column(
                                   children: [
-                                    Spin(
-                                      infinite: true,
-                                      duration: const Duration(seconds: 1, milliseconds: 500),
-                                      child: Transform.flip(
-                                        flipX: true,
-                                        child: LottieLazyLoad(
-                                          asset: Assets.tailcostickers.tailCoStickersFile144834340,
-                                          width: 200,
-                                          renderCache: false,
-                                        ),
-                                      ),
+                                    LottieLazyLoad(
+                                      asset: Assets.tailcostickers.tailCoStickersFile144834340,
+                                      width: 200,
+                                      renderCache: false,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(16.0),

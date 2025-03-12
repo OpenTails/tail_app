@@ -128,7 +128,7 @@ enum GlowtipStatus { glowtip, noGlowtip, unknown }
 enum TailControlStatus { tailControl, legacy, unknown }
 
 @freezed
-class BluetoothUartService with _$BluetoothUartService {
+abstract class BluetoothUartService with _$BluetoothUartService {
   const factory BluetoothUartService({
     required String bleDeviceService,
     required String bleRxCharacteristic,
@@ -166,7 +166,7 @@ final List<BluetoothUartService> uartServices = const [
 ];
 
 @freezed
-class BaseDeviceDefinition with _$BaseDeviceDefinition {
+abstract class BaseDeviceDefinition with _$BaseDeviceDefinition {
   const factory BaseDeviceDefinition({
     required String uuid,
     required String btName,
@@ -301,7 +301,7 @@ enum MessageHistoryType {
 
 @freezed
 // TailControl only
-class GearConfigInfo with _$GearConfigInfo {
+abstract class GearConfigInfo with _$GearConfigInfo {
   const GearConfigInfo._();
 
   const factory GearConfigInfo({
@@ -371,7 +371,7 @@ class GearConfigInfo with _$GearConfigInfo {
 }
 
 @freezed
-class MessageHistoryEntry with _$MessageHistoryEntry {
+abstract class MessageHistoryEntry with _$MessageHistoryEntry {
   const factory MessageHistoryEntry({
     required MessageHistoryType type,
     required String message,

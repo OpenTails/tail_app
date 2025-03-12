@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:install_referrer/install_referrer.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../Backend/logging_wrappers.dart';
 import '../../../Backend/wear_bridge.dart';
@@ -13,6 +11,7 @@ import '../../../constants.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../main.dart';
 import '../../go_router_config.dart';
+import '../../utils.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {
   const DeveloperMenu({super.key});
@@ -65,46 +64,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                     HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
                   },
                 );
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text(shouldDisplayReview),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(settings, shouldDisplayReview, defaultValue: shouldDisplayReviewDefault),
-              onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, shouldDisplayReview, value);
-                  },
-                );
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text(hasDisplayedReview),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(settings, hasDisplayedReview, defaultValue: hasDisplayedReviewDefault),
-              onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, hasDisplayedReview, value);
-                  },
-                );
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text(gearDisconnectCount),
-            subtitle: Slider(
-              divisions: 6,
-              max: 6,
-              min: 0,
-              value: HiveProxy.getOrDefault(settings, gearDisconnectCount, defaultValue: gearDisconnectCountDefault).toDouble(),
-              onChanged: (double value) async {
-                setState(() {
-                  HiveProxy.put(settings, gearDisconnectCount, value.toInt());
-                });
               },
             ),
           ),
@@ -165,10 +124,10 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text("InstallReferrer"),
             subtitle: FutureBuilder(
-              future: InstallReferrer.referrer,
+              future: PackageInfo.fromPlatform(),
               builder: (context, snapshot) {
-                InstallationAppReferrer? value = snapshot.data;
-                String referral = value != null ? value.name : "unknown";
+                PackageInfo? value = snapshot.data;
+                String referral = value?.installerStore ?? "unknown";
                 return Text(referral);
               },
             ),
@@ -199,7 +158,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ),
           ListTile(
             title: const Text("PlatformLocale"),
-            subtitle: Text(Platform.localeName),
+            subtitle: Text(platform.localeName),
           ),
           const ListTile(
             title: Divider(),

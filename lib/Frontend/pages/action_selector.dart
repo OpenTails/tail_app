@@ -18,7 +18,7 @@ import '../utils.dart';
 part 'action_selector.freezed.dart';
 
 @freezed
-class ActionSelectorInfo with _$ActionSelectorInfo {
+abstract class ActionSelectorInfo with _$ActionSelectorInfo {
   const factory ActionSelectorInfo({
     required Set<DeviceType> deviceType,
     required List<BaseAction> selectedActions,

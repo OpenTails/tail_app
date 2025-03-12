@@ -13,7 +13,7 @@ import '../utils.dart';
 part 'html_page.freezed.dart';
 
 @freezed
-class HtmlPageInfo with _$HtmlPageInfo {
+abstract class HtmlPageInfo with _$HtmlPageInfo {
   const factory HtmlPageInfo({
     required String url,
     required String title,

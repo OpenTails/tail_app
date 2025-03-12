@@ -9,7 +9,6 @@ import 'package:tail_app/Backend/sensors.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
 
 import '../constants.dart';
-import '../main.dart';
 import 'Definitions/Action/base_action.dart';
 import 'action_registry.dart';
 import 'favorite_actions.dart';
@@ -67,9 +66,6 @@ Future<Map<String, dynamic>> applicationContext() {
 
 @Riverpod()
 Future<void> updateWearActions(Ref ref) async {
-  if (await isWear()) {
-    return;
-  }
   try {
     Iterable<BaseAction> allActions = ref
         .read(favoriteActionsProvider)
@@ -92,7 +88,7 @@ Future<void> updateWearActions(Ref ref) async {
 }
 
 @freezed
-class WearData with _$WearData {
+abstract class WearData with _$WearData {
   const factory WearData({
     required List<WearActionData> favoriteActions,
     required List<WearTriggerData> configuredTriggers,
@@ -103,7 +99,7 @@ class WearData with _$WearData {
 }
 
 @freezed
-class WearTriggerData with _$WearTriggerData {
+abstract class WearTriggerData with _$WearTriggerData {
   const factory WearTriggerData({
     required String name,
     required String uuid,
@@ -114,7 +110,7 @@ class WearTriggerData with _$WearTriggerData {
 }
 
 @freezed
-class WearActionData with _$WearActionData {
+abstract class WearActionData with _$WearActionData {
   const factory WearActionData({
     required String name,
     required String uuid,
@@ -124,7 +120,7 @@ class WearActionData with _$WearActionData {
 }
 
 @freezed
-class WearCommand with _$WearCommand {
+abstract class WearCommand with _$WearCommand {
   const factory WearCommand({
     required WearCommandType commandType,
     required String uuid,

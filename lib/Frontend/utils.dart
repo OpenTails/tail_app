@@ -3,10 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_api_availability/google_api_availability.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
-import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:platform/platform.dart';
 import 'package:sentry_dio/sentry_dio.dart';
@@ -83,9 +81,6 @@ Future<Dio> initDio({skipSentry = false}) async {
       ],
     ),
   );
-  if (platform.isIOS || (await GoogleApiAvailability.instance.checkGooglePlayServicesAvailability()) == GooglePlayServicesAvailability.success) {
-    dio.httpClientAdapter = NativeAdapter();
-  }
   if (!skipSentry) {
     /// This *must* be the last initialization step of the Dio setup, otherwise
     /// your configuration of Dio might overwrite the Sentry configuration.

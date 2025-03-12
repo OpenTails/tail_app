@@ -4,21 +4,15 @@ import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:feedback_sentry/feedback_sentry.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_testlab_detector/firebase_testlab_detector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce_flutter/adapters.dart';
-import 'package:install_referrer/install_referrer.dart';
 import 'package:intl/intl.dart';
-import 'package:is_wear/is_wear.dart';
-import 'package:klaviyo_flutter/klaviyo_flutter.dart';
 import 'package:logging/logging.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
@@ -38,6 +32,7 @@ import 'Frontend/go_router_config.dart';
 import 'Frontend/translation_string_definitions.dart';
 import 'Frontend/utils.dart';
 import 'constants.dart';
+import 'l10n/app_localizations.dart';
 import 'l10n/messages_all_locales.dart';
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
@@ -59,9 +54,10 @@ Future<String> getSentryEnvironment() async {
     return 'debug';
   }
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  if (Platform.isIOS) {
-    var installationAppReferrer = await InstallReferrer.referrer;
-    if (installationAppReferrer == InstallationAppReferrer.iosTestFlight) {
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  String referral = packageInfo.installerStore ?? "";
+  if (platform.isIOS) {
+    if (referral == "com.apple.testflight") {
       return 'staging';
     }
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
@@ -70,22 +66,22 @@ Future<String> getSentryEnvironment() async {
     }
   }
 
-  if (Platform.isAndroid) {
+  if (platform.isAndroid) {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     if (!androidInfo.isPhysicalDevice) {
       return 'debug';
     }
-    final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
-    if (isRunningInTestlab) {
-      return 'staging';
-    }
+    //final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
+    //if (isRunningInTestlab) {
+    //  return 'staging';
+    //}
   }
   return 'production';
 }
 
 Future<void> initMainApp() async {
   //initialize the foreground service library
-  if (Platform.isAndroid) {
+  if (platform.isAndroid) {
     FlutterForegroundTask.initCommunicationPort();
   }
   await startSentryApp(TailApp());
@@ -129,10 +125,6 @@ Future<void> startSentryApp(Widget child) async {
   );
 }
 
-Future<void> initWearApp() async {
-  await startSentryApp(TailAppWear());
-}
-
 Future<void> main() async {
   Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
@@ -150,25 +142,7 @@ Future<void> main() async {
   await initLocale();
   await initHive();
 
-  if (await isWear()) {
-    initWearApp();
-  } else {
-    initMainApp();
-  }
-}
-
-Future<bool> isWear() async {
-  final IsWear isWearPlugin = IsWear();
-  bool? result = await isWearPlugin.check().then((value) {
-    return value;
-  }).catchError((onError) {
-    return false;
-  });
-  if (result == null) {
-    return false;
-  } else {
-    return result;
-  }
+  initMainApp();
 }
 
 void initFlutter() {
@@ -243,7 +217,7 @@ Future<void> initHive() async {
 }
 
 Future<void> initLocale() async {
-  final String defaultLocale = Platform.localeName; // Returns locale string in the form 'en_US'
+  final String defaultLocale = platform.localeName; // Returns locale string in the form 'en_US'
   mainLogger.info("Locale: $defaultLocale");
 
   bool localeLoaded = await initializeMessages(defaultLocale);
@@ -437,34 +411,5 @@ class _EagerInitialization extends ConsumerWidget {
       ref.watch(initWearProvider);
     }
     return child;
-  }
-}
-
-//TODO: get APNs cert from apple
-// Eat snacks
-// Get google-services.json
-// Configure Github Actions to store and place the files
-// add way to generate/reset persistent IDs
-Future<void> initMarketingNotifications() async {
-  await Klaviyo.instance.initialize(const String.fromEnvironment('KLAVIYO_KEY', defaultValue: ""));
-  final firebaseMessaging = FirebaseMessaging.instance;
-  final token = Platform.isIOS ? await firebaseMessaging.getAPNSToken() : await firebaseMessaging.getToken();
-
-  if (token != null && token.isNotEmpty) {
-    Klaviyo.instance.sendTokenToKlaviyo(token);
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  }
-}
-
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  final data = message.data;
-  final klaviyo = Klaviyo.instance;
-
-  if (klaviyo.isKlaviyoPush(data)) {
-    if (!klaviyo.isInitialized) {
-      await klaviyo.initialize(const String.fromEnvironment('KLAVIYO_KEY', defaultValue: ""));
-    }
-    final result = await klaviyo.handlePush(data);
   }
 }

@@ -17,7 +17,7 @@ final _favoriteActionsLogger = Logger('Favorites');
 
 @HiveType(typeId: 13)
 @freezed
-class FavoriteAction with _$FavoriteAction implements Comparable<FavoriteAction> {
+abstract class FavoriteAction with _$FavoriteAction implements Comparable<FavoriteAction> {
   const FavoriteAction._();
 
   @Implements<Comparable<FavoriteAction>>()

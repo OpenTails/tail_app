@@ -11,7 +11,7 @@ enum Priority { low, normal, high }
 enum CommandType { system, move, direct }
 
 @freezed
-class BluetoothMessage with _$BluetoothMessage implements Comparable<BluetoothMessage> {
+abstract class BluetoothMessage with _$BluetoothMessage implements Comparable<BluetoothMessage> {
   const BluetoothMessage._();
 
   @Implements<Comparable<BluetoothMessage>>()

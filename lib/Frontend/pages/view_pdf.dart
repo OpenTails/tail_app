@@ -10,7 +10,7 @@ import 'package:tail_app/constants.dart';
 part 'view_pdf.freezed.dart';
 
 @freezed
-class PDFInfo with _$PDFInfo {
+abstract class PDFInfo with _$PDFInfo {
   const factory PDFInfo({
     required String url,
     required String title,

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tail_app/Frontend/WatchUI/main_menu.dart';
 import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 import 'package:tail_app/main.dart';
@@ -56,9 +55,6 @@ final GoRouter router = GoRouter(
       unawaited(plausible.event(page: name.toString(), referrer: _previousPageName));
       _previousPageName = name;
     }
-    if (await isWear()) {
-      return "/watch";
-    }
     return null;
   },
   routes: $appRoutes,
@@ -85,19 +81,6 @@ class TriggersEditRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) => ModalPage(key: state.pageKey, name: state.name, child: TriggerEdit(uuid: uuid));
-}
-
-@TypedGoRoute<WatchHomeRoute>(
-  path: '/watch',
-  name: 'Watch',
-)
-class WatchHomeRoute extends GoRouteData {
-  const WatchHomeRoute();
-
-  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) => const MainMenu();
 }
 
 @TypedGoRoute<ManageGearRoute>(

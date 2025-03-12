@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cross_platform/cross_platform.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -55,7 +54,7 @@ class PlausibleDio extends Plausible {
     props['Number Of Triggers'] = HiveProxy.getAll<Trigger>(triggerBox).length.toString();
     props['App Version'] = (await PackageInfo.fromPlatform()).version;
     props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
-    props['Locale'] = Platform.localeName;
+    props['Locale'] = platform.localeName;
     try {
       props['Has Watch'] = (await isPaired()).toString();
     } catch (e) {
@@ -63,7 +62,7 @@ class PlausibleDio extends Plausible {
     }
     props['Developer Mode'] = HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) ? 'Enabled' : 'disabled';
 
-    if (Platform.isAndroid) {
+    if (platform.isAndroid) {
       AndroidDeviceInfo androidDeviceInfo = await DeviceInfoPlugin().androidInfo;
       props['OS Version'] = 'Android ${androidDeviceInfo.version.release}';
     } else {

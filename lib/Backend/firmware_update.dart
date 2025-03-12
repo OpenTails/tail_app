@@ -24,7 +24,7 @@ part 'firmware_update.freezed.dart';
 part 'firmware_update.g.dart';
 
 @freezed
-class FWInfo with _$FWInfo {
+abstract class FWInfo with _$FWInfo {
   const factory FWInfo({
     required String version,
     required String md5sum,

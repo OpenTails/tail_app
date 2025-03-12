@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 part 'markdown_viewer.freezed.dart';
 
 @freezed
-class MarkdownInfo with _$MarkdownInfo {
+abstract class MarkdownInfo with _$MarkdownInfo {
   const factory MarkdownInfo({
     required String content,
     required String title,

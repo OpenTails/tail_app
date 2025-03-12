@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
-import 'package:cross_platform/cross_platform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -236,7 +235,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
         _bluetoothPlusLogger.fine('Enabling wakelock');
         WakelockPlus.enable();
       }
-      if (Platform.isAndroid) {
+      if (platform.isAndroid) {
         //start foreground service on device connected. Library handles duplicate start calls
         _bluetoothPlusLogger
           ..fine('Requesting notification permission')
@@ -266,15 +265,6 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
     }
     if (bluetoothConnectionState == BluetoothConnectionState.disconnected) {
       _bluetoothPlusLogger.info("Disconnected from device: ${bluetoothDevice.remoteId.str}");
-      // We don't want to display the app review screen right away. We keep track of gear disconnects and after 5 we try to display the review dialog.
-      int count = HiveProxy.getOrDefault(settings, gearDisconnectCount, defaultValue: gearDisconnectCountDefault) + 1;
-      if (count > 5 && HiveProxy.getOrDefault(settings, hasDisplayedReview, defaultValue: hasDisplayedReviewDefault)!) {
-        HiveProxy.put(settings, shouldDisplayReview, true);
-        _bluetoothPlusLogger.finer('Setting shouldDisplayReview to true');
-      } else if (count <= 5) {
-        HiveProxy.put(settings, gearDisconnectCount, count);
-        _bluetoothPlusLogger.finer('Setting gearDisconnectCount to $count');
-      }
 
       // remove foreground service if no devices connected
       int deviceCount = knownDevices.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).length;
@@ -291,7 +281,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
         // stop wakelock if its started
         WakelockPlus.disable();
         // Close foreground service
-        if (Platform.isAndroid) {
+        if (platform.isAndroid) {
           _bluetoothPlusLogger.finer('Stopping foreground service');
           FlutterForegroundTask.stopService();
         }
@@ -486,7 +476,7 @@ Future<void> forgetBond(String id) async {
     return;
   }
   // removing bonds is supported on android
-  if (Platform.isIOS) {
+  if (platform.isIOS) {
     return;
   }
   BluetoothDevice? device = flutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == id);

@@ -186,7 +186,7 @@ class _TailBlogState extends State<TailBlog> {
 }
 
 @freezed
-class FeedItem with _$FeedItem implements Comparable<FeedItem> {
+abstract class FeedItem with _$FeedItem implements Comparable<FeedItem> {
   //Image ID is used as the wordpress image ID and the unique id to identify the image in cache
   const FeedItem._();
 

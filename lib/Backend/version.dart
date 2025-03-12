@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'version.freezed.dart';
 
 @freezed
-class Version with _$Version implements Comparable<Version> {
+abstract class Version with _$Version implements Comparable<Version> {
   const Version._();
 
   @Implements<Comparable<Version>>()

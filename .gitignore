@@ -82,3 +82,5 @@ android/app/google-services2.json
 
 ios/Runner/Assets.xcassets/LaunchImage.imageset/
 /android/app/.cxx/
+
+lib/l10n/app_localizations*

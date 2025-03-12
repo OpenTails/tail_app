@@ -102,7 +102,7 @@ String sequenceEditListDelayLabel(int howMany) => Intl.message(
       name: 'sequenceEditListDelayLabel',
       args: [howMany],
       desc: 'Delay move label on the edit sequences page.',
-      examples: const {'howMany': '42'},
+      examples: const <String, int>{'howMany': 42},
     );
 //Actions Page
 String actionsNoBluetooth() => Intl.message('Bluetooth is unavailable', name: 'actionsNoBluetooth', desc: 'Label on the actions page when bluetooth is unavailable');
