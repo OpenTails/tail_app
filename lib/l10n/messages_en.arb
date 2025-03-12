@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-02-13T19:10:12.176519",
+  "@@last_modified": "2025-03-12T01:54:34.375552",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -265,8 +265,7 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": "42",
-        "type": "num"
+        "example": 42
       }
     }
   },
