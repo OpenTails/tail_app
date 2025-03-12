@@ -263,11 +263,7 @@
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": 42
-      }
-    }
+    "placeholders": {}
   },
   "actionsNoBluetooth": "Bluetooth is unavailable",
   "@actionsNoBluetooth": {

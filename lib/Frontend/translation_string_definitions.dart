@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 //dart run intl_translation:extract_to_arb --locale=en --output-file='./lib/l10n/messages_en.arb' ./lib/Frontend/translation_string_definitions.dart
 //convert to dart
 // dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
+
+//Warning: Placeholders/Examples are broken with flutter 3.29
 String title() => Intl.message('The Tail Company', name: 'title', desc: 'The name of the app');
 
 String homeNewsTitle() => Intl.message('Fresh from the Tail Blog', name: 'homeNewsTitle', desc: 'The title header for the news in the home screen when no gear is connected');
@@ -102,7 +104,6 @@ String sequenceEditListDelayLabel(int howMany) => Intl.message(
       name: 'sequenceEditListDelayLabel',
       args: [howMany],
       desc: 'Delay move label on the edit sequences page.',
-      examples: const <String, int>{'howMany': 42},
     );
 //Actions Page
 String actionsNoBluetooth() => Intl.message('Bluetooth is unavailable', name: 'actionsNoBluetooth', desc: 'Label on the actions page when bluetooth is unavailable');
