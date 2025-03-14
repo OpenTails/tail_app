@@ -19,7 +19,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
       changelog: ${{ steps.extract-changelog.outputs.markdown }}
-      url: ${ { fromJSON(steps.Release.outputs.assets)[ 0 ].browser_download_url } }
+      assets: ${{ steps.Release.outputs.assets }}
 
     steps:
       - uses: actions/checkout@v4
@@ -71,10 +71,10 @@ jobs:
       - name: get-fields
         env:
           version: ${{needs.prepare_release.outputs.version}}
-          url: ${{needs.prepare_release.outputs.url}}
+          url: ${ { fromJSON(needs.prepare_release.outputs.assets)[ 0 ].browser_download_url } }
           changelog: ${{needs.prepare_release.outputs.changelog}}
         run: |
-          readarray -d "-" -t version <<< "$version" 
+          readarray -d "." -t version <<< "$version" 
           echo "config={'appVersion.version.major': '${version[0]}', 'appVersion.version.minor': '${version[1]}', 'appVersion.version.patch': '${version[2]}', 'appVersion.url': '$url', 'appVersion.changelog': '$changelog'}" >> "$GITHUB_OUTPUT"
 
       - name: Update Dynamic Config
