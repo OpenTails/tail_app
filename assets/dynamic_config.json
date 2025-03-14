@@ -1,5 +1,17 @@
 {
-  "sentryTraces": 0.3,
-  "sentryProfiles": 0.1,
-  "sentryReplay": 0
+  "sentry": {
+    "tracesSampleRate": 0.3,
+    "profilesSampleRate": 0.1,
+    "replaySessionSampleRate": 0,
+    "replayOnErrorSampleRate": 0
+  },
+  "appVersion": {
+    "url": "",
+    "changelog": "",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  }
 }

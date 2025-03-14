@@ -105,15 +105,15 @@ Future<void> startSentryApp(Widget child) async {
         ..debug = kDebugMode
         ..diagnosticLevel = SentryLevel.info
         ..environment = environment
-        ..tracesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryTraces
-        ..profilesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryProfiles
+        ..tracesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryConfig.tracesSampleRate
+        ..profilesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryConfig.profilesSampleRate
         ..beforeSend = beforeSend
         ..reportPackages = false
         ..attachScreenshot = true
         ..screenshotQuality = SentryScreenshotQuality.low
         ..attachScreenshotOnlyWhenResumed = true
-        ..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryReplay
-        ..experimental.replay.onErrorSampleRate = dynamicConfigInfo.sentryReplay;
+        ..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryConfig.replaySessionSampleRate
+        ..experimental.replay.onErrorSampleRate = dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
     },
     // Init your App.
     // ignore: missing_provider_scope

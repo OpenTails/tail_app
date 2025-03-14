@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'version.freezed.dart';
+part 'version.g.dart';
 
 @freezed
 abstract class Version with _$Version implements Comparable<Version> {
@@ -34,4 +35,6 @@ abstract class Version with _$Version implements Comparable<Version> {
   bool operator <=(Version other) => compareTo(other) <= 0;
 
   bool operator >=(Version other) => compareTo(other) >= 0;
+
+  factory Version.fromJson(Map<String, dynamic> json) => _$VersionFromJson(json);
 }

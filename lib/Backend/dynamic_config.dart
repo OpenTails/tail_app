@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tail_app/Backend/version.dart';
 
 import '../Frontend/utils.dart';
 import '../constants.dart';
@@ -20,12 +21,34 @@ final _dynamicConfigLogger = Logger('DynamicConfig');
 @freezed
 abstract class DynamicConfigInfo with _$DynamicConfigInfo {
   factory DynamicConfigInfo({
-    @Default(0.5) double sentryTraces,
-    @Default(0.5) double sentryProfiles,
-    @Default(0) double sentryReplay,
+    @Default(AppVersion()) AppVersion appVersion,
+    @Default(SentryConfig()) SentryConfig sentryConfig,
   }) = _DynamicConfigInfo;
 
   factory DynamicConfigInfo.fromJson(Map<String, dynamic> json) => _$DynamicConfigInfoFromJson(json);
+}
+
+@freezed
+abstract class AppVersion with _$AppVersion {
+  const factory AppVersion({
+    @Default(Version(major: 1, minor: 0, patch: 0)) Version version,
+    @Default("") String changelog,
+    @Default("") String url,
+  }) = _AppVersion;
+
+  factory AppVersion.fromJson(Map<String, dynamic> json) => _$AppVersionFromJson(json);
+}
+
+@freezed
+abstract class SentryConfig with _$SentryConfig {
+  const factory SentryConfig({
+    @Default(0.5) double tracesSampleRate,
+    @Default(0.5) double profilesSampleRate,
+    @Default(0) double replaySessionSampleRate,
+    @Default(0) double replayOnErrorSampleRate,
+  }) = _SentryConfig;
+
+  factory SentryConfig.fromJson(Map<String, dynamic> json) => _$SentryConfigFromJson(json);
 }
 
 DynamicConfigInfo? _dynamicConfigInfo;
@@ -47,7 +70,7 @@ Future<DynamicConfigInfo> getDynamicConfigInfo() async {
   String embeddedDynamicConfig = dynamicConfigJson;
   DynamicConfigInfo dynamicConfigInfo = DynamicConfigInfo.fromJson(const JsonDecoder().convert(embeddedDynamicConfig));
   _dynamicConfigInfo = dynamicConfigInfo;
-  getRemoteDynamicConfigInfo(); // trigger updating config file without waiting
+  //getRemoteDynamicConfigInfo(); // trigger updating config file without waiting
   return dynamicConfigInfo;
 }
 
