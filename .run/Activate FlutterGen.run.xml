@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Activate FlutterGen" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="flutter pub global activate flutter_gen" />
+    <option name="SCRIPT_TEXT" value="dart pub global activate flutter_gen" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
