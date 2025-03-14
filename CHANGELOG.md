@@ -1,3 +1,7 @@
+### V 1.1.5
+
+- Hide Eargear triggers if no Ears are paired
+
 ### V 1.1.4
 
 - Add support for gear update checks to suggest a previous firmware version.
