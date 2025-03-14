@@ -77,7 +77,9 @@ jobs:
         run: |
           readarray -d "." -t versionSplit <<< "$version" 
           echo $versionSplit
-          echo "config={'appVersion.version.major': '${versionSplit[0]}', 'appVersion.version.minor': '${versionSplit[1]}', 'appVersion.version.patch': '${versionSplit[2]}', 'appVersion.url': '$url', 'appVersion.changelog': '$changelog'}" >> "$GITHUB_OUTPUT"
+          config="{'appVersion.version.major': '${versionSplit[0]}', 'appVersion.version.minor': '${versionSplit[1]}', 'appVersion.version.patch': '${versionSplit[2]}', 'appVersion.url': '$url', 'appVersion.changelog': '$changelog'}"
+          echo $config
+          echo "config=$config" >> "$GITHUB_OUTPUT"
 
       - name: Update Dynamic Config
         uses: restackio/update-json-file-action@2.1
