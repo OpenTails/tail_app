@@ -19,7 +19,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
       changelog: ${{ steps.extract-changelog.outputs.markdown }}
-      assets: ${{ steps.Release.outputs.assets }}
+      assets: ${{ steps.release.outputs.assets }}
 
     steps:
       - uses: actions/checkout@v4
@@ -52,6 +52,7 @@ jobs:
           file: CHANGELOG.md
           pattern: ${{ steps.version.outputs.version }}
       - name: Release
+        id: release
         uses: softprops/action-gh-release@v2
         with:
           files: artifact-*/*.apk
