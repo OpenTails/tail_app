@@ -86,7 +86,7 @@ jobs:
           done
           
           # Make newlines json friendly
-          changelog=`printf '%s' "$changelog" | jq -sR` | 
+          changelog=`printf '%s' "$changelog" | jq -sR`
           
           # Remove leading/trailing quotes
           changelog=${changelog:1:-1}
