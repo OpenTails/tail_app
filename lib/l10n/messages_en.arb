@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-03-12T01:54:34.375552",
+  "@@last_modified": "2025-03-15T22:15:17.161591",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -263,7 +263,9 @@
   "@sequenceEditListDelayLabel": {
     "description": "Delay move label on the edit sequences page.",
     "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "howMany": {}
+    }
   },
   "actionsNoBluetooth": "Bluetooth is unavailable",
   "@actionsNoBluetooth": {
@@ -1192,6 +1194,12 @@
   "morePageTranslateDescription": "Help us Translate the app into your language",
   "@morePageTranslateDescription": {
     "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLanguageSelectorTitle": "App Language",
+  "@appLanguageSelectorTitle": {
+    "description": "The title for the button and dialog to select the app language",
     "type": "text",
     "placeholders": {}
   }
