@@ -443,3 +443,5 @@ String morePageCoverPromoDescription({required String couponCode}) =>
 String morePageTranslateTitle() => Intl.message('Localization', name: 'morePageTranslateTitle', desc: 'The title for the button on the More page to push users to assist in translating the app');
 
 String morePageTranslateDescription() => Intl.message('Help us Translate the app into your language', name: 'morePageTranslateDescription', desc: 'The description for the button on the More page to push users to assist in translating the app');
+
+String appLanguageSelectorTitle() => Intl.message('App Language', name: 'appLanguageSelectorTitle', desc: 'The title for the button and dialog to select the app language');

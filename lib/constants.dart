@@ -29,6 +29,7 @@ const String casualModeDelayMax = 'casualModeDelayMax';
 const String tailBlogWifiOnly = 'tailBlogWifiOnly';
 const String triggerActionCooldown = 'triggerActionCooldown';
 const String gearConnectRetryAttempts = 'gearConnectRetryAttempts';
+const String selectedLocale = 'selectedLocale';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;

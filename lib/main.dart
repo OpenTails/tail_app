@@ -7,10 +7,10 @@ import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce_flutter/adapters.dart';
-import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,7 +33,6 @@ import 'Frontend/translation_string_definitions.dart';
 import 'Frontend/utils.dart';
 import 'constants.dart';
 import 'l10n/app_localizations.dart';
-import 'l10n/messages_all_locales.dart';
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
   bool reportingEnabled = HiveProxy.getOrDefault(settings, "allowErrorReporting", defaultValue: true);
@@ -216,15 +215,6 @@ Future<void> initHive() async {
   await Hive.openBox<BaseStoredDevice>(devicesBox);
 }
 
-Future<void> initLocale() async {
-  final String defaultLocale = platform.localeName; // Returns locale string in the form 'en_US'
-  mainLogger.info("Locale: $defaultLocale");
-
-  bool localeLoaded = await initializeMessages(defaultLocale);
-  Intl.defaultLocale = defaultLocale;
-  mainLogger.info("Loaded locale: $defaultLocale $localeLoaded");
-}
-
 class TailApp extends ConsumerWidget {
   TailApp({super.key}) {
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -265,7 +255,7 @@ class TailApp extends ConsumerWidget {
                     theme: buildTheme(Brightness.light, color),
                     darkTheme: buildTheme(Brightness.dark, color),
                     routerConfig: router,
-                    localizationsDelegates: AppLocalizations.localizationsDelegates,
+                    localizationsDelegates: [LocaleNamesLocalizationsDelegate(), ...AppLocalizations.localizationsDelegates],
                     supportedLocales: AppLocalizations.supportedLocales,
                     themeMode: ThemeMode.system,
                     debugShowCheckedModeBanner: false,

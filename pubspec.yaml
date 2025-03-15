@@ -76,7 +76,8 @@ dependencies:
     git:
       url: https://github.com/Codel1417/packages.flutter
       path: packages/pdfx
-
+  flutter_localized_locales: ^2.0.5
+  country_flags: ^3.2.0
   # Dio HTTP
   dio: ^5.8.0+1
   dio_smart_retry: ^7.0.1

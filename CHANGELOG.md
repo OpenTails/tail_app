@@ -1,6 +1,7 @@
 ### V 1.1.5
 
 - Hide Eargear triggers if no Ears are paired
+- Add setting to change the app language
 
 ### V 1.1.4
 

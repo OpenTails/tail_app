@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -13,6 +14,9 @@ import 'package:wordpress_client/wordpress_client.dart';
 
 import '../Backend/logging_wrappers.dart';
 import '../Backend/version.dart';
+import '../constants.dart';
+import '../l10n/app_localizations.dart';
+import '../l10n/messages_all_locales.dart';
 
 LocalPlatform platform = const LocalPlatform();
 
@@ -38,6 +42,22 @@ Future<bool> getBluetoothPermission(Logger logger) async {
     granted = PermissionStatus.granted == permissionStatusBluetooth;
   }
   return granted;
+}
+
+Future<void> initLocale() async {
+  final String defaultLocale = platform.localeName; // Returns locale string in the form 'en_US'
+
+  String? locale = AppLocalizations.supportedLocales
+      .where(
+        (element) => element.toLanguageTag() == HiveProxy.getOrDefault(settings, selectedLocale, defaultValue: ""),
+      )
+      .map(
+        (e) => e.toLanguageTag(),
+      )
+      .firstOrNull;
+
+  await initializeMessages(locale ?? defaultLocale);
+  Intl.defaultLocale = locale ?? defaultLocale;
 }
 
 final dioLogger = Logger('Dio');

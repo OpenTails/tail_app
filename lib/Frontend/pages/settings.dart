@@ -1,5 +1,8 @@
+import 'package:choice/choice.dart';
+import 'package:country_flags/country_flags.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -7,8 +10,10 @@ import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
+import '../../l10n/app_localizations.dart';
 import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
+import '../utils.dart';
 
 class Settings extends ConsumerStatefulWidget {
   const Settings({super.key});
@@ -36,6 +41,7 @@ class _SettingsState extends ConsumerState<Settings> {
       body: ListView(
         controller: _controller,
         children: [
+          LanguagePicker(),
           ListTile(
             leading: const Icon(Icons.color_lens),
             title: Text(
@@ -251,5 +257,116 @@ class _SettingsState extends ConsumerState<Settings> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+}
+
+class LanguagePicker extends StatelessWidget {
+  final ChoicePromptBuilder<Locale>? anchorBuilder;
+
+  const LanguagePicker({
+    super.key,
+    this.anchorBuilder,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return PromptedChoice<Locale>.single(
+      title: appLanguageSelectorTitle(),
+      promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
+      itemCount: AppLocalizations.supportedLocales.length,
+      modalHeaderBuilder: ChoiceModal.createHeader(
+        automaticallyImplyLeading: true,
+        actionsBuilder: [],
+      ),
+      anchorBuilder: anchorBuilder,
+      modalFooterBuilder: ChoiceModal.createFooter(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          (choiceController) {
+            return FilledButton(
+              onPressed: choiceController.value.isNotEmpty ? () => choiceController.closeModal(confirmed: true) : null,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.check),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4),
+                  ),
+                  Text(
+                    triggersDefSelectSaveLabel(),
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: getTextColor(
+                            Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ],
+      ),
+      onChanged: (value) async {
+        if (value != null) {
+          HiveProxy.put(settings, selectedLocale, value.toLanguageTag());
+          initLocale();
+        }
+      },
+      confirmation: true,
+      value: AppLocalizations.supportedLocales
+          .where(
+            (element) => element.toLanguageTag() == HiveProxy.getOrDefault(settings, selectedLocale, defaultValue: ""),
+          )
+          .firstOrNull,
+      itemBuilder: (ChoiceController<Locale> state, int index) {
+        Locale locale = AppLocalizations.supportedLocales[index];
+        return RadioListTile(
+          value: locale,
+          onChanged: (Locale? value) {
+            state.select(locale);
+          },
+          groupValue: state.single,
+          title: Text(LocaleNames.of(context)!.nameOf(locale.toLanguageTag().replaceAll("-", "_")) ?? locale.toLanguageTag()),
+          secondary: Builder(builder: (context) {
+            if (locale.countryCode != null) {
+              return CountryFlag.fromCountryCode(locale.countryCode!.replaceAll("zh", "zh-cn"));
+            } else {
+              return CountryFlag.fromLanguageCode(locale.languageCode.replaceAll("zh", "zh-cn"));
+            }
+          }),
+        );
+      },
+    );
+    return ListTile(
+      title: Text("Language"),
+      trailing: DropdownMenu<Locale>(
+        width: MediaQuery.of(context).size.width / 3,
+        onSelected: (value) {
+          if (value != null) {
+            HiveProxy.put(settings, selectedLocale, value.toLanguageTag());
+          }
+        },
+        initialSelection: AppLocalizations.supportedLocales
+            .where(
+              (element) => element.toLanguageTag() == HiveProxy.getOrDefault(settings, selectedLocale, defaultValue: ""),
+            )
+            .firstOrNull,
+        dropdownMenuEntries: AppLocalizations.supportedLocales
+            .map(
+              (e) => DropdownMenuEntry(
+                label: LocaleNames.of(context)!.nameOf(e.toLanguageTag().replaceAll("-", "_")) ?? e.toLanguageTag(),
+                value: e,
+                leadingIcon: Builder(builder: (context) {
+                  if (e.countryCode != null) {
+                    return CountryFlag.fromCountryCode(e.countryCode!.replaceAll("zh", "zh-cn"));
+                  } else {
+                    return CountryFlag.fromLanguageCode(e.languageCode.replaceAll("zh", "zh-cn"));
+                  }
+                }),
+              ),
+            )
+            .toList(),
+      ),
+    );
   }
 }
