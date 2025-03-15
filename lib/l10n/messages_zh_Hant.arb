@@ -1192,5 +1192,23 @@
     "description": "The description for the convention mode enabled button on the gear page",
     "type": "text",
     "placeholders": {}
+  },
+  "morePageTranslateTitle": "本地化",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateDescription": "幫助我們將應用程式翻譯成您的語言",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLanguageSelectorTitle": "應用程式語言",
+  "@appLanguageSelectorTitle": {
+    "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
   }
 }
