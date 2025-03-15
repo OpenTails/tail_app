@@ -85,7 +85,7 @@ jobs:
            versionSplit[i]=`echo "$versionSplit[i]" | egrep -o '[0-9.]+'`
           done
           # Make newlines json friendly
-          changelog=`"$changelog" | tr '\n' '\\n'`
+          changelog=`echo "$changelog" | tr '\n' '\\n'`
           
           config="{\"appVersion.version.major': '${versionSplit[0]}', 'appVersion.version.minor': '${versionSplit[1]}', 'appVersion.version.patch': '${versionSplit[2]}', 'appVersion.url': '$url', 'appVersion.changelog': '$changelog'}"
           echo $config
