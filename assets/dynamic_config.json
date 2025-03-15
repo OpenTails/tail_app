@@ -9,9 +9,9 @@
     "url": "https://github.com/OpenTails/tail_app/releases/download/1.1.5/tailCompanyApp-1.1.5-2086.apk",
     "changelog": "### V 1.1.5\n\n- Hide Eargear triggers if no Ears are paired\n",
     "version": {
-      "major": "1",
-      "minor": "1",
-      "patch": "1"
+      "major": 1,
+      "minor": 1,
+      "patch": 1
     }
   }
 }
