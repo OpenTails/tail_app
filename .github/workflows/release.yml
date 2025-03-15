@@ -82,17 +82,21 @@ jobs:
           
           # Remove non numeric characters
           for i in "${!versionSplit[@]}"; do 
-            echo "${versionSplit[i]}"
             versionSplit[i]=`echo "$versionSplit[i]" | egrep -o '[0-9.]+'`
           done
           
-          # Make newlines json friendly
+          major=${versionSplit[0]}
+          minor=${versionSplit[1]}
+          patch=${versionSplit[2]}
+          
+          # Make changelog newlines json friendly
           changelog=`printf '%s' "$changelog" | jq -sR`
           
           # Remove leading/trailing quotes
           changelog=${changelog:1:-1}
           
-          config="{\"appVersion.version.major\": ${versionSplit[0]}, \"appVersion.version.minor\": ${versionSplit[1]}, \"appVersion.version.patch\": ${versionSplit[2]}, \"appVersion.url\": \"$url\", \"appVersion.changelog\": \"$changelog\"}"
+          # TODO: fix version being 1.1.1
+          config="{\"appVersion.version.major\": $major, \"appVersion.version.minor\": $minor, \"appVersion.version.patch\": $patch, \"appVersion.url\": \"$url\", \"appVersion.changelog\": \"$changelog\"}"
           echo $config
           
           # Write multiline string to github step output
