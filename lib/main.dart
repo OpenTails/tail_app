@@ -138,8 +138,8 @@ Future<void> main() async {
     }
   });
   initFlutter();
-  await initLocale();
   await initHive();
+  await initLocale();
 
   initMainApp();
 }
