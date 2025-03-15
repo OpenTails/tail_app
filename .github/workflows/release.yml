@@ -69,7 +69,8 @@ jobs:
     needs: prepare_release
     steps:
       - uses: actions/checkout@v4
-      - name: get-fields
+      - name: get values
+        id: get-fields
         env:
           version: ${{needs.prepare_release.outputs.version}}
           url: ${{fromJSON(needs.prepare_release.outputs.assets)[ 0 ].browser_download_url}}
