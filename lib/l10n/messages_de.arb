@@ -1204,5 +1204,11 @@
     "description": "The description for the button on the More page to push users to assist in translating the app",
     "type": "text",
     "placeholders": {}
+  },
+  "appLanguageSelectorTitle": "App Sprache",
+  "@appLanguageSelectorTitle": {
+    "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
   }
 }
