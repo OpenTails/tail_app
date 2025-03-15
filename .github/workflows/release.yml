@@ -80,11 +80,6 @@ jobs:
           # Split version into array
           readarray -d "." -t versionSplit <<< "$version" 
           
-          # Remove non numeric characters
-          for i in "${!versionSplit[@]}"; do 
-            versionSplit[i]=`echo "$versionSplit[i]" | egrep -o '[0-9.]+'`
-          done
-          
           major=${versionSplit[0]}
           minor=${versionSplit[1]}
           patch=${versionSplit[2]}

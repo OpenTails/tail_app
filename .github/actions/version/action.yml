@@ -10,31 +10,31 @@ outputs:
 runs:
   using: "composite"
   steps:
-      - name: get interpreter
-        shell: bash
-        id: get-interpreter
-        run: |
-          if [[ $RUNNER_OS == 'macOS' ]]; then
-            interpreter='zsh {0}'
-          else
-              interpreter=bash
-          fi
-          echo "interpreter=$interpreter" >> "$GITHUB_OUTPUT"
+    - name: get interpreter
+      shell: bash
+      id: get-interpreter
+      run: |
+        if [[ $RUNNER_OS == 'macOS' ]]; then
+          interpreter='zsh {0}'
+        else
+            interpreter=bash
+        fi
+        echo "interpreter=$interpreter" >> "$GITHUB_OUTPUT"
 
-      - name: Get version
-        shell: ${{ steps.get-interpreter.outputs.interpreter }}
-        id: get-version
-        env:
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
-        run: |
-          # get the Build Bumber & version from git
-          VERSION="$(cat VERSION)"
-          BUILD_NUMBER="$(git rev-list HEAD --count)"
-          # Gets the release tag from github if it exists (Github Actions)
-          # Assumes tags start with V
-          if [[ -v RELEASE_TAG ]] && [[ -n $RELEASE_TAG ]]; then
-            TAG="${RELEASE_TAG,,}"
-            VERSION="${TAG//"v"}"
-          fi
-          echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
-          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+    - name: Get version
+      shell: ${{ steps.get-interpreter.outputs.interpreter }}
+      id: get-version
+      env:
+        RELEASE_TAG: ${{ github.event.release.tag_name }}
+      run: |
+        # get the Build Bumber & version from git
+        VERSION="$(cat VERSION | egrep -o '[0-9.]+')"
+        BUILD_NUMBER="$(git rev-list HEAD --count)"
+        # Gets the release tag from github if it exists (Github Actions)
+        # Assumes tags start with V
+        if [[ -v RELEASE_TAG ]] && [[ -n $RELEASE_TAG ]]; then
+          TAG="${RELEASE_TAG,,}"
+          VERSION="${TAG//"v"}"
+        fi
+        echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
+        echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
