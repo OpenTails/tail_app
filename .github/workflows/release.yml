@@ -91,7 +91,7 @@ jobs:
           # Remove leading/trailing quotes
           changelog=${changelog:1:-1}
           
-          config="{\"appVersion.version.major\": \"${versionSplit[0]}\", \"appVersion.version.minor\": \"${versionSplit[1]}\", \"appVersion.version.patch\": \"${versionSplit[2]}\", \"appVersion.url\": \"$url\", \"appVersion.changelog\": \"$changelog\"}"
+          config="{\"appVersion.version.major\": ${versionSplit[0]}, \"appVersion.version.minor\": ${versionSplit[1]}, \"appVersion.version.patch\": ${versionSplit[2]}, \"appVersion.url\": \"$url\", \"appVersion.changelog\": \"$changelog\"}"
           echo $config
           
           # Write multiline string to github step output
