@@ -82,7 +82,8 @@ jobs:
           
           # Remove non numeric characters
           for i in "${!versionSplit[@]}"; do 
-           versionSplit[i]=`echo "$versionSplit[i]" | egrep -o '[0-9.]+'`
+            echo "${versionSplit[i]}"
+            versionSplit[i]=`echo "$versionSplit[i]" | egrep -o '[0-9.]+'`
           done
           
           # Make newlines json friendly
