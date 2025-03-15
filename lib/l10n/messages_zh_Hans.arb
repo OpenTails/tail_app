@@ -1192,5 +1192,23 @@
     "description": "The description for copy to clipboard button on the pin code dialog",
     "type": "text",
     "placeholders": {}
+  },
+  "morePageTranslateTitle": "本地化",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateDescription": "帮助我们将应用程序翻译成您的语言",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLanguageSelectorTitle": "应用语言",
+  "@appLanguageSelectorTitle": {
+    "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
   }
 }
