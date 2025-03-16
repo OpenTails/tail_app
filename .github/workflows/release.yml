@@ -51,6 +51,7 @@ jobs:
         with:
           file: CHANGELOG.md
           pattern: ${{ steps.version.outputs.version }}
+          no-print-matched-heading: true
       - name: Release
         id: release
         uses: softprops/action-gh-release@v2
