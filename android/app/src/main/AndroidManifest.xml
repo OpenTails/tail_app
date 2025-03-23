@@ -97,32 +97,7 @@
             android:exported="false"
             android:foregroundServiceType="connectedDevice"
             android:stopWithTask="true" />
-
-        <meta-data
-            android:name="com.codel1417.tailApp.notificationIcon"
-            android:resource="@drawable/ic_notification" />
-        <service
-            android:name="com.klaviyo.pushFcm.KlaviyoPushService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="Marketing" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_notification" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:value="#E46E26" />
-        <meta-data
-            android:name="firebase_messaging_auto_init_enabled"
-            android:value="false" />
+        
     </application>
     <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>
