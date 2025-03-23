@@ -1,7 +1,9 @@
 package com.codel1417.tail_App.presentation.theme
 
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.material.MaterialTheme
+import androidx.compose.ui.graphics.Color
+import androidx.wear.compose.material3.ColorScheme
+import androidx.wear.compose.material3.MaterialTheme
 
 @Composable
 fun _androidTheme(
@@ -12,6 +14,7 @@ fun _androidTheme(
      * See: https://developer.android.com/jetpack/compose/designsystems/custom
      */
     MaterialTheme(
+        colorScheme = ColorScheme(primary = Color(0xFFE46E26)),
         content = content
     )
 }

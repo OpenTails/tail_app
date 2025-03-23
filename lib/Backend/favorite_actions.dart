@@ -73,6 +73,6 @@ class FavoriteActions extends _$FavoriteActions {
     await HiveProxy.clear<FavoriteAction>(favoriteActionsBox);
     await HiveProxy.addAll<FavoriteAction>(favoriteActionsBox, state);
     updateShortcuts(state, ref);
-    ref.read(updateWearActionsProvider);
+    ref.refresh(updateWearDataProvider);
   }
 }

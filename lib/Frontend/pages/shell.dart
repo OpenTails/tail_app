@@ -6,6 +6,7 @@ import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tail_app/Frontend/Widgets/wear_helper.dart';
 
 import '../Widgets/back_button_to_close.dart';
 import '../Widgets/known_gear.dart';
@@ -51,7 +52,8 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
   Widget build(BuildContext context) {
     unawaited(setupSystemColor(context));
     return BackButtonToClose(
-      child: AdaptiveScaffold(
+      child: WearHelper(
+          child: AdaptiveScaffold(
         // An option to override the default breakpoints used for small, medium,
         // and large.
         smallBreakpoint: const Breakpoint(endWidth: 700),
@@ -107,7 +109,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
           titleSpacing: 0,
           toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1),
         ),
-      ),
+      )),
     );
   }
 }

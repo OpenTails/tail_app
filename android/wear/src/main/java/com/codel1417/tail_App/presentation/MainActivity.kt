@@ -6,49 +6,77 @@
 
 package com.codel1417.tail_App.presentation
 
-import android.os.Build
+import android.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.MutableLiveData
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.PositionIndicator
+import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.Vignette
+import androidx.wear.compose.material.VignettePosition
+import androidx.wear.compose.material3.CircularProgressIndicator
+import androidx.wear.compose.material3.SwitchButton
+import androidx.wear.compose.material3.TimeText
+import com.codel1417.tail_App.json.WearData
+import com.codel1417.tail_App.json.WearSendData
 import com.codel1417.tail_App.presentation.theme._androidTheme
-import com.google.android.gms.tasks.Task
 import com.google.android.gms.wearable.CapabilityClient
+import com.google.android.gms.wearable.CapabilityClient.FILTER_REACHABLE
 import com.google.android.gms.wearable.CapabilityInfo
 import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataEvent
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataItem
-import com.google.android.gms.wearable.DataMapItem
 import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.MessageEvent
-import com.google.android.gms.wearable.PutDataMapRequest
-import com.google.android.gms.wearable.PutDataRequest
+import com.google.android.gms.wearable.NodeClient
 import com.google.android.gms.wearable.Wearable
+import com.google.android.gms.wearable.Wearable.getCapabilityClient
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 
-
+/** TODO:
+ * Show spinner when no data available / loading from app
+ * Refresh UI when data updates
+ * Move actions / triggers / gear to their own page with horizontal swipe
+ * show all actions, not just favorites
+ * Theme based on main app colors
+ * Watch to App communication
+ */
 class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     MessageClient.OnMessageReceivedListener, CapabilityClient.OnCapabilityChangedListener {
+    private var wearData: MutableLiveData<WearData> = MutableLiveData<WearData>();
 
     private lateinit var dataClient: DataClient
-    private var actionsMap: MutableMap<String, String> = mutableMapOf();
+    private lateinit var messageClient: MessageClient
+    private lateinit var nodeClient: NodeClient
+    private lateinit var capabilityClient: CapabilityClient
     override fun onResume() {
         super.onResume()
         println("onResume()")
@@ -66,7 +94,39 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
+    /**
+     * Interprets the byteArray as a Map<String, Any>.
+     * If that's not possible, returns null.
+     */
+    fun ByteArray.asMap(): Map<String, Any>? {
+        val byteArrayInputStream = ByteArrayInputStream(this)
+        val objectInputStream = ObjectInputStream(byteArrayInputStream)
+
+        return try {
+            val obj = objectInputStream.readObject()
+
+            if (obj !is Map<*, *>) throw Exception()
+            @Suppress("UNCHECKED_CAST")
+            obj as Map<String, Any>;
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        } finally {
+            objectInputStream.close()
+        }
+    }
+
+    /**
+     * Interprets the byteArray as a Map<String, Any>.
+     * If that's not possible, returns null.
+     */
+    fun asBytes(`object`: Any): ByteArray {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        val objectOutputStream = ObjectOutputStream(byteArrayOutputStream)
+        objectOutputStream.writeObject(`object`)
+        return byteArrayOutputStream.toByteArray()
+    }
+
     override fun onDataChanged(dataEvents: DataEventBuffer) {
         println("onDataChanged()")
         dataEvents.forEach { event ->
@@ -74,18 +134,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
             // DataItem changed
             if (event.type == DataEvent.TYPE_CHANGED) {
                 event.dataItem.also { item ->
-                    if (item.uri.path!!.compareTo("/actions") == 0) {
-                        println("Loading Actions")
-                        DataMapItem.fromDataItem(item).dataMap.apply {
-                            println(this)
-                            val actions: List<String> = this.getString("actions")!!.split("_")
-                            val uuids: List<String> = this.getString("uuid")!!.split("_")
-                            for (nums in 0..actions.size) {
-                                actionsMap[uuids[nums]] = actions[nums]
-                            }
-                            recreate()
-                        }
-                    }
+                    getWearDataItem(item)
                 }
             } else if (event.type == DataEvent.TYPE_DELETED) {
                 // DataItem deleted
@@ -93,20 +142,49 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
         }
     }
 
-    // Create a data map and put data in it
-    private fun triggerActionOnPhone(uuid: String) {
+    private fun getWearDataItem(item: DataItem) {
         try {
-            println("Preparing to send action $uuid")
-            val putDataReq: PutDataRequest = PutDataMapRequest.create("/triggerMove").run {
-                dataMap.putString("uuid", uuid)
-                asPutDataRequest()
-            }
-            println("Sending action $uuid $putDataReq")
-            val putDataTask: Task<DataItem> = dataClient.putDataItem(putDataReq)
-            putDataTask.addOnFailureListener { println("Failed to send action") }
-            putDataTask.addOnCanceledListener { println("Failed to send action (Canceled)") }
-            putDataTask.addOnCompleteListener { println("Action Sent") }
+            println("Loading Actions")
+            val gson: Gson = Gson()
+            // asMap converts the bytes to the java object
+            // The flutter library watch_connectivity was built for flutter to flutter, not flutter to compose
+            val rawData = item.data!!.asMap();
 
+            // cursed way to convert from map to WearData
+            val data: WearData = gson.fromJson<WearData>(
+                gson.toJson(rawData),
+                WearData::class.java
+            );
+            wearData.postValue(data)
+        } catch (e: Exception) {
+        }
+
+    }
+
+    private var nodeIDs: HashMap<String, String> = HashMap<String, String>()
+
+    // Create a data map and put data in it
+    private fun sendMessageToPhone(data: WearSendData) {
+        try {
+            capabilityClient
+                .getCapability(
+                    data.capability,
+                    FILTER_REACHABLE
+                ).addOnSuccessListener { result ->
+                    val capabilityId =         // Find a nearby node or pick one arbitrarily.
+                        result.nodes.firstOrNull { it.isNearby }?.id
+                            ?: result.nodes.firstOrNull()?.id
+                    if (capabilityId == null) {
+                        return@addOnSuccessListener;
+                    }
+                    val gson = Gson()
+                    val messageType = object : TypeToken<Map<String, Any>>() {}.type
+                    val message = gson.fromJson<Map<String, Any>>(
+                        gson.toJson(data),
+                        messageType
+                    )
+                    messageClient.sendMessage(capabilityId, "/${data.capability}", asBytes(message))
+                }
         } catch (e: Exception) {
             println("Error triggering action $e")
         }
@@ -119,40 +197,83 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
 
         super.onCreate(savedInstanceState)
 
-        setTheme(android.R.style.Theme_DeviceDefault)
+        setTheme(R.style.Theme_DeviceDefault)
 
         setContent {
             WearApp("Android")
         }
     }
 
+    //TODO: When app is visible, send a message to update application context
     @Composable
     fun WearApp(greetingName: String) {
         println("WearApp()")
         dataClient = Wearable.getDataClient(LocalContext.current)
-
+        messageClient = Wearable.getMessageClient(LocalContext.current)
+        nodeClient = Wearable.getNodeClient(LocalContext.current)
+        capabilityClient = getCapabilityClient(LocalContext.current)
+        dataClient.dataItems
+            .addOnSuccessListener { result -> result.forEach { item -> getWearDataItem(item) } }
+        val state: State<WearData?> = wearData.observeAsState()
+        sendMessageToPhone(
+            data = WearSendData(
+                capability = "refresh",
+            )
+        )
         _androidTheme {
             // Hoist the list state to remember scroll position across compositions.
             val listState = rememberScalingLazyListState()
+            Scaffold(
+                timeText = {
+                    if (!listState.isScrollInProgress) TimeText()
+                },
+                positionIndicator = {
+                    PositionIndicator(scalingLazyListState = listState)
+                },
+                vignette = {
+                    Vignette(vignettePosition = VignettePosition.TopAndBottom)
+                }) {
 
-            ScalingLazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                autoCentering = AutoCenteringParams(itemIndex = 0),
-                state = listState,
-                flingBehavior = ScalingLazyColumnDefaults.snapFlingBehavior(
-                    state = listState,
-                    snapOffset = 0.dp
-                    // Exponential decay by default. You can also explicitly define a
-                    // DecayAnimationSpec.
-                )
-            ) {
-                item { Text(text = "Favorite Actions") }
-                item { TextItem(contentModifier, "Slow 1", "") }
-                item { TextItem(contentModifier, "Slow 2", "") }
-                actionsMap.map {
-                    item { TextItem(contentModifier, it.key, it.value) }
+                if (state.value == null) {
+                    CircularProgressIndicator()
+                } else {
+                    ScalingLazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        autoCentering = AutoCenteringParams(itemIndex = 0),
+                        state = listState,
+                        flingBehavior = ScalingLazyColumnDefaults.snapFlingBehavior(
+                            state = listState,
+                            snapOffset = 0.dp
+                            // Exponential decay by default. You can also explicitly define a
+                            // DecayAnimationSpec.
+                        )
+                    ) {
+                        item { Text(text = state.value!!.localization.actionsPage) }
+                        state.value!!.favoriteActions.map {
+                            item {
+                                ActionButton(
+                                    contentModifier,
+                                    it.name,
+                                    it.uuid,
+                                )
+                            }
+                        }
+                        item { Text(text = state.value!!.localization.triggersPage) }
+                        state.value!!.configuredTriggers.map {
+                            item {
+                                TriggerButton(
+                                    contentModifier,
+                                    it.name,
+                                    it.uuid,
+                                    it.enabled,
+                                )
+                            }
+                        }
+
+                    }
                 }
             }
+
         }
     }
 
@@ -167,11 +288,46 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     }
 
     @Composable
-    fun TextItem(modifier: Modifier = Modifier, contents: String, uuid: String) {
+    fun ActionButton(
+        modifier: Modifier = Modifier,
+        contents: String,
+        uuid: String,
+    ) {
         Chip(
             modifier = modifier,
+            colors = ChipDefaults.chipColors(backgroundColor = Color(wearData.value!!.themeData.primary)),
             label = { Text(text = contents, textAlign = TextAlign.Center) },
-            onClick = { triggerActionOnPhone(uuid) },
+            onClick = {
+                sendMessageToPhone(
+                    data = WearSendData(
+                        capability = "run_action",
+                        uuid = uuid,
+                    )
+                )
+            },
+        )
+    }
+
+    @Composable
+    fun TriggerButton(
+        modifier: Modifier = Modifier,
+        contents: String,
+        uuid: String,
+        enabled: Boolean,
+    ) {
+        SwitchButton(
+            modifier = modifier,
+            label = { Text(text = contents, textAlign = TextAlign.Center) },
+            checked = enabled,
+            onCheckedChange = { result ->
+                sendMessageToPhone(
+                    data = WearSendData(
+                        capability = "toggle_trigger",
+                        uuid = uuid,
+                        enabled = result,
+                    )
+                )
+            },
         )
     }
 
@@ -181,6 +337,11 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
 
     override fun onCapabilityChanged(p0: CapabilityInfo) {
         println("onCapabilityChanged() ${p0.name} ${p0.nodes}")
+        sendMessageToPhone(
+            data = WearSendData(
+                capability = "refresh",
+            )
+        )
     }
 }
 

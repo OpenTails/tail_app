@@ -17,6 +17,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shake/shake.dart';
+import 'package:tail_app/Backend/wear_bridge.dart';
 
 import '../Frontend/translation_string_definitions.dart';
 import '../Frontend/utils.dart';
@@ -182,6 +183,9 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
       unawaited(onEnable());
       notifyListeners();
     }
+
+    //Refresh wear data when a trigger is enabled/disabled
+    ref.refresh(updateWearDataProvider.future);
   }
 
   Ref ref;
