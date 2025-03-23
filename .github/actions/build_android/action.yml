@@ -49,8 +49,8 @@ runs:
     - name: Copy App icon to wear project
       shell: bash
       run: |
-        cp -rfv /android/app/src/main/res/drawable* /android/wear/src/main/res/
-        cp -rfv /android/app/src/main/res/mipmap* /android/wear/src/main/res/
+        cp -rfv ./android/app/src/main/res/drawable* ./android/wear/src/main/res/
+        cp -rfv ./android/app/src/main/res/mipmap* ./android/wear/src/main/res/
     - name: Build APK
       if: inputs.build-mode == 'apk'
       shell: bash
