@@ -99,7 +99,7 @@ dependencies {
     implementation("androidx.wear.compose:compose-ui-tooling")
     implementation("androidx.wear.compose:compose-navigation")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.wear.compose:compose-material3:1.0.0-alpha32")
+    implementation("androidx.wear.compose:compose-material3:1.0.0-alpha34")
     implementation("androidx.wear.compose:compose-foundation")
     implementation("androidx.compose.foundation:foundation:1.7.8")
     implementation("androidx.activity:activity-compose:1.10.1")
@@ -111,7 +111,7 @@ dependencies {
     implementation("androidx.wear.watchface:watchface-complications-data-source-ktx:1.2.1")
     implementation("com.google.code.gson:gson:2.12.1")
     implementation("androidx.compose.runtime:runtime-livedata:1.7.8")
-    
+
     androidTestImplementation(platform("androidx.compose:compose-bom:2025.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")

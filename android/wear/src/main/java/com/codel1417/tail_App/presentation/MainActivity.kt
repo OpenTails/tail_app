@@ -10,12 +10,14 @@ import android.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -29,6 +31,7 @@ import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
+import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.PositionIndicator
@@ -36,6 +39,7 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
+import androidx.wear.compose.material3.Card
 import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.SwitchButton
 import androidx.wear.compose.material3.TimeText
@@ -235,7 +239,14 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                 }) {
 
                 if (state.value == null) {
-                    CircularProgressIndicator()
+                    Box(                        modifier = Modifier.fillMaxSize(),
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .align(alignment = Alignment.Center)
+                                .fillMaxSize(0.6f)
+                        )
+                    }
                 } else {
                     ScalingLazyColumn(
                         modifier = Modifier.fillMaxSize(),
@@ -269,7 +280,17 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                                 )
                             }
                         }
-
+                        item { Text(text = state.value!!.localization.triggersPage) }
+                        state.value!!.knownGear.map {
+                            item {
+                                GearButton(
+                                    contentModifier,
+                                    it.name,
+                                    it.batteryLevel.toInt(),
+                                    it.color
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -330,7 +351,21 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
             },
         )
     }
-
+    @Composable
+    fun GearButton(
+        modifier: Modifier = Modifier,
+        name: String,
+        battery: Int,
+        color: Long
+    ) {
+        Chip(
+            modifier = modifier,
+            colors = ChipDefaults.chipColors(backgroundColor = Color(color)),
+            label = { Text(text = name, textAlign = TextAlign.Center) },
+            onClick = {},
+            secondaryLabel = { Text(text = "$battery%", textAlign = TextAlign.Center) },
+        )
+    }
     override fun onMessageReceived(p0: MessageEvent) {
         println("onMessageReceived() ${p0.path} ${p0.data}")
     }

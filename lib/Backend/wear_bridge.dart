@@ -141,10 +141,7 @@ Future<void> updateWearData(Ref ref) async {
     // Listen for gear connect/disconnect events
     ref.watch(getAvailableGearProvider);
 
-    final WearLocalizationData localizationData = WearLocalizationData(
-      triggersPage: triggersPage(),
-      actionsPage: homePage(),
-    );
+    final WearLocalizationData localizationData = WearLocalizationData(triggersPage: triggersPage(), actionsPage: homePage(), favoriteActionsDescription: actionsFavoriteTip());
     final WearData wearData = WearData(
       favoriteActions: favoriteMap,
       configuredTriggers: triggersMap,
@@ -199,6 +196,7 @@ abstract class WearLocalizationData with _$WearLocalizationData {
   const factory WearLocalizationData({
     required String triggersPage,
     required String actionsPage,
+    required String favoriteActionsDescription,
   }) = _WearLocalizationData;
 
   factory WearLocalizationData.fromJson(Map<String, dynamic> json) => _$WearLocalizationDataFromJson(json);

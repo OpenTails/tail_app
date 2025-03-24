@@ -2,7 +2,12 @@ package com.codel1417.tail_App.json
 
 data class WearActionData(val name: String, val uuid: String)
 data class WearTriggerData(val name: String, val uuid: String, val enabled: Boolean)
-data class WearLocalizationData(val triggersPage: String, val actionsPage: String)
+data class WearLocalizationData(
+    val triggersPage: String,
+    val actionsPage: String,
+    val favoriteActionsDescription: String
+)
+
 data class WearGearData(
     val name: String,
     val uuid: String,
