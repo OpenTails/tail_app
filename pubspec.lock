@@ -1788,10 +1788,10 @@ packages:
     dependency: "direct main"
     description:
       name: wakelock_plus
-      sha256: "36c88af0b930121941345306d259ec4cc4ecca3b151c02e3a9e71aede83c615e"
+      sha256: b90fbcc8d7bdf3b883ea9706d9d76b9978cb1dfa4351fcc8014d6ec31a493354
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.10"
+    version: "1.2.11"
   wakelock_plus_platform_interface:
     dependency: transitive
     description:
