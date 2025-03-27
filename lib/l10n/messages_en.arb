@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-03-15T22:15:17.161591",
+  "@@last_modified": "2025-03-27T02:02:09.787612",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -965,7 +965,7 @@
   },
   "actionsFavoriteTip": "Long press an action to favorite",
   "@actionsFavoriteTip": {
-    "description": "tip message which appears when no actions are favorited on the actions page",
+    "description": "tip message which appears when no actions are added to favorite on the actions page",
     "type": "text",
     "placeholders": {}
   },
@@ -1200,6 +1200,24 @@
   "appLanguageSelectorTitle": "App Language",
   "@appLanguageSelectorTitle": {
     "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearTitle": "Your Gear",
+  "@watchKnownGearTitle": {
+    "description": "The title for the known gear section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsTitle": "Favorite Actions",
+  "@watchFavoriteActionsTitle": {
+    "description": "title for the favorite actions section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearNoGearPairedTip": "On your phone, Use the `Scan For New Gear` button to pair your gear",
+  "@watchKnownGearNoGearPairedTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
     "type": "text",
     "placeholders": {}
   }
