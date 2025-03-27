@@ -9,6 +9,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+// Used as MediaDetails isn't exported
+import 'package:wordpress_client/src/responses/properties/media_details.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
 import '../../Backend/logging_wrappers.dart';
@@ -16,6 +19,7 @@ import '../../constants.dart';
 import '../utils.dart';
 
 part 'tail_blog.freezed.dart';
+
 part 'tail_blog.g.dart';
 
 final _wpLogger = Logger('Main');
@@ -43,16 +47,16 @@ class _TailBlogState extends State<TailBlog> {
       firstChild: feedState == FeedState.loading
           ? const LinearProgressIndicator()
           : [FeedState.noInternet, FeedState.error].contains(feedState)
-              ? const Center(
-                  child: Opacity(
-                    opacity: 0.5,
-                    child: Icon(
-                      Icons.signal_cellular_connected_no_internet_0_bar,
-                      size: 150,
-                    ),
-                  ),
-                )
-              : Container(),
+          ? const Center(
+        child: Opacity(
+          opacity: 0.5,
+          child: Icon(
+            Icons.signal_cellular_connected_no_internet_0_bar,
+            size: 150,
+          ),
+        ),
+      )
+          : Container(),
       secondChild: GridView.builder(
         controller: widget.controller,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 500, mainAxisExtent: 300),
@@ -158,7 +162,7 @@ class _TailBlogState extends State<TailBlog> {
               url: post.link,
               feedType: FeedType.blog,
               imageId: post.featuredMedia,
-              imageUrl: getImageURL(post),
+              imageUrl: await getImageURL(post),
             ),
           );
         }
@@ -175,9 +179,22 @@ class _TailBlogState extends State<TailBlog> {
     }
   }
 
-  String? getImageURL(Post post) {
+  Future<String?> getImageURL(Post post) async {
     try {
-      return post.self['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['medium']['source_url'];
+      MediaDetails mediaDetails = MediaDetails.fromJson(post.self['_embedded']['wp:featuredmedia'][0]['media_details']);
+      if (mediaDetails.sizes == null) {
+        return null;
+      }
+      if (mediaDetails.sizes!.containsKey('medium')) {
+        // matches the app blog image size
+        return mediaDetails.sizes!['medium']!.sourceUrl;
+      } else if (mediaDetails.sizes!.containsKey('thumbnail')) {
+        // smaller fallback
+        return mediaDetails.sizes!['thumbnail']!.sourceUrl;
+      } else if (mediaDetails.sizes!.containsKey('full')) {
+        // when all else fails
+        return mediaDetails.sizes!['full']!.sourceUrl;
+      }
     } catch (e) {
       _wpLogger.warning("Unable to load featured media for post ${post.title}. $e");
     }
@@ -290,7 +307,9 @@ Future<bool> tailBlogConnectivityCheck() async {
   if (connectivityResult.contains(ConnectivityResult.none)) {
     return false;
   }
-  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) && {ConnectivityResult.wifi, ConnectivityResult.ethernet}.intersection(connectivityResult.toSet()).isEmpty) {
+  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) && {ConnectivityResult.wifi, ConnectivityResult.ethernet}
+      .intersection(connectivityResult.toSet())
+      .isEmpty) {
     return false;
   }
   return true;
