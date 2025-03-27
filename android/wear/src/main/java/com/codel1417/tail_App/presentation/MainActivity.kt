@@ -34,12 +34,12 @@ import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Card
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
-import androidx.wear.compose.material3.Card
 import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.SwitchButton
 import androidx.wear.compose.material3.TimeText
@@ -239,7 +239,8 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                 }) {
 
                 if (state.value == null) {
-                    Box(                        modifier = Modifier.fillMaxSize(),
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
                     ) {
                         CircularProgressIndicator(
                             modifier = Modifier
@@ -259,36 +260,54 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                             // DecayAnimationSpec.
                         )
                     ) {
-                        item { Text(text = state.value!!.localization.actionsPage) }
-                        state.value!!.favoriteActions.map {
+                        item { ListHeader { Text(text = state.value!!.localization.actionsPage) } }
+                        if (state.value!!.favoriteActions.isEmpty()) {
                             item {
-                                ActionButton(
-                                    contentModifier,
-                                    it.name,
-                                    it.uuid,
-                                )
+                                Card(
+                                    onClick = {}
+                                ) { Text(text = state.value!!.localization.favoriteActionsDescription) }
+                            }
+                        } else {
+                            state.value!!.favoriteActions.map {
+                                item {
+                                    ActionButton(
+                                        contentModifier,
+                                        it.name,
+                                        it.uuid,
+                                    )
+                                }
                             }
                         }
-                        item { Text(text = state.value!!.localization.triggersPage) }
-                        state.value!!.configuredTriggers.map {
-                            item {
-                                TriggerButton(
-                                    contentModifier,
-                                    it.name,
-                                    it.uuid,
-                                    it.enabled,
-                                )
+                        if (!state.value!!.configuredTriggers.isEmpty()) {
+                            item { ListHeader { Text(text = state.value!!.localization.triggersPage) } }
+                            state.value!!.configuredTriggers.map {
+                                item {
+                                    TriggerButton(
+                                        contentModifier,
+                                        it.name,
+                                        it.uuid,
+                                        it.enabled,
+                                    )
+                                }
                             }
                         }
-                        item { Text(text = state.value!!.localization.triggersPage) }
-                        state.value!!.knownGear.map {
+                        item { ListHeader { Text(text = state.value!!.localization.knownGear) } }
+                        if (state.value!!.knownGear.isEmpty()) {
                             item {
-                                GearButton(
-                                    contentModifier,
-                                    it.name,
-                                    it.batteryLevel.toInt(),
-                                    it.color
-                                )
+                                Card(
+                                    onClick = {}
+                                ) { Text(text = state.value!!.localization.watchKnownGearNoGearPairedTip) }
+                            }
+                        } else {
+                            state.value!!.knownGear.map {
+                                item {
+                                    GearButton(
+                                        contentModifier,
+                                        it.name,
+                                        it.batteryLevel.toInt(),
+                                        it.color
+                                    )
+                                }
                             }
                         }
                     }
@@ -351,6 +370,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
             },
         )
     }
+
     @Composable
     fun GearButton(
         modifier: Modifier = Modifier,
@@ -366,6 +386,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
             secondaryLabel = { Text(text = "$battery%", textAlign = TextAlign.Center) },
         )
     }
+
     override fun onMessageReceived(p0: MessageEvent) {
         println("onMessageReceived() ${p0.path} ${p0.data}")
     }

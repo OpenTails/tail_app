@@ -354,7 +354,7 @@ String noLongerSupported() => Intl.message("This gear is no longer supported. So
 
 String mandatoryOtaRequired() => Intl.message("A firmware update is available to better support your gear", name: 'mandatoryOtaRequired', desc: 'Warning message which appears for gear which have old firmware on the manage gear page');
 
-String actionsFavoriteTip() => Intl.message("Long press an action to favorite", name: 'actionsFavoriteTip', desc: 'tip message which appears when no actions are favorited on the actions page');
+String actionsFavoriteTip() => Intl.message("Long press an action to favorite", name: 'actionsFavoriteTip', desc: 'tip message which appears when no actions are added to favorite on the actions page');
 
 String moreSourceCode() => Intl.message("Source Code", name: 'moreSourceCode', desc: 'Label for the github and dev mode button on the more tab');
 
@@ -445,3 +445,11 @@ String morePageTranslateTitle() => Intl.message('Localization', name: 'morePageT
 String morePageTranslateDescription() => Intl.message('Help us Translate the app into your language', name: 'morePageTranslateDescription', desc: 'The description for the button on the More page to push users to assist in translating the app');
 
 String appLanguageSelectorTitle() => Intl.message('App Language', name: 'appLanguageSelectorTitle', desc: 'The title for the button and dialog to select the app language');
+
+String watchKnownGearTitle() => Intl.message('Your Gear', name: 'watchKnownGearTitle', desc: 'The title for the known gear section of the watch app');
+
+String watchFavoriteActionsNoFavoritesTip() => Intl.message('On your phone, Long press an action to favorite', name: 'watchKnownGearTitle', desc: 'the tip for when no actions are favorited on the watch app');
+
+String watchFavoriteActionsTitle() => Intl.message("Favorite Actions", name: 'watchFavoriteActionsTitle', desc: 'title for the favorite actions section of the watch app');
+
+String watchKnownGearNoGearPairedTip() => Intl.message("On your phone, Use the `Scan For New Gear` button to pair your gear", name: 'watchKnownGearNoGearPairedTip', desc: 'the tip for when no actions are favorited on the watch app');
