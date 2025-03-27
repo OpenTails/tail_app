@@ -41,6 +41,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material3.CircularProgressIndicator
+import androidx.wear.compose.material3.LinearProgressIndicator
 import androidx.wear.compose.material3.SwitchButton
 import androidx.wear.compose.material3.TimeText
 import com.codel1417.tail_App.json.WearData
@@ -383,7 +384,15 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
             colors = ChipDefaults.chipColors(backgroundColor = Color(color)),
             label = { Text(text = name, textAlign = TextAlign.Center) },
             onClick = {},
-            secondaryLabel = { Text(text = "$battery%", textAlign = TextAlign.Center) },
+            enabled = battery > -1,
+            secondaryLabel = {
+                if (battery > -1) {
+                    LinearProgressIndicator(
+                        progress = { battery.toFloat() / 100 },
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+            },
         )
     }
 
