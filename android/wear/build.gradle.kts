@@ -37,7 +37,7 @@ if (project.hasProperty("versionName")) {
         flutterVersionName = "1.0"
     }
 
-
+flutterVersionName += "-Wear"
 
 android {
     namespace = "com.codel1417.tailApp"
