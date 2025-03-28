@@ -27,7 +27,7 @@ if (project.hasProperty("versionCode")) {
     if (flutterVersionCode == null) {
         flutterVersionCode = "1"
     }
-
+flutterVersionCode = (flutterVersionCode.toInt() + 100000).toString()
 
 var flutterVersionName = localProperties.getProperty("flutter.versionName")
 if (project.hasProperty("versionName")) {
