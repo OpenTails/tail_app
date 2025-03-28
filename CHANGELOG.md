@@ -1,7 +1,8 @@
-### V 1.1.5
+### V 1.2.0
 
 - Hide Eargear triggers if no Ears are paired
 - Add setting to change the app language
+- On Android, You can now control your gear from your Wear OS watch.
 
 ### V 1.1.4
 
