@@ -141,8 +141,13 @@ Future<void> updateWearData(Ref ref) async {
     // Listen for gear connect/disconnect events
     ref.watch(getAvailableGearProvider);
 
-    final WearLocalizationData localizationData =
-        WearLocalizationData(triggersPage: triggersPage(), actionsPage: watchFavoriteActionsTitle(), favoriteActionsDescription: watchFavoriteActionsNoFavoritesTip(), knownGear: watchKnownGearTitle(), watchKnownGearNoGearPairedTip: watchKnownGearNoGearPairedTip());
+    final WearLocalizationData localizationData = WearLocalizationData(
+      triggersPage: triggersPage(),
+      actionsPage: watchFavoriteActionsTitle(),
+      favoriteActionsDescription: watchFavoriteActionsNoFavoritesTip(),
+      knownGear: watchKnownGearTitle(),
+      watchKnownGearNoGearPairedTip: watchKnownGearNoGearPairedTip(),
+    );
     final WearData wearData = WearData(
       favoriteActions: favoriteMap,
       configuredTriggers: triggersMap,

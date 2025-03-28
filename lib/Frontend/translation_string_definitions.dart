@@ -448,7 +448,7 @@ String appLanguageSelectorTitle() => Intl.message('App Language', name: 'appLang
 
 String watchKnownGearTitle() => Intl.message('Your Gear', name: 'watchKnownGearTitle', desc: 'The title for the known gear section of the watch app');
 
-String watchFavoriteActionsNoFavoritesTip() => Intl.message('On your phone, Long press an action to favorite', name: 'watchKnownGearTitle', desc: 'the tip for when no actions are favorited on the watch app');
+String watchFavoriteActionsNoFavoritesTip() => Intl.message('On your phone, Long press an action to favorite', name: 'watchFavoriteActionsNoFavoritesTip', desc: 'the tip for when no actions are favorited on the watch app');
 
 String watchFavoriteActionsTitle() => Intl.message("Favorite Actions", name: 'watchFavoriteActionsTitle', desc: 'title for the favorite actions section of the watch app');
 
