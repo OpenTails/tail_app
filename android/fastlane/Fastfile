@@ -27,10 +27,10 @@ default_platform(:android)
         match_lightweight_tag: false, 
     )
     gradle(
-        task: 'wear:bundle',
-        build_type: 'Release'
+        task: "wear:bundle",
+        build_type: "Release",
         properties: {
-          "android.injected.version.code" => ENV['BUILD_NUMBER'],
+          "android.injected.version.code" => ENV['BUILD_NUMBER'].to_i,
           "android.injected.version.name" => ENV['VERSION'],
         }
     )
