@@ -72,7 +72,7 @@ android {
     }
     buildTypes {
         release {
-            signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
+            signingConfig signingConfigs.release
             ndk {
                 debugSymbolLevel "SYMBOL_TABLE"
             }
