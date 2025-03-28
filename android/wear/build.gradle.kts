@@ -13,7 +13,11 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
-
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("key.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
+}
 android {
     namespace = "com.codel1417.tailApp"
     compileSdk = 34
@@ -22,8 +26,8 @@ android {
         applicationId = "com.codel1417.tailApp"
         minSdk = 30
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = localProperties["flutter.versionCode"] as Int
+        versionName = localProperties["flutter.versionName"] as String
         vectorDrawables {
             useSupportLibrary = true
         }
