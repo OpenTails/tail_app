@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-03-27T02:02:09.787612",
+  "@@last_modified": "2025-03-28T01:15:37.916563",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1206,6 +1206,12 @@
   "watchKnownGearTitle": "Your Gear",
   "@watchKnownGearTitle": {
     "description": "The title for the known gear section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsNoFavoritesTip": "On your phone, Long press an action to favorite",
+  "@watchFavoriteActionsNoFavoritesTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
     "type": "text",
     "placeholders": {}
   },
