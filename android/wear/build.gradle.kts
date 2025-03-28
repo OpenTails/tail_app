@@ -18,6 +18,27 @@ val localPropertiesFile = rootProject.file("key.properties")
 if (localPropertiesFile.exists()) {
     localProperties.load(FileInputStream(localPropertiesFile))
 }
+
+
+var flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+if (project.hasProperty("versionCode")) {
+    flutterVersionCode = project.properties["versionCode"] as String
+} else
+    if (flutterVersionCode == null) {
+        flutterVersionCode = "1"
+    }
+
+
+var flutterVersionName = localProperties.getProperty("flutter.versionName")
+if (project.hasProperty("versionName")) {
+    flutterVersionName = project.properties["versionName"] as String
+} else
+    if (flutterVersionName == null) {
+        flutterVersionName = "1.0"
+    }
+
+
+
 android {
     namespace = "com.codel1417.tailApp"
     compileSdk = 34
@@ -26,8 +47,8 @@ android {
         applicationId = "com.codel1417.tailApp"
         minSdk = 30
         targetSdk = 34
-        versionCode = localProperties["flutter.versionCode"] as Int
-        versionName = localProperties["flutter.versionName"] as String
+        versionCode = flutterVersionCode.toInt()
+        versionName = flutterVersionName
         vectorDrawables {
             useSupportLibrary = true
         }
