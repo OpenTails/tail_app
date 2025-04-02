@@ -329,7 +329,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverDescription": "Seade katmata",
+  "triggerCoverDescription": "Käivita toiming, kattes lähedussensori",
   "@triggerCoverDescription": {
     "description": "Cover trigger description",
     "type": "text",
@@ -545,7 +545,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Käigu asendi otse juhtimine.",
+  "joyStickPageDescription": "Juhi oma varustuse asukohta otse.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -1040,6 +1040,198 @@
   "settingsTailBlogWifiOnlyDescription": "Vältige Tail Blogi sisu laadimist, kui olete mobiilsidevõrguga ühendatud",
   "@settingsTailBlogWifiOnlyDescription": {
     "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageCoverPromoTitle": "Muuda oma varustuse välimust!",
+  "@morePageCoverPromoTitle": {
+    "description": "The title for the button on the More page to push users to buy a new cover",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateTitle": "Lokaliseerimine",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateDescription": "Aita meil rakendus oma keelde tõlkida",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLanguageSelectorTitle": "Rakenduse keel",
+  "@appLanguageSelectorTitle": {
+    "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonDownloadFailed": "Püsivara faili allalaadimine ebaõnnestus",
+  "@otaFailedReasonDownloadFailed": {
+    "description": "downloadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearVersionMismatch": "Varustuse püsivara versioon ei ühti üleslaetud versiooniga",
+  "@otaFailedReasonGearVersionMismatch": {
+    "description": "gearVersionMismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReturnedError": "Varustus tagastas tundmatu vea",
+  "@otaFailedReasonGearReturnedError": {
+    "description": "gearReturnedError error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonUploadFailed": "Püsivara üleslaadimine varustusse ebaõnnestus",
+  "@otaFailedReasonUploadFailed": {
+    "description": "uploadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonMD5Mismatch": "Allalaaditud faili kontroll ebaõnnestus",
+  "@otaFailedReasonMD5Mismatch": {
+    "description": "md5Mismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReconnectTimeout": "Varustus ei ühendanud end õigeaegselt uuesti",
+  "@otaFailedReasonGearReconnectTimeout": {
+    "description": "gearReconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearNoGearPairedTip": "Kasuta oma telefonis nuppu „Skaneeri uut varustust”, et siduda seade",
+  "@watchKnownGearNoGearPairedTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearTitle": "Sinu varustus",
+  "@watchKnownGearTitle": {
+    "description": "The title for the known gear section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsTitle": "Lemmiktegevused",
+  "@watchFavoriteActionsTitle": {
+    "description": "title for the favorite actions section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeToggleTitle": "Luba konverentsirežiim",
+  "@manageGearConModeToggleTitle": {
+    "description": "The description for the convention mode enabled button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeCopy": "Kopeeri lõikelauale",
+  "@manageGearConModePincodeCopy": {
+    "description": "The description for copy to clipboard button on the pin code dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearOtaFinalTimeout": "Aeg sai otsa enne, kui varustus tagastas uue püsivara versiooni",
+  "@otaFailedReasonGearOtaFinalTimeout": {
+    "description": "gearOtaFinalTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeTitle": "Konverentsirežiim",
+  "@manageGearConModeTitle": {
+    "description": "The title for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsNoFavoritesTip": "Hoia telefoni ekraanil toimingul pikalt peal, et see lemmikuks märkida",
+  "@watchFavoriteActionsNoFavoritesTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckButtonLabel": "Otsi värskendust",
+  "@manageDevicesOtaCheckButtonLabel": {
+    "description": "manage devices button to check if an update is available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearDisconnectTimeout": "Varustus ei katkestanud ühendust õigel ajal ja tõenäoliselt ei taaskäivitunud",
+  "@otaFailedReasonGearDisconnectTimeout": {
+    "description": "gearDisconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeEnableDescription": "Kui aktiveerid konverentsirežiimi, taaskäivitub varustus ja sinult küsitakse PIN-koodi. Kood kopeeritakse lõikelauale",
+  "@manageGearConModePincodeEnableDescription": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaUpToDateButtonLabel": "Varustus on ajakohane!",
+  "@manageDevicesOtaUpToDateButtonLabel": {
+    "description": "manage devices button label if gear is up to date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckInProgressButtonLabel": "Kontrollin",
+  "@manageDevicesOtaCheckInProgressButtonLabel": {
+    "description": "manage devices button label if gear is checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckErrorButtonLabel": "Palun proovi hiljem uuesti",
+  "@manageDevicesOtaCheckErrorButtonLabel": {
+    "description": "manage devices button label if an error occured while checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutLabel": "Teave sinu varustuse kohta",
+  "@manageDevicesAboutLabel": {
+    "description": "label for the about your gear section in the manage devices area",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutHardwareVersionLabel": "Riistvara versioon",
+  "@manageDevicesAboutHardwareVersionLabel": {
+    "description": "label for the hardware version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutSoftwareVersionLabel": "Tarkvara versioon",
+  "@manageDevicesAboutSoftwareVersionLabel": {
+    "description": "label for the software version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportTitle": "Tugi",
+  "@supportTitle": {
+    "description": "The label and title of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeDescription": "Konverentsirežiim on lisaturvameede, mis takistab teistel seadmetel sinu varustusega ühenduse loomist.",
+  "@manageGearConModeDescription": {
+    "description": "The description for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeTitle": "Vaata PIN-koodi",
+  "@manageGearConModePincodeTitle": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "feedbackPageDescription": "On sul ettepanek või probleem rakendusega? Anna meile teada. Märkus: see on anonüümne ega aita varustusega seotud probleeme lahendada",
+  "@feedbackPageDescription": {
+    "description": "The description of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportDescription": "Puuduta sinist vestluse ikooni, et võtta ühendust tugimeeskonnaga",
+  "@supportDescription": {
+    "description": "The description of the email support link on the more page",
     "type": "text",
     "placeholders": {}
   }
