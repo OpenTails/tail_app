@@ -545,7 +545,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Direkte Steuerung der Position.",
+  "joyStickPageDescription": "Steuere direkt die Position deines Gear.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
