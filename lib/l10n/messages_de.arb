@@ -545,7 +545,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Direkte Steuerung der Ausrüstungsposition.",
+  "joyStickPageDescription": "Direkte Steuerung der Position.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -1208,6 +1208,30 @@
   "appLanguageSelectorTitle": "App Sprache",
   "@appLanguageSelectorTitle": {
     "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearNoGearPairedTip": "Tippe auf „Neue Ausrüstung scannen“, um sie zu koppeln",
+  "@watchKnownGearNoGearPairedTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearTitle": "Deine Ausrüstung",
+  "@watchKnownGearTitle": {
+    "description": "The title for the known gear section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsTitle": "Favorisierte Aktionen",
+  "@watchFavoriteActionsTitle": {
+    "description": "title for the favorite actions section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsNoFavoritesTip": "Lange drücken zum Favorisieren",
+  "@watchFavoriteActionsNoFavoritesTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
     "type": "text",
     "placeholders": {}
   }
