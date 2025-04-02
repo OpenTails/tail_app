@@ -1217,7 +1217,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "watchKnownGearTitle": "Deine Ausrüstung",
+  "watchKnownGearTitle": "Dein Gear",
   "@watchKnownGearTitle": {
     "description": "The title for the known gear section of the watch app",
     "type": "text",
