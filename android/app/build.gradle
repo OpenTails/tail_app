@@ -56,6 +56,10 @@ android {
         versionName flutterVersionName
         minSdkVersion 23
         targetSdkVersion rootProject.ext.targetSdkVersion
+        ndk {
+            // Filter for architectures supported by Flutter
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86_64"
+        }
     }
     signingConfigs {
         release {
