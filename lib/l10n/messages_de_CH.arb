@@ -1210,5 +1210,29 @@
     "description": "The title for the button and dialog to select the app language",
     "type": "text",
     "placeholders": {}
+  },
+  "watchKnownGearTitle": "Diini Usrüstig",
+  "@watchKnownGearTitle": {
+    "description": "The title for the known gear section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsNoFavoritesTip": "Drück lang uf e Handlung, um sie als Lieblings z'speichere",
+  "@watchFavoriteActionsNoFavoritesTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsTitle": "Lieblings Aktionen",
+  "@watchFavoriteActionsTitle": {
+    "description": "title for the favorite actions section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearNoGearPairedTip": "Uf deinem Handy, nimm de `Scän für neui Usrüstig ` Button, um dini Usrüstig z'verbinde",
+  "@watchKnownGearNoGearPairedTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
   }
 }
