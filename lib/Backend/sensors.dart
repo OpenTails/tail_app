@@ -374,6 +374,9 @@ class WalkingTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
+    if (!platform.isAndroid && !platform.isIOS) {
+      return false;
+    }
     bool isStepCountSupported = await Pedometer.isStepCountSupported == true;
     bool isStepDetectionSupported = await Pedometer.isStepDetectionSupported == true;
     return isStepDetectionSupported && isStepCountSupported;
@@ -424,7 +427,10 @@ class CoverTriggerDefinition extends TriggerDefinition {
   }
 
   @override
-  Future<bool> isSupported() {
+  Future<bool> isSupported() async {
+    if (!platform.isAndroid && !platform.isIOS) {
+      return false;
+    }
     return ProximitySensor.isSupported();
   }
 
@@ -467,8 +473,8 @@ class EarMicTriggerDefinition extends TriggerDefinition {
   }
 
   @override
-  Future<bool> isSupported() {
-    return Future.value(ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty);
+  Future<bool> isSupported() async {
+    return ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty;
   }
 
   @override
@@ -551,8 +557,8 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
   }
 
   @override
-  Future<bool> isSupported() {
-    return Future.value(ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty);
+  Future<bool> isSupported() async {
+    return ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty;
   }
 
   @override
@@ -670,8 +676,8 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
   }
 
   @override
-  Future<bool> isSupported() {
-    return Future.value(platform.isAndroid);
+  Future<bool> isSupported() async {
+    return platform.isAndroid;
   }
 
   @override
@@ -706,6 +712,14 @@ class ShakeTriggerDefinition extends TriggerDefinition {
     super.requiredPermission = null;
     super.uuid = "059d445a-35fe-45a3-8d3d-de8bce213a05";
     super.actionTypes = [TriggerActionDef(name: "Shake", translated: triggerShakeTitle(), uuid: "b84b4c7a-2330-4ede-82f4-dca7b6e74b0a")];
+  }
+
+  @override
+  Future<bool> isSupported() async {
+    if (!platform.isAndroid && !platform.isIOS) {
+      return false;
+    }
+    return true;
   }
 
   @override
