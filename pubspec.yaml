@@ -31,14 +31,14 @@ dependencies:
 
   # Platform Interfaces
   device_info_plus: ^11.3.3
-  wakelock_plus: ^1.2.10 # Keeps the screen awake
-  file_picker: ^9.2.1 # used to manually select firmware file
+  wakelock_plus: ^1.2.11 # Keeps the screen awake
+  file_picker: ^10.1.2 # used to manually select firmware file
   path_provider: ^2.1.5 # used to get paths for app storage and cache storage
   package_info_plus: ^8.3.0
-  permission_handler: ^11.4.0
+  permission_handler: ^12.0.0+1
   url_launcher: ^6.3.1 # Open URLS in external apps
   flutter_blue_plus: ^1.35.3
-  flutter_foreground_task: ^8.17.0 # Keep the app running in the background on android
+  flutter_foreground_task: ^9.0.0 # Keep the app running in the background on android
   quick_actions: ^1.1.0 # puts favorites on the home screen
   audioplayers: ^6.4.0
   platform: ^3.1.6 # used to enable mocking platform
@@ -52,19 +52,19 @@ dependencies:
   riverpod_annotation: ^2.6.1
 
   # Widgets / UI
-  flutter_screen_lock: ^9.2.1 # used to hide dev mode toggle
+  flutter_screen_lock: ^9.2.1+1 # used to hide dev mode toggle
   introduction_screen: ^3.1.17 # Onboarding
   flex_color_picker: ^3.7.0
   flutter_adaptive_scaffold: ^0.3.1+1
   animate_do: ^4.2.0
   fl_chart: ^0.70.2 # Used for the battery graph
   chart_sparkline: ^1.1.1 # used for the move easing visual
-  flutter_joystick: ^0.2.1
+  flutter_joystick: ^0.2.2
   #TODO: replace with riverpod providers
   multi_value_listenable_builder: ^0.0.2
   flutter_markdown: ^0.7.6+2
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
-  flutter_native_splash: ^2.4.5
+  flutter_native_splash: ^2.4.6
   choice:
     git:
       url: https://github.com/davigmacode/flutter_choice
@@ -99,10 +99,10 @@ dependencies:
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
 
   # Sentry
-  sentry_flutter: ^8.14.0 # Base sentry + Flutter integration
-  sentry_logging: ^8.14.0 # Collects app logs
+  sentry_flutter: ^8.14.1 # Base sentry + Flutter integration
+  sentry_logging: ^8.14.1 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
-  sentry_dio: ^8.14.0 # Collects Dio HTTP requests
+  sentry_dio: ^8.14.1 # Collects Dio HTTP requests
   feedback_sentry: ^3.1.0
 
 dev_dependencies:
@@ -112,7 +112,7 @@ dev_dependencies:
   json_serializable: ^6.9.4 # required for @JsonSerializable annotations
   hive_ce_generator: ^1.8.2 # required for @HiveType annotations
   go_router_builder: ^2.8.2
-  freezed: ^3.0.4
+  freezed: ^3.0.6
   mockito: ^5.4.5
 
   test:
