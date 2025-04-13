@@ -70,6 +70,28 @@ class MessageStreamSubscription extends _$MessageStreamSubscription {
 }
 
 @Riverpod(keepAlive: true)
+class KnownGearBatteryListener extends _$KnownGearBatteryListener {
+  @override
+  void build() {
+    ref
+        .watch(knownDevicesProvider)
+        .values
+        .map(
+          (e) => e.batteryLevel,
+        )
+        .forEach(
+          (element) => element
+            ..removeListener(listener)
+            ..addListener(listener),
+        );
+  }
+
+  void listener() {
+    ref.invalidateSelf();
+  }
+}
+
+@Riverpod(keepAlive: true)
 Future<void> initWear(Ref ref) async {
   await Future.delayed(const Duration(seconds: 5));
   try {
@@ -140,6 +162,7 @@ Future<void> updateWearData(Ref ref) async {
         .toList();
     // Listen for gear connect/disconnect events
     ref.watch(getAvailableGearProvider);
+    ref.watch(knownGearBatteryListenerProvider);
 
     final WearLocalizationData localizationData = WearLocalizationData(
       triggersPage: triggersPage(),
