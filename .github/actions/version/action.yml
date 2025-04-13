@@ -27,7 +27,7 @@ runs:
       env:
         RELEASE_TAG: ${{ github.event.release.tag_name }}
       run: |
-        # get the Build Bumber & version from git
+        # get the Build Number & version from git
         VERSION="$(head -1 VERSION | egrep -o '[0-9.]+')"
         BUILD_NUMBER="$(git rev-list HEAD --count)"
         # Gets the release tag from github if it exists (Github Actions)

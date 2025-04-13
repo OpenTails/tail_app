@@ -26,6 +26,7 @@ default_platform(:android)
         date_format: "short",
         match_lightweight_tag: false, 
     )
+    #TODO: Split into own job
     gradle(
         task: "wear:bundle",
         build_type: "Release",
