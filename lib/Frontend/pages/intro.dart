@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,7 +45,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    unawaited(setupSystemColor(context));
+    setupSystemColor(context);
     var pageDecoration = PageDecoration(
       titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: const TextStyle(fontSize: 19.0),

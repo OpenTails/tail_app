@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:plausible_analytics/plausible_analytics.dart';
 
@@ -15,7 +13,7 @@ class CustomNavObserver extends NavigatorObserver {
     String? name = route.settings.name;
     String refferalName = previousRoute?.settings.name ?? "";
     if (name != null) {
-      unawaited(plausible.event(page: route.settings.name.toString(), referrer: refferalName));
+      plausible.event(page: route.settings.name.toString(), referrer: refferalName);
     }
   }
 }

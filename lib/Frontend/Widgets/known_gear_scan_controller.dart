@@ -54,7 +54,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
   void dispose() {
     super.dispose();
     _listener.dispose();
-    unawaited(stopScan());
+    stopScan();
   }
 
   @override
@@ -83,7 +83,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
                         return false;
                       }
                       if (!alwaysScan) {
-                        unawaited(beginScan(timeout: scanDurationTimeout, scanReason: ScanReason.manual));
+                        beginScan(timeout: scanDurationTimeout, scanReason: ScanReason.manual);
                       }
                       return true;
                     },
@@ -98,7 +98,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
         },
       );
     }
-    unawaited(stopScan());
+    stopScan();
     return widget.child;
   }
 }

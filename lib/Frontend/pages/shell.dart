@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
@@ -50,7 +48,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
 
   @override
   Widget build(BuildContext context) {
-    unawaited(setupSystemColor(context));
+    setupSystemColor(context);
     return BackButtonToClose(
       child: WearHelper(
           child: AdaptiveScaffold(

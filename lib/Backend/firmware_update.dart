@@ -424,10 +424,10 @@ class OtaUpdater {
   void dispose() {
     _cancelTimers();
     if (!_wakelockEnabledBeforehand) {
-      unawaited(WakelockPlus.disable());
+      WakelockPlus.disable();
     }
     if (!HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault)) {
-      unawaited(stopScan());
+      stopScan();
     }
     if (transaction != null && !transaction!.finished) {
       transaction?.finish(status: SpanStatus.aborted());

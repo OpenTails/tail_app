@@ -9,7 +9,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 // Used as MediaDetails isn't exported
 import 'package:wordpress_client/src/responses/properties/media_details.dart';
 import 'package:wordpress_client/wordpress_client.dart';
@@ -19,7 +18,6 @@ import '../../constants.dart';
 import '../utils.dart';
 
 part 'tail_blog.freezed.dart';
-
 part 'tail_blog.g.dart';
 
 final _wpLogger = Logger('Main');
@@ -47,16 +45,16 @@ class _TailBlogState extends State<TailBlog> {
       firstChild: feedState == FeedState.loading
           ? const LinearProgressIndicator()
           : [FeedState.noInternet, FeedState.error].contains(feedState)
-          ? const Center(
-        child: Opacity(
-          opacity: 0.5,
-          child: Icon(
-            Icons.signal_cellular_connected_no_internet_0_bar,
-            size: 150,
-          ),
-        ),
-      )
-          : Container(),
+              ? const Center(
+                  child: Opacity(
+                    opacity: 0.5,
+                    child: Icon(
+                      Icons.signal_cellular_connected_no_internet_0_bar,
+                      size: 150,
+                    ),
+                  ),
+                )
+              : Container(),
       secondChild: GridView.builder(
         controller: widget.controller,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 500, mainAxisExtent: 300),
@@ -120,7 +118,7 @@ class _TailBlogState extends State<TailBlog> {
   @override
   void initState() {
     super.initState();
-    unawaited(getFeed());
+    getFeed();
   }
 
   Future<void> getFeed() async {
@@ -307,9 +305,7 @@ Future<bool> tailBlogConnectivityCheck() async {
   if (connectivityResult.contains(ConnectivityResult.none)) {
     return false;
   }
-  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) && {ConnectivityResult.wifi, ConnectivityResult.ethernet}
-      .intersection(connectivityResult.toSet())
-      .isEmpty) {
+  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) && {ConnectivityResult.wifi, ConnectivityResult.ethernet}.intersection(connectivityResult.toSet()).isEmpty) {
     return false;
   }
   return true;

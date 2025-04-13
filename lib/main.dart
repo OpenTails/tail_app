@@ -287,7 +287,7 @@ class TailAppWear extends ConsumerWidget {
         child: ValueListenableBuilder(
           valueListenable: Hive.box(settings).listenable(keys: [appColor]),
           builder: (BuildContext context, value, Widget? child) {
-            unawaited(setupSystemColor(context));
+            setupSystemColor(context);
             Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
             Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
             return MaterialApp.router(

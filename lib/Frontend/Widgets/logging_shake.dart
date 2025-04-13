@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:shake/shake.dart';
@@ -30,7 +28,7 @@ class _LoggingShakeState extends State<LoggingShake> {
           detector = ShakeDetector.waitForStart(
             onPhoneShake: () {
               if (context.mounted) {
-                unawaited(const LogsRoute().push(context));
+                const LogsRoute().push(context);
               } else {
                 detector?.stopListening();
                 detector = null;

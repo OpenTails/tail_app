@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,7 +36,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
       onStateChanged: (p0) => setState(() {}),
       onError: (p0) => setState(() => otaError = p0),
     );
-    unawaited(ref.read(hasOtaUpdateProvider(baseStatefulDevice!).future));
+    ref.read(hasOtaUpdateProvider(baseStatefulDevice!).future);
   }
 
   @override

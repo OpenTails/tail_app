@@ -6,7 +6,6 @@ import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
-import 'package:tail_app/main.dart';
 
 import '../Backend/Definitions/Action/base_action.dart';
 import '../Backend/Definitions/Device/device_definition.dart';
@@ -52,7 +51,7 @@ final GoRouter router = GoRouter(
   redirect: (context, state) async {
     String name = state.uri.path;
     if (name.isNotEmpty) {
-      unawaited(plausible.event(page: name.toString(), referrer: _previousPageName));
+      plausible.event(page: name.toString(), referrer: _previousPageName);
       _previousPageName = name;
     }
     return null;

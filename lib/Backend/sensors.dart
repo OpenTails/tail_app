@@ -166,21 +166,21 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
     }
     if (!value && actions.isEmpty) {
       _enabled = false;
-      unawaited(onDisable());
+      onDisable();
       notifyListeners();
     } else if (requiredPermission != null && value) {
-      unawaited(
-        requiredPermission?.hasAllPermissions().then((granted) async {
+      requiredPermission?.hasAllPermissions().then(
+        (granted) async {
           if (granted) {
             _enabled = true;
             onEnable();
           }
           notifyListeners();
-        }),
+        },
       );
     } else if (value) {
       _enabled = true;
-      unawaited(onEnable());
+      onEnable();
       notifyListeners();
     }
 
@@ -872,7 +872,7 @@ class TriggerList extends _$TriggerList {
       trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == '86b13d13-b09c-46ba-a887-b40d8118b00a').uuid);
       trigger.actions.firstWhere((element) => element.uuid == '7424097d-ba24-4d85-b963-bf58e85e289d').actions.add(ActionRegistry.allCommands.firstWhere((element) => element.uuid == 'd8384bcf-31ed-4b5d-a25a-da3a2f96e406').uuid);
 
-      unawaited(store());
+      store();
       return [trigger].build();
     }
     return results.build();

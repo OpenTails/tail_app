@@ -69,7 +69,7 @@ class _HtmlPageState extends State<HtmlPage> {
   @override
   void initState() {
     super.initState();
-    unawaited(getContent());
+    getContent();
   }
 
   Future<void> getContent() async {
