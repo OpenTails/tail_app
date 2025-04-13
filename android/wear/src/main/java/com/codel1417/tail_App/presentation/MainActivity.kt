@@ -80,28 +80,20 @@ import java.io.ObjectOutputStream
  * Watch to App communication
  */
 class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
-    MessageClient.OnMessageReceivedListener, CapabilityClient.OnCapabilityChangedListener {
+     CapabilityClient.OnCapabilityChangedListener {
     private var wearData: MutableLiveData<WearData> = MutableLiveData<WearData>(WearData());
 
     private lateinit var dataClient: DataClient
-    private lateinit var messageClient: MessageClient
-    private lateinit var nodeClient: NodeClient
-    private lateinit var capabilityClient: CapabilityClient
     override fun onResume() {
         super.onResume()
         println("onResume()")
         Wearable.getDataClient(this).addListener(this)
-        Wearable.getMessageClient(this).addListener(this)
-
     }
 
     override fun onPause() {
         super.onPause()
         println("onPause()")
         Wearable.getDataClient(this).removeListener(this)
-        Wearable.getCapabilityClient(this).removeListener(this)
-        Wearable.getMessageClient(this).removeListener(this)
-
     }
 
     /**
@@ -176,7 +168,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     // Create a data map and put data in it
     private fun sendMessageToPhone(data: WearSendData) {
         try {
-            capabilityClient
+            getCapabilityClient(this)
                 .getCapability(
                     data.capability,
                     FILTER_REACHABLE
@@ -193,7 +185,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         gson.toJson(data),
                         messageType
                     )
-                    messageClient.sendMessage(capabilityId, "/${data.capability}", asBytes(message))
+                    Wearable.getMessageClient(this).sendMessage(capabilityId, "/${data.capability}", asBytes(message))
                 }
         } catch (e: Exception) {
             println("Error triggering action $e")
@@ -210,18 +202,15 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
         setTheme(R.style.Theme_DeviceDefault)
 
         setContent {
-            WearApp("Android")
+            WearApp()
         }
     }
 
     //TODO: When app is visible, send a message to update application context
     @Composable
-    fun WearApp(greetingName: String) {
+    fun WearApp() {
         println("WearApp()")
-        dataClient = Wearable.getDataClient(LocalContext.current)
-        messageClient = Wearable.getMessageClient(LocalContext.current)
-        nodeClient = Wearable.getNodeClient(LocalContext.current)
-        capabilityClient = getCapabilityClient(LocalContext.current)
+        dataClient = Wearable.getDataClient(this)
         val state: State<WearData?> = wearData.observeAsState()
 
         // Safely update the current lambdas when a new one is provided
@@ -311,7 +300,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
             val listState = rememberScalingLazyListState()
             Scaffold(
                 timeText = {
-                    if (!listState.isScrollInProgress) TimeText()
+                    TimeText()
                 },
                 positionIndicator = {
                     PositionIndicator(scalingLazyListState = listState)
@@ -406,7 +395,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     @Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
     @Composable
     fun DefaultPreview() {
-        WearApp("Preview Android Awoo")
+        WearApp()
     }
 
     @Composable
@@ -475,10 +464,6 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                 }
             },
         )
-    }
-
-    override fun onMessageReceived(p0: MessageEvent) {
-        println("onMessageReceived() ${p0.path} ${p0.data}")
     }
 
     override fun onCapabilityChanged(p0: CapabilityInfo) {

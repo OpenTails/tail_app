@@ -18,10 +18,10 @@ import 'favorite_actions.dart';
 import 'move_lists.dart';
 
 part 'wear_bridge.freezed.dart';
+
 part 'wear_bridge.g.dart';
 
 final Logger _wearLogger = Logger('Wear');
-StreamSubscription<Map<String, dynamic>>? _contextStreamSubscription;
 final _watch = WatchConnectivity();
 WearThemeData? wearThemeData;
 
@@ -34,7 +34,7 @@ class MessageStreamSubscription extends _$MessageStreamSubscription {
     // Get the state of device connectivity
     _messageStreamSubscription = _watch.messageStream.listen(listener);
     ref.onDispose(
-      () => _messageStreamSubscription?.cancel(),
+          () => _messageStreamSubscription?.cancel(),
     );
   }
 
@@ -56,7 +56,7 @@ class MessageStreamSubscription extends _$MessageStreamSubscription {
             .read(triggerListProvider)
             .where(
               (p0) => p0.uuid == wearCommand.uuid,
-            )
+        )
             .firstOrNull;
         if (trigger != null) {
           trigger.enabled = wearCommand.enabled;
@@ -78,16 +78,17 @@ class KnownGearBatteryListener extends _$KnownGearBatteryListener {
         .values
         .map(
           (e) => e.batteryLevel,
-        )
+    )
         .forEach(
-          (element) => element
-            ..removeListener(listener)
-            ..addListener(listener),
-        );
+          (element) =>
+      element
+        ..removeListener(listener)
+        ..addListener(listener),
+    );
   }
 
   void listener() {
-    ref.invalidateSelf();
+    ref.refresh(updateWearDataProvider);
   }
 }
 
@@ -95,14 +96,8 @@ class KnownGearBatteryListener extends _$KnownGearBatteryListener {
 Future<void> initWear(Ref ref) async {
   await Future.delayed(const Duration(seconds: 5));
   try {
-    _contextStreamSubscription = _watch.contextStream.listen(
-      (event) => _wearLogger.info("Watch Context: $event"),
-    );
     ref.watch(messageStreamSubscriptionProvider);
-    ref.onDispose(
-      () => ref.invalidate(messageStreamSubscriptionProvider),
-    );
-    //ref.read(updateWearActionsProvider);
+    ref.watch(knownGearBatteryListenerProvider);
   } catch (e, s) {
     _wearLogger.severe("exception setting up Wear $e", e, s);
   }
@@ -111,25 +106,25 @@ Future<void> initWear(Ref ref) async {
 Future<bool> isReachable() {
   return _watch.isReachable.catchError((e) => false).onError(
         (error, stackTrace) => false,
-      );
+  );
 }
 
 Future<bool> isSupported() {
   return _watch.isSupported.catchError((e) => false).onError(
         (error, stackTrace) => false,
-      );
+  );
 }
 
 Future<bool> isPaired() {
   return _watch.isPaired.catchError((e) => false).onError(
         (error, stackTrace) => false,
-      );
+  );
 }
 
 Future<Map<String, dynamic>> applicationContext() {
   return _watch.applicationContext.catchError((e) => <String, dynamic>{}).onError(
         (error, stackTrace) => {},
-      );
+  );
 }
 
 @Riverpod()
@@ -142,7 +137,7 @@ Future<void> updateWearData(Ref ref) async {
         .read(favoriteActionsProvider)
         .map(
           (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),
-        )
+    )
         .nonNulls;
     BuiltList<Trigger> triggers = ref.watch(triggerListProvider);
     final List<WearActionData> favoriteMap = allActions.map((e) => WearActionData(uuid: e.uuid, name: e.name)).toList();
@@ -151,18 +146,18 @@ Future<void> updateWearData(Ref ref) async {
         .watch(knownDevicesProvider)
         .values
         .map(
-          (e) => WearGearData(
+          (e) =>
+          WearGearData(
             name: e.baseStoredDevice.name,
             uuid: e.baseStoredDevice.btMACAddress,
             batteryLevel: e.batteryLevel.value.toInt(),
             connected: e.deviceConnectionState.value == ConnectivityState.connected,
             color: e.baseStoredDevice.color,
           ),
-        )
+    )
         .toList();
     // Listen for gear connect/disconnect events
     ref.watch(getAvailableGearProvider);
-    ref.watch(knownGearBatteryListenerProvider);
 
     final WearLocalizationData localizationData = WearLocalizationData(
       triggersPage: triggersPage(),
