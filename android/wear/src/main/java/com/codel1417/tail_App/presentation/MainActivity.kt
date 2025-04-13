@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -26,7 +27,11 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults
@@ -76,7 +81,7 @@ import java.io.ObjectOutputStream
  */
 class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     MessageClient.OnMessageReceivedListener, CapabilityClient.OnCapabilityChangedListener {
-    private var wearData: MutableLiveData<WearData> = MutableLiveData<WearData>();
+    private var wearData: MutableLiveData<WearData> = MutableLiveData<WearData>(WearData());
 
     private lateinit var dataClient: DataClient
     private lateinit var messageClient: MessageClient
@@ -217,14 +222,90 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
         messageClient = Wearable.getMessageClient(LocalContext.current)
         nodeClient = Wearable.getNodeClient(LocalContext.current)
         capabilityClient = getCapabilityClient(LocalContext.current)
-        dataClient.dataItems
-            .addOnSuccessListener { result -> result.forEach { item -> getWearDataItem(item) } }
         val state: State<WearData?> = wearData.observeAsState()
-        sendMessageToPhone(
-            data = WearSendData(
-                capability = "refresh",
-            )
-        )
+
+        // Safely update the current lambdas when a new one is provided
+        val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+
+        // If `lifecycleOwner` changes, dispose and reset the effect
+        DisposableEffect(lifecycleOwner) {
+            // Create an observer that triggers our remembered callbacks
+            // for lifecycle events
+            val observer = LifecycleEventObserver { _, event ->
+                when (event) {
+                    Lifecycle.Event.ON_CREATE -> {
+                        sendMessageToPhone(
+                            data = WearSendData(
+                                capability = "refresh",
+                            )
+                        )
+                        dataClient.dataItems
+                            .addOnSuccessListener { result ->
+                                result.forEach { item ->
+                                    getWearDataItem(
+                                        item
+                                    )
+                                }
+                            }
+                    }
+
+                    Lifecycle.Event.ON_START -> {
+                        sendMessageToPhone(
+                            data = WearSendData(
+                                capability = "refresh",
+                            )
+                        )
+                        dataClient.dataItems
+                            .addOnSuccessListener { result ->
+                                result.forEach { item ->
+                                    getWearDataItem(
+                                        item
+                                    )
+                                }
+                            }
+                    }
+
+                    Lifecycle.Event.ON_RESUME -> {
+                        sendMessageToPhone(
+                            data = WearSendData(
+                                capability = "refresh",
+                            )
+                        )
+                        dataClient.dataItems
+                            .addOnSuccessListener { result ->
+                                result.forEach { item ->
+                                    getWearDataItem(
+                                        item
+                                    )
+                                }
+                            }
+                    }
+
+                    Lifecycle.Event.ON_PAUSE -> {
+
+                    }
+
+                    Lifecycle.Event.ON_STOP -> {
+
+                    }
+
+                    Lifecycle.Event.ON_DESTROY -> {
+
+                    }
+
+                    else -> {}
+                }
+            }
+            // Add the observer to the lifecycle
+            lifecycleOwner.lifecycle.addObserver(observer)
+            onDispose {
+                lifecycleOwner.lifecycle.removeObserver(observer)
+            }
+        }
+
+
+
+
         _androidTheme {
             // Hoist the list state to remember scroll position across compositions.
             val listState = rememberScalingLazyListState()
