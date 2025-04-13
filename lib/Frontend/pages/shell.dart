@@ -49,6 +49,7 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
   @override
   Widget build(BuildContext context) {
     setupSystemColor(context);
+    ref.watch(initLocaleProvider);
     return BackButtonToClose(
       child: WearHelper(
           child: AdaptiveScaffold(

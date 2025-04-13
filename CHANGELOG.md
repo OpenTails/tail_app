@@ -1,3 +1,8 @@
+### V 1.2.1
+
+- Add app language option to onboarding
+- App now updates immediatly when language is changed
+
 ### V 1.2.0
 
 - Hide Eargear triggers if no Ears are paired

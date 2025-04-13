@@ -35,7 +35,9 @@ import 'constants.dart';
 import 'l10n/app_localizations.dart';
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
-  bool reportingEnabled = HiveProxy.getOrDefault(settings, "allowErrorReporting", defaultValue: true);
+  bool reportingEnabled = HiveProxy.getOrDefault(
+      settings, "allowErrorReporting",
+      defaultValue: true);
   if (reportingEnabled) {
     if (kDebugMode) {
       print('Before sending sentry event');
@@ -104,15 +106,19 @@ Future<void> startSentryApp(Widget child) async {
         ..debug = kDebugMode
         ..diagnosticLevel = SentryLevel.info
         ..environment = environment
-        ..tracesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryConfig.tracesSampleRate
-        ..profilesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryConfig.profilesSampleRate
+        ..tracesSampleRate =
+            kDebugMode ? 1 : dynamicConfigInfo.sentryConfig.tracesSampleRate
+        ..profilesSampleRate =
+            kDebugMode ? 1 : dynamicConfigInfo.sentryConfig.profilesSampleRate
         ..beforeSend = beforeSend
         ..reportPackages = false
         ..attachScreenshot = true
         ..screenshotQuality = SentryScreenshotQuality.low
         ..attachScreenshotOnlyWhenResumed = true
-        ..experimental.replay.sessionSampleRate = dynamicConfigInfo.sentryConfig.replaySessionSampleRate
-        ..experimental.replay.onErrorSampleRate = dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
+        ..experimental.replay.sessionSampleRate =
+            dynamicConfigInfo.sentryConfig.replaySessionSampleRate
+        ..experimental.replay.onErrorSampleRate =
+            dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
     },
     // Init your App.
     // ignore: missing_provider_scope
@@ -139,14 +145,15 @@ Future<void> main() async {
   });
   initFlutter();
   await initHive();
-  await initLocale();
-
   initMainApp();
 }
 
 void initFlutter() {
-  WidgetsBinding widgetsBinding = SentryWidgetsFlutterBinding.ensureInitialized()..addObserver(WidgetBindingLogger());
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); // keeps the splash screen visible
+  WidgetsBinding widgetsBinding =
+      SentryWidgetsFlutterBinding.ensureInitialized()
+        ..addObserver(WidgetBindingLogger());
+  FlutterNativeSplash.preserve(
+      widgetsBinding: widgetsBinding); // keeps the splash screen visible
 }
 
 class WidgetBindingLogger extends WidgetsBindingObserver {
@@ -163,7 +170,7 @@ class WidgetBindingLogger extends WidgetsBindingObserver {
 
   @override
   Future<void> didChangeLocales(List<Locale>? locales) async {
-    await initLocale();
+    //await initLocale();
   }
 }
 
@@ -225,10 +232,13 @@ class TailApp extends ConsumerWidget {
         ..put(settings, showDebugging, true)
         ..put(settings, allowAnalytics, false)
         ..put(settings, allowErrorReporting, true)
-        ..put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree)
+        ..put(settings, hasCompletedOnboarding,
+            hasCompletedOnboardingVersionToAgree)
         ..put(settings, showDemoGear, true);
     }
   }
+
+  GlobalKey appKey = GlobalKey();
 
   // This widget is the root of your application.
   @override
@@ -244,22 +254,10 @@ class TailApp extends ConsumerWidget {
               themeMode: ThemeMode.system,
               darkTheme: FeedbackThemeData.dark(),
               child: ValueListenableBuilder(
-                valueListenable: Hive.box(settings).listenable(keys: [appColor]),
+                valueListenable:
+                    Hive.box(settings).listenable(keys: [appColor]),
                 builder: (BuildContext context, value, Widget? child) {
-                  setupSystemColor(context);
-                  Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
-                  Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-                  return MaterialApp.router(
-                    title: title(),
-                    color: color,
-                    theme: buildTheme(Brightness.light, color),
-                    darkTheme: buildTheme(Brightness.dark, color),
-                    routerConfig: router,
-                    localizationsDelegates: [LocaleNamesLocalizationsDelegate(), ...AppLocalizations.localizationsDelegates],
-                    supportedLocales: AppLocalizations.supportedLocales,
-                    themeMode: ThemeMode.system,
-                    debugShowCheckedModeBanner: false,
-                  );
+                  return TailAppMainWidget();
                 },
               ),
             ),
@@ -270,40 +268,30 @@ class TailApp extends ConsumerWidget {
   }
 }
 
-class TailAppWear extends ConsumerWidget {
-  TailAppWear({super.key}) {
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    mainLogger.info('Starting Watch app');
-  }
+class TailAppMainWidget extends ConsumerWidget {
+  const TailAppMainWidget({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ProviderScope(
-      observers: [
-        RiverpodProviderObserver(),
+    setupSystemColor(context);
+    ref.watch(initLocaleProvider);
+    Future(
+        FlutterNativeSplash.remove); //remove the splash screen one frame later
+    Color color = Color(HiveProxy.getOrDefault(settings, appColor,
+        defaultValue: appColorDefault));
+    return MaterialApp.router(
+      title: title(),
+      color: color,
+      theme: buildTheme(Brightness.light, color),
+      darkTheme: buildTheme(Brightness.dark, color),
+      routerConfig: router,
+      localizationsDelegates: [
+        LocaleNamesLocalizationsDelegate(),
+        ...AppLocalizations.localizationsDelegates
       ],
-      child: _EagerInitialization(
-        child: ValueListenableBuilder(
-          valueListenable: Hive.box(settings).listenable(keys: [appColor]),
-          builder: (BuildContext context, value, Widget? child) {
-            setupSystemColor(context);
-            Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
-            Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-            return MaterialApp.router(
-              title: title(),
-              color: color,
-              theme: buildTheme(Brightness.light, color),
-              darkTheme: buildTheme(Brightness.dark, color),
-              routerConfig: router,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              themeMode: ThemeMode.system,
-              debugShowCheckedModeBanner: false,
-            );
-          },
-        ),
-      ),
+      supportedLocales: AppLocalizations.supportedLocales,
+      themeMode: ThemeMode.system,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -336,7 +324,8 @@ ThemeData buildTheme(Brightness brightness, Color color) {
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(),
       filledButtonTheme: FilledButtonThemeData(
-        style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color), elevation: 1),
+        style: ElevatedButton.styleFrom(
+            foregroundColor: getTextColor(color), elevation: 1),
       ),
     );
   }
@@ -369,7 +358,8 @@ class RiverpodProviderObserver extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    riverpodLogger.info('Provider $provider updated from $previousValue to $newValue');
+    riverpodLogger
+        .info('Provider $provider updated from $previousValue to $newValue');
   }
 
   @override
@@ -379,7 +369,8 @@ class RiverpodProviderObserver extends ProviderObserver {
     StackTrace stackTrace,
     ProviderContainer container,
   ) {
-    riverpodLogger.warning('Provider $provider threw $error at $stackTrace', error, stackTrace);
+    riverpodLogger.warning(
+        'Provider $provider threw $error at $stackTrace', error, stackTrace);
   }
 }
 
