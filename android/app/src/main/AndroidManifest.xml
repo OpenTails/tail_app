@@ -90,14 +90,16 @@
         <meta-data
             android:name="io.flutter.embedding.android.EnableImpeller"
             android:value="true" />
-
+        <meta-data
+            android:name="com.codel1417.tailApp.notificationIcon"
+            android:resource="@drawable/ic_notification" />
         <!-- Add android:stopWithTask option only when necessary. -->
         <service
             android:name="com.pravera.flutter_foreground_task.service.ForegroundService"
             android:exported="false"
             android:foregroundServiceType="connectedDevice"
             android:stopWithTask="true" />
-        
+
     </application>
     <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>
