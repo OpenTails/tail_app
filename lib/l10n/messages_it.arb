@@ -545,7 +545,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Controllare direttamente la posizione del cambio.",
+  "joyStickPageDescription": "Controlla direttamente la posizione del tuo dispositivo.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -1040,6 +1040,198 @@
   "settingsTailBlogWifiOnlyDescription": "Impedire il caricamento dei contenuti del blog Tail mentre si è connessi a una rete mobile",
   "@settingsTailBlogWifiOnlyDescription": {
     "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeCopy": "Copia negli appunti",
+  "@manageGearConModePincodeCopy": {
+    "description": "The description for copy to clipboard button on the pin code dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageCoverPromoTitle": "Cambia l’aspetto del tuo dispositivo!",
+  "@morePageCoverPromoTitle": {
+    "description": "The title for the button on the More page to push users to buy a new cover",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateTitle": "Traduzione",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateDescription": "Aiutaci a tradurre l'app nella tua lingua",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLanguageSelectorTitle": "Lingua dell'app",
+  "@appLanguageSelectorTitle": {
+    "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearNoGearPairedTip": "Usa il pulsante \"Scansiona nuovo dispositivo\" sul telefono per abbinarlo",
+  "@watchKnownGearNoGearPairedTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearTitle": "Il tuo dispositivo",
+  "@watchKnownGearTitle": {
+    "description": "The title for the known gear section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsTitle": "Azioni preferite",
+  "@watchFavoriteActionsTitle": {
+    "description": "title for the favorite actions section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsNoFavoritesTip": "Tieni premuto su un'azione per aggiungerla ai preferiti",
+  "@watchFavoriteActionsNoFavoritesTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonMD5Mismatch": "Il file scaricato non ha superato la verifica",
+  "@otaFailedReasonMD5Mismatch": {
+    "description": "md5Mismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeTitle": "Mostra il PIN",
+  "@manageGearConModePincodeTitle": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeEnableDescription": "Attivando la modalità convention, il dispositivo verrà riavviato e ti verrà chiesto di inserire il PIN. Il PIN verrà copiato negli appunti",
+  "@manageGearConModePincodeEnableDescription": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearVersionMismatch": "La versione del firmware sul dispositivo non corrisponde a quella caricata",
+  "@otaFailedReasonGearVersionMismatch": {
+    "description": "gearVersionMismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportTitle": "Supporto",
+  "@supportTitle": {
+    "description": "The label and title of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportDescription": "Tocca l'icona blu della chat per contattare il supporto",
+  "@supportDescription": {
+    "description": "The description of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearDisconnectTimeout": "Il dispositivo non si è disconnesso in tempo e probabilmente non si è riavviato",
+  "@otaFailedReasonGearDisconnectTimeout": {
+    "description": "gearDisconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckButtonLabel": "Controlla aggiornamenti",
+  "@manageDevicesOtaCheckButtonLabel": {
+    "description": "manage devices button to check if an update is available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaUpToDateButtonLabel": "Il dispositivo è aggiornato!",
+  "@manageDevicesOtaUpToDateButtonLabel": {
+    "description": "manage devices button label if gear is up to date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckInProgressButtonLabel": "Controllo in corso",
+  "@manageDevicesOtaCheckInProgressButtonLabel": {
+    "description": "manage devices button label if gear is checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckErrorButtonLabel": "Riprova più tardi",
+  "@manageDevicesOtaCheckErrorButtonLabel": {
+    "description": "manage devices button label if an error occured while checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutLabel": "Info sul tuo dispositivo",
+  "@manageDevicesAboutLabel": {
+    "description": "label for the about your gear section in the manage devices area",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutHardwareVersionLabel": "Versione hardware",
+  "@manageDevicesAboutHardwareVersionLabel": {
+    "description": "label for the hardware version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutSoftwareVersionLabel": "Versione software",
+  "@manageDevicesAboutSoftwareVersionLabel": {
+    "description": "label for the software version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonDownloadFailed": "Download del firmware non riuscito",
+  "@otaFailedReasonDownloadFailed": {
+    "description": "downloadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReturnedError": "Il dispositivo ha restituito un errore sconosciuto",
+  "@otaFailedReasonGearReturnedError": {
+    "description": "gearReturnedError error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonUploadFailed": "Caricamento del firmware sul dispositivo non riuscito",
+  "@otaFailedReasonUploadFailed": {
+    "description": "uploadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReconnectTimeout": "Il dispositivo non si è riconnesso in tempo",
+  "@otaFailedReasonGearReconnectTimeout": {
+    "description": "gearReconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearOtaFinalTimeout": "Tempo scaduto in attesa della nuova versione del firmware dal dispositivo",
+  "@otaFailedReasonGearOtaFinalTimeout": {
+    "description": "gearOtaFinalTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeTitle": "Modalità convention",
+  "@manageGearConModeTitle": {
+    "description": "The title for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeDescription": "La modalità convention è una misura di sicurezza aggiuntiva per impedire ad altri dispositivi di connettersi al tuo.",
+  "@manageGearConModeDescription": {
+    "description": "The description for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeToggleTitle": "Attiva modalità convention",
+  "@manageGearConModeToggleTitle": {
+    "description": "The description for the convention mode enabled button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "feedbackPageDescription": "Hai un suggerimento o un problema con l'app? Facci sapere. Nota: è anonimo e non può essere usato per risolvere problemi con il dispositivo",
+  "@feedbackPageDescription": {
+    "description": "The description of the feedback page",
     "type": "text",
     "placeholders": {}
   }
