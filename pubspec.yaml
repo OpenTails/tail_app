@@ -57,7 +57,7 @@ dependencies:
   flex_color_picker: ^3.7.0
   flutter_adaptive_scaffold: ^0.3.1+1
   animate_do: ^4.2.0
-  fl_chart: ^0.70.2 # Used for the battery graph
+  fl_chart: ^0.71.0 # Used for the battery graph
   chart_sparkline: ^1.1.1 # used for the move easing visual
   flutter_joystick: ^0.2.2
   #TODO: replace with riverpod providers
