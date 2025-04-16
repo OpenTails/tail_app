@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Tiesiogiai valdykite įrangos padėtį.",
+  "joyStickPageDescription": "Tiesiogiai valdyk savo įrenginio poziciją.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -1040,6 +1040,198 @@
   "settingsTailBlogWifiOnlyDescription": "Neleiskite įkelti Tail Blog turinio, kai esate prisijungę prie mobiliojo ryšio tinklo",
   "@settingsTailBlogWifiOnlyDescription": {
     "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeCopy": "Kopijuoti į iškarpinę",
+  "@manageGearConModePincodeCopy": {
+    "description": "The description for copy to clipboard button on the pin code dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageCoverPromoTitle": "Pakeisk savo įrenginio išvaizdą!",
+  "@morePageCoverPromoTitle": {
+    "description": "The title for the button on the More page to push users to buy a new cover",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckButtonLabel": "Tikrinti atnaujinimus",
+  "@manageDevicesOtaCheckButtonLabel": {
+    "description": "manage devices button to check if an update is available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaUpToDateButtonLabel": "Įrenginys atnaujintas!",
+  "@manageDevicesOtaUpToDateButtonLabel": {
+    "description": "manage devices button label if gear is up to date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckInProgressButtonLabel": "Tikrinama",
+  "@manageDevicesOtaCheckInProgressButtonLabel": {
+    "description": "manage devices button label if gear is checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckErrorButtonLabel": "Pabandyk vėliau dar kartą",
+  "@manageDevicesOtaCheckErrorButtonLabel": {
+    "description": "manage devices button label if an error occured while checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutLabel": "Apie tavo įrenginį",
+  "@manageDevicesAboutLabel": {
+    "description": "label for the about your gear section in the manage devices area",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutHardwareVersionLabel": "Aparatinės įrangos versija",
+  "@manageDevicesAboutHardwareVersionLabel": {
+    "description": "label for the hardware version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutSoftwareVersionLabel": "Programinės įrangos versija",
+  "@manageDevicesAboutSoftwareVersionLabel": {
+    "description": "label for the software version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearDisconnectTimeout": "Įrenginys nebuvo laiku atjungtas ir tikriausiai neperkrautas",
+  "@otaFailedReasonGearDisconnectTimeout": {
+    "description": "gearDisconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateTitle": "Lokalizacija",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateDescription": "Padėk mums išversti programėlę į tavo kalbą",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLanguageSelectorTitle": "Programėlės kalba",
+  "@appLanguageSelectorTitle": {
+    "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearTitle": "Tavo įrenginys",
+  "@watchKnownGearTitle": {
+    "description": "The title for the known gear section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearNoGearPairedTip": "Naudok mygtuką „Ieškoti naujo įrenginio“ telefone, kad suporuotum savo įrenginį",
+  "@watchKnownGearNoGearPairedTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsTitle": "Mėgstami veiksmai",
+  "@watchFavoriteActionsTitle": {
+    "description": "title for the favorite actions section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonMD5Mismatch": "Atsisiųstas failas nepraėjo patikros",
+  "@otaFailedReasonMD5Mismatch": {
+    "description": "md5Mismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearVersionMismatch": "Įrenginyje esanti programinės aparatinės įrangos versija nesutampa su įkelta versija",
+  "@otaFailedReasonGearVersionMismatch": {
+    "description": "gearVersionMismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReturnedError": "Įrenginys grąžino nežinomą klaidą",
+  "@otaFailedReasonGearReturnedError": {
+    "description": "gearReturnedError error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonUploadFailed": "Nepavyko įkelti programinės aparatinės įrangos į įrenginį",
+  "@otaFailedReasonUploadFailed": {
+    "description": "uploadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReconnectTimeout": "Įrenginys nesusijungė laiku",
+  "@otaFailedReasonGearReconnectTimeout": {
+    "description": "gearReconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonDownloadFailed": "Nepavyko atsisiųsti programinės aparatinės įrangos",
+  "@otaFailedReasonDownloadFailed": {
+    "description": "downloadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearOtaFinalTimeout": "Laukimo laikas baigėsi laukiant naujos programinės įrangos versijos iš įrenginio",
+  "@otaFailedReasonGearOtaFinalTimeout": {
+    "description": "gearOtaFinalTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsNoFavoritesTip": "Ilgai paspausk veiksmą telefone, kad jį pažymėtum kaip mėgstamą",
+  "@watchFavoriteActionsNoFavoritesTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "feedbackPageDescription": "Turi pasiūlymą ar problemą su programėle? Pranešk mums. Pastaba: tai anonimiška ir negali būti naudojama įrenginio problemoms spręsti",
+  "@feedbackPageDescription": {
+    "description": "The description of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportTitle": "Pagalba",
+  "@supportTitle": {
+    "description": "The label and title of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportDescription": "Bakstelėk mėlyną pokalbio piktogramą, kad susisiektum su pagalba",
+  "@supportDescription": {
+    "description": "The description of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeTitle": "Konvencijos režimas",
+  "@manageGearConModeTitle": {
+    "description": "The title for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeDescription": "Konvencijos režimas yra papildoma saugumo priemonė, apsauganti nuo kitų įrenginių prisijungimo prie tavo įrenginio.",
+  "@manageGearConModeDescription": {
+    "description": "The description for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeTitle": "Peržiūrėti PIN kodą",
+  "@manageGearConModePincodeTitle": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeEnableDescription": "Įjungus konvencijos režimą, įrenginys bus paleistas iš naujo ir paprašys įvesti PIN kodą. Kodas bus nukopijuotas į iškarpinę",
+  "@manageGearConModePincodeEnableDescription": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeToggleTitle": "Įjungti konvencijos režimą",
+  "@manageGearConModeToggleTitle": {
+    "description": "The description for the convention mode enabled button on the gear page",
     "type": "text",
     "placeholders": {}
   }
