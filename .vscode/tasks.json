@@ -1,0 +1,177 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Activate flutter_gen",
+			"type": "shell",
+			"command": "dart pub global activate flutter_gen",
+			"group": "none",
+			"hide": true,
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Activate intl_translation",
+			"type": "shell",
+			"command": "dart pub global activate intl_translation",
+			"group": "none",
+			"hide": true,
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Activate icons_launcher",
+			"type": "shell",
+			"command": "dart pub global activate icons_launcher",
+			"group": "none",
+			"hide": true,
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Generate Translation Files",
+			"type": "shell",
+			"command": "dart",
+			"detail": "Generate lib/l10n/app_localizations_(lang).dart",
+			"icon": {
+				"id": "globe"
+			},
+			"args": [
+				"pub",
+				"global",
+				"run",
+				"intl_translation:generate_from_arb",
+				"--output-dir=lib/l10n",
+				"--no-use-deferred-loading",
+				"lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Generate l10n Translation Files",
+			"type": "shell",
+			"command": "flutter",
+			"detail": "Generate lib/l10n/messages_(lang).dart",
+			"icon": {
+				"id": "globe"
+			},
+			"args": [
+				"gen-l10n",
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Generate Splash Screen",
+			"type": "shell",
+			"command": "dart",
+			"detail": "Generate Splash screen files",
+			"icon": {
+				"id": "screen-full"
+			},
+			"args": [
+				"run",
+				"flutter_native_splash:create"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Generate App Icons",
+			"type": "shell",
+			"command": "dart",
+			"detail": "Generate App Icon Variants",
+			"icon": {
+				"id": "screen-full"
+			},
+			"args": [
+				"pub",
+				"global",
+				"run",
+				"icons_launcher:create"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Run fluttergen",
+			"detail": "Generate lib/gen/assets.gen.dart",
+			"icon": {
+				"id": "wrench"
+			},
+			"windows": {
+				"command": "$env:pub_cache\\bin\\fluttergen.bat",
+				"options": {
+					"shell": {
+						"executable": "powershell.exe",
+						"args": [
+							"-Command",
+							"."
+						]
+					}
+				}
+			},
+			"type": "shell",
+			"command": "fluttergen",
+			"args": [
+				" -c pubspec.yaml"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Set up tools",
+			"icon": {
+				"id": "gear"
+			},
+			"group": "build",
+			"dependsOrder": "parallel",
+			"dependsOn": [
+				"Activate flutter_gen",
+				"Activate intl_translation",
+				"Activate icons_launcher",
+				"flutter: flutter pub get"
+			]
+		},
+		{
+			"label": "Prebuild",
+			"dependsOrder": "parallel",
+			"detail": "Updates generated files",
+			"icon": {
+				"id": "tools"
+			},
+			"group": "build",
+			"dependsOn": [
+				"Run fluttergen",
+				"Generate Translation Files",
+				"Generate Flutter l10n Translation Files",
+				"flutter: flutter pub run build_runner build",
+				"Generate Splash Screen"
+			]
+		},
+	]
+}

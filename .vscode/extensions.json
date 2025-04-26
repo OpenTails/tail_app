@@ -1,0 +1,18 @@
+{
+    "recommendations": [
+        "dart-code.dart-code",
+        "dart-code.flutter",
+        "mathiasfrohlich.kotlin",
+        "redhat.vscode-xml",
+        "vscjava.vscode-java-pack",
+        "swiftlang.swift-vscode",
+        "shopify.ruby-lsp",
+        "redhat.vscode-yaml",
+        "bierner.github-markdown-preview",
+    ],
+    "unwantedRecommendations": [
+        "visualstudioexptteam.vscodeintellicode",
+        "vscjava.vscode-java-test",
+        "vscjava.vscode-java-dependency",
+    ]
+}

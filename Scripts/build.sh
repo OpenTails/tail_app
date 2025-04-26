@@ -37,6 +37,7 @@ setUpTools() {
   dart pub global activate flutter_gen
   dart pub global activate intl_translation
   dart pub global activate build_runner
+  dart pub global activate icons_launcher
   echo "::endgroup::"
 }
 preBuildTasks() {
@@ -50,6 +51,11 @@ preBuildTasks() {
 
   echo "::group::Generate Dart .g Files"
   dart pub run build_runner build --delete-conflicting-outputs
+  echo "::endgroup::"
+
+  echo "::group::Generate App assets"
+  dart run flutter_native_splash:create
+  dart pub global run icons_launcher:create
   echo "::endgroup::"
 }
 
