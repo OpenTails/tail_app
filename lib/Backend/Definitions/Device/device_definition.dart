@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 import '../../../constants.dart';
@@ -21,6 +21,7 @@ import '../../logging_wrappers.dart';
 import '../../version.dart';
 
 part 'device_definition.freezed.dart';
+
 part 'device_definition.g.dart';
 
 @HiveType(typeId: 6)
@@ -40,7 +41,7 @@ enum EarSpeed {
   @HiveField(1)
   fast,
   @HiveField(2)
-  slow,
+  slow
 }
 
 extension EarSpeedExtension on EarSpeed {
@@ -95,12 +96,8 @@ extension DeviceTypeExtension on DeviceType {
         knownDevices = ref.read(knownDevicesProvider).values;
       }
       int? color = knownDevices
-          .where(
-            (element) => element.baseDeviceDefinition.deviceType == this,
-          )
-          .map(
-            (e) => e.baseStoredDevice.color,
-          )
+          .where((element) => element.baseDeviceDefinition.deviceType == this)
+          .map((e) => e.baseStoredDevice.color)
           .firstOrNull;
       if (color != null) {
         return Color(color);
@@ -129,52 +126,46 @@ enum TailControlStatus { tailControl, legacy, unknown }
 
 @freezed
 abstract class BluetoothUartService with _$BluetoothUartService {
-  const factory BluetoothUartService({
-    required String bleDeviceService,
-    required String bleRxCharacteristic,
-    required String bleTxCharacteristic,
-    required String label,
-  }) = _BluetoothUartService;
+  const factory BluetoothUartService(
+      {required String bleDeviceService,
+      required String bleRxCharacteristic,
+      required String bleTxCharacteristic,
+      required String label}) = _BluetoothUartService;
 }
 
 final List<BluetoothUartService> uartServices = const [
   BluetoothUartService(
-    bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
-    bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
-    bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
-    label: "Legacy Gear",
-  ),
+      bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+      bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
+      bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
+      label: "Legacy Gear"),
   BluetoothUartService(
-    bleDeviceService: "0000ffe0-0000-1000-8000-00805f9b34fb",
-    bleRxCharacteristic: "",
-    bleTxCharacteristic: "0000ffe1-0000-1000-8000-00805f9b34fb",
-    label: "DigiTail",
-  ),
+      bleDeviceService: "0000ffe0-0000-1000-8000-00805f9b34fb",
+      bleRxCharacteristic: "",
+      bleTxCharacteristic: "0000ffe1-0000-1000-8000-00805f9b34fb",
+      label: "DigiTail"),
   BluetoothUartService(
-    bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
-    bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
-    bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
-    label: "Legacy Ears",
-  ),
+      bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
+      bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
+      bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
+      label: "Legacy Ears"),
   // TailCoNTROL uuids
   BluetoothUartService(
-    bleDeviceService: "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
-    bleRxCharacteristic: "567a99d6-a442-4ac0-b676-4993bf95f805",
-    bleTxCharacteristic: "5e4d86ac-ef2f-466f-a857-8776d45ffbc2",
-    label: "TailCoNTROL",
-  ),
+      bleDeviceService: "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
+      bleRxCharacteristic: "567a99d6-a442-4ac0-b676-4993bf95f805",
+      bleTxCharacteristic: "5e4d86ac-ef2f-466f-a857-8776d45ffbc2",
+      label: "TailCoNTROL")
 ];
 
 @freezed
 abstract class BaseDeviceDefinition with _$BaseDeviceDefinition {
-  const factory BaseDeviceDefinition({
-    required String uuid,
-    required String btName,
-    required DeviceType deviceType,
-    @Default("") String fwURL,
-    Version? minVersion,
-    @Default(false) bool unsupported,
-  }) = _BaseDeviceDefinition;
+  const factory BaseDeviceDefinition(
+      {required String uuid,
+      required String btName,
+      required DeviceType deviceType,
+      @Default("") String fwURL,
+      Version? minVersion,
+      @Default(false) bool unsupported}) = _BaseDeviceDefinition;
 }
 
 // data that represents the current state of a device
@@ -199,7 +190,6 @@ class BaseStatefulDevice {
   final ValueNotifier<TailControlStatus> isTailCoNTROL = ValueNotifier(TailControlStatus.unknown);
 
   late final Stream<String> rxCharacteristicStream;
-  late final CommandQueue commandQueue;
   List<FlSpot> batlevels = [];
   Stopwatch stopWatch = Stopwatch();
   bool disableAutoConnect = false;
@@ -209,9 +199,10 @@ class BaseStatefulDevice {
   Timer? deviceStateWatchdogTimer;
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice) {
-    commandQueue = CommandQueue(this);
     rxCharacteristicStream = flutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) {
-      return event.device.remoteId.str == baseStoredDevice.btMACAddress && bluetoothUartService.value != null && event.characteristic.characteristicUuid.str == bluetoothUartService.value!.bleRxCharacteristic;
+      return event.device.remoteId.str == baseStoredDevice.btMACAddress &&
+          bluetoothUartService.value != null &&
+          event.characteristic.characteristicUuid.str == bluetoothUartService.value!.bleRxCharacteristic;
     }).map((event) {
       try {
         return const Utf8Decoder().convert(event.value);
@@ -224,13 +215,6 @@ class BaseStatefulDevice {
     deviceConnectionState.addListener(() {
       if (deviceConnectionState.value == ConnectivityState.disconnected) {
         reset();
-      } else if (deviceConnectionState.value == ConnectivityState.connected) {
-        // Add initial commands to the queue
-        Future.delayed(const Duration(seconds: 2), () {
-          commandQueue
-            ..addCommand(BluetoothMessage(message: "VER", device: this, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()))
-            ..addCommand(BluetoothMessage(message: "HWVER", device: this, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
-        });
       }
     });
     batteryLevel.addListener(() {
@@ -238,37 +222,33 @@ class BaseStatefulDevice {
       batteryLow.value = batteryLevel.value < 20;
     });
 
-    bluetoothUartService.addListener(
-      () {
-        if (bluetoothUartService.value == null) {
-          isTailCoNTROL.value = TailControlStatus.unknown;
-          return;
-        }
+    bluetoothUartService.addListener(() {
+      if (bluetoothUartService.value == null) {
+        isTailCoNTROL.value = TailControlStatus.unknown;
+        return;
+      }
 
-        isTailCoNTROL.value = bluetoothUartService.value ==
-                uartServices.firstWhere(
-                  (element) => element.bleDeviceService.toLowerCase() == "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
-                )
-            ? TailControlStatus.tailControl
-            : TailControlStatus.legacy;
-      },
-    );
+      isTailCoNTROL.value = bluetoothUartService.value ==
+              uartServices.firstWhere(
+                  (element) => element.bleDeviceService.toLowerCase() == "19f8ade2-d0c6-4c0a-912a-30601d9b3060")
+          ? TailControlStatus.tailControl
+          : TailControlStatus.legacy;
+    });
     // prevent gear from being stuck in a move.
-    deviceState.addListener(
-      () {
-        if (deviceState.value == DeviceState.runAction && deviceStateWatchdogTimer == null) {
-          deviceStateWatchdogTimer = Timer(
-            Duration(seconds: HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault)),
+    deviceState.addListener(() {
+      if (deviceState.value == DeviceState.runAction && deviceStateWatchdogTimer == null) {
+        deviceStateWatchdogTimer = Timer(
+            Duration(
+                seconds:
+                    HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault)),
             () {
-              deviceState.value = DeviceState.standby;
-            },
-          );
-        } else if (deviceState.value != DeviceState.runAction && deviceStateWatchdogTimer != null) {
-          deviceStateWatchdogTimer?.cancel();
-          deviceStateWatchdogTimer = null;
-        }
-      },
-    );
+          deviceState.value = DeviceState.standby;
+        });
+      } else if (deviceState.value != DeviceState.runAction && deviceStateWatchdogTimer != null) {
+        deviceStateWatchdogTimer?.cancel();
+        deviceStateWatchdogTimer = null;
+      }
+    });
   }
 
   @override
@@ -294,35 +274,31 @@ class BaseStatefulDevice {
   }
 }
 
-enum MessageHistoryType {
-  send,
-  receive,
-}
+enum MessageHistoryType { send, receive }
 
 @freezed
 // TailControl only
 abstract class GearConfigInfo with _$GearConfigInfo {
   const GearConfigInfo._();
 
-  const factory GearConfigInfo({
-    @Default("") String ver,
-    @Default("") String minsToSleep,
-    @Default("") String minsToNPM,
-    @Default("") String minNPMPauseSec,
-    @Default("") String maxNPMPauseSec,
-    @Default("") String groupsNPM,
-    @Default("") String servo1home,
-    @Default("") String servo2home,
-    @Default("") String listenModeNPMEnabled,
-    @Default("") String listenModeResponseOnly,
-    @Default("") String groupsLM,
-    @Default("") String tiltModeNPMEnabled,
-    @Default("") String tiltModeResponseOnly,
-    @Default("") String disconnectedCountdownEnabled,
-    @Default("") String homeOnAppPoweroff,
-    @Default("") String conferenceModeEnabled,
-    @Default("") String securityPasskey,
-  }) = _GearConfigInfo;
+  const factory GearConfigInfo(
+      {@Default("") String ver,
+      @Default("") String minsToSleep,
+      @Default("") String minsToNPM,
+      @Default("") String minNPMPauseSec,
+      @Default("") String maxNPMPauseSec,
+      @Default("") String groupsNPM,
+      @Default("") String servo1home,
+      @Default("") String servo2home,
+      @Default("") String listenModeNPMEnabled,
+      @Default("") String listenModeResponseOnly,
+      @Default("") String groupsLM,
+      @Default("") String tiltModeNPMEnabled,
+      @Default("") String tiltModeResponseOnly,
+      @Default("") String disconnectedCountdownEnabled,
+      @Default("") String homeOnAppPoweroff,
+      @Default("") String conferenceModeEnabled,
+      @Default("") String securityPasskey}) = _GearConfigInfo;
 
   factory GearConfigInfo.fromGearString(String fwInput) {
     List<String> values = fwInput.split(" ");
@@ -345,24 +321,23 @@ abstract class GearConfigInfo with _$GearConfigInfo {
     String securityPasskey = values[16];
 
     return GearConfigInfo(
-      ver: ver,
-      minsToSleep: minsToSleep,
-      minsToNPM: minsToNPM,
-      minNPMPauseSec: minNPMPauseSec,
-      maxNPMPauseSec: maxNPMPauseSec,
-      groupsNPM: groupsNPM,
-      servo1home: servo1home,
-      servo2home: servo2home,
-      listenModeNPMEnabled: listenModeNPMEnabled,
-      listenModeResponseOnly: listenModeResponseOnly,
-      groupsLM: groupsLM,
-      tiltModeNPMEnabled: tiltModeNPMEnabled,
-      tiltModeResponseOnly: tiltModeResponseOnly,
-      disconnectedCountdownEnabled: disconnectedCountdownEnabled,
-      homeOnAppPoweroff: homeOnAppPoweroff,
-      conferenceModeEnabled: conferenceModeEnabled,
-      securityPasskey: securityPasskey,
-    );
+        ver: ver,
+        minsToSleep: minsToSleep,
+        minsToNPM: minsToNPM,
+        minNPMPauseSec: minNPMPauseSec,
+        maxNPMPauseSec: maxNPMPauseSec,
+        groupsNPM: groupsNPM,
+        servo1home: servo1home,
+        servo2home: servo2home,
+        listenModeNPMEnabled: listenModeNPMEnabled,
+        listenModeResponseOnly: listenModeResponseOnly,
+        groupsLM: groupsLM,
+        tiltModeNPMEnabled: tiltModeNPMEnabled,
+        tiltModeResponseOnly: tiltModeResponseOnly,
+        disconnectedCountdownEnabled: disconnectedCountdownEnabled,
+        homeOnAppPoweroff: homeOnAppPoweroff,
+        conferenceModeEnabled: conferenceModeEnabled,
+        securityPasskey: securityPasskey);
   }
 
   String toGearString() {
@@ -372,10 +347,7 @@ abstract class GearConfigInfo with _$GearConfigInfo {
 
 @freezed
 abstract class MessageHistoryEntry with _$MessageHistoryEntry {
-  const factory MessageHistoryEntry({
-    required MessageHistoryType type,
-    required String message,
-  }) = _MessageHistoryEntry;
+  const factory MessageHistoryEntry({required MessageHistoryType type, required String message}) = _MessageHistoryEntry;
 }
 
 // All serialized/stored data
@@ -432,124 +404,177 @@ String getNameFromBTName(String bluetoothDeviceName) {
   return bluetoothDeviceName;
 }
 
-//todo: convert into a proper provider
-class CommandQueue {
-  final PriorityQueue<BluetoothMessage> state = PriorityQueue();
-  final BaseStatefulDevice device;
+enum CommandQueueState {
+  running,
 
-  CommandQueue(this.device);
+  /// A command is in progress
+  waitingForResponse,
+  delay, // The queue is momentarily paused
+  blocked, // the queue is stopped
+  idle, // inbetween moves
+  empty // the queue is empty
+}
 
-  Stream<BluetoothMessage> messageQueueStream() async* {
-    while (device.deviceConnectionState.value == ConnectivityState.connected) {
-      // Limit the speed commands are processed
-      await Future.delayed(const Duration(milliseconds: 100));
-      // wait for
-      if (state.isNotEmpty && device.deviceState.value == DeviceState.standby) {
-        device.deviceState.value = DeviceState.runAction;
-        yield state.removeFirst();
-      }
-    }
-    state.clear(); // clear the queue on disconnect
-    messageQueueStreamSubscription?.cancel();
-    messageQueueStreamSubscription = null;
+@Riverpod(keepAlive: true)
+class CommandQueue extends _$CommandQueue {
+  final PriorityQueue<BluetoothMessage> _commandQueue = PriorityQueue();
+  late final BaseStatefulDevice _device;
+  Duration timeoutDuration = const Duration(seconds: 10);
+  Timer? _runningCommandTimer;
+  BluetoothMessage? currentMessage;
+  StreamSubscription<String>? _rxCharacteristicStreamSubscription;
+  @override
+  CommandQueueState build(BaseStatefulDevice device) {
+    _device = device;
+    device.deviceConnectionState.addListener(_connectionStateListener);
+    device.gearReturnedError.addListener(_gearErrorListener);
+    device.deviceState.addListener(_deviceStateListener);
+
+    _rxCharacteristicStreamSubscription =
+        device.rxCharacteristicStream.asBroadcastStream().listen(_bluetoothResponseListener);
+    listenSelf(_onStateChanged);
+    ref.onDispose(() {
+      device.deviceConnectionState.removeListener(_connectionStateListener);
+      device.gearReturnedError.removeListener(_gearErrorListener);
+      device.deviceState.removeListener(_deviceStateListener);
+      _rxCharacteristicStreamSubscription?.cancel();
+      _rxCharacteristicStreamSubscription = null;
+    });
+    return CommandQueueState.empty;
   }
 
-  StreamSubscription<BluetoothMessage>? messageQueueStreamSubscription;
+  void _connectionStateListener() {
+    if (_device.deviceConnectionState.value != ConnectivityState.connected) {
+      _commandQueue.clear(); // clear the queue on disconnect
+      stopQueue();
+    } else {
+      startQueue();
+    }
+  }
+
+  /// Used to listen for a response if one is set in [BluetoothMessage].responseMSG
+  void _bluetoothResponseListener(String msg) {
+    if (state == CommandQueueState.waitingForResponse && currentMessage != null && currentMessage!.responseMSG != null) {
+      if (msg == currentMessage!.responseMSG!) {
+        state = CommandQueueState.idle;
+      }
+    }
+  }
+
+  /// Called when a delay command ends or after 10 seconds
+  void _onTimeout() {
+    currentMessage == null;
+    _runningCommandTimer == null;
+    if ([CommandQueueState.delay, CommandQueueState.waitingForResponse, CommandQueueState.running].contains(state)) {
+      state = CommandQueueState.idle;
+    }
+  }
+
+  /// Trigger resending the current command if the gear returns ERR/BUSY
+  void _gearErrorListener() {
+    if (_device.gearReturnedError.value &&
+        [CommandQueueState.delay, CommandQueueState.waitingForResponse].contains(state)) {
+      _device.gearReturnedError.value = false;
+      _resendCommand();
+    }
+  }
+
+  void _resendCommand() {
+    if (currentMessage != null) {
+      bluetoothLog.warning("Resending message for ${_device.baseStoredDevice.name} $currentMessage");
+      addCommand(currentMessage!);
+      _onTimeout(); //abort waiting for the command to finish
+    }
+  }
+
+  void _deviceStateListener() {
+    if (state == CommandQueueState.blocked && _device.deviceState.value == DeviceState.standby) {
+      startQueue();
+    } else if (state != CommandQueueState.blocked && _device.deviceState.value == DeviceState.busy) {
+      stopQueue();
+    }
+  }
+
+  /// Stops the queue and aborts waiting for the next command;
+  void stopQueue() {
+    bluetoothLog.fine("Stopping queue for ${_device.baseStoredDevice.name}");
+    state = CommandQueueState.blocked;
+    _runningCommandTimer?.cancel();
+    _runningCommandTimer = null;
+    currentMessage = null;
+  }
+
+  void startQueue() {
+    bluetoothLog.fine("Starting queue for ${_device.baseStoredDevice.name}");
+    state = CommandQueueState.idle;
+  }
+
+  /// Handles running the next command and marking gear as busy/idle
+  void _onStateChanged(CommandQueueState? previous, CommandQueueState next) {
+    switch (next) {
+      case CommandQueueState.running:
+      case CommandQueueState.waitingForResponse:
+      case CommandQueueState.delay:
+        _device.deviceState.value = DeviceState.runAction;
+        break;
+      case CommandQueueState.blocked:
+        _device.deviceState.value = DeviceState.busy;
+      case CommandQueueState.idle:
+        if (_commandQueue.isEmpty) {
+          state == CommandQueueState.empty;
+        } else {
+          runCommand(_commandQueue.removeFirst());
+        }
+      case CommandQueueState.empty:
+        _device.deviceState.value = DeviceState.standby;
+        break;
+    }
+  }
+
+  Future<void> runCommand(BluetoothMessage bluetoothMessage) async {
+    currentMessage = bluetoothMessage;
+    state = CommandQueueState.running;
+    _device.gearReturnedError.value = false;
+
+    // handle if the command is a delay command
+    if (bluetoothMessage.delay != null) {
+      bluetoothLog.fine("Pausing queue for ${_device.baseStoredDevice.name}");
+      _runningCommandTimer = Timer(Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20), _onTimeout);
+      state = CommandQueueState.delay;
+    } else {
+      bluetoothLog.fine("Sending command to ${_device.baseStoredDevice.name}:${bluetoothMessage.message}");
+      _device.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.send, message: bluetoothMessage.message));
+      if (bluetoothMessage.responseMSG != null) {
+        state = CommandQueueState.waitingForResponse;
+        _runningCommandTimer = Timer(timeoutDuration, _onTimeout);
+      }
+      await sendMessage(_device, const Utf8Encoder().convert(bluetoothMessage.message));
+      if (bluetoothMessage.responseMSG == null) {
+        _onTimeout(); // end the current command if no reason to wait
+      }
+    }
+  }
 
   void addCommand(BluetoothMessage bluetoothMessage) {
-    bluetoothLog.info("Adding commands to queue $bluetoothMessage");
-    if (device.deviceConnectionState.value != ConnectivityState.connected || device.baseStoredDevice.btMACAddress.startsWith("DEV")) {
-      device.deviceState.value = DeviceState.standby; //Mainly for dev gear. Marks the gear as being idle
+    // Don't add commands to disconnected or dev gear.
+    if (_device.deviceConnectionState.value != ConnectivityState.connected ||
+        _device.baseStoredDevice.btMACAddress.startsWith("DEV") ||
+        state == CommandQueueState.blocked) {
       return;
     }
-    messageQueueStreamSubscription ??= messageQueueStream().listen((message) async {
-      //TODO: Resend on busy
-      if (message.delay == null) {
-        try {
-          bluetoothLog.fine("Sending command to ${device.baseStoredDevice.name}:${message.message}");
-          Future<String?>? response;
-          //Start listening before the response is received
-          Duration timeoutDuration = const Duration(seconds: 10);
-          Timer? timer;
-          if (message.responseMSG != null) {
-            // We use a timeout as sometimes a response isn't sent by the gear
-            timer = Timer(timeoutDuration, () {});
-            response = device.rxCharacteristicStream
-                .timeout(
-                  timeoutDuration,
-                  onTimeout: (sink) {
-                    sink.addError("");
-                  },
-                )
-                .where((event) {
-                  bluetoothLog.info('Response:$event');
-                  return event.contains(message.responseMSG!);
-                })
-                .handleError((string) => "")
-                .first
-              ..catchError((string) => "");
-          }
-          await sendMessage(device, const Utf8Encoder().convert(message.message));
-          device.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.send, message: message.message));
-          if (message.onCommandSent != null) {
-            // Callback when the specific command is run
-            message.onCommandSent!();
-          }
-          try {
-            if (message.responseMSG != null) {
-              bluetoothLog.fine("Waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
+    bluetoothLog.info("Adding command to queue $bluetoothMessage");
 
-              // Handles response value
-              response!.then(
-                (value) {
-                  timer?.cancel();
-                  if (message.onResponseReceived != null) {
-                    //callback when the command response is received
-                    message.onResponseReceived!(value!);
-                  }
-                },
-                onError: (e) => "",
-              );
-              response.timeout(
-                timeoutDuration,
-                onTimeout: () {
-                  bluetoothLog.warning("Timed out waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
-                  return "";
-                },
-              );
-              while (timer!.isActive) {
-                //allow higher priority commands to interrupt waiting for a response
-                if (state.isNotEmpty && state.first.priority.index > message.priority.index) {
-                  timer.cancel();
-                }
-                await Future.delayed(const Duration(milliseconds: 100)); // Prevent the loop from consuming too many resources
-              }
-              bluetoothLog.fine("Finished waiting for response from ${device.baseStoredDevice.name}:${message.responseMSG}");
-            }
-          } catch (e, s) {
-            bluetoothLog.warning('Command timed out or threw error: $e', e, s);
-          }
-        } catch (e, s) {
-          Sentry.captureException(e, stackTrace: s);
-        }
-      } else {
-        bluetoothLog.fine("Pausing queue for ${device.baseStoredDevice.name}");
-        Timer timer = Timer(Duration(milliseconds: message.delay!.toInt() * 20), () {});
-        while (timer.isActive) {
-          //allow higher priority commands to interrupt the delay
-          if (state.isNotEmpty && state.first.priority.index > message.priority.index) {
-            //timer.cancel();
-          }
-          await Future.delayed(const Duration(milliseconds: 50)); // Prevent the loop from consuming too many resources
-        }
-        bluetoothLog.fine("Resuming queue for ${device.baseStoredDevice.name}");
-      }
-      device.deviceState.value = DeviceState.standby; //Without setting state to standby, another command can not run
-    });
-    // preempt queue
+    // preempt queue if other direct commands exist. used for joystick
     if (bluetoothMessage.type == CommandType.direct) {
-      state.toUnorderedList().where((element) => [CommandType.move, CommandType.direct].contains(element.type)).forEach(state.remove);
+      _commandQueue
+          .toUnorderedList()
+          .where((element) => [CommandType.move, CommandType.direct].contains(element.type))
+          .forEach(_commandQueue.remove);
     }
-    state.add(bluetoothMessage);
+    _commandQueue.add(bluetoothMessage);
+    // Start the queue is its stopped/idle
+    if (state == CommandQueueState.empty) {
+      state = CommandQueueState.idle;
+    }
   }
 }

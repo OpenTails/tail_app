@@ -2,8 +2,6 @@ import 'dart:core';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../Definitions/Device/device_definition.dart';
-
 part 'bluetooth_message.freezed.dart';
 
 enum Priority { low, normal, high }
@@ -17,12 +15,9 @@ abstract class BluetoothMessage with _$BluetoothMessage implements Comparable<Bl
   @Implements<Comparable<BluetoothMessage>>()
   const factory BluetoothMessage({
     required String message,
-    required BaseStatefulDevice device,
     required DateTime timestamp,
     final String? responseMSG,
     @Default(Priority.normal) final Priority priority,
-    final Function? onCommandSent,
-    final Function(String)? onResponseReceived,
     final double? delay,
     @Default(CommandType.system) CommandType type,
   }) = _BluetoothMessage;

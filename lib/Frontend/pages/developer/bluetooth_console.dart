@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../../Backend/Definitions/Device/device_definition.dart';
 import '../../go_router_config.dart';
 
-class BluetoothConsole extends StatefulWidget {
+class BluetoothConsole extends ConsumerStatefulWidget {
   final BaseStatefulDevice device;
 
   const BluetoothConsole({required this.device, super.key});
 
   @override
-  State<BluetoothConsole> createState() => _BluetoothConsoleState();
+  ConsumerState<BluetoothConsole> createState() => _BluetoothConsoleState();
 }
 
-class _BluetoothConsoleState extends State<BluetoothConsole> {
+class _BluetoothConsoleState extends ConsumerState<BluetoothConsole> {
   String cmd = "";
 
   @override
@@ -38,9 +39,10 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
               maxLength: 128,
               autocorrect: false,
               onEditingComplete: () {
-                widget.device.commandQueue.addCommand(
-                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()),
-                );
+                ref.read(commandQueueProvider(widget.device).notifier).addCommand(
+                      BluetoothMessage(
+                          message: cmd, priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()),
+                    );
                 setState(() {
                   cmd = "";
                 });
@@ -54,9 +56,10 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
             alignment: Alignment.bottomRight,
             child: IconButton(
               onPressed: () {
-                widget.device.commandQueue.addCommand(
-                  BluetoothMessage(message: cmd, device: widget.device, priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()),
-                );
+                ref.read(commandQueueProvider(widget.device).notifier).addCommand(
+                      BluetoothMessage(
+                          message: cmd, priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()),
+                    );
                 setState(() {
                   cmd = "";
                 });

@@ -22,7 +22,7 @@ Future<void> appShortcuts(Ref ref) async {
     if (action != null) {
       Iterable<BaseStatefulDevice> knownDevices = ref.read(getAvailableIdleGearProvider);
       for (BaseStatefulDevice device in knownDevices) {
-        runAction(action, device);
+        ref.read(runActionProvider(action, device));
       }
     }
   });

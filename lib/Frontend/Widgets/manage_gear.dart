@@ -225,14 +225,19 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                     TextButton(
                       onPressed: () {
                         setState(() {
-                          device!.commandQueue.addCommand(BluetoothMessage(message: "SHUTDOWN", device: device!, priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()));
+                          ref.read(commandQueueProvider(device!).notifier).addCommand(BluetoothMessage(
+                              message: "SHUTDOWN",
+                              priority: Priority.high,
+                              type: CommandType.system,
+                              timestamp: DateTime.now()));
                         });
                         Navigator.pop(context);
                       },
                       child: Text(manageDevicesShutdown()),
                     ),
                   ],
-                  if (device!.deviceConnectionState.value == ConnectivityState.disconnected && device!.disableAutoConnect) ...[
+                  if (device!.deviceConnectionState.value == ConnectivityState.disconnected &&
+                      device!.disableAutoConnect) ...[
                     TextButton(
                       onPressed: () {
                         setState(() {
@@ -305,11 +310,13 @@ class _ManageGearUpdateCheckButtonState extends ConsumerState<ManageGearUpdateCh
             } else if (snapshot.hasError) {
               buttonText = manageDevicesOtaCheckErrorButtonLabel();
               iconData = Icons.error;
-            } else if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting) {
+            } else if (snapshot.connectionState == ConnectionState.active ||
+                snapshot.connectionState == ConnectionState.waiting) {
               buttonText = manageDevicesOtaCheckInProgressButtonLabel();
             }
             return FilledButton(
-              onPressed: (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting)
+              onPressed: (snapshot.connectionState == ConnectionState.active ||
+                      snapshot.connectionState == ConnectionState.waiting)
                   ? null
                   : () {
                       if (snapshot.data == true) {
@@ -330,7 +337,8 @@ class _ManageGearUpdateCheckButtonState extends ConsumerState<ManageGearUpdateCh
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting) ...[
+                  if (snapshot.connectionState == ConnectionState.active ||
+                      snapshot.connectionState == ConnectionState.waiting) ...[
                     CircularProgressIndicator(
                       color: getTextColor(widget.color),
                     )
@@ -384,15 +392,18 @@ class ManageGearConventionMode extends ConsumerWidget {
                     ? (value) async {
                         //TODO: Validate the setting took correctly. Reboot check?
                         if (value) {
-                          BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETPUSSKEY ${device.baseStoredDevice.conModePin}", device: device, timestamp: DateTime.timestamp());
-                          device.commandQueue.addCommand(bluetoothMessage);
+                          BluetoothMessage bluetoothMessage = BluetoothMessage(
+                              message: "SETPUSSKEY ${device.baseStoredDevice.conModePin}",
+                              timestamp: DateTime.timestamp());
+                          ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
                           device.baseStoredDevice.conModeEnabled = true;
                           ref.read(knownDevicesProvider.notifier).store();
                           await Clipboard.setData(ClipboardData(text: device.baseStoredDevice.conModePin));
                         } else {
                           //TODO? if gear is disconnected and this is attempted, offer instructions to reset gear
-                          BluetoothMessage bluetoothMessage = BluetoothMessage(message: "STOPPUSSKEY", device: device, timestamp: DateTime.timestamp());
-                          device.commandQueue.addCommand(bluetoothMessage);
+                          BluetoothMessage bluetoothMessage =
+                              BluetoothMessage(message: "STOPPUSSKEY", timestamp: DateTime.timestamp());
+                          ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
                           device.baseStoredDevice.conModeEnabled = false;
                           ref.read(knownDevicesProvider.notifier).store();
                           forgetBond(device.baseStoredDevice.btMACAddress);
@@ -403,7 +414,11 @@ class ManageGearConventionMode extends ConsumerWidget {
           ),
         ),
         OverflowBar(
-          children: [FilledButton(onPressed: () => PinCodeRoute(pin: device.baseStoredDevice.conModePin).push(context), child: Text(manageGearConModePincodeTitle()))],
+          children: [
+            FilledButton(
+                onPressed: () => PinCodeRoute(pin: device.baseStoredDevice.conModePin).push(context),
+                child: Text(manageGearConModePincodeTitle()))
+          ],
         )
       ],
     );
@@ -506,7 +521,16 @@ class ManageGearBatteryGraph extends StatelessWidget {
                     maxY: 100,
                     minX: 0,
                     maxX: device.batlevels.isNotEmpty ? device.batlevels.last.x : 1,
-                    lineBarsData: [LineChartBarData(spots: device.batlevels, color: Theme.of(context).colorScheme.primary, dotData: const FlDotData(show: false), isCurved: true, curveSmoothness: 0.1, preventCurveOverShooting: true, show: device.batlevels.isNotEmpty)],
+                    lineBarsData: [
+                      LineChartBarData(
+                          spots: device.batlevels,
+                          color: Theme.of(context).colorScheme.primary,
+                          dotData: const FlDotData(show: false),
+                          isCurved: true,
+                          curveSmoothness: 0.1,
+                          preventCurveOverShooting: true,
+                          show: device.batlevels.isNotEmpty)
+                    ],
                   ),
                 );
               },
@@ -518,16 +542,16 @@ class ManageGearBatteryGraph extends StatelessWidget {
   }
 }
 
-class ManageGearDebug extends StatefulWidget {
+class ManageGearDebug extends ConsumerStatefulWidget {
   final BaseStatefulDevice device;
 
   const ManageGearDebug({super.key, required this.device});
 
   @override
-  State<ManageGearDebug> createState() => _ManageGearDebugState();
+  ConsumerState<ManageGearDebug> createState() => _ManageGearDebugState();
 }
 
-class _ManageGearDebugState extends State<ManageGearDebug> {
+class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
@@ -577,6 +601,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                 valueListenable: widget.device.gearConfigInfo,
                 builder: (context, value, child) => Text("NVS Config: ${widget.device.gearConfigInfo.value}"),
               ),
+              Text("QUEUE STATE: ${ref.watch(commandQueueProvider(widget.device))}"),
             ],
           ),
         ),
@@ -605,7 +630,10 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                       }
                       setState(
                         () {
-                          widget.device.fwVersion.value = Version(major: int.parse(nameValue), minor: widget.device.fwVersion.value.minor, patch: widget.device.fwVersion.value.patch);
+                          widget.device.fwVersion.value = Version(
+                              major: int.parse(nameValue),
+                              minor: widget.device.fwVersion.value.minor,
+                              patch: widget.device.fwVersion.value.patch);
                         },
                       );
                     },
@@ -627,7 +655,10 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                       }
                       setState(
                         () {
-                          widget.device.fwVersion.value = Version(major: widget.device.fwVersion.value.major, minor: int.parse(nameValue), patch: widget.device.fwVersion.value.patch);
+                          widget.device.fwVersion.value = Version(
+                              major: widget.device.fwVersion.value.major,
+                              minor: int.parse(nameValue),
+                              patch: widget.device.fwVersion.value.patch);
                         },
                       );
                     },
@@ -649,7 +680,10 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                       }
                       setState(
                         () {
-                          widget.device.fwVersion.value = Version(major: widget.device.fwVersion.value.major, minor: widget.device.fwVersion.value.minor, patch: int.parse(nameValue));
+                          widget.device.fwVersion.value = Version(
+                              major: widget.device.fwVersion.value.major,
+                              minor: widget.device.fwVersion.value.minor,
+                              patch: int.parse(nameValue));
                         },
                       );
                     },
@@ -980,9 +1014,12 @@ class _ManageGearHomePositionState extends ConsumerState<ManageGearHomePosition>
   }
 
   void updateHomePosition() {
-    Move move = Move.move(leftServo: (widget.device.baseStoredDevice.leftHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127), rightServo: (widget.device.baseStoredDevice.rightHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127));
+    Move move = Move.move(
+        leftServo: (widget.device.baseStoredDevice.leftHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127),
+        rightServo: (widget.device.baseStoredDevice.rightHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127));
     generateMoveCommand(move, widget.device, CommandType.direct, priority: Priority.high);
-    BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETHOME", device: widget.device, timestamp: DateTime.now(), responseMSG: "OK", priority: Priority.high);
-    widget.device.commandQueue.addCommand(bluetoothMessage);
+    BluetoothMessage bluetoothMessage =
+        BluetoothMessage(message: "SETHOME", timestamp: DateTime.now(), responseMSG: "OK", priority: Priority.high);
+    ref.read(commandQueueProvider(widget.device).notifier).addCommand(bluetoothMessage);
   }
 }
