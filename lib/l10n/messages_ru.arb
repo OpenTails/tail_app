@@ -545,7 +545,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Непосредственно контролируйте положение шестерни.",
+  "joyStickPageDescription": "Управляй положением устройства напрямую.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -1040,6 +1040,198 @@
   "settingsTailBlogWifiOnlyDescription": "Запретить загрузку контента Tail Blog при подключении к мобильной сети",
   "@settingsTailBlogWifiOnlyDescription": {
     "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageCoverPromoTitle": "Измени внешний вид устройства!",
+  "@morePageCoverPromoTitle": {
+    "description": "The title for the button on the More page to push users to buy a new cover",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateTitle": "Локализация",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateDescription": "Помоги нам перевести приложение на твой язык",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLanguageSelectorTitle": "Язык приложения",
+  "@appLanguageSelectorTitle": {
+    "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearTitle": "Твоё устройство",
+  "@watchKnownGearTitle": {
+    "description": "The title for the known gear section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsTitle": "Избранные действия",
+  "@watchFavoriteActionsTitle": {
+    "description": "title for the favorite actions section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeEnableDescription": "При включении режима конференции устройство перезагрузится, и тебе будет предложено ввести PIN-код. Код будет скопирован в буфер обмена",
+  "@manageGearConModePincodeEnableDescription": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportDescription": "Нажми на синюю иконку чата, чтобы связаться с поддержкой",
+  "@supportDescription": {
+    "description": "The description of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearDisconnectTimeout": "Устройство не было отключено вовремя и, вероятно, не перезагрузилось",
+  "@otaFailedReasonGearDisconnectTimeout": {
+    "description": "gearDisconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonMD5Mismatch": "Загруженный файл не прошёл проверку",
+  "@otaFailedReasonMD5Mismatch": {
+    "description": "md5Mismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonDownloadFailed": "Не удалось загрузить файл прошивки",
+  "@otaFailedReasonDownloadFailed": {
+    "description": "downloadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearVersionMismatch": "Версия прошивки на устройстве не совпадает с загруженной версией",
+  "@otaFailedReasonGearVersionMismatch": {
+    "description": "gearVersionMismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReturnedError": "Устройство вернуло неизвестную ошибку",
+  "@otaFailedReasonGearReturnedError": {
+    "description": "gearReturnedError error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonUploadFailed": "Не удалось загрузить прошивку на устройство",
+  "@otaFailedReasonUploadFailed": {
+    "description": "uploadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReconnectTimeout": "Устройство не подключилось вовремя",
+  "@otaFailedReasonGearReconnectTimeout": {
+    "description": "gearReconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportTitle": "Поддержка",
+  "@supportTitle": {
+    "description": "The label and title of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsNoFavoritesTip": "Долго нажми на действие на телефоне, чтобы добавить его в избранное",
+  "@watchFavoriteActionsNoFavoritesTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearNoGearPairedTip": "Используй кнопку «Сканировать новое устройство» на телефоне, чтобы подключить его",
+  "@watchKnownGearNoGearPairedTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeDescription": "Режим конференции — это дополнительная мера безопасности, предотвращающая подключение других устройств к твоему.",
+  "@manageGearConModeDescription": {
+    "description": "The description for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "feedbackPageDescription": "Есть предложение или проблема с приложением? Расскажи нам. Примечание: это анонимно и не может быть использовано для решения проблем с устройством",
+  "@feedbackPageDescription": {
+    "description": "The description of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckButtonLabel": "Проверить обновления",
+  "@manageDevicesOtaCheckButtonLabel": {
+    "description": "manage devices button to check if an update is available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaUpToDateButtonLabel": "Устройство обновлено!",
+  "@manageDevicesOtaUpToDateButtonLabel": {
+    "description": "manage devices button label if gear is up to date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckInProgressButtonLabel": "Проверка",
+  "@manageDevicesOtaCheckInProgressButtonLabel": {
+    "description": "manage devices button label if gear is checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckErrorButtonLabel": "Пожалуйста, попробуй позже",
+  "@manageDevicesOtaCheckErrorButtonLabel": {
+    "description": "manage devices button label if an error occured while checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutLabel": "О твоем устройстве",
+  "@manageDevicesAboutLabel": {
+    "description": "label for the about your gear section in the manage devices area",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutHardwareVersionLabel": "Версия оборудования",
+  "@manageDevicesAboutHardwareVersionLabel": {
+    "description": "label for the hardware version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutSoftwareVersionLabel": "Версия программного обеспечения",
+  "@manageDevicesAboutSoftwareVersionLabel": {
+    "description": "label for the software version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearOtaFinalTimeout": "Время ожидания ответа от устройства с новой версией прошивки истекло",
+  "@otaFailedReasonGearOtaFinalTimeout": {
+    "description": "gearOtaFinalTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeTitle": "Режим конференции",
+  "@manageGearConModeTitle": {
+    "description": "The title for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeTitle": "Показать PIN-код",
+  "@manageGearConModePincodeTitle": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeCopy": "Скопировать в буфер обмена",
+  "@manageGearConModePincodeCopy": {
+    "description": "The description for copy to clipboard button on the pin code dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeToggleTitle": "Включить режим конференции",
+  "@manageGearConModeToggleTitle": {
+    "description": "The description for the convention mode enabled button on the gear page",
     "type": "text",
     "placeholders": {}
   }

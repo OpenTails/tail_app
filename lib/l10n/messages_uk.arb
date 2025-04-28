@@ -53,7 +53,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditMove": "Дія",
+  "sequencesEditMove": "Рух",
   "@sequencesEditMove": {
     "description": "Label for the move tab on sequence move edit page",
     "type": "text",
@@ -209,7 +209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "joyStickPageDescription": "Прямий контроль позиції механізму.",
+  "joyStickPageDescription": "Керуй розташуванням свого пристрою безпосередньо.",
   "@joyStickPageDescription": {
     "description": "The description of the joystick page on the more page",
     "type": "text",
@@ -386,6 +386,840 @@
   "cancel": "Відміна",
   "@cancel": {
     "description": "Cancel on dialog boxes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeCopy": "Скопіювати в буфер обміну",
+  "@manageGearConModePincodeCopy": {
+    "description": "The description for copy to clipboard button on the pin code dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeToggleTitle": "Увімкнути режим конференції",
+  "@manageGearConModeToggleTitle": {
+    "description": "The description for the convention mode enabled button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicSound": "Звук виявлено",
+  "@triggerEarMicSound": {
+    "description": "EarGear internal mic trigger sound detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltDescription": "Запустити дію, коли EarGear виявляє нахил",
+  "@triggerEarTiltDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltRight": "Нахил вправо",
+  "@triggerEarTiltRight": {
+    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageCoverPromoTitle": "Змініть вигляд свого пристрою!",
+  "@morePageCoverPromoTitle": {
+    "description": "The title for the button on the More page to push users to buy a new cover",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltForward": "Нахил вперед",
+  "@triggerEarTiltForward": {
+    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateTitle": "Локалізація",
+  "@morePageTranslateTitle": {
+    "description": "The title for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePageTranslateDescription": "Допоможи нам перекласти додаток на твою мову",
+  "@morePageTranslateDescription": {
+    "description": "The description for the button on the More page to push users to assist in translating the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLanguageSelectorTitle": "Мова додатку",
+  "@appLanguageSelectorTitle": {
+    "description": "The title for the button and dialog to select the app language",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsTitle": "Улюблені дії",
+  "@watchFavoriteActionsTitle": {
+    "description": "title for the favorite actions section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearTitle": "Твій пристрій",
+  "@watchKnownGearTitle": {
+    "description": "The title for the known gear section of the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchKnownGearNoGearPairedTip": "На телефоні натисни кнопку «Сканувати новий пристрій», щоб з’єднати його",
+  "@watchKnownGearNoGearPairedTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchFavoriteActionsNoFavoritesTip": "На телефоні довго натисни на дію, щоб додати її до улюблених",
+  "@watchFavoriteActionsNoFavoritesTip": {
+    "description": "the tip for when no actions are favorited on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckErrorButtonLabel": "Спробуй пізніше",
+  "@manageDevicesOtaCheckErrorButtonLabel": {
+    "description": "manage devices button label if an error occured while checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearDisconnectTimeout": "Пристрій не відключився вчасно і, ймовірно, не перезавантажився",
+  "@otaFailedReasonGearDisconnectTimeout": {
+    "description": "gearDisconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverNear": "Пристрій прикрито",
+  "@triggerCoverNear": {
+    "description": "Cover trigger near action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltTitle": "Датчик нахилу EarGear",
+  "@triggerEarTiltTitle": {
+    "description": "EarGear internal gesture sensor trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaLowBattery": "Низький заряд. Заряди пристрій хоча б до 50%",
+  "@otaLowBattery": {
+    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoDescription": "Користувацькі дії дозволяють створити власні дії для пристрою. Натисни на дію, щоб виконати її. Натисни олівець, щоб редагувати. Переконайся, що прошивка пристрою оновлена.",
+  "@sequencesInfoDescription": {
+    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsFavoriteTip": "Натисни й утримуй дію, щоб додати в обране",
+  "@actionsFavoriteTip": {
+    "description": "tip message which appears when no actions are added to favorite on the actions page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionDescription": "Визначає позицію, в яку пристрій повернеться після завершення дії",
+  "@manageGearHomePositionDescription": {
+    "description": "Description for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonDescription": "Випадковим чином виконати вибрану дію",
+  "@triggerRandomButtonDescription": {
+    "description": "Casual Mode trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeEnableDescription": "Після ввімкнення режиму конференції пристрій буде перезавантажено, і тебе попросять ввести PIN-код. Код буде скопійовано до буфера обміну",
+  "@manageGearConModePincodeEnableDescription": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesFoundTitle": "Пристрій знайдено. Натисни на його назву, щоб під’єднатися",
+  "@scanDevicesFoundTitle": {
+    "description": "Title when gear is found on the scan for new gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomButtonTitle": "Повсякденний режим",
+  "@triggerRandomButtonTitle": {
+    "description": "Casual Mode trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltBackward": "Нахил назад",
+  "@triggerEarTiltBackward": {
+    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioTipCard": "Можна додати власні звуки, які будуть доступні в розділі Дій і використовуватимуться з тригерами",
+  "@audioTipCard": {
+    "description": "Tutorial card for the audio page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverDescription": "Запустити дію, прикривши датчик наближення",
+  "@triggerCoverDescription": {
+    "description": "Cover trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverFar": "Пристрій відкрито",
+  "@triggerCoverFar": {
+    "description": "Cover trigger far action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerRandomAction": "Дія",
+  "@triggerRandomAction": {
+    "description": "Casual Mode trigger action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonDescription": "Запустити дію натисканням кнопки гучності",
+  "@triggerVolumeButtonDescription": {
+    "description": "Volume Button trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarTiltLeft": "Нахил вліво",
+  "@triggerEarTiltLeft": {
+    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionSelectorTutorialLabel": "Вибери скільки завгодно дій. Дія буде випадково обрана з сумісних з підключеним пристроєм. GlowTip і Звук будуть запускатись разом з Рухом. Не забудь зберегти.",
+  "@triggerActionSelectorTutorialLabel": {
+    "description": "Label for the tutorial card on the Action selector for triggers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleSubTitle": "Надсилати узагальнені дані використання функцій до Plausible для покращення додатку",
+  "@settingsAnalyticsToggleSubTitle": {
+    "description": "Settings page analytics reporting toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerCoverTitle": "Прикрий",
+  "@triggerCoverTitle": {
+    "description": "Cover trigger Title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoDescription": "Тригери автоматично надсилають дії на твій пристрій. Можна активувати кілька тригерів одночасно. Натисни на тригер, щоб змінити його. Використовуй перемикач зліва для активації.",
+  "@triggerInfoDescription": {
+    "description": "Description for what a trigger is and how to use them on the triggers page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonMD5Mismatch": "Завантажений файл не пройшов перевірку",
+  "@otaFailedReasonMD5Mismatch": {
+    "description": "md5Mismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonDownloadFailed": "Не вдалося завантажити файл прошивки",
+  "@otaFailedReasonDownloadFailed": {
+    "description": "downloadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearVersionMismatch": "Версія прошивки на пристрої не відповідає завантаженій версії",
+  "@otaFailedReasonGearVersionMismatch": {
+    "description": "gearVersionMismatch error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReturnedError": "Пристрій повернув невідому помилку",
+  "@otaFailedReasonGearReturnedError": {
+    "description": "gearReturnedError error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesInfoEditDescription": "Кожна користувацька дія складається з 1–6 рухів і може повторюватись до 5 разів. Тривале натискання дозволяє змінити порядок рухів.",
+  "@sequencesInfoEditDescription": {
+    "description": "Description for making a custom action on the edit Custom Action page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyDescription": "Хоча зібрані дані є анонімними і не можуть бути використані для ідентифікації користувача, потрібно прийняти політику конфіденційності",
+  "@onboardingPrivacyPolicyDescription": {
+    "description": "Description for there being a privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingDoneButtonLabel": "Готово",
+  "@onboardingDoneButtonLabel": {
+    "description": "Label for the button to close the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportTitle": "Підтримка",
+  "@supportTitle": {
+    "description": "The label and title of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingTitle": "Ходьба",
+  "@triggerWalkingTitle": {
+    "description": "Walking/Step trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleBackToClose": "Натисни ще раз, щоб вийти",
+  "@doubleBackToClose": {
+    "description": "Snackbar message which appears when the back button is pressed at the main screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noLongerSupported": "Цей пристрій більше не підтримується. Деякі функції можуть не працювати",
+  "@noLongerSupported": {
+    "description": "Warning message which appears for unsupported gear on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonTitle": "Кнопки гучності",
+  "@triggerVolumeButtonTitle": {
+    "description": "Volume Button trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeUp": "Збільшити гучність",
+  "@triggerVolumeButtonVolumeUp": {
+    "description": "Volume Button trigger volume up action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerVolumeButtonVolumeDown": "Зменшити гучність",
+  "@triggerVolumeButtonVolumeDown": {
+    "description": "Volume Button trigger volume down action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeTitle": "Струсити",
+  "@triggerShakeTitle": {
+    "description": "Shake trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerShakeDescription": "Запустити дію, струснувши пристрій",
+  "@triggerShakeDescription": {
+    "description": "Shake trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityTitle": "Пристрій поруч",
+  "@triggerProximityTitle": {
+    "description": "Proximity trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerProximityDescription": "Запустити дію, якщо пристрій поруч",
+  "@triggerProximityDescription": {
+    "description": "Proximity trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerActionNotSet": "Дію не встановлено",
+  "@triggerActionNotSet": {
+    "description": "Trigger action label when no action set",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicTitle": "Мікрофон EarGear",
+  "@triggerEarMicTitle": {
+    "description": "EarGear internal mic trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "feedbackPageDescription": "Є пропозиція чи проблема з додатком? Повідом нам. Примітка: це анонімно й не використовується для вирішення проблем із пристроєм",
+  "@feedbackPageDescription": {
+    "description": "The description of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTutorialCardToggleSubTitle": "Приховати навчальні картки в додатку",
+  "@settingsTutorialCardToggleSubTitle": {
+    "description": "Settings page tutorial card display toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAnalyticsToggleTitle": "Дозволити анонімну аналітику",
+  "@settingsAnalyticsToggleTitle": {
+    "description": "Settings page analytics reporting toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAppColor": "Колір додатку",
+  "@settingsAppColor": {
+    "description": "Settings page app color picker button title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesBatteryGraphTitle": "Графік заряду батареї",
+  "@manageDevicesBatteryGraphTitle": {
+    "description": "battery graph expansion tile title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesDisconnect": "Від’єднати",
+  "@manageDevicesDisconnect": {
+    "description": "manage devices disconnect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesConnect": "Під’єднати",
+  "@manageDevicesConnect": {
+    "description": "manage devices connect button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesShutdown": "Вимкнути",
+  "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesColor": "Колір пристрою",
+  "@manageDevicesColor": {
+    "description": "manage devices color picker button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "colorPickerTitle": "Вибери колір",
+  "@colorPickerTitle": {
+    "description": "The title of the color picker",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesForget": "Забути",
+  "@manageDevicesForget": {
+    "description": "manage devices forget button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaButton": "Натисни, щоб оновити прошивку",
+  "@manageDevicesOtaButton": {
+    "description": "manage devices ota available button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualFlutterWingsTitle": "Інструкція FlutterWings",
+  "@moreManualFlutterWingsTitle": {
+    "description": "Title for FlutterWings manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualTitle": "Інструкції",
+  "@moreManualTitle": {
+    "description": "Title for manual header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualSubTitle": "Натисни, щоб переглянути",
+  "@moreManualSubTitle": {
+    "description": "Subtitle for each manual on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreUsefulLinksTitle": "Корисні посилання",
+  "@moreUsefulLinksTitle": {
+    "description": "Title for Useful Links header on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "morePrivacyPolicyLinkTitle": "Політика конфіденційності",
+  "@morePrivacyPolicyLinkTitle": {
+    "description": "Title for Privacy policy link under Useful Links on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeChangelogLinkTitle": "Список змін",
+  "@homeChangelogLinkTitle": {
+    "description": "Title for Changelog on Home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreTitle": "Більше",
+  "@moreTitle": {
+    "description": "Title for More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaTitle": "Оновити пристрій",
+  "@otaTitle": {
+    "description": "Title for OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaChangelogLabel": "Список змін прошивки",
+  "@otaChangelogLabel": {
+    "description": "Label for changelog section of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaDownloadButtonLabel": "Почати OTA-оновлення",
+  "@otaDownloadButtonLabel": {
+    "description": "Label for download firmware button at bottom of OTA page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaInProgressTitle": "Оновлення пристрою. Не вимикай пристрій і не закривай додаток",
+  "@otaInProgressTitle": {
+    "description": "Label for ota in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaCompletedTitle": "Оновлення завершено",
+  "@otaCompletedTitle": {
+    "description": "Title for the text that appears when an OTA update is completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedTitle": "Помилка оновлення. Перезапусти пристрій і спробуй ще раз",
+  "@otaFailedTitle": {
+    "description": "Title for the text that appears when an OTA update has failed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDeleteDescription": "Ти впевнений, що хочеш видалити цей звуковий ефект?",
+  "@audioDeleteDescription": {
+    "description": "Label for the body of the delete confirmation dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerEarMicDescription": "Запустити дію, коли EarGear виявляє звук",
+  "@triggerEarMicDescription": {
+    "description": "EarGear internal mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckButtonLabel": "Перевірити оновлення",
+  "@manageDevicesOtaCheckButtonLabel": {
+    "description": "manage devices button to check if an update is available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaUpToDateButtonLabel": "Пристрій оновлено!",
+  "@manageDevicesOtaUpToDateButtonLabel": {
+    "description": "manage devices button label if gear is up to date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesOtaCheckInProgressButtonLabel": "Перевірка",
+  "@manageDevicesOtaCheckInProgressButtonLabel": {
+    "description": "manage devices button label if gear is checking for an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutLabel": "Про твій пристрій",
+  "@manageDevicesAboutLabel": {
+    "description": "label for the about your gear section in the manage devices area",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutHardwareVersionLabel": "Версія обладнання",
+  "@manageDevicesAboutHardwareVersionLabel": {
+    "description": "label for the hardware version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesAboutSoftwareVersionLabel": "Версія програмного забезпечення",
+  "@manageDevicesAboutSoftwareVersionLabel": {
+    "description": "label for the software version on the manage devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesTitle": "Сканувати новий пристрій",
+  "@scanDevicesTitle": {
+    "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesScanMessage": "Сканування пристрою. Переконайся, що пристрій увімкнено і поруч",
+  "@scanDevicesScanMessage": {
+    "description": "scan for devices scan in progress message when scanning for a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingDescription": "Запустити дію при ходьбі",
+  "@triggerWalkingDescription": {
+    "description": "Walking/Step trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStopped": "Зупинено",
+  "@triggerWalkingStopped": {
+    "description": "Walking/Step trigger Stopped action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerWalkingStep": "Крок",
+  "@triggerWalkingStep": {
+    "description": "Walking/Step trigger Step action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonUploadFailed": "Не вдалося завантажити прошивку на пристрій",
+  "@otaFailedReasonUploadFailed": {
+    "description": "uploadFailed error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearReconnectTimeout": "Пристрій не підключився вчасно",
+  "@otaFailedReasonGearReconnectTimeout": {
+    "description": "gearReconnectTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaFailedReasonGearOtaFinalTimeout": "Перевищено час очікування відповіді пристрою з новою версією прошивки",
+  "@otaFailedReasonGearOtaFinalTimeout": {
+    "description": "gearOtaFinalTimeout error message for uploading firmware",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequenceEditRepeatTitle": "Скільки разів повторити цю дію?",
+  "@sequenceEditRepeatTitle": {
+    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualResponsibleWaggingTitle": "Відповідальне виля́ння",
+  "@moreManualResponsibleWaggingTitle": {
+    "description": "Title for Responsible wagging manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanConnectToAllButtonLabel": "Під’єднатися до всіх",
+  "@scanConnectToAllButtonLabel": {
+    "description": "Title for Connecting to all found gear on the scan page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualMiTailTitle": "Інструкція MiTail",
+  "@moreManualMiTailTitle": {
+    "description": "Title for MiTail manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreManualEargearTitle": "Інструкція EarGear",
+  "@moreManualEargearTitle": {
+    "description": "Title for EarGear manual button on More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerInfoEditActionDescription": "Натисни олівець, щоб вибрати дію, яка виконуватиметься при події. Дія буде випадково обрана з тих, що сумісні з підключеним пристроєм. GlowTip і Звук виконуються разом з Рухом.",
+  "@triggerInfoEditActionDescription": {
+    "description": "Instruction on how to select an action on the trigger edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyViewButtonLabel": "Переглянути політику конфіденційності",
+  "@onboardingPrivacyPolicyViewButtonLabel": {
+    "description": "Button label to view privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingPrivacyPolicyAcceptButtonLabel": "Прийняти політику конфіденційності",
+  "@onboardingPrivacyPolicyAcceptButtonLabel": {
+    "description": "Button label to accept privacy policy on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothTitle": "Bluetooth",
+  "@onboardingBluetoothTitle": {
+    "description": "Title for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothDescription": "Потрібен дозвіл на Bluetooth для підключення до пристрою",
+  "@onboardingBluetoothDescription": {
+    "description": "Description for bluetooth section on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothRequestButtonLabel": "Надати дозвіл",
+  "@onboardingBluetoothRequestButtonLabel": {
+    "description": "Label for the button to request bluetooth permission on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBluetoothEnableButtonLabel": "Відкрий налаштування, щоб увімкнути Bluetooth",
+  "@onboardingBluetoothEnableButtonLabel": {
+    "description": "Label for the button to open bluetooth settings on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingCompletedTitle": "Веселого виля́ння!",
+  "@onboardingCompletedTitle": {
+    "description": "Title of the final page of the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandatoryOtaRequired": "Доступне оновлення прошивки для кращої підтримки твого пристрою",
+  "@mandatoryOtaRequired": {
+    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreSourceCode": "Початковий код",
+  "@moreSourceCode": {
+    "description": "Label for the github and dev mode button on the more tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioActionCategory": "Звукові ефекти",
+  "@audioActionCategory": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEditDescription": "Керування власними звуками",
+  "@audioEditDescription": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioEdit": "Перейменувати звуковий ефект",
+  "@audioEdit": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDelete": "Видалити звуковий ефект",
+  "@audioDelete": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioAdd": "Додати звуковий ефект",
+  "@audioAdd": {
+    "description": "Label for sound files",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGear": "Віртуальний пристрій",
+  "@scanDemoGear": {
+    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanAddDemoGear": "Додати віртуальний пристрій",
+  "@scanAddDemoGear": {
+    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanRemoveDemoGear": "Видалити всі віртуальні пристрої",
+  "@scanRemoveDemoGear": {
+    "description": "Label for the button to remove all demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "supportDescription": "Натисни на синю іконку чату, щоб зв’язатися з підтримкою",
+  "@supportDescription": {
+    "description": "The description of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeTitle": "Режим конференції",
+  "@manageGearConModeTitle": {
+    "description": "The title for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModeDescription": "Режим конференції — це додатковий захист, який запобігає підключенню інших пристроїв до твого.",
+  "@manageGearConModeDescription": {
+    "description": "The description for the convention mode page on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearConModePincodeTitle": "Переглянути PIN-код",
+  "@manageGearConModePincodeTitle": {
+    "description": "The description for the pin mode button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDemoGearTip": "Хочеш протестувати додаток, але ще чекаєш на пристрій? Додай віртуальний пристрій. Це дозволить користуватись додатком так, ніби пристрій уже є, або спробувати інші пристрої. Це відкриє новий розділ на сторінці «Сканувати новий пристрій».",
+  "@scanDemoGearTip": {
+    "description": "Tip Card description for the  demo gear on the scan for new devices page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "featureLimitedOtaRequiredLabel": "Онови свій пристрій, щоб скористатись цією функцією.",
+  "@featureLimitedOtaRequiredLabel": {
+    "description": "Label for the warning card when a feature requires a firmware update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "joystickWarning": "Функція джойстика є експериментальною. Використовуй на свій ризик.",
+  "@joystickWarning": {
+    "description": "Label for the warning tutorial card on the joystick page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarLabel": "Онови свій пристрій",
+  "@otaAvailableSnackbarLabel": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "otaAvailableSnackbarTitle": "Доступне оновлення",
+  "@otaAvailableSnackbarTitle": {
+    "description": "Label for the snackbar that appears when gear has an update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarTitle": "Пристрій підключено",
+  "@newGearConnectedSnackbarTitle": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newGearConnectedSnackbarLabel": "Веселого виля́ння",
+  "@newGearConnectedSnackbarLabel": {
+    "description": "Label for the snackbar that appears when new gear is paired and connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedTitle": "Швидкість руху вух",
+  "@earSpeedTitle": {
+    "description": "Title for the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedFast": "Швидко",
+  "@earSpeedFast": {
+    "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "earSpeedSlow": "Повільно",
+  "@earSpeedSlow": {
+    "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "casualModeDelayTitle": "Мінімальна та максимальна затримка",
+  "@casualModeDelayTitle": {
+    "description": "Label for the range slider to set the min and max delay time for casual mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageGearHomePositionTitle": "Встановити початкову позицію",
+  "@manageGearHomePositionTitle": {
+    "description": "Title for the home position sliders on the manage gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyTitle": "Tail Blog лише через Wi-Fi",
+  "@settingsTailBlogWifiOnlyTitle": {
+    "description": "Description for the tail blog wifi only setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsTailBlogWifiOnlyDescription": "Заборонити завантаження Tail Blog при підключенні до мобільної мережі",
+  "@settingsTailBlogWifiOnlyDescription": {
+    "description": "Description for the tail blog wifi only setting",
     "type": "text",
     "placeholders": {}
   }
