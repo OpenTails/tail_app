@@ -378,7 +378,8 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     super.name = triggerWalkingTitle();
     super.description = triggerWalkingDescription();
     super.icon = const Icon(Icons.directions_walk);
-    super.requiredPermission = TriggerPermissionHandle(android: {Permission.activityRecognition});
+    super.requiredPermission =
+        TriggerPermissionHandle(android: {Permission.activityRecognition}, ios: {Permission.sensors});
     super.uuid = "ee9379e2-ec4f-40bb-8674-fd223a6edfda";
     super.actionTypes = [
       TriggerActionDef(name: "Walking", translated: triggerWalkingTitle(), uuid: "77d22961-5a69-465a-bd27-5cf5508d10a6"),
