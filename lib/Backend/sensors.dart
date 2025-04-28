@@ -65,13 +65,13 @@ class Trigger extends ChangeNotifier {
     }
     _enabled = value;
     if (_enabled) {
-      triggerDefinition?.deviceTypes[uuid] = _deviceType.toSet();
-      triggerDefinition?.actions[uuid] = actions;
+      triggerDefinition?.deviceTypes = _deviceType.toSet();
+      triggerDefinition?.actions = actions;
       triggerDefinition?.addListener(triggerDefListener);
       triggerDefinition?.enabled = value;
     } else {
-      triggerDefinition?.deviceTypes.remove(uuid);
-      triggerDefinition?.actions.remove(uuid);
+      triggerDefinition?.deviceTypes = {};
+      triggerDefinition?.actions = [];
       triggerDefinition?.removeListener(triggerDefListener);
       triggerDefinition?.enabled = value;
     }
@@ -96,7 +96,7 @@ class Trigger extends ChangeNotifier {
   set deviceType(List<DeviceType> value) {
     _deviceType = value;
     if (_enabled) {
-      triggerDefinition?.deviceTypes[uuid] = _deviceType.toSet();
+      triggerDefinition?.deviceTypes = _deviceType.toSet();
     }
   }
 
@@ -108,7 +108,7 @@ class Trigger extends ChangeNotifier {
   set actions(List<TriggerAction> value) {
     _actions = value;
     if (_enabled) {
-      triggerDefinition?.actions[uuid] = actions;
+      triggerDefinition?.actions = actions;
     }
   }
 
@@ -154,8 +154,8 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
   late final String description;
   late final Widget icon;
   late final String uuid;
-  Map<String, Set<DeviceType>> deviceTypes = {};
-  Map<String, List<TriggerAction>> actions = {};
+  Set<DeviceType> deviceTypes = {};
+  List<TriggerAction> actions = [];
   bool _enabled = false;
 
   bool get enabled => _enabled;
@@ -208,9 +208,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
     if (ref.read(getAvailableGearProvider).isEmpty) {
       return;
     }
-    actions.values.flattened
-        .where((e) => actionTypes.firstWhere((element) => element.name == name).uuid == e.uuid)
-        .forEach(
+    actions.where((e) => actionTypes.firstWhere((element) => element.name == name).uuid == e.uuid).forEach(
       (TriggerAction triggerAction) async {
         if (triggerAction.isActive.value || triggerAction.actions.isEmpty) {
           // 15 second cool-down between moves
@@ -264,7 +262,6 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           final BaseAction audioAction = audioActions[_random.nextInt(audioActions.length)];
           actionsToRun.add(audioAction);
         }
-        final Set<DeviceType> flattenedDeviceTypes = deviceTypes.values.flattened.toSet();
         // check if non glowy actions are set
         if (moveActions.isNotEmpty) {
           baseAction = moveActions[_random.nextInt(moveActions.length)];
@@ -274,7 +271,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         if (baseAction != null &&
             moveActions.length > 1 &&
             ((baseAction is CommandAction && hasLegacyEars) ||
-                !baseAction.deviceCategory.toSet().containsAll(flattenedDeviceTypes))) {
+                !baseAction.deviceCategory.toSet().containsAll(deviceTypes))) {
           // find the missing device type
           // The goal here is if a user selects multiple moves, send a move to all gear
           final Set<DeviceType> baseActionDeviceCategories = baseAction.deviceCategory.where(
@@ -288,7 +285,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
               return true;
             },
           ).toSet();
-          final Set<DeviceType> missingGearAction = flattenedDeviceTypes.difference(baseActionDeviceCategories);
+          final Set<DeviceType> missingGearAction = deviceTypes.difference(baseActionDeviceCategories);
           final List<BaseAction> remainingActions = moveActions.where(
             // Check if any actions contain the device type of the gear the first action is missing
             (element) {
@@ -996,10 +993,8 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
   }
 
   //Filter by unused sensors
-  List<TriggerDefinition> get() => state
-      .toSet()
-      .difference(ref.read(triggerListProvider).map((Trigger e) => e.triggerDefinition!).toSet())
-      .toList();
+  List<TriggerDefinition> get() =>
+      state.toSet().difference(ref.read(triggerListProvider).map((Trigger e) => e.triggerDefinition!).toSet()).toList();
 
   Future<List<TriggerDefinition>> getSupported() async {
     List<TriggerDefinition> unusedTriggerDefinitions = get();
