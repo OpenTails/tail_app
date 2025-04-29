@@ -30,7 +30,7 @@ dependencies:
   built_collection: ^5.1.1
 
   # Platform Interfaces
-  device_info_plus: ^11.3.3
+  device_info_plus: ^11.4.0
   wakelock_plus: ^1.2.11 # Keeps the screen awake
   file_picker: ^10.1.2 # used to manually select firmware file
   path_provider: ^2.1.5 # used to get paths for app storage and cache storage
