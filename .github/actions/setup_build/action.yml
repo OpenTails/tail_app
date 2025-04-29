@@ -1,18 +1,18 @@
-name: 'Setup Tail App builds'
-description: 'Internal Action for Tail App'
+name: "Setup Tail App builds"
+description: "Internal Action for Tail App"
 inputs:
   java-version:
-    description: 'Java version for android'
-    default: '17'
+    description: "Java version for android"
+    default: "17"
   java-distribution:
-    description: 'Java distribution'
-    default: 'zulu'
+    description: "Java distribution"
+    default: "zulu"
   flutter-version:
-    description: 'Flutter Version'
-    default: '3.29.1'
+    description: "Flutter Version"
+    default: "3.29.1"
   ruby-version:
-    description: 'Ruby Version'
-    default: '3.4'
+    description: "Ruby Version"
+    default: "3.4"
 runs:
   using: "composite"
   steps:
@@ -34,3 +34,7 @@ runs:
       with:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
         ruby-version: ${{ inputs.ruby-version }} # Not needed with a .ruby-version file
+    - uses: maxim-lobanov/setup-xcode@v1
+      if: runner.os == 'macOS '
+      with:
+        xcode-version: latest-stable
