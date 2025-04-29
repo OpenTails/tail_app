@@ -423,6 +423,7 @@ class CommandQueue extends _$CommandQueue {
   Timer? _runningCommandTimer;
   BluetoothMessage? currentMessage;
   StreamSubscription<String>? _rxCharacteristicStreamSubscription;
+  get queue => _commandQueue.toList();
   @override
   CommandQueueState build(BaseStatefulDevice device) {
     _device = device;
@@ -456,7 +457,7 @@ class CommandQueue extends _$CommandQueue {
   void _bluetoothResponseListener(String msg) {
     if (state == CommandQueueState.waitingForResponse && currentMessage != null && currentMessage!.responseMSG != null) {
       if (msg == currentMessage!.responseMSG!) {
-        state = CommandQueueState.idle;
+        _setState(CommandQueueState.idle);
       }
     }
   }
@@ -466,7 +467,7 @@ class CommandQueue extends _$CommandQueue {
     currentMessage == null;
     _runningCommandTimer == null;
     if ([CommandQueueState.delay, CommandQueueState.waitingForResponse, CommandQueueState.running].contains(state)) {
-      state = CommandQueueState.idle;
+      _setState(CommandQueueState.idle);
     }
   }
 
@@ -498,7 +499,7 @@ class CommandQueue extends _$CommandQueue {
   /// Stops the queue and aborts waiting for the next command;
   void stopQueue() {
     bluetoothLog.fine("Stopping queue for ${_device.baseStoredDevice.name}");
-    state = CommandQueueState.blocked;
+    _setState(CommandQueueState.blocked);
     _runningCommandTimer?.cancel();
     _runningCommandTimer = null;
     currentMessage = null;
@@ -506,7 +507,7 @@ class CommandQueue extends _$CommandQueue {
 
   void startQueue() {
     bluetoothLog.fine("Starting queue for ${_device.baseStoredDevice.name}");
-    state = CommandQueueState.idle;
+    _setState(CommandQueueState.idle);
   }
 
   /// Handles running the next command and marking gear as busy/idle
@@ -519,33 +520,43 @@ class CommandQueue extends _$CommandQueue {
         break;
       case CommandQueueState.blocked:
         _device.deviceState.value = DeviceState.busy;
+        break;
       case CommandQueueState.idle:
         if (_commandQueue.isEmpty) {
-          state == CommandQueueState.empty;
+          _setState(CommandQueueState.empty);
         } else {
           runCommand(_commandQueue.removeFirst());
         }
+        break;
       case CommandQueueState.empty:
         _device.deviceState.value = DeviceState.standby;
         break;
     }
   }
 
+  void _setState(CommandQueueState state) {
+    if (_commandQueue.isEmpty) {
+      _setState(CommandQueueState.empty);
+    } else {
+      this.state = state;
+    }
+  }
+
   Future<void> runCommand(BluetoothMessage bluetoothMessage) async {
     currentMessage = bluetoothMessage;
-    state = CommandQueueState.running;
+    _setState(CommandQueueState.running);
     _device.gearReturnedError.value = false;
 
     // handle if the command is a delay command
     if (bluetoothMessage.delay != null) {
       bluetoothLog.fine("Pausing queue for ${_device.baseStoredDevice.name}");
       _runningCommandTimer = Timer(Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20), _onTimeout);
-      state = CommandQueueState.delay;
+      _setState(CommandQueueState.delay);
     } else {
       bluetoothLog.fine("Sending command to ${_device.baseStoredDevice.name}:${bluetoothMessage.message}");
       _device.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.send, message: bluetoothMessage.message));
       if (bluetoothMessage.responseMSG != null) {
-        state = CommandQueueState.waitingForResponse;
+        _setState(CommandQueueState.waitingForResponse);
         _runningCommandTimer = Timer(timeoutDuration, _onTimeout);
       }
       await sendMessage(_device, const Utf8Encoder().convert(bluetoothMessage.message));
@@ -574,7 +585,7 @@ class CommandQueue extends _$CommandQueue {
     _commandQueue.add(bluetoothMessage);
     // Start the queue is its stopped/idle
     if (state == CommandQueueState.empty) {
-      state = CommandQueueState.idle;
+      _setState(CommandQueueState.idle);
     }
   }
 }
