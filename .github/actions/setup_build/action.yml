@@ -35,6 +35,6 @@ runs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
         ruby-version: ${{ inputs.ruby-version }} # Not needed with a .ruby-version file
     - uses: maxim-lobanov/setup-xcode@v1
-      if: runner.os == 'macOS '
+      if: runner.os == 'macOS'
       with:
         xcode-version: latest-stable
