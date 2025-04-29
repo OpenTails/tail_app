@@ -37,7 +37,7 @@ dependencies:
   package_info_plus: ^8.3.0
   permission_handler: ^12.0.0+1
   url_launcher: ^6.3.1 # Open URLS in external apps
-  flutter_blue_plus: ^1.35.3
+  flutter_blue_plus: ^1.35.5
   flutter_foreground_task: ^9.0.0 # Keep the app running in the background on android
   quick_actions: ^1.1.0 # puts favorites on the home screen
   audioplayers: ^6.4.0
