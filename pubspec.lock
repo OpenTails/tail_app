@@ -810,10 +810,10 @@ packages:
     dependency: "direct main"
     description:
       name: hive_ce
-      sha256: ac66daee46ad46486a1ed12cf91e9d7479c875fb46889be8d2c96b557406647f
+      sha256: fb6560a993b58921ced4e8afabc6ed4e41ec024d3667f11e12fbd6fbbd4de82a
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.1"
+    version: "2.11.0"
   hive_ce_flutter:
     dependency: "direct main"
     description:
@@ -826,10 +826,10 @@ packages:
     dependency: "direct dev"
     description:
       name: hive_ce_generator
-      sha256: "0b1c750e2d10c55a14cde16d479ada42704be6cef43c54b728ed0e4e02f7d808"
+      sha256: "3534164551c88fc3edb4dec2270d2cf5bf3ca6defa02b8247d9d5bd81eb364a6"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.2"
+    version: "1.9.0"
   html:
     dependency: transitive
     description:
@@ -894,6 +894,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  isolate_channel:
+    dependency: transitive
+    description:
+      name: isolate_channel
+      sha256: bafedfbcc1e9796ada179b5dac7043b33eb85d35204b089ca37d480d9c0068df
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
   jovial_misc:
     dependency: transitive
     description:
