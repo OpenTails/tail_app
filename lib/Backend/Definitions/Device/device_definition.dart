@@ -535,7 +535,7 @@ class CommandQueue extends _$CommandQueue {
   }
 
   void _setState(CommandQueueState state) {
-    if (_commandQueue.isEmpty) {
+    if (_commandQueue.isEmpty && state == CommandQueueState.idle) {
       _setState(CommandQueueState.empty);
     } else {
       this.state = state;
