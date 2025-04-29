@@ -92,7 +92,7 @@ dependencies:
   flutter_android_volume_keydown: ^1.0.1
 
   # Hive
-  hive_ce: ^2.10.1
+  hive_ce: ^2.11.0
   hive_ce_flutter: ^2.2.0
 
   # Spicy
