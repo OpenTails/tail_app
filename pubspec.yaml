@@ -93,7 +93,7 @@ dependencies:
 
   # Hive
   hive_ce: ^2.10.1
-  hive_ce_flutter: ^2.2.0
+  hive_ce_flutter: ^2.3.0
 
   # Spicy
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
