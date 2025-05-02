@@ -33,7 +33,7 @@ const String selectedLocale = 'selectedLocale';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
-final int appColorDefault = const Color.fromARGB(255, 228, 110, 38).value;
+final int appColorDefault = const Color.fromARGB(255, 228, 110, 38).toARGB32();
 const bool hapticsDefault = true;
 const bool keepAwakeDefault = false;
 const bool allowAnalyticsDefault = false;

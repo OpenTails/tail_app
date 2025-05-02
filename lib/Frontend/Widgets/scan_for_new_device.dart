@@ -65,7 +65,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                     ),
                   ),
                   StreamBuilder<List<ScanResult>>(
-                    stream: flutterBluePlus.scanResults,
+                    stream: FlutterBluePlus.scanResults,
                     builder: (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
                       List<ScanResult> list = [];
                       if (snapshot.hasData) {
@@ -189,7 +189,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                   () {
                                     BaseStoredDevice baseStoredDevice;
                                     BaseStatefulDevice statefulDevice;
-                                    baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color(ref: ref).value)..name = getNameFromBTName(value.btName);
+                                    baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color(ref: ref).toARGB32())..name = getNameFromBTName(value.btName);
                                     statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
                                     statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
                                     if (value.deviceType == DeviceType.ears) {

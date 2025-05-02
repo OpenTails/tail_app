@@ -13,6 +13,7 @@ class WearHelper extends ConsumerWidget {
     ThemeData theme = Theme.of(context);
     WearThemeData themeData = WearThemeData(primary: theme.colorScheme.primary.toARGB32(), secondary: theme.colorScheme.secondary.toARGB32());
     wearThemeData = themeData;
+    // ignore: unused_result
     ref.refresh(updateWearDataProvider.future);
     return child;
   }

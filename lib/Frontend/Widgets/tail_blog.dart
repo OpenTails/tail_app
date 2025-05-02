@@ -10,6 +10,7 @@ import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
 // Used as MediaDetails isn't exported
+// ignore: implementation_imports
 import 'package:wordpress_client/src/responses/properties/media_details.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 

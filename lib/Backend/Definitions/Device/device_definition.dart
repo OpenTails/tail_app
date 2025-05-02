@@ -6,6 +6,7 @@ import 'package:circular_buffer/circular_buffer.dart';
 import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
@@ -91,9 +92,13 @@ extension DeviceTypeExtension on DeviceType {
     if (ref != null && (ref is WidgetRef || ref is Ref)) {
       Iterable<BaseStatefulDevice> knownDevices = [];
       if (ref is WidgetRef) {
-        knownDevices = ref.read(knownDevicesProvider).values;
+        knownDevices = ref
+            .read(knownDevicesProvider)
+            .values;
       } else if (ref is Ref) {
-        knownDevices = ref.read(knownDevicesProvider).values;
+        knownDevices = ref
+            .read(knownDevicesProvider)
+            .values;
       }
       int? color = knownDevices
           .where((element) => element.baseDeviceDefinition.deviceType == this)
@@ -126,11 +131,10 @@ enum TailControlStatus { tailControl, legacy, unknown }
 
 @freezed
 abstract class BluetoothUartService with _$BluetoothUartService {
-  const factory BluetoothUartService(
-      {required String bleDeviceService,
-      required String bleRxCharacteristic,
-      required String bleTxCharacteristic,
-      required String label}) = _BluetoothUartService;
+  const factory BluetoothUartService({required String bleDeviceService,
+    required String bleRxCharacteristic,
+    required String bleTxCharacteristic,
+    required String label}) = _BluetoothUartService;
 }
 
 final List<BluetoothUartService> uartServices = const [
@@ -159,13 +163,12 @@ final List<BluetoothUartService> uartServices = const [
 
 @freezed
 abstract class BaseDeviceDefinition with _$BaseDeviceDefinition {
-  const factory BaseDeviceDefinition(
-      {required String uuid,
-      required String btName,
-      required DeviceType deviceType,
-      @Default("") String fwURL,
-      Version? minVersion,
-      @Default(false) bool unsupported}) = _BaseDeviceDefinition;
+  const factory BaseDeviceDefinition({required String uuid,
+    required String btName,
+    required DeviceType deviceType,
+    @Default("") String fwURL,
+    Version? minVersion,
+    @Default(false) bool unsupported}) = _BaseDeviceDefinition;
 }
 
 // data that represents the current state of a device
@@ -199,7 +202,7 @@ class BaseStatefulDevice {
   Timer? deviceStateWatchdogTimer;
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice) {
-    rxCharacteristicStream = flutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) {
+    rxCharacteristicStream = FlutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) {
       return event.device.remoteId.str == baseStoredDevice.btMACAddress &&
           bluetoothUartService.value != null &&
           event.characteristic.characteristicUuid.str == bluetoothUartService.value!.bleRxCharacteristic;
@@ -229,7 +232,7 @@ class BaseStatefulDevice {
       }
 
       isTailCoNTROL.value = bluetoothUartService.value ==
-              uartServices.firstWhere(
+          uartServices.firstWhere(
                   (element) => element.bleDeviceService.toLowerCase() == "19f8ade2-d0c6-4c0a-912a-30601d9b3060")
           ? TailControlStatus.tailControl
           : TailControlStatus.legacy;
@@ -240,10 +243,10 @@ class BaseStatefulDevice {
         deviceStateWatchdogTimer = Timer(
             Duration(
                 seconds:
-                    HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault)),
-            () {
-          deviceState.value = DeviceState.standby;
-        });
+                HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault)),
+                () {
+              deviceState.value = DeviceState.standby;
+            });
       } else if (deviceState.value != DeviceState.runAction && deviceStateWatchdogTimer != null) {
         deviceStateWatchdogTimer?.cancel();
         deviceStateWatchdogTimer = null;
@@ -278,27 +281,27 @@ enum MessageHistoryType { send, receive }
 
 @freezed
 // TailControl only
-abstract class GearConfigInfo with _$GearConfigInfo {
+abstract class GearConfigInfo
+    with _$GearConfigInfo {
   const GearConfigInfo._();
 
-  const factory GearConfigInfo(
-      {@Default("") String ver,
-      @Default("") String minsToSleep,
-      @Default("") String minsToNPM,
-      @Default("") String minNPMPauseSec,
-      @Default("") String maxNPMPauseSec,
-      @Default("") String groupsNPM,
-      @Default("") String servo1home,
-      @Default("") String servo2home,
-      @Default("") String listenModeNPMEnabled,
-      @Default("") String listenModeResponseOnly,
-      @Default("") String groupsLM,
-      @Default("") String tiltModeNPMEnabled,
-      @Default("") String tiltModeResponseOnly,
-      @Default("") String disconnectedCountdownEnabled,
-      @Default("") String homeOnAppPoweroff,
-      @Default("") String conferenceModeEnabled,
-      @Default("") String securityPasskey}) = _GearConfigInfo;
+  const factory GearConfigInfo({@Default("") String ver,
+    @Default("") String minsToSleep,
+    @Default("") String minsToNPM,
+    @Default("") String minNPMPauseSec,
+    @Default("") String maxNPMPauseSec,
+    @Default("") String groupsNPM,
+    @Default("") String servo1home,
+    @Default("") String servo2home,
+    @Default("") String listenModeNPMEnabled,
+    @Default("") String listenModeResponseOnly,
+    @Default("") String groupsLM,
+    @Default("") String tiltModeNPMEnabled,
+    @Default("") String tiltModeResponseOnly,
+    @Default("") String disconnectedCountdownEnabled,
+    @Default("") String homeOnAppPoweroff,
+    @Default("") String conferenceModeEnabled,
+    @Default("") String securityPasskey}) = _GearConfigInfo;
 
   factory GearConfigInfo.fromGearString(String fwInput) {
     List<String> values = fwInput.split(" ");
@@ -423,7 +426,9 @@ class CommandQueue extends _$CommandQueue {
   Timer? _runningCommandTimer;
   BluetoothMessage? currentMessage;
   StreamSubscription<String>? _rxCharacteristicStreamSubscription;
+
   get queue => _commandQueue.toList();
+
   @override
   CommandQueueState build(BaseStatefulDevice device) {
     _device = device;

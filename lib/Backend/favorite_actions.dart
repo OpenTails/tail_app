@@ -11,13 +11,16 @@ import 'logging_wrappers.dart';
 import 'wear_bridge.dart';
 
 part 'favorite_actions.freezed.dart';
+
 part 'favorite_actions.g.dart';
 
 final _favoriteActionsLogger = Logger('Favorites');
 
 @HiveType(typeId: 13)
 @freezed
-abstract class FavoriteAction with _$FavoriteAction implements Comparable<FavoriteAction> {
+abstract class FavoriteAction
+    with _$FavoriteAction
+    implements Comparable<FavoriteAction> {
   const FavoriteAction._();
 
   @Implements<Comparable<FavoriteAction>>()
@@ -48,7 +51,7 @@ class FavoriteActions extends _$FavoriteActions {
 
   Future<void> add(BaseAction action) async {
     state = state.rebuild(
-      (p0) {
+          (p0) {
         p0
           ..add(FavoriteAction(actionUUID: action.uuid, id: state.length + 1))
           ..sort();
@@ -59,7 +62,7 @@ class FavoriteActions extends _$FavoriteActions {
 
   Future<void> remove(BaseAction action) async {
     state = state.rebuild(
-      (p0) => p0.removeWhere((element) => element.actionUUID == action.uuid),
+          (p0) => p0.removeWhere((element) => element.actionUUID == action.uuid),
     );
     await store();
   }
@@ -73,6 +76,7 @@ class FavoriteActions extends _$FavoriteActions {
     await HiveProxy.clear<FavoriteAction>(favoriteActionsBox);
     await HiveProxy.addAll<FavoriteAction>(favoriteActionsBox, state);
     updateShortcuts(state, ref);
+    // ignore: unused_result
     ref.refresh(updateWearDataProvider);
   }
 }

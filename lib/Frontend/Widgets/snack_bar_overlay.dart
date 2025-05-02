@@ -38,38 +38,32 @@ class SnackBarOverlay extends ConsumerWidget {
       knownDevicesProvider,
       (previous, next) {
         if (previous != null && previous.length < next.length) {
-          Future(
-            () => ScaffoldMessenger.of(context)
-              ..clearSnackBars()
-              ..showSnackBar(
-                SnackBar(
-                  /// need to set following properties for best effect of awesome_snackbar_content
-                  elevation: 0,
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.transparent,
-                  content: AwesomeSnackbarContent(
-                    title: newGearConnectedSnackbarTitle(),
-                    message: newGearConnectedSnackbarLabel(),
+          ScaffoldMessenger.of(context)
+            ..clearSnackBars()
+            ..showSnackBar(
+              SnackBar(
+                /// need to set following properties for best effect of awesome_snackbar_content
+                elevation: 0,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                  title: newGearConnectedSnackbarTitle(),
+                  message: newGearConnectedSnackbarLabel(),
 
-                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                    contentType: ContentType.success,
-                  ),
+                  /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                  contentType: ContentType.success,
                 ),
               ),
-          );
+            );
         }
       },
     );
     if (value.hasValue) {
-      Future(
-        () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              value.value!,
-            );
-        },
-      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          value.value!,
+        );
     }
     if (knownDevices.isEmpty) {
       return child;
@@ -94,33 +88,29 @@ class SnackBarOverlay extends ConsumerWidget {
             return child!;
           }
           hasDisplayedNotice[baseStatefulDevice.baseStoredDevice.btMACAddress] = true;
-          Future(
-            () {
-              return ScaffoldMessenger.of(context)
-                ..clearSnackBars()
-                ..showSnackBar(
-                  SnackBar(
+          ScaffoldMessenger.of(context)
+            ..clearSnackBars()
+            ..showSnackBar(
+              SnackBar(
 
-                      /// need to set following properties for best effect of awesome_snackbar_content
-                      elevation: 0,
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.transparent,
-                      content: InkWell(
-                        child: AwesomeSnackbarContent(
-                          title: otaAvailableSnackbarTitle(),
-                          message: otaAvailableSnackbarLabel(),
+                  /// need to set following properties for best effect of awesome_snackbar_content
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: InkWell(
+                    child: AwesomeSnackbarContent(
+                      title: otaAvailableSnackbarTitle(),
+                      message: otaAvailableSnackbarLabel(),
 
-                          /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                          contentType: ContentType.warning,
-                        ),
-                        onTap: () async {
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          return OtaUpdateRoute(device: baseStatefulDevice.baseStoredDevice.btMACAddress).push(context);
-                        },
-                      )),
-                );
-            },
-          );
+                      /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                      contentType: ContentType.warning,
+                    ),
+                    onTap: () async {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      return OtaUpdateRoute(device: baseStatefulDevice.baseStoredDevice.btMACAddress).push(context);
+                    },
+                  )),
+            );
         }
         return child!;
       },
