@@ -1,7 +1,8 @@
 ### V 1.2.1
 
 - Add app language option to onboarding
-- App now updates immediatly when language is changed
+- App now updates immediately when language is changed
+- Make command handling more efficient, which should help battery life
 
 ### V 1.2.0
 
