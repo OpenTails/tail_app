@@ -7,6 +7,7 @@
 package com.codel1417.tail_App.presentation
 
 import android.R
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -59,9 +60,6 @@ import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataEvent
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataItem
-import com.google.android.gms.wearable.MessageClient
-import com.google.android.gms.wearable.MessageEvent
-import com.google.android.gms.wearable.NodeClient
 import com.google.android.gms.wearable.Wearable
 import com.google.android.gms.wearable.Wearable.getCapabilityClient
 import com.google.gson.Gson
@@ -80,10 +78,9 @@ import java.io.ObjectOutputStream
  * Watch to App communication
  */
 class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
-     CapabilityClient.OnCapabilityChangedListener {
-    private var wearData: MutableLiveData<WearData> = MutableLiveData<WearData>(WearData());
+    CapabilityClient.OnCapabilityChangedListener {
+    private var wearData: MutableLiveData<WearData> = MutableLiveData<WearData>(WearData())
 
-    private lateinit var dataClient: DataClient
     override fun onResume() {
         super.onResume()
         println("onResume()")
@@ -109,7 +106,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
 
             if (obj !is Map<*, *>) throw Exception()
             @Suppress("UNCHECKED_CAST")
-            obj as Map<String, Any>;
+            obj as Map<String, Any>
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -138,8 +135,6 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                 event.dataItem.also { item ->
                     getWearDataItem(item)
                 }
-            } else if (event.type == DataEvent.TYPE_DELETED) {
-                // DataItem deleted
             }
         }
     }
@@ -147,28 +142,27 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     private fun getWearDataItem(item: DataItem) {
         try {
             println("Loading Actions")
-            val gson: Gson = Gson()
+            val gson = Gson()
             // asMap converts the bytes to the java object
             // The flutter library watch_connectivity was built for flutter to flutter, not flutter to compose
-            val rawData = item.data!!.asMap();
+            val rawData = item.data!!.asMap()
 
             // cursed way to convert from map to WearData
             val data: WearData = gson.fromJson<WearData>(
                 gson.toJson(rawData),
                 WearData::class.java
-            );
+            )
             wearData.postValue(data)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
         }
 
     }
 
-    private var nodeIDs: HashMap<String, String> = HashMap<String, String>()
 
     // Create a data map and put data in it
-    private fun sendMessageToPhone(data: WearSendData) {
+    private fun sendMessageToPhone(data: WearSendData, context: Context) {
         try {
-            getCapabilityClient(this)
+            getCapabilityClient(context)
                 .getCapability(
                     data.capability,
                     FILTER_REACHABLE
@@ -177,7 +171,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         result.nodes.firstOrNull { it.isNearby }?.id
                             ?: result.nodes.firstOrNull()?.id
                     if (capabilityId == null) {
-                        return@addOnSuccessListener;
+                        return@addOnSuccessListener
                     }
                     val gson = Gson()
                     val messageType = object : TypeToken<Map<String, Any>>() {}.type
@@ -185,7 +179,8 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         gson.toJson(data),
                         messageType
                     )
-                    Wearable.getMessageClient(this).sendMessage(capabilityId, "/${data.capability}", asBytes(message))
+                    Wearable.getMessageClient(context)
+                        .sendMessage(capabilityId, "/${data.capability}", asBytes(message))
                 }
         } catch (e: Exception) {
             println("Error triggering action $e")
@@ -210,7 +205,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     @Composable
     fun WearApp() {
         println("WearApp()")
-        dataClient = Wearable.getDataClient(this)
+        val context = LocalContext.current
         val state: State<WearData?> = wearData.observeAsState()
 
         // Safely update the current lambdas when a new one is provided
@@ -226,9 +221,9 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         sendMessageToPhone(
                             data = WearSendData(
                                 capability = "refresh",
-                            )
+                            ), context
                         )
-                        dataClient.dataItems
+                        Wearable.getDataClient(context).dataItems
                             .addOnSuccessListener { result ->
                                 result.forEach { item ->
                                     getWearDataItem(
@@ -242,9 +237,9 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         sendMessageToPhone(
                             data = WearSendData(
                                 capability = "refresh",
-                            )
+                            ), context
                         )
-                        dataClient.dataItems
+                        Wearable.getDataClient(context).dataItems
                             .addOnSuccessListener { result ->
                                 result.forEach { item ->
                                     getWearDataItem(
@@ -258,9 +253,9 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         sendMessageToPhone(
                             data = WearSendData(
                                 capability = "refresh",
-                            )
+                            ), context
                         )
-                        dataClient.dataItems
+                        Wearable.getDataClient(context).dataItems
                             .addOnSuccessListener { result ->
                                 result.forEach { item ->
                                     getWearDataItem(
@@ -404,6 +399,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
         contents: String,
         uuid: String,
     ) {
+        val context = LocalContext.current
         Chip(
             modifier = modifier,
             colors = ChipDefaults.chipColors(backgroundColor = Color(wearData.value!!.themeData.primary)),
@@ -413,7 +409,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                     data = WearSendData(
                         capability = "run_action",
                         uuid = uuid,
-                    )
+                    ), context
                 )
             },
         )
@@ -426,6 +422,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
         uuid: String,
         enabled: Boolean,
     ) {
+        val context = LocalContext.current
         SwitchButton(
             modifier = modifier,
             label = { Text(text = contents, textAlign = TextAlign.Center) },
@@ -436,7 +433,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         capability = "toggle_trigger",
                         uuid = uuid,
                         enabled = result,
-                    )
+                    ), context
                 )
             },
         )
@@ -471,7 +468,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
         sendMessageToPhone(
             data = WearSendData(
                 capability = "refresh",
-            )
+            ), this
         )
     }
 }
