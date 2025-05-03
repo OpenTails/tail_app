@@ -1,9 +1,11 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:intl/intl.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
@@ -70,6 +72,17 @@ Future<String> initLocale(Ref ref) async {
 final dioLogger = Logger('Dio');
 
 Dio? _dio;
+final cacheOptions = CacheOptions(
+  // A default store is required for interceptor.
+  store: HiveCacheStore(
+    null,
+    hiveBoxName: "dioCache",
+  ),
+  hitCacheOnErrorCodes: const [500],
+
+  hitCacheOnNetworkFailure: true,
+  maxStale: const Duration(days: 7),
+);
 
 Future<Dio> initDio({skipSentry = false}) async {
   if (_dio != null) {
@@ -108,6 +121,10 @@ Future<Dio> initDio({skipSentry = false}) async {
       ],
     ),
   );
+
+  // Global options
+
+  dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
   if (!skipSentry) {
     /// This *must* be the last initialization step of the Dio setup, otherwise
     /// your configuration of Dio might overwrite the Sentry configuration.
@@ -123,7 +140,8 @@ Future<WordpressClient> getWordpressClient() async {
   if (_wordpressClient != null) {
     return _wordpressClient!;
   }
-  return WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: await initDio());
+  Dio dio = await initDio();
+  return WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: dio);
 }
 
 Version getVersionSemVer(String input) {

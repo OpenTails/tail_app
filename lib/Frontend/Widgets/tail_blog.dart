@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -269,18 +270,24 @@ class _TailBlogImageState extends ConsumerState<TailBlogImage> {
   }
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 Future<Widget> getBlogImage(Ref ref, String url) async {
   if (!await tailBlogConnectivityCheck()) {
     return Container();
   }
   Dio dio = await initDio();
+
   Response<List<int>> response = await dio.get(
     url,
-    options: Options(
-      responseType: ResponseType.bytes,
-      followRedirects: true,
-    ),
+    options: cacheOptions
+        .copyWith(
+          policy: CachePolicy.forceCache,
+        )
+        .toOptions()
+        .copyWith(
+          responseType: ResponseType.bytes,
+          followRedirects: true,
+        ),
   );
 
   if (response.statusCode! < 400) {

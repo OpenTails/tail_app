@@ -17,7 +17,6 @@ dependencies:
   go_router: ^15.1.1
   vector_math:  # used for joystick, pinned to SDK version
   collection: ^1.19.1 # Priority Queue
-  intl: #pinned to flutter version?
   uuid: ^4.5.1 # Used to generate UUID v4 ids for custom actions & move lists
   json_annotation: ^4.9.0
   crypto: ^3.0.6 # used for md5 hash checking during ota download
@@ -76,11 +75,17 @@ dependencies:
     git:
       url: https://github.com/Codel1417/packages.flutter
       path: packages/pdfx
+
+  # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
   country_flags: ^3.2.0 # locale flags
+  intl: #pinned to flutter version?
+
   # Dio HTTP
   dio: ^5.8.0+1
   dio_smart_retry: ^7.0.1
+  dio_cache_interceptor: ^4.0.3
+  http_cache_hive_store: ^5.0.1
 
   # Sensors
   pedometer: ^4.1.1
