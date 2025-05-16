@@ -6,12 +6,12 @@
     "replayOnErrorSampleRate": 0
   },
   "appVersion": {
-    "url": "https://github.com/OpenTails/tail_app/releases/download/1.1.5/tailCompanyApp-1.1.5-2115.apk",
-    "changelog": "\n- Hide Eargear triggers if no Ears are paired\n- Add setting to change the app language\n",
+    "url": "https://github.com/OpenTails/tail_app/releases/download/1.2.1/tailCompanyApp-1.2.1-2206.apk",
+    "changelog": "\n- Add app language option to onboarding\n- App now updates immediately when language is changed\n- Make command handling more efficient, which should help battery life\n",
     "version": {
       "major": 1,
-      "minor": 1,
-      "patch": 5
+      "minor": 2,
+      "patch": 1
     }
   }
 }
