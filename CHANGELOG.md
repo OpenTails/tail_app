@@ -1,3 +1,7 @@
+### V 1.2.2
+
+- Fix bug when selecting a color
+
 ### V 1.2.1
 
 - Add app language option to onboarding

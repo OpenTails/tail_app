@@ -31,7 +31,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.of(context).pop(color..toARGB32());
+            Navigator.of(context).pop(color.toARGB32());
           },
           child: Text(
             ok(),
