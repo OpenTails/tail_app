@@ -79,7 +79,7 @@ dependencies:
   # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
   country_flags: ^3.2.0 # locale flags
-  intl: #pinned to flutter version?
+  intl: 0.20.2 #pinned to flutter version?
 
   # Dio HTTP
   dio: ^5.8.0+1
