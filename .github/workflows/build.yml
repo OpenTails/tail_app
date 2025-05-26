@@ -4,6 +4,7 @@ on:
       - '*.md'
       - '*.sh'
       - '*/fastlane/*'
+      - '.github/*'
     branches:
       - master
   pull_request:
