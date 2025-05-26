@@ -16,6 +16,8 @@ jobs:
       MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Environment
+        uses: ./.github/actions/setup_build
       - run: echo "$APPLE_SECRETS" > APPLE_SECRETS.json
         working-directory: ios
       - run: bundle exec fastlane certs
