@@ -52,7 +52,7 @@ Future<String> getSentryEnvironment() async {
   if (!kReleaseMode) {
     return 'debug';
   }
-  if (kIsWeb){
+  if (kIsWeb) {
     return 'production';
   }
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -170,8 +170,12 @@ class WidgetBindingLogger extends WidgetsBindingObserver {
 
 Future<void> initHive() async {
   mainLogger.fine("Init Hive");
-  
-  Hive.initFlutter();
+  if (kIsWeb) {
+    Hive.initFlutter();
+  } else {
+    final Directory appDir = await getApplicationSupportDirectory();
+    Hive.init(appDir.path);
+  }
   if (!Hive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
     Hive.registerAdapter(BaseStoredDeviceAdapter());
   }
