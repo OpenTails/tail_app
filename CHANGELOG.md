@@ -1,6 +1,8 @@
 ### V 1.2.2
 
 - Fix bug when selecting a color
+- Fix a bug with translations not applying to triggers
+- Set default actions for more triggers
 
 ### V 1.2.1
 
