@@ -44,4 +44,10 @@ platform :ios do
       include_sources: true, # Optional. For source context.
     )
   end
+  lane :certs do
+    match_nuke(
+      type="appstore", 
+      api_key_path:"APPLE_SECRETS.json"
+    )
+  end
 end

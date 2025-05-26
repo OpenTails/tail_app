@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch:
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+name: "Reset IOS Certs"
+jobs:
+  reset_ios_cert:
+    permissions:
+      contents: write
+    name: Prepare Release
+    runs-on: macos-latest
+    env:
+      APPLE_SECRETS: ${{ secrets.APPLE }}
+      MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
+      MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
+    steps:
+      - run: echo "$APPLE_SECRETS" > APPLE_SECRETS.json
+        working-directory: ios
+      - run: bundle exec fastlane certs
+        working-directory: ios
