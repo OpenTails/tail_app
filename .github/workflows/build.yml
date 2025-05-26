@@ -5,6 +5,9 @@ on:
       - '*.sh'
       - '*/fastlane/*'
       - '.github/*'
+      - '.vscode/*'
+      - '.run/*'
+      - 'scripts/*'
     branches:
       - master
   pull_request:
