@@ -46,8 +46,8 @@ platform :ios do
   end
   lane :certs do
     match_nuke(
-      type="appstore", 
-      api_key_path:"APPLE_SECRETS.json"
+      type: "appstore", 
+      api_key_path: "APPLE_SECRETS.json"
     )
   end
 end
