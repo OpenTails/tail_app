@@ -2,6 +2,8 @@ on:
   push:
     paths-ignore:
       - '*.md'
+      - '*.sh'
+      - 'fastlane/*'
     branches:
       - master
   pull_request:
