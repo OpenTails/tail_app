@@ -3,7 +3,7 @@ on:
     paths-ignore:
       - '*.md'
       - '*.sh'
-      - 'fastlane/*'
+      - '*/fastlane/*'
     branches:
       - master
   pull_request:
