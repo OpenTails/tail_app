@@ -115,7 +115,7 @@ dev_dependencies:
   #flutter_gen_runner:
   riverpod_generator: ^2.6.5 # required for @Riverpod annotations
   json_serializable: ^6.9.5 # required for @JsonSerializable annotations
-  hive_ce_generator: ^1.9.1 # required for @HiveType annotations
+  hive_ce_generator: ^1.9.2 # required for @HiveType annotations
   go_router_builder: ^2.9.0
   freezed: ^3.0.6 # required for @freezed annotations
 
