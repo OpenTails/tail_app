@@ -1,10 +1,12 @@
 // ignore_for_file: cascade_invocations
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -148,7 +150,7 @@ class TriggerPermissionHandle {
   const TriggerPermissionHandle({this.android = const {}, this.ios = const {}});
 
   Future<bool> hasAllPermissions() async {
-    if (platform.isAndroid) {
+    if (Platform.isAndroid) {
       for (Permission permission in android) {
         PermissionStatus permissionStatus = await permission.request();
         if (PermissionStatus.granted != permissionStatus) {
@@ -156,7 +158,7 @@ class TriggerPermissionHandle {
         }
       }
     }
-    if (platform.isIOS) {
+    if (Platform.isIOS) {
       for (Permission permission in ios) {
         PermissionStatus permissionStatus = await permission.request();
         if (PermissionStatus.granted != permissionStatus) {
@@ -404,7 +406,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (!platform.isAndroid && !platform.isIOS) {
+    if (kIsWeb || !Platform.isAndroid && !Platform.isIOS) {
       return false;
     }
     bool isStepCountSupported = await Pedometer.isStepCountSupported == true;
@@ -458,7 +460,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (!platform.isAndroid && !platform.isIOS) {
+    if (kIsWeb || !Platform.isAndroid && !Platform.isIOS) {
       return false;
     }
     return ProximitySensor.isSupported();
@@ -715,7 +717,7 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return platform.isAndroid;
+    return !kIsWeb && Platform.isAndroid;
   }
 
   @override
@@ -754,7 +756,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (!platform.isAndroid && !platform.isIOS) {
+    if (kIsWeb || !Platform.isAndroid && !Platform.isIOS) {
       return false;
     }
     return true;
@@ -964,7 +966,7 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
       EarTiltTriggerDefinition(ref),
       RandomTriggerDefinition(ref),
     ];
-    if (platform.isAndroid) {
+    if (!kIsWeb && Platform.isAndroid) {
       triggerDefinitions.add(VolumeButtonTriggerDefinition(ref));
     }
     triggerDefinitions.sort();

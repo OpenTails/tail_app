@@ -135,7 +135,7 @@ dependency_overrides:
 
 flutter:
   uses-material-design: true
-  generate: false # Generate app_localizations.dart
+  generate: true # Generate app_localizations.dart
   assets:
     - assets/
     - assets/tailcostickers/
@@ -162,6 +162,9 @@ icons_launcher:
       enable: true
       dark_path: "assets/TC_Logo_Transparent_dark.png"
       tinted_path: "assets/TC_Logo_Transparent_NoText_greyscale.png"
+    web:
+      enable: true
+      
 
 
 flutter_native_splash:

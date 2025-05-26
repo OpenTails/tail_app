@@ -9,7 +9,6 @@
         "shopify.ruby-lsp",
         "redhat.vscode-yaml",
         "bierner.github-markdown-preview",
-        "eggnstone.dartformat",
     ],
     "unwantedRecommendations": [
         "visualstudioexptteam.vscodeintellicode",

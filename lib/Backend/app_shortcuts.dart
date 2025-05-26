@@ -1,4 +1,5 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,6 +17,9 @@ const QuickActions quickActions = QuickActions();
 
 @Riverpod(keepAlive: true)
 Future<void> appShortcuts(Ref ref) async {
+  if (kIsWeb) {
+    return;
+  }
   await Future.delayed(const Duration(seconds: 5));
   quickActions.initialize((shortcutType) {
     BaseAction? action = ref.read(getActionFromUUIDProvider(shortcutType));
@@ -30,6 +34,9 @@ Future<void> appShortcuts(Ref ref) async {
 }
 
 Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {
+  if (kIsWeb){
+    return;
+  }
   Iterable<BaseAction> allActions = favoriteActions
       .map(
         (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),

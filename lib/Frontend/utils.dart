@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
@@ -10,7 +12,6 @@ import 'package:intl/intl.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:platform/platform.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -24,18 +25,16 @@ import '../l10n/messages_all_locales.dart';
 
 part 'utils.g.dart';
 
-LocalPlatform platform = const LocalPlatform();
-
 Future<bool> getBluetoothPermission(Logger logger) async {
   bool granted = false;
-  if (platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
+  if (Platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
     PermissionStatus permissionStatusScan = await Permission.bluetoothScan.request();
     logger.info("permissionStatusScan $permissionStatusScan");
     granted = PermissionStatus.granted == permissionStatusScan;
     PermissionStatus permissionStatusConnect = await Permission.bluetoothConnect.request();
     logger.info("permissionStatusConnect $permissionStatusConnect");
     granted = granted && PermissionStatus.granted == permissionStatusConnect;
-  } else if (platform.isAndroid) {
+  } else if (Platform.isAndroid) {
     PermissionStatus permissionStatusLocation = await Permission.location.request();
     logger.info("permissionStatusLocation $permissionStatusLocation");
     granted = PermissionStatus.granted == permissionStatusLocation;
@@ -52,7 +51,7 @@ Future<bool> getBluetoothPermission(Logger logger) async {
 
 @Riverpod(keepAlive: true)
 Future<String> initLocale(Ref ref) async {
-  final String defaultLocale = platform.localeName; // Returns locale string in the form 'en_US'
+  final String defaultLocale = Platform.localeName; // Returns locale string in the form 'en_US'
 
   String locale = AppLocalizations.supportedLocales
           .where(
@@ -208,9 +207,9 @@ Future<void> setupSystemColor(BuildContext context) async {
 
 String getOutboundUtm() {
   String utm = "?utm_medium=Tail_App";
-  if (platform.isAndroid) {
+  if (Platform.isAndroid) {
     utm = "$utm?utm_source=tailappandr";
-  } else if (platform.isIOS) {
+  } else if (Platform.isIOS) {
     utm = "$utm?utm_source=tailappios";
   }
   return utm;

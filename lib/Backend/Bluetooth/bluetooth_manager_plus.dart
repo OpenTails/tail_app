@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
@@ -233,7 +234,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
         _bluetoothPlusLogger.fine('Enabling wakelock');
         WakelockPlus.enable();
       }
-      if (platform.isAndroid) {
+      if (Platform.isAndroid) {
         //start foreground service on device connected. Library handles duplicate start calls
         _bluetoothPlusLogger
           ..fine('Requesting notification permission')
@@ -284,7 +285,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
         // stop wakelock if its started
         WakelockPlus.disable();
         // Close foreground service
-        if (platform.isAndroid) {
+        if (Platform.isAndroid) {
           _bluetoothPlusLogger.finer('Stopping foreground service');
           FlutterForegroundTask.stopService();
         }
@@ -479,7 +480,7 @@ Future<void> forgetBond(String id) async {
     return;
   }
   // removing bonds is supported on android
-  if (platform.isIOS) {
+  if (!Platform.isAndroid) {
     return;
   }
   BluetoothDevice? device = FlutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == id);

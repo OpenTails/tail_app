@@ -52,10 +52,13 @@ Future<String> getSentryEnvironment() async {
   if (!kReleaseMode) {
     return 'debug';
   }
+  if (kIsWeb){
+    return 'production';
+  }
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   String referral = packageInfo.installerStore ?? "";
-  if (platform.isIOS) {
+  if (Platform.isIOS) {
     if (referral == "com.apple.testflight") {
       return 'staging';
     }
@@ -65,7 +68,7 @@ Future<String> getSentryEnvironment() async {
     }
   }
 
-  if (platform.isAndroid) {
+  if (Platform.isAndroid) {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     if (!androidInfo.isPhysicalDevice) {
       return 'debug';
@@ -80,7 +83,7 @@ Future<String> getSentryEnvironment() async {
 
 Future<void> initMainApp() async {
   //initialize the foreground service library
-  if (platform.isAndroid) {
+  if (!kIsWeb && Platform.isAndroid) {
     FlutterForegroundTask.initCommunicationPort();
   }
   await startSentryApp(TailApp());
@@ -167,8 +170,8 @@ class WidgetBindingLogger extends WidgetsBindingObserver {
 
 Future<void> initHive() async {
   mainLogger.fine("Init Hive");
-  final Directory appDir = await getApplicationSupportDirectory();
-  Hive.init(appDir.path);
+  
+  Hive.initFlutter();
   if (!Hive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
     Hive.registerAdapter(BaseStoredDeviceAdapter());
   }

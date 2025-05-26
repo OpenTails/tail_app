@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
@@ -45,7 +46,7 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
           if (result != null) {
             _audioLogger.info("Selected file");
             PlatformFile file = result.files.first;
-            final Directory appDir = await getApplicationSupportDirectory();
+            final Directory appDir = kIsWeb ? Directory.current : await getApplicationSupportDirectory();
             Directory audioDir = Directory("${appDir.path}/audio");
             await audioDir.create();
             File storedAudioFilePath = File("${audioDir.path}/${file.name}");

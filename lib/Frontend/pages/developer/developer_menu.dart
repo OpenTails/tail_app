@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -158,7 +160,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ),
           ListTile(
             title: const Text("PlatformLocale"),
-            subtitle: Text(platform.localeName),
+            subtitle: Text(Platform.localeName),
           ),
           const ListTile(
             title: Divider(),
