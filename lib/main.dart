@@ -176,6 +176,7 @@ Future<void> initHive() async {
     final Directory appDir = await getApplicationSupportDirectory();
     Hive.init(appDir.path);
   }
+
   if (!Hive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
     Hive.registerAdapter(BaseStoredDeviceAdapter());
   }
