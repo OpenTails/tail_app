@@ -33,8 +33,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     // Navigator.of(context).pushReplacement()
     plausible.event(name: "Complete Onboarding");
     _introLogger.info("Complete Onboarding");
-    HiveProxy.put(
-        settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
+    HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
     const ActionPageRoute().pushReplacement(context);
   }
 
@@ -50,8 +49,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     setupSystemColor(context);
     ref.watch(initLocaleProvider);
     var pageDecoration = PageDecoration(
-      titleTextStyle:
-          const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: const TextStyle(fontSize: 19.0),
       bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Theme.of(context).canvasColor,
@@ -96,13 +94,10 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           body: homeWelcomeMessage(),
           image: Builder(
             builder: (context) {
-              if (Theme.of(context).colorScheme.brightness ==
-                  Brightness.light) {
-                return _buildImage(Assets.splashLightTransparent.path,
-                    MediaQuery.of(context).size.width);
+              if (Theme.of(context).colorScheme.brightness == Brightness.light) {
+                return _buildImage(Assets.splashLightTransparent.path, MediaQuery.of(context).size.width);
               } else {
-                return _buildImage(Assets.splashDarkTransparent.path,
-                    MediaQuery.of(context).size.width);
+                return _buildImage(Assets.splashDarkTransparent.path, MediaQuery.of(context).size.width);
               }
             },
           ),
@@ -169,7 +164,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 onPressed: bluetoothAccepted
                     ? null
                     : () async {
-                        if (await getBluetoothPermission(_introLogger)) {
+                        if (await ref.read(getBluetoothPermissionProvider.future) == BluetoothPermissionStatus.granted) {
                           setState(
                             () {
                               // Start FlutterBluePlus
@@ -221,8 +216,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         onPressed: () {
           _onIntroEnd(context);
         },
-        child: Text(onboardingDoneButtonLabel(),
-            style: const TextStyle(fontWeight: FontWeight.w600)),
+        child: Text(onboardingDoneButtonLabel(), style: const TextStyle(fontWeight: FontWeight.w600)),
       ),
       dotsFlex: 1,
       controlsPadding: const EdgeInsets.symmetric(vertical: 32),
@@ -232,8 +226,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         activeColor: Theme.of(context).colorScheme.primary,
         color: Theme.of(context).colorScheme.tertiary,
         spacing: const EdgeInsets.symmetric(horizontal: 3.0),
-        activeShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
+        activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
       ),
     );
   }

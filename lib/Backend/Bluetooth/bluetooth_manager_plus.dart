@@ -12,6 +12,8 @@ import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/command_history.dart';
+import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/version.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -40,7 +42,7 @@ class InitFlutterBluePlus extends _$InitFlutterBluePlus {
 
   @override
   Future<void> build() async {
-    if (!await getBluetoothPermission(bluetoothLog)) {
+    if (ref.read(getBluetoothPermissionProvider.future) == BluetoothPermissionStatus.denied) {
       ref.invalidateSelf();
       _bluetoothPlusLogger.info("Bluetooth permission not granted");
       return;
@@ -328,23 +330,27 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
     } else if (bluetoothCharacteristic.characteristicUuid.str128.toLowerCase() == "5073792e-4fc0-45a0-b0a5-78b6c1756c91") {
       try {
         String value = const Utf8Decoder().convert(values);
-        statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
+        ref.read(commandHistoryProvider(statefulDevice).notifier).add(type: MessageHistoryType.receive, message: value);
+
         statefulDevice.batteryCharging.value = value == "CHARGE ON";
       } catch (e) {
         _bluetoothPlusLogger.warning("Unable to read values: $values", e);
-        statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
+        ref.read(commandHistoryProvider(statefulDevice).notifier).add(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}");
+
         return;
       }
-    } else if (statefulDevice.bluetoothUartService.value != null && bluetoothCharacteristic.characteristicUuid.str128.toLowerCase() == statefulDevice.bluetoothUartService.value!.bleRxCharacteristic.toLowerCase()) {
+    } else if (statefulDevice.bluetoothUartService.value != null &&
+        bluetoothCharacteristic.characteristicUuid.str128.toLowerCase() == statefulDevice.bluetoothUartService.value!.bleRxCharacteristic.toLowerCase()) {
       String value = "";
       try {
         value = const Utf8Decoder().convert(values);
       } catch (e) {
         _bluetoothPlusLogger.warning("Unable to read values: $values $e");
-        statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}"));
+        ref.read(commandHistoryProvider(statefulDevice).notifier).add(type: MessageHistoryType.receive, message: "Unknown: ${values.toString()}");
         return;
       }
-      statefulDevice.messageHistory.add(MessageHistoryEntry(type: MessageHistoryType.receive, message: value));
+      ref.read(commandHistoryProvider(statefulDevice).notifier).add(type: MessageHistoryType.receive, message: value);
+
       // Firmware Version
       if (value.startsWith("VER")) {
         statefulDevice.fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
@@ -456,7 +462,9 @@ class _OnScanResults extends _$OnScanResults {
       ScanResult r = results.last; // the most recently found device
       _bluetoothPlusLogger.info('${r.device.remoteId}: "${r.advertisementData.advName}" found!');
       BuiltMap<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
-      if (knownDevices.containsKey(r.device.remoteId.str) && knownDevices[r.device.remoteId.str]?.deviceConnectionState.value == ConnectivityState.disconnected && !knownDevices[r.device.remoteId.str]!.disableAutoConnect) {
+      if (knownDevices.containsKey(r.device.remoteId.str) &&
+          knownDevices[r.device.remoteId.str]?.deviceConnectionState.value == ConnectivityState.disconnected &&
+          !knownDevices[r.device.remoteId.str]!.disableAutoConnect) {
         knownDevices[r.device.remoteId.str]?.deviceConnectionState.value = ConnectivityState.connecting;
         await connect(r.device.remoteId.str);
       }
@@ -504,7 +512,8 @@ Future<void> connect(String id) async {
         break;
       } on FlutterBluePlusException catch (e) {
         retry = retry + 1;
-        _bluetoothPlusLogger.warning("Failed to connect to ${result.device.advName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}", e);
+        _bluetoothPlusLogger.warning(
+            "Failed to connect to ${result.device.advName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}", e);
         await Future.delayed(Duration(milliseconds: 250));
       }
     }

@@ -25,28 +25,37 @@ import '../l10n/messages_all_locales.dart';
 
 part 'utils.g.dart';
 
-Future<bool> getBluetoothPermission(Logger logger) async {
-  bool granted = false;
+enum BluetoothPermissionStatus {
+  granted,
+  denied,
+  unknown,
+}
+
+@riverpod
+Future<BluetoothPermissionStatus> getBluetoothPermission(Ref ref) async {
+  BluetoothPermissionStatus status = BluetoothPermissionStatus.unknown;
   if (Platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
     PermissionStatus permissionStatusScan = await Permission.bluetoothScan.request();
-    logger.info("permissionStatusScan $permissionStatusScan");
-    granted = PermissionStatus.granted == permissionStatusScan;
+    //logger.info("permissionStatusScan $permissionStatusScan");
+    status = PermissionStatus.granted == permissionStatusScan ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+
     PermissionStatus permissionStatusConnect = await Permission.bluetoothConnect.request();
-    logger.info("permissionStatusConnect $permissionStatusConnect");
-    granted = granted && PermissionStatus.granted == permissionStatusConnect;
+    //logger.info("permissionStatusConnect $permissionStatusConnect");
+    status = status == BluetoothPermissionStatus.granted && PermissionStatus.granted == permissionStatusConnect ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
   } else if (Platform.isAndroid) {
     PermissionStatus permissionStatusLocation = await Permission.location.request();
-    logger.info("permissionStatusLocation $permissionStatusLocation");
-    granted = PermissionStatus.granted == permissionStatusLocation;
+    //logger.info("permissionStatusLocation $permissionStatusLocation");
+    status = PermissionStatus.granted == permissionStatusLocation ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+
     PermissionStatus permissionStatusLocationInUse = await Permission.locationWhenInUse.request();
-    logger.info("permissionStatusLocationInUse $permissionStatusLocationInUse");
-    granted = granted && PermissionStatus.granted == permissionStatusLocationInUse;
+    //logger.info("permissionStatusLocationInUse $permissionStatusLocationInUse");
+    status = status == BluetoothPermissionStatus.granted && PermissionStatus.granted == permissionStatusLocationInUse ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
   } else {
     PermissionStatus permissionStatusBluetooth = await Permission.bluetooth.request();
-    logger.info("permissionStatusBluetooth $permissionStatusBluetooth");
-    granted = PermissionStatus.granted == permissionStatusBluetooth;
+    //logger.info("permissionStatusBluetooth $permissionStatusBluetooth");
+    status = PermissionStatus.granted == permissionStatusBluetooth ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
   }
-  return granted;
+  return status;
 }
 
 @Riverpod(keepAlive: true)

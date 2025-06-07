@@ -19,6 +19,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shake/shake.dart';
+import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
 
 import '../Frontend/translation_string_definitions.dart';

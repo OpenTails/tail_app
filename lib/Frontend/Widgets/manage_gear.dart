@@ -3,6 +3,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/firmware_update.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Backend/version.dart';

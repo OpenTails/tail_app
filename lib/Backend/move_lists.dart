@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/command_queue.dart';
 
 import '../Frontend/translation_string_definitions.dart';
 import '../constants.dart';
