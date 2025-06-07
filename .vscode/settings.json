@@ -1,0 +1,21 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.wordBasedSuggestions": "off",
+    "dart.lineLength": 200,
+    "[dart]": {
+        "editor.rulers": [
+            200
+        ],
+        "editor.selectionHighlight": false,
+        "editor.tabCompletion": "onlySnippets",
+    },
+    "dart.devToolsBrowser": "default",
+    "redhat.telemetry.enabled": false,
+    "dart.buildRunnerAdditionalArgs": [
+        "--delete-conflicting-outputs"
+    ],
+    "avdmanager.executable": "c:\\Users\\Floof\\AppData\\Local\\Android\\Sdk\\cmdline-tools\\latest\\bin\\avdmanager.bat"
+}

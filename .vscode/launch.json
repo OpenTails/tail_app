@@ -7,7 +7,8 @@
         {
             "name": "tail_app",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "preLaunchTask": "Prebuild",
         },
         {
             "name": "tail_app (profile mode)",

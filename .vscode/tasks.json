@@ -44,6 +44,18 @@
 			"icon": {
 				"id": "globe"
 			},
+			// Run in git bash for wildcard expansion
+			"windows": {
+				"command": "dart",
+				"options": {
+					"shell": {
+						"executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+						"args": [
+							"-c"
+						]
+					}
+				}
+			},
 			"args": [
 				"pub",
 				"global",
@@ -149,14 +161,16 @@
 			"icon": {
 				"id": "gear"
 			},
-			"group": "build",
 			"dependsOrder": "parallel",
 			"dependsOn": [
 				"Activate flutter_gen",
 				"Activate intl_translation",
 				"Activate icons_launcher",
 				"flutter: flutter pub get"
-			]
+			],
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
 		},
 		{
 			"label": "Prebuild",
@@ -170,9 +184,22 @@
 				"Run fluttergen",
 				"Generate Translation Files",
 				"Generate Flutter l10n Translation Files",
-				"flutter: flutter pub run build_runner build",
+				//"flutter: flutter pub run build_runner build",
 				"Generate Splash Screen"
-			]
+			],
 		},
+		{
+			"label": "Run build_runner startup",
+			"dependsOn": [
+				"flutter: flutter pub run build_runner watch",
+			],
+			"presentation": {
+				"reveal": "silent",
+				"panel": "new"
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
+		}
 	]
 }
