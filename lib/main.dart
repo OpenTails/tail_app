@@ -130,16 +130,19 @@ Future<void> startSentryApp(Widget child) async {
 Future<void> main() async {
   Logger.root.level = Level.ALL;
   mainLogger.info("Begin");
-  Logger.root.onRecord.listen((event) {
-    if (["GoRouter", "Dio"].contains(event.loggerName)) {
-      return;
-    }
-    if (event.level.value < 1000 && event.stackTrace == null) {
-      logarte.info(event.message, source: event.loggerName);
-    } else {
-      logarte.error(event.message, stackTrace: event.stackTrace);
-    }
-  });
+  if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) == true) {
+    Logger.root.onRecord.listen((event) {
+      if (["GoRouter", "Dio"].contains(event.loggerName)) {
+        return;
+      }
+      if (event.level.value < 1000 && event.stackTrace == null) {
+        logarte.info(event.message, source: event.loggerName);
+      } else {
+        logarte.error(event.message, stackTrace: event.stackTrace);
+      }
+    });
+  }
+
   initFlutter();
   await initHive();
   initMainApp();

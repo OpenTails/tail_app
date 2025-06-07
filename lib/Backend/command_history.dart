@@ -2,6 +2,8 @@ import 'package:circular_buffer/circular_buffer.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Backend/logging_wrappers.dart';
+import 'package:tail_app/constants.dart';
 
 part 'command_history.freezed.dart';
 part 'command_history.g.dart';
@@ -21,6 +23,9 @@ class CommandHistory extends _$CommandHistory {
   }
 
   void add({required MessageHistoryType type, required String message}) {
+    if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) == false) {
+      return;
+    }
     state.add(MessageHistoryEntry(type: type, message: message));
     ref.notifyListeners();
   }
