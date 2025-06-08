@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-03-28T01:15:37.916563",
+  "@@last_modified": "2025-06-08T22:18:36.024648",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -417,6 +417,30 @@
     "type": "text",
     "placeholders": {}
   },
+  "settingsMarketingNotificationsToggleTitle": "Allow Marketing Notifications",
+  "@settingsMarketingNotificationsToggleTitle": {
+    "description": "Settings page marketing notifications toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleSubTitle": "Allow notifications for new blog posts and sales.",
+  "@settingsMarketingNotificationsToggleSubTitle": {
+    "description": "Settings page marketing notifications toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleTitle": "UwU Translator",
+  "@settingsUwUToggleTitle": {
+    "description": "Settings page UwU text toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleSubTitle": "OwO, What's this?",
+  "@settingsUwUToggleSubTitle": {
+    "description": "Settings page UwU text toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
   "settingsAppColor": "App Color",
   "@settingsAppColor": {
     "description": "Settings page app color picker button title",
@@ -516,6 +540,12 @@
   "scanDevicesTitle": "Scan For New Gear",
   "@scanDevicesTitle": {
     "description": "button which opens the scan window",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesOnboardingTitle": "Lets connect your Gear",
+  "@scanDevicesOnboardingTitle": {
+    "description": "Title for the gear pairing screen in onboarding",
     "type": "text",
     "placeholders": {}
   },
