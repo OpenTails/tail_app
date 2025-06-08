@@ -103,6 +103,7 @@ dependencies:
   # Spicy
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
 
+  upgrader: ^11.4.0
   # Sentry
   sentry_flutter: ^8.14.2 # Base sentry + Flutter integration
   sentry_logging: ^8.14.2 # Collects app logs
