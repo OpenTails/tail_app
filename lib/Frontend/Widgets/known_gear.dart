@@ -11,8 +11,8 @@ import '../translation_string_definitions.dart';
 import '../utils.dart';
 
 class KnownGear extends ConsumerStatefulWidget {
-  const KnownGear({super.key});
-
+  const KnownGear({super.key, this.hideScanButton = false});
+  final bool hideScanButton;
   @override
   ConsumerState<KnownGear> createState() => _KnownGearState();
 }
@@ -23,9 +23,12 @@ class _KnownGearState extends ConsumerState<KnownGear> {
     List<BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider).values.toList()..sort((a, b) => a.deviceConnectionState.value.index.compareTo(b.deviceConnectionState.value.index));
     return Row(
       mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ...knownDevices.map((BaseStatefulDevice baseStatefulDevice) => KnownGearCard(baseStatefulDevice: baseStatefulDevice)),
-        const ScanForNewGearButton(),
+        if (!widget.hideScanButton) ...[
+          const ScanForNewGearButton(),
+        ],
       ],
     );
   }

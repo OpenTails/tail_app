@@ -64,6 +64,9 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 setState(
                   () {
                     HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
+                    if (!value) {
+                      OnBoardingPageRoute().go(context);
+                    }
                   },
                 );
               },

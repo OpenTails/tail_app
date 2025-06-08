@@ -26,29 +26,8 @@ class ScanForNewDevice extends ConsumerStatefulWidget {
 }
 
 class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
-  bool anyKnownGear = false;
-
-  @override
-  void initState() {
-    super.initState();
-    anyKnownGear = ref.read(knownDevicesProvider).isNotEmpty;
-    beginScan(scanReason: ScanReason.addGear);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);
-    if (!alwaysScanningValue) {
-      stopScan();
-    }
-  }
-
-  bool anyGearFound = false;
-
   @override
   Widget build(BuildContext context) {
-    Iterable<String> knownDeviceIds = ref.read(knownDevicesProvider).keys;
     return DraggableScrollableSheet(
       builder: (context, scrollController) {
         return ValueListenableBuilder(
@@ -56,6 +35,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
           builder: (BuildContext context, bool value, Widget? child) {
             if (value) {
               return ListView(
+                shrinkWrap: true,
                 controller: scrollController,
                 children: [
                   ListTile(
@@ -64,112 +44,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
-                  StreamBuilder<List<ScanResult>>(
-                    stream: FlutterBluePlus.scanResults,
-                    builder: (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
-                      List<ScanResult> list = [];
-                      if (snapshot.hasData) {
-                        list = snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).toList();
-                        anyGearFound = list.isNotEmpty;
-                      }
-                      return ListView(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          AnimatedCrossFade(
-                            firstChild: anyGearFound
-                                ? ListView(
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                          scanDevicesFoundTitle(),
-                                          style: Theme.of(context).textTheme.titleMedium,
-                                        ),
-                                      ),
-                                      ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        itemCount: list.length,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          ScanResult e = list[index];
-                                          return ListTile(
-                                            title: Text(getNameFromBTName(e.device.advName)),
-                                            trailing: Text(HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
-                                            onTap: () async {
-                                              await e.device.connect();
-                                              plausible.event(name: "Connect New Gear", props: {"Gear Type": e.device.advName});
-                                              if (context.mounted) {
-                                                Navigator.pop(context);
-                                              }
-                                            },
-                                          );
-                                        },
-                                      ),
-                                      if (list.length > 1) ...[
-                                        Center(
-                                          child: FilledButton(
-                                            onPressed: () async {
-                                              for (ScanResult scanResult in list) {
-                                                scanResult.device.connect();
-                                              }
-                                              Navigator.pop(context);
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.select_all,
-                                                  color: getTextColor(Theme.of(context).colorScheme.primary),
-                                                ),
-                                                const Padding(
-                                                  padding: EdgeInsets.symmetric(horizontal: 4),
-                                                ),
-                                                Text(
-                                                  scanConnectToAllButtonLabel(),
-                                                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                                        color: getTextColor(Theme.of(context).colorScheme.primary),
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ],
-                                  )
-                                : Container(),
-                            secondChild: Container(),
-                            crossFadeState: anyGearFound ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                            duration: animationTransitionDuration,
-                          ),
-                          AnimatedOpacity(
-                            opacity: anyGearFound ? 0.5 : 1,
-                            duration: animationTransitionDuration,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Center(
-                                child: Column(
-                                  children: [
-                                    LottieLazyLoad(
-                                      asset: Assets.tailcostickers.tailCoStickersFile144834340,
-                                      width: 200,
-                                      renderCache: false,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Text(scanDevicesScanMessage()),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                  ScanGearList(),
                   if (HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault)) ...[
                     ExpansionTile(
                       title: Text(scanDemoGear()),
@@ -244,6 +119,146 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
       },
       expand: false,
       initialChildSize: 0.5,
+    );
+  }
+}
+
+class ScanGearList extends ConsumerStatefulWidget {
+  const ScanGearList({super.key, this.popOnConnect = true});
+  final bool popOnConnect;
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ScanGearListState();
+}
+
+class _ScanGearListState extends ConsumerState<ScanGearList> {
+  bool anyKnownGear = false;
+
+  @override
+  void initState() {
+    super.initState();
+    anyKnownGear = ref.read(knownDevicesProvider).isNotEmpty;
+    beginScan(scanReason: ScanReason.addGear);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);
+    if (!alwaysScanningValue) {
+      stopScan();
+    }
+  }
+
+  bool anyGearFound = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Iterable<String> knownDeviceIds = ref.watch(knownDevicesProvider).keys;
+    return StreamBuilder<List<ScanResult>>(
+      stream: FlutterBluePlus.scanResults,
+      builder: (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
+        List<ScanResult> list = [];
+        if (snapshot.hasData) {
+          list = snapshot.data!.where((test) => !knownDeviceIds.contains(test.device.remoteId.str)).toList();
+          anyGearFound = list.isNotEmpty;
+        }
+        return ListView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            AnimatedCrossFade(
+              firstChild: anyGearFound
+                  ? ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: [
+                        ListTile(
+                          title: Text(
+                            scanDevicesFoundTitle(),
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: list.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            ScanResult e = list[index];
+                            return ListTile(
+                              title: Text(getNameFromBTName(e.device.advName)),
+                              trailing: Text(HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
+                              onTap: () async {
+                                await e.device.connect();
+                                plausible.event(name: "Connect New Gear", props: {"Gear Type": e.device.advName});
+                                if (context.mounted && widget.popOnConnect) {
+                                  Navigator.pop(context);
+                                }
+                              },
+                            );
+                          },
+                        ),
+                        if (list.length > 1) ...[
+                          Center(
+                            child: FilledButton(
+                              onPressed: () async {
+                                for (ScanResult scanResult in list) {
+                                  scanResult.device.connect();
+                                }
+                                Navigator.pop(context);
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.select_all,
+                                    color: getTextColor(Theme.of(context).colorScheme.primary),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 4),
+                                  ),
+                                  Text(
+                                    scanConnectToAllButtonLabel(),
+                                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                          color: getTextColor(Theme.of(context).colorScheme.primary),
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    )
+                  : Container(),
+              secondChild: Container(),
+              crossFadeState: anyGearFound ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              duration: animationTransitionDuration,
+            ),
+            AnimatedOpacity(
+              opacity: anyGearFound ? 0.5 : 1,
+              duration: animationTransitionDuration,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Center(
+                  child: Column(
+                    children: [
+                      LottieLazyLoad(
+                        asset: Assets.tailcostickers.tailCoStickersFile144834340,
+                        width: 200,
+                        renderCache: false,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(scanDevicesScanMessage()),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

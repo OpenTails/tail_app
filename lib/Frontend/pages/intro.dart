@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
+import 'package:tail_app/Frontend/Widgets/known_gear.dart';
+import 'package:tail_app/Frontend/Widgets/known_gear_scan_controller.dart';
+import 'package:tail_app/Frontend/Widgets/manage_gear.dart';
+import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/logging_wrappers.dart';
@@ -27,7 +31,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   final Logger _introLogger = Logger("Onboarding");
   final introKey = GlobalKey<IntroductionScreenState>();
   bool bluetoothAccepted = false;
-  bool privacyAccepted = false;
+  bool privacyAccepted = HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree;
 
   void _onIntroEnd(BuildContext context) {
     // Navigator.of(context).pushReplacement()
@@ -59,7 +63,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       footerPadding: const EdgeInsets.symmetric(vertical: 16),
       imageFlex: 5,
       bodyFlex: 5,
-      safeArea: 0,
+      //safeArea: 0,
     );
     return IntroductionScreen(
       key: introKey,
@@ -184,6 +188,21 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
             ],
           ),
           decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: scanDevicesTitle(),
+          bodyWidget: ScanGearList(
+            popOnConnect: false,
+          ),
+          useScrollView: true,
+          decoration: pageDecoration.copyWith(
+            bodyFlex: 10,
+            footerFlex: 1,
+            contentMargin: EdgeInsets.all(0),
+          ),
+          footer: KnownGear(
+            hideScanButton: true,
+          ),
         ),
         PageViewModel(
           title: onboardingCompletedTitle(),
