@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -54,11 +55,11 @@ class _TriggersState extends ConsumerState<Triggers> {
                   },
                   secondary: triggerDefinition.icon,
                   subtitle: ChoiceText(
-                    triggerDefinition.description(),
+                    convertToUwU(triggerDefinition.description()),
                     highlight: state.search?.value,
                   ),
                   title: ChoiceText(
-                    triggerDefinition.name(),
+                    convertToUwU(triggerDefinition.name()),
                     highlight: state.search?.value,
                   ),
                 );
@@ -82,7 +83,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                             padding: EdgeInsets.symmetric(horizontal: 4),
                           ),
                           Text(
-                            triggersDefSelectSaveLabel(),
+                            convertToUwU(triggersDefSelectSaveLabel()),
                             style: Theme
                                 .of(context)
                                 .textTheme
@@ -118,7 +119,7 @@ class _TriggersState extends ConsumerState<Triggers> {
               anchorBuilder: (state, openModal) {
                 return FloatingActionButton.extended(
                   icon: const Icon(Icons.add),
-                  label: Text(triggersAdd()),
+                  label: Text(convertToUwU(triggersAdd())),
                   onPressed: openModal,
                 );
               },
@@ -143,11 +144,11 @@ class _TriggersState extends ConsumerState<Triggers> {
                   onTap: () async {
                     TriggersEditRoute(uuid: triggersList[index].uuid).push(context).whenComplete(() => setState(() {}));
                   },
-                  title: Text(trigger.triggerDefinition!.name()),
+                  title: Text(convertToUwU(trigger.triggerDefinition!.name())),
                   subtitle: MultiValueListenableBuilder(
                     builder: (BuildContext context, List<dynamic> values, Widget? child) {
                       return AnimatedCrossFade(
-                        firstChild: Text(trigger.triggerDefinition!.description()),
+                        firstChild: Text(convertToUwU(trigger.triggerDefinition!.description())),
                         secondChild: MultiValueListenableBuilder(
                           valueListenables: trigger.actions.map((e) => e.isActiveProgress).toList(),
                           builder: (context, values, child) {
@@ -256,8 +257,8 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
             controller: scrollController,
             children: [
               ListTile(
-                title: Text(triggerDefinition!.name()),
-                subtitle: Text(triggerDefinition!.description()),
+                title: Text(convertToUwU(triggerDefinition!.name())),
+                subtitle: Text(convertToUwU(triggerDefinition!.description())),
                 leading: ListenableBuilder(
                   listenable: trigger!,
                   builder: (BuildContext context, Widget? child) {
@@ -312,7 +313,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                       .where((element) => e.uuid == element.uuid)
                       .first;
                   return ListTile(
-                    title: Text(triggerActionDef.translated()),
+                    title: Text(convertToUwU(triggerActionDef.translated())),
                     subtitle: ValueListenableBuilder(
                       valueListenable: e.isActive,
                       builder: (BuildContext context, value, Widget? child) {
@@ -358,7 +359,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                                   text += baseAction.name;
                                 }
                               }
-                              return Text(text.isNotEmpty ? text : triggerActionNotSet());
+                              return Text(convertToUwU(text.isNotEmpty ? text : triggerActionNotSet()));
                             },
                           ),
                           crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
@@ -437,7 +438,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                         },
                       );
                     },
-                    child: const Text("Delete Trigger"),
+                    child: Text(convertToUwU("Delete Trigger")),
                   ),
                 ],
               ),

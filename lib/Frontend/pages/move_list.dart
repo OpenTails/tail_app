@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -32,7 +33,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
   Widget build(BuildContext context) {
     final BuiltList<MoveList> allMoveLists = ref.watch(moveListsProvider);
     return Scaffold(
-      appBar: AppBar(title: Text(sequencesPage())),
+      appBar: AppBar(title: Text(convertToUwU(sequencesPage()))),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         onPressed: () async {
@@ -53,7 +54,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                 }),
               );
         },
-        label: Text(sequencesPage()),
+        label: Text(convertToUwU(sequencesPage())),
       ),
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -70,8 +71,8 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
               itemBuilder: (context, index) {
                 return ListTile(
                   key: Key('$index'),
-                  title: Text(allMoveLists[index].name),
-                  subtitle: Text("${allMoveLists[index].moves.length} move(s)"),
+                  title: Text(convertToUwU(allMoveLists[index].name)),
+                  subtitle: Text(convertToUwU("${allMoveLists[index].moves.length} move(s)")),
                   //TODO: Localize
                   trailing: IconButton(
                     tooltip: sequencesEdit(),
@@ -140,7 +141,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(sequencesEdit()),
+        title: Text(convertToUwU(sequencesEdit())),
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop(widget.moveList)),
         actions: [
           IconButton(
@@ -150,16 +151,16 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
               showDialog<bool>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-                  title: Text(sequencesEditDeleteTitle()),
-                  content: Text(sequencesEditDeleteDescription()),
+                  title: Text(convertToUwU(sequencesEditDeleteTitle())),
+                  content: Text(convertToUwU(sequencesEditDeleteDescription())),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, false),
-                      child: Text(cancel()),
+                      child: Text(convertToUwU(cancel())),
                     ),
                     TextButton(
                       onPressed: () => Navigator.pop(context, true),
-                      child: Text(ok()),
+                      child: Text(convertToUwU(ok())),
                     ),
                   ],
                 ),
@@ -199,7 +200,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
                 );
                 //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves.last).then((value) => setState(() => moveList!.moves.last = value!));
               },
-              label: Text(sequencesEditAdd()),
+              label: Text(convertToUwU(sequencesEditAdd())),
             )
           : null,
       body: PopScope(
@@ -243,7 +244,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
               },
             ),
             ListTile(
-              title: Text(sequenceEditRepeatTitle()),
+              title: Text(convertToUwU(sequenceEditRepeatTitle())),
               leading: const Icon(Icons.repeat),
               subtitle: Slider(
                 value: widget.moveList.repeat,
@@ -266,7 +267,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
                 for (int index = 0; index < widget.moveList.moves.length; index += 1)
                   ListTile(
                     key: Key('$index'),
-                    title: Text(widget.moveList.moves[index].toString()),
+                    title: Text(convertToUwU(widget.moveList.moves[index].toString())),
                     leading: Icon(widget.moveList.moves[index].moveType.icon),
                     onTap: () async {
                       Move move = widget.moveList.moves[index];
@@ -357,7 +358,7 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                     controller: scrollController,
                     children: [
                       ListTile(
-                        title: Text(sequencesEditLeftServo()),
+                        title: Text(convertToUwU(sequencesEditLeftServo())),
                         leading: const Icon(Icons.turn_slight_left),
                         subtitle: Slider(
                           value: widget.move.leftServo,
@@ -370,7 +371,7 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                         ),
                       ),
                       ListTile(
-                        title: Text(sequencesEditRightServo()),
+                        title: Text(convertToUwU(sequencesEditRightServo())),
                         leading: const Icon(Icons.turn_slight_right),
                         subtitle: Slider(
                           value: widget.move.rightServo,
@@ -389,7 +390,7 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                         },
                       ),
                       ListTile(
-                        title: Text(sequencesEditEasing()),
+                        title: Text(convertToUwU(sequencesEditEasing())),
                         subtitle: SegmentedButton<EasingType>(
                           selected: <EasingType>{widget.move.easingType},
                           onSelectionChanged: (Set<EasingType> value) {
@@ -413,7 +414,7 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                     controller: scrollController,
                     children: [
                       ListTile(
-                        title: Text(sequencesEditTime()),
+                        title: Text(convertToUwU(sequencesEditTime())),
                         subtitle: Slider(
                           value: widget.move.time,
                           label: "${widget.move.time.toInt() * 20} ms",

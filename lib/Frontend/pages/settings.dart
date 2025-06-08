@@ -1,6 +1,8 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Backend/firebase.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -34,7 +36,7 @@ class _SettingsState extends ConsumerState<Settings> {
     ref.watch(initLocaleProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text(settingsPage()),
+        title: Text(convertToUwU(settingsPage())),
       ),
       body: ListView(
         controller: _controller,
@@ -43,7 +45,7 @@ class _SettingsState extends ConsumerState<Settings> {
           ListTile(
             leading: const Icon(Icons.color_lens),
             title: Text(
-              settingsAppColor(),
+              convertToUwU(settingsAppColor()),
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -78,9 +80,9 @@ class _SettingsState extends ConsumerState<Settings> {
             },
           ),
           ListTile(
-            title: Text(settingsBatteryPercentageToggleTitle()),
+            title: Text(convertToUwU(settingsBatteryPercentageToggleTitle())),
             leading: const Icon(Icons.battery_unknown),
-            subtitle: Text(settingsBatteryPercentageToggleSubTitle()),
+            subtitle: Text(convertToUwU(settingsBatteryPercentageToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, showAccurateBattery, defaultValue: showAccurateBatteryDefault),
               onChanged: (bool value) async {
@@ -93,9 +95,9 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
           ListTile(
-            title: Text(settingsLargerCardsToggleTitle()),
+            title: Text(convertToUwU(settingsLargerCardsToggleTitle())),
             leading: const Icon(Icons.format_size),
-            subtitle: Text(settingsLargerCardsToggleSubTitle()),
+            subtitle: Text(convertToUwU(settingsLargerCardsToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, largerActionCardSize, defaultValue: largerActionCardSizeDefault),
               onChanged: (bool value) async {
@@ -108,9 +110,9 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
           ListTile(
-            title: Text(settingsTutorialCardToggleTitle()),
+            title: Text(convertToUwU(settingsTutorialCardToggleTitle())),
             leading: const Icon(Icons.help),
-            subtitle: Text(settingsTutorialCardToggleSubTitle()),
+            subtitle: Text(convertToUwU(settingsTutorialCardToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault),
               onChanged: (bool value) async {
@@ -123,9 +125,9 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
           ListTile(
-            title: Text(settingsTailBlogWifiOnlyTitle()),
+            title: Text(convertToUwU(settingsTailBlogWifiOnlyTitle())),
             leading: const Icon(Icons.wifi),
-            subtitle: Text(settingsTailBlogWifiOnlyDescription()),
+            subtitle: Text(convertToUwU(settingsTailBlogWifiOnlyDescription())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault),
               onChanged: (bool value) async {
@@ -141,9 +143,9 @@ class _SettingsState extends ConsumerState<Settings> {
             title: Divider(),
           ),
           ListTile(
-            title: Text(settingsAlwaysScanningToggleTitle()),
+            title: Text(convertToUwU(settingsAlwaysScanningToggleTitle())),
             leading: const Icon(Icons.bluetooth_searching),
-            subtitle: Text(settingsAlwaysScanningToggleSubTitle()),
+            subtitle: Text(convertToUwU(settingsAlwaysScanningToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault),
               onChanged: (bool value) async {
@@ -154,9 +156,9 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
           ListTile(
-            title: Text(settingsHapticsToggleTitle()),
+            title: Text(convertToUwU(settingsHapticsToggleTitle())),
             leading: const Icon(Icons.vibration),
-            subtitle: Text(settingsHapticsToggleSubTitle()),
+            subtitle: Text(convertToUwU(settingsHapticsToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault),
               onChanged: (bool value) async {
@@ -167,9 +169,9 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
           ListTile(
-            title: Text(settingsKeepScreenOnToggleTitle()),
+            title: Text(convertToUwU(settingsKeepScreenOnToggleTitle())),
             leading: const Icon(Icons.phone_android),
-            subtitle: Text(settingsKeepScreenOnToggleSubTitle()),
+            subtitle: Text(convertToUwU(settingsKeepScreenOnToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, keepAwake, defaultValue: keepAwakeDefault),
               onChanged: (bool value) async {
@@ -187,9 +189,9 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
           ListTile(
-            title: Text(settingsKitsuneToggleTitle()),
+            title: Text(convertToUwU(settingsKitsuneToggleTitle())),
             leading: const Icon(Icons.more_time),
-            subtitle: Text(settingsKitsuneToggleSubTitle()),
+            subtitle: Text(convertToUwU(settingsKitsuneToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault),
               onChanged: (bool value) async {
@@ -202,9 +204,9 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
           ListTile(
-            title: Text(scanDemoGear()),
+            title: Text(convertToUwU(scanDemoGear())),
             leading: const Icon(Icons.explore),
-            subtitle: Text(scanDemoGearTip()),
+            subtitle: Text(convertToUwU(scanDemoGearTip())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault),
               onChanged: (bool value) async {
@@ -216,13 +218,43 @@ class _SettingsState extends ConsumerState<Settings> {
               },
             ),
           ),
+          ListTile(
+            title: Text(convertToUwU(settingsUwUToggleTitle())),
+            leading: const Icon(Icons.explore),
+            subtitle: Text(convertToUwU(settingsUwUToggleSubTitle())),
+            trailing: Switch(
+              value: HiveProxy.getOrDefault(settings, uwuTextEnabled, defaultValue: uwuTextEnabledDefault),
+              onChanged: (bool value) async {
+                setState(
+                  () {
+                    HiveProxy.put(settings, uwuTextEnabled, value);
+                    ref.invalidate(initLocaleProvider);
+                  },
+                );
+              },
+            ),
+          ),
           const ListTile(
             title: Divider(),
           ),
           ListTile(
-            title: Text(settingsAnalyticsToggleTitle()),
+            title: Text(convertToUwU(settingsMarketingNotificationsToggleTitle())),
+            leading: const Icon(Icons.notifications),
+            subtitle: Text(convertToUwU(settingsMarketingNotificationsToggleSubTitle())),
+            trailing: Switch(
+              value: HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault),
+              onChanged: (bool value) async {
+                setState(() {
+                  HiveProxy.put(settings, marketingNotificationsEnabled, value);
+                });
+                configurePushNotifications();
+              },
+            ),
+          ),
+          ListTile(
+            title: Text(convertToUwU(settingsAnalyticsToggleTitle())),
             leading: const Icon(Icons.analytics),
-            subtitle: Text(settingsAnalyticsToggleSubTitle()),
+            subtitle: Text(convertToUwU(settingsAnalyticsToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, allowAnalytics, defaultValue: allowAnalyticsDefault),
               onChanged: (bool value) async {
@@ -234,9 +266,9 @@ class _SettingsState extends ConsumerState<Settings> {
           ),
           ListTile(
             //This is handled separately as I was storing settings in a provider, which is unavailable during sentry init
-            title: Text(settingsErrorReportingToggleTitle()),
+            title: Text(convertToUwU(settingsErrorReportingToggleTitle())),
             leading: const Icon(Icons.error),
-            subtitle: Text(settingsErrorReportingToggleSubTitle()),
+            subtitle: Text(convertToUwU(settingsErrorReportingToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, allowErrorReporting, defaultValue: allowErrorReportingDefault),
               onChanged: (bool value) async {

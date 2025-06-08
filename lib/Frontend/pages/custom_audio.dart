@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../Backend/Definitions/Action/base_action.dart';
@@ -29,7 +30,7 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
     BuiltList<AudioAction> userAudioActions = ref.watch(userAudioActionsProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text(audioPage()),
+        title: Text(convertToUwU(audioPage())),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
@@ -70,7 +71,7 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
           //Open File Picker
         },
         icon: const Icon(Icons.add),
-        label: Text(audioAdd()),
+        label: Text(convertToUwU(audioAdd())),
       ),
       body: ListView(
         children: [
@@ -84,7 +85,7 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
             itemBuilder: (context, index) {
               AudioAction audioAction = userAudioActions[index];
               return ListTile(
-                title: Text(audioAction.name),
+                title: Text(convertToUwU(audioAction.name)),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -100,16 +101,16 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
                         showDialog<bool>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                            title: Text(audioDelete()),
-                            content: Text(audioDeleteDescription()),
+                            title: Text(convertToUwU(audioDelete())),
+                            content: Text(convertToUwU(audioDeleteDescription())),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () => Navigator.pop(context, false),
-                                child: Text(cancel()),
+                                child: Text(convertToUwU(cancel())),
                               ),
                               TextButton(
                                 onPressed: () => Navigator.pop(context, true),
-                                child: Text(ok()),
+                                child: Text(convertToUwU(ok())),
                               ),
                             ],
                           ),

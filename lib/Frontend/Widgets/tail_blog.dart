@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 // Used as MediaDetails isn't exported
 // ignore: implementation_imports
@@ -93,7 +94,7 @@ class _TailBlogState extends State<TailBlog> {
                             child: ListTile(
                               //leading: Icon(feedItem.feedType.icon),
                               trailing: const Icon(Icons.open_in_browser),
-                              title: Text(feedItem.title),
+                              title: Text(convertToUwU(feedItem.title)),
                             ),
                           ),
                         ],

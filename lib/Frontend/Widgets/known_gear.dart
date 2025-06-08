@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
@@ -57,7 +58,7 @@ class ScanForNewGearButton extends ConsumerWidget {
                 width: ref.watch(knownDevicesProvider).values.length > 1 ? 100 * MediaQuery.textScalerOf(context).scale(1) : 200 * MediaQuery.textScalerOf(context).scale(1),
                 child: Center(
                   child: Text(
-                    scanDevicesTitle(),
+                    convertToUwU(scanDevicesTitle()),
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color!)),
                   ),
@@ -129,7 +130,7 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                           child: Stack(
                             children: [
                               Text(
-                                widget.baseStatefulDevice.baseStoredDevice.name,
+                                convertToUwU(widget.baseStatefulDevice.baseStoredDevice.name),
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),
                               ),

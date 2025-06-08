@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart' as log;
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -66,10 +67,12 @@ class _HomeState extends ConsumerState<Home> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (ref.read(knownDevicesProvider).isNotEmpty && !HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault) && !HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault)) ...[
+                      if (ref.read(knownDevicesProvider).isNotEmpty &&
+                          !HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault) &&
+                          !HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault)) ...[
                         ListTile(
                           leading: const Icon(Icons.info),
-                          subtitle: Text(homeContinuousScanningOffDescription()),
+                          subtitle: Text(convertToUwU(homeContinuousScanningOffDescription())),
                         ),
                       ],
                     ],
@@ -82,8 +85,8 @@ class _HomeState extends ConsumerState<Home> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ListTile(
-                    title: Text(homeWelcomeMessageTitle()),
-                    subtitle: Text(homeWelcomeMessage()),
+                    title: Text(convertToUwU(homeWelcomeMessageTitle())),
+                    subtitle: Text(convertToUwU(homeWelcomeMessage())),
                   ),
                   OverflowBar(
                     children: <Widget>[
@@ -93,13 +96,13 @@ class _HomeState extends ConsumerState<Home> {
                             $extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()),
                           ).push(context);
                         },
-                        child: Text(homeChangelogLinkTitle()),
+                        child: Text(convertToUwU(homeChangelogLinkTitle())),
                       ),
                       TextButton(
                         onPressed: () async {
                           await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
                         },
-                        child: const Text('Tail Company Store'),
+                        child: Text(convertToUwU('Tail Company Store')),
                       ),
                     ],
                   ),
@@ -113,8 +116,8 @@ class _HomeState extends ConsumerState<Home> {
                   children: <Widget>[
                     ListTile(
                       leading: const Icon(Icons.bluetooth_disabled),
-                      title: Text(actionsNoBluetooth()),
-                      subtitle: Text(actionsNoBluetoothDescription()),
+                      title:Text(convertToUwU(actionsNoBluetooth())),
+                      subtitle: Text(convertToUwU(actionsNoBluetoothDescription())),
                     ),
                   ],
                 ),
@@ -125,9 +128,9 @@ class _HomeState extends ConsumerState<Home> {
             ),
             ListTile(
               title: Text(
-                homeNewsTitle(),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+                  convertToUwU(homeNewsTitle()),
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
             ),
             child!,
           ],

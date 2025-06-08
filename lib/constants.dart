@@ -31,6 +31,7 @@ const String triggerActionCooldown = 'triggerActionCooldown';
 const String gearConnectRetryAttempts = 'gearConnectRetryAttempts';
 const String selectedLocale = 'selectedLocale';
 const String marketingNotificationsEnabled = 'marketingNotificationsEnabled';
+const String uwuTextEnabled = 'uwuTextEnabled';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -54,6 +55,7 @@ const bool tailBlogWifiOnlyDefault = false;
 const int triggerActionCooldownDefault = 15;
 const int gearConnectRetryAttemptsDefault = 3;
 const bool marketingNotificationsEnabledDefault = false;
+const bool uwuTextEnabledDefault = false;
 
 const String triggerBox = 'triggers';
 const String sequencesBox = 'sequences';

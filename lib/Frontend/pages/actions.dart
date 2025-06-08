@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Frontend/Widgets/ear_speed_widget.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
@@ -87,7 +88,8 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                       return ActionCard(actionIndex: index, knownDevices: knownDevicesFiltered, action: baseAction, largerCards: largerCards);
                     },
                   ),
-                  crossFadeState: actionsCatMap.values.flattened.where((element) => ref.watch(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                  crossFadeState:
+                      actionsCatMap.values.flattened.where((element) => ref.watch(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                   duration: animationTransitionDuration,
                 ),
                 ListView.builder(
@@ -246,7 +248,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
               ),
               Center(
                 child: Text(
-                  widget.action.getName(ref.watch(getAvailableGearTypesProvider)),
+                  convertToUwU(widget.action.getName(ref.watch(getAvailableGearTypesProvider))),
                   semanticsLabel: widget.action.name,
                   overflow: TextOverflow.fade,
                   textAlign: TextAlign.center,

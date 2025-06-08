@@ -3,6 +3,7 @@ import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
@@ -21,9 +22,8 @@ class LanguagePicker extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PromptedChoice<Locale>.single(
-      title: appLanguageSelectorTitle(),
-      promptDelegate: ChoicePrompt.delegateBottomSheet(
-          useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
+      title: convertToUwU(appLanguageSelectorTitle()),
+      promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
       itemCount: AppLocalizations.supportedLocales.length,
       modalHeaderBuilder: ChoiceModal.createHeader(
         automaticallyImplyLeading: true,
@@ -43,7 +43,7 @@ class LanguagePicker extends ConsumerWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4),
                     ),
-                    Text(appLanguageSelectorTitle())
+                    Text(convertToUwU(appLanguageSelectorTitle()))
                   ],
                 ),
               ),
@@ -52,10 +52,9 @@ class LanguagePicker extends ConsumerWidget {
         } else {
           return ListTile(
             onTap: openModal,
-            title: Text(appLanguageSelectorTitle()),
+            title: Text(convertToUwU(appLanguageSelectorTitle())),
             leading: Icon(Icons.language),
-            subtitle:
-                state.single != null ? Text(state.single!.toString()) : null,
+            subtitle: state.single != null ? Text(convertToUwU(state.single!.toString())) : null,
           );
         }
       },
@@ -64,9 +63,7 @@ class LanguagePicker extends ConsumerWidget {
         children: [
           (choiceController) {
             return FilledButton(
-              onPressed: choiceController.value.isNotEmpty
-                  ? () => choiceController.closeModal(confirmed: true)
-                  : null,
+              onPressed: choiceController.value.isNotEmpty ? () => choiceController.closeModal(confirmed: true) : null,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -75,7 +72,7 @@ class LanguagePicker extends ConsumerWidget {
                     padding: EdgeInsets.symmetric(horizontal: 4),
                   ),
                   Text(
-                    triggersDefSelectSaveLabel(),
+                    convertToUwU(triggersDefSelectSaveLabel()),
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: getTextColor(
                             Theme.of(context).colorScheme.primary,
@@ -97,10 +94,7 @@ class LanguagePicker extends ConsumerWidget {
       confirmation: true,
       value: AppLocalizations.supportedLocales
           .where(
-            (element) =>
-                element.toLanguageTag() ==
-                HiveProxy.getOrDefault(settings, selectedLocale,
-                    defaultValue: ""),
+            (element) => element.toLanguageTag() == HiveProxy.getOrDefault(settings, selectedLocale, defaultValue: ""),
           )
           .firstOrNull,
       itemBuilder: (ChoiceController<Locale> state, int index) {
@@ -111,16 +105,12 @@ class LanguagePicker extends ConsumerWidget {
             state.select(locale);
           },
           groupValue: state.single,
-          title: Text(LocaleNames.of(context)!
-                  .nameOf(locale.toLanguageTag().replaceAll("-", "_")) ??
-              locale.toLanguageTag()),
+          title: Text(convertToUwU(LocaleNames.of(context)!.nameOf(locale.toLanguageTag().replaceAll("-", "_")) ?? locale.toLanguageTag())),
           secondary: Builder(builder: (context) {
             if (locale.countryCode != null) {
-              return CountryFlag.fromCountryCode(
-                  locale.countryCode!.replaceAll("zh", "zh-cn"));
+              return CountryFlag.fromCountryCode(locale.countryCode!.replaceAll("zh", "zh-cn"));
             } else {
-              return CountryFlag.fromLanguageCode(
-                  locale.languageCode.replaceAll("zh", "zh-cn"));
+              return CountryFlag.fromLanguageCode(locale.languageCode.replaceAll("zh", "zh-cn"));
             }
           }),
         );

@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../constants.dart';
@@ -35,7 +36,7 @@ class _HtmlPageState extends State<HtmlPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.htmlPageInfo.title),
+        title: Text(convertToUwU(widget.htmlPageInfo.title))
       ),
       body: AnimatedCrossFade(
         alignment: Alignment.center,

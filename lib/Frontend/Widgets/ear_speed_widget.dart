@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
@@ -18,7 +19,7 @@ class _EarSpeedWidgetState extends State<EarSpeedWidget> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(earSpeedTitle()),
+      title: Text(convertToUwU(earSpeedTitle())),
       subtitle: SegmentedButton<EarSpeed>(
         selected: <EarSpeed>{earSpeed},
         onSelectionChanged: (Set<EarSpeed> value) {
@@ -33,7 +34,7 @@ class _EarSpeedWidgetState extends State<EarSpeedWidget> {
           (EarSpeed value) {
             return ButtonSegment<EarSpeed>(
               value: value,
-              label: Text(value.name),
+              label: Text(convertToUwU(value.name)),
               icon: value.icon,
               tooltip: value.name,
             );

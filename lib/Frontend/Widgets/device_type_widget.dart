@@ -1,6 +1,7 @@
 import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
@@ -21,7 +22,7 @@ class DeviceTypeWidget extends ConsumerWidget {
       return Container();
     }
     return ListTile(
-      title: Text(deviceType()),
+      title: Text(convertToUwU(deviceType())),
       subtitle: InlineChoice<DeviceType>.multiple(
         clearable: false,
         value: selected,
@@ -33,7 +34,7 @@ class DeviceTypeWidget extends ConsumerWidget {
             selectedColor: deviceType.color(ref: ref),
             selected: state.selected(deviceType),
             onSelected: state.onSelected(deviceType),
-            label: Text(deviceType.name),
+            label: Text(convertToUwU(deviceType.name)),
             elevation: 1,
           );
         },

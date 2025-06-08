@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
@@ -47,8 +48,8 @@ class SnackBarOverlay extends ConsumerWidget {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: newGearConnectedSnackbarTitle(),
-                  message: newGearConnectedSnackbarLabel(),
+                  title: convertToUwU(newGearConnectedSnackbarTitle()),
+                  message: convertToUwU(newGearConnectedSnackbarLabel()),
 
                   /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
                   contentType: ContentType.success,
@@ -99,8 +100,8 @@ class SnackBarOverlay extends ConsumerWidget {
                   backgroundColor: Colors.transparent,
                   content: InkWell(
                     child: AwesomeSnackbarContent(
-                      title: otaAvailableSnackbarTitle(),
-                      message: otaAvailableSnackbarLabel(),
+                      title: convertToUwU(otaAvailableSnackbarTitle()),
+                      message: convertToUwU(otaAvailableSnackbarLabel()),
 
                       /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
                       contentType: ContentType.warning,

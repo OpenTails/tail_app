@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/command_queue.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:vector_math/vector_math.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -40,7 +41,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(joyStickPage()),
+        title: Text(convertToUwU(joyStickPage())),
       ),
       body: Column(
         children: [
@@ -143,7 +144,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                   ),
                 ],
                 ExpansionTile(
-                  title: Text(settingsPage()),
+                  title: Text(convertToUwU(settingsPage())),
                   backgroundColor: Theme.of(context).cardColor,
                   children: [
                     SpeedWidget(
@@ -157,7 +158,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                       },
                     ),
                     ListTile(
-                      title: Text(sequencesEditEasing()),
+                      title: Text(convertToUwU(sequencesEditEasing())),
                       subtitle: SegmentedButton<EasingType>(
                         selected: <EasingType>{easingType},
                         onSelectionChanged: (Set<EasingType> value) {

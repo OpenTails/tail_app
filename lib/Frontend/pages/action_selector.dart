@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
@@ -90,7 +91,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
     return Scaffold(
       primary: true,
       appBar: AppBar(
-        title: Text(actionsSelectScreen()),
+        title: Text(convertToUwU(actionsSelectScreen())),
         actions: [
           IconButton(
             onPressed: () {
@@ -151,7 +152,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
                     padding: EdgeInsets.symmetric(horizontal: 4),
                   ),
                   Text(
-                    triggersSelectSaveLabel(),
+                    convertToUwU(triggersSelectSaveLabel()),
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: getTextColor(
                             Theme.of(context).colorScheme.primary,
@@ -180,7 +181,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
                 child: ExpansionTile(
                   initiallyExpanded: hasConnectedDevice,
                   title: Text(
-                    catList[categoryIndex].friendly,
+                    convertToUwU(catList[categoryIndex].friendly),
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   children: [
@@ -235,7 +236,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
         width: 50,
         child: Center(
           child: Text(
-            baseAction.name,
+            convertToUwU(baseAction.name),
             semanticsLabel: baseAction.name,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.center,

@@ -1,5 +1,6 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../translation_string_definitions.dart';
 
@@ -25,7 +26,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        colorPickerTitle(),
+        convertToUwU(colorPickerTitle()),
         style: Theme.of(context).textTheme.titleLarge,
       ),
       actions: [
@@ -34,7 +35,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             Navigator.of(context).pop(color.toARGB32());
           },
           child: Text(
-            ok(),
+            convertToUwU(ok()),
           ),
         ),
         TextButton(
@@ -42,7 +43,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             Navigator.of(context).pop();
           },
           child: Text(
-            cancel(),
+            convertToUwU(cancel()),
           ),
         ),
       ],

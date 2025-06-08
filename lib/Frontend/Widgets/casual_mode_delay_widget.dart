@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tail_app/Backend/logging_wrappers.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../constants.dart';
 import '../translation_string_definitions.dart';
@@ -22,7 +23,7 @@ class _CasualModeDelayWidgetState extends State<CasualModeDelayWidget> {
     int min = HiveProxy.getOrDefault(settings, casualModeDelayMin, defaultValue: casualModeDelayMinDefault);
     int max = HiveProxy.getOrDefault(settings, casualModeDelayMax, defaultValue: casualModeDelayMaxDefault);
     return ListTile(
-      title: Text(casualModeDelayTitle()),
+      title: Text(convertToUwU(casualModeDelayTitle())),
       subtitle: RangeSlider(
         values: RangeValues(min.toDouble(), max.toDouble()),
         min: 15,

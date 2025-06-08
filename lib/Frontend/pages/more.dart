@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -37,8 +38,8 @@ class _MoreState extends ConsumerState<More> {
       children: [
         if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
           ListTile(
-            title: Text(joyStickPage()),
-            subtitle: Text(joyStickPageDescription()),
+            title: Text(convertToUwU(joyStickPage())),
+            subtitle: Text(convertToUwU(joyStickPageDescription())),
             leading: const Icon(Icons.gamepad),
             trailing: const Icon(Icons.bug_report),
             onTap: () async {
@@ -47,16 +48,16 @@ class _MoreState extends ConsumerState<More> {
           ),
         ],
         ListTile(
-          title: Text(sequencesPage()),
-          subtitle: Text(sequencesPageDescription()),
+          title: Text(convertToUwU(sequencesPage())),
+          subtitle: Text(convertToUwU(sequencesPageDescription())),
           leading: const Icon(Icons.list),
           onTap: () async {
             const MoveListRoute().push(context);
           },
         ),
         ListTile(
-          title: Text(audioPage()),
-          subtitle: Text(audioEditDescription()),
+          title: Text(convertToUwU(audioPage())),
+          subtitle: Text(convertToUwU(audioEditDescription())),
           leading: const Icon(Icons.audio_file),
           onTap: () async {
             const CustomAudioRoute().push(context);
@@ -65,8 +66,8 @@ class _MoreState extends ConsumerState<More> {
         Builder(builder: (context) {
           String couponCode = "APPCOV25";
           return ListTile(
-            title: Text(morePageCoverPromoTitle()),
-            subtitle: Text(morePageCoverPromoDescription(couponCode: couponCode)),
+            title: Text(convertToUwU(morePageCoverPromoTitle())),
+            subtitle: Text(convertToUwU(morePageCoverPromoDescription(couponCode: couponCode))),
             leading: const Icon(Icons.store),
             trailing: const Icon(Icons.open_in_browser),
             onTap: () async {
@@ -75,8 +76,8 @@ class _MoreState extends ConsumerState<More> {
           );
         }),
         ListTile(
-          title: Text(settingsPage()),
-          subtitle: Text(settingsDescription()),
+          title: Text(convertToUwU(settingsPage())),
+          subtitle: Text(convertToUwU(settingsDescription())),
           leading: const Icon(Icons.settings),
           onTap: () async {
             const SettingsRoute().push(context);
@@ -84,9 +85,9 @@ class _MoreState extends ConsumerState<More> {
         ),
         if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
           ListTile(
-            title: const Text("Development Menu"),
+            title: Text(convertToUwU("Development Menu")),
             leading: const Icon(Icons.bug_report),
-            subtitle: const Text("It is illegal to read this message"),
+            subtitle: Text(convertToUwU("It is illegal to read this message")),
             onTap: () async {
               const DeveloperMenuRoute().push(context);
             },
@@ -94,21 +95,21 @@ class _MoreState extends ConsumerState<More> {
         ],
         ListTile(
           leading: const Icon(Icons.feedback),
-          title: Text(feedbackPage()),
-          subtitle: Text(feedbackPageDescription()),
+          title: Text(convertToUwU(feedbackPage())),
+          subtitle: Text(convertToUwU(feedbackPageDescription())),
           onTap: () {
             BetterFeedback.of(context).showAndUploadToSentry();
           },
         ),
         ListTile(
           title: Text(
-            moreManualTitle(),
+            convertToUwU(moreManualTitle()),
             style: Theme.of(context).textTheme.headlineLarge,
-          ),
+          )
         ),
         ListTile(
-          title: Text(moreManualMiTailTitle()),
-          subtitle: Text(moreManualSubTitle()),
+          title: Text(convertToUwU(moreManualMiTailTitle())),
+          subtitle:Text(convertToUwU(moreManualSubTitle())),
           onTap: () async {
             PDFPageRoute(
               $extra: PDFInfo(
@@ -119,8 +120,8 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: Text(moreManualEargearTitle()),
-          subtitle: Text(moreManualSubTitle()),
+          title: Text(convertToUwU(moreManualEargearTitle())),
+          subtitle:Text(convertToUwU(moreManualSubTitle())),
           onTap: () async {
             PDFPageRoute(
               $extra: PDFInfo(
@@ -131,8 +132,8 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: Text(moreManualFlutterWingsTitle()),
-          subtitle: Text(moreManualSubTitle()),
+          title: Text(convertToUwU(moreManualFlutterWingsTitle())),
+          subtitle:Text(convertToUwU(moreManualSubTitle())),
           onTap: () async {
             PDFPageRoute(
               $extra: PDFInfo(
@@ -143,8 +144,8 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: Text(moreManualResponsibleWaggingTitle()),
-          subtitle: Text(moreManualSubTitle()),
+          title: Text(convertToUwU(moreManualResponsibleWaggingTitle())),
+          subtitle:Text(convertToUwU(moreManualSubTitle())),
           onTap: () async {
             HtmlPageRoute(
               $extra: HtmlPageInfo(
@@ -156,12 +157,12 @@ class _MoreState extends ConsumerState<More> {
         ),
         ListTile(
           title: Text(
-            moreUsefulLinksTitle(),
+            convertToUwU(moreUsefulLinksTitle()),
             style: Theme.of(context).textTheme.headlineLarge,
-          ),
+          )
         ),
         ListTile(
-          title: const Text("Store"),
+          title: Text(convertToUwU("Store")),
           leading: const Icon(Icons.store),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -169,7 +170,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: const Text("Wiki"),
+          title: Text(convertToUwU("Wiki")),
           leading: const Icon(Icons.menu_book),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -177,7 +178,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: const Text("Telegram"),
+          title: Text(convertToUwU("Telegram")),
           leading: const Icon(Icons.telegram),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -185,8 +186,8 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: Text(morePageTranslateTitle()),
-          subtitle: Text(morePageTranslateDescription()),
+          title: Text(convertToUwU(morePageTranslateTitle())),
+          subtitle: Text(convertToUwU(morePageTranslateDescription())),
           leading: const Icon(Icons.language),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -194,16 +195,16 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: Text(supportTitle()),
+          title: Text(convertToUwU(supportTitle())),
           leading: const Icon(Icons.message),
-          subtitle: Text(supportDescription()),
+          subtitle: Text(convertToUwU(supportDescription())),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchUrl(Uri.parse('https://thetailcompany.com/${getOutboundUtm()}'));
           },
         ),
         ListTile(
-          title: Text(moreSourceCode()),
+          title: Text(convertToUwU(moreSourceCode())),
           leading: const Icon(Icons.code),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -217,7 +218,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: Text(morePrivacyPolicyLinkTitle()),
+          title:Text(convertToUwU(morePrivacyPolicyLinkTitle())),
           leading: const Icon(Icons.privacy_tip),
           onTap: () async {
             MarkdownViewerRoute(
@@ -229,7 +230,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: Text(aboutPage()),
+          title: Text(convertToUwU(aboutPage())),
           leading: const Icon(Icons.info),
           onTap: () async {
             PackageInfo.fromPlatform().then(

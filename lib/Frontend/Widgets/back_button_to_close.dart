@@ -4,6 +4,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../translation_string_definitions.dart';
 
@@ -68,7 +69,7 @@ class _BackButtonToCloseState extends ConsumerState<BackButtonToClose> {
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.transparent,
         content: AwesomeSnackbarContent(
-          title: doubleBackToClose(),
+          title: convertToUwU(doubleBackToClose()),
           message: '',
 
           /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants

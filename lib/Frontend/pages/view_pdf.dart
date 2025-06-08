@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pdfx/pdfx.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 
@@ -81,7 +82,7 @@ class _ViewPDFState extends State<ViewPDF> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.pdfInfo.title),
+          title: Text(convertToUwU(widget.pdfInfo.title)),
         ),
         body: AnimatedSwitcher(
           duration: animationTransitionDuration,

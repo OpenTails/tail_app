@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
@@ -40,14 +41,14 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                 children: [
                   ListTile(
                     title: Text(
-                      scanDevicesTitle(),
+                      convertToUwU(scanDevicesTitle()),
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                   ScanGearList(),
                   if (HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault)) ...[
                     ExpansionTile(
-                      title: Text(scanDemoGear()),
+                      title: Text(convertToUwU(scanDemoGear())),
                       children: [
                         PageInfoCard(
                           text: scanDemoGearTip(),
@@ -57,7 +58,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                           subtitle: DropdownMenu<BaseDeviceDefinition>(
                             initialSelection: null,
                             expandedInsets: EdgeInsets.zero,
-                            label: Text(scanAddDemoGear()),
+                            label: Text(convertToUwU(scanAddDemoGear())),
                             onSelected: (value) async {
                               if (value != null) {
                                 setState(
@@ -90,7 +91,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                           ),
                         ),
                         ListTile(
-                          title: Text(scanRemoveDemoGear()),
+                          title: Text(convertToUwU(scanRemoveDemoGear())),
                           leading: const Icon(Icons.delete),
                           onTap: () async {
                             ref.read(knownDevicesProvider.notifier).removeDevGear();
@@ -111,7 +112,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
               );
             } else {
               return Center(
-                child: Text(actionsNoBluetooth()), //TODO: More detail
+                child: Text(convertToUwU(actionsNoBluetooth())), //TODO: More detail
               );
             }
           },
@@ -174,7 +175,7 @@ class _ScanGearListState extends ConsumerState<ScanGearList> {
                       children: [
                         ListTile(
                           title: Text(
-                            scanDevicesFoundTitle(),
+                            convertToUwU(scanDevicesFoundTitle()),
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
@@ -185,7 +186,7 @@ class _ScanGearListState extends ConsumerState<ScanGearList> {
                           itemBuilder: (BuildContext context, int index) {
                             ScanResult e = list[index];
                             return ListTile(
-                              title: Text(getNameFromBTName(e.device.advName)),
+                              title: Text(convertToUwU(getNameFromBTName(e.device.advName))),
                               trailing: Text(HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
                               onTap: () async {
                                 await e.device.connect();
@@ -204,7 +205,9 @@ class _ScanGearListState extends ConsumerState<ScanGearList> {
                                 for (ScanResult scanResult in list) {
                                   scanResult.device.connect();
                                 }
-                                Navigator.pop(context);
+                                if (widget.popOnConnect) {
+                                  Navigator.pop(context);
+                                }
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +220,7 @@ class _ScanGearListState extends ConsumerState<ScanGearList> {
                                     padding: EdgeInsets.symmetric(horizontal: 4),
                                   ),
                                   Text(
-                                    scanConnectToAllButtonLabel(),
+                                    convertToUwU(scanConnectToAllButtonLabel()),
                                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                                           color: getTextColor(Theme.of(context).colorScheme.primary),
                                         ),
@@ -249,7 +252,10 @@ class _ScanGearListState extends ConsumerState<ScanGearList> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Text(scanDevicesScanMessage()),
+                        child: Text(
+                          convertToUwU(scanDevicesScanMessage()),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ],
                   ),

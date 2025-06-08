@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
@@ -69,7 +70,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(otaTitle())),
+      appBar: AppBar(title: Text(convertToUwU(otaTitle()))),
       body: Center(
         child: AnimatedSwitcher(
           duration: animationTransitionDuration,
@@ -109,8 +110,8 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: ListTile(
-                      title: Text(otaChangelogLabel()),
-                      subtitle: Text(otaUpdater.firmwareInfo?.changelog ?? "Unavailable"),
+                      title: Text(convertToUwU(otaChangelogLabel())),
+                      subtitle: Text(convertToUwU(otaUpdater.firmwareInfo?.changelog ?? "Unavailable")),
                     ),
                   ),
                 ),
@@ -134,7 +135,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                                 padding: EdgeInsets.symmetric(horizontal: 4),
                               ),
                               Text(
-                                otaDownloadButtonLabel(),
+                                convertToUwU(otaDownloadButtonLabel()),
                                 style: Theme.of(context).textTheme.labelLarge!.copyWith(
                                       color: getTextColor(
                                         Theme.of(context).colorScheme.primary,
@@ -160,7 +161,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                                 // User canceled the picker
                               }
                             },
-                            child: const Text("Select file"),
+                            child: Text("Select file"),
                           ),
                         ],
                       ],
@@ -173,7 +174,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   child: Center(
                     child: ListTile(
                       title: Text(
-                        otaCompletedTitle(),
+                        convertToUwU(otaCompletedTitle()),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),
@@ -195,12 +196,12 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   child: Center(
                     child: ListTile(
                       title: Text(
-                        otaFailedTitle(),
+                        convertToUwU(otaFailedTitle()),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),
                       subtitle: Text(
-                        otaError != null ? getErrorMessage(otaError!) : "",
+                        convertToUwU(otaError != null ? getErrorMessage(otaError!) : ""),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -221,7 +222,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   child: Center(
                     child: ListTile(
                       title: Text(
-                        otaLowBattery(),
+                        convertToUwU(otaLowBattery()),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),
@@ -243,7 +244,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   child: Center(
                     child: ListTile(
                       title: Text(
-                        otaInProgressTitle(),
+                        convertToUwU(otaInProgressTitle()),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),

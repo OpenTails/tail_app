@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
+import 'package:tail_app/Backend/firebase.dart';
 import 'package:tail_app/Frontend/Widgets/known_gear.dart';
 import 'package:tail_app/Frontend/Widgets/known_gear_scan_controller.dart';
 import 'package:tail_app/Frontend/Widgets/manage_gear.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/logging_wrappers.dart';
@@ -37,6 +39,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     // Navigator.of(context).pushReplacement()
     plausible.event(name: "Complete Onboarding");
     _introLogger.info("Complete Onboarding");
+    configurePushNotifications();
     HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
     const ActionPageRoute().pushReplacement(context);
   }
@@ -117,42 +120,61 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
             asset: Assets.tailcostickers.tailCoStickersFile144834359,
             width: MediaQuery.of(context).size.width,
           ),
-          footer: OverflowBar(
-            alignment: MainAxisAlignment.center,
+          footer: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(
-                onPressed: () async {
-                  MarkdownViewerRoute(
-                    $extra: MarkdownInfo(
-                      content: await rootBundle.loadString(Assets.privacy),
-                      title: morePrivacyPolicyLinkTitle(),
+              OverflowBar(
+                alignment: MainAxisAlignment.center,
+                overflowAlignment: OverflowBarAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      MarkdownViewerRoute(
+                        $extra: MarkdownInfo(
+                          content: await rootBundle.loadString(Assets.privacy),
+                          title: morePrivacyPolicyLinkTitle(),
+                        ),
+                      ).push(context);
+                    },
+                    child: Text(
+                      convertToUwU(onboardingPrivacyPolicyViewButtonLabel()),
                     ),
-                  ).push(context);
-                },
-                child: Text(
-                  onboardingPrivacyPolicyViewButtonLabel(),
-                ),
-              ),
-              FilledButton(
-                onPressed: privacyAccepted
-                    ? null
-                    : () async {
+                  ),
+                  FilledButton(
+                    onPressed: privacyAccepted
+                        ? null
+                        : () async {
+                            setState(() {
+                              _introLogger.info("Accepted Privacy Policy");
+                              privacyAccepted = true;
+                              HiveProxy
+                                ..put(settings, allowErrorReporting, true)
+                                ..put(settings, allowAnalytics, true);
+                              introKey.currentState?.next();
+                            });
+                          },
+                    child: Text(
+                      convertToUwU(onboardingPrivacyPolicyAcceptButtonLabel()),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(convertToUwU(settingsMarketingNotificationsToggleTitle())),
+                    trailing: Switch(
+                      value: HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault),
+                      onChanged: (bool value) async {
                         setState(() {
-                          _introLogger.info("Accepted Privacy Policy");
-                          privacyAccepted = true;
-                          HiveProxy
-                            ..put(settings, allowErrorReporting, true)
-                            ..put(settings, allowAnalytics, true);
-                          introKey.currentState?.next();
+                          HiveProxy.put(settings, marketingNotificationsEnabled, value);
                         });
                       },
-                child: Text(
-                  onboardingPrivacyPolicyAcceptButtonLabel(),
-                ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          decoration: pageDecoration,
+          decoration: pageDecoration.copyWith(footerFlex: 4),
         ),
         PageViewModel(
           title: onboardingBluetoothTitle(),
@@ -182,7 +204,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                         }
                       },
                 child: Text(
-                  onboardingBluetoothRequestButtonLabel(),
+                  convertToUwU(onboardingBluetoothRequestButtonLabel()),
                 ),
               ),
             ],
@@ -190,7 +212,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: scanDevicesTitle(),
+          title: scanDevicesOnboardingTitle(),
           bodyWidget: ScanGearList(
             popOnConnect: false,
           ),
@@ -235,7 +257,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         onPressed: () {
           _onIntroEnd(context);
         },
-        child: Text(onboardingDoneButtonLabel(), style: const TextStyle(fontWeight: FontWeight.w600)),
+        child: Text(convertToUwU(onboardingDoneButtonLabel()), style: const TextStyle(fontWeight: FontWeight.w600)),
       ),
       dotsFlex: 1,
       controlsPadding: const EdgeInsets.symmetric(vertical: 32),

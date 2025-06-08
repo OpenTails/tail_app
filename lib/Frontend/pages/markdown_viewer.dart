@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'markdown_viewer.freezed.dart';
@@ -23,7 +24,7 @@ class MarkdownViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(markdownInfo.title),
+        title: Text(convertToUwU(markdownInfo.title)),
       ),
       body: Markdown(
         data: markdownInfo.content,

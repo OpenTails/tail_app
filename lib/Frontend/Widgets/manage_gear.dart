@@ -8,6 +8,7 @@ import 'package:tail_app/Backend/firmware_update.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Backend/version.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
@@ -71,7 +72,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                       color: Colors.white,
                     ),
                     title: Text(
-                      noLongerSupported(),
+                      convertToUwU(noLongerSupported()),
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
@@ -101,7 +102,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                                 color: Colors.white,
                               ),
                               title: Text(
-                                mandatoryOtaRequired(),
+                                convertToUwU(mandatoryOtaRequired()),
                                 style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
@@ -131,7 +132,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                                   padding: EdgeInsets.symmetric(horizontal: 4),
                                 ),
                                 Text(
-                                  manageDevicesOtaButton(),
+                                  convertToUwU(manageDevicesOtaButton()),
                                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                                         color: getTextColor(color!),
                                       ),
@@ -173,7 +174,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
               ),
               ListTile(
                 title: Text(
-                  manageDevicesColor(),
+                  convertToUwU(manageDevicesColor()),
                 ),
                 trailing: ColorIndicator(
                   width: 44,
@@ -221,7 +222,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text(manageDevicesDisconnect()),
+                      child: Text(convertToUwU(manageDevicesDisconnect())),
                     ),
                     TextButton(
                       onPressed: () {
@@ -230,7 +231,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text(manageDevicesShutdown()),
+                      child: Text(convertToUwU(manageDevicesShutdown())),
                     ),
                   ],
                   if (device!.deviceConnectionState.value == ConnectivityState.disconnected && device!.disableAutoConnect) ...[
@@ -241,7 +242,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text(manageDevicesConnect()),
+                      child: Text(convertToUwU(manageDevicesConnect())),
                     ),
                   ],
                   TextButton(
@@ -257,7 +258,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                       });
                       Navigator.pop(context);
                     },
-                    child: Text(manageDevicesForget()),
+                    child: Text(convertToUwU(manageDevicesForget())),
                   ),
                 ],
               ),
@@ -345,7 +346,7 @@ class _ManageGearUpdateCheckButtonState extends ConsumerState<ManageGearUpdateCh
                     padding: EdgeInsets.symmetric(horizontal: 4),
                   ),
                   Text(
-                    buttonText,
+                    convertToUwU(buttonText),
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: getTextColor(widget.color),
                         ),
@@ -368,15 +369,15 @@ class ManageGearConventionMode extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ExpansionTile(
-      title: Text(manageGearConModeTitle()),
-      subtitle: Text(manageGearConModeDescription()),
+      title: Text(convertToUwU(manageGearConModeTitle())),
+      subtitle: Text(convertToUwU(manageGearConModeDescription())),
       children: [
         PageInfoCard(
           text: "Super secret anti hacker power (Insert guide and reset instructions here)",
         ),
         ListTile(
-          title: Text(manageGearConModeToggleTitle()),
-          subtitle: Text(manageGearConModePincodeEnableDescription()),
+          title: Text(convertToUwU(manageGearConModeToggleTitle())),
+          subtitle: Text(convertToUwU(manageGearConModePincodeEnableDescription())),
           trailing: ValueListenableBuilder(
             valueListenable: device.deviceConnectionState,
             builder: (context, connectivityState, child) => Switch(
@@ -420,12 +421,12 @@ class ManageGearAbout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text(manageDevicesAboutLabel()),
+      title: Text(convertToUwU(manageDevicesAboutLabel())),
       children: [
         ListTile(
           dense: true,
           title: Text(
-            manageDevicesAboutSoftwareVersionLabel(),
+            convertToUwU(manageDevicesAboutSoftwareVersionLabel()),
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           trailing: ValueListenableBuilder(
@@ -440,7 +441,7 @@ class ManageGearAbout extends StatelessWidget {
         ListTile(
           dense: true,
           title: Text(
-            manageDevicesAboutHardwareVersionLabel(),
+            convertToUwU(manageDevicesAboutHardwareVersionLabel()),
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           trailing: ValueListenableBuilder(
@@ -473,7 +474,7 @@ class ManageGearBatteryGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text(manageDevicesBatteryGraphTitle()),
+      title: Text(convertToUwU(manageDevicesBatteryGraphTitle())),
       children: [
         SizedBox(
           height: 200,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../translation_string_definitions.dart';
 
@@ -16,14 +17,14 @@ class PincodeDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () async => await Clipboard.setData(ClipboardData(text: pin)),
-          child: Text(manageGearConModePincodeCopy()),
+          child: Text(convertToUwU(manageGearConModePincodeCopy())),
         ),
         TextButton(
           onPressed: () => context.pop(),
-          child: Text(ok()),
+          child: Text(convertToUwU(ok())),
         ),
       ],
-      title: Text(manageGearConModePincodeTitle()),
+      title: Text(convertToUwU(manageGearConModePincodeTitle())),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/logging_wrappers.dart';
@@ -23,7 +24,7 @@ class PageInfoCard extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(text),
+            child: Text(convertToUwU(text)),
           ),
         ),
       );
@@ -72,7 +73,7 @@ class GearOutOfDateWarning extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      featureLimitedOtaRequiredLabel(),
+                      convertToUwU(featureLimitedOtaRequiredLabel()),
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color)),
                     ),
                   ),
