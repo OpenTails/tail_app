@@ -59,7 +59,7 @@ final GoRouter router = GoRouter(
   routes: $appRoutes,
 );
 
-class TriggersRoute extends GoRouteData {
+class TriggersRoute extends GoRouteData with _$TriggersRoute {
   const TriggersRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
@@ -72,7 +72,7 @@ class TriggersRoute extends GoRouteData {
   path: '/triggers/edit',
   name: 'Triggers/Edit',
 )
-class TriggersEditRoute extends GoRouteData {
+class TriggersEditRoute extends GoRouteData with _$TriggersEditRoute {
   const TriggersEditRoute({required this.uuid});
 
   final String uuid;
@@ -86,7 +86,7 @@ class TriggersEditRoute extends GoRouteData {
   path: '/manageGear',
   name: 'Manage Gear',
 )
-class ManageGearRoute extends GoRouteData {
+class ManageGearRoute extends GoRouteData with _$ManageGearRoute {
   const ManageGearRoute({required this.btMac});
 
   final String btMac;
@@ -106,7 +106,7 @@ class ManageGearRoute extends GoRouteData {
   path: '/color',
   name: 'Color Picker',
 )
-class ColorPickerRoute extends GoRouteData {
+class ColorPickerRoute extends GoRouteData with _$ColorPickerRoute {
   const ColorPickerRoute({required this.defaultColor});
 
   final int defaultColor;
@@ -126,7 +126,7 @@ class ColorPickerRoute extends GoRouteData {
   path: '/pincode',
   name: 'Pin Code',
 )
-class PinCodeRoute extends GoRouteData {
+class PinCodeRoute extends GoRouteData with _$PinCodeRoute {
   const PinCodeRoute({required this.pin});
 
   final String pin;
@@ -144,7 +144,7 @@ class PinCodeRoute extends GoRouteData {
   path: '/scan',
   name: 'Scan for new devices',
 )
-class ScanForGearRoute extends GoRouteData {
+class ScanForGearRoute extends GoRouteData with _$ScanForGearRoute {
   const ScanForGearRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
@@ -194,7 +194,7 @@ class NavigationDrawerExampleRoute extends ShellRouteData {
   path: '/onboarding',
   name: 'Onboarding',
 )
-class OnBoardingPageRoute extends GoRouteData {
+class OnBoardingPageRoute extends GoRouteData with _$OnBoardingPageRoute {
   const OnBoardingPageRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
@@ -215,7 +215,7 @@ class OnBoardingPageRoute extends GoRouteData {
   path: '/viewHTML',
   name: 'viewHTML',
 )
-class HtmlPageRoute extends GoRouteData {
+class HtmlPageRoute extends GoRouteData with _$HtmlPageRoute {
   const HtmlPageRoute({required this.$extra});
 
   final HtmlPageInfo $extra;
@@ -231,7 +231,7 @@ class HtmlPageRoute extends GoRouteData {
   path: '/viewPDF',
   name: 'viewPDF',
 )
-class PDFPageRoute extends GoRouteData {
+class PDFPageRoute extends GoRouteData with _$PDFPageRoute {
   const PDFPageRoute({required this.$extra});
 
   final PDFInfo $extra;
@@ -247,7 +247,7 @@ class PDFPageRoute extends GoRouteData {
   path: '/joystick',
   name: 'Direct Gear Control',
 )
-class DirectGearControlRoute extends GoRouteData {
+class DirectGearControlRoute extends GoRouteData with _$DirectGearControlRoute {
   const DirectGearControlRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
@@ -260,7 +260,7 @@ class DirectGearControlRoute extends GoRouteData {
   path: '/customAudio',
   name: 'CustomAudio',
 )
-class CustomAudioRoute extends GoRouteData {
+class CustomAudioRoute extends GoRouteData with _$CustomAudioRoute {
   const CustomAudioRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
@@ -269,7 +269,7 @@ class CustomAudioRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) => const CustomAudio();
 }
 
-class ActionPageRoute extends GoRouteData {
+class ActionPageRoute extends GoRouteData with _$ActionPageRoute {
   const ActionPageRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
@@ -286,7 +286,7 @@ class ActionPageRoute extends GoRouteData {
   }
 }
 
-class BluetoothConsoleRoute extends GoRouteData {
+class BluetoothConsoleRoute extends GoRouteData with _$BluetoothConsoleRoute {
   const BluetoothConsoleRoute({required this.$extra});
 
   final BaseStatefulDevice $extra;
@@ -297,7 +297,7 @@ class BluetoothConsoleRoute extends GoRouteData {
       );
 }
 
-class ActionSelectorRoute extends GoRouteData {
+class ActionSelectorRoute extends GoRouteData with _$ActionSelectorRoute {
   const ActionSelectorRoute({required this.$extra});
 
   final ActionSelectorInfo $extra;
@@ -308,7 +308,7 @@ class ActionSelectorRoute extends GoRouteData {
       );
 }
 
-class DeveloperMenuRoute extends GoRouteData {
+class DeveloperMenuRoute extends GoRouteData with _$DeveloperMenuRoute {
   const DeveloperMenuRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
@@ -317,7 +317,7 @@ class DeveloperMenuRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) => const DeveloperMenu();
 }
 
-class DeveloperPincodeRoute extends GoRouteData {
+class DeveloperPincodeRoute extends GoRouteData with _$DeveloperPincodeRoute {
   const DeveloperPincodeRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
@@ -330,7 +330,7 @@ class DeveloperPincodeRoute extends GoRouteData {
   path: '/viewMarkdown',
   name: 'viewMarkdown',
 )
-class MarkdownViewerRoute extends GoRouteData {
+class MarkdownViewerRoute extends GoRouteData with _$MarkdownViewerRoute {
   const MarkdownViewerRoute({required this.$extra});
 
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
@@ -343,7 +343,7 @@ class MarkdownViewerRoute extends GoRouteData {
       );
 }
 
-class MoreRoute extends GoRouteData {
+class MoreRoute extends GoRouteData with _$MoreRoute {
   const MoreRoute();
 
   @override
@@ -360,7 +360,7 @@ class MoreRoute extends GoRouteData {
     ),
   ],
 )
-class MoveListRoute extends GoRouteData {
+class MoveListRoute extends GoRouteData with _$MoveListRoute {
   const MoveListRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
@@ -369,7 +369,7 @@ class MoveListRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) => const MoveListView();
 }
 
-class EditMoveListRoute extends GoRouteData {
+class EditMoveListRoute extends GoRouteData with _$EditMoveListRoute {
   const EditMoveListRoute({required this.$extra});
 
   final MoveList $extra;
@@ -383,7 +383,7 @@ class EditMoveListRoute extends GoRouteData {
   path: '/moveLists/editList/editMove',
   name: 'Sequences/Edit Sequence/Edit Move',
 )
-class EditMoveListMoveRoute extends GoRouteData {
+class EditMoveListMoveRoute extends GoRouteData with _$EditMoveListMoveRoute {
   const EditMoveListMoveRoute({required this.$extra});
 
   final Move $extra;
@@ -403,7 +403,7 @@ class EditMoveListMoveRoute extends GoRouteData {
   path: '/ota',
   name: 'OTA',
 )
-class OtaUpdateRoute extends GoRouteData {
+class OtaUpdateRoute extends GoRouteData with _$OtaUpdateRoute {
   const OtaUpdateRoute({required this.device});
 
   final String device;
@@ -414,7 +414,7 @@ class OtaUpdateRoute extends GoRouteData {
       );
 }
 
-class BulkOtaUpdateRoute extends GoRouteData {
+class BulkOtaUpdateRoute extends GoRouteData with _$BulkOtaUpdateRoute {
   const BulkOtaUpdateRoute();
 
   @override
@@ -449,7 +449,7 @@ class BulkOtaUpdateRoute extends GoRouteData {
     ),
   ],
 )
-class SettingsRoute extends GoRouteData {
+class SettingsRoute extends GoRouteData with _$SettingsRoute {
   const SettingsRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
@@ -458,7 +458,7 @@ class SettingsRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) => const Settings();
 }
 
-class LogsRoute extends GoRouteData {
+class LogsRoute extends GoRouteData with _$LogsRoute {
   const LogsRoute();
 
   @override
