@@ -3,6 +3,8 @@
 - Fix bug when selecting a color
 - Fix a bug with translations not applying to triggers
 - Set default actions for more triggers
+- Add gear pairing to onboarding
+
 
 ### V 1.2.1
 
