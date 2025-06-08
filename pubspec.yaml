@@ -125,7 +125,7 @@ dev_dependencies:
   go_router_builder: ^3.0.0
   freezed: ^3.0.6 # required for @freezed annotations
 
-  flutter_lints: # Dryer Lint
+  flutter_lints: 6.0.0 # Dryer Lint
   #riverpod_lint:
 
 dependency_overrides:
