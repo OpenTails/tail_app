@@ -4,7 +4,8 @@
 - Fix a bug with translations not applying to triggers
 - Set default actions for more triggers
 - Add gear pairing to onboarding
-
+- Add marketing notifications toggle
+- Add UwU toggle (Whats this?)
 
 ### V 1.2.1
 
@@ -90,7 +91,7 @@
 
 - Fixed some bugs with Custom Actions
 
-# Welcome!
+# Welcome
 
 This is the first release of the all new Tail Company App!
 Theres so many improvements over our old app - heres the headlines

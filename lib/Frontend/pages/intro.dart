@@ -33,14 +33,20 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   final Logger _introLogger = Logger("Onboarding");
   final introKey = GlobalKey<IntroductionScreenState>();
   bool bluetoothAccepted = false;
-  bool privacyAccepted = HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree;
+  bool privacyAccepted = false;
+  @override
+  void initState() {
+    super.initState();
+    //enable marketing notifications by default for new installs, but not existing ones
+    HiveProxy.put(settings, marketingNotificationsEnabled, true);
+  }
 
   void _onIntroEnd(BuildContext context) {
     // Navigator.of(context).pushReplacement()
     plausible.event(name: "Complete Onboarding");
     _introLogger.info("Complete Onboarding");
-    configurePushNotifications();
     HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
+    configurePushNotifications();
     const ActionPageRoute().pushReplacement(context);
   }
 

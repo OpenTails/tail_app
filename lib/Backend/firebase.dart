@@ -17,7 +17,8 @@ Future<void> configurePushNotifications() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   //Disable firebase and clear ID
-  if (!HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault)) {
+  if (!HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault) ||
+      HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) != hasCompletedOnboardingVersionToAgree) {
     await FirebaseInstallations.instance.delete();
     FirebaseMessaging.instance.setAutoInitEnabled(false);
     return;
