@@ -49,9 +49,11 @@
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
 
-    <!-- In the permission part of your manifest, these permission are needed if you target Android 14 phones -->
+    <!-- In the permission part of your manifest, these permission are needed if you target Android
+    14 phones -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" /> <!-- Here, chose the type according to your app -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" /> <!--
+    Here, chose the type according to your app -->
 
     <application
         android:name="${applicationName}"
@@ -100,6 +102,28 @@
             android:foregroundServiceType="connectedDevice"
             android:stopWithTask="true" />
 
+        <!-- Push Notifications -->
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification
+        messages.
+             See README(https://goo.gl/l4GJaQ) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set
+        for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/ic_primary" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="Marketing" />
+        <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
     </application>
     <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>

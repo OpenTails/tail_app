@@ -1,0 +1,30 @@
+name: "Turns Secret variables into files"
+description: "Internal Action for Tail App"
+inputs:
+  android_firebase:
+    description: "android_firebase"
+    required: true
+  ios_firebase:
+    description: "ios_firebase"
+    required: true
+  dart_firebase:
+    description: "dart_firebase"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Write Firebase Android
+      shell: bash
+      run: echo "$ANDROID_FIREBASE" > ./android/app/google-services.json
+      env:
+        ANDROID_FIREBASE: ${{ inputs.android_firebase }}
+    - name: Write Firebase IOS
+      shell: bash
+      run: echo "$IOS_FIREBASE" > ./ios/Runner/GoogleService-Info.plist
+      env:
+        IOS_FIREBASE: ${{ inputs.ios_firebase }}
+    - name: Write Firebase Flutter
+      shell: bash
+      run: echo "$DART_FIREBASE" > ./lib/firebase_options.dart
+      env:
+        DART_FIREBASE: ${{ inputs.dart_firebase }}

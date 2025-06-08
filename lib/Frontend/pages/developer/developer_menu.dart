@@ -7,13 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../../Backend/firebase.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../Backend/wear_bridge.dart';
 import '../../../constants.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../main.dart';
 import '../../go_router_config.dart';
-import '../../utils.dart';
 
 class DeveloperMenu extends ConsumerStatefulWidget {
   const DeveloperMenu({super.key});
@@ -160,6 +160,22 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 return Text(HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: dynamicConfigJsonDefault));
               },
             ),
+          ),
+          ListTile(
+            title: const Text("FirebaseToken"),
+            subtitle: FutureBuilder(
+              future: getFirebaseToken(),
+              builder: (context, snapshot) {
+                String firebaseToken = "";
+                if (snapshot.hasData) {
+                  firebaseToken = snapshot.data!;
+                }
+                return Text(firebaseToken);
+              },
+            ),
+            onTap: () async {
+              Clipboard.setData(ClipboardData(text: await getFirebaseToken() ?? ""));
+            },
           ),
           ListTile(
             title: const Text("PlatformLocale"),

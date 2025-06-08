@@ -30,6 +30,7 @@ const String tailBlogWifiOnly = 'tailBlogWifiOnly';
 const String triggerActionCooldown = 'triggerActionCooldown';
 const String gearConnectRetryAttempts = 'gearConnectRetryAttempts';
 const String selectedLocale = 'selectedLocale';
+const String marketingNotificationsEnabled = 'marketingNotificationsEnabled';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -52,6 +53,7 @@ const int casualModeDelayMaxDefault = 120;
 const bool tailBlogWifiOnlyDefault = false;
 const int triggerActionCooldownDefault = 15;
 const int gearConnectRetryAttemptsDefault = 3;
+const bool marketingNotificationsEnabledDefault = false;
 
 const String triggerBox = 'triggers';
 const String sequencesBox = 'sequences';

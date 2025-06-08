@@ -86,3 +86,11 @@ ios/Runner/Assets.xcassets/LaunchImage.imageset/
 lib/l10n/app_localizations*
 
 devtools_options.yaml
+
+lib/firebase_options.dart
+
+ios/Runner/GoogleService-Info.plist
+
+firebase.json
+
+android/app/google-services.json

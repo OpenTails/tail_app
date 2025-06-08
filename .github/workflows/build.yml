@@ -1,13 +1,13 @@
 on:
   push:
     paths-ignore:
-      - '*.md'
-      - '*.sh'
-      - '*/fastlane/*'
-      - '.github/*'
-      - '.vscode/*'
-      - '.run/*'
-      - 'scripts/*'
+      - "*.md"
+      - "*.sh"
+      - "*/fastlane/*"
+      - ".github/*"
+      - ".vscode/*"
+      - ".run/*"
+      - "scripts/*"
     branches:
       - master
   pull_request:
@@ -21,8 +21,8 @@ jobs:
       pull-requests: read
     strategy:
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
-        build: [ apk, bundle, ipa ]
+        os: [ubuntu-latest, macos-latest]
+        build: [apk, bundle, ipa]
         exclude:
           - os: ubuntu-latest
             build: ipa
@@ -44,6 +44,13 @@ jobs:
       - name: get Version
         id: version
         uses: ./.github/actions/version
+      - name: Setup Firebase Secrets
+        id: firebase
+        uses: ./.github/actions/place_secrets_files
+        with:
+          ios_firebase: ${{ secrets.IOS_FIREBASE }}
+          android_firebase: ${{ secrets.ANDROID_FIREBASE }}
+          dart_firebase: ${{ secrets.DART_FIREBASE }}
       - name: Run build script
         id: build
         uses: ./.github/actions/build_android

@@ -23,6 +23,7 @@ import 'Backend/Definitions/Device/device_definition.dart';
 import 'Backend/app_shortcuts.dart';
 import 'Backend/dynamic_config.dart';
 import 'Backend/favorite_actions.dart';
+import 'Backend/firebase.dart';
 import 'Backend/logging_wrappers.dart';
 import 'Backend/move_lists.dart';
 import 'Backend/sensors.dart';
@@ -150,6 +151,7 @@ Future<void> main() async {
 
   initFlutter();
   await initHive();
+  await configurePushNotifications();
   initMainApp();
 }
 
