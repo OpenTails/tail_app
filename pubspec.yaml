@@ -75,6 +75,7 @@ dependencies:
     git:
       url: https://github.com/Codel1417/packages.flutter
       path: packages/pdfx
+  owoify_dart: ^2.1.0
 
   # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
@@ -107,7 +108,7 @@ dependencies:
   firebase_app_installations: ^0.3.2+6
   upgrader: ^11.4.0
   firebase_notifications_handler: ^2.0.2+1
-  
+
   # Sentry
   sentry_flutter: ^8.14.2 # Base sentry + Flutter integration
   sentry_logging: ^8.14.2 # Collects app logs

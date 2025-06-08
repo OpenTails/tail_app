@@ -1183,6 +1183,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  owoify_dart:
+    dependency: "direct main"
+    description:
+      name: owoify_dart
+      sha256: "7298b15a12d05cd275db983849e9c3720f97b624e836015a677a48ca855fc7f1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   package_config:
     dependency: transitive
     description:
