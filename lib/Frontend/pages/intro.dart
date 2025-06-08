@@ -5,8 +5,6 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/firebase.dart';
 import 'package:tail_app/Frontend/Widgets/known_gear.dart';
-import 'package:tail_app/Frontend/Widgets/known_gear_scan_controller.dart';
-import 'package:tail_app/Frontend/Widgets/manage_gear.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -38,7 +36,9 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   void initState() {
     super.initState();
     //enable marketing notifications by default for new installs, but not existing ones
-    HiveProxy.put(settings, marketingNotificationsEnabled, true);
+    if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == 0) {
+      HiveProxy.put(settings, marketingNotificationsEnabled, true);
+    }
   }
 
   void _onIntroEnd(BuildContext context) {
