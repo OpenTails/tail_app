@@ -17,5 +17,6 @@
     "dart.buildRunnerAdditionalArgs": [
         "--delete-conflicting-outputs"
     ],
-    "avdmanager.executable": "c:\\Users\\Floof\\AppData\\Local\\Android\\Sdk\\cmdline-tools\\latest\\bin\\avdmanager.bat"
+    "avdmanager.executable": "c:\\Users\\Floof\\AppData\\Local\\Android\\Sdk\\cmdline-tools\\latest\\bin\\avdmanager.bat",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

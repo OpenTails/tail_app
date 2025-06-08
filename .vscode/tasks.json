@@ -174,18 +174,18 @@
 		},
 		{
 			"label": "Prebuild",
-			"dependsOrder": "parallel",
+			"dependsOrder": "sequence",
 			"detail": "Updates generated files",
 			"icon": {
 				"id": "tools"
 			},
 			"group": "build",
 			"dependsOn": [
-				"Run fluttergen",
-				"Generate Translation Files",
-				"Generate Flutter l10n Translation Files",
-				//"flutter: flutter pub run build_runner build",
-				"Generate Splash Screen"
+				//"Run fluttergen",
+				//"Generate Translation Files",
+				//"Generate l10n Translation Files",
+				"flutter: flutter pub run build_runner build",
+				//"Generate Splash Screen"
 			],
 		},
 		{
