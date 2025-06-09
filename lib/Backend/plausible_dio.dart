@@ -56,6 +56,9 @@ class PlausibleDio extends Plausible {
     props['App Version'] = (await PackageInfo.fromPlatform()).version;
     props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
     props['Locale'] = Platform.localeName;
+    props['UwU Enabled'] = HiveProxy.getOrDefault(settings, uwuTextEnabled, defaultValue: uwuTextEnabledDefault).toString();
+    props['Marketing Notifications Enabled'] = HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault).toString();
+
     try {
       props['Has Watch'] = (await isPaired()).toString();
     } catch (e) {

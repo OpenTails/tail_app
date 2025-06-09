@@ -227,7 +227,9 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                     TextButton(
                       onPressed: () {
                         setState(() {
-                          ref.read(commandQueueProvider(device!).notifier).addCommand(BluetoothMessage(message: "SHUTDOWN", priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()));
+                          ref
+                              .read(commandQueueProvider(device!).notifier)
+                              .addCommand(BluetoothMessage(message: "SHUTDOWN", priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()));
                         });
                         Navigator.pop(context);
                       },
@@ -485,7 +487,7 @@ class ManageGearBatteryGraph extends StatelessWidget {
               builder: (context, value, child) {
                 return LineChart(
                   LineChartData(
-                    titlesData: const FlTitlesData(
+                    titlesData: FlTitlesData(
                       rightTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: false,
@@ -495,10 +497,10 @@ class ManageGearBatteryGraph extends StatelessWidget {
                         sideTitles: SideTitles(showTitles: false),
                       ),
                       leftTitles: AxisTitles(
-                        axisNameWidget: Text('Battery'),
+                        axisNameWidget: Text(convertToUwU('Battery')),
                       ),
                       bottomTitles: AxisTitles(
-                        axisNameWidget: Text('Time'),
+                        axisNameWidget: Text(convertToUwU('Time')),
                         sideTitles: SideTitles(showTitles: true),
                       ),
                     ),
@@ -508,7 +510,16 @@ class ManageGearBatteryGraph extends StatelessWidget {
                     maxY: 100,
                     minX: 0,
                     maxX: device.batlevels.isNotEmpty ? device.batlevels.last.x : 1,
-                    lineBarsData: [LineChartBarData(spots: device.batlevels, color: Theme.of(context).colorScheme.primary, dotData: const FlDotData(show: false), isCurved: true, curveSmoothness: 0.1, preventCurveOverShooting: true, show: device.batlevels.isNotEmpty)],
+                    lineBarsData: [
+                      LineChartBarData(
+                          spots: device.batlevels,
+                          color: Theme.of(context).colorScheme.primary,
+                          dotData: const FlDotData(show: false),
+                          isCurved: true,
+                          curveSmoothness: 0.1,
+                          preventCurveOverShooting: true,
+                          show: device.batlevels.isNotEmpty)
+                    ],
                   ),
                 );
               },
@@ -943,11 +954,11 @@ class _ManageGearHomePositionState extends ConsumerState<ManageGearHomePosition>
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text(manageGearHomePositionTitle()),
-      subtitle: Text(manageGearHomePositionDescription()),
+      title: Text(convertToUwU(manageGearHomePositionTitle())),
+      subtitle: Text(convertToUwU(manageGearHomePositionDescription())),
       children: [
         ListTile(
-          title: Text(sequencesEditLeftServo()),
+          title: Text(convertToUwU(sequencesEditLeftServo())),
           subtitle: Slider(
             value: widget.device.baseStoredDevice.leftHomePosition.toDouble(),
             label: widget.device.baseStoredDevice.leftHomePosition.toString(),
@@ -963,7 +974,7 @@ class _ManageGearHomePositionState extends ConsumerState<ManageGearHomePosition>
           ),
         ),
         ListTile(
-          title: Text(sequencesEditRightServo()),
+          title: Text(convertToUwU(sequencesEditRightServo())),
           subtitle: Slider(
             value: widget.device.baseStoredDevice.rightHomePosition.toDouble(),
             label: widget.device.baseStoredDevice.rightHomePosition.toString(),
@@ -983,7 +994,9 @@ class _ManageGearHomePositionState extends ConsumerState<ManageGearHomePosition>
   }
 
   void updateHomePosition() {
-    Move move = Move.move(leftServo: (widget.device.baseStoredDevice.leftHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127), rightServo: (widget.device.baseStoredDevice.rightHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127));
+    Move move = Move.move(
+        leftServo: (widget.device.baseStoredDevice.leftHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127),
+        rightServo: (widget.device.baseStoredDevice.rightHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127));
     generateMoveCommand(move, widget.device, CommandType.direct, priority: Priority.high);
     BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETHOME", timestamp: DateTime.now(), responseMSG: "OK", priority: Priority.high);
     ref.read(commandQueueProvider(widget.device).notifier).addCommand(bluetoothMessage);

@@ -103,8 +103,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       ),
       pages: [
         PageViewModel(
-          title: homeWelcomeMessageTitle(),
-          body: homeWelcomeMessage(),
+          title: convertToUwU(homeWelcomeMessageTitle()),
+          body: convertToUwU(homeWelcomeMessage()),
           image: Builder(
             builder: (context) {
               if (Theme.of(context).colorScheme.brightness == Brightness.light) {
@@ -120,8 +120,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: morePrivacyPolicyLinkTitle(),
-          body: onboardingPrivacyPolicyDescription(),
+          title: convertToUwU(morePrivacyPolicyLinkTitle()),
+          body: convertToUwU(onboardingPrivacyPolicyDescription()),
           image: LottieLazyLoad(
             asset: Assets.tailcostickers.tailCoStickersFile144834359,
             width: MediaQuery.of(context).size.width,
@@ -140,7 +140,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                       MarkdownViewerRoute(
                         $extra: MarkdownInfo(
                           content: await rootBundle.loadString(Assets.privacy),
-                          title: morePrivacyPolicyLinkTitle(),
+                          title: convertToUwU(morePrivacyPolicyLinkTitle()),
                         ),
                       ).push(context);
                     },
@@ -183,8 +183,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           decoration: pageDecoration.copyWith(footerFlex: 4),
         ),
         PageViewModel(
-          title: onboardingBluetoothTitle(),
-          body: onboardingBluetoothDescription(),
+          title: convertToUwU(onboardingBluetoothTitle()),
+          body: convertToUwU(onboardingBluetoothDescription()),
           image: LottieLazyLoad(
             asset: Assets.tailcostickers.tailCoStickersFile144834357,
             width: MediaQuery.of(context).size.width,
@@ -218,7 +218,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: scanDevicesOnboardingTitle(),
+          title: convertToUwU(scanDevicesOnboardingTitle()),
           bodyWidget: ScanGearList(
             popOnConnect: false,
           ),
@@ -233,7 +233,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           ),
         ),
         PageViewModel(
-          title: onboardingCompletedTitle(),
+          title: convertToUwU(onboardingCompletedTitle()),
           body: "",
           image: LottieLazyLoad(
             asset: Assets.tailcostickers.tailCoStickersFile144834338,
