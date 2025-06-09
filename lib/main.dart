@@ -134,7 +134,7 @@ Future<void> main() async {
   Logger.root.onRecord.listen((event) {
     try {
       // Hive may not be ready yet. just log in that case
-      if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) == true) {
+      if (!HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) {
         return;
       }
       // ignore: empty_catches
