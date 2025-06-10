@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-06-08T22:18:36.024648",
+  "@@last_modified": "2025-06-10T00:40:42.216356",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -43,18 +43,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "feedbackPage": "Send Feedback",
-  "@feedbackPage": {
-    "description": "The label and title of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPageDescription": "Have a suggestion or issue with the app? Let us know. Note: This is anonymous and can not be used to resolve issues with Gear",
-  "@feedbackPageDescription": {
-    "description": "The description of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
   "audioPage": "Custom Sounds",
   "@audioPage": {
     "description": "The label and title of the custom audio management page",
@@ -70,6 +58,24 @@
   "settingsPage": "Settings",
   "@settingsPage": {
     "description": "The label and title of the settings page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreExperimentalTitle": "Experimental",
+  "@moreExperimentalTitle": {
+    "description": "The label for the experimental features on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoTitle": "CosHub",
+  "@moreCoshubPromoTitle": {
+    "description": "The title for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoDescription": "Our latest app to help you plan, share and create your cosplay is here",
+  "@moreCoshubPromoDescription": {
+    "description": "The description for the coshub link on the More page",
     "type": "text",
     "placeholders": {}
   },
