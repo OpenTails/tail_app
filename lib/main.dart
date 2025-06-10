@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -256,15 +255,11 @@ class TailApp extends ConsumerWidget {
         ],
         child: _EagerInitialization(
           child: BtAppStateController(
-            child: BetterFeedback(
-              themeMode: ThemeMode.system,
-              darkTheme: FeedbackThemeData.dark(),
-              child: ValueListenableBuilder(
-                valueListenable: Hive.box(settings).listenable(keys: [appColor]),
-                builder: (BuildContext context, value, Widget? child) {
-                  return TailAppMainWidget();
-                },
-              ),
+            child: ValueListenableBuilder(
+              valueListenable: Hive.box(settings).listenable(keys: [appColor]),
+              builder: (BuildContext context, value, Widget? child) {
+                return TailAppMainWidget();
+              },
             ),
           ),
         ),

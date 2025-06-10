@@ -1,4 +1,3 @@
-import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,6 +35,51 @@ class _MoreState extends ConsumerState<More> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        Builder(builder: (context) {
+          String couponCode = "APPCOV25";
+          return ListTile(
+            title: Text(convertToUwU(morePageCoverPromoTitle())),
+            subtitle: Text(convertToUwU(morePageCoverPromoDescription(couponCode: couponCode))),
+            leading: const Icon(Icons.store),
+            trailing: const Icon(Icons.open_in_browser),
+            onTap: () async {
+              await launchUrl(Uri.parse('https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode'));
+            },
+          );
+        }),
+        ListTile(
+          title: Text(convertToUwU(moreCoshubPromoTitle())),
+          subtitle: Text(convertToUwU(moreCoshubPromoDescription())),
+          leading: const Icon(Icons.get_app),
+          trailing: const Icon(Icons.open_in_browser),
+          onTap: () async {
+            await launchUrl(Uri.parse('https://coshub.com/${getOutboundUtm()}'));
+          },
+        ),
+        ListTile(
+          title: Text(convertToUwU(settingsPage())),
+          subtitle: Text(convertToUwU(settingsDescription())),
+          leading: const Icon(Icons.settings),
+          onTap: () async {
+            const SettingsRoute().push(context);
+          },
+        ),
+        if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+          ListTile(
+            title: Text(convertToUwU("Development Menu")),
+            leading: const Icon(Icons.bug_report),
+            subtitle: Text(convertToUwU("It is illegal to read this message")),
+            onTap: () async {
+              const DeveloperMenuRoute().push(context);
+            },
+          ),
+        ],
+        ListTile(
+          title: Text(
+            convertToUwU(moreExperimentalTitle()),
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+        ),
         if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
           ListTile(
             title: Text(convertToUwU(joyStickPage())),
@@ -63,53 +107,13 @@ class _MoreState extends ConsumerState<More> {
             const CustomAudioRoute().push(context);
           },
         ),
-        Builder(builder: (context) {
-          String couponCode = "APPCOV25";
-          return ListTile(
-            title: Text(convertToUwU(morePageCoverPromoTitle())),
-            subtitle: Text(convertToUwU(morePageCoverPromoDescription(couponCode: couponCode))),
-            leading: const Icon(Icons.store),
-            trailing: const Icon(Icons.open_in_browser),
-            onTap: () async {
-              await launchUrl(Uri.parse('https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode'));
-            },
-          );
-        }),
         ListTile(
-          title: Text(convertToUwU(settingsPage())),
-          subtitle: Text(convertToUwU(settingsDescription())),
-          leading: const Icon(Icons.settings),
-          onTap: () async {
-            const SettingsRoute().push(context);
-          },
-        ),
-        if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
-          ListTile(
-            title: Text(convertToUwU("Development Menu")),
-            leading: const Icon(Icons.bug_report),
-            subtitle: Text(convertToUwU("It is illegal to read this message")),
-            onTap: () async {
-              const DeveloperMenuRoute().push(context);
-            },
-          ),
-        ],
-        ListTile(
-          leading: const Icon(Icons.feedback),
-          title: Text(convertToUwU(feedbackPage())),
-          subtitle: Text(convertToUwU(feedbackPageDescription())),
-          onTap: () {
-            BetterFeedback.of(context).showAndUploadToSentry();
-          },
-        ),
-        ListTile(
-          title: Text(
-            convertToUwU(moreManualTitle()),
-            style: Theme.of(context).textTheme.headlineLarge,
-          )
-        ),
+            title: Text(
+          convertToUwU("${moreManualTitle()} (${moreManualSubTitle()})"),
+          style: Theme.of(context).textTheme.headlineLarge,
+        )),
         ListTile(
           title: Text(convertToUwU(moreManualMiTailTitle())),
-          subtitle:Text(convertToUwU(moreManualSubTitle())),
           onTap: () async {
             PDFPageRoute(
               $extra: PDFInfo(
@@ -121,7 +125,6 @@ class _MoreState extends ConsumerState<More> {
         ),
         ListTile(
           title: Text(convertToUwU(moreManualEargearTitle())),
-          subtitle:Text(convertToUwU(moreManualSubTitle())),
           onTap: () async {
             PDFPageRoute(
               $extra: PDFInfo(
@@ -133,7 +136,6 @@ class _MoreState extends ConsumerState<More> {
         ),
         ListTile(
           title: Text(convertToUwU(moreManualFlutterWingsTitle())),
-          subtitle:Text(convertToUwU(moreManualSubTitle())),
           onTap: () async {
             PDFPageRoute(
               $extra: PDFInfo(
@@ -145,7 +147,6 @@ class _MoreState extends ConsumerState<More> {
         ),
         ListTile(
           title: Text(convertToUwU(moreManualResponsibleWaggingTitle())),
-          subtitle:Text(convertToUwU(moreManualSubTitle())),
           onTap: () async {
             HtmlPageRoute(
               $extra: HtmlPageInfo(
@@ -156,11 +157,10 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: Text(
-            convertToUwU(moreUsefulLinksTitle()),
-            style: Theme.of(context).textTheme.headlineLarge,
-          )
-        ),
+            title: Text(
+          convertToUwU(moreUsefulLinksTitle()),
+          style: Theme.of(context).textTheme.headlineLarge,
+        )),
         ListTile(
           title: Text(convertToUwU("Store")),
           leading: const Icon(Icons.store),
@@ -170,7 +170,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title: Text(convertToUwU("Wiki")),
+          title: Text(convertToUwU("Technical Wiki")),
           leading: const Icon(Icons.menu_book),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
@@ -218,7 +218,7 @@ class _MoreState extends ConsumerState<More> {
           },
         ),
         ListTile(
-          title:Text(convertToUwU(morePrivacyPolicyLinkTitle())),
+          title: Text(convertToUwU(morePrivacyPolicyLinkTitle())),
           leading: const Icon(Icons.privacy_tip),
           onTap: () async {
             MarkdownViewerRoute(

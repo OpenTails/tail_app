@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,6 +35,9 @@ enum BluetoothPermissionStatus {
 @riverpod
 Future<BluetoothPermissionStatus> getBluetoothPermission(Ref ref) async {
   BluetoothPermissionStatus status = BluetoothPermissionStatus.unknown;
+  if (kIsWeb) {
+    return BluetoothPermissionStatus.granted;
+  }
   if (Platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
     PermissionStatus permissionStatusScan = await Permission.bluetoothScan.request();
     //logger.info("permissionStatusScan $permissionStatusScan");

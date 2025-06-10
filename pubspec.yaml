@@ -114,7 +114,7 @@ dependencies:
   sentry_logging: ^8.14.2 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
   sentry_dio: ^8.14.2 # Collects Dio HTTP requests
-  feedback_sentry: ^3.1.0
+  #feedback_sentry: ^3.1.0
 
 dev_dependencies:
   build_runner: # Required for build
