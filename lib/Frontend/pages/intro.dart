@@ -117,7 +117,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           footer: LanguagePicker(
             isButton: true,
           ),
-          decoration: pageDecoration,
+          decoration: pageDecoration.copyWith(footerFlex: 1),
         ),
         PageViewModel(
           title: convertToUwU(morePrivacyPolicyLinkTitle()),
@@ -126,61 +126,58 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
             asset: Assets.tailcostickers.tailCoStickersFile144834359,
             width: MediaQuery.of(context).size.width,
           ),
-          footer: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+          footer: OverflowBar(
+            alignment: MainAxisAlignment.center,
+            overflowAlignment: OverflowBarAlignment.center,
+            spacing: 8,
             children: [
-              OverflowBar(
-                alignment: MainAxisAlignment.center,
-                overflowAlignment: OverflowBarAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      MarkdownViewerRoute(
-                        $extra: MarkdownInfo(
-                          content: await rootBundle.loadString(Assets.privacy),
-                          title: convertToUwU(morePrivacyPolicyLinkTitle()),
-                        ),
-                      ).push(context);
-                    },
-                    child: Text(
-                      convertToUwU(onboardingPrivacyPolicyViewButtonLabel()),
+              ElevatedButton(
+                onPressed: () async {
+                  MarkdownViewerRoute(
+                    $extra: MarkdownInfo(
+                      content: await rootBundle.loadString(Assets.privacy),
+                      title: convertToUwU(morePrivacyPolicyLinkTitle()),
                     ),
-                  ),
-                  FilledButton(
-                    onPressed: privacyAccepted
-                        ? null
-                        : () async {
-                            setState(() {
-                              _introLogger.info("Accepted Privacy Policy");
-                              privacyAccepted = true;
-                              HiveProxy
-                                ..put(settings, allowErrorReporting, true)
-                                ..put(settings, allowAnalytics, true);
-                              introKey.currentState?.next();
-                            });
-                          },
-                    child: Text(
-                      convertToUwU(onboardingPrivacyPolicyAcceptButtonLabel()),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(convertToUwU(settingsMarketingNotificationsToggleTitle())),
-                    trailing: Switch(
-                      value: HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault),
-                      onChanged: (bool value) async {
+                  ).push(context);
+                },
+                child: Text(
+                  convertToUwU(onboardingPrivacyPolicyViewButtonLabel()),
+                ),
+              ),
+              FilledButton(
+                onPressed: privacyAccepted
+                    ? null
+                    : () async {
                         setState(() {
-                          HiveProxy.put(settings, marketingNotificationsEnabled, value);
+                          _introLogger.info("Accepted Privacy Policy");
+                          privacyAccepted = true;
+                          HiveProxy
+                            ..put(settings, allowErrorReporting, true)
+                            ..put(settings, allowAnalytics, true);
+                          introKey.currentState?.next();
                         });
                       },
-                    ),
-                  ),
-                ],
+                child: Text(
+                  convertToUwU(onboardingPrivacyPolicyAcceptButtonLabel()),
+                ),
               ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(convertToUwU(settingsMarketingNotificationsToggleTitle())),
+                  Switch(
+                    value: HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault),
+                    onChanged: (bool value) async {
+                      setState(() {
+                        HiveProxy.put(settings, marketingNotificationsEnabled, value);
+                      });
+                    },
+                  )
+                ],
+              )
             ],
           ),
-          decoration: pageDecoration.copyWith(footerFlex: 4),
+          decoration: pageDecoration.copyWith(footerFlex: 2),
         ),
         PageViewModel(
           title: convertToUwU(onboardingBluetoothTitle()),
@@ -254,9 +251,14 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       onSkip: () => _onIntroEnd(context),
       // You can override onSkip callback
       //rtl: true, // Display as right-to-left
-      back: const Icon(Icons.arrow_back),
+      back: const Icon(
+        Icons.arrow_back,
+        size: 24,
+        key: Key('previousPage'),
+      ),
       next: const Icon(
         Icons.arrow_forward,
+        size: 24,
         key: Key('nextPage'),
       ),
       done: FilledButton(
