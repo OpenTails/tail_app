@@ -256,8 +256,9 @@ class TailApp extends ConsumerWidget {
         child: _EagerInitialization(
           child: BtAppStateController(
             child: ValueListenableBuilder(
-              valueListenable: Hive.box(settings).listenable(keys: [appColor]),
+              valueListenable: Hive.box(settings).listenable(keys: [appColor, uwuTextEnabled, selectedLocale]),
               builder: (BuildContext context, value, Widget? child) {
+                rebuildAllChildren(context);
                 return TailAppMainWidget();
               },
             ),
@@ -265,6 +266,16 @@ class TailApp extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  //https://stackoverflow.com/questions/43778488/how-to-force-flutter-to-rebuild-redraw-all-widgets
+  void rebuildAllChildren(BuildContext context) {
+    void rebuild(Element el) {
+      el.markNeedsBuild();
+      el.visitChildren(rebuild);
+    }
+
+    (context as Element).visitChildren(rebuild);
   }
 }
 

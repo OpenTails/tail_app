@@ -64,7 +64,7 @@ Future<BluetoothPermissionStatus> getBluetoothPermission(Ref ref) async {
 
 @Riverpod(keepAlive: true)
 Future<String> initLocale(Ref ref) async {
-  final String defaultLocale = Platform.localeName; // Returns locale string in the form 'en_US'
+  final String defaultLocale = kIsWeb ? "EN" : Platform.localeName; // Returns locale string in the form 'en_US'
 
   String locale = AppLocalizations.supportedLocales
           .where(
