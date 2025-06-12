@@ -50,7 +50,11 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(convertToUwU(moreCoshubPromoTitle())),
           subtitle: Text(convertToUwU(moreCoshubPromoDescription())),
-          leading: const Icon(Icons.get_app),
+          leading: Image.asset(
+            Assets.cosHubBT.path,
+            width: 24,
+            height: 24,
+          ),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchUrl(Uri.parse('https://coshub.com/${getOutboundUtm()}'));
