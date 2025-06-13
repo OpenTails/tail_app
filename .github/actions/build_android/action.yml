@@ -46,11 +46,6 @@ runs:
       run: echo -n "$ANDROID_KEY_JKS" | base64 -d > ./android/tailCo.jks
       env:
         ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
-    - name: Copy App icon to wear project
-      shell: bash
-      run: |
-        cp -rfv ./android/app/src/main/res/drawable* ./android/wear/src/main/res/
-        cp -rfv ./android/app/src/main/res/mipmap* ./android/wear/src/main/res/
     - name: Build APK
       if: inputs.build-mode == 'apk'
       shell: bash
@@ -75,9 +70,6 @@ runs:
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
         SENTRY_URL: ${{ inputs.sentry-url }}
-    - name: list dependencies
-      shell: bash
-      run: cd android && ./gradlew app:dependencies --configuration releaseCompileClasspath
     - name: Rename APK
       shell: bash
       if: inputs.build-mode == 'apk'
