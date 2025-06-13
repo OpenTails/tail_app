@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:vector_math/vector_math.dart';
@@ -18,6 +19,8 @@ import '../Widgets/device_type_widget.dart';
 import '../Widgets/speed_widget.dart';
 import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';
+
+part 'direct_gear_control.freezed.dart';
 
 class DirectGearControl extends ConsumerStatefulWidget {
   const DirectGearControl({super.key});
@@ -69,9 +72,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                             }
                             ref.read(knownDevicesProvider).values.forEach(
                               (element) {
-                                generateMoveCommand(move, element, CommandType.direct,
-                                        noResponseMsg: true, priority: Priority.high)
-                                    .forEach(
+                                generateMoveCommand(move, element, CommandType.direct, noResponseMsg: true, priority: Priority.high).forEach(
                                   (message) {
                                     ref.read(commandQueueProvider(element).notifier).addCommand(message);
                                     ref.read(commandQueueProvider(element).notifier).addCommand(message);
@@ -94,25 +95,9 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                           listener: (details) async {
                             setState(
                               () {
-                                if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
-                                  HapticFeedback.selectionClick();
-                                }
-                                x = details.x;
-                                y = details.y;
-
-                                double sign = x.sign;
-                                direction = degrees(atan2(y.abs(), x.abs())); // 0-90
-                                magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
-
-                                double secondServo = ((((direction - 0) * (128 - 0)) / (90 - 0)) + 0).clamp(0, 128);
-                                double primaryServo = ((((magnitude - 0) * (128 - 0)) / (1 - 0)) + 0).clamp(0, 128);
-                                if (sign > 0) {
-                                  left = primaryServo;
-                                  right = secondServo;
-                                } else {
-                                  right = primaryServo;
-                                  left = secondServo;
-                                }
+                                TailServoPositions positions = calculatePosition(details);
+                                left = positions.left;
+                                right = positions.right;
                               },
                             );
                             sendMove();
@@ -123,26 +108,6 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                     ),
                   ],
                 ),
-                if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 400, 8, 8),
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.bug_report),
-                          Text("Magnitude: ${magnitude.toStringAsPrecision(2)}"),
-                          Text("Direction: ${direction.toInt()}"),
-                          Text("Left: ${left.toInt()}"),
-                          Text("Right: ${right.toInt()}"),
-                          Text("X: ${x.toStringAsPrecision(2)}"),
-                          Text("Y: ${y.toStringAsPrecision(2)}"),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
                 ExpansionTile(
                   title: Text(convertToUwU(settingsPage())),
                   backgroundColor: Theme.of(context).cardColor,
@@ -201,11 +166,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
       ..speed = speed
       ..rightServo = right
       ..leftServo = left;
-    ref
-        .read(knownDevicesProvider)
-        .values
-        .where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType))
-        .forEach(
+    ref.read(knownDevicesProvider).values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach(
       (element) {
         generateMoveCommand(move, element, CommandType.direct, priority: Priority.high, noResponseMsg: true).forEach(
           (message) {
@@ -215,4 +176,49 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
       },
     );
   }
+}
+
+@freezed
+abstract class TailServoPositions with _$TailServoPositions {
+  TailServoPositions._();
+
+  factory TailServoPositions({
+    required final double left,
+    required final double right,
+  }) = _TailServoPositions;
+}
+
+TailServoPositions calculatePosition(StickDragDetails details) {
+  if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
+    HapticFeedback.selectionClick();
+  }
+  double x = details.x;
+  double y = details.y;
+
+  double sign = x.sign;
+  double direction = degrees(atan2(y.abs(), x.abs())); // 0-90
+  double magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
+
+// NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+// min is always zero
+  double secondServo = (direction * (128 / 90)).clamp(0, 128);
+  double primaryServo = (magnitude * 128).clamp(0, 128);
+  if (sign > 0) {
+    return TailServoPositions(left: primaryServo, right: secondServo);
+  } else {
+    return TailServoPositions(left: secondServo, right: primaryServo);
+  }
+}
+
+Offset calculateInitialJoystickPosition(TailServoPositions positions) {
+  double direction = positions.left - positions.right;
+  double direction2 = direction * (90 / 128);
+  double directionRad = radians(direction2);
+
+  double magnitude = (positions.left - positions.right) / 128;
+
+  //Convert from polar cordinates to X/Y
+  double x = magnitude * cos(directionRad);
+  double y = magnitude * sin(directionRad);
+  return Offset(x, y);
 }

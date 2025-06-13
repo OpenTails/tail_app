@@ -137,6 +137,9 @@ dependency_overrides:
   proximity_sensor:
     git:
       url: https://github.com/Codel1417/flutter-proximity-sensor-plugin
+  flutter_joystick:
+    git:
+      url: https://github.com/Codel1417/flutter_joystick
   #analyzer: ^7.3.0
 
 flutter:
