@@ -11,7 +11,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Udløs en handling ved at dække nærhedssensoren",
+  "triggerCoverTitle": "Dæk",
   "@triggerCoverTitle": {
     "description": "Cover trigger Title",
     "type": "text",
@@ -1232,6 +1232,54 @@
   "feedbackPageDescription": "Har du et forslag eller et problem med appen? Fortæl os det. Bemærk: Dette er anonymt og kan ikke bruges til at løse problemer med din enhed",
   "@feedbackPageDescription": {
     "description": "The description of the feedback page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleSubTitle": "OwO, hvad er det her?",
+  "@settingsUwUToggleSubTitle": {
+    "description": "Settings page UwU text toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreExperimentalTitle": "Eksperimentel",
+  "@moreExperimentalTitle": {
+    "description": "The label for the experimental features on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoTitle": "CosHub",
+  "@moreCoshubPromoTitle": {
+    "description": "The title for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoDescription": "Vores nyeste app til at hjælpe dig med at planlægge, dele og lave dit cosplay er her",
+  "@moreCoshubPromoDescription": {
+    "description": "The description for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleTitle": "UwU-oversætter",
+  "@settingsUwUToggleTitle": {
+    "description": "Settings page UwU text toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesOnboardingTitle": "Lad os forbinde dit gear",
+  "@scanDevicesOnboardingTitle": {
+    "description": "Title for the gear pairing screen in onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleTitle": "Tillad markedsføringsnotifikationer",
+  "@settingsMarketingNotificationsToggleTitle": {
+    "description": "Settings page marketing notifications toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleSubTitle": "Tillad notifikationer om nye blogindlæg og tilbud.",
+  "@settingsMarketingNotificationsToggleSubTitle": {
+    "description": "Settings page marketing notifications toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
