@@ -382,6 +382,7 @@ String onboardingBluetoothEnableButtonLabel() =>
     Intl.message("Open Settings to turn On Bluetooth", name: 'onboardingBluetoothEnableButtonLabel', desc: 'Label for the button to open bluetooth settings on the onboarding screen');
 
 String onboardingDoneButtonLabel() => Intl.message("Done", name: 'onboardingDoneButtonLabel', desc: 'Label for the button to close the onboarding screen');
+String onboardingContinueLabel() => Intl.message("Continue", name: 'onboardingContinueLabel', desc: 'Label for the button to continue past the scan for gear screen');
 
 String onboardingCompletedTitle() => Intl.message("Happy Wagging!", name: 'onboardingCompletedTitle', desc: 'Title of the final page of the onboarding screen');
 

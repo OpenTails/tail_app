@@ -57,6 +57,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     );
   }
 
+  int page = 0;
   @override
   Widget build(BuildContext context) {
     setupSystemColor(context);
@@ -77,6 +78,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     return IntroductionScreen(
       key: introKey,
       canProgress: (page) {
+        this.page = page;
         if (page == 2 && !bluetoothAccepted) {
           return false;
         } else if (page == 1 && !privacyAccepted) {
@@ -251,12 +253,16 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       onSkip: () => _onIntroEnd(context),
       // You can override onSkip callback
       //rtl: true, // Display as right-to-left
-      back: const Icon(
-        Icons.arrow_back,
-        size: 24,
-        key: Key('previousPage'),
-      ),
-      next: const Icon(
+      back: const Icon(Icons.arrow_back),
+      overrideNext: page == 3
+          ? FilledButton(
+              onPressed: () {
+                _onIntroEnd(context);
+              },
+              child: Text(convertToUwU(onboardingContinueLabel()), style: const TextStyle(fontWeight: FontWeight.w600)),
+            )
+          : null,
+      next: Icon(
         Icons.arrow_forward,
         size: 24,
         key: Key('nextPage'),
