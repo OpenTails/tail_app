@@ -1222,5 +1222,53 @@
     "description": "Description for the tail blog wifi only setting",
     "type": "text",
     "placeholders": {}
+  },
+  "moreCoshubPromoDescription": "Наша новітня програма для планування, обміну та створення косплею вже тут",
+  "@moreCoshubPromoDescription": {
+    "description": "The description for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleTitle": "Дозволити маркетингові сповіщення",
+  "@settingsMarketingNotificationsToggleTitle": {
+    "description": "Settings page marketing notifications toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleSubTitle": "Дозволити сповіщення про нові дописи в блозі та знижки.",
+  "@settingsMarketingNotificationsToggleSubTitle": {
+    "description": "Settings page marketing notifications toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleTitle": "Перекладач UwU",
+  "@settingsUwUToggleTitle": {
+    "description": "Settings page UwU text toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleSubTitle": "OwO, що це таке?",
+  "@settingsUwUToggleSubTitle": {
+    "description": "Settings page UwU text toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesOnboardingTitle": "Давай підключимо твоє спорядження",
+  "@scanDevicesOnboardingTitle": {
+    "description": "Title for the gear pairing screen in onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreExperimentalTitle": "Експериментальне",
+  "@moreExperimentalTitle": {
+    "description": "The label for the experimental features on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoTitle": "CosHub",
+  "@moreCoshubPromoTitle": {
+    "description": "The title for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
   }
 }

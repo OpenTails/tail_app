@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -134,7 +133,7 @@ Future<void> main() async {
   Logger.root.onRecord.listen((event) {
     try {
       // Hive may not be ready yet. just log in that case
-      if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) == true) {
+      if (!HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) {
         return;
       }
       // ignore: empty_catches
@@ -256,20 +255,27 @@ class TailApp extends ConsumerWidget {
         ],
         child: _EagerInitialization(
           child: BtAppStateController(
-            child: BetterFeedback(
-              themeMode: ThemeMode.system,
-              darkTheme: FeedbackThemeData.dark(),
-              child: ValueListenableBuilder(
-                valueListenable: Hive.box(settings).listenable(keys: [appColor]),
-                builder: (BuildContext context, value, Widget? child) {
-                  return TailAppMainWidget();
-                },
-              ),
+            child: ValueListenableBuilder(
+              valueListenable: Hive.box(settings).listenable(keys: [appColor, uwuTextEnabled, selectedLocale]),
+              builder: (BuildContext context, value, Widget? child) {
+                rebuildAllChildren(context);
+                return TailAppMainWidget();
+              },
             ),
           ),
         ),
       ),
     );
+  }
+
+  //https://stackoverflow.com/questions/43778488/how-to-force-flutter-to-rebuild-redraw-all-widgets
+  void rebuildAllChildren(BuildContext context) {
+    void rebuild(Element el) {
+      el.markNeedsBuild();
+      el.visitChildren(rebuild);
+    }
+
+    (context as Element).visitChildren(rebuild);
   }
 }
 

@@ -1234,5 +1234,53 @@
     "description": "the tip for when no actions are favorited on the watch app",
     "type": "text",
     "placeholders": {}
+  },
+  "moreExperimentalTitle": "實驗性",
+  "@moreExperimentalTitle": {
+    "description": "The label for the experimental features on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleTitle": "允許行銷通知",
+  "@settingsMarketingNotificationsToggleTitle": {
+    "description": "Settings page marketing notifications toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleSubTitle": "允許接收新的部落格文章和促銷通知。",
+  "@settingsMarketingNotificationsToggleSubTitle": {
+    "description": "Settings page marketing notifications toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleTitle": "UwU 翻譯器",
+  "@settingsUwUToggleTitle": {
+    "description": "Settings page UwU text toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleSubTitle": "OwO，這是什麼？",
+  "@settingsUwUToggleSubTitle": {
+    "description": "Settings page UwU text toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesOnboardingTitle": "讓我們連接你的裝備",
+  "@scanDevicesOnboardingTitle": {
+    "description": "Title for the gear pairing screen in onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoTitle": "CosHub",
+  "@moreCoshubPromoTitle": {
+    "description": "The title for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoDescription": "我們最新的應用程式已上線，幫助你規劃、分享並創作你的 Cosplay",
+  "@moreCoshubPromoDescription": {
+    "description": "The description for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
   }
 }

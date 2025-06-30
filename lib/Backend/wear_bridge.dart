@@ -9,6 +9,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 import 'package:tail_app/Backend/sensors.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
 
@@ -162,11 +163,11 @@ Future<void> updateWearData(Ref ref) async {
     ref.watch(getAvailableGearProvider);
 
     final WearLocalizationData localizationData = WearLocalizationData(
-      triggersPage: triggersPage(),
-      actionsPage: watchFavoriteActionsTitle(),
-      favoriteActionsDescription: watchFavoriteActionsNoFavoritesTip(),
-      knownGear: watchKnownGearTitle(),
-      watchKnownGearNoGearPairedTip: watchKnownGearNoGearPairedTip(),
+      triggersPage: convertToUwU(triggersPage()),
+      actionsPage: convertToUwU(watchFavoriteActionsTitle()),
+      favoriteActionsDescription: convertToUwU(watchFavoriteActionsNoFavoritesTip()),
+      knownGear: convertToUwU(watchKnownGearTitle()),
+      watchKnownGearNoGearPairedTip: convertToUwU(watchKnownGearNoGearPairedTip()),
     );
     final WearData wearData = WearData(
       favoriteActions: favoriteMap,

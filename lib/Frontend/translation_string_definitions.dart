@@ -22,16 +22,14 @@ String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'T
 
 String joyStickPageDescription() => Intl.message("Directly control your gears' position.", name: 'joyStickPageDescription', desc: 'The description of the joystick page on the more page');
 
-String feedbackPage() => Intl.message('Send Feedback', name: 'feedbackPage', desc: 'The label and title of the feedback page');
-
-String feedbackPageDescription() => Intl.message('Have a suggestion or issue with the app? Let us know. Note: This is anonymous and can not be used to resolve issues with Gear',
-    name: 'feedbackPageDescription', desc: 'The description of the feedback page');
-
 String audioPage() => Intl.message('Custom Sounds', name: 'audioPage', desc: 'The label and title of the custom audio management page');
 
 String aboutPage() => Intl.message('About', name: 'aboutPage', desc: 'The label and title of the about page');
 
 String settingsPage() => Intl.message('Settings', name: 'settingsPage', desc: 'The label and title of the settings page');
+String moreExperimentalTitle() => Intl.message('Experimental', name: 'moreExperimentalTitle', desc: 'The label for the experimental features on the More page');
+String moreCoshubPromoTitle() => Intl.message('CosHub', name: 'moreCoshubPromoTitle', desc: 'The title for the coshub link on the More page');
+String moreCoshubPromoDescription() => Intl.message('Our latest app to help you plan, share and create your cosplay is here', name: 'moreCoshubPromoDescription', desc: 'The description for the coshub link on the More page');
 
 String settingsDescription() => Intl.message('Change app color, configure Haptics, and more', name: 'settingsDescription', desc: 'The description of the settings page on the more page');
 

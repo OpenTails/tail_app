@@ -353,7 +353,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerVolumeButtonVolumeUp": "Akce",
+  "triggerVolumeButtonVolumeUp": "Hlasitost nahoru",
   "@triggerVolumeButtonVolumeUp": {
     "description": "Volume Button trigger volume up action label",
     "type": "text",
@@ -425,7 +425,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerEarTiltLeft": "Zapomenout",
+  "triggerEarTiltLeft": "Naklonit doleva",
   "@triggerEarTiltLeft": {
     "description": "EarGear internal gesture sensor trigger left tilt detected action label",
     "type": "text",
@@ -1232,6 +1232,54 @@
   "manageGearConModeToggleTitle": "Zapnout režim konference",
   "@manageGearConModeToggleTitle": {
     "description": "The description for the convention mode enabled button on the gear page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreExperimentalTitle": "Experimentální",
+  "@moreExperimentalTitle": {
+    "description": "The label for the experimental features on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoTitle": "CosHub",
+  "@moreCoshubPromoTitle": {
+    "description": "The title for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoDescription": "Naše nejnovější aplikace, která ti pomůže plánovat, sdílet a tvořit cosplay, je tady",
+  "@moreCoshubPromoDescription": {
+    "description": "The description for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesOnboardingTitle": "Připojme tvoje vybavení",
+  "@scanDevicesOnboardingTitle": {
+    "description": "Title for the gear pairing screen in onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleTitle": "Překladač UwU",
+  "@settingsUwUToggleTitle": {
+    "description": "Settings page UwU text toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleSubTitle": "OwO, co to je?",
+  "@settingsUwUToggleSubTitle": {
+    "description": "Settings page UwU text toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleTitle": "Povolit marketingová oznámení",
+  "@settingsMarketingNotificationsToggleTitle": {
+    "description": "Settings page marketing notifications toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleSubTitle": "Povolit oznámení o nových příspěvcích na blogu a slevách.",
+  "@settingsMarketingNotificationsToggleSubTitle": {
+    "description": "Settings page marketing notifications toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
