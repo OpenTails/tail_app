@@ -161,13 +161,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditHomeLabel": "Avage Gear",
+  "sequencesEditHomeLabel": "Ava varustuse avaleht",
   "@sequencesEditHomeLabel": {
     "description": "Label on the home tab of the move edit page",
     "type": "text",
     "placeholders": {}
   },
-  "sequencesEditDeleteTitle": "Avage Gear",
+  "sequencesEditDeleteTitle": "Kustuta tegevus",
   "@sequencesEditDeleteTitle": {
     "description": "Title of the dialog on the sequence edit page to delete the sequence",
     "type": "text",
@@ -1232,6 +1232,54 @@
   "supportDescription": "Puuduta sinist vestluse ikooni, et võtta ühendust tugimeeskonnaga",
   "@supportDescription": {
     "description": "The description of the email support link on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreExperimentalTitle": "Eksperimentaalne",
+  "@moreExperimentalTitle": {
+    "description": "The label for the experimental features on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoTitle": "CosHub",
+  "@moreCoshubPromoTitle": {
+    "description": "The title for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "moreCoshubPromoDescription": "Meie uusim äpp, mis aitab sul oma cosplayd planeerida, jagada ja luua, on kohal",
+  "@moreCoshubPromoDescription": {
+    "description": "The description for the coshub link on the More page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesOnboardingTitle": "Ühendame su varustuse",
+  "@scanDevicesOnboardingTitle": {
+    "description": "Title for the gear pairing screen in onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleTitle": "Luba turundusteavitused",
+  "@settingsMarketingNotificationsToggleTitle": {
+    "description": "Settings page marketing notifications toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsMarketingNotificationsToggleSubTitle": "Luba teavitused uutest blogipostitustest ja sooduspakkumistest.",
+  "@settingsMarketingNotificationsToggleSubTitle": {
+    "description": "Settings page marketing notifications toggle subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleTitle": "UwU Tõlkija",
+  "@settingsUwUToggleTitle": {
+    "description": "Settings page UwU text toggle title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsUwUToggleSubTitle": "OwO, mis see on?",
+  "@settingsUwUToggleSubTitle": {
+    "description": "Settings page UwU text toggle subtitle",
     "type": "text",
     "placeholders": {}
   }
