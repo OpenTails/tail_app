@@ -39,7 +39,7 @@ dependencies:
   flutter_blue_plus: ^1.35.5
   flutter_foreground_task: ^9.1.0 # Keep the app running in the background on android
   quick_actions: ^1.1.0 # puts favorites on the home screen
-  audioplayers: ^6.4.0
+  audioplayers: ^6.5.0
   platform: ^3.1.6 # used to enable mocking platform
   connectivity_plus: ^6.1.4
 
