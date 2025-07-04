@@ -243,8 +243,6 @@ class TailApp extends ConsumerWidget {
       HiveProxy
         ..put(settings, showDebugging, true)
         ..put(settings, allowAnalytics, false)
-        ..put(settings, allowErrorReporting, true)
-        ..put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree)
         ..put(settings, showDemoGear, true);
     }
 

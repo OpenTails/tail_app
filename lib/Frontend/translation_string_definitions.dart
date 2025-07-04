@@ -29,7 +29,8 @@ String aboutPage() => Intl.message('About', name: 'aboutPage', desc: 'The label 
 String settingsPage() => Intl.message('Settings', name: 'settingsPage', desc: 'The label and title of the settings page');
 String moreExperimentalTitle() => Intl.message('Experimental', name: 'moreExperimentalTitle', desc: 'The label for the experimental features on the More page');
 String moreCoshubPromoTitle() => Intl.message('CosHub', name: 'moreCoshubPromoTitle', desc: 'The title for the coshub link on the More page');
-String moreCoshubPromoDescription() => Intl.message('Our latest app to help you plan, share and create your cosplay is here', name: 'moreCoshubPromoDescription', desc: 'The description for the coshub link on the More page');
+String moreCoshubPromoDescription() =>
+    Intl.message('Our latest app to help you plan, share and create your cosplay is here', name: 'moreCoshubPromoDescription', desc: 'The description for the coshub link on the More page');
 
 String settingsDescription() => Intl.message('Change app color, configure Haptics, and more', name: 'settingsDescription', desc: 'The description of the settings page on the more page');
 
@@ -219,6 +220,8 @@ String scanDevicesFoundTitle() => Intl.message('Found Gear. Tap the gear name to
 
 String scanDevicesScanMessage() => Intl.message('Scanning for gear. Please make sure your gear is powered on and nearby',
     name: 'scanDevicesScanMessage', desc: 'scan for devices scan in progress message when scanning for a device');
+String scanDevicesOnboardingScanMessage() => Intl.message('Scanning for gear. Please make sure your gear is powered on and nearby. You can always connect your gear later.',
+    name: 'scanDevicesOnboardingScanMessage', desc: 'additional scan for devices scan in progress message when scanning for a device during onboarding');
 
 //Triggers
 String triggerWalkingTitle() => Intl.message('Walking', name: 'triggerWalkingTitle', desc: 'Walking/Step trigger title');
@@ -383,6 +386,7 @@ String onboardingBluetoothEnableButtonLabel() =>
 
 String onboardingDoneButtonLabel() => Intl.message("Done", name: 'onboardingDoneButtonLabel', desc: 'Label for the button to close the onboarding screen');
 String onboardingContinueLabel() => Intl.message("Continue", name: 'onboardingContinueLabel', desc: 'Label for the button to continue past the scan for gear screen');
+String onboardingBackButtonLabel() => Intl.message("Back", name: 'onboardingBackButtonLabel', desc: 'Label for the button to go back on the onboarding screen');
 
 String onboardingCompletedTitle() => Intl.message("Happy Wagging!", name: 'onboardingCompletedTitle', desc: 'Title of the final page of the onboarding screen');
 

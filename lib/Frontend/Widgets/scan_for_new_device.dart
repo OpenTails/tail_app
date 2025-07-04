@@ -253,7 +253,8 @@ class _ScanGearListState extends ConsumerState<ScanGearList> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          convertToUwU(scanDevicesScanMessage()),
+                          //Show a different message during onboarding
+                          convertToUwU(widget.popOnConnect ? scanDevicesScanMessage() : scanDevicesOnboardingScanMessage()),
                           textAlign: TextAlign.center,
                         ),
                       ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,7 +58,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     );
   }
 
-  int page = 0;
   @override
   Widget build(BuildContext context) {
     setupSystemColor(context);
@@ -78,7 +78,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     return IntroductionScreen(
       key: introKey,
       canProgress: (page) {
-        this.page = page;
         if (page == 2 && !bluetoothAccepted) {
           return false;
         } else if (page == 1 && !privacyAccepted) {
@@ -88,6 +87,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       },
       globalBackgroundColor: Theme.of(context).canvasColor,
       allowImplicitScrolling: true,
+      showBackButton: true,
+      showSkipButton: kDebugMode,
       globalHeader: Align(
         alignment: Alignment.topRight,
         child: SafeArea(
@@ -253,20 +254,32 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       onSkip: () => _onIntroEnd(context),
       // You can override onSkip callback
       //rtl: true, // Display as right-to-left
-      back: const Icon(Icons.arrow_back),
-      overrideNext: page == 3
-          ? FilledButton(
-              onPressed: () {
-                _onIntroEnd(context);
-              },
-              child: Text(convertToUwU(onboardingContinueLabel()), style: const TextStyle(fontWeight: FontWeight.w600)),
-            )
-          : null,
-      next: Icon(
-        Icons.arrow_forward,
-        size: 24,
-        key: Key('nextPage'),
+      overrideNext: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FilledButton(
+            onPressed: () {
+              introKey.currentState?.next();
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(convertToUwU(onboardingContinueLabel()), style: const TextStyle(fontWeight: FontWeight.w600)),
+                const Icon(
+                  Icons.arrow_forward,
+                  key: Key('nextPage'),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
+
+      skip: const Icon(
+        Icons.skip_next,
+      ),
+      back: const Icon(Icons.arrow_back),
       done: FilledButton(
         onPressed: () {
           _onIntroEnd(context);
@@ -276,7 +289,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       dotsFlex: 1,
       controlsPadding: const EdgeInsets.symmetric(vertical: 32),
       dotsDecorator: DotsDecorator(
-        size: const Size.square(10.0),
+        size: const Size.square(12.0),
         activeSize: const Size(40.0, 10.0),
         activeColor: Theme.of(context).colorScheme.primary,
         color: Theme.of(context).colorScheme.tertiary,
