@@ -35,7 +35,7 @@ class MessageStreamSubscription extends _$MessageStreamSubscription {
     // Get the state of device connectivity
     _messageStreamSubscription = _watch.messageStream.listen(listener);
     ref.onDispose(
-          () => _messageStreamSubscription?.cancel(),
+      () => _messageStreamSubscription?.cancel(),
     );
   }
 
@@ -48,7 +48,7 @@ class MessageStreamSubscription extends _$MessageStreamSubscription {
         if (action != null) {
           Iterable<BaseStatefulDevice> knownDevices = ref.read(getAvailableIdleGearProvider);
           for (BaseStatefulDevice device in knownDevices) {
-            ref.read(runActionProvider(action, device));
+            ref.read(runActionProvider(device).notifier).runAction(action);
           }
         }
         break;
@@ -57,14 +57,14 @@ class MessageStreamSubscription extends _$MessageStreamSubscription {
             .read(triggerListProvider)
             .where(
               (p0) => p0.uuid == wearCommand.uuid,
-        )
+            )
             .firstOrNull;
         if (trigger != null) {
           trigger.enabled = wearCommand.enabled;
         }
         break;
       case "refresh":
-      // ignore: unused_result
+        // ignore: unused_result
         ref.refresh(updateWearDataProvider);
         break;
     }
@@ -80,13 +80,12 @@ class KnownGearBatteryListener extends _$KnownGearBatteryListener {
         .values
         .map(
           (e) => e.batteryLevel,
-    )
+        )
         .forEach(
-          (element) =>
-      element
-        ..removeListener(listener)
-        ..addListener(listener),
-    );
+          (element) => element
+            ..removeListener(listener)
+            ..addListener(listener),
+        );
   }
 
   void listener() {
@@ -109,25 +108,25 @@ Future<void> initWear(Ref ref) async {
 Future<bool> isReachable() {
   return _watch.isReachable.catchError((e) => false).onError(
         (error, stackTrace) => false,
-  );
+      );
 }
 
 Future<bool> isSupported() {
   return _watch.isSupported.catchError((e) => false).onError(
         (error, stackTrace) => false,
-  );
+      );
 }
 
 Future<bool> isPaired() {
   return _watch.isPaired.catchError((e) => false).onError(
         (error, stackTrace) => false,
-  );
+      );
 }
 
 Future<Map<String, dynamic>> applicationContext() {
   return _watch.applicationContext.catchError((e) => <String, dynamic>{}).onError(
         (error, stackTrace) => {},
-  );
+      );
 }
 
 @Riverpod()
@@ -140,7 +139,7 @@ Future<void> updateWearData(Ref ref) async {
         .read(favoriteActionsProvider)
         .map(
           (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),
-    )
+        )
         .nonNulls;
     BuiltList<Trigger> triggers = ref.watch(triggerListProvider);
     final List<WearActionData> favoriteMap = allActions.map((e) => WearActionData(uuid: e.uuid, name: e.name)).toList();
@@ -149,15 +148,14 @@ Future<void> updateWearData(Ref ref) async {
         .watch(knownDevicesProvider)
         .values
         .map(
-          (e) =>
-          WearGearData(
+          (e) => WearGearData(
             name: e.baseStoredDevice.name,
             uuid: e.baseStoredDevice.btMACAddress,
             batteryLevel: e.batteryLevel.value.toInt(),
             connected: e.deviceConnectionState.value == ConnectivityState.connected,
             color: e.baseStoredDevice.color,
           ),
-    )
+        )
         .toList();
     // Listen for gear connect/disconnect events
     ref.watch(getAvailableGearProvider);

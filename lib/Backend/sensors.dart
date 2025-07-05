@@ -366,7 +366,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
             if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
               await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
             }
-            ref.read(runActionProvider(baseAction, baseStatefulDevice));
+            ref.read(runActionProvider(baseStatefulDevice).notifier).runAction(baseAction);
             if (!const [ActionCategory.glowtip].contains(baseAction.actionCategory)) {
               // handle tailcontrol migration by not counting the actions as used.
               if (baseAction is CommandAction && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears && baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.legacy) {

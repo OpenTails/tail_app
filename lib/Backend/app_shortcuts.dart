@@ -26,7 +26,7 @@ Future<void> appShortcuts(Ref ref) async {
     if (action != null) {
       Iterable<BaseStatefulDevice> knownDevices = ref.read(getAvailableIdleGearProvider);
       for (BaseStatefulDevice device in knownDevices) {
-        ref.read(runActionProvider(action, device));
+        ref.read(runActionProvider(device).notifier).runAction(action);
       }
     }
   });
@@ -34,7 +34,7 @@ Future<void> appShortcuts(Ref ref) async {
 }
 
 Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {
-  if (kIsWeb){
+  if (kIsWeb) {
     return;
   }
   Iterable<BaseAction> allActions = favoriteActions

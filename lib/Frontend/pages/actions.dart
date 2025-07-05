@@ -175,7 +175,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
             if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
               await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
             }
-            ref.read(runActionProvider(widget.action, device));
+            ref.read(runActionProvider(device).notifier).runAction(widget.action);
           }
         },
         child: SizedBox.expand(

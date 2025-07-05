@@ -109,7 +109,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                         if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
                           await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
                         }
-                        ref.read(runActionProvider(allMoveLists[index], element));
+                        ref.read(runActionProvider(element).notifier).runAction(allMoveLists[index]);
                       },
                     );
                   },
