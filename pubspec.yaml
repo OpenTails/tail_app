@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   logging: ^1.3.0
-  go_router: ^15.2.4
+  go_router: ^16.0.0
   vector_math: # used for joystick, pinned to SDK version
   collection: ^1.19.1 # Priority Queue
   uuid: ^4.5.1 # Used to generate UUID v4 ids for custom actions & move lists
@@ -29,17 +29,17 @@ dependencies:
   built_collection: ^5.1.1
 
   # Platform Interfaces
-  device_info_plus: ^11.4.0
+  device_info_plus: ^11.5.0
   wakelock_plus: ^1.3.2 # Keeps the screen awake
   file_picker: ^10.2.0 # used to manually select firmware file
   path_provider: ^2.1.5 # used to get paths for app storage and cache storage
   package_info_plus: ^8.3.0
-  permission_handler: ^12.0.0+1
+  permission_handler: ^12.0.1
   url_launcher: ^6.3.1 # Open URLS in external apps
   flutter_blue_plus: ^1.35.5
   flutter_foreground_task: ^9.1.0 # Keep the app running in the background on android
   quick_actions: ^1.1.0 # puts favorites on the home screen
-  audioplayers: ^6.4.0
+  audioplayers: ^6.5.0
   platform: ^3.1.6 # used to enable mocking platform
   connectivity_plus: ^6.1.4
 
@@ -51,7 +51,7 @@ dependencies:
   riverpod_annotation: ^2.6.1
 
   # Widgets / UI
-  flutter_screen_lock: ^9.2.1+1 # used to hide dev mode toggle
+  flutter_screen_lock: ^9.2.2+2 # used to hide dev mode toggle
   introduction_screen: ^3.1.17 # Onboarding
   flex_color_picker: ^3.7.1
   flutter_adaptive_scaffold: ^0.3.3+1
@@ -103,17 +103,17 @@ dependencies:
 
   # Spicy
   plausible_analytics: ^0.3.0 # Privacy Preserving analytics
-  firebase_messaging: ^15.2.7
-  firebase_core: ^3.13.1
-  firebase_app_installations: ^0.3.2+6
+  firebase_messaging: ^15.2.9
+  firebase_core: ^3.15.1
+  firebase_app_installations: ^0.3.2+9
   upgrader: ^11.4.0
   firebase_notifications_handler: ^2.0.2+1
 
   # Sentry
-  sentry_flutter: ^8.14.2 # Base sentry + Flutter integration
-  sentry_logging: ^8.14.2 # Collects app logs
+  sentry_flutter: ^9.3.0 # Base sentry + Flutter integration
+  sentry_logging: ^9.3.0 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
-  sentry_dio: ^8.14.2 # Collects Dio HTTP requests
+  sentry_dio: ^9.3.0 # Collects Dio HTTP requests
   #feedback_sentry: ^3.1.0
 
 dev_dependencies:
@@ -122,7 +122,7 @@ dev_dependencies:
   riverpod_generator: ^2.6.5 # required for @Riverpod annotations
   json_serializable: ^6.9.5 # required for @JsonSerializable annotations
   hive_ce_generator: ^1.9.2 # required for @HiveType annotations
-  go_router_builder: ^3.0.0
+  go_router_builder: ^3.0.1
   freezed: ^3.0.6 # required for @freezed annotations
 
   flutter_lints: # Dryer Lint
