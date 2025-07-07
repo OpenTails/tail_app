@@ -1282,5 +1282,23 @@
     "description": "Title for the gear pairing screen in onboarding",
     "type": "text",
     "placeholders": {}
+  },
+  "scanDevicesOnboardingScanMessage": "Bi am Suche nach de Usrüstig. Bitte sorg derfür, dass dini Usrüstig aagschaltet und i de Nöchi sind. Du chasch dini Usrüstig au spöter no verbinde.",
+  "@scanDevicesOnboardingScanMessage": {
+    "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingContinueLabel": "Wytermache",
+  "@onboardingContinueLabel": {
+    "description": "Label for the button to continue past the scan for gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBackButtonLabel": "Zrugg",
+  "@onboardingBackButtonLabel": {
+    "description": "Label for the button to go back on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
   }
 }
