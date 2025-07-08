@@ -737,7 +737,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Tipp uff zum Aaluege",
+  "moreManualSubTitle": "Tippe zum Aaluege",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -791,7 +791,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Privacy Vorschrifte aaluege",
+  "onboardingPrivacyPolicyViewButtonLabel": "Privacy Vorschrifte Aaluege",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -1283,7 +1283,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "scanDevicesOnboardingScanMessage": "Bi am Suche nach de Usrüstig. Bitte sorg derfür, dass dini Usrüstig aagschaltet und i de Nöchi sind. Du chasch dini Usrüstig au spöter no verbinde.",
+  "scanDevicesOnboardingScanMessage": "Am scanne nach dinere Uusrüstig. Lüeg derfür, dass si aagschaltet und näbe dir isch. Du chasch si au spöter verbinde.",
   "@scanDevicesOnboardingScanMessage": {
     "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
     "type": "text",
