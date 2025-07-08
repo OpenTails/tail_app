@@ -462,10 +462,10 @@ packages:
     dependency: "direct main"
     description:
       name: feedback
-      sha256: "26769f73de6215add72074d24e4a23542e4c02a8fd1a873e7c93da5dc9c1d362"
+      sha256: "55edce4f8f0ec01a5ff023e29c5c57df86a7391c831d5647e3b3fdff05e4b01e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.0"
   ffi:
     dependency: transitive
     description:
