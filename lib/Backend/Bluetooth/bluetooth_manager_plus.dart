@@ -251,7 +251,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
           ),
           iosNotificationOptions: const IOSNotificationOptions(),
           foregroundTaskOptions: ForegroundTaskOptions(
-            eventAction: ForegroundTaskEventAction.repeat(500),
+            eventAction: ForegroundTaskEventAction.repeat(250),
             allowWakeLock: true,
           ),
         );
