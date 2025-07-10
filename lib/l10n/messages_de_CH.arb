@@ -737,7 +737,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "moreManualSubTitle": "Tipp uff zum Aaluege",
+  "moreManualSubTitle": "Tippe zum Aaluege",
   "@moreManualSubTitle": {
     "description": "Subtitle for each manual on More page",
     "type": "text",
@@ -791,7 +791,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingPrivacyPolicyViewButtonLabel": "Privacy Vorschrifte aaluege",
+  "onboardingPrivacyPolicyViewButtonLabel": "Privacy Vorschrifte Aaluege",
   "@onboardingPrivacyPolicyViewButtonLabel": {
     "description": "Button label to view privacy policy on the onboarding screen",
     "type": "text",
@@ -1280,6 +1280,24 @@
   "scanDevicesOnboardingTitle": "Lass uns dini Usrüstig verbinde",
   "@scanDevicesOnboardingTitle": {
     "description": "Title for the gear pairing screen in onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanDevicesOnboardingScanMessage": "Am scanne nach dinere Uusrüstig. Lüeg derfür, dass si aagschaltet und näbe dir isch. Du chasch si au spöter verbinde.",
+  "@scanDevicesOnboardingScanMessage": {
+    "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingContinueLabel": "Wytermache",
+  "@onboardingContinueLabel": {
+    "description": "Label for the button to continue past the scan for gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBackButtonLabel": "Zrugg",
+  "@onboardingBackButtonLabel": {
+    "description": "Label for the button to go back on the onboarding screen",
     "type": "text",
     "placeholders": {}
   }

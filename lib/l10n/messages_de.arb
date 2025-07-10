@@ -1282,5 +1282,23 @@
     "description": "Title for the gear pairing screen in onboarding",
     "type": "text",
     "placeholders": {}
+  },
+  "scanDevicesOnboardingScanMessage": "Suche nach Ausrüstung. Bitte stelle sicher, dass dein Gerät eingeschaltet und in der Nähe ist. Du kannst dein Gerät auch später verbinden.",
+  "@scanDevicesOnboardingScanMessage": {
+    "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingContinueLabel": "Weiter",
+  "@onboardingContinueLabel": {
+    "description": "Label for the button to continue past the scan for gear screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingBackButtonLabel": "Zurück",
+  "@onboardingBackButtonLabel": {
+    "description": "Label for the button to go back on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
   }
 }
