@@ -359,7 +359,7 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                     shrinkWrap: true,
                     controller: scrollController,
                     children: [
-                      Joystick(
+                      /* Joystick(
                         disableRecenterOnDragEnd: true,
                         includeInitialAnimation: false,
                         initialOffset: calculateInitialJoystickPosition(
@@ -383,7 +383,7 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                             widget.move.rightServo = positions.right;
                           });
                         },
-                      ),
+                      ), */
                       ListTile(
                         title: Text(convertToUwU(sequencesEditLeftServo())),
                         leading: const Icon(Icons.turn_slight_left),
