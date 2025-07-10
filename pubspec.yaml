@@ -110,7 +110,7 @@ dependencies:
   firebase_notifications_handler: ^2.0.2+1
 
   # Sentry
-  sentry_flutter: ^9.3.0 # Base sentry + Flutter integration
+  sentry_flutter: ^9.4.0 # Base sentry + Flutter integration
   sentry_logging: ^9.3.0 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
   sentry_dio: ^9.3.0 # Collects Dio HTTP requests
