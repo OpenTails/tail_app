@@ -28,6 +28,12 @@ class ScanForNewDevice extends ConsumerStatefulWidget {
 
 class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
   @override
+  void deactivate() {
+    ref.read(scanProvider.notifier).stopScan();
+    super.deactivate();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       builder: (context, scrollController) {
@@ -138,16 +144,13 @@ class _ScanGearListState extends ConsumerState<ScanGearList> {
   void initState() {
     super.initState();
     anyKnownGear = ref.read(knownDevicesProvider).isNotEmpty;
-    beginScan(scanReason: ScanReason.addGear);
+    ref.read(scanProvider.notifier).beginScan(scanReason: ScanReason.addGear);
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);
-    if (!alwaysScanningValue) {
-      stopScan();
-    }
+  void deactivate() {
+    ref.read(scanProvider.notifier).stopActiveScan();
+    super.deactivate();
   }
 
   bool anyGearFound = false;

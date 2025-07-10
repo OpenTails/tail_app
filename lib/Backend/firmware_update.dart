@@ -14,10 +14,8 @@ import 'package:tail_app/Backend/plausible_dio.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../Frontend/utils.dart';
-import '../constants.dart';
 import 'Bluetooth/bluetooth_manager_plus.dart';
 import 'Definitions/Device/device_definition.dart';
-import 'logging_wrappers.dart';
 import 'version.dart';
 
 part 'firmware_update.freezed.dart';
@@ -160,15 +158,20 @@ enum OtaError {
   gearOtaFinalTimeout,
 }
 
-class OtaUpdater {
-  Function(double)? onProgress;
-  Function(OtaState)? onStateChanged;
+@Riverpod()
+class OtaUpdater extends _$OtaUpdater {
   Function(OtaError)? onError;
 
-  BaseStatefulDevice baseStatefulDevice;
-  OtaState _otaState = OtaState.standby;
+  @override
+  OtaState build(BaseStatefulDevice baseStatefulDevice) {
+    firmwareInfo ??= baseStatefulDevice.fwInfo.value;
+    WakelockPlus.enabled.then((value) => _wakelockEnabledBeforehand = value);
+    baseStatefulDevice.fwVersion.addListener(_verListener);
+    baseStatefulDevice.fwInfo.addListener(_fwInfoListener);
+    baseStatefulDevice.deviceConnectionState.addListener(_connectivityStateListener);
+    return OtaState.standby;
+  }
 
-  OtaState get otaState => _otaState;
   double _downloadProgress = 0;
 
   double get downloadProgress => _downloadProgress;
@@ -209,12 +212,12 @@ class OtaUpdater {
     firmwareFile = bytes;
     Digest digest = md5.convert(firmwareFile!);
     downloadedMD5 = digest.toString();
-    otaState = OtaState.manual;
+    state = OtaState.manual;
     downloadProgress = 1;
   }
 
   void _onError(OtaError error, ISentrySpan? span) {
-    otaState = OtaState.error;
+    state = OtaState.error;
     span?.status = SpanStatus.fromString(error.name);
     if (onError != null) {
       onError!(error);
@@ -229,17 +232,12 @@ class OtaUpdater {
     if ((_previousProgress - _progress).abs() < 0.01) {
       return;
     }
-    if (onProgress != null) {
-      onProgress!(_progress);
-      _previousProgress = _progress;
-    }
+    ref.notifyListeners();
+    _previousProgress = _progress;
   }
 
-  set otaState(OtaState value) {
-    _otaState = value;
-    if (onStateChanged != null) {
-      onStateChanged!(value);
-    }
+  void abort() {
+    state = OtaState.error;
   }
 
   Future<void> beginUpdate() async {
@@ -250,7 +248,7 @@ class OtaUpdater {
     transaction?.setData("Target Firmware Version", baseStatefulDevice.fwInfo.value?.version);
 
     if (baseStatefulDevice.batteryLevel.value < 50) {
-      otaState = OtaState.lowBattery;
+      state = OtaState.lowBattery;
       transaction?.status = SpanStatus.fromString("lowBattery");
       transaction?.finish();
       return;
@@ -259,7 +257,7 @@ class OtaUpdater {
     if (firmwareFile == null) {
       await _downloadFirmware();
     }
-    if (otaState != OtaState.error) {
+    if (state != OtaState.error) {
       await _uploadFirmware();
     }
   }
@@ -269,7 +267,7 @@ class OtaUpdater {
       return;
     }
     final ISentrySpan? downloadSpan = transaction?.startChild('downloadFirmware()', description: 'operation');
-    otaState = OtaState.download;
+    state = OtaState.download;
     downloadProgress = 0;
     _updateProgress();
     try {
@@ -301,12 +299,12 @@ class OtaUpdater {
   Future<void> _verListener() async {
     Version version = baseStatefulDevice.fwVersion.value;
     FWInfo? fwInfo = firmwareInfo;
-    if (fwInfo != null && version.compareTo(const Version()) > 0 && otaState == OtaState.rebooting) {
+    if (fwInfo != null && version.compareTo(const Version()) > 0 && state == OtaState.rebooting) {
       bool updated = version.compareTo(getVersionSemVer(fwInfo.version)) >= 0;
       if (!updated) {
         _onError(OtaError.gearVersionMismatch, transaction);
       } else {
-        otaState = OtaState.completed;
+        state = OtaState.completed;
       }
       if (transaction != null && !transaction!.finished) {
         transaction?.finish();
@@ -320,7 +318,7 @@ class OtaUpdater {
 
   void _connectivityStateListener() {
     ConnectivityState connectivityState = baseStatefulDevice.deviceConnectionState.value;
-    if (OtaState.rebooting == otaState) {
+    if (OtaState.rebooting == state) {
       if (connectivityState == ConnectivityState.disconnected) {
         _disconnectTimer?.cancel();
         _reconnectTimer = Timer(
@@ -339,7 +337,7 @@ class OtaUpdater {
 
   Future<void> _uploadFirmware() async {
     final ISentrySpan? uploadSpan = transaction?.startChild('uploadFirmware()', description: 'operation');
-    otaState = OtaState.upload;
+    state = OtaState.upload;
     uploadProgress = 0;
     if (firmwareFile != null) {
       int mtu = baseStatefulDevice.mtu.value - 10;
@@ -351,7 +349,7 @@ class OtaUpdater {
       List<int> beginOTA = List.from(const Utf8Encoder().convert("OTA ${firmwareFile!.length} $downloadedMD5"));
       await sendMessage(baseStatefulDevice, beginOTA);
       uploadSpan?.setData("Gear MTU", mtu);
-      while (uploadProgress < 1 && otaState != OtaState.error) {
+      while (uploadProgress < 1 && state != OtaState.error) {
         baseStatefulDevice.deviceState.value = DeviceState.busy; // hold the command queue
         if (baseStatefulDevice.gearReturnedError.value) {
           _onError(OtaError.gearReturnedError, uploadSpan);
@@ -381,12 +379,7 @@ class OtaUpdater {
       }
       if (uploadProgress == 1) {
         _otaLogger.info("File Uploaded");
-        otaState = OtaState.rebooting;
-        beginScan(
-          scanReason: ScanReason.manual,
-          timeout: const Duration(seconds: 60),
-        );
-
+        state = OtaState.rebooting;
         _disconnectTimer = Timer(
           const Duration(seconds: 30),
           () {
@@ -399,7 +392,7 @@ class OtaUpdater {
         _finalTimer = Timer(
           const Duration(seconds: 60),
           () {
-            if (otaState != OtaState.completed) {
+            if (state != OtaState.completed) {
               _otaLogger.warning("Gear did not return correct version after reboot");
               _onError(OtaError.gearOtaFinalTimeout, transaction);
               transaction?.finish();
@@ -413,22 +406,13 @@ class OtaUpdater {
     uploadSpan?.finish();
   }
 
-  OtaUpdater({this.onProgress, this.onStateChanged, required this.baseStatefulDevice, this.onError}) {
-    firmwareInfo ??= baseStatefulDevice.fwInfo.value;
-    WakelockPlus.enabled.then((value) => _wakelockEnabledBeforehand = value);
-    baseStatefulDevice.fwVersion.addListener(_verListener);
-    baseStatefulDevice.fwInfo.addListener(_fwInfoListener);
-    baseStatefulDevice.deviceConnectionState.addListener(_connectivityStateListener);
-  }
-
   void dispose() {
     _cancelTimers();
     if (!_wakelockEnabledBeforehand) {
       WakelockPlus.disable();
     }
-    if (!HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault)) {
-      stopScan();
-    }
+    ref.read(scanProvider.notifier).stopActiveScan();
+
     if (transaction != null && !transaction!.finished) {
       transaction?.finish(status: SpanStatus.aborted());
     }

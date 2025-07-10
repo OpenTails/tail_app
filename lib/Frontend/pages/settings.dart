@@ -143,19 +143,6 @@ class _SettingsState extends ConsumerState<Settings> {
             title: Divider(),
           ),
           ListTile(
-            title: Text(convertToUwU(settingsAlwaysScanningToggleTitle())),
-            leading: const Icon(Icons.bluetooth_searching),
-            subtitle: Text(convertToUwU(settingsAlwaysScanningToggleSubTitle())),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault),
-              onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, alwaysScanning, value);
-                });
-              },
-            ),
-          ),
-          ListTile(
             title: Text(convertToUwU(settingsHapticsToggleTitle())),
             leading: const Icon(Icons.vibration),
             subtitle: Text(convertToUwU(settingsHapticsToggleSubTitle())),

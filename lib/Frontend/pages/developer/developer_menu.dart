@@ -4,9 +4,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 
 import '../../../Backend/firebase.dart';
 import '../../../Backend/logging_wrappers.dart';
@@ -116,6 +118,48 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 );
               },
             ),
+          ),
+          const ListTile(
+            title: Divider(),
+          ),
+/*           ListTile(
+            title: const Text("ScanState"),
+            subtitle: Text(ref.read(scanProvider)),
+          ), */
+          ListTile(
+            title: const Text("AdapterState"),
+            subtitle: StreamBuilder(
+              stream: FlutterBluePlus.adapterState,
+              builder: (BuildContext context, AsyncSnapshot<BluetoothAdapterState> snapshot) {
+                var value = snapshot.data;
+                String text = value != null ? value.toString() : "unknown";
+                return Text(text);
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("isScanning"),
+            subtitle: StreamBuilder(
+              stream: FlutterBluePlus.isScanning,
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                var value = snapshot.data;
+                String text = value != null ? value.toString() : "unknown";
+                return Text(text);
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("adapterName"),
+            subtitle: FutureBuilder<String>(
+              future: FlutterBluePlus.adapterName,
+              builder: (context, snapshot) {
+                String value = snapshot.data ?? '';
+                return Text(value);
+              },
+            ),
+          ),
+          const ListTile(
+            title: Divider(),
           ),
           ListTile(
             title: const Text("SentryEnvironment"),

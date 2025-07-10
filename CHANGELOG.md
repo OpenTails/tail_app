@@ -1,4 +1,4 @@
-### V 1.2.2
+### V 1.3.0
 
 - Fix bug when selecting a color
 - Fix a bug with translations not applying to triggers
@@ -6,6 +6,7 @@
 - Add gear pairing to onboarding
 - Add marketing notifications toggle
 - Add UwU toggle (Whats this?)
+- Removed option to disable always scanning for gear.
 
 ### V 1.2.1
 

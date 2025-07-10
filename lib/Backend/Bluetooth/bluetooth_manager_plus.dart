@@ -11,6 +11,7 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:riverpod/src/framework.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/command_history.dart';
 import 'package:tail_app/Backend/command_queue.dart';
@@ -42,7 +43,7 @@ class InitFlutterBluePlus extends _$InitFlutterBluePlus {
 
   @override
   Future<void> build() async {
-    if (ref.read(getBluetoothPermissionProvider.future) == BluetoothPermissionStatus.denied) {
+    if (await ref.read(getBluetoothPermissionProvider.future) == BluetoothPermissionStatus.denied) {
       ref.invalidateSelf();
       _bluetoothPlusLogger.info("Bluetooth permission not granted");
       return;
@@ -79,7 +80,6 @@ class InitFlutterBluePlus extends _$InitFlutterBluePlus {
     ref.watch(_onScanResultsProvider);
     // Shut down bluetooth related things
     ref.onDispose(() async {
-      stopScan();
       //Disconnect any gear
       for (var element in FlutterBluePlus.connectedDevices) {
         await disconnect(element.remoteId.str);
@@ -102,7 +102,7 @@ class InitFlutterBluePlus extends _$InitFlutterBluePlus {
       isBluetoothEnabled.value = false;
       _didInitFlutterBluePlus = false; // Allow restarting ble stack
     });
-    ref.read(scanMonitorProvider);
+    ref.read(scanProvider);
   }
 }
 
@@ -242,17 +242,19 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
           ..fine('Requesting notification permission')
           ..finer('Requesting notification permission result${await Permission.notification.request()}'); // Used only for Foreground service
         FlutterForegroundTask.init(
-            androidNotificationOptions: AndroidNotificationOptions(
-              channelId: 'foreground_service',
-              channelName: 'Gear Connected',
-              channelDescription: 'This notification appears when any gear is running.',
-              channelImportance: NotificationChannelImportance.LOW,
-              priority: NotificationPriority.LOW,
-            ),
-            iosNotificationOptions: const IOSNotificationOptions(),
-            foregroundTaskOptions: ForegroundTaskOptions(
-              eventAction: ForegroundTaskEventAction.nothing(),
-            ));
+          androidNotificationOptions: AndroidNotificationOptions(
+            channelId: 'foreground_service',
+            channelName: 'Gear Connected',
+            channelDescription: 'This notification appears when any gear is running.',
+            channelImportance: NotificationChannelImportance.LOW,
+            priority: NotificationPriority.LOW,
+          ),
+          iosNotificationOptions: const IOSNotificationOptions(),
+          foregroundTaskOptions: ForegroundTaskOptions(
+            eventAction: ForegroundTaskEventAction.repeat(500),
+            allowWakeLock: true,
+          ),
+        );
         FlutterForegroundTask.startService(
           notificationTitle: "Gear Connected",
           notificationText: "Gear is connected to The Tail Company app",
@@ -520,40 +522,85 @@ Future<void> connect(String id) async {
   }
 }
 
-enum ScanReason { background, addGear, manual, notScanning }
+@Riverpod(keepAlive: true)
+class Scan extends _$Scan {
+  StreamSubscription<bool>? isScanningStreamSubscription;
+  @override
+  ScanReason build() {
+    isScanningStreamSubscription = FlutterBluePlus.isScanning.listen(onIsScanningChange);
 
-ScanReason _scanReason = ScanReason.notScanning;
+    ref.listen(isAllKnownGearConnectedProvider, isAllKnownGearConnectedProviderListener);
 
-Future<void> beginScan({required ScanReason scanReason, Duration? timeout}) async {
-  if (_didInitFlutterBluePlus && !FlutterBluePlus.isScanningNow && isBluetoothEnabled.value) {
-    _bluetoothPlusLogger.info("Starting scan");
-    _scanReason = scanReason;
-    await FlutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map(Guid.new).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
+    Hive.box(settings).listenable(keys: [hasCompletedOnboarding])
+      ..removeListener(isAllGearConnectedListener)
+      ..addListener(isAllGearConnectedListener);
+    isBluetoothEnabled
+      ..removeListener(isAllGearConnectedListener)
+      ..addListener(isAllGearConnectedListener);
+    Future.delayed(
+      Duration(milliseconds: 5),
+      () => isAllGearConnectedListener(),
+    );
+
+    ref.onDispose(
+      () {
+        isScanningStreamSubscription?.cancel();
+        stopScan();
+      },
+    );
+    return ScanReason.notScanning;
+  }
+
+  void isAllKnownGearConnectedProviderListener(bool? previous, bool next) {
+    isAllGearConnectedListener();
+  }
+
+  void onIsScanningChange(bool isScanning) {
+    if (state != ScanReason.notScanning && !isScanning) {
+      state = ScanReason.notScanning;
+    }
+  }
+
+  Future<void> beginScan({required ScanReason scanReason, Duration? timeout}) async {
+    if (_didInitFlutterBluePlus && !FlutterBluePlus.isScanningNow && isBluetoothEnabled.value) {
+      _bluetoothPlusLogger.info("Starting scan");
+      state = scanReason;
+      await FlutterBluePlus.startScan(withServices: DeviceRegistry.getAllIds().map(Guid.new).toList(), continuousUpdates: timeout == null, androidScanMode: AndroidScanMode.lowPower, timeout: timeout);
+    }
+  }
+
+  void stopActiveScan() {
+    if (state == ScanReason.addGear) {
+      state = ScanReason.background;
+    }
+    isAllGearConnectedListener();
+  }
+
+  Future<void> stopScan() async {
+    if (!_didInitFlutterBluePlus) {
+      return;
+    }
+    _bluetoothPlusLogger.info("stopScan called");
+    await FlutterBluePlus.stopScan();
+    state = ScanReason.notScanning;
+  }
+
+  void isAllGearConnectedListener() {
+    if (!ref.exists(isAllKnownGearConnectedProvider)) {
+      return;
+    }
+
+    bool allConnected = ref.read(isAllKnownGearConnectedProvider);
+    bool isInOnboarding = HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree;
+    if ((!allConnected || isInOnboarding) && isBluetoothEnabled.value) {
+      beginScan(scanReason: ScanReason.background);
+    } else if ((allConnected && !isInOnboarding && state == ScanReason.background) || !isBluetoothEnabled.value) {
+      stopScan();
+    }
   }
 }
 
-bool isScanningNow() {
-  if (!_didInitFlutterBluePlus) {
-    return false;
-  }
-  return FlutterBluePlus.isScanningNow;
-}
-
-Stream<bool> isScanning() {
-  if (!_didInitFlutterBluePlus) {
-    return Stream.value(false);
-  }
-  return FlutterBluePlus.isScanning;
-}
-
-Future<void> stopScan() async {
-  if (!_didInitFlutterBluePlus) {
-    return;
-  }
-  _bluetoothPlusLogger.info("stopScan called");
-  await FlutterBluePlus.stopScan();
-  _scanReason = ScanReason.notScanning;
-}
+enum ScanReason { background, addGear, notScanning }
 
 Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool withoutResponse = false}) async {
   if (!_didInitFlutterBluePlus) {
@@ -578,27 +625,16 @@ Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool wit
   }
 }
 
-@Riverpod(keepAlive: true)
-class ScanMonitor extends _$ScanMonitor {
-  @override
-  void build() {
-    ref.watch(isAllKnownGearConnectedProvider);
-    Hive.box(settings).listenable(keys: [alwaysScanning])
-      ..removeListener(listener)
-      ..addListener(listener);
-    isBluetoothEnabled
-      ..removeListener(listener)
-      ..addListener(listener);
-    listener();
+bool isScanningNow() {
+  if (!_didInitFlutterBluePlus) {
+    return false;
   }
+  return FlutterBluePlus.isScanningNow;
+}
 
-  void listener() {
-    bool allConnected = ref.read(isAllKnownGearConnectedProvider);
-    bool alwaysScanningValue = HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault);
-    if (!allConnected && alwaysScanningValue && isBluetoothEnabled.value) {
-      beginScan(scanReason: ScanReason.background);
-    } else if ((allConnected && _scanReason == ScanReason.background) || !isBluetoothEnabled.value) {
-      stopScan();
-    }
+Stream<bool> isScanning() {
+  if (!_didInitFlutterBluePlus) {
+    return Stream.value(false);
   }
+  return FlutterBluePlus.isScanning;
 }

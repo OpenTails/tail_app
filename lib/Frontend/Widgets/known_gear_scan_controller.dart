@@ -34,13 +34,13 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
       onResume: () {
         Future(
           // force widget rebuild
-          () => setState(() {}),
+          () => ref.read(scanProvider.notifier).isAllGearConnectedListener(),
         );
       },
       //onResume: () => _handleTransition('resume'),
       onHide: () async {
         if (ref.read(getAvailableGearProvider).isEmpty) {
-          await stopScan();
+          await ref.read(scanProvider.notifier).stopScan();
         }
       },
       //onInactive: () => _handleTransition('inactive'),
@@ -54,51 +54,12 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
   void dispose() {
     super.dispose();
     _listener.dispose();
-    stopScan();
+    //ref.read(scanProvider.notifier).stopScan();
   }
 
   @override
   Widget build(BuildContext context) {
-    BuiltMap<String, BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider);
-    if (knownDevices.isNotEmpty) {
-      return ValueListenableBuilder(
-        valueListenable: isBluetoothEnabled,
-        builder: (BuildContext context, bool bluetoothEnabled, Widget? child) {
-          return ValueListenableBuilder(
-            builder: (BuildContext context, alwaysScanBox, Widget? child) {
-              bool alwaysScan = alwaysScanBox.get(alwaysScanning, defaultValue: alwaysScanningDefault);
-              return Stack(
-                children: [
-                  StreamBuilder(
-                    stream: isScanning(),
-                    builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                      return AnimatedCrossFade(firstChild: Container(), secondChild: const LinearProgressIndicator(), crossFadeState: snapshot.hasData && snapshot.data! && !alwaysScan ? CrossFadeState.showSecond : CrossFadeState.showFirst, duration: animationTransitionDuration);
-                    },
-                  ),
-                  NotificationListener<OverscrollNotification>(
-                    onNotification: (OverscrollNotification notification) {
-                      //knownGearScanControllerLogger.info('Overscroll ${notification.overscroll}');
-                      if (notification.overscroll < 2 && notification.overscroll > -2) {
-                        // ignore, don't do anything
-                        return false;
-                      }
-                      if (!alwaysScan) {
-                        beginScan(timeout: scanDurationTimeout, scanReason: ScanReason.manual);
-                      }
-                      return true;
-                    },
-                    child: widget.child,
-                  ),
-                ],
-              );
-            },
-            valueListenable: Hive.box(settings).listenable(keys: [alwaysScanning]),
-            child: widget.child,
-          );
-        },
-      );
-    }
-    stopScan();
+    ref.read(scanProvider.notifier).isAllGearConnectedListener();
     return widget.child;
   }
 }

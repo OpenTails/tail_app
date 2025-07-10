@@ -12,9 +12,6 @@ String homeNewsTitle() => Intl.message('Fresh from the Tail Blog', name: 'homeNe
 
 String homeWelcomeMessageTitle() => Intl.message('Welcome to the Tail Company App', name: 'homeWelcomeMessageTitle', desc: 'The welcome message title on the home screen when no gear is connected');
 
-String homeContinuousScanningOffDescription() => Intl.message('Swipe horizontally on the known device area above to begin scanning. You can turn on continuous scanning in settings.',
-    name: 'homeContinuousScanningOffDescription', desc: 'The welcome message title on the home screen when no gear is connected');
-
 String homeWelcomeMessage() => Intl.message('You can control, explore and update all your Tail Co gear right here. There are instructions and guides available too. Happy Wagging!',
     name: 'homeWelcomeMessage', desc: 'The welcome message on the home screen when no gear is connected');
 
@@ -128,11 +125,6 @@ String actionsSelectScreen() => Intl.message('Select Actions', name: 'actionsSel
 String settingsHapticsToggleTitle() => Intl.message('Haptic Feedback', name: 'settingsHapticsToggleTitle', desc: 'Settings page haptic feedback toggle title');
 
 String settingsHapticsToggleSubTitle() => Intl.message('Enable vibration when an action is tapped', name: 'settingsHapticsToggleSubTitle', desc: 'Settings page haptic feedback toggle subtitle');
-
-String settingsAlwaysScanningToggleTitle() => Intl.message('Always scan for known gear', name: 'settingsAlwaysScanningToggleTitle', desc: 'Settings page always scanning toggle title');
-
-String settingsAlwaysScanningToggleSubTitle() => Intl.message('Continuously scan for known gear. When disabled, you must swipe on the gear bar to scan.',
-    name: 'settingsAlwaysScanningToggleSubTitle', desc: 'Settings page always scanning toggle subtitle');
 
 String settingsKeepScreenOnToggleTitle() => Intl.message('Keep Screen On', name: 'settingsKeepScreenOnToggleTitle', desc: 'Settings page Keep Awake toggle title');
 

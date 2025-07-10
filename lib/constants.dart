@@ -18,7 +18,6 @@ const String largerActionCardSize = 'largerActionCardSize';
 const String hideTutorialCards = 'hideTutorialCards';
 const String hasCompletedOnboarding = 'hasCompletedOnboardingVersion';
 const String showDebugging = 'showDebugging';
-const String alwaysScanning = 'alwaysScanning';
 const String showDemoGear = 'showDemoGear';
 const String earMoveSpeed = 'earMoveSpeed';
 const String showAdvancedSettings = 'showAdvancedSettings';
@@ -45,7 +44,6 @@ const bool largerActionCardSizeDefault = false;
 const bool hideTutorialCardsDefault = false;
 const int hasCompletedOnboardingDefault = 0;
 const bool showDebuggingDefault = false;
-const bool alwaysScanningDefault = true;
 const bool showDemoGearDefault = false;
 const bool showAdvancedSettingsDefault = false;
 const EarSpeed earMoveSpeedDefault = EarSpeed.fast;
@@ -62,4 +60,6 @@ const String sequencesBox = 'sequences';
 const String devicesBox = 'devices';
 const String favoriteActionsBox = 'favoriteActions';
 const String audioActionsBox = 'audioActions';
+
+// increase to force existing users to go through onboarding
 const int hasCompletedOnboardingVersionToAgree = 2;

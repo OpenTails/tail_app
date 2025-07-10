@@ -101,7 +101,7 @@ Future<Dio> initDio({skipSentry = false}) async {
     return _dio!;
   }
   final Dio dio = Dio()
-    ..interceptors.add(
+/*     ..interceptors.add(
       LogInterceptor(
         requestBody: false,
         requestHeader: false,
@@ -110,7 +110,7 @@ Future<Dio> initDio({skipSentry = false}) async {
         request: true,
         logPrint: (o) => dioLogger.finer(o.toString()),
       ),
-    )
+    ) */
     ..interceptors.add(LogarteDioInterceptor(logarte));
   dio.interceptors.add(
     RetryInterceptor(

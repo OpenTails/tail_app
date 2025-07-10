@@ -25,29 +25,16 @@ class Home extends ConsumerStatefulWidget {
 }
 
 class _HomeState extends ConsumerState<Home> {
-  //late final PodPlayerController controller;
   final ScrollController _controller = ScrollController();
 
   @override
   void initState() {
-    /*controller = PodPlayerController(
-      playVideoFrom: PlayVideoFrom.vimeo(
-        '913642606',
-      ),
-      podPlayerConfig: const PodPlayerConfig(
-        autoPlay: false,
-        isLooping: false,
-        videoQualityPriority: [720, 360],
-        wakelockEnabled: false,
-        forcedVideoFocus: false,
-      ),
-    )..initialise();*/
+
     super.initState();
   }
 
   @override
   void dispose() {
-    //controller.dispose();
     super.dispose();
   }
 
@@ -60,26 +47,6 @@ class _HomeState extends ConsumerState<Home> {
         return ListView(
           controller: _controller,
           children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (ref.read(knownDevicesProvider).isNotEmpty &&
-                          !HiveProxy.getOrDefault(settings, alwaysScanning, defaultValue: alwaysScanningDefault) &&
-                          !HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault)) ...[
-                        ListTile(
-                          leading: const Icon(Icons.info),
-                          subtitle: Text(convertToUwU(homeContinuousScanningOffDescription())),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-              ),
-            ),
             BaseCard(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -116,7 +83,7 @@ class _HomeState extends ConsumerState<Home> {
                   children: <Widget>[
                     ListTile(
                       leading: const Icon(Icons.bluetooth_disabled),
-                      title:Text(convertToUwU(actionsNoBluetooth())),
+                      title: Text(convertToUwU(actionsNoBluetooth())),
                       subtitle: Text(convertToUwU(actionsNoBluetoothDescription())),
                     ),
                   ],
@@ -128,9 +95,9 @@ class _HomeState extends ConsumerState<Home> {
             ),
             ListTile(
               title: Text(
-                  convertToUwU(homeNewsTitle()),
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                convertToUwU(homeNewsTitle()),
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
             child!,
           ],

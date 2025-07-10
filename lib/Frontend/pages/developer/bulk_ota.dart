@@ -17,54 +17,31 @@ class BulkOTA extends ConsumerStatefulWidget {
 
 class _BulkOTAState extends ConsumerState<BulkOTA> {
   List<DeviceType> selectedDeviceType = DeviceType.values;
-  BuiltMap<BaseStatefulDevice, OtaUpdater>? updatableDevices;
 
   @override
   void initState() {
     super.initState();
-    initDevices();
-  }
-
-  void initDevices() {
-    BuiltList<BaseStatefulDevice> devices = ref.read(getAvailableGearForTypeProvider(selectedDeviceType.toBuiltSet()));
-    setState(() {
-      updatableDevices = BuiltMap.build(
-        (MapBuilder<BaseStatefulDevice, OtaUpdater> p0) {
-          p0.addEntries(
-            devices.map(
-              (baseStatefulDevice) {
-                return MapEntry(
-                  baseStatefulDevice,
-                  OtaUpdater(
-                    baseStatefulDevice: baseStatefulDevice,
-                    onStateChanged: (p0) => setState(() {}),
-                  ),
-                );
-              },
-            ),
-          );
-        },
-      );
-    });
   }
 
   void beginOta() {
-    for (var device in updatableDevices!.values) {
-      device.beginUpdate();
+    for (var device in ref.read(getAvailableGearForTypeProvider(selectedDeviceType.toBuiltSet()))) {
+      ref.read(OtaUpdaterProvider(device).notifier).beginUpdate();
     }
   }
 
   void abort() {
-    for (var device in updatableDevices!.values) {
-      device.otaState = OtaState.error;
+    for (var device in ref.read(getAvailableGearForTypeProvider(selectedDeviceType.toBuiltSet()))) {
+      ref.read(OtaUpdaterProvider(device).notifier).abort();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    bool otaInProgress = updatableDevices!.values
+    var devices = ref.read(getAvailableGearForTypeProvider(selectedDeviceType.toBuiltSet()));
+    bool otaInProgress = devices
+        .map((p0) => ref.read(otaUpdaterProvider(p0)))
         .where(
-          (element) => [OtaState.download, OtaState.upload].contains(element.otaState),
+          (element) => [OtaState.download, OtaState.upload].contains(element),
         )
         .isNotEmpty;
 
@@ -88,18 +65,17 @@ class _BulkOTAState extends ConsumerState<BulkOTA> {
                     setState(() {
                       selectedDeviceType = value;
                     });
-                    initDevices();
                   },
                 ),
                 OverflowBar(
                   alignment: MainAxisAlignment.center,
                   children: [
                     FilledButton(
-                      onPressed: otaInProgress || updatableDevices!.isEmpty
+                      onPressed: otaInProgress || devices.isEmpty
                           ? null
                           : () {
-                              for (OtaUpdater otaUpdater in updatableDevices!.values) {
-                                otaUpdater.beginUpdate();
+                              for (BaseStatefulDevice device in devices) {
+                                ref.read(OtaUpdaterProvider(device).notifier).beginUpdate();
                               }
                             },
                       child: Text("Begin"),
@@ -108,14 +84,14 @@ class _BulkOTAState extends ConsumerState<BulkOTA> {
                       onPressed: !otaInProgress
                           ? null
                           : () {
-                              for (OtaUpdater otaUpdater in updatableDevices!.values) {
-                                otaUpdater.otaState = OtaState.error;
+                              for (BaseStatefulDevice device in devices) {
+                                ref.read(OtaUpdaterProvider(device).notifier).abort();
                               }
                             },
                       child: Text("Abort"),
                     ),
                     ElevatedButton(
-                      onPressed: updatableDevices!.isEmpty || selectedDeviceType.length != 1
+                      onPressed: devices.isEmpty || selectedDeviceType.length != 1
                           ? null
                           : () async {
                               FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -125,8 +101,8 @@ class _BulkOTAState extends ConsumerState<BulkOTA> {
                               );
                               if (result != null) {
                                 setState(() {
-                                  for (OtaUpdater otaUpdater in updatableDevices!.values) {
-                                    otaUpdater.setManualOtaFile(result.files.single.bytes?.toList(growable: false));
+                                  for (BaseStatefulDevice device in devices) {
+                                    ref.read(OtaUpdaterProvider(device).notifier).setManualOtaFile(result.files.single.bytes?.toList(growable: false));
                                   }
                                 });
                               } else {
@@ -137,13 +113,12 @@ class _BulkOTAState extends ConsumerState<BulkOTA> {
                     ),
                   ],
                 ),
-                if (updatableDevices!.isNotEmpty) ...[
+                if (devices.isNotEmpty) ...[
                   ListView.builder(
                     shrinkWrap: true,
-                    itemCount: updatableDevices!.length,
+                    itemCount: devices.length,
                     itemBuilder: (context, index) {
-                      MapEntry<BaseStatefulDevice, OtaUpdater> device = updatableDevices!.entries.toList()[index];
-                      return OtaListItem(device: device);
+                      return OtaListItem(device: devices[index]);
                     },
                   ),
                 ],
@@ -152,26 +127,29 @@ class _BulkOTAState extends ConsumerState<BulkOTA> {
   }
 }
 
-class OtaListItem extends StatefulWidget {
+class OtaListItem extends ConsumerStatefulWidget {
   const OtaListItem({
     super.key,
     required this.device,
   });
 
-  final MapEntry<BaseStatefulDevice, OtaUpdater> device;
+  final BaseStatefulDevice device;
 
   @override
-  State<OtaListItem> createState() => _OtaListItemState();
+  ConsumerState<OtaListItem> createState() => _OtaListItemState();
 }
 
-class _OtaListItemState extends State<OtaListItem> {
+class _OtaListItemState extends ConsumerState<OtaListItem> {
   @override
   Widget build(BuildContext context) {
+    var otaState = ref.read(OtaUpdaterProvider(widget.device));
+
+    var watch = ref.read(OtaUpdaterProvider(widget.device).notifier);
     return ListTile(
-      title: Text(widget.device.key.baseStoredDevice.name),
-      trailing: Text(widget.device.value.otaState.name),
+      title: Text(widget.device.baseStoredDevice.name),
+      trailing: Text(otaState.toString()),
       subtitle: LinearProgressIndicator(
-        value: widget.device.value.progress,
+        value: watch.progress,
       ),
     );
   }
@@ -179,16 +157,10 @@ class _OtaListItemState extends State<OtaListItem> {
   @override
   void initState() {
     super.initState();
-    widget.device.value.onProgress = progressListener;
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.device.value.onProgress = null;
-  }
-
-  void progressListener(double progress) {
-    setState(() {});
   }
 }

@@ -26,7 +26,7 @@ final Logger _wearLogger = Logger('Wear');
 final _watch = WatchConnectivity();
 WearThemeData? wearThemeData;
 
-@Riverpod()
+@Riverpod(keepAlive: true)
 class MessageStreamSubscription extends _$MessageStreamSubscription {
   StreamSubscription<Map<String, dynamic>>? _messageStreamSubscription;
 

@@ -23,7 +23,6 @@ class OtaUpdate extends ConsumerStatefulWidget {
 }
 
 class _OtaUpdateState extends ConsumerState<OtaUpdate> {
-  late OtaUpdater otaUpdater;
   BaseStatefulDevice? baseStatefulDevice;
   OtaError? otaError;
 
@@ -31,19 +30,13 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   void initState() {
     super.initState();
     baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
-    otaUpdater = OtaUpdater(
-      baseStatefulDevice: baseStatefulDevice!,
-      onProgress: (p0) => setState(() {}),
-      onStateChanged: (p0) => setState(() {}),
-      onError: (p0) => setState(() => otaError = p0),
-    );
     ref.read(hasOtaUpdateProvider(baseStatefulDevice!).future);
+    ref.read(OtaUpdaterProvider(baseStatefulDevice!).notifier).onError = ((OtaError p0) => setState(() => otaError = p0));
   }
 
   @override
   void dispose() {
     super.dispose();
-    otaUpdater.dispose();
   }
 
   String getErrorMessage(OtaError otaError) {
@@ -69,17 +62,19 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
 
   @override
   Widget build(BuildContext context) {
+    OtaState otaState = ref.watch(OtaUpdaterProvider(baseStatefulDevice!));
+    OtaUpdater otaUpdater = ref.read(OtaUpdaterProvider(baseStatefulDevice!).notifier);
     return Scaffold(
       appBar: AppBar(title: Text(convertToUwU(otaTitle()))),
       body: Center(
         child: AnimatedSwitcher(
           duration: animationTransitionDuration,
           child: Flex(
-            key: ValueKey(otaUpdater.otaState),
+            key: ValueKey(otaState),
             mainAxisAlignment: MainAxisAlignment.center,
             direction: Axis.vertical,
             children: [
-              if ([OtaState.standby, OtaState.manual].contains(otaUpdater.otaState)) ...[
+              if ([OtaState.standby, OtaState.manual].contains(otaState)) ...[
                 if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
                   Expanded(
                     child: ListTile(
@@ -92,7 +87,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                           Text("URL: ${baseStatefulDevice?.baseDeviceDefinition.fwURL}"),
                           Text("AVAILABLE VERSION: ${otaUpdater.firmwareInfo?.version}"),
                           Text("CURRENT VERSION: ${baseStatefulDevice?.fwVersion.value}"),
-                          Text("STATE: ${otaUpdater.otaState}"),
+                          Text("STATE: ${otaState}"),
                         ],
                       ),
                     ),
@@ -169,7 +164,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
               ],
-              if (otaUpdater.otaState == OtaState.completed) ...[
+              if (otaState == OtaState.completed) ...[
                 Expanded(
                   child: Center(
                     child: ListTile(
@@ -191,7 +186,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
               ],
-              if (otaUpdater.otaState == OtaState.error) ...[
+              if (otaState == OtaState.error) ...[
                 Expanded(
                   child: Center(
                     child: ListTile(
@@ -217,7 +212,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
               ],
-              if (otaUpdater.otaState == OtaState.lowBattery) ...[
+              if (otaState == OtaState.lowBattery) ...[
                 Expanded(
                   child: Center(
                     child: ListTile(
@@ -239,7 +234,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                   ),
                 ),
               ],
-              if ([OtaState.download, OtaState.upload, OtaState.rebooting].contains(otaUpdater.otaState)) ...[
+              if ([OtaState.download, OtaState.upload, OtaState.rebooting].contains(otaState)) ...[
                 Expanded(
                   child: Center(
                     child: ListTile(
@@ -264,7 +259,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                     child: ListTile(
                       subtitle: Builder(
                         builder: (context) {
-                          return LinearProgressIndicator(value: otaUpdater.otaState == OtaState.rebooting ? null : otaUpdater.progress);
+                          return LinearProgressIndicator(value: otaState == OtaState.rebooting ? null : otaUpdater.progress);
                         },
                       ),
                     ),
@@ -279,7 +274,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         children: [
                           Text('Upload Progress: ${otaUpdater.currentFirmwareUploadPosition} / ${otaUpdater.firmwareFile?.length} = ${otaUpdater.uploadProgress.toStringAsPrecision(3)}'),
                           Text('MTU: ${baseStatefulDevice!.mtu.value}'),
-                          Text('OtaState: ${otaUpdater.otaState.name}'),
+                          Text('OtaState: ${otaState.name}'),
                           Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),
                           Text('ConnectivityState: ${baseStatefulDevice!.deviceConnectionState.value}'),
                         ],
