@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-07-05T14:21:28.611672",
+  "@@last_modified": "2025-07-10T00:12:43.474690",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -15,12 +15,6 @@
   },
   "homeWelcomeMessageTitle": "Welcome to the Tail Company App",
   "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffDescription": "Swipe horizontally on the known device area above to begin scanning. You can turn on continuous scanning in settings.",
-  "@homeContinuousScanningOffDescription": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
@@ -324,18 +318,6 @@
   "settingsHapticsToggleSubTitle": "Enable vibration when an action is tapped",
   "@settingsHapticsToggleSubTitle": {
     "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleTitle": "Always scan for known gear",
-  "@settingsAlwaysScanningToggleTitle": {
-    "description": "Settings page always scanning toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleSubTitle": "Continuously scan for known gear. When disabled, you must swipe on the gear bar to scan.",
-  "@settingsAlwaysScanningToggleSubTitle": {
-    "description": "Settings page always scanning toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
