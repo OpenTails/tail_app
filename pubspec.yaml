@@ -67,7 +67,7 @@ dependencies:
   choice:
     git:
       url: https://github.com/davigmacode/flutter_choice
-  feedback: ^3.1.0
+  #feedback: ^3.1.0
   awesome_snackbar_content: ^0.1.6
   flutter_widget_from_html_core: ^0.16.0
   lottie: ^3.3.1
@@ -110,10 +110,10 @@ dependencies:
   firebase_notifications_handler: ^2.0.2+1
 
   # Sentry
-  sentry_flutter: ^9.3.0 # Base sentry + Flutter integration
-  sentry_logging: ^9.3.0 # Collects app logs
+  sentry_flutter: ^9.4.0 # Base sentry + Flutter integration
+  sentry_logging: ^9.4.0 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
-  sentry_dio: ^9.3.0 # Collects Dio HTTP requests
+  sentry_dio: ^9.4.0 # Collects Dio HTTP requests
   #feedback_sentry: ^3.1.0
 
 dev_dependencies:
