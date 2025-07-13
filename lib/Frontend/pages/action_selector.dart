@@ -132,11 +132,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
             FilledButton(
               onPressed: () {
                 setState(() {
-                  if (selected.isEmpty) {
-                    context.pop(true);
-                  } else {
-                    context.pop(selected);
-                  }
+                  context.pop(selected);
                 });
               },
               child: Row(

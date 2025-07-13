@@ -44,86 +44,79 @@ class _TriggersState extends ConsumerState<Triggers> {
             child: triggerDefinitions.isEmpty
                 ? Container()
                 : PromptedChoice<TriggerDefinition>.single(
-              itemCount: triggerDefinitions.length,
-              itemBuilder: (ChoiceController<TriggerDefinition> state, int index) {
-                TriggerDefinition triggerDefinition = triggerDefinitions[index];
-                return RadioListTile(
-                  value: triggerDefinition,
-                  groupValue: state.single,
-                  onChanged: (value) {
-                    state.select(triggerDefinition);
-                  },
-                  secondary: triggerDefinition.icon,
-                  subtitle: ChoiceText(
-                    convertToUwU(triggerDefinition.description()),
-                    highlight: state.search?.value,
-                  ),
-                  title: ChoiceText(
-                    convertToUwU(triggerDefinition.name()),
-                    highlight: state.search?.value,
-                  ),
-                );
-              },
-              promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
-              modalHeaderBuilder: ChoiceModal.createHeader(
-                automaticallyImplyLeading: true,
-                actionsBuilder: [],
-              ),
-              modalFooterBuilder: ChoiceModal.createFooter(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                      (choiceController) {
-                    return FilledButton(
-                      onPressed: choiceController.value.isNotEmpty ? () => choiceController.closeModal(confirmed: true) : null,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.check),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 4),
-                          ),
-                          Text(
-                            convertToUwU(triggersDefSelectSaveLabel()),
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .labelLarge!
-                                .copyWith(
-                              color: getTextColor(
-                                Theme
-                                    .of(context)
-                                    .colorScheme
-                                    .primary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ],
-              ),
-              title: triggersSelectLabel(),
-              confirmation: true,
-              onChanged: (value) async {
-                if (value != null) {
-                  setState(
-                        () {
-                      Trigger trigger = Trigger.trigDef(value, const Uuid().v4());
-                      ref.watch(triggerListProvider.notifier).add(trigger);
-                      plausible.event(name: "Add Trigger", props: {"Trigger Type": value.runtimeType.toString()});
+                    itemCount: triggerDefinitions.length,
+                    itemBuilder: (ChoiceController<TriggerDefinition> state, int index) {
+                      TriggerDefinition triggerDefinition = triggerDefinitions[index];
+                      return RadioListTile(
+                        value: triggerDefinition,
+                        groupValue: state.single,
+                        onChanged: (value) {
+                          state.select(triggerDefinition);
+                        },
+                        secondary: triggerDefinition.icon,
+                        subtitle: ChoiceText(
+                          convertToUwU(triggerDefinition.description()),
+                          highlight: state.search?.value,
+                        ),
+                        title: ChoiceText(
+                          convertToUwU(triggerDefinition.name()),
+                          highlight: state.search?.value,
+                        ),
+                      );
                     },
-                  );
-                }
-              },
-              anchorBuilder: (state, openModal) {
-                return FloatingActionButton.extended(
-                  icon: const Icon(Icons.add),
-                  label: Text(convertToUwU(triggersAdd())),
-                  onPressed: openModal,
-                );
-              },
-            ),
+                    promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
+                    modalHeaderBuilder: ChoiceModal.createHeader(
+                      automaticallyImplyLeading: true,
+                      actionsBuilder: [],
+                    ),
+                    modalFooterBuilder: ChoiceModal.createFooter(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        (choiceController) {
+                          return FilledButton(
+                            onPressed: choiceController.value.isNotEmpty ? () => choiceController.closeModal(confirmed: true) : null,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.check),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
+                                ),
+                                Text(
+                                  convertToUwU(triggersDefSelectSaveLabel()),
+                                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                        color: getTextColor(
+                                          Theme.of(context).colorScheme.primary,
+                                        ),
+                                      ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ],
+                    ),
+                    title: triggersSelectLabel(),
+                    confirmation: true,
+                    onChanged: (value) async {
+                      if (value != null) {
+                        setState(
+                          () {
+                            Trigger trigger = Trigger.trigDef(value, const Uuid().v4());
+                            ref.watch(triggerListProvider.notifier).add(trigger);
+                            plausible.event(name: "Add Trigger", props: {"Trigger Type": value.runtimeType.toString()});
+                          },
+                        );
+                      }
+                    },
+                    anchorBuilder: (state, openModal) {
+                      return FloatingActionButton.extended(
+                        icon: const Icon(Icons.add),
+                        label: Text(convertToUwU(triggersAdd())),
+                        onPressed: openModal,
+                      );
+                    },
+                  ),
           );
         },
       ),
@@ -159,7 +152,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                                 begin: 0,
                                 end: values.map((e) => e as double).firstWhere(
                                   orElse: () => 0,
-                                      (element) {
+                                  (element) {
                                     return element > 0 && element <= 1;
                                   },
                                 ),
@@ -181,25 +174,22 @@ class _TriggersState extends ConsumerState<Triggers> {
                         label: 'A switch to toggle the trigger ${trigger.triggerDefinition?.name}',
                         child: FutureBuilder(
                           future: trigger.triggerDefinition!.isSupported(),
-                          builder: (context, snapshot) =>
-                              Switch(
-                                value: trigger.enabled,
-                                onChanged: snapshot.data == true
-                                    ? (bool value) async {
-                                  setState(
-                                        () {
-                                      trigger.storedEnable = !trigger.enabled;
-                                      ref.read(triggerListProvider.notifier).store();
-                                      plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref
-                                          .watch(triggerDefinitionListProvider)
-                                          .where((element) => element.uuid == trigger.triggerDefUUID)
-                                          .first
-                                          .toString()});
-                                    },
-                                  );
-                                }
-                                    : null,
-                              ),
+                          builder: (context, snapshot) => Switch(
+                            value: trigger.enabled,
+                            onChanged: snapshot.data == true
+                                ? (bool value) async {
+                                    setState(
+                                      () {
+                                        trigger.storedEnable = !trigger.enabled;
+                                        ref.read(triggerListProvider.notifier).store();
+                                        plausible.event(
+                                            name: "Enable Trigger",
+                                            props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger.triggerDefUUID).first.toString()});
+                                      },
+                                    );
+                                  }
+                                : null,
+                          ),
                         ),
                       );
                     },
@@ -231,7 +221,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
   void initState() {
     trigger = ref.read(triggerListProvider).firstWhereOrNull(
           (element) => element.uuid == widget.uuid,
-    );
+        );
     triggerDefinition = trigger?.triggerDefinition;
     super.initState();
   }
@@ -266,25 +256,22 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                       label: 'A switch to toggle the trigger ${triggerDefinition?.name}',
                       child: FutureBuilder(
                         future: trigger!.triggerDefinition!.isSupported(),
-                        builder: (context, snapshot) =>
-                            Switch(
-                              value: trigger!.enabled,
-                              onChanged: snapshot.data == true
-                                  ? (bool value) {
-                                setState(
-                                      () {
-                                    trigger!.storedEnable = !trigger!.enabled;
-                                    ref.read(triggerListProvider.notifier).store();
-                                    plausible.event(name: "Enable Trigger", props: {"Trigger Type": ref
-                                        .watch(triggerDefinitionListProvider)
-                                        .where((element) => element.uuid == trigger!.triggerDefUUID)
-                                        .first
-                                        .toString()});
-                                  },
-                                );
-                              }
-                                  : null,
-                            ),
+                        builder: (context, snapshot) => Switch(
+                          value: trigger!.enabled,
+                          onChanged: snapshot.data == true
+                              ? (bool value) {
+                                  setState(
+                                    () {
+                                      trigger!.storedEnable = !trigger!.enabled;
+                                      ref.read(triggerListProvider.notifier).store();
+                                      plausible.event(
+                                          name: "Enable Trigger",
+                                          props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger!.triggerDefUUID).first.toString()});
+                                    },
+                                  );
+                                }
+                              : null,
+                        ),
                       ),
                     );
                   },
@@ -294,7 +281,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                 selected: trigger!.deviceType,
                 onSelectionChanged: (List<DeviceType> value) {
                   setState(
-                        () async {
+                    () async {
                       trigger?.deviceType = value.toList();
                       ref.watch(triggerListProvider.notifier).store();
                     },
@@ -306,12 +293,8 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                 text: triggerInfoEditActionDescription(),
               ),
               ...trigger!.actions.map(
-                    (TriggerAction e) {
-                  TriggerActionDef triggerActionDef = trigger!
-                      .triggerDefinition!
-                      .actionTypes
-                      .where((element) => e.uuid == element.uuid)
-                      .first;
+                (TriggerAction e) {
+                  TriggerActionDef triggerActionDef = trigger!.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first;
                   return ListTile(
                     title: Text(convertToUwU(triggerActionDef.translated())),
                     subtitle: ValueListenableBuilder(
@@ -329,7 +312,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                                   begin: 0,
                                   end: values.map((e) => e as double).firstWhere(
                                     orElse: () => 0,
-                                        (element) {
+                                    (element) {
                                       return element > 0 && element <= 1;
                                     },
                                   ),
@@ -341,9 +324,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                           firstChild: Builder(
                             builder: (context) {
                               String text = "";
-                              Iterable<BaseStatefulDevice> knownDevices = ref
-                                  .read(knownDevicesProvider)
-                                  .values;
+                              Iterable<BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider).values;
                               for (String actionUUID in e.actions) {
                                 BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
                                 if (baseAction != null &&
@@ -351,7 +332,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                                         knownDevices
                                             .where(
                                               (element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-                                        )
+                                            )
                                             .isNotEmpty)) {
                                   if (text.isNotEmpty) {
                                     text += ', ';
@@ -368,35 +349,31 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                     ),
                     leading: HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)
                         ? IconButton(
-                        onPressed: () {
-                          triggerDefinition!.sendCommands(triggerActionDef.name, triggerDefinition!.ref);
-                        },
-                        tooltip: "Run Action (Debug)",
-                        icon: Icon(Icons.play_arrow))
+                            onPressed: () {
+                              triggerDefinition!.sendCommands(triggerActionDef.name, triggerDefinition!.ref);
+                            },
+                            tooltip: "Run Action (Debug)",
+                            icon: Icon(Icons.play_arrow))
                         : null,
                     trailing: IconButton(
                       tooltip: actionsSelectScreen(),
                       icon: const Icon(Icons.edit),
                       onPressed: () async {
-                        Object? result = await showDialog(
+                        List<BaseAction>? result = await showDialog(
                           useRootNavigator: true,
                           barrierDismissible: true,
-                          barrierColor: Theme
-                              .of(context)
-                              .canvasColor,
+                          barrierColor: Theme.of(context).canvasColor,
                           context: context,
                           builder: (BuildContext context) {
                             return Dialog.fullscreen(
-                              backgroundColor: Theme
-                                  .of(context)
-                                  .canvasColor,
+                              backgroundColor: Theme.of(context).canvasColor,
                               child: ActionSelector(
                                 actionSelectorInfo: ActionSelectorInfo(
                                   deviceType: trigger!.deviceType.toSet(),
                                   selectedActions: e.actions
                                       .map(
                                         (e) => ref.read(getActionFromUUIDProvider(e)),
-                                  )
+                                      )
                                       .nonNulls
                                       .toList(),
                                 ),
@@ -404,22 +381,13 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                             );
                           },
                         );
-                        if (result is List<BaseAction>) {
+                        if (result != null) {
                           setState(
-                                () {
+                            () {
                               e.actions = result.map((element) => element.uuid).toList();
                               ref.watch(triggerListProvider.notifier).store();
                             },
                           );
-                        } else if (result is bool) {
-                          if (!result) {
-                            setState(
-                                  () {
-                                e.actions = [];
-                                ref.watch(triggerListProvider.notifier).store();
-                              },
-                            );
-                          }
                         }
                       },
                     ),
@@ -433,7 +401,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                       trigger!.enabled = false;
                       await ref.watch(triggerListProvider.notifier).remove(trigger!);
                       setState(
-                            () {
+                        () {
                           Navigator.of(context).pop();
                         },
                       );
