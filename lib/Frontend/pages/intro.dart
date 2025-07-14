@@ -89,21 +89,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       allowImplicitScrolling: true,
       showBackButton: true,
       showSkipButton: kDebugMode,
-      globalHeader: Align(
-        alignment: Alignment.topRight,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 16, right: 16),
-            child: InkWell(
-              child: _buildImage(Assets.tCLogoTransparentNoText.path, 60),
-              onLongPress: () async {
-                _introLogger.info("Open Logs");
-                const LogsRoute().push(context);
-              },
-            ),
-          ),
-        ),
-      ),
       pages: [
         PageViewModel(
           title: convertToUwU(homeWelcomeMessageTitle()),

@@ -13,7 +13,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessageTitle": "Welcome to the Tail Company App",
+  "homeWelcomeMessageTitle": "Welcome",
   "@homeWelcomeMessageTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",

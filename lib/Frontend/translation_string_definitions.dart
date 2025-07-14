@@ -10,7 +10,7 @@ String title() => Intl.message('The Tail Company', name: 'title', desc: 'The nam
 
 String homeNewsTitle() => Intl.message('Fresh from the Tail Blog', name: 'homeNewsTitle', desc: 'The title header for the news in the home screen when no gear is connected');
 
-String homeWelcomeMessageTitle() => Intl.message('Welcome to the Tail Company App', name: 'homeWelcomeMessageTitle', desc: 'The welcome message title on the home screen when no gear is connected');
+String homeWelcomeMessageTitle() => Intl.message('Welcome', name: 'homeWelcomeMessageTitle', desc: 'The welcome message title on the home screen when no gear is connected');
 
 String homeWelcomeMessage() => Intl.message('You can control, explore and update all your Tail Co gear right here. There are instructions and guides available too. Happy Wagging!',
     name: 'homeWelcomeMessage', desc: 'The welcome message on the home screen when no gear is connected');
