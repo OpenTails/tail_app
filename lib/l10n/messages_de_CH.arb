@@ -1,5 +1,5 @@
 {
-  "homeWelcomeMessageTitle": "Willkomme in dr App vo de Tail Company",
+  "homeWelcomeMessageTitle": "Willkomme",
   "@homeWelcomeMessageTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
