@@ -74,7 +74,6 @@ class _CoshubFeedState extends ConsumerState<CoshubFeed> {
                             elevation: 2,
                             child: ListTile(
                               //leading: Icon(feedItem.feedType.icon),
-                              trailing: const Icon(Icons.open_in_browser),
                               title: Text(convertToUwU(post.username)), subtitle: post.character != null ? Text(convertToUwU(post.character!)) : null,
                               leading: post.profileThumbnailUrl != null
                                   ? ClipOval(

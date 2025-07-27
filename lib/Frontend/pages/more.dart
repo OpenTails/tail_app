@@ -41,7 +41,6 @@ class _MoreState extends ConsumerState<More> {
             title: Text(convertToUwU(morePageCoverPromoTitle())),
             subtitle: Text(convertToUwU(morePageCoverPromoDescription(couponCode: couponCode))),
             leading: const Icon(Icons.store),
-            trailing: const Icon(Icons.open_in_browser),
             onTap: () async {
               await launchExternalUrl(url: "https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode", analyticsLabel: "Coupon", addTrackingUtm: false);
             },
@@ -55,7 +54,6 @@ class _MoreState extends ConsumerState<More> {
             width: 24,
             height: 24,
           ),
-          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchExternalUrl(url: "https://coshub.com", analyticsLabel: "CosHub");
           },
@@ -172,7 +170,6 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(convertToUwU("Store")),
           leading: const Icon(Icons.store),
-          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Store");
           },
@@ -180,7 +177,6 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(convertToUwU("Technical Wiki")),
           leading: const Icon(Icons.menu_book),
-          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchExternalUrl(url: "https://docs.thetailcompany.com", analyticsLabel: "Wiki");
           },
@@ -188,7 +184,6 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(convertToUwU("Telegram")),
           leading: const Icon(Icons.telegram),
-          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchExternalUrl(url: "https://t.me/joinchat/VCdXxqKgRv2yrDNC", analyticsLabel: "Telegram", addTrackingUtm: false);
           },
@@ -197,7 +192,6 @@ class _MoreState extends ConsumerState<More> {
           title: Text(convertToUwU(morePageTranslateTitle())),
           subtitle: Text(convertToUwU(morePageTranslateDescription())),
           leading: const Icon(Icons.language),
-          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchExternalUrl(url: "https://weblate.stargazer.at", analyticsLabel: "Weblate");
           },
@@ -206,7 +200,6 @@ class _MoreState extends ConsumerState<More> {
           title: Text(convertToUwU(supportTitle())),
           leading: const Icon(Icons.message),
           subtitle: Text(convertToUwU(supportDescription())),
-          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Support");
           },
@@ -214,7 +207,6 @@ class _MoreState extends ConsumerState<More> {
         ListTile(
           title: Text(convertToUwU(moreSourceCode())),
           leading: const Icon(Icons.code),
-          trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
             await launchExternalUrl(url: "https://github.com/Codel1417/tail_app", analyticsLabel: "Source Code", addTrackingUtm: false);
           },
