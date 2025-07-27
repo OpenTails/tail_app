@@ -16,9 +16,9 @@
 
 - Windows 11 Or MacOS Sonoma (Have not tried developing on linux)
 - [Android Studio](https://developer.android.com/studio)
-    - [Flutter Plugin](https://plugins.jetbrains.com/plugin/9212-flutter)
-    - [Dart Plugin](https://plugins.jetbrains.com/plugin/6351-dart)
-    - [Flutter Enhancement Suite (Recommended)](https://plugins.jetbrains.com/plugin/12693-flutter-enhancement-suite)
+  - [Flutter Plugin](https://plugins.jetbrains.com/plugin/9212-flutter)
+  - [Dart Plugin](https://plugins.jetbrains.com/plugin/6351-dart)
+  - [Flutter Enhancement Suite (Recommended)](https://plugins.jetbrains.com/plugin/12693-flutter-enhancement-suite)
 - [Java `17` (For Android)](https://adoptium.net/temurin/releases/?package=jdk&version=17)
 - [XCode `16` (For IOS)](https://developer.apple.com/xcode/) with IOS & CLI Tools installed
 - [CocoaPods (For IOS)](https://cocoapods.org/)
@@ -43,11 +43,17 @@ When [`translation_string_definitions.dart`](lib/Frontend/translation_string_def
 
 When non EN translations are updated in [Weblate](https://weblate.stargazer.at/projects/the-tailcompany-app/tailapp/), A pull request will automatically open with the changes. This may take a few minutes.
 
-
 ### Fastlane
 
 [Fastlane](https://docs.fastlane.tools/) is a tool to automatically upload apps to the Apple App Store and Google Play Store. Inside the [IOS](ios/) and [Android](android/) folders is a fastlane folder. Inside is the FastFile which contains the upload config. Secrets are JSON files passed through repository secrets. The script [fastlane.sh](Scripts/fastlane.sh) selects the fastlane folder to use and begins the upload.
 
+### Firebase
+
+This project uses 2 seperate Firebase projects. One for notifications and one for CosHub posts.
+
+Notifications use `DefaultFirebaseOptions` in [`/lib/firebase_options.dart`](../lib/firebase_options.dart) while CosHub uses `CosHubFirebaseOptions`. This combined file was created by running `flutterfire configure` for CosHub, renaming the file, running the command again for tailApp, and then copying `DefaultFirebaseOptions` from coshub into the final [`/lib/firebase_options.dart`](../lib/firebase_options.dart) file.
+
+This file is supplied in build via secrets.
 
 ### Repository Integrations
 
@@ -91,6 +97,8 @@ To Turn off Developer Mode
 These services are self-hosted in a mini-pc on my tv stand in my apartment
 
 [Plausible](https://plausible.codel1417.xyz/tail-app)
+[Aptabase](https://aptabase.codel1417.xyz/)
+[Sentry](https://sentry.codel1417.xyz/)
 [Uptime](https://uptime.codel1417.xyz/status/public)
 
 #### Infrastructure notes
@@ -113,4 +121,4 @@ The file is included in builds and updated after app launch, so changes may not 
 
 ### Misc
 
-UUIDs were generated using https://www.uuidgenerator.net/version4
+UUIDs were generated using <https://www.uuidgenerator.net/version4>
