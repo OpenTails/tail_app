@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 String title() => Intl.message('The Tail Company', name: 'title', desc: 'The name of the app');
 
 String homeNewsTitle() => Intl.message('Fresh from the Tail Blog', name: 'homeNewsTitle', desc: 'The title header for the news in the home screen when no gear is connected');
+String homeCosHubTitle() => Intl.message('Featured Cosplayers on CosHub', name: 'homeCosHubTitle', desc: 'The title header for the coshub in the home screen when no gear is connected');
 
 String homeWelcomeMessageTitle() => Intl.message('Welcome', name: 'homeWelcomeMessageTitle', desc: 'The welcome message title on the home screen when no gear is connected');
 

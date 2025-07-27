@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:data_saver/data_saver.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
@@ -216,4 +218,22 @@ Future<void> setupSystemColor(BuildContext context) async {
     SystemChrome.setSystemUIOverlayStyle(dark);
   }
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+}
+
+Future<bool> isLimitedDataEnvironment() async {
+  final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+  if (connectivityResult.contains(ConnectivityResult.none)) {
+    return true;
+  }
+  final DataSaverMode mode = await DataSaver().checkMode();
+  bool isMobile = connectivityResult.contains(ConnectivityResult.mobile);
+
+  if (mode == DataSaverMode.enabled && isMobile) {
+    return true;
+  }
+
+  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) && isMobile) {
+    return true;
+  }
+  return false;
 }

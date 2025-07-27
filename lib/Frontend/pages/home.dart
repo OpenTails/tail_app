@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:tail_app/Backend/analytics.dart';
+import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
+import 'package:tail_app/gen/assets.gen.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../constants.dart';
@@ -37,69 +39,84 @@ class _HomeState extends ConsumerState<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: isBluetoothEnabled,
-      child: TailBlog(controller: _controller),
-      builder: (BuildContext context, bool bluetoothEnabled, Widget? child) {
-        return ListView(
-          controller: _controller,
-          children: [
-            BaseCard(
+    return ListView(
+      controller: _controller,
+      children: [
+        BaseCard(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                title: Text(convertToUwU(homeWelcomeMessageTitle())),
+                subtitle: Text(convertToUwU(homeWelcomeMessage())),
+              ),
+              OverflowBar(
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () async {
+                      MarkdownViewerRoute(
+                        $extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle(), analyticsLabel: 'Changelog'),
+                      ).push(context);
+                    },
+                    child: Text(convertToUwU(homeChangelogLinkTitle())),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Store");
+                    },
+                    child: Text(convertToUwU('Tail Company Store')),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        ValueListenableBuilder(
+          valueListenable: isBluetoothEnabled,
+          builder: (context, bluetoothEnabled, child) => AnimatedCrossFade(
+            firstChild: BaseCard(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ListTile(
-                    title: Text(convertToUwU(homeWelcomeMessageTitle())),
-                    subtitle: Text(convertToUwU(homeWelcomeMessage())),
-                  ),
-                  OverflowBar(
-                    children: <Widget>[
-                      TextButton(
-                        onPressed: () async {
-                          MarkdownViewerRoute(
-                            $extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle(), analyticsLabel: 'Changelog'),
-                          ).push(context);
-                        },
-                        child: Text(convertToUwU(homeChangelogLinkTitle())),
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Store");
-                        },
-                        child: Text(convertToUwU('Tail Company Store')),
-                      ),
-                    ],
+                    leading: const Icon(Icons.bluetooth_disabled),
+                    title: Text(convertToUwU(actionsNoBluetooth())),
+                    subtitle: Text(convertToUwU(actionsNoBluetoothDescription())),
                   ),
                 ],
               ),
             ),
-            AnimatedCrossFade(
-              firstChild: BaseCard(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ListTile(
-                      leading: const Icon(Icons.bluetooth_disabled),
-                      title: Text(convertToUwU(actionsNoBluetooth())),
-                      subtitle: Text(convertToUwU(actionsNoBluetoothDescription())),
-                    ),
-                  ],
-                ),
-              ),
-              secondChild: Container(),
-              crossFadeState: !bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              duration: animationTransitionDuration,
-            ),
-            ListTile(
-              title: Text(
-                convertToUwU(homeNewsTitle()),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-            child!,
-          ],
-        );
-      },
+            secondChild: Container(),
+            crossFadeState: !bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            duration: animationTransitionDuration,
+          ),
+        ),
+        ListTile(
+          title: Text(
+            convertToUwU(homeCosHubTitle()),
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          trailing: Image.asset(
+            Assets.cosHubBT.path,
+            width: 24,
+            height: 24,
+          ),
+        ),
+        SizedBox(
+          height: 350,
+          child: CoshubFeed(),
+        ),
+        ListTile(
+          title: Text(
+            convertToUwU(homeNewsTitle()),
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        SizedBox(
+          height: 350,
+          child: TailBlog(),
+        ),
+      ],
     );
   }
 }

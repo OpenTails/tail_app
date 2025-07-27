@@ -1,34 +1,26 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/analytics.dart';
+import 'package:tail_app/Frontend/Widgets/tail_blog_image.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 // Used as MediaDetails isn't exported
 // ignore: implementation_imports
 import 'package:wordpress_client/src/responses/properties/media_details.dart';
 import 'package:wordpress_client/wordpress_client.dart';
 
-import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../utils.dart';
 
 part 'tail_blog.freezed.dart';
-part 'tail_blog.g.dart';
 
 final _wpLogger = Logger('Main');
 
 class TailBlog extends StatefulWidget {
-  const TailBlog({required this.controller, super.key});
-
-  final ScrollController controller;
+  const TailBlog({super.key});
 
   @override
   State<TailBlog> createState() => _TailBlogState();
@@ -46,7 +38,9 @@ class _TailBlogState extends State<TailBlog> {
     return AnimatedCrossFade(
       alignment: Alignment.topCenter,
       firstChild: feedState == FeedState.loading
-          ? const LinearProgressIndicator()
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
           : [FeedState.noInternet, FeedState.error].contains(feedState)
               ? const Center(
                   child: Opacity(
@@ -58,11 +52,9 @@ class _TailBlogState extends State<TailBlog> {
                   ),
                 )
               : Container(),
-      secondChild: GridView.builder(
-        controller: widget.controller,
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 500, mainAxisExtent: 300),
+      secondChild: ListView.builder(
+        scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
         itemCount: results.length,
         itemBuilder: (BuildContext context, int index) {
           FeedItem feedItem = results[index];
@@ -72,7 +64,7 @@ class _TailBlogState extends State<TailBlog> {
               child: Card(
                 clipBehavior: Clip.antiAlias,
                 child: SizedBox(
-                  height: 300,
+                  width: 300,
                   child: Semantics(
                     label: 'A button to view the blog post: ${feedItem.title}',
                     child: InkWell(
@@ -83,8 +75,10 @@ class _TailBlogState extends State<TailBlog> {
                         alignment: Alignment.bottomCenter,
                         children: <Widget>[
                           if (feedItem.imageId != null) ...[
-                            TailBlogImage(
-                              feedItem: feedItem,
+                            SizedBox.expand(
+                              child: TailBlogImage(
+                                url: feedItem.imageUrl ?? "",
+                              ),
                             ),
                           ],
                           Card(
@@ -126,7 +120,7 @@ class _TailBlogState extends State<TailBlog> {
 
   Future<void> getFeed() async {
     if (results.isEmpty) {
-      if (!await tailBlogConnectivityCheck()) {
+      if (await isLimitedDataEnvironment()) {
         setState(() {
           feedState = FeedState.noInternet;
         });
@@ -161,7 +155,6 @@ class _TailBlogState extends State<TailBlog> {
               title: post.title!.parsedText,
               publishDate: post.date!,
               url: post.link,
-              feedType: FeedType.blog,
               imageId: post.featuredMedia,
               imageUrl: await getImageURL(post),
             ),
@@ -213,7 +206,6 @@ abstract class FeedItem with _$FeedItem implements Comparable<FeedItem> {
     required String url,
     required String title,
     required DateTime publishDate,
-    required FeedType feedType,
     final int? imageId,
     final String? imageUrl,
   }) = _FeedItem;
@@ -225,98 +217,3 @@ abstract class FeedItem with _$FeedItem implements Comparable<FeedItem> {
 }
 
 enum FeedState { loading, loaded, error, noInternet }
-
-enum FeedType {
-  wiki,
-  blog,
-}
-
-extension FeedTypeExtension on FeedType {
-  IconData get icon {
-    switch (this) {
-      case FeedType.blog:
-        return Icons.newspaper;
-      case FeedType.wiki:
-        return Icons.notes;
-    }
-  }
-}
-
-class TailBlogImage extends ConsumerStatefulWidget {
-  const TailBlogImage({required this.feedItem, super.key});
-
-  final FeedItem feedItem;
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _TailBlogImageState();
-}
-
-class _TailBlogImageState extends ConsumerState<TailBlogImage> {
-  @override
-  Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        if (widget.feedItem.imageUrl != null) {
-          var snapshot = ref.watch(getBlogImageProvider(widget.feedItem.imageUrl!));
-          return AnimatedOpacity(
-            duration: animationTransitionDuration,
-            opacity: snapshot.hasValue ? 1 : 0,
-            child: snapshot.hasValue ? snapshot.value! : const CircularProgressIndicator(),
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
-  }
-}
-
-@Riverpod()
-Future<Widget> getBlogImage(Ref ref, String url) async {
-  if (!await tailBlogConnectivityCheck()) {
-    return Container();
-  }
-  Dio dio = await initDio();
-
-  Response<List<int>> response = await dio.get(
-    url,
-    options: cacheOptions
-        .copyWith(
-          policy: CachePolicy.forceCache,
-        )
-        .toOptions()
-        .copyWith(
-          responseType: ResponseType.bytes,
-          followRedirects: true,
-        ),
-  );
-
-  if (response.statusCode! < 400) {
-    Uint8List data = Uint8List.fromList(response.data!);
-    return SizedBox.expand(
-      child: FittedBox(
-        alignment: Alignment.center,
-        // TRY THIS: Try changing the fit types to see how they change the way
-        // the placeholder fits into the container.
-        fit: BoxFit.cover,
-        child: Image.memory(
-          data,
-          width: 300,
-        ),
-      ),
-    );
-  }
-  return Container();
-}
-
-Future<bool> tailBlogConnectivityCheck() async {
-  final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
-  if (connectivityResult.contains(ConnectivityResult.none)) {
-    return false;
-  }
-  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) &&
-      {ConnectivityResult.wifi, ConnectivityResult.ethernet}.intersection(connectivityResult.toSet()).isEmpty) {
-    return false;
-  }
-  return true;
-}

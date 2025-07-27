@@ -10,6 +10,7 @@ import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/move_lists.dart';
+import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 import 'package:battery_plus/battery_plus.dart';
 
@@ -34,16 +35,12 @@ class RunAction extends _$RunAction {
     // lets not kill the battery
     final int batteryLevel = await battery.batteryLevel;
     final bool batterySaver = await battery.isInBatterySaveMode;
-    
+
     if (batteryLevel < 50 || batterySaver) {
       return;
     }
 
-    final DataSaverMode mode = await dataSaver.checkMode();
-    final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
-
-    // lets not burn through all of the data
-    if (mode == DataSaverMode.enabled && connectivityResult.contains(ConnectivityResult.mobile)) {
+    if (await isLimitedDataEnvironment()) {
       return;
     }
 
