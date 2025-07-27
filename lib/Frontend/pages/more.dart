@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
@@ -43,7 +43,7 @@ class _MoreState extends ConsumerState<More> {
             leading: const Icon(Icons.store),
             trailing: const Icon(Icons.open_in_browser),
             onTap: () async {
-              await launchUrl(Uri.parse('https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode'));
+              await launchExternalUrl(url: "https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode", analyticsLabel: "Coupon", addTrackingUtm: false);
             },
           );
         }),
@@ -57,7 +57,7 @@ class _MoreState extends ConsumerState<More> {
           ),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('https://coshub.com/${getOutboundUtm()}'));
+            await launchExternalUrl(url: "https://coshub.com", analyticsLabel: "CosHub");
           },
         ),
         ListTile(
@@ -123,6 +123,7 @@ class _MoreState extends ConsumerState<More> {
               $extra: PDFInfo(
                 url: "https://thetailcompany.com/mitail.pdf",
                 title: moreManualMiTailTitle(),
+                analyticsLabel: "MiTail Manual",
               ),
             ).push(context);
           },
@@ -134,6 +135,7 @@ class _MoreState extends ConsumerState<More> {
               $extra: PDFInfo(
                 url: "https://thetailcompany.com/eargear.pdf",
                 title: moreManualEargearTitle(),
+                analyticsLabel: "EarGear Manual",
               ),
             ).push(context);
           },
@@ -145,6 +147,7 @@ class _MoreState extends ConsumerState<More> {
               $extra: PDFInfo(
                 url: "https://thetailcompany.com/flutterwings.pdf",
                 title: moreManualFlutterWingsTitle(),
+                analyticsLabel: "FlutterWings Manual",
               ),
             ).push(context);
           },
@@ -156,6 +159,7 @@ class _MoreState extends ConsumerState<More> {
               $extra: HtmlPageInfo(
                 url: "https://docs.thetailcompany.com/doku.php?id=en:safety&do=export_xhtmlbody",
                 title: moreManualResponsibleWaggingTitle(),
+                analyticsLabel: "Responsible Wagging",
               ),
             ).push(context);
           },
@@ -170,7 +174,7 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.store),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('https://thetailcompany.com/${getOutboundUtm()}'));
+            await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Store");
           },
         ),
         ListTile(
@@ -178,7 +182,7 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.menu_book),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('https://docs.thetailcompany.com/${getOutboundUtm()}'));
+            await launchExternalUrl(url: "https://docs.thetailcompany.com", analyticsLabel: "Wiki");
           },
         ),
         ListTile(
@@ -186,7 +190,7 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.telegram),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('https://t.me/joinchat/VCdXxqKgRv2yrDNC'));
+            await launchExternalUrl(url: "https://t.me/joinchat/VCdXxqKgRv2yrDNC", analyticsLabel: "Telegram", addTrackingUtm: false);
           },
         ),
         ListTile(
@@ -195,7 +199,7 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.language),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('https://weblate.stargazer.at'));
+            await launchExternalUrl(url: "https://weblate.stargazer.at", analyticsLabel: "Weblate");
           },
         ),
         ListTile(
@@ -204,7 +208,7 @@ class _MoreState extends ConsumerState<More> {
           subtitle: Text(convertToUwU(supportDescription())),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('https://thetailcompany.com/${getOutboundUtm()}'));
+            await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Support");
           },
         ),
         ListTile(
@@ -212,7 +216,7 @@ class _MoreState extends ConsumerState<More> {
           leading: const Icon(Icons.code),
           trailing: const Icon(Icons.open_in_browser),
           onTap: () async {
-            await launchUrl(Uri.parse('https://github.com/Codel1417/tail_app'));
+            await launchExternalUrl(url: "https://github.com/Codel1417/tail_app", analyticsLabel: "Source Code", addTrackingUtm: false);
           },
           onLongPress: () async {
             if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) {
@@ -229,6 +233,7 @@ class _MoreState extends ConsumerState<More> {
               $extra: MarkdownInfo(
                 content: await rootBundle.loadString(Assets.privacy),
                 title: morePrivacyPolicyLinkTitle(),
+                analyticsLabel: "Privacy Policy",
               ),
             ).push(context);
           },

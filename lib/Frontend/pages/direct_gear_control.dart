@@ -6,6 +6,7 @@ import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tail_app/Backend/command_queue.dart';
+import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:vector_math/vector_math.dart';
 

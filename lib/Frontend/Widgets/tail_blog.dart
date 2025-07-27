@@ -9,8 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
-import 'package:url_launcher/url_launcher.dart';
 // Used as MediaDetails isn't exported
 // ignore: implementation_imports
 import 'package:wordpress_client/src/responses/properties/media_details.dart';
@@ -77,7 +77,7 @@ class _TailBlogState extends State<TailBlog> {
                     label: 'A button to view the blog post: ${feedItem.title}',
                     child: InkWell(
                       onTap: () async {
-                        await launchUrl(Uri.parse("${feedItem.url}${getOutboundUtm()}"));
+                        await launchExternalUrl(url: feedItem.url, analyticsLabel: "Tail Blog Post");
                       },
                       child: Stack(
                         alignment: Alignment.bottomCenter,
@@ -314,7 +314,8 @@ Future<bool> tailBlogConnectivityCheck() async {
   if (connectivityResult.contains(ConnectivityResult.none)) {
     return false;
   }
-  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) && {ConnectivityResult.wifi, ConnectivityResult.ethernet}.intersection(connectivityResult.toSet()).isEmpty) {
+  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) &&
+      {ConnectivityResult.wifi, ConnectivityResult.ethernet}.intersection(connectivityResult.toSet()).isEmpty) {
     return false;
   }
   return true;

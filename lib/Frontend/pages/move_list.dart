@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/pages/direct_gear_control.dart';
 import 'package:uuid/uuid.dart';
@@ -15,7 +16,7 @@ import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/move_lists.dart';
-import '../../Backend/plausible_dio.dart';
+import '../../Backend/analytics.dart';
 import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';
 import '../Widgets/speed_widget.dart';
@@ -42,7 +43,6 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
           setState(() {
             ref.watch(moveListsProvider.notifier).add(MoveList(name: sequencesPage(), deviceCategory: DeviceType.values.toList(), actionCategory: ActionCategory.sequence, uuid: const Uuid().v4()));
           });
-          plausible.event(name: "Add Sequence");
           EditMoveListRoute($extra: ref.watch(moveListsProvider).last).push<MoveList>(context).then(
                 (value) => setState(() {
                   if (value != null) {
@@ -53,6 +53,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                     }
                     ref.watch(moveListsProvider.notifier).store();
                   }
+                  analyticsEvent(name: "Edit Custom Action", props: {"Number of Moves": value!.moves.length.toString(), "Repeat": value.repeat.toString()});
                 }),
               );
         },
@@ -109,7 +110,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                         if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
                           await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
                         }
-                        ref.read(runActionProvider(element).notifier).runAction(allMoveLists[index]);
+                        ref.read(runActionProvider(element).notifier).runAction(allMoveLists[index], triggeredBy: "Custom Action Page");
                       },
                     );
                   },
@@ -170,6 +171,8 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
                 if (value ?? true) {
                   await ref.watch(moveListsProvider.notifier).remove(widget.moveList);
                   await ref.watch(moveListsProvider.notifier).store();
+                  analyticsEvent(name: "Remove Custom Action", props: {"Number of Moves": widget.moveList.moves.length.toString(), "Repeat": widget.moveList.repeat.toString()});
+
                   if (context.mounted) {
                     context.pop();
                   }

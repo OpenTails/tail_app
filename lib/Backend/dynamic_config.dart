@@ -23,6 +23,14 @@ abstract class DynamicConfigInfo with _$DynamicConfigInfo {
   factory DynamicConfigInfo({
     @Default(AppVersion()) AppVersion appVersion,
     @Default(SentryConfig()) SentryConfig sentryConfig,
+    @Default(FeatureFlags()) FeatureFlags featureFlags,
+    @Default({
+      "MiTail": "https://thetailcompany.com/fw/mitail.json",
+      "minitail": "https://thetailcompany.com/fw/mini.json",
+      "EG2": "https://thetailcompany.com/fw/eg",
+      "flutter": "https://thetailcompany.com/fw/flutter"
+    })
+    Map<String, String> updateURLs,
   }) = _DynamicConfigInfo;
 
   factory DynamicConfigInfo.fromJson(Map<String, dynamic> json) => _$DynamicConfigInfoFromJson(json);
@@ -49,6 +57,19 @@ abstract class SentryConfig with _$SentryConfig {
   }) = _SentryConfig;
 
   factory SentryConfig.fromJson(Map<String, dynamic> json) => _$SentryConfigFromJson(json);
+}
+
+// Should not override user settings
+@freezed
+abstract class FeatureFlags with _$FeatureFlags {
+  const factory FeatureFlags({
+    @Default(true) bool enableAnalytics,
+    // Tracking which actions are sent to gear
+    @Default(true) bool enableActionAnalytics,
+    @Default(true) bool enableErrorReporting,
+  }) = _FeatureFlags;
+
+  factory FeatureFlags.fromJson(Map<String, dynamic> json) => _$FeatureFlagsFromJson(json);
 }
 
 DynamicConfigInfo? _dynamicConfigInfo;
@@ -78,7 +99,8 @@ Future<void> getRemoteDynamicConfigInfo() async {
   Dio dio = await initDio();
   try {
     _dynamicConfigLogger.info("Downloading latest config file");
-    Response<String> response = await dio.get('https://raw.githubusercontent.com/OpenTails/tail_app/master/assets/dynamic_config.json', options: Options(contentType: ContentType.json.mimeType, responseType: ResponseType.json));
+    Response<String> response = await dio.get('https://raw.githubusercontent.com/OpenTails/tail_app/master/assets/dynamic_config.json',
+        options: Options(contentType: ContentType.json.mimeType, responseType: ResponseType.json));
     if (response.statusCode! < 400) {
       String jsonData = response.data!;
       // ignore: unused_local_variable

@@ -7,6 +7,7 @@ import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/device_registry.dart';
 import 'package:tail_app/Backend/sensors.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -16,7 +17,6 @@ import 'package:watch_connectivity/watch_connectivity.dart';
 import 'Definitions/Action/base_action.dart';
 import 'action_registry.dart';
 import 'favorite_actions.dart';
-import 'move_lists.dart';
 
 part 'wear_bridge.freezed.dart';
 
@@ -48,7 +48,7 @@ class MessageStreamSubscription extends _$MessageStreamSubscription {
         if (action != null) {
           Iterable<BaseStatefulDevice> knownDevices = ref.read(getAvailableIdleGearProvider);
           for (BaseStatefulDevice device in knownDevices) {
-            ref.read(runActionProvider(device).notifier).runAction(action);
+            ref.read(runActionProvider(device).notifier).runAction(action, triggeredBy: "Watch");
           }
         }
         break;

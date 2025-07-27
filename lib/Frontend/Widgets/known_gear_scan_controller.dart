@@ -1,16 +1,11 @@
 import 'dart:async';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/device_registry.dart';
-import '../../constants.dart';
 
 final knownGearScanControllerLogger = log.Logger('KnownGearScanController');
 

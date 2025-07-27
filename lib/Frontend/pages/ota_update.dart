@@ -84,7 +84,12 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                         children: [
                           Text("MD5: ${otaUpdater.firmwareInfo?.md5sum}"),
                           Text("DL MD5: ${otaUpdater.downloadedMD5}"),
-                          Text("URL: ${baseStatefulDevice?.baseDeviceDefinition.fwURL}"),
+                          FutureBuilder(
+                            future: baseStatefulDevice?.baseDeviceDefinition.getFwURL(),
+                            builder: (context, snapshot) {
+                              return Text("URL: ${snapshot.data ?? ""}");
+                            },
+                          ),
                           Text("AVAILABLE VERSION: ${otaUpdater.firmwareInfo?.version}"),
                           Text("CURRENT VERSION: ${baseStatefulDevice?.fwVersion.value}"),
                           Text("STATE: ${otaState}"),

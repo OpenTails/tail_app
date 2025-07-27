@@ -1,6 +1,9 @@
 # Privacy Policy
 
-Updated 7/10/2024 update the error reporting section and to add a contact info.
+## Changelog
+
+- Updated 7/10/2024 update the error reporting section and to add a contact info.
+- Updated 7/27/2025 to update the analytics collected data and third parties sections.
 
 ## What is Collected
 
@@ -19,7 +22,7 @@ Data is encrypted in transit. Since data is aggregated and anonymous, there is n
 
 ### Analytics
 
-App usage data is stored in a self hosted [Plausible Analytics](https://plausible.io/) instance
+App usage data is stored in a self hosted server and is not shared with third parties
 
 #### The following data is collected
 
@@ -30,8 +33,7 @@ App usage data is stored in a self hosted [Plausible Analytics](https://plausibl
 - Location Region (IP address based)
 - Trigger Type & Gear Type used
 - Action Name & Type used
-
-The analytics dashboard (public) can be found [here](https://plausible.codel1417.xyz/tail-app).
+- Settings and Feature usage
 
 ### Error Reporting
 
@@ -48,9 +50,8 @@ Data is stored for up to 90 days and only used for fixing issues with the app. T
 
 ## Third Parties
 
-I use [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/) to open my [Plausible Analytics](https://plausible.io/) instance to the public.
-[Sentry](https://sentry.io) is used for error collection.
+I use [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/) to open my local server to the public for error collection and analytics.
 
 ## Contact
 
-for any inquiries please contact us at info@thetailcompany.com
+for any inquiries please contact us at <info@thetailcompany.com>

@@ -11,7 +11,7 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/logging_wrappers.dart';
-import '../../Backend/plausible_dio.dart';
+import '../../Backend/analytics.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../Widgets/language_picker.dart';
@@ -44,7 +44,8 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
 
   void _onIntroEnd(BuildContext context) {
     // Navigator.of(context).pushReplacement()
-    plausible.event(name: "Complete Onboarding");
+    launchAppAnalytics();
+    analyticsEvent(name: "Complete Onboarding", props: {"onboardingVersion": hasCompletedOnboardingVersionToAgree.toString()});
     _introLogger.info("Complete Onboarding");
     HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
     configurePushNotifications();
@@ -125,6 +126,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                     $extra: MarkdownInfo(
                       content: await rootBundle.loadString(Assets.privacy),
                       title: convertToUwU(morePrivacyPolicyLinkTitle()),
+                      analyticsLabel: "Privacy Policy",
                     ),
                   ).push(context);
                 },

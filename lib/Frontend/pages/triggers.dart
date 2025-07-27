@@ -3,6 +3,7 @@ import 'package:choice/choice.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
@@ -12,7 +13,7 @@ import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/action_registry.dart';
 import '../../Backend/logging_wrappers.dart';
-import '../../Backend/plausible_dio.dart';
+import '../../Backend/analytics.dart';
 import '../../Backend/sensors.dart';
 import '../../constants.dart';
 import '../Widgets/casual_mode_delay_widget.dart';
@@ -104,7 +105,7 @@ class _TriggersState extends ConsumerState<Triggers> {
                           () {
                             Trigger trigger = Trigger.trigDef(value, const Uuid().v4());
                             ref.watch(triggerListProvider.notifier).add(trigger);
-                            plausible.event(name: "Add Trigger", props: {"Trigger Type": value.runtimeType.toString()});
+                            analyticsEvent(name: "Add Trigger", props: {"Trigger Type": Intl.withLocale('en', () => value.name())});
                           },
                         );
                       }
@@ -182,9 +183,8 @@ class _TriggersState extends ConsumerState<Triggers> {
                                       () {
                                         trigger.storedEnable = !trigger.enabled;
                                         ref.read(triggerListProvider.notifier).store();
-                                        plausible.event(
-                                            name: "Enable Trigger",
-                                            props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger.triggerDefUUID).first.toString()});
+                                        TriggerDefinition triggerDefinition = ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger.triggerDefUUID).first;
+                                        analyticsEvent(name: "${value ? "Enable" : "Disable"} Trigger", props: {"Trigger Type": Intl.withLocale('en', () => triggerDefinition.name())});
                                       },
                                     );
                                   }
@@ -264,9 +264,8 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                                     () {
                                       trigger!.storedEnable = !trigger!.enabled;
                                       ref.read(triggerListProvider.notifier).store();
-                                      plausible.event(
-                                          name: "Enable Trigger",
-                                          props: {"Trigger Type": ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger!.triggerDefUUID).first.toString()});
+                                      TriggerDefinition triggerDefinition = ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger!.triggerDefUUID).first;
+                                      analyticsEvent(name: "${value ? "Enable" : "Disable"} Trigger", props: {"Trigger Type": Intl.withLocale('en', () => triggerDefinition.name())});
                                     },
                                   );
                                 }
@@ -400,6 +399,9 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                     onPressed: () async {
                       trigger!.enabled = false;
                       await ref.watch(triggerListProvider.notifier).remove(trigger!);
+
+                      TriggerDefinition triggerDefinition = ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger!.triggerDefUUID).first;
+                      analyticsEvent(name: "Delete Trigger", props: {"Trigger Type": Intl.withLocale('en', () => triggerDefinition.name())});
                       setState(
                         () {
                           Navigator.of(context).pop();

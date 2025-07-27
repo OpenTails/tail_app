@@ -11,7 +11,7 @@ import '../Backend/Definitions/Action/base_action.dart';
 import '../Backend/Definitions/Device/device_definition.dart';
 import '../Backend/logging_wrappers.dart';
 import '../Backend/move_lists.dart';
-import '../Backend/plausible_dio.dart';
+import '../Backend/analytics.dart';
 import '../constants.dart';
 import 'Widgets/color_picker_dialog.dart';
 import 'Widgets/manage_gear.dart';
@@ -38,7 +38,6 @@ part 'go_router_config.g.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
-String _previousPageName = "";
 // GoRouter configuration
 final GoRouter router = GoRouter(
   debugLogDiagnostics: true,
@@ -51,8 +50,7 @@ final GoRouter router = GoRouter(
   redirect: (context, state) async {
     String name = state.uri.path;
     if (name.isNotEmpty) {
-      plausible.event(page: name.toString(), referrer: _previousPageName);
-      _previousPageName = name;
+      analyticsEvent(name: "Pageview", props: {"Page": name.toString()});
     }
     return null;
   },

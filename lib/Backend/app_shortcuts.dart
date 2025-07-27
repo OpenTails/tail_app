@@ -3,13 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/analytics.dart';
+import 'package:tail_app/Backend/command_runner.dart';
 
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'action_registry.dart';
 import 'device_registry.dart';
 import 'favorite_actions.dart';
-import 'move_lists.dart';
 
 part 'app_shortcuts.g.dart';
 
@@ -26,8 +27,9 @@ Future<void> appShortcuts(Ref ref) async {
     if (action != null) {
       Iterable<BaseStatefulDevice> knownDevices = ref.read(getAvailableIdleGearProvider);
       for (BaseStatefulDevice device in knownDevices) {
-        ref.read(runActionProvider(device).notifier).runAction(action);
+        ref.read(runActionProvider(device).notifier).runAction(action, triggeredBy: "App Shortcut");
       }
+      analyticsEvent(name: "Use App Shortcut");
     }
   });
   updateShortcuts(ref.read(favoriteActionsProvider), ref);

@@ -11,7 +11,7 @@ import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/logging_wrappers.dart';
-import '../../Backend/plausible_dio.dart';
+import '../../Backend/analytics.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../translation_string_definitions.dart';
@@ -71,7 +71,8 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                   () {
                                     BaseStoredDevice baseStoredDevice;
                                     BaseStatefulDevice statefulDevice;
-                                    baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.name}", value.deviceType.color(ref: ref).toARGB32())..name = getNameFromBTName(value.btName);
+                                    baseStoredDevice = BaseStoredDevice(value.uuid, "DEV${value.deviceType.translatedName}", value.deviceType.color(ref: ref).toARGB32())
+                                      ..name = getNameFromBTName(value.btName);
                                     statefulDevice = BaseStatefulDevice(value, baseStoredDevice);
                                     statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
                                     if (value.deviceType == DeviceType.ears) {
@@ -193,7 +194,7 @@ class _ScanGearListState extends ConsumerState<ScanGearList> {
                               trailing: Text(HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
                               onTap: () async {
                                 await e.device.connect();
-                                plausible.event(name: "Connect New Gear", props: {"Gear Type": e.device.advName});
+                                analyticsEvent(name: "Connect New Gear", props: {"Gear Type": e.device.advName, "Onboarding in Progress": widget.popOnConnect.toString()});
                                 if (context.mounted && widget.popOnConnect) {
                                   Navigator.pop(context);
                                 }

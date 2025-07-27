@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/command_queue.dart';
+import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/firmware_update.dart';
 import 'package:tail_app/Backend/move_lists.dart';
 import 'package:tail_app/Backend/version.dart';
@@ -321,7 +322,9 @@ class _ManageGearUpdateCheckButtonState extends ConsumerState<ManageGearUpdateCh
                       } else {
                         setState(() {
                           //force redownloading the json
-                          ref.invalidate(getBaseFirmwareInfoProvider(widget.device.baseDeviceDefinition.fwURL));
+                          Future(
+                            () async => ref.invalidate(getBaseFirmwareInfoProvider(await widget.device.baseDeviceDefinition.getFwURL())),
+                          );
                           _otaAvailable = ref.watch(hasOtaUpdateProvider(widget.device).future);
                         });
                       }
@@ -580,7 +583,12 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
               Text("CON ELAPSED: ${widget.device.stopWatch.elapsed}"),
               Text("DEV UUID: ${widget.device.baseDeviceDefinition.uuid}"),
               Text("DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}"),
-              Text("DEV FW URL: ${widget.device.baseDeviceDefinition.fwURL}"),
+              FutureBuilder(
+                future: widget.device.baseDeviceDefinition.getFwURL(),
+                builder: (context, snapshot) {
+                  return Text("DEV FW URL: ${snapshot.data ?? ""}");
+                },
+              ),
               ValueListenableBuilder(
                 valueListenable: widget.device.mtu,
                 builder: (context, value, child) => Text("MTU: ${widget.device.mtu.value}"),

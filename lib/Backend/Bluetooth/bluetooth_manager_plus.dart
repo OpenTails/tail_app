@@ -13,6 +13,7 @@ import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod/src/framework.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/command_history.dart';
 import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/version.dart';
@@ -264,6 +265,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
         );
         FlutterForegroundTask.setOnLockScreenVisibility(true);
       }
+      analyticsEvent(name: "Connect Gear", props: {"Gear Type": deviceDefinition.btName});
       await event.device.discoverServices();
 
       // queue up commands to get gear info
@@ -298,6 +300,9 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
       if (knownDevices[bluetoothDevice.remoteId.str] != null && knownDevices[bluetoothDevice.remoteId.str]!.forgetOnDisconnect) {
         _bluetoothPlusLogger.finer('forgetting about gear');
         ref.read(knownDevicesProvider.notifier).remove(bluetoothDevice.remoteId.str);
+        analyticsEvent(name: "Forgetting Gear", props: {"Gear Type": deviceDefinition.btName});
+      } else {
+        analyticsEvent(name: "Disconnect Gear", props: {"Gear Type": deviceDefinition.btName});
       }
     }
   }

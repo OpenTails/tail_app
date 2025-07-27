@@ -34,7 +34,7 @@ class DeviceTypeWidget extends ConsumerWidget {
             selectedColor: deviceType.color(ref: ref),
             selected: state.selected(deviceType),
             onSelected: state.onSelected(deviceType),
-            label: Text(convertToUwU(deviceType.name)),
+            label: Text(convertToUwU(deviceType.translatedName)),
             elevation: 1,
           );
         },

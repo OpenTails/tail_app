@@ -15,6 +15,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
+import 'package:tail_app/Backend/analytics.dart';
 
 import 'Backend/Bluetooth/bluetooth_manager.dart';
 import 'Backend/Definitions/Action/base_action.dart';
@@ -35,7 +36,9 @@ import 'constants.dart';
 import 'l10n/app_localizations.dart';
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
-  bool reportingEnabled = HiveProxy.getOrDefault(settings, "allowErrorReporting", defaultValue: true);
+  DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
+
+  bool reportingEnabled = HiveProxy.getOrDefault(settings, "allowErrorReporting", defaultValue: true) && dynamicConfigInfo.featureFlags.enableErrorReporting;
   if (reportingEnabled) {
     if (kDebugMode) {
       print('Before sending sentry event');
@@ -237,11 +240,13 @@ class TailApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Platform messages may fail, so we use a try/catch PlatformException.
     mainLogger.info('Starting app');
+    launchAppAnalytics();
+
     if (kDebugMode) {
       mainLogger.info('Debug Mode Enabled');
       HiveProxy
         ..put(settings, showDebugging, true)
-        ..put(settings, allowAnalytics, false)
+        //..put(settings, allowAnalytics, false)
         ..put(settings, showDemoGear, true);
     }
 

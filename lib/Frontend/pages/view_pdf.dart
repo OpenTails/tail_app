@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pdfx/pdfx.dart';
+import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
@@ -15,6 +16,7 @@ abstract class PDFInfo with _$PDFInfo {
   const factory PDFInfo({
     required String url,
     required String title,
+    required String analyticsLabel,
   }) = _PDFInfo;
 }
 
@@ -68,6 +70,7 @@ class _ViewPDFState extends State<ViewPDF> {
         setState(() {
           data = Uint8List.fromList(rs.data!);
         });
+        analyticsEvent(name: "View File", props: {"file": widget.pdfInfo.analyticsLabel});
       }
     } else {
       setState(

@@ -1,3 +1,7 @@
+### V 1.3.1
+
+- Rework analytics to be more useful
+
 ### V 1.3.0
 
 - Fix bug when selecting a color

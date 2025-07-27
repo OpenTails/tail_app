@@ -7,6 +7,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/ear_speed_widget.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -175,7 +176,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
             if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
               await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
             }
-            ref.read(runActionProvider(device).notifier).runAction(widget.action);
+            ref.read(runActionProvider(device).notifier).runAction(widget.action, triggeredBy: "Actions Page");
           }
         },
         child: SizedBox.expand(
@@ -224,7 +225,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                           child: Padding(
                             padding: const EdgeInsets.all(4),
                             child: Text(
-                              e.baseDeviceDefinition.deviceType.name.substring(0, 1),
+                              e.baseDeviceDefinition.deviceType.translatedName.substring(0, 1),
                               textScaler: TextScaler.linear(widget.largerCards ? 2 : 1),
                               style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(Color(e.baseStoredDevice.color))),
                             ),

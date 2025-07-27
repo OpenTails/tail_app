@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:data_saver/data_saver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -129,7 +130,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text("AdapterState"),
             subtitle: StreamBuilder(
-              stream: FlutterBluePlus.adapterState,
+              stream: FlutterBluePlus.adapterState.asBroadcastStream(),
               builder: (BuildContext context, AsyncSnapshot<BluetoothAdapterState> snapshot) {
                 var value = snapshot.data;
                 String text = value != null ? value.toString() : "unknown";
@@ -140,7 +141,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text("isScanning"),
             subtitle: StreamBuilder(
-              stream: FlutterBluePlus.isScanning,
+              stream: FlutterBluePlus.isScanning.asBroadcastStream(),
               builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                 var value = snapshot.data;
                 String text = value != null ? value.toString() : "unknown";
@@ -190,6 +191,19 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 var value = snapshot.data;
                 String text = value != null ? value.toString() : "unknown";
                 return Text(text);
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("DataSaver"),
+            subtitle: FutureBuilder(
+              future: DataSaver().checkMode(),
+              builder: (context, snapshot) {
+                String dataSaverMode = "";
+                if (snapshot.hasData) {
+                  dataSaverMode = snapshot.data!.name;
+                }
+                return Text(dataSaverMode);
               },
             ),
           ),

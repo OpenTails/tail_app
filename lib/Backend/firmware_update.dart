@@ -10,7 +10,7 @@ import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tail_app/Backend/plausible_dio.dart';
+import 'package:tail_app/Backend/analytics.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../Frontend/utils.dart';
@@ -94,7 +94,7 @@ Future<FWInfo?> checkForFWUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice)
   if (baseStatefulDevice.fwInfo.value != null) {
     return baseStatefulDevice.fwInfo.value;
   }
-  String url = baseStatefulDevice.baseDeviceDefinition.fwURL;
+  String url = await baseStatefulDevice.baseDeviceDefinition.getFwURL();
   if (url.isEmpty) {
     return null;
   }
@@ -399,7 +399,11 @@ class OtaUpdater extends _$OtaUpdater {
             }
           },
         );
-        plausible.event(name: "Update Gear");
+        analyticsEvent(name: "Update Gear", props: {
+          "Target Gear": baseStatefulDevice.baseDeviceDefinition.btName,
+          "Hardware Version": baseStatefulDevice.hwVersion.value,
+          "Firmware Version": baseStatefulDevice.fwVersion.value.toString()
+        });
       }
       baseStatefulDevice.deviceState.value = DeviceState.standby; // release the command queue
     }

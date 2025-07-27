@@ -20,7 +20,6 @@ class DeviceRegistry {
       uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
       btName: "MiTail",
       deviceType: DeviceType.tail,
-      fwURL: "https://thetailcompany.com/fw/mitail.json",
       minVersion: Version(major: 5, minor: 0, patch: 0),
     ),
     BaseDeviceDefinition(
@@ -33,21 +32,18 @@ class DeviceRegistry {
       uuid: "5fb21175-fef4-448a-a38b-c472d935abab",
       btName: "minitail",
       deviceType: DeviceType.miniTail,
-      fwURL: "https://thetailcompany.com/fw/mini.json",
       minVersion: Version(major: 5, minor: 0, patch: 0),
     ),
     BaseDeviceDefinition(
       uuid: "e790f509-f95b-4eb4-b649-5b43ee1eee9c",
       btName: "flutter",
       deviceType: DeviceType.wings,
-      fwURL: "https://thetailcompany.com/fw/flutter",
       minVersion: Version(major: 5, minor: 0, patch: 0),
     ),
     BaseDeviceDefinition(
       uuid: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
       btName: "EG2",
       deviceType: DeviceType.ears,
-      fwURL: "https://thetailcompany.com/fw/eg", //TODO: Set minimum version for TAILCoNTROL update
     ),
     BaseDeviceDefinition(
       uuid: "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d",

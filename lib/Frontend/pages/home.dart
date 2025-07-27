@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart' as log;
+import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../Widgets/base_card.dart';
 import '../Widgets/tail_blog.dart';
@@ -29,7 +27,6 @@ class _HomeState extends ConsumerState<Home> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -60,14 +57,14 @@ class _HomeState extends ConsumerState<Home> {
                       TextButton(
                         onPressed: () async {
                           MarkdownViewerRoute(
-                            $extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle()),
+                            $extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle(), analyticsLabel: 'Changelog'),
                           ).push(context);
                         },
                         child: Text(convertToUwU(homeChangelogLinkTitle())),
                       ),
                       TextButton(
                         onPressed: () async {
-                          await launchUrl(Uri.parse('https://thetailcompany.com?utm_source=Tail_App'));
+                          await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Store");
                         },
                         child: Text(convertToUwU('Tail Company Store')),
                       ),

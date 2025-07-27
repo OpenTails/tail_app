@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,11 +13,14 @@ abstract class MarkdownInfo with _$MarkdownInfo {
   const factory MarkdownInfo({
     required String content,
     required String title,
+    required String analyticsLabel,
   }) = _MarkdownInfo;
 }
 
 class MarkdownViewer extends StatelessWidget {
-  const MarkdownViewer({required this.markdownInfo, super.key});
+  MarkdownViewer({required this.markdownInfo, super.key}) {
+    analyticsEvent(name: "View File", props: {"file": markdownInfo.analyticsLabel});
+  }
 
   final MarkdownInfo markdownInfo;
 
