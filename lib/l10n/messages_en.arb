@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-07-14T22:50:00.227192",
+  "@@last_modified": "2025-07-27T20:16:51.022311",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -10,6 +10,12 @@
   "homeNewsTitle": "Fresh from the Tail Blog",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeCosHubTitle": "Featured Cosplayers on CosHub",
+  "@homeCosHubTitle": {
+    "description": "The title header for the coshub in the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
