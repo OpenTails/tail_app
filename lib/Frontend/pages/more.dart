@@ -11,7 +11,6 @@ import '../../constants.dart';
 import '../../gen/assets.gen.dart';
 import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
-import '../utils.dart';
 import 'html_page.dart';
 import 'markdown_viewer.dart';
 
