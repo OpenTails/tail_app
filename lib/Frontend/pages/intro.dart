@@ -118,6 +118,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
           footer: OverflowBar(
             alignment: MainAxisAlignment.center,
             overflowAlignment: OverflowBarAlignment.center,
+            overflowSpacing: 4,
             spacing: 8,
             children: [
               ElevatedButton(
@@ -273,16 +274,9 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         },
         child: Text(convertToUwU(onboardingDoneButtonLabel()), style: const TextStyle(fontWeight: FontWeight.w600)),
       ),
-      dotsFlex: 1,
+      dotsFlex: 0,
+      isProgress: false,
       controlsPadding: const EdgeInsets.symmetric(vertical: 32),
-      dotsDecorator: DotsDecorator(
-        size: const Size.square(12.0),
-        activeSize: const Size(40.0, 10.0),
-        activeColor: Theme.of(context).colorScheme.primary,
-        color: Theme.of(context).colorScheme.tertiary,
-        spacing: const EdgeInsets.symmetric(horizontal: 3.0),
-        activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
-      ),
     );
   }
 }
