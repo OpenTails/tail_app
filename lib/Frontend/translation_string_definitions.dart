@@ -454,10 +454,10 @@ String manageGearHomePositionTitle() => Intl.message("Set Home Position", name: 
 String manageGearHomePositionDescription() => Intl.message("Sets the position gear will move to after an action is finished",
     name: 'manageGearHomePositionDescription', desc: 'Description for the home position sliders on the manage gear screen');
 
-String settingsTailBlogWifiOnlyTitle() => Intl.message("Tail Blog over WiFi only", name: 'settingsTailBlogWifiOnlyTitle', desc: 'Description for the tail blog wifi only setting');
+String settingsTailBlogWifiOnlyTitle() => Intl.message("Reduce Data usage", name: 'settingsTailBlogWifiOnlyTitle', desc: 'Description for the tail blog wifi only setting');
 
 String settingsTailBlogWifiOnlyDescription() =>
-    Intl.message("Prevent loading Tail Blog content while connected to a mobile network", name: 'settingsTailBlogWifiOnlyDescription', desc: 'Description for the tail blog wifi only setting');
+    Intl.message("Prevent loading of some content while connected to a mobile network", name: 'settingsTailBlogWifiOnlyDescription', desc: 'Description for the tail blog wifi only setting');
 
 String supportTitle() => Intl.message('Support', name: 'supportTitle', desc: 'The label and title of the email support link on the more page');
 
