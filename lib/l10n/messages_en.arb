@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-07-27T20:16:51.022311",
+  "@@last_modified": "2025-07-28T01:57:29.589921",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1161,13 +1161,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTailBlogWifiOnlyTitle": "Tail Blog over WiFi only",
+  "settingsTailBlogWifiOnlyTitle": "Reduce Data usage",
   "@settingsTailBlogWifiOnlyTitle": {
     "description": "Description for the tail blog wifi only setting",
     "type": "text",
     "placeholders": {}
   },
-  "settingsTailBlogWifiOnlyDescription": "Prevent loading Tail Blog content while connected to a mobile network",
+  "settingsTailBlogWifiOnlyDescription": "Prevent loading of some content while connected to a mobile network",
   "@settingsTailBlogWifiOnlyDescription": {
     "description": "Description for the tail blog wifi only setting",
     "type": "text",
