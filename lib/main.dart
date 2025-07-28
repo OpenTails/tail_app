@@ -152,7 +152,7 @@ Future<void> main() async {
 
   initFlutter();
   await initHive();
-  await configurePushNotifications();
+  configurePushNotifications();
   initMainApp();
 }
 

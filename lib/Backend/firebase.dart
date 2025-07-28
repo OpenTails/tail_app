@@ -79,11 +79,16 @@ Future<List<CosHubPost>> getCosHubPosts(Ref ref) async {
 }
 
 //TODO: reset ID when disabled
+bool didInitFirebase = false;
 Future<void> configurePushNotifications() async {
-  // Required before doing anything with firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (!didInitFirebase) {
+    // Required before doing anything with firebase
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    didInitFirebase = true;
+  }
+
   //Disable firebase and clear ID
   if (!HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault) ||
       HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) != hasCompletedOnboardingVersionToAgree) {
