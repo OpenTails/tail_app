@@ -15,12 +15,6 @@ class TailBlogImage extends StatelessWidget {
         child: CachedNetworkImage(
           height: 300,
           imageUrl: url,
-          progressIndicatorBuilder: (context, url, downloadProgress) => SizedBox.square(
-            dimension: 40,
-            child: CircularProgressIndicator(
-              value: downloadProgress.progress,
-            ),
-          ),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
       ),
