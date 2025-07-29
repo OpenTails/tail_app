@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:aptabase_flutter/aptabase_flutter.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -66,10 +67,10 @@ Future<Map<String, String>> _getSettingsProps({Map<String, String> props = const
 
 Future<Map<String, String>> _getLaunchProps({Map<String, String> props = const {}}) async {
   props = Map.of(props);
-
   //props['App Version'] = (await PackageInfo.fromPlatform()).version;
   //props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
   props['Locale'] = Platform.localeName;
+  props['Installer Store'] = (await PackageInfo.fromPlatform()).installerStore ?? "Unknown";
 
   try {
     props['Has Watch'] = (await isPaired()).toString();
