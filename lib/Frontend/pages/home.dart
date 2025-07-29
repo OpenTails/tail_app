@@ -93,6 +93,17 @@ class _HomeState extends ConsumerState<Home> {
         ),
         ListTile(
           title: Text(
+            convertToUwU(homeNewsTitle()),
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          trailing: Icon(Icons.newspaper),
+        ),
+        SizedBox(
+          height: 350,
+          child: TailBlog(),
+        ),
+        ListTile(
+          title: Text(
             convertToUwU(homeCosHubTitle()),
             style: Theme.of(context).textTheme.titleLarge,
           ),
@@ -105,16 +116,6 @@ class _HomeState extends ConsumerState<Home> {
         SizedBox(
           height: 350,
           child: CoshubFeed(),
-        ),
-        ListTile(
-          title: Text(
-            convertToUwU(homeNewsTitle()),
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ),
-        SizedBox(
-          height: 350,
-          child: TailBlog(),
         ),
       ],
     );

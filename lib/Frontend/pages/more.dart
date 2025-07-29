@@ -54,7 +54,7 @@ class _MoreState extends ConsumerState<More> {
             height: 24,
           ),
           onTap: () async {
-            await launchExternalUrl(url: "https://coshub.com", analyticsLabel: "CosHub");
+            await launchExternalUrl(url: "https://onelink.to/coshub", analyticsLabel: "CosHub");
           },
         ),
         ListTile(

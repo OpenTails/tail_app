@@ -66,7 +66,7 @@ Future<List<CosHubPost>> getCosHubPosts(Ref ref) async {
           .data();
       CosHubPost cosHubPost = CosHubPost(
         id: postData["id"],
-        url: "  ",
+        url: "https://onelink.to/coshub",
         thumbnailUrl: postData["postImageUrls"][0],
         profileThumbnailUrl: userData["profilePicture"],
         username: userData["username"],
