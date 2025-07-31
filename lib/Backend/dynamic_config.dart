@@ -78,7 +78,6 @@ abstract class FeatureFlags with _$FeatureFlags {
   factory FeatureFlags.fromJson(Map<String, dynamic> json) => _$FeatureFlagsFromJson(json);
 }
 
-// Should not override user settings
 @freezed
 abstract class URLs with _$URLs {
   const factory URLs({
