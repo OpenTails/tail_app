@@ -18,7 +18,10 @@
     "_comment": "Used to enable/disable features without overriding the user setting",
     "enableAnalytics": true,
     "enableActionAnalytics": true,
-    "enableErrorReporting": true
+    "enableErrorReporting": true,
+    "enableCoshubPosts": true,
+    "enableTailBlogPosts": true,
+    "analyticsTickDurationSeconds": 30
   },
   "updateURLs": {
     "_commant": "bt name : ota info url",
@@ -26,5 +29,9 @@
     "minitail": "https://thetailcompany.com/fw/mini.json",
     "EG2": "https://thetailcompany.com/fw/eg",
     "flutter": "https://thetailcompany.com/fw/flutter"
+  },
+  "urls": {
+    "coshubUrl": "https://onelink.to/coshub",
+    "dynamicConfigFileUrl": "https://raw.githubusercontent.com/OpenTails/tail_app/master/assets/dynamic_config.json"
   }
 }

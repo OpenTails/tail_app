@@ -18,6 +18,8 @@ part 'dynamic_config.g.dart';
 
 final _dynamicConfigLogger = Logger('DynamicConfig');
 
+// All Values MUST have a default value to avoid backwards compatability issues
+
 @freezed
 abstract class DynamicConfigInfo with _$DynamicConfigInfo {
   factory DynamicConfigInfo({
@@ -31,6 +33,7 @@ abstract class DynamicConfigInfo with _$DynamicConfigInfo {
       "flutter": "https://thetailcompany.com/fw/flutter"
     })
     Map<String, String> updateURLs,
+    @Default(URLs()) URLs urls,
   }) = _DynamicConfigInfo;
 
   factory DynamicConfigInfo.fromJson(Map<String, dynamic> json) => _$DynamicConfigInfoFromJson(json);
@@ -67,9 +70,23 @@ abstract class FeatureFlags with _$FeatureFlags {
     // Tracking which actions are sent to gear
     @Default(true) bool enableActionAnalytics,
     @Default(true) bool enableErrorReporting,
+    @Default(true) bool enableCoshubPosts,
+    @Default(true) bool enableTailBlogPosts,
+    @Default(30) int analyticsTickDurationSeconds,
   }) = _FeatureFlags;
 
   factory FeatureFlags.fromJson(Map<String, dynamic> json) => _$FeatureFlagsFromJson(json);
+}
+
+// Should not override user settings
+@freezed
+abstract class URLs with _$URLs {
+  const factory URLs({
+    @Default("https://onelink.to/coshub") String coshubUrl,
+    @Default("https://raw.githubusercontent.com/OpenTails/tail_app/master/assets/dynamic_config.json") String dynamicConfigFileUrl,
+  }) = _URLs;
+
+  factory URLs.fromJson(Map<String, dynamic> json) => _$URLsFromJson(json);
 }
 
 DynamicConfigInfo? _dynamicConfigInfo;
@@ -80,33 +97,40 @@ Future<DynamicConfigInfo> getDynamicConfigInfo() async {
   }
   _dynamicConfigLogger.info("Loading dynamic config");
 
+  // Check if the stored dynamic config file is from an old app version and delete it.
   String buildNumber = (await PackageInfo.fromPlatform()).buildNumber;
   String storedBuildNumber = HiveProxy.getOrDefault(settings, dynamicConfigStoredBuildNumber, defaultValue: '');
   if (storedBuildNumber != buildNumber) {
     HiveProxy.deleteKey(settings, dynamicConfigJsonString);
   }
 
+  // Load the stored or bundled dynamic config file
   String dynamicConfigJsonDefault = await rootBundle.loadString(Assets.dynamicConfig);
   String dynamicConfigJson = HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: dynamicConfigJsonDefault);
   String embeddedDynamicConfig = dynamicConfigJson;
   DynamicConfigInfo dynamicConfigInfo = DynamicConfigInfo.fromJson(const JsonDecoder().convert(embeddedDynamicConfig));
   _dynamicConfigInfo = dynamicConfigInfo;
-  //getRemoteDynamicConfigInfo(); // trigger updating config file without waiting
+
+  _getRemoteDynamicConfigInfo(); // trigger updating config file without waiting
+
   return dynamicConfigInfo;
 }
 
-Future<void> getRemoteDynamicConfigInfo() async {
+Future<void> _getRemoteDynamicConfigInfo() async {
   Dio dio = await initDio();
   try {
     _dynamicConfigLogger.info("Downloading latest config file");
-    Response<String> response = await dio.get('https://raw.githubusercontent.com/OpenTails/tail_app/master/assets/dynamic_config.json',
+    // TODO: move to own domain
+    Response<String> response = await dio.get(_dynamicConfigInfo!.urls.dynamicConfigFileUrl,
         options: Options(contentType: ContentType.json.mimeType, responseType: ResponseType.json));
     if (response.statusCode! < 400) {
       String jsonData = response.data!;
       // ignore: unused_local_variable
       DynamicConfigInfo dynamicConfigInfo = DynamicConfigInfo.fromJson(const JsonDecoder().convert(jsonData)); //Throws if config invalid
       HiveProxy.put(settings, dynamicConfigJsonString, jsonData); //store it for next app launch
+      _dynamicConfigInfo = dynamicConfigInfo;
 
+      // Used to invalidate old config files on app update
       String buildNumber = (await PackageInfo.fromPlatform()).buildNumber;
       HiveProxy.put(settings, dynamicConfigStoredBuildNumber, buildNumber);
     }

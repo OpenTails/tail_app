@@ -26,7 +26,17 @@ Future<void> _initAptBase() async {
   if (_didInit) {
     return;
   }
-  await Aptabase.init("A-SH-1386827771", InitOptions(printDebugMessages: kDebugMode, host: "https://aptabase.codel1417.xyz"));
+
+  await Aptabase.init(
+    "A-SH-1386827771",
+    InitOptions(
+      printDebugMessages: kDebugMode,
+      host: "https://aptabase.codel1417.xyz",
+      tickDuration: Duration(
+        seconds: (await getDynamicConfigInfo()).featureFlags.analyticsTickDurationSeconds,
+      ),
+    ),
+  );
   _didInit = true;
 }
 

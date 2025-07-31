@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -48,6 +49,8 @@ Future<List<CosHubPost>> getCosHubPosts(Ref ref) async {
   final QuerySnapshot<Map<String, dynamic>> postsQuery = await firestore.collection("posts").where("userId", whereIn: featuredCosplayersUserIds).orderBy("createdAt", descending: true).limit(10).get();
   final QuerySnapshot<Map<String, dynamic>> usersQuery = await firestore.collection("users").where("id", whereIn: featuredCosplayersUserIds).get();
 
+
+  final String cosHubUrl = (await getDynamicConfigInfo()).urls.coshubUrl;
   List<CosHubPost> mappedPosts = postsQuery.docs
       .map(
     (e) => e.data(),
@@ -66,7 +69,7 @@ Future<List<CosHubPost>> getCosHubPosts(Ref ref) async {
           .data();
       CosHubPost cosHubPost = CosHubPost(
         id: postData["id"],
-        url: "https://onelink.to/coshub",
+        url: cosHubUrl,
         thumbnailUrl: postData["postImageUrls"][0],
         profileThumbnailUrl: userData["profilePicture"],
         username: userData["username"],

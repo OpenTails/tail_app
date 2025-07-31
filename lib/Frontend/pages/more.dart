@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/analytics.dart';
+import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
@@ -54,7 +55,7 @@ class _MoreState extends ConsumerState<More> {
             height: 24,
           ),
           onTap: () async {
-            await launchExternalUrl(url: "https://onelink.to/coshub", analyticsLabel: "CosHub");
+            await launchExternalUrl(url: (await getDynamicConfigInfo()).urls.coshubUrl, analyticsLabel: "CosHub");
           },
         ),
         ListTile(
