@@ -194,7 +194,7 @@ class _ScanGearListState extends ConsumerState<ScanGearList> {
                               trailing: Text(HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) ? e.device.remoteId.str : ""),
                               onTap: () async {
                                 await e.device.connect();
-                                analyticsEvent(name: "Connect New Gear", props: {"Gear Type": e.device.advName, "Onboarding in Progress": widget.popOnConnect.toString()});
+                                analyticsEvent(name: "Connect New Gear", props: {"Gear Type": e.device.advName, "Onboarding in Progress": widget.popOnConnect!.toString()});
                                 if (context.mounted && widget.popOnConnect) {
                                   Navigator.pop(context);
                                 }
