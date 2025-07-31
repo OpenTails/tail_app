@@ -106,8 +106,7 @@ Future<DynamicConfigInfo> getDynamicConfigInfo() async {
   // Load the stored or bundled dynamic config file
   String dynamicConfigJsonDefault = await rootBundle.loadString(Assets.dynamicConfig);
   String dynamicConfigJson = HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: dynamicConfigJsonDefault);
-  String embeddedDynamicConfig = dynamicConfigJson;
-  DynamicConfigInfo dynamicConfigInfo = DynamicConfigInfo.fromJson(const JsonDecoder().convert(embeddedDynamicConfig));
+  DynamicConfigInfo dynamicConfigInfo = DynamicConfigInfo.fromJson(const JsonDecoder().convert(dynamicConfigJson));
   _dynamicConfigInfo = dynamicConfigInfo;
 
   _getRemoteDynamicConfigInfo(); // trigger updating config file without waiting
@@ -120,8 +119,7 @@ Future<void> _getRemoteDynamicConfigInfo() async {
   try {
     _dynamicConfigLogger.info("Downloading latest config file");
     // TODO: move to own domain
-    Response<String> response = await dio.get(_dynamicConfigInfo!.urls.dynamicConfigFileUrl,
-        options: Options(contentType: ContentType.json.mimeType, responseType: ResponseType.json));
+    Response<String> response = await dio.get(_dynamicConfigInfo!.urls.dynamicConfigFileUrl, options: Options(contentType: ContentType.json.mimeType, responseType: ResponseType.json));
     if (response.statusCode! < 400) {
       String jsonData = response.data!;
       // ignore: unused_local_variable
