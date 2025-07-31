@@ -157,26 +157,8 @@ Future<void> main() async {
 }
 
 void initFlutter() {
-  WidgetsBinding widgetsBinding = SentryWidgetsFlutterBinding.ensureInitialized()..addObserver(WidgetBindingLogger());
+  WidgetsBinding widgetsBinding = SentryWidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); // keeps the splash screen visible
-}
-
-class WidgetBindingLogger extends WidgetsBindingObserver {
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    mainLogger.info("didChangeAppLifecycleState: $state");
-  }
-
-  @override
-  Future<AppExitResponse> didRequestAppExit() async {
-    mainLogger.info("didRequestAppExit");
-    return super.didRequestAppExit();
-  }
-
-  @override
-  Future<void> didChangeLocales(List<Locale>? locales) async {
-    //await initLocale();
-  }
 }
 
 Future<void> initHive() async {
