@@ -1031,13 +1031,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTailBlogWifiOnlyDescription": "Verhinder, dass der Tail Blog-Inhalt lädt, wenn du em Mobile-Netz verbunde bisch",
+  "settingsTailBlogWifiOnlyDescription": "Verhindere s Lade vo einigi Sache, wänn mit em Natelnetz verbunde",
   "@settingsTailBlogWifiOnlyDescription": {
     "description": "Description for the tail blog wifi only setting",
     "type": "text",
     "placeholders": {}
   },
-  "settingsTailBlogWifiOnlyTitle": "Tail Blog nur mit WiFi",
+  "settingsTailBlogWifiOnlyTitle": "Weniger Date verbrauche",
   "@settingsTailBlogWifiOnlyTitle": {
     "description": "Description for the tail blog wifi only setting",
     "type": "text",
@@ -1298,6 +1298,12 @@
   "onboardingBackButtonLabel": "Zrugg",
   "@onboardingBackButtonLabel": {
     "description": "Label for the button to go back on the onboarding screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeCosHubTitle": "Highlighti Cosplayer uf CosHub",
+  "@homeCosHubTitle": {
+    "description": "The title header for the coshub in the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   }
