@@ -52,7 +52,7 @@ class _CoshubFeedState extends ConsumerState<CoshubFeed> {
               child: Card(
                 clipBehavior: Clip.antiAlias,
                 child: SizedBox(
-                  width: 300,
+                  width: 250,
                   child: Semantics(
                     label: 'A button to view the CosHub post by: ${post.username}',
                     child: InkWell(

@@ -64,7 +64,7 @@ class _TailBlogState extends State<TailBlog> {
               child: Card(
                 clipBehavior: Clip.antiAlias,
                 child: SizedBox(
-                  width: 300,
+                  width: 250,
                   child: Semantics(
                     label: 'A button to view the blog post: ${feedItem.title}',
                     child: InkWell(

@@ -13,7 +13,7 @@ class TailBlogImage extends StatelessWidget {
         alignment: Alignment.center,
         fit: BoxFit.cover,
         child: CachedNetworkImage(
-          height: 300,
+          height: 250,
           imageUrl: url,
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
