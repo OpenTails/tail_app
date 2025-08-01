@@ -74,7 +74,7 @@ class _HomeState extends ConsumerState<Home> {
         ValueListenableBuilder(
           valueListenable: isBluetoothEnabled,
           builder: (context, bluetoothEnabled, child) => AnimatedCrossFade(
-            firstChild: BaseCard(
+            secondChild: BaseCard(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -86,8 +86,8 @@ class _HomeState extends ConsumerState<Home> {
                 ],
               ),
             ),
-            secondChild: Container(),
-            crossFadeState: !bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            firstChild: Container(),
+            crossFadeState: bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
             duration: animationTransitionDuration,
           ),
         ),
