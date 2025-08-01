@@ -20,9 +20,11 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shake/shake.dart';
+import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
+import 'package:wordpress_client/wordpress_client.dart';
 
 import '../Frontend/translation_string_definitions.dart';
 import '../constants.dart';
@@ -224,8 +226,8 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
   TriggerDefinition(this.ref);
 
   // add check here if a trigger is supported on a given device/platform
-  Future<bool> isSupported() {
-    return Future.value(true);
+  Future<bool> isSupported() async {
+    return true;
   }
 
   Future<void> sendCommands(String name, Ref ref) async {
@@ -951,11 +953,22 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
       EarMicTriggerDefinition(ref),
       EarTiltTriggerDefinition(ref),
       RandomTriggerDefinition(ref),
+      VolumeButtonTriggerDefinition(ref)
     ];
-    if (!kIsWeb && Platform.isAndroid) {
-      triggerDefinitions.add(VolumeButtonTriggerDefinition(ref));
-    }
+
     triggerDefinitions.sort();
+
+    // Analytics for what triggers are supported
+    triggerDefinitions.mapAsync(
+      (e) async {
+        return MapEntry(Intl.withLocale('en', () => e.name()) as String, (await e.isSupported()).toString());
+      },
+    ).then(
+      (value) {
+        analyticsEvent(name: "Supported Triggers", props: Map.fromEntries(value));
+      },
+    );
+
     return triggerDefinitions.build();
   }
 
