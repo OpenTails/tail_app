@@ -17,7 +17,6 @@ import '../../Backend/action_registry.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/favorite_actions.dart';
 import '../../Backend/logging_wrappers.dart';
-import '../../Backend/move_lists.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';
