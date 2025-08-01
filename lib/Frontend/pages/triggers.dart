@@ -184,7 +184,14 @@ class _TriggersState extends ConsumerState<Triggers> {
                                         trigger.storedEnable = !trigger.enabled;
                                         ref.read(triggerListProvider.notifier).store();
                                         TriggerDefinition triggerDefinition = ref.watch(triggerDefinitionListProvider).where((element) => element.uuid == trigger.triggerDefUUID).first;
-                                        analyticsEvent(name: "${value ? "Enable" : "Disable"} Trigger", props: {"Trigger Type": Intl.withLocale('en', () => triggerDefinition.name())});
+                                        analyticsEvent(name: "${value ? "Enable" : "Disable"} Trigger", props: {
+                                          "Trigger Type": Intl.withLocale('en', () => triggerDefinition.name()),
+                                          "Trigger Device Filter": triggerDefinition.deviceTypes
+                                              .map(
+                                                (e) => e.name,
+                                              )
+                                              .toString(),
+                                        });
                                       },
                                     );
                                   }
