@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/analytics.dart';
+import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/firebase.dart';
 import 'package:tail_app/Frontend/Widgets/tail_blog.dart';
 import 'package:tail_app/Frontend/Widgets/tail_blog_image.dart';
@@ -121,13 +122,13 @@ class _CoshubFeedState extends ConsumerState<CoshubFeed> {
       });
       return;
     }
-    if (await isLimitedDataEnvironment()) {
+    if (await isLimitedDataEnvironment() || !(await getDynamicConfigInfo()).featureFlags.enableCoshubPosts) {
       setState(() {
         feedState = FeedState.noInternet;
       });
       return;
     }
-    List<CosHubPost> cosHubPosts = await ref.watch(getCosHubPostsProvider.future);
+    List<CosHubPost> cosHubPosts = await ref.read(getCosHubPostsProvider.future);
     setState(() {
       results = cosHubPosts;
       feedState = FeedState.loaded;

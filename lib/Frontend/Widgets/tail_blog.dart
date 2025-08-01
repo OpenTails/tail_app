@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/analytics.dart';
+import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/tail_blog_image.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 // Used as MediaDetails isn't exported
@@ -118,7 +119,7 @@ class _TailBlogState extends State<TailBlog> {
 
   Future<void> getFeed() async {
     if (results.isEmpty) {
-      if (await isLimitedDataEnvironment()) {
+      if (await isLimitedDataEnvironment() || !(await getDynamicConfigInfo()).featureFlags.enableTailBlogPosts) {
         setState(() {
           feedState = FeedState.noInternet;
         });
