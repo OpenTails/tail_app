@@ -328,7 +328,9 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         Set<DeviceType> sentDeviceTypes = {};
         for (BaseAction baseAction in actionsToRun) {
           for (BaseStatefulDevice baseStatefulDevice in ref
-              .read(getAvailableIdleGearForTypeProvider(baseAction.deviceCategory.toBuiltSet()))
+              .read(getAvailableIdleGearForTypeProvider(
+                baseAction.deviceCategory.toSet().intersection(deviceTypes).toBuiltSet(),
+              ))
               .where(
                 // support sending to next device type if 2 actions+ actions are set
                 (element) => !sentDeviceTypes.contains(element.baseDeviceDefinition.deviceType),
