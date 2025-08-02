@@ -959,13 +959,19 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
     triggerDefinitions.sort();
 
     // Analytics for what triggers are supported
-    triggerDefinitions.mapAsync(
-      (e) async {
-        return MapEntry(Intl.withLocale('en', () => e.name()) as String, (await e.isSupported()).toString());
-      },
-    ).then(
-      (value) {
-        analyticsEvent(name: "Supported Triggers", props: Map.fromEntries(value));
+    Future.delayed(
+      // delay to avoid init timing problems
+      Duration(seconds: 10),
+      () {
+        triggerDefinitions.mapAsync(
+          (e) async {
+            return MapEntry(Intl.withLocale('en', () => e.name()) as String, (await e.isSupported()).toString());
+          },
+        ).then(
+          (value) {
+            analyticsEvent(name: "Supported Triggers", props: Map.fromEntries(value));
+          },
+        );
       },
     );
 
