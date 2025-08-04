@@ -60,7 +60,7 @@ runs:
     - name: Rename APK
       shell: bash
       run: |
-        mkdir build/app/outputs/apk/release/
+        mkdir -p build/app/outputs/apk/release/
         mv ${{ steps.convert_aab.outputs.apkPath }} build/app/outputs/apk/release/tailCompanyApp-${{ inputs.version }}-${{ inputs.build-number }}.apk
     - uses: actions/upload-artifact@v4
       with:
