@@ -1,35 +1,32 @@
 name: 'Build Tail App builds'
 description: 'Internal Action for Tail App'
 inputs:
+  # Version info
   version:
     description: 'Release Version'
     required: true
   build-number:
     description: 'Git build number'
     required: true
+  # Android signing
   android-key-properties:
     description: 'Properties file containing signing info'
     required: true
-  android-key-jks:
+  android-key-jks: 
     description: 'Base64 version of the jks file'
     required: true
-  sentry-org:
-    description: 'The sentry org for uploading debug symbols'
+  android-keystore-password: 
+    description: 'password to decrypt the jks file'
     required: true
-  sentry-project:
-    description: 'The sentry project for uploading debug symbols'
+  android-key-password: 
+    description: 'password to decrypt the key'
     required: true
-  sentry-url:
-    description: 'The sentry url for uploading debug symbols'
-    required: false
+  # Sentry 
   sentry-auth-token:
     description: 'The sentry auth token for uploading debug symbols'
     required: true
   sentry-dsn:
     description: 'The sentry dsn for sending error info'
-    required: true
-  build-mode:
-    description: 'Build an apk or bundle'
     required: true
 runs:
   using: "composite"
@@ -46,37 +43,31 @@ runs:
       run: echo -n "$ANDROID_KEY_JKS" | base64 -d > ./android/tailCo.jks
       env:
         ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
-    - name: Build APK
-      if: inputs.build-mode == 'apk'
-      shell: bash
-      run: flutter build apk --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION" --dart-define=SENTRY_DSN="$SENTRY_DSN"
-      env:
-        VERSION: ${{ inputs.version }}
-        BUILD_NUMBER: ${{ inputs.build-number }}
-        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
-        SENTRY_ORG: ${{ inputs.sentry-org }}
-        SENTRY_PROJECT: ${{ inputs.sentry-project }}
-        SENTRY_DSN: ${{ inputs.sentry-dsn }}
-        SENTRY_URL: ${{ inputs.sentry-url }}
     - name: Build AppBundle
-      if: inputs.build-mode == 'bundle'
       shell: bash
       run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"  --dart-define=SENTRY_DSN="$SENTRY_DSN"
       env:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
         SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
-        SENTRY_ORG: ${{ inputs.sentry-org }}
-        SENTRY_PROJECT: ${{ inputs.sentry-project }}
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
-        SENTRY_URL: ${{ inputs.sentry-url }}
+    - name: Convert aab to apk
+      id: convert_aab
+      uses: mukeshsolanki/bundletool-action@v1.0.0
+      with:
+        aabFile: build/app/outputs/bundle/release/app-release.aab
+        base64Keystore: ${{ inputs.android-key-properties }}
+        keystorePassword: ${{ inputs.android-keystore-password }}
+        keystoreAlias: tailApp
+        keyPassword: ${{ inputs.android-key-password }}
+        bundletoolVersion: '1.9.0'
     - name: Rename APK
       shell: bash
-      if: inputs.build-mode == 'apk'
-      run: cd build/app/outputs/apk/release/ && mv app-release.apk tailCompanyApp-${{ inputs.version }}-${{ inputs.build-number }}.apk
+      run: \
+        mkdir build/app/outputs/apk/release/
+        mv build/app/outputs/bundle/release/app-release.apk build/app/outputs/apk/release/tailCompanyApp-${{ inputs.version }}-${{ inputs.build-number }}.apk
     - uses: actions/upload-artifact@v4
       continue-on-error: true
-      if: inputs.build-mode == 'apk'
       with:
         name: artifact-${{ inputs.version }}-${{ inputs.build-number }}
         path: build/app/outputs/apk/release

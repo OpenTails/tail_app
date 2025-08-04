@@ -22,12 +22,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        build: [apk, bundle, ipa]
+        build: [apk, ipa]
         exclude:
           - os: ubuntu-latest
             build: ipa
-          - os: macos-latest
-            build: bundle
           - os: macos-latest
             build: apk
 
@@ -58,14 +56,13 @@ jobs:
         with:
           version: ${{ steps.version.outputs.version }}
           build-number: ${{ steps.version.outputs.build-number }}
+
           android-key-jks: ${{ secrets.ANDROID_KEY_JKS }}
           android-key-properties: ${{ secrets.ANDROID_KEY_PROPERTIES }}
-          sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          sentry-org: ${{ secrets.SENTRY_ORG }}
-          sentry-project: ${{ secrets.SENTRY_PROJECT }}
+          android-keystore-password: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          android-key-password: ${{ secrets.ANDROID_KEY_PASSWORD }}
+
           sentry-dsn: ${{ secrets.SENTRY_DSN }}
-          build-mode: ${{ matrix.build }}
-          sentry-url: ${{ secrets.SENTRY_URL }}
       - name: Build IOS / Upload Beta
         if: github.event_name == 'push' && matrix.build != 'apk'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
@@ -78,19 +75,13 @@ jobs:
           APPLE_SECRETS: ${{ secrets.APPLE }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
           MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-          SENTRY_URL: ${{ secrets.SENTRY_URL }}
       - name: Upload Dart/Flutter debug symbols
         run: dart pub global activate sentry_dart_plugin && dart pub global run sentry_dart_plugin
         if: github.event_name == 'push'
         continue-on-error: false
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-          SENTRY_URL: ${{ secrets.SENTRY_URL }}
           SENTRY_RELEASE: ${{ steps.version.outputs.version }}
           SENTRY_DIST: ${{ steps.version.outputs.build-number }}
