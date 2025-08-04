@@ -863,7 +863,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "noLongerSupported": "Däne Ausrüdtig isch nüme unterstützt. Einigi App-Funktione chönd nid funktioniere",
+  "noLongerSupported": "Dinni Ausrüdtig isch nüme unterstützt. Einigi App-Funktione chönd nid funktioniere",
   "@noLongerSupported": {
     "description": "Warning message which appears for unsupported gear on the manage gear page",
     "type": "text",
@@ -1037,7 +1037,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsTailBlogWifiOnlyTitle": "Weniger Date verbrauche",
+  "settingsTailBlogWifiOnlyTitle": "Weniger Date Verbrauche",
   "@settingsTailBlogWifiOnlyTitle": {
     "description": "Description for the tail blog wifi only setting",
     "type": "text",
