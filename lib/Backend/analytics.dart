@@ -78,7 +78,7 @@ Future<Map<String, String>> _getSettingsProps({Map<String, String> props = const
 Future<Map<String, String>> _getLaunchProps({Map<String, String> props = const {}}) async {
   props = Map.of(props);
   //props['App Version'] = (await PackageInfo.fromPlatform()).version;
-  //props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
+  props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
   props['Locale'] = Platform.localeName;
   props['Installer Store'] = (await PackageInfo.fromPlatform()).installerStore ?? "Unknown";
 
