@@ -67,7 +67,6 @@ jobs:
         if: github.event_name == 'push' && matrix.build != 'apk'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
-        continue-on-error: false
         env:
           VERSION: ${{ steps.version.outputs.version }}
           BUILD_NUMBER: ${{ steps.version.outputs.build-number }}
@@ -80,7 +79,6 @@ jobs:
       - name: Upload Dart/Flutter debug symbols
         run: dart pub global activate sentry_dart_plugin && dart pub global run sentry_dart_plugin
         if: github.event_name == 'push'
-        continue-on-error: false
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_RELEASE: ${{ steps.version.outputs.version }}

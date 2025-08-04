@@ -59,11 +59,10 @@ runs:
         bundletoolVersion: '1.9.0'
     - name: Rename APK
       shell: bash
-      run: \
+      run: |
         mkdir build/app/outputs/apk/release/
         mv ${{ steps.convert_aab.outputs.apkPath }} build/app/outputs/apk/release/tailCompanyApp-${{ inputs.version }}-${{ inputs.build-number }}.apk
     - uses: actions/upload-artifact@v4
-      continue-on-error: true
       with:
         name: artifact-${{ inputs.version }}-${{ inputs.build-number }}
         path: build/app/outputs/apk/release
