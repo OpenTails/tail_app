@@ -55,9 +55,6 @@ Future<String> getSentryEnvironment() async {
   if (!kReleaseMode) {
     return 'debug';
   }
-  if (kIsWeb) {
-    return 'production';
-  }
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   String referral = packageInfo.installerStore ?? "";
@@ -86,7 +83,7 @@ Future<String> getSentryEnvironment() async {
 
 Future<void> initMainApp() async {
   //initialize the foreground service library
-  if (!kIsWeb && Platform.isAndroid) {
+  if (Platform.isAndroid) {
     FlutterForegroundTask.initCommunicationPort();
   }
   await startSentryApp(TailApp());
@@ -165,12 +162,9 @@ void initFlutter() {
 
 Future<void> initHive() async {
   mainLogger.fine("Init Hive");
-  if (kIsWeb) {
-    Hive.initFlutter();
-  } else {
-    final Directory appDir = await getApplicationSupportDirectory();
-    Hive.init(appDir.path);
-  }
+
+  final Directory appDir = await getApplicationSupportDirectory();
+  Hive.init(appDir.path);
 
   if (!Hive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
     Hive.registerAdapter(BaseStoredDeviceAdapter());

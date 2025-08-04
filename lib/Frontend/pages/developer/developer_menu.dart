@@ -238,7 +238,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ),
           ListTile(
             title: const Text("PlatformLocale"),
-            subtitle: Text(kIsWeb ? "" : Platform.localeName),
+            subtitle: Text(Platform.localeName),
           ),
           const ListTile(
             title: Divider(),

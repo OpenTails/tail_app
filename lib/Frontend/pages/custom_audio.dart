@@ -48,7 +48,7 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
           if (result != null) {
             _audioLogger.info("Selected file");
             PlatformFile file = result.files.first;
-            final Directory appDir = kIsWeb ? Directory.current : await getApplicationSupportDirectory();
+            final Directory appDir = await getApplicationSupportDirectory();
             Directory audioDir = Directory("${appDir.path}/audio");
             await audioDir.create();
             File storedAudioFilePath = File("${audioDir.path}/${file.name}");

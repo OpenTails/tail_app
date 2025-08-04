@@ -406,7 +406,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (kIsWeb || !Platform.isAndroid && !Platform.isIOS) {
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return false;
     }
     bool isStepCountSupported = await Pedometer.isStepCountSupported == true;
@@ -463,7 +463,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (kIsWeb || !Platform.isAndroid && !Platform.isIOS) {
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return false;
     }
     return ProximitySensor.isSupported();
@@ -717,7 +717,7 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return !kIsWeb && Platform.isAndroid;
+    return Platform.isAndroid;
   }
 
   @override
@@ -756,7 +756,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (kIsWeb || !Platform.isAndroid && !Platform.isIOS) {
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return false;
     }
     return true;

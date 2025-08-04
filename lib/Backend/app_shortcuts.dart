@@ -18,9 +18,6 @@ const QuickActions quickActions = QuickActions();
 
 @Riverpod(keepAlive: true)
 Future<void> appShortcuts(Ref ref) async {
-  if (kIsWeb) {
-    return;
-  }
   await Future.delayed(const Duration(seconds: 5));
   quickActions.initialize((shortcutType) {
     BaseAction? action = ref.read(getActionFromUUIDProvider(shortcutType));
@@ -36,9 +33,6 @@ Future<void> appShortcuts(Ref ref) async {
 }
 
 Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {
-  if (kIsWeb) {
-    return;
-  }
   Iterable<BaseAction> allActions = favoriteActions
       .map(
         (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),
