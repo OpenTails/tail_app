@@ -22,9 +22,6 @@ inputs:
     description: 'password to decrypt the key'
     required: true
   # Sentry 
-  sentry-auth-token:
-    description: 'The sentry auth token for uploading debug symbols'
-    required: true
   sentry-dsn:
     description: 'The sentry dsn for sending error info'
     required: true
@@ -49,7 +46,6 @@ runs:
       env:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
-        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
     - name: Convert aab to apk
       id: convert_aab
