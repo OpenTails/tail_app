@@ -115,6 +115,8 @@ Future<void> startSentryApp(Widget child) async {
         ..beforeSend = beforeSend
         ..reportPackages = false
         ..attachScreenshot = true
+        ..privacy.maskAllImages = false
+        ..privacy.maskAllText = false // app does not contain any PII
         ..screenshotQuality = SentryScreenshotQuality.low
         ..replay.sessionSampleRate = dynamicConfigInfo.sentryConfig.replaySessionSampleRate
         ..replay.onErrorSampleRate = dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;

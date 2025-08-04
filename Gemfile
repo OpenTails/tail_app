@@ -2,7 +2,6 @@ source "https://rubygems.org"
 
 gem "fastlane"
 gem "cocoapods"
-gem 'fastlane-plugin-sentry'
 
 # https://github.com/fastlane/fastlane/issues/29183
 # Until Fastlane includes them directly.

@@ -86,7 +86,7 @@ jobs:
       - name: Upload Dart/Flutter debug symbols
         run: dart pub global activate sentry_dart_plugin && dart pub global run sentry_dart_plugin
         if: github.event_name == 'push'
-        continue-on-error: true
+        continue-on-error: false
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
