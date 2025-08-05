@@ -2,6 +2,7 @@
 
 - Rework analytics to be more useful
 - Add CosHub posts to Home UI
+- some bug fixes
 
 ### V 1.3.0
 
