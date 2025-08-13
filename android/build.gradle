@@ -34,6 +34,6 @@ tasks.register("clean", Delete) {
 }
 configurations.all {
     resolutionStrategy {
-        force "androidx.core:core-ktx:1.16.0"
+        force "androidx.core:core-ktx:1.17.0"
     }
 }
