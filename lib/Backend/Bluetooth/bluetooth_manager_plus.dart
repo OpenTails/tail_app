@@ -11,7 +11,6 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
-import 'package:riverpod/src/framework.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/command_history.dart';
@@ -269,7 +268,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
       await event.device.discoverServices();
 
       // queue up commands to get gear info
-      ref.read(CommandQueueProvider(statefulDevice).notifier)
+      ref.read(commandQueueProvider(statefulDevice).notifier)
         ..addCommand(BluetoothMessage(message: "VER", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()))
         ..addCommand(BluetoothMessage(message: "HWVER", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     }
@@ -362,7 +361,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
       if (value.startsWith("VER")) {
         statefulDevice.fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
         if (statefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
-          ref.read(CommandQueueProvider(statefulDevice).notifier).addCommand(
+          ref.read(commandQueueProvider(statefulDevice).notifier).addCommand(
                 BluetoothMessage(
                   message: "READNVS",
                   timestamp: DateTime.timestamp(),

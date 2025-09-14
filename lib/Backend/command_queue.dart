@@ -25,14 +25,14 @@ enum CommandQueueState {
 
 @Riverpod(keepAlive: true)
 class CommandQueue extends _$CommandQueue {
-  final PriorityQueue<BluetoothMessage> _commandQueue = PriorityQueue();
+  final PriorityQueue<BluetoothMessage> _internalCommandQueue = PriorityQueue();
   late final BaseStatefulDevice _device;
   Duration timeoutDuration = const Duration(seconds: 10);
   Timer? _runningCommandTimer;
   BluetoothMessage? currentMessage;
   StreamSubscription<String>? _rxCharacteristicStreamSubscription;
 
-  get queue => _commandQueue.toList();
+  List<BluetoothMessage> get queue => _internalCommandQueue.toList();
 
   @override
   CommandQueueState build(BaseStatefulDevice device) {
@@ -55,7 +55,7 @@ class CommandQueue extends _$CommandQueue {
 
   void _connectionStateListener() {
     if (_device.deviceConnectionState.value != ConnectivityState.connected) {
-      _commandQueue.clear(); // clear the queue on disconnect
+      _internalCommandQueue.clear(); // clear the queue on disconnect
       stopQueue();
     } else {
       startQueue();
@@ -130,10 +130,10 @@ class CommandQueue extends _$CommandQueue {
         _device.deviceState.value = DeviceState.busy;
         break;
       case CommandQueueState.idle:
-        if (_commandQueue.isEmpty) {
+        if (_internalCommandQueue.isEmpty) {
           _setState(CommandQueueState.empty);
         } else {
-          runCommand(_commandQueue.removeFirst());
+          runCommand(_internalCommandQueue.removeFirst());
         }
         break;
       case CommandQueueState.empty:
@@ -143,7 +143,7 @@ class CommandQueue extends _$CommandQueue {
   }
 
   void _setState(CommandQueueState state) {
-    if (_commandQueue.isEmpty && state == CommandQueueState.idle) {
+    if (_internalCommandQueue.isEmpty && state == CommandQueueState.idle) {
       _setState(CommandQueueState.empty);
     } else {
       this.state = state;
@@ -183,9 +183,9 @@ class CommandQueue extends _$CommandQueue {
 
     // preempt queue if other direct commands exist. used for joystick
     if (bluetoothMessage.type == CommandType.direct) {
-      _commandQueue.toUnorderedList().where((element) => [CommandType.move, CommandType.direct].contains(element.type)).forEach(_commandQueue.remove);
+      _internalCommandQueue.toUnorderedList().where((element) => [CommandType.move, CommandType.direct].contains(element.type)).forEach(_internalCommandQueue.remove);
     }
-    _commandQueue.add(bluetoothMessage);
+    _internalCommandQueue.add(bluetoothMessage);
     // Start the queue is its stopped/idle
     if (state == CommandQueueState.empty) {
       _setState(CommandQueueState.idle);

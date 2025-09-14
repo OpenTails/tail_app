@@ -242,14 +242,12 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
       onSkip: () => _onIntroEnd(context),
       // You can override onSkip callback
       //rtl: true, // Display as right-to-left
-      overrideNext: Row(
+      overrideNext: (context, onPressed) => Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FilledButton(
-            onPressed: () {
-              introKey.currentState?.next();
-            },
+            onPressed: onPressed,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

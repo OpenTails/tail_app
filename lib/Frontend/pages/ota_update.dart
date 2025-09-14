@@ -31,7 +31,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
     super.initState();
     baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
     ref.read(hasOtaUpdateProvider(baseStatefulDevice!).future);
-    ref.read(OtaUpdaterProvider(baseStatefulDevice!).notifier).onError = ((OtaError p0) => setState(() => otaError = p0));
+    ref.read(otaUpdaterProvider(baseStatefulDevice!).notifier).onError = ((OtaError p0) => setState(() => otaError = p0));
   }
 
   @override
@@ -62,8 +62,8 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
 
   @override
   Widget build(BuildContext context) {
-    OtaState otaState = ref.watch(OtaUpdaterProvider(baseStatefulDevice!));
-    OtaUpdater otaUpdater = ref.read(OtaUpdaterProvider(baseStatefulDevice!).notifier);
+    OtaState otaState = ref.watch(otaUpdaterProvider(baseStatefulDevice!));
+    OtaUpdater otaUpdater = ref.read(otaUpdaterProvider(baseStatefulDevice!).notifier);
     return Scaffold(
       appBar: AppBar(title: Text(convertToUwU(otaTitle()))),
       body: Center(

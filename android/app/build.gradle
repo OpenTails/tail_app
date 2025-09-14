@@ -55,7 +55,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        minSdkVersion 23
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         ndk {
             // Filter for architectures supported by Flutter

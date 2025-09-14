@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -113,18 +112,15 @@ Future<void> startSentryApp(Widget child) async {
         ..reportPackages = false
         ..attachScreenshot = true
         ..privacy.maskAllImages = false
-        ..privacy.maskAllText = false // app does not contain any PII
+        ..privacy.maskAllText =
+            false // app does not contain any PII
         ..screenshotQuality = SentryScreenshotQuality.low
         ..replay.sessionSampleRate = dynamicConfigInfo.sentryConfig.replaySessionSampleRate
         ..replay.onErrorSampleRate = dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
     },
     // Init your App.
     // ignore: missing_provider_scope
-    appRunner: () => runApp(
-      SentryScreenshotWidget(
-        child: TailApp(),
-      ),
-    ),
+    appRunner: () => runApp(SentryScreenshotWidget(child: TailApp())),
   );
 }
 
@@ -230,9 +226,7 @@ class TailApp extends ConsumerWidget {
 
     return WithForegroundTask(
       child: ProviderScope(
-        observers: [
-          RiverpodProviderObserver(),
-        ],
+        observers: [RiverpodProviderObserver()],
         child: _EagerInitialization(
           child: BtAppStateController(
             child: ValueListenableBuilder(
@@ -285,75 +279,52 @@ class TailAppMainWidget extends ConsumerWidget {
 ThemeData buildTheme(Brightness brightness, Color color) {
   if (brightness == Brightness.light) {
     return ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.light,
-        seedColor: color,
-        primary: color,
-      ),
+      colorScheme: ColorScheme.fromSeed(brightness: Brightness.light, seedColor: color, primary: color),
       appBarTheme: const AppBarTheme(elevation: 2),
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(),
-      filledButtonTheme: FilledButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: getTextColor(color),
-        ),
-      ),
+      filledButtonTheme: FilledButtonThemeData(style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color))),
     );
   } else {
     return ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.dark,
-        seedColor: color,
-        primary: color,
-      ),
+      colorScheme: ColorScheme.fromSeed(brightness: Brightness.dark, seedColor: color, primary: color),
       appBarTheme: const AppBarTheme(elevation: 2),
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(),
-      filledButtonTheme: FilledButtonThemeData(
-        style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color), elevation: 1),
-      ),
+      filledButtonTheme: FilledButtonThemeData(style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color), elevation: 1)),
     );
   }
 }
 
-class RiverpodProviderObserver extends ProviderObserver {
+final class RiverpodProviderObserver extends ProviderObserver {
   final Logger riverpodLogger = Logger('Riverpod');
 
   @override
-  void didAddProvider(
-    ProviderBase<Object?> provider,
-    Object? value,
-    ProviderContainer container,
-  ) {
-    riverpodLogger.info('Provider $provider was initialized with $value');
+  void didAddProvider(ProviderObserverContext context, Object? value) {
+    riverpodLogger.info('Provider ${context.provider} was initialized with $value');
   }
 
   @override
-  void didDisposeProvider(
-    ProviderBase<Object?> provider,
-    ProviderContainer container,
-  ) {
-    riverpodLogger.info('Provider $provider was disposed');
+  void didDisposeProvider(ProviderObserverContext context){
+    riverpodLogger.info('Provider ${context.provider} was disposed');
   }
 
   @override
   void didUpdateProvider(
-    ProviderBase<Object?> provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
-  ) {
-    riverpodLogger.info('Provider $provider updated from $previousValue to $newValue');
+      ProviderObserverContext context,
+      Object? previousValue,
+      Object? newValue,
+      )  {
+    riverpodLogger.info('Provider ${context.provider} updated from $previousValue to $newValue');
   }
 
   @override
   void providerDidFail(
-    ProviderBase<Object?> provider,
-    Object error,
-    StackTrace stackTrace,
-    ProviderContainer container,
-  ) {
-    riverpodLogger.warning('Provider $provider threw $error at $stackTrace', error, stackTrace);
+      ProviderObserverContext context,
+      Object error,
+      StackTrace stackTrace,
+      ) {
+    riverpodLogger.warning('Provider ${context.provider} threw $error at $stackTrace', error, stackTrace);
   }
 }
 

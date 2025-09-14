@@ -25,13 +25,13 @@ class _BulkOTAState extends ConsumerState<BulkOTA> {
 
   void beginOta() {
     for (var device in ref.read(getAvailableGearForTypeProvider(selectedDeviceType.toBuiltSet()))) {
-      ref.read(OtaUpdaterProvider(device).notifier).beginUpdate();
+      ref.read(otaUpdaterProvider(device).notifier).beginUpdate();
     }
   }
 
   void abort() {
     for (var device in ref.read(getAvailableGearForTypeProvider(selectedDeviceType.toBuiltSet()))) {
-      ref.read(OtaUpdaterProvider(device).notifier).abort();
+      ref.read(otaUpdaterProvider(device).notifier).abort();
     }
   }
 
@@ -75,7 +75,7 @@ class _BulkOTAState extends ConsumerState<BulkOTA> {
                           ? null
                           : () {
                               for (BaseStatefulDevice device in devices) {
-                                ref.read(OtaUpdaterProvider(device).notifier).beginUpdate();
+                                ref.read(otaUpdaterProvider(device).notifier).beginUpdate();
                               }
                             },
                       child: Text("Begin"),
@@ -85,7 +85,7 @@ class _BulkOTAState extends ConsumerState<BulkOTA> {
                           ? null
                           : () {
                               for (BaseStatefulDevice device in devices) {
-                                ref.read(OtaUpdaterProvider(device).notifier).abort();
+                                ref.read(otaUpdaterProvider(device).notifier).abort();
                               }
                             },
                       child: Text("Abort"),
@@ -102,7 +102,7 @@ class _BulkOTAState extends ConsumerState<BulkOTA> {
                               if (result != null) {
                                 setState(() {
                                   for (BaseStatefulDevice device in devices) {
-                                    ref.read(OtaUpdaterProvider(device).notifier).setManualOtaFile(result.files.single.bytes?.toList(growable: false));
+                                    ref.read(otaUpdaterProvider(device).notifier).setManualOtaFile(result.files.single.bytes?.toList(growable: false));
                                   }
                                 });
                               } else {
@@ -142,9 +142,9 @@ class OtaListItem extends ConsumerStatefulWidget {
 class _OtaListItemState extends ConsumerState<OtaListItem> {
   @override
   Widget build(BuildContext context) {
-    var otaState = ref.read(OtaUpdaterProvider(widget.device));
+    var otaState = ref.read(otaUpdaterProvider(widget.device));
 
-    var watch = ref.read(OtaUpdaterProvider(widget.device).notifier);
+    var watch = ref.read(otaUpdaterProvider(widget.device).notifier);
     return ListTile(
       title: Text(widget.device.baseStoredDevice.name),
       trailing: Text(otaState.toString()),

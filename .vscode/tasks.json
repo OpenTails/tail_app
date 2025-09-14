@@ -44,7 +44,6 @@
 			"icon": {
 				"id": "globe"
 			},
-			// Run in git bash for wildcard expansion
 			"windows": {
 				"command": "dart",
 				"options": {
@@ -81,7 +80,7 @@
 				"id": "globe"
 			},
 			"args": [
-				"gen-l10n",
+				"gen-l10n"
 			],
 			"group": "build",
 			"presentation": {
@@ -181,17 +180,13 @@
 			},
 			"group": "build",
 			"dependsOn": [
-				//"Run fluttergen",
-				//"Generate Translation Files",
-				//"Generate l10n Translation Files",
-				"flutter: flutter pub run build_runner build",
-				//"Generate Splash Screen"
-			],
+				"flutter: flutter pub run build_runner build"
+			]
 		},
 		{
 			"label": "Run build_runner startup",
 			"dependsOn": [
-				"flutter: flutter pub run build_runner watch",
+				"flutter: flutter pub run build_runner watch"
 			],
 			"presentation": {
 				"reveal": "silent",
@@ -199,7 +194,8 @@
 			},
 			"runOptions": {
 				"runOn": "folderOpen"
-			}
+			},
+			"problemMatcher": []
 		}
 	]
 }

@@ -123,10 +123,10 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           const ListTile(
             title: Divider(),
           ),
-/*           ListTile(
+           ListTile(
             title: const Text("ScanState"),
-            subtitle: Text(ref.read(scanProvider)),
-          ), */
+            subtitle: Text(ref.read(scanProvider).toString()),
+          ),
           ListTile(
             title: const Text("AdapterState"),
             subtitle: StreamBuilder(
