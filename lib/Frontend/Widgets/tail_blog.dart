@@ -10,7 +10,7 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 // Used as MediaDetails isn't exported
 // ignore: implementation_imports
 import 'package:wordpress_client/src/responses/properties/media_details.dart';
-import 'package:wordpress_client/wordpress_client.dart';
+import 'package:wordpress_client/wordpress_client.dart' hide Widget;
 
 import '../../constants.dart';
 import '../utils.dart';
@@ -35,74 +35,56 @@ class _TailBlogState extends State<TailBlog> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      alignment: Alignment.topCenter,
-      firstChild: feedState == FeedState.loading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : [FeedState.noInternet, FeedState.error].contains(feedState)
-              ? const Center(
-                  child: Opacity(
-                    opacity: 0.5,
-                    child: Icon(
-                      Icons.signal_cellular_connected_no_internet_0_bar,
-                      size: 150,
-                    ),
-                  ),
-                )
-              : Container(),
-      secondChild: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: results.length,
-        itemBuilder: (BuildContext context, int index) {
-          FeedItem feedItem = results[index];
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                child: SizedBox(
-                  width: 250,
-                  child: Semantics(
-                    label: 'A button to view the blog post: ${feedItem.title}',
-                    child: InkWell(
-                      onTap: () async {
-                        await launchExternalUrl(url: feedItem.url, analyticsLabel: "Tail Blog Post");
-                      },
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: <Widget>[
-                          if (feedItem.imageId != null) ...[
-                            SizedBox.expand(
-                              child: TailBlogImage(
-                                url: feedItem.imageUrl ?? "",
+    switch (feedState) {
+      case FeedState.loading:
+        return Center(child: CircularProgressIndicator());
+      case FeedState.noInternet:
+      case FeedState.error:
+        return const Center(child: Opacity(opacity: 0.5, child: Icon(Icons.signal_cellular_connected_no_internet_0_bar, size: 150)));
+      case FeedState.loaded:
+        return ListView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: results.length,
+          itemBuilder: (BuildContext context, int index) {
+            FeedItem feedItem = results[index];
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  child: SizedBox(
+                    width: 250,
+                    child: Semantics(
+                      label: 'A button to view the blog post: ${feedItem.title}',
+                      child: InkWell(
+                        onTap: () async {
+                          await launchExternalUrl(url: feedItem.url, analyticsLabel: "Tail Blog Post");
+                        },
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: <Widget>[
+                            if (feedItem.imageId != null) ...[SizedBox.expand(child: TailBlogImage(url: feedItem.imageUrl ?? ""))],
+                            Card(
+                              clipBehavior: Clip.antiAlias,
+                              margin: EdgeInsets.zero,
+                              elevation: 2,
+                              child: ListTile(
+                                //leading: Icon(feedItem.feedType.icon),
+                                title: Text(convertToUwU(feedItem.title)),
                               ),
                             ),
                           ],
-                          Card(
-                            clipBehavior: Clip.antiAlias,
-                            margin: EdgeInsets.zero,
-                            elevation: 2,
-                            child: ListTile(
-                              //leading: Icon(feedItem.feedType.icon),
-                              title: Text(convertToUwU(feedItem.title)),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
-      ),
-      crossFadeState: results.isNotEmpty ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-      duration: animationTransitionDuration,
-    );
+            );
+          },
+        );
+    }
   }
 
   @override
@@ -149,17 +131,11 @@ class _TailBlogState extends State<TailBlog> {
       }
       if (wordpressPosts.isNotEmpty) {
         for (Post post in wordpressPosts) {
-          results.add(
-            FeedItem(
-              title: post.title!.parsedText,
-              publishDate: post.date!,
-              url: post.link,
-              imageId: post.featuredMedia,
-              imageUrl: await getImageURL(post),
-            ),
-          );
+          results.add(FeedItem(title: post.title!.parsedText, publishDate: post.date!, url: post.link, imageId: post.featuredMedia, imageUrl: await getImageURL(post)));
         }
       }
+      //filter out posts that are missing a thumbnail
+      results = results.where((element) => element.imageUrl != null,).toList();
     }
     if (mounted && context.mounted) {
       setState(() {
@@ -175,7 +151,9 @@ class _TailBlogState extends State<TailBlog> {
   Future<String?> getImageURL(Post post) async {
     try {
       MediaDetails mediaDetails = MediaDetails.fromJson(post.self['_embedded']['wp:featuredmedia'][0]['media_details']);
-      if (mediaDetails.sizes == null) {
+
+      // if the post does not have a featured image, or if the featured image does not have the compressed versions created by wordpress.
+      if (mediaDetails.sizes == null || mediaDetails.sizes!.isEmpty) {
         return null;
       }
       if (mediaDetails.sizes!.containsKey('medium')) {
@@ -201,13 +179,7 @@ abstract class FeedItem with _$FeedItem implements Comparable<FeedItem> {
   const FeedItem._();
 
   @Implements<Comparable<FeedItem>>()
-  const factory FeedItem({
-    required String url,
-    required String title,
-    required DateTime publishDate,
-    final int? imageId,
-    final String? imageUrl,
-  }) = _FeedItem;
+  const factory FeedItem({required String url, required String title, required DateTime publishDate, final int? imageId, final String? imageUrl}) = _FeedItem;
 
   @override
   int compareTo(FeedItem other) {

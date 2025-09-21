@@ -23,84 +23,75 @@ class _CoshubFeedState extends ConsumerState<CoshubFeed> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      alignment: Alignment.topCenter,
-      firstChild: feedState == FeedState.loading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : [FeedState.noInternet, FeedState.error].contains(feedState)
-              ? const Center(
-                  child: Opacity(
-                    opacity: 0.5,
-                    child: Icon(
-                      Icons.signal_cellular_connected_no_internet_0_bar,
-                      size: 150,
-                    ),
-                  ),
-                )
-              : Container(),
-      secondChild: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: results.length,
-        itemBuilder: (BuildContext context, int index) {
-          CosHubPost post = results[index];
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                child: SizedBox(
-                  width: 250,
-                  child: Semantics(
-                    label: 'A button to view the CosHub post by: ${post.username}',
-                    child: InkWell(
-                      onTap: () async {
-                        await launchExternalUrl(url: post.url, analyticsLabel: "CosHub Post");
-                      },
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: <Widget>[
-                          if (post.thumbnailUrl != "") ...[
-                            SizedBox.expand(
-                              child: TailBlogImage(
-                                url: post.thumbnailUrl,
+
+    switch (feedState) {
+      case FeedState.loading:
+        return Center(child: CircularProgressIndicator());
+      case FeedState.noInternet:
+      case FeedState.error:
+        return const Center(child: Opacity(opacity: 0.5, child: Icon(Icons.signal_cellular_connected_no_internet_0_bar, size: 150)));
+      case FeedState.loaded:
+       return ListView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: results.length,
+          itemBuilder: (BuildContext context, int index) {
+            CosHubPost post = results[index];
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  child: SizedBox(
+                    width: 250,
+                    child: Semantics(
+                      label: 'A button to view the CosHub post by: ${post.username}',
+                      child: InkWell(
+                        onTap: () async {
+                          await launchExternalUrl(url: post.url, analyticsLabel: "CosHub Post");
+                        },
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: <Widget>[
+                            if (post.thumbnailUrl != "") ...[
+                              SizedBox.expand(
+                                child: TailBlogImage(
+                                  url: post.thumbnailUrl,
+                                ),
+                              ),
+                            ],
+                            Card(
+                              clipBehavior: Clip.antiAlias,
+                              margin: EdgeInsets.zero,
+                              elevation: 2,
+                              child: ListTile(
+                                //leading: Icon(feedItem.feedType.icon),
+                                title: Text(convertToUwU(post.username)), subtitle: post.character != null ? Text(convertToUwU(post.character!)) : null,
+                                leading: post.profileThumbnailUrl != null
+                                    ? ClipOval(
+                                  child: SizedBox.fromSize(
+                                    size: Size.fromRadius(24),
+                                    child: TailBlogImage(
+                                      url: post.profileThumbnailUrl!,
+                                    ),
+                                  ),
+                                )
+                                    : null,
                               ),
                             ),
                           ],
-                          Card(
-                            clipBehavior: Clip.antiAlias,
-                            margin: EdgeInsets.zero,
-                            elevation: 2,
-                            child: ListTile(
-                              //leading: Icon(feedItem.feedType.icon),
-                              title: Text(convertToUwU(post.username)), subtitle: post.character != null ? Text(convertToUwU(post.character!)) : null,
-                              leading: post.profileThumbnailUrl != null
-                                  ? ClipOval(
-                                      child: SizedBox.fromSize(
-                                        size: Size.fromRadius(24),
-                                        child: TailBlogImage(
-                                          url: post.profileThumbnailUrl!,
-                                        ),
-                                      ),
-                                    )
-                                  : null,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
-      ),
-      crossFadeState: results.isNotEmpty ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-      duration: animationTransitionDuration,
-    );
+            );
+          },
+        );
+    }
+
+
   }
 
   @override
