@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:firebase_app_installations/firebase_app_installations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -26,14 +27,7 @@ Future<void> initCosHubFirebase(Ref ref) async {
 
 @freezed
 abstract class CosHubPost with _$CosHubPost {
-  const factory CosHubPost({
-    required String id,
-    required String url,
-    String? character,
-    required String thumbnailUrl,
-    String? profileThumbnailUrl,
-    required String username,
-  }) = _CosHubPost;
+  const factory CosHubPost({required String id, required String url, String? character, required String thumbnailUrl, String? profileThumbnailUrl, required String username, required DateTime timestamp}) = _CosHubPost;
 
   factory CosHubPost.fromJson(Map<String, dynamic> json) => _$CosHubPostFromJson(json);
 }
@@ -46,38 +40,44 @@ Future<List<CosHubPost>> getCosHubPosts(Ref ref) async {
   final appConstants = firestore.collection("appConstants");
   DocumentSnapshot<Map<String, dynamic>> featuredCosplayersUserIdsQuery = await appConstants.doc("featured_cosplayers").get();
   List<dynamic> featuredCosplayersUserIds = featuredCosplayersUserIdsQuery.data()!["user"] as List<dynamic>;
-  final QuerySnapshot<Map<String, dynamic>> postsQuery = await firestore.collection("posts").where("userId", whereIn: featuredCosplayersUserIds).orderBy("createdAt", descending: true).limit(10).get();
   final QuerySnapshot<Map<String, dynamic>> usersQuery = await firestore.collection("users").where("id", whereIn: featuredCosplayersUserIds).get();
 
+  List<CosHubPost> mappedPosts = [];
 
   final String cosHubUrl = (await getDynamicConfigInfo()).urls.coshubUrl;
-  List<CosHubPost> mappedPosts = postsQuery.docs
-      .map(
-    (e) => e.data(),
-  )
-      .where(
-    (element) {
-      List<dynamic>? postImageUrls = element["postImageUrls"];
-      return postImageUrls != null && postImageUrls.isNotEmpty;
-    },
-  ).map(
-    (postData) {
-      Map<String, dynamic> userData = usersQuery.docs
-          .firstWhere(
-            (element) => element.data()["id"] == postData["userId"],
-          )
-          .data();
-      CosHubPost cosHubPost = CosHubPost(
-        id: postData["id"],
-        url: cosHubUrl,
-        thumbnailUrl: postData["postImageUrls"][0],
-        profileThumbnailUrl: userData["profilePicture"],
-        username: userData["username"],
-        character: postData["character"],
-      );
-      return cosHubPost;
-    },
-  ).toList();
+
+  // We want to grab a few posts from each featured user
+  for (String featuredCosplayersUserId in featuredCosplayersUserIds) {
+    final QuerySnapshot<Map<String, dynamic>> postsQuery = await firestore
+        .collection("posts")
+        .where("userId", isEqualTo: featuredCosplayersUserId)
+        .orderBy("createdAt", descending: true)
+        .limit(5)
+        .get();
+    mappedPosts.addAll(
+      postsQuery.docs
+          .map((e) => e.data())
+          .where((element) {
+            List<dynamic>? postImageUrls = element["postImageUrls"];
+            return postImageUrls != null && postImageUrls.isNotEmpty;
+          })
+          .map((postData) {
+            Map<String, dynamic> userData = usersQuery.docs.firstWhere((element) => element.data()["id"] == postData["userId"]).data();
+            CosHubPost cosHubPost = CosHubPost(
+              id: postData["id"],
+              url: cosHubUrl,
+              thumbnailUrl: postData["postImageUrls"][0],
+              profileThumbnailUrl: userData["profilePicture"],
+              username: userData["username"],
+              character: postData["character"],
+              timestamp: (postData['createdAt'] as Timestamp).toDate()
+            );
+            return cosHubPost;
+          })
+          .sortedBy((element) => element.timestamp,).toList(),
+    );
+  }
+
   return mappedPosts;
 }
 
@@ -86,9 +86,7 @@ bool didInitFirebase = false;
 Future<void> configurePushNotifications() async {
   if (!didInitFirebase) {
     // Required before doing anything with firebase
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     didInitFirebase = true;
   }
 
