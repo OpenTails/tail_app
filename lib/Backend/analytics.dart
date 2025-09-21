@@ -4,6 +4,7 @@ import 'package:aptabase_flutter/aptabase_flutter.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:synchronized/synchronized.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,6 +13,7 @@ import '../constants.dart';
 import 'logging_wrappers.dart';
 
 bool _didInit = false;
+Lock _initLock = Lock();
 
 // should only fire once per app launch
 Future<void> launchAppAnalytics() async {
@@ -23,21 +25,24 @@ Future<void> launchAppAnalytics() async {
 }
 
 Future<void> _initAptBase() async {
-  if (_didInit) {
-    return;
-  }
-
-  await Aptabase.init(
-    "A-SH-1386827771",
-    InitOptions(
-      printDebugMessages: kDebugMode,
-      host: "https://aptabase.codel1417.xyz",
-      tickDuration: Duration(
-        seconds: (await getDynamicConfigInfo()).featureFlags.analyticsTickDurationSeconds,
+  // Use this object to prevent concurrent access to data
+  await _initLock.synchronized(() async {
+    if (_didInit) {
+      return;
+    }
+    await Aptabase.init(
+      "A-SH-1386827771",
+      InitOptions(
+        printDebugMessages: kDebugMode,
+        host: "https://aptabase.codel1417.xyz",
+        tickDuration: Duration(
+          seconds: (await getDynamicConfigInfo()).featureFlags.analyticsTickDurationSeconds,
+        ),
       ),
-    ),
-  );
-  _didInit = true;
+    );
+    _didInit = true;
+  });
+
 }
 
 Future<void> analyticsEvent({String name = "", Map<String, String> props = const {}}) async {
@@ -50,7 +55,7 @@ Future<void> analyticsEvent({String name = "", Map<String, String> props = const
   if (!HiveProxy.getOrDefault(settings, allowAnalytics, defaultValue: allowAnalyticsDefault)) {
     return;
   }
-  _initAptBase();
+  await _initAptBase();
   Aptabase.instance.trackEvent(name, props);
 }
 
