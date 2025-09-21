@@ -29,7 +29,7 @@ Future<void> appShortcuts(Ref ref) async {
       analyticsEvent(name: "Use App Shortcut");
     }
   });
-  updateShortcuts(ref.read(favoriteActionsProvider), ref);
+  await updateShortcuts(ref.read(favoriteActionsProvider), ref);
 }
 
 Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {

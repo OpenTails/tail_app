@@ -410,7 +410,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
   }
 }
 
-@Riverpod(keepAlive: true, dependencies: [InitFlutterBluePlus])
+@Riverpod(keepAlive: true)
 class _KeepGearAwake extends _$KeepGearAwake {
   StreamSubscription? streamSubscription;
 
@@ -541,22 +541,26 @@ class Scan extends _$Scan {
     isBluetoothEnabled
       ..removeListener(isAllGearConnectedListener)
       ..addListener(isAllGearConnectedListener);
+
+    // Has to be delayed so the provider initializes before calling the listener. Otherwise we can't call ref or set state in other methods
     Future.delayed(
-      Duration(milliseconds: 5),
+      Duration(milliseconds: 1),
       () => isAllGearConnectedListener(),
     );
 
     ref.onDispose(
       () {
         isScanningStreamSubscription?.cancel();
-        stopScan();
+        //stopScan();
       },
     );
     return ScanReason.notScanning;
   }
 
   void isAllKnownGearConnectedProviderListener(bool? previous, bool next) {
-    isAllGearConnectedListener();
+    if (ref.mounted){
+      isAllGearConnectedListener();
+    }
   }
 
   void onIsScanningChange(bool isScanning) {
@@ -590,10 +594,6 @@ class Scan extends _$Scan {
   }
 
   void isAllGearConnectedListener() {
-    if (!ref.exists(isAllKnownGearConnectedProvider)) {
-      return;
-    }
-
     bool allConnected = ref.read(isAllKnownGearConnectedProvider);
     bool isInOnboarding = HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree;
     if ((!allConnected || isInOnboarding) && isBluetoothEnabled.value) {

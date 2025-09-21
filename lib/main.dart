@@ -8,6 +8,7 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -305,25 +306,22 @@ final class RiverpodProviderObserver extends ProviderObserver {
   }
 
   @override
-  void didDisposeProvider(ProviderObserverContext context){
+  void didDisposeProvider(ProviderObserverContext context) {
     riverpodLogger.info('Provider ${context.provider} was disposed');
   }
 
   @override
-  void didUpdateProvider(
-      ProviderObserverContext context,
-      Object? previousValue,
-      Object? newValue,
-      )  {
+  void didUpdateProvider(ProviderObserverContext context, Object? previousValue, Object? newValue) {
     riverpodLogger.info('Provider ${context.provider} updated from $previousValue to $newValue');
   }
 
   @override
-  void providerDidFail(
-      ProviderObserverContext context,
-      Object error,
-      StackTrace stackTrace,
-      ) {
+  void providerDidFail(ProviderObserverContext context, Object error, StackTrace stackTrace) {
+    if (error is ProviderException) {
+      // The provider didn't fail directly, but instead depends on a failed provider.
+      // The error was therefore already logged.
+      return;
+    }
     riverpodLogger.warning('Provider ${context.provider} threw $error at $stackTrace', error, stackTrace);
   }
 }
