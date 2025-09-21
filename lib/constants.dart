@@ -62,4 +62,4 @@ const String favoriteActionsBox = 'favoriteActions';
 const String audioActionsBox = 'audioActions';
 
 // increase to force existing users to go through onboarding
-const int hasCompletedOnboardingVersionToAgree = 2;
+const int hasCompletedOnboardingVersionToAgree = 3;

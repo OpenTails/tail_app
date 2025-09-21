@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/firebase.dart';
 import 'package:tail_app/Frontend/Widgets/known_gear.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
@@ -33,11 +34,17 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
   bool bluetoothAccepted = false;
   bool privacyAccepted = false;
+  bool firstTimeOnboarding = true;
   @override
   void initState() {
     super.initState();
+    // Users could be thrown into onboarding if the privacy policy changed
+    firstTimeOnboarding = HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingDefault;
+    //skip if going through onboarding a second time
+    bluetoothAccepted = !firstTimeOnboarding;
+
     //enable marketing notifications by default for new installs, but not existing ones
-    if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == 0) {
+    if (firstTimeOnboarding) {
       HiveProxy.put(settings, marketingNotificationsEnabled, true);
     }
   }
@@ -142,10 +149,18 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                         setState(() {
                           _introLogger.info("Accepted Privacy Policy");
                           privacyAccepted = true;
-                          HiveProxy
-                            ..put(settings, allowErrorReporting, true)
-                            ..put(settings, allowAnalytics, true);
-                          introKey.currentState?.next();
+
+                          if (firstTimeOnboarding){
+                            // Don't change settings of users who have already completed onboarding once.
+                            HiveProxy
+                              ..put(settings, allowErrorReporting, true)
+                              ..put(settings, allowAnalytics, true);
+
+                            introKey.currentState?.next();
+                          }
+                          else {
+                            introKey.currentState?.skipToEnd();
+                          }
                         });
                       },
                 child: Text(
@@ -194,7 +209,12 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                               bluetoothAccepted = true;
                             },
                           );
-                          introKey.currentState?.next();
+                          if (firstTimeOnboarding){
+                            introKey.currentState?.next();
+                          }
+                          else {
+                            introKey.currentState?.skipToEnd();
+                          }
                         }
                       },
                 child: Text(
