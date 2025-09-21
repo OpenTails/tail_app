@@ -2,6 +2,7 @@
 
 - Rework analytics to be more useful
 - Add CosHub posts to Home UI
+- Disabled 'Nearby Gear' trigger as it has been broken for awhile. This will hopefully come back in a future release
 - some bug fixes
 
 ### V 1.3.0
