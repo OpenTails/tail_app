@@ -109,7 +109,7 @@ dependencies:
   firebase_core: ^3.15.1
   firebase_app_installations: ^0.3.2+9
   cloud_firestore: ^5.6.12
-  upgrader: ^11.5.1 # update notices
+  upgrader: ^12.1.0 # update notices
   firebase_notifications_handler: ^2.0.2+1
   aptabase_flutter: ^0.4.1 # analytics
 
