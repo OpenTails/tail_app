@@ -2012,10 +2012,10 @@ packages:
     dependency: "direct main"
     description:
       name: upgrader
-      sha256: "6997d84f49120d6179f6d839a87f0d9595b50641d17e058d8e0fc5f4bdf673fe"
+      sha256: a28de64108db70f77e5eacf8b87c1bdfaf9374ece9cab26f9aeac26ac3403eff
       url: "https://pub.dev"
     source: hosted
-    version: "11.5.1"
+    version: "12.1.0"
   upower:
     dependency: transitive
     description:
