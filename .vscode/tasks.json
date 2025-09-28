@@ -169,7 +169,8 @@
 			],
 			"runOptions": {
 				"runOn": "folderOpen"
-			}
+			},
+			"problemMatcher": []
 		},
 		{
 			"label": "Prebuild",
