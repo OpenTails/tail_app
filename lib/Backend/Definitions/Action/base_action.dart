@@ -14,35 +14,23 @@ part 'base_action.g.dart';
 enum ActionCategory {
   @HiveField(1)
   sequence,
-  @HiveField(2)
-  calm,
-  @HiveField(3)
-  fast,
-  @HiveField(4)
-  tense,
   @HiveField(5)
   glowtip,
-  @HiveField(6)
-  ears,
   @HiveField(7)
   hidden,
   @HiveField(8)
-  audio
+  audio,
+  @HiveField(9)
+  rgb,
 }
 
 extension ActionCategoryExtension on ActionCategory {
   String get friendly {
     switch (this) {
-      case ActionCategory.calm:
-        return actionsCategoryCalm();
-      case ActionCategory.fast:
-        return actionsCategoryFast();
-      case ActionCategory.tense:
-        return actionsCategoryTense();
       case ActionCategory.glowtip:
         return actionsCategoryGlowtip();
-      case ActionCategory.ears:
-        return "EarGear";
+      case ActionCategory.rgb:
+        return actionsCategoryRGB();
       case ActionCategory.sequence:
         return sequencesPage();
       case ActionCategory.hidden:
@@ -58,22 +46,29 @@ abstract class BaseAction {
 
   List<DeviceType> get deviceCategory;
 
-  ActionCategory get actionCategory;
+  ActionCategory? get actionCategory;
 
   String get uuid;
 
-  Map<DeviceType, String> get nameAlias;
-
   // Priority is Wings -> Ears -> Tail -> default
   String getName(BuiltSet<DeviceType> connectedDeviceTypes) {
-    if (connectedDeviceTypes.contains(DeviceType.wings) && deviceCategory.contains(DeviceType.wings) && nameAlias.containsKey(DeviceType.wings)) {
-      return nameAlias[DeviceType.wings]!;
-    } else if (connectedDeviceTypes.contains(DeviceType.ears) && deviceCategory.contains(DeviceType.ears) && nameAlias.containsKey(DeviceType.ears)) {
-      return nameAlias[DeviceType.ears]!;
-    } else if ((connectedDeviceTypes.contains(DeviceType.tail) || connectedDeviceTypes.contains(DeviceType.miniTail)) && (deviceCategory.contains(DeviceType.tail) || deviceCategory.contains(DeviceType.miniTail)) && nameAlias.containsKey(DeviceType.tail)) {
-      return nameAlias[DeviceType.tail]!;
-    }
     return name;
+  }
+
+  String getCategoryName() {
+    if (actionCategory != null) {
+      return actionCategory!.friendly;
+    } else {
+      return deviceCategory.first.translatedName;
+    }
+  }
+
+  String getCategoryNameAnalytics() {
+    if (actionCategory != null) {
+      return actionCategory!.name;
+    } else {
+      return deviceCategory.first.name;
+    }
   }
 }
 
@@ -87,12 +82,11 @@ abstract class CommandAction extends BaseAction with _$CommandAction {
     required final String name,
     required final String uuid,
     required final List<DeviceType> deviceCategory,
-    required final ActionCategory actionCategory,
+    final ActionCategory? actionCategory,
     final String? response,
-    @Default({}) final Map<DeviceType, String> nameAlias,
+    final List<Object>? legacyEarCommandMoves,
   }) = _CommandAction;
 
-  //TODO: Remove with TAILCoNTROL update
   factory CommandAction.hiddenEars(String command, String response) {
     return CommandAction(command: command, response: response, deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: const Uuid().v4(), name: command);
   }
@@ -109,8 +103,7 @@ abstract class AudioAction extends BaseAction with _$AudioAction implements Comp
     @HiveField(1) required String name,
     @HiveField(4) required final String uuid,
     @HiveField(2) @Default(DeviceType.values) final List<DeviceType> deviceCategory,
-    @HiveField(3) @Default(ActionCategory.audio) final ActionCategory actionCategory,
-    @Default({}) final Map<DeviceType, String> nameAlias,
+    @HiveField(3) @Default(ActionCategory.audio) final ActionCategory? actionCategory,
   }) = _AudioAction;
 
   @override
@@ -129,24 +122,8 @@ abstract class MoveList extends BaseAction with _$MoveList {
     @HiveField(1) required String name,
     @HiveField(4) required final String uuid,
     @HiveField(2) @Default(DeviceType.values) List<DeviceType> deviceCategory,
-    @HiveField(3) @Default(ActionCategory.sequence) final ActionCategory actionCategory,
+    @HiveField(3) @Default(ActionCategory.sequence) final ActionCategory? actionCategory,
     @HiveField(5) @Default([]) List<Move> moves,
     @HiveField(6) @Default(1) double repeat,
-    @Default({}) final Map<DeviceType, String> nameAlias,
   }) = _MoveList;
-}
-
-@freezed
-abstract class EarsMoveList extends BaseAction with _$EarsMoveList {
-  EarsMoveList._();
-
-  @Implements<BaseAction>()
-  factory EarsMoveList({
-    required final String name,
-    required final String uuid,
-    required final List<Object> commandMoves,
-    required final List<DeviceType> deviceCategory,
-    required final ActionCategory actionCategory,
-    @Default({}) final Map<DeviceType, String> nameAlias,
-  }) = _EarsMoveList;
 }

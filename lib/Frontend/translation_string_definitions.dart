@@ -113,13 +113,8 @@ String actionsNoBluetoothDescription() =>
     Intl.message('Bluetooth is required to connect to Gear. Please turn on bluetooth in settings. Do not connect to gear while in your devices bluetooth settings.',
         name: 'actionsNoBluetoothDescription', desc: 'description on the actions page when bluetooth is unavailable');
 
-String actionsCategoryCalm() => Intl.message('Calm and Relaxed', name: 'actionsCategoryCalm', desc: 'calm action group label');
-
-String actionsCategoryFast() => Intl.message('Fast and Excited', name: 'actionsCategoryFast', desc: 'fast action group label');
-
-String actionsCategoryTense() => Intl.message('Frustrated and Tense', name: 'actionsCategoryTense', desc: 'tense action group label');
-
 String actionsCategoryGlowtip() => Intl.message('GlowTip', name: 'actionsCategoryGlowtip', desc: 'glowtip action group label');
+String actionsCategoryRGB() => Intl.message('RGB', name: 'actionsCategoryRGB', desc: 'RGB action group label');
 
 String actionsSelectScreen() => Intl.message('Select Actions', name: 'actionsSelectScreen', desc: 'Title for action select menu on triggers page');
 //Settings

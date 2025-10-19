@@ -33,9 +33,7 @@ class ActionPage extends ConsumerWidget {
 }
 
 class ActionPageBuilder extends ConsumerStatefulWidget {
-  const ActionPageBuilder({
-    super.key,
-  });
+  const ActionPageBuilder({super.key});
 
   @override
   ConsumerState<ActionPageBuilder> createState() => _ActionPageBuilderState();
@@ -46,8 +44,8 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
   Widget build(BuildContext context) {
     bool largerCards = HiveProxy.getOrDefault(settings, largerActionCardSize, defaultValue: largerActionCardSizeDefault);
     List<BaseStatefulDevice> knownDevicesFiltered = ref.watch(getAvailableGearProvider).toList();
-    BuiltMap<ActionCategory, BuiltSet<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
-    List<ActionCategory> catList = actionsCatMap.keys.toList();
+    BuiltMap<String, BuiltSet<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
+    List<String> catList = actionsCatMap.keys.toList();
     return AnimatedSwitcher(
       duration: animationTransitionDuration,
       child: actionsCatMap.isNotEmpty
@@ -57,39 +55,27 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                 //TODO: Remove for TAILCoNTROL update
                 AnimatedSwitcher(
                   duration: animationTransitionDuration,
-                  child: ref
-                          .watch(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears])))
-                          .where(
-                            (p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy,
-                          )
-                          .isNotEmpty
+                  child: ref.watch(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy).isNotEmpty
                       ? const EarSpeedWidget()
                       : null,
                 ),
                 AnimatedCrossFade(
-                  firstChild: PageInfoCard(
-                    text: actionsFavoriteTip(),
-                  ),
+                  firstChild: PageInfoCard(text: actionsFavoriteTip()),
                   secondChild: GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
-                    itemCount: actionsCatMap.values.flattened
-                        .where(
-                          (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                        )
-                        .length,
+                    itemCount: actionsCatMap.values.flattened.where((element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid)).length,
                     itemBuilder: (BuildContext context, int index) {
                       BaseAction baseAction = actionsCatMap.values.flattened
-                          .where(
-                            (element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid),
-                          )
+                          .where((element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid))
                           .toList()[index];
                       return ActionCard(actionIndex: index, knownDevices: knownDevicesFiltered, action: baseAction, largerCards: largerCards);
                     },
                   ),
-                  crossFadeState:
-                      actionsCatMap.values.flattened.where((element) => ref.watch(favoriteActionsProvider.notifier).contains(element)).isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                  crossFadeState: actionsCatMap.values.flattened.where((element) => ref.watch(favoriteActionsProvider.notifier).contains(element)).isEmpty
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
                   duration: animationTransitionDuration,
                 ),
                 ListView.builder(
@@ -104,12 +90,7 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         children: [
-                          Center(
-                            child: Text(
-                              catList[categoryIndex].friendly,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ),
+                          Center(child: Text(catList[categoryIndex], style: Theme.of(context).textTheme.titleLarge)),
                           GridView.builder(
                             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
                             physics: const NeverScrollableScrollPhysics(),
@@ -156,15 +137,13 @@ class _ActionCardState extends ConsumerState<ActionCard> {
         onLongPress: () async {
           if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
             HapticFeedback.mediumImpact();
-            setState(
-              () {
-                if (ref.read(favoriteActionsProvider.notifier).contains(widget.action)) {
-                  ref.read(favoriteActionsProvider.notifier).remove(widget.action);
-                } else {
-                  ref.read(favoriteActionsProvider.notifier).add(widget.action);
-                }
-              },
-            );
+            setState(() {
+              if (ref.read(favoriteActionsProvider.notifier).contains(widget.action)) {
+                ref.read(favoriteActionsProvider.notifier).remove(widget.action);
+              } else {
+                ref.read(favoriteActionsProvider.notifier).add(widget.action);
+              }
+            });
           }
         },
         onTap: () async {
@@ -188,51 +167,6 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                 crossFadeState: ref.watch(isGearMoveRunningProvider(widget.action.deviceCategory.toBuiltSet())) ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                 alignment: Alignment.center,
                 duration: animationTransitionDuration,
-              ),
-              Padding(
-                // Indicator of which gear type this would be sent to
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: ref
-                      .watch(getAvailableGearForTypeProvider(widget.action.deviceCategory.toBuiltSet()))
-                      .where(
-                        (baseStatefulDevice) {
-                          //TODO: remove after tailcontrol migration period
-                          if (widget.action.deviceCategory.contains(DeviceType.ears) && baseStatefulDevice.baseDeviceDefinition.deviceType == DeviceType.ears) {
-                            if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
-                              // skip legacy moves
-                              if (widget.action is EarsMoveList) {
-                                return false;
-                              }
-                              // skip unified moves for legacy firmware ears
-                            } else if (baseStatefulDevice.isTailCoNTROL.value == TailControlStatus.legacy) {
-                              if (widget.action is CommandAction) {
-                                return false;
-                              }
-                            }
-                          }
-                          return true;
-                        },
-                      )
-                      .map(
-                        (e) => Card(
-                          color: Color(e.baseStoredDevice.color),
-                          elevation: 0,
-                          shape: const CircleBorder(),
-                          clipBehavior: Clip.antiAlias,
-                          margin: EdgeInsets.zero,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4),
-                            child: Text(
-                              e.baseDeviceDefinition.deviceType.translatedName.substring(0, 1),
-                              textScaler: TextScaler.linear(widget.largerCards ? 2 : 1),
-                              style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(Color(e.baseStoredDevice.color))),
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
               ),
               Padding(
                 padding: EdgeInsets.all(widget.largerCards ? 16 : 8),

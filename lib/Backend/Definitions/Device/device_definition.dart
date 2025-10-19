@@ -32,7 +32,7 @@ enum DeviceType {
   @HiveField(3)
   wings,
   @HiveField(4)
-  miniTail
+  miniTail,
 } //TODO extend with icon
 
 @HiveType(typeId: 14)
@@ -40,7 +40,7 @@ enum EarSpeed {
   @HiveField(1)
   fast,
   @HiveField(2)
-  slow
+  slow,
 }
 
 extension EarSpeedExtension on EarSpeed {
@@ -118,6 +118,8 @@ enum DeviceState { standby, runAction, busy }
 
 enum GlowtipStatus { glowtip, noGlowtip, unknown }
 
+enum RGBStatus { rgb, noRGB, unknown }
+
 enum TailControlStatus { tailControl, legacy, unknown }
 
 @freezed
@@ -127,36 +129,32 @@ abstract class BluetoothUartService with _$BluetoothUartService {
 
 final List<BluetoothUartService> uartServices = const [
   BluetoothUartService(
-      bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
-      bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
-      bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
-      label: "Legacy Gear"),
+    bleDeviceService: "3af2108b-d066-42da-a7d4-55648fa0a9b6",
+    bleRxCharacteristic: "c6612b64-0087-4974-939e-68968ef294b0",
+    bleTxCharacteristic: "5bfd6484-ddee-4723-bfe6-b653372bbfd6",
+    label: "Legacy Gear",
+  ),
   BluetoothUartService(bleDeviceService: "0000ffe0-0000-1000-8000-00805f9b34fb", bleRxCharacteristic: "", bleTxCharacteristic: "0000ffe1-0000-1000-8000-00805f9b34fb", label: "DigiTail"),
   BluetoothUartService(
-      bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
-      bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
-      bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
-      label: "Legacy Ears"),
+    bleDeviceService: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
+    bleRxCharacteristic: "0b646a19-371e-4327-b169-9632d56c0e84",
+    bleTxCharacteristic: "05e026d8-b395-4416-9f8a-c00d6c3781b9",
+    label: "Legacy Ears",
+  ),
   // TailCoNTROL uuids
   BluetoothUartService(
-      bleDeviceService: "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
-      bleRxCharacteristic: "567a99d6-a442-4ac0-b676-4993bf95f805",
-      bleTxCharacteristic: "5e4d86ac-ef2f-466f-a857-8776d45ffbc2",
-      label: "TailCoNTROL")
+    bleDeviceService: "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
+    bleRxCharacteristic: "567a99d6-a442-4ac0-b676-4993bf95f805",
+    bleTxCharacteristic: "5e4d86ac-ef2f-466f-a857-8776d45ffbc2",
+    label: "TailCoNTROL",
+  ),
 ];
 
 @freezed
 abstract class BaseDeviceDefinition with _$BaseDeviceDefinition {
-  
   const BaseDeviceDefinition._();
 
-  const factory BaseDeviceDefinition({
-    required String uuid,
-    required String btName,
-    required DeviceType deviceType,
-    Version? minVersion,
-    @Default(false) bool unsupported,
-  }) = _BaseDeviceDefinition;
+  const factory BaseDeviceDefinition({required String uuid, required String btName, required DeviceType deviceType, Version? minVersion, @Default(false) bool unsupported}) = _BaseDeviceDefinition;
 
   Future<String> getFwURL() async {
     DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
@@ -176,6 +174,8 @@ class BaseStatefulDevice {
   final ValueNotifier<Version> fwVersion = ValueNotifier(const Version());
   final ValueNotifier<String> hwVersion = ValueNotifier("");
   final ValueNotifier<GlowtipStatus> hasGlowtip = ValueNotifier(GlowtipStatus.unknown);
+  final ValueNotifier<RGBStatus> hasRGB = ValueNotifier(RGBStatus.unknown);
+
   final ValueNotifier<DeviceState> deviceState = ValueNotifier(DeviceState.standby);
   final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(ConnectivityState.disconnected);
   final ValueNotifier<int> rssi = ValueNotifier(-1);
@@ -194,18 +194,22 @@ class BaseStatefulDevice {
   Timer? deviceStateWatchdogTimer;
 
   BaseStatefulDevice(this.baseDeviceDefinition, this.baseStoredDevice) {
-    rxCharacteristicStream = FlutterBluePlus.events.onCharacteristicReceived.asBroadcastStream().where((event) {
-      return event.device.remoteId.str == baseStoredDevice.btMACAddress &&
-          bluetoothUartService.value != null &&
-          event.characteristic.characteristicUuid.str == bluetoothUartService.value!.bleRxCharacteristic;
-    }).map((event) {
-      try {
-        return const Utf8Decoder().convert(event.value);
-      } catch (e) {
-        bluetoothLog.warning("Unable to read values: ${event.value} $e");
-      }
-      return "";
-    }).where((event) => event.isNotEmpty);
+    rxCharacteristicStream = FlutterBluePlus.events.onCharacteristicReceived
+        .asBroadcastStream()
+        .where((event) {
+          return event.device.remoteId.str == baseStoredDevice.btMACAddress &&
+              bluetoothUartService.value != null &&
+              event.characteristic.characteristicUuid.str == bluetoothUartService.value!.bleRxCharacteristic;
+        })
+        .map((event) {
+          try {
+            return const Utf8Decoder().convert(event.value);
+          } catch (e) {
+            bluetoothLog.warning("Unable to read values: ${event.value} $e");
+          }
+          return "";
+        })
+        .where((event) => event.isNotEmpty);
 
     deviceConnectionState.addListener(() {
       if (deviceConnectionState.value == ConnectivityState.disconnected) {
@@ -268,24 +272,25 @@ class BaseStatefulDevice {
 abstract class GearConfigInfo with _$GearConfigInfo {
   const GearConfigInfo._();
 
-  const factory GearConfigInfo(
-      {@Default("") String ver,
-      @Default("") String minsToSleep,
-      @Default("") String minsToNPM,
-      @Default("") String minNPMPauseSec,
-      @Default("") String maxNPMPauseSec,
-      @Default("") String groupsNPM,
-      @Default("") String servo1home,
-      @Default("") String servo2home,
-      @Default("") String listenModeNPMEnabled,
-      @Default("") String listenModeResponseOnly,
-      @Default("") String groupsLM,
-      @Default("") String tiltModeNPMEnabled,
-      @Default("") String tiltModeResponseOnly,
-      @Default("") String disconnectedCountdownEnabled,
-      @Default("") String homeOnAppPoweroff,
-      @Default("") String conferenceModeEnabled,
-      @Default("") String securityPasskey}) = _GearConfigInfo;
+  const factory GearConfigInfo({
+    @Default("") String ver,
+    @Default("") String minsToSleep,
+    @Default("") String minsToNPM,
+    @Default("") String minNPMPauseSec,
+    @Default("") String maxNPMPauseSec,
+    @Default("") String groupsNPM,
+    @Default("") String servo1home,
+    @Default("") String servo2home,
+    @Default("") String listenModeNPMEnabled,
+    @Default("") String listenModeResponseOnly,
+    @Default("") String groupsLM,
+    @Default("") String tiltModeNPMEnabled,
+    @Default("") String tiltModeResponseOnly,
+    @Default("") String disconnectedCountdownEnabled,
+    @Default("") String homeOnAppPoweroff,
+    @Default("") String conferenceModeEnabled,
+    @Default("") String securityPasskey,
+  }) = _GearConfigInfo;
 
   factory GearConfigInfo.fromGearString(String fwInput) {
     List<String> values = fwInput.split(" ");
@@ -308,23 +313,24 @@ abstract class GearConfigInfo with _$GearConfigInfo {
     String securityPasskey = values[16];
 
     return GearConfigInfo(
-        ver: ver,
-        minsToSleep: minsToSleep,
-        minsToNPM: minsToNPM,
-        minNPMPauseSec: minNPMPauseSec,
-        maxNPMPauseSec: maxNPMPauseSec,
-        groupsNPM: groupsNPM,
-        servo1home: servo1home,
-        servo2home: servo2home,
-        listenModeNPMEnabled: listenModeNPMEnabled,
-        listenModeResponseOnly: listenModeResponseOnly,
-        groupsLM: groupsLM,
-        tiltModeNPMEnabled: tiltModeNPMEnabled,
-        tiltModeResponseOnly: tiltModeResponseOnly,
-        disconnectedCountdownEnabled: disconnectedCountdownEnabled,
-        homeOnAppPoweroff: homeOnAppPoweroff,
-        conferenceModeEnabled: conferenceModeEnabled,
-        securityPasskey: securityPasskey);
+      ver: ver,
+      minsToSleep: minsToSleep,
+      minsToNPM: minsToNPM,
+      minNPMPauseSec: minNPMPauseSec,
+      maxNPMPauseSec: maxNPMPauseSec,
+      groupsNPM: groupsNPM,
+      servo1home: servo1home,
+      servo2home: servo2home,
+      listenModeNPMEnabled: listenModeNPMEnabled,
+      listenModeResponseOnly: listenModeResponseOnly,
+      groupsLM: groupsLM,
+      tiltModeNPMEnabled: tiltModeNPMEnabled,
+      tiltModeResponseOnly: tiltModeResponseOnly,
+      disconnectedCountdownEnabled: disconnectedCountdownEnabled,
+      homeOnAppPoweroff: homeOnAppPoweroff,
+      conferenceModeEnabled: conferenceModeEnabled,
+      securityPasskey: securityPasskey,
+    );
   }
 
   String toGearString() {

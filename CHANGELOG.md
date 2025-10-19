@@ -1,5 +1,6 @@
-### V 1.3.1
+### V 1.4.0
 
+- Split moves by gear type
 - Rework analytics to be more useful
 - Add CosHub posts to Home UI
 - Disabled 'Nearby Gear' trigger as it has been broken for awhile. This will hopefully come back in a future release

@@ -96,9 +96,7 @@ class InitFlutterBluePlus extends _$InitFlutterBluePlus {
       ref.invalidate(_rSSIChangedProvider);
       ref.invalidate(_onScanResultsProvider);
       // Mark all gear disconnected;
-      ref.read(knownDevicesProvider).forEach(
-            (key, value) => value.deviceConnectionState.value = ConnectivityState.disconnected,
-          );
+      ref.read(knownDevicesProvider).forEach((key, value) => value.deviceConnectionState.value = ConnectivityState.disconnected);
       isBluetoothEnabled.value = false;
       _didInitFlutterBluePlus = false; // Allow restarting ble stack
     });
@@ -113,9 +111,7 @@ class _MTUChanged extends _$MTUChanged {
   @override
   void build() {
     streamSubscription = FlutterBluePlus.events.onMtuChanged.listen(listener);
-    ref.onDispose(
-      () => streamSubscription?.cancel(),
-    );
+    ref.onDispose(() => streamSubscription?.cancel());
   }
 
   void listener(OnMtuChangedEvent event) {
@@ -132,18 +128,14 @@ class _OnDiscoveredServices extends _$OnDiscoveredServices {
   @override
   void build() {
     streamSubscription = FlutterBluePlus.events.onDiscoveredServices.listen(listener, onError: (e) => _bluetoothPlusLogger.warning("Unable to discover services: $e", e));
-    ref.onDispose(
-      () => streamSubscription?.cancel(),
-    );
+    ref.onDispose(() => streamSubscription?.cancel());
   }
 
   Future<void> listener(OnDiscoveredServicesEvent event) async {
     //_bluetoothPlusLogger.info('${event.device} ${event.services}');
     //Subscribes to all characteristics
     for (BluetoothService service in event.services) {
-      BluetoothUartService? bluetoothUartService = uartServices.firstWhereOrNull(
-        (element) => element.bleDeviceService.toLowerCase() == service.serviceUuid.str128.toLowerCase(),
-      );
+      BluetoothUartService? bluetoothUartService = uartServices.firstWhereOrNull((element) => element.bleDeviceService.toLowerCase() == service.serviceUuid.str128.toLowerCase());
       if (bluetoothUartService != null) {
         BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
         statefulDevice?.bluetoothUartService.value = bluetoothUartService;
@@ -166,9 +158,7 @@ class _RSSIChanged extends _$RSSIChanged {
   @override
   void build() {
     streamSubscription = FlutterBluePlus.events.onReadRssi.listen(listener, onError: (e) => _bluetoothPlusLogger.warning("Unable to read rssi: $e", e));
-    ref.onDispose(
-      () => streamSubscription?.cancel(),
-    );
+    ref.onDispose(() => streamSubscription?.cancel());
   }
 
   void listener(OnReadRssiEvent event) {
@@ -185,9 +175,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
   @override
   void build() {
     streamSubscription = FlutterBluePlus.events.onConnectionStateChanged.listen(listener);
-    ref.onDispose(
-      () => streamSubscription?.cancel(),
-    );
+    ref.onDispose(() => streamSubscription?.cancel());
   }
 
   Future<void> listener(OnConnectionStateChangedEvent event) async {
@@ -223,9 +211,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
     }
     statefulDevice.deviceConnectionState.value = event.connectionState == BluetoothConnectionState.connected ? ConnectivityState.connected : ConnectivityState.disconnected;
     if (bluetoothConnectionState == BluetoothConnectionState.connected) {
-      bluetoothDevice.readRssi().catchError((e) => -1).onError(
-            (error, stackTrace) => -1,
-          );
+      bluetoothDevice.readRssi().catchError((e) => -1).onError((error, stackTrace) => -1);
       BaseDeviceDefinition? baseDeviceDefinition = DeviceRegistry.getByName(event.device.advName);
       if (baseDeviceDefinition == null) {
         return;
@@ -250,17 +236,12 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
             priority: NotificationPriority.LOW,
           ),
           iosNotificationOptions: const IOSNotificationOptions(),
-          foregroundTaskOptions: ForegroundTaskOptions(
-            eventAction: ForegroundTaskEventAction.repeat(100),
-            allowWakeLock: true,
-          ),
+          foregroundTaskOptions: ForegroundTaskOptions(eventAction: ForegroundTaskEventAction.repeat(100), allowWakeLock: true),
         );
         FlutterForegroundTask.startService(
           notificationTitle: "Gear Connected",
           notificationText: "Gear is connected to The Tail Company app",
-          notificationIcon: const NotificationIcon(
-            metaDataName: 'com.codel1417.tailApp.notificationIcon',
-          ),
+          notificationIcon: const NotificationIcon(metaDataName: 'com.codel1417.tailApp.notificationIcon'),
         );
         FlutterForegroundTask.setOnLockScreenVisibility(true);
       }
@@ -281,11 +262,9 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
       if (lastDevice) {
         _bluetoothPlusLogger.fine('Last gear detected');
         // Disable all triggers on last device
-        ref.read(triggerListProvider).where((element) => element.enabled).forEach(
-          (element) {
-            element.enabled = false;
-          },
-        );
+        ref.read(triggerListProvider).where((element) => element.enabled).forEach((element) {
+          element.enabled = false;
+        });
         _bluetoothPlusLogger.finer('Disabling wakelock');
         // stop wakelock if its started
         WakelockPlus.disable();
@@ -314,9 +293,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
   @override
   void build() {
     streamSubscription = FlutterBluePlus.events.onCharacteristicReceived.listen(listener);
-    ref.onDispose(
-      () => streamSubscription?.cancel(),
-    );
+    ref.onDispose(() => streamSubscription?.cancel());
   }
 
   Future<void> listener(OnCharacteristicReceivedEvent event) async {
@@ -361,12 +338,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
       if (value.startsWith("VER")) {
         statefulDevice.fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
         if (statefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
-          ref.read(commandQueueProvider(statefulDevice).notifier).addCommand(
-                BluetoothMessage(
-                  message: "READNVS",
-                  timestamp: DateTime.timestamp(),
-                ),
-              );
+          ref.read(commandQueueProvider(statefulDevice).notifier).addCommand(BluetoothMessage(message: "READNVS", timestamp: DateTime.timestamp()));
         }
         // Don't check for updates unless both values are set
         if (statefulDevice.hwVersion.value.isNotEmpty && statefulDevice.fwVersion.value != Version()) {
@@ -379,6 +351,13 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
           statefulDevice.hasGlowtip.value = GlowtipStatus.glowtip;
         } else if (substring == 'FALSE') {
           statefulDevice.hasGlowtip.value = GlowtipStatus.noGlowtip;
+        }
+      } else if (value.startsWith("RGB")) {
+        String substring = value.substring(value.indexOf(" ")).trim();
+        if (substring == 'TRUE') {
+          statefulDevice.hasRGB.value = RGBStatus.rgb;
+        } else if (substring == 'FALSE') {
+          statefulDevice.hasRGB.value = RGBStatus.noRGB;
         }
       } else if (value.contains("BUSY")) {
         //statefulDevice.deviceState.value = DeviceState.busy;
@@ -416,9 +395,7 @@ class _KeepGearAwake extends _$KeepGearAwake {
 
   @override
   void build() {
-    ref.onDispose(
-      () => streamSubscription?.cancel(),
-    );
+    ref.onDispose(() => streamSubscription?.cancel());
     streamSubscription = Stream.periodic(const Duration(seconds: 15)).listen(listener);
   }
 
@@ -433,9 +410,7 @@ class _KeepGearAwake extends _$KeepGearAwake {
         if (device.isTailCoNTROL.value != TailControlStatus.tailControl) {
           ref.read(commandQueueProvider(device).notifier).addCommand(BluetoothMessage(message: "BATT", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
         }
-        element.readRssi().catchError((e) => -1).onError(
-              (error, stackTrace) => -1,
-            );
+        element.readRssi().catchError((e) => -1).onError((error, stackTrace) => -1);
 
         if (device.fwVersion.value == Version()) {
           ref.read(commandQueueProvider(device).notifier).addCommand(BluetoothMessage(message: "VER", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
@@ -454,13 +429,8 @@ class _OnScanResults extends _$OnScanResults {
 
   @override
   void build() {
-    ref.onDispose(
-      () => streamSubscription?.cancel(),
-    );
-    streamSubscription = FlutterBluePlus.onScanResults.listen(
-      listener,
-      onError: (e, s) => _bluetoothPlusLogger.severe("", e, s),
-    );
+    ref.onDispose(() => streamSubscription?.cancel());
+    streamSubscription = FlutterBluePlus.onScanResults.listen(listener, onError: (e, s) => _bluetoothPlusLogger.severe("", e, s));
   }
 
   Future<void> listener(List<ScanResult> results) async {
@@ -519,7 +489,9 @@ Future<void> connect(String id) async {
       } on FlutterBluePlusException catch (e) {
         retry = retry + 1;
         _bluetoothPlusLogger.warning(
-            "Failed to connect to ${result.device.advName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}", e);
+          "Failed to connect to ${result.device.advName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
+          e,
+        );
         await Future.delayed(Duration(milliseconds: 250));
       }
     }
@@ -543,22 +515,17 @@ class Scan extends _$Scan {
       ..addListener(isAllGearConnectedListener);
 
     // Has to be delayed so the provider initializes before calling the listener. Otherwise we can't call ref or set state in other methods
-    Future.delayed(
-      Duration(milliseconds: 1),
-      () => isAllGearConnectedListener(),
-    );
+    Future.delayed(Duration(milliseconds: 1), () => isAllGearConnectedListener());
 
-    ref.onDispose(
-      () {
-        isScanningStreamSubscription?.cancel();
-        //stopScan();
-      },
-    );
+    ref.onDispose(() {
+      isScanningStreamSubscription?.cancel();
+      //stopScan();
+    });
     return ScanReason.notScanning;
   }
 
   void isAllKnownGearConnectedProviderListener(bool? previous, bool next) {
-    if (ref.mounted){
+    if (ref.mounted) {
       isAllGearConnectedListener();
     }
   }
