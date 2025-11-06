@@ -7,7 +7,6 @@ import 'package:tail_app/Frontend/Widgets/tail_blog.dart';
 import 'package:tail_app/Frontend/Widgets/tail_blog_image.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/utils.dart';
-import 'package:tail_app/constants.dart';
 
 class CoshubFeed extends ConsumerStatefulWidget {
   const CoshubFeed({super.key});

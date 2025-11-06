@@ -227,6 +227,7 @@ class TailApp extends ConsumerWidget {
 
     return WithForegroundTask(
       child: ProviderScope(
+        retry: (retryCount, error) => null, // disables retry on riverpod
         observers: [RiverpodProviderObserver()],
         child: _EagerInitialization(
           child: BtAppStateController(

@@ -130,7 +130,8 @@ dev_dependencies:
   freezed: ^3.2.3 # required for @freezed annotations
 
   flutter_lints: # Dryer Lint
-  #riverpod_lint:
+  riverpod_lint:
+  custom_lint:
 
 dependency_overrides:
   #collection: 1.19.1

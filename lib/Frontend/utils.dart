@@ -93,7 +93,7 @@ final cacheOptions = CacheOptions(
   maxStale: const Duration(days: 7),
 );
 
-Future<Dio> initDio({skipSentry = false}) async {
+Future<Dio> initDio({bool skipSentry = false}) async {
   if (_dio != null) {
     return _dio!;
   }

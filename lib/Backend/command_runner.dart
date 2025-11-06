@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:data_saver/data_saver.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
@@ -154,14 +153,12 @@ class RunAction extends _$RunAction {
 List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device, CommandType type, {bool noResponseMsg = false, Priority priority = Priority.normal}) {
   List<BluetoothMessage> commands = [];
   if (move.moveType == MoveType.home) {
-    //TODO: Remove for TAILCoNTROL update
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value != TailControlStatus.tailControl) {
       commands.add(BluetoothMessage(message: "EARHOME", priority: priority, responseMSG: noResponseMsg ? null : "EARHOME END", type: type, timestamp: DateTime.now()));
     } else {
       commands.add(BluetoothMessage(message: "TAILHM", priority: priority, responseMSG: noResponseMsg ? null : "END TAILHM", type: type, timestamp: DateTime.now()));
     }
   } else if (move.moveType == MoveType.move) {
-    //TODO: Remove for TAILCoNTROL update
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value != TailControlStatus.tailControl) {
       commands
         ..add(

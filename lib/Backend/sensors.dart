@@ -6,7 +6,6 @@ import 'dart:math';
 
 import 'package:ble_peripheral/ble_peripheral.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';

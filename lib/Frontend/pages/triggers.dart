@@ -17,7 +17,6 @@ import '../../Backend/analytics.dart';
 import '../../Backend/sensors.dart';
 import '../../constants.dart';
 import '../Widgets/casual_mode_delay_widget.dart';
-import '../Widgets/device_type_widget.dart';
 import '../Widgets/tutorial_card.dart';
 import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
