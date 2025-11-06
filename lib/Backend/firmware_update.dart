@@ -35,8 +35,7 @@ abstract class FWInfo with _$FWInfo {
   factory FWInfo.fromJson(Map<String, dynamic> json) => _$FWInfoFromJson(json);
 }
 
-@Riverpod(keepAlive: true)
-Future<List<FWInfo>?> getBaseFirmwareInfo(Ref ref, String url) async {
+Future<List<FWInfo>?> _getBaseFirmwareInfo(String url) async {
   Dio dio = await initDio();
   Future<Response<String>> valueFuture = dio.get(url, options: Options(responseType: ResponseType.json))
     ..onError((error, stackTrace) {
@@ -53,22 +52,15 @@ Future<List<FWInfo>?> getBaseFirmwareInfo(Ref ref, String url) async {
   return results;
 }
 
-@Riverpod(keepAlive: true)
-Future<FWInfo?> getFirmwareInfo(Ref ref, String url, String hwVer) async {
+Future<FWInfo?> getFirmwareInfo(String url, String hwVer) async {
   if (url.isEmpty || hwVer.isEmpty) {
     return null;
   }
 
   // https://github.com/rrousselGit/riverpod/issues/3745
   // using ref.read(provider.future) causes an infinite await on riverpod 3.0
-  
-  final fwInfosListener = ref.listen(getBaseFirmwareInfoProvider(url).future, (p, n) {});
-  List<FWInfo>? fwInfos;
-  try {
-     fwInfos = await fwInfosListener.read();
-  } finally {
-    fwInfosListener.close();
-  }
+
+  final fwInfos = await _getBaseFirmwareInfo(url);
 
   if (fwInfos == null) {
     return null;
@@ -103,7 +95,7 @@ Future<FWInfo?> checkForFWUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice)
   if (hwVer.isEmpty) {
     throw Exception("Hardware Version from gear is unknown");
   }
-  FWInfo? fwInfo = await ref.read(getFirmwareInfoProvider(url, hwVer).future);
+  FWInfo? fwInfo = await getFirmwareInfo(url, hwVer);
   baseStatefulDevice.fwInfo.value = fwInfo;
   return fwInfo;
 }
