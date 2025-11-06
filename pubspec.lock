@@ -1999,10 +1999,10 @@ packages:
     dependency: "direct main"
     description:
       name: upgrader
-      sha256: "6997d84f49120d6179f6d839a87f0d9595b50641d17e058d8e0fc5f4bdf673fe"
+      sha256: "4ba3f840691ffa43c6d71a93a6ad3ae01590c7895c3eb33f9f683513f736a9f7"
       url: "https://pub.dev"
     source: hosted
-    version: "11.5.1"
+    version: "12.3.0"
   upower:
     dependency: transitive
     description:
