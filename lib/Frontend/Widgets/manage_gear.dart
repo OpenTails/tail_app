@@ -276,7 +276,7 @@ class _ManageGearUpdateCheckButtonState extends ConsumerState<ManageGearUpdateCh
                       } else {
                         setState(() {
                           //force redownloading the json
-                          Future(() async => ref.invalidate(getBaseFirmwareInfoProvider(await widget.device.baseDeviceDefinition.getFwURL())));
+                          Future(() async => ref.invalidate(hasOtaUpdateProvider(widget.device)));
                           _otaAvailable = ref.watch(hasOtaUpdateProvider(widget.device).future);
                         });
                       }

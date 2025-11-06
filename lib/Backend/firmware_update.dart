@@ -82,8 +82,7 @@ Future<FWInfo?> getFirmwareInfo(String url, String hwVer) async {
   return null;
 }
 
-@Riverpod()
-Future<FWInfo?> checkForFWUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async {
+Future<FWInfo?> checkForFWUpdate(BaseStatefulDevice baseStatefulDevice) async {
   if (baseStatefulDevice.fwInfo.value != null) {
     return baseStatefulDevice.fwInfo.value;
   }
@@ -100,9 +99,9 @@ Future<FWInfo?> checkForFWUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice)
   return fwInfo;
 }
 
-@Riverpod()
+@Riverpod(keepAlive: true)
 Future<bool> hasOtaUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async {
-  FWInfo? fwInfo = await ref.read(checkForFWUpdateProvider(baseStatefulDevice).future);
+  FWInfo? fwInfo = await checkForFWUpdate(baseStatefulDevice);
   Version fwVersion = baseStatefulDevice.fwVersion.value;
 
   // Check if fw version is not set (0.0.0)
