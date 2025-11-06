@@ -228,9 +228,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
       // assuming only legacy or tailcontrol ears are connected. no mixing
       bool hasLegacyEars = ref.read(getAvailableIdleGearForTypeProvider([DeviceType.ears].toBuiltSet())).where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy).isNotEmpty;
       bool hasGlowtipGear = ref.read(getAvailableIdleGearProvider).where((p0) => p0.hasGlowtip.value == GlowtipStatus.glowtip).isNotEmpty;
-      final List<BaseAction> moveActions = allActionsMapped
-          .where((element) => !const [ActionCategory.glowtip, ActionCategory.rgb, ActionCategory.audio].contains(element.actionCategory))
-          .toList();
+      final List<BaseAction> moveActions = allActionsMapped.where((element) => !const [ActionCategory.glowtip, ActionCategory.rgb, ActionCategory.audio].contains(element.actionCategory)).toList();
 
       final List<BaseAction> glowActions = hasGlowtipGear ? allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList() : [];
       final List<BaseAction> audioActions = allActionsMapped.where((element) => const [ActionCategory.audio].contains(element.actionCategory)).toList();
@@ -426,7 +424,6 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
 class EarMicTriggerDefinition extends TriggerDefinition {
   List<StreamSubscription<String>?> rxSubscriptions = [];
-  ProviderSubscription<BuiltMap<String, BaseStatefulDevice>>? deviceRefSubscription;
 
   EarMicTriggerDefinition(super.ref) {
     super.name = triggerEarMicTitle;
@@ -444,7 +441,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    deviceRefSubscription?.close();
+    KnownDevices.instance.removeListener(onDeviceConnected);
     ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
@@ -468,9 +465,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
       ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: "LISTEN FULL", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
-    deviceRefSubscription = ref.listen(knownDevicesProvider, (previous, next) {
-      onDeviceConnected();
-    });
+    KnownDevices.instance.addListener(onDeviceConnected);
   }
 
   Future<void> onDeviceConnected() async {
@@ -503,7 +498,6 @@ class EarMicTriggerDefinition extends TriggerDefinition {
 
 class EarTiltTriggerDefinition extends TriggerDefinition {
   List<StreamSubscription<String>?> rxSubscriptions = [];
-  ProviderSubscription<BuiltMap<String, BaseStatefulDevice>>? deviceRefSubscription;
 
   EarTiltTriggerDefinition(super.ref) {
     super.name = triggerEarTiltTitle;
@@ -526,7 +520,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    deviceRefSubscription?.close();
+    KnownDevices.instance.removeListener(onDeviceConnected);
     ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
@@ -548,9 +542,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: "TILTMODE START", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
-    deviceRefSubscription = ref.listen(knownDevicesProvider, (previous, next) {
-      onDeviceConnected();
-    });
+    KnownDevices.instance.addListener(onDeviceConnected);
   }
 
   Future<void> onDeviceConnected() async {
@@ -762,7 +754,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
      */
 
     btConnectStream = FlutterBluePlus.onScanResults.listen((event) {
-      if (event.where((element) => !ref.read(knownDevicesProvider).keys.contains(element.device.remoteId.str)).isNotEmpty && btnearbyCooldown != null && btnearbyCooldown!.isActive) {
+      if (event.where((element) => !KnownDevices.instance.state.keys.contains(element.device.remoteId.str)).isNotEmpty && btnearbyCooldown != null && btnearbyCooldown!.isActive) {
         sendCommands("Nearby Gear", ref);
 
         btnearbyCooldown = Timer(const Duration(seconds: 30), () {});

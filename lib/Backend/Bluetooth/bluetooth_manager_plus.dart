@@ -96,7 +96,7 @@ class InitFlutterBluePlus extends _$InitFlutterBluePlus {
       ref.invalidate(_rSSIChangedProvider);
       ref.invalidate(_onScanResultsProvider);
       // Mark all gear disconnected;
-      ref.read(knownDevicesProvider).forEach((key, value) => value.deviceConnectionState.value = ConnectivityState.disconnected);
+      KnownDevices.instance.state.forEach((key, value) => value.deviceConnectionState.value = ConnectivityState.disconnected);
       isBluetoothEnabled.value = false;
       _didInitFlutterBluePlus = false; // Allow restarting ble stack
     });
@@ -116,7 +116,7 @@ class _MTUChanged extends _$MTUChanged {
 
   void listener(OnMtuChangedEvent event) {
     _bluetoothPlusLogger.info('${event.device.advName} MTU:${event.mtu}');
-    BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
+    BaseStatefulDevice? statefulDevice = KnownDevices.instance.state[event.device.remoteId.str];
     statefulDevice?.mtu.value = event.mtu;
   }
 }
@@ -137,7 +137,7 @@ class _OnDiscoveredServices extends _$OnDiscoveredServices {
     for (BluetoothService service in event.services) {
       BluetoothUartService? bluetoothUartService = uartServices.firstWhereOrNull((element) => element.bleDeviceService.toLowerCase() == service.serviceUuid.str128.toLowerCase());
       if (bluetoothUartService != null) {
-        BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
+        BaseStatefulDevice? statefulDevice = KnownDevices.instance.state[event.device.remoteId.str];
         statefulDevice?.bluetoothUartService.value = bluetoothUartService;
       }
       for (BluetoothCharacteristic characteristic in service.characteristics) {
@@ -163,7 +163,7 @@ class _RSSIChanged extends _$RSSIChanged {
 
   void listener(OnReadRssiEvent event) {
     _bluetoothPlusLogger.info('${event.device.advName} RSSI:${event.rssi}');
-    BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[event.device.remoteId.str];
+    BaseStatefulDevice? statefulDevice = KnownDevices.instance.state[event.device.remoteId.str];
     statefulDevice?.rssi.value = event.rssi;
   }
 }
@@ -180,7 +180,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
 
   Future<void> listener(OnConnectionStateChangedEvent event) async {
     _bluetoothPlusLogger.info('${event.device.advName} ${event.connectionState}');
-    BuiltMap<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+    BuiltMap<String, BaseStatefulDevice> knownDevices = KnownDevices.instance.state;
     BluetoothDevice bluetoothDevice = event.device;
     BluetoothConnectionState bluetoothConnectionState = event.connectionState;
     String deviceID = bluetoothDevice.remoteId.str;
@@ -200,14 +200,14 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
       if (statefulDevice.baseStoredDevice.conModePin.isEmpty) {
         int code = Random().nextInt(899999) + 100000;
         baseStoredDevice.conModePin = code.toString();
-        Future(() => ref.read(knownDevicesProvider.notifier).add(statefulDevice));
+        Future(() => KnownDevices.instance.add(statefulDevice));
       }
     } else {
-      baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, deviceID, deviceDefinition.deviceType.color(ref: ref).toARGB32())..name = getNameFromBTName(deviceDefinition.btName);
+      baseStoredDevice = BaseStoredDevice(deviceDefinition.uuid, deviceID, deviceDefinition.deviceType.color().toARGB32())..name = getNameFromBTName(deviceDefinition.btName);
       int code = Random().nextInt(899999) + 100000;
       baseStoredDevice.conModePin = code.toString();
       statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice);
-      Future(() => ref.read(knownDevicesProvider.notifier).add(statefulDevice));
+      Future(() => KnownDevices.instance.add(statefulDevice));
     }
     statefulDevice.deviceConnectionState.value = event.connectionState == BluetoothConnectionState.connected ? ConnectivityState.connected : ConnectivityState.disconnected;
     if (bluetoothConnectionState == BluetoothConnectionState.connected) {
@@ -277,7 +277,7 @@ class _OnConnectionStateChanged extends _$OnConnectionStateChanged {
       // if the forget button was used, remove the device
       if (knownDevices[bluetoothDevice.remoteId.str] != null && knownDevices[bluetoothDevice.remoteId.str]!.forgetOnDisconnect) {
         _bluetoothPlusLogger.finer('forgetting about gear');
-        ref.read(knownDevicesProvider.notifier).remove(bluetoothDevice.remoteId.str);
+        KnownDevices.instance.remove(bluetoothDevice.remoteId.str);
         analyticsEvent(name: "Forgetting Gear", props: {"Gear Type": deviceDefinition.btName});
       } else {
         analyticsEvent(name: "Disconnect Gear", props: {"Gear Type": deviceDefinition.btName});
@@ -302,7 +302,7 @@ class _OnCharacteristicReceived extends _$OnCharacteristicReceived {
     BluetoothDevice bluetoothDevice = event.device;
     BluetoothCharacteristic bluetoothCharacteristic = event.characteristic;
     List<int> values = event.value;
-    BaseStatefulDevice? statefulDevice = ref.read(knownDevicesProvider)[bluetoothDevice.remoteId.str];
+    BaseStatefulDevice? statefulDevice = KnownDevices.instance.state[bluetoothDevice.remoteId.str];
     // get Device object
     // set value
     if (statefulDevice == null) {
@@ -400,7 +400,7 @@ class _KeepGearAwake extends _$KeepGearAwake {
   }
 
   void listener(dynamic event) {
-    BuiltMap<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+    BuiltMap<String, BaseStatefulDevice> knownDevices = KnownDevices.instance.state;
     for (var element in FlutterBluePlus.connectedDevices) {
       BaseStatefulDevice? device = knownDevices[element.remoteId.str];
       if (device != null) {
@@ -437,7 +437,7 @@ class _OnScanResults extends _$OnScanResults {
     if (results.isNotEmpty) {
       ScanResult r = results.last; // the most recently found device
       _bluetoothPlusLogger.info('${r.device.remoteId}: "${r.advertisementData.advName}" found!');
-      BuiltMap<String, BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider);
+      BuiltMap<String, BaseStatefulDevice> knownDevices = KnownDevices.instance.state;
       if (knownDevices.containsKey(r.device.remoteId.str) &&
           knownDevices[r.device.remoteId.str]?.deviceConnectionState.value == ConnectivityState.disconnected &&
           !knownDevices[r.device.remoteId.str]!.disableAutoConnect) {

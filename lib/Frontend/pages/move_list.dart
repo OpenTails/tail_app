@@ -96,8 +96,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                     if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
                       HapticFeedback.selectionClick();
                     }
-                    ref
-                        .watch(knownDevicesProvider)
+                    KnownDevices.instance.state
                         .values
                         .where(
                           (element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType),

@@ -43,7 +43,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
   @override
   void initState() {
     super.initState();
-    knownDeviceTypes = ref.read(knownDevicesProvider).values.map((e) => e.baseDeviceDefinition.deviceType).toSet();
+    knownDeviceTypes = KnownDevices.instance.state.values.map((e) => e.baseDeviceDefinition.deviceType).toSet();
     actionsCatMap = BuiltMap(
       Map.fromEntries(
         ref.read(getAllActionsProvider).entries.sorted((a, b) {

@@ -71,7 +71,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                             if (!context.mounted) {
                               return;
                             }
-                            ref.read(knownDevicesProvider).values.forEach(
+                            KnownDevices.instance.state.values.forEach(
                               (element) {
                                 generateMoveCommand(move, element, CommandType.direct, noResponseMsg: true, priority: Priority.high).forEach(
                                   (message) {
@@ -167,7 +167,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
       ..speed = speed
       ..rightServo = right
       ..leftServo = left;
-    ref.read(knownDevicesProvider).values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach(
+    KnownDevices.instance.state.values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach(
       (element) {
         generateMoveCommand(move, element, CommandType.direct, priority: Priority.high, noResponseMsg: true).forEach(
           (message) {

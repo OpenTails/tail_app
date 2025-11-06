@@ -175,20 +175,17 @@ class ActionRegistry {
     CommandAction(name: "Rustles 3", command: "TAILT2", deviceCategory: [DeviceType.wings], response: "TAILT2 END", uuid: "5f7e16e4-04f6-46ab-bbc9-e6f908fc559c"),
     CommandAction(name: "Rustles 4", command: "TAILET", deviceCategory: [DeviceType.wings], response: "TAILET END", uuid: "0dfeb464-572b-452b-be4a-5a36affd2da9"),
   }.build();
-  static final BuiltSet<BaseAction> allCommands = BuiltSet<BaseAction>()
-      .union(glowtipCommands)
-      .union(earMoves)
-      .union(flutterWingsMoves)
-      .union(miniTailMoves)
-      .union(tailMoves)
-      .union(rgbCommands);
+  static final BuiltSet<BaseAction> allCommands = BuiltSet<BaseAction>().union(glowtipCommands).union(earMoves).union(flutterWingsMoves).union(miniTailMoves).union(tailMoves).union(rgbCommands);
 }
 
 @Riverpod(keepAlive: true)
 class GetAvailableActions extends _$GetAvailableActions {
   @override
   BuiltMap<String, BuiltSet<BaseAction>> build() {
-    for (BaseStatefulDevice baseStatefulDevice in ref.watch(knownDevicesProvider).values) {
+    KnownDevices.instance
+      ..removeListener(onDeviceConnected)
+      ..addListener(onDeviceConnected);
+    for (BaseStatefulDevice baseStatefulDevice in KnownDevices.instance.state.values) {
       baseStatefulDevice.hasGlowtip
         ..removeListener(_listener)
         ..addListener(_listener);
@@ -200,6 +197,10 @@ class GetAvailableActions extends _$GetAvailableActions {
         ..addListener(_listener);
     }
     return getState();
+  }
+
+  void onDeviceConnected() {
+    ref.invalidateSelf();
   }
 
   BuiltMap<String, BuiltSet<BaseAction>> getState() {

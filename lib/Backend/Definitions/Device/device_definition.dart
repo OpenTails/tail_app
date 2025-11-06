@@ -85,18 +85,13 @@ extension DeviceTypeExtension on DeviceType {
     }
   }
 
-  Color color({Object? ref}) {
-    if (ref != null && (ref is WidgetRef || ref is Ref)) {
-      Iterable<BaseStatefulDevice> knownDevices = [];
-      if (ref is WidgetRef) {
-        knownDevices = ref.read(knownDevicesProvider).values;
-      } else if (ref is Ref) {
-        knownDevices = ref.read(knownDevicesProvider).values;
-      }
-      int? color = knownDevices.where((element) => element.baseDeviceDefinition.deviceType == this).map((e) => e.baseStoredDevice.color).firstOrNull;
-      if (color != null) {
-        return Color(color);
-      }
+  Color color() {
+    Iterable<BaseStatefulDevice> knownDevices = [];
+    knownDevices = KnownDevices.instance.state.values;
+
+    int? color = knownDevices.where((element) => element.baseDeviceDefinition.deviceType == this).map((e) => e.baseStoredDevice.color).firstOrNull;
+    if (color != null) {
+      return Color(color);
     }
     switch (this) {
       case DeviceType.tail:

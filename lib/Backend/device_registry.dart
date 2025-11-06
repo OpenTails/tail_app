@@ -16,41 +16,12 @@ final deviceRegistryLogger = log.Logger('DeviceRegistry');
 @immutable
 class DeviceRegistry {
   static const List<BaseDeviceDefinition> allDevices = [
-    BaseDeviceDefinition(
-      uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
-      btName: "MiTail",
-      deviceType: DeviceType.tail,
-      minVersion: Version(major: 5, minor: 0, patch: 0),
-    ),
-    BaseDeviceDefinition(
-      uuid: "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee",
-      btName: "(!)Tail1",
-      deviceType: DeviceType.tail,
-      unsupported: true,
-    ),
-    BaseDeviceDefinition(
-      uuid: "5fb21175-fef4-448a-a38b-c472d935abab",
-      btName: "minitail",
-      deviceType: DeviceType.miniTail,
-      minVersion: Version(major: 5, minor: 0, patch: 0),
-    ),
-    BaseDeviceDefinition(
-      uuid: "e790f509-f95b-4eb4-b649-5b43ee1eee9c",
-      btName: "flutter",
-      deviceType: DeviceType.wings,
-      minVersion: Version(major: 5, minor: 0, patch: 0),
-    ),
-    BaseDeviceDefinition(
-      uuid: "927dee04-ddd4-4582-8e42-69dc9fbfae66",
-      btName: "EG2",
-      deviceType: DeviceType.ears,
-    ),
-    BaseDeviceDefinition(
-      uuid: "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d",
-      btName: "EarGear",
-      deviceType: DeviceType.ears,
-      unsupported: true,
-    ),
+    BaseDeviceDefinition(uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418", btName: "MiTail", deviceType: DeviceType.tail, minVersion: Version(major: 5, minor: 0, patch: 0)),
+    BaseDeviceDefinition(uuid: "9c5f3692-1c6e-4d46-b607-4f6f4a6e28ee", btName: "(!)Tail1", deviceType: DeviceType.tail, unsupported: true),
+    BaseDeviceDefinition(uuid: "5fb21175-fef4-448a-a38b-c472d935abab", btName: "minitail", deviceType: DeviceType.miniTail, minVersion: Version(major: 5, minor: 0, patch: 0)),
+    BaseDeviceDefinition(uuid: "e790f509-f95b-4eb4-b649-5b43ee1eee9c", btName: "flutter", deviceType: DeviceType.wings, minVersion: Version(major: 5, minor: 0, patch: 0)),
+    BaseDeviceDefinition(uuid: "927dee04-ddd4-4582-8e42-69dc9fbfae66", btName: "EG2", deviceType: DeviceType.ears),
+    BaseDeviceDefinition(uuid: "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d", btName: "EarGear", deviceType: DeviceType.ears, unsupported: true),
   ];
 
   static BaseDeviceDefinition getByUUID(String uuid) {
@@ -62,11 +33,7 @@ class DeviceRegistry {
   }
 
   static BuiltList<String> getAllIds() {
-    return uartServices
-        .map(
-          (e) => e.bleDeviceService,
-        )
-        .toBuiltList();
+    return uartServices.map((e) => e.bleDeviceService).toBuiltList();
   }
 }
 
@@ -88,7 +55,10 @@ BuiltSet<BaseStatefulDevice> getByAction(Ref ref, BaseAction baseAction) {
 class GetAvailableIdleGear extends _$GetAvailableIdleGear {
   @override
   BuiltList<BaseStatefulDevice> build() {
-    for (BaseStatefulDevice baseStatefulDevice in ref.watch(knownDevicesProvider).values) {
+    KnownDevices.instance
+      ..removeListener(_onDeviceConnected)
+      ..addListener(_onDeviceConnected);
+    for (BaseStatefulDevice baseStatefulDevice in KnownDevices.instance.state.values) {
       baseStatefulDevice.deviceState
         ..removeListener(_listener)
         ..addListener(_listener);
@@ -103,59 +73,50 @@ class GetAvailableIdleGear extends _$GetAvailableIdleGear {
   void _listener() {
     state = getState();
   }
+
+  void _onDeviceConnected() {
+    ref.invalidateSelf();
+  }
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 BuiltSet<DeviceType> getAvailableGearTypes(Ref ref) {
   final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
-  return watch
-      .map(
-        (e) => e.baseDeviceDefinition.deviceType,
-      )
-      .toBuiltSet();
+  return watch.map((e) => e.baseDeviceDefinition.deviceType).toBuiltSet();
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 BuiltList<BaseStatefulDevice> getAvailableIdleGearForAction(Ref ref, BaseAction baseAction) {
   final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
   return watch.where((element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 BuiltList<BaseStatefulDevice> getAvailableIdleGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
   final Iterable<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
-  return watch
-      .where(
-        (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
-      )
-      .toBuiltList();
+  return watch.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 BuiltList<BaseStatefulDevice> getAvailableGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
   final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
-  return watch
-      .where(
-        (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
-      )
-      .toBuiltList();
+  return watch.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 BuiltList<BaseStatefulDevice> getKnownGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
-  final BuiltMap<String, BaseStatefulDevice> watch = ref.watch(knownDevicesProvider);
-  return watch.values
-      .where(
-        (element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType),
-      )
-      .toBuiltList();
+  final BuiltMap<String, BaseStatefulDevice> watch = KnownDevices.instance.state;
+  return watch.values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
 }
 
 @Riverpod(keepAlive: true)
 class IsGearMoveRunning extends _$IsGearMoveRunning {
   @override
   bool build(BuiltSet<DeviceType> deviceTypes) {
-    for (BaseStatefulDevice baseStatefulDevice in ref.watch(knownDevicesProvider).values) {
+    KnownDevices.instance
+      ..removeListener(_onDeviceConnected)
+      ..addListener(_onDeviceConnected);
+    for (BaseStatefulDevice baseStatefulDevice in KnownDevices.instance.state.values) {
       baseStatefulDevice.deviceState
         ..removeListener(_listener)
         ..addListener(_listener);
@@ -170,13 +131,20 @@ class IsGearMoveRunning extends _$IsGearMoveRunning {
   void _listener() {
     state = getState();
   }
+
+  void _onDeviceConnected() {
+    ref.invalidateSelf();
+  }
 }
 
 @Riverpod(keepAlive: true)
 class GetAvailableGear extends _$GetAvailableGear {
   @override
   BuiltList<BaseStatefulDevice> build() {
-    for (BaseStatefulDevice baseStatefulDevice in ref.watch(knownDevicesProvider).values) {
+    KnownDevices.instance
+      ..removeListener(_onDeviceConnected)
+      ..addListener(_onDeviceConnected);
+    for (BaseStatefulDevice baseStatefulDevice in KnownDevices.instance.state.values) {
       baseStatefulDevice.deviceConnectionState
         ..removeListener(_listener)
         ..addListener(_listener);
@@ -188,9 +156,7 @@ class GetAvailableGear extends _$GetAvailableGear {
   }
 
   BuiltList<BaseStatefulDevice> getState() {
-    return ref
-        .read(knownDevicesProvider)
-        .values
+    return KnownDevices.instance.state.values
         .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
         .where(
           // don't consider gear connected until services have been discovered
@@ -202,11 +168,15 @@ class GetAvailableGear extends _$GetAvailableGear {
   void _listener() {
     state = getState();
   }
+
+  void _onDeviceConnected() {
+    ref.invalidateSelf();
+  }
 }
 
 @Riverpod(keepAlive: true)
 bool isAllKnownGearConnected(Ref ref) {
-  var knownGear = ref.watch(knownDevicesProvider);
+  var knownGear = KnownDevices.instance.state;
   BuiltList<BaseStatefulDevice> connectedGear = ref.watch(getAvailableGearProvider);
   return knownGear.length == connectedGear.length;
 }

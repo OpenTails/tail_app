@@ -40,7 +40,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
   @override
   void initState() {
     super.initState();
-    device = ref.read(knownDevicesProvider)[widget.btMac];
+    device = KnownDevices.instance.state[widget.btMac];
     color = Color(device!.baseStoredDevice.color);
   }
 
@@ -135,7 +135,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                         device!.baseStoredDevice.name = device!.baseDeviceDefinition.btName;
                       }
                     });
-                    ref.read(knownDevicesProvider.notifier).store();
+                    KnownDevices.instance.store();
                   },
                 ),
               ),
@@ -151,7 +151,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                             device!.baseStoredDevice.color = color;
                             this.color = Color(color);
                             ref.invalidate(getAvailableGearProvider);
-                            ref.read(knownDevicesProvider.notifier).store();
+                            KnownDevices.instance.store();
                           }
                         }),
                       );
@@ -210,7 +210,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                           device!.forgetOnDisconnect = true;
                           device!.disableAutoConnect = true;
                         } else {
-                          ref.read(knownDevicesProvider.notifier).remove(device!.baseStoredDevice.btMACAddress);
+                          KnownDevices.instance.remove(device!.baseStoredDevice.btMACAddress);
                         }
                       });
                       Navigator.pop(context);
@@ -329,14 +329,14 @@ class ManageGearConventionMode extends ConsumerWidget {
                         BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETPUSSKEY ${device.baseStoredDevice.conModePin}", timestamp: DateTime.timestamp());
                         ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
                         device.baseStoredDevice.conModeEnabled = true;
-                        ref.read(knownDevicesProvider.notifier).store();
+                        KnownDevices.instance.store();
                         await Clipboard.setData(ClipboardData(text: device.baseStoredDevice.conModePin));
                       } else {
                         //TODO? if gear is disconnected and this is attempted, offer instructions to reset gear
                         BluetoothMessage bluetoothMessage = BluetoothMessage(message: "STOPPUSSKEY", timestamp: DateTime.timestamp());
                         ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
                         device.baseStoredDevice.conModeEnabled = false;
-                        ref.read(knownDevicesProvider.notifier).store();
+                        KnownDevices.instance.store();
                         forgetBond(device.baseStoredDevice.btMACAddress);
                         //TODO: add IOS instructions for clearing bonds
                       }

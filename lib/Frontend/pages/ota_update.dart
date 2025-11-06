@@ -29,7 +29,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   @override
   void initState() {
     super.initState();
-    baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
+    baseStatefulDevice = KnownDevices.instance.state[widget.device];
     ref.read(hasOtaUpdateProvider(baseStatefulDevice!).future);
     ref.read(otaUpdaterProvider(baseStatefulDevice!).notifier).onError = ((OtaError p0) => setState(() => otaError = p0));
   }

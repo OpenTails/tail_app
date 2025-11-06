@@ -268,7 +268,7 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                         firstChild: Builder(
                           builder: (context) {
                             String text = "";
-                            Iterable<BaseStatefulDevice> knownDevices = ref.read(knownDevicesProvider).values;
+                            Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.state.values;
                             for (String actionUUID in e.actions) {
                               BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
                               if (baseAction != null &&

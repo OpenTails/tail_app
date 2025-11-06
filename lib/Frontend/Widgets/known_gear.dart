@@ -21,54 +21,59 @@ class KnownGear extends ConsumerStatefulWidget {
 class _KnownGearState extends ConsumerState<KnownGear> {
   @override
   Widget build(BuildContext context) {
-    List<BaseStatefulDevice> knownDevices = ref.watch(knownDevicesProvider).values.toList()..sort((a, b) => a.deviceConnectionState.value.index.compareTo(b.deviceConnectionState.value.index));
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ...knownDevices.map((BaseStatefulDevice baseStatefulDevice) => KnownGearCard(baseStatefulDevice: baseStatefulDevice)),
-        if (!widget.hideScanButton) ...[
-          const ScanForNewGearButton(),
-        ],
-      ],
+    return ListenableBuilder(
+      listenable: KnownDevices.instance,
+      builder: (BuildContext context, Widget? child) {
+        return Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ...KnownDevices.instance.state.values.map((BaseStatefulDevice baseStatefulDevice) => KnownGearCard(baseStatefulDevice: baseStatefulDevice)),
+            if (!widget.hideScanButton) ...[const ScanForNewGearButton()],
+          ],
+        );
+      },
     );
   }
 }
 
 class ScanForNewGearButton extends ConsumerWidget {
-  const ScanForNewGearButton({
-    super.key,
-  });
+  const ScanForNewGearButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return TweenAnimationBuilder(
-      tween: ref.watch(knownDevicesProvider).isEmpty ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
-      duration: animationTransitionDuration,
-      builder: (context, value, child) {
-        Color? color = Color.lerp(Theme.of(context).cardColor, Theme.of(context).colorScheme.primary, value);
-        return Card(
-          clipBehavior: Clip.antiAlias,
-          color: color,
-          child: InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 50 * MediaQuery.textScalerOf(context).scale(1),
-                width: ref.watch(knownDevicesProvider).values.length > 1 ? 100 * MediaQuery.textScalerOf(context).scale(1) : 200 * MediaQuery.textScalerOf(context).scale(1),
-                child: Center(
-                  child: Text(
-                    convertToUwU(scanDevicesTitle()),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color!)),
+    return ListenableBuilder(
+      listenable: KnownDevices.instance,
+      builder: (BuildContext context, Widget? child) {
+        return TweenAnimationBuilder(
+          tween: KnownDevices.instance.state.isEmpty ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
+          duration: animationTransitionDuration,
+          builder: (context, value, child) {
+            Color? color = Color.lerp(Theme.of(context).cardColor, Theme.of(context).colorScheme.primary, value);
+            return Card(
+              clipBehavior: Clip.antiAlias,
+              color: color,
+              child: InkWell(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 50 * MediaQuery.textScalerOf(context).scale(1),
+                    width: KnownDevices.instance.state.values.length > 1 ? 100 * MediaQuery.textScalerOf(context).scale(1) : 200 * MediaQuery.textScalerOf(context).scale(1),
+                    child: Center(
+                      child: Text(
+                        convertToUwU(scanDevicesTitle()),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color!)),
+                      ),
+                    ),
                   ),
                 ),
+                onTap: () async {
+                  const ScanForGearRoute().push(context);
+                },
               ),
-            ),
-            onTap: () async {
-              const ScanForGearRoute().push(context);
-            },
-          ),
+            );
+          },
         );
       },
     );
@@ -96,13 +101,7 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
             child: ValueListenableBuilder(
               valueListenable: widget.baseStatefulDevice.hasUpdate,
               builder: (BuildContext context, bool hasUpdate, Widget? child) {
-                return Badge(
-                  isLabelVisible: hasUpdate,
-                  largeSize: 35,
-                  backgroundColor: Theme.of(context).primaryColor,
-                  label: const Icon(Icons.system_update),
-                  child: child,
-                );
+                return Badge(isLabelVisible: hasUpdate, largeSize: 35, backgroundColor: Theme.of(context).primaryColor, label: const Icon(Icons.system_update), child: child);
               },
               child: TweenAnimationBuilder(
                 tween: connectivityState == ConnectivityState.connected ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
@@ -115,9 +114,7 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                     color: cardColor,
                     child: InkWell(
                       onTap: () async {
-                        ManageGearRoute(
-                          btMac: widget.baseStatefulDevice.baseStoredDevice.btMACAddress,
-                        ).push(context).then((value) {
+                        ManageGearRoute(btMac: widget.baseStatefulDevice.baseStoredDevice.btMACAddress).push(context).then((value) {
                           setState(() {}); //force widget update
                           return;
                         });
@@ -145,10 +142,7 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                                         ValueListenableBuilder(
                                           valueListenable: widget.baseStatefulDevice.batteryLevel,
                                           builder: (BuildContext context, batteryLevel, Widget? child) {
-                                            return AnimatedSwitcher(
-                                              duration: animationTransitionDuration,
-                                              child: getBattery(batteryLevel, textColor),
-                                            );
+                                            return AnimatedSwitcher(duration: animationTransitionDuration, child: getBattery(batteryLevel, textColor));
                                           },
                                         ),
                                         ValueListenableBuilder(
@@ -177,10 +171,7 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                                         ValueListenableBuilder(
                                           valueListenable: widget.baseStatefulDevice.rssi,
                                           builder: (BuildContext context, rssi, Widget? child) {
-                                            return AnimatedSwitcher(
-                                              duration: animationTransitionDuration,
-                                              child: getSignal(rssi, textColor),
-                                            );
+                                            return AnimatedSwitcher(duration: animationTransitionDuration, child: getSignal(rssi, textColor));
                                           },
                                         ),
                                       ],
@@ -223,15 +214,9 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
     if (HiveProxy.getOrDefault(settings, showAccurateBattery, defaultValue: showAccurateBatteryDefault)) {
       if (level < 0) {
         // battery level is unknown
-        return Text(
-          '?%',
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color),
-        );
+        return Text('?%', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color));
       }
-      return Text(
-        '${level.toInt()}%',
-        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color),
-      );
+      return Text('${level.toInt()}%', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color));
     }
     if (level < 0) {
       return Icon(Icons.battery_unknown, color: color);
@@ -239,13 +224,7 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
     if (level < 12.5) {
       return Flash(infinite: true, child: Icon(Icons.battery_0_bar, color: color));
     } else if (level < 25) {
-      return Flash(
-        infinite: true,
-        child: Icon(
-          Icons.battery_1_bar,
-          color: color,
-        ),
-      );
+      return Flash(infinite: true, child: Icon(Icons.battery_1_bar, color: color));
     } else if (level < 37.5) {
       return Icon(Icons.battery_2_bar, color: color);
     } else if (level < 50) {
