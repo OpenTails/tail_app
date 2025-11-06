@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-07-29T00:39:20.779139",
+  "@@last_modified": "2025-10-19T10:25:16.963600",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -285,27 +285,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "actionsCategoryCalm": "Calm and Relaxed",
-  "@actionsCategoryCalm": {
-    "description": "calm action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryFast": "Fast and Excited",
-  "@actionsCategoryFast": {
-    "description": "fast action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryTense": "Frustrated and Tense",
-  "@actionsCategoryTense": {
-    "description": "tense action group label",
-    "type": "text",
-    "placeholders": {}
-  },
   "actionsCategoryGlowtip": "GlowTip",
   "@actionsCategoryGlowtip": {
     "description": "glowtip action group label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsCategoryRGB": "RGB",
+  "@actionsCategoryRGB": {
+    "description": "RGB action group label",
     "type": "text",
     "placeholders": {}
   },
