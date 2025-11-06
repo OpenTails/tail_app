@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/firebase.dart';
 import 'package:tail_app/Frontend/Widgets/known_gear.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
@@ -43,10 +42,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     //skip if going through onboarding a second time
     bluetoothAccepted = !firstTimeOnboarding;
 
-    //enable marketing notifications by default for new installs, but not existing ones
-    if (firstTimeOnboarding) {
-      HiveProxy.put(settings, marketingNotificationsEnabled, true);
-    }
   }
 
   void _onIntroEnd(BuildContext context) {
@@ -55,7 +50,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     analyticsEvent(name: "Complete Onboarding", props: {"onboardingVersion": hasCompletedOnboardingVersionToAgree.toString()});
     _introLogger.info("Complete Onboarding");
     HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
-    configurePushNotifications();
+    //configurePushNotifications();
     const ActionPageRoute().pushReplacement(context);
   }
 
@@ -167,20 +162,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                   convertToUwU(onboardingPrivacyPolicyAcceptButtonLabel()),
                 ),
               ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(convertToUwU(settingsMarketingNotificationsToggleTitle())),
-                  Switch(
-                    value: HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault),
-                    onChanged: (bool value) async {
-                      setState(() {
-                        HiveProxy.put(settings, marketingNotificationsEnabled, value);
-                      });
-                    },
-                  )
-                ],
-              )
             ],
           ),
           decoration: pageDecoration.copyWith(footerFlex: 2),
