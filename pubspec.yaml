@@ -114,7 +114,7 @@ dependencies:
   sentry_flutter: ^9.6.0 # Base sentry + Flutter integration
   sentry_logging: ^9.6.0 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
-  sentry_dio: ^9.6.0 # Collects Dio HTTP requests
+  sentry_dio: ^9.8.0 # Collects Dio HTTP requests
   #feedback_sentry: ^3.1.0
 
 dev_dependencies:
