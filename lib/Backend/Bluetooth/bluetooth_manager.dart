@@ -16,7 +16,7 @@ class KnownDevices with ChangeNotifier {
   BuiltMap<String, BaseStatefulDevice> get state => _state;
 
   //https://stackoverflow.com/questions/12649573/how-do-you-build-a-singleton-in-dart
-    static final KnownDevices instance = KnownDevices._internal();
+  static final KnownDevices instance = KnownDevices._internal();
 
   KnownDevices._internal() {
     BuiltList<BaseStoredDevice> storedDevices = HiveProxy.getAll<BaseStoredDevice>(devicesBox).toBuiltList();

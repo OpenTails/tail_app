@@ -10,7 +10,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' hide CharacteristicProperties;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:intl/intl.dart';
@@ -419,6 +418,174 @@ class CoverTriggerDefinition extends TriggerDefinition {
         sendCommands("Far", ref);
       }
     });
+  }
+}
+
+class ClawTiltTriggerDefinition extends TriggerDefinition {
+  List<StreamSubscription<String>?> rxSubscriptions = [];
+
+  ClawTiltTriggerDefinition(super.ref) {
+    super.name = triggerClawTiltModeTitle;
+    super.description = triggerClawTiltModeDescription;
+    super.icon = const Icon(Icons.threed_rotation);
+    super.requiredPermission = null;
+    super.uuid = "664bd073-34cd-4c78-a7da-2b8b44fd9661";
+    super.actionTypes = [
+      TriggerActionDef(name: "Extend", translated: triggerClawTiltModeExtend, uuid: "74728806-c72d-4b52-94c7-f475e80b826b"),
+      TriggerActionDef(name: "Retract", translated: triggerClawTiltModeRetract, uuid: "ca2149c2-86d2-46d7-89b9-508bfab7a29cb"),
+    ];
+  }
+
+  @override
+  Future<bool> isSupported() async {
+    return ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).isNotEmpty;
+  }
+
+  @override
+  Future<void> onDisable() async {
+    KnownDevices.instance.removeListener(onDeviceConnected);
+    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+      element.deviceConnectionState.removeListener(onDeviceConnected);
+    });
+    for (var element in rxSubscriptions) {
+      element?.cancel();
+    }
+    rxSubscriptions = [];
+    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+      ref
+          .read(commandQueueProvider(element).notifier)
+          .addCommand(BluetoothMessage(message: "STOPTILT", priority: Priority.low, responseMSG: "OK", type: CommandType.system, timestamp: DateTime.now()));
+    });
+  }
+
+  @override
+  Future<void> onEnable() async {
+    if (rxSubscriptions.isNotEmpty) {
+      return;
+    }
+    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+      ref
+          .read(commandQueueProvider(element).notifier)
+          .addCommand(BluetoothMessage(message: "TILTMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+    });
+    // Disable clap trigger when this one enables
+    ref.read(triggerListProvider).where((element) => element.triggerDefUUID == "50d65674-ed4f-4bf5-abd1-e5161faf2a5e").forEach((element) => element.enabled = false);
+    //add listeners on new device paired
+    KnownDevices.instance.addListener(onDeviceConnected);
+  }
+
+  Future<void> onDeviceConnected() async {
+    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).map((e) {
+      e.deviceConnectionState.removeListener(onDeviceConnected);
+      e.deviceConnectionState.addListener(onDeviceConnected);
+    });
+    listen();
+  }
+
+  Future<void> listen() async {
+    //cancel old subscriptions
+    if (rxSubscriptions.isNotEmpty) {
+      for (var element in rxSubscriptions) {
+        element?.cancel();
+      }
+    }
+    //Store the current streams to keep them open
+    rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).map((element) {
+      ref
+          .read(commandQueueProvider(element).notifier)
+          .addCommand(BluetoothMessage(message: "TILTMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      //TODO: Wire up with the real commands
+      return element.rxCharacteristicStream.listen((msg) {
+        if (msg.contains("TILT UP")) {
+          sendCommands("Extend", ref);
+        }
+        if (msg.contains("TILT DOWN")) {
+          sendCommands("Retract", ref);
+        }
+      });
+    }).toList();
+  }
+}
+
+class ClawClapTriggerDefinition extends TriggerDefinition {
+  List<StreamSubscription<String>?> rxSubscriptions = [];
+
+  ClawClapTriggerDefinition(super.ref) {
+    super.name = triggerClawClapModeTitle;
+    super.description = triggerClawClapModeDescription;
+    super.icon = const Icon(Icons.waving_hand_sharp);
+    super.requiredPermission = null;
+    super.uuid = "50d65674-ed4f-4bf5-abd1-e5161faf2a5e";
+    super.actionTypes = [TriggerActionDef(name: "Clap", translated: triggerClawClapMode, uuid: "6b88bc2a-dea2-435c-88be-7c16df687225")];
+  }
+
+  @override
+  Future<bool> isSupported() async {
+    return ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).isNotEmpty;
+  }
+
+  @override
+  Future<void> onDisable() async {
+    KnownDevices.instance.removeListener(onDeviceConnected);
+    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+      element.deviceConnectionState.removeListener(onDeviceConnected);
+    });
+    for (var element in rxSubscriptions) {
+      element?.cancel();
+    }
+    rxSubscriptions = [];
+    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+      ref
+          .read(commandQueueProvider(element).notifier)
+          .addCommand(BluetoothMessage(message: "STOPCLAP", priority: Priority.low, responseMSG: "OK", type: CommandType.system, timestamp: DateTime.now()));
+    });
+  }
+
+  @override
+  Future<void> onEnable() async {
+    if (rxSubscriptions.isNotEmpty) {
+      return;
+    }
+    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+      ref
+          .read(commandQueueProvider(element).notifier)
+          .addCommand(BluetoothMessage(message: "CLAPMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+    });
+
+    // Disable claw tilt trigger when this one enables
+    ref.read(triggerListProvider).where((element) => element.triggerDefUUID == "664bd073-34cd-4c78-a7da-2b8b44fd9661").forEach((element) => element.enabled = false);
+
+    //add listeners on new device paired
+    KnownDevices.instance.addListener(onDeviceConnected);
+  }
+
+  Future<void> onDeviceConnected() async {
+    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).map((e) {
+      e.deviceConnectionState.removeListener(onDeviceConnected);
+      e.deviceConnectionState.addListener(onDeviceConnected);
+    });
+    listen();
+  }
+
+  Future<void> listen() async {
+    //cancel old subscriptions
+    if (rxSubscriptions.isNotEmpty) {
+      for (var element in rxSubscriptions) {
+        element?.cancel();
+      }
+    }
+    //Store the current streams to keep them open
+    rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).map((element) {
+      ref
+          .read(commandQueueProvider(element).notifier)
+          .addCommand(BluetoothMessage(message: "CLAPMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      return element.rxCharacteristicStream.listen((msg) {
+        if (msg.contains("DOUBLE CLAP")) {
+          // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+          sendCommands("Clap", ref);
+        }
+      });
+    }).toList();
   }
 }
 
@@ -888,6 +1055,8 @@ class TriggerDefinitionList extends _$TriggerDefinitionList {
       EarTiltTriggerDefinition(ref),
       RandomTriggerDefinition(ref),
       VolumeButtonTriggerDefinition(ref),
+      ClawClapTriggerDefinition(ref),
+      ClawTiltTriggerDefinition(ref),
     ];
 
     triggerDefinitions.sort();

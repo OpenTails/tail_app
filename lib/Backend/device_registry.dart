@@ -21,6 +21,7 @@ class DeviceRegistry {
     BaseDeviceDefinition(uuid: "5fb21175-fef4-448a-a38b-c472d935abab", btName: "minitail", deviceType: DeviceType.miniTail, minVersion: Version(major: 5, minor: 0, patch: 0)),
     BaseDeviceDefinition(uuid: "e790f509-f95b-4eb4-b649-5b43ee1eee9c", btName: "flutter", deviceType: DeviceType.wings, minVersion: Version(major: 5, minor: 0, patch: 0)),
     BaseDeviceDefinition(uuid: "927dee04-ddd4-4582-8e42-69dc9fbfae66", btName: "EG2", deviceType: DeviceType.ears),
+    BaseDeviceDefinition(uuid: "2a5d91c2-16cc-482d-acf0-5b623904f7ae", btName: "clawgear", deviceType: DeviceType.claws),
     BaseDeviceDefinition(uuid: "ba2f2b00-8f65-4cc3-afad-58ba1fccd62d", btName: "EarGear", deviceType: DeviceType.ears, unsupported: true),
   ];
 
@@ -104,9 +105,19 @@ BuiltList<BaseStatefulDevice> getAvailableGearForType(Ref ref, BuiltSet<DeviceTy
 }
 
 @Riverpod()
-BuiltList<BaseStatefulDevice> getKnownGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
-  final BuiltMap<String, BaseStatefulDevice> watch = KnownDevices.instance.state;
-  return watch.values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
+class GetKnownGearForType extends _$GetKnownGearForType {
+  @override
+  BuiltList<BaseStatefulDevice> build(BuiltSet<DeviceType> deviceTypes) {
+    KnownDevices.instance
+      ..removeListener(_listener)
+      ..addListener(_listener);
+    final BuiltMap<String, BaseStatefulDevice> watch = KnownDevices.instance.state;
+    return watch.values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
+  }
+
+  void _listener() {
+    ref.invalidateSelf();
+  }
 }
 
 @Riverpod(keepAlive: true)

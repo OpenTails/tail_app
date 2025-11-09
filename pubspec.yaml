@@ -13,6 +13,8 @@ platforms:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   logging: ^1.3.0
   go_router: ^16.2.2
   vector_math: # used for joystick, pinned to SDK version

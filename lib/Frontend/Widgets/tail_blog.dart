@@ -12,7 +12,6 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:wordpress_client/src/responses/properties/media_details.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Widget;
 
-import '../../constants.dart';
 import '../utils.dart';
 
 part 'tail_blog.freezed.dart';

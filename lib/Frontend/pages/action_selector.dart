@@ -12,7 +12,6 @@ import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/action_registry.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
-import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
@@ -25,8 +24,6 @@ abstract class ActionSelectorInfo with _$ActionSelectorInfo {
 
 class ActionSelector extends ConsumerStatefulWidget {
   const ActionSelector({required this.actionSelectorInfo, super.key});
-
-  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   final ActionSelectorInfo actionSelectorInfo;
 

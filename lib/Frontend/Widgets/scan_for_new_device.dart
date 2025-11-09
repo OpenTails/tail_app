@@ -73,7 +73,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                                   }
                                   int code = Random().nextInt(899999) + 100000;
                                   baseStoredDevice.conModePin = code.toString();
-                                  if (KnownDevices.instance.state.containsKey(baseStoredDevice.btMACAddress)) {
+                                  if (!KnownDevices.instance.state.containsKey(baseStoredDevice.btMACAddress)) {
                                     KnownDevices.instance.add(statefulDevice);
                                   }
                                   context.pop();

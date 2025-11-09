@@ -6,7 +6,6 @@ import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
@@ -22,6 +21,8 @@ part 'device_definition.freezed.dart';
 
 part 'device_definition.g.dart';
 
+/// When adding new gear make sure to update `getNameFromBTName()`
+
 @HiveType(typeId: 6)
 enum DeviceType {
   @HiveField(1)
@@ -32,6 +33,8 @@ enum DeviceType {
   wings,
   @HiveField(4)
   miniTail,
+  @HiveField(5)
+  claws,
 } //TODO extend with icon
 
 @HiveType(typeId: 14)
@@ -82,6 +85,8 @@ extension DeviceTypeExtension on DeviceType {
         return deviceTypeWings();
       case DeviceType.miniTail:
         return deviceTypeMiniTail();
+      case DeviceType.claws:
+        return deviceTypeClawGear();
     }
   }
 
@@ -102,6 +107,18 @@ extension DeviceTypeExtension on DeviceType {
         return Colors.blueAccent;
       case DeviceType.wings:
         return Colors.greenAccent;
+      case DeviceType.claws:
+        return Colors.deepPurpleAccent;
+    }
+  }
+
+  //mainly used to hide claws from the custom moves pages, since usermove/dssp isnt relevent there.
+  bool isHidden() {
+    switch (this) {
+      case DeviceType.claws:
+        return true;
+      default:
+        return false;
     }
   }
 }
@@ -382,6 +399,8 @@ String getNameFromBTName(String bluetoothDeviceName) {
       return 'FlutterWings';
     case '(!)Tail1':
       return 'DigiTail';
+    case 'clawgear':
+      return 'ClawGear';
   }
   return bluetoothDeviceName;
 }

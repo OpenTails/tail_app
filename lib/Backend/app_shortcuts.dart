@@ -1,6 +1,4 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/analytics.dart';

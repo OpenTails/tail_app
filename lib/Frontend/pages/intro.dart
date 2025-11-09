@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
-import 'package:tail_app/Backend/firebase.dart';
 import 'package:tail_app/Frontend/Widgets/known_gear.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';

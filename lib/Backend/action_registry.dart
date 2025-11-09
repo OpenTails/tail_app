@@ -16,10 +16,15 @@ part 'action_registry.g.dart';
 
 @immutable
 class ActionRegistry {
-  /// TODO: Changes needed for TAILCoNTROL
-  /// Add DeviceType.ears to CommandAction actions
-  /// Remove legacy EarMoveList and CommandAction.hiddenEars
-  /// Add Ear action aliases
+  static final BuiltSet<BaseAction> clawMoves = {
+    CommandAction(name: "Extend Slow", command: "MOVE1", deviceCategory: [DeviceType.claws], response: "MOVE1 END", uuid: "a373f116-4c0a-4ab7-894d-caedc4e76d1d"),
+    CommandAction(name: "Extend Fast", command: "MOVE2", deviceCategory: [DeviceType.claws], response: "MOVE2 END", uuid: "9446d5a2-7178-4177-ad61-29f7e8980791"),
+    CommandAction(name: "1/2 Extend Slow", command: "MOVE3", deviceCategory: [DeviceType.claws], response: "MOVE3 END", uuid: "2eb1278a-d366-4406-99cd-26710dbd6417"),
+    CommandAction(name: "1/2 Extend Fast", command: "MOVE4", deviceCategory: [DeviceType.claws], response: "MOVE4 END", uuid: "f17a781a-670e-4365-ba4b-18c8f503da56"),
+    CommandAction(name: "Retract Slow", command: "MOVE5", deviceCategory: [DeviceType.claws], response: "MOVE5 END", uuid: "9074fb1f-1526-467e-8a84-a4752d9160f1"),
+    CommandAction(name: "Retract Fast", command: "MOVE6", deviceCategory: [DeviceType.claws], response: "MOVE6 END", uuid: "08d19e6c-fed7-46b5-8c49-e019d74b5ac9"),
+    CommandAction(name: "Rawr", command: "RAWR", deviceCategory: [DeviceType.claws], response: "RAWR END", uuid: "58b5465f-2f1b-492d-9390-ea0d43d2ee90"),
+  }.build();
 
   static final BuiltSet<BaseAction> earMoves = {
     //TailControl only
@@ -175,7 +180,14 @@ class ActionRegistry {
     CommandAction(name: "Rustles 3", command: "TAILT2", deviceCategory: [DeviceType.wings], response: "TAILT2 END", uuid: "5f7e16e4-04f6-46ab-bbc9-e6f908fc559c"),
     CommandAction(name: "Rustles 4", command: "TAILET", deviceCategory: [DeviceType.wings], response: "TAILET END", uuid: "0dfeb464-572b-452b-be4a-5a36affd2da9"),
   }.build();
-  static final BuiltSet<BaseAction> allCommands = BuiltSet<BaseAction>().union(glowtipCommands).union(earMoves).union(flutterWingsMoves).union(miniTailMoves).union(tailMoves).union(rgbCommands);
+  static final BuiltSet<BaseAction> allCommands = BuiltSet<BaseAction>()
+      .union(glowtipCommands)
+      .union(earMoves)
+      .union(flutterWingsMoves)
+      .union(miniTailMoves)
+      .union(tailMoves)
+      .union(rgbCommands)
+      .union(clawMoves);
 }
 
 @Riverpod(keepAlive: true)

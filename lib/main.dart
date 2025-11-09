@@ -17,7 +17,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/analytics.dart';
 
-import 'Backend/Bluetooth/bluetooth_manager.dart';
 import 'Backend/Definitions/Action/base_action.dart';
 import 'Backend/Definitions/Device/device_definition.dart';
 import 'Backend/app_shortcuts.dart';
