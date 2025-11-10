@@ -267,19 +267,24 @@ class _TriggerEditState extends ConsumerState<TriggerEdit> {
                         ),
                         firstChild: Builder(
                           builder: (context) {
-                            String text = "";
-                            Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.state.values;
-                            for (String actionUUID in e.actions) {
-                              BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
-                              if (baseAction != null &&
-                                  (knownDevices.isEmpty || knownDevices.where((element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).isNotEmpty)) {
-                                if (text.isNotEmpty) {
-                                  text += ', ';
+                            return ListenableBuilder(
+                              listenable: KnownDevices.instance,
+                              builder: (context, child) {
+                                String text = "";
+                                Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.state.values;
+                                for (String actionUUID in e.actions) {
+                                  BaseAction? baseAction = ref.watch(getActionFromUUIDProvider(actionUUID));
+                                  if (baseAction != null &&
+                                      (knownDevices.isEmpty || knownDevices.where((element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).isNotEmpty)) {
+                                    if (text.isNotEmpty) {
+                                      text += ', ';
+                                    }
+                                    text += baseAction.name;
+                                  }
                                 }
-                                text += baseAction.name;
-                              }
-                            }
-                            return Text(convertToUwU(text.isNotEmpty ? text : triggerActionNotSet()));
+                                return Text(convertToUwU(text.isNotEmpty ? text : triggerActionNotSet()));
+                              },
+                            );
                           },
                         ),
                         crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,

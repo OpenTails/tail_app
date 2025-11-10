@@ -127,9 +127,25 @@ enum ConnectivityState { connected, disconnected, connecting }
 
 enum DeviceState { standby, runAction, busy }
 
-enum GlowtipStatus { glowtip, noGlowtip, unknown }
+@HiveType(typeId: 15)
+enum GlowtipStatus {
+  @HiveField(1)
+  glowtip,
+  @HiveField(2)
+  noGlowtip,
+  @HiveField(3)
+  unknown,
+}
 
-enum RGBStatus { rgb, noRGB, unknown }
+@HiveType(typeId: 16)
+enum RGBStatus {
+  @HiveField(1)
+  rgb,
+  @HiveField(2)
+  noRGB,
+  @HiveField(3)
+  unknown,
+}
 
 enum TailControlStatus { tailControl, legacy, unknown }
 
@@ -253,6 +269,22 @@ class BaseStatefulDevice {
         deviceStateWatchdogTimer = null;
       }
     });
+
+    // Store glowtip/rgb status
+    hasGlowtip.value = baseStoredDevice.hasGlowtip;
+    hasGlowtip.addListener(() {
+      if (hasGlowtip.value != GlowtipStatus.unknown) {
+        baseStoredDevice.hasGlowtip = hasGlowtip.value;
+        KnownDevices.instance.store();
+      }
+    });
+    hasRGB.value = baseStoredDevice.hasRGB;
+    hasRGB.addListener(() {
+      if (hasRGB.value != RGBStatus.unknown) {
+        baseStoredDevice.hasRGB = hasRGB.value;
+        KnownDevices.instance.store();
+      }
+    });
   }
 
   @override
@@ -369,6 +401,11 @@ class BaseStoredDevice extends ChangeNotifier {
   String conModePin = "";
   @HiveField(13, defaultValue: false)
   bool conModeEnabled = false;
+
+  @HiveField(14, defaultValue: GlowtipStatus.unknown)
+  GlowtipStatus hasGlowtip = GlowtipStatus.unknown;
+  @HiveField(15, defaultValue: RGBStatus.unknown)
+  RGBStatus hasRGB = RGBStatus.unknown;
 
   int get color => _color;
 

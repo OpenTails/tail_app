@@ -451,7 +451,7 @@ String scanDemoGearTip() => Intl.message(
 );
 
 String triggerActionSelectorTutorialLabel() => Intl.message(
-  "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions. Don't forget to save.",
+  "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions. Only actions compatible with paired gear are shown. Don't forget to save.",
   name: 'triggerActionSelectorTutorialLabel',
   desc: 'Label for the tutorial card on the Action selector for triggers',
 );

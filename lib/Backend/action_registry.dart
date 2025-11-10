@@ -262,29 +262,59 @@ class GetAvailableActions extends _$GetAvailableActions {
   }
 }
 
+// Technically not all moves
+// only return moves that would be available if all gear was connected
 @Riverpod(keepAlive: true)
-BuiltMap<String, BuiltSet<BaseAction>> getAllActions(Ref ref) {
-  ref.watch(initLocaleProvider); // to rebuild category names
-  Map<String, Set<BaseAction>> sortedActions = {};
-  final BuiltList<MoveList> moveLists = ref.watch(moveListsProvider);
-  final BuiltList<AudioAction> audioActions = ref.watch(userAudioActionsProvider);
-  for (BaseAction baseAction
-      in List.from(ActionRegistry.allCommands)
-        ..addAll(moveLists)
-        ..addAll(audioActions)) {
-    Set<BaseAction>? baseActions = {};
-    // get category if it exists
-    if (sortedActions.containsKey(baseAction.getCategoryName())) {
-      baseActions = sortedActions[baseAction.getCategoryName()];
+class GetAllActions extends _$GetAllActions {
+  @override
+  BuiltMap<String, BuiltSet<BaseAction>> build() {
+    ref.watch(initLocaleProvider); // to rebuild category names
+    KnownDevices.instance
+      ..removeListener(onDeviceConnect)
+      ..addListener(onDeviceConnect);
+    Map<String, Set<BaseAction>> sortedActions = {};
+    final BuiltList<MoveList> moveLists = ref.watch(moveListsProvider);
+    final BuiltList<AudioAction> audioActions = ref.watch(userAudioActionsProvider);
+    for (BaseStatefulDevice baseStatefulDevice in KnownDevices.instance.state.values) {
+      baseStatefulDevice.hasRGB
+        ..removeListener(onDeviceConnect)
+        ..addListener(onDeviceConnect);
+      baseStatefulDevice.hasGlowtip
+        ..removeListener(onDeviceConnect)
+        ..addListener(onDeviceConnect);
     }
-    // add action to category
-    baseActions?.add(baseAction);
-    // store result
-    if (baseActions != null && baseActions.isNotEmpty) {
-      sortedActions[baseAction.getCategoryName()] = baseActions;
+    // Filter out moves from unpaired gear
+    Set<DeviceType> pairedDeviceTypes = KnownDevices.instance.state.values.map((e) => e.baseDeviceDefinition.deviceType).toSet();
+    bool hasRGB = KnownDevices.instance.state.values.map((e) => e.baseStoredDevice.hasRGB).any((element) => element == RGBStatus.rgb);
+    bool hasGlowTip = KnownDevices.instance.state.values.map((e) => e.baseStoredDevice.hasGlowtip).any((element) => element == GlowtipStatus.glowtip);
+
+    for (BaseAction baseAction
+        in List.from(
+            ActionRegistry.allCommands
+                .where((element) => pairedDeviceTypes.intersection(element.deviceCategory.toSet()).isNotEmpty)
+                .whereNot((element) => element.actionCategory == ActionCategory.rgb && !hasRGB)
+                .whereNot((element) => element.actionCategory == ActionCategory.glowtip && !hasGlowTip),
+          )
+          ..addAll(moveLists)
+          ..addAll(audioActions)) {
+      Set<BaseAction>? baseActions = {};
+      // get category if it exists
+      if (sortedActions.containsKey(baseAction.getCategoryName())) {
+        baseActions = sortedActions[baseAction.getCategoryName()];
+      }
+      // add action to category
+      baseActions?.add(baseAction);
+      // store result
+      if (baseActions != null && baseActions.isNotEmpty) {
+        sortedActions[baseAction.getCategoryName()] = baseActions;
+      }
     }
+    return BuiltMap(sortedActions.map((key, value) => MapEntry(key, value.build())));
   }
-  return BuiltMap(sortedActions.map((key, value) => MapEntry(key, value.build())));
+
+  void onDeviceConnect() {
+    ref.invalidateSelf();
+  }
 }
 
 @Riverpod(keepAlive: true)

@@ -162,41 +162,61 @@ Future<void> initHive() async {
   final Directory appDir = await getApplicationSupportDirectory();
   Hive.init(appDir.path);
 
+  //Hive Type ID 1
   if (!Hive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
     Hive.registerAdapter(BaseStoredDeviceAdapter());
   }
-  if (!Hive.isAdapterRegistered(MoveListAdapter().typeId)) {
-    Hive.registerAdapter(MoveListAdapter());
-  }
-  if (!Hive.isAdapterRegistered(MoveAdapter().typeId)) {
-    Hive.registerAdapter(MoveAdapter());
-  }
-  if (!Hive.isAdapterRegistered(TriggerActionAdapter().typeId)) {
-    Hive.registerAdapter(TriggerActionAdapter());
-  }
+  //Hive Type ID 2
   if (!Hive.isAdapterRegistered(TriggerAdapter().typeId)) {
     Hive.registerAdapter(TriggerAdapter());
   }
-  if (!Hive.isAdapterRegistered(ActionCategoryAdapter().typeId)) {
-    Hive.registerAdapter(ActionCategoryAdapter());
+  //Hive Type ID 3
+  if (!Hive.isAdapterRegistered(MoveListAdapter().typeId)) {
+    Hive.registerAdapter(MoveListAdapter());
   }
+  //Hive Type ID 5
+  if (!Hive.isAdapterRegistered(MoveAdapter().typeId)) {
+    Hive.registerAdapter(MoveAdapter());
+  }
+  //Hive Type ID 6
   if (!Hive.isAdapterRegistered(DeviceTypeAdapter().typeId)) {
     Hive.registerAdapter(DeviceTypeAdapter());
   }
-  if (!Hive.isAdapterRegistered(MoveTypeAdapter().typeId)) {
-    Hive.registerAdapter(MoveTypeAdapter());
+  //Hive Type ID 7
+  if (!Hive.isAdapterRegistered(ActionCategoryAdapter().typeId)) {
+    Hive.registerAdapter(ActionCategoryAdapter());
   }
+  //Hive Type ID 8
+  if (!Hive.isAdapterRegistered(TriggerActionAdapter().typeId)) {
+    Hive.registerAdapter(TriggerActionAdapter());
+  }
+  //Hive Type ID 10
   if (!Hive.isAdapterRegistered(EasingTypeAdapter().typeId)) {
     Hive.registerAdapter(EasingTypeAdapter());
   }
+  //Hive Type ID 11
+  if (!Hive.isAdapterRegistered(MoveTypeAdapter().typeId)) {
+    Hive.registerAdapter(MoveTypeAdapter());
+  }
+  //Hive Type ID 12
   if (!Hive.isAdapterRegistered(AudioActionAdapter().typeId)) {
     Hive.registerAdapter(AudioActionAdapter());
   }
+  //Hive Type ID 13
   if (!Hive.isAdapterRegistered(FavoriteActionAdapter().typeId)) {
     Hive.registerAdapter(FavoriteActionAdapter());
   }
+  //Hive Type ID 14
   if (!Hive.isAdapterRegistered(EarSpeedAdapter().typeId)) {
     Hive.registerAdapter(EarSpeedAdapter());
+  }
+  //Hive Type ID 15
+  if (!Hive.isAdapterRegistered(GlowtipStatusAdapter().typeId)) {
+    Hive.registerAdapter(GlowtipStatusAdapter());
+  }
+  //Hive Type ID 16
+  if (!Hive.isAdapterRegistered(RGBStatusAdapter().typeId)) {
+    Hive.registerAdapter(RGBStatusAdapter());
   }
   await Hive.openBox(settings); // Do not set type here
   await Hive.openBox<Trigger>(triggerBox);
