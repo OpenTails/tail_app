@@ -47,7 +47,7 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
                 children: [
                   ListTile(title: Text(convertToUwU(scanDevicesTitle()), style: Theme.of(context).textTheme.titleLarge)),
                   ScanGearList(),
-                  if (HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault)) ...[
+                  if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDemoGearDefault)) ...[
                     ExpansionTile(
                       title: Text(convertToUwU(scanDemoGear())),
                       children: [

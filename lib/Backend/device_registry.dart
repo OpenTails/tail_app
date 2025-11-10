@@ -98,7 +98,7 @@ BuiltList<BaseStatefulDevice> getAvailableIdleGearForType(Ref ref, BuiltSet<Devi
   return watch.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
 }
 
-@Riverpod()
+@Riverpod(keepAlive: true)
 BuiltList<BaseStatefulDevice> getAvailableGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
   final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
   return watch.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();

@@ -9,8 +9,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
-import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
-import 'package:tail_app/Frontend/translation_string_definitions.dart';
 
 import '../../../Backend/firebase.dart';
 import '../../../Backend/logging_wrappers.dart';
@@ -31,7 +29,9 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Developer Menu')),
+      appBar: AppBar(
+        title: const Text('Developer Menu'),
+      ),
       body: ListView(
         primary: true,
         children: [
@@ -60,29 +60,18 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             },
           ),
           ListTile(
-            title: Text(convertToUwU(scanDemoGear())),
-            leading: const Icon(Icons.explore),
-            subtitle: Text(convertToUwU(scanDemoGearTip())),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault),
-              onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, showDemoGear, value);
-                });
-              },
-            ),
-          ),
-          ListTile(
             title: const Text(hasCompletedOnboarding),
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree,
               onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
-                  if (!value) {
-                    OnBoardingPageRoute().go(context);
-                  }
-                });
+                setState(
+                  () {
+                    HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
+                    if (!value) {
+                      OnBoardingPageRoute().go(context);
+                    }
+                  },
+                );
               },
             ),
           ),
@@ -121,15 +110,22 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault),
               onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, showDebugging, value);
-                  context.pop();
-                });
+                setState(
+                  () {
+                    HiveProxy.put(settings, showDebugging, value);
+                    context.pop();
+                  },
+                );
               },
             ),
           ),
-          const ListTile(title: Divider()),
-          ListTile(title: const Text("ScanState"), subtitle: Text(ref.read(scanProvider).toString())),
+          const ListTile(
+            title: Divider(),
+          ),
+           ListTile(
+            title: const Text("ScanState"),
+            subtitle: Text(ref.read(scanProvider).toString()),
+          ),
           ListTile(
             title: const Text("AdapterState"),
             subtitle: StreamBuilder(
@@ -162,7 +158,9 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               },
             ),
           ),
-          const ListTile(title: Divider()),
+          const ListTile(
+            title: Divider(),
+          ),
           ListTile(
             title: const Text("SentryEnvironment"),
             subtitle: FutureBuilder(
@@ -237,8 +235,13 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               Clipboard.setData(ClipboardData(text: await getFirebaseToken() ?? ""));
             },
           ),
-          ListTile(title: const Text("PlatformLocale"), subtitle: Text(Platform.localeName)),
-          const ListTile(title: Divider()),
+          ListTile(
+            title: const Text("PlatformLocale"),
+            subtitle: Text(Platform.localeName),
+          ),
+          const ListTile(
+            title: Divider(),
+          ),
           ListTile(
             title: const Text("WatchIsReachable"),
             subtitle: FutureBuilder(

@@ -431,13 +431,13 @@ String getNameFromBTName(String bluetoothDeviceName) {
     case 'mitail':
       return 'MiTail';
     case 'minitail':
-      return 'MiTail Mini';
+      return 'Mini';
     case 'flutter':
       return 'FlutterWings';
     case '(!)Tail1':
       return 'DigiTail';
     case 'clawgear':
-      return 'ClawGear';
+      return 'Claws';
   }
   return bluetoothDeviceName;
 }
