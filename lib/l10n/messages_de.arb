@@ -1,1304 +1,1304 @@
 {
-  "title": "Die Tail Company",
-  "@title": {
-    "description": "The name of the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPage": "Joystick",
-  "@joyStickPage": {
-    "description": "The label and title of the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPage": "Gib Feedback",
-  "@feedbackPage": {
-    "description": "The label and title of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "aboutPage": "Über",
-  "@aboutPage": {
-    "description": "The label and title of the about page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsPage": "Einstellungen",
-  "@settingsPage": {
-    "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersPage": "Auslöser",
-  "@triggersPage": {
-    "description": "The label and title of the trigger page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPage": "Benutzerdefinierte Aktionen",
-  "@sequencesPage": {
-    "description": "The label and title of the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectLabel": "Wähle einen Trigger Typ aus",
-  "@triggersSelectLabel": {
-    "description": "The title of the add trigger dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "ok": "OK",
-  "@ok": {
-    "description": "Ok on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "cancel": "Abbrechen",
-  "@cancel": {
-    "description": "Cancel on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersAdd": "Trigger hinzufügen",
-  "@triggersAdd": {
-    "description": "Floating Action Button on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceType": "Für welche Ausrüstung soll es gelten?",
-  "@deviceType": {
-    "description": "Title for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeTail": "Schwanz",
-  "@deviceTypeTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeEars": "Ohren",
-  "@deviceTypeEars": {
-    "description": "Ears option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeWings": "Flügel",
-  "@deviceTypeWings": {
-    "description": "Wings option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditEasing": "Glättungstyp",
-  "@sequencesEditEasing": {
-    "description": "Label for the easing selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditTime": "Wie lange soll gewartet werden, bevor mit dem nächsten Schritt in dieser benutzerdefinierten Aktion fortgefahren wird",
-  "@sequencesEditTime": {
-    "description": "Label for the time slider on the delay tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditHomeLabel": "Setze die Ausrüstung auf Ruheposition",
-  "@sequencesEditHomeLabel": {
-    "description": "Label on the home tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteTitle": "Aktion löschen",
-  "@sequencesEditDeleteTitle": {
-    "description": "Title of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteDescription": "Bist du sicher das du diese Aktion löschen möchtest?",
-  "@sequencesEditDeleteDescription": {
-    "description": "Message of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditListDelayLabel": "Verzögere die nächste Bewegung um {howMany} ms.",
-  "@sequenceEditListDelayLabel": {
-    "description": "Delay move label on the edit sequences page.",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetooth": "Bluetooth ist nicht verfügbar",
-  "@actionsNoBluetooth": {
-    "description": "Label on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryCalm": "Ruhig und entspannt",
-  "@actionsCategoryCalm": {
-    "description": "calm action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryFast": "Schnell und aufgeregt",
-  "@actionsCategoryFast": {
-    "description": "fast action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryTense": "Frustriert und angespannt",
-  "@actionsCategoryTense": {
-    "description": "tense action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryGlowtip": "Glühspitze",
-  "@actionsCategoryGlowtip": {
-    "description": "glowtip action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleTitle": "Haptisches Feedback",
-  "@settingsHapticsToggleTitle": {
-    "description": "Settings page haptic feedback toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleSubTitle": "Aktiviere die Vibration, wenn auf eine Aktion getippt wird",
-  "@settingsHapticsToggleSubTitle": {
-    "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleTitle": "Automatischer Fehlerbericht",
-  "@settingsErrorReportingToggleTitle": {
-    "description": "Settings page error reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleSubTitle": "Sende Fehlerberichte an Sentry",
-  "@settingsErrorReportingToggleSubTitle": {
-    "description": "Settings page error reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesDisconnect": "Trennen",
-  "@manageDevicesDisconnect": {
-    "description": "manage devices disconnect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesForget": "Vergessen",
-  "@manageDevicesForget": {
-    "description": "manage devices forget button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesScanMessage": "Suche nach Ausrüstung. Bitte stelle sicher, dass deine Ausrüstung eingeschaltet und in der Nähe ist",
-  "@scanDevicesScanMessage": {
-    "description": "scan for devices scan in progress message when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingTitle": "Gehen",
-  "@triggerWalkingTitle": {
-    "description": "Walking/Step trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesAdd": "Neue Aktion",
-  "@sequencesAdd": {
-    "description": "Floating Action Button on the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEdit": "Aktion bearbeiten",
-  "@sequencesEdit": {
-    "description": "Label for the edit icon on a sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingDescription": "Beim Gehen eine Aktion auslösen",
-  "@triggerWalkingDescription": {
-    "description": "Walking/Step trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStopped": "Angehalten",
-  "@triggerWalkingStopped": {
-    "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStep": "Schritt",
-  "@triggerWalkingStep": {
-    "description": "Walking/Step trigger Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverTitle": "Abdeckung",
-  "@triggerCoverTitle": {
-    "description": "Cover trigger Title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverDescription": "Durch Abdecken des Näherungssensors eine Aktion auslösen",
-  "@triggerCoverDescription": {
-    "description": "Cover trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverNear": "Gerät abgedeckt",
-  "@triggerCoverNear": {
-    "description": "Cover trigger near action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverFar": "Gerät aufgedeckt",
-  "@triggerCoverFar": {
-    "description": "Cover trigger far action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonTitle": "Lautstärketasten",
-  "@triggerVolumeButtonTitle": {
-    "description": "Volume Button trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonDescription": "Durch Drücken einer Lautstärketaste eine Aktion auslösen",
-  "@triggerVolumeButtonDescription": {
-    "description": "Volume Button trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeUp": "Lauter Taste",
-  "@triggerVolumeButtonVolumeUp": {
-    "description": "Volume Button trigger volume up action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeDown": "Leiser Taste",
-  "@triggerVolumeButtonVolumeDown": {
-    "description": "Volume Button trigger volume down action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeTitle": "Schütteln",
-  "@triggerShakeTitle": {
-    "description": "Shake trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeDescription": "Löse eine Aktion aus, indem du dein Gerät schüttelst",
-  "@triggerShakeDescription": {
-    "description": "Shake trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityTitle": "Ausrüstung in der Nähe",
-  "@triggerProximityTitle": {
-    "description": "Proximity trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityDescription": "Eine Aktion auslösen, wenn sich Ausrüstung in der Nähe befindet",
-  "@triggerProximityDescription": {
-    "description": "Proximity trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerActionNotSet": "Keine Aktion festgelegt",
-  "@triggerActionNotSet": {
-    "description": "Trigger action label when no action set",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditAdd": "Bewegung hinzufügen",
-  "@sequencesEditAdd": {
-    "description": "Label for the add Floating Action Button on edit sequence page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditName": "Name",
-  "@sequencesEditName": {
-    "description": "Label for the name field on sequence edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditMove": "Bewegung",
-  "@sequencesEditMove": {
-    "description": "Label for the move tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDelay": "Verzögerung",
-  "@sequencesEditDelay": {
-    "description": "Label for the delay tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditLeftServo": "Position des linken Servos",
-  "@sequencesEditLeftServo": {
-    "description": "Label for the left servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditRightServo": "Position des rechten Servos",
-  "@sequencesEditRightServo": {
-    "description": "Label for the right servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeed": "Wie schnell soll die Ausrüstung in diese Position gelangen?",
-  "@sequencesEditSpeed": {
-    "description": "Label for the speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicTitle": "EarGear Mikrofon",
-  "@triggerEarMicTitle": {
-    "description": "EarGear internal mic trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicDescription": "Löse eine Aktion aus, wenn EarGear Geräusche erkennt",
-  "@triggerEarMicDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicSound": "Geräusch erkannt",
-  "@triggerEarMicSound": {
-    "description": "EarGear internal mic trigger sound detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltTitle": "EarGear Neigungssensor",
-  "@triggerEarTiltTitle": {
-    "description": "EarGear internal gesture sensor trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltDescription": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
-  "@triggerEarTiltDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltLeft": "Neigung links",
-  "@triggerEarTiltLeft": {
-    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltRight": "Neigung rechts",
-  "@triggerEarTiltRight": {
-    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltForward": "Neigung vorwärts",
-  "@triggerEarTiltForward": {
-    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltBackward": "Neigung rückwärts",
-  "@triggerEarTiltBackward": {
-    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditRepeatTitle": "Wie oft soll die Aktion wiederholt werden?",
-  "@sequenceEditRepeatTitle": {
-    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsSelectScreen": "Wähle Aktionen aus",
-  "@actionsSelectScreen": {
-    "description": "Title for action select menu on triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAppColor": "App Farbe",
-  "@settingsAppColor": {
-    "description": "Settings page app color picker button title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesBatteryGraphTitle": "Batteriediagramm",
-  "@manageDevicesBatteryGraphTitle": {
-    "description": "battery graph expansion tile title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesShutdown": "Abschalten",
-  "@manageDevicesShutdown": {
-    "description": "manage devices shutdown button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesColor": "Farbe der Ausrüstung",
-  "@manageDevicesColor": {
-    "description": "manage devices color picker button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaButton": "Tippe, um die Firmware zu aktualisieren",
-  "@manageDevicesOtaButton": {
-    "description": "manage devices ota available button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesTitle": "Neue Geräte suchen",
-  "@scanDevicesTitle": {
-    "description": "button which opens the scan window",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsDescription": "App-Farbe ändern, Haptik konfigurieren und mehr",
-  "@settingsDescription": {
-    "description": "The description of the settings page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesConnect": "Verbinde",
-  "@manageDevicesConnect": {
-    "description": "manage devices connect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualResponsibleWaggingTitle": "Verantwortungsvolles Wedeln",
-  "@moreManualResponsibleWaggingTitle": {
-    "description": "Title for Responsible wagging manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualMiTailTitle": "MiTail Handbuch",
-  "@moreManualMiTailTitle": {
-    "description": "Title for MiTail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualEargearTitle": "EarGear Handbuch",
-  "@moreManualEargearTitle": {
-    "description": "Title for EarGear manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualFlutterWingsTitle": "FlutterWings Handbuch",
-  "@moreManualFlutterWingsTitle": {
-    "description": "Title for FlutterWings manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualTitle": "Handbücher",
-  "@moreManualTitle": {
-    "description": "Title for manual header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualSubTitle": "Tippe zum Anzeigen",
-  "@moreManualSubTitle": {
-    "description": "Subtitle for each manual on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreUsefulLinksTitle": "Nützliche Links",
-  "@moreUsefulLinksTitle": {
-    "description": "Title for Useful Links header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleTitle": "Lass den Bildschirm eingeschaltet",
-  "@settingsKeepScreenOnToggleTitle": {
-    "description": "Settings page Keep Awake toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleSubTitle": "Dieser Modus verhindert, dass der Bildschirm ausgeschaltet wird, während dein Gerät angeschlossen ist",
-  "@settingsKeepScreenOnToggleSubTitle": {
-    "description": "Settings page Keep Awake toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleTitle": "Anonyme Analysen zulassen",
-  "@settingsAnalyticsToggleTitle": {
-    "description": "Settings page analytics reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleSubTitle": "Melde die Nutzung nicht identifizierender Funktionen an Plausible, um die App zu verbessern",
-  "@settingsAnalyticsToggleSubTitle": {
-    "description": "Settings page analytics reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePrivacyPolicyLinkTitle": "Datenschutzrichtlinie",
-  "@morePrivacyPolicyLinkTitle": {
-    "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreTitle": "Mehr",
-  "@moreTitle": {
-    "description": "Title for More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPageDescription": "Steuere direkt die Position deines Gear.",
-  "@joyStickPageDescription": {
-    "description": "The description of the joystick page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPageDescription": "Erstelle benutzerdefinierte Aktionen für deine Ausrüstung",
-  "@sequencesPageDescription": {
-    "description": "The description of the sequences page link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleTitle": "Kitsune Modus",
-  "@settingsKitsuneToggleTitle": {
-    "description": "Settings page Kitsune mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleSubTitle": "Wenn du viele Instanzen desselben Gerätes verbindest, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
-  "@settingsKitsuneToggleSubTitle": {
-    "description": "Settings page kitsune toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoDescription": "Trigger senden automatisch Aktionen an deine Ausrüstung. Du kannst mehrere Trigger gleichzeitig aktiv haben. Tippe auf einen Trigger, um ihn zu bearbeiten und aktiviere den Trigger mit dem Schalter auf der linken Seite.",
-  "@triggerInfoDescription": {
-    "description": "Description for what a trigger is and how to use them on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoEditActionDescription": "Tippe auf den Stift um die Aktion auszuwählen welche durch das Ereignis auslöst werden soll. Es wird eine zufällige Aktion ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig zu Move-Aktionen ausgelöst.",
-  "@triggerInfoEditActionDescription": {
-    "description": "Instruction on how to select an action on the trigger edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoDescription": "Benutzerdefinierte Aktionen erlauben dir, deine eigenen Aktionen für Ausrüstungen zu erstellen. Wenn du auf eine benutzerdefinierte Aktion tippst, wird sie ausgeführt. Tippe auf den Stift, um eine benutzerdefinierte Aktion zu bearbeiten. Bitte stelle sicher das die Firmware deiner Ausrüstung auf dem aktuellsten Stand ist.",
-  "@sequencesInfoDescription": {
-    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoEditDescription": "Jede benutzerdefinierte Aktion besteht aus 1-6 Bewegungen und kann bis zu 5 Mal wiederholt werden. Du kannst eine Bewegung lange drücken, um sie neu anzuordnen.",
-  "@sequencesInfoEditDescription": {
-    "description": "Description for making a custom action on the edit Custom Action page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleTitle": "Batterieanzeige in %",
-  "@settingsBatteryPercentageToggleTitle": {
-    "description": "Settings page Battery Percentage mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleSubTitle": "Zeige die aktuelle Batterieladung statt einem Symbol",
-  "@settingsBatteryPercentageToggleSubTitle": {
-    "description": "Settings page show battery percentage toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleTitle": "Größere Karten",
-  "@settingsLargerCardsToggleTitle": {
-    "description": "Settings page Larger cards toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleSubTitle": "Macht die Aktionskarten größer, damit sie leichter angetippt werden können",
-  "@settingsLargerCardsToggleSubTitle": {
-    "description": "Settings page show larger cards toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleTitle": "Tutorial-Karten ausblenden",
-  "@settingsTutorialCardToggleTitle": {
-    "description": "Settings page tutorial card display toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleSubTitle": "Die verschiedenen Lernkarten in der gesamten App ausblenden",
-  "@settingsTutorialCardToggleSubTitle": {
-    "description": "Settings page tutorial card display toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaTitle": "Ausrüstung aktualisieren",
-  "@otaTitle": {
-    "description": "Title for OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaChangelogLabel": "Änderungsprotokoll Firmware",
-  "@otaChangelogLabel": {
-    "description": "Label for changelog section of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadButtonLabel": "OTA-Update starten",
-  "@otaDownloadButtonLabel": {
-    "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyViewButtonLabel": "Datenschutzrichtlinie anzeigen",
-  "@onboardingPrivacyPolicyViewButtonLabel": {
-    "description": "Button label to view privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, musst du dennoch die Datenschutzrichtlinie akzeptieren",
-  "@onboardingPrivacyPolicyDescription": {
-    "description": "Description for there being a privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzrichtlinie akzeptieren",
-  "@onboardingPrivacyPolicyAcceptButtonLabel": {
-    "description": "Button label to accept privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothTitle": "Bluetooth",
-  "@onboardingBluetoothTitle": {
-    "description": "Title for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothDescription": "Für die Verbindung mit der Ausrüstung ist eine Bluetooth-Berechtigung erforderlich",
-  "@onboardingBluetoothDescription": {
-    "description": "Description for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothRequestButtonLabel": "Zugriff erlauben",
-  "@onboardingBluetoothRequestButtonLabel": {
-    "description": "Label for the button to request bluetooth permission on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothEnableButtonLabel": "Öffne die Einstellungen um Bluetooth einzuschalten",
-  "@onboardingBluetoothEnableButtonLabel": {
-    "description": "Label for the button to open bluetooth settings on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingDoneButtonLabel": "Fertig",
-  "@onboardingDoneButtonLabel": {
-    "description": "Label for the button to close the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingCompletedTitle": "Viel Spaß beim Wedeln!",
-  "@onboardingCompletedTitle": {
-    "description": "Title of the final page of the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectClearLabel": "Keine Auswahl",
-  "@triggersSelectClearLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected action",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBackToClose": "Zum Beenden erneut drücken",
-  "@doubleBackToClose": {
-    "description": "Snackbar message which appears when the back button is pressed at the main screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleTitle": "Immer nach bekannter Ausrüstung suchen",
-  "@settingsAlwaysScanningToggleTitle": {
-    "description": "Settings page always scanning toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaCompletedTitle": "Update abgeschlossen",
-  "@otaCompletedTitle": {
-    "description": "Title for the text that appears when an OTA update is completed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedTitle": "Update fehlgeschlagen. Bitte starte deine Ausrüstung neu und versuche es erneut",
-  "@otaFailedTitle": {
-    "description": "Title for the text that appears when an OTA update has failed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleSubTitle": "Erhalte automatisch Benachrichtigungen, wenn es einen neuen Tail-Blog Beitrag gibt",
-  "@settingsNewsletterToggleSubTitle": {
-    "description": "Settings page newsletter notification toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleTitle": "Tail-Blog Benachrichtigungen zulassen",
-  "@settingsNewsletterToggleTitle": {
-    "description": "Settings page newsletter notification toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonTitle": "Casual-Modus",
-  "@triggerRandomButtonTitle": {
-    "description": "Casual Mode trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonDescription": "Zufällig eine ausgewählte Aktion starten",
-  "@triggerRandomButtonDescription": {
-    "description": "Casual Mode trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomAction": "Aktion",
-  "@triggerRandomAction": {
-    "description": "Casual Mode trigger action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaInProgressTitle": "Ausrüstung wird aktualisiert. Bitte schalte deine Ausrüstung nicht aus und schließe die App nicht",
-  "@otaInProgressTitle": {
-    "description": "Label for ota in progress",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaLowBattery": "Schwache Batterie. Bitte lade deine Ausrüstung zu mindestens 50% auf",
-  "@otaLowBattery": {
-    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessage": "Du kannst deine gesamte Tail Co Ausrüstung hier kontrollieren, verwalten und aktualisieren. Hier findest du auch Anleitungen und Wegweiser. Viel Spaß beim Wedeln!",
-  "@homeWelcomeMessage": {
-    "description": "The welcome message on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeNewsTitle": "Frisch vom Tail-Blog",
-  "@homeNewsTitle": {
-    "description": "The title header for the news in the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessageTitle": "Willkommen bei der Tail Company App",
-  "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffDescription": "Wische horizontal über den Bereich mit den bekannten Geräten oben, um mit dem Scannen zu beginnen. Du kannst das kontinuierliche Scannen in den Einstellungen aktivieren.",
-  "@homeContinuousScanningOffDescription": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectSaveLabel": "Aktionen speichern",
-  "@triggersSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesFoundTitle": "Ausrüstung gefunden. Tippe auf den Namen der Ausrüstung, um eine Verbindung herzustellen",
-  "@scanDevicesFoundTitle": {
-    "description": "Title when gear is found on the scan for new gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeChangelogLinkTitle": "Änderungsprotokoll",
-  "@homeChangelogLinkTitle": {
-    "description": "Title for Changelog on Home page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "noLongerSupported": "Diese Ausrüstung wird nicht mehr unterstützt. Einige App-Funktionen funktionieren möglicherweise nicht",
-  "@noLongerSupported": {
-    "description": "Warning message which appears for unsupported gear on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "mandatoryOtaRequired": "Es ist ein Firmware Update für eine bessere Unterstützung deiner Ausrüstung verfügbar",
-  "@mandatoryOtaRequired": {
-    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsFavoriteTip": "Aktion lange drücken um sie zu einem Favoriten zu machen",
-  "@actionsFavoriteTip": {
-    "description": "tip message which appears when no actions are favorited on the actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreSourceCode": "Quellcode",
-  "@moreSourceCode": {
-    "description": "Label for the github and dev mode button on the more tab",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioActionCategory": "Soundeffekte",
-  "@audioActionCategory": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioPage": "Benutzerdefinierte Sounds",
-  "@audioPage": {
-    "description": "The label and title of the custom audio management page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEditDescription": "Verwalten Sie benutzerdefinierte Soundeffekte",
-  "@audioEditDescription": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEdit": "Soundeffekt umbenennen",
-  "@audioEdit": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDelete": "Soundeffekt löschen",
-  "@audioDelete": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioAdd": "Soundeffekt hinzufügen",
-  "@audioAdd": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDeleteDescription": "Möchtest du diesen Soundeffekt wirklich löschen?",
-  "@audioDeleteDescription": {
-    "description": "Label for the body of the delete confirmation dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioTipCard": "Du kannst benutzerdefinierte Sounds hinzufügen, die auf der Registerkarte Aktionen angezeigt werden und mit Triggern verwendet werden können",
-  "@audioTipCard": {
-    "description": "Tutorial card for the audio page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeMiniTail": "Mini-Schwanz",
-  "@deviceTypeMiniTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleSubTitle": "Kontinuierlich nach bekannter Ausrüstung suchen. Wenn deaktiviert, musst du zum Scannen auf der Ausrüstungsleiste wischen.",
-  "@settingsAlwaysScanningToggleSubTitle": {
-    "description": "Settings page always scanning toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGear": "Simulierte Ausrüstung",
-  "@scanDemoGear": {
-    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanAddDemoGear": "Simulierte Ausrüstung hinzufügen",
-  "@scanAddDemoGear": {
-    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanRemoveDemoGear": "Entferne alle simulierten Ausrüstungen",
-  "@scanRemoveDemoGear": {
-    "description": "Label for the button to remove all demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGearTip": "Du möchtest die App ausprobieren, wartest aber noch auf die Lieferung deiner Ausrüstung? Füge eine simulierte Ausrüstung hinzu. So kannst du die App so erleben, als hättest du deine Ausrüstung, oder wenn du Ausrüstungen ausprobieren möchtest, die du derzeit nicht besitzt. Dadurch wird ein neuer Abschnitt auf der Seite „Nach neuer Ausrüstung suchen“ aktiviert.",
-  "@scanDemoGearTip": {
-    "description": "Tip Card description for the  demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectAllLabel": "Alle auswählen",
-  "@triggersSelectAllLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerActionSelectorTutorialLabel": "Wähle so viele Aktionen aus, wie du möchtest. Es wird eine Aktion zufällig ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig mit Bewegungs-Aktionen ausgelöst. Vergiss nicht zu speichern.",
-  "@triggerActionSelectorTutorialLabel": {
-    "description": "Label for the tutorial card on the Action selector for triggers",
-    "type": "text",
-    "placeholders": {}
-  },
-  "featureLimitedOtaRequiredLabel": "Bitte aktualisiere deine Ausrüstung um diese Funktion zu verwenden.",
-  "@featureLimitedOtaRequiredLabel": {
-    "description": "Label for the warning card when a feature requires a firmware update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joystickWarning": "Die Joystick Funktion ist experimentell. Verwende sie auf eigene Gefahr.",
-  "@joystickWarning": {
-    "description": "Label for the warning tutorial card on the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersDefSelectSaveLabel": "Auswählen",
-  "@triggersDefSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarLabel": "Bitte aktualisiere deine Ausrüstung",
-  "@otaAvailableSnackbarLabel": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarTitle": "Aktualisierung verfügbar",
-  "@otaAvailableSnackbarTitle": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarTitle": "Ausrüstung verbunden",
-  "@newGearConnectedSnackbarTitle": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarLabel": "Fröhliches Wedeln",
-  "@newGearConnectedSnackbarLabel": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanConnectToAllButtonLabel": "Mit allen verbinden",
-  "@scanConnectToAllButtonLabel": {
-    "description": "Title for Connecting to all found gear on the scan page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "colorPickerTitle": "Wähle eine Farbe aus",
-  "@colorPickerTitle": {
-    "description": "The title of the color picker",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetoothDescription": "Für die Verbindung mit den Geräten wird Bluetooth benötigt. Bitte schalte Bluetooth in den Einstellungen ein. Verbinde dich nicht mit deinen Geräten während du in den Einstellungen bist.",
-  "@actionsNoBluetoothDescription": {
-    "description": "description on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedTitle": "Ohrgeschwindigkeit",
-  "@earSpeedTitle": {
-    "description": "Title for the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedFast": "Schnell",
-  "@earSpeedFast": {
-    "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedSlow": "Langsam",
-  "@earSpeedSlow": {
-    "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "casualModeDelayTitle": "Minimale und maximale Verzögerung",
-  "@casualModeDelayTitle": {
-    "description": "Label for the range slider to set the min and max delay time for casual mode",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionTitle": "Ruheposition setzen",
-  "@manageGearHomePositionTitle": {
-    "description": "Title for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionDescription": "Setzt die Position die das Gerät am Ende einer Aktion einnimmt",
-  "@manageGearHomePositionDescription": {
-    "description": "Description for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyTitle": "Tail Blog nur über WiFi",
-  "@settingsTailBlogWifiOnlyTitle": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyDescription": "Verhindert dass Tail Blog Inhalte bei einer mobilen Verbindung geladen werden",
-  "@settingsTailBlogWifiOnlyDescription": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeCopy": "In die Zwischenablage kopieren",
-  "@manageGearConModePincodeCopy": {
-    "description": "The description for copy to clipboard button on the pin code dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeToggleTitle": "Konventionsmodus aktivieren",
-  "@manageGearConModeToggleTitle": {
-    "description": "The description for the convention mode enabled button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageCoverPromoTitle": "Ändern Sie das Aussehen Ihres Geräts!",
-  "@morePageCoverPromoTitle": {
-    "description": "The title for the button on the More page to push users to buy a new cover",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckButtonLabel": "Nach Updates suchen",
-  "@manageDevicesOtaCheckButtonLabel": {
-    "description": "manage devices button to check if an update is available",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonMD5Mismatch": "Die heruntergeladene Datei hat die Überprüfung nicht bestanden",
-  "@otaFailedReasonMD5Mismatch": {
-    "description": "md5Mismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReconnectTimeout": "Das Gear hat sich nicht rechtzeitig wieder verbunden",
-  "@otaFailedReasonGearReconnectTimeout": {
-    "description": "gearReconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaUpToDateButtonLabel": "Gear ist auf dem neuesten Stand!",
-  "@manageDevicesOtaUpToDateButtonLabel": {
-    "description": "manage devices button label if gear is up to date",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckInProgressButtonLabel": "Überprüfen",
-  "@manageDevicesOtaCheckInProgressButtonLabel": {
-    "description": "manage devices button label if gear is checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckErrorButtonLabel": "Bitte versuchen Sie es später noch einmal",
-  "@manageDevicesOtaCheckErrorButtonLabel": {
-    "description": "manage devices button label if an error occured while checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutLabel": "Über dein Gear",
-  "@manageDevicesAboutLabel": {
-    "description": "label for the about your gear section in the manage devices area",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutHardwareVersionLabel": "Hardware Version",
-  "@manageDevicesAboutHardwareVersionLabel": {
-    "description": "label for the hardware version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutSoftwareVersionLabel": "Software Version",
-  "@manageDevicesAboutSoftwareVersionLabel": {
-    "description": "label for the software version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonDownloadFailed": "Fehler beim Herunterladen der Firmware-Datei",
-  "@otaFailedReasonDownloadFailed": {
-    "description": "downloadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearVersionMismatch": "Die Firmware Version auf deinem Gear stimmt nicht mit der hochgeladenen Firmware-Version überein",
-  "@otaFailedReasonGearVersionMismatch": {
-    "description": "gearVersionMismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReturnedError": "Das Gear hat einen unbekannten Fehler zurückgegeben",
-  "@otaFailedReasonGearReturnedError": {
-    "description": "gearReturnedError error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonUploadFailed": "Fehler beim Hochladen der Firmware auf das Gear",
-  "@otaFailedReasonUploadFailed": {
-    "description": "uploadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearDisconnectTimeout": "Das Gear hat sich nicht rechtzeitig getrennt und hat wahrscheinlich nicht neu gestartet",
-  "@otaFailedReasonGearDisconnectTimeout": {
-    "description": "gearDisconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearOtaFinalTimeout": "Zeitüberschreitung beim Warten auf das Gear, um seine neue Firmware-Version zurückzugeben",
-  "@otaFailedReasonGearOtaFinalTimeout": {
-    "description": "gearOtaFinalTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeTitle": "Konventionsmodus",
-  "@manageGearConModeTitle": {
-    "description": "The title for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeDescription": "Der Konventionsmodus ist eine zusätzliche Sicherheitsmaßnahme, um zu verhindern, dass andere Geräte eine Verbindung zu Ihrem Gear herstellen.",
-  "@manageGearConModeDescription": {
-    "description": "The description for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeTitle": "Pin Code anzeigen",
-  "@manageGearConModePincodeTitle": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeEnableDescription": "Nach der Aktivierung des ‘Konventionsmodus’ wird Ihr Gear neu gestartet und Sie werden aufgefordert, den Pin Code einzugeben. Der Pin Code wird in die Zwischenablage kopiert",
-  "@manageGearConModePincodeEnableDescription": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPageDescription": "Haben Sie einen Vorschlag oder ein Problem mit der App? Lassen Sie es uns wissen. Hinweis: Dies ist anonym und kann nicht zur Lösung von Problemen mit Gear verwendet werden",
-  "@feedbackPageDescription": {
-    "description": "The description of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportTitle": "Unterstützung",
-  "@supportTitle": {
-    "description": "The label and title of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportDescription": "Tippen Sie auf das blaue Chat-Symbol, um den Support zu kontaktieren",
-  "@supportDescription": {
-    "description": "The description of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateTitle": "Lokalisierung",
-  "@morePageTranslateTitle": {
-    "description": "The title for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateDescription": "Helfen Sie uns, die App in Ihre Sprache zu übersetzen",
-  "@morePageTranslateDescription": {
-    "description": "The description for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "appLanguageSelectorTitle": "App Sprache",
-  "@appLanguageSelectorTitle": {
-    "description": "The title for the button and dialog to select the app language",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearNoGearPairedTip": "Tippe auf „Neue Ausrüstung scannen“, um sie zu koppeln",
-  "@watchKnownGearNoGearPairedTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearTitle": "Dein Gear",
-  "@watchKnownGearTitle": {
-    "description": "The title for the known gear section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsTitle": "Favorisierte Aktionen",
-  "@watchFavoriteActionsTitle": {
-    "description": "title for the favorite actions section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsNoFavoritesTip": "Lange drücken zum Favorisieren",
-  "@watchFavoriteActionsNoFavoritesTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreExperimentalTitle": "Experimentell",
-  "@moreExperimentalTitle": {
-    "description": "The label for the experimental features on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoTitle": "CosHub",
-  "@moreCoshubPromoTitle": {
-    "description": "The title for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoDescription": "Unsere neueste App, mit der du dein Cosplay planen, teilen und erstellen kannst, ist da",
-  "@moreCoshubPromoDescription": {
-    "description": "The description for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleTitle": "UwU Übersetzer",
-  "@settingsUwUToggleTitle": {
-    "description": "Settings page UwU text toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleSubTitle": "OwO, Was ist das?",
-  "@settingsUwUToggleSubTitle": {
-    "description": "Settings page UwU text toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleTitle": "Marketing-Benachrichtigungen erlauben",
-  "@settingsMarketingNotificationsToggleTitle": {
-    "description": "Settings page marketing notifications toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleSubTitle": "Benachrichtigungen für neue Blogposts und Angebote erlauben.",
-  "@settingsMarketingNotificationsToggleSubTitle": {
-    "description": "Settings page marketing notifications toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesOnboardingTitle": "Lass uns dein Gear verbinden",
-  "@scanDevicesOnboardingTitle": {
-    "description": "Title for the gear pairing screen in onboarding",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesOnboardingScanMessage": "Suche nach Ausrüstung. Bitte stelle sicher, dass dein Gerät eingeschaltet und in der Nähe ist. Du kannst dein Gerät auch später verbinden.",
-  "@scanDevicesOnboardingScanMessage": {
-    "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingContinueLabel": "Weiter",
-  "@onboardingContinueLabel": {
-    "description": "Label for the button to continue past the scan for gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBackButtonLabel": "Zurück",
-  "@onboardingBackButtonLabel": {
-    "description": "Label for the button to go back on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  }
+    "title": "Die Tail Company",
+    "@title": {
+        "description": "The name of the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPage": "Joystick",
+    "@joyStickPage": {
+        "description": "The label and title of the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPage": "Gib Feedback",
+    "@feedbackPage": {
+        "description": "The label and title of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "aboutPage": "Über",
+    "@aboutPage": {
+        "description": "The label and title of the about page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsPage": "Einstellungen",
+    "@settingsPage": {
+        "description": "The label and title of the settings page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersPage": "Auslöser",
+    "@triggersPage": {
+        "description": "The label and title of the trigger page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPage": "Benutzerdefinierte Aktionen",
+    "@sequencesPage": {
+        "description": "The label and title of the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectLabel": "Wähle einen Trigger Typ aus",
+    "@triggersSelectLabel": {
+        "description": "The title of the add trigger dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "Ok on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "cancel": "Abbrechen",
+    "@cancel": {
+        "description": "Cancel on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersAdd": "Trigger hinzufügen",
+    "@triggersAdd": {
+        "description": "Floating Action Button on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceType": "Für welche Ausrüstung soll es gelten?",
+    "@deviceType": {
+        "description": "Title for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeTail": "Schwanz",
+    "@deviceTypeTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeEars": "Ohren",
+    "@deviceTypeEars": {
+        "description": "Ears option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeWings": "Flügel",
+    "@deviceTypeWings": {
+        "description": "Wings option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditEasing": "Glättungstyp",
+    "@sequencesEditEasing": {
+        "description": "Label for the easing selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditTime": "Wie lange soll gewartet werden, bevor mit dem nächsten Schritt in dieser benutzerdefinierten Aktion fortgefahren wird",
+    "@sequencesEditTime": {
+        "description": "Label for the time slider on the delay tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditHomeLabel": "Setze die Ausrüstung auf Ruheposition",
+    "@sequencesEditHomeLabel": {
+        "description": "Label on the home tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteTitle": "Aktion löschen",
+    "@sequencesEditDeleteTitle": {
+        "description": "Title of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteDescription": "Bist du sicher das du diese Aktion löschen möchtest?",
+    "@sequencesEditDeleteDescription": {
+        "description": "Message of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditListDelayLabel": "Verzögere die nächste Bewegung um {howMany} ms.",
+    "@sequenceEditListDelayLabel": {
+        "description": "Delay move label on the edit sequences page.",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetooth": "Bluetooth ist nicht verfügbar",
+    "@actionsNoBluetooth": {
+        "description": "Label on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryCalm": "Ruhig und entspannt",
+    "@actionsCategoryCalm": {
+        "description": "calm action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryFast": "Schnell und aufgeregt",
+    "@actionsCategoryFast": {
+        "description": "fast action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryTense": "Frustriert und angespannt",
+    "@actionsCategoryTense": {
+        "description": "tense action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryGlowtip": "Glühspitze",
+    "@actionsCategoryGlowtip": {
+        "description": "glowtip action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleTitle": "Haptisches Feedback",
+    "@settingsHapticsToggleTitle": {
+        "description": "Settings page haptic feedback toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleSubTitle": "Aktiviere die Vibration, wenn auf eine Aktion getippt wird",
+    "@settingsHapticsToggleSubTitle": {
+        "description": "Settings page haptic feedback toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleTitle": "Automatischer Fehlerbericht",
+    "@settingsErrorReportingToggleTitle": {
+        "description": "Settings page error reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleSubTitle": "Sende Fehlerberichte an Sentry",
+    "@settingsErrorReportingToggleSubTitle": {
+        "description": "Settings page error reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesDisconnect": "Trennen",
+    "@manageDevicesDisconnect": {
+        "description": "manage devices disconnect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesForget": "Vergessen",
+    "@manageDevicesForget": {
+        "description": "manage devices forget button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesScanMessage": "Suche nach Ausrüstung. Bitte stelle sicher, dass deine Ausrüstung eingeschaltet und in der Nähe ist",
+    "@scanDevicesScanMessage": {
+        "description": "scan for devices scan in progress message when scanning for a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingTitle": "Gehen",
+    "@triggerWalkingTitle": {
+        "description": "Walking/Step trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesAdd": "Neue Aktion",
+    "@sequencesAdd": {
+        "description": "Floating Action Button on the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEdit": "Aktion bearbeiten",
+    "@sequencesEdit": {
+        "description": "Label for the edit icon on a sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingDescription": "Beim Gehen eine Aktion auslösen",
+    "@triggerWalkingDescription": {
+        "description": "Walking/Step trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStopped": "Angehalten",
+    "@triggerWalkingStopped": {
+        "description": "Walking/Step trigger Stopped action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStep": "Schritt",
+    "@triggerWalkingStep": {
+        "description": "Walking/Step trigger Step action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverTitle": "Abdeckung",
+    "@triggerCoverTitle": {
+        "description": "Cover trigger Title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverDescription": "Durch Abdecken des Näherungssensors eine Aktion auslösen",
+    "@triggerCoverDescription": {
+        "description": "Cover trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverNear": "Gerät abgedeckt",
+    "@triggerCoverNear": {
+        "description": "Cover trigger near action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverFar": "Gerät aufgedeckt",
+    "@triggerCoverFar": {
+        "description": "Cover trigger far action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonTitle": "Lautstärketasten",
+    "@triggerVolumeButtonTitle": {
+        "description": "Volume Button trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonDescription": "Durch Drücken einer Lautstärketaste eine Aktion auslösen",
+    "@triggerVolumeButtonDescription": {
+        "description": "Volume Button trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeUp": "Lauter Taste",
+    "@triggerVolumeButtonVolumeUp": {
+        "description": "Volume Button trigger volume up action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeDown": "Leiser Taste",
+    "@triggerVolumeButtonVolumeDown": {
+        "description": "Volume Button trigger volume down action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeTitle": "Schütteln",
+    "@triggerShakeTitle": {
+        "description": "Shake trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeDescription": "Löse eine Aktion aus, indem du dein Gerät schüttelst",
+    "@triggerShakeDescription": {
+        "description": "Shake trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityTitle": "Ausrüstung in der Nähe",
+    "@triggerProximityTitle": {
+        "description": "Proximity trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityDescription": "Eine Aktion auslösen, wenn sich Ausrüstung in der Nähe befindet",
+    "@triggerProximityDescription": {
+        "description": "Proximity trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerActionNotSet": "Keine Aktion festgelegt",
+    "@triggerActionNotSet": {
+        "description": "Trigger action label when no action set",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditAdd": "Bewegung hinzufügen",
+    "@sequencesEditAdd": {
+        "description": "Label for the add Floating Action Button on edit sequence page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditName": "Name",
+    "@sequencesEditName": {
+        "description": "Label for the name field on sequence edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditMove": "Bewegung",
+    "@sequencesEditMove": {
+        "description": "Label for the move tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDelay": "Verzögerung",
+    "@sequencesEditDelay": {
+        "description": "Label for the delay tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditLeftServo": "Position des linken Servos",
+    "@sequencesEditLeftServo": {
+        "description": "Label for the left servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditRightServo": "Position des rechten Servos",
+    "@sequencesEditRightServo": {
+        "description": "Label for the right servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditSpeed": "Wie schnell soll die Ausrüstung in diese Position gelangen?",
+    "@sequencesEditSpeed": {
+        "description": "Label for the speed selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicTitle": "EarGear Mikrofon",
+    "@triggerEarMicTitle": {
+        "description": "EarGear internal mic trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicDescription": "Löse eine Aktion aus, wenn EarGear Geräusche erkennt",
+    "@triggerEarMicDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicSound": "Geräusch erkannt",
+    "@triggerEarMicSound": {
+        "description": "EarGear internal mic trigger sound detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltTitle": "EarGear Neigungssensor",
+    "@triggerEarTiltTitle": {
+        "description": "EarGear internal gesture sensor trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltDescription": "Löse eine Aktion aus, wenn EarGear eine Neigung erkennt",
+    "@triggerEarTiltDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltLeft": "Neigung links",
+    "@triggerEarTiltLeft": {
+        "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltRight": "Neigung rechts",
+    "@triggerEarTiltRight": {
+        "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltForward": "Neigung vorwärts",
+    "@triggerEarTiltForward": {
+        "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltBackward": "Neigung rückwärts",
+    "@triggerEarTiltBackward": {
+        "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditRepeatTitle": "Wie oft soll die Aktion wiederholt werden?",
+    "@sequenceEditRepeatTitle": {
+        "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsSelectScreen": "Wähle Aktionen aus",
+    "@actionsSelectScreen": {
+        "description": "Title for action select menu on triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAppColor": "App Farbe",
+    "@settingsAppColor": {
+        "description": "Settings page app color picker button title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesBatteryGraphTitle": "Batteriediagramm",
+    "@manageDevicesBatteryGraphTitle": {
+        "description": "battery graph expansion tile title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesShutdown": "Abschalten",
+    "@manageDevicesShutdown": {
+        "description": "manage devices shutdown button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesColor": "Farbe der Ausrüstung",
+    "@manageDevicesColor": {
+        "description": "manage devices color picker button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaButton": "Tippe, um die Firmware zu aktualisieren",
+    "@manageDevicesOtaButton": {
+        "description": "manage devices ota available button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesTitle": "Neue Geräte suchen",
+    "@scanDevicesTitle": {
+        "description": "button which opens the scan window",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsDescription": "App-Farbe ändern, Haptik konfigurieren und mehr",
+    "@settingsDescription": {
+        "description": "The description of the settings page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesConnect": "Verbinde",
+    "@manageDevicesConnect": {
+        "description": "manage devices connect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualResponsibleWaggingTitle": "Verantwortungsvolles Wedeln",
+    "@moreManualResponsibleWaggingTitle": {
+        "description": "Title for Responsible wagging manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualMiTailTitle": "MiTail Handbuch",
+    "@moreManualMiTailTitle": {
+        "description": "Title for MiTail manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualEargearTitle": "EarGear Handbuch",
+    "@moreManualEargearTitle": {
+        "description": "Title for EarGear manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualFlutterWingsTitle": "FlutterWings Handbuch",
+    "@moreManualFlutterWingsTitle": {
+        "description": "Title for FlutterWings manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualTitle": "Handbücher",
+    "@moreManualTitle": {
+        "description": "Title for manual header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualSubTitle": "Tippe zum Anzeigen",
+    "@moreManualSubTitle": {
+        "description": "Subtitle for each manual on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreUsefulLinksTitle": "Nützliche Links",
+    "@moreUsefulLinksTitle": {
+        "description": "Title for Useful Links header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleTitle": "Lass den Bildschirm eingeschaltet",
+    "@settingsKeepScreenOnToggleTitle": {
+        "description": "Settings page Keep Awake toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleSubTitle": "Dieser Modus verhindert, dass der Bildschirm ausgeschaltet wird, während dein Gerät angeschlossen ist",
+    "@settingsKeepScreenOnToggleSubTitle": {
+        "description": "Settings page Keep Awake toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleTitle": "Anonyme Analysen zulassen",
+    "@settingsAnalyticsToggleTitle": {
+        "description": "Settings page analytics reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleSubTitle": "Melde die Nutzung nicht identifizierender Funktionen an Plausible, um die App zu verbessern",
+    "@settingsAnalyticsToggleSubTitle": {
+        "description": "Settings page analytics reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePrivacyPolicyLinkTitle": "Datenschutzrichtlinie",
+    "@morePrivacyPolicyLinkTitle": {
+        "description": "Title for UPrivacy policy link under Useful Links on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreTitle": "Mehr",
+    "@moreTitle": {
+        "description": "Title for More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPageDescription": "Steuere direkt die Position deines Gear.",
+    "@joyStickPageDescription": {
+        "description": "The description of the joystick page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPageDescription": "Erstelle benutzerdefinierte Aktionen für deine Ausrüstung",
+    "@sequencesPageDescription": {
+        "description": "The description of the sequences page link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleTitle": "Kitsune Modus",
+    "@settingsKitsuneToggleTitle": {
+        "description": "Settings page Kitsune mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleSubTitle": "Wenn du viele Instanzen desselben Gerätes verbindest, fügt dieser Modus den Startzeiten der Geräte zufällige Pausen hinzu, was für einen anderen visuellen Effekt sorgt.",
+    "@settingsKitsuneToggleSubTitle": {
+        "description": "Settings page kitsune toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoDescription": "Trigger senden automatisch Aktionen an deine Ausrüstung. Du kannst mehrere Trigger gleichzeitig aktiv haben. Tippe auf einen Trigger, um ihn zu bearbeiten und aktiviere den Trigger mit dem Schalter auf der linken Seite.",
+    "@triggerInfoDescription": {
+        "description": "Description for what a trigger is and how to use them on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoEditActionDescription": "Tippe auf den Stift um die Aktion auszuwählen welche durch das Ereignis auslöst werden soll. Es wird eine zufällige Aktion ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig zu Move-Aktionen ausgelöst.",
+    "@triggerInfoEditActionDescription": {
+        "description": "Instruction on how to select an action on the trigger edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoDescription": "Benutzerdefinierte Aktionen erlauben dir, deine eigenen Aktionen für Ausrüstungen zu erstellen. Wenn du auf eine benutzerdefinierte Aktion tippst, wird sie ausgeführt. Tippe auf den Stift, um eine benutzerdefinierte Aktion zu bearbeiten. Bitte stelle sicher das die Firmware deiner Ausrüstung auf dem aktuellsten Stand ist.",
+    "@sequencesInfoDescription": {
+        "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoEditDescription": "Jede benutzerdefinierte Aktion besteht aus 1-6 Bewegungen und kann bis zu 5 Mal wiederholt werden. Du kannst eine Bewegung lange drücken, um sie neu anzuordnen.",
+    "@sequencesInfoEditDescription": {
+        "description": "Description for making a custom action on the edit Custom Action page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleTitle": "Batterieanzeige in %",
+    "@settingsBatteryPercentageToggleTitle": {
+        "description": "Settings page Battery Percentage mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleSubTitle": "Zeige die aktuelle Batterieladung statt einem Symbol",
+    "@settingsBatteryPercentageToggleSubTitle": {
+        "description": "Settings page show battery percentage toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleTitle": "Größere Karten",
+    "@settingsLargerCardsToggleTitle": {
+        "description": "Settings page Larger cards toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleSubTitle": "Macht die Aktionskarten größer, damit sie leichter angetippt werden können",
+    "@settingsLargerCardsToggleSubTitle": {
+        "description": "Settings page show larger cards toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleTitle": "Tutorial-Karten ausblenden",
+    "@settingsTutorialCardToggleTitle": {
+        "description": "Settings page tutorial card display toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleSubTitle": "Die verschiedenen Lernkarten in der gesamten App ausblenden",
+    "@settingsTutorialCardToggleSubTitle": {
+        "description": "Settings page tutorial card display toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaTitle": "Ausrüstung aktualisieren",
+    "@otaTitle": {
+        "description": "Title for OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaChangelogLabel": "Änderungsprotokoll Firmware",
+    "@otaChangelogLabel": {
+        "description": "Label for changelog section of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaDownloadButtonLabel": "OTA-Update starten",
+    "@otaDownloadButtonLabel": {
+        "description": "Label for download firmware button at bottom of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyViewButtonLabel": "Datenschutzrichtlinie anzeigen",
+    "@onboardingPrivacyPolicyViewButtonLabel": {
+        "description": "Button label to view privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyDescription": "Obwohl die gesammelten Daten anonym sind und nicht zur Identifizierung eines bestimmten Benutzers verwendet werden können, musst du dennoch die Datenschutzrichtlinie akzeptieren",
+    "@onboardingPrivacyPolicyDescription": {
+        "description": "Description for there being a privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyAcceptButtonLabel": "Datenschutzrichtlinie akzeptieren",
+    "@onboardingPrivacyPolicyAcceptButtonLabel": {
+        "description": "Button label to accept privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothTitle": "Bluetooth",
+    "@onboardingBluetoothTitle": {
+        "description": "Title for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothDescription": "Für die Verbindung mit der Ausrüstung ist eine Bluetooth-Berechtigung erforderlich",
+    "@onboardingBluetoothDescription": {
+        "description": "Description for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothRequestButtonLabel": "Zugriff erlauben",
+    "@onboardingBluetoothRequestButtonLabel": {
+        "description": "Label for the button to request bluetooth permission on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothEnableButtonLabel": "Öffne die Einstellungen um Bluetooth einzuschalten",
+    "@onboardingBluetoothEnableButtonLabel": {
+        "description": "Label for the button to open bluetooth settings on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingDoneButtonLabel": "Fertig",
+    "@onboardingDoneButtonLabel": {
+        "description": "Label for the button to close the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingCompletedTitle": "Viel Spaß beim Wedeln!",
+    "@onboardingCompletedTitle": {
+        "description": "Title of the final page of the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectClearLabel": "Keine Auswahl",
+    "@triggersSelectClearLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected action",
+        "type": "text",
+        "placeholders": {}
+    },
+    "doubleBackToClose": "Zum Beenden erneut drücken",
+    "@doubleBackToClose": {
+        "description": "Snackbar message which appears when the back button is pressed at the main screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleTitle": "Immer nach bekannter Ausrüstung suchen",
+    "@settingsAlwaysScanningToggleTitle": {
+        "description": "Settings page always scanning toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaCompletedTitle": "Update abgeschlossen",
+    "@otaCompletedTitle": {
+        "description": "Title for the text that appears when an OTA update is completed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedTitle": "Update fehlgeschlagen. Bitte starte deine Ausrüstung neu und versuche es erneut",
+    "@otaFailedTitle": {
+        "description": "Title for the text that appears when an OTA update has failed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleSubTitle": "Erhalte automatisch Benachrichtigungen, wenn es einen neuen Tail-Blog Beitrag gibt",
+    "@settingsNewsletterToggleSubTitle": {
+        "description": "Settings page newsletter notification toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleTitle": "Tail-Blog Benachrichtigungen zulassen",
+    "@settingsNewsletterToggleTitle": {
+        "description": "Settings page newsletter notification toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonTitle": "Casual-Modus",
+    "@triggerRandomButtonTitle": {
+        "description": "Casual Mode trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonDescription": "Zufällig eine ausgewählte Aktion starten",
+    "@triggerRandomButtonDescription": {
+        "description": "Casual Mode trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomAction": "Aktion",
+    "@triggerRandomAction": {
+        "description": "Casual Mode trigger action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaInProgressTitle": "Ausrüstung wird aktualisiert. Bitte schalte deine Ausrüstung nicht aus und schließe die App nicht",
+    "@otaInProgressTitle": {
+        "description": "Label for ota in progress",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaLowBattery": "Schwache Batterie. Bitte lade deine Ausrüstung zu mindestens 50% auf",
+    "@otaLowBattery": {
+        "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessage": "Du kannst deine gesamte Tail Co Ausrüstung hier kontrollieren, verwalten und aktualisieren. Hier findest du auch Anleitungen und Wegweiser. Viel Spaß beim Wedeln!",
+    "@homeWelcomeMessage": {
+        "description": "The welcome message on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeNewsTitle": "Frisch vom Tail-Blog",
+    "@homeNewsTitle": {
+        "description": "The title header for the news in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessageTitle": "Willkommen bei der Tail Company App",
+    "@homeWelcomeMessageTitle": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeContinuousScanningOffDescription": "Wische horizontal über den Bereich mit den bekannten Geräten oben, um mit dem Scannen zu beginnen. Du kannst das kontinuierliche Scannen in den Einstellungen aktivieren.",
+    "@homeContinuousScanningOffDescription": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectSaveLabel": "Aktionen speichern",
+    "@triggersSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesFoundTitle": "Ausrüstung gefunden. Tippe auf den Namen der Ausrüstung, um eine Verbindung herzustellen",
+    "@scanDevicesFoundTitle": {
+        "description": "Title when gear is found on the scan for new gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeChangelogLinkTitle": "Änderungsprotokoll",
+    "@homeChangelogLinkTitle": {
+        "description": "Title for Changelog on Home page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "noLongerSupported": "Diese Ausrüstung wird nicht mehr unterstützt. Einige App-Funktionen funktionieren möglicherweise nicht",
+    "@noLongerSupported": {
+        "description": "Warning message which appears for unsupported gear on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "mandatoryOtaRequired": "Es ist ein Firmware Update für eine bessere Unterstützung deiner Ausrüstung verfügbar",
+    "@mandatoryOtaRequired": {
+        "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsFavoriteTip": "Aktion lange drücken um sie zu einem Favoriten zu machen",
+    "@actionsFavoriteTip": {
+        "description": "tip message which appears when no actions are favorited on the actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreSourceCode": "Quellcode",
+    "@moreSourceCode": {
+        "description": "Label for the github and dev mode button on the more tab",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioActionCategory": "Soundeffekte",
+    "@audioActionCategory": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioPage": "Benutzerdefinierte Sounds",
+    "@audioPage": {
+        "description": "The label and title of the custom audio management page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEditDescription": "Verwalten Sie benutzerdefinierte Soundeffekte",
+    "@audioEditDescription": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEdit": "Soundeffekt umbenennen",
+    "@audioEdit": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDelete": "Soundeffekt löschen",
+    "@audioDelete": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioAdd": "Soundeffekt hinzufügen",
+    "@audioAdd": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDeleteDescription": "Möchtest du diesen Soundeffekt wirklich löschen?",
+    "@audioDeleteDescription": {
+        "description": "Label for the body of the delete confirmation dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioTipCard": "Du kannst benutzerdefinierte Sounds hinzufügen, die auf der Registerkarte Aktionen angezeigt werden und mit Triggern verwendet werden können",
+    "@audioTipCard": {
+        "description": "Tutorial card for the audio page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeMiniTail": "Mini-Schwanz",
+    "@deviceTypeMiniTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleSubTitle": "Kontinuierlich nach bekannter Ausrüstung suchen. Wenn deaktiviert, musst du zum Scannen auf der Ausrüstungsleiste wischen.",
+    "@settingsAlwaysScanningToggleSubTitle": {
+        "description": "Settings page always scanning toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGear": "Simulierte Ausrüstung",
+    "@scanDemoGear": {
+        "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanAddDemoGear": "Simulierte Ausrüstung hinzufügen",
+    "@scanAddDemoGear": {
+        "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanRemoveDemoGear": "Entferne alle simulierten Ausrüstungen",
+    "@scanRemoveDemoGear": {
+        "description": "Label for the button to remove all demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGearTip": "Du möchtest die App ausprobieren, wartest aber noch auf die Lieferung deiner Ausrüstung? Füge eine simulierte Ausrüstung hinzu. So kannst du die App so erleben, als hättest du deine Ausrüstung, oder wenn du Ausrüstungen ausprobieren möchtest, die du derzeit nicht besitzt. Dadurch wird ein neuer Abschnitt auf der Seite „Nach neuer Ausrüstung suchen“ aktiviert.",
+    "@scanDemoGearTip": {
+        "description": "Tip Card description for the  demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectAllLabel": "Alle auswählen",
+    "@triggersSelectAllLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerActionSelectorTutorialLabel": "Wähle so viele Aktionen aus, wie du möchtest. Es wird eine Aktion zufällig ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig mit Bewegungs-Aktionen ausgelöst. Vergiss nicht zu speichern.",
+    "@triggerActionSelectorTutorialLabel": {
+        "description": "Label for the tutorial card on the Action selector for triggers",
+        "type": "text",
+        "placeholders": {}
+    },
+    "featureLimitedOtaRequiredLabel": "Bitte aktualisiere deine Ausrüstung um diese Funktion zu verwenden.",
+    "@featureLimitedOtaRequiredLabel": {
+        "description": "Label for the warning card when a feature requires a firmware update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joystickWarning": "Die Joystick Funktion ist experimentell. Verwende sie auf eigene Gefahr.",
+    "@joystickWarning": {
+        "description": "Label for the warning tutorial card on the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersDefSelectSaveLabel": "Auswählen",
+    "@triggersDefSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarLabel": "Bitte aktualisiere deine Ausrüstung",
+    "@otaAvailableSnackbarLabel": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarTitle": "Aktualisierung verfügbar",
+    "@otaAvailableSnackbarTitle": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarTitle": "Ausrüstung verbunden",
+    "@newGearConnectedSnackbarTitle": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarLabel": "Fröhliches Wedeln",
+    "@newGearConnectedSnackbarLabel": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanConnectToAllButtonLabel": "Mit allen verbinden",
+    "@scanConnectToAllButtonLabel": {
+        "description": "Title for Connecting to all found gear on the scan page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "colorPickerTitle": "Wähle eine Farbe aus",
+    "@colorPickerTitle": {
+        "description": "The title of the color picker",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetoothDescription": "Für die Verbindung mit den Geräten wird Bluetooth benötigt. Bitte schalte Bluetooth in den Einstellungen ein. Verbinde dich nicht mit deinen Geräten während du in den Einstellungen bist.",
+    "@actionsNoBluetoothDescription": {
+        "description": "description on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedTitle": "Ohrgeschwindigkeit",
+    "@earSpeedTitle": {
+        "description": "Title for the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedFast": "Schnell",
+    "@earSpeedFast": {
+        "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedSlow": "Langsam",
+    "@earSpeedSlow": {
+        "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "casualModeDelayTitle": "Minimale und maximale Verzögerung",
+    "@casualModeDelayTitle": {
+        "description": "Label for the range slider to set the min and max delay time for casual mode",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionTitle": "Ruheposition setzen",
+    "@manageGearHomePositionTitle": {
+        "description": "Title for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionDescription": "Setzt die Position die das Gerät am Ende einer Aktion einnimmt",
+    "@manageGearHomePositionDescription": {
+        "description": "Description for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyTitle": "Tail Blog nur über WiFi",
+    "@settingsTailBlogWifiOnlyTitle": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyDescription": "Verhindert dass Tail Blog Inhalte bei einer mobilen Verbindung geladen werden",
+    "@settingsTailBlogWifiOnlyDescription": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeCopy": "In die Zwischenablage kopieren",
+    "@manageGearConModePincodeCopy": {
+        "description": "The description for copy to clipboard button on the pin code dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeToggleTitle": "Konventionsmodus aktivieren",
+    "@manageGearConModeToggleTitle": {
+        "description": "The description for the convention mode enabled button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageCoverPromoTitle": "Ändern Sie das Aussehen Ihres Geräts!",
+    "@morePageCoverPromoTitle": {
+        "description": "The title for the button on the More page to push users to buy a new cover",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckButtonLabel": "Nach Updates suchen",
+    "@manageDevicesOtaCheckButtonLabel": {
+        "description": "manage devices button to check if an update is available",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonMD5Mismatch": "Die heruntergeladene Datei hat die Überprüfung nicht bestanden",
+    "@otaFailedReasonMD5Mismatch": {
+        "description": "md5Mismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReconnectTimeout": "Das Gear hat sich nicht rechtzeitig wieder verbunden",
+    "@otaFailedReasonGearReconnectTimeout": {
+        "description": "gearReconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaUpToDateButtonLabel": "Gear ist auf dem neuesten Stand!",
+    "@manageDevicesOtaUpToDateButtonLabel": {
+        "description": "manage devices button label if gear is up to date",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckInProgressButtonLabel": "Überprüfen",
+    "@manageDevicesOtaCheckInProgressButtonLabel": {
+        "description": "manage devices button label if gear is checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckErrorButtonLabel": "Bitte versuchen Sie es später noch einmal",
+    "@manageDevicesOtaCheckErrorButtonLabel": {
+        "description": "manage devices button label if an error occured while checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutLabel": "Über dein Gear",
+    "@manageDevicesAboutLabel": {
+        "description": "label for the about your gear section in the manage devices area",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutHardwareVersionLabel": "Hardware Version",
+    "@manageDevicesAboutHardwareVersionLabel": {
+        "description": "label for the hardware version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutSoftwareVersionLabel": "Software Version",
+    "@manageDevicesAboutSoftwareVersionLabel": {
+        "description": "label for the software version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonDownloadFailed": "Fehler beim Herunterladen der Firmware-Datei",
+    "@otaFailedReasonDownloadFailed": {
+        "description": "downloadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearVersionMismatch": "Die Firmware Version auf deinem Gear stimmt nicht mit der hochgeladenen Firmware-Version überein",
+    "@otaFailedReasonGearVersionMismatch": {
+        "description": "gearVersionMismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReturnedError": "Das Gear hat einen unbekannten Fehler zurückgegeben",
+    "@otaFailedReasonGearReturnedError": {
+        "description": "gearReturnedError error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonUploadFailed": "Fehler beim Hochladen der Firmware auf das Gear",
+    "@otaFailedReasonUploadFailed": {
+        "description": "uploadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearDisconnectTimeout": "Das Gear hat sich nicht rechtzeitig getrennt und hat wahrscheinlich nicht neu gestartet",
+    "@otaFailedReasonGearDisconnectTimeout": {
+        "description": "gearDisconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearOtaFinalTimeout": "Zeitüberschreitung beim Warten auf das Gear, um seine neue Firmware-Version zurückzugeben",
+    "@otaFailedReasonGearOtaFinalTimeout": {
+        "description": "gearOtaFinalTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeTitle": "Konventionsmodus",
+    "@manageGearConModeTitle": {
+        "description": "The title for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeDescription": "Der Konventionsmodus ist eine zusätzliche Sicherheitsmaßnahme, um zu verhindern, dass andere Geräte eine Verbindung zu Ihrem Gear herstellen.",
+    "@manageGearConModeDescription": {
+        "description": "The description for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeTitle": "Pin Code anzeigen",
+    "@manageGearConModePincodeTitle": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeEnableDescription": "Nach der Aktivierung des ‘Konventionsmodus’ wird Ihr Gear neu gestartet und Sie werden aufgefordert, den Pin Code einzugeben. Der Pin Code wird in die Zwischenablage kopiert",
+    "@manageGearConModePincodeEnableDescription": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPageDescription": "Haben Sie einen Vorschlag oder ein Problem mit der App? Lassen Sie es uns wissen. Hinweis: Dies ist anonym und kann nicht zur Lösung von Problemen mit Gear verwendet werden",
+    "@feedbackPageDescription": {
+        "description": "The description of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportTitle": "Unterstützung",
+    "@supportTitle": {
+        "description": "The label and title of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportDescription": "Tippen Sie auf das blaue Chat-Symbol, um den Support zu kontaktieren",
+    "@supportDescription": {
+        "description": "The description of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateTitle": "Lokalisierung",
+    "@morePageTranslateTitle": {
+        "description": "The title for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateDescription": "Helfen Sie uns, die App in Ihre Sprache zu übersetzen",
+    "@morePageTranslateDescription": {
+        "description": "The description for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "appLanguageSelectorTitle": "App Sprache",
+    "@appLanguageSelectorTitle": {
+        "description": "The title for the button and dialog to select the app language",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearNoGearPairedTip": "Tippe auf „Neue Ausrüstung scannen“, um sie zu koppeln",
+    "@watchKnownGearNoGearPairedTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearTitle": "Dein Gear",
+    "@watchKnownGearTitle": {
+        "description": "The title for the known gear section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsTitle": "Favorisierte Aktionen",
+    "@watchFavoriteActionsTitle": {
+        "description": "title for the favorite actions section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsNoFavoritesTip": "Lange drücken zum Favorisieren",
+    "@watchFavoriteActionsNoFavoritesTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreExperimentalTitle": "Experimentell",
+    "@moreExperimentalTitle": {
+        "description": "The label for the experimental features on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoTitle": "CosHub",
+    "@moreCoshubPromoTitle": {
+        "description": "The title for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoDescription": "Unsere neueste App, mit der du dein Cosplay planen, teilen und erstellen kannst, ist da",
+    "@moreCoshubPromoDescription": {
+        "description": "The description for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleTitle": "UwU Übersetzer",
+    "@settingsUwUToggleTitle": {
+        "description": "Settings page UwU text toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleSubTitle": "OwO, Was ist das?",
+    "@settingsUwUToggleSubTitle": {
+        "description": "Settings page UwU text toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleTitle": "Marketing-Benachrichtigungen erlauben",
+    "@settingsMarketingNotificationsToggleTitle": {
+        "description": "Settings page marketing notifications toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleSubTitle": "Benachrichtigungen für neue Blogposts und Angebote erlauben.",
+    "@settingsMarketingNotificationsToggleSubTitle": {
+        "description": "Settings page marketing notifications toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingTitle": "Lass uns dein Gear verbinden",
+    "@scanDevicesOnboardingTitle": {
+        "description": "Title for the gear pairing screen in onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingScanMessage": "Suche nach Ausrüstung. Bitte stelle sicher, dass dein Gerät eingeschaltet und in der Nähe ist. Du kannst dein Gerät auch später verbinden.",
+    "@scanDevicesOnboardingScanMessage": {
+        "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingContinueLabel": "Weiter",
+    "@onboardingContinueLabel": {
+        "description": "Label for the button to continue past the scan for gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBackButtonLabel": "Zurück",
+    "@onboardingBackButtonLabel": {
+        "description": "Label for the button to go back on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    }
 }
