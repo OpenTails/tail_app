@@ -190,21 +190,7 @@ class _SettingsState extends ConsumerState<Settings> {
               },
             ),
           ),
-          ListTile(
-            title: Text(convertToUwU(scanDemoGear())),
-            leading: const Icon(Icons.explore),
-            subtitle: Text(convertToUwU(scanDemoGearTip())),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault),
-              onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, showDemoGear, value);
-                  },
-                );
-              },
-            ),
-          ),
+
           ListTile(
             title: Text(convertToUwU(settingsUwUToggleTitle())),
             leading: const Icon(Icons.explore),
