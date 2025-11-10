@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-10-19T10:25:16.963600",
+  "@@last_modified": "2025-11-10T04:35:17.713347",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -166,6 +166,12 @@
   "deviceTypeMiniTail": "Mini Tail",
   "@deviceTypeMiniTail": {
     "description": "Tail option for the selector to select which device to send moves to",
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceTypeClawGear": "Claws",
+  "@deviceTypeClawGear": {
+    "description": "Claws option for the selector to select which device to send moves to",
     "type": "text",
     "placeholders": {}
   },
@@ -681,6 +687,48 @@
     "type": "text",
     "placeholders": {}
   },
+  "triggerClawTiltModeTitle": "Claw Tilt",
+  "@triggerClawTiltModeTitle": {
+    "description": "ClawGear tilt trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerClawTiltModeDescription": "Trigger an action when your claws move",
+  "@triggerClawTiltModeDescription": {
+    "description": "ClawGear tilt trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerClawTiltModeExtend": "Extend Claws",
+  "@triggerClawTiltModeExtend": {
+    "description": "ClawGear tilt trigger extend action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerClawTiltModeRetract": "Retract Claws",
+  "@triggerClawTiltModeRetract": {
+    "description": "ClawGear tilt trigger extend action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerClawClapModeTitle": "Claw Clap",
+  "@triggerClawClapModeTitle": {
+    "description": "ClawGear clap trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerClawClapModeDescription": "Trigger an action when your clap your hands",
+  "@triggerClawClapModeDescription": {
+    "description": "ClawGear clap trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerClawClapMode": "Clap Detected",
+  "@triggerClawClapMode": {
+    "description": "ClawGear clap detected label",
+    "type": "text",
+    "placeholders": {}
+  },
   "triggerEarMicSound": "Sound Detected",
   "@triggerEarMicSound": {
     "description": "EarGear internal mic trigger sound detected action label",
@@ -1071,7 +1119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerActionSelectorTutorialLabel": "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions. Don't forget to save.",
+  "triggerActionSelectorTutorialLabel": "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions. Only actions compatible with paired gear are shown. Don't forget to save.",
   "@triggerActionSelectorTutorialLabel": {
     "description": "Label for the tutorial card on the Action selector for triggers",
     "type": "text",
