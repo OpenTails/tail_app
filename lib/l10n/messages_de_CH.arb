@@ -929,7 +929,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "triggerActionSelectorTutorialLabel": "Wähle eso vile Aktiona as du wosch. Es wird en Aktioni zuefallsmässig usgwählt, wo mit de verbundene Usrüstig kompatibel isch. LampaTip- und Sound-Handlige werdet zämä mit de Move-Handlige uusglöst. Vergiss ned, z'speicherä.",
+    "triggerActionSelectorTutorialLabel": "Wähle eso vile Aktiona as du wosch. Es wird en Aktioni zuefallsmässig usgwählt, wo mit de verbundene Usrüstig kompatibel isch. LampaTip- und Sound-Handlige werdet zämä mit de Move-Handlige uusglöst. Nur Handlungen, wo mit de kombinierte Ausrüstung kompatibel sind, werde zeigt. Vergiss ned, z'speicherä.",
     "@triggerActionSelectorTutorialLabel": {
         "description": "Label for the tutorial card on the Action selector for triggers",
         "type": "text",
@@ -1304,6 +1304,60 @@
     "homeCosHubTitle": "Highlighti Cosplayer uf CosHub",
     "@homeCosHubTitle": {
         "description": "The title header for the coshub in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeClawGear": "Chralle",
+    "@deviceTypeClawGear": {
+        "description": "Claws option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryRGB": "RGB",
+    "@actionsCategoryRGB": {
+        "description": "RGB action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeTitle": "Chralle kippe",
+    "@triggerClawTiltModeTitle": {
+        "description": "ClawGear tilt trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeDescription": "Wenn dini Chralle sich bewege, soll a Aktion passiere",
+    "@triggerClawTiltModeDescription": {
+        "description": "ClawGear tilt trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeExtend": "Chralle usstrecke",
+    "@triggerClawTiltModeExtend": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeRetract": "Chralle zruggzieh",
+    "@triggerClawTiltModeRetract": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeTitle": "Chralleklatsch",
+    "@triggerClawClapModeTitle": {
+        "description": "ClawGear clap trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeDescription": "Mach e Sache, wenn du in Händ zämäklapsch",
+    "@triggerClawClapModeDescription": {
+        "description": "ClawGear clap trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapMode": "Händeklatscher erkannt",
+    "@triggerClawClapMode": {
+        "description": "ClawGear clap detected label",
         "type": "text",
         "placeholders": {}
     }
