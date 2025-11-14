@@ -15,7 +15,7 @@ jobs:
       MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
       MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup Environment
         uses: ./.github/actions/setup_build
       - run: echo "$APPLE_SECRETS" > APPLE_SECRETS.json
