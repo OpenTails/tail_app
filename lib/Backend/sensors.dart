@@ -22,6 +22,7 @@ import 'package:shake/shake.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/command_runner.dart';
+import 'package:tail_app/Backend/version.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Widget;
 
@@ -617,9 +618,18 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     }
     rxSubscriptions = [];
     ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
+      String command = "";
+      String responseMSG = "";
+      if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+        command = "ENDLISTEN";
+        responseMSG = "LISTEN OFF";
+      } else {
+        command = "STOPLISTEN";
+        responseMSG = "OK";
+      }
       ref
           .read(commandQueueProvider(element).notifier)
-          .addCommand(BluetoothMessage(message: "ENDLISTEN", priority: Priority.low, responseMSG: "LISTEN OFF", type: CommandType.system, timestamp: DateTime.now()));
+          .addCommand(BluetoothMessage(message: command, priority: Priority.low, responseMSG: responseMSG, type: CommandType.system, timestamp: DateTime.now()));
     });
   }
 
@@ -629,7 +639,13 @@ class EarMicTriggerDefinition extends TriggerDefinition {
       return;
     }
     ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: "LISTEN FULL", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      String command = "";
+      if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+        command = "LISTEN FULL";
+      } else {
+        command = "LISTENMODE";
+      }
+      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
     KnownDevices.instance.addListener(onDeviceConnected);
@@ -652,7 +668,13 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     }
     //Store the current streams to keep them open
     rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).map((element) {
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: "LISTEN FULL", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      String command = "";
+      if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+        command = "LISTEN FULL";
+      } else {
+        command = "LISTENMODE";
+      }
+      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
       return element.rxCharacteristicStream.listen((msg) {
         if (msg.contains("LISTEN_FULL BANG")) {
           // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
@@ -696,7 +718,13 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     }
     rxSubscriptions = [];
     ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: "ENDTILTMODE", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      String command = "";
+      if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+        command = "ENDTILTMODE";
+      } else {
+        command = "STOPTILT";
+      }
+      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
   }
 
@@ -706,7 +734,13 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       return;
     }
     ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: "TILTMODE START", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      String command = "";
+      if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+        command = "TILTMODE START";
+      } else {
+        command = "TILTMODE";
+      }
+      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
     KnownDevices.instance.addListener(onDeviceConnected);
@@ -729,7 +763,13 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     }
     //Store the current streams to keep them open
     rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).map((element) {
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: "TILTMODE START", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      String command = "";
+      if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+        command = "TILTMODE START";
+      } else {
+        command = "TILTMODE";
+      }
+      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
       return element.rxCharacteristicStream.listen((msg) {
         if (msg.contains("TILT LEFT")) {
           // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
