@@ -3,7 +3,10 @@
 - Split moves by gear type
 - Rework analytics to be more useful
 - Add CosHub posts to Home UI
+- Fix some missing blog post images
+- Hide unavailable moves on the trigger edit screen.
 - Disabled 'Nearby Gear' trigger as it has been broken for awhile. This will hopefully come back in a future release
+- Add support for future firmware changes
 - some bug fixes
 
 ### V 1.3.0
