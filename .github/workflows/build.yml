@@ -64,7 +64,7 @@ jobs:
 
           sentry-dsn: ${{ secrets.SENTRY_DSN }}
       - name: Build IOS / Upload Beta
-        if: github.event_name == 'push' && matrix.build != 'apk'
+        if: github.event_name == 'push'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
         env:
