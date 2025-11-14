@@ -1,1286 +1,1286 @@
 {
-  "title": "„Uodegos“ kompanija",
-  "@title": {
-    "description": "The name of the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeed": "Kaip greitai įranga turėtų persijungti į šią padėtį?",
-  "@sequencesEditSpeed": {
-    "description": "Label for the speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeNewsTitle": "Šviežiai naują iš „Uodegos tinklaraščio“",
-  "@homeNewsTitle": {
-    "description": "The title header for the news in the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessageTitle": "Sveiki atvykę į „Tail Company“ programą",
-  "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessage": "Čia galite valdyti, tyrinėti ir atnaujinti visą savo „Tail Co“ įrangą. Taip pat yra instrukcijų ir vadovų. Linksmo vizginimo!",
-  "@homeWelcomeMessage": {
-    "description": "The welcome message on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPage": "Vairasvirtė",
-  "@joyStickPage": {
-    "description": "The label and title of the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPageDescription": "Tiesiogiai valdyk savo įrenginio poziciją.",
-  "@joyStickPageDescription": {
-    "description": "The description of the joystick page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPage": "Siųsti atsiliepimą",
-  "@feedbackPage": {
-    "description": "The label and title of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioPage": "Pasirinktiniai garsai",
-  "@audioPage": {
-    "description": "The label and title of the custom audio management page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "aboutPage": "Apie",
-  "@aboutPage": {
-    "description": "The label and title of the about page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsPage": "Nustatymai",
-  "@settingsPage": {
-    "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsDescription": "Keiskite programos spalvą, konfigūruokite „Haptics“ ir kitą",
-  "@settingsDescription": {
-    "description": "The description of the settings page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersPage": "Trigeriai",
-  "@triggersPage": {
-    "description": "The label and title of the trigger page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPage": "Pasirinktiniai veiksmai",
-  "@sequencesPage": {
-    "description": "The label and title of the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPageDescription": "Sukurkite pasirinktinius savo įrangos veiksmus",
-  "@sequencesPageDescription": {
-    "description": "The description of the sequences page link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectLabel": "Pasirinkite trigerio tipą",
-  "@triggersSelectLabel": {
-    "description": "The title of the add trigger dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectAllLabel": "Pasirinkti visus",
-  "@triggersSelectAllLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersDefSelectSaveLabel": "Pasirinkti",
-  "@triggersDefSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "ok": "Ok",
-  "@ok": {
-    "description": "Ok on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersAdd": "Pridėti trigerį",
-  "@triggersAdd": {
-    "description": "Floating Action Button on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeTail": "Uodega",
-  "@deviceTypeTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeMiniTail": "Mini uodega",
-  "@deviceTypeMiniTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeEars": "Ausys",
-  "@deviceTypeEars": {
-    "description": "Ears option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeWings": "Sparnai",
-  "@deviceTypeWings": {
-    "description": "Wings option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesAdd": "Naujas veiksmas",
-  "@sequencesAdd": {
-    "description": "Floating Action Button on the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEdit": "Redaguoti veiksmą",
-  "@sequencesEdit": {
-    "description": "Label for the edit icon on a sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditAdd": "Pridėti judesį",
-  "@sequencesEditAdd": {
-    "description": "Label for the add Floating Action Button on edit sequence page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditName": "Pavadinimas",
-  "@sequencesEditName": {
-    "description": "Label for the name field on sequence edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditMove": "Perkelti",
-  "@sequencesEditMove": {
-    "description": "Label for the move tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDelay": "Delsti",
-  "@sequencesEditDelay": {
-    "description": "Label for the delay tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditLeftServo": "Kairiojo servo padėtis",
-  "@sequencesEditLeftServo": {
-    "description": "Label for the left servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditRightServo": "Dešiniojo servo padėtis",
-  "@sequencesEditRightServo": {
-    "description": "Label for the right servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditEasing": "Lengvinimo tipas",
-  "@sequencesEditEasing": {
-    "description": "Label for the easing selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditTime": "Kiek laiko reikia laukti prieš atliekant kitą šio tinkinto veiksmo žingsnį",
-  "@sequencesEditTime": {
-    "description": "Label for the time slider on the delay tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditHomeLabel": "Įrankių namai",
-  "@sequencesEditHomeLabel": {
-    "description": "Label on the home tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteTitle": "Ištrinti veiksmą",
-  "@sequencesEditDeleteTitle": {
-    "description": "Title of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteDescription": "Ar tikrai norite ištrinti šį veiksmą?",
-  "@sequencesEditDeleteDescription": {
-    "description": "Message of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditListDelayLabel": "Atidėti kitą žingsnį {howMany} ms.",
-  "@sequenceEditListDelayLabel": {
-    "description": "Delay move label on the edit sequences page.",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetooth": "Bluetooth yra nepasiekiamas",
-  "@actionsNoBluetooth": {
-    "description": "Label on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryCalm": "Ramus ir atsipalaidavęs",
-  "@actionsCategoryCalm": {
-    "description": "calm action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryFast": "Greitas ir susijaudinęs",
-  "@actionsCategoryFast": {
-    "description": "fast action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryTense": "Nusivylęs ir įsitempęs",
-  "@actionsCategoryTense": {
-    "description": "tense action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsSelectScreen": "Pasirinkti veiksmus",
-  "@actionsSelectScreen": {
-    "description": "Title for action select menu on triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleTitle": "Haptic Atsiliepimai",
-  "@settingsHapticsToggleTitle": {
-    "description": "Settings page haptic feedback toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleTitle": "Visada ieškoti žinomos įrangos",
-  "@settingsAlwaysScanningToggleTitle": {
-    "description": "Settings page always scanning toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleTitle": "Laikyti ekraną įjungtą",
-  "@settingsKeepScreenOnToggleTitle": {
-    "description": "Settings page Keep Awake toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleSubTitle": "Šis režimas neleidžia išsijungti ekranui, kai yra prijungta įranga",
-  "@settingsKeepScreenOnToggleSubTitle": {
-    "description": "Settings page Keep Awake toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleTitle": "Kitsune režimas",
-  "@settingsKitsuneToggleTitle": {
-    "description": "Settings page Kitsune mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleSubTitle": "Jei prijungsite daug tų pačių įrenginių, šis režimas pridės atsitiktines pauzes prie jų judėjimo pradžios laiko, suteikdamas kitokį vaizdo efektą.",
-  "@settingsKitsuneToggleSubTitle": {
-    "description": "Settings page show battery percentage toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleTitle": "Rodyti baterijos %",
-  "@settingsBatteryPercentageToggleTitle": {
-    "description": "Settings page Battery Percentage mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleSubTitle": "Vietoj piktogramos rodyti tikrąjį akumuliatoriaus įkrovos lygį",
-  "@settingsBatteryPercentageToggleSubTitle": {
-    "description": "Settings page show battery percentage toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleTitle": "Didesnės kortelės",
-  "@settingsLargerCardsToggleTitle": {
-    "description": "Settings page Larger cards toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleTitle": "Automatinis klaidų pranešimas",
-  "@settingsErrorReportingToggleTitle": {
-    "description": "Settings page error reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleSubTitle": "Siunčia klaidų ataskaitas Sentry",
-  "@settingsErrorReportingToggleSubTitle": {
-    "description": "Settings page error reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleTitle": "Slėpti mokymo korteles",
-  "@settingsTutorialCardToggleTitle": {
-    "description": "Settings page tutorial card display toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleSubTitle": "Paslėpti įvairias mokymo korteles visoje programoje",
-  "@settingsTutorialCardToggleSubTitle": {
-    "description": "Settings page tutorial card display toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleTitle": "Leisti anoniminę analizę",
-  "@settingsAnalyticsToggleTitle": {
-    "description": "Settings page analytics reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesBatteryGraphTitle": "Baterijos grafikas",
-  "@manageDevicesBatteryGraphTitle": {
-    "description": "battery graph expansion tile title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomAction": "Veiksmas",
-  "@triggerRandomAction": {
-    "description": "Casual Mode trigger action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonTitle": "Garsumo mygtukai",
-  "@triggerVolumeButtonTitle": {
-    "description": "Volume Button trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeUp": "Pagarsinti",
-  "@triggerVolumeButtonVolumeUp": {
-    "description": "Volume Button trigger volume up action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeDown": "Patylinti",
-  "@triggerVolumeButtonVolumeDown": {
-    "description": "Volume Button trigger volume down action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesConnect": "Prijungti",
-  "@manageDevicesConnect": {
-    "description": "manage devices connect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesDisconnect": "Atjungti",
-  "@manageDevicesDisconnect": {
-    "description": "manage devices disconnect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesShutdown": "Išjungti",
-  "@manageDevicesShutdown": {
-    "description": "manage devices shutdown button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesColor": "Įrangos spalva",
-  "@manageDevicesColor": {
-    "description": "manage devices color picker button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesForget": "Pamiršti",
-  "@manageDevicesForget": {
-    "description": "manage devices forget button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaButton": "Bakstelėkite, kad atnaujintumėte programinę-aparatinę įrangą",
-  "@manageDevicesOtaButton": {
-    "description": "manage devices ota available button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesTitle": "Ieškoti naujos įrangos",
-  "@scanDevicesTitle": {
-    "description": "button which opens the scan window",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesScanMessage": "Ieškoma įranga. Įsitikinkite, kad jūsų įranga yra įjungta ir yra šalia",
-  "@scanDevicesScanMessage": {
-    "description": "scan for devices scan in progress message when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingTitle": "Vaikščiojimas",
-  "@triggerWalkingTitle": {
-    "description": "Walking/Step trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingDescription": "Suaktyvinti veiksmą einant",
-  "@triggerWalkingDescription": {
-    "description": "Walking/Step trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStopped": "Sustabdyta",
-  "@triggerWalkingStopped": {
-    "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStep": "Žingsnis",
-  "@triggerWalkingStep": {
-    "description": "Walking/Step trigger Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverTitle": "Viršelis",
-  "@triggerCoverTitle": {
-    "description": "Cover trigger Title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverDescription": "Suaktyvinti veiksmą uždengdami artumo jutiklį",
-  "@triggerCoverDescription": {
-    "description": "Cover trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverNear": "Įrenginys padengtas",
-  "@triggerCoverNear": {
-    "description": "Cover trigger near action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverFar": "Įrenginys atidengtas",
-  "@triggerCoverFar": {
-    "description": "Cover trigger far action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonTitle": "Atsitiktinis režimas",
-  "@triggerRandomButtonTitle": {
-    "description": "Casual Mode trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeTitle": "Purtyti",
-  "@triggerShakeTitle": {
-    "description": "Shake trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityTitle": "Netoliese esanti įranga",
-  "@triggerProximityTitle": {
-    "description": "Proximity trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityDescription": "Suaktyvinkite veiksmą, jei netoliese yra prietaisas",
-  "@triggerProximityDescription": {
-    "description": "Proximity trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerActionNotSet": "Jokių veiksmų nenustatyta",
-  "@triggerActionNotSet": {
-    "description": "Trigger action label when no action set",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicTitle": "EarGear mikrofonas",
-  "@triggerEarMicTitle": {
-    "description": "EarGear internal mic trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicDescription": "Suaktyvina veiksmą, kai „EarGear“ aptinka garsą",
-  "@triggerEarMicDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicSound": "Aptiktas garsas",
-  "@triggerEarMicSound": {
-    "description": "EarGear internal mic trigger sound detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltDescription": "Suaktyvina veiksmą, kai „EarGear“ aptinka pakreipimą",
-  "@triggerEarTiltDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltLeft": "Kairysis pakreipimas",
-  "@triggerEarTiltLeft": {
-    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltRight": "Dešinysis pakreipimas",
-  "@triggerEarTiltRight": {
-    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltForward": "Pakreipimas į priekį",
-  "@triggerEarTiltForward": {
-    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltBackward": "Pakreipimas atgal",
-  "@triggerEarTiltBackward": {
-    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualResponsibleWaggingTitle": "Atsakingas vizginimas",
-  "@moreManualResponsibleWaggingTitle": {
-    "description": "Title for Responsible wagging manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanConnectToAllButtonLabel": "Prisijungti prie visų",
-  "@scanConnectToAllButtonLabel": {
-    "description": "Title for Connecting to all found gear on the scan page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualMiTailTitle": "„MiTail“ vadovas",
-  "@moreManualMiTailTitle": {
-    "description": "Title for MiTail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualEargearTitle": "„EarGear“ vadovas",
-  "@moreManualEargearTitle": {
-    "description": "Title for EarGear manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualFlutterWingsTitle": "„FlutterWings“ vadovas",
-  "@moreManualFlutterWingsTitle": {
-    "description": "Title for FlutterWings manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualTitle": "Vadovai",
-  "@moreManualTitle": {
-    "description": "Title for manual header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualSubTitle": "Bakstelėkite norėdami peržiūrėti",
-  "@moreManualSubTitle": {
-    "description": "Subtitle for each manual on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreUsefulLinksTitle": "Naudingos nuorodos",
-  "@moreUsefulLinksTitle": {
-    "description": "Title for Useful Links header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreTitle": "Daugiau",
-  "@moreTitle": {
-    "description": "Title for More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaTitle": "Atnaujinti įrangą",
-  "@otaTitle": {
-    "description": "Title for OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadButtonLabel": "Pradėti OTA atnaujinimą",
-  "@otaDownloadButtonLabel": {
-    "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaCompletedTitle": "Atnaujinimas baigtas",
-  "@otaCompletedTitle": {
-    "description": "Title for the text that appears when an OTA update is completed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedTitle": "Atnaujinimas nepavyko. Iš naujo paleiskite įrangą ir bandykite dar kartą",
-  "@otaFailedTitle": {
-    "description": "Title for the text that appears when an OTA update has failed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaLowBattery": "Senka baterija. Įkraukite savo įrangą iki bent 50%",
-  "@otaLowBattery": {
-    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoEditActionDescription": "Bakstelėkite pieštuką, kad pasirinktumėte veiksmą, kuris bus paleistas įvykus įvykiui. Atsitiktinai bus pasirinktas veiksmas, suderinamas su prijungta įranga. „GlowTip“ ir garso veiksmai bus suaktyvinti kartu su judėjimo veiksmais.",
-  "@triggerInfoEditActionDescription": {
-    "description": "Instruction on how to select an action on the trigger edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoEditDescription": "Kiekvienas pasirinktinis veiksmas susideda iš 1–6 judesių ir gali kartotis iki 5 kartų. Galite ilgai paspausti judesį, kad pertvarkytumėte jį.",
-  "@sequencesInfoEditDescription": {
-    "description": "Description for making a custom action on the edit Custom Action page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyDescription": "Nors surinkti duomenys yra anonimiški ir jų negalima naudoti konkrečiam vartotojui identifikuoti, vis tiek turite sutikti su privatumo politika",
-  "@onboardingPrivacyPolicyDescription": {
-    "description": "Description for there being a privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyViewButtonLabel": "Peržiūrėti privatumo politiką",
-  "@onboardingPrivacyPolicyViewButtonLabel": {
-    "description": "Button label to view privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothTitle": "Bluetooth",
-  "@onboardingBluetoothTitle": {
-    "description": "Title for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothRequestButtonLabel": "Suteikti leidimą",
-  "@onboardingBluetoothRequestButtonLabel": {
-    "description": "Label for the button to request bluetooth permission on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothEnableButtonLabel": "Atidarykite nustatymus, kad įjungtumėte „Bluetooth“",
-  "@onboardingBluetoothEnableButtonLabel": {
-    "description": "Label for the button to open bluetooth settings on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingDoneButtonLabel": "Baigti",
-  "@onboardingDoneButtonLabel": {
-    "description": "Label for the button to close the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingCompletedTitle": "Linksmo vizginimo!",
-  "@onboardingCompletedTitle": {
-    "description": "Title of the final page of the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBackToClose": "Paspauskite dar kartą, kad išeitumėte",
-  "@doubleBackToClose": {
-    "description": "Snackbar message which appears when the back button is pressed at the main screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "noLongerSupported": "Ši įranga nebepalaikoma. Kai kurios programos funkcijos gali neveikti",
-  "@noLongerSupported": {
-    "description": "Warning message which appears for unsupported gear on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "mandatoryOtaRequired": "Yra programinės aparatinės įrangos naujinimas, kad jūsų įranga geriau palaikytų",
-  "@mandatoryOtaRequired": {
-    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreSourceCode": "Pirminis kodas",
-  "@moreSourceCode": {
-    "description": "Label for the github and dev mode button on the more tab",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioActionCategory": "Garso efektai",
-  "@audioActionCategory": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEditDescription": "Tvarkyti pasirinktinius garso efektus",
-  "@audioEditDescription": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEdit": "Pervardyti garso efektą",
-  "@audioEdit": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDelete": "Ištrinti garso efektą",
-  "@audioDelete": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDeleteDescription": "Ar tikrai norite ištrinti šį garso efektą?",
-  "@audioDeleteDescription": {
-    "description": "Label for the body of the delete confirmation dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioAdd": "Pridėti garso efektą",
-  "@audioAdd": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioTipCard": "Galite pridėti pasirinktinių garsų, kurie rodomi skirtuke Veiksmai ir gali būti naudojami su trigeriais",
-  "@audioTipCard": {
-    "description": "Tutorial card for the audio page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanAddDemoGear": "Pridėti netikrą įrangą",
-  "@scanAddDemoGear": {
-    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "featureLimitedOtaRequiredLabel": "Atnaujinkite savo įrangą, kad galėtumėte naudotis šia funkcija.",
-  "@featureLimitedOtaRequiredLabel": {
-    "description": "Label for the warning card when a feature requires a firmware update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joystickWarning": "Vairasvirtės funkcija yra eksperimentinė. Naudokite su rizika.",
-  "@joystickWarning": {
-    "description": "Label for the warning tutorial card on the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarLabel": "Prašome atnaujinti savo įrangą",
-  "@otaAvailableSnackbarLabel": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffDescription": "Braukite horizontaliai virš žinomos įrenginio srities, kad pradėtumėte nuskaitymą. Nustatymuose galite įjungti nuolatinį nuskaitymą.",
-  "@homeContinuousScanningOffDescription": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectClearLabel": "Pasirinkti nė vieno",
-  "@triggersSelectClearLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarTitle": "Galimas atnaujinimas",
-  "@otaAvailableSnackbarTitle": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarTitle": "Įranga prijungta",
-  "@newGearConnectedSnackbarTitle": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarLabel": "Smagaus vizginimo",
-  "@newGearConnectedSnackbarLabel": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectSaveLabel": "Išsaugoti veiksmus",
-  "@triggersSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "cancel": "Atšaukti",
-  "@cancel": {
-    "description": "Cancel on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceType": "Kuriai įrangai tai turėtų būti taikoma?",
-  "@deviceType": {
-    "description": "Title for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryGlowtip": "Švytintis antgalis",
-  "@actionsCategoryGlowtip": {
-    "description": "glowtip action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeDescription": "Suaktyvinkite veiksmą purtydami įrenginį",
-  "@triggerShakeDescription": {
-    "description": "Shake trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaChangelogLabel": "Firmware pakeitimų žurnalas",
-  "@otaChangelogLabel": {
-    "description": "Label for changelog section of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoDescription": "Paleidikliai automatiškai siunčia veiksmus į jūsų įrangą. Vienu metu gali būti aktyvūs keli aktyvikliai. Bakstelėkite trigerį, kad jį redaguotumėte. Naudokite kairėje esantį jungiklį, kad įjungtumėte paleidiklį.",
-  "@triggerInfoDescription": {
-    "description": "Description for what a trigger is and how to use them on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGear": "Netikra įranga",
-  "@scanDemoGear": {
-    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanRemoveDemoGear": "Ištrinti visą netikrą įrangą",
-  "@scanRemoveDemoGear": {
-    "description": "Label for the button to remove all demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditRepeatTitle": "Kiek kartų kartoti šį veiksmą?",
-  "@sequenceEditRepeatTitle": {
-    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleSubTitle": "Pranešti apie neidentifikuojančių funkcijų naudojimą „Plausible“, kad patobulintumėte programą",
-  "@settingsAnalyticsToggleSubTitle": {
-    "description": "Settings page analytics reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleSubTitle": "Įgalinti vibraciją, kai paliečiamas veiksmas",
-  "@settingsHapticsToggleSubTitle": {
-    "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonDescription": "Atsitiktinai atlikti pasirinktą veiksmą",
-  "@triggerRandomButtonDescription": {
-    "description": "Casual Mode trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleTitle": "Leisti uodegos tinklaraščio pranešimus",
-  "@settingsNewsletterToggleTitle": {
-    "description": "Settings page newsletter notification toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAppColor": "Programėlės spalva",
-  "@settingsAppColor": {
-    "description": "Settings page app color picker button title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesFoundTitle": "Rasta įranga. Norėdami prisijungti, bakstelėkite įrangos pavadinimą",
-  "@scanDevicesFoundTitle": {
-    "description": "Title when gear is found on the scan for new gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoDescription": "Naudodami tinkintus veiksmus galite patys atlikti įrangos veiksmus. Bakstelėjus pasirinktinį veiksmą jis bus paleistas. Norėdami redaguoti pasirinktinį veiksmą, bakstelėkite pieštuką. Įsitikinkite, kad jūsų įrangos programinė įranga yra atnaujinta.",
-  "@sequencesInfoDescription": {
-    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothDescription": "Norint prisijungti prie įrenginio, reikalingas „Bluetooth“ leidimas",
-  "@onboardingBluetoothDescription": {
-    "description": "Description for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGearTip": "Norite išbandyti programą, bet laukiate, kol jūsų įranga jus pasieks? Pridėkite netikrą įrangą. Tai leidžia naudotis programa taip, lyg turėtumėte savo įrangą arba norėtumėte išbandyti įrangą, kurios šiuo metu neturite. Tai įgalina naują skyrių „Nuskaityti naujos įrangos“ puslapyje.",
-  "@scanDemoGearTip": {
-    "description": "Tip Card description for the  demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleSubTitle": "Nuolat ieškoti žinomos įrangos. Kai funkcija išjungta, norėdami nuskaityti, turite perbraukti pavarų juostą.",
-  "@settingsAlwaysScanningToggleSubTitle": {
-    "description": "Settings page always scanning toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonDescription": "Suaktyvinkite veiksmą paspausdami garsumo mygtuką",
-  "@triggerVolumeButtonDescription": {
-    "description": "Volume Button trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltTitle": "EarGear pakreipimo jutiklis",
-  "@triggerEarTiltTitle": {
-    "description": "EarGear internal gesture sensor trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePrivacyPolicyLinkTitle": "Privatumo politika",
-  "@morePrivacyPolicyLinkTitle": {
-    "description": "Title for Privacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeChangelogLinkTitle": "Pakeitimų sąrašas",
-  "@homeChangelogLinkTitle": {
-    "description": "Title for Changelog on Home page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaInProgressTitle": "„Gear“ dabar yra atnaujinama. Neišjunkite įrangos ir neuždarykite programos",
-  "@otaInProgressTitle": {
-    "description": "Label for ota in progress",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleSubTitle": "Padidinti veiksmų korteles, kad būtų lengviau bakstelėti",
-  "@settingsLargerCardsToggleSubTitle": {
-    "description": "Settings page show larger cards toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleSubTitle": "Automatiškai gauti pranešimus, kai yra naujas Tail Blog įrašas",
-  "@settingsNewsletterToggleSubTitle": {
-    "description": "Settings page newsletter notification toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Sutikti su privatumo politika",
-  "@onboardingPrivacyPolicyAcceptButtonLabel": {
-    "description": "Button label to accept privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsFavoriteTip": "Ilgai paspauskite veiksmą, kad įtrauktumėte į mėgstamiausius",
-  "@actionsFavoriteTip": {
-    "description": "tip message which appears when no actions are favorited on the actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerActionSelectorTutorialLabel": "Pasirinkite tiek veiksmų, kiek norite. Atsitiktinai bus pasirinktas veiksmas, suderinamas su prijungta įranga. „GlowTip“ ir garso veiksmai bus suaktyvinti kartu su judėjimo veiksmais. Nepamirškite išsaugoti.",
-  "@triggerActionSelectorTutorialLabel": {
-    "description": "Label for the tutorial card on the Action selector for triggers",
-    "type": "text",
-    "placeholders": {}
-  },
-  "colorPickerTitle": "Pasirinkite spalvą",
-  "@colorPickerTitle": {
-    "description": "The title of the color picker",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetoothDescription": "Norint prisijungti prie „Gear“, reikalingas „Bluetooth“. Nustatymuose įjunkite „Bluetooth“. Neprisijunkite prie įrankio, kai įrenginyje yra „Bluetooth“ nustatymai.",
-  "@actionsNoBluetoothDescription": {
-    "description": "description on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedTitle": "Ausų judėjimo greitis",
-  "@earSpeedTitle": {
-    "description": "Title for the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedFast": "Greitai",
-  "@earSpeedFast": {
-    "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedSlow": "Lėtas",
-  "@earSpeedSlow": {
-    "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "casualModeDelayTitle": "Minimalus ir maksimalus vėlavimas",
-  "@casualModeDelayTitle": {
-    "description": "Label for the range slider to set the min and max delay time for casual mode",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionTitle": "Nustatyti pradinę padėtį",
-  "@manageGearHomePositionTitle": {
-    "description": "Title for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionDescription": "Nustato padėtį, į kurią bus perkelta pavara, kai veiksmas bus baigtas",
-  "@manageGearHomePositionDescription": {
-    "description": "Description for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyTitle": "Tail Blog tik per WiFi",
-  "@settingsTailBlogWifiOnlyTitle": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyDescription": "Neleiskite įkelti Tail Blog turinio, kai esate prisijungę prie mobiliojo ryšio tinklo",
-  "@settingsTailBlogWifiOnlyDescription": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeCopy": "Kopijuoti į iškarpinę",
-  "@manageGearConModePincodeCopy": {
-    "description": "The description for copy to clipboard button on the pin code dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageCoverPromoTitle": "Pakeisk savo įrenginio išvaizdą!",
-  "@morePageCoverPromoTitle": {
-    "description": "The title for the button on the More page to push users to buy a new cover",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckButtonLabel": "Tikrinti atnaujinimus",
-  "@manageDevicesOtaCheckButtonLabel": {
-    "description": "manage devices button to check if an update is available",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaUpToDateButtonLabel": "Įrenginys atnaujintas!",
-  "@manageDevicesOtaUpToDateButtonLabel": {
-    "description": "manage devices button label if gear is up to date",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckInProgressButtonLabel": "Tikrinama",
-  "@manageDevicesOtaCheckInProgressButtonLabel": {
-    "description": "manage devices button label if gear is checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckErrorButtonLabel": "Pabandyk vėliau dar kartą",
-  "@manageDevicesOtaCheckErrorButtonLabel": {
-    "description": "manage devices button label if an error occured while checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutLabel": "Apie tavo įrenginį",
-  "@manageDevicesAboutLabel": {
-    "description": "label for the about your gear section in the manage devices area",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutHardwareVersionLabel": "Aparatinės įrangos versija",
-  "@manageDevicesAboutHardwareVersionLabel": {
-    "description": "label for the hardware version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutSoftwareVersionLabel": "Programinės įrangos versija",
-  "@manageDevicesAboutSoftwareVersionLabel": {
-    "description": "label for the software version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearDisconnectTimeout": "Įrenginys nebuvo laiku atjungtas ir tikriausiai neperkrautas",
-  "@otaFailedReasonGearDisconnectTimeout": {
-    "description": "gearDisconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateTitle": "Lokalizacija",
-  "@morePageTranslateTitle": {
-    "description": "The title for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateDescription": "Padėk mums išversti programėlę į tavo kalbą",
-  "@morePageTranslateDescription": {
-    "description": "The description for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "appLanguageSelectorTitle": "Programėlės kalba",
-  "@appLanguageSelectorTitle": {
-    "description": "The title for the button and dialog to select the app language",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearTitle": "Tavo įrenginys",
-  "@watchKnownGearTitle": {
-    "description": "The title for the known gear section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearNoGearPairedTip": "Naudok mygtuką „Ieškoti naujo įrenginio“ telefone, kad suporuotum savo įrenginį",
-  "@watchKnownGearNoGearPairedTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsTitle": "Mėgstami veiksmai",
-  "@watchFavoriteActionsTitle": {
-    "description": "title for the favorite actions section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonMD5Mismatch": "Atsisiųstas failas nepraėjo patikros",
-  "@otaFailedReasonMD5Mismatch": {
-    "description": "md5Mismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearVersionMismatch": "Įrenginyje esanti programinės aparatinės įrangos versija nesutampa su įkelta versija",
-  "@otaFailedReasonGearVersionMismatch": {
-    "description": "gearVersionMismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReturnedError": "Įrenginys grąžino nežinomą klaidą",
-  "@otaFailedReasonGearReturnedError": {
-    "description": "gearReturnedError error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonUploadFailed": "Nepavyko įkelti programinės aparatinės įrangos į įrenginį",
-  "@otaFailedReasonUploadFailed": {
-    "description": "uploadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReconnectTimeout": "Įrenginys nesusijungė laiku",
-  "@otaFailedReasonGearReconnectTimeout": {
-    "description": "gearReconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonDownloadFailed": "Nepavyko atsisiųsti programinės aparatinės įrangos",
-  "@otaFailedReasonDownloadFailed": {
-    "description": "downloadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearOtaFinalTimeout": "Laukimo laikas baigėsi laukiant naujos programinės įrangos versijos iš įrenginio",
-  "@otaFailedReasonGearOtaFinalTimeout": {
-    "description": "gearOtaFinalTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsNoFavoritesTip": "Ilgai paspausk veiksmą telefone, kad jį pažymėtum kaip mėgstamą",
-  "@watchFavoriteActionsNoFavoritesTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPageDescription": "Turi pasiūlymą ar problemą su programėle? Pranešk mums. Pastaba: tai anonimiška ir negali būti naudojama įrenginio problemoms spręsti",
-  "@feedbackPageDescription": {
-    "description": "The description of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportTitle": "Pagalba",
-  "@supportTitle": {
-    "description": "The label and title of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportDescription": "Bakstelėk mėlyną pokalbio piktogramą, kad susisiektum su pagalba",
-  "@supportDescription": {
-    "description": "The description of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeTitle": "Konvencijos režimas",
-  "@manageGearConModeTitle": {
-    "description": "The title for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeDescription": "Konvencijos režimas yra papildoma saugumo priemonė, apsauganti nuo kitų įrenginių prisijungimo prie tavo įrenginio.",
-  "@manageGearConModeDescription": {
-    "description": "The description for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeTitle": "Peržiūrėti PIN kodą",
-  "@manageGearConModePincodeTitle": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeEnableDescription": "Įjungus konvencijos režimą, įrenginys bus paleistas iš naujo ir paprašys įvesti PIN kodą. Kodas bus nukopijuotas į iškarpinę",
-  "@manageGearConModePincodeEnableDescription": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeToggleTitle": "Įjungti konvencijos režimą",
-  "@manageGearConModeToggleTitle": {
-    "description": "The description for the convention mode enabled button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreExperimentalTitle": "Eksperimentinis",
-  "@moreExperimentalTitle": {
-    "description": "The label for the experimental features on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoTitle": "CosHub",
-  "@moreCoshubPromoTitle": {
-    "description": "The title for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoDescription": "Mūsų naujausia programėlė, padedanti planuoti, dalintis ir kurti savo cosplay, jau čia",
-  "@moreCoshubPromoDescription": {
-    "description": "The description for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleTitle": "Leisti rinkodaros pranešimus",
-  "@settingsMarketingNotificationsToggleTitle": {
-    "description": "Settings page marketing notifications toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleSubTitle": "Leisti pranešimus apie naujus tinklaraščio įrašus ir išpardavimus.",
-  "@settingsMarketingNotificationsToggleSubTitle": {
-    "description": "Settings page marketing notifications toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleTitle": "UwU vertėjas",
-  "@settingsUwUToggleTitle": {
-    "description": "Settings page UwU text toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleSubTitle": "OwO, kas čia?",
-  "@settingsUwUToggleSubTitle": {
-    "description": "Settings page UwU text toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesOnboardingTitle": "Prijunkime tavo įrangą",
-  "@scanDevicesOnboardingTitle": {
-    "description": "Title for the gear pairing screen in onboarding",
-    "type": "text",
-    "placeholders": {}
-  }
+    "title": "„Uodegos“ kompanija",
+    "@title": {
+        "description": "The name of the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditSpeed": "Kaip greitai įranga turėtų persijungti į šią padėtį?",
+    "@sequencesEditSpeed": {
+        "description": "Label for the speed selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeNewsTitle": "Šviežiai naują iš „Uodegos tinklaraščio“",
+    "@homeNewsTitle": {
+        "description": "The title header for the news in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessageTitle": "Sveiki atvykę į „Tail Company“ programą",
+    "@homeWelcomeMessageTitle": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessage": "Čia galite valdyti, tyrinėti ir atnaujinti visą savo „Tail Co“ įrangą. Taip pat yra instrukcijų ir vadovų. Linksmo vizginimo!",
+    "@homeWelcomeMessage": {
+        "description": "The welcome message on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPage": "Vairasvirtė",
+    "@joyStickPage": {
+        "description": "The label and title of the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPageDescription": "Tiesiogiai valdyk savo įrenginio poziciją.",
+    "@joyStickPageDescription": {
+        "description": "The description of the joystick page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPage": "Siųsti atsiliepimą",
+    "@feedbackPage": {
+        "description": "The label and title of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioPage": "Pasirinktiniai garsai",
+    "@audioPage": {
+        "description": "The label and title of the custom audio management page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "aboutPage": "Apie",
+    "@aboutPage": {
+        "description": "The label and title of the about page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsPage": "Nustatymai",
+    "@settingsPage": {
+        "description": "The label and title of the settings page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsDescription": "Keiskite programos spalvą, konfigūruokite „Haptics“ ir kitą",
+    "@settingsDescription": {
+        "description": "The description of the settings page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersPage": "Trigeriai",
+    "@triggersPage": {
+        "description": "The label and title of the trigger page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPage": "Pasirinktiniai veiksmai",
+    "@sequencesPage": {
+        "description": "The label and title of the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPageDescription": "Sukurkite pasirinktinius savo įrangos veiksmus",
+    "@sequencesPageDescription": {
+        "description": "The description of the sequences page link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectLabel": "Pasirinkite trigerio tipą",
+    "@triggersSelectLabel": {
+        "description": "The title of the add trigger dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectAllLabel": "Pasirinkti visus",
+    "@triggersSelectAllLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersDefSelectSaveLabel": "Pasirinkti",
+    "@triggersDefSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ok": "Ok",
+    "@ok": {
+        "description": "Ok on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersAdd": "Pridėti trigerį",
+    "@triggersAdd": {
+        "description": "Floating Action Button on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeTail": "Uodega",
+    "@deviceTypeTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeMiniTail": "Mini uodega",
+    "@deviceTypeMiniTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeEars": "Ausys",
+    "@deviceTypeEars": {
+        "description": "Ears option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeWings": "Sparnai",
+    "@deviceTypeWings": {
+        "description": "Wings option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesAdd": "Naujas veiksmas",
+    "@sequencesAdd": {
+        "description": "Floating Action Button on the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEdit": "Redaguoti veiksmą",
+    "@sequencesEdit": {
+        "description": "Label for the edit icon on a sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditAdd": "Pridėti judesį",
+    "@sequencesEditAdd": {
+        "description": "Label for the add Floating Action Button on edit sequence page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditName": "Pavadinimas",
+    "@sequencesEditName": {
+        "description": "Label for the name field on sequence edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditMove": "Perkelti",
+    "@sequencesEditMove": {
+        "description": "Label for the move tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDelay": "Delsti",
+    "@sequencesEditDelay": {
+        "description": "Label for the delay tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditLeftServo": "Kairiojo servo padėtis",
+    "@sequencesEditLeftServo": {
+        "description": "Label for the left servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditRightServo": "Dešiniojo servo padėtis",
+    "@sequencesEditRightServo": {
+        "description": "Label for the right servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditEasing": "Lengvinimo tipas",
+    "@sequencesEditEasing": {
+        "description": "Label for the easing selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditTime": "Kiek laiko reikia laukti prieš atliekant kitą šio tinkinto veiksmo žingsnį",
+    "@sequencesEditTime": {
+        "description": "Label for the time slider on the delay tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditHomeLabel": "Įrankių namai",
+    "@sequencesEditHomeLabel": {
+        "description": "Label on the home tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteTitle": "Ištrinti veiksmą",
+    "@sequencesEditDeleteTitle": {
+        "description": "Title of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteDescription": "Ar tikrai norite ištrinti šį veiksmą?",
+    "@sequencesEditDeleteDescription": {
+        "description": "Message of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditListDelayLabel": "Atidėti kitą žingsnį {howMany} ms.",
+    "@sequenceEditListDelayLabel": {
+        "description": "Delay move label on the edit sequences page.",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetooth": "Bluetooth yra nepasiekiamas",
+    "@actionsNoBluetooth": {
+        "description": "Label on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryCalm": "Ramus ir atsipalaidavęs",
+    "@actionsCategoryCalm": {
+        "description": "calm action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryFast": "Greitas ir susijaudinęs",
+    "@actionsCategoryFast": {
+        "description": "fast action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryTense": "Nusivylęs ir įsitempęs",
+    "@actionsCategoryTense": {
+        "description": "tense action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsSelectScreen": "Pasirinkti veiksmus",
+    "@actionsSelectScreen": {
+        "description": "Title for action select menu on triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleTitle": "Haptic Atsiliepimai",
+    "@settingsHapticsToggleTitle": {
+        "description": "Settings page haptic feedback toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleTitle": "Visada ieškoti žinomos įrangos",
+    "@settingsAlwaysScanningToggleTitle": {
+        "description": "Settings page always scanning toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleTitle": "Laikyti ekraną įjungtą",
+    "@settingsKeepScreenOnToggleTitle": {
+        "description": "Settings page Keep Awake toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleSubTitle": "Šis režimas neleidžia išsijungti ekranui, kai yra prijungta įranga",
+    "@settingsKeepScreenOnToggleSubTitle": {
+        "description": "Settings page Keep Awake toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleTitle": "Kitsune režimas",
+    "@settingsKitsuneToggleTitle": {
+        "description": "Settings page Kitsune mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleSubTitle": "Jei prijungsite daug tų pačių įrenginių, šis režimas pridės atsitiktines pauzes prie jų judėjimo pradžios laiko, suteikdamas kitokį vaizdo efektą.",
+    "@settingsKitsuneToggleSubTitle": {
+        "description": "Settings page show battery percentage toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleTitle": "Rodyti baterijos %",
+    "@settingsBatteryPercentageToggleTitle": {
+        "description": "Settings page Battery Percentage mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleSubTitle": "Vietoj piktogramos rodyti tikrąjį akumuliatoriaus įkrovos lygį",
+    "@settingsBatteryPercentageToggleSubTitle": {
+        "description": "Settings page show battery percentage toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleTitle": "Didesnės kortelės",
+    "@settingsLargerCardsToggleTitle": {
+        "description": "Settings page Larger cards toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleTitle": "Automatinis klaidų pranešimas",
+    "@settingsErrorReportingToggleTitle": {
+        "description": "Settings page error reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleSubTitle": "Siunčia klaidų ataskaitas Sentry",
+    "@settingsErrorReportingToggleSubTitle": {
+        "description": "Settings page error reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleTitle": "Slėpti mokymo korteles",
+    "@settingsTutorialCardToggleTitle": {
+        "description": "Settings page tutorial card display toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleSubTitle": "Paslėpti įvairias mokymo korteles visoje programoje",
+    "@settingsTutorialCardToggleSubTitle": {
+        "description": "Settings page tutorial card display toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleTitle": "Leisti anoniminę analizę",
+    "@settingsAnalyticsToggleTitle": {
+        "description": "Settings page analytics reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesBatteryGraphTitle": "Baterijos grafikas",
+    "@manageDevicesBatteryGraphTitle": {
+        "description": "battery graph expansion tile title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomAction": "Veiksmas",
+    "@triggerRandomAction": {
+        "description": "Casual Mode trigger action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonTitle": "Garsumo mygtukai",
+    "@triggerVolumeButtonTitle": {
+        "description": "Volume Button trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeUp": "Pagarsinti",
+    "@triggerVolumeButtonVolumeUp": {
+        "description": "Volume Button trigger volume up action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeDown": "Patylinti",
+    "@triggerVolumeButtonVolumeDown": {
+        "description": "Volume Button trigger volume down action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesConnect": "Prijungti",
+    "@manageDevicesConnect": {
+        "description": "manage devices connect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesDisconnect": "Atjungti",
+    "@manageDevicesDisconnect": {
+        "description": "manage devices disconnect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesShutdown": "Išjungti",
+    "@manageDevicesShutdown": {
+        "description": "manage devices shutdown button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesColor": "Įrangos spalva",
+    "@manageDevicesColor": {
+        "description": "manage devices color picker button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesForget": "Pamiršti",
+    "@manageDevicesForget": {
+        "description": "manage devices forget button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaButton": "Bakstelėkite, kad atnaujintumėte programinę-aparatinę įrangą",
+    "@manageDevicesOtaButton": {
+        "description": "manage devices ota available button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesTitle": "Ieškoti naujos įrangos",
+    "@scanDevicesTitle": {
+        "description": "button which opens the scan window",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesScanMessage": "Ieškoma įranga. Įsitikinkite, kad jūsų įranga yra įjungta ir yra šalia",
+    "@scanDevicesScanMessage": {
+        "description": "scan for devices scan in progress message when scanning for a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingTitle": "Vaikščiojimas",
+    "@triggerWalkingTitle": {
+        "description": "Walking/Step trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingDescription": "Suaktyvinti veiksmą einant",
+    "@triggerWalkingDescription": {
+        "description": "Walking/Step trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStopped": "Sustabdyta",
+    "@triggerWalkingStopped": {
+        "description": "Walking/Step trigger Stopped action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStep": "Žingsnis",
+    "@triggerWalkingStep": {
+        "description": "Walking/Step trigger Step action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverTitle": "Viršelis",
+    "@triggerCoverTitle": {
+        "description": "Cover trigger Title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverDescription": "Suaktyvinti veiksmą uždengdami artumo jutiklį",
+    "@triggerCoverDescription": {
+        "description": "Cover trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverNear": "Įrenginys padengtas",
+    "@triggerCoverNear": {
+        "description": "Cover trigger near action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverFar": "Įrenginys atidengtas",
+    "@triggerCoverFar": {
+        "description": "Cover trigger far action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonTitle": "Atsitiktinis režimas",
+    "@triggerRandomButtonTitle": {
+        "description": "Casual Mode trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeTitle": "Purtyti",
+    "@triggerShakeTitle": {
+        "description": "Shake trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityTitle": "Netoliese esanti įranga",
+    "@triggerProximityTitle": {
+        "description": "Proximity trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityDescription": "Suaktyvinkite veiksmą, jei netoliese yra prietaisas",
+    "@triggerProximityDescription": {
+        "description": "Proximity trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerActionNotSet": "Jokių veiksmų nenustatyta",
+    "@triggerActionNotSet": {
+        "description": "Trigger action label when no action set",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicTitle": "EarGear mikrofonas",
+    "@triggerEarMicTitle": {
+        "description": "EarGear internal mic trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicDescription": "Suaktyvina veiksmą, kai „EarGear“ aptinka garsą",
+    "@triggerEarMicDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicSound": "Aptiktas garsas",
+    "@triggerEarMicSound": {
+        "description": "EarGear internal mic trigger sound detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltDescription": "Suaktyvina veiksmą, kai „EarGear“ aptinka pakreipimą",
+    "@triggerEarTiltDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltLeft": "Kairysis pakreipimas",
+    "@triggerEarTiltLeft": {
+        "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltRight": "Dešinysis pakreipimas",
+    "@triggerEarTiltRight": {
+        "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltForward": "Pakreipimas į priekį",
+    "@triggerEarTiltForward": {
+        "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltBackward": "Pakreipimas atgal",
+    "@triggerEarTiltBackward": {
+        "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualResponsibleWaggingTitle": "Atsakingas vizginimas",
+    "@moreManualResponsibleWaggingTitle": {
+        "description": "Title for Responsible wagging manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanConnectToAllButtonLabel": "Prisijungti prie visų",
+    "@scanConnectToAllButtonLabel": {
+        "description": "Title for Connecting to all found gear on the scan page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualMiTailTitle": "„MiTail“ vadovas",
+    "@moreManualMiTailTitle": {
+        "description": "Title for MiTail manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualEargearTitle": "„EarGear“ vadovas",
+    "@moreManualEargearTitle": {
+        "description": "Title for EarGear manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualFlutterWingsTitle": "„FlutterWings“ vadovas",
+    "@moreManualFlutterWingsTitle": {
+        "description": "Title for FlutterWings manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualTitle": "Vadovai",
+    "@moreManualTitle": {
+        "description": "Title for manual header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualSubTitle": "Bakstelėkite norėdami peržiūrėti",
+    "@moreManualSubTitle": {
+        "description": "Subtitle for each manual on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreUsefulLinksTitle": "Naudingos nuorodos",
+    "@moreUsefulLinksTitle": {
+        "description": "Title for Useful Links header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreTitle": "Daugiau",
+    "@moreTitle": {
+        "description": "Title for More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaTitle": "Atnaujinti įrangą",
+    "@otaTitle": {
+        "description": "Title for OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaDownloadButtonLabel": "Pradėti OTA atnaujinimą",
+    "@otaDownloadButtonLabel": {
+        "description": "Label for download firmware button at bottom of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaCompletedTitle": "Atnaujinimas baigtas",
+    "@otaCompletedTitle": {
+        "description": "Title for the text that appears when an OTA update is completed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedTitle": "Atnaujinimas nepavyko. Iš naujo paleiskite įrangą ir bandykite dar kartą",
+    "@otaFailedTitle": {
+        "description": "Title for the text that appears when an OTA update has failed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaLowBattery": "Senka baterija. Įkraukite savo įrangą iki bent 50%",
+    "@otaLowBattery": {
+        "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoEditActionDescription": "Bakstelėkite pieštuką, kad pasirinktumėte veiksmą, kuris bus paleistas įvykus įvykiui. Atsitiktinai bus pasirinktas veiksmas, suderinamas su prijungta įranga. „GlowTip“ ir garso veiksmai bus suaktyvinti kartu su judėjimo veiksmais.",
+    "@triggerInfoEditActionDescription": {
+        "description": "Instruction on how to select an action on the trigger edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoEditDescription": "Kiekvienas pasirinktinis veiksmas susideda iš 1–6 judesių ir gali kartotis iki 5 kartų. Galite ilgai paspausti judesį, kad pertvarkytumėte jį.",
+    "@sequencesInfoEditDescription": {
+        "description": "Description for making a custom action on the edit Custom Action page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyDescription": "Nors surinkti duomenys yra anonimiški ir jų negalima naudoti konkrečiam vartotojui identifikuoti, vis tiek turite sutikti su privatumo politika",
+    "@onboardingPrivacyPolicyDescription": {
+        "description": "Description for there being a privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyViewButtonLabel": "Peržiūrėti privatumo politiką",
+    "@onboardingPrivacyPolicyViewButtonLabel": {
+        "description": "Button label to view privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothTitle": "Bluetooth",
+    "@onboardingBluetoothTitle": {
+        "description": "Title for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothRequestButtonLabel": "Suteikti leidimą",
+    "@onboardingBluetoothRequestButtonLabel": {
+        "description": "Label for the button to request bluetooth permission on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothEnableButtonLabel": "Atidarykite nustatymus, kad įjungtumėte „Bluetooth“",
+    "@onboardingBluetoothEnableButtonLabel": {
+        "description": "Label for the button to open bluetooth settings on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingDoneButtonLabel": "Baigti",
+    "@onboardingDoneButtonLabel": {
+        "description": "Label for the button to close the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingCompletedTitle": "Linksmo vizginimo!",
+    "@onboardingCompletedTitle": {
+        "description": "Title of the final page of the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "doubleBackToClose": "Paspauskite dar kartą, kad išeitumėte",
+    "@doubleBackToClose": {
+        "description": "Snackbar message which appears when the back button is pressed at the main screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "noLongerSupported": "Ši įranga nebepalaikoma. Kai kurios programos funkcijos gali neveikti",
+    "@noLongerSupported": {
+        "description": "Warning message which appears for unsupported gear on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "mandatoryOtaRequired": "Yra programinės aparatinės įrangos naujinimas, kad jūsų įranga geriau palaikytų",
+    "@mandatoryOtaRequired": {
+        "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreSourceCode": "Pirminis kodas",
+    "@moreSourceCode": {
+        "description": "Label for the github and dev mode button on the more tab",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioActionCategory": "Garso efektai",
+    "@audioActionCategory": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEditDescription": "Tvarkyti pasirinktinius garso efektus",
+    "@audioEditDescription": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEdit": "Pervardyti garso efektą",
+    "@audioEdit": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDelete": "Ištrinti garso efektą",
+    "@audioDelete": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDeleteDescription": "Ar tikrai norite ištrinti šį garso efektą?",
+    "@audioDeleteDescription": {
+        "description": "Label for the body of the delete confirmation dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioAdd": "Pridėti garso efektą",
+    "@audioAdd": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioTipCard": "Galite pridėti pasirinktinių garsų, kurie rodomi skirtuke Veiksmai ir gali būti naudojami su trigeriais",
+    "@audioTipCard": {
+        "description": "Tutorial card for the audio page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanAddDemoGear": "Pridėti netikrą įrangą",
+    "@scanAddDemoGear": {
+        "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "featureLimitedOtaRequiredLabel": "Atnaujinkite savo įrangą, kad galėtumėte naudotis šia funkcija.",
+    "@featureLimitedOtaRequiredLabel": {
+        "description": "Label for the warning card when a feature requires a firmware update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joystickWarning": "Vairasvirtės funkcija yra eksperimentinė. Naudokite su rizika.",
+    "@joystickWarning": {
+        "description": "Label for the warning tutorial card on the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarLabel": "Prašome atnaujinti savo įrangą",
+    "@otaAvailableSnackbarLabel": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeContinuousScanningOffDescription": "Braukite horizontaliai virš žinomos įrenginio srities, kad pradėtumėte nuskaitymą. Nustatymuose galite įjungti nuolatinį nuskaitymą.",
+    "@homeContinuousScanningOffDescription": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectClearLabel": "Pasirinkti nė vieno",
+    "@triggersSelectClearLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarTitle": "Galimas atnaujinimas",
+    "@otaAvailableSnackbarTitle": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarTitle": "Įranga prijungta",
+    "@newGearConnectedSnackbarTitle": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarLabel": "Smagaus vizginimo",
+    "@newGearConnectedSnackbarLabel": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectSaveLabel": "Išsaugoti veiksmus",
+    "@triggersSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "cancel": "Atšaukti",
+    "@cancel": {
+        "description": "Cancel on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceType": "Kuriai įrangai tai turėtų būti taikoma?",
+    "@deviceType": {
+        "description": "Title for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryGlowtip": "Švytintis antgalis",
+    "@actionsCategoryGlowtip": {
+        "description": "glowtip action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeDescription": "Suaktyvinkite veiksmą purtydami įrenginį",
+    "@triggerShakeDescription": {
+        "description": "Shake trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaChangelogLabel": "Firmware pakeitimų žurnalas",
+    "@otaChangelogLabel": {
+        "description": "Label for changelog section of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoDescription": "Paleidikliai automatiškai siunčia veiksmus į jūsų įrangą. Vienu metu gali būti aktyvūs keli aktyvikliai. Bakstelėkite trigerį, kad jį redaguotumėte. Naudokite kairėje esantį jungiklį, kad įjungtumėte paleidiklį.",
+    "@triggerInfoDescription": {
+        "description": "Description for what a trigger is and how to use them on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGear": "Netikra įranga",
+    "@scanDemoGear": {
+        "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanRemoveDemoGear": "Ištrinti visą netikrą įrangą",
+    "@scanRemoveDemoGear": {
+        "description": "Label for the button to remove all demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditRepeatTitle": "Kiek kartų kartoti šį veiksmą?",
+    "@sequenceEditRepeatTitle": {
+        "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleSubTitle": "Pranešti apie neidentifikuojančių funkcijų naudojimą „Plausible“, kad patobulintumėte programą",
+    "@settingsAnalyticsToggleSubTitle": {
+        "description": "Settings page analytics reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleSubTitle": "Įgalinti vibraciją, kai paliečiamas veiksmas",
+    "@settingsHapticsToggleSubTitle": {
+        "description": "Settings page haptic feedback toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonDescription": "Atsitiktinai atlikti pasirinktą veiksmą",
+    "@triggerRandomButtonDescription": {
+        "description": "Casual Mode trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleTitle": "Leisti uodegos tinklaraščio pranešimus",
+    "@settingsNewsletterToggleTitle": {
+        "description": "Settings page newsletter notification toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAppColor": "Programėlės spalva",
+    "@settingsAppColor": {
+        "description": "Settings page app color picker button title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesFoundTitle": "Rasta įranga. Norėdami prisijungti, bakstelėkite įrangos pavadinimą",
+    "@scanDevicesFoundTitle": {
+        "description": "Title when gear is found on the scan for new gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoDescription": "Naudodami tinkintus veiksmus galite patys atlikti įrangos veiksmus. Bakstelėjus pasirinktinį veiksmą jis bus paleistas. Norėdami redaguoti pasirinktinį veiksmą, bakstelėkite pieštuką. Įsitikinkite, kad jūsų įrangos programinė įranga yra atnaujinta.",
+    "@sequencesInfoDescription": {
+        "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothDescription": "Norint prisijungti prie įrenginio, reikalingas „Bluetooth“ leidimas",
+    "@onboardingBluetoothDescription": {
+        "description": "Description for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGearTip": "Norite išbandyti programą, bet laukiate, kol jūsų įranga jus pasieks? Pridėkite netikrą įrangą. Tai leidžia naudotis programa taip, lyg turėtumėte savo įrangą arba norėtumėte išbandyti įrangą, kurios šiuo metu neturite. Tai įgalina naują skyrių „Nuskaityti naujos įrangos“ puslapyje.",
+    "@scanDemoGearTip": {
+        "description": "Tip Card description for the  demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleSubTitle": "Nuolat ieškoti žinomos įrangos. Kai funkcija išjungta, norėdami nuskaityti, turite perbraukti pavarų juostą.",
+    "@settingsAlwaysScanningToggleSubTitle": {
+        "description": "Settings page always scanning toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonDescription": "Suaktyvinkite veiksmą paspausdami garsumo mygtuką",
+    "@triggerVolumeButtonDescription": {
+        "description": "Volume Button trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltTitle": "EarGear pakreipimo jutiklis",
+    "@triggerEarTiltTitle": {
+        "description": "EarGear internal gesture sensor trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePrivacyPolicyLinkTitle": "Privatumo politika",
+    "@morePrivacyPolicyLinkTitle": {
+        "description": "Title for Privacy policy link under Useful Links on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeChangelogLinkTitle": "Pakeitimų sąrašas",
+    "@homeChangelogLinkTitle": {
+        "description": "Title for Changelog on Home page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaInProgressTitle": "„Gear“ dabar yra atnaujinama. Neišjunkite įrangos ir neuždarykite programos",
+    "@otaInProgressTitle": {
+        "description": "Label for ota in progress",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleSubTitle": "Padidinti veiksmų korteles, kad būtų lengviau bakstelėti",
+    "@settingsLargerCardsToggleSubTitle": {
+        "description": "Settings page show larger cards toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleSubTitle": "Automatiškai gauti pranešimus, kai yra naujas Tail Blog įrašas",
+    "@settingsNewsletterToggleSubTitle": {
+        "description": "Settings page newsletter notification toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyAcceptButtonLabel": "Sutikti su privatumo politika",
+    "@onboardingPrivacyPolicyAcceptButtonLabel": {
+        "description": "Button label to accept privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsFavoriteTip": "Ilgai paspauskite veiksmą, kad įtrauktumėte į mėgstamiausius",
+    "@actionsFavoriteTip": {
+        "description": "tip message which appears when no actions are favorited on the actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerActionSelectorTutorialLabel": "Pasirinkite tiek veiksmų, kiek norite. Atsitiktinai bus pasirinktas veiksmas, suderinamas su prijungta įranga. „GlowTip“ ir garso veiksmai bus suaktyvinti kartu su judėjimo veiksmais. Nepamirškite išsaugoti.",
+    "@triggerActionSelectorTutorialLabel": {
+        "description": "Label for the tutorial card on the Action selector for triggers",
+        "type": "text",
+        "placeholders": {}
+    },
+    "colorPickerTitle": "Pasirinkite spalvą",
+    "@colorPickerTitle": {
+        "description": "The title of the color picker",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetoothDescription": "Norint prisijungti prie „Gear“, reikalingas „Bluetooth“. Nustatymuose įjunkite „Bluetooth“. Neprisijunkite prie įrankio, kai įrenginyje yra „Bluetooth“ nustatymai.",
+    "@actionsNoBluetoothDescription": {
+        "description": "description on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedTitle": "Ausų judėjimo greitis",
+    "@earSpeedTitle": {
+        "description": "Title for the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedFast": "Greitai",
+    "@earSpeedFast": {
+        "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedSlow": "Lėtas",
+    "@earSpeedSlow": {
+        "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "casualModeDelayTitle": "Minimalus ir maksimalus vėlavimas",
+    "@casualModeDelayTitle": {
+        "description": "Label for the range slider to set the min and max delay time for casual mode",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionTitle": "Nustatyti pradinę padėtį",
+    "@manageGearHomePositionTitle": {
+        "description": "Title for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionDescription": "Nustato padėtį, į kurią bus perkelta pavara, kai veiksmas bus baigtas",
+    "@manageGearHomePositionDescription": {
+        "description": "Description for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyTitle": "Tail Blog tik per WiFi",
+    "@settingsTailBlogWifiOnlyTitle": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyDescription": "Neleiskite įkelti Tail Blog turinio, kai esate prisijungę prie mobiliojo ryšio tinklo",
+    "@settingsTailBlogWifiOnlyDescription": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeCopy": "Kopijuoti į iškarpinę",
+    "@manageGearConModePincodeCopy": {
+        "description": "The description for copy to clipboard button on the pin code dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageCoverPromoTitle": "Pakeisk savo įrenginio išvaizdą!",
+    "@morePageCoverPromoTitle": {
+        "description": "The title for the button on the More page to push users to buy a new cover",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckButtonLabel": "Tikrinti atnaujinimus",
+    "@manageDevicesOtaCheckButtonLabel": {
+        "description": "manage devices button to check if an update is available",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaUpToDateButtonLabel": "Įrenginys atnaujintas!",
+    "@manageDevicesOtaUpToDateButtonLabel": {
+        "description": "manage devices button label if gear is up to date",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckInProgressButtonLabel": "Tikrinama",
+    "@manageDevicesOtaCheckInProgressButtonLabel": {
+        "description": "manage devices button label if gear is checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckErrorButtonLabel": "Pabandyk vėliau dar kartą",
+    "@manageDevicesOtaCheckErrorButtonLabel": {
+        "description": "manage devices button label if an error occured while checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutLabel": "Apie tavo įrenginį",
+    "@manageDevicesAboutLabel": {
+        "description": "label for the about your gear section in the manage devices area",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutHardwareVersionLabel": "Aparatinės įrangos versija",
+    "@manageDevicesAboutHardwareVersionLabel": {
+        "description": "label for the hardware version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutSoftwareVersionLabel": "Programinės įrangos versija",
+    "@manageDevicesAboutSoftwareVersionLabel": {
+        "description": "label for the software version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearDisconnectTimeout": "Įrenginys nebuvo laiku atjungtas ir tikriausiai neperkrautas",
+    "@otaFailedReasonGearDisconnectTimeout": {
+        "description": "gearDisconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateTitle": "Lokalizacija",
+    "@morePageTranslateTitle": {
+        "description": "The title for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateDescription": "Padėk mums išversti programėlę į tavo kalbą",
+    "@morePageTranslateDescription": {
+        "description": "The description for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "appLanguageSelectorTitle": "Programėlės kalba",
+    "@appLanguageSelectorTitle": {
+        "description": "The title for the button and dialog to select the app language",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearTitle": "Tavo įrenginys",
+    "@watchKnownGearTitle": {
+        "description": "The title for the known gear section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearNoGearPairedTip": "Naudok mygtuką „Ieškoti naujo įrenginio“ telefone, kad suporuotum savo įrenginį",
+    "@watchKnownGearNoGearPairedTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsTitle": "Mėgstami veiksmai",
+    "@watchFavoriteActionsTitle": {
+        "description": "title for the favorite actions section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonMD5Mismatch": "Atsisiųstas failas nepraėjo patikros",
+    "@otaFailedReasonMD5Mismatch": {
+        "description": "md5Mismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearVersionMismatch": "Įrenginyje esanti programinės aparatinės įrangos versija nesutampa su įkelta versija",
+    "@otaFailedReasonGearVersionMismatch": {
+        "description": "gearVersionMismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReturnedError": "Įrenginys grąžino nežinomą klaidą",
+    "@otaFailedReasonGearReturnedError": {
+        "description": "gearReturnedError error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonUploadFailed": "Nepavyko įkelti programinės aparatinės įrangos į įrenginį",
+    "@otaFailedReasonUploadFailed": {
+        "description": "uploadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReconnectTimeout": "Įrenginys nesusijungė laiku",
+    "@otaFailedReasonGearReconnectTimeout": {
+        "description": "gearReconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonDownloadFailed": "Nepavyko atsisiųsti programinės aparatinės įrangos",
+    "@otaFailedReasonDownloadFailed": {
+        "description": "downloadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearOtaFinalTimeout": "Laukimo laikas baigėsi laukiant naujos programinės įrangos versijos iš įrenginio",
+    "@otaFailedReasonGearOtaFinalTimeout": {
+        "description": "gearOtaFinalTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsNoFavoritesTip": "Ilgai paspausk veiksmą telefone, kad jį pažymėtum kaip mėgstamą",
+    "@watchFavoriteActionsNoFavoritesTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPageDescription": "Turi pasiūlymą ar problemą su programėle? Pranešk mums. Pastaba: tai anonimiška ir negali būti naudojama įrenginio problemoms spręsti",
+    "@feedbackPageDescription": {
+        "description": "The description of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportTitle": "Pagalba",
+    "@supportTitle": {
+        "description": "The label and title of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportDescription": "Bakstelėk mėlyną pokalbio piktogramą, kad susisiektum su pagalba",
+    "@supportDescription": {
+        "description": "The description of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeTitle": "Konvencijos režimas",
+    "@manageGearConModeTitle": {
+        "description": "The title for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeDescription": "Konvencijos režimas yra papildoma saugumo priemonė, apsauganti nuo kitų įrenginių prisijungimo prie tavo įrenginio.",
+    "@manageGearConModeDescription": {
+        "description": "The description for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeTitle": "Peržiūrėti PIN kodą",
+    "@manageGearConModePincodeTitle": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeEnableDescription": "Įjungus konvencijos režimą, įrenginys bus paleistas iš naujo ir paprašys įvesti PIN kodą. Kodas bus nukopijuotas į iškarpinę",
+    "@manageGearConModePincodeEnableDescription": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeToggleTitle": "Įjungti konvencijos režimą",
+    "@manageGearConModeToggleTitle": {
+        "description": "The description for the convention mode enabled button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreExperimentalTitle": "Eksperimentinis",
+    "@moreExperimentalTitle": {
+        "description": "The label for the experimental features on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoTitle": "CosHub",
+    "@moreCoshubPromoTitle": {
+        "description": "The title for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoDescription": "Mūsų naujausia programėlė, padedanti planuoti, dalintis ir kurti savo cosplay, jau čia",
+    "@moreCoshubPromoDescription": {
+        "description": "The description for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleTitle": "Leisti rinkodaros pranešimus",
+    "@settingsMarketingNotificationsToggleTitle": {
+        "description": "Settings page marketing notifications toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleSubTitle": "Leisti pranešimus apie naujus tinklaraščio įrašus ir išpardavimus.",
+    "@settingsMarketingNotificationsToggleSubTitle": {
+        "description": "Settings page marketing notifications toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleTitle": "UwU vertėjas",
+    "@settingsUwUToggleTitle": {
+        "description": "Settings page UwU text toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleSubTitle": "OwO, kas čia?",
+    "@settingsUwUToggleSubTitle": {
+        "description": "Settings page UwU text toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingTitle": "Prijunkime tavo įrangą",
+    "@scanDevicesOnboardingTitle": {
+        "description": "Title for the gear pairing screen in onboarding",
+        "type": "text",
+        "placeholders": {}
+    }
 }

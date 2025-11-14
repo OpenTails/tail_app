@@ -1,1286 +1,1286 @@
 {
-  "triggerActionNotSet": "アクションセットなし",
-  "@triggerActionNotSet": {
-    "description": "Trigger action label when no action set",
-    "type": "text",
-    "placeholders": {}
-  },
-  "title": "テールカンパニー",
-  "@title": {
-    "description": "The name of the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPage": "ジョイスティック",
-  "@joyStickPage": {
-    "description": "The label and title of the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPage": "カスタムアクション",
-  "@feedbackPage": {
-    "description": "The label and title of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "aboutPage": "について",
-  "@aboutPage": {
-    "description": "The label and title of the about page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsPage": "について",
-  "@settingsPage": {
-    "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersPage": "について",
-  "@triggersPage": {
-    "description": "The label and title of the trigger page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPage": "カスタムアクション",
-  "@sequencesPage": {
-    "description": "The label and title of the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectLabel": "トリガータイプを選択",
-  "@triggersSelectLabel": {
-    "description": "The title of the add trigger dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "ok": "わかりました",
-  "@ok": {
-    "description": "Ok on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "cancel": "キャンセル",
-  "@cancel": {
-    "description": "Cancel on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersAdd": "トリガーを追加",
-  "@triggersAdd": {
-    "description": "Floating Action Button on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceType": "これはどのギアに適用されますか?",
-  "@deviceType": {
-    "description": "Title for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeTail": "しっぽ",
-  "@deviceTypeTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeEars": "耳",
-  "@deviceTypeEars": {
-    "description": "Ears option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeWings": "翼",
-  "@deviceTypeWings": {
-    "description": "Wings option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesAdd": "新しいアクション",
-  "@sequencesAdd": {
-    "description": "Floating Action Button on the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEdit": "編集アクション",
-  "@sequencesEdit": {
-    "description": "Label for the edit icon on a sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditAdd": "移動を追加",
-  "@sequencesEditAdd": {
-    "description": "Label for the add Floating Action Button on edit sequence page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditName": "名前",
-  "@sequencesEditName": {
-    "description": "Label for the name field on sequence edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditMove": "動く",
-  "@sequencesEditMove": {
-    "description": "Label for the move tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDelay": "遅れ",
-  "@sequencesEditDelay": {
-    "description": "Label for the delay tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditLeftServo": "左サーボの位置",
-  "@sequencesEditLeftServo": {
-    "description": "Label for the left servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditRightServo": "左サーボの位置",
-  "@sequencesEditRightServo": {
-    "description": "Label for the right servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeed": "ギアはこの位置にどのくらいの速さで移動する必要がありますか?",
-  "@sequencesEditSpeed": {
-    "description": "Label for the speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditEasing": "イージングタイプ",
-  "@sequencesEditEasing": {
-    "description": "Label for the easing selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditTime": "このカスタムアクションで次の動作に進む前にどれくらい待つか",
-  "@sequencesEditTime": {
-    "description": "Label for the time slider on the delay tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditHomeLabel": "ホームギア",
-  "@sequencesEditHomeLabel": {
-    "description": "Label on the home tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteTitle": "削除アクション",
-  "@sequencesEditDeleteTitle": {
-    "description": "Title of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteDescription": "このアクションを削除してもよろしいですか?",
-  "@sequencesEditDeleteDescription": {
-    "description": "Message of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditListDelayLabel": "次の動きを{howMany}ミリ秒遅らせます。",
-  "@sequenceEditListDelayLabel": {
-    "description": "Delay move label on the edit sequences page.",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetooth": "Bluetoothは利用できません",
-  "@actionsNoBluetooth": {
-    "description": "Label on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryCalm": "穏やかでリラックスした",
-  "@actionsCategoryCalm": {
-    "description": "calm action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryFast": "速くて興奮",
-  "@actionsCategoryFast": {
-    "description": "fast action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryTense": "イライラと緊張",
-  "@actionsCategoryTense": {
-    "description": "tense action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryGlowtip": "グローチップ",
-  "@actionsCategoryGlowtip": {
-    "description": "glowtip action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleTitle": "触覚フィードバック",
-  "@settingsHapticsToggleTitle": {
-    "description": "Settings page haptic feedback toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleSubTitle": "アクションをタップすると振動を有効にする",
-  "@settingsHapticsToggleSubTitle": {
-    "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleTitle": "自動エラー報告",
-  "@settingsErrorReportingToggleTitle": {
-    "description": "Settings page error reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleSubTitle": "自動エラー報告",
-  "@settingsErrorReportingToggleSubTitle": {
-    "description": "Settings page error reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesDisconnect": "更新が完了しました",
-  "@manageDevicesDisconnect": {
-    "description": "manage devices disconnect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesForget": "忘れる",
-  "@manageDevicesForget": {
-    "description": "manage devices forget button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesScanMessage": "ギアをスキャンしています。ギアの電源が入っていて近くにあることを確認してください",
-  "@scanDevicesScanMessage": {
-    "description": "scan for devices scan in progress message when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingTitle": "ウォーキング",
-  "@triggerWalkingTitle": {
-    "description": "Walking/Step trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingDescription": "歩くときにアクションをトリガーする",
-  "@triggerWalkingDescription": {
-    "description": "Walking/Step trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStopped": "停止",
-  "@triggerWalkingStopped": {
-    "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStep": "ステップ",
-  "@triggerWalkingStep": {
-    "description": "Walking/Step trigger Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverTitle": "カバー",
-  "@triggerCoverTitle": {
-    "description": "Cover trigger Title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverDescription": "近接センサーを覆うことでアクションをトリガーする",
-  "@triggerCoverDescription": {
-    "description": "Cover trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverNear": "対象デバイス",
-  "@triggerCoverNear": {
-    "description": "Cover trigger near action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverFar": "デバイスがカバーされていません",
-  "@triggerCoverFar": {
-    "description": "Cover trigger far action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonTitle": "音量ボタン",
-  "@triggerVolumeButtonTitle": {
-    "description": "Volume Button trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonDescription": "音量ボタンを押してアクションをトリガーする",
-  "@triggerVolumeButtonDescription": {
-    "description": "Volume Button trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeUp": "音量を上げる",
-  "@triggerVolumeButtonVolumeUp": {
-    "description": "Volume Button trigger volume up action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeDown": "ボリュームダウン",
-  "@triggerVolumeButtonVolumeDown": {
-    "description": "Volume Button trigger volume down action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeTitle": "音量ボタン",
-  "@triggerShakeTitle": {
-    "description": "Shake trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeDescription": "デバイスを振ってアクションをトリガーします",
-  "@triggerShakeDescription": {
-    "description": "Shake trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityTitle": "デバイスを振ってアクションをトリガーします",
-  "@triggerProximityTitle": {
-    "description": "Proximity trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityDescription": "ギアが近くにある場合はアクションをトリガーする",
-  "@triggerProximityDescription": {
-    "description": "Proximity trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesBatteryGraphTitle": "バッテリーグラフ",
-  "@manageDevicesBatteryGraphTitle": {
-    "description": "battery graph expansion tile title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesShutdown": "シャットダウン",
-  "@manageDevicesShutdown": {
-    "description": "manage devices shutdown button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesColor": "ギアカラー",
-  "@manageDevicesColor": {
-    "description": "manage devices color picker button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaButton": "タップしてファームウェアを更新",
-  "@manageDevicesOtaButton": {
-    "description": "manage devices ota available button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltForward": "前方傾斜",
-  "@triggerEarTiltForward": {
-    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltBackward": "後方傾斜",
-  "@triggerEarTiltBackward": {
-    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditRepeatTitle": "このアクションを何回繰り返しますか?",
-  "@sequenceEditRepeatTitle": {
-    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsSelectScreen": "アクションを選択",
-  "@actionsSelectScreen": {
-    "description": "Title for action select menu on triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAppColor": "アプリの色",
-  "@settingsAppColor": {
-    "description": "Settings page app color picker button title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesTitle": "新しいギアをスキャンする",
-  "@scanDevicesTitle": {
-    "description": "button which opens the scan window",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicTitle": "イヤーギアマイク",
-  "@triggerEarMicTitle": {
-    "description": "EarGear internal mic trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicDescription": "EarGearが音を検知するとアクションが実行されます",
-  "@triggerEarMicDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicSound": "音が検出されました",
-  "@triggerEarMicSound": {
-    "description": "EarGear internal mic trigger sound detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltTitle": "EarGear 傾斜センサー",
-  "@triggerEarTiltTitle": {
-    "description": "EarGear internal gesture sensor trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltDescription": "EarGearが傾きを検知するとアクションがトリガーされます",
-  "@triggerEarTiltDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltLeft": "左に傾ける",
-  "@triggerEarTiltLeft": {
-    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltRight": "シェイク",
-  "@triggerEarTiltRight": {
-    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesConnect": "接続する",
-  "@manageDevicesConnect": {
-    "description": "manage devices connect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualResponsibleWaggingTitle": "責任ある尻尾の振り方",
-  "@moreManualResponsibleWaggingTitle": {
-    "description": "Title for Responsible wagging manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualMiTailTitle": "MiTail マニュアル",
-  "@moreManualMiTailTitle": {
-    "description": "Title for MiTail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualEargearTitle": "イヤーギアマニュアル",
-  "@moreManualEargearTitle": {
-    "description": "Title for EarGear manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualFlutterWingsTitle": "FlutterWings マニュアル",
-  "@moreManualFlutterWingsTitle": {
-    "description": "Title for FlutterWings manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualTitle": "マニュアル",
-  "@moreManualTitle": {
-    "description": "Title for manual header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualSubTitle": "タップして表示",
-  "@moreManualSubTitle": {
-    "description": "Subtitle for each manual on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreUsefulLinksTitle": "更新が完了しました",
-  "@moreUsefulLinksTitle": {
-    "description": "Title for Useful Links header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsDescription": "アプリの色を変更したり、触覚を設定したり、その他",
-  "@settingsDescription": {
-    "description": "The description of the settings page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleTitle": "匿名分析を許可する",
-  "@settingsAnalyticsToggleTitle": {
-    "description": "Settings page analytics reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleSubTitle": "アプリの機能強化のため、識別されない機能の使用状況を Plausible に報告してください",
-  "@settingsAnalyticsToggleSubTitle": {
-    "description": "Settings page analytics reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePrivacyPolicyLinkTitle": "プライバシーポリシー",
-  "@morePrivacyPolicyLinkTitle": {
-    "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleTitle": "常に既知のギアをスキャンする",
-  "@settingsKeepScreenOnToggleTitle": {
-    "description": "Settings page Keep Awake toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleSubTitle": "画面をオンにしたままにする",
-  "@settingsKeepScreenOnToggleSubTitle": {
-    "description": "Settings page Keep Awake toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreTitle": "もっと",
-  "@moreTitle": {
-    "description": "Title for More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPageDescription": "について",
-  "@sequencesPageDescription": {
-    "description": "The description of the sequences page link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleTitle": "キツネモード",
-  "@settingsKitsuneToggleTitle": {
-    "description": "Settings page Kitsune mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleSubTitle": "同じデバイスのインスタンスを多数接続すると、このモードでは移動開始時間にランダムな一時停止が追加され、異なる視覚効果が得られます。",
-  "@settingsKitsuneToggleSubTitle": {
-    "description": "Settings page kitsune toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPageDescription": "ギアの位置を直接操作できます。",
-  "@joyStickPageDescription": {
-    "description": "The description of the joystick page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaChangelogLabel": "ファームウェアの変更履歴",
-  "@otaChangelogLabel": {
-    "description": "Label for changelog section of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadButtonLabel": "OTAアップデートを開始",
-  "@otaDownloadButtonLabel": {
-    "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoDescription": "トリガーはギアにアクションを自動的に送信します。複数のトリガーを同時にアクティブにすることができます。トリガーをタップして編集し、左側のトグルを使用してトリガーを有効にします。",
-  "@triggerInfoDescription": {
-    "description": "Description for what a trigger is and how to use them on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoDescription": "カスタム アクションを使用すると、ギア用の独自のアクションを作成できます。カスタム アクションをタップすると、そのアクションが再生されます。鉛筆をタップしてカスタム アクションを編集します。ギアのファームウェアが最新であることを確認してください。",
-  "@sequencesInfoDescription": {
-    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoEditDescription": "各カスタムアクションは 1 ～ 6 個の動きから構成され、最大 5 回繰り返すことができます。動きを長押しすると順序を変更できます。",
-  "@sequencesInfoEditDescription": {
-    "description": "Description for making a custom action on the edit Custom Action page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleTitle": "バッテリー残量を表示",
-  "@settingsBatteryPercentageToggleTitle": {
-    "description": "Settings page Battery Percentage mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleSubTitle": "アイコンの代わりに実際のバッテリーレベルを表示する",
-  "@settingsBatteryPercentageToggleSubTitle": {
-    "description": "Settings page show battery percentage toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleTitle": "大きなカード",
-  "@settingsLargerCardsToggleTitle": {
-    "description": "Settings page Larger cards toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleSubTitle": "アクションカードを大きくしてタップしやすくしました",
-  "@settingsLargerCardsToggleSubTitle": {
-    "description": "Settings page show larger cards toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleTitle": "チュートリアルカードを非表示",
-  "@settingsTutorialCardToggleTitle": {
-    "description": "Settings page tutorial card display toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleSubTitle": "アプリ全体のさまざまなチュートリアルカードを非表示にする",
-  "@settingsTutorialCardToggleSubTitle": {
-    "description": "Settings page tutorial card display toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaTitle": "ギアのアップデート",
-  "@otaTitle": {
-    "description": "Title for OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoEditActionDescription": "鉛筆をタップして、イベントが発生したときに実行するアクションを選択します。接続されたギアと互換性のあるアクションがランダムに選択されます。GlowTip アクションと Sound アクションは、Move アクションとともにトリガーされます。",
-  "@triggerInfoEditActionDescription": {
-    "description": "Instruction on how to select an action on the trigger edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります",
-  "@onboardingPrivacyPolicyDescription": {
-    "description": "Description for there being a privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyViewButtonLabel": "プライバシーポリシーを見る",
-  "@onboardingPrivacyPolicyViewButtonLabel": {
-    "description": "Button label to view privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingCompletedTitle": "尻尾を振って幸せに！",
-  "@onboardingCompletedTitle": {
-    "description": "Title of the final page of the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "プライバシーポリシーに同意する",
-  "@onboardingPrivacyPolicyAcceptButtonLabel": {
-    "description": "Button label to accept privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothTitle": "ブルートゥース",
-  "@onboardingBluetoothTitle": {
-    "description": "Title for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothDescription": "ギアに接続するにはBluetoothの許可が必要です",
-  "@onboardingBluetoothDescription": {
-    "description": "Description for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothRequestButtonLabel": "許可を与える",
-  "@onboardingBluetoothRequestButtonLabel": {
-    "description": "Label for the button to request bluetooth permission on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothEnableButtonLabel": "設定を開いてBluetoothをオンにします",
-  "@onboardingBluetoothEnableButtonLabel": {
-    "description": "Label for the button to open bluetooth settings on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingDoneButtonLabel": "終わり",
-  "@onboardingDoneButtonLabel": {
-    "description": "Label for the button to close the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBackToClose": "終了するにはもう一度押してください",
-  "@doubleBackToClose": {
-    "description": "Snackbar message which appears when the back button is pressed at the main screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectClearLabel": "なしを選択",
-  "@triggersSelectClearLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected action",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleTitle": "常に既知のギアをスキャンする",
-  "@settingsAlwaysScanningToggleTitle": {
-    "description": "Settings page always scanning toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaCompletedTitle": "更新が完了しました",
-  "@otaCompletedTitle": {
-    "description": "Title for the text that appears when an OTA update is completed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedTitle": "アップデートに失敗しました。機器を再起動してもう一度お試しください",
-  "@otaFailedTitle": {
-    "description": "Title for the text that appears when an OTA update has failed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleSubTitle": "新しいTail Blog投稿があったときに自動的に通知を受け取る",
-  "@settingsNewsletterToggleSubTitle": {
-    "description": "Settings page newsletter notification toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleTitle": "テールブログ通知を許可する",
-  "@settingsNewsletterToggleTitle": {
-    "description": "Settings page newsletter notification toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonTitle": "カジュアルモード",
-  "@triggerRandomButtonTitle": {
-    "description": "Casual Mode trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonDescription": "選択したアクションをランダムに実行する",
-  "@triggerRandomButtonDescription": {
-    "description": "Casual Mode trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomAction": "アクション",
-  "@triggerRandomAction": {
-    "description": "Casual Mode trigger action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaInProgressTitle": "ギアを更新しています。ギアをオフにしたり、アプリを閉じたりしないでください",
-  "@otaInProgressTitle": {
-    "description": "Label for ota in progress",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaLowBattery": "バッテリー残量が少なくなっています。機器を少なくとも50%まで充電してください",
-  "@otaLowBattery": {
-    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessageTitle": "テールカンパニーアプリへようこそ",
-  "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffDescription": "スキャンを開始するには、上記の既知のデバイス領域を水平にスワイプします。設定で連続スキャンをオンにすることができます。",
-  "@homeContinuousScanningOffDescription": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessage": "ここで、Tail Co のすべてのギアを制御、探索、更新できます。手順とガイドも用意されています。楽しく振ってください!",
-  "@homeWelcomeMessage": {
-    "description": "The welcome message on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeChangelogLinkTitle": "変更履歴",
-  "@homeChangelogLinkTitle": {
-    "description": "Title for Changelog on Home page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeNewsTitle": "しっぽブログの最新情報",
-  "@homeNewsTitle": {
-    "description": "The title header for the news in the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectSaveLabel": "アクションを保存",
-  "@triggersSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesFoundTitle": "ギアが見つかりました。ギア名をタップして接続してください",
-  "@scanDevicesFoundTitle": {
-    "description": "Title when gear is found on the scan for new gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "noLongerSupported": "このギアはサポートされていません。一部のアプリ機能は動作しない可能性があります",
-  "@noLongerSupported": {
-    "description": "Warning message which appears for unsupported gear on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "mandatoryOtaRequired": "お使いの機器をより良くサポートするためのファームウェアアップデートが利用可能です",
-  "@mandatoryOtaRequired": {
-    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsFavoriteTip": "お気に入りに追加するアクションを長押しします",
-  "@actionsFavoriteTip": {
-    "description": "tip message which appears when no actions are favorited on the actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreSourceCode": "ソースコード",
-  "@moreSourceCode": {
-    "description": "Label for the github and dev mode button on the more tab",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioActionCategory": "音響効果",
-  "@audioActionCategory": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioPage": "カスタムサウンド",
-  "@audioPage": {
-    "description": "The label and title of the custom audio management page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEditDescription": "カスタムサウンドエフェクトを管理する",
-  "@audioEditDescription": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEdit": "サウンド効果の名前を変更する",
-  "@audioEdit": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDelete": "サウンド効果を削除",
-  "@audioDelete": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioAdd": "サウンド効果を追加する",
-  "@audioAdd": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDeleteDescription": "このサウンド効果を削除してもよろしいですか?",
-  "@audioDeleteDescription": {
-    "description": "Label for the body of the delete confirmation dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioTipCard": "アクションタブに表示され、トリガーで使用できるカスタムサウンドを追加できます",
-  "@audioTipCard": {
-    "description": "Tutorial card for the audio page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeMiniTail": "ミニテール",
-  "@deviceTypeMiniTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleSubTitle": "既知のギアを継続的にスキャンします。無効にすると、スキャンするにはギア バーをスワイプする必要があります。",
-  "@settingsAlwaysScanningToggleSubTitle": {
-    "description": "Settings page always scanning toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGear": "偽のギア",
-  "@scanDemoGear": {
-    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanAddDemoGear": "偽装ギアを追加",
-  "@scanAddDemoGear": {
-    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanRemoveDemoGear": "偽のギアをすべて取り除く",
-  "@scanRemoveDemoGear": {
-    "description": "Label for the button to remove all demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGearTip": "アプリを試してみたいけれど、ギアが届くのを待っている場合は、偽のギアを追加してください。これにより、ギアを持っているかのようにアプリを体験したり、現在所有していないギアを試したりできます。これにより、「新しいギアのスキャン」ページに新しいセクションが有効になります。",
-  "@scanDemoGearTip": {
-    "description": "Tip Card description for the  demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerActionSelectorTutorialLabel": "アクションは好きなだけ選択できます。接続されたギアと互換性のあるアクションがランダムに選択されます。GlowTip アクションと Sound アクションは Move アクションと並行してトリガーされます。保存することを忘れないでください。",
-  "@triggerActionSelectorTutorialLabel": {
-    "description": "Label for the tutorial card on the Action selector for triggers",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectAllLabel": "すべて選択",
-  "@triggersSelectAllLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joystickWarning": "ジョイスティック機能は実験段階です。自己責任でご使用ください。",
-  "@joystickWarning": {
-    "description": "Label for the warning tutorial card on the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "featureLimitedOtaRequiredLabel": "この機能を使用するには、ギアを更新してください。",
-  "@featureLimitedOtaRequiredLabel": {
-    "description": "Label for the warning card when a feature requires a firmware update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarTitle": "アップデートが利用可能",
-  "@otaAvailableSnackbarTitle": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarTitle": "ギア接続",
-  "@newGearConnectedSnackbarTitle": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarLabel": "幸せに尻尾を振る",
-  "@newGearConnectedSnackbarLabel": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanConnectToAllButtonLabel": "すべてに接続",
-  "@scanConnectToAllButtonLabel": {
-    "description": "Title for Connecting to all found gear on the scan page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarLabel": "ギアをアップデートしてください",
-  "@otaAvailableSnackbarLabel": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersDefSelectSaveLabel": "選択する",
-  "@triggersDefSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "colorPickerTitle": "色を選ぶ",
-  "@colorPickerTitle": {
-    "description": "The title of the color picker",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetoothDescription": "Gear に接続するには Bluetooth が必要です。設定で Bluetooth をオンにしてください。デバイスの Bluetooth 設定中に Gear に接続しないでください。",
-  "@actionsNoBluetoothDescription": {
-    "description": "description on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedTitle": "耳の動きの速さ",
-  "@earSpeedTitle": {
-    "description": "Title for the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedFast": "速い",
-  "@earSpeedFast": {
-    "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedSlow": "遅い",
-  "@earSpeedSlow": {
-    "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "casualModeDelayTitle": "最小および最大遅延",
-  "@casualModeDelayTitle": {
-    "description": "Label for the range slider to set the min and max delay time for casual mode",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionTitle": "ホームポジションを設定する",
-  "@manageGearHomePositionTitle": {
-    "description": "Title for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionDescription": "アクション終了後にギアが移動する位置を設定します",
-  "@manageGearHomePositionDescription": {
-    "description": "Description for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyTitle": "テールブログはWiFiのみ",
-  "@settingsTailBlogWifiOnlyTitle": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyDescription": "モバイルネットワークに接続中にTail Blogのコンテンツが読み込まれないようにする",
-  "@settingsTailBlogWifiOnlyDescription": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeCopy": "クリップボードにコピー",
-  "@manageGearConModePincodeCopy": {
-    "description": "The description for copy to clipboard button on the pin code dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeToggleTitle": "コンベンションモードを有効にする",
-  "@manageGearConModeToggleTitle": {
-    "description": "The description for the convention mode enabled button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageCoverPromoTitle": "ギアの見た目を変えよう！",
-  "@morePageCoverPromoTitle": {
-    "description": "The title for the button on the More page to push users to buy a new cover",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportDescription": "サポートに連絡するには青いチャットアイコンをタップしてください",
-  "@supportDescription": {
-    "description": "The description of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeTitle": "コンベンションモード",
-  "@manageGearConModeTitle": {
-    "description": "The title for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeTitle": "PINコードを表示",
-  "@manageGearConModePincodeTitle": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeEnableDescription": "コンベンションモードを有効にすると、ギアが再起動され、PINコードの入力を求められます。コードはクリップボードにコピーされます",
-  "@manageGearConModePincodeEnableDescription": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateTitle": "ローカライズ",
-  "@morePageTranslateTitle": {
-    "description": "The title for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateDescription": "アプリをあなたの言語に翻訳するのを手伝ってください",
-  "@morePageTranslateDescription": {
-    "description": "The description for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "appLanguageSelectorTitle": "アプリの言語",
-  "@appLanguageSelectorTitle": {
-    "description": "The title for the button and dialog to select the app language",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearTitle": "あなたのギア",
-  "@watchKnownGearTitle": {
-    "description": "The title for the known gear section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearNoGearPairedTip": "スマホで「新しいギアをスキャン」ボタンを使ってギアをペアリング",
-  "@watchKnownGearNoGearPairedTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsTitle": "お気に入りのアクション",
-  "@watchFavoriteActionsTitle": {
-    "description": "title for the favorite actions section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsNoFavoritesTip": "スマホでアクションを長押ししてお気に入りに追加",
-  "@watchFavoriteActionsNoFavoritesTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonMD5Mismatch": "ダウンロードしたファイルの検証に失敗しました",
-  "@otaFailedReasonMD5Mismatch": {
-    "description": "md5Mismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonDownloadFailed": "ファームウェアのダウンロードに失敗しました",
-  "@otaFailedReasonDownloadFailed": {
-    "description": "downloadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearVersionMismatch": "ギアのファームウェアバージョンがアップロードされたバージョンと一致しません",
-  "@otaFailedReasonGearVersionMismatch": {
-    "description": "gearVersionMismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutHardwareVersionLabel": "ハードウェアバージョン",
-  "@manageDevicesAboutHardwareVersionLabel": {
-    "description": "label for the hardware version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportTitle": "サポート",
-  "@supportTitle": {
-    "description": "The label and title of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeDescription": "コンベンションモードは、他のデバイスがギアに接続するのを防ぐための追加のセキュリティ機能です。",
-  "@manageGearConModeDescription": {
-    "description": "The description for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckButtonLabel": "アップデートを確認",
-  "@manageDevicesOtaCheckButtonLabel": {
-    "description": "manage devices button to check if an update is available",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaUpToDateButtonLabel": "ギアは最新の状態です！",
-  "@manageDevicesOtaUpToDateButtonLabel": {
-    "description": "manage devices button label if gear is up to date",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckInProgressButtonLabel": "確認中",
-  "@manageDevicesOtaCheckInProgressButtonLabel": {
-    "description": "manage devices button label if gear is checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckErrorButtonLabel": "後でもう一度お試しください",
-  "@manageDevicesOtaCheckErrorButtonLabel": {
-    "description": "manage devices button label if an error occured while checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutLabel": "あなたのギアについて",
-  "@manageDevicesAboutLabel": {
-    "description": "label for the about your gear section in the manage devices area",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutSoftwareVersionLabel": "ソフトウェアバージョン",
-  "@manageDevicesAboutSoftwareVersionLabel": {
-    "description": "label for the software version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReturnedError": "ギアが不明なエラーを返しました",
-  "@otaFailedReasonGearReturnedError": {
-    "description": "gearReturnedError error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonUploadFailed": "ギアへのファームウェアのアップロードに失敗しました",
-  "@otaFailedReasonUploadFailed": {
-    "description": "uploadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReconnectTimeout": "ギアが時間内に再接続されませんでした",
-  "@otaFailedReasonGearReconnectTimeout": {
-    "description": "gearReconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearDisconnectTimeout": "ギアが時間内に切断されず、再起動もされなかった可能性があります",
-  "@otaFailedReasonGearDisconnectTimeout": {
-    "description": "gearDisconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearOtaFinalTimeout": "新しいファームウェアバージョンの応答待ちでタイムアウトしました",
-  "@otaFailedReasonGearOtaFinalTimeout": {
-    "description": "gearOtaFinalTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPageDescription": "アプリに関する提案や問題がありますか？ぜひご連絡ください。※これは匿名で送信され、ギアの問題解決には使用できません",
-  "@feedbackPageDescription": {
-    "description": "The description of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreExperimentalTitle": "実験的",
-  "@moreExperimentalTitle": {
-    "description": "The label for the experimental features on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoTitle": "CosHub",
-  "@moreCoshubPromoTitle": {
-    "description": "The title for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoDescription": "コスプレを計画・共有・作成するための最新アプリが登場",
-  "@moreCoshubPromoDescription": {
-    "description": "The description for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesOnboardingTitle": "ギアを接続しよう",
-  "@scanDevicesOnboardingTitle": {
-    "description": "Title for the gear pairing screen in onboarding",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleTitle": "マーケティング通知を許可する",
-  "@settingsMarketingNotificationsToggleTitle": {
-    "description": "Settings page marketing notifications toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleSubTitle": "新しいブログ投稿やセールの通知を許可する。",
-  "@settingsMarketingNotificationsToggleSubTitle": {
-    "description": "Settings page marketing notifications toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleTitle": "UwU翻訳機",
-  "@settingsUwUToggleTitle": {
-    "description": "Settings page UwU text toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleSubTitle": "OwO、これは何？",
-  "@settingsUwUToggleSubTitle": {
-    "description": "Settings page UwU text toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  }
+    "triggerActionNotSet": "アクションセットなし",
+    "@triggerActionNotSet": {
+        "description": "Trigger action label when no action set",
+        "type": "text",
+        "placeholders": {}
+    },
+    "title": "テールカンパニー",
+    "@title": {
+        "description": "The name of the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPage": "ジョイスティック",
+    "@joyStickPage": {
+        "description": "The label and title of the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPage": "カスタムアクション",
+    "@feedbackPage": {
+        "description": "The label and title of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "aboutPage": "について",
+    "@aboutPage": {
+        "description": "The label and title of the about page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsPage": "について",
+    "@settingsPage": {
+        "description": "The label and title of the settings page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersPage": "について",
+    "@triggersPage": {
+        "description": "The label and title of the trigger page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPage": "カスタムアクション",
+    "@sequencesPage": {
+        "description": "The label and title of the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectLabel": "トリガータイプを選択",
+    "@triggersSelectLabel": {
+        "description": "The title of the add trigger dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ok": "わかりました",
+    "@ok": {
+        "description": "Ok on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "cancel": "キャンセル",
+    "@cancel": {
+        "description": "Cancel on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersAdd": "トリガーを追加",
+    "@triggersAdd": {
+        "description": "Floating Action Button on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceType": "これはどのギアに適用されますか?",
+    "@deviceType": {
+        "description": "Title for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeTail": "しっぽ",
+    "@deviceTypeTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeEars": "耳",
+    "@deviceTypeEars": {
+        "description": "Ears option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeWings": "翼",
+    "@deviceTypeWings": {
+        "description": "Wings option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesAdd": "新しいアクション",
+    "@sequencesAdd": {
+        "description": "Floating Action Button on the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEdit": "編集アクション",
+    "@sequencesEdit": {
+        "description": "Label for the edit icon on a sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditAdd": "移動を追加",
+    "@sequencesEditAdd": {
+        "description": "Label for the add Floating Action Button on edit sequence page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditName": "名前",
+    "@sequencesEditName": {
+        "description": "Label for the name field on sequence edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditMove": "動く",
+    "@sequencesEditMove": {
+        "description": "Label for the move tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDelay": "遅れ",
+    "@sequencesEditDelay": {
+        "description": "Label for the delay tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditLeftServo": "左サーボの位置",
+    "@sequencesEditLeftServo": {
+        "description": "Label for the left servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditRightServo": "左サーボの位置",
+    "@sequencesEditRightServo": {
+        "description": "Label for the right servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditSpeed": "ギアはこの位置にどのくらいの速さで移動する必要がありますか?",
+    "@sequencesEditSpeed": {
+        "description": "Label for the speed selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditEasing": "イージングタイプ",
+    "@sequencesEditEasing": {
+        "description": "Label for the easing selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditTime": "このカスタムアクションで次の動作に進む前にどれくらい待つか",
+    "@sequencesEditTime": {
+        "description": "Label for the time slider on the delay tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditHomeLabel": "ホームギア",
+    "@sequencesEditHomeLabel": {
+        "description": "Label on the home tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteTitle": "削除アクション",
+    "@sequencesEditDeleteTitle": {
+        "description": "Title of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteDescription": "このアクションを削除してもよろしいですか?",
+    "@sequencesEditDeleteDescription": {
+        "description": "Message of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditListDelayLabel": "次の動きを{howMany}ミリ秒遅らせます。",
+    "@sequenceEditListDelayLabel": {
+        "description": "Delay move label on the edit sequences page.",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetooth": "Bluetoothは利用できません",
+    "@actionsNoBluetooth": {
+        "description": "Label on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryCalm": "穏やかでリラックスした",
+    "@actionsCategoryCalm": {
+        "description": "calm action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryFast": "速くて興奮",
+    "@actionsCategoryFast": {
+        "description": "fast action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryTense": "イライラと緊張",
+    "@actionsCategoryTense": {
+        "description": "tense action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryGlowtip": "グローチップ",
+    "@actionsCategoryGlowtip": {
+        "description": "glowtip action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleTitle": "触覚フィードバック",
+    "@settingsHapticsToggleTitle": {
+        "description": "Settings page haptic feedback toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleSubTitle": "アクションをタップすると振動を有効にする",
+    "@settingsHapticsToggleSubTitle": {
+        "description": "Settings page haptic feedback toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleTitle": "自動エラー報告",
+    "@settingsErrorReportingToggleTitle": {
+        "description": "Settings page error reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleSubTitle": "自動エラー報告",
+    "@settingsErrorReportingToggleSubTitle": {
+        "description": "Settings page error reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesDisconnect": "更新が完了しました",
+    "@manageDevicesDisconnect": {
+        "description": "manage devices disconnect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesForget": "忘れる",
+    "@manageDevicesForget": {
+        "description": "manage devices forget button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesScanMessage": "ギアをスキャンしています。ギアの電源が入っていて近くにあることを確認してください",
+    "@scanDevicesScanMessage": {
+        "description": "scan for devices scan in progress message when scanning for a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingTitle": "ウォーキング",
+    "@triggerWalkingTitle": {
+        "description": "Walking/Step trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingDescription": "歩くときにアクションをトリガーする",
+    "@triggerWalkingDescription": {
+        "description": "Walking/Step trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStopped": "停止",
+    "@triggerWalkingStopped": {
+        "description": "Walking/Step trigger Stopped action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStep": "ステップ",
+    "@triggerWalkingStep": {
+        "description": "Walking/Step trigger Step action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverTitle": "カバー",
+    "@triggerCoverTitle": {
+        "description": "Cover trigger Title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverDescription": "近接センサーを覆うことでアクションをトリガーする",
+    "@triggerCoverDescription": {
+        "description": "Cover trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverNear": "対象デバイス",
+    "@triggerCoverNear": {
+        "description": "Cover trigger near action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverFar": "デバイスがカバーされていません",
+    "@triggerCoverFar": {
+        "description": "Cover trigger far action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonTitle": "音量ボタン",
+    "@triggerVolumeButtonTitle": {
+        "description": "Volume Button trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonDescription": "音量ボタンを押してアクションをトリガーする",
+    "@triggerVolumeButtonDescription": {
+        "description": "Volume Button trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeUp": "音量を上げる",
+    "@triggerVolumeButtonVolumeUp": {
+        "description": "Volume Button trigger volume up action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeDown": "ボリュームダウン",
+    "@triggerVolumeButtonVolumeDown": {
+        "description": "Volume Button trigger volume down action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeTitle": "音量ボタン",
+    "@triggerShakeTitle": {
+        "description": "Shake trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeDescription": "デバイスを振ってアクションをトリガーします",
+    "@triggerShakeDescription": {
+        "description": "Shake trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityTitle": "デバイスを振ってアクションをトリガーします",
+    "@triggerProximityTitle": {
+        "description": "Proximity trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityDescription": "ギアが近くにある場合はアクションをトリガーする",
+    "@triggerProximityDescription": {
+        "description": "Proximity trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesBatteryGraphTitle": "バッテリーグラフ",
+    "@manageDevicesBatteryGraphTitle": {
+        "description": "battery graph expansion tile title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesShutdown": "シャットダウン",
+    "@manageDevicesShutdown": {
+        "description": "manage devices shutdown button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesColor": "ギアカラー",
+    "@manageDevicesColor": {
+        "description": "manage devices color picker button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaButton": "タップしてファームウェアを更新",
+    "@manageDevicesOtaButton": {
+        "description": "manage devices ota available button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltForward": "前方傾斜",
+    "@triggerEarTiltForward": {
+        "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltBackward": "後方傾斜",
+    "@triggerEarTiltBackward": {
+        "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditRepeatTitle": "このアクションを何回繰り返しますか?",
+    "@sequenceEditRepeatTitle": {
+        "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsSelectScreen": "アクションを選択",
+    "@actionsSelectScreen": {
+        "description": "Title for action select menu on triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAppColor": "アプリの色",
+    "@settingsAppColor": {
+        "description": "Settings page app color picker button title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesTitle": "新しいギアをスキャンする",
+    "@scanDevicesTitle": {
+        "description": "button which opens the scan window",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicTitle": "イヤーギアマイク",
+    "@triggerEarMicTitle": {
+        "description": "EarGear internal mic trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicDescription": "EarGearが音を検知するとアクションが実行されます",
+    "@triggerEarMicDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicSound": "音が検出されました",
+    "@triggerEarMicSound": {
+        "description": "EarGear internal mic trigger sound detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltTitle": "EarGear 傾斜センサー",
+    "@triggerEarTiltTitle": {
+        "description": "EarGear internal gesture sensor trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltDescription": "EarGearが傾きを検知するとアクションがトリガーされます",
+    "@triggerEarTiltDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltLeft": "左に傾ける",
+    "@triggerEarTiltLeft": {
+        "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltRight": "シェイク",
+    "@triggerEarTiltRight": {
+        "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesConnect": "接続する",
+    "@manageDevicesConnect": {
+        "description": "manage devices connect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualResponsibleWaggingTitle": "責任ある尻尾の振り方",
+    "@moreManualResponsibleWaggingTitle": {
+        "description": "Title for Responsible wagging manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualMiTailTitle": "MiTail マニュアル",
+    "@moreManualMiTailTitle": {
+        "description": "Title for MiTail manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualEargearTitle": "イヤーギアマニュアル",
+    "@moreManualEargearTitle": {
+        "description": "Title for EarGear manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualFlutterWingsTitle": "FlutterWings マニュアル",
+    "@moreManualFlutterWingsTitle": {
+        "description": "Title for FlutterWings manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualTitle": "マニュアル",
+    "@moreManualTitle": {
+        "description": "Title for manual header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualSubTitle": "タップして表示",
+    "@moreManualSubTitle": {
+        "description": "Subtitle for each manual on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreUsefulLinksTitle": "更新が完了しました",
+    "@moreUsefulLinksTitle": {
+        "description": "Title for Useful Links header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsDescription": "アプリの色を変更したり、触覚を設定したり、その他",
+    "@settingsDescription": {
+        "description": "The description of the settings page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleTitle": "匿名分析を許可する",
+    "@settingsAnalyticsToggleTitle": {
+        "description": "Settings page analytics reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleSubTitle": "アプリの機能強化のため、識別されない機能の使用状況を Plausible に報告してください",
+    "@settingsAnalyticsToggleSubTitle": {
+        "description": "Settings page analytics reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePrivacyPolicyLinkTitle": "プライバシーポリシー",
+    "@morePrivacyPolicyLinkTitle": {
+        "description": "Title for UPrivacy policy link under Useful Links on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleTitle": "常に既知のギアをスキャンする",
+    "@settingsKeepScreenOnToggleTitle": {
+        "description": "Settings page Keep Awake toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleSubTitle": "画面をオンにしたままにする",
+    "@settingsKeepScreenOnToggleSubTitle": {
+        "description": "Settings page Keep Awake toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreTitle": "もっと",
+    "@moreTitle": {
+        "description": "Title for More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPageDescription": "について",
+    "@sequencesPageDescription": {
+        "description": "The description of the sequences page link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleTitle": "キツネモード",
+    "@settingsKitsuneToggleTitle": {
+        "description": "Settings page Kitsune mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleSubTitle": "同じデバイスのインスタンスを多数接続すると、このモードでは移動開始時間にランダムな一時停止が追加され、異なる視覚効果が得られます。",
+    "@settingsKitsuneToggleSubTitle": {
+        "description": "Settings page kitsune toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPageDescription": "ギアの位置を直接操作できます。",
+    "@joyStickPageDescription": {
+        "description": "The description of the joystick page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaChangelogLabel": "ファームウェアの変更履歴",
+    "@otaChangelogLabel": {
+        "description": "Label for changelog section of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaDownloadButtonLabel": "OTAアップデートを開始",
+    "@otaDownloadButtonLabel": {
+        "description": "Label for download firmware button at bottom of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoDescription": "トリガーはギアにアクションを自動的に送信します。複数のトリガーを同時にアクティブにすることができます。トリガーをタップして編集し、左側のトグルを使用してトリガーを有効にします。",
+    "@triggerInfoDescription": {
+        "description": "Description for what a trigger is and how to use them on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoDescription": "カスタム アクションを使用すると、ギア用の独自のアクションを作成できます。カスタム アクションをタップすると、そのアクションが再生されます。鉛筆をタップしてカスタム アクションを編集します。ギアのファームウェアが最新であることを確認してください。",
+    "@sequencesInfoDescription": {
+        "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoEditDescription": "各カスタムアクションは 1 ～ 6 個の動きから構成され、最大 5 回繰り返すことができます。動きを長押しすると順序を変更できます。",
+    "@sequencesInfoEditDescription": {
+        "description": "Description for making a custom action on the edit Custom Action page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleTitle": "バッテリー残量を表示",
+    "@settingsBatteryPercentageToggleTitle": {
+        "description": "Settings page Battery Percentage mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleSubTitle": "アイコンの代わりに実際のバッテリーレベルを表示する",
+    "@settingsBatteryPercentageToggleSubTitle": {
+        "description": "Settings page show battery percentage toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleTitle": "大きなカード",
+    "@settingsLargerCardsToggleTitle": {
+        "description": "Settings page Larger cards toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleSubTitle": "アクションカードを大きくしてタップしやすくしました",
+    "@settingsLargerCardsToggleSubTitle": {
+        "description": "Settings page show larger cards toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleTitle": "チュートリアルカードを非表示",
+    "@settingsTutorialCardToggleTitle": {
+        "description": "Settings page tutorial card display toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleSubTitle": "アプリ全体のさまざまなチュートリアルカードを非表示にする",
+    "@settingsTutorialCardToggleSubTitle": {
+        "description": "Settings page tutorial card display toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaTitle": "ギアのアップデート",
+    "@otaTitle": {
+        "description": "Title for OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoEditActionDescription": "鉛筆をタップして、イベントが発生したときに実行するアクションを選択します。接続されたギアと互換性のあるアクションがランダムに選択されます。GlowTip アクションと Sound アクションは、Move アクションとともにトリガーされます。",
+    "@triggerInfoEditActionDescription": {
+        "description": "Instruction on how to select an action on the trigger edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyDescription": "収集されたデータは匿名であり、特定のユーザーを識別するために使用することはできませんが、プライバシーポリシーに同意する必要があります",
+    "@onboardingPrivacyPolicyDescription": {
+        "description": "Description for there being a privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyViewButtonLabel": "プライバシーポリシーを見る",
+    "@onboardingPrivacyPolicyViewButtonLabel": {
+        "description": "Button label to view privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingCompletedTitle": "尻尾を振って幸せに！",
+    "@onboardingCompletedTitle": {
+        "description": "Title of the final page of the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyAcceptButtonLabel": "プライバシーポリシーに同意する",
+    "@onboardingPrivacyPolicyAcceptButtonLabel": {
+        "description": "Button label to accept privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothTitle": "ブルートゥース",
+    "@onboardingBluetoothTitle": {
+        "description": "Title for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothDescription": "ギアに接続するにはBluetoothの許可が必要です",
+    "@onboardingBluetoothDescription": {
+        "description": "Description for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothRequestButtonLabel": "許可を与える",
+    "@onboardingBluetoothRequestButtonLabel": {
+        "description": "Label for the button to request bluetooth permission on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothEnableButtonLabel": "設定を開いてBluetoothをオンにします",
+    "@onboardingBluetoothEnableButtonLabel": {
+        "description": "Label for the button to open bluetooth settings on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingDoneButtonLabel": "終わり",
+    "@onboardingDoneButtonLabel": {
+        "description": "Label for the button to close the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "doubleBackToClose": "終了するにはもう一度押してください",
+    "@doubleBackToClose": {
+        "description": "Snackbar message which appears when the back button is pressed at the main screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectClearLabel": "なしを選択",
+    "@triggersSelectClearLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected action",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleTitle": "常に既知のギアをスキャンする",
+    "@settingsAlwaysScanningToggleTitle": {
+        "description": "Settings page always scanning toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaCompletedTitle": "更新が完了しました",
+    "@otaCompletedTitle": {
+        "description": "Title for the text that appears when an OTA update is completed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedTitle": "アップデートに失敗しました。機器を再起動してもう一度お試しください",
+    "@otaFailedTitle": {
+        "description": "Title for the text that appears when an OTA update has failed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleSubTitle": "新しいTail Blog投稿があったときに自動的に通知を受け取る",
+    "@settingsNewsletterToggleSubTitle": {
+        "description": "Settings page newsletter notification toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleTitle": "テールブログ通知を許可する",
+    "@settingsNewsletterToggleTitle": {
+        "description": "Settings page newsletter notification toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonTitle": "カジュアルモード",
+    "@triggerRandomButtonTitle": {
+        "description": "Casual Mode trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonDescription": "選択したアクションをランダムに実行する",
+    "@triggerRandomButtonDescription": {
+        "description": "Casual Mode trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomAction": "アクション",
+    "@triggerRandomAction": {
+        "description": "Casual Mode trigger action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaInProgressTitle": "ギアを更新しています。ギアをオフにしたり、アプリを閉じたりしないでください",
+    "@otaInProgressTitle": {
+        "description": "Label for ota in progress",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaLowBattery": "バッテリー残量が少なくなっています。機器を少なくとも50%まで充電してください",
+    "@otaLowBattery": {
+        "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessageTitle": "テールカンパニーアプリへようこそ",
+    "@homeWelcomeMessageTitle": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeContinuousScanningOffDescription": "スキャンを開始するには、上記の既知のデバイス領域を水平にスワイプします。設定で連続スキャンをオンにすることができます。",
+    "@homeContinuousScanningOffDescription": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessage": "ここで、Tail Co のすべてのギアを制御、探索、更新できます。手順とガイドも用意されています。楽しく振ってください!",
+    "@homeWelcomeMessage": {
+        "description": "The welcome message on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeChangelogLinkTitle": "変更履歴",
+    "@homeChangelogLinkTitle": {
+        "description": "Title for Changelog on Home page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeNewsTitle": "しっぽブログの最新情報",
+    "@homeNewsTitle": {
+        "description": "The title header for the news in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectSaveLabel": "アクションを保存",
+    "@triggersSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesFoundTitle": "ギアが見つかりました。ギア名をタップして接続してください",
+    "@scanDevicesFoundTitle": {
+        "description": "Title when gear is found on the scan for new gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "noLongerSupported": "このギアはサポートされていません。一部のアプリ機能は動作しない可能性があります",
+    "@noLongerSupported": {
+        "description": "Warning message which appears for unsupported gear on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "mandatoryOtaRequired": "お使いの機器をより良くサポートするためのファームウェアアップデートが利用可能です",
+    "@mandatoryOtaRequired": {
+        "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsFavoriteTip": "お気に入りに追加するアクションを長押しします",
+    "@actionsFavoriteTip": {
+        "description": "tip message which appears when no actions are favorited on the actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreSourceCode": "ソースコード",
+    "@moreSourceCode": {
+        "description": "Label for the github and dev mode button on the more tab",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioActionCategory": "音響効果",
+    "@audioActionCategory": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioPage": "カスタムサウンド",
+    "@audioPage": {
+        "description": "The label and title of the custom audio management page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEditDescription": "カスタムサウンドエフェクトを管理する",
+    "@audioEditDescription": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEdit": "サウンド効果の名前を変更する",
+    "@audioEdit": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDelete": "サウンド効果を削除",
+    "@audioDelete": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioAdd": "サウンド効果を追加する",
+    "@audioAdd": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDeleteDescription": "このサウンド効果を削除してもよろしいですか?",
+    "@audioDeleteDescription": {
+        "description": "Label for the body of the delete confirmation dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioTipCard": "アクションタブに表示され、トリガーで使用できるカスタムサウンドを追加できます",
+    "@audioTipCard": {
+        "description": "Tutorial card for the audio page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeMiniTail": "ミニテール",
+    "@deviceTypeMiniTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleSubTitle": "既知のギアを継続的にスキャンします。無効にすると、スキャンするにはギア バーをスワイプする必要があります。",
+    "@settingsAlwaysScanningToggleSubTitle": {
+        "description": "Settings page always scanning toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGear": "偽のギア",
+    "@scanDemoGear": {
+        "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanAddDemoGear": "偽装ギアを追加",
+    "@scanAddDemoGear": {
+        "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanRemoveDemoGear": "偽のギアをすべて取り除く",
+    "@scanRemoveDemoGear": {
+        "description": "Label for the button to remove all demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGearTip": "アプリを試してみたいけれど、ギアが届くのを待っている場合は、偽のギアを追加してください。これにより、ギアを持っているかのようにアプリを体験したり、現在所有していないギアを試したりできます。これにより、「新しいギアのスキャン」ページに新しいセクションが有効になります。",
+    "@scanDemoGearTip": {
+        "description": "Tip Card description for the  demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerActionSelectorTutorialLabel": "アクションは好きなだけ選択できます。接続されたギアと互換性のあるアクションがランダムに選択されます。GlowTip アクションと Sound アクションは Move アクションと並行してトリガーされます。保存することを忘れないでください。",
+    "@triggerActionSelectorTutorialLabel": {
+        "description": "Label for the tutorial card on the Action selector for triggers",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectAllLabel": "すべて選択",
+    "@triggersSelectAllLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joystickWarning": "ジョイスティック機能は実験段階です。自己責任でご使用ください。",
+    "@joystickWarning": {
+        "description": "Label for the warning tutorial card on the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "featureLimitedOtaRequiredLabel": "この機能を使用するには、ギアを更新してください。",
+    "@featureLimitedOtaRequiredLabel": {
+        "description": "Label for the warning card when a feature requires a firmware update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarTitle": "アップデートが利用可能",
+    "@otaAvailableSnackbarTitle": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarTitle": "ギア接続",
+    "@newGearConnectedSnackbarTitle": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarLabel": "幸せに尻尾を振る",
+    "@newGearConnectedSnackbarLabel": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanConnectToAllButtonLabel": "すべてに接続",
+    "@scanConnectToAllButtonLabel": {
+        "description": "Title for Connecting to all found gear on the scan page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarLabel": "ギアをアップデートしてください",
+    "@otaAvailableSnackbarLabel": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersDefSelectSaveLabel": "選択する",
+    "@triggersDefSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "colorPickerTitle": "色を選ぶ",
+    "@colorPickerTitle": {
+        "description": "The title of the color picker",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetoothDescription": "Gear に接続するには Bluetooth が必要です。設定で Bluetooth をオンにしてください。デバイスの Bluetooth 設定中に Gear に接続しないでください。",
+    "@actionsNoBluetoothDescription": {
+        "description": "description on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedTitle": "耳の動きの速さ",
+    "@earSpeedTitle": {
+        "description": "Title for the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedFast": "速い",
+    "@earSpeedFast": {
+        "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedSlow": "遅い",
+    "@earSpeedSlow": {
+        "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "casualModeDelayTitle": "最小および最大遅延",
+    "@casualModeDelayTitle": {
+        "description": "Label for the range slider to set the min and max delay time for casual mode",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionTitle": "ホームポジションを設定する",
+    "@manageGearHomePositionTitle": {
+        "description": "Title for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionDescription": "アクション終了後にギアが移動する位置を設定します",
+    "@manageGearHomePositionDescription": {
+        "description": "Description for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyTitle": "テールブログはWiFiのみ",
+    "@settingsTailBlogWifiOnlyTitle": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyDescription": "モバイルネットワークに接続中にTail Blogのコンテンツが読み込まれないようにする",
+    "@settingsTailBlogWifiOnlyDescription": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeCopy": "クリップボードにコピー",
+    "@manageGearConModePincodeCopy": {
+        "description": "The description for copy to clipboard button on the pin code dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeToggleTitle": "コンベンションモードを有効にする",
+    "@manageGearConModeToggleTitle": {
+        "description": "The description for the convention mode enabled button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageCoverPromoTitle": "ギアの見た目を変えよう！",
+    "@morePageCoverPromoTitle": {
+        "description": "The title for the button on the More page to push users to buy a new cover",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportDescription": "サポートに連絡するには青いチャットアイコンをタップしてください",
+    "@supportDescription": {
+        "description": "The description of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeTitle": "コンベンションモード",
+    "@manageGearConModeTitle": {
+        "description": "The title for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeTitle": "PINコードを表示",
+    "@manageGearConModePincodeTitle": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeEnableDescription": "コンベンションモードを有効にすると、ギアが再起動され、PINコードの入力を求められます。コードはクリップボードにコピーされます",
+    "@manageGearConModePincodeEnableDescription": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateTitle": "ローカライズ",
+    "@morePageTranslateTitle": {
+        "description": "The title for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateDescription": "アプリをあなたの言語に翻訳するのを手伝ってください",
+    "@morePageTranslateDescription": {
+        "description": "The description for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "appLanguageSelectorTitle": "アプリの言語",
+    "@appLanguageSelectorTitle": {
+        "description": "The title for the button and dialog to select the app language",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearTitle": "あなたのギア",
+    "@watchKnownGearTitle": {
+        "description": "The title for the known gear section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearNoGearPairedTip": "スマホで「新しいギアをスキャン」ボタンを使ってギアをペアリング",
+    "@watchKnownGearNoGearPairedTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsTitle": "お気に入りのアクション",
+    "@watchFavoriteActionsTitle": {
+        "description": "title for the favorite actions section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsNoFavoritesTip": "スマホでアクションを長押ししてお気に入りに追加",
+    "@watchFavoriteActionsNoFavoritesTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonMD5Mismatch": "ダウンロードしたファイルの検証に失敗しました",
+    "@otaFailedReasonMD5Mismatch": {
+        "description": "md5Mismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonDownloadFailed": "ファームウェアのダウンロードに失敗しました",
+    "@otaFailedReasonDownloadFailed": {
+        "description": "downloadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearVersionMismatch": "ギアのファームウェアバージョンがアップロードされたバージョンと一致しません",
+    "@otaFailedReasonGearVersionMismatch": {
+        "description": "gearVersionMismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutHardwareVersionLabel": "ハードウェアバージョン",
+    "@manageDevicesAboutHardwareVersionLabel": {
+        "description": "label for the hardware version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportTitle": "サポート",
+    "@supportTitle": {
+        "description": "The label and title of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeDescription": "コンベンションモードは、他のデバイスがギアに接続するのを防ぐための追加のセキュリティ機能です。",
+    "@manageGearConModeDescription": {
+        "description": "The description for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckButtonLabel": "アップデートを確認",
+    "@manageDevicesOtaCheckButtonLabel": {
+        "description": "manage devices button to check if an update is available",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaUpToDateButtonLabel": "ギアは最新の状態です！",
+    "@manageDevicesOtaUpToDateButtonLabel": {
+        "description": "manage devices button label if gear is up to date",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckInProgressButtonLabel": "確認中",
+    "@manageDevicesOtaCheckInProgressButtonLabel": {
+        "description": "manage devices button label if gear is checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckErrorButtonLabel": "後でもう一度お試しください",
+    "@manageDevicesOtaCheckErrorButtonLabel": {
+        "description": "manage devices button label if an error occured while checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutLabel": "あなたのギアについて",
+    "@manageDevicesAboutLabel": {
+        "description": "label for the about your gear section in the manage devices area",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutSoftwareVersionLabel": "ソフトウェアバージョン",
+    "@manageDevicesAboutSoftwareVersionLabel": {
+        "description": "label for the software version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReturnedError": "ギアが不明なエラーを返しました",
+    "@otaFailedReasonGearReturnedError": {
+        "description": "gearReturnedError error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonUploadFailed": "ギアへのファームウェアのアップロードに失敗しました",
+    "@otaFailedReasonUploadFailed": {
+        "description": "uploadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReconnectTimeout": "ギアが時間内に再接続されませんでした",
+    "@otaFailedReasonGearReconnectTimeout": {
+        "description": "gearReconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearDisconnectTimeout": "ギアが時間内に切断されず、再起動もされなかった可能性があります",
+    "@otaFailedReasonGearDisconnectTimeout": {
+        "description": "gearDisconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearOtaFinalTimeout": "新しいファームウェアバージョンの応答待ちでタイムアウトしました",
+    "@otaFailedReasonGearOtaFinalTimeout": {
+        "description": "gearOtaFinalTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPageDescription": "アプリに関する提案や問題がありますか？ぜひご連絡ください。※これは匿名で送信され、ギアの問題解決には使用できません",
+    "@feedbackPageDescription": {
+        "description": "The description of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreExperimentalTitle": "実験的",
+    "@moreExperimentalTitle": {
+        "description": "The label for the experimental features on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoTitle": "CosHub",
+    "@moreCoshubPromoTitle": {
+        "description": "The title for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoDescription": "コスプレを計画・共有・作成するための最新アプリが登場",
+    "@moreCoshubPromoDescription": {
+        "description": "The description for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingTitle": "ギアを接続しよう",
+    "@scanDevicesOnboardingTitle": {
+        "description": "Title for the gear pairing screen in onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleTitle": "マーケティング通知を許可する",
+    "@settingsMarketingNotificationsToggleTitle": {
+        "description": "Settings page marketing notifications toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleSubTitle": "新しいブログ投稿やセールの通知を許可する。",
+    "@settingsMarketingNotificationsToggleSubTitle": {
+        "description": "Settings page marketing notifications toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleTitle": "UwU翻訳機",
+    "@settingsUwUToggleTitle": {
+        "description": "Settings page UwU text toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleSubTitle": "OwO、これは何？",
+    "@settingsUwUToggleSubTitle": {
+        "description": "Settings page UwU text toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    }
 }

@@ -1,1286 +1,1286 @@
 {
-  "aboutPage": "О",
-  "@aboutPage": {
-    "description": "The label and title of the about page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsPage": "Настройки",
-  "@settingsPage": {
-    "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersPage": "Триггеры",
-  "@triggersPage": {
-    "description": "The label and title of the trigger page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPage": "Пользовательские действия",
-  "@sequencesPage": {
-    "description": "The label and title of the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectLabel": "Выберите тип триггера",
-  "@triggersSelectLabel": {
-    "description": "The title of the add trigger dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "cancel": "Отмена",
-  "@cancel": {
-    "description": "Cancel on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersAdd": "Добавить триггер",
-  "@triggersAdd": {
-    "description": "Floating Action Button on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceType": "К какому механизму это должно относиться?",
-  "@deviceType": {
-    "description": "Title for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeTail": "Хвост",
-  "@deviceTypeTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeEars": "Уши",
-  "@deviceTypeEars": {
-    "description": "Ears option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeWings": "Крылья",
-  "@deviceTypeWings": {
-    "description": "Wings option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesAdd": "Новое действие",
-  "@sequencesAdd": {
-    "description": "Floating Action Button on the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEdit": "Изменить действие",
-  "@sequencesEdit": {
-    "description": "Label for the edit icon on a sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditAdd": "Добавить ход",
-  "@sequencesEditAdd": {
-    "description": "Label for the add Floating Action Button on edit sequence page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditName": "Имя",
-  "@sequencesEditName": {
-    "description": "Label for the name field on sequence edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditMove": "Двигаться",
-  "@sequencesEditMove": {
-    "description": "Label for the move tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDelay": "Задерживать",
-  "@sequencesEditDelay": {
-    "description": "Label for the delay tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditLeftServo": "Положение левого сервопривода",
-  "@sequencesEditLeftServo": {
-    "description": "Label for the left servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditRightServo": "Положение правого сервопривода",
-  "@sequencesEditRightServo": {
-    "description": "Label for the right servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeed": "С какой скоростью шестерня должна переместиться в это положение?",
-  "@sequencesEditSpeed": {
-    "description": "Label for the speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditEasing": "Тип замедления",
-  "@sequencesEditEasing": {
-    "description": "Label for the easing selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditTime": "Как долго ждать, прежде чем перейти к следующему шагу в этом специальном действии",
-  "@sequencesEditTime": {
-    "description": "Label for the time slider on the delay tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditHomeLabel": "Главная Шестерня",
-  "@sequencesEditHomeLabel": {
-    "description": "Label on the home tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteTitle": "Удалить действие",
-  "@sequencesEditDeleteTitle": {
-    "description": "Title of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteDescription": "Вы уверены, что хотите удалить это действие?",
-  "@sequencesEditDeleteDescription": {
-    "description": "Message of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditListDelayLabel": "Задержка следующего хода на {howMany} мс.",
-  "@sequenceEditListDelayLabel": {
-    "description": "Delay move label on the edit sequences page.",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetooth": "Задерживать",
-  "@actionsNoBluetooth": {
-    "description": "Label on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryCalm": "Спокойный и расслабленный",
-  "@actionsCategoryCalm": {
-    "description": "calm action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryFast": "Быстрый и взволнованный",
-  "@actionsCategoryFast": {
-    "description": "fast action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryTense": "Разочарованный и напряженный",
-  "@actionsCategoryTense": {
-    "description": "tense action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryGlowtip": "Светящийся наконечник",
-  "@actionsCategoryGlowtip": {
-    "description": "glowtip action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsSelectScreen": "Выберите действия",
-  "@actionsSelectScreen": {
-    "description": "Title for action select menu on triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleTitle": "Тактильная обратная связь",
-  "@settingsHapticsToggleTitle": {
-    "description": "Settings page haptic feedback toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleSubTitle": "Включить вибрацию при нажатии на действие",
-  "@settingsHapticsToggleSubTitle": {
-    "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleTitle": "Автоматическое сообщение об ошибках",
-  "@settingsErrorReportingToggleTitle": {
-    "description": "Settings page error reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleSubTitle": "Отправляет отчеты об ошибках в Sentry",
-  "@settingsErrorReportingToggleSubTitle": {
-    "description": "Settings page error reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAppColor": "Цвет приложения",
-  "@settingsAppColor": {
-    "description": "Settings page app color picker button title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesBatteryGraphTitle": "График батареи",
-  "@manageDevicesBatteryGraphTitle": {
-    "description": "battery graph expansion tile title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesDisconnect": "Поддельное снаряжение",
-  "@manageDevicesDisconnect": {
-    "description": "manage devices disconnect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesShutdown": "Неисправность",
-  "@manageDevicesShutdown": {
-    "description": "manage devices shutdown button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesColor": "Цвет шестерни",
-  "@manageDevicesColor": {
-    "description": "manage devices color picker button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesForget": "Забывать",
-  "@manageDevicesForget": {
-    "description": "manage devices forget button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaButton": "Нажмите, чтобы обновить прошивку",
-  "@manageDevicesOtaButton": {
-    "description": "manage devices ota available button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesTitle": "Поиск оборудования",
-  "@scanDevicesTitle": {
-    "description": "button which opens the scan window",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesScanMessage": "Сканирование снаряжения. Убедитесь, что ваше оборудование включено и находится поблизости",
-  "@scanDevicesScanMessage": {
-    "description": "scan for devices scan in progress message when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingTitle": "Гулять пешком",
-  "@triggerWalkingTitle": {
-    "description": "Walking/Step trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingDescription": "Запустить действие при ходьбе",
-  "@triggerWalkingDescription": {
-    "description": "Walking/Step trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStopped": "Остановлено",
-  "@triggerWalkingStopped": {
-    "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStep": "Шаг",
-  "@triggerWalkingStep": {
-    "description": "Walking/Step trigger Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverTitle": "Крышка",
-  "@triggerCoverTitle": {
-    "description": "Cover trigger Title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverDescription": "Запустите действие, закрыв датчик приближения",
-  "@triggerCoverDescription": {
-    "description": "Cover trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "title": "Хвостовая компания",
-  "@title": {
-    "description": "The name of the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPage": "Джойстик",
-  "@joyStickPage": {
-    "description": "The label and title of the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPage": "Отправить отзыв",
-  "@feedbackPage": {
-    "description": "The label and title of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "ok": "Крылья",
-  "@ok": {
-    "description": "Ok on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverNear": "Устройство покрыто",
-  "@triggerCoverNear": {
-    "description": "Cover trigger near action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverFar": "Устройство раскрыто",
-  "@triggerCoverFar": {
-    "description": "Cover trigger far action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonTitle": "Кнопки громкости",
-  "@triggerVolumeButtonTitle": {
-    "description": "Volume Button trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonDescription": "Запуск действия нажатием кнопки громкости",
-  "@triggerVolumeButtonDescription": {
-    "description": "Volume Button trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeUp": "Увеличить громкость",
-  "@triggerVolumeButtonVolumeUp": {
-    "description": "Volume Button trigger volume up action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeDown": "Звук тише",
-  "@triggerVolumeButtonVolumeDown": {
-    "description": "Volume Button trigger volume down action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeTitle": "Встряхнуть",
-  "@triggerShakeTitle": {
-    "description": "Shake trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeDescription": "Запустите действие, встряхнув устройство",
-  "@triggerShakeDescription": {
-    "description": "Shake trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityTitle": "Ближайшее снаряжение",
-  "@triggerProximityTitle": {
-    "description": "Proximity trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityDescription": "Запустить действие, если снаряжение находится поблизости",
-  "@triggerProximityDescription": {
-    "description": "Proximity trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerActionNotSet": "Нет набора действий",
-  "@triggerActionNotSet": {
-    "description": "Trigger action label when no action set",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicTitle": "EarGear микрофон",
-  "@triggerEarMicTitle": {
-    "description": "EarGear internal mic trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicDescription": "Запуск действия, когда EarGear обнаруживает звук",
-  "@triggerEarMicDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicSound": "Обнаружен звук",
-  "@triggerEarMicSound": {
-    "description": "EarGear internal mic trigger sound detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltTitle": "Датчик наклона EarGear",
-  "@triggerEarTiltTitle": {
-    "description": "EarGear internal gesture sensor trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
-  "@triggerEarTiltDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltLeft": "Наклон влево",
-  "@triggerEarTiltLeft": {
-    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltRight": "Правый наклон",
-  "@triggerEarTiltRight": {
-    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltForward": "Наклон вперед",
-  "@triggerEarTiltForward": {
-    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltBackward": "Наклон назад",
-  "@triggerEarTiltBackward": {
-    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditRepeatTitle": "Сколько раз повторить это Действие?",
-  "@sequenceEditRepeatTitle": {
-    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsDescription": "Измените цвет приложения, настройте Haptics и многое другое",
-  "@settingsDescription": {
-    "description": "The description of the settings page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesConnect": "Соединять",
-  "@manageDevicesConnect": {
-    "description": "manage devices connect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualResponsibleWaggingTitle": "Ответственное виляние",
-  "@moreManualResponsibleWaggingTitle": {
-    "description": "Title for Responsible wagging manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualMiTailTitle": "Руководство МиТейл",
-  "@moreManualMiTailTitle": {
-    "description": "Title for MiTail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualEargearTitle": "Руководство по эксплуатации наушников",
-  "@moreManualEargearTitle": {
-    "description": "Title for EarGear manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualFlutterWingsTitle": "Руководство FlutterWings",
-  "@moreManualFlutterWingsTitle": {
-    "description": "Title for FlutterWings manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualTitle": "Руководства",
-  "@moreManualTitle": {
-    "description": "Title for manual header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualSubTitle": "Нажмите, чтобы просмотреть",
-  "@moreManualSubTitle": {
-    "description": "Subtitle for each manual on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreUsefulLinksTitle": "Полезные ссылки",
-  "@moreUsefulLinksTitle": {
-    "description": "Title for Useful Links header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleTitle": "Всегда сканируйте известное снаряжение",
-  "@settingsKeepScreenOnToggleTitle": {
-    "description": "Settings page Keep Awake toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleSubTitle": "Этот режим предотвращает выключение экрана, пока ваше оборудование подключено",
-  "@settingsKeepScreenOnToggleSubTitle": {
-    "description": "Settings page Keep Awake toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleTitle": "Разрешить анонимную аналитику",
-  "@settingsAnalyticsToggleTitle": {
-    "description": "Settings page analytics reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleSubTitle": "Сообщайте об использовании неидентифицирующих функций в Plausible для улучшения приложения",
-  "@settingsAnalyticsToggleSubTitle": {
-    "description": "Settings page analytics reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePrivacyPolicyLinkTitle": "политика конфиденциальности",
-  "@morePrivacyPolicyLinkTitle": {
-    "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreTitle": "Более",
-  "@moreTitle": {
-    "description": "Title for More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPageDescription": "Управляй положением устройства напрямую.",
-  "@joyStickPageDescription": {
-    "description": "The description of the joystick page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPageDescription": "Создавайте собственные действия для своего снаряжения",
-  "@sequencesPageDescription": {
-    "description": "The description of the sequences page link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleTitle": "Режим Кицунэ",
-  "@settingsKitsuneToggleTitle": {
-    "description": "Settings page Kitsune mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleSubTitle": "Если вы подключаете много экземпляров одних и тех же устройств, этот режим добавит случайные паузы ко времени их начала движения, придав ему другой визуальный эффект.",
-  "@settingsKitsuneToggleSubTitle": {
-    "description": "Settings page kitsune toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleTitle": "Показать процент заряда батареи",
-  "@settingsBatteryPercentageToggleTitle": {
-    "description": "Settings page Battery Percentage mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleSubTitle": "Показывать фактический уровень заряда батареи вместо значка",
-  "@settingsBatteryPercentageToggleSubTitle": {
-    "description": "Settings page show battery percentage toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleTitle": "Карты большего размера",
-  "@settingsLargerCardsToggleTitle": {
-    "description": "Settings page Larger cards toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleSubTitle": "Карты действий становятся больше, чтобы их было легче нажимать",
-  "@settingsLargerCardsToggleSubTitle": {
-    "description": "Settings page show larger cards toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleTitle": "Скрыть карточки обучения",
-  "@settingsTutorialCardToggleTitle": {
-    "description": "Settings page tutorial card display toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleSubTitle": "Скройте различные обучающие карточки в приложении",
-  "@settingsTutorialCardToggleSubTitle": {
-    "description": "Settings page tutorial card display toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизводиться при возникновении события. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move.",
-  "@triggerInfoEditActionDescription": {
-    "description": "Instruction on how to select an action on the trigger edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoDescription": "Триггеры автоматически отправляют действия на ваше снаряжение. Вы можете одновременно активировать несколько триггеров. Нажмите на триггер, чтобы отредактировать его. Используйте переключатель слева, чтобы включить триггер.",
-  "@triggerInfoDescription": {
-    "description": "Description for what a trigger is and how to use them on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaTitle": "Обновить снаряжение",
-  "@otaTitle": {
-    "description": "Title for OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaChangelogLabel": "Журнал изменений прошивки",
-  "@otaChangelogLabel": {
-    "description": "Label for changelog section of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadButtonLabel": "Начать OTA-обновление",
-  "@otaDownloadButtonLabel": {
-    "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие. Пожалуйста, убедитесь, что прошивка вашего устройства обновлена.",
-  "@sequencesInfoDescription": {
-    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoEditDescription": "Каждое пользовательское действие состоит из 1–6 ходов и может повторяться до 5 раз. Вы можете долго нажимать на ход, чтобы изменить его порядок.",
-  "@sequencesInfoEditDescription": {
-    "description": "Description for making a custom action on the edit Custom Action page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyDescription": "Хотя собранные данные являются анонимными и не могут быть использованы для идентификации конкретного пользователя, вам все равно необходимо принять политику конфиденциальности",
-  "@onboardingPrivacyPolicyDescription": {
-    "description": "Description for there being a privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothTitle": "Bluetooth",
-  "@onboardingBluetoothTitle": {
-    "description": "Title for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingDoneButtonLabel": "Сделанный",
-  "@onboardingDoneButtonLabel": {
-    "description": "Label for the button to close the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyViewButtonLabel": "Посмотреть политику конфиденциальности",
-  "@onboardingPrivacyPolicyViewButtonLabel": {
-    "description": "Button label to view privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Принять политику конфиденциальности",
-  "@onboardingPrivacyPolicyAcceptButtonLabel": {
-    "description": "Button label to accept privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothDescription": "Для подключения к устройству требуется разрешение Bluetooth",
-  "@onboardingBluetoothDescription": {
-    "description": "Description for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothRequestButtonLabel": "Предоставить разрешение",
-  "@onboardingBluetoothRequestButtonLabel": {
-    "description": "Label for the button to request bluetooth permission on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothEnableButtonLabel": "Откройте «Настройки», чтобы включить Bluetooth",
-  "@onboardingBluetoothEnableButtonLabel": {
-    "description": "Label for the button to open bluetooth settings on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingCompletedTitle": "Приятного виляния!",
-  "@onboardingCompletedTitle": {
-    "description": "Title of the final page of the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectClearLabel": "Выберите Нет",
-  "@triggersSelectClearLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected action",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBackToClose": "Нажмите еще раз, чтобы выйти",
-  "@doubleBackToClose": {
-    "description": "Snackbar message which appears when the back button is pressed at the main screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleTitle": "Всегда сканируйте известное снаряжение",
-  "@settingsAlwaysScanningToggleTitle": {
-    "description": "Settings page always scanning toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaCompletedTitle": "Обновление завершено",
-  "@otaCompletedTitle": {
-    "description": "Title for the text that appears when an OTA update is completed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedTitle": "Не удалось обновить. Перезапустите устройство и повторите попытку",
-  "@otaFailedTitle": {
-    "description": "Title for the text that appears when an OTA update has failed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleTitle": "Разрешить уведомления хвостового блога",
-  "@settingsNewsletterToggleTitle": {
-    "description": "Settings page newsletter notification toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleSubTitle": "Автоматически получать уведомления о появлении новой публикации в блоге Tail",
-  "@settingsNewsletterToggleSubTitle": {
-    "description": "Settings page newsletter notification toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonTitle": "Казуальный режим",
-  "@triggerRandomButtonTitle": {
-    "description": "Casual Mode trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonDescription": "Случайное воспроизведение выбранного действия",
-  "@triggerRandomButtonDescription": {
-    "description": "Casual Mode trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomAction": "Действие",
-  "@triggerRandomAction": {
-    "description": "Casual Mode trigger action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaInProgressTitle": "Обновление снаряжения. Пожалуйста, не выключайте свое оборудование и не закрывайте приложение",
-  "@otaInProgressTitle": {
-    "description": "Label for ota in progress",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaLowBattery": "Низкий заряд батареи. Пожалуйста, зарядите свое снаряжение минимум на 50%",
-  "@otaLowBattery": {
-    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessageTitle": "Добро пожаловать в приложение Tail Company",
-  "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffDescription": "Проведите по горизонтали в области известного устройства выше, чтобы начать сканирование. Вы можете включить непрерывное сканирование в настройках.",
-  "@homeContinuousScanningOffDescription": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessage": "Вы можете контролировать, исследовать и обновлять все свое снаряжение Tail Co прямо здесь. Также имеются инструкции и руководства. Приятного виляния!",
-  "@homeWelcomeMessage": {
-    "description": "The welcome message on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectSaveLabel": "Сохранить действия",
-  "@triggersSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeNewsTitle": "EarGear микрофон",
-  "@homeNewsTitle": {
-    "description": "The title header for the news in the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesFoundTitle": "Нашел механизм. Нажмите на название механизма, чтобы подключиться",
-  "@scanDevicesFoundTitle": {
-    "description": "Title when gear is found on the scan for new gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeChangelogLinkTitle": "Журнал изменений",
-  "@homeChangelogLinkTitle": {
-    "description": "Title for Changelog on Home page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "noLongerSupported": "Это снаряжение больше не поддерживается. Некоторые функции приложения могут не работать",
-  "@noLongerSupported": {
-    "description": "Warning message which appears for unsupported gear on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "mandatoryOtaRequired": "Доступно обновление прошивки для лучшей поддержки вашего оборудования",
-  "@mandatoryOtaRequired": {
-    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsFavoriteTip": "Нажмите и удерживайте действие в избранном",
-  "@actionsFavoriteTip": {
-    "description": "tip message which appears when no actions are favorited on the actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreSourceCode": "Исходный код",
-  "@moreSourceCode": {
-    "description": "Label for the github and dev mode button on the more tab",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioActionCategory": "Звуковые эффекты",
-  "@audioActionCategory": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioPage": "Пользовательские звуки",
-  "@audioPage": {
-    "description": "The label and title of the custom audio management page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEditDescription": "Управление пользовательскими звуковыми эффектами",
-  "@audioEditDescription": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEdit": "Переименовать звуковой эффект",
-  "@audioEdit": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDelete": "Удалить звуковой эффект",
-  "@audioDelete": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioAdd": "Удалить звуковой эффект",
-  "@audioAdd": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDeleteDescription": "Вы уверены, что хотите удалить этот звуковой эффект?",
-  "@audioDeleteDescription": {
-    "description": "Label for the body of the delete confirmation dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioTipCard": "Вы можете добавить собственные звуки, которые отображаются на вкладке «Действия» и могут использоваться с триггерами",
-  "@audioTipCard": {
-    "description": "Tutorial card for the audio page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeMiniTail": "Мини Хвост",
-  "@deviceTypeMiniTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGear": "Поддельное снаряжение",
-  "@scanDemoGear": {
-    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleSubTitle": "Постоянно сканируйте известное снаряжение. Если этот параметр отключен, для сканирования необходимо провести пальцем по шестеренке.",
-  "@settingsAlwaysScanningToggleSubTitle": {
-    "description": "Settings page always scanning toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanAddDemoGear": "Добавить поддельное снаряжение",
-  "@scanAddDemoGear": {
-    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanRemoveDemoGear": "Удалите все поддельное снаряжение",
-  "@scanRemoveDemoGear": {
-    "description": "Label for the button to remove all demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGearTip": "Хотите опробовать приложение, но ждете доставки своего оборудования? Добавьте фальшивое снаряжение. Это позволяет вам использовать приложение так, как будто у вас есть свое оборудование или вы хотите опробовать снаряжение, которого у вас в настоящее время нет. Это активирует новый раздел на странице «Поиск нового снаряжения».",
-  "@scanDemoGearTip": {
-    "description": "Tip Card description for the  demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerActionSelectorTutorialLabel": "Выберите столько действий, сколько хотите. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move. Не забудьте сохранить.",
-  "@triggerActionSelectorTutorialLabel": {
-    "description": "Label for the tutorial card on the Action selector for triggers",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectAllLabel": "Выбрать все",
-  "@triggersSelectAllLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joystickWarning": "Функция джойстика является экспериментальной. Используйте на свой риск.",
-  "@joystickWarning": {
-    "description": "Label for the warning tutorial card on the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "featureLimitedOtaRequiredLabel": "Пожалуйста, обновите свое оборудование, чтобы использовать эту функцию.",
-  "@featureLimitedOtaRequiredLabel": {
-    "description": "Label for the warning card when a feature requires a firmware update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarLabel": "Пожалуйста, обновите свое снаряжение",
-  "@otaAvailableSnackbarLabel": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarTitle": "Доступно обновление",
-  "@otaAvailableSnackbarTitle": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarTitle": "Шестерня подключена",
-  "@newGearConnectedSnackbarTitle": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarLabel": "счастливое виляние",
-  "@newGearConnectedSnackbarLabel": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanConnectToAllButtonLabel": "Подключайтесь ко всем",
-  "@scanConnectToAllButtonLabel": {
-    "description": "Title for Connecting to all found gear on the scan page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersDefSelectSaveLabel": "Выбирать",
-  "@triggersDefSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "colorPickerTitle": "Выбери цвет",
-  "@colorPickerTitle": {
-    "description": "The title of the color picker",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetoothDescription": "Для подключения к Gear требуется Bluetooth. Пожалуйста, включите Bluetooth в настройках. Не подключайтесь к устройству, пока на вашем устройстве установлены настройки Bluetooth.",
-  "@actionsNoBluetoothDescription": {
-    "description": "description on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedTitle": "Скорость движения уха",
-  "@earSpeedTitle": {
-    "description": "Title for the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedFast": "Быстрый",
-  "@earSpeedFast": {
-    "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedSlow": "Медленный",
-  "@earSpeedSlow": {
-    "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "casualModeDelayTitle": "Мин. и макс. задержка",
-  "@casualModeDelayTitle": {
-    "description": "Label for the range slider to set the min and max delay time for casual mode",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionTitle": "Установить исходное положение",
-  "@manageGearHomePositionTitle": {
-    "description": "Title for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionDescription": "Устанавливает положение, в которое переместится шестерня после завершения действия",
-  "@manageGearHomePositionDescription": {
-    "description": "Description for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyTitle": "Tail Blog только через WiFi",
-  "@settingsTailBlogWifiOnlyTitle": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyDescription": "Запретить загрузку контента Tail Blog при подключении к мобильной сети",
-  "@settingsTailBlogWifiOnlyDescription": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageCoverPromoTitle": "Измени внешний вид устройства!",
-  "@morePageCoverPromoTitle": {
-    "description": "The title for the button on the More page to push users to buy a new cover",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateTitle": "Локализация",
-  "@morePageTranslateTitle": {
-    "description": "The title for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateDescription": "Помоги нам перевести приложение на твой язык",
-  "@morePageTranslateDescription": {
-    "description": "The description for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "appLanguageSelectorTitle": "Язык приложения",
-  "@appLanguageSelectorTitle": {
-    "description": "The title for the button and dialog to select the app language",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearTitle": "Твоё устройство",
-  "@watchKnownGearTitle": {
-    "description": "The title for the known gear section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsTitle": "Избранные действия",
-  "@watchFavoriteActionsTitle": {
-    "description": "title for the favorite actions section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeEnableDescription": "При включении режима конференции устройство перезагрузится, и тебе будет предложено ввести PIN-код. Код будет скопирован в буфер обмена",
-  "@manageGearConModePincodeEnableDescription": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportDescription": "Нажми на синюю иконку чата, чтобы связаться с поддержкой",
-  "@supportDescription": {
-    "description": "The description of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearDisconnectTimeout": "Устройство не было отключено вовремя и, вероятно, не перезагрузилось",
-  "@otaFailedReasonGearDisconnectTimeout": {
-    "description": "gearDisconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonMD5Mismatch": "Загруженный файл не прошёл проверку",
-  "@otaFailedReasonMD5Mismatch": {
-    "description": "md5Mismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonDownloadFailed": "Не удалось загрузить файл прошивки",
-  "@otaFailedReasonDownloadFailed": {
-    "description": "downloadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearVersionMismatch": "Версия прошивки на устройстве не совпадает с загруженной версией",
-  "@otaFailedReasonGearVersionMismatch": {
-    "description": "gearVersionMismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReturnedError": "Устройство вернуло неизвестную ошибку",
-  "@otaFailedReasonGearReturnedError": {
-    "description": "gearReturnedError error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonUploadFailed": "Не удалось загрузить прошивку на устройство",
-  "@otaFailedReasonUploadFailed": {
-    "description": "uploadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReconnectTimeout": "Устройство не подключилось вовремя",
-  "@otaFailedReasonGearReconnectTimeout": {
-    "description": "gearReconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportTitle": "Поддержка",
-  "@supportTitle": {
-    "description": "The label and title of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsNoFavoritesTip": "Долго нажми на действие на телефоне, чтобы добавить его в избранное",
-  "@watchFavoriteActionsNoFavoritesTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearNoGearPairedTip": "Используй кнопку «Сканировать новое устройство» на телефоне, чтобы подключить его",
-  "@watchKnownGearNoGearPairedTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeDescription": "Режим конференции — это дополнительная мера безопасности, предотвращающая подключение других устройств к твоему.",
-  "@manageGearConModeDescription": {
-    "description": "The description for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPageDescription": "Есть предложение или проблема с приложением? Расскажи нам. Примечание: это анонимно и не может быть использовано для решения проблем с устройством",
-  "@feedbackPageDescription": {
-    "description": "The description of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckButtonLabel": "Проверить обновления",
-  "@manageDevicesOtaCheckButtonLabel": {
-    "description": "manage devices button to check if an update is available",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaUpToDateButtonLabel": "Устройство обновлено!",
-  "@manageDevicesOtaUpToDateButtonLabel": {
-    "description": "manage devices button label if gear is up to date",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckInProgressButtonLabel": "Проверка",
-  "@manageDevicesOtaCheckInProgressButtonLabel": {
-    "description": "manage devices button label if gear is checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckErrorButtonLabel": "Пожалуйста, попробуй позже",
-  "@manageDevicesOtaCheckErrorButtonLabel": {
-    "description": "manage devices button label if an error occured while checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutLabel": "О твоем устройстве",
-  "@manageDevicesAboutLabel": {
-    "description": "label for the about your gear section in the manage devices area",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutHardwareVersionLabel": "Версия оборудования",
-  "@manageDevicesAboutHardwareVersionLabel": {
-    "description": "label for the hardware version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutSoftwareVersionLabel": "Версия программного обеспечения",
-  "@manageDevicesAboutSoftwareVersionLabel": {
-    "description": "label for the software version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearOtaFinalTimeout": "Время ожидания ответа от устройства с новой версией прошивки истекло",
-  "@otaFailedReasonGearOtaFinalTimeout": {
-    "description": "gearOtaFinalTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeTitle": "Режим конференции",
-  "@manageGearConModeTitle": {
-    "description": "The title for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeTitle": "Показать PIN-код",
-  "@manageGearConModePincodeTitle": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeCopy": "Скопировать в буфер обмена",
-  "@manageGearConModePincodeCopy": {
-    "description": "The description for copy to clipboard button on the pin code dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeToggleTitle": "Включить режим конференции",
-  "@manageGearConModeToggleTitle": {
-    "description": "The description for the convention mode enabled button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleTitle": "Переводчик UwU",
-  "@settingsUwUToggleTitle": {
-    "description": "Settings page UwU text toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesOnboardingTitle": "Давай подключим твоё снаряжение",
-  "@scanDevicesOnboardingTitle": {
-    "description": "Title for the gear pairing screen in onboarding",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleSubTitle": "OwO, что это?",
-  "@settingsUwUToggleSubTitle": {
-    "description": "Settings page UwU text toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreExperimentalTitle": "Экспериментальное",
-  "@moreExperimentalTitle": {
-    "description": "The label for the experimental features on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoTitle": "CosHub",
-  "@moreCoshubPromoTitle": {
-    "description": "The title for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoDescription": "Наше новое приложение для планирования, обмена и создания косплея уже здесь",
-  "@moreCoshubPromoDescription": {
-    "description": "The description for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleSubTitle": "Разрешить уведомления о новых записях в блоге и распродажах.",
-  "@settingsMarketingNotificationsToggleSubTitle": {
-    "description": "Settings page marketing notifications toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleTitle": "Разрешить маркетинговые уведомления",
-  "@settingsMarketingNotificationsToggleTitle": {
-    "description": "Settings page marketing notifications toggle title",
-    "type": "text",
-    "placeholders": {}
-  }
+    "aboutPage": "О",
+    "@aboutPage": {
+        "description": "The label and title of the about page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsPage": "Настройки",
+    "@settingsPage": {
+        "description": "The label and title of the settings page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersPage": "Триггеры",
+    "@triggersPage": {
+        "description": "The label and title of the trigger page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPage": "Пользовательские действия",
+    "@sequencesPage": {
+        "description": "The label and title of the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectLabel": "Выберите тип триггера",
+    "@triggersSelectLabel": {
+        "description": "The title of the add trigger dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "cancel": "Отмена",
+    "@cancel": {
+        "description": "Cancel on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersAdd": "Добавить триггер",
+    "@triggersAdd": {
+        "description": "Floating Action Button on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceType": "К какому механизму это должно относиться?",
+    "@deviceType": {
+        "description": "Title for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeTail": "Хвост",
+    "@deviceTypeTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeEars": "Уши",
+    "@deviceTypeEars": {
+        "description": "Ears option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeWings": "Крылья",
+    "@deviceTypeWings": {
+        "description": "Wings option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesAdd": "Новое действие",
+    "@sequencesAdd": {
+        "description": "Floating Action Button on the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEdit": "Изменить действие",
+    "@sequencesEdit": {
+        "description": "Label for the edit icon on a sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditAdd": "Добавить ход",
+    "@sequencesEditAdd": {
+        "description": "Label for the add Floating Action Button on edit sequence page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditName": "Имя",
+    "@sequencesEditName": {
+        "description": "Label for the name field on sequence edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditMove": "Двигаться",
+    "@sequencesEditMove": {
+        "description": "Label for the move tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDelay": "Задерживать",
+    "@sequencesEditDelay": {
+        "description": "Label for the delay tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditLeftServo": "Положение левого сервопривода",
+    "@sequencesEditLeftServo": {
+        "description": "Label for the left servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditRightServo": "Положение правого сервопривода",
+    "@sequencesEditRightServo": {
+        "description": "Label for the right servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditSpeed": "С какой скоростью шестерня должна переместиться в это положение?",
+    "@sequencesEditSpeed": {
+        "description": "Label for the speed selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditEasing": "Тип замедления",
+    "@sequencesEditEasing": {
+        "description": "Label for the easing selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditTime": "Как долго ждать, прежде чем перейти к следующему шагу в этом специальном действии",
+    "@sequencesEditTime": {
+        "description": "Label for the time slider on the delay tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditHomeLabel": "Главная Шестерня",
+    "@sequencesEditHomeLabel": {
+        "description": "Label on the home tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteTitle": "Удалить действие",
+    "@sequencesEditDeleteTitle": {
+        "description": "Title of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteDescription": "Вы уверены, что хотите удалить это действие?",
+    "@sequencesEditDeleteDescription": {
+        "description": "Message of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditListDelayLabel": "Задержка следующего хода на {howMany} мс.",
+    "@sequenceEditListDelayLabel": {
+        "description": "Delay move label on the edit sequences page.",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetooth": "Задерживать",
+    "@actionsNoBluetooth": {
+        "description": "Label on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryCalm": "Спокойный и расслабленный",
+    "@actionsCategoryCalm": {
+        "description": "calm action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryFast": "Быстрый и взволнованный",
+    "@actionsCategoryFast": {
+        "description": "fast action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryTense": "Разочарованный и напряженный",
+    "@actionsCategoryTense": {
+        "description": "tense action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryGlowtip": "Светящийся наконечник",
+    "@actionsCategoryGlowtip": {
+        "description": "glowtip action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsSelectScreen": "Выберите действия",
+    "@actionsSelectScreen": {
+        "description": "Title for action select menu on triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleTitle": "Тактильная обратная связь",
+    "@settingsHapticsToggleTitle": {
+        "description": "Settings page haptic feedback toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleSubTitle": "Включить вибрацию при нажатии на действие",
+    "@settingsHapticsToggleSubTitle": {
+        "description": "Settings page haptic feedback toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleTitle": "Автоматическое сообщение об ошибках",
+    "@settingsErrorReportingToggleTitle": {
+        "description": "Settings page error reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleSubTitle": "Отправляет отчеты об ошибках в Sentry",
+    "@settingsErrorReportingToggleSubTitle": {
+        "description": "Settings page error reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAppColor": "Цвет приложения",
+    "@settingsAppColor": {
+        "description": "Settings page app color picker button title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesBatteryGraphTitle": "График батареи",
+    "@manageDevicesBatteryGraphTitle": {
+        "description": "battery graph expansion tile title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesDisconnect": "Поддельное снаряжение",
+    "@manageDevicesDisconnect": {
+        "description": "manage devices disconnect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesShutdown": "Неисправность",
+    "@manageDevicesShutdown": {
+        "description": "manage devices shutdown button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesColor": "Цвет шестерни",
+    "@manageDevicesColor": {
+        "description": "manage devices color picker button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesForget": "Забывать",
+    "@manageDevicesForget": {
+        "description": "manage devices forget button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaButton": "Нажмите, чтобы обновить прошивку",
+    "@manageDevicesOtaButton": {
+        "description": "manage devices ota available button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesTitle": "Поиск оборудования",
+    "@scanDevicesTitle": {
+        "description": "button which opens the scan window",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesScanMessage": "Сканирование снаряжения. Убедитесь, что ваше оборудование включено и находится поблизости",
+    "@scanDevicesScanMessage": {
+        "description": "scan for devices scan in progress message when scanning for a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingTitle": "Гулять пешком",
+    "@triggerWalkingTitle": {
+        "description": "Walking/Step trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingDescription": "Запустить действие при ходьбе",
+    "@triggerWalkingDescription": {
+        "description": "Walking/Step trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStopped": "Остановлено",
+    "@triggerWalkingStopped": {
+        "description": "Walking/Step trigger Stopped action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStep": "Шаг",
+    "@triggerWalkingStep": {
+        "description": "Walking/Step trigger Step action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverTitle": "Крышка",
+    "@triggerCoverTitle": {
+        "description": "Cover trigger Title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverDescription": "Запустите действие, закрыв датчик приближения",
+    "@triggerCoverDescription": {
+        "description": "Cover trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "title": "Хвостовая компания",
+    "@title": {
+        "description": "The name of the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPage": "Джойстик",
+    "@joyStickPage": {
+        "description": "The label and title of the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPage": "Отправить отзыв",
+    "@feedbackPage": {
+        "description": "The label and title of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ok": "Крылья",
+    "@ok": {
+        "description": "Ok on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverNear": "Устройство покрыто",
+    "@triggerCoverNear": {
+        "description": "Cover trigger near action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverFar": "Устройство раскрыто",
+    "@triggerCoverFar": {
+        "description": "Cover trigger far action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonTitle": "Кнопки громкости",
+    "@triggerVolumeButtonTitle": {
+        "description": "Volume Button trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonDescription": "Запуск действия нажатием кнопки громкости",
+    "@triggerVolumeButtonDescription": {
+        "description": "Volume Button trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeUp": "Увеличить громкость",
+    "@triggerVolumeButtonVolumeUp": {
+        "description": "Volume Button trigger volume up action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeDown": "Звук тише",
+    "@triggerVolumeButtonVolumeDown": {
+        "description": "Volume Button trigger volume down action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeTitle": "Встряхнуть",
+    "@triggerShakeTitle": {
+        "description": "Shake trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeDescription": "Запустите действие, встряхнув устройство",
+    "@triggerShakeDescription": {
+        "description": "Shake trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityTitle": "Ближайшее снаряжение",
+    "@triggerProximityTitle": {
+        "description": "Proximity trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityDescription": "Запустить действие, если снаряжение находится поблизости",
+    "@triggerProximityDescription": {
+        "description": "Proximity trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerActionNotSet": "Нет набора действий",
+    "@triggerActionNotSet": {
+        "description": "Trigger action label when no action set",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicTitle": "EarGear микрофон",
+    "@triggerEarMicTitle": {
+        "description": "EarGear internal mic trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicDescription": "Запуск действия, когда EarGear обнаруживает звук",
+    "@triggerEarMicDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicSound": "Обнаружен звук",
+    "@triggerEarMicSound": {
+        "description": "EarGear internal mic trigger sound detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltTitle": "Датчик наклона EarGear",
+    "@triggerEarTiltTitle": {
+        "description": "EarGear internal gesture sensor trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltDescription": "Запуск действия, когда EarGear обнаруживает наклон",
+    "@triggerEarTiltDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltLeft": "Наклон влево",
+    "@triggerEarTiltLeft": {
+        "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltRight": "Правый наклон",
+    "@triggerEarTiltRight": {
+        "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltForward": "Наклон вперед",
+    "@triggerEarTiltForward": {
+        "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltBackward": "Наклон назад",
+    "@triggerEarTiltBackward": {
+        "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditRepeatTitle": "Сколько раз повторить это Действие?",
+    "@sequenceEditRepeatTitle": {
+        "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsDescription": "Измените цвет приложения, настройте Haptics и многое другое",
+    "@settingsDescription": {
+        "description": "The description of the settings page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesConnect": "Соединять",
+    "@manageDevicesConnect": {
+        "description": "manage devices connect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualResponsibleWaggingTitle": "Ответственное виляние",
+    "@moreManualResponsibleWaggingTitle": {
+        "description": "Title for Responsible wagging manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualMiTailTitle": "Руководство МиТейл",
+    "@moreManualMiTailTitle": {
+        "description": "Title for MiTail manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualEargearTitle": "Руководство по эксплуатации наушников",
+    "@moreManualEargearTitle": {
+        "description": "Title for EarGear manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualFlutterWingsTitle": "Руководство FlutterWings",
+    "@moreManualFlutterWingsTitle": {
+        "description": "Title for FlutterWings manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualTitle": "Руководства",
+    "@moreManualTitle": {
+        "description": "Title for manual header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualSubTitle": "Нажмите, чтобы просмотреть",
+    "@moreManualSubTitle": {
+        "description": "Subtitle for each manual on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreUsefulLinksTitle": "Полезные ссылки",
+    "@moreUsefulLinksTitle": {
+        "description": "Title for Useful Links header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleTitle": "Всегда сканируйте известное снаряжение",
+    "@settingsKeepScreenOnToggleTitle": {
+        "description": "Settings page Keep Awake toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleSubTitle": "Этот режим предотвращает выключение экрана, пока ваше оборудование подключено",
+    "@settingsKeepScreenOnToggleSubTitle": {
+        "description": "Settings page Keep Awake toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleTitle": "Разрешить анонимную аналитику",
+    "@settingsAnalyticsToggleTitle": {
+        "description": "Settings page analytics reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleSubTitle": "Сообщайте об использовании неидентифицирующих функций в Plausible для улучшения приложения",
+    "@settingsAnalyticsToggleSubTitle": {
+        "description": "Settings page analytics reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePrivacyPolicyLinkTitle": "политика конфиденциальности",
+    "@morePrivacyPolicyLinkTitle": {
+        "description": "Title for UPrivacy policy link under Useful Links on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreTitle": "Более",
+    "@moreTitle": {
+        "description": "Title for More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPageDescription": "Управляй положением устройства напрямую.",
+    "@joyStickPageDescription": {
+        "description": "The description of the joystick page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPageDescription": "Создавайте собственные действия для своего снаряжения",
+    "@sequencesPageDescription": {
+        "description": "The description of the sequences page link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleTitle": "Режим Кицунэ",
+    "@settingsKitsuneToggleTitle": {
+        "description": "Settings page Kitsune mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleSubTitle": "Если вы подключаете много экземпляров одних и тех же устройств, этот режим добавит случайные паузы ко времени их начала движения, придав ему другой визуальный эффект.",
+    "@settingsKitsuneToggleSubTitle": {
+        "description": "Settings page kitsune toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleTitle": "Показать процент заряда батареи",
+    "@settingsBatteryPercentageToggleTitle": {
+        "description": "Settings page Battery Percentage mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleSubTitle": "Показывать фактический уровень заряда батареи вместо значка",
+    "@settingsBatteryPercentageToggleSubTitle": {
+        "description": "Settings page show battery percentage toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleTitle": "Карты большего размера",
+    "@settingsLargerCardsToggleTitle": {
+        "description": "Settings page Larger cards toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleSubTitle": "Карты действий становятся больше, чтобы их было легче нажимать",
+    "@settingsLargerCardsToggleSubTitle": {
+        "description": "Settings page show larger cards toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleTitle": "Скрыть карточки обучения",
+    "@settingsTutorialCardToggleTitle": {
+        "description": "Settings page tutorial card display toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleSubTitle": "Скройте различные обучающие карточки в приложении",
+    "@settingsTutorialCardToggleSubTitle": {
+        "description": "Settings page tutorial card display toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoEditActionDescription": "Коснитесь карандаша, чтобы выбрать действие, которое будет воспроизводиться при возникновении события. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move.",
+    "@triggerInfoEditActionDescription": {
+        "description": "Instruction on how to select an action on the trigger edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoDescription": "Триггеры автоматически отправляют действия на ваше снаряжение. Вы можете одновременно активировать несколько триггеров. Нажмите на триггер, чтобы отредактировать его. Используйте переключатель слева, чтобы включить триггер.",
+    "@triggerInfoDescription": {
+        "description": "Description for what a trigger is and how to use them on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaTitle": "Обновить снаряжение",
+    "@otaTitle": {
+        "description": "Title for OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaChangelogLabel": "Журнал изменений прошивки",
+    "@otaChangelogLabel": {
+        "description": "Label for changelog section of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaDownloadButtonLabel": "Начать OTA-обновление",
+    "@otaDownloadButtonLabel": {
+        "description": "Label for download firmware button at bottom of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoDescription": "Пользовательские действия позволяют вам создавать собственные действия для снаряжения. Нажатие на пользовательское действие приведет к его воспроизведению. Коснитесь карандаша, чтобы отредактировать дополнительное действие. Пожалуйста, убедитесь, что прошивка вашего устройства обновлена.",
+    "@sequencesInfoDescription": {
+        "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoEditDescription": "Каждое пользовательское действие состоит из 1–6 ходов и может повторяться до 5 раз. Вы можете долго нажимать на ход, чтобы изменить его порядок.",
+    "@sequencesInfoEditDescription": {
+        "description": "Description for making a custom action on the edit Custom Action page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyDescription": "Хотя собранные данные являются анонимными и не могут быть использованы для идентификации конкретного пользователя, вам все равно необходимо принять политику конфиденциальности",
+    "@onboardingPrivacyPolicyDescription": {
+        "description": "Description for there being a privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothTitle": "Bluetooth",
+    "@onboardingBluetoothTitle": {
+        "description": "Title for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingDoneButtonLabel": "Сделанный",
+    "@onboardingDoneButtonLabel": {
+        "description": "Label for the button to close the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyViewButtonLabel": "Посмотреть политику конфиденциальности",
+    "@onboardingPrivacyPolicyViewButtonLabel": {
+        "description": "Button label to view privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyAcceptButtonLabel": "Принять политику конфиденциальности",
+    "@onboardingPrivacyPolicyAcceptButtonLabel": {
+        "description": "Button label to accept privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothDescription": "Для подключения к устройству требуется разрешение Bluetooth",
+    "@onboardingBluetoothDescription": {
+        "description": "Description for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothRequestButtonLabel": "Предоставить разрешение",
+    "@onboardingBluetoothRequestButtonLabel": {
+        "description": "Label for the button to request bluetooth permission on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothEnableButtonLabel": "Откройте «Настройки», чтобы включить Bluetooth",
+    "@onboardingBluetoothEnableButtonLabel": {
+        "description": "Label for the button to open bluetooth settings on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingCompletedTitle": "Приятного виляния!",
+    "@onboardingCompletedTitle": {
+        "description": "Title of the final page of the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectClearLabel": "Выберите Нет",
+    "@triggersSelectClearLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected action",
+        "type": "text",
+        "placeholders": {}
+    },
+    "doubleBackToClose": "Нажмите еще раз, чтобы выйти",
+    "@doubleBackToClose": {
+        "description": "Snackbar message which appears when the back button is pressed at the main screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleTitle": "Всегда сканируйте известное снаряжение",
+    "@settingsAlwaysScanningToggleTitle": {
+        "description": "Settings page always scanning toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaCompletedTitle": "Обновление завершено",
+    "@otaCompletedTitle": {
+        "description": "Title for the text that appears when an OTA update is completed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedTitle": "Не удалось обновить. Перезапустите устройство и повторите попытку",
+    "@otaFailedTitle": {
+        "description": "Title for the text that appears when an OTA update has failed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleTitle": "Разрешить уведомления хвостового блога",
+    "@settingsNewsletterToggleTitle": {
+        "description": "Settings page newsletter notification toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleSubTitle": "Автоматически получать уведомления о появлении новой публикации в блоге Tail",
+    "@settingsNewsletterToggleSubTitle": {
+        "description": "Settings page newsletter notification toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonTitle": "Казуальный режим",
+    "@triggerRandomButtonTitle": {
+        "description": "Casual Mode trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonDescription": "Случайное воспроизведение выбранного действия",
+    "@triggerRandomButtonDescription": {
+        "description": "Casual Mode trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomAction": "Действие",
+    "@triggerRandomAction": {
+        "description": "Casual Mode trigger action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaInProgressTitle": "Обновление снаряжения. Пожалуйста, не выключайте свое оборудование и не закрывайте приложение",
+    "@otaInProgressTitle": {
+        "description": "Label for ota in progress",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaLowBattery": "Низкий заряд батареи. Пожалуйста, зарядите свое снаряжение минимум на 50%",
+    "@otaLowBattery": {
+        "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessageTitle": "Добро пожаловать в приложение Tail Company",
+    "@homeWelcomeMessageTitle": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeContinuousScanningOffDescription": "Проведите по горизонтали в области известного устройства выше, чтобы начать сканирование. Вы можете включить непрерывное сканирование в настройках.",
+    "@homeContinuousScanningOffDescription": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessage": "Вы можете контролировать, исследовать и обновлять все свое снаряжение Tail Co прямо здесь. Также имеются инструкции и руководства. Приятного виляния!",
+    "@homeWelcomeMessage": {
+        "description": "The welcome message on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectSaveLabel": "Сохранить действия",
+    "@triggersSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeNewsTitle": "EarGear микрофон",
+    "@homeNewsTitle": {
+        "description": "The title header for the news in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesFoundTitle": "Нашел механизм. Нажмите на название механизма, чтобы подключиться",
+    "@scanDevicesFoundTitle": {
+        "description": "Title when gear is found on the scan for new gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeChangelogLinkTitle": "Журнал изменений",
+    "@homeChangelogLinkTitle": {
+        "description": "Title for Changelog on Home page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "noLongerSupported": "Это снаряжение больше не поддерживается. Некоторые функции приложения могут не работать",
+    "@noLongerSupported": {
+        "description": "Warning message which appears for unsupported gear on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "mandatoryOtaRequired": "Доступно обновление прошивки для лучшей поддержки вашего оборудования",
+    "@mandatoryOtaRequired": {
+        "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsFavoriteTip": "Нажмите и удерживайте действие в избранном",
+    "@actionsFavoriteTip": {
+        "description": "tip message which appears when no actions are favorited on the actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreSourceCode": "Исходный код",
+    "@moreSourceCode": {
+        "description": "Label for the github and dev mode button on the more tab",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioActionCategory": "Звуковые эффекты",
+    "@audioActionCategory": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioPage": "Пользовательские звуки",
+    "@audioPage": {
+        "description": "The label and title of the custom audio management page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEditDescription": "Управление пользовательскими звуковыми эффектами",
+    "@audioEditDescription": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEdit": "Переименовать звуковой эффект",
+    "@audioEdit": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDelete": "Удалить звуковой эффект",
+    "@audioDelete": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioAdd": "Удалить звуковой эффект",
+    "@audioAdd": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDeleteDescription": "Вы уверены, что хотите удалить этот звуковой эффект?",
+    "@audioDeleteDescription": {
+        "description": "Label for the body of the delete confirmation dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioTipCard": "Вы можете добавить собственные звуки, которые отображаются на вкладке «Действия» и могут использоваться с триггерами",
+    "@audioTipCard": {
+        "description": "Tutorial card for the audio page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeMiniTail": "Мини Хвост",
+    "@deviceTypeMiniTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGear": "Поддельное снаряжение",
+    "@scanDemoGear": {
+        "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleSubTitle": "Постоянно сканируйте известное снаряжение. Если этот параметр отключен, для сканирования необходимо провести пальцем по шестеренке.",
+    "@settingsAlwaysScanningToggleSubTitle": {
+        "description": "Settings page always scanning toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanAddDemoGear": "Добавить поддельное снаряжение",
+    "@scanAddDemoGear": {
+        "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanRemoveDemoGear": "Удалите все поддельное снаряжение",
+    "@scanRemoveDemoGear": {
+        "description": "Label for the button to remove all demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGearTip": "Хотите опробовать приложение, но ждете доставки своего оборудования? Добавьте фальшивое снаряжение. Это позволяет вам использовать приложение так, как будто у вас есть свое оборудование или вы хотите опробовать снаряжение, которого у вас в настоящее время нет. Это активирует новый раздел на странице «Поиск нового снаряжения».",
+    "@scanDemoGearTip": {
+        "description": "Tip Card description for the  demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerActionSelectorTutorialLabel": "Выберите столько действий, сколько хотите. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move. Не забудьте сохранить.",
+    "@triggerActionSelectorTutorialLabel": {
+        "description": "Label for the tutorial card on the Action selector for triggers",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectAllLabel": "Выбрать все",
+    "@triggersSelectAllLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joystickWarning": "Функция джойстика является экспериментальной. Используйте на свой риск.",
+    "@joystickWarning": {
+        "description": "Label for the warning tutorial card on the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "featureLimitedOtaRequiredLabel": "Пожалуйста, обновите свое оборудование, чтобы использовать эту функцию.",
+    "@featureLimitedOtaRequiredLabel": {
+        "description": "Label for the warning card when a feature requires a firmware update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarLabel": "Пожалуйста, обновите свое снаряжение",
+    "@otaAvailableSnackbarLabel": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarTitle": "Доступно обновление",
+    "@otaAvailableSnackbarTitle": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarTitle": "Шестерня подключена",
+    "@newGearConnectedSnackbarTitle": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarLabel": "счастливое виляние",
+    "@newGearConnectedSnackbarLabel": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanConnectToAllButtonLabel": "Подключайтесь ко всем",
+    "@scanConnectToAllButtonLabel": {
+        "description": "Title for Connecting to all found gear on the scan page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersDefSelectSaveLabel": "Выбирать",
+    "@triggersDefSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "colorPickerTitle": "Выбери цвет",
+    "@colorPickerTitle": {
+        "description": "The title of the color picker",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetoothDescription": "Для подключения к Gear требуется Bluetooth. Пожалуйста, включите Bluetooth в настройках. Не подключайтесь к устройству, пока на вашем устройстве установлены настройки Bluetooth.",
+    "@actionsNoBluetoothDescription": {
+        "description": "description on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedTitle": "Скорость движения уха",
+    "@earSpeedTitle": {
+        "description": "Title for the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedFast": "Быстрый",
+    "@earSpeedFast": {
+        "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedSlow": "Медленный",
+    "@earSpeedSlow": {
+        "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "casualModeDelayTitle": "Мин. и макс. задержка",
+    "@casualModeDelayTitle": {
+        "description": "Label for the range slider to set the min and max delay time for casual mode",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionTitle": "Установить исходное положение",
+    "@manageGearHomePositionTitle": {
+        "description": "Title for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionDescription": "Устанавливает положение, в которое переместится шестерня после завершения действия",
+    "@manageGearHomePositionDescription": {
+        "description": "Description for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyTitle": "Tail Blog только через WiFi",
+    "@settingsTailBlogWifiOnlyTitle": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyDescription": "Запретить загрузку контента Tail Blog при подключении к мобильной сети",
+    "@settingsTailBlogWifiOnlyDescription": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageCoverPromoTitle": "Измени внешний вид устройства!",
+    "@morePageCoverPromoTitle": {
+        "description": "The title for the button on the More page to push users to buy a new cover",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateTitle": "Локализация",
+    "@morePageTranslateTitle": {
+        "description": "The title for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateDescription": "Помоги нам перевести приложение на твой язык",
+    "@morePageTranslateDescription": {
+        "description": "The description for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "appLanguageSelectorTitle": "Язык приложения",
+    "@appLanguageSelectorTitle": {
+        "description": "The title for the button and dialog to select the app language",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearTitle": "Твоё устройство",
+    "@watchKnownGearTitle": {
+        "description": "The title for the known gear section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsTitle": "Избранные действия",
+    "@watchFavoriteActionsTitle": {
+        "description": "title for the favorite actions section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeEnableDescription": "При включении режима конференции устройство перезагрузится, и тебе будет предложено ввести PIN-код. Код будет скопирован в буфер обмена",
+    "@manageGearConModePincodeEnableDescription": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportDescription": "Нажми на синюю иконку чата, чтобы связаться с поддержкой",
+    "@supportDescription": {
+        "description": "The description of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearDisconnectTimeout": "Устройство не было отключено вовремя и, вероятно, не перезагрузилось",
+    "@otaFailedReasonGearDisconnectTimeout": {
+        "description": "gearDisconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonMD5Mismatch": "Загруженный файл не прошёл проверку",
+    "@otaFailedReasonMD5Mismatch": {
+        "description": "md5Mismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonDownloadFailed": "Не удалось загрузить файл прошивки",
+    "@otaFailedReasonDownloadFailed": {
+        "description": "downloadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearVersionMismatch": "Версия прошивки на устройстве не совпадает с загруженной версией",
+    "@otaFailedReasonGearVersionMismatch": {
+        "description": "gearVersionMismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReturnedError": "Устройство вернуло неизвестную ошибку",
+    "@otaFailedReasonGearReturnedError": {
+        "description": "gearReturnedError error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonUploadFailed": "Не удалось загрузить прошивку на устройство",
+    "@otaFailedReasonUploadFailed": {
+        "description": "uploadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReconnectTimeout": "Устройство не подключилось вовремя",
+    "@otaFailedReasonGearReconnectTimeout": {
+        "description": "gearReconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportTitle": "Поддержка",
+    "@supportTitle": {
+        "description": "The label and title of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsNoFavoritesTip": "Долго нажми на действие на телефоне, чтобы добавить его в избранное",
+    "@watchFavoriteActionsNoFavoritesTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearNoGearPairedTip": "Используй кнопку «Сканировать новое устройство» на телефоне, чтобы подключить его",
+    "@watchKnownGearNoGearPairedTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeDescription": "Режим конференции — это дополнительная мера безопасности, предотвращающая подключение других устройств к твоему.",
+    "@manageGearConModeDescription": {
+        "description": "The description for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPageDescription": "Есть предложение или проблема с приложением? Расскажи нам. Примечание: это анонимно и не может быть использовано для решения проблем с устройством",
+    "@feedbackPageDescription": {
+        "description": "The description of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckButtonLabel": "Проверить обновления",
+    "@manageDevicesOtaCheckButtonLabel": {
+        "description": "manage devices button to check if an update is available",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaUpToDateButtonLabel": "Устройство обновлено!",
+    "@manageDevicesOtaUpToDateButtonLabel": {
+        "description": "manage devices button label if gear is up to date",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckInProgressButtonLabel": "Проверка",
+    "@manageDevicesOtaCheckInProgressButtonLabel": {
+        "description": "manage devices button label if gear is checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckErrorButtonLabel": "Пожалуйста, попробуй позже",
+    "@manageDevicesOtaCheckErrorButtonLabel": {
+        "description": "manage devices button label if an error occured while checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutLabel": "О твоем устройстве",
+    "@manageDevicesAboutLabel": {
+        "description": "label for the about your gear section in the manage devices area",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutHardwareVersionLabel": "Версия оборудования",
+    "@manageDevicesAboutHardwareVersionLabel": {
+        "description": "label for the hardware version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutSoftwareVersionLabel": "Версия программного обеспечения",
+    "@manageDevicesAboutSoftwareVersionLabel": {
+        "description": "label for the software version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearOtaFinalTimeout": "Время ожидания ответа от устройства с новой версией прошивки истекло",
+    "@otaFailedReasonGearOtaFinalTimeout": {
+        "description": "gearOtaFinalTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeTitle": "Режим конференции",
+    "@manageGearConModeTitle": {
+        "description": "The title for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeTitle": "Показать PIN-код",
+    "@manageGearConModePincodeTitle": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeCopy": "Скопировать в буфер обмена",
+    "@manageGearConModePincodeCopy": {
+        "description": "The description for copy to clipboard button on the pin code dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeToggleTitle": "Включить режим конференции",
+    "@manageGearConModeToggleTitle": {
+        "description": "The description for the convention mode enabled button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleTitle": "Переводчик UwU",
+    "@settingsUwUToggleTitle": {
+        "description": "Settings page UwU text toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingTitle": "Давай подключим твоё снаряжение",
+    "@scanDevicesOnboardingTitle": {
+        "description": "Title for the gear pairing screen in onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleSubTitle": "OwO, что это?",
+    "@settingsUwUToggleSubTitle": {
+        "description": "Settings page UwU text toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreExperimentalTitle": "Экспериментальное",
+    "@moreExperimentalTitle": {
+        "description": "The label for the experimental features on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoTitle": "CosHub",
+    "@moreCoshubPromoTitle": {
+        "description": "The title for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoDescription": "Наше новое приложение для планирования, обмена и создания косплея уже здесь",
+    "@moreCoshubPromoDescription": {
+        "description": "The description for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleSubTitle": "Разрешить уведомления о новых записях в блоге и распродажах.",
+    "@settingsMarketingNotificationsToggleSubTitle": {
+        "description": "Settings page marketing notifications toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleTitle": "Разрешить маркетинговые уведомления",
+    "@settingsMarketingNotificationsToggleTitle": {
+        "description": "Settings page marketing notifications toggle title",
+        "type": "text",
+        "placeholders": {}
+    }
 }

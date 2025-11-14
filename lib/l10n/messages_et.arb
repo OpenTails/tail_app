@@ -1,1286 +1,1286 @@
 {
-  "triggerActionNotSet": "Tegevuskomplekt puudub",
-  "@triggerActionNotSet": {
-    "description": "Trigger action label when no action set",
-    "type": "text",
-    "placeholders": {}
-  },
-  "title": "Saba ettevõte",
-  "@title": {
-    "description": "The name of the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPage": "Okei",
-  "@joyStickPage": {
-    "description": "The label and title of the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPage": "Saada tagasisidet",
-  "@feedbackPage": {
-    "description": "The label and title of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "aboutPage": "Umbes",
-  "@aboutPage": {
-    "description": "The label and title of the about page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsPage": "Seaded",
-  "@settingsPage": {
-    "description": "The label and title of the settings page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersPage": "Päästikud",
-  "@triggersPage": {
-    "description": "The label and title of the trigger page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPage": "Kohandatud toimingud",
-  "@sequencesPage": {
-    "description": "The label and title of the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectLabel": "Valige päästiku tüüp",
-  "@triggersSelectLabel": {
-    "description": "The title of the add trigger dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "ok": "Okei",
-  "@ok": {
-    "description": "Ok on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "cancel": "Saba",
-  "@cancel": {
-    "description": "Cancel on dialog boxes",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersAdd": "Lisa päästik",
-  "@triggersAdd": {
-    "description": "Floating Action Button on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceType": "Millise käigu kohta see peaks kehtima?",
-  "@deviceType": {
-    "description": "Title for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeTail": "Saba",
-  "@deviceTypeTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeEars": "Kõrvad",
-  "@deviceTypeEars": {
-    "description": "Ears option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeWings": "Tiivad",
-  "@deviceTypeWings": {
-    "description": "Wings option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesAdd": "Uus tegevus",
-  "@sequencesAdd": {
-    "description": "Floating Action Button on the sequences page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEdit": "Redigeeri toimingut",
-  "@sequencesEdit": {
-    "description": "Label for the edit icon on a sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditAdd": "Lisa Liikumine",
-  "@sequencesEditAdd": {
-    "description": "Label for the add Floating Action Button on edit sequence page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditName": "Nimi",
-  "@sequencesEditName": {
-    "description": "Label for the name field on sequence edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditMove": "Liiguta",
-  "@sequencesEditMove": {
-    "description": "Label for the move tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDelay": "Viivitus",
-  "@sequencesEditDelay": {
-    "description": "Label for the delay tab on sequence move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditLeftServo": "Vasakpoolse servo asend",
-  "@sequencesEditLeftServo": {
-    "description": "Label for the left servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditRightServo": "Parema servo asend",
-  "@sequencesEditRightServo": {
-    "description": "Label for the right servo slider on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditSpeed": "Kui kiiresti peaks käik sellesse asendisse liikuma?",
-  "@sequencesEditSpeed": {
-    "description": "Label for the speed selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditEasing": "Leevenduse tüüp",
-  "@sequencesEditEasing": {
-    "description": "Label for the easing selector on the move tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditTime": "Kui kaua oodata, enne kui asute selle kohandatud toimingu järgmise käigu juurde",
-  "@sequencesEditTime": {
-    "description": "Label for the time slider on the delay tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditHomeLabel": "Ava varustuse avaleht",
-  "@sequencesEditHomeLabel": {
-    "description": "Label on the home tab of the move edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteTitle": "Kustuta tegevus",
-  "@sequencesEditDeleteTitle": {
-    "description": "Title of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesEditDeleteDescription": "Kas olete kindel, et soovite selle toimingu kustutada?",
-  "@sequencesEditDeleteDescription": {
-    "description": "Message of the dialog on the sequence edit page to delete the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditListDelayLabel": "Viivitage järgmist liigutust {howMany} ms.",
-  "@sequenceEditListDelayLabel": {
-    "description": "Delay move label on the edit sequences page.",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetooth": "Bluetooth pole saadaval",
-  "@actionsNoBluetooth": {
-    "description": "Label on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryCalm": "Rahulik ja lõdvestunud",
-  "@actionsCategoryCalm": {
-    "description": "calm action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryFast": "Kiire ja põnev",
-  "@actionsCategoryFast": {
-    "description": "fast action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryTense": "Redigeeri toimingut",
-  "@actionsCategoryTense": {
-    "description": "tense action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsCategoryGlowtip": "Helendav ots",
-  "@actionsCategoryGlowtip": {
-    "description": "glowtip action group label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsSelectScreen": "Valige Toimingud",
-  "@actionsSelectScreen": {
-    "description": "Title for action select menu on triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleTitle": "Haptiline tagasiside",
-  "@settingsHapticsToggleTitle": {
-    "description": "Settings page haptic feedback toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsHapticsToggleSubTitle": "Lubage toimingu puudutamisel vibratsioon",
-  "@settingsHapticsToggleSubTitle": {
-    "description": "Settings page haptic feedback toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleTitle": "Automaatne veateade",
-  "@settingsErrorReportingToggleTitle": {
-    "description": "Settings page error reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsErrorReportingToggleSubTitle": "Saadab Sentryle veateate",
-  "@settingsErrorReportingToggleSubTitle": {
-    "description": "Settings page error reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAppColor": "Rakenduse värv",
-  "@settingsAppColor": {
-    "description": "Settings page app color picker button title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesBatteryGraphTitle": "Aku graafik",
-  "@manageDevicesBatteryGraphTitle": {
-    "description": "battery graph expansion tile title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesDisconnect": "Katkesta ühendus",
-  "@manageDevicesDisconnect": {
-    "description": "manage devices disconnect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesShutdown": "Lülita välja",
-  "@manageDevicesShutdown": {
-    "description": "manage devices shutdown button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesColor": "Käiguvärv",
-  "@manageDevicesColor": {
-    "description": "manage devices color picker button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesForget": "Unusta",
-  "@manageDevicesForget": {
-    "description": "manage devices forget button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaButton": "Puudutage püsivara värskendamiseks",
-  "@manageDevicesOtaButton": {
-    "description": "manage devices ota available button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesTitle": "Otsige uut varustust",
-  "@scanDevicesTitle": {
-    "description": "button which opens the scan window",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesScanMessage": "Käikude otsimine. Veenduge, et teie varustus oleks sisse lülitatud ja läheduses",
-  "@scanDevicesScanMessage": {
-    "description": "scan for devices scan in progress message when scanning for a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingTitle": "Jalutamine",
-  "@triggerWalkingTitle": {
-    "description": "Walking/Step trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingDescription": "Käivitage kõndimisel toiming",
-  "@triggerWalkingDescription": {
-    "description": "Walking/Step trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStopped": "Peatatud",
-  "@triggerWalkingStopped": {
-    "description": "Walking/Step trigger Stopped action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerWalkingStep": "Samm",
-  "@triggerWalkingStep": {
-    "description": "Walking/Step trigger Step action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverTitle": "Kaas",
-  "@triggerCoverTitle": {
-    "description": "Cover trigger Title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverDescription": "Käivita toiming, kattes lähedussensori",
-  "@triggerCoverDescription": {
-    "description": "Cover trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverNear": "Seadmega kaetud",
-  "@triggerCoverNear": {
-    "description": "Cover trigger near action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverFar": "Seade katmata",
-  "@triggerCoverFar": {
-    "description": "Cover trigger far action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonTitle": "Helitugevuse nupud",
-  "@triggerVolumeButtonTitle": {
-    "description": "Volume Button trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonDescription": "Käivitage toiming, vajutades helitugevuse nuppu",
-  "@triggerVolumeButtonDescription": {
-    "description": "Volume Button trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeUp": "Helitugevuse suurendamine",
-  "@triggerVolumeButtonVolumeUp": {
-    "description": "Volume Button trigger volume up action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerVolumeButtonVolumeDown": "Hääl maha",
-  "@triggerVolumeButtonVolumeDown": {
-    "description": "Volume Button trigger volume down action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeTitle": "Raputama",
-  "@triggerShakeTitle": {
-    "description": "Shake trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerShakeDescription": "Käivitage toiming, raputades seadet",
-  "@triggerShakeDescription": {
-    "description": "Shake trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityTitle": "Läheduses Gear",
-  "@triggerProximityTitle": {
-    "description": "Proximity trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerProximityDescription": "Käivitage toiming, kui läheduses on varustus",
-  "@triggerProximityDescription": {
-    "description": "Proximity trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicTitle": "EarGear mikrofon",
-  "@triggerEarMicTitle": {
-    "description": "EarGear internal mic trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicDescription": "Käivitage toiming, kui EarGear tuvastab heli",
-  "@triggerEarMicDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarMicSound": "Heli tuvastatud",
-  "@triggerEarMicSound": {
-    "description": "EarGear internal mic trigger sound detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltTitle": "EarGear kaldeandur",
-  "@triggerEarTiltTitle": {
-    "description": "EarGear internal gesture sensor trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltDescription": "Käivitage toiming, kui EarGear tuvastab kalde",
-  "@triggerEarTiltDescription": {
-    "description": "EarGear internal mic trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltLeft": "Vasak kallutus",
-  "@triggerEarTiltLeft": {
-    "description": "EarGear internal gesture sensor trigger left tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltRight": "Paremale kallutamine",
-  "@triggerEarTiltRight": {
-    "description": "EarGear internal gesture sensor trigger right tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltForward": "Kallutamine edasi",
-  "@triggerEarTiltForward": {
-    "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerEarTiltBackward": "Tagasi kallutamine",
-  "@triggerEarTiltBackward": {
-    "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequenceEditRepeatTitle": "Mitu korda seda toimingut korrata?",
-  "@sequenceEditRepeatTitle": {
-    "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsDescription": "Muutke rakenduse värvi, seadistage Haptics ja palju muud",
-  "@settingsDescription": {
-    "description": "The description of the settings page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesConnect": "Ühendage",
-  "@manageDevicesConnect": {
-    "description": "manage devices connect button title when managing a device",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualResponsibleWaggingTitle": "Vastutustundlik vehkimine",
-  "@moreManualResponsibleWaggingTitle": {
-    "description": "Title for Responsible wagging manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualMiTailTitle": "MiTaili käsiraamat",
-  "@moreManualMiTailTitle": {
-    "description": "Title for MiTail manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualEargearTitle": "Kõrvaklappide kasutusjuhend",
-  "@moreManualEargearTitle": {
-    "description": "Title for EarGear manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualFlutterWingsTitle": "FlutterWingsi käsiraamat",
-  "@moreManualFlutterWingsTitle": {
-    "description": "Title for FlutterWings manual button on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualTitle": "Käsiraamatud",
-  "@moreManualTitle": {
-    "description": "Title for manual header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreManualSubTitle": "Puudutage vaatamiseks",
-  "@moreManualSubTitle": {
-    "description": "Subtitle for each manual on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreUsefulLinksTitle": "Kasulikud lingid",
-  "@moreUsefulLinksTitle": {
-    "description": "Title for Useful Links header on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleTitle": "Hoidke ekraan sees",
-  "@settingsKeepScreenOnToggleTitle": {
-    "description": "Settings page Keep Awake toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKeepScreenOnToggleSubTitle": "See režiim peatab ekraani väljalülitamise, kui teie varustus on ühendatud",
-  "@settingsKeepScreenOnToggleSubTitle": {
-    "description": "Settings page Keep Awake toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleTitle": "Anonüümse analüüsi lubamine",
-  "@settingsAnalyticsToggleTitle": {
-    "description": "Settings page analytics reporting toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAnalyticsToggleSubTitle": "Rakenduse täiustamiseks teatage mittetuvastavate funktsioonide kasutamisest Usaldusväärsele",
-  "@settingsAnalyticsToggleSubTitle": {
-    "description": "Settings page analytics reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePrivacyPolicyLinkTitle": "Privaatsuspoliitika",
-  "@morePrivacyPolicyLinkTitle": {
-    "description": "Title for UPrivacy policy link under Useful Links on More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreTitle": "Rohkem",
-  "@moreTitle": {
-    "description": "Title for More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joyStickPageDescription": "Juhi oma varustuse asukohta otse.",
-  "@joyStickPageDescription": {
-    "description": "The description of the joystick page on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesPageDescription": "Looge oma varustuse jaoks kohandatud toiminguid",
-  "@sequencesPageDescription": {
-    "description": "The description of the sequences page link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleTitle": "Kitsune režiim",
-  "@settingsKitsuneToggleTitle": {
-    "description": "Settings page Kitsune mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsKitsuneToggleSubTitle": "Kui ühendate samade seadmete mitu eksemplari, lisab see režiim nende liikumise algusaegadele juhuslikke pause, andes sellele erineva visuaalse efekti.",
-  "@settingsKitsuneToggleSubTitle": {
-    "description": "Settings page kitsune toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit. Veenduge, et teie varustuse püsivara on ajakohane.",
-  "@sequencesInfoDescription": {
-    "description": "Description for what a custom action is and how to use them on the Custom Actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse ümberjärjestamiseks võite pikalt vajutada.",
-  "@sequencesInfoEditDescription": {
-    "description": "Description for making a custom action on the edit Custom Action page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleTitle": "Näita aku %",
-  "@settingsBatteryPercentageToggleTitle": {
-    "description": "Settings page Battery Percentage mode toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsBatteryPercentageToggleSubTitle": "Kuvage ikooni asemel tegelik aku tase",
-  "@settingsBatteryPercentageToggleSubTitle": {
-    "description": "Settings page show battery percentage toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleTitle": "Suuremad kaardid",
-  "@settingsLargerCardsToggleTitle": {
-    "description": "Settings page Larger cards toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsLargerCardsToggleSubTitle": "Muudab tegevuskaardid koputamise hõlbustamiseks suuremaks",
-  "@settingsLargerCardsToggleSubTitle": {
-    "description": "Settings page show larger cards toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleTitle": "Peida õpetuskaardid",
-  "@settingsTutorialCardToggleTitle": {
-    "description": "Settings page tutorial card display toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuse kaardid kogu rakenduses",
-  "@settingsTutorialCardToggleSubTitle": {
-    "description": "Settings page tutorial card display toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaTitle": "Värskendage Geari",
-  "@otaTitle": {
-    "description": "Title for OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaChangelogLabel": "Püsivara muudatuste logi",
-  "@otaChangelogLabel": {
-    "description": "Label for changelog section of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaDownloadButtonLabel": "Alustage OTA värskendamist",
-  "@otaDownloadButtonLabel": {
-    "description": "Label for download firmware button at bottom of OTA page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga saab aktiveerida mitu päästikut. Selle muutmiseks puudutage päästikut. Päästiku lubamiseks kasutage vasakpoolset lülitit.",
-  "@triggerInfoDescription": {
-    "description": "Description for what a trigger is and how to use them on the triggers page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerInfoEditActionDescription": "Puudutage pliiatsit, et valida sündmuse toimumisel esitatav toiming. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega.",
-  "@triggerInfoEditActionDescription": {
-    "description": "Instruction on how to select an action on the trigger edit page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit",
-  "@onboardingPrivacyPolicyDescription": {
-    "description": "Description for there being a privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyViewButtonLabel": "Vaadake privaatsuspoliitikat",
-  "@onboardingPrivacyPolicyViewButtonLabel": {
-    "description": "Button label to view privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingPrivacyPolicyAcceptButtonLabel": "Nõustuge privaatsuspoliitikaga",
-  "@onboardingPrivacyPolicyAcceptButtonLabel": {
-    "description": "Button label to accept privacy policy on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothTitle": "Bluetooth",
-  "@onboardingBluetoothTitle": {
-    "description": "Title for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothDescription": "Geariga ühendamiseks on vaja Bluetoothi luba",
-  "@onboardingBluetoothDescription": {
-    "description": "Description for bluetooth section on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothRequestButtonLabel": "Andke luba",
-  "@onboardingBluetoothRequestButtonLabel": {
-    "description": "Label for the button to request bluetooth permission on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingBluetoothEnableButtonLabel": "Bluetoothi sisselülitamiseks avage Seaded",
-  "@onboardingBluetoothEnableButtonLabel": {
-    "description": "Label for the button to open bluetooth settings on the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingDoneButtonLabel": "Valmis",
-  "@onboardingDoneButtonLabel": {
-    "description": "Label for the button to close the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "onboardingCompletedTitle": "Head vehkimist!",
-  "@onboardingCompletedTitle": {
-    "description": "Title of the final page of the onboarding screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectClearLabel": "Valige Puudub",
-  "@triggersSelectClearLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected action",
-    "type": "text",
-    "placeholders": {}
-  },
-  "doubleBackToClose": "Väljumiseks vajutage uuesti",
-  "@doubleBackToClose": {
-    "description": "Snackbar message which appears when the back button is pressed at the main screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleTitle": "Otsige alati teadaolevat varustust",
-  "@settingsAlwaysScanningToggleTitle": {
-    "description": "Settings page always scanning toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaCompletedTitle": "Värskendus lõpetatud",
-  "@otaCompletedTitle": {
-    "description": "Title for the text that appears when an OTA update is completed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedTitle": "Uuendus ebaõnnestus. Taaskäivitage varustus ja proovige uuesti",
-  "@otaFailedTitle": {
-    "description": "Title for the text that appears when an OTA update has failed",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleTitle": "Luba saba ajaveebi märguanded",
-  "@settingsNewsletterToggleTitle": {
-    "description": "Settings page newsletter notification toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsNewsletterToggleSubTitle": "Saate automaatselt märguandeid, kui ilmub uus Tail Blogi postitus",
-  "@settingsNewsletterToggleSubTitle": {
-    "description": "Settings page newsletter notification toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonTitle": "Juhuslik režiim",
-  "@triggerRandomButtonTitle": {
-    "description": "Casual Mode trigger title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomButtonDescription": "Esitage valitud tegevus juhuslikult",
-  "@triggerRandomButtonDescription": {
-    "description": "Casual Mode trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerRandomAction": "Tegevus",
-  "@triggerRandomAction": {
-    "description": "Casual Mode trigger action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaInProgressTitle": "Geari värskendamine. Ärge lülitage käiku välja ega sulgege rakendust",
-  "@otaInProgressTitle": {
-    "description": "Label for ota in progress",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaLowBattery": "Madal akutase. Palun laadige oma varustus vähemalt 50%",
-  "@otaLowBattery": {
-    "description": "Title for the text that appears when an OTA update was blocked due to low battery",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeContinuousScanningOffDescription": "Skannimise alustamiseks pühkige ülaltoodud teadaoleval seadmealal horisontaalselt. Pideva skannimise saate seadetes sisse lülitada.",
-  "@homeContinuousScanningOffDescription": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessage": "Siin saate juhtida, uurida ja värskendada kogu oma Tail Co varustust. Saadaval on ka juhised ja juhendid. Head vehkimist!",
-  "@homeWelcomeMessage": {
-    "description": "The welcome message on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeNewsTitle": "Värske Sabablogist",
-  "@homeNewsTitle": {
-    "description": "The title header for the news in the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeWelcomeMessageTitle": "Tere tulemast Tail Company rakendusse",
-  "@homeWelcomeMessageTitle": {
-    "description": "The welcome message title on the home screen when no gear is connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectSaveLabel": "Salvesta toimingud",
-  "@triggersSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesFoundTitle": "Leitud Gear. Ühenduse loomiseks puudutage hammasratta nime",
-  "@scanDevicesFoundTitle": {
-    "description": "Title when gear is found on the scan for new gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "homeChangelogLinkTitle": "Muudatuste logi",
-  "@homeChangelogLinkTitle": {
-    "description": "Title for Changelog on Home page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "noLongerSupported": "Seda käiku enam ei toetata. Mõned rakenduse funktsioonid ei pruugi töötada",
-  "@noLongerSupported": {
-    "description": "Warning message which appears for unsupported gear on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "mandatoryOtaRequired": "Teie varustuse paremaks toetamiseks on saadaval püsivara värskendus",
-  "@mandatoryOtaRequired": {
-    "description": "Warning message which appears for gear which have old firmware on the manage gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsFavoriteTip": "Lemmikusse lisamiseks vajutage toimingut pikalt",
-  "@actionsFavoriteTip": {
-    "description": "tip message which appears when no actions are favorited on the actions page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreSourceCode": "Lähtekood",
-  "@moreSourceCode": {
-    "description": "Label for the github and dev mode button on the more tab",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioActionCategory": "Heliefektid",
-  "@audioActionCategory": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioPage": "Kohandatud helid",
-  "@audioPage": {
-    "description": "The label and title of the custom audio management page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEditDescription": "Hallake kohandatud heliefekte",
-  "@audioEditDescription": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioEdit": "Heliefekti ümbernimetamine",
-  "@audioEdit": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDelete": "Heliefekti kustutamine",
-  "@audioDelete": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioAdd": "Lisa heliefekt",
-  "@audioAdd": {
-    "description": "Label for sound files",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioDeleteDescription": "Kas soovite kindlasti selle heliefekti kustutada?",
-  "@audioDeleteDescription": {
-    "description": "Label for the body of the delete confirmation dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "audioTipCard": "Saate lisada kohandatud helisid, mis kuvatakse vahekaardil Toimingud ja mida saab kasutada koos päästikutega",
-  "@audioTipCard": {
-    "description": "Tutorial card for the audio page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "deviceTypeMiniTail": "Mini kukk",
-  "@deviceTypeMiniTail": {
-    "description": "Tail option for the selector to select which device to send moves to",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanAddDemoGear": "Lisage Fake Gear",
-  "@scanAddDemoGear": {
-    "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGearTip": "Kas soovite rakendust proovida, kuid ootate, kuni teie varustus kohale jõuab? Lisage võltsvarustus. See võimaldab teil kasutada rakendust nii, nagu oleks teil oma varustus või kui soovite proovida varustust, mida te praegu ei oma. See lubab lehel „Uue varustuse otsimine” uue jaotise.",
-  "@scanDemoGearTip": {
-    "description": "Tip Card description for the  demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsAlwaysScanningToggleSubTitle": "Otsige pidevalt teadaolevat käiku. Kui see on keelatud, peate skannimiseks pühkima käiguribal.",
-  "@settingsAlwaysScanningToggleSubTitle": {
-    "description": "Settings page always scanning toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDemoGear": "Võltsvarustus",
-  "@scanDemoGear": {
-    "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanRemoveDemoGear": "Eemaldage kõik võltsvarustus",
-  "@scanRemoveDemoGear": {
-    "description": "Label for the button to remove all demo gear on the scan for new devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerActionSelectorTutorialLabel": "Valige nii palju toiminguid kui soovite. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega. Ärge unustage salvestada.",
-  "@triggerActionSelectorTutorialLabel": {
-    "description": "Label for the tutorial card on the Action selector for triggers",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersSelectAllLabel": "Vali kõik",
-  "@triggersSelectAllLabel": {
-    "description": "The button label on the trigger select screen for clearing the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "featureLimitedOtaRequiredLabel": "Selle funktsiooni kasutamiseks värskendage oma varustust.",
-  "@featureLimitedOtaRequiredLabel": {
-    "description": "Label for the warning card when a feature requires a firmware update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanConnectToAllButtonLabel": "Ühendage kõigiga",
-  "@scanConnectToAllButtonLabel": {
-    "description": "Title for Connecting to all found gear on the scan page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "joystickWarning": "Juhtkangi funktsioon on eksperimentaalne. Kasutage omal vastutusel.",
-  "@joystickWarning": {
-    "description": "Label for the warning tutorial card on the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarLabel": "Palun värskendage oma varustust",
-  "@otaAvailableSnackbarLabel": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarTitle": "Uuendus saadaval",
-  "@otaAvailableSnackbarTitle": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarTitle": "Gear ühendatud",
-  "@newGearConnectedSnackbarTitle": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarLabel": "Head vehkimist",
-  "@newGearConnectedSnackbarLabel": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggersDefSelectSaveLabel": "Vali",
-  "@triggersDefSelectSaveLabel": {
-    "description": "The button label on the trigger select screen for saving the selected actions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "colorPickerTitle": "Valige värv",
-  "@colorPickerTitle": {
-    "description": "The title of the color picker",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetoothDescription": "Geariga ühenduse loomiseks on vaja Bluetoothi. Lülitage Bluetooth seadetes sisse. Ärge looge varustusega ühendust, kui olete seadme Bluetoothi seadetes.",
-  "@actionsNoBluetoothDescription": {
-    "description": "description on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedTitle": "Kõrva liikumise kiirus",
-  "@earSpeedTitle": {
-    "description": "Title for the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedFast": "Kiire",
-  "@earSpeedFast": {
-    "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "earSpeedSlow": "Aeglane",
-  "@earSpeedSlow": {
-    "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "casualModeDelayTitle": "Min ja Max viivitus",
-  "@casualModeDelayTitle": {
-    "description": "Label for the range slider to set the min and max delay time for casual mode",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionTitle": "Seadke koduasend",
-  "@manageGearHomePositionTitle": {
-    "description": "Title for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearHomePositionDescription": "Määrab asendi, kuhu käik liigub pärast toimingu lõpetamist",
-  "@manageGearHomePositionDescription": {
-    "description": "Description for the home position sliders on the manage gear screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyTitle": "Tail Blog ainult WiFi kaudu",
-  "@settingsTailBlogWifiOnlyTitle": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsTailBlogWifiOnlyDescription": "Vältige Tail Blogi sisu laadimist, kui olete mobiilsidevõrguga ühendatud",
-  "@settingsTailBlogWifiOnlyDescription": {
-    "description": "Description for the tail blog wifi only setting",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageCoverPromoTitle": "Muuda oma varustuse välimust!",
-  "@morePageCoverPromoTitle": {
-    "description": "The title for the button on the More page to push users to buy a new cover",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateTitle": "Lokaliseerimine",
-  "@morePageTranslateTitle": {
-    "description": "The title for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "morePageTranslateDescription": "Aita meil rakendus oma keelde tõlkida",
-  "@morePageTranslateDescription": {
-    "description": "The description for the button on the More page to push users to assist in translating the app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "appLanguageSelectorTitle": "Rakenduse keel",
-  "@appLanguageSelectorTitle": {
-    "description": "The title for the button and dialog to select the app language",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonDownloadFailed": "Püsivara faili allalaadimine ebaõnnestus",
-  "@otaFailedReasonDownloadFailed": {
-    "description": "downloadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearVersionMismatch": "Varustuse püsivara versioon ei ühti üleslaetud versiooniga",
-  "@otaFailedReasonGearVersionMismatch": {
-    "description": "gearVersionMismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReturnedError": "Varustus tagastas tundmatu vea",
-  "@otaFailedReasonGearReturnedError": {
-    "description": "gearReturnedError error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonUploadFailed": "Püsivara üleslaadimine varustusse ebaõnnestus",
-  "@otaFailedReasonUploadFailed": {
-    "description": "uploadFailed error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonMD5Mismatch": "Allalaaditud faili kontroll ebaõnnestus",
-  "@otaFailedReasonMD5Mismatch": {
-    "description": "md5Mismatch error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearReconnectTimeout": "Varustus ei ühendanud end õigeaegselt uuesti",
-  "@otaFailedReasonGearReconnectTimeout": {
-    "description": "gearReconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearNoGearPairedTip": "Kasuta oma telefonis nuppu „Skaneeri uut varustust”, et siduda seade",
-  "@watchKnownGearNoGearPairedTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchKnownGearTitle": "Sinu varustus",
-  "@watchKnownGearTitle": {
-    "description": "The title for the known gear section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsTitle": "Lemmiktegevused",
-  "@watchFavoriteActionsTitle": {
-    "description": "title for the favorite actions section of the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeToggleTitle": "Luba konverentsirežiim",
-  "@manageGearConModeToggleTitle": {
-    "description": "The description for the convention mode enabled button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeCopy": "Kopeeri lõikelauale",
-  "@manageGearConModePincodeCopy": {
-    "description": "The description for copy to clipboard button on the pin code dialog",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearOtaFinalTimeout": "Aeg sai otsa enne, kui varustus tagastas uue püsivara versiooni",
-  "@otaFailedReasonGearOtaFinalTimeout": {
-    "description": "gearOtaFinalTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeTitle": "Konverentsirežiim",
-  "@manageGearConModeTitle": {
-    "description": "The title for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "watchFavoriteActionsNoFavoritesTip": "Hoia telefoni ekraanil toimingul pikalt peal, et see lemmikuks märkida",
-  "@watchFavoriteActionsNoFavoritesTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckButtonLabel": "Otsi värskendust",
-  "@manageDevicesOtaCheckButtonLabel": {
-    "description": "manage devices button to check if an update is available",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaFailedReasonGearDisconnectTimeout": "Varustus ei katkestanud ühendust õigel ajal ja tõenäoliselt ei taaskäivitunud",
-  "@otaFailedReasonGearDisconnectTimeout": {
-    "description": "gearDisconnectTimeout error message for uploading firmware",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeEnableDescription": "Kui aktiveerid konverentsirežiimi, taaskäivitub varustus ja sinult küsitakse PIN-koodi. Kood kopeeritakse lõikelauale",
-  "@manageGearConModePincodeEnableDescription": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaUpToDateButtonLabel": "Varustus on ajakohane!",
-  "@manageDevicesOtaUpToDateButtonLabel": {
-    "description": "manage devices button label if gear is up to date",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckInProgressButtonLabel": "Kontrollin",
-  "@manageDevicesOtaCheckInProgressButtonLabel": {
-    "description": "manage devices button label if gear is checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesOtaCheckErrorButtonLabel": "Palun proovi hiljem uuesti",
-  "@manageDevicesOtaCheckErrorButtonLabel": {
-    "description": "manage devices button label if an error occured while checking for an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutLabel": "Teave sinu varustuse kohta",
-  "@manageDevicesAboutLabel": {
-    "description": "label for the about your gear section in the manage devices area",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutHardwareVersionLabel": "Riistvara versioon",
-  "@manageDevicesAboutHardwareVersionLabel": {
-    "description": "label for the hardware version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageDevicesAboutSoftwareVersionLabel": "Tarkvara versioon",
-  "@manageDevicesAboutSoftwareVersionLabel": {
-    "description": "label for the software version on the manage devices page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportTitle": "Tugi",
-  "@supportTitle": {
-    "description": "The label and title of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModeDescription": "Konverentsirežiim on lisaturvameede, mis takistab teistel seadmetel sinu varustusega ühenduse loomist.",
-  "@manageGearConModeDescription": {
-    "description": "The description for the convention mode page on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "manageGearConModePincodeTitle": "Vaata PIN-koodi",
-  "@manageGearConModePincodeTitle": {
-    "description": "The description for the pin mode button on the gear page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "feedbackPageDescription": "On sul ettepanek või probleem rakendusega? Anna meile teada. Märkus: see on anonüümne ega aita varustusega seotud probleeme lahendada",
-  "@feedbackPageDescription": {
-    "description": "The description of the feedback page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "supportDescription": "Puuduta sinist vestluse ikooni, et võtta ühendust tugimeeskonnaga",
-  "@supportDescription": {
-    "description": "The description of the email support link on the more page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreExperimentalTitle": "Eksperimentaalne",
-  "@moreExperimentalTitle": {
-    "description": "The label for the experimental features on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoTitle": "CosHub",
-  "@moreCoshubPromoTitle": {
-    "description": "The title for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "moreCoshubPromoDescription": "Meie uusim äpp, mis aitab sul oma cosplayd planeerida, jagada ja luua, on kohal",
-  "@moreCoshubPromoDescription": {
-    "description": "The description for the coshub link on the More page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "scanDevicesOnboardingTitle": "Ühendame su varustuse",
-  "@scanDevicesOnboardingTitle": {
-    "description": "Title for the gear pairing screen in onboarding",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleTitle": "Luba turundusteavitused",
-  "@settingsMarketingNotificationsToggleTitle": {
-    "description": "Settings page marketing notifications toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleSubTitle": "Luba teavitused uutest blogipostitustest ja sooduspakkumistest.",
-  "@settingsMarketingNotificationsToggleSubTitle": {
-    "description": "Settings page marketing notifications toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleTitle": "UwU Tõlkija",
-  "@settingsUwUToggleTitle": {
-    "description": "Settings page UwU text toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsUwUToggleSubTitle": "OwO, mis see on?",
-  "@settingsUwUToggleSubTitle": {
-    "description": "Settings page UwU text toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  }
+    "triggerActionNotSet": "Tegevuskomplekt puudub",
+    "@triggerActionNotSet": {
+        "description": "Trigger action label when no action set",
+        "type": "text",
+        "placeholders": {}
+    },
+    "title": "Saba ettevõte",
+    "@title": {
+        "description": "The name of the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPage": "Okei",
+    "@joyStickPage": {
+        "description": "The label and title of the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPage": "Saada tagasisidet",
+    "@feedbackPage": {
+        "description": "The label and title of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "aboutPage": "Umbes",
+    "@aboutPage": {
+        "description": "The label and title of the about page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsPage": "Seaded",
+    "@settingsPage": {
+        "description": "The label and title of the settings page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersPage": "Päästikud",
+    "@triggersPage": {
+        "description": "The label and title of the trigger page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPage": "Kohandatud toimingud",
+    "@sequencesPage": {
+        "description": "The label and title of the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectLabel": "Valige päästiku tüüp",
+    "@triggersSelectLabel": {
+        "description": "The title of the add trigger dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "ok": "Okei",
+    "@ok": {
+        "description": "Ok on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "cancel": "Saba",
+    "@cancel": {
+        "description": "Cancel on dialog boxes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersAdd": "Lisa päästik",
+    "@triggersAdd": {
+        "description": "Floating Action Button on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceType": "Millise käigu kohta see peaks kehtima?",
+    "@deviceType": {
+        "description": "Title for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeTail": "Saba",
+    "@deviceTypeTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeEars": "Kõrvad",
+    "@deviceTypeEars": {
+        "description": "Ears option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeWings": "Tiivad",
+    "@deviceTypeWings": {
+        "description": "Wings option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesAdd": "Uus tegevus",
+    "@sequencesAdd": {
+        "description": "Floating Action Button on the sequences page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEdit": "Redigeeri toimingut",
+    "@sequencesEdit": {
+        "description": "Label for the edit icon on a sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditAdd": "Lisa Liikumine",
+    "@sequencesEditAdd": {
+        "description": "Label for the add Floating Action Button on edit sequence page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditName": "Nimi",
+    "@sequencesEditName": {
+        "description": "Label for the name field on sequence edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditMove": "Liiguta",
+    "@sequencesEditMove": {
+        "description": "Label for the move tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDelay": "Viivitus",
+    "@sequencesEditDelay": {
+        "description": "Label for the delay tab on sequence move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditLeftServo": "Vasakpoolse servo asend",
+    "@sequencesEditLeftServo": {
+        "description": "Label for the left servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditRightServo": "Parema servo asend",
+    "@sequencesEditRightServo": {
+        "description": "Label for the right servo slider on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditSpeed": "Kui kiiresti peaks käik sellesse asendisse liikuma?",
+    "@sequencesEditSpeed": {
+        "description": "Label for the speed selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditEasing": "Leevenduse tüüp",
+    "@sequencesEditEasing": {
+        "description": "Label for the easing selector on the move tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditTime": "Kui kaua oodata, enne kui asute selle kohandatud toimingu järgmise käigu juurde",
+    "@sequencesEditTime": {
+        "description": "Label for the time slider on the delay tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditHomeLabel": "Ava varustuse avaleht",
+    "@sequencesEditHomeLabel": {
+        "description": "Label on the home tab of the move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteTitle": "Kustuta tegevus",
+    "@sequencesEditDeleteTitle": {
+        "description": "Title of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesEditDeleteDescription": "Kas olete kindel, et soovite selle toimingu kustutada?",
+    "@sequencesEditDeleteDescription": {
+        "description": "Message of the dialog on the sequence edit page to delete the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditListDelayLabel": "Viivitage järgmist liigutust {howMany} ms.",
+    "@sequenceEditListDelayLabel": {
+        "description": "Delay move label on the edit sequences page.",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetooth": "Bluetooth pole saadaval",
+    "@actionsNoBluetooth": {
+        "description": "Label on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryCalm": "Rahulik ja lõdvestunud",
+    "@actionsCategoryCalm": {
+        "description": "calm action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryFast": "Kiire ja põnev",
+    "@actionsCategoryFast": {
+        "description": "fast action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryTense": "Redigeeri toimingut",
+    "@actionsCategoryTense": {
+        "description": "tense action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryGlowtip": "Helendav ots",
+    "@actionsCategoryGlowtip": {
+        "description": "glowtip action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsSelectScreen": "Valige Toimingud",
+    "@actionsSelectScreen": {
+        "description": "Title for action select menu on triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleTitle": "Haptiline tagasiside",
+    "@settingsHapticsToggleTitle": {
+        "description": "Settings page haptic feedback toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsHapticsToggleSubTitle": "Lubage toimingu puudutamisel vibratsioon",
+    "@settingsHapticsToggleSubTitle": {
+        "description": "Settings page haptic feedback toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleTitle": "Automaatne veateade",
+    "@settingsErrorReportingToggleTitle": {
+        "description": "Settings page error reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsErrorReportingToggleSubTitle": "Saadab Sentryle veateate",
+    "@settingsErrorReportingToggleSubTitle": {
+        "description": "Settings page error reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAppColor": "Rakenduse värv",
+    "@settingsAppColor": {
+        "description": "Settings page app color picker button title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesBatteryGraphTitle": "Aku graafik",
+    "@manageDevicesBatteryGraphTitle": {
+        "description": "battery graph expansion tile title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesDisconnect": "Katkesta ühendus",
+    "@manageDevicesDisconnect": {
+        "description": "manage devices disconnect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesShutdown": "Lülita välja",
+    "@manageDevicesShutdown": {
+        "description": "manage devices shutdown button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesColor": "Käiguvärv",
+    "@manageDevicesColor": {
+        "description": "manage devices color picker button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesForget": "Unusta",
+    "@manageDevicesForget": {
+        "description": "manage devices forget button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaButton": "Puudutage püsivara värskendamiseks",
+    "@manageDevicesOtaButton": {
+        "description": "manage devices ota available button",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesTitle": "Otsige uut varustust",
+    "@scanDevicesTitle": {
+        "description": "button which opens the scan window",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesScanMessage": "Käikude otsimine. Veenduge, et teie varustus oleks sisse lülitatud ja läheduses",
+    "@scanDevicesScanMessage": {
+        "description": "scan for devices scan in progress message when scanning for a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingTitle": "Jalutamine",
+    "@triggerWalkingTitle": {
+        "description": "Walking/Step trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingDescription": "Käivitage kõndimisel toiming",
+    "@triggerWalkingDescription": {
+        "description": "Walking/Step trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStopped": "Peatatud",
+    "@triggerWalkingStopped": {
+        "description": "Walking/Step trigger Stopped action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerWalkingStep": "Samm",
+    "@triggerWalkingStep": {
+        "description": "Walking/Step trigger Step action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverTitle": "Kaas",
+    "@triggerCoverTitle": {
+        "description": "Cover trigger Title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverDescription": "Käivita toiming, kattes lähedussensori",
+    "@triggerCoverDescription": {
+        "description": "Cover trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverNear": "Seadmega kaetud",
+    "@triggerCoverNear": {
+        "description": "Cover trigger near action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerCoverFar": "Seade katmata",
+    "@triggerCoverFar": {
+        "description": "Cover trigger far action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonTitle": "Helitugevuse nupud",
+    "@triggerVolumeButtonTitle": {
+        "description": "Volume Button trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonDescription": "Käivitage toiming, vajutades helitugevuse nuppu",
+    "@triggerVolumeButtonDescription": {
+        "description": "Volume Button trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeUp": "Helitugevuse suurendamine",
+    "@triggerVolumeButtonVolumeUp": {
+        "description": "Volume Button trigger volume up action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerVolumeButtonVolumeDown": "Hääl maha",
+    "@triggerVolumeButtonVolumeDown": {
+        "description": "Volume Button trigger volume down action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeTitle": "Raputama",
+    "@triggerShakeTitle": {
+        "description": "Shake trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerShakeDescription": "Käivitage toiming, raputades seadet",
+    "@triggerShakeDescription": {
+        "description": "Shake trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityTitle": "Läheduses Gear",
+    "@triggerProximityTitle": {
+        "description": "Proximity trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerProximityDescription": "Käivitage toiming, kui läheduses on varustus",
+    "@triggerProximityDescription": {
+        "description": "Proximity trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicTitle": "EarGear mikrofon",
+    "@triggerEarMicTitle": {
+        "description": "EarGear internal mic trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicDescription": "Käivitage toiming, kui EarGear tuvastab heli",
+    "@triggerEarMicDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarMicSound": "Heli tuvastatud",
+    "@triggerEarMicSound": {
+        "description": "EarGear internal mic trigger sound detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltTitle": "EarGear kaldeandur",
+    "@triggerEarTiltTitle": {
+        "description": "EarGear internal gesture sensor trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltDescription": "Käivitage toiming, kui EarGear tuvastab kalde",
+    "@triggerEarTiltDescription": {
+        "description": "EarGear internal mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltLeft": "Vasak kallutus",
+    "@triggerEarTiltLeft": {
+        "description": "EarGear internal gesture sensor trigger left tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltRight": "Paremale kallutamine",
+    "@triggerEarTiltRight": {
+        "description": "EarGear internal gesture sensor trigger right tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltForward": "Kallutamine edasi",
+    "@triggerEarTiltForward": {
+        "description": "EarGear internal gesture sensor trigger forward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerEarTiltBackward": "Tagasi kallutamine",
+    "@triggerEarTiltBackward": {
+        "description": "EarGear internal gesture sensor trigger backward tilt detected action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequenceEditRepeatTitle": "Mitu korda seda toimingut korrata?",
+    "@sequenceEditRepeatTitle": {
+        "description": "Title for slider on sequence edit page to set how many times to repeat the sequence",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsDescription": "Muutke rakenduse värvi, seadistage Haptics ja palju muud",
+    "@settingsDescription": {
+        "description": "The description of the settings page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesConnect": "Ühendage",
+    "@manageDevicesConnect": {
+        "description": "manage devices connect button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualResponsibleWaggingTitle": "Vastutustundlik vehkimine",
+    "@moreManualResponsibleWaggingTitle": {
+        "description": "Title for Responsible wagging manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualMiTailTitle": "MiTaili käsiraamat",
+    "@moreManualMiTailTitle": {
+        "description": "Title for MiTail manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualEargearTitle": "Kõrvaklappide kasutusjuhend",
+    "@moreManualEargearTitle": {
+        "description": "Title for EarGear manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualFlutterWingsTitle": "FlutterWingsi käsiraamat",
+    "@moreManualFlutterWingsTitle": {
+        "description": "Title for FlutterWings manual button on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualTitle": "Käsiraamatud",
+    "@moreManualTitle": {
+        "description": "Title for manual header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreManualSubTitle": "Puudutage vaatamiseks",
+    "@moreManualSubTitle": {
+        "description": "Subtitle for each manual on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreUsefulLinksTitle": "Kasulikud lingid",
+    "@moreUsefulLinksTitle": {
+        "description": "Title for Useful Links header on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleTitle": "Hoidke ekraan sees",
+    "@settingsKeepScreenOnToggleTitle": {
+        "description": "Settings page Keep Awake toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKeepScreenOnToggleSubTitle": "See režiim peatab ekraani väljalülitamise, kui teie varustus on ühendatud",
+    "@settingsKeepScreenOnToggleSubTitle": {
+        "description": "Settings page Keep Awake toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleTitle": "Anonüümse analüüsi lubamine",
+    "@settingsAnalyticsToggleTitle": {
+        "description": "Settings page analytics reporting toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAnalyticsToggleSubTitle": "Rakenduse täiustamiseks teatage mittetuvastavate funktsioonide kasutamisest Usaldusväärsele",
+    "@settingsAnalyticsToggleSubTitle": {
+        "description": "Settings page analytics reporting toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePrivacyPolicyLinkTitle": "Privaatsuspoliitika",
+    "@morePrivacyPolicyLinkTitle": {
+        "description": "Title for UPrivacy policy link under Useful Links on More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreTitle": "Rohkem",
+    "@moreTitle": {
+        "description": "Title for More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joyStickPageDescription": "Juhi oma varustuse asukohta otse.",
+    "@joyStickPageDescription": {
+        "description": "The description of the joystick page on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesPageDescription": "Looge oma varustuse jaoks kohandatud toiminguid",
+    "@sequencesPageDescription": {
+        "description": "The description of the sequences page link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleTitle": "Kitsune režiim",
+    "@settingsKitsuneToggleTitle": {
+        "description": "Settings page Kitsune mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsKitsuneToggleSubTitle": "Kui ühendate samade seadmete mitu eksemplari, lisab see režiim nende liikumise algusaegadele juhuslikke pause, andes sellele erineva visuaalse efekti.",
+    "@settingsKitsuneToggleSubTitle": {
+        "description": "Settings page kitsune toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit. Veenduge, et teie varustuse püsivara on ajakohane.",
+    "@sequencesInfoDescription": {
+        "description": "Description for what a custom action is and how to use them on the Custom Actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesInfoEditDescription": "Iga kohandatud toiming koosneb 1–6 liigutusest ja seda võib korrata kuni 5 korda. Liigutuse ümberjärjestamiseks võite pikalt vajutada.",
+    "@sequencesInfoEditDescription": {
+        "description": "Description for making a custom action on the edit Custom Action page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleTitle": "Näita aku %",
+    "@settingsBatteryPercentageToggleTitle": {
+        "description": "Settings page Battery Percentage mode toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsBatteryPercentageToggleSubTitle": "Kuvage ikooni asemel tegelik aku tase",
+    "@settingsBatteryPercentageToggleSubTitle": {
+        "description": "Settings page show battery percentage toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleTitle": "Suuremad kaardid",
+    "@settingsLargerCardsToggleTitle": {
+        "description": "Settings page Larger cards toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsLargerCardsToggleSubTitle": "Muudab tegevuskaardid koputamise hõlbustamiseks suuremaks",
+    "@settingsLargerCardsToggleSubTitle": {
+        "description": "Settings page show larger cards toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleTitle": "Peida õpetuskaardid",
+    "@settingsTutorialCardToggleTitle": {
+        "description": "Settings page tutorial card display toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTutorialCardToggleSubTitle": "Peida erinevad õpetuse kaardid kogu rakenduses",
+    "@settingsTutorialCardToggleSubTitle": {
+        "description": "Settings page tutorial card display toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaTitle": "Värskendage Geari",
+    "@otaTitle": {
+        "description": "Title for OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaChangelogLabel": "Püsivara muudatuste logi",
+    "@otaChangelogLabel": {
+        "description": "Label for changelog section of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaDownloadButtonLabel": "Alustage OTA värskendamist",
+    "@otaDownloadButtonLabel": {
+        "description": "Label for download firmware button at bottom of OTA page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoDescription": "Päästikud saadavad teie varustusele automaatselt toiminguid. Korraga saab aktiveerida mitu päästikut. Selle muutmiseks puudutage päästikut. Päästiku lubamiseks kasutage vasakpoolset lülitit.",
+    "@triggerInfoDescription": {
+        "description": "Description for what a trigger is and how to use them on the triggers page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerInfoEditActionDescription": "Puudutage pliiatsit, et valida sündmuse toimumisel esitatav toiming. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega.",
+    "@triggerInfoEditActionDescription": {
+        "description": "Instruction on how to select an action on the trigger edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyDescription": "Kohandatud toimingud võimaldavad teil varustuse jaoks ise toiminguid teha. Kohandatud toimingu puudutamine käivitab selle. Kohandatud toimingu muutmiseks puudutage pliiatsit",
+    "@onboardingPrivacyPolicyDescription": {
+        "description": "Description for there being a privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyViewButtonLabel": "Vaadake privaatsuspoliitikat",
+    "@onboardingPrivacyPolicyViewButtonLabel": {
+        "description": "Button label to view privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingPrivacyPolicyAcceptButtonLabel": "Nõustuge privaatsuspoliitikaga",
+    "@onboardingPrivacyPolicyAcceptButtonLabel": {
+        "description": "Button label to accept privacy policy on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothTitle": "Bluetooth",
+    "@onboardingBluetoothTitle": {
+        "description": "Title for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothDescription": "Geariga ühendamiseks on vaja Bluetoothi luba",
+    "@onboardingBluetoothDescription": {
+        "description": "Description for bluetooth section on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothRequestButtonLabel": "Andke luba",
+    "@onboardingBluetoothRequestButtonLabel": {
+        "description": "Label for the button to request bluetooth permission on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBluetoothEnableButtonLabel": "Bluetoothi sisselülitamiseks avage Seaded",
+    "@onboardingBluetoothEnableButtonLabel": {
+        "description": "Label for the button to open bluetooth settings on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingDoneButtonLabel": "Valmis",
+    "@onboardingDoneButtonLabel": {
+        "description": "Label for the button to close the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingCompletedTitle": "Head vehkimist!",
+    "@onboardingCompletedTitle": {
+        "description": "Title of the final page of the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectClearLabel": "Valige Puudub",
+    "@triggersSelectClearLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected action",
+        "type": "text",
+        "placeholders": {}
+    },
+    "doubleBackToClose": "Väljumiseks vajutage uuesti",
+    "@doubleBackToClose": {
+        "description": "Snackbar message which appears when the back button is pressed at the main screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleTitle": "Otsige alati teadaolevat varustust",
+    "@settingsAlwaysScanningToggleTitle": {
+        "description": "Settings page always scanning toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaCompletedTitle": "Värskendus lõpetatud",
+    "@otaCompletedTitle": {
+        "description": "Title for the text that appears when an OTA update is completed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedTitle": "Uuendus ebaõnnestus. Taaskäivitage varustus ja proovige uuesti",
+    "@otaFailedTitle": {
+        "description": "Title for the text that appears when an OTA update has failed",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleTitle": "Luba saba ajaveebi märguanded",
+    "@settingsNewsletterToggleTitle": {
+        "description": "Settings page newsletter notification toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsNewsletterToggleSubTitle": "Saate automaatselt märguandeid, kui ilmub uus Tail Blogi postitus",
+    "@settingsNewsletterToggleSubTitle": {
+        "description": "Settings page newsletter notification toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonTitle": "Juhuslik režiim",
+    "@triggerRandomButtonTitle": {
+        "description": "Casual Mode trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomButtonDescription": "Esitage valitud tegevus juhuslikult",
+    "@triggerRandomButtonDescription": {
+        "description": "Casual Mode trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerRandomAction": "Tegevus",
+    "@triggerRandomAction": {
+        "description": "Casual Mode trigger action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaInProgressTitle": "Geari värskendamine. Ärge lülitage käiku välja ega sulgege rakendust",
+    "@otaInProgressTitle": {
+        "description": "Label for ota in progress",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaLowBattery": "Madal akutase. Palun laadige oma varustus vähemalt 50%",
+    "@otaLowBattery": {
+        "description": "Title for the text that appears when an OTA update was blocked due to low battery",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeContinuousScanningOffDescription": "Skannimise alustamiseks pühkige ülaltoodud teadaoleval seadmealal horisontaalselt. Pideva skannimise saate seadetes sisse lülitada.",
+    "@homeContinuousScanningOffDescription": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessage": "Siin saate juhtida, uurida ja värskendada kogu oma Tail Co varustust. Saadaval on ka juhised ja juhendid. Head vehkimist!",
+    "@homeWelcomeMessage": {
+        "description": "The welcome message on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeNewsTitle": "Värske Sabablogist",
+    "@homeNewsTitle": {
+        "description": "The title header for the news in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeWelcomeMessageTitle": "Tere tulemast Tail Company rakendusse",
+    "@homeWelcomeMessageTitle": {
+        "description": "The welcome message title on the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectSaveLabel": "Salvesta toimingud",
+    "@triggersSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesFoundTitle": "Leitud Gear. Ühenduse loomiseks puudutage hammasratta nime",
+    "@scanDevicesFoundTitle": {
+        "description": "Title when gear is found on the scan for new gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeChangelogLinkTitle": "Muudatuste logi",
+    "@homeChangelogLinkTitle": {
+        "description": "Title for Changelog on Home page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "noLongerSupported": "Seda käiku enam ei toetata. Mõned rakenduse funktsioonid ei pruugi töötada",
+    "@noLongerSupported": {
+        "description": "Warning message which appears for unsupported gear on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "mandatoryOtaRequired": "Teie varustuse paremaks toetamiseks on saadaval püsivara värskendus",
+    "@mandatoryOtaRequired": {
+        "description": "Warning message which appears for gear which have old firmware on the manage gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsFavoriteTip": "Lemmikusse lisamiseks vajutage toimingut pikalt",
+    "@actionsFavoriteTip": {
+        "description": "tip message which appears when no actions are favorited on the actions page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreSourceCode": "Lähtekood",
+    "@moreSourceCode": {
+        "description": "Label for the github and dev mode button on the more tab",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioActionCategory": "Heliefektid",
+    "@audioActionCategory": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioPage": "Kohandatud helid",
+    "@audioPage": {
+        "description": "The label and title of the custom audio management page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEditDescription": "Hallake kohandatud heliefekte",
+    "@audioEditDescription": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioEdit": "Heliefekti ümbernimetamine",
+    "@audioEdit": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDelete": "Heliefekti kustutamine",
+    "@audioDelete": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioAdd": "Lisa heliefekt",
+    "@audioAdd": {
+        "description": "Label for sound files",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioDeleteDescription": "Kas soovite kindlasti selle heliefekti kustutada?",
+    "@audioDeleteDescription": {
+        "description": "Label for the body of the delete confirmation dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "audioTipCard": "Saate lisada kohandatud helisid, mis kuvatakse vahekaardil Toimingud ja mida saab kasutada koos päästikutega",
+    "@audioTipCard": {
+        "description": "Tutorial card for the audio page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeMiniTail": "Mini kukk",
+    "@deviceTypeMiniTail": {
+        "description": "Tail option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanAddDemoGear": "Lisage Fake Gear",
+    "@scanAddDemoGear": {
+        "description": "Label for the dropdown to select a demo gear to add on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGearTip": "Kas soovite rakendust proovida, kuid ootate, kuni teie varustus kohale jõuab? Lisage võltsvarustus. See võimaldab teil kasutada rakendust nii, nagu oleks teil oma varustus või kui soovite proovida varustust, mida te praegu ei oma. See lubab lehel „Uue varustuse otsimine” uue jaotise.",
+    "@scanDemoGearTip": {
+        "description": "Tip Card description for the  demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsAlwaysScanningToggleSubTitle": "Otsige pidevalt teadaolevat käiku. Kui see on keelatud, peate skannimiseks pühkima käiguribal.",
+    "@settingsAlwaysScanningToggleSubTitle": {
+        "description": "Settings page always scanning toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDemoGear": "Võltsvarustus",
+    "@scanDemoGear": {
+        "description": "Label for the expansion tile to show the demo gear options on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanRemoveDemoGear": "Eemaldage kõik võltsvarustus",
+    "@scanRemoveDemoGear": {
+        "description": "Label for the button to remove all demo gear on the scan for new devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerActionSelectorTutorialLabel": "Valige nii palju toiminguid kui soovite. Juhuslikult valitakse toiming, mis ühildub ühendatud varustusega. GlowTip ja Sound toimingud käivituvad koos liigutustoimingutega. Ärge unustage salvestada.",
+    "@triggerActionSelectorTutorialLabel": {
+        "description": "Label for the tutorial card on the Action selector for triggers",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersSelectAllLabel": "Vali kõik",
+    "@triggersSelectAllLabel": {
+        "description": "The button label on the trigger select screen for clearing the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "featureLimitedOtaRequiredLabel": "Selle funktsiooni kasutamiseks värskendage oma varustust.",
+    "@featureLimitedOtaRequiredLabel": {
+        "description": "Label for the warning card when a feature requires a firmware update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanConnectToAllButtonLabel": "Ühendage kõigiga",
+    "@scanConnectToAllButtonLabel": {
+        "description": "Title for Connecting to all found gear on the scan page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "joystickWarning": "Juhtkangi funktsioon on eksperimentaalne. Kasutage omal vastutusel.",
+    "@joystickWarning": {
+        "description": "Label for the warning tutorial card on the joystick page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarLabel": "Palun värskendage oma varustust",
+    "@otaAvailableSnackbarLabel": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaAvailableSnackbarTitle": "Uuendus saadaval",
+    "@otaAvailableSnackbarTitle": {
+        "description": "Label for the snackbar that appears when gear has an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarTitle": "Gear ühendatud",
+    "@newGearConnectedSnackbarTitle": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "newGearConnectedSnackbarLabel": "Head vehkimist",
+    "@newGearConnectedSnackbarLabel": {
+        "description": "Label for the snackbar that appears when new gear is paired and connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggersDefSelectSaveLabel": "Vali",
+    "@triggersDefSelectSaveLabel": {
+        "description": "The button label on the trigger select screen for saving the selected actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "colorPickerTitle": "Valige värv",
+    "@colorPickerTitle": {
+        "description": "The title of the color picker",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsNoBluetoothDescription": "Geariga ühenduse loomiseks on vaja Bluetoothi. Lülitage Bluetooth seadetes sisse. Ärge looge varustusega ühendust, kui olete seadme Bluetoothi seadetes.",
+    "@actionsNoBluetoothDescription": {
+        "description": "description on the actions page when bluetooth is unavailable",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedTitle": "Kõrva liikumise kiirus",
+    "@earSpeedTitle": {
+        "description": "Title for the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedFast": "Kiire",
+    "@earSpeedFast": {
+        "description": "Label for the fast option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "earSpeedSlow": "Aeglane",
+    "@earSpeedSlow": {
+        "description": "Label for the slow option on the ear speed widget that appears when ears are connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "casualModeDelayTitle": "Min ja Max viivitus",
+    "@casualModeDelayTitle": {
+        "description": "Label for the range slider to set the min and max delay time for casual mode",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionTitle": "Seadke koduasend",
+    "@manageGearHomePositionTitle": {
+        "description": "Title for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearHomePositionDescription": "Määrab asendi, kuhu käik liigub pärast toimingu lõpetamist",
+    "@manageGearHomePositionDescription": {
+        "description": "Description for the home position sliders on the manage gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyTitle": "Tail Blog ainult WiFi kaudu",
+    "@settingsTailBlogWifiOnlyTitle": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsTailBlogWifiOnlyDescription": "Vältige Tail Blogi sisu laadimist, kui olete mobiilsidevõrguga ühendatud",
+    "@settingsTailBlogWifiOnlyDescription": {
+        "description": "Description for the tail blog wifi only setting",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageCoverPromoTitle": "Muuda oma varustuse välimust!",
+    "@morePageCoverPromoTitle": {
+        "description": "The title for the button on the More page to push users to buy a new cover",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateTitle": "Lokaliseerimine",
+    "@morePageTranslateTitle": {
+        "description": "The title for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "morePageTranslateDescription": "Aita meil rakendus oma keelde tõlkida",
+    "@morePageTranslateDescription": {
+        "description": "The description for the button on the More page to push users to assist in translating the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "appLanguageSelectorTitle": "Rakenduse keel",
+    "@appLanguageSelectorTitle": {
+        "description": "The title for the button and dialog to select the app language",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonDownloadFailed": "Püsivara faili allalaadimine ebaõnnestus",
+    "@otaFailedReasonDownloadFailed": {
+        "description": "downloadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearVersionMismatch": "Varustuse püsivara versioon ei ühti üleslaetud versiooniga",
+    "@otaFailedReasonGearVersionMismatch": {
+        "description": "gearVersionMismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReturnedError": "Varustus tagastas tundmatu vea",
+    "@otaFailedReasonGearReturnedError": {
+        "description": "gearReturnedError error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonUploadFailed": "Püsivara üleslaadimine varustusse ebaõnnestus",
+    "@otaFailedReasonUploadFailed": {
+        "description": "uploadFailed error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonMD5Mismatch": "Allalaaditud faili kontroll ebaõnnestus",
+    "@otaFailedReasonMD5Mismatch": {
+        "description": "md5Mismatch error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearReconnectTimeout": "Varustus ei ühendanud end õigeaegselt uuesti",
+    "@otaFailedReasonGearReconnectTimeout": {
+        "description": "gearReconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearNoGearPairedTip": "Kasuta oma telefonis nuppu „Skaneeri uut varustust”, et siduda seade",
+    "@watchKnownGearNoGearPairedTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchKnownGearTitle": "Sinu varustus",
+    "@watchKnownGearTitle": {
+        "description": "The title for the known gear section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsTitle": "Lemmiktegevused",
+    "@watchFavoriteActionsTitle": {
+        "description": "title for the favorite actions section of the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeToggleTitle": "Luba konverentsirežiim",
+    "@manageGearConModeToggleTitle": {
+        "description": "The description for the convention mode enabled button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeCopy": "Kopeeri lõikelauale",
+    "@manageGearConModePincodeCopy": {
+        "description": "The description for copy to clipboard button on the pin code dialog",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearOtaFinalTimeout": "Aeg sai otsa enne, kui varustus tagastas uue püsivara versiooni",
+    "@otaFailedReasonGearOtaFinalTimeout": {
+        "description": "gearOtaFinalTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeTitle": "Konverentsirežiim",
+    "@manageGearConModeTitle": {
+        "description": "The title for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchFavoriteActionsNoFavoritesTip": "Hoia telefoni ekraanil toimingul pikalt peal, et see lemmikuks märkida",
+    "@watchFavoriteActionsNoFavoritesTip": {
+        "description": "the tip for when no actions are favorited on the watch app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckButtonLabel": "Otsi värskendust",
+    "@manageDevicesOtaCheckButtonLabel": {
+        "description": "manage devices button to check if an update is available",
+        "type": "text",
+        "placeholders": {}
+    },
+    "otaFailedReasonGearDisconnectTimeout": "Varustus ei katkestanud ühendust õigel ajal ja tõenäoliselt ei taaskäivitunud",
+    "@otaFailedReasonGearDisconnectTimeout": {
+        "description": "gearDisconnectTimeout error message for uploading firmware",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeEnableDescription": "Kui aktiveerid konverentsirežiimi, taaskäivitub varustus ja sinult küsitakse PIN-koodi. Kood kopeeritakse lõikelauale",
+    "@manageGearConModePincodeEnableDescription": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaUpToDateButtonLabel": "Varustus on ajakohane!",
+    "@manageDevicesOtaUpToDateButtonLabel": {
+        "description": "manage devices button label if gear is up to date",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckInProgressButtonLabel": "Kontrollin",
+    "@manageDevicesOtaCheckInProgressButtonLabel": {
+        "description": "manage devices button label if gear is checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesOtaCheckErrorButtonLabel": "Palun proovi hiljem uuesti",
+    "@manageDevicesOtaCheckErrorButtonLabel": {
+        "description": "manage devices button label if an error occured while checking for an update",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutLabel": "Teave sinu varustuse kohta",
+    "@manageDevicesAboutLabel": {
+        "description": "label for the about your gear section in the manage devices area",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutHardwareVersionLabel": "Riistvara versioon",
+    "@manageDevicesAboutHardwareVersionLabel": {
+        "description": "label for the hardware version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageDevicesAboutSoftwareVersionLabel": "Tarkvara versioon",
+    "@manageDevicesAboutSoftwareVersionLabel": {
+        "description": "label for the software version on the manage devices page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportTitle": "Tugi",
+    "@supportTitle": {
+        "description": "The label and title of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModeDescription": "Konverentsirežiim on lisaturvameede, mis takistab teistel seadmetel sinu varustusega ühenduse loomist.",
+    "@manageGearConModeDescription": {
+        "description": "The description for the convention mode page on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "manageGearConModePincodeTitle": "Vaata PIN-koodi",
+    "@manageGearConModePincodeTitle": {
+        "description": "The description for the pin mode button on the gear page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "feedbackPageDescription": "On sul ettepanek või probleem rakendusega? Anna meile teada. Märkus: see on anonüümne ega aita varustusega seotud probleeme lahendada",
+    "@feedbackPageDescription": {
+        "description": "The description of the feedback page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "supportDescription": "Puuduta sinist vestluse ikooni, et võtta ühendust tugimeeskonnaga",
+    "@supportDescription": {
+        "description": "The description of the email support link on the more page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreExperimentalTitle": "Eksperimentaalne",
+    "@moreExperimentalTitle": {
+        "description": "The label for the experimental features on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoTitle": "CosHub",
+    "@moreCoshubPromoTitle": {
+        "description": "The title for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "moreCoshubPromoDescription": "Meie uusim äpp, mis aitab sul oma cosplayd planeerida, jagada ja luua, on kohal",
+    "@moreCoshubPromoDescription": {
+        "description": "The description for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingTitle": "Ühendame su varustuse",
+    "@scanDevicesOnboardingTitle": {
+        "description": "Title for the gear pairing screen in onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleTitle": "Luba turundusteavitused",
+    "@settingsMarketingNotificationsToggleTitle": {
+        "description": "Settings page marketing notifications toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsMarketingNotificationsToggleSubTitle": "Luba teavitused uutest blogipostitustest ja sooduspakkumistest.",
+    "@settingsMarketingNotificationsToggleSubTitle": {
+        "description": "Settings page marketing notifications toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleTitle": "UwU Tõlkija",
+    "@settingsUwUToggleTitle": {
+        "description": "Settings page UwU text toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "settingsUwUToggleSubTitle": "OwO, mis see on?",
+    "@settingsUwUToggleSubTitle": {
+        "description": "Settings page UwU text toggle subtitle",
+        "type": "text",
+        "placeholders": {}
+    }
 }
