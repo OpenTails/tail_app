@@ -285,6 +285,20 @@ class BaseStatefulDevice {
         KnownDevices.instance.store();
       }
     });
+
+    // only store, do not read back on gear load
+    hwVersion.addListener(() {
+      if (hwVersion.value != "") {
+        baseStoredDevice.hardwareVersion = hwVersion.value;
+        KnownDevices.instance.store();
+      }
+    });
+    fwVersion.addListener(() {
+      if (fwVersion.value != Version()) {
+        baseStoredDevice.firmwareVersion = fwVersion.value;
+        KnownDevices.instance.store();
+      }
+    });
   }
 
   @override
@@ -406,6 +420,11 @@ class BaseStoredDevice extends ChangeNotifier {
   GlowtipStatus hasGlowtip = GlowtipStatus.unknown;
   @HiveField(15, defaultValue: RGBStatus.unknown)
   RGBStatus hasRGB = RGBStatus.unknown;
+
+  @HiveField(16, defaultValue: Version())
+  Version firmwareVersion = Version();
+  @HiveField(17, defaultValue: "")
+  String hardwareVersion = "";
 
   int get color => _color;
 
