@@ -1,3 +1,7 @@
+### V 1.4.1
+
+- Fix issue where having a glowtip move selected will stop normal moves from runnign for triggers
+
 ### V 1.4.0
 
 - Split moves by gear type
