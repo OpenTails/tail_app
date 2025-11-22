@@ -25,7 +25,7 @@ import '../device_registry.dart';
 import '../firmware_update.dart';
 import '../logging_wrappers.dart';
 import '../sensors.dart';
-import 'bluetooth_manager.dart';
+import 'known_devices.dart';
 import 'bluetooth_message.dart';
 
 part 'bluetooth_manager_plus.g.dart';
@@ -505,15 +505,15 @@ class Scan extends _$Scan {
   ScanReason build() {
     isScanningStreamSubscription = FlutterBluePlus.isScanning.listen(onIsScanningChange);
 
-    ref.listen(isAllKnownGearConnectedProvider, isAllKnownGearConnectedProviderListener);
-
     Hive.box(settings).listenable(keys: [hasCompletedOnboarding])
       ..removeListener(isAllGearConnectedListener)
       ..addListener(isAllGearConnectedListener);
     isBluetoothEnabled
       ..removeListener(isAllGearConnectedListener)
       ..addListener(isAllGearConnectedListener);
-
+    KnownDevices.instance
+      ..removeListener(isAllGearConnectedListener)
+      ..addListener(isAllGearConnectedListener);
     // Has to be delayed so the provider initializes before calling the listener. Otherwise we can't call ref or set state in other methods
     Future.delayed(Duration(milliseconds: 1), () => isAllGearConnectedListener());
 
@@ -522,12 +522,6 @@ class Scan extends _$Scan {
       //stopScan();
     });
     return ScanReason.notScanning;
-  }
-
-  void isAllKnownGearConnectedProviderListener(bool? previous, bool next) {
-    if (ref.mounted) {
-      isAllGearConnectedListener();
-    }
   }
 
   void onIsScanningChange(bool isScanning) {
@@ -561,7 +555,7 @@ class Scan extends _$Scan {
   }
 
   void isAllGearConnectedListener() {
-    bool allConnected = ref.read(isAllKnownGearConnectedProvider);
+    bool allConnected = KnownDevices.instance.isAllGearConnected;
     bool isInOnboarding = HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) < hasCompletedOnboardingVersionToAgree;
     if ((!allConnected || isInOnboarding) && isBluetoothEnabled.value) {
       beginScan(scanReason: ScanReason.background);
@@ -574,7 +568,7 @@ class Scan extends _$Scan {
 enum ScanReason { background, addGear, notScanning }
 
 Future<void> sendMessage(BaseStatefulDevice device, List<int> message, {bool withoutResponse = false}) async {
-  if (!_didInitFlutterBluePlus) {
+  if (!_didInitFlutterBluePlus || device.baseStoredDevice.btMACAddress.startsWith("DEV")) {
     return;
   }
   BluetoothDevice? bluetoothDevice = FlutterBluePlus.connectedDevices.firstWhereOrNull((element) => element.remoteId.str == device.baseStoredDevice.btMACAddress);

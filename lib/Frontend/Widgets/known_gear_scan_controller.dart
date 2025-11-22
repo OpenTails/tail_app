@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart' as log;
+import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../../Backend/device_registry.dart';
 
 final knownGearScanControllerLogger = log.Logger('KnownGearScanController');
 
@@ -34,7 +34,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
       },
       //onResume: () => _handleTransition('resume'),
       onHide: () async {
-        if (ref.read(getAvailableGearProvider).isEmpty) {
+        if (KnownDevices.instance.connectedIdleGear.isEmpty) {
           await ref.read(scanProvider.notifier).stopScan();
         }
       },

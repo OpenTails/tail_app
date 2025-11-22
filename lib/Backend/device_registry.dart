@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'Bluetooth/bluetooth_manager.dart';
+import 'Bluetooth/known_devices.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'version.dart';
@@ -38,86 +38,16 @@ class DeviceRegistry {
   }
 }
 
-@Riverpod(keepAlive: true)
-BuiltSet<BaseStatefulDevice> getByAction(Ref ref, BaseAction baseAction) {
+BuiltSet<BaseStatefulDevice> getByAction(BaseAction baseAction) {
   deviceRegistryLogger.info("Getting devices for action::$baseAction");
   Set<BaseStatefulDevice> foundDevices = {};
-  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
-  for (BaseStatefulDevice device in watch) {
+  for (BaseStatefulDevice device in KnownDevices.instance.connectedIdleGear) {
     deviceRegistryLogger.info("Known Device::$device");
     if (baseAction.deviceCategory.contains(device.baseDeviceDefinition.deviceType)) {
       foundDevices.add(device);
     }
   }
   return foundDevices.build();
-}
-
-@Riverpod(keepAlive: true)
-class GetAvailableIdleGear extends _$GetAvailableIdleGear {
-  @override
-  BuiltList<BaseStatefulDevice> build() {
-    KnownDevices.instance
-      ..removeListener(_onDeviceConnected)
-      ..addListener(_onDeviceConnected);
-    for (BaseStatefulDevice baseStatefulDevice in KnownDevices.instance.state.values) {
-      baseStatefulDevice.deviceState
-        ..removeListener(_listener)
-        ..addListener(_listener);
-    }
-    return getState();
-  }
-
-  BuiltList<BaseStatefulDevice> getState() {
-    return ref.read(getAvailableGearProvider).where((element) => element.deviceState.value == DeviceState.standby).toBuiltList();
-  }
-
-  void _listener() {
-    state = getState();
-  }
-
-  void _onDeviceConnected() {
-    ref.invalidateSelf();
-  }
-}
-
-@Riverpod()
-BuiltSet<DeviceType> getAvailableGearTypes(Ref ref) {
-  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
-  return watch.map((e) => e.baseDeviceDefinition.deviceType).toBuiltSet();
-}
-
-@Riverpod()
-BuiltList<BaseStatefulDevice> getAvailableIdleGearForAction(Ref ref, BaseAction baseAction) {
-  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
-  return watch.where((element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
-}
-
-@Riverpod()
-BuiltList<BaseStatefulDevice> getAvailableIdleGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
-  final Iterable<BaseStatefulDevice> watch = ref.watch(getAvailableIdleGearProvider);
-  return watch.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
-}
-
-@Riverpod(keepAlive: true)
-BuiltList<BaseStatefulDevice> getAvailableGearForType(Ref ref, BuiltSet<DeviceType> deviceTypes) {
-  final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearProvider);
-  return watch.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
-}
-
-@Riverpod()
-class GetKnownGearForType extends _$GetKnownGearForType {
-  @override
-  BuiltList<BaseStatefulDevice> build(BuiltSet<DeviceType> deviceTypes) {
-    KnownDevices.instance
-      ..removeListener(_listener)
-      ..addListener(_listener);
-    final BuiltMap<String, BaseStatefulDevice> watch = KnownDevices.instance.state;
-    return watch.values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
-  }
-
-  void _listener() {
-    ref.invalidateSelf();
-  }
 }
 
 @Riverpod(keepAlive: true)
@@ -136,7 +66,7 @@ class IsGearMoveRunning extends _$IsGearMoveRunning {
   }
 
   bool getState() {
-    return ref.read(getAvailableGearForTypeProvider(deviceTypes)).where((element) => element.deviceState.value == DeviceState.runAction).isNotEmpty;
+    return KnownDevices.instance.getConnectedGearForType(deviceTypes).where((element) => element.deviceState.value == DeviceState.runAction).isNotEmpty;
   }
 
   void _listener() {
@@ -146,57 +76,16 @@ class IsGearMoveRunning extends _$IsGearMoveRunning {
   void _onDeviceConnected() {
     ref.invalidateSelf();
   }
-}
-
-@Riverpod(keepAlive: true)
-class GetAvailableGear extends _$GetAvailableGear {
-  @override
-  BuiltList<BaseStatefulDevice> build() {
-    KnownDevices.instance
-      ..removeListener(_onDeviceConnected)
-      ..addListener(_onDeviceConnected);
-    for (BaseStatefulDevice baseStatefulDevice in KnownDevices.instance.state.values) {
-      baseStatefulDevice.deviceConnectionState
-        ..removeListener(_listener)
-        ..addListener(_listener);
-      baseStatefulDevice.bluetoothUartService
-        ..removeListener(_listener)
-        ..addListener(_listener);
-    }
-    return getState();
-  }
-
-  BuiltList<BaseStatefulDevice> getState() {
-    return KnownDevices.instance.state.values
-        .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
-        .where(
-          // don't consider gear connected until services have been discovered
-          (element) => element.bluetoothUartService.value != null,
-        )
-        .toBuiltList();
-  }
-
-  void _listener() {
-    state = getState();
-  }
-
-  void _onDeviceConnected() {
-    ref.invalidateSelf();
-  }
-}
-
-@Riverpod(keepAlive: true)
-bool isAllKnownGearConnected(Ref ref) {
-  var knownGear = KnownDevices.instance.state;
-  BuiltList<BaseStatefulDevice> connectedGear = ref.watch(getAvailableGearProvider);
-  return knownGear.length == connectedGear.length;
 }
 
 @Riverpod(keepAlive: true)
 class GetColorForDeviceType extends _$GetColorForDeviceType {
   @override
   Color build(BuiltSet<DeviceType> deviceTypes) {
-    final BuiltList<BaseStatefulDevice> watch = ref.watch(getAvailableGearForTypeProvider(deviceTypes));
+    KnownDevices.instance
+      ..removeListener(_listener)
+      ..addListener(_listener);
+    final BuiltList<BaseStatefulDevice> watch = KnownDevices.instance.getKnownGearForType(deviceTypes);
     for (BaseStatefulDevice baseStatefulDevice in watch) {
       baseStatefulDevice.baseStoredDevice
         ..removeListener(_listener)
@@ -206,7 +95,7 @@ class GetColorForDeviceType extends _$GetColorForDeviceType {
   }
 
   Color getState() {
-    final BuiltList<BaseStatefulDevice> watch = ref.read(getAvailableGearForTypeProvider(deviceTypes));
+    final BuiltList<BaseStatefulDevice> watch = KnownDevices.instance.getConnectedGearForType(deviceTypes);
     if (watch.isEmpty) {
       return deviceTypes.first.color();
     }
@@ -214,6 +103,6 @@ class GetColorForDeviceType extends _$GetColorForDeviceType {
   }
 
   void _listener() {
-    state = getState();
+    ref.invalidateSelf();
   }
 }

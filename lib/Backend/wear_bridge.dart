@@ -4,7 +4,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/device_registry.dart';
@@ -43,7 +43,7 @@ class MessageStreamSubscription extends _$MessageStreamSubscription {
       case "run_action":
         BaseAction? action = ref.read(getActionFromUUIDProvider(wearCommand.uuid));
         if (action != null) {
-          Iterable<BaseStatefulDevice> knownDevices = ref.read(getAvailableIdleGearProvider);
+          Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.connectedIdleGear;
           for (BaseStatefulDevice device in knownDevices) {
             ref.read(runActionProvider(device).notifier).runAction(action, triggeredBy: "Watch");
           }
@@ -134,7 +134,8 @@ Future<void> updateWearData(Ref ref) async {
         )
         .toList();
     // Listen for gear connect/disconnect events
-    ref.watch(getAvailableGearProvider);
+    //TODO: rework entire gear handler without riverpod
+    //ref.watch(getAvailableGearProvider);
 
     final WearLocalizationData localizationData = WearLocalizationData(
       triggersPage: convertToUwU(triggersPage()),

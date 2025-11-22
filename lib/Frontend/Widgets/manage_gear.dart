@@ -11,11 +11,10 @@ import 'package:tail_app/Backend/version.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/device_registry.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
@@ -150,7 +149,6 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                           if (color != null) {
                             device!.baseStoredDevice.color = color;
                             this.color = Color(color);
-                            ref.invalidate(getAvailableGearProvider);
                             KnownDevices.instance.store();
                           }
                         }),

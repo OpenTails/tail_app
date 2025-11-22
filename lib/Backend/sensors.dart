@@ -28,12 +28,11 @@ import 'package:wordpress_client/wordpress_client.dart' hide Widget;
 
 import '../Frontend/translation_string_definitions.dart';
 import '../constants.dart';
-import 'Bluetooth/bluetooth_manager.dart';
+import 'Bluetooth/known_devices.dart';
 import 'Bluetooth/bluetooth_message.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'action_registry.dart';
-import 'device_registry.dart';
 import 'logging_wrappers.dart';
 
 part 'sensors.freezed.dart';
@@ -210,7 +209,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
   }
 
   Future<void> sendCommands(String name, Ref ref) async {
-    if (ref.read(getAvailableGearProvider).isEmpty) {
+    if (KnownDevices.instance.connectedGear.isEmpty) {
       return;
     }
     actions.where((e) => actionTypes.firstWhere((element) => element.name == name).uuid == e.uuid).forEach((TriggerAction triggerAction) async {
@@ -226,11 +225,15 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
       }
       // we need to handle legacy ears for now
       // assuming only legacy or tailcontrol ears are connected. no mixing
-      bool hasLegacyEars = ref.read(getAvailableIdleGearForTypeProvider([DeviceType.ears].toBuiltSet())).where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy).isNotEmpty;
-      bool hasGlowtipGear = ref.read(getAvailableIdleGearProvider).where((p0) => p0.hasGlowtip.value == GlowtipStatus.glowtip).isNotEmpty;
+      bool hasLegacyEars = KnownDevices.instance.getConnectedIdleGearForType([DeviceType.ears].toBuiltSet()).where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy).isNotEmpty;
+      bool hasGlowtipGear = KnownDevices.instance.connectedIdleGear.where((p0) => p0.hasGlowtip.value == GlowtipStatus.glowtip).isNotEmpty;
+      bool hasRgbGear = KnownDevices.instance.connectedIdleGear.where((p0) => p0.hasRGB.value == RGBStatus.rgb).isNotEmpty;
+
       final List<BaseAction> moveActions = allActionsMapped.where((element) => !const [ActionCategory.glowtip, ActionCategory.rgb, ActionCategory.audio].contains(element.actionCategory)).toList();
 
       final List<BaseAction> glowActions = hasGlowtipGear ? allActionsMapped.where((element) => const [ActionCategory.glowtip].contains(element.actionCategory)).toList() : [];
+      final List<BaseAction> rgbActions = hasRgbGear ? allActionsMapped.where((element) => const [ActionCategory.rgb].contains(element.actionCategory)).toList() : [];
+
       final List<BaseAction> audioActions = allActionsMapped.where((element) => const [ActionCategory.audio].contains(element.actionCategory)).toList();
 
       BaseAction? baseAction;
@@ -240,6 +243,11 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
       if (glowActions.isNotEmpty) {
         final BaseAction glowAction = glowActions[_random.nextInt(glowActions.length)];
         actionsToRun.add(glowAction);
+      }
+      // add a rgb action if it exists
+      if (rgbActions.isNotEmpty) {
+        final BaseAction rgbAction = rgbActions[_random.nextInt(rgbActions.length)];
+        actionsToRun.add(rgbAction);
       }
       // add a audio action if it exists
       if (audioActions.isNotEmpty) {
@@ -251,8 +259,8 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         baseAction = moveActions[_random.nextInt(moveActions.length)];
         actionsToRun.add(baseAction);
       }
-      //only adding a check here
-      if (baseAction != null && moveActions.length > 1 && ((baseAction is CommandAction && hasLegacyEars) || !baseAction.deviceCategory.toSet().containsAll(DeviceType.values.toSet()))) {
+      // if more than 1 move is selected
+      if (baseAction != null && moveActions.length > 1 && !baseAction.deviceCategory.toSet().containsAll(DeviceType.values.toSet())) {
         // find the missing device type
         // The goal here is if a user selects multiple moves, send a move to all gear
         final Set<DeviceType> baseActionDeviceCategories = baseAction.deviceCategory.where(
@@ -260,7 +268,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           (element) {
             if (element == DeviceType.ears) {
               if (baseAction is CommandAction) {
-                return hasLegacyEars;
+                return hasLegacyEars && baseAction.legacyEarCommandMoves != null;
               }
             }
             return true;
@@ -281,11 +289,12 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
       // updates the frontend that a trigger activated
       triggerAction.isActive.value = true;
 
+      // keep track of the devices a command was sent to so multiple move commands are not sent to the same device
       Set<DeviceType> sentDeviceTypes = {};
       for (BaseAction baseAction in actionsToRun) {
         for (BaseStatefulDevice baseStatefulDevice
-            in ref
-                .read(getAvailableIdleGearForTypeProvider(baseAction.deviceCategory.toSet().intersection(DeviceType.values.toSet()).toBuiltSet()))
+            in KnownDevices.instance
+                .getConnectedIdleGearForType(baseAction.deviceCategory.toSet().intersection(DeviceType.values.toSet()).toBuiltSet())
                 .where(
                   // support sending to next device type if 2 actions+ actions are set
                   (element) => !sentDeviceTypes.contains(element.baseDeviceDefinition.deviceType),
@@ -303,11 +312,14 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
                 })
                 .toList()
               ..shuffle()) {
+          // actually send the command here
           if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
             await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
           }
           ref.read(runActionProvider(baseStatefulDevice).notifier).runAction(baseAction, triggeredBy: Intl.withLocale('en', () => this.name()));
-          if (!const [ActionCategory.glowtip].contains(baseAction.actionCategory)) {
+
+          // filter out non move categories from the send device types.
+          if ([ActionCategory.sequence].contains(baseAction.actionCategory) || baseAction.actionCategory == null) {
             sentDeviceTypes.add(baseStatefulDevice.baseDeviceDefinition.deviceType);
           }
         }
@@ -439,20 +451,20 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).isNotEmpty;
+    return KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.claws])).isNotEmpty;
   }
 
   @override
   Future<void> onDisable() async {
     KnownDevices.instance.removeListener(onDeviceConnected);
-    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+    KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
       ref
           .read(commandQueueProvider(element).notifier)
           .addCommand(BluetoothMessage(message: "STOPTILT", priority: Priority.low, responseMSG: "OK", type: CommandType.system, timestamp: DateTime.now()));
@@ -464,7 +476,7 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+    KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
       ref
           .read(commandQueueProvider(element).notifier)
           .addCommand(BluetoothMessage(message: "TILTMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
@@ -476,7 +488,7 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
   }
 
   Future<void> onDeviceConnected() async {
-    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).map((e) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.claws])).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -491,7 +503,7 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).map((element) {
+    rxSubscriptions = KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).map((element) {
       ref
           .read(commandQueueProvider(element).notifier)
           .addCommand(BluetoothMessage(message: "TILTMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
@@ -522,20 +534,20 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).isNotEmpty;
+    return KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.claws])).isNotEmpty;
   }
 
   @override
   Future<void> onDisable() async {
     KnownDevices.instance.removeListener(onDeviceConnected);
-    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+    KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
       ref
           .read(commandQueueProvider(element).notifier)
           .addCommand(BluetoothMessage(message: "STOPCLAP", priority: Priority.low, responseMSG: "OK", type: CommandType.system, timestamp: DateTime.now()));
@@ -547,7 +559,7 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).forEach((element) {
+    KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
       ref
           .read(commandQueueProvider(element).notifier)
           .addCommand(BluetoothMessage(message: "CLAPMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
@@ -561,7 +573,7 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
   }
 
   Future<void> onDeviceConnected() async {
-    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.claws]))).map((e) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.claws])).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -576,7 +588,7 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.claws]))).map((element) {
+    rxSubscriptions = KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).map((element) {
       ref
           .read(commandQueueProvider(element).notifier)
           .addCommand(BluetoothMessage(message: "CLAPMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
@@ -604,20 +616,20 @@ class EarMicTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty;
+    return KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).isNotEmpty;
   }
 
   @override
   Future<void> onDisable() async {
     KnownDevices.instance.removeListener(onDeviceConnected);
-    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).forEach((element) {
       String command = "";
       String responseMSG = "";
       if (element.fwVersion.value < Version(major: 5, minor: 4)) {
@@ -638,7 +650,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).forEach((element) {
       String command = "";
       if (element.fwVersion.value < Version(major: 5, minor: 4)) {
         command = "LISTEN FULL";
@@ -652,7 +664,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
   }
 
   Future<void> onDeviceConnected() async {
-    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).map((e) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -667,7 +679,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).map((element) {
+    rxSubscriptions = KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.ears])).map((element) {
       String command = "";
       if (element.fwVersion.value < Version(major: 5, minor: 4)) {
         command = "LISTEN FULL";
@@ -704,20 +716,20 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).isNotEmpty;
+    return KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).isNotEmpty;
   }
 
   @override
   Future<void> onDisable() async {
     KnownDevices.instance.removeListener(onDeviceConnected);
-    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).forEach((element) {
       element.deviceConnectionState.removeListener(onDeviceConnected);
     });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
+    KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.ears])).forEach((element) {
       String command = "";
       if (element.fwVersion.value < Version(major: 5, minor: 4)) {
         command = "ENDTILTMODE";
@@ -733,7 +745,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).forEach((element) {
+    KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.ears])).forEach((element) {
       String command = "";
       if (element.fwVersion.value < Version(major: 5, minor: 4)) {
         command = "TILTMODE START";
@@ -747,7 +759,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
   }
 
   Future<void> onDeviceConnected() async {
-    ref.read(getKnownGearForTypeProvider(BuiltSet([DeviceType.ears]))).map((e) {
+    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -762,7 +774,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = ref.read(getAvailableGearForTypeProvider(BuiltSet([DeviceType.ears]))).map((element) {
+    rxSubscriptions = KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.ears])).map((element) {
       String command = "";
       if (element.fwVersion.value < Version(major: 5, minor: 4)) {
         command = "TILTMODE START";
@@ -1036,13 +1048,6 @@ class TriggerList extends _$TriggerList {
   @override
   BuiltList<Trigger> build() {
     List<Trigger> results = [];
-    ref.listen(getAvailableGearProvider, (previous, next) {
-      for (Trigger trigger in state) {
-        if (trigger.storedEnable) {
-          trigger.enabled = next.isNotEmpty;
-        }
-      }
-    });
     try {
       results = HiveProxy.getAll<Trigger>(triggerBox)
           .map((trigger) {

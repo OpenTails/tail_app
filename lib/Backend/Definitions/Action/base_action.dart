@@ -17,7 +17,7 @@ enum ActionCategory {
   @HiveField(5)
   glowtip,
   @HiveField(7)
-  hidden,
+  hidden, // used as a sub-action for legacy ear moves
   @HiveField(8)
   audio,
   @HiveField(9)

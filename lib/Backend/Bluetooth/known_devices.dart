@@ -51,11 +51,63 @@ class KnownDevices with ChangeNotifier {
   Future<void> store() async {
     await HiveProxy.clear<BaseStoredDevice>(devicesBox);
     await HiveProxy.addAll<BaseStoredDevice>(devicesBox, state.values.map((e) => e.baseStoredDevice));
-    notifyListeners();
+    _notify();
+
+    _onDevicePaired();
   }
 
   Future<void> removeDevGear() async {
     _state = _state.rebuild((p0) => p0.removeWhere((p0, p1) => p0.contains("DEV")));
     await store();
+  }
+
+  // Helpers for gear connected
+
+  void _notify() {
+    notifyListeners();
+  }
+
+  BuiltList<BaseStatefulDevice> get connectedGear {
+    return KnownDevices.instance.state.values
+        .where((element) => element.deviceConnectionState.value == ConnectivityState.connected)
+        .where(
+          // don't consider gear connected until services have been discovered
+          (element) => element.bluetoothUartService.value != null,
+        )
+        .toBuiltList();
+  }
+
+  bool get isAllGearConnected {
+    return connectedGear.length == state.length;
+  }
+BuiltSet<DeviceType> get connectedGearTypes {
+  return connectedGear.map((e) => e.baseDeviceDefinition.deviceType).toBuiltSet();
+}
+
+  BuiltList<BaseStatefulDevice> getKnownGearForType(BuiltSet<DeviceType> deviceTypes) {
+    return state.values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
+  }
+
+  BuiltList<BaseStatefulDevice> getConnectedGearForType(BuiltSet<DeviceType> deviceTypes) {
+    return connectedGear.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
+  }
+
+  BuiltList<BaseStatefulDevice> get connectedIdleGear {
+    return connectedGear.where((element) => element.deviceState.value == DeviceState.standby).toBuiltList();
+  }
+
+  BuiltList<BaseStatefulDevice> getConnectedIdleGearForType(BuiltSet<DeviceType> deviceTypes) {
+    return connectedIdleGear.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).toBuiltList();
+  }
+
+  void _onDevicePaired() {
+    for (BaseStatefulDevice baseStatefulDevice in KnownDevices.instance.state.values) {
+      baseStatefulDevice.deviceConnectionState
+        ..removeListener(_notify)
+        ..addListener(_notify);
+      baseStatefulDevice.bluetoothUartService
+        ..removeListener(_notify)
+        ..addListener(_notify);
+    }
   }
 }

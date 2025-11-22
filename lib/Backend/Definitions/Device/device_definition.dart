@@ -12,7 +12,7 @@ import 'package:tail_app/Backend/dynamic_config.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 import '../../../constants.dart';
-import '../../Bluetooth/bluetooth_manager.dart';
+import '../../Bluetooth/known_devices.dart';
 import '../../firmware_update.dart';
 import '../../logging_wrappers.dart';
 import '../../version.dart';

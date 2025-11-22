@@ -5,11 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Frontend/utils.dart';
 
-import 'Bluetooth/bluetooth_manager.dart';
+import 'Bluetooth/known_devices.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'audio.dart';
-import 'device_registry.dart';
 import 'move_lists.dart';
 
 part 'action_registry.g.dart';
@@ -218,7 +217,7 @@ class GetAvailableActions extends _$GetAvailableActions {
   BuiltMap<String, BuiltSet<BaseAction>> getState() {
     Map<String, Set<BaseAction>> sortedActions = {};
     final BuiltMap<String, BuiltSet<BaseAction>> allActions = ref.watch(getAllActionsProvider);
-    final BuiltList<BaseStatefulDevice> availableGear = ref.watch(getAvailableGearProvider);
+    final BuiltList<BaseStatefulDevice> availableGear = KnownDevices.instance.connectedGear;
     for (BaseAction baseAction in allActions.values.flattened) {
       Set<BaseAction>? baseActions = {};
       for (BaseStatefulDevice baseStatefulDevice in availableGear) {
