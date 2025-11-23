@@ -1,6 +1,6 @@
 ### V 1.4.1
 
-- Fix issue where having a glowtip move selected will stop normal moves from runnign for triggers
+- Fix issue where having a glowtip move selected will stop normal moves from running for triggers
 
 ### V 1.4.0
 
