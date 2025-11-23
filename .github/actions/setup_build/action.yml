@@ -21,15 +21,10 @@ runs:
       with:
         distribution: ${{ inputs.java-distribution }}
         java-version: ${{ inputs.java-version }}
-        cache: "gradle"
-        cache-dependency-path: | # optional
-          android/*.gradle*
-          android/**/gradle-wrapper.properties
-          pubspec.lock
     - uses: subosito/flutter-action@v2
       with:
         flutter-version: ${{ inputs.flutter-version }}
-        cache: true
+        cache: false
     - uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
