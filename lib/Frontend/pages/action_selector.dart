@@ -6,13 +6,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/action_registry.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
-import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
@@ -20,16 +19,11 @@ part 'action_selector.freezed.dart';
 
 @freezed
 abstract class ActionSelectorInfo with _$ActionSelectorInfo {
-  const factory ActionSelectorInfo({
-    required Set<DeviceType> deviceType,
-    required List<BaseAction> selectedActions,
-  }) = _ActionSelectorInfo;
+  const factory ActionSelectorInfo({required List<BaseAction> selectedActions}) = _ActionSelectorInfo;
 }
 
 class ActionSelector extends ConsumerStatefulWidget {
   const ActionSelector({required this.actionSelectorInfo, super.key});
-
-  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   final ActionSelectorInfo actionSelectorInfo;
 
@@ -38,48 +32,22 @@ class ActionSelector extends ConsumerStatefulWidget {
 }
 
 class _ActionSelectorState extends ConsumerState<ActionSelector> {
-  BuiltMap<ActionCategory, BuiltSet<BaseAction>> actionsCatMap = BuiltMap();
-  List<ActionCategory> catList = [];
+  BuiltMap<String, BuiltSet<BaseAction>> actionsCatMap = BuiltMap();
+  List<String> catList = [];
   List<BaseAction> selected = [];
   Set<DeviceType> knownDeviceTypes = {};
 
   @override
   void initState() {
     super.initState();
-    knownDeviceTypes = ref
-        .read(knownDevicesProvider)
-        .values
-        .map(
-          (e) => e.baseDeviceDefinition.deviceType,
-        )
-        .toSet();
+    knownDeviceTypes = KnownDevices.instance.state.values.map((e) => e.baseDeviceDefinition.deviceType).toSet();
     actionsCatMap = BuiltMap(
       Map.fromEntries(
-        ref.read(getAllActionsProvider).entries.sorted(
-          (a, b) {
-            int first = a.value
-                    .map(
-                      (e) => e.deviceCategory,
-                    )
-                    .flattened
-                    .toSet()
-                    .intersection(knownDeviceTypes)
-                    .isNotEmpty
-                ? 1
-                : -1;
-            int second = b.value
-                    .map(
-                      (e) => e.deviceCategory,
-                    )
-                    .flattened
-                    .toSet()
-                    .intersection(knownDeviceTypes)
-                    .isNotEmpty
-                ? 1
-                : -1;
-            return second.compareTo(first);
-          },
-        ),
+        ref.read(getAllActionsProvider).entries.sorted((a, b) {
+          int first = a.value.map((e) => e.deviceCategory).flattened.toSet().intersection(knownDeviceTypes).isNotEmpty ? 1 : -1;
+          int second = b.value.map((e) => e.deviceCategory).flattened.toSet().intersection(knownDeviceTypes).isNotEmpty ? 1 : -1;
+          return second.compareTo(first);
+        }),
       ),
     );
     selected = widget.actionSelectorInfo.selectedActions.toList();
@@ -117,10 +85,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.transparent,
-              Theme.of(context).colorScheme.primary.withAlpha(128),
-            ],
+            colors: [Colors.transparent, Theme.of(context).colorScheme.primary.withAlpha(128)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             tileMode: TileMode.clamp,
@@ -138,23 +103,9 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.save,
-                    color: getTextColor(
-                      Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
-                  ),
-                  Text(
-                    convertToUwU(triggersSelectSaveLabel()),
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: getTextColor(
-                            Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                  ),
+                  Icon(Icons.save, color: getTextColor(Theme.of(context).colorScheme.primary)),
+                  const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
+                  Text(convertToUwU(triggersSelectSaveLabel()), style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(Theme.of(context).colorScheme.primary))),
                 ],
               ),
             ),
@@ -176,10 +127,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
                 data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                 child: ExpansionTile(
                   initiallyExpanded: hasConnectedDevice,
-                  title: Text(
-                    convertToUwU(catList[categoryIndex].friendly),
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
+                  title: Text(convertToUwU(catList[categoryIndex]), style: Theme.of(context).textTheme.titleLarge),
                   children: [
                     GridView.builder(
                       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 125),
@@ -192,12 +140,7 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
                         return TweenAnimationBuilder(
                           builder: (context, value, child) {
                             Color? color = Color.lerp(Theme.of(context).colorScheme.primary, Theme.of(context).cardColor, value);
-                            return Card(
-                              clipBehavior: Clip.antiAlias,
-                              elevation: 2,
-                              color: color,
-                              child: cardChild(isSelected, baseAction, color!),
-                            );
+                            return Card(clipBehavior: Clip.antiAlias, elevation: 2, color: color, child: cardChild(isSelected, baseAction, color!));
                           },
                           tween: isSelected ? Tween<double>(begin: 1, end: 0) : Tween<double>(begin: 0, end: 1),
                           duration: animationTransitionDuration,

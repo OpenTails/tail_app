@@ -6,11 +6,11 @@
     "replayOnErrorSampleRate": 0.1
   },
   "appVersion": {
-    "url": "https://github.com/OpenTails/tail_app/releases/download/1.3.0/tailCompanyApp-1.3.0-2314.apk",
-    "changelog": "\n- Fix bug when selecting a color\n- Fix a bug with translations not applying to triggers\n- Set default actions for more triggers\n- Add gear pairing to onboarding\n- Add marketing notifications toggle\n- Add UwU toggle (Whats this?)\n- Removed option to disable always scanning for gear.\n",
+    "url": "https://github.com/OpenTails/tail_app/releases/download/1.4.0/tailCompanyApp-1.4.0-2414.apk",
+    "changelog": "\n- Split moves by gear type\n- Rework analytics to be more useful\n- Add CosHub posts to Home UI\n- Fix some missing blog post images\n- Hide unavailable moves on the trigger edit screen.\n- Disabled 'Nearby Gear' trigger as it has been broken for awhile. This will hopefully come back in a future release\n- Add support for future firmware changes\n- some bug fixes\n",
     "version": {
       "major": 1,
-      "minor": 3,
+      "minor": 4,
       "patch": 0
     }
   },

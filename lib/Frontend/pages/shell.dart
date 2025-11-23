@@ -9,10 +9,8 @@ import 'package:tail_app/Frontend/Widgets/wear_helper.dart';
 import 'package:tail_app/Frontend/go_router_config.dart';
 import 'package:upgrader/upgrader.dart';
 
-import '../Widgets/back_button_to_close.dart';
 import '../Widgets/known_gear.dart';
 import '../Widgets/known_gear_scan_controller.dart';
-import '../Widgets/snack_bar_overlay.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
@@ -20,12 +18,7 @@ part 'shell.freezed.dart';
 
 @freezed
 abstract class NavDestination with _$NavDestination {
-  const factory NavDestination({
-    required String label,
-    required Widget icon,
-    required Widget selectedIcon,
-    required String path,
-  }) = _NavDestination;
+  const factory NavDestination({required String label, required Widget icon, required Widget selectedIcon, required String path}) = _NavDestination;
 }
 
 List<NavDestination> destinations = <NavDestination>[
@@ -53,68 +46,45 @@ class _NavigationDrawerExampleState extends ConsumerState<NavigationDrawerExampl
   Widget build(BuildContext context) {
     setupSystemColor(context);
     ref.watch(initLocaleProvider);
-    return BackButtonToClose(
-      child: WearHelper(
-        child: UpgradeAlert(
-          dialogStyle: UpgradeDialogStyle.material,
-          navigatorKey: rootNavigatorKey,
-          child: AdaptiveScaffold(
-            // An option to override the default breakpoints used for small, medium,
-            // and large.
-            smallBreakpoint: const Breakpoint(endWidth: 700),
-            mediumBreakpoint: const Breakpoint(beginWidth: 700, endWidth: 1000),
-            largeBreakpoint: const Breakpoint(beginWidth: 1000),
-            useDrawer: false,
-            internalAnimations: false,
-            transitionDuration: Duration.zero,
-            appBarBreakpoint: const Breakpoint(beginWidth: 0),
-            selectedIndex: screenIndex,
-            onSelectedIndexChange: (int index) {
-              setState(
-                () {
-                  screenIndex = index;
-                  return GoRouter.of(context).go(destinations[index].path);
-                },
-              );
-            },
-            destinations: destinations.map(
-              (NavDestination destination) {
-                return NavigationDestination(
-                  label: destination.label,
-                  icon: destination.icon,
-                  selectedIcon: destination.selectedIcon,
-                  tooltip: destination.label,
-                );
-              },
-            ).toList(),
-            body: (_) => SafeArea(
-              bottom: false,
-              top: false,
-              child: SnackBarOverlay(
-                child: widget.child,
-              ),
-            ),
-            // smallBody: (_) => SafeArea(
-            //   bottom: false,
-            //   top: false,
-            //   child: SnackBarOverlay(
-            //     child: widget.child,
-            //   ),
-            // ),
-            // Define a default secondaryBody.
-            //secondaryBody: AdaptiveScaffold.emptyBuilder,
-            // Override the default secondaryBody during the smallBreakpoint to be
-            // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
-            // overridden.
-            smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
-            appBar: AppBar(
-              title: const DeviceStatusWidget(),
-              centerTitle: true,
-              leadingWidth: 0,
-              titleSpacing: 0,
-              toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1),
-            ),
-          ),
+    return WearHelper(
+      child: UpgradeAlert(
+        dialogStyle: UpgradeDialogStyle.material,
+        navigatorKey: rootNavigatorKey,
+        child: AdaptiveScaffold(
+          // An option to override the default breakpoints used for small, medium,
+          // and large.
+          smallBreakpoint: const Breakpoint(endWidth: 700),
+          mediumBreakpoint: const Breakpoint(beginWidth: 700, endWidth: 1000),
+          largeBreakpoint: const Breakpoint(beginWidth: 1000),
+          useDrawer: false,
+          internalAnimations: false,
+          transitionDuration: Duration.zero,
+          appBarBreakpoint: const Breakpoint(beginWidth: 0),
+          selectedIndex: screenIndex,
+          onSelectedIndexChange: (int index) {
+            setState(() {
+              screenIndex = index;
+              return GoRouter.of(context).go(destinations[index].path);
+            });
+          },
+          destinations: destinations.map((NavDestination destination) {
+            return NavigationDestination(label: destination.label, icon: destination.icon, selectedIcon: destination.selectedIcon, tooltip: destination.label);
+          }).toList(),
+          body: (_) => SafeArea(bottom: false, top: false, child: widget.child),
+          // smallBody: (_) => SafeArea(
+          //   bottom: false,
+          //   top: false,
+          //   child: SnackBarOverlay(
+          //     child: widget.child,
+          //   ),
+          // ),
+          // Define a default secondaryBody.
+          //secondaryBody: AdaptiveScaffold.emptyBuilder,
+          // Override the default secondaryBody during the smallBreakpoint to be
+          // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
+          // overridden.
+          smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
+          appBar: AppBar(title: const DeviceStatusWidget(), centerTitle: true, leadingWidth: 0, titleSpacing: 0, toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1)),
         ),
       ),
     );
@@ -145,10 +115,7 @@ class _DeviceStatusWidgetState extends ConsumerState<DeviceStatusWidget> {
           controller: _scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: KnownGear(),
-          ),
+          child: const Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: KnownGear()),
         ),
       ),
     );

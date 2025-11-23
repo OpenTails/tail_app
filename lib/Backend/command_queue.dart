@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/command_history.dart';
 
@@ -20,7 +20,7 @@ enum CommandQueueState {
   delay, // The queue is momentarily paused
   blocked, // the queue is stopped
   idle, // inbetween moves
-  empty // the queue is empty
+  empty, // the queue is empty
 }
 
 @Riverpod(keepAlive: true)
@@ -133,7 +133,7 @@ class CommandQueue extends _$CommandQueue {
         if (_internalCommandQueue.isEmpty) {
           _setState(CommandQueueState.empty);
         } else {
-          runCommand(_internalCommandQueue.removeFirst());
+          Future(() => runCommand(_internalCommandQueue.removeFirst()));
         }
         break;
       case CommandQueueState.empty:
@@ -163,7 +163,9 @@ class CommandQueue extends _$CommandQueue {
     } else {
       bluetoothLog.fine("Sending command to ${_device.baseStoredDevice.name}:${bluetoothMessage.message}");
       ref.read(commandHistoryProvider(_device).notifier).add(type: MessageHistoryType.send, message: bluetoothMessage.message);
-      if (bluetoothMessage.responseMSG != null) {
+
+      // skip delay for dev gear but still add the command to the queue
+      if (bluetoothMessage.responseMSG != null && !_device.baseStoredDevice.btMACAddress.startsWith("DEV")) {
         _setState(CommandQueueState.waitingForResponse);
         _runningCommandTimer = Timer(timeoutDuration, _onTimeout);
       }
@@ -176,7 +178,7 @@ class CommandQueue extends _$CommandQueue {
 
   void addCommand(BluetoothMessage bluetoothMessage) {
     // Don't add commands to disconnected or dev gear.
-    if (_device.deviceConnectionState.value != ConnectivityState.connected || _device.baseStoredDevice.btMACAddress.startsWith("DEV") || state == CommandQueueState.blocked) {
+    if (_device.deviceConnectionState.value != ConnectivityState.connected || state == CommandQueueState.blocked) {
       return;
     }
     bluetoothLog.info("Adding command to queue $bluetoothMessage");

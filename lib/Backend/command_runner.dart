@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:data_saver/data_saver.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
@@ -48,35 +47,37 @@ class RunAction extends _$RunAction {
     bool isAudioAction = action.actionCategory == ActionCategory.audio;
     String actionName = isCustomAction ? "Custom ${isAudioAction ? "Audio" : "Move"}" : action.name;
 
-    analyticsEvent(name: "Run Action", props: {"Action Name": actionName, "Action Type": action.actionCategory.name, "Triggered By": triggeredBy});
+    analyticsEvent(name: "Run Action", props: {"Action Name": actionName, "Action Type": action.getCategoryNameAnalytics(), "Triggered By": triggeredBy});
   }
 
   Future<void> runAction(BaseAction action, {required String triggeredBy}) async {
     _actionAnalytics(action, triggeredBy);
-    //cursed handling of ears specifically
-    //TODO: Remove with TAILCoNTROL update
-    if (action is EarsMoveList) {
-      if (action.commandMoves.isNotEmpty && device.baseDeviceDefinition.deviceType == DeviceType.ears) {
-        EarSpeed earSpeed = HiveProxy.getOrDefault(settings, earMoveSpeed, defaultValue: earMoveSpeedDefault);
-        BluetoothMessage speedMsg = BluetoothMessage(message: earSpeed.command, priority: Priority.normal, type: CommandType.move, responseMSG: earSpeed.command, timestamp: DateTime.now());
-        ref.read(commandQueueProvider(device).notifier).addCommand(speedMsg);
-        BluetoothMessage delayMessage = BluetoothMessage(delay: 1, priority: Priority.normal, type: CommandType.move, message: '', timestamp: DateTime.now());
-        ref.read(commandQueueProvider(device).notifier).addCommand(delayMessage);
-        for (int i = 0; i < action.commandMoves.length; i++) {
-          Object element = action.commandMoves[i];
-          if (element is Move) {
-            if (element.moveType == MoveType.delay) {
-              BluetoothMessage message = BluetoothMessage(delay: element.time, priority: Priority.normal, type: CommandType.move, message: '', timestamp: DateTime.now());
+
+    if (action is CommandAction) {
+      if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value == TailControlStatus.legacy && action.legacyEarCommandMoves != null) {
+        //support legacy ear firmware
+        if (action.legacyEarCommandMoves!.isNotEmpty && device.baseDeviceDefinition.deviceType == DeviceType.ears) {
+          EarSpeed earSpeed = HiveProxy.getOrDefault(settings, earMoveSpeed, defaultValue: earMoveSpeedDefault);
+          BluetoothMessage speedMsg = BluetoothMessage(message: earSpeed.command, priority: Priority.normal, type: CommandType.move, responseMSG: earSpeed.command, timestamp: DateTime.now());
+          ref.read(commandQueueProvider(device).notifier).addCommand(speedMsg);
+          BluetoothMessage delayMessage = BluetoothMessage(delay: 1, priority: Priority.normal, type: CommandType.move, message: '', timestamp: DateTime.now());
+          ref.read(commandQueueProvider(device).notifier).addCommand(delayMessage);
+          for (int i = 0; i < action.legacyEarCommandMoves!.length; i++) {
+            Object element = action.legacyEarCommandMoves![i];
+            if (element is Move) {
+              if (element.moveType == MoveType.delay) {
+                BluetoothMessage message = BluetoothMessage(delay: element.time, priority: Priority.normal, type: CommandType.move, message: '', timestamp: DateTime.now());
+                ref.read(commandQueueProvider(device).notifier).addCommand(message);
+              }
+            } else if (element is CommandAction) {
+              //Generate move command
+              BluetoothMessage message = BluetoothMessage(message: element.command, priority: Priority.normal, type: CommandType.move, responseMSG: element.response, timestamp: DateTime.now());
               ref.read(commandQueueProvider(device).notifier).addCommand(message);
             }
-          } else if (element is CommandAction) {
-            //Generate move command
-            BluetoothMessage message = BluetoothMessage(message: element.command, priority: Priority.normal, type: CommandType.move, responseMSG: element.response, timestamp: DateTime.now());
-            ref.read(commandQueueProvider(device).notifier).addCommand(message);
           }
         }
       }
-    } else if (action is CommandAction) {
+
       ref
           .read(commandQueueProvider(device).notifier)
           .addCommand(BluetoothMessage(message: action.command, priority: Priority.normal, responseMSG: action.response, type: CommandType.move, timestamp: DateTime.now()));
@@ -134,11 +135,9 @@ class RunAction extends _$RunAction {
             ref.read(commandQueueProvider(device).notifier).addCommand(message);
           } else {
             //Generate move command
-            generateMoveCommand(element, device, CommandType.move).forEach(
-              (element) {
-                ref.read(commandQueueProvider(device).notifier).addCommand(element);
-              },
-            );
+            generateMoveCommand(element, device, CommandType.move).forEach((element) {
+              ref.read(commandQueueProvider(device).notifier).addCommand(element);
+            });
           }
         }
       }
@@ -154,14 +153,12 @@ class RunAction extends _$RunAction {
 List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device, CommandType type, {bool noResponseMsg = false, Priority priority = Priority.normal}) {
   List<BluetoothMessage> commands = [];
   if (move.moveType == MoveType.home) {
-    //TODO: Remove for TAILCoNTROL update
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value != TailControlStatus.tailControl) {
       commands.add(BluetoothMessage(message: "EARHOME", priority: priority, responseMSG: noResponseMsg ? null : "EARHOME END", type: type, timestamp: DateTime.now()));
     } else {
       commands.add(BluetoothMessage(message: "TAILHM", priority: priority, responseMSG: noResponseMsg ? null : "END TAILHM", type: type, timestamp: DateTime.now()));
     }
   } else if (move.moveType == MoveType.move) {
-    //TODO: Remove for TAILCoNTROL update
     if (device.baseDeviceDefinition.deviceType == DeviceType.ears && device.isTailCoNTROL.value != TailControlStatus.tailControl) {
       commands
         ..add(
@@ -171,18 +168,21 @@ List<BluetoothMessage> generateMoveCommand(Move move, BaseStatefulDevice device,
             responseMSG: noResponseMsg
                 ? null
                 : move.speed > 60
-                    ? EarSpeed.fast.command
-                    : EarSpeed.slow.command,
+                ? EarSpeed.fast.command
+                : EarSpeed.slow.command,
             type: type,
             timestamp: DateTime.now(),
           ),
         )
-        ..add(BluetoothMessage(
+        ..add(
+          BluetoothMessage(
             message: "DSSP ${move.leftServo.round().clamp(0, 128)} ${move.rightServo.round().clamp(0, 128)} 000 000",
             priority: priority,
             responseMSG: noResponseMsg ? null : "DSSP END",
             type: CommandType.move,
-            timestamp: DateTime.now()));
+            timestamp: DateTime.now(),
+          ),
+        );
     } else {
       commands.add(
         BluetoothMessage(

@@ -35,8 +35,7 @@ abstract class FWInfo with _$FWInfo {
   factory FWInfo.fromJson(Map<String, dynamic> json) => _$FWInfoFromJson(json);
 }
 
-@Riverpod(keepAlive: true)
-Future<List<FWInfo>?> getBaseFirmwareInfo(Ref ref, String url) async {
+Future<List<FWInfo>?> _getBaseFirmwareInfo(String url) async {
   Dio dio = await initDio();
   Future<Response<String>> valueFuture = dio.get(url, options: Options(responseType: ResponseType.json))
     ..onError((error, stackTrace) {
@@ -44,38 +43,33 @@ Future<List<FWInfo>?> getBaseFirmwareInfo(Ref ref, String url) async {
       return Response(requestOptions: RequestOptions(), statusCode: 500);
     });
   Response<String> value = await valueFuture;
+  List<FWInfo> results = [];
   if (value.statusCode! < 400) {
-    return (const JsonDecoder().convert(value.data.toString()) as List).map(
-      (e) {
-        return FWInfo.fromJson(e);
-      },
-    ).toList();
+    results = (const JsonDecoder().convert(value.data.toString()) as List).map((e) {
+      return FWInfo.fromJson(e);
+    }).toList();
   }
-  return null;
+  return results;
 }
 
-@Riverpod()
-Future<FWInfo?> getFirmwareInfo(Ref ref, String url, String hwVer) async {
+Future<FWInfo?> getFirmwareInfo(String url, String hwVer) async {
   if (url.isEmpty || hwVer.isEmpty) {
     return null;
   }
-  List<FWInfo>? fwInfos = await ref.read(getBaseFirmwareInfoProvider(url).future);
+
+  // https://github.com/rrousselGit/riverpod/issues/3745
+  // using ref.read(provider.future) causes an infinite await on riverpod 3.0
+
+  final fwInfos = await _getBaseFirmwareInfo(url);
+
   if (fwInfos == null) {
     return null;
   }
   if (fwInfos.isNotEmpty) {
     // Find a FW file that matches the gear hardware version
-    FWInfo? fwInfo = fwInfos.firstWhereOrNull(
-      (element) =>
-          element.supportedHardwareVersions.firstWhereOrNull(
-            (element) => element.trim().toUpperCase() == hwVer.trim().toUpperCase(),
-          ) !=
-          null,
-    );
+    FWInfo? fwInfo = fwInfos.firstWhereOrNull((element) => element.supportedHardwareVersions.firstWhereOrNull((element) => element.trim().toUpperCase() == hwVer.trim().toUpperCase()) != null);
     // Fall back to a generic file if it exists
-    fwInfo ??= fwInfos.firstWhereOrNull(
-      (element) => element.supportedHardwareVersions.isEmpty,
-    );
+    fwInfo ??= fwInfos.firstWhereOrNull((element) => element.supportedHardwareVersions.isEmpty);
     if (fwInfo != null) {
       //check that the app supports this firmware version
       Version minimumAppVersion = getVersionSemVer(fwInfo.minimumAppVersion);
@@ -88,8 +82,7 @@ Future<FWInfo?> getFirmwareInfo(Ref ref, String url, String hwVer) async {
   return null;
 }
 
-@Riverpod()
-Future<FWInfo?> checkForFWUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async {
+Future<FWInfo?> checkForFWUpdate(BaseStatefulDevice baseStatefulDevice) async {
   if (baseStatefulDevice.fwInfo.value != null) {
     return baseStatefulDevice.fwInfo.value;
   }
@@ -101,14 +94,14 @@ Future<FWInfo?> checkForFWUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice)
   if (hwVer.isEmpty) {
     throw Exception("Hardware Version from gear is unknown");
   }
-  FWInfo? fwInfo = await ref.read(getFirmwareInfoProvider(url, hwVer).future);
+  FWInfo? fwInfo = await getFirmwareInfo(url, hwVer);
   baseStatefulDevice.fwInfo.value = fwInfo;
   return fwInfo;
 }
 
-@Riverpod()
+@Riverpod(keepAlive: true)
 Future<bool> hasOtaUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async {
-  FWInfo? fwInfo = await ref.read(checkForFWUpdateProvider(baseStatefulDevice).future);
+  FWInfo? fwInfo = await checkForFWUpdate(baseStatefulDevice);
   Version fwVersion = baseStatefulDevice.fwVersion.value;
 
   // Check if fw version is not set (0.0.0)
@@ -135,27 +128,9 @@ Future<bool> hasOtaUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async 
   return false;
 }
 
-enum OtaState {
-  standby,
-  download,
-  upload,
-  error,
-  manual,
-  completed,
-  lowBattery,
-  rebooting,
-}
+enum OtaState { standby, download, upload, error, manual, completed, lowBattery, rebooting }
 
-enum OtaError {
-  md5Mismatch,
-  downloadFailed,
-  gearVersionMismatch,
-  gearReturnedError,
-  uploadFailed,
-  gearReconnectTimeout,
-  gearDisconnectTimeout,
-  gearOtaFinalTimeout,
-}
+enum OtaError { md5Mismatch, downloadFailed, gearVersionMismatch, gearReturnedError, uploadFailed, gearReconnectTimeout, gearDisconnectTimeout, gearOtaFinalTimeout }
 
 @Riverpod()
 class OtaUpdater extends _$OtaUpdater {
@@ -320,14 +295,11 @@ class OtaUpdater extends _$OtaUpdater {
     if (OtaState.rebooting == state) {
       if (connectivityState == ConnectivityState.disconnected) {
         _disconnectTimer?.cancel();
-        _reconnectTimer = Timer(
-          const Duration(seconds: 30),
-          () {
-            _otaLogger.warning("Gear did not reconnect");
-            _onError(OtaError.gearReconnectTimeout, transaction);
-            transaction?.finish();
-          },
-        );
+        _reconnectTimer = Timer(const Duration(seconds: 30), () {
+          _otaLogger.warning("Gear did not reconnect");
+          _onError(OtaError.gearReconnectTimeout, transaction);
+          transaction?.finish();
+        });
       } else if (connectivityState == ConnectivityState.connected) {
         _reconnectTimer?.cancel();
       }
@@ -379,30 +351,27 @@ class OtaUpdater extends _$OtaUpdater {
       if (uploadProgress == 1) {
         _otaLogger.info("File Uploaded");
         state = OtaState.rebooting;
-        _disconnectTimer = Timer(
-          const Duration(seconds: 30),
-          () {
-            _otaLogger.warning("Gear did not disconnect");
-            _onError(OtaError.gearDisconnectTimeout, transaction);
-            transaction?.finish();
-          },
-        );
-        // start scanning for the gear to reconnect
-        _finalTimer = Timer(
-          const Duration(seconds: 60),
-          () {
-            if (state != OtaState.completed) {
-              _otaLogger.warning("Gear did not return correct version after reboot");
-              _onError(OtaError.gearOtaFinalTimeout, transaction);
-              transaction?.finish();
-            }
-          },
-        );
-        analyticsEvent(name: "Update Gear", props: {
-          "Target Gear": baseStatefulDevice.baseDeviceDefinition.btName,
-          "Hardware Version": baseStatefulDevice.hwVersion.value,
-          "Firmware Version": baseStatefulDevice.fwVersion.value.toString()
+        _disconnectTimer = Timer(const Duration(seconds: 30), () {
+          _otaLogger.warning("Gear did not disconnect");
+          _onError(OtaError.gearDisconnectTimeout, transaction);
+          transaction?.finish();
         });
+        // start scanning for the gear to reconnect
+        _finalTimer = Timer(const Duration(seconds: 60), () {
+          if (state != OtaState.completed) {
+            _otaLogger.warning("Gear did not return correct version after reboot");
+            _onError(OtaError.gearOtaFinalTimeout, transaction);
+            transaction?.finish();
+          }
+        });
+        analyticsEvent(
+          name: "Update Gear",
+          props: {
+            "Target Gear": baseStatefulDevice.baseDeviceDefinition.btName,
+            "Hardware Version": baseStatefulDevice.hwVersion.value,
+            "Firmware Version": baseStatefulDevice.fwVersion.value.toString(),
+          },
+        );
       }
       baseStatefulDevice.deviceState.value = DeviceState.standby; // release the command queue
     }

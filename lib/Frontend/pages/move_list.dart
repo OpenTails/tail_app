@@ -11,7 +11,7 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/pages/direct_gear_control.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
@@ -96,8 +96,7 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                     if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
                       HapticFeedback.selectionClick();
                     }
-                    ref
-                        .watch(knownDevicesProvider)
+                    KnownDevices.instance.state
                         .values
                         .where(
                           (element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType),

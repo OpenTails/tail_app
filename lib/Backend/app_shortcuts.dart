@@ -1,15 +1,13 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'action_registry.dart';
-import 'device_registry.dart';
 import 'favorite_actions.dart';
 
 part 'app_shortcuts.g.dart';
@@ -22,7 +20,7 @@ Future<void> appShortcuts(Ref ref) async {
   quickActions.initialize((shortcutType) {
     BaseAction? action = ref.read(getActionFromUUIDProvider(shortcutType));
     if (action != null) {
-      Iterable<BaseStatefulDevice> knownDevices = ref.read(getAvailableIdleGearProvider);
+      Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.connectedIdleGear;
       for (BaseStatefulDevice device in knownDevices) {
         ref.read(runActionProvider(device).notifier).runAction(action, triggeredBy: "App Shortcut");
       }
@@ -33,17 +31,7 @@ Future<void> appShortcuts(Ref ref) async {
 }
 
 Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {
-  Iterable<BaseAction> allActions = favoriteActions
-      .map(
-        (e) => ref.read(getActionFromUUIDProvider(e.actionUUID)),
-      )
-      .nonNulls;
+  Iterable<BaseAction> allActions = favoriteActions.map((e) => ref.read(getActionFromUUIDProvider(e.actionUUID))).nonNulls;
 
-  quickActions.setShortcutItems(
-    allActions
-        .map(
-          (e) => ShortcutItem(type: e.uuid, localizedTitle: e.name),
-        )
-        .toList(),
-  );
+  quickActions.setShortcutItems(allActions.map((e) => ShortcutItem(type: e.uuid, localizedTitle: e.name)).toList());
 }

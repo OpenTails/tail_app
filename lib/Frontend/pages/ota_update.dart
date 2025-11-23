@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/firmware_update.dart';
 import '../../Backend/logging_wrappers.dart';
@@ -29,7 +29,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   @override
   void initState() {
     super.initState();
-    baseStatefulDevice = ref.read(knownDevicesProvider)[widget.device];
+    baseStatefulDevice = KnownDevices.instance.state[widget.device];
     ref.read(hasOtaUpdateProvider(baseStatefulDevice!).future);
     ref.read(otaUpdaterProvider(baseStatefulDevice!).notifier).onError = ((OtaError p0) => setState(() => otaError = p0));
   }

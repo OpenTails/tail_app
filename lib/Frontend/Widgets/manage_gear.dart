@@ -11,11 +11,10 @@ import 'package:tail_app/Backend/version.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/device_registry.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
@@ -40,17 +39,14 @@ class _ManageGearState extends ConsumerState<ManageGear> {
   @override
   void initState() {
     super.initState();
-    device = ref.read(knownDevicesProvider)[widget.btMac];
+    device = KnownDevices.instance.state[widget.btMac];
     color = Color(device!.baseStoredDevice.color);
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: buildTheme(
-        Theme.of(context).brightness,
-        color!,
-      ),
+      data: buildTheme(Theme.of(context).brightness, color!),
       child: DraggableScrollableSheet(
         initialChildSize: 0.7,
         expand: false,
@@ -64,14 +60,8 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                   elevation: 3,
                   color: Colors.red,
                   child: ListTile(
-                    leading: const Icon(
-                      Icons.warning,
-                      color: Colors.white,
-                    ),
-                    trailing: const Icon(
-                      Icons.warning,
-                      color: Colors.white,
-                    ),
+                    leading: const Icon(Icons.warning, color: Colors.white),
+                    trailing: const Icon(Icons.warning, color: Colors.white),
                     title: Text(
                       convertToUwU(noLongerSupported()),
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
@@ -94,14 +84,8 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                               OtaUpdateRoute(device: device!.baseStoredDevice.btMACAddress).push(context);
                             },
                             child: ListTile(
-                              leading: const Icon(
-                                Icons.warning,
-                                color: Colors.white,
-                              ),
-                              trailing: const Icon(
-                                Icons.warning,
-                                color: Colors.white,
-                              ),
+                              leading: const Icon(Icons.warning, color: Colors.white),
+                              trailing: const Icon(Icons.warning, color: Colors.white),
                               title: Text(
                                 convertToUwU(mandatoryOtaRequired()),
                                 style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
@@ -118,26 +102,13 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                             onPressed: () async {
                               OtaUpdateRoute(device: device!.baseStoredDevice.btMACAddress).push(context);
                             },
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: getTextColor(color!),
-                              elevation: 1,
-                            ),
+                            style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color!), elevation: 1),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.system_update,
-                                  color: getTextColor(color!),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 4),
-                                ),
-                                Text(
-                                  convertToUwU(manageDevicesOtaButton()),
-                                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                        color: getTextColor(color!),
-                                      ),
-                                ),
+                                Icon(Icons.system_update, color: getTextColor(color!)),
+                                const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
+                                Text(convertToUwU(manageDevicesOtaButton()), style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color!))),
                               ],
                             ),
                           ),
@@ -151,66 +122,47 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
                   controller: TextEditingController(text: device!.baseStoredDevice.name),
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: sequencesEditName(),
-                    hintText: device!.baseDeviceDefinition.btName,
-                  ),
+                  decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName(), hintText: device!.baseDeviceDefinition.btName),
                   maxLines: 1,
                   maxLength: 30,
                   autocorrect: false,
                   onSubmitted: (nameValue) async {
-                    setState(
-                      () {
-                        if (nameValue.isNotEmpty) {
-                          device!.baseStoredDevice.name = nameValue;
-                        } else {
-                          device!.baseStoredDevice.name = device!.baseDeviceDefinition.btName;
-                        }
-                      },
-                    );
-                    ref.read(knownDevicesProvider.notifier).store();
+                    setState(() {
+                      if (nameValue.isNotEmpty) {
+                        device!.baseStoredDevice.name = nameValue;
+                      } else {
+                        device!.baseStoredDevice.name = device!.baseDeviceDefinition.btName;
+                      }
+                    });
+                    KnownDevices.instance.store();
                   },
                 ),
               ),
               ListTile(
-                title: Text(
-                  convertToUwU(manageDevicesColor()),
-                ),
-                trailing: ColorIndicator(
-                  width: 44,
-                  height: 44,
-                  borderRadius: 22,
-                  color: Color(device!.baseStoredDevice.color),
-                ),
+                title: Text(convertToUwU(manageDevicesColor())),
+                trailing: ColorIndicator(width: 44, height: 44, borderRadius: 22, color: Color(device!.baseStoredDevice.color)),
                 onTap: () async {
-                  ColorPickerRoute(defaultColor: color!.toARGB32()).push(context).then(
+                  ColorPickerRoute(defaultColor: color!.toARGB32())
+                      .push(context)
+                      .then(
                         (color) => setState(() {
                           if (color != null) {
                             device!.baseStoredDevice.color = color;
                             this.color = Color(color);
-                            ref.invalidate(getAvailableGearProvider);
-                            ref.read(knownDevicesProvider.notifier).store();
+                            KnownDevices.instance.store();
                           }
                         }),
                       );
                 },
               ),
               if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
-                if (device!.baseDeviceDefinition.deviceType == DeviceType.ears) ...[
-                  ManageGearHomePosition(device: device!),
-                ],
+                if (device!.baseDeviceDefinition.deviceType == DeviceType.ears) ...[ManageGearHomePosition(device: device!)],
                 ManageGearBatteryGraph(device: device!),
                 ManageGearConventionMode(device: device!),
                 ManageGearDebug(device: device!),
               ],
               // We only know this info if the gear is connected
-              if (device!.deviceConnectionState.value == ConnectivityState.connected) ...[
-                ManageGearAbout(
-                  device: device!,
-                  color: color!,
-                ),
-              ],
+              if (device!.deviceConnectionState.value == ConnectivityState.connected) ...[ManageGearAbout(device: device!, color: color!)],
               OverflowBar(
                 alignment: MainAxisAlignment.end,
                 children: [
@@ -256,7 +208,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                           device!.forgetOnDisconnect = true;
                           device!.disableAutoConnect = true;
                         } else {
-                          ref.read(knownDevicesProvider.notifier).remove(device!.baseStoredDevice.btMACAddress);
+                          KnownDevices.instance.remove(device!.baseStoredDevice.btMACAddress);
                         }
                       });
                       Navigator.pop(context);
@@ -322,45 +274,28 @@ class _ManageGearUpdateCheckButtonState extends ConsumerState<ManageGearUpdateCh
                       } else {
                         setState(() {
                           //force redownloading the json
-                          Future(
-                            () async => ref.invalidate(getBaseFirmwareInfoProvider(await widget.device.baseDeviceDefinition.getFwURL())),
-                          );
+                          Future(() async => ref.invalidate(hasOtaUpdateProvider(widget.device)));
                           _otaAvailable = ref.watch(hasOtaUpdateProvider(widget.device).future);
                         });
                       }
                     },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: getTextColor(widget.color),
-                elevation: 1,
-              ),
+              style: ElevatedButton.styleFrom(foregroundColor: getTextColor(widget.color), elevation: 1),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting) ...[
-                    CircularProgressIndicator(
-                      color: getTextColor(widget.color),
-                    )
+                    CircularProgressIndicator(color: getTextColor(widget.color)),
                   ] else ...[
-                    Icon(
-                      iconData,
-                      color: getTextColor(widget.color),
-                    )
+                    Icon(iconData, color: getTextColor(widget.color)),
                   ],
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
-                  ),
-                  Text(
-                    convertToUwU(buttonText),
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: getTextColor(widget.color),
-                        ),
-                  ),
+                  const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
+                  Text(convertToUwU(buttonText), style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(widget.color))),
                 ],
               ),
             );
           },
-        )
+        ),
       ],
     );
   }
@@ -377,41 +312,45 @@ class ManageGearConventionMode extends ConsumerWidget {
       title: Text(convertToUwU(manageGearConModeTitle())),
       subtitle: Text(convertToUwU(manageGearConModeDescription())),
       children: [
-        PageInfoCard(
-          text: "Super secret anti hacker power (Insert guide and reset instructions here)",
-        ),
+        PageInfoCard(text: "Super secret anti hacker power (Insert guide and reset instructions here)"),
         ListTile(
           title: Text(convertToUwU(manageGearConModeToggleTitle())),
           subtitle: Text(convertToUwU(manageGearConModePincodeEnableDescription())),
           trailing: ValueListenableBuilder(
             valueListenable: device.deviceConnectionState,
             builder: (context, connectivityState, child) => Switch(
-                value: device.baseStoredDevice.conModeEnabled,
-                onChanged: connectivityState == ConnectivityState.connected
-                    ? (value) async {
-                        //TODO: Validate the setting took correctly. Reboot check?
-                        if (value) {
-                          BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETPUSSKEY ${device.baseStoredDevice.conModePin}", timestamp: DateTime.timestamp());
-                          ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
-                          device.baseStoredDevice.conModeEnabled = true;
-                          ref.read(knownDevicesProvider.notifier).store();
-                          await Clipboard.setData(ClipboardData(text: device.baseStoredDevice.conModePin));
-                        } else {
-                          //TODO? if gear is disconnected and this is attempted, offer instructions to reset gear
-                          BluetoothMessage bluetoothMessage = BluetoothMessage(message: "STOPPUSSKEY", timestamp: DateTime.timestamp());
-                          ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
-                          device.baseStoredDevice.conModeEnabled = false;
-                          ref.read(knownDevicesProvider.notifier).store();
-                          forgetBond(device.baseStoredDevice.btMACAddress);
-                          //TODO: add IOS instructions for clearing bonds
-                        }
+              value: device.baseStoredDevice.conModeEnabled,
+              onChanged: connectivityState == ConnectivityState.connected
+                  ? (value) async {
+                      //TODO: Validate the setting took correctly. Reboot check?
+                      if (value) {
+                        BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETPUSSKEY ${device.baseStoredDevice.conModePin}", timestamp: DateTime.timestamp());
+                        ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
+                        device.baseStoredDevice.conModeEnabled = true;
+                        KnownDevices.instance.store();
+                        await Clipboard.setData(ClipboardData(text: device.baseStoredDevice.conModePin));
+                      } else {
+                        //TODO? if gear is disconnected and this is attempted, offer instructions to reset gear
+                        BluetoothMessage bluetoothMessage = BluetoothMessage(message: "STOPPUSSKEY", timestamp: DateTime.timestamp());
+                        ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
+                        device.baseStoredDevice.conModeEnabled = false;
+                        KnownDevices.instance.store();
+                        forgetBond(device.baseStoredDevice.btMACAddress);
+                        //TODO: add IOS instructions for clearing bonds
                       }
-                    : null),
+                    }
+                  : null,
+            ),
           ),
         ),
         OverflowBar(
-          children: [FilledButton(onPressed: () => PinCodeRoute(pin: device.baseStoredDevice.conModePin).push(context), child: Text(manageGearConModePincodeTitle()))],
-        )
+          children: [
+            FilledButton(
+              onPressed: () => PinCodeRoute(pin: device.baseStoredDevice.conModePin).push(context),
+              child: Text(manageGearConModePincodeTitle()),
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -430,42 +369,27 @@ class ManageGearAbout extends StatelessWidget {
       children: [
         ListTile(
           dense: true,
-          title: Text(
-            convertToUwU(manageDevicesAboutSoftwareVersionLabel()),
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
+          title: Text(convertToUwU(manageDevicesAboutSoftwareVersionLabel()), style: Theme.of(context).textTheme.bodyMedium),
           trailing: ValueListenableBuilder(
             valueListenable: device.fwVersion,
             builder: (context, value, child) {
-              return Text(
-                "${value.major}.${value.minor}.${value.patch}",
-              );
+              return Text("${value.major}.${value.minor}.${value.patch}");
             },
           ),
         ),
         ListTile(
           dense: true,
-          title: Text(
-            convertToUwU(manageDevicesAboutHardwareVersionLabel()),
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
+          title: Text(convertToUwU(manageDevicesAboutHardwareVersionLabel()), style: Theme.of(context).textTheme.bodyMedium),
           trailing: ValueListenableBuilder(
             valueListenable: device.hwVersion,
             builder: (context, value, child) {
-              return Text(
-                value,
-              );
+              return Text(value);
             },
           ),
         ),
         OverflowBar(
-          children: [
-            ManageGearUpdateCheckButton(
-              device: device,
-              color: color,
-            ),
-          ],
-        )
+          children: [ManageGearUpdateCheckButton(device: device, color: color)],
+        ),
       ],
     );
   }
@@ -491,21 +415,10 @@ class ManageGearBatteryGraph extends StatelessWidget {
                 return LineChart(
                   LineChartData(
                     titlesData: FlTitlesData(
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: false,
-                        ),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      leftTitles: AxisTitles(
-                        axisNameWidget: Text(convertToUwU('Battery')),
-                      ),
-                      bottomTitles: AxisTitles(
-                        axisNameWidget: Text(convertToUwU('Time')),
-                        sideTitles: SideTitles(showTitles: true),
-                      ),
+                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      leftTitles: AxisTitles(axisNameWidget: Text(convertToUwU('Battery'))),
+                      bottomTitles: AxisTitles(axisNameWidget: Text(convertToUwU('Time')), sideTitles: SideTitles(showTitles: true)),
                     ),
                     lineTouchData: const LineTouchData(enabled: false),
                     borderData: FlBorderData(show: false),
@@ -515,13 +428,14 @@ class ManageGearBatteryGraph extends StatelessWidget {
                     maxX: device.batlevels.isNotEmpty ? device.batlevels.last.x : 1,
                     lineBarsData: [
                       LineChartBarData(
-                          spots: device.batlevels,
-                          color: Theme.of(context).colorScheme.primary,
-                          dotData: const FlDotData(show: false),
-                          isCurved: true,
-                          curveSmoothness: 0.1,
-                          preventCurveOverShooting: true,
-                          show: device.batlevels.isNotEmpty)
+                        spots: device.batlevels,
+                        color: Theme.of(context).colorScheme.primary,
+                        dotData: const FlDotData(show: false),
+                        isCurved: true,
+                        curveSmoothness: 0.1,
+                        preventCurveOverShooting: true,
+                        show: device.batlevels.isNotEmpty,
+                      ),
                     ],
                   ),
                 );
@@ -564,11 +478,9 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
                 onPressed: () async {
                   OtaUpdateRoute(device: widget.device.baseStoredDevice.btMACAddress).push(context);
                 },
-                child: Text(
-                  manageDevicesOtaButton(),
-                ),
+                child: Text(manageDevicesOtaButton()),
               ),
-            )
+            ),
           ],
         ),
         ListTile(
@@ -576,10 +488,7 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("BT MAC: ${widget.device.baseStoredDevice.btMACAddress}"),
-              ValueListenableBuilder(
-                valueListenable: widget.device.fwInfo,
-                builder: (context, value, child) => Text("FW AVAIL: ${widget.device.fwInfo.value}"),
-              ),
+              ValueListenableBuilder(valueListenable: widget.device.fwInfo, builder: (context, value, child) => Text("FW AVAIL: ${widget.device.fwInfo.value}")),
               Text("CON ELAPSED: ${widget.device.stopWatch.elapsed}"),
               Text("DEV UUID: ${widget.device.baseDeviceDefinition.uuid}"),
               Text("DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}"),
@@ -589,15 +498,9 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
                   return Text("DEV FW URL: ${snapshot.data ?? ""}");
                 },
               ),
-              ValueListenableBuilder(
-                valueListenable: widget.device.mtu,
-                builder: (context, value, child) => Text("MTU: ${widget.device.mtu.value}"),
-              ),
+              ValueListenableBuilder(valueListenable: widget.device.mtu, builder: (context, value, child) => Text("MTU: ${widget.device.mtu.value}")),
               Text("MIN FIRMWARE: ${widget.device.baseDeviceDefinition.minVersion}"),
-              ValueListenableBuilder(
-                valueListenable: widget.device.gearConfigInfo,
-                builder: (context, value, child) => Text("NVS Config: ${widget.device.gearConfigInfo.value}"),
-              ),
+              ValueListenableBuilder(valueListenable: widget.device.gearConfigInfo, builder: (context, value, child) => Text("NVS Config: ${widget.device.gearConfigInfo.value}")),
               Text("QUEUE STATE: ${ref.watch(commandQueueProvider(widget.device))}"),
             ],
           ),
@@ -625,11 +528,9 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
                       if (nameValue.isEmpty) {
                         return;
                       }
-                      setState(
-                        () {
-                          widget.device.fwVersion.value = Version(major: int.parse(nameValue), minor: widget.device.fwVersion.value.minor, patch: widget.device.fwVersion.value.patch);
-                        },
-                      );
+                      setState(() {
+                        widget.device.fwVersion.value = Version(major: int.parse(nameValue), minor: widget.device.fwVersion.value.minor, patch: widget.device.fwVersion.value.patch);
+                      });
                     },
                   ),
                 ),
@@ -647,11 +548,9 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
                       if (nameValue.isEmpty) {
                         return;
                       }
-                      setState(
-                        () {
-                          widget.device.fwVersion.value = Version(major: widget.device.fwVersion.value.major, minor: int.parse(nameValue), patch: widget.device.fwVersion.value.patch);
-                        },
-                      );
+                      setState(() {
+                        widget.device.fwVersion.value = Version(major: widget.device.fwVersion.value.major, minor: int.parse(nameValue), patch: widget.device.fwVersion.value.patch);
+                      });
                     },
                   ),
                 ),
@@ -669,11 +568,9 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
                       if (nameValue.isEmpty) {
                         return;
                       }
-                      setState(
-                        () {
-                          widget.device.fwVersion.value = Version(major: widget.device.fwVersion.value.major, minor: widget.device.fwVersion.value.minor, patch: int.parse(nameValue));
-                        },
-                      );
+                      setState(() {
+                        widget.device.fwVersion.value = Version(major: widget.device.fwVersion.value.major, minor: widget.device.fwVersion.value.minor, patch: int.parse(nameValue));
+                      });
                     },
                   ),
                 ),
@@ -692,11 +589,9 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
               maxLength: 30,
               autocorrect: false,
               onSubmitted: (nameValue) async {
-                setState(
-                  () {
-                    widget.device.hwVersion.value = nameValue;
-                  },
-                );
+                setState(() {
+                  widget.device.hwVersion.value = nameValue;
+                });
               },
             ),
           ),
@@ -743,11 +638,25 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
                   widget.device.hasGlowtip.value = value;
                 });
               },
-              dropdownMenuEntries: GlowtipStatus.values
-                  .map(
-                    (e) => DropdownMenuEntry(value: e, label: e.name),
-                  )
-                  .toList(),
+              dropdownMenuEntries: GlowtipStatus.values.map((e) => DropdownMenuEntry(value: e, label: e.name)).toList(),
+            ),
+          ),
+        ),
+        ValueListenableBuilder(
+          valueListenable: widget.device.hasRGB,
+          builder: (context, value, child) => ListTile(
+            title: const Text("Has RGB"),
+            trailing: DropdownMenu<RGBStatus>(
+              initialSelection: widget.device.hasRGB.value,
+              onSelected: (RGBStatus? value) {
+                if (value == null) {
+                  return;
+                }
+                setState(() {
+                  widget.device.hasRGB.value = value;
+                });
+              },
+              dropdownMenuEntries: RGBStatus.values.map((e) => DropdownMenuEntry(value: e, label: e.name)).toList(),
             ),
           ),
         ),
@@ -843,18 +752,12 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
               initialSelection: widget.device.deviceConnectionState.value,
               onSelected: (value) {
                 if (value != null) {
-                  setState(
-                    () {
-                      widget.device.deviceConnectionState.value = value;
-                    },
-                  );
+                  setState(() {
+                    widget.device.deviceConnectionState.value = value;
+                  });
                 }
               },
-              dropdownMenuEntries: ConnectivityState.values
-                  .map(
-                    (e) => DropdownMenuEntry(value: e, label: e.name),
-                  )
-                  .toList(),
+              dropdownMenuEntries: ConnectivityState.values.map((e) => DropdownMenuEntry(value: e, label: e.name)).toList(),
             ),
           ),
         ),
@@ -866,18 +769,12 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
               initialSelection: widget.device.deviceState.value,
               onSelected: (value) {
                 if (value != null) {
-                  setState(
-                    () {
-                      widget.device.deviceState.value = value;
-                    },
-                  );
+                  setState(() {
+                    widget.device.deviceState.value = value;
+                  });
                 }
               },
-              dropdownMenuEntries: DeviceState.values
-                  .map(
-                    (e) => DropdownMenuEntry(value: e, label: e.name),
-                  )
-                  .toList(),
+              dropdownMenuEntries: DeviceState.values.map((e) => DropdownMenuEntry(value: e, label: e.name)).toList(),
             ),
           ),
         ),
@@ -889,18 +786,12 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
               initialSelection: widget.device.isTailCoNTROL.value,
               onSelected: (value) {
                 if (value != null) {
-                  setState(
-                    () {
-                      widget.device.isTailCoNTROL.value = value;
-                    },
-                  );
+                  setState(() {
+                    widget.device.isTailCoNTROL.value = value;
+                  });
                 }
               },
-              dropdownMenuEntries: TailControlStatus.values
-                  .map(
-                    (e) => DropdownMenuEntry(value: e, label: e.name),
-                  )
-                  .toList(),
+              dropdownMenuEntries: TailControlStatus.values.map((e) => DropdownMenuEntry(value: e, label: e.name)).toList(),
             ),
           ),
         ),
@@ -911,17 +802,11 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
             trailing: DropdownMenu<BluetoothUartService>(
               initialSelection: widget.device.bluetoothUartService.value,
               onSelected: (value) {
-                setState(
-                  () {
-                    widget.device.bluetoothUartService.value = value;
-                  },
-                );
+                setState(() {
+                  widget.device.bluetoothUartService.value = value;
+                });
               },
-              dropdownMenuEntries: uartServices
-                  .map(
-                    (e) => DropdownMenuEntry(value: e, label: e.label),
-                  )
-                  .toList(),
+              dropdownMenuEntries: uartServices.map((e) => DropdownMenuEntry(value: e, label: e.label)).toList(),
             ),
           ),
         ),
@@ -935,11 +820,9 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
               max: -1,
               value: widget.device.rssi.value.toDouble(),
               onChanged: (double value) {
-                setState(
-                  () {
-                    widget.device.rssi.value = value.toInt();
-                  },
-                );
+                setState(() {
+                  widget.device.rssi.value = value.toInt();
+                });
               },
             ),
           ),
@@ -1003,8 +886,9 @@ class _ManageGearHomePositionState extends ConsumerState<ManageGearHomePosition>
 
   void updateHomePosition() {
     Move move = Move.move(
-        leftServo: (widget.device.baseStoredDevice.leftHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127),
-        rightServo: (widget.device.baseStoredDevice.rightHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127));
+      leftServo: (widget.device.baseStoredDevice.leftHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127),
+      rightServo: (widget.device.baseStoredDevice.rightHomePosition.clamp(0, 8).toDouble() * 16).clamp(0, 127),
+    );
     generateMoveCommand(move, widget.device, CommandType.direct, priority: Priority.high);
     BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETHOME", timestamp: DateTime.now(), responseMSG: "OK", priority: Priority.high);
     ref.read(commandQueueProvider(widget.device).notifier).addCommand(bluetoothMessage);

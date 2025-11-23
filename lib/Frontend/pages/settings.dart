@@ -5,7 +5,7 @@ import 'package:tail_app/Backend/firebase.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
@@ -35,41 +35,35 @@ class _SettingsState extends ConsumerState<Settings> {
   Widget build(BuildContext context) {
     ref.watch(initLocaleProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(convertToUwU(settingsPage())),
-      ),
+      appBar: AppBar(title: Text(convertToUwU(settingsPage()))),
       body: ListView(
         controller: _controller,
         children: [
           LanguagePicker(),
           ListTile(
             leading: const Icon(Icons.color_lens),
-            title: Text(
-              convertToUwU(settingsAppColor()),
-            ),
+            title: Text(convertToUwU(settingsAppColor())),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault) != appColorDefault) ...[
                   IconButton(
-                      onPressed: () {
-                        setState(() {
-                          HiveProxy.put(settings, appColor, appColorDefault);
-                          appColorValue = Color(appColorDefault);
-                        });
-                      },
-                      icon: Icon(Icons.clear)),
+                    onPressed: () {
+                      setState(() {
+                        HiveProxy.put(settings, appColor, appColorDefault);
+                        appColorValue = Color(appColorDefault);
+                      });
+                    },
+                    icon: Icon(Icons.clear),
+                  ),
                 ],
-                ColorIndicator(
-                  width: 44,
-                  height: 44,
-                  borderRadius: 22,
-                  color: appColorValue,
-                )
+                ColorIndicator(width: 44, height: 44, borderRadius: 22, color: appColorValue),
               ],
             ),
             onTap: () async {
-              ColorPickerRoute(defaultColor: appColorValue.toARGB32()).push(context).then(
+              ColorPickerRoute(defaultColor: appColorValue.toARGB32())
+                  .push(context)
+                  .then(
                     (color) => setState(() {
                       if (color != null) {
                         HiveProxy.put(settings, appColor, color);
@@ -86,11 +80,9 @@ class _SettingsState extends ConsumerState<Settings> {
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, showAccurateBattery, defaultValue: showAccurateBatteryDefault),
               onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, showAccurateBattery, value);
-                  },
-                );
+                setState(() {
+                  HiveProxy.put(settings, showAccurateBattery, value);
+                });
               },
             ),
           ),
@@ -101,11 +93,9 @@ class _SettingsState extends ConsumerState<Settings> {
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, largerActionCardSize, defaultValue: largerActionCardSizeDefault),
               onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, largerActionCardSize, value);
-                  },
-                );
+                setState(() {
+                  HiveProxy.put(settings, largerActionCardSize, value);
+                });
               },
             ),
           ),
@@ -116,11 +106,9 @@ class _SettingsState extends ConsumerState<Settings> {
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault),
               onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, hideTutorialCards, value);
-                  },
-                );
+                setState(() {
+                  HiveProxy.put(settings, hideTutorialCards, value);
+                });
               },
             ),
           ),
@@ -131,17 +119,13 @@ class _SettingsState extends ConsumerState<Settings> {
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault),
               onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, tailBlogWifiOnly, value);
-                  },
-                );
+                setState(() {
+                  HiveProxy.put(settings, tailBlogWifiOnly, value);
+                });
               },
             ),
           ),
-          const ListTile(
-            title: Divider(),
-          ),
+          const ListTile(title: Divider()),
           ListTile(
             title: Text(convertToUwU(settingsHapticsToggleTitle())),
             leading: const Icon(Icons.vibration),
@@ -164,7 +148,7 @@ class _SettingsState extends ConsumerState<Settings> {
               onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, keepAwake, value);
-                  if (ref.read(knownDevicesProvider).values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).isNotEmpty) {
+                  if (KnownDevices.instance.state.values.where((element) => element.deviceConnectionState.value == ConnectivityState.connected).isNotEmpty) {
                     if (value) {
                       WakelockPlus.enable();
                     } else {
@@ -182,15 +166,13 @@ class _SettingsState extends ConsumerState<Settings> {
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault),
               onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, kitsuneModeToggle, value);
-                  },
-                );
+                setState(() {
+                  HiveProxy.put(settings, kitsuneModeToggle, value);
+                });
               },
             ),
           ),
-          ListTile(
+          /*           ListTile(
             title: Text(convertToUwU(scanDemoGear())),
             leading: const Icon(Icons.explore),
             subtitle: Text(convertToUwU(scanDemoGearTip())),
@@ -204,7 +186,7 @@ class _SettingsState extends ConsumerState<Settings> {
                 );
               },
             ),
-          ),
+          ), */
           ListTile(
             title: Text(convertToUwU(settingsUwUToggleTitle())),
             leading: const Icon(Icons.explore),
@@ -212,18 +194,14 @@ class _SettingsState extends ConsumerState<Settings> {
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, uwuTextEnabled, defaultValue: uwuTextEnabledDefault),
               onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, uwuTextEnabled, value);
-                    ref.invalidate(initLocaleProvider);
-                  },
-                );
+                setState(() {
+                  HiveProxy.put(settings, uwuTextEnabled, value);
+                  ref.invalidate(initLocaleProvider);
+                });
               },
             ),
           ),
-          const ListTile(
-            title: Divider(),
-          ),
+          const ListTile(title: Divider()),
           ListTile(
             title: Text(convertToUwU(settingsMarketingNotificationsToggleTitle())),
             leading: const Icon(Icons.notifications),

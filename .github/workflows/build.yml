@@ -32,7 +32,7 @@ jobs:
     name: Build
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Setup Environment
@@ -64,7 +64,7 @@ jobs:
 
           sentry-dsn: ${{ secrets.SENTRY_DSN }}
       - name: Build IOS / Upload Beta
-        if: github.event_name == 'push' && matrix.build != 'apk'
+        if: github.event_name == 'push'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
         env:

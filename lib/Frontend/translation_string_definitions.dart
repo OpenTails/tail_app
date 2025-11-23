@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 // dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
 
 //Warning: Placeholders/Examples are broken with flutter 3.29
+
+// There is no style. method names and descriptions are labeled based on how i feel that day.
 String title() => Intl.message('The Tail Company', name: 'title', desc: 'The name of the app');
 
 String homeNewsTitle() => Intl.message('Fresh from the Tail Blog', name: 'homeNewsTitle', desc: 'The title header for the news in the home screen when no gear is connected');
@@ -13,8 +15,11 @@ String homeCosHubTitle() => Intl.message('Featured Cosplayers on CosHub', name: 
 
 String homeWelcomeMessageTitle() => Intl.message('Welcome', name: 'homeWelcomeMessageTitle', desc: 'The welcome message title on the home screen when no gear is connected');
 
-String homeWelcomeMessage() => Intl.message('You can control, explore and update all your Tail Co gear right here. There are instructions and guides available too. Happy Wagging!',
-    name: 'homeWelcomeMessage', desc: 'The welcome message on the home screen when no gear is connected');
+String homeWelcomeMessage() => Intl.message(
+  'You can control, explore and update all your Tail Co gear right here. There are instructions and guides available too. Happy Wagging!',
+  name: 'homeWelcomeMessage',
+  desc: 'The welcome message on the home screen when no gear is connected',
+);
 
 String joyStickPage() => Intl.message('Joystick', name: 'joyStickPage', desc: 'The label and title of the joystick page');
 
@@ -64,6 +69,7 @@ String deviceType() => Intl.message('Which gear should this apply to?', name: 'd
 String deviceTypeTail() => Intl.message('Tail', name: 'deviceTypeTail', desc: 'Tail option for the selector to select which device to send moves to');
 
 String deviceTypeMiniTail() => Intl.message('Mini Tail', name: 'deviceTypeMiniTail', desc: 'Tail option for the selector to select which device to send moves to');
+String deviceTypeClawGear() => Intl.message('Claws', name: 'deviceTypeClawGear', desc: 'Claws option for the selector to select which device to send moves to');
 
 String deviceTypeEars() => Intl.message('Ears', name: 'deviceTypeEars', desc: 'Ears option for the selector to select which device to send moves to');
 
@@ -100,26 +106,19 @@ String sequencesEditDeleteTitle() => Intl.message('Delete Action', name: 'sequen
 String sequencesEditDeleteDescription() =>
     Intl.message('Are you sure you want to delete this action?', name: 'sequencesEditDeleteDescription', desc: 'Message of the dialog on the sequence edit page to delete the sequence');
 
-String sequenceEditListDelayLabel(int howMany) => Intl.message(
-      'Delay next move for $howMany ms.',
-      name: 'sequenceEditListDelayLabel',
-      args: [howMany],
-      desc: 'Delay move label on the edit sequences page.',
-    );
+String sequenceEditListDelayLabel(int howMany) =>
+    Intl.message('Delay next move for $howMany ms.', name: 'sequenceEditListDelayLabel', args: [howMany], desc: 'Delay move label on the edit sequences page.');
 //Actions Page
 String actionsNoBluetooth() => Intl.message('Bluetooth is unavailable', name: 'actionsNoBluetooth', desc: 'Label on the actions page when bluetooth is unavailable');
 
-String actionsNoBluetoothDescription() =>
-    Intl.message('Bluetooth is required to connect to Gear. Please turn on bluetooth in settings. Do not connect to gear while in your devices bluetooth settings.',
-        name: 'actionsNoBluetoothDescription', desc: 'description on the actions page when bluetooth is unavailable');
-
-String actionsCategoryCalm() => Intl.message('Calm and Relaxed', name: 'actionsCategoryCalm', desc: 'calm action group label');
-
-String actionsCategoryFast() => Intl.message('Fast and Excited', name: 'actionsCategoryFast', desc: 'fast action group label');
-
-String actionsCategoryTense() => Intl.message('Frustrated and Tense', name: 'actionsCategoryTense', desc: 'tense action group label');
+String actionsNoBluetoothDescription() => Intl.message(
+  'Bluetooth is required to connect to Gear. Please turn on bluetooth in settings. Do not connect to gear while in your devices bluetooth settings.',
+  name: 'actionsNoBluetoothDescription',
+  desc: 'description on the actions page when bluetooth is unavailable',
+);
 
 String actionsCategoryGlowtip() => Intl.message('GlowTip', name: 'actionsCategoryGlowtip', desc: 'glowtip action group label');
+String actionsCategoryRGB() => Intl.message('RGB', name: 'actionsCategoryRGB', desc: 'RGB action group label');
 
 String actionsSelectScreen() => Intl.message('Select Actions', name: 'actionsSelectScreen', desc: 'Title for action select menu on triggers page');
 //Settings
@@ -134,9 +133,11 @@ String settingsKeepScreenOnToggleSubTitle() =>
 
 String settingsKitsuneToggleTitle() => Intl.message('Kitsune Mode', name: 'settingsKitsuneToggleTitle', desc: 'Settings page Kitsune mode toggle title');
 
-String settingsKitsuneToggleSubTitle() =>
-    Intl.message('If you connect many instances of the same devices, this mode will add random pauses to their move-start times, giving it a different visual effect.',
-        name: 'settingsKitsuneToggleSubTitle', desc: 'Settings page show battery percentage toggle subtitle');
+String settingsKitsuneToggleSubTitle() => Intl.message(
+  'If you connect many instances of the same devices, this mode will add random pauses to their move-start times, giving it a different visual effect.',
+  name: 'settingsKitsuneToggleSubTitle',
+  desc: 'Settings page show battery percentage toggle subtitle',
+);
 
 String settingsBatteryPercentageToggleTitle() => Intl.message('Show Battery %', name: 'settingsBatteryPercentageToggleTitle', desc: 'Settings page Battery Percentage mode toggle title');
 
@@ -211,10 +212,16 @@ String scanDevicesOnboardingTitle() => Intl.message('Lets connect your Gear', na
 
 String scanDevicesFoundTitle() => Intl.message('Found Gear. Tap the gear name to connect', name: 'scanDevicesFoundTitle', desc: 'Title when gear is found on the scan for new gear page');
 
-String scanDevicesScanMessage() => Intl.message('Scanning for gear. Please make sure your gear is powered on and nearby',
-    name: 'scanDevicesScanMessage', desc: 'scan for devices scan in progress message when scanning for a device');
-String scanDevicesOnboardingScanMessage() => Intl.message('Scanning for gear. Please make sure your gear is powered on and nearby. You can always connect your gear later.',
-    name: 'scanDevicesOnboardingScanMessage', desc: 'additional scan for devices scan in progress message when scanning for a device during onboarding');
+String scanDevicesScanMessage() => Intl.message(
+  'Scanning for gear. Please make sure your gear is powered on and nearby',
+  name: 'scanDevicesScanMessage',
+  desc: 'scan for devices scan in progress message when scanning for a device',
+);
+String scanDevicesOnboardingScanMessage() => Intl.message(
+  'Scanning for gear. Please make sure your gear is powered on and nearby. You can always connect your gear later.',
+  name: 'scanDevicesOnboardingScanMessage',
+  desc: 'additional scan for devices scan in progress message when scanning for a device during onboarding',
+);
 
 //Triggers
 String triggerWalkingTitle() => Intl.message('Walking', name: 'triggerWalkingTitle', desc: 'Walking/Step trigger title');
@@ -260,6 +267,15 @@ String triggerActionNotSet() => Intl.message("No Action Set", name: 'triggerActi
 String triggerEarMicTitle() => Intl.message("EarGear Mic", name: 'triggerEarMicTitle', desc: 'EarGear internal mic trigger title');
 
 String triggerEarMicDescription() => Intl.message("Trigger an action when EarGear detects sound", name: 'triggerEarMicDescription', desc: 'EarGear internal mic trigger description');
+
+String triggerClawTiltModeTitle() => Intl.message("Claw Tilt", name: 'triggerClawTiltModeTitle', desc: 'ClawGear tilt trigger title');
+String triggerClawTiltModeDescription() => Intl.message("Trigger an action when your claws move", name: 'triggerClawTiltModeDescription', desc: 'ClawGear tilt trigger description');
+String triggerClawTiltModeExtend() => Intl.message("Extend Claws", name: 'triggerClawTiltModeExtend', desc: 'ClawGear tilt trigger extend action label');
+String triggerClawTiltModeRetract() => Intl.message("Retract Claws", name: 'triggerClawTiltModeRetract', desc: 'ClawGear tilt trigger extend action label');
+
+String triggerClawClapModeTitle() => Intl.message("Claw Clap", name: 'triggerClawClapModeTitle', desc: 'ClawGear clap trigger title');
+String triggerClawClapModeDescription() => Intl.message("Trigger an action when your clap your hands", name: 'triggerClawClapModeDescription', desc: 'ClawGear clap trigger description');
+String triggerClawClapMode() => Intl.message("Clap Detected", name: 'triggerClawClapMode', desc: 'ClawGear clap detected label');
 
 String triggerEarMicSound() => Intl.message("Sound Detected", name: 'triggerEarMicSound', desc: 'EarGear internal mic trigger sound detected action label');
 
@@ -316,8 +332,11 @@ String otaFailedReasonMD5Mismatch() => Intl.message("The downloaded file failed 
 
 String otaFailedReasonDownloadFailed() => Intl.message("Failed to download the firmware file", name: 'otaFailedReasonDownloadFailed', desc: 'downloadFailed error message for uploading firmware');
 
-String otaFailedReasonGearVersionMismatch() => Intl.message("The firmware version on your gear does not match the uploaded firmware version",
-    name: 'otaFailedReasonGearVersionMismatch', desc: 'gearVersionMismatch error message for uploading firmware');
+String otaFailedReasonGearVersionMismatch() => Intl.message(
+  "The firmware version on your gear does not match the uploaded firmware version",
+  name: 'otaFailedReasonGearVersionMismatch',
+  desc: 'gearVersionMismatch error message for uploading firmware',
+);
 
 String otaFailedReasonGearReturnedError() =>
     Intl.message("The gear returned an unknown error", name: 'otaFailedReasonGearReturnedError', desc: 'gearReturnedError error message for uploading firmware');
@@ -337,28 +356,34 @@ String otaLowBattery() =>
     Intl.message("Low Battery. Please charge your gear to at least 50%", name: 'otaLowBattery', desc: 'Title for the text that appears when an OTA update was blocked due to low battery');
 
 String triggerInfoDescription() => Intl.message(
-      'Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, Use the toggle on the left to enable the trigger.',
-      name: 'triggerInfoDescription',
-      desc: 'Description for what a trigger is and how to use them on the triggers page',
-    );
+  'Triggers automatically send actions to your gear. You can have multiple triggers active at the same time. Tap on a trigger to edit it, Use the toggle on the left to enable the trigger.',
+  name: 'triggerInfoDescription',
+  desc: 'Description for what a trigger is and how to use them on the triggers page',
+);
 
 String triggerInfoEditActionDescription() => Intl.message(
-      "Tap the pencil to select the Action to play when the event happens. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions.",
-      name: 'triggerInfoEditActionDescription',
-      desc: 'Instruction on how to select an action on the trigger edit page',
-    );
+  "Tap the pencil to select the Action to play when the event happens. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions.",
+  name: 'triggerInfoEditActionDescription',
+  desc: 'Instruction on how to select an action on the trigger edit page',
+);
 
 String sequencesInfoDescription() => Intl.message(
-      'Custom Actions allow you to make your own Actions for gear. Tapping on a Custom Action will play it. Tap the pencil to edit a Custom Action. Please make sure your gear firmware is up to date.',
-      name: 'sequencesInfoDescription',
-      desc: 'Description for what a custom action is and how to use them on the Custom Actions page',
-    );
+  'Custom Actions allow you to make your own Actions for gear. Tapping on a Custom Action will play it. Tap the pencil to edit a Custom Action. Please make sure your gear firmware is up to date.',
+  name: 'sequencesInfoDescription',
+  desc: 'Description for what a custom action is and how to use them on the Custom Actions page',
+);
 
-String sequencesInfoEditDescription() => Intl.message('Each Custom Action consists of 1-6 moves and may repeat up to 5 times. You can long press a move to re-order it.',
-    name: 'sequencesInfoEditDescription', desc: 'Description for making a custom action on the edit Custom Action page');
+String sequencesInfoEditDescription() => Intl.message(
+  'Each Custom Action consists of 1-6 moves and may repeat up to 5 times. You can long press a move to re-order it.',
+  name: 'sequencesInfoEditDescription',
+  desc: 'Description for making a custom action on the edit Custom Action page',
+);
 
-String onboardingPrivacyPolicyDescription() => Intl.message("While the data collected is anonymous and can't be used to identify a specific user, you still need to accept the privacy policy",
-    name: 'onboardingPrivacyPolicyDescription', desc: 'Description for there being a privacy policy on the onboarding screen');
+String onboardingPrivacyPolicyDescription() => Intl.message(
+  "While the data collected is anonymous and can't be used to identify a specific user, you still need to accept the privacy policy",
+  name: 'onboardingPrivacyPolicyDescription',
+  desc: 'Description for there being a privacy policy on the onboarding screen',
+);
 
 String onboardingPrivacyPolicyViewButtonLabel() =>
     Intl.message("View Privacy Policy", name: 'onboardingPrivacyPolicyViewButtonLabel', desc: 'Button label to view privacy policy on the onboarding screen');
@@ -388,8 +413,11 @@ String doubleBackToClose() => Intl.message("Press again to exit", name: 'doubleB
 String noLongerSupported() =>
     Intl.message("This gear is no longer supported. Some app features may not work", name: 'noLongerSupported', desc: 'Warning message which appears for unsupported gear on the manage gear page');
 
-String mandatoryOtaRequired() => Intl.message("A firmware update is available to better support your gear",
-    name: 'mandatoryOtaRequired', desc: 'Warning message which appears for gear which have old firmware on the manage gear page');
+String mandatoryOtaRequired() => Intl.message(
+  "A firmware update is available to better support your gear",
+  name: 'mandatoryOtaRequired',
+  desc: 'Warning message which appears for gear which have old firmware on the manage gear page',
+);
 
 String actionsFavoriteTip() =>
     Intl.message("Long press an action to favorite", name: 'actionsFavoriteTip', desc: 'tip message which appears when no actions are added to favorite on the actions page');
@@ -417,16 +445,16 @@ String scanAddDemoGear() => Intl.message("Add Fake Gear", name: 'scanAddDemoGear
 String scanRemoveDemoGear() => Intl.message("Remove all fake gear", name: 'scanRemoveDemoGear', desc: 'Label for the button to remove all demo gear on the scan for new devices page');
 
 String scanDemoGearTip() => Intl.message(
-      "Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own. This enables a new section on the 'Scan For New Gear' page.",
-      name: 'scanDemoGearTip',
-      desc: 'Tip Card description for the  demo gear on the scan for new devices page',
-    );
+  "Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own. This enables a new section on the 'Scan For New Gear' page.",
+  name: 'scanDemoGearTip',
+  desc: 'Tip Card description for the  demo gear on the scan for new devices page',
+);
 
 String triggerActionSelectorTutorialLabel() => Intl.message(
-      "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions. Don't forget to save.",
-      name: 'triggerActionSelectorTutorialLabel',
-      desc: 'Label for the tutorial card on the Action selector for triggers',
-    );
+  "Select as many actions as you want. An action will be randomly selected that is compatible with connected gear. GlowTip and Sound actions will trigger alongside Move actions. Only actions compatible with paired gear are shown. Don't forget to save.",
+  name: 'triggerActionSelectorTutorialLabel',
+  desc: 'Label for the tutorial card on the Action selector for triggers',
+);
 
 String featureLimitedOtaRequiredLabel() =>
     Intl.message("Please update your gear to use this feature.", name: 'featureLimitedOtaRequiredLabel', desc: 'Label for the warning card when a feature requires a firmware update');
@@ -451,8 +479,11 @@ String casualModeDelayTitle() => Intl.message("Min and Max delay", name: 'casual
 
 String manageGearHomePositionTitle() => Intl.message("Set Home Position", name: 'manageGearHomePositionTitle', desc: 'Title for the home position sliders on the manage gear screen');
 
-String manageGearHomePositionDescription() => Intl.message("Sets the position gear will move to after an action is finished",
-    name: 'manageGearHomePositionDescription', desc: 'Description for the home position sliders on the manage gear screen');
+String manageGearHomePositionDescription() => Intl.message(
+  "Sets the position gear will move to after an action is finished",
+  name: 'manageGearHomePositionDescription',
+  desc: 'Description for the home position sliders on the manage gear screen',
+);
 
 String settingsTailBlogWifiOnlyTitle() => Intl.message("Reduce Data Usage", name: 'settingsTailBlogWifiOnlyTitle', desc: 'Description for the tail blog wifi only setting');
 
@@ -465,14 +496,19 @@ String supportDescription() => Intl.message('Tap the blue chat icon to contact s
 
 String manageGearConModeTitle() => Intl.message('Convention Mode', name: 'manageGearConModeTitle', desc: 'The title for the convention mode page on the gear page');
 
-String manageGearConModeDescription() => Intl.message('Convention Mode is an additional security measure to prevent other devices from connecting to your gear.',
-    name: 'manageGearConModeDescription', desc: 'The description for the convention mode page on the gear page');
+String manageGearConModeDescription() => Intl.message(
+  'Convention Mode is an additional security measure to prevent other devices from connecting to your gear.',
+  name: 'manageGearConModeDescription',
+  desc: 'The description for the convention mode page on the gear page',
+);
 
 String manageGearConModePincodeTitle() => Intl.message('View Pin Code', name: 'manageGearConModePincodeTitle', desc: 'The description for the pin mode button on the gear page');
 
-String manageGearConModePincodeEnableDescription() =>
-    Intl.message("Upon enabling 'Convention Mode' your gear will be rebooted and you will be prompted to enter the pincode. The pincode will be copied to the clipboard",
-        name: 'manageGearConModePincodeEnableDescription', desc: 'The description for the pin mode button on the gear page');
+String manageGearConModePincodeEnableDescription() => Intl.message(
+  "Upon enabling 'Convention Mode' your gear will be rebooted and you will be prompted to enter the pincode. The pincode will be copied to the clipboard",
+  name: 'manageGearConModePincodeEnableDescription',
+  desc: 'The description for the pin mode button on the gear page',
+);
 
 String manageGearConModePincodeCopy() => Intl.message('Copy to Clipboard', name: 'manageGearConModePincodeCopy', desc: 'The description for copy to clipboard button on the pin code dialog');
 
@@ -480,13 +516,20 @@ String manageGearConModeToggleTitle() => Intl.message('Enable Convention Mode', 
 
 String morePageCoverPromoTitle() => Intl.message('Change the look of your gear!', name: 'morePageCoverPromoTitle', desc: 'The title for the button on the More page to push users to buy a new cover');
 
-String morePageCoverPromoDescription({required String couponCode}) => Intl.message('Use code $couponCode to get 10% off a new MiTail or EarGear sleeve',
-    args: [couponCode], name: 'morePageCoverPromoDescription', desc: 'The description & promo code for the button on the More page to push users to buy a new cover');
+String morePageCoverPromoDescription({required String couponCode}) => Intl.message(
+  'Use code $couponCode to get 10% off a new MiTail or EarGear sleeve',
+  args: [couponCode],
+  name: 'morePageCoverPromoDescription',
+  desc: 'The description & promo code for the button on the More page to push users to buy a new cover',
+);
 
 String morePageTranslateTitle() => Intl.message('Localization', name: 'morePageTranslateTitle', desc: 'The title for the button on the More page to push users to assist in translating the app');
 
-String morePageTranslateDescription() => Intl.message('Help us Translate the app into your language',
-    name: 'morePageTranslateDescription', desc: 'The description for the button on the More page to push users to assist in translating the app');
+String morePageTranslateDescription() => Intl.message(
+  'Help us Translate the app into your language',
+  name: 'morePageTranslateDescription',
+  desc: 'The description for the button on the More page to push users to assist in translating the app',
+);
 
 String appLanguageSelectorTitle() => Intl.message('App Language', name: 'appLanguageSelectorTitle', desc: 'The title for the button and dialog to select the app language');
 

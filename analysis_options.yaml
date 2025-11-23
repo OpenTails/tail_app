@@ -33,3 +33,5 @@ analyzer:
     - pub_cache/**
     - lib/**.g.dart
     - lib/l10n/**
+  plugins:
+    - custom_lint

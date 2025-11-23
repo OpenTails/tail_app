@@ -10,7 +10,7 @@ import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:vector_math/vector_math.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
@@ -71,7 +71,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                             if (!context.mounted) {
                               return;
                             }
-                            ref.read(knownDevicesProvider).values.forEach(
+                            KnownDevices.instance.state.values.forEach(
                               (element) {
                                 generateMoveCommand(move, element, CommandType.direct, noResponseMsg: true, priority: Priority.high).forEach(
                                   (message) {
@@ -167,7 +167,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
       ..speed = speed
       ..rightServo = right
       ..leftServo = left;
-    ref.read(knownDevicesProvider).values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach(
+    KnownDevices.instance.state.values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach(
       (element) {
         generateMoveCommand(move, element, CommandType.direct, priority: Priority.high, noResponseMsg: true).forEach(
           (message) {

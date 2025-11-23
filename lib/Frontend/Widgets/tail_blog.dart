@@ -12,7 +12,6 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:wordpress_client/src/responses/properties/media_details.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Widget;
 
-import '../../constants.dart';
 import '../utils.dart';
 
 part 'tail_blog.freezed.dart';
@@ -135,7 +134,7 @@ class _TailBlogState extends State<TailBlog> {
         }
       }
       //filter out posts that are missing a thumbnail
-      results = results.where((element) => element.imageUrl != null,).toList();
+      results = results.where((element) => element.imageUrl != null).toList();
     }
     if (mounted && context.mounted) {
       setState(() {
@@ -153,7 +152,7 @@ class _TailBlogState extends State<TailBlog> {
       MediaDetails mediaDetails = MediaDetails.fromJson(post.self['_embedded']['wp:featuredmedia'][0]['media_details']);
 
       // if the post does not have a featured image, or if the featured image does not have the compressed versions created by wordpress.
-      if (mediaDetails.sizes == null || mediaDetails.sizes!.isEmpty) {
+      if (mediaDetails.sizes == null) {
         return null;
       }
       if (mediaDetails.sizes!.containsKey('medium')) {
@@ -165,6 +164,9 @@ class _TailBlogState extends State<TailBlog> {
       } else if (mediaDetails.sizes!.containsKey('full')) {
         // when all else fails
         return mediaDetails.sizes!['full']!.sourceUrl;
+      } else if (mediaDetails.sizes!.isEmpty && mediaDetails.file != null) {
+        _wpLogger.warning("Loading full size image for post: ${post.title}.");
+        return "https://thetailcompany.com/wp-content/uploads/${mediaDetails.file}";
       }
     } catch (e) {
       _wpLogger.warning("Unable to load featured media for post ${post.title}. $e");
