@@ -105,10 +105,10 @@ dependencies:
   hive_ce_flutter: ^2.3.2
 
   # Spicy
-  firebase_messaging: ^15.2.9
-  firebase_core: ^3.15.1
-  firebase_app_installations: ^0.3.2+9
-  cloud_firestore: ^5.6.12
+  firebase_messaging: ^16.0.4
+  firebase_core: ^4.2.1
+  firebase_app_installations: ^0.4.0+4
+  cloud_firestore: ^6.1.0
   upgrader: ^11.5.1 # update notices
   aptabase_flutter: ^0.4.1 # analytics
 
