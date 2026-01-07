@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-11-10T04:35:17.713347",
+  "@@last_modified": "2026-01-07T17:49:25.872728",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -402,18 +402,6 @@
   "settingsAnalyticsToggleSubTitle": "Report non identifying feature usage to Plausible for enhancing the app",
   "@settingsAnalyticsToggleSubTitle": {
     "description": "Settings page analytics reporting toggle subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleTitle": "Allow Marketing Notifications",
-  "@settingsMarketingNotificationsToggleTitle": {
-    "description": "Settings page marketing notifications toggle title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "settingsMarketingNotificationsToggleSubTitle": "Allow notifications for new blog posts and sales.",
-  "@settingsMarketingNotificationsToggleSubTitle": {
-    "description": "Settings page marketing notifications toggle subtitle",
     "type": "text",
     "placeholders": {}
   },
