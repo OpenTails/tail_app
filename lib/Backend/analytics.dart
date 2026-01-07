@@ -64,7 +64,6 @@ Future<Map<String, String>> _getSettingsProps({Map<String, String> props = const
 
   // Settings
   props['UwU Enabled'] = HiveProxy.getOrDefault(settings, uwuTextEnabled, defaultValue: uwuTextEnabledDefault).toString();
-  props['Marketing Notifications Enabled'] = HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault).toString();
   props['Fake Gear Enabled'] = HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault).toString();
   props['Hide Tutorial Cards Enabled'] = HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault).toString();
   props['Haptic Feedback Enabled'] = HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault).toString();
@@ -97,7 +96,6 @@ Future<Map<String, String>> _getLaunchProps({Map<String, String> props = const {
     AndroidDeviceInfo androidDeviceInfo = await DeviceInfoPlugin().androidInfo;
     props['Device Brand'] = androidDeviceInfo.brand;
   } else if (Platform.isIOS) {
-    IosDeviceInfo iosDeviceInfo = await DeviceInfoPlugin().iosInfo;
     props['Device Brand'] = "Apple";
   }
   return props;

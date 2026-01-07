@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
-import 'package:tail_app/Backend/device_registry.dart';
 import 'package:tail_app/Backend/firmware_update.dart';
 import 'package:tail_app/Frontend/Widgets/device_type_widget.dart';
 

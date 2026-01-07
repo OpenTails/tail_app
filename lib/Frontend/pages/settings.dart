@@ -1,7 +1,6 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tail_app/Backend/firebase.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -202,20 +201,6 @@ class _SettingsState extends ConsumerState<Settings> {
             ),
           ),
           const ListTile(title: Divider()),
-          ListTile(
-            title: Text(convertToUwU(settingsMarketingNotificationsToggleTitle())),
-            leading: const Icon(Icons.notifications),
-            subtitle: Text(convertToUwU(settingsMarketingNotificationsToggleSubTitle())),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(settings, marketingNotificationsEnabled, defaultValue: marketingNotificationsEnabledDefault),
-              onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, marketingNotificationsEnabled, value);
-                });
-                configurePushNotifications();
-              },
-            ),
-          ),
           ListTile(
             title: Text(convertToUwU(settingsAnalyticsToggleTitle())),
             leading: const Icon(Icons.analytics),

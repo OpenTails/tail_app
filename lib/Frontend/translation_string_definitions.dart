@@ -163,12 +163,6 @@ String settingsAnalyticsToggleTitle() => Intl.message('Allow Anonymous Analytics
 String settingsAnalyticsToggleSubTitle() =>
     Intl.message('Report non identifying feature usage to Plausible for enhancing the app', name: 'settingsAnalyticsToggleSubTitle', desc: 'Settings page analytics reporting toggle subtitle');
 
-String settingsMarketingNotificationsToggleTitle() =>
-    Intl.message('Allow Marketing Notifications', name: 'settingsMarketingNotificationsToggleTitle', desc: 'Settings page marketing notifications toggle title');
-
-String settingsMarketingNotificationsToggleSubTitle() =>
-    Intl.message('Allow notifications for new blog posts and sales.', name: 'settingsMarketingNotificationsToggleSubTitle', desc: 'Settings page marketing notifications toggle subtitle');
-
 String settingsUwUToggleTitle() => Intl.message('UwU Translator', name: 'settingsUwUToggleTitle', desc: 'Settings page UwU text toggle title');
 
 String settingsUwUToggleSubTitle() => Intl.message("OwO, What's this?", name: 'settingsUwUToggleSubTitle', desc: 'Settings page UwU text toggle subtitle');

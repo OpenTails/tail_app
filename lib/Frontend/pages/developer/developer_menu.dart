@@ -10,7 +10,6 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 
-import '../../../Backend/firebase.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../Backend/wear_bridge.dart';
 import '../../../constants.dart';
@@ -218,22 +217,6 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 return Text(HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: dynamicConfigJsonDefault));
               },
             ),
-          ),
-          ListTile(
-            title: const Text("FirebaseToken"),
-            subtitle: FutureBuilder(
-              future: getFirebaseToken(),
-              builder: (context, snapshot) {
-                String firebaseToken = "";
-                if (snapshot.hasData) {
-                  firebaseToken = snapshot.data!;
-                }
-                return Text(firebaseToken);
-              },
-            ),
-            onTap: () async {
-              Clipboard.setData(ClipboardData(text: await getFirebaseToken() ?? ""));
-            },
           ),
           ListTile(
             title: const Text("PlatformLocale"),

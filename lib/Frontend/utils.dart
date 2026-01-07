@@ -14,8 +14,6 @@ import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sentry_dio/sentry_dio.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
 import '../Backend/logging_wrappers.dart';
@@ -93,21 +91,11 @@ final cacheOptions = CacheOptions(
   maxStale: const Duration(days: 7),
 );
 
-Future<Dio> initDio({bool skipSentry = false}) async {
+Future<Dio> initDio() async {
   if (_dio != null) {
     return _dio!;
   }
   final Dio dio = Dio()
-/*     ..interceptors.add(
-      LogInterceptor(
-        requestBody: false,
-        requestHeader: false,
-        responseBody: false,
-        responseHeader: false,
-        request: true,
-        logPrint: (o) => dioLogger.finer(o.toString()),
-      ),
-    ) */
     ..interceptors.add(LogarteDioInterceptor(logarte));
   dio.interceptors.add(
     RetryInterceptor(
@@ -134,11 +122,6 @@ Future<Dio> initDio({bool skipSentry = false}) async {
   // Global options
 
   dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
-  if (!skipSentry) {
-    /// This *must* be the last initialization step of the Dio setup, otherwise
-    /// your configuration of Dio might overwrite the Sentry configuration.
-    dio.addSentry(failedRequestStatusCodes: [SentryStatusCode.range(400, 500)]);
-  }
   _dio = dio;
   return dio;
 }

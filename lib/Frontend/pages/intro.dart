@@ -49,7 +49,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     analyticsEvent(name: "Complete Onboarding", props: {"onboardingVersion": hasCompletedOnboardingVersionToAgree.toString()});
     _introLogger.info("Complete Onboarding");
     HiveProxy.put(settings, hasCompletedOnboarding, hasCompletedOnboardingVersionToAgree);
-    //configurePushNotifications();
     const ActionPageRoute().pushReplacement(context);
   }
 

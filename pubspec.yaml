@@ -16,14 +16,14 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   logging: ^1.3.0
-  go_router: ^16.2.2
+  go_router: ^17.0.0
   vector_math: # used for joystick, pinned to SDK version
   collection: ^1.19.1 # Priority Queue
   uuid: ^4.5.1 # Used to generate UUID v4 ids for custom actions & move lists
   json_annotation: ^4.9.0
-  crypto: ^3.0.6 # used for md5 hash checking during ota download
+  crypto: ^3.0.7 # used for md5 hash checking during ota download
   circular_buffer: ^0.12.0 # Used for serial console
-  wordpress_client: ^9.1.1 # Used for tail blog
+  wordpress_client: ^9.3.0 # Used for tail blog
   logarte:
     git:
       url: https://github.com/Codel1417/logarte
@@ -34,7 +34,7 @@ dependencies:
   # Platform Interfaces
   device_info_plus: ^10.1.0
   wakelock_plus: ^1.3.2 # Keeps the screen awake
-  file_picker: ^10.3.3 # used to manually select firmware file
+  file_picker: ^10.3.7 # used to manually select firmware file
   path_provider: ^2.1.5 # used to get paths for app storage and cache storage
   package_info_plus: ^8.3.0
   permission_handler: ^12.0.1
@@ -54,22 +54,22 @@ dependencies:
   watch_connectivity: ^0.2.1+1
 
   # Riverpod
-  flutter_riverpod: ^3.0.0
-  riverpod_annotation: ^3.0.0
+  flutter_riverpod: ^3.0.3
+  riverpod_annotation: ^3.0.3
 
   # Widgets / UI
   flutter_screen_lock: ^9.2.2+2 # used to hide dev mode toggle
   introduction_screen: ^4.0.0 # Onboarding
-  flex_color_picker: ^3.7.1
+  flex_color_picker: ^3.7.2
   flutter_adaptive_scaffold: ^0.3.3+1
   animate_do: ^4.2.0
   fl_chart: ^1.1.1 # Used for the battery graph
-  chart_sparkline: ^1.1.1 # used for the move easing visual
+  chart_sparkline: ^1.1.2 # used for the move easing visual
   flutter_joystick: ^0.2.2
   multi_value_listenable_builder: ^0.0.2
   flutter_markdown: ^0.7.7+1
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
-  flutter_native_splash: ^2.4.6
+  flutter_native_splash: ^2.4.7
   choice:
     git:
       url: https://github.com/davigmacode/flutter_choice
@@ -82,13 +82,13 @@ dependencies:
 
   # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
-  country_flags: ^4.0.0 # locale flags
+  country_flags: ^4.1.0 # locale flags
   intl: #pinned to flutter version?
 
   # Dio HTTP
   dio: ^5.9.0
   dio_smart_retry: ^7.0.1
-  dio_cache_interceptor: ^4.0.3
+  dio_cache_interceptor: ^4.0.5
   http_cache_hive_store: ^5.0.1
 
   # Sensors
@@ -101,31 +101,29 @@ dependencies:
   flutter_android_volume_keydown: ^1.0.1
 
   # Hive
-  hive_ce: ^2.12.0
-  hive_ce_flutter: ^2.3.2
+  hive_ce: ^2.15.1
+  hive_ce_flutter: ^2.3.3
 
   # Spicy
-  firebase_messaging: ^15.2.9
-  firebase_core: ^3.15.1
-  firebase_app_installations: ^0.3.2+9
-  cloud_firestore: ^5.6.12
-  upgrader: ^11.5.1 # update notices
+  firebase_core: ^4.2.1
+  cloud_firestore: ^6.1.0
+  upgrader: ^12.3.0 # update notices
   aptabase_flutter: ^0.4.1 # analytics
 
   # Sentry
-  sentry_flutter: ^9.6.0 # Base sentry + Flutter integration
-  sentry_logging: ^9.6.0 # Collects app logs
+  sentry_flutter: ^9.8.0 # Base sentry + Flutter integration
+  sentry_logging: ^9.8.0 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
-  sentry_dio: ^9.6.0 # Collects Dio HTTP requests
+  #sentry_dio: ^9.8.0 # Collects Dio HTTP requests
   #feedback_sentry: ^3.1.0
 
 dev_dependencies:
   build_runner: # Required for build
   #flutter_gen_runner:
-  riverpod_generator: ^3.0.0 # required for @Riverpod annotations
+  riverpod_generator: ^3.0.3 # required for @Riverpod annotations
   json_serializable: ^6.11.1 # required for @JsonSerializable annotations
   hive_ce_generator: ^1.9.2 # required for @HiveType annotations
-  go_router_builder: ^4.0.1
+  go_router_builder: ^4.1.1
   freezed: ^3.2.3 # required for @freezed annotations
 
   flutter_lints: # Dryer Lint
