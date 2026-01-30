@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/version
       - name: Download artifact
         id: download-artifact
-        uses: dawidd6/action-download-artifact@v11
+        uses: dawidd6/action-download-artifact@v13
         with:
           workflow: build.yml
           workflow_conclusion: success
