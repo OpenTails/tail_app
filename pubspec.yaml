@@ -66,7 +66,7 @@ dependencies:
   chart_sparkline: ^1.1.2 # used for the move easing visual
   flutter_joystick: ^0.2.2
   multi_value_listenable_builder: ^0.0.2
-  flutter_markdown: ^0.7.7+1
+  flutter_markdown_plus: ^1.0.7
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
   flutter_native_splash: ^2.4.7
   choice:
@@ -126,8 +126,8 @@ dev_dependencies:
   freezed: ^3.2.3 # required for @freezed annotations
 
   flutter_lints: # Dryer Lint
-  riverpod_lint:
-  custom_lint:
+  #riverpod_lint:
+  #custom_lint:
 
 dependency_overrides:
   #collection: 1.19.1
