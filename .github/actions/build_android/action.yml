@@ -42,7 +42,7 @@ runs:
         ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
     - name: Build AppBundle
       shell: bash
-      run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"  --dart-define=SENTRY_DSN="$SENTRY_DSN"
+      run: flutter build appbundle --build-number="$BUILD_NUMBER" --build-name="$VERSION"  --dart-define=SENTRY_DSN="$SENTRY_DSN"
       env:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}

@@ -22,7 +22,7 @@ platform :ios do
       api_key_path:"APPLE_SECRETS.json",
     )
     Dir.chdir("../..") do
-        sh "flutter build ipa --dart-define=SENTRY_DSN=$SENTRY_DSN --split-debug-info=./symbols --build-number=$BUILD_NUMBER --build-name=$VERSION --export-options-plist ./ios/Runner/export.plist"
+        sh "flutter build ipa --dart-define=SENTRY_DSN=$SENTRY_DSN  --build-number=$BUILD_NUMBER --build-name=$VERSION --export-options-plist ./ios/Runner/export.plist"
     end
     build_app(
       skip_build_archive: true,
