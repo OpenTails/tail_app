@@ -49,7 +49,6 @@ dependencies:
   battery_plus: ^7.0.0
   ble_peripheral: ^2.4.0 # nearby gear
 
-
   # Watch
   watch_connectivity: ^0.2.1+1
 
@@ -158,7 +157,7 @@ sentry: # used by the sentry-dart-plugin to upload symbols. Credentials are prov
   upload_source_maps: true
   upload_sources: true
   symbols_path: ./symbols
-  project: "Tail-App"
+  project: "tail-app"
   org: "floof"
   url: "https://glitchtip.codel1417.xyz"
 
