@@ -278,9 +278,15 @@ class GetAllActions extends _$GetAllActions {
     KnownDevices.instance
       ..removeListener(onDeviceConnect)
       ..addListener(onDeviceConnect);
+    MoveLists.instance
+      ..removeListener(onDeviceConnect)
+      ..addListener(onDeviceConnect);
+    UserAudioActions.instance
+      ..removeListener(onDeviceConnect)
+      ..addListener(onDeviceConnect);
     Map<String, Set<BaseAction>> sortedActions = {};
-    final BuiltList<MoveList> moveLists = ref.watch(moveListsProvider);
-    final BuiltList<AudioAction> audioActions = ref.watch(userAudioActionsProvider);
+    final BuiltList<MoveList> moveLists = MoveLists.instance.state;
+    final BuiltList<AudioAction> audioActions = UserAudioActions.instance.state;
     for (BaseStatefulDevice baseStatefulDevice in KnownDevices.instance.state.values) {
       baseStatefulDevice.hasRGB
         ..removeListener(onDeviceConnect)

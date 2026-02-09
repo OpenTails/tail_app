@@ -3,7 +3,6 @@ import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../Frontend/translation_string_definitions.dart';
 import '../constants.dart';
@@ -28,11 +27,7 @@ extension EasingTypeExtension on EasingType {
       case EasingType.linear:
         return SizedBox(
           width: 65,
-          child: Sparkline(
-            data: const [0, 1],
-            lineColor: Theme.of(context).colorScheme.outline,
-            lineWidth: 5,
-          ),
+          child: Sparkline(data: const [0, 1], lineColor: Theme.of(context).colorScheme.outline, lineWidth: 5),
         );
       case EasingType.cubic:
         return SizedBox(
@@ -141,49 +136,46 @@ class Move {
   int get hashCode => leftServo.hashCode ^ rightServo.hashCode ^ speed.hashCode ^ time.hashCode ^ easingType.hashCode ^ moveType.hashCode;
 }
 
-@Riverpod(keepAlive: true)
-class MoveLists extends _$MoveLists {
-  @override
-  BuiltList<MoveList> build() {
+class MoveLists with ChangeNotifier {
+  BuiltList<MoveList> _state = BuiltList();
+  BuiltList<MoveList> get state => _state;
+
+  static final MoveLists instance = MoveLists._internal();
+
+  MoveLists._internal() {
     List<MoveList> results = [];
     try {
       results = HiveProxy.getAll<MoveList>(sequencesBox).toList(growable: true);
     } catch (e, s) {
       sequencesLogger.severe("Unable to load sequences: $e", e, s);
     }
-    return results.toBuiltList();
+    _state = results.toBuiltList();
   }
 
   Future<void> add(MoveList moveList) async {
-    state = state.rebuild(
-      (p0) => p0.add(moveList),
-    );
+    _state = _state.rebuild((p0) => p0.add(moveList));
     await store();
   }
 
   Future<void> replace(MoveList oldValue, MoveList newValue) async {
-    state = state.rebuild(
-      (p0) {
-        int index = state.indexOf(oldValue);
-        p0
-          ..removeAt(index)
-          ..insert(index, newValue);
-      },
-    );
+    _state = _state.rebuild((p0) {
+      int index = _state.indexOf(oldValue);
+      p0
+        ..removeAt(index)
+        ..insert(index, newValue);
+    });
     await store();
   }
 
   Future<void> remove(MoveList moveList) async {
-    state = state.rebuild(
-      (p0) => p0.remove(moveList),
-    );
+    _state = _state.rebuild((p0) => p0.remove(moveList));
     await store();
   }
 
   Future<void> store() async {
     sequencesLogger.info("Storing sequences");
     await HiveProxy.clear<MoveList>(sequencesBox);
-    await HiveProxy.addAll<MoveList>(sequencesBox, state);
+    await HiveProxy.addAll<MoveList>(sequencesBox, _state);
+    notifyListeners();
   }
 }
-

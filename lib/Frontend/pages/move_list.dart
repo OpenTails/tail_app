@@ -34,24 +34,25 @@ class MoveListView extends ConsumerStatefulWidget {
 class _MoveListViewState extends ConsumerState<MoveListView> {
   @override
   Widget build(BuildContext context) {
-    final BuiltList<MoveList> allMoveLists = ref.watch(moveListsProvider);
     return Scaffold(
       appBar: AppBar(title: Text(convertToUwU(sequencesPage()))),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         onPressed: () async {
           setState(() {
-            ref.watch(moveListsProvider.notifier).add(MoveList(name: sequencesPage(), deviceCategory: DeviceType.values.toList(), actionCategory: ActionCategory.sequence, uuid: const Uuid().v4()));
+            MoveLists.instance.add(MoveList(name: sequencesPage(), deviceCategory: DeviceType.values.toList(), actionCategory: ActionCategory.sequence, uuid: const Uuid().v4()));
           });
-          EditMoveListRoute($extra: ref.watch(moveListsProvider).last).push<MoveList>(context).then(
+          EditMoveListRoute($extra: MoveLists.instance.state.last)
+              .push<MoveList>(context)
+              .then(
                 (value) => setState(() {
                   if (value != null) {
-                    if (ref.watch(moveListsProvider).isNotEmpty) {
-                      ref.watch(moveListsProvider.notifier).replace(ref.read(moveListsProvider).last, value);
+                    if (MoveLists.instance.state.isNotEmpty) {
+                      MoveLists.instance.replace(MoveLists.instance.state.last, value);
                     } else {
-                      ref.watch(moveListsProvider.notifier).add(value);
+                      MoveLists.instance.add(value);
                     }
-                    ref.watch(moveListsProvider.notifier).store();
+                    MoveLists.instance.store();
                   }
                   analyticsEvent(name: "Edit Custom Action", props: {"Number of Moves": value!.moves.length.toString(), "Repeat": value.repeat.toString()});
                 }),
@@ -63,53 +64,51 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
         physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
-            PageInfoCard(
-              text: sequencesInfoDescription(),
-            ),
+            PageInfoCard(text: sequencesInfoDescription()),
             const GearOutOfDateWarning(),
-            ListView.builder(
-              itemCount: allMoveLists.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return ListTile(
-                  key: Key('$index'),
-                  title: Text(convertToUwU(allMoveLists[index].name)),
-                  subtitle: Text(convertToUwU("${allMoveLists[index].moves.length} move(s)")),
-                  //TODO: Localize
-                  trailing: IconButton(
-                    tooltip: sequencesEdit(),
-                    icon: const Icon(Icons.edit),
-                    onPressed: () async {
-                      EditMoveListRoute($extra: allMoveLists[index]).push<MoveList>(context).then(
-                            (value) => setState(
-                              () {
-                                if (value != null) {
-                                  ref.watch(moveListsProvider.notifier).replace(allMoveLists[index], value);
-                                }
-                              },
-                            ),
-                          );
-                    },
-                  ),
-                  onTap: () async {
-                    if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
-                      HapticFeedback.selectionClick();
-                    }
-                    KnownDevices.instance.state
-                        .values
-                        .where(
-                          (element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType),
-                        )
-                        .where(
-                          (element) => element.deviceState.value == DeviceState.standby,
-                        )
-                        .forEach(
-                      (element) async {
-                        if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
-                          await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+            ListenableBuilder(
+              listenable: MoveLists.instance,
+              builder: (context, child) {
+                final BuiltList<MoveList> allMoveLists = MoveLists.instance.state;
+
+                return ListView.builder(
+                  itemCount: allMoveLists.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      key: Key('$index'),
+                      title: Text(convertToUwU(allMoveLists[index].name)),
+                      subtitle: Text(convertToUwU("${allMoveLists[index].moves.length} move(s)")),
+                      //TODO: Localize
+                      trailing: IconButton(
+                        tooltip: sequencesEdit(),
+                        icon: const Icon(Icons.edit),
+                        onPressed: () async {
+                          EditMoveListRoute($extra: allMoveLists[index])
+                              .push<MoveList>(context)
+                              .then(
+                                (value) => setState(() {
+                                  if (value != null) {
+                                    MoveLists.instance.replace(allMoveLists[index], value);
+                                  }
+                                }),
+                              );
+                        },
+                      ),
+                      onTap: () async {
+                        if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
+                          HapticFeedback.selectionClick();
                         }
-                        runAction(element, allMoveLists[index], triggeredBy: "Custom Action Page");
+                        KnownDevices.instance.state.values
+                            .where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType))
+                            .where((element) => element.deviceState.value == DeviceState.standby)
+                            .forEach((element) async {
+                              if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
+                                await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+                              }
+                              runAction(element, allMoveLists[index], triggeredBy: "Custom Action Page");
+                            });
                       },
                     );
                   },
@@ -156,20 +155,13 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
                   title: Text(convertToUwU(sequencesEditDeleteTitle())),
                   content: Text(convertToUwU(sequencesEditDeleteDescription())),
                   actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, false),
-                      child: Text(convertToUwU(cancel())),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, true),
-                      child: Text(convertToUwU(ok())),
-                    ),
+                    TextButton(onPressed: () => Navigator.pop(context, false), child: Text(convertToUwU(cancel()))),
+                    TextButton(onPressed: () => Navigator.pop(context, true), child: Text(convertToUwU(ok()))),
                   ],
                 ),
               ).then((value) async {
                 if (value ?? true) {
-                  await ref.watch(moveListsProvider.notifier).remove(widget.moveList);
-                  await ref.watch(moveListsProvider.notifier).store();
+                  await MoveLists.instance.remove(widget.moveList);
                   analyticsEvent(name: "Remove Custom Action", props: {"Number of Moves": widget.moveList.moves.length.toString(), "Repeat": widget.moveList.repeat.toString()});
 
                   if (context.mounted) {
@@ -185,23 +177,17 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
           ? FloatingActionButton.extended(
               icon: const Icon(Icons.add),
               onPressed: () async {
-                setState(
-                  () {
-                    widget.moveList.moves = widget.moveList.moves.toList()..add(Move());
-                  },
-                );
+                setState(() {
+                  widget.moveList.moves = widget.moveList.moves.toList()..add(Move());
+                });
                 Move move = widget.moveList.moves[widget.moveList.moves.length - 1];
 
-                EditMoveListMoveRoute($extra: move).push(context).whenComplete(
-                  () {
-                    setState(
-                      () {
-                        widget.moveList.moves[widget.moveList.moves.length - 1] = move;
-                      },
-                    );
-                    ref.watch(moveListsProvider.notifier).store();
-                  },
-                );
+                EditMoveListMoveRoute($extra: move).push(context).whenComplete(() {
+                  setState(() {
+                    widget.moveList.moves[widget.moveList.moves.length - 1] = move;
+                  });
+                  MoveLists.instance.store();
+                });
                 //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves.last).then((value) => setState(() => moveList!.moves.last = value!));
               },
               label: Text(convertToUwU(sequencesEditAdd())),
@@ -213,15 +199,13 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
           //https://github.com/flutter/flutter/issues/138737
           //https://github.com/flutter/flutter/issues/138525
           if (widget.moveList.moves.isEmpty) {
-            ref.watch(moveListsProvider.notifier).remove(widget.moveList);
+            MoveLists.instance.remove(widget.moveList);
           }
-          ref.watch(moveListsProvider.notifier).store();
+          MoveLists.instance.store();
         },
         child: ListView(
           children: [
-            PageInfoCard(
-              text: sequencesInfoEditDescription(),
-            ),
+            PageInfoCard(text: sequencesInfoEditDescription()),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
@@ -231,12 +215,10 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
                 maxLength: 30,
                 autocorrect: false,
                 onSubmitted: (nameValue) async {
-                  setState(
-                    () {
-                      widget.moveList.name = nameValue;
-                    },
-                  );
-                  ref.watch(moveListsProvider.notifier).store();
+                  setState(() {
+                    widget.moveList.name = nameValue;
+                  });
+                  MoveLists.instance.store();
                 },
               ),
             ),
@@ -244,7 +226,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
               selected: widget.moveList.deviceCategory,
               onSelectionChanged: (List<DeviceType> value) async {
                 setState(() => widget.moveList.deviceCategory = value.toList());
-                ref.watch(moveListsProvider.notifier).store();
+                MoveLists.instance.store();
               },
             ),
             ListTile(
@@ -259,7 +241,7 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
                 onChanged: (double value) async {
                   setState(() {
                     setState(() => widget.moveList.repeat = value);
-                    ref.watch(moveListsProvider.notifier).store();
+                    MoveLists.instance.store();
                   });
                 },
               ),
@@ -276,16 +258,12 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
                     onTap: () async {
                       Move move = widget.moveList.moves[index];
 
-                      EditMoveListMoveRoute($extra: move).push(context).whenComplete(
-                        () {
-                          setState(
-                            () {
-                              widget.moveList.moves[index] = move;
-                            },
-                          );
-                          ref.watch(moveListsProvider.notifier).store();
-                        },
-                      );
+                      EditMoveListMoveRoute($extra: move).push(context).whenComplete(() {
+                        setState(() {
+                          widget.moveList.moves[index] = move;
+                        });
+                        MoveLists.instance.store();
+                      });
                       //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
                     },
                   ),
@@ -294,13 +272,11 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
                 if (oldIndex < newIndex) {
                   newIndex -= 1;
                 }
-                setState(
-                  () {
-                    final Move item = widget.moveList.moves.removeAt(oldIndex);
-                    widget.moveList.moves.insert(newIndex, item);
-                  },
-                );
-                ref.watch(moveListsProvider.notifier).store();
+                setState(() {
+                  final Move item = widget.moveList.moves.removeAt(oldIndex);
+                  widget.moveList.moves.insert(newIndex, item);
+                });
+                MoveLists.instance.store();
               },
             ),
           ],
@@ -347,10 +323,7 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
               controller: _tabController,
               tabs: <Widget>[
                 Tab(icon: const Icon(Icons.auto_graph), text: sequencesEditMove()),
-                Tab(
-                  icon: const Icon(Icons.timer_rounded),
-                  text: sequencesEditDelay(),
-                ),
+                Tab(icon: const Icon(Icons.timer_rounded), text: sequencesEditDelay()),
               ],
             ),
             Expanded(
@@ -425,15 +398,9 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                           onSelectionChanged: (Set<EasingType> value) {
                             setState(() => widget.move.easingType = value.first);
                           },
-                          segments: EasingType.values.map<ButtonSegment<EasingType>>(
-                            (EasingType value) {
-                              return ButtonSegment<EasingType>(
-                                value: value,
-                                tooltip: value.name,
-                                icon: value.widget(context),
-                              );
-                            },
-                          ).toList(),
+                          segments: EasingType.values.map<ButtonSegment<EasingType>>((EasingType value) {
+                            return ButtonSegment<EasingType>(value: value, tooltip: value.name, icon: value.widget(context));
+                          }).toList(),
                         ),
                       ),
                     ],

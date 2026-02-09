@@ -27,23 +27,12 @@ class CustomAudio extends ConsumerStatefulWidget {
 class _CustomAudioState extends ConsumerState<CustomAudio> {
   @override
   Widget build(BuildContext context) {
-    BuiltList<AudioAction> userAudioActions = ref.watch(userAudioActionsProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(convertToUwU(audioPage())),
-      ),
+      appBar: AppBar(title: Text(convertToUwU(audioPage()))),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           _audioLogger.info("Opening file dialog");
-          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, withReadStream: true, allowedExtensions: [
-            'aac',
-            'm4a',
-            'flac',
-            'wav',
-            'avif',
-            'mp3',
-            'ac3',
-          ]);
+          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, withReadStream: true, allowedExtensions: ['aac', 'm4a', 'flac', 'wav', 'avif', 'mp3', 'ac3']);
           if (result != null) {
             _audioLogger.info("Selected file");
             PlatformFile file = result.files.first;
@@ -65,7 +54,7 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
               file: storedAudioFilePath.path,
             );
             setState(() {
-              ref.read(userAudioActionsProvider.notifier).add(action);
+              UserAudioActions.instance.add(action);
             });
             analyticsEvent(name: "Add Custom Audio");
           }
@@ -76,62 +65,61 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
       ),
       body: ListView(
         children: [
-          PageInfoCard(
-            text: audioTipCard(),
-          ),
-          ListView.builder(
-            itemCount: userAudioActions.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              AudioAction audioAction = userAudioActions[index];
-              return ListTile(
-                title: Text(convertToUwU(audioAction.name)),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      onPressed: () async {
-                        editModal(context, audioAction);
-                      },
-                      tooltip: audioEdit(),
-                      icon: const Icon(Icons.edit),
-                    ),
-                    IconButton(
-                      onPressed: () async {
-                        showDialog<bool>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: Text(convertToUwU(audioDelete())),
-                            content: Text(convertToUwU(audioDeleteDescription())),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, false),
-                                child: Text(convertToUwU(cancel())),
+          PageInfoCard(text: audioTipCard()),
+          ListenableBuilder(
+            listenable: UserAudioActions.instance,
+            builder: (context, child) {
+              BuiltList<AudioAction> userAudioActions = UserAudioActions.instance.state;
+
+              return ListView.builder(
+                itemCount: userAudioActions.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  AudioAction audioAction = userAudioActions[index];
+                  return ListTile(
+                    title: Text(convertToUwU(audioAction.name)),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () async {
+                            editModal(context, audioAction);
+                          },
+                          tooltip: audioEdit(),
+                          icon: const Icon(Icons.edit),
+                        ),
+                        IconButton(
+                          onPressed: () async {
+                            showDialog<bool>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: Text(convertToUwU(audioDelete())),
+                                content: Text(convertToUwU(audioDeleteDescription())),
+                                actions: <Widget>[
+                                  TextButton(onPressed: () => Navigator.pop(context, false), child: Text(convertToUwU(cancel()))),
+                                  TextButton(onPressed: () => Navigator.pop(context, true), child: Text(convertToUwU(ok()))),
+                                ],
                               ),
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, true),
-                                child: Text(convertToUwU(ok())),
-                              ),
-                            ],
-                          ),
-                        ).then((value) async {
-                          if (value ?? true) {
-                            ref.read(userAudioActionsProvider.notifier).remove(audioAction);
-                            File storedAudioFilePath = File(audioAction.file);
-                            await storedAudioFilePath.delete();
-                            setState(() {
-                              _audioLogger.info("Deleted audio file");
+                            ).then((value) async {
+                              if (value ?? true) {
+                                UserAudioActions.instance.remove(audioAction);
+                                File storedAudioFilePath = File(audioAction.file);
+                                await storedAudioFilePath.delete();
+                                setState(() {
+                                  _audioLogger.info("Deleted audio file");
+                                });
+                              }
                             });
-                          }
-                        });
-                      }, //TODO: Show dialog, then delete record and file.
-                      tooltip: audioDelete(),
-                      icon: const Icon(Icons.delete),
+                          }, //TODO: Show dialog, then delete record and file.
+                          tooltip: audioDelete(),
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                onTap: () async => playSound(audioAction.file),
+                    onTap: () async => playSound(audioAction.file),
+                  );
+                },
               );
             },
           ),
@@ -168,12 +156,10 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
                         maxLength: 30,
                         autocorrect: false,
                         onSubmitted: (nameValue) {
-                          setState(
-                            () {
-                              audioAction.name = nameValue;
-                            },
-                          );
-                          ref.watch(userAudioActionsProvider.notifier).store();
+                          setState(() {
+                            audioAction.name = nameValue;
+                          });
+                          UserAudioActions.instance.store();
                         },
                       ),
                     ),
@@ -184,13 +170,9 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
           },
         );
       },
-    ).whenComplete(
-      () {
-        setState(
-          () {},
-        );
-        ref.watch(userAudioActionsProvider.notifier).store();
-      },
-    );
+    ).whenComplete(() {
+      setState(() {});
+      UserAudioActions.instance.store();
+    });
   }
 }
