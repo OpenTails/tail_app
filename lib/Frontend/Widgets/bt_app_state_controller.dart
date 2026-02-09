@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/logging_wrappers.dart';
@@ -25,18 +24,18 @@ class _BtAppStateControllerState extends ConsumerState<BtAppStateController> {
       onResume: () {
         // start FlutterBluePlus if its not started already
         if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) >= hasCompletedOnboardingVersionToAgree) {
-          ref.read(initFlutterBluePlusProvider);
+          initFlutterBluePlus();
         }
       },
       onPause: () {
-        if (KnownDevices.instance.connectedGear.isEmpty && ref.exists(initFlutterBluePlusProvider)) {
+        /*         if (KnownDevices.instance.connectedGear.isEmpty && ref.exists(initFlutterBluePlusProvider)) {
           ref.invalidate(initFlutterBluePlusProvider);
-        }
+        } */
       },
     );
     // start FlutterBluePlus if its not started already
     if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) >= hasCompletedOnboardingVersionToAgree) {
-      ref.read(initFlutterBluePlusProvider);
+      initFlutterBluePlus();
     }
   }
 

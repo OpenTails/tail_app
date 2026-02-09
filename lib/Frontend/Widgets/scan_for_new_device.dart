@@ -29,7 +29,7 @@ class ScanForNewDevice extends ConsumerStatefulWidget {
 class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
   @override
   void deactivate() {
-    ref.read(scanProvider.notifier).stopScan();
+    Scan.instance.stopScan();
     super.deactivate();
   }
 
@@ -111,26 +111,26 @@ class _ScanForNewDevice extends ConsumerState<ScanForNewDevice> {
   }
 }
 
-class ScanGearList extends ConsumerStatefulWidget {
+class ScanGearList extends StatefulWidget {
   const ScanGearList({super.key, this.popOnConnect = true});
   final bool popOnConnect;
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ScanGearListState();
+  State<StatefulWidget> createState() => _ScanGearListState();
 }
 
-class _ScanGearListState extends ConsumerState<ScanGearList> {
+class _ScanGearListState extends State<ScanGearList> {
   bool anyKnownGear = false;
 
   @override
   void initState() {
     super.initState();
     anyKnownGear = KnownDevices.instance.state.isNotEmpty;
-    ref.read(scanProvider.notifier).beginScan(scanReason: ScanReason.addGear);
+    Scan.instance.beginScan(scanReason: ScanReason.addGear);
   }
 
   @override
   void deactivate() {
-    ref.read(scanProvider.notifier).stopActiveScan();
+    Scan.instance.stopActiveScan();
     super.deactivate();
   }
 

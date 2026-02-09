@@ -2,15 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter/material.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/command_history.dart';
 
 import 'Bluetooth/bluetooth_message.dart';
 import 'Definitions/Device/device_definition.dart';
-
-part 'command_queue.g.dart';
 
 enum CommandQueueState {
   running,
@@ -23,34 +21,35 @@ enum CommandQueueState {
   empty, // the queue is empty
 }
 
-@Riverpod(keepAlive: true)
-class CommandQueue extends _$CommandQueue {
+class CommandQueue with ChangeNotifier {
   final PriorityQueue<BluetoothMessage> _internalCommandQueue = PriorityQueue();
   late final BaseStatefulDevice _device;
   Duration timeoutDuration = const Duration(seconds: 10);
   Timer? _runningCommandTimer;
   BluetoothMessage? currentMessage;
-  StreamSubscription<String>? _rxCharacteristicStreamSubscription;
+  CommandHistory commandHistory = CommandHistory();
 
   List<BluetoothMessage> get queue => _internalCommandQueue.toList();
 
-  @override
-  CommandQueueState build(BaseStatefulDevice device) {
+  CommandQueue(BaseStatefulDevice device) {
     _device = device;
     device.deviceConnectionState.addListener(_connectionStateListener);
     device.gearReturnedError.addListener(_gearErrorListener);
     device.deviceState.addListener(_deviceStateListener);
+    device.rxCharacteristicStream.asBroadcastStream().listen(_bluetoothResponseListener);
+    addListener(_onStateChanged);
+  }
 
-    _rxCharacteristicStreamSubscription = device.rxCharacteristicStream.asBroadcastStream().listen(_bluetoothResponseListener);
-    listenSelf(_onStateChanged);
-    ref.onDispose(() {
-      device.deviceConnectionState.removeListener(_connectionStateListener);
-      device.gearReturnedError.removeListener(_gearErrorListener);
-      device.deviceState.removeListener(_deviceStateListener);
-      _rxCharacteristicStreamSubscription?.cancel();
-      _rxCharacteristicStreamSubscription = null;
-    });
-    return CommandQueueState.empty;
+  CommandQueueState get state => _state;
+  CommandQueueState _state = CommandQueueState.empty;
+
+  void _setState(CommandQueueState state) {
+    if (_internalCommandQueue.isEmpty && state == CommandQueueState.idle) {
+      _state = CommandQueueState.empty;
+    } else {
+      _state = state;
+    }
+    notifyListeners();
   }
 
   void _connectionStateListener() {
@@ -119,8 +118,8 @@ class CommandQueue extends _$CommandQueue {
   }
 
   /// Handles running the next command and marking gear as busy/idle
-  void _onStateChanged(CommandQueueState? previous, CommandQueueState next) {
-    switch (next) {
+  void _onStateChanged() {
+    switch (state) {
       case CommandQueueState.running:
       case CommandQueueState.waitingForResponse:
       case CommandQueueState.delay:
@@ -142,14 +141,6 @@ class CommandQueue extends _$CommandQueue {
     }
   }
 
-  void _setState(CommandQueueState state) {
-    if (_internalCommandQueue.isEmpty && state == CommandQueueState.idle) {
-      _setState(CommandQueueState.empty);
-    } else {
-      this.state = state;
-    }
-  }
-
   Future<void> runCommand(BluetoothMessage bluetoothMessage) async {
     currentMessage = bluetoothMessage;
     _setState(CommandQueueState.running);
@@ -162,7 +153,7 @@ class CommandQueue extends _$CommandQueue {
       _setState(CommandQueueState.delay);
     } else {
       bluetoothLog.fine("Sending command to ${_device.baseStoredDevice.name}:${bluetoothMessage.message}");
-      ref.read(commandHistoryProvider(_device).notifier).add(type: MessageHistoryType.send, message: bluetoothMessage.message);
+      commandHistory.add(type: MessageHistoryType.send, message: bluetoothMessage.message);
 
       // skip delay for dev gear but still add the command to the queue
       if (bluetoothMessage.responseMSG != null && !_device.baseStoredDevice.btMACAddress.startsWith("DEV")) {

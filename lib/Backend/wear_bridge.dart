@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:synchronized/synchronized.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/command_runner.dart';
@@ -22,77 +22,64 @@ part 'wear_bridge.g.dart';
 
 final Logger _wearLogger = Logger('Wear');
 final _watch = WatchConnectivity();
+bool _didInitWear = false;
 WearThemeData? wearThemeData;
+Lock _initLock = Lock();
 
-@Riverpod(keepAlive: true)
-class MessageStreamSubscription extends _$MessageStreamSubscription {
-  StreamSubscription<Map<String, dynamic>>? _messageStreamSubscription;
-
-  @override
-  void build() {
-    // Get the state of device connectivity
-    _messageStreamSubscription = _watch.messageStream.listen(listener);
-    ref.onDispose(() => _messageStreamSubscription?.cancel());
+void _watchIncomingMessageListener(Map<String, dynamic> event) {
+  _wearLogger.info("Watch Message: $event");
+  WearCommand wearCommand = WearCommand.fromJson(event);
+  switch (wearCommand.capability) {
+    case "run_action":
+      BaseAction? action = ActionRegistry.getActionFromUUID(wearCommand.uuid);
+      if (action != null) {
+        Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.connectedIdleGear;
+        for (BaseStatefulDevice device in knownDevices) {
+          runAction(device, action, triggeredBy: "Watch");
+        }
+      }
+      break;
+    case "toggle_trigger":
+      Trigger? trigger = TriggerList.instance.state.where((p0) => p0.uuid == wearCommand.uuid).firstOrNull;
+      if (trigger != null) {
+        trigger.enabled = wearCommand.enabled;
+      }
+      break;
+    case "refresh":
+      // ignore: unused_result
+      updateWearData();
+      break;
   }
+}
 
-  void listener(Map<String, dynamic> event) {
-    _wearLogger.info("Watch Message: $event");
-    WearCommand wearCommand = WearCommand.fromJson(event);
-    switch (wearCommand.capability) {
-      case "run_action":
-        BaseAction? action = ref.read(getActionFromUUIDProvider(wearCommand.uuid));
-        if (action != null) {
-          Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.connectedIdleGear;
-          for (BaseStatefulDevice device in knownDevices) {
-            ref.read(runActionProvider(device).notifier).runAction(action, triggeredBy: "Watch");
-          }
-        }
-        break;
-      case "toggle_trigger":
-        Trigger? trigger = ref.read(triggerListProvider).where((p0) => p0.uuid == wearCommand.uuid).firstOrNull;
-        if (trigger != null) {
-          trigger.enabled = wearCommand.enabled;
-        }
-        break;
-      case "refresh":
-        // ignore: unused_result
-        ref.refresh(updateWearDataProvider);
-        break;
+Future<void> initWear() async {
+  if (_didInitWear) {
+    return;
+  }
+  _initLock.synchronized(() async {
+    await Future.delayed(const Duration(seconds: 5));
+    try {
+      _watch.messageStream.listen(_watchIncomingMessageListener);
+      KnownDevices.instance.addListener(() {
+        KnownDevices.instance.state.values.map((e) => e).forEach((element) {
+          element.batteryLevel
+            ..removeListener(updateWearData)
+            ..addListener(updateWearData);
+          element.deviceConnectionState
+            ..removeListener(updateWearData)
+            ..addListener(updateWearData);
+          // Gear color
+          element.baseStoredDevice
+            ..removeListener(updateWearData)
+            ..addListener(updateWearData);
+        });
+        //react to device pairing
+        updateWearData();
+      });
+    } catch (e, s) {
+      _wearLogger.severe("exception setting up Wear $e", e, s);
     }
-  }
-}
-
-@Riverpod(keepAlive: true)
-class KnownGearBatteryListener extends _$KnownGearBatteryListener {
-  @override
-  void build() {
-    KnownDevices.instance
-      ..removeListener(listener)
-      ..addListener(listener)
-      ..state.values
-          .map((e) => e.batteryLevel)
-          .forEach(
-            (element) => element
-              ..removeListener(listener)
-              ..addListener(listener),
-          );
-  }
-
-  void listener() {
-    // ignore: unused_result
-    ref.refresh(updateWearDataProvider);
-  }
-}
-
-@Riverpod(keepAlive: true)
-Future<void> initWear(Ref ref) async {
-  await Future.delayed(const Duration(seconds: 5));
-  try {
-    ref.watch(messageStreamSubscriptionProvider);
-    ref.watch(knownGearBatteryListenerProvider);
-  } catch (e, s) {
-    _wearLogger.severe("exception setting up Wear $e", e, s);
-  }
+  });
 }
 
 Future<bool> isReachable() {
@@ -111,45 +98,47 @@ Future<Map<String, dynamic>> applicationContext() {
   return _watch.applicationContext.catchError((e) => <String, dynamic>{}).onError((error, stackTrace) => {});
 }
 
-@Riverpod()
-Future<void> updateWearData(Ref ref) async {
-  try {
-    if (!await isPaired()) {
-      return; // Don't update wear actions if wear is not supported / no watch is paired
-    }
-    Iterable<BaseAction> allActions = ref.read(favoriteActionsProvider).map((e) => ref.read(getActionFromUUIDProvider(e.actionUUID))).nonNulls;
-    BuiltList<Trigger> triggers = ref.watch(triggerListProvider);
-    final List<WearActionData> favoriteMap = allActions.map((e) => WearActionData(uuid: e.uuid, name: e.name)).toList();
-    final List<WearTriggerData> triggersMap = triggers.map((e) => WearTriggerData(uuid: e.uuid, name: e.triggerDefinition!.name(), enabled: e.enabled)).toList();
-    final List<WearGearData> knownGear = KnownDevices.instance.state.values
-        .map(
-          (e) => WearGearData(
-            name: e.baseStoredDevice.name,
-            uuid: e.baseStoredDevice.btMACAddress,
-            batteryLevel: e.batteryLevel.value.toInt(),
-            connected: e.deviceConnectionState.value == ConnectivityState.connected,
-            color: e.baseStoredDevice.color,
-          ),
-        )
-        .toList();
-    // Listen for gear connect/disconnect events
-    //TODO: rework entire gear handler without riverpod
-    //ref.watch(getAvailableGearProvider);
+Future<void> updateWearData() async {
+  _initLock.synchronized(() async {
+    try {
+      await initWear();
+      if (!await isPaired()) {
+        return; // Don't update wear actions if wear is not supported / no watch is paired
+      }
+      Iterable<BaseAction> allActions = FavoriteActions.instance.state.map((e) => ActionRegistry.getActionFromUUID(e.actionUUID)).nonNulls;
+      BuiltList<Trigger> triggers = TriggerList.instance.state;
+      final List<WearActionData> favoriteMap = allActions.map((e) => WearActionData(uuid: e.uuid, name: e.name)).toList();
+      final List<WearTriggerData> triggersMap = triggers.map((e) => WearTriggerData(uuid: e.uuid, name: e.triggerDefinition!.name(), enabled: e.enabled)).toList();
+      final List<WearGearData> knownGear = KnownDevices.instance.state.values
+          .map(
+            (e) => WearGearData(
+              name: e.baseStoredDevice.name,
+              uuid: e.baseStoredDevice.btMACAddress,
+              batteryLevel: e.batteryLevel.value.toInt(),
+              connected: e.deviceConnectionState.value == ConnectivityState.connected,
+              color: e.baseStoredDevice.color,
+            ),
+          )
+          .toList();
+      // Listen for gear connect/disconnect events
+      //TODO: rework entire gear handler without riverpod
+      //ref.watch(getAvailableGearProvider);
 
-    final WearLocalizationData localizationData = WearLocalizationData(
-      triggersPage: convertToUwU(triggersPage()),
-      actionsPage: convertToUwU(watchFavoriteActionsTitle()),
-      favoriteActionsDescription: convertToUwU(watchFavoriteActionsNoFavoritesTip()),
-      knownGear: convertToUwU(watchKnownGearTitle()),
-      watchKnownGearNoGearPairedTip: convertToUwU(watchKnownGearNoGearPairedTip()),
-    );
-    final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap, themeData: wearThemeData!, knownGear: knownGear, localization: localizationData);
-    if (await isReachable()) {
-      await _watch.updateApplicationContext(wearData.toJson());
+      final WearLocalizationData localizationData = WearLocalizationData(
+        triggersPage: convertToUwU(triggersPage()),
+        actionsPage: convertToUwU(watchFavoriteActionsTitle()),
+        favoriteActionsDescription: convertToUwU(watchFavoriteActionsNoFavoritesTip()),
+        knownGear: convertToUwU(watchKnownGearTitle()),
+        watchKnownGearNoGearPairedTip: convertToUwU(watchKnownGearNoGearPairedTip()),
+      );
+      final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap, themeData: wearThemeData!, knownGear: knownGear, localization: localizationData);
+      if (await isReachable()) {
+        await _watch.updateApplicationContext(wearData.toJson());
+      }
+    } catch (e, s) {
+      _wearLogger.severe("Unable to send favorite actions to watch", e, s);
     }
-  } catch (e, s) {
-    _wearLogger.severe("Unable to send favorite actions to watch", e, s);
-  }
+  });
 }
 
 @freezed

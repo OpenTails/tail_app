@@ -181,13 +181,13 @@
 			},
 			"group": "build",
 			"dependsOn": [
-				"flutter: flutter pub run build_runner build"
+				"flutter: dart pub run build_runner build"
 			]
 		},
 		{
 			"label": "Run build_runner startup",
 			"dependsOn": [
-				"flutter: flutter pub run build_runner watch"
+				"flutter: dart pub run build_runner watch"
 			],
 			"presentation": {
 				"reveal": "silent",

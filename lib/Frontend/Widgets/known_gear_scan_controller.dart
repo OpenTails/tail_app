@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 
@@ -9,16 +8,16 @@ import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 
 final knownGearScanControllerLogger = log.Logger('KnownGearScanController');
 
-class KnownGearScanController extends ConsumerStatefulWidget {
+class KnownGearScanController extends StatefulWidget {
   const KnownGearScanController({required this.child, super.key});
 
   final Widget child;
 
   @override
-  ConsumerState<KnownGearScanController> createState() => _KnownGearScanControllerState();
+  State<KnownGearScanController> createState() => _KnownGearScanControllerState();
 }
 
-class _KnownGearScanControllerState extends ConsumerState<KnownGearScanController> {
+class _KnownGearScanControllerState extends State<KnownGearScanController> {
   final Duration scanDurationTimeout = const Duration(seconds: 30);
   late final AppLifecycleListener _listener;
 
@@ -29,13 +28,13 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
       onResume: () {
         Future(
           // force widget rebuild
-          () => ref.read(scanProvider.notifier).isAllGearConnectedListener(),
+          () => Scan.instance.isAllGearConnectedListener(),
         );
       },
       //onResume: () => _handleTransition('resume'),
       onHide: () async {
         if (KnownDevices.instance.connectedIdleGear.isEmpty) {
-          await ref.read(scanProvider.notifier).stopScan();
+          await Scan.instance.stopScan();
         }
       },
       //onInactive: () => _handleTransition('inactive'),
@@ -54,7 +53,7 @@ class _KnownGearScanControllerState extends ConsumerState<KnownGearScanControlle
 
   @override
   Widget build(BuildContext context) {
-    ref.read(scanProvider.notifier).isAllGearConnectedListener();
+    Scan.instance.isAllGearConnectedListener();
     return widget.child;
   }
 }

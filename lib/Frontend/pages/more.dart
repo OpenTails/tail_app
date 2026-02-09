@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
@@ -15,14 +14,14 @@ import '../translation_string_definitions.dart';
 import 'html_page.dart';
 import 'markdown_viewer.dart';
 
-class More extends ConsumerStatefulWidget {
+class More extends StatefulWidget {
   const More({super.key});
 
   @override
-  ConsumerState<More> createState() => _MoreState();
+  State<More> createState() => _MoreState();
 }
 
-class _MoreState extends ConsumerState<More> {
+class _MoreState extends State<More> {
   final ScrollController _controller = ScrollController();
 
   @override

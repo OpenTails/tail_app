@@ -54,63 +54,64 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
         return AnimatedSwitcher(
           duration: animationTransitionDuration,
           child: actionsCatMap.isNotEmpty
-              ? ListView(
-                  shrinkWrap: false,
-                  children: [
-                    //TODO: Remove for TAILCoNTROL update
-                    AnimatedSwitcher(
-                      duration: animationTransitionDuration,
-                      child: KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.ears])).where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy).isNotEmpty
-                          ? const EarSpeedWidget()
-                          : null,
-                    ),
-                    AnimatedCrossFade(
-                      firstChild: PageInfoCard(text: actionsFavoriteTip()),
-                      secondChild: GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
-                        itemCount: actionsCatMap.values.flattened.where((element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid)).length,
-                        itemBuilder: (BuildContext context, int index) {
-                          BaseAction baseAction = actionsCatMap.values.flattened
-                              .where((element) => ref.watch(favoriteActionsProvider).any((favorite) => favorite.actionUUID == element.uuid))
-                              .toList()[index];
-                          return ActionCard(actionIndex: index, knownDevices: knownDevicesFiltered, action: baseAction, largerCards: largerCards);
-                        },
-                      ),
-                      crossFadeState: actionsCatMap.values.flattened.where((element) => ref.watch(favoriteActionsProvider.notifier).contains(element)).isEmpty
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
-                      duration: animationTransitionDuration,
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: catList.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (BuildContext context, int categoryIndex) {
-                        List<BaseAction> actionsForCat = actionsCatMap.values.toList()[categoryIndex].toList();
-                        return FadeIn(
-                          delay: Duration(milliseconds: 100 * categoryIndex),
-                          child: ListView(
-                            physics: const NeverScrollableScrollPhysics(),
+              ? ListenableBuilder(
+                  listenable: FavoriteActions.instance,
+                  builder: (context, child) {
+                    Iterable<BaseAction> availableFavorites = actionsCatMap.values.flattened.where((element) => FavoriteActions.instance.state.any((favorite) => favorite.actionUUID == element.uuid));
+                    return ListView(
+                      shrinkWrap: false,
+                      children: [
+                        AnimatedSwitcher(
+                          duration: animationTransitionDuration,
+                          child: KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.ears])).where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy).isNotEmpty
+                              ? const EarSpeedWidget()
+                              : null,
+                        ),
+                        AnimatedCrossFade(
+                          firstChild: PageInfoCard(text: actionsFavoriteTip()),
+                          secondChild: GridView.builder(
                             shrinkWrap: true,
-                            children: [
-                              Center(child: Text(catList[categoryIndex], style: Theme.of(context).textTheme.titleLarge)),
-                              GridView.builder(
-                                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                            itemCount: availableFavorites.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              BaseAction baseAction = availableFavorites.toList()[index];
+                              return ActionCard(actionIndex: index, knownDevices: knownDevicesFiltered, action: baseAction, largerCards: largerCards);
+                            },
+                          ),
+                          crossFadeState: availableFavorites.isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                          duration: animationTransitionDuration,
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: catList.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int categoryIndex) {
+                            List<BaseAction> actionsForCat = actionsCatMap.values.toList()[categoryIndex].toList();
+                            return FadeIn(
+                              delay: Duration(milliseconds: 100 * categoryIndex),
+                              child: ListView(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: actionsForCat.length,
-                                itemBuilder: (BuildContext context, int actionIndex) {
-                                  return ActionCard(actionIndex: actionIndex, knownDevices: knownDevicesFiltered, action: actionsForCat[actionIndex], largerCards: largerCards);
-                                },
+                                children: [
+                                  Center(child: Text(catList[categoryIndex], style: Theme.of(context).textTheme.titleLarge)),
+                                  GridView.builder(
+                                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: actionsForCat.length,
+                                    itemBuilder: (BuildContext context, int actionIndex) {
+                                      return ActionCard(actionIndex: actionIndex, knownDevices: knownDevicesFiltered, action: actionsForCat[actionIndex], largerCards: largerCards);
+                                    },
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
                 )
               : const Home(),
         );
@@ -145,10 +146,10 @@ class _ActionCardState extends ConsumerState<ActionCard> {
           if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
             HapticFeedback.mediumImpact();
             setState(() {
-              if (ref.read(favoriteActionsProvider.notifier).contains(widget.action)) {
-                ref.read(favoriteActionsProvider.notifier).remove(widget.action);
+              if (FavoriteActions.instance.contains(widget.action)) {
+                FavoriteActions.instance.remove(widget.action);
               } else {
-                ref.read(favoriteActionsProvider.notifier).add(widget.action);
+                FavoriteActions.instance.add(widget.action);
               }
             });
           }
@@ -161,7 +162,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
             if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
               await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
             }
-            ref.read(runActionProvider(device).notifier).runAction(widget.action, triggeredBy: "Actions Page");
+            runAction(device, widget.action, triggeredBy: "Actions Page");
           }
         },
         child: SizedBox.expand(
@@ -179,7 +180,7 @@ class _ActionCardState extends ConsumerState<ActionCard> {
                 padding: EdgeInsets.all(widget.largerCards ? 16 : 8),
                 child: Align(
                   alignment: Alignment.bottomRight,
-                  child: ref.watch(favoriteActionsProvider.notifier).contains(widget.action)
+                  child: FavoriteActions.instance.contains(widget.action)
                       ? Transform.scale(
                           scale: widget.largerCards ? 1.8 : 0.8,
                           child: Icon(Icons.favorite, color: textColor),

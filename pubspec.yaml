@@ -158,9 +158,9 @@ sentry: # used by the sentry-dart-plugin to upload symbols. Credentials are prov
   upload_source_maps: true
   upload_sources: true
   symbols_path: ./symbols
-  project: "tailapp"
-  org: "sentry"
-  url: "https://sentry.codel1417.xyz"
+  project: "Tail-App"
+  org: "floof"
+  url: "https://glitchtip.codel1417.xyz"
 
 icons_launcher:
   image_path: "assets/TC_Logo.png"

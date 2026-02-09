@@ -3,9 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:vector_math/vector_math.dart';
@@ -23,14 +21,14 @@ import '../translation_string_definitions.dart';
 
 part 'direct_gear_control.freezed.dart';
 
-class DirectGearControl extends ConsumerStatefulWidget {
+class DirectGearControl extends StatefulWidget {
   const DirectGearControl({super.key});
 
   @override
-  ConsumerState<DirectGearControl> createState() => _JoystickState();
+  State<DirectGearControl> createState() => _JoystickState();
 }
 
-class _JoystickState extends ConsumerState<DirectGearControl> {
+class _JoystickState extends State<DirectGearControl> {
   double left = 0;
   double right = 0;
   double x = 0;
@@ -75,8 +73,8 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
                               (element) {
                                 generateMoveCommand(move, element, CommandType.direct, noResponseMsg: true, priority: Priority.high).forEach(
                                   (message) {
-                                    ref.read(commandQueueProvider(element).notifier).addCommand(message);
-                                    ref.read(commandQueueProvider(element).notifier).addCommand(message);
+                                    element.commandQueue.addCommand(message);
+                                    element.commandQueue.addCommand(message);
                                   },
                                 );
                               },
@@ -171,7 +169,7 @@ class _JoystickState extends ConsumerState<DirectGearControl> {
       (element) {
         generateMoveCommand(move, element, CommandType.direct, priority: Priority.high, noResponseMsg: true).forEach(
           (message) {
-            ref.read(commandQueueProvider(element).notifier).addCommand(message);
+            element.commandQueue.addCommand(message);
           },
         );
       },

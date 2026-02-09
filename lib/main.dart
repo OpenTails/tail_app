@@ -217,7 +217,7 @@ Future<void> initHive() async {
   if (!Hive.isAdapterRegistered(RGBStatusAdapter().typeId)) {
     Hive.registerAdapter(RGBStatusAdapter());
   }
-    //Hive Type ID 17
+  //Hive Type ID 17
   if (!Hive.isAdapterRegistered(VersionAdapter().typeId)) {
     Hive.registerAdapter(VersionAdapter());
   }
@@ -358,13 +358,9 @@ class _EagerInitialization extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Eagerly initialize providers by watching them.
     // By using "watch", the provider will stay alive and not be disposed.
-    ref.watch(triggerListProvider);
     ref.watch(moveListsProvider);
-    ref.watch(favoriteActionsProvider);
     ref.watch(appShortcutsProvider);
-    if (kDebugMode) {
-      ref.watch(initWearProvider);
-    }
+    initWear();
     return child;
   }
 }

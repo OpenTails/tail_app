@@ -40,7 +40,6 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     firstTimeOnboarding = HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingDefault;
     //skip if going through onboarding a second time
     bluetoothAccepted = !firstTimeOnboarding;
-
   }
 
   void _onIntroEnd(BuildContext context) {
@@ -53,10 +52,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
   }
 
   Widget _buildImage(String assetName, [double width = 350]) {
-    return Image.asset(
-      assetName,
-      width: width,
-    );
+    return Image.asset(assetName, width: width);
   }
 
   @override
@@ -103,18 +99,13 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
               }
             },
           ),
-          footer: LanguagePicker(
-            isButton: true,
-          ),
+          footer: LanguagePicker(isButton: true),
           decoration: pageDecoration.copyWith(footerFlex: 1),
         ),
         PageViewModel(
           title: convertToUwU(morePrivacyPolicyLinkTitle()),
           body: convertToUwU(onboardingPrivacyPolicyDescription()),
-          image: LottieLazyLoad(
-            asset: Assets.tailcostickers.tailCoStickersFile144834359,
-            width: MediaQuery.of(context).size.width,
-          ),
+          image: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834359, width: MediaQuery.of(context).size.width),
           footer: OverflowBar(
             alignment: MainAxisAlignment.center,
             overflowAlignment: OverflowBarAlignment.center,
@@ -124,16 +115,10 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
               ElevatedButton(
                 onPressed: () async {
                   MarkdownViewerRoute(
-                    $extra: MarkdownInfo(
-                      content: await rootBundle.loadString(Assets.privacy),
-                      title: convertToUwU(morePrivacyPolicyLinkTitle()),
-                      analyticsLabel: "Privacy Policy",
-                    ),
+                    $extra: MarkdownInfo(content: await rootBundle.loadString(Assets.privacy), title: convertToUwU(morePrivacyPolicyLinkTitle()), analyticsLabel: "Privacy Policy"),
                   ).push(context);
                 },
-                child: Text(
-                  convertToUwU(onboardingPrivacyPolicyViewButtonLabel()),
-                ),
+                child: Text(convertToUwU(onboardingPrivacyPolicyViewButtonLabel())),
               ),
               FilledButton(
                 onPressed: privacyAccepted
@@ -143,22 +128,19 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                           _introLogger.info("Accepted Privacy Policy");
                           privacyAccepted = true;
 
-                          if (firstTimeOnboarding){
+                          if (firstTimeOnboarding) {
                             // Don't change settings of users who have already completed onboarding once.
                             HiveProxy
                               ..put(settings, allowErrorReporting, true)
                               ..put(settings, allowAnalytics, true);
 
                             introKey.currentState?.next();
-                          }
-                          else {
+                          } else {
                             introKey.currentState?.skipToEnd();
                           }
                         });
                       },
-                child: Text(
-                  convertToUwU(onboardingPrivacyPolicyAcceptButtonLabel()),
-                ),
+                child: Text(convertToUwU(onboardingPrivacyPolicyAcceptButtonLabel())),
               ),
             ],
           ),
@@ -167,10 +149,7 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         PageViewModel(
           title: convertToUwU(onboardingBluetoothTitle()),
           body: convertToUwU(onboardingBluetoothDescription()),
-          image: LottieLazyLoad(
-            asset: Assets.tailcostickers.tailCoStickersFile144834357,
-            width: MediaQuery.of(context).size.width,
-          ),
+          image: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834357, width: MediaQuery.of(context).size.width),
           footer: OverflowBar(
             alignment: MainAxisAlignment.center,
             children: [
@@ -178,27 +157,20 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
                 onPressed: bluetoothAccepted
                     ? null
                     : () async {
-                        if (await ref.read(getBluetoothPermissionProvider.future) == BluetoothPermissionStatus.granted) {
-                          setState(
-                            () {
-                              // Start FlutterBluePlus
-                              if (!ref.exists(initFlutterBluePlusProvider)) {
-                                ref.read(initFlutterBluePlusProvider);
-                              }
-                              bluetoothAccepted = true;
-                            },
-                          );
-                          if (firstTimeOnboarding){
+                        if (await getBluetoothPermission() == BluetoothPermissionStatus.granted) {
+                          setState(() {
+                            // Start FlutterBluePlus
+                            initFlutterBluePlus();
+                            bluetoothAccepted = true;
+                          });
+                          if (firstTimeOnboarding) {
                             introKey.currentState?.next();
-                          }
-                          else {
+                          } else {
                             introKey.currentState?.skipToEnd();
                           }
                         }
                       },
-                child: Text(
-                  convertToUwU(onboardingBluetoothRequestButtonLabel()),
-                ),
+                child: Text(convertToUwU(onboardingBluetoothRequestButtonLabel())),
               ),
             ],
           ),
@@ -206,26 +178,15 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
         ),
         PageViewModel(
           title: convertToUwU(scanDevicesOnboardingTitle()),
-          bodyWidget: ScanGearList(
-            popOnConnect: false,
-          ),
+          bodyWidget: ScanGearList(popOnConnect: false),
           useScrollView: true,
-          decoration: pageDecoration.copyWith(
-            bodyFlex: 10,
-            footerFlex: 1,
-            contentMargin: EdgeInsets.all(0),
-          ),
-          footer: KnownGear(
-            hideScanButton: true,
-          ),
+          decoration: pageDecoration.copyWith(bodyFlex: 10, footerFlex: 1, contentMargin: EdgeInsets.all(0)),
+          footer: KnownGear(hideScanButton: true),
         ),
         PageViewModel(
           title: convertToUwU(onboardingCompletedTitle()),
           body: "",
-          image: LottieLazyLoad(
-            asset: Assets.tailcostickers.tailCoStickersFile144834338,
-            width: MediaQuery.of(context).size.width,
-          ),
+          image: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834338, width: MediaQuery.of(context).size.width),
           decoration: pageDecoration.copyWith(
             bodyFlex: 2,
             imageFlex: 4,
@@ -251,19 +212,14 @@ class OnBoardingPageState extends ConsumerState<OnBoardingPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(convertToUwU(onboardingContinueLabel()), style: const TextStyle(fontWeight: FontWeight.w600)),
-                const Icon(
-                  Icons.arrow_forward,
-                  key: Key('nextPage'),
-                ),
+                const Icon(Icons.arrow_forward, key: Key('nextPage')),
               ],
             ),
-          )
+          ),
         ],
       ),
 
-      skip: const Icon(
-        Icons.skip_next,
-      ),
+      skip: const Icon(Icons.skip_next),
       back: const Icon(Icons.arrow_back),
       done: FilledButton(
         onPressed: () {

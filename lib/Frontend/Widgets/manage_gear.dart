@@ -3,7 +3,6 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/firmware_update.dart';
 import 'package:tail_app/Backend/move_lists.dart';
@@ -180,9 +179,7 @@ class _ManageGearState extends ConsumerState<ManageGear> {
                     TextButton(
                       onPressed: () {
                         setState(() {
-                          ref
-                              .read(commandQueueProvider(device!).notifier)
-                              .addCommand(BluetoothMessage(message: "SHUTDOWN", priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()));
+                          device!.commandQueue.addCommand(BluetoothMessage(message: "SHUTDOWN", priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()));
                         });
                         Navigator.pop(context);
                       },
@@ -274,8 +271,8 @@ class _ManageGearUpdateCheckButtonState extends ConsumerState<ManageGearUpdateCh
                       } else {
                         setState(() {
                           //force redownloading the json
-                          Future(() async => ref.invalidate(hasOtaUpdateProvider(widget.device)));
-                          _otaAvailable = ref.watch(hasOtaUpdateProvider(widget.device).future);
+                          widget.device.fwInfo.value = null;
+                          _otaAvailable = hasOtaUpdate(widget.device);
                         });
                       }
                     },
@@ -325,14 +322,14 @@ class ManageGearConventionMode extends ConsumerWidget {
                       //TODO: Validate the setting took correctly. Reboot check?
                       if (value) {
                         BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETPUSSKEY ${device.baseStoredDevice.conModePin}", timestamp: DateTime.timestamp());
-                        ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
+                        device.commandQueue.addCommand(bluetoothMessage);
                         device.baseStoredDevice.conModeEnabled = true;
                         KnownDevices.instance.store();
                         await Clipboard.setData(ClipboardData(text: device.baseStoredDevice.conModePin));
                       } else {
                         //TODO? if gear is disconnected and this is attempted, offer instructions to reset gear
                         BluetoothMessage bluetoothMessage = BluetoothMessage(message: "STOPPUSSKEY", timestamp: DateTime.timestamp());
-                        ref.read(commandQueueProvider(device).notifier).addCommand(bluetoothMessage);
+                        device.commandQueue.addCommand(bluetoothMessage);
                         device.baseStoredDevice.conModeEnabled = false;
                         KnownDevices.instance.store();
                         forgetBond(device.baseStoredDevice.btMACAddress);
@@ -501,7 +498,7 @@ class _ManageGearDebugState extends ConsumerState<ManageGearDebug> {
               ValueListenableBuilder(valueListenable: widget.device.mtu, builder: (context, value, child) => Text("MTU: ${widget.device.mtu.value}")),
               Text("MIN FIRMWARE: ${widget.device.baseDeviceDefinition.minVersion}"),
               ValueListenableBuilder(valueListenable: widget.device.gearConfigInfo, builder: (context, value, child) => Text("NVS Config: ${widget.device.gearConfigInfo.value}")),
-              Text("QUEUE STATE: ${ref.watch(commandQueueProvider(widget.device))}"),
+              ListenableBuilder(listenable: widget.device.commandQueue, builder: (context, child) => Text("QUEUE STATE: ${widget.device.commandQueue.state}")),
             ],
           ),
         ),
@@ -891,6 +888,6 @@ class _ManageGearHomePositionState extends ConsumerState<ManageGearHomePosition>
     );
     generateMoveCommand(move, widget.device, CommandType.direct, priority: Priority.high);
     BluetoothMessage bluetoothMessage = BluetoothMessage(message: "SETHOME", timestamp: DateTime.now(), responseMSG: "OK", priority: Priority.high);
-    ref.read(commandQueueProvider(widget.device).notifier).addCommand(bluetoothMessage);
+    widget.device.commandQueue.addCommand(bluetoothMessage);
   }
 }

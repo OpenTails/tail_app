@@ -28,9 +28,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Developer Menu'),
-      ),
+      appBar: AppBar(title: const Text('Developer Menu')),
       body: ListView(
         primary: true,
         children: [
@@ -63,14 +61,12 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree,
               onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
-                    if (!value) {
-                      OnBoardingPageRoute().go(context);
-                    }
-                  },
-                );
+                setState(() {
+                  HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
+                  if (!value) {
+                    OnBoardingPageRoute().go(context);
+                  }
+                });
               },
             ),
           ),
@@ -109,21 +105,17 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             trailing: Switch(
               value: HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault),
               onChanged: (bool value) async {
-                setState(
-                  () {
-                    HiveProxy.put(settings, showDebugging, value);
-                    context.pop();
-                  },
-                );
+                setState(() {
+                  HiveProxy.put(settings, showDebugging, value);
+                  context.pop();
+                });
               },
             ),
           ),
-          const ListTile(
-            title: Divider(),
-          ),
-           ListTile(
-            title: const Text("ScanState"),
-            subtitle: Text(ref.read(scanProvider).toString()),
+          const ListTile(title: Divider()),
+          ListenableBuilder(
+            listenable: Scan.instance,
+            builder: (context, child) => ListTile(title: const Text("ScanState"), subtitle: Text(Scan.instance.state.toString())),
           ),
           ListTile(
             title: const Text("AdapterState"),
@@ -157,9 +149,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               },
             ),
           ),
-          const ListTile(
-            title: Divider(),
-          ),
+          const ListTile(title: Divider()),
           ListTile(
             title: const Text("SentryEnvironment"),
             subtitle: FutureBuilder(
@@ -218,13 +208,8 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               },
             ),
           ),
-          ListTile(
-            title: const Text("PlatformLocale"),
-            subtitle: Text(Platform.localeName),
-          ),
-          const ListTile(
-            title: Divider(),
-          ),
+          ListTile(title: const Text("PlatformLocale"), subtitle: Text(Platform.localeName)),
+          const ListTile(title: Divider()),
           ListTile(
             title: const Text("WatchIsReachable"),
             subtitle: FutureBuilder(

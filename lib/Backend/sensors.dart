@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:ble_peripheral/ble_peripheral.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
@@ -17,14 +18,10 @@ import 'package:logging/logging.dart' as log;
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shake/shake.dart';
-import 'package:tail_app/Backend/analytics.dart';
-import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/version.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
-import 'package:wordpress_client/wordpress_client.dart' hide Widget;
 
 import '../Frontend/translation_string_definitions.dart';
 import '../constants.dart';
@@ -47,15 +44,6 @@ class Trigger extends ChangeNotifier {
   @HiveField(1)
   late final String triggerDefUUID;
   TriggerDefinition? triggerDefinition;
-  @HiveField(5, defaultValue: false)
-  bool _storedEnable = false;
-
-  bool get storedEnable => _storedEnable;
-
-  set storedEnable(bool value) {
-    _storedEnable = value;
-    enabled = value;
-  }
 
   bool _enabled = false;
   @HiveField(4)
@@ -189,10 +177,8 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
 
     //Refresh wear data when a trigger is enabled/disabled
     // ignore: unused_result
-    ref.refresh(updateWearDataProvider.future);
+    updateWearData();
   }
-
-  Ref ref;
 
   Future<void> onEnable();
 
@@ -201,14 +187,14 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
   TriggerPermissionHandle? requiredPermission;
   late final List<TriggerActionDef> actionTypes;
 
-  TriggerDefinition(this.ref);
+  TriggerDefinition();
 
   // add check here if a trigger is supported on a given device/platform
   Future<bool> isSupported() async {
     return true;
   }
 
-  Future<void> sendCommands(String name, Ref ref) async {
+  Future<void> sendCommands(String name) async {
     if (KnownDevices.instance.connectedGear.isEmpty) {
       return;
     }
@@ -217,7 +203,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
         // 15 second cool-down between moves
         return;
       }
-      final List<BaseAction> allActionsMapped = triggerAction.actions.map((element) => ref.read(getActionFromUUIDProvider(element))).nonNulls.toList();
+      final List<BaseAction> allActionsMapped = triggerAction.actions.map((element) => ActionRegistry.getActionFromUUID(element)).nonNulls.toList();
 
       // no moves exist
       if (allActionsMapped.isEmpty) {
@@ -316,7 +302,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
           if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
             await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
           }
-          ref.read(runActionProvider(baseStatefulDevice).notifier).runAction(baseAction, triggeredBy: Intl.withLocale('en', () => this.name()));
+          runAction(baseStatefulDevice, baseAction, triggeredBy: Intl.withLocale('en', () => this.name()));
 
           // filter out non move categories from the send device types.
           if ([ActionCategory.sequence].contains(baseAction.actionCategory) || baseAction.actionCategory == null) {
@@ -337,7 +323,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
   StreamSubscription<PedestrianStatus>? pedestrianStatusStream;
   StreamSubscription<StepCount>? stepCountStream;
 
-  WalkingTriggerDefinition(super.ref) {
+  WalkingTriggerDefinition() {
     super.name = triggerWalkingTitle;
     super.description = triggerWalkingDescription;
     super.icon = const Icon(Icons.directions_walk);
@@ -376,14 +362,14 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     pedestrianStatusStream = Pedometer.pedestrianStatusStream.listen((PedestrianStatus event) {
       sensorsLogger.info("PedestrianStatus:: ${event.status}");
       if (event.status == "walking") {
-        sendCommands("Walking", ref);
+        sendCommands("Walking");
       } else if (event.status == "stopped") {
-        sendCommands("Stopped", ref);
+        sendCommands("Stopped");
       }
     });
     stepCountStream = Pedometer.stepCountStream.listen((StepCount event) {
       sensorsLogger.fine("StepCount:: ${event.steps}");
-      sendCommands("Step", ref);
+      sendCommands("Step");
     });
   }
 }
@@ -391,7 +377,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
 class CoverTriggerDefinition extends TriggerDefinition {
   StreamSubscription<int>? proximityStream;
 
-  CoverTriggerDefinition(super.ref) {
+  CoverTriggerDefinition() {
     super.name = triggerCoverTitle;
     super.description = triggerCoverDescription;
     super.icon = const Icon(Icons.sensors);
@@ -426,9 +412,9 @@ class CoverTriggerDefinition extends TriggerDefinition {
     proximityStream = ProximitySensor.events.listen((int event) {
       sensorsLogger.fine("CoverEvent:: $event");
       if (event >= 1) {
-        sendCommands("Near", ref);
+        sendCommands("Near");
       } else if (event == 0) {
-        sendCommands("Far", ref);
+        sendCommands("Far");
       }
     });
   }
@@ -437,7 +423,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
 class ClawTiltTriggerDefinition extends TriggerDefinition {
   List<StreamSubscription<String>?> rxSubscriptions = [];
 
-  ClawTiltTriggerDefinition(super.ref) {
+  ClawTiltTriggerDefinition() {
     super.name = triggerClawTiltModeTitle;
     super.description = triggerClawTiltModeDescription;
     super.icon = const Icon(Icons.threed_rotation);
@@ -465,9 +451,7 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
     }
     rxSubscriptions = [];
     KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
-      ref
-          .read(commandQueueProvider(element).notifier)
-          .addCommand(BluetoothMessage(message: "STOPTILT", priority: Priority.low, responseMSG: "OK", type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: "STOPTILT", priority: Priority.low, responseMSG: "OK", type: CommandType.system, timestamp: DateTime.now()));
     });
   }
 
@@ -477,12 +461,10 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
       return;
     }
     KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
-      ref
-          .read(commandQueueProvider(element).notifier)
-          .addCommand(BluetoothMessage(message: "TILTMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     // Disable clap trigger when this one enables
-    ref.read(triggerListProvider).where((element) => element.triggerDefUUID == "50d65674-ed4f-4bf5-abd1-e5161faf2a5e").forEach((element) => element.enabled = false);
+    TriggerList.instance._state.where((element) => element.triggerDefUUID == "50d65674-ed4f-4bf5-abd1-e5161faf2a5e").forEach((element) => element.enabled = false);
     //add listeners on new device paired
     KnownDevices.instance.addListener(onDeviceConnected);
   }
@@ -504,16 +486,14 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
     }
     //Store the current streams to keep them open
     rxSubscriptions = KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).map((element) {
-      ref
-          .read(commandQueueProvider(element).notifier)
-          .addCommand(BluetoothMessage(message: "TILTMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: "TILTMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
       //TODO: Wire up with the real commands
       return element.rxCharacteristicStream.listen((msg) {
         if (msg.contains("TILT UP")) {
-          sendCommands("Extend", ref);
+          sendCommands("Extend");
         }
         if (msg.contains("TILT DOWN")) {
-          sendCommands("Retract", ref);
+          sendCommands("Retract");
         }
       });
     }).toList();
@@ -523,7 +503,7 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
 class ClawClapTriggerDefinition extends TriggerDefinition {
   List<StreamSubscription<String>?> rxSubscriptions = [];
 
-  ClawClapTriggerDefinition(super.ref) {
+  ClawClapTriggerDefinition() {
     super.name = triggerClawClapModeTitle;
     super.description = triggerClawClapModeDescription;
     super.icon = const Icon(Icons.waving_hand_sharp);
@@ -548,9 +528,7 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
     }
     rxSubscriptions = [];
     KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
-      ref
-          .read(commandQueueProvider(element).notifier)
-          .addCommand(BluetoothMessage(message: "STOPCLAP", priority: Priority.low, responseMSG: "OK", type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: "STOPCLAP", priority: Priority.low, responseMSG: "OK", type: CommandType.system, timestamp: DateTime.now()));
     });
   }
 
@@ -560,13 +538,11 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
       return;
     }
     KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).forEach((element) {
-      ref
-          .read(commandQueueProvider(element).notifier)
-          .addCommand(BluetoothMessage(message: "CLAPMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: "CLAPMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
 
     // Disable claw tilt trigger when this one enables
-    ref.read(triggerListProvider).where((element) => element.triggerDefUUID == "664bd073-34cd-4c78-a7da-2b8b44fd9661").forEach((element) => element.enabled = false);
+    TriggerList.instance._state.where((element) => element.triggerDefUUID == "664bd073-34cd-4c78-a7da-2b8b44fd9661").forEach((element) => element.enabled = false);
 
     //add listeners on new device paired
     KnownDevices.instance.addListener(onDeviceConnected);
@@ -589,13 +565,11 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
     }
     //Store the current streams to keep them open
     rxSubscriptions = KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.claws])).map((element) {
-      ref
-          .read(commandQueueProvider(element).notifier)
-          .addCommand(BluetoothMessage(message: "CLAPMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: "CLAPMODE", responseMSG: "OK", priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
       return element.rxCharacteristicStream.listen((msg) {
         if (msg.contains("DOUBLE CLAP")) {
           // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Clap", ref);
+          sendCommands("Clap");
         }
       });
     }).toList();
@@ -605,7 +579,7 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
 class EarMicTriggerDefinition extends TriggerDefinition {
   List<StreamSubscription<String>?> rxSubscriptions = [];
 
-  EarMicTriggerDefinition(super.ref) {
+  EarMicTriggerDefinition() {
     super.name = triggerEarMicTitle;
     super.description = triggerEarMicDescription;
     super.icon = const Icon(Icons.mic);
@@ -639,9 +613,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
         command = "STOPLISTEN";
         responseMSG = "OK";
       }
-      ref
-          .read(commandQueueProvider(element).notifier)
-          .addCommand(BluetoothMessage(message: command, priority: Priority.low, responseMSG: responseMSG, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: command, priority: Priority.low, responseMSG: responseMSG, type: CommandType.system, timestamp: DateTime.now()));
     });
   }
 
@@ -657,7 +629,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
       } else {
         command = "LISTENMODE";
       }
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
     KnownDevices.instance.addListener(onDeviceConnected);
@@ -686,11 +658,11 @@ class EarMicTriggerDefinition extends TriggerDefinition {
       } else {
         command = "LISTENMODE";
       }
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
       return element.rxCharacteristicStream.listen((msg) {
         if (msg.contains("LISTEN_FULL BANG")) {
           // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Sound", ref);
+          sendCommands("Sound");
         }
       });
     }).toList();
@@ -700,7 +672,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
 class EarTiltTriggerDefinition extends TriggerDefinition {
   List<StreamSubscription<String>?> rxSubscriptions = [];
 
-  EarTiltTriggerDefinition(super.ref) {
+  EarTiltTriggerDefinition() {
     super.name = triggerEarTiltTitle;
     super.description = triggerEarTiltDescription;
     super.icon = const Icon(Icons.threed_rotation);
@@ -736,7 +708,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       } else {
         command = "STOPTILT";
       }
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
   }
 
@@ -752,7 +724,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       } else {
         command = "TILTMODE";
       }
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
     });
     //add listeners on new device paired
     KnownDevices.instance.addListener(onDeviceConnected);
@@ -781,20 +753,20 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       } else {
         command = "TILTMODE";
       }
-      ref.read(commandQueueProvider(element).notifier).addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
+      element.commandQueue.addCommand(BluetoothMessage(message: command, priority: Priority.low, type: CommandType.system, timestamp: DateTime.now()));
       return element.rxCharacteristicStream.listen((msg) {
         if (msg.contains("TILT LEFT")) {
           // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Left", ref);
+          sendCommands("Left");
         } else if (msg.contains("TILT RIGHT")) {
           // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Right", ref);
+          sendCommands("Right");
         } else if (msg.contains("TILT FORWARD")) {
           // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Forward", ref);
+          sendCommands("Forward");
         } else if (msg.contains("TILT BACKWARD")) {
           // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Backward", ref);
+          sendCommands("Backward");
         }
       });
     }).toList();
@@ -804,7 +776,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
 class RandomTriggerDefinition extends TriggerDefinition {
   Timer? randomTimer;
 
-  RandomTriggerDefinition(super.ref) {
+  RandomTriggerDefinition() {
     super.name = triggerRandomButtonTitle;
     super.description = triggerRandomButtonDescription;
     super.icon = const Icon(Icons.timelapse);
@@ -826,7 +798,7 @@ class RandomTriggerDefinition extends TriggerDefinition {
     await Future.delayed(Duration(seconds: min));
     if (enabled) {
       randomTimer = Timer(Duration(seconds: Random().nextInt((max - min).clamp(1, max))), () {
-        sendCommands("Action", ref);
+        sendCommands("Action");
         onEnable();
       });
     }
@@ -836,7 +808,7 @@ class RandomTriggerDefinition extends TriggerDefinition {
 class VolumeButtonTriggerDefinition extends TriggerDefinition {
   StreamSubscription<HardwareButton>? subscription;
 
-  VolumeButtonTriggerDefinition(super.ref) {
+  VolumeButtonTriggerDefinition() {
     super.name = triggerVolumeButtonTitle;
     super.description = triggerVolumeButtonDescription;
     super.icon = const Icon(Icons.volume_up);
@@ -867,9 +839,9 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
     subscription = FlutterAndroidVolumeKeydown.stream.listen((event) {
       sensorsLogger.fine("Volume press detected:${event.name}");
       if (event == HardwareButton.volume_up) {
-        sendCommands("Volume Up", ref);
+        sendCommands("Volume Up");
       } else if (event == HardwareButton.volume_down) {
-        sendCommands("Volume Down", ref);
+        sendCommands("Volume Down");
       }
     });
   }
@@ -878,7 +850,7 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
 class ShakeTriggerDefinition extends TriggerDefinition {
   ShakeDetector? detector;
 
-  ShakeTriggerDefinition(super.ref) {
+  ShakeTriggerDefinition() {
     super.name = triggerShakeTitle;
     super.description = triggerShakeDescription;
     super.icon = const Icon(Icons.vibration);
@@ -909,7 +881,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
     detector = ShakeDetector.waitForStart(
       onPhoneShake: () {
         sensorsLogger.fine("Shake Detected");
-        sendCommands("Shake", ref);
+        sendCommands("Shake");
       },
     );
     detector?.startListening();
@@ -920,7 +892,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
   StreamSubscription<List<ScanResult>>? btConnectStream;
   Timer? btnearbyCooldown;
   bool _didInitBLE = false;
-  TailProximityTriggerDefinition(super.ref) {
+  TailProximityTriggerDefinition() {
     super.name = triggerProximityTitle;
     super.description = triggerProximityDescription;
     super.icon = const Icon(Icons.bluetooth_connected);
@@ -931,10 +903,8 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onDisable() async {
-    if (ref.read(triggerListProvider).where((element) => element.triggerDefinition == this && element.enabled).isEmpty) {
-      btConnectStream?.cancel();
-      btConnectStream = null;
-    }
+    btConnectStream?.cancel();
+    btConnectStream = null;
   }
 
   @override
@@ -974,7 +944,7 @@ class TailProximityTriggerDefinition extends TriggerDefinition {
 
     btConnectStream = FlutterBluePlus.onScanResults.listen((event) {
       if (event.where((element) => !KnownDevices.instance.state.keys.contains(element.device.remoteId.str)).isNotEmpty && btnearbyCooldown != null && btnearbyCooldown!.isActive) {
-        sendCommands("Nearby Gear", ref);
+        sendCommands("Nearby Gear");
 
         btnearbyCooldown = Timer(const Duration(seconds: 30), () {});
       }
@@ -1043,15 +1013,18 @@ class TriggerAction {
   int get hashCode => uuid.hashCode;
 }
 
-@Riverpod(keepAlive: true)
-class TriggerList extends _$TriggerList {
-  @override
-  BuiltList<Trigger> build() {
+class TriggerList with ChangeNotifier {
+  BuiltList<Trigger> _state = BuiltList();
+  BuiltList<Trigger> get state => _state;
+
+  static final TriggerList instance = TriggerList._internal();
+
+  TriggerList._internal() {
     List<Trigger> results = [];
     try {
       results = HiveProxy.getAll<Trigger>(triggerBox)
           .map((trigger) {
-            Trigger trigger2 = Trigger.trigDef(ref.read(triggerDefinitionListProvider).firstWhere((element) => element.uuid == trigger.triggerDefUUID), trigger.uuid);
+            Trigger trigger2 = Trigger.trigDef(TriggerDefinitionList.allTriggerDefinitions.firstWhere((element) => element.uuid == trigger.triggerDefUUID), trigger.uuid);
             trigger2.actions = trigger.actions;
             return trigger2;
           })
@@ -1060,74 +1033,54 @@ class TriggerList extends _$TriggerList {
       sensorsLogger.severe("Unable to load stored triggers: $e", e, s);
     }
     if (results.isEmpty) {
-      TriggerDefinition triggerDefinition = ref.read(triggerDefinitionListProvider).where((element) => element.uuid == 'ee9379e2-ec4f-40bb-8674-fd223a6edfda').first;
+      TriggerDefinition triggerDefinition = TriggerDefinitionList.allTriggerDefinitions.where((element) => element.uuid == 'ee9379e2-ec4f-40bb-8674-fd223a6edfda').first;
       Trigger trigger = Trigger.trigDef(triggerDefinition, '91e3d421-6a52-45ab-a23e-f38e4987a8f5');
+      _state = [trigger].build();
       store();
-      return [trigger].build();
+    } else {
+      _state = results.build();
     }
-    return results.build();
   }
 
   Future<void> add(Trigger trigger) async {
-    state = state.rebuild((p0) => p0.add(trigger));
+    _state = _state.rebuild((p0) => p0.add(trigger));
     await store();
   }
 
   Future<void> remove(Trigger trigger) async {
     trigger.enabled = false;
-    state = state.rebuild((p0) => p0.remove(trigger));
+    _state = _state.rebuild((p0) => p0.remove(trigger));
     await store();
   }
 
   Future<void> store() async {
     sensorsLogger.info("Storing triggers");
     await HiveProxy.clear<Trigger>(triggerBox);
-    await HiveProxy.addAll<Trigger>(triggerBox, state);
+    await HiveProxy.addAll<Trigger>(triggerBox, _state);
+    notifyListeners();
+    updateWearData();
   }
 }
 
 // Defines what triggers show in the UI
-@Riverpod(keepAlive: true)
-class TriggerDefinitionList extends _$TriggerDefinitionList {
-  @override
-  BuiltList<TriggerDefinition> build() {
-    List<TriggerDefinition> triggerDefinitions = [
-      WalkingTriggerDefinition(ref),
-      CoverTriggerDefinition(ref),
-      TailProximityTriggerDefinition(ref),
-      ShakeTriggerDefinition(ref),
-      EarMicTriggerDefinition(ref),
-      EarTiltTriggerDefinition(ref),
-      RandomTriggerDefinition(ref),
-      VolumeButtonTriggerDefinition(ref),
-      ClawClapTriggerDefinition(ref),
-      ClawTiltTriggerDefinition(ref),
-    ];
-
-    triggerDefinitions.sort();
-
-    // Analytics for what triggers are supported
-    Future.delayed(
-      // delay to avoid init timing problems
-      Duration(seconds: 10),
-      () {
-        triggerDefinitions
-            .mapAsync((e) async {
-              return MapEntry(Intl.withLocale('en', () => e.name()) as String, (await e.isSupported()).toString());
-            })
-            .then((value) {
-              analyticsEvent(name: "Supported Triggers", props: Map.fromEntries(value));
-            });
-      },
-    );
-
-    return triggerDefinitions.build();
-  }
+class TriggerDefinitionList {
+  static final BuiltList<TriggerDefinition> allTriggerDefinitions = [
+    WalkingTriggerDefinition(),
+    CoverTriggerDefinition(),
+    TailProximityTriggerDefinition(),
+    ShakeTriggerDefinition(),
+    EarMicTriggerDefinition(),
+    EarTiltTriggerDefinition(),
+    RandomTriggerDefinition(),
+    VolumeButtonTriggerDefinition(),
+    ClawClapTriggerDefinition(),
+    ClawTiltTriggerDefinition(),
+  ].build();
 
   //Filter by unused sensors
-  List<TriggerDefinition> get() => state.toSet().difference(ref.read(triggerListProvider).map((Trigger e) => e.triggerDefinition!).toSet()).toList();
+  static List<TriggerDefinition> get() => allTriggerDefinitions.toSet().difference(TriggerList.instance._state.map((Trigger e) => e.triggerDefinition!).toSet()).sorted().toList();
 
-  Future<List<TriggerDefinition>> getSupported() async {
+  static Future<List<TriggerDefinition>> getSupported() async {
     List<TriggerDefinition> unusedTriggerDefinitions = get();
     List<TriggerDefinition> supportedTriggerDefinitions = [];
     for (TriggerDefinition triggerDefinition in unusedTriggerDefinitions) {

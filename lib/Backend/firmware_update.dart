@@ -83,6 +83,7 @@ Future<FWInfo?> getFirmwareInfo(String url, String hwVer) async {
 }
 
 Future<FWInfo?> checkForFWUpdate(BaseStatefulDevice baseStatefulDevice) async {
+  // check if FW was already downloaded
   if (baseStatefulDevice.fwInfo.value != null) {
     return baseStatefulDevice.fwInfo.value;
   }
@@ -99,8 +100,7 @@ Future<FWInfo?> checkForFWUpdate(BaseStatefulDevice baseStatefulDevice) async {
   return fwInfo;
 }
 
-@Riverpod(keepAlive: true)
-Future<bool> hasOtaUpdate(Ref ref, BaseStatefulDevice baseStatefulDevice) async {
+Future<bool> hasOtaUpdate(BaseStatefulDevice baseStatefulDevice) async {
   FWInfo? fwInfo = await checkForFWUpdate(baseStatefulDevice);
   Version fwVersion = baseStatefulDevice.fwVersion.value;
 
@@ -383,7 +383,7 @@ class OtaUpdater extends _$OtaUpdater {
     if (!_wakelockEnabledBeforehand) {
       WakelockPlus.disable();
     }
-    ref.read(scanProvider.notifier).stopActiveScan();
+    Scan.instance.stopActiveScan();
 
     if (transaction != null && !transaction!.finished) {
       transaction?.finish(status: SpanStatus.aborted());

@@ -14,6 +14,7 @@ import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:synchronized/synchronized.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
 import '../Backend/logging_wrappers.dart';
@@ -24,51 +25,48 @@ import '../l10n/messages_all_locales.dart';
 
 part 'utils.g.dart';
 
-enum BluetoothPermissionStatus {
-  granted,
-  denied,
-  unknown,
-}
+enum BluetoothPermissionStatus { granted, denied, unknown }
 
-@riverpod
-Future<BluetoothPermissionStatus> getBluetoothPermission(Ref ref) async {
-  BluetoothPermissionStatus status = BluetoothPermissionStatus.unknown;
-  if (Platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
-    PermissionStatus permissionStatusScan = await Permission.bluetoothScan.request();
-    //logger.info("permissionStatusScan $permissionStatusScan");
-    status = PermissionStatus.granted == permissionStatusScan ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+Lock _bluetoothPermissionsLock = Lock();
 
-    PermissionStatus permissionStatusConnect = await Permission.bluetoothConnect.request();
-    //logger.info("permissionStatusConnect $permissionStatusConnect");
-    status = status == BluetoothPermissionStatus.granted && PermissionStatus.granted == permissionStatusConnect ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
-  } else if (Platform.isAndroid) {
-    PermissionStatus permissionStatusLocation = await Permission.location.request();
-    //logger.info("permissionStatusLocation $permissionStatusLocation");
-    status = PermissionStatus.granted == permissionStatusLocation ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+BluetoothPermissionStatus _bluetoothPermissionStatus = BluetoothPermissionStatus.unknown;
+Future<BluetoothPermissionStatus> getBluetoothPermission() async {
+  return _bluetoothPermissionsLock.synchronized(() async {
+    if (_bluetoothPermissionStatus == BluetoothPermissionStatus.granted) {
+      return BluetoothPermissionStatus.granted;
+    }
+    BluetoothPermissionStatus status = BluetoothPermissionStatus.unknown;
+    if (Platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
+      PermissionStatus permissionStatusScan = await Permission.bluetoothScan.request();
+      //logger.info("permissionStatusScan $permissionStatusScan");
+      status = PermissionStatus.granted == permissionStatusScan ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
 
-    PermissionStatus permissionStatusLocationInUse = await Permission.locationWhenInUse.request();
-    //logger.info("permissionStatusLocationInUse $permissionStatusLocationInUse");
-    status = status == BluetoothPermissionStatus.granted && PermissionStatus.granted == permissionStatusLocationInUse ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
-  } else {
-    PermissionStatus permissionStatusBluetooth = await Permission.bluetooth.request();
-    //logger.info("permissionStatusBluetooth $permissionStatusBluetooth");
-    status = PermissionStatus.granted == permissionStatusBluetooth ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
-  }
-  return status;
+      PermissionStatus permissionStatusConnect = await Permission.bluetoothConnect.request();
+      //logger.info("permissionStatusConnect $permissionStatusConnect");
+      status = status == BluetoothPermissionStatus.granted && PermissionStatus.granted == permissionStatusConnect ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+    } else if (Platform.isAndroid) {
+      PermissionStatus permissionStatusLocation = await Permission.location.request();
+      //logger.info("permissionStatusLocation $permissionStatusLocation");
+      status = PermissionStatus.granted == permissionStatusLocation ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+
+      PermissionStatus permissionStatusLocationInUse = await Permission.locationWhenInUse.request();
+      //logger.info("permissionStatusLocationInUse $permissionStatusLocationInUse");
+      status = status == BluetoothPermissionStatus.granted && PermissionStatus.granted == permissionStatusLocationInUse ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+    } else {
+      PermissionStatus permissionStatusBluetooth = await Permission.bluetooth.request();
+      //logger.info("permissionStatusBluetooth $permissionStatusBluetooth");
+      status = PermissionStatus.granted == permissionStatusBluetooth ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+    }
+    return status;
+  });
 }
 
 @Riverpod(keepAlive: true)
 Future<String> initLocale(Ref ref) async {
   final String defaultLocale = Platform.localeName; // Returns locale string in the form 'en_US'
 
-  String locale = AppLocalizations.supportedLocales
-          .where(
-            (element) => element.toLanguageTag() == HiveProxy.getOrDefault(settings, selectedLocale, defaultValue: ""),
-          )
-          .map(
-            (e) => e.toLanguageTag(),
-          )
-          .firstOrNull ??
+  String locale =
+      AppLocalizations.supportedLocales.where((element) => element.toLanguageTag() == HiveProxy.getOrDefault(settings, selectedLocale, defaultValue: "")).map((e) => e.toLanguageTag()).firstOrNull ??
       defaultLocale;
 
   await initializeMessages(locale);
@@ -81,10 +79,7 @@ final dioLogger = Logger('Dio');
 Dio? _dio;
 final cacheOptions = CacheOptions(
   // A default store is required for interceptor.
-  store: HiveCacheStore(
-    null,
-    hiveBoxName: "dioCache",
-  ),
+  store: HiveCacheStore(null, hiveBoxName: "dioCache"),
   hitCacheOnErrorCodes: const [500],
 
   hitCacheOnNetworkFailure: true,
@@ -95,8 +90,7 @@ Future<Dio> initDio() async {
   if (_dio != null) {
     return _dio!;
   }
-  final Dio dio = Dio()
-    ..interceptors.add(LogarteDioInterceptor(logarte));
+  final Dio dio = Dio()..interceptors.add(LogarteDioInterceptor(logarte));
   dio.interceptors.add(
     RetryInterceptor(
       dio: dio,

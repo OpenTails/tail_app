@@ -30,7 +30,7 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
   void initState() {
     super.initState();
     baseStatefulDevice = KnownDevices.instance.state[widget.device];
-    ref.read(hasOtaUpdateProvider(baseStatefulDevice!).future);
+    hasOtaUpdate(baseStatefulDevice!);
     ref.read(otaUpdaterProvider(baseStatefulDevice!).notifier).onError = ((OtaError p0) => setState(() => otaError = p0));
   }
 
@@ -101,18 +101,12 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   flex: 2,
                   child: Center(
-                    child: LottieLazyLoad(
-                      width: MediaQuery.of(context).size.width,
-                      asset: Assets.tailcostickers.tailCoStickersFile144834357,
-                    ),
+                    child: LottieLazyLoad(width: MediaQuery.of(context).size.width, asset: Assets.tailcostickers.tailCoStickersFile144834357),
                   ),
                 ),
                 Expanded(
                   child: SingleChildScrollView(
-                    child: ListTile(
-                      title: Text(convertToUwU(otaChangelogLabel())),
-                      subtitle: Text(convertToUwU(otaUpdater.firmwareInfo?.changelog ?? "Unavailable")),
-                    ),
+                    child: ListTile(title: Text(convertToUwU(otaChangelogLabel())), subtitle: Text(convertToUwU(otaUpdater.firmwareInfo?.changelog ?? "Unavailable"))),
                   ),
                 ),
                 Expanded(
@@ -125,34 +119,16 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.system_update,
-                                color: getTextColor(
-                                  Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 4),
-                              ),
-                              Text(
-                                convertToUwU(otaDownloadButtonLabel()),
-                                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                      color: getTextColor(
-                                        Theme.of(context).colorScheme.primary,
-                                      ),
-                                    ),
-                              ),
+                              Icon(Icons.system_update, color: getTextColor(Theme.of(context).colorScheme.primary)),
+                              const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
+                              Text(convertToUwU(otaDownloadButtonLabel()), style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(Theme.of(context).colorScheme.primary))),
                             ],
                           ),
                         ),
                         if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
                           ElevatedButton(
                             onPressed: () async {
-                              FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                type: FileType.custom,
-                                withData: true,
-                                allowedExtensions: ['bin'],
-                              );
+                              FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, withData: true, allowedExtensions: ['bin']);
                               if (result != null) {
                                 setState(() {
                                   otaUpdater.setManualOtaFile(result.files.single.bytes?.toList(growable: false));
@@ -173,21 +149,14 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   child: Center(
                     child: ListTile(
-                      title: Text(
-                        convertToUwU(otaCompletedTitle()),
-                        style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.center,
-                      ),
+                      title: Text(convertToUwU(otaCompletedTitle()), style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 2,
                   child: Center(
-                    child: LottieLazyLoad(
-                      asset: Assets.tailcostickers.tailCoStickersFile144834339,
-                      width: MediaQuery.of(context).size.width,
-                    ),
+                    child: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834339, width: MediaQuery.of(context).size.width),
                   ),
                 ),
               ],
@@ -195,25 +164,15 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   child: Center(
                     child: ListTile(
-                      title: Text(
-                        convertToUwU(otaFailedTitle()),
-                        style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.center,
-                      ),
-                      subtitle: Text(
-                        convertToUwU(otaError != null ? getErrorMessage(otaError!) : ""),
-                        textAlign: TextAlign.center,
-                      ),
+                      title: Text(convertToUwU(otaFailedTitle()), style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+                      subtitle: Text(convertToUwU(otaError != null ? getErrorMessage(otaError!) : ""), textAlign: TextAlign.center),
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 2,
                   child: Center(
-                    child: LottieLazyLoad(
-                      asset: Assets.tailcostickers.tailCoStickersFile144834348,
-                      width: MediaQuery.of(context).size.width,
-                    ),
+                    child: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834348, width: MediaQuery.of(context).size.width),
                   ),
                 ),
               ],
@@ -221,21 +180,14 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   child: Center(
                     child: ListTile(
-                      title: Text(
-                        convertToUwU(otaLowBattery()),
-                        style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.center,
-                      ),
+                      title: Text(convertToUwU(otaLowBattery()), style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 2,
                   child: Center(
-                    child: LottieLazyLoad(
-                      asset: Assets.tailcostickers.tailCoStickersFile144834342,
-                      width: MediaQuery.of(context).size.width,
-                    ),
+                    child: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834342, width: MediaQuery.of(context).size.width),
                   ),
                 ),
               ],
@@ -243,21 +195,13 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   child: Center(
                     child: ListTile(
-                      title: Text(
-                        convertToUwU(otaInProgressTitle()),
-                        style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.center,
-                      ),
+                      title: Text(convertToUwU(otaInProgressTitle()), style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: LottieLazyLoad(
-                    asset: Assets.tailcostickers.tailCoStickersFile144834340,
-                    width: MediaQuery.of(context).size.width,
-                    renderCache: true,
-                  ),
+                  child: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834340, width: MediaQuery.of(context).size.width, renderCache: true),
                 ),
                 Expanded(
                   child: Center(

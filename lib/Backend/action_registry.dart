@@ -1,7 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Frontend/utils.dart';
 
@@ -187,8 +186,16 @@ class ActionRegistry {
       .union(tailMoves)
       .union(rgbCommands)
       .union(clawMoves);
+
+  static BaseAction? getActionFromUUID(String? uuid) {
+    if (uuid == null) {
+      return null;
+    }
+    return allCommands.where((element) => element.uuid == uuid).firstOrNull;
+  }
 }
 
+// Probably safe to leave in riverpod
 @Riverpod(keepAlive: true)
 class GetAvailableActions extends _$GetAvailableActions {
   @override
@@ -314,13 +321,4 @@ class GetAllActions extends _$GetAllActions {
   void onDeviceConnect() {
     ref.invalidateSelf();
   }
-}
-
-@Riverpod(keepAlive: true)
-BaseAction? getActionFromUUID(Ref ref, String? uuid) {
-  if (uuid == null) {
-    return null;
-  }
-  final BuiltMap<String, BuiltSet<BaseAction>> watch = ref.watch(getAllActionsProvider);
-  return watch.values.flattened.where((element) => element.uuid == uuid).firstOrNull;
 }

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:tail_app/Backend/command_queue.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
@@ -194,6 +195,8 @@ class BaseStatefulDevice {
   final BaseDeviceDefinition baseDeviceDefinition;
   final BaseStoredDevice baseStoredDevice;
   final ValueNotifier<BluetoothUartService?> bluetoothUartService = ValueNotifier(null);
+  late final CommandQueue commandQueue;
+
   final ValueNotifier<double> batteryLevel = ValueNotifier(-1);
   final ValueNotifier<bool> batteryCharging = ValueNotifier(false);
   final ValueNotifier<bool> batteryLow = ValueNotifier(false);
@@ -211,7 +214,6 @@ class BaseStatefulDevice {
   final ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
   final ValueNotifier<bool> hasUpdate = ValueNotifier(false);
   final ValueNotifier<TailControlStatus> isTailCoNTROL = ValueNotifier(TailControlStatus.unknown);
-
   late final Stream<String> rxCharacteristicStream;
   List<FlSpot> batlevels = [];
   Stopwatch stopWatch = Stopwatch();
@@ -237,6 +239,7 @@ class BaseStatefulDevice {
           return "";
         })
         .where((event) => event.isNotEmpty);
+    commandQueue = CommandQueue(this);
 
     deviceConnectionState.addListener(() {
       if (deviceConnectionState.value == ConnectivityState.disconnected) {

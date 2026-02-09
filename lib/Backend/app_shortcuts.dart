@@ -17,21 +17,21 @@ const QuickActions quickActions = QuickActions();
 @Riverpod(keepAlive: true)
 Future<void> appShortcuts(Ref ref) async {
   await Future.delayed(const Duration(seconds: 5));
-  quickActions.initialize((shortcutType) {
-    BaseAction? action = ref.read(getActionFromUUIDProvider(shortcutType));
+  await quickActions.initialize((shortcutType) {
+    BaseAction? action = ActionRegistry.getActionFromUUID(shortcutType);
     if (action != null) {
       Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.connectedIdleGear;
       for (BaseStatefulDevice device in knownDevices) {
-        ref.read(runActionProvider(device).notifier).runAction(action, triggeredBy: "App Shortcut");
+        runAction(device,action, triggeredBy: "App Shortcut");
       }
       analyticsEvent(name: "Use App Shortcut");
     }
   });
-  await updateShortcuts(ref.read(favoriteActionsProvider), ref);
+  await updateShortcuts(FavoriteActions.instance.state);
 }
 
-Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions, Ref ref) async {
-  Iterable<BaseAction> allActions = favoriteActions.map((e) => ref.read(getActionFromUUIDProvider(e.actionUUID))).nonNulls;
+Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions) async {
+  Iterable<BaseAction> allActions = favoriteActions.map((e) => ActionRegistry.getActionFromUUID(e.actionUUID)).nonNulls;
 
   quickActions.setShortcutItems(allActions.map((e) => ShortcutItem(type: e.uuid, localizedTitle: e.name)).toList());
 }
