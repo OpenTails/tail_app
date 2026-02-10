@@ -809,7 +809,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "homeWelcomeMessageTitle": "Bienvenido a la aplicación Tail Company",
+    "homeWelcomeMessageTitle": "Bienvenido",
     "@homeWelcomeMessageTitle": {
         "description": "The welcome message title on the home screen when no gear is connected",
         "type": "text",
@@ -929,7 +929,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "triggerActionSelectorTutorialLabel": "Selecciona tantas acciones como quieras. Se seleccionará aleatoriamente una acción que sea compatible con el equipo conectado. Las acciones GlowTip y Sound se activarán junto con las acciones Move. No olvides guardar.",
+    "triggerActionSelectorTutorialLabel": "Selecciona tantas acciones como quieras. Se seleccionará aleatoriamente una acción que sea compatible con el equipo conectado. Las acciones de GlowTip y de sonido se activarán junto con las acciones de movimiento. Solo se muestran las acciones compatibles con el equipo vinculado. No olvides guardar.",
     "@triggerActionSelectorTutorialLabel": {
         "description": "Label for the tutorial card on the Action selector for triggers",
         "type": "text",
@@ -1025,13 +1025,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyTitle": "Blog de Tail sólo a través de WiFi",
+    "settingsTailBlogWifiOnlyTitle": "Reducir uso de datos",
     "@settingsTailBlogWifiOnlyTitle": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyDescription": "Evitar cargar contenido de Tail Blog mientras está conectado a una red móvil",
+    "settingsTailBlogWifiOnlyDescription": "Evitar la carga de contenido al estar conectado a una red móvil",
     "@settingsTailBlogWifiOnlyDescription": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
@@ -1280,6 +1280,84 @@
     "scanDevicesOnboardingTitle": "Vamos a conectar tu equipo",
     "@scanDevicesOnboardingTitle": {
         "description": "Title for the gear pairing screen in onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeCosHubTitle": "Cosplayers destacados en CosHub",
+    "@homeCosHubTitle": {
+        "description": "The title header for the coshub in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeClawGear": "Garras",
+    "@deviceTypeClawGear": {
+        "description": "Claws option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryRGB": "RGB",
+    "@actionsCategoryRGB": {
+        "description": "RGB action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingScanMessage": "Buscando dispositivos. Asegúrate de que tu equipo esté encendido y cerca. Siempre puedes conectar tus dispositivos más tarde.",
+    "@scanDevicesOnboardingScanMessage": {
+        "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeTitle": "Inclinación de garras",
+    "@triggerClawTiltModeTitle": {
+        "description": "ClawGear tilt trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeDescription": "Activar una acción cuando tus garras se muevan",
+    "@triggerClawTiltModeDescription": {
+        "description": "ClawGear tilt trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeExtend": "Extender garras",
+    "@triggerClawTiltModeExtend": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeRetract": "Retraer garras",
+    "@triggerClawTiltModeRetract": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeTitle": "Aplauso de garras",
+    "@triggerClawClapModeTitle": {
+        "description": "ClawGear clap trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeDescription": "Activar una acción al aplaudir",
+    "@triggerClawClapModeDescription": {
+        "description": "ClawGear clap trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapMode": "Aplauso detectado",
+    "@triggerClawClapMode": {
+        "description": "ClawGear clap detected label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingContinueLabel": "Continuar",
+    "@onboardingContinueLabel": {
+        "description": "Label for the button to continue past the scan for gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBackButtonLabel": "Volver",
+    "@onboardingBackButtonLabel": {
+        "description": "Label for the button to go back on the onboarding screen",
         "type": "text",
         "placeholders": {}
     }
