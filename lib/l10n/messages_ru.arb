@@ -773,7 +773,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "homeWelcomeMessageTitle": "Добро пожаловать в приложение Tail Company",
+    "homeWelcomeMessageTitle": "Добро пожаловать",
     "@homeWelcomeMessageTitle": {
         "description": "The welcome message title on the home screen when no gear is connected",
         "type": "text",
@@ -923,7 +923,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "triggerActionSelectorTutorialLabel": "Выберите столько действий, сколько хотите. Случайным образом будет выбрано действие, совместимое с подключенным снаряжением. Действия GlowTip и Sound срабатывают вместе с действиями Move. Не забудьте сохранить.",
+    "triggerActionSelectorTutorialLabel": "Выберите столько действий, сколько хотите. Будет случайно выбрано действие, совместимое с подключенным устройством. Эффекты GlowTip и звуковые действия будут срабатывать вместе с движениями. Отображаются только те действия, которые совместимы с сопряженным устройством. Не забудьте сохранить.",
     "@triggerActionSelectorTutorialLabel": {
         "description": "Label for the tutorial card on the Action selector for triggers",
         "type": "text",
@@ -1031,13 +1031,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyTitle": "Tail Blog только через WiFi",
+    "settingsTailBlogWifiOnlyTitle": "Сократить расход данных",
     "@settingsTailBlogWifiOnlyTitle": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyDescription": "Запретить загрузку контента Tail Blog при подключении к мобильной сети",
+    "settingsTailBlogWifiOnlyDescription": "Не загружать часть контента при подключении к мобильной сети",
     "@settingsTailBlogWifiOnlyDescription": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
@@ -1280,6 +1280,84 @@
     "settingsMarketingNotificationsToggleTitle": "Разрешить маркетинговые уведомления",
     "@settingsMarketingNotificationsToggleTitle": {
         "description": "Settings page marketing notifications toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeCosHubTitle": "Рекомендуемые косплееры на CosHub",
+    "@homeCosHubTitle": {
+        "description": "The title header for the coshub in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeClawGear": "Когти",
+    "@deviceTypeClawGear": {
+        "description": "Claws option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryRGB": "RGB",
+    "@actionsCategoryRGB": {
+        "description": "RGB action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingScanMessage": "Поиск устройства. Убедитесь, что ваше устройство включено и находится рядом. Вы всегда сможете подключить его позже.",
+    "@scanDevicesOnboardingScanMessage": {
+        "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeTitle": "Наклон когтей",
+    "@triggerClawTiltModeTitle": {
+        "description": "ClawGear tilt trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeDescription": "Запускать действие при движении когтей",
+    "@triggerClawTiltModeDescription": {
+        "description": "ClawGear tilt trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeExtend": "Выпустить когти",
+    "@triggerClawTiltModeExtend": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeRetract": "Убрать когти",
+    "@triggerClawTiltModeRetract": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeTitle": "Хлопок когтями",
+    "@triggerClawClapModeTitle": {
+        "description": "ClawGear clap trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeDescription": "Запускать действие, когда вы хлопаете в ладоши",
+    "@triggerClawClapModeDescription": {
+        "description": "ClawGear clap trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapMode": "Хлопок обнаружен",
+    "@triggerClawClapMode": {
+        "description": "ClawGear clap detected label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingContinueLabel": "Продолжить",
+    "@onboardingContinueLabel": {
+        "description": "Label for the button to continue past the scan for gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBackButtonLabel": "Назад",
+    "@onboardingBackButtonLabel": {
+        "description": "Label for the button to go back on the onboarding screen",
         "type": "text",
         "placeholders": {}
     }
