@@ -17,7 +17,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "homeWelcomeMessageTitle": "Sveiki atvykę į „Tail Company“ programą",
+    "homeWelcomeMessageTitle": "Sveiki",
     "@homeWelcomeMessageTitle": {
         "description": "The welcome message title on the home screen when no gear is connected",
         "type": "text",
@@ -977,7 +977,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "triggerActionSelectorTutorialLabel": "Pasirinkite tiek veiksmų, kiek norite. Atsitiktinai bus pasirinktas veiksmas, suderinamas su prijungta įranga. „GlowTip“ ir garso veiksmai bus suaktyvinti kartu su judėjimo veiksmais. Nepamirškite išsaugoti.",
+    "triggerActionSelectorTutorialLabel": "Pasirinkite tiek veiksmų, kiek norite. Atsitiktine tvarka bus parinktas veiksmas, suderinamas su prijungta įranga. „GlowTip“ ir garso veiksmai bus aktyvuojami kartu su judėjimo veiksmais. Rodomi tik su suporuota įranga suderinami veiksmai. Nepamirškite išsaugoti.",
     "@triggerActionSelectorTutorialLabel": {
         "description": "Label for the tutorial card on the Action selector for triggers",
         "type": "text",
@@ -1031,13 +1031,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyTitle": "Tail Blog tik per WiFi",
+    "settingsTailBlogWifiOnlyTitle": "Mažinti duomenų naudojimą",
     "@settingsTailBlogWifiOnlyTitle": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyDescription": "Neleiskite įkelti Tail Blog turinio, kai esate prisijungę prie mobiliojo ryšio tinklo",
+    "settingsTailBlogWifiOnlyDescription": "Neleisti įkelti dalies turinio prisijungus prie mobiliojo ryšio tinklo",
     "@settingsTailBlogWifiOnlyDescription": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
@@ -1280,6 +1280,84 @@
     "scanDevicesOnboardingTitle": "Prijunkime tavo įrangą",
     "@scanDevicesOnboardingTitle": {
         "description": "Title for the gear pairing screen in onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeCosHubTitle": "Rekomenduojami „CosHub“ kosplėjeriai",
+    "@homeCosHubTitle": {
+        "description": "The title header for the coshub in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeClawGear": "Nagai",
+    "@deviceTypeClawGear": {
+        "description": "Claws option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryRGB": "RGB",
+    "@actionsCategoryRGB": {
+        "description": "RGB action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingScanMessage": "Ieškoma įrangos. Įsitikinkite, kad jūsų įranga įjungta ir yra netoliese. Įrangą bet kada galėsite prijungti vėliau.",
+    "@scanDevicesOnboardingScanMessage": {
+        "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeTitle": "Nagų pakreipimas",
+    "@triggerClawTiltModeTitle": {
+        "description": "ClawGear tilt trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeDescription": "Aktyvuoti veiksmą pajudėjus nagams",
+    "@triggerClawTiltModeDescription": {
+        "description": "ClawGear tilt trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeExtend": "Išleisti nagus",
+    "@triggerClawTiltModeExtend": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeRetract": "Įtraukti nagus",
+    "@triggerClawTiltModeRetract": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeTitle": "Pliaukštelėjimas nagais",
+    "@triggerClawClapModeTitle": {
+        "description": "ClawGear clap trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeDescription": "Aktyvuoti veiksmą suplojus rankomis",
+    "@triggerClawClapModeDescription": {
+        "description": "ClawGear clap trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapMode": "Pliaukštelėjimas aptiktas",
+    "@triggerClawClapMode": {
+        "description": "ClawGear clap detected label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingContinueLabel": "Tęsti",
+    "@onboardingContinueLabel": {
+        "description": "Label for the button to continue past the scan for gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBackButtonLabel": "Atgal",
+    "@onboardingBackButtonLabel": {
+        "description": "Label for the button to go back on the onboarding screen",
         "type": "text",
         "placeholders": {}
     }
