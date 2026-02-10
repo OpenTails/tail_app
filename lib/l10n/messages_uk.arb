@@ -191,7 +191,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "homeWelcomeMessageTitle": "Вітаємо в додатку Хвостатої Компанії",
+    "homeWelcomeMessageTitle": "Ласкаво просимо",
     "@homeWelcomeMessageTitle": {
         "description": "The welcome message title on the home screen when no gear is connected",
         "type": "text",
@@ -587,7 +587,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "triggerActionSelectorTutorialLabel": "Вибери скільки завгодно дій. Дія буде випадково обрана з сумісних з підключеним пристроєм. GlowTip і Звук будуть запускатись разом з Рухом. Не забудь зберегти.",
+    "triggerActionSelectorTutorialLabel": "Виберіть стільки дій, скільки забажаєте. Буде випадковим чином обрано дію, сумісну з підключеним обладнанням. Ефекти GlowTip та звукові дії спрацьовуватимуть разом із діями руху. Відображаються лише дії, сумісні з підключеним обладнанням. Не забудьте зберегти.",
     "@triggerActionSelectorTutorialLabel": {
         "description": "Label for the tutorial card on the Action selector for triggers",
         "type": "text",
@@ -1211,13 +1211,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyTitle": "Tail Blog лише через Wi-Fi",
+    "settingsTailBlogWifiOnlyTitle": "Зменшити використання даних",
     "@settingsTailBlogWifiOnlyTitle": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyDescription": "Заборонити завантаження Tail Blog при підключенні до мобільної мережі",
+    "settingsTailBlogWifiOnlyDescription": "Заборонити завантаження деякого контенту під час підключення до мобільної мережі",
     "@settingsTailBlogWifiOnlyDescription": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
@@ -1268,6 +1268,84 @@
     "moreCoshubPromoTitle": "CosHub",
     "@moreCoshubPromoTitle": {
         "description": "The title for the coshub link on the More page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeCosHubTitle": "Рекомендовані косплеєри на CosHub",
+    "@homeCosHubTitle": {
+        "description": "The title header for the coshub in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeClawGear": "Кігті",
+    "@deviceTypeClawGear": {
+        "description": "Claws option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryRGB": "RGB",
+    "@actionsCategoryRGB": {
+        "description": "RGB action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingScanMessage": "Пошук обладнання. Переконайтеся, що ваше обладнання увімкнене та знаходиться поруч. Ви завжди можете підключити його пізніше.",
+    "@scanDevicesOnboardingScanMessage": {
+        "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeTitle": "Нахил кігтів",
+    "@triggerClawTiltModeTitle": {
+        "description": "ClawGear tilt trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeDescription": "Запускати дію під час руху кігтів",
+    "@triggerClawTiltModeDescription": {
+        "description": "ClawGear tilt trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeExtend": "Випустити кігті",
+    "@triggerClawTiltModeExtend": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeRetract": "Сховати кігті",
+    "@triggerClawTiltModeRetract": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeTitle": "Хлопок кігтями",
+    "@triggerClawClapModeTitle": {
+        "description": "ClawGear clap trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeDescription": "Запускати дію, коли ви плескаєте в долоні",
+    "@triggerClawClapModeDescription": {
+        "description": "ClawGear clap trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapMode": "Виявлено хлопок",
+    "@triggerClawClapMode": {
+        "description": "ClawGear clap detected label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingContinueLabel": "Продовжити",
+    "@onboardingContinueLabel": {
+        "description": "Label for the button to continue past the scan for gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBackButtonLabel": "Назад",
+    "@onboardingBackButtonLabel": {
+        "description": "Label for the button to go back on the onboarding screen",
         "type": "text",
         "placeholders": {}
     }
