@@ -785,7 +785,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "homeWelcomeMessageTitle": "Willkommen bei der Tail Company App",
+    "homeWelcomeMessageTitle": "Willkommen",
     "@homeWelcomeMessageTitle": {
         "description": "The welcome message title on the home screen when no gear is connected",
         "type": "text",
@@ -929,7 +929,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "triggerActionSelectorTutorialLabel": "Wähle so viele Aktionen aus, wie du möchtest. Es wird eine Aktion zufällig ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig mit Bewegungs-Aktionen ausgelöst. Vergiss nicht zu speichern.",
+    "triggerActionSelectorTutorialLabel": "Wähle so viele Aktionen aus, wie du möchtest. Es wird eine Aktion zufällig ausgewählt, welche mit der angeschlossenen Ausrüstung kompatibel ist. GlowTip- und Sound-Aktionen werden gleichzeitig mit Bewegungs-Aktionen ausgelöst. Nur mit der Ausrüstung kompatible Aktionen werden angezeigt. Vergiss nicht zu speichern.",
     "@triggerActionSelectorTutorialLabel": {
         "description": "Label for the tutorial card on the Action selector for triggers",
         "type": "text",
@@ -1031,13 +1031,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyTitle": "Tail Blog nur über WiFi",
+    "settingsTailBlogWifiOnlyTitle": "Reduziere die Datenübertragung",
     "@settingsTailBlogWifiOnlyTitle": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyDescription": "Verhindert dass Tail Blog Inhalte bei einer mobilen Verbindung geladen werden",
+    "settingsTailBlogWifiOnlyDescription": "Verhindert dass manche Inhalte bei einer mobilen Verbindung geladen werden",
     "@settingsTailBlogWifiOnlyDescription": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
@@ -1298,6 +1298,66 @@
     "onboardingBackButtonLabel": "Zurück",
     "@onboardingBackButtonLabel": {
         "description": "Label for the button to go back on the onboarding screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeCosHubTitle": "Featured Cosplayer auf CosHub",
+    "@homeCosHubTitle": {
+        "description": "The title header for the coshub in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeClawGear": "Klauen",
+    "@deviceTypeClawGear": {
+        "description": "Claws option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryRGB": "RGB",
+    "@actionsCategoryRGB": {
+        "description": "RGB action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeTitle": "Klauen beugen",
+    "@triggerClawTiltModeTitle": {
+        "description": "ClawGear tilt trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeDescription": "Auslösen einer Aktion bei Klauenbewegungen",
+    "@triggerClawTiltModeDescription": {
+        "description": "ClawGear tilt trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeExtend": "Klauen ausfahren",
+    "@triggerClawTiltModeExtend": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeRetract": "Klauen einfahren",
+    "@triggerClawTiltModeRetract": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeTitle": "Klauen klatschen",
+    "@triggerClawClapModeTitle": {
+        "description": "ClawGear clap trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeDescription": "Löse eine Aktion beim Klatschen mit den Klauen aus",
+    "@triggerClawClapModeDescription": {
+        "description": "ClawGear clap trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapMode": "Klatschen erkannt",
+    "@triggerClawClapMode": {
+        "description": "ClawGear clap detected label",
         "type": "text",
         "placeholders": {}
     }
