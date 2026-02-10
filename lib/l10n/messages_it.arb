@@ -809,7 +809,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "homeWelcomeMessageTitle": "Benvenuto nell'app Tail Company",
+    "homeWelcomeMessageTitle": "Benvenuto",
     "@homeWelcomeMessageTitle": {
         "description": "The welcome message title on the home screen when no gear is connected",
         "type": "text",
@@ -923,7 +923,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "triggerActionSelectorTutorialLabel": "Seleziona tutte le azioni che desideri. Verrà selezionata casualmente un'azione compatibile con l'attrezzatura connessa. Le azioni GlowTip e Sound si attiveranno insieme alle azioni Move. Non dimenticare di salvare.",
+    "triggerActionSelectorTutorialLabel": "Seleziona quante azioni desideri. Verrà scelta casualmente un'azione compatibile con l'attrezzatura connessa. Le azioni GlowTip e i suoni verranno attivati insieme alle azioni di movimento. Vengono mostrate solo le azioni compatibili con i dispositivi associati. Non dimenticare di salvare.",
     "@triggerActionSelectorTutorialLabel": {
         "description": "Label for the tutorial card on the Action selector for triggers",
         "type": "text",
@@ -1031,13 +1031,13 @@
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyTitle": "Blog di coda solo su WiFi",
+    "settingsTailBlogWifiOnlyTitle": "Riduci l'uso dei dati",
     "@settingsTailBlogWifiOnlyTitle": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
         "placeholders": {}
     },
-    "settingsTailBlogWifiOnlyDescription": "Impedire il caricamento dei contenuti del blog Tail mentre si è connessi a una rete mobile",
+    "settingsTailBlogWifiOnlyDescription": "Impedisci il caricamento di alcuni contenuti quando sei connesso a una rete mobile",
     "@settingsTailBlogWifiOnlyDescription": {
         "description": "Description for the tail blog wifi only setting",
         "type": "text",
@@ -1280,6 +1280,84 @@
     "settingsMarketingNotificationsToggleTitle": "Consenti notifiche di marketing",
     "@settingsMarketingNotificationsToggleTitle": {
         "description": "Settings page marketing notifications toggle title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeCosHubTitle": "Cosplayer in primo piano su CosHub",
+    "@homeCosHubTitle": {
+        "description": "The title header for the coshub in the home screen when no gear is connected",
+        "type": "text",
+        "placeholders": {}
+    },
+    "deviceTypeClawGear": "Artigli",
+    "@deviceTypeClawGear": {
+        "description": "Claws option for the selector to select which device to send moves to",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsCategoryRGB": "RGB",
+    "@actionsCategoryRGB": {
+        "description": "RGB action group label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "scanDevicesOnboardingScanMessage": "Ricerca dei dispositivi in corso. Assicurati che l'attrezzatura sia accesa e nelle vicinanze. Potrai sempre connettere i tuoi dispositivi più tardi.",
+    "@scanDevicesOnboardingScanMessage": {
+        "description": "additional scan for devices scan in progress message when scanning for a device during onboarding",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeTitle": "Inclinazione artigli",
+    "@triggerClawTiltModeTitle": {
+        "description": "ClawGear tilt trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeDescription": "Attiva un'azione quando gli artigli si muovono",
+    "@triggerClawTiltModeDescription": {
+        "description": "ClawGear tilt trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeExtend": "Estendi artigli",
+    "@triggerClawTiltModeExtend": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawTiltModeRetract": "Ritrai artigli",
+    "@triggerClawTiltModeRetract": {
+        "description": "ClawGear tilt trigger extend action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeTitle": "Applauso con artigli",
+    "@triggerClawClapModeTitle": {
+        "description": "ClawGear clap trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapModeDescription": "Attiva un'azione quando batti le mani",
+    "@triggerClawClapModeDescription": {
+        "description": "ClawGear clap trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerClawClapMode": "Battito di mani rilevato",
+    "@triggerClawClapMode": {
+        "description": "ClawGear clap detected label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingContinueLabel": "Continua",
+    "@onboardingContinueLabel": {
+        "description": "Label for the button to continue past the scan for gear screen",
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardingBackButtonLabel": "Indietro",
+    "@onboardingBackButtonLabel": {
+        "description": "Label for the button to go back on the onboarding screen",
         "type": "text",
         "placeholders": {}
     }
