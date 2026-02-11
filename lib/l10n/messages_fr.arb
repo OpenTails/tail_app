@@ -437,7 +437,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "manageDevicesShutdown": "Fermer",
+    "manageDevicesShutdown": "Éteindre",
     "@manageDevicesShutdown": {
         "description": "manage devices shutdown button title when managing a device",
         "type": "text",
