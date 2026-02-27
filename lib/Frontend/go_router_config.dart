@@ -10,7 +10,7 @@ import 'package:tail_app/Frontend/pages/view_pdf.dart';
 import '../Backend/Definitions/Action/base_action.dart';
 import '../Backend/Definitions/Device/device_definition.dart';
 import '../Backend/logging_wrappers.dart';
-import '../Backend/move_lists.dart';
+import '../Backend/move_lists_backend.dart';
 import '../Backend/analytics.dart';
 import '../constants.dart';
 import 'Widgets/color_picker_dialog.dart';

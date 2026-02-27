@@ -9,7 +9,7 @@ import '../constants.dart';
 import 'Definitions/Action/base_action.dart';
 import 'logging_wrappers.dart';
 
-part 'move_lists.g.dart';
+part 'move_lists_backend.g.dart';
 
 final sequencesLogger = Logger('Sequences');
 

@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    //ndkVersion flutter.ndkVersion
+    ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -93,7 +93,6 @@ android {
         }
     }
     namespace "com.codel1417.tailApp"
-    ndkVersion "27.0.12077973"
 }
 
 flutter {

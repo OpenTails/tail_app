@@ -4,7 +4,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
-import '../../move_lists.dart';
+import '../../move_lists_backend.dart';
 import '../Device/device_definition.dart';
 
 part 'base_action.freezed.dart';

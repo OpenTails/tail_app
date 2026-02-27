@@ -8,7 +8,7 @@ import 'Bluetooth/known_devices.dart';
 import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'audio.dart';
-import 'move_lists.dart';
+import 'move_lists_backend.dart';
 
 part 'action_registry.g.dart';
 

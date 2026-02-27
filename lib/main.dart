@@ -24,7 +24,7 @@ import 'Backend/app_shortcuts.dart';
 import 'Backend/dynamic_config.dart';
 import 'Backend/favorite_actions.dart';
 import 'Backend/logging_wrappers.dart';
-import 'Backend/move_lists.dart';
+import 'Backend/move_lists_backend.dart';
 import 'Backend/sensors.dart';
 import 'Backend/wear_bridge.dart';
 import 'Frontend/Widgets/bt_app_state_controller.dart';
@@ -147,6 +147,8 @@ Future<void> main() async {
 
   initFlutter();
   await initHive();
+  initWear();
+  appShortcuts();
   initMainApp();
 }
 
@@ -232,10 +234,8 @@ Future<void> initHive() async {
 class TailApp extends ConsumerWidget {
   const TailApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Platform messages may fail, so we use a try/catch PlatformException.
     mainLogger.info('Starting app');
     launchAppAnalytics();
 
@@ -251,15 +251,13 @@ class TailApp extends ConsumerWidget {
       child: ProviderScope(
         retry: (retryCount, error) => null, // disables retry on riverpod
         observers: [RiverpodProviderObserver()],
-        child: _EagerInitialization(
-          child: BtAppStateController(
-            child: ValueListenableBuilder(
-              valueListenable: Hive.box(settings).listenable(keys: [appColor, uwuTextEnabled, selectedLocale]),
-              builder: (BuildContext context, value, Widget? child) {
-                rebuildAllChildren(context);
-                return TailAppMainWidget();
-              },
-            ),
+        child: BtAppStateController(
+          child: ValueListenableBuilder(
+            valueListenable: Hive.box(settings).listenable(keys: [appColor, uwuTextEnabled, selectedLocale]),
+            builder: (BuildContext context, value, Widget? child) {
+              rebuildAllChildren(context);
+              return TailAppMainWidget();
+            },
           ),
         ),
       ),
@@ -346,20 +344,5 @@ final class RiverpodProviderObserver extends ProviderObserver {
       return;
     }
     riverpodLogger.warning('Provider ${context.provider} threw $error at $stackTrace', error, stackTrace);
-  }
-}
-
-class _EagerInitialization extends ConsumerWidget {
-  const _EagerInitialization({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Eagerly initialize providers by watching them.
-    // By using "watch", the provider will stay alive and not be disposed.
-    initWear();
-    appShortcuts();
-    return child;
   }
 }

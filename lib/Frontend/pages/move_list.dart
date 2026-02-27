@@ -15,7 +15,7 @@ import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
-import '../../Backend/move_lists.dart';
+import '../../Backend/move_lists_backend.dart';
 import '../../Backend/analytics.dart';
 import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';

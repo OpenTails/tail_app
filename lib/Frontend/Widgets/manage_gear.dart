@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/firmware_update.dart';
-import 'package:tail_app/Backend/move_lists.dart';
+import 'package:tail_app/Backend/move_lists_backend.dart';
 import 'package:tail_app/Backend/version.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';

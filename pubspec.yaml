@@ -123,11 +123,16 @@ dev_dependencies:
   json_serializable: ^6.11.1 # required for @JsonSerializable annotations
   hive_ce_generator: ^1.9.2 # required for @HiveType annotations
   go_router_builder: ^4.1.1
+  mockito: ^5.4.0
   freezed: ^3.2.3 # required for @freezed annotations
 
   flutter_lints: # Dryer Lint
   #riverpod_lint:
   #custom_lint:
+
+  # Testing
+  flutter_test:
+    sdk: flutter
 
 dependency_overrides:
   #collection: 1.19.1
@@ -154,7 +159,7 @@ flutter:
 
 sentry: # used by the sentry-dart-plugin to upload symbols. Credentials are provided as environment variables
   upload_debug_symbols: true
-  upload_source_maps: true
+  #upload_source_maps: true # used only for web
   upload_sources: true
   symbols_path: ./symbols
   project: "tail-app"
