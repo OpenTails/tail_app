@@ -94,3 +94,7 @@ ios/Runner/GoogleService-Info.plist
 firebase.json
 
 android/app/google-services.json
+
+HiveTest/
+
+.HiveTest/

@@ -143,6 +143,11 @@ class MoveLists with ChangeNotifier {
   static final MoveLists instance = MoveLists._internal();
 
   MoveLists._internal() {
+    reload();
+  }
+
+  @visibleForTesting
+  void reload() {
     List<MoveList> results = [];
     try {
       results = HiveProxy.getAll<MoveList>(sequencesBox).toList(growable: true);

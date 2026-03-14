@@ -71,11 +71,9 @@ import java.io.ObjectOutputStream
 
 /** TODO:
  * Show spinner when no data available / loading from app
- * Refresh UI when data updates
  * Move actions / triggers / gear to their own page with horizontal swipe
  * show all actions, not just favorites
  * Theme based on main app colors
- * Watch to App communication
  */
 class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     CapabilityClient.OnCapabilityChangedListener {
@@ -83,13 +81,13 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
 
     override fun onResume() {
         super.onResume()
-        println("onResume()")
+        //println("onResume()")
         Wearable.getDataClient(this).addListener(this)
     }
 
     override fun onPause() {
         super.onPause()
-        println("onPause()")
+        //println("onPause()")
         Wearable.getDataClient(this).removeListener(this)
     }
 
@@ -127,9 +125,9 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     }
 
     override fun onDataChanged(dataEvents: DataEventBuffer) {
-        println("onDataChanged()")
+        //println("onDataChanged()")
         dataEvents.forEach { event ->
-            println("onDataChanged() ${event.type}")
+            //println("onDataChanged() ${event.type}")
             // DataItem changed
             if (event.type == DataEvent.TYPE_CHANGED) {
                 event.dataItem.also { item ->
@@ -141,7 +139,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
 
     private fun getWearDataItem(item: DataItem) {
         try {
-            println("Loading Actions")
+            //println("Loading Actions")
             val gson = Gson()
             // asMap converts the bytes to the java object
             // The flutter library watch_connectivity was built for flutter to flutter, not flutter to compose
@@ -170,6 +168,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                     val capabilityId =         // Find a nearby node or pick one arbitrarily.
                         result.nodes.firstOrNull { it.isNearby }?.id
                             ?: result.nodes.firstOrNull()?.id
+                    //println("Capability ID: ${capabilityId}")
                     if (capabilityId == null) {
                         return@addOnSuccessListener
                     }
@@ -189,7 +188,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        println("onCreate()")
+        //println("onCreate()")
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
@@ -204,7 +203,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     //TODO: When app is visible, send a message to update application context
     @Composable
     fun WearApp() {
-        println("WearApp()")
+        //println("WearApp()")
         val context = LocalContext.current
         val state: State<WearData?> = wearData.observeAsState()
 
@@ -370,7 +369,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                                     GearButton(
                                         contentModifier,
                                         it.name,
-                                        it.batteryLevel.toInt(),
+                                        it.batteryLevel,
                                         it.color
                                     )
                                 }
@@ -464,7 +463,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     }
 
     override fun onCapabilityChanged(p0: CapabilityInfo) {
-        println("onCapabilityChanged() ${p0.name} ${p0.nodes}")
+        //println("onCapabilityChanged() ${p0.name} ${p0.nodes}")
         sendMessageToPhone(
             data = WearSendData(
                 capability = "refresh",

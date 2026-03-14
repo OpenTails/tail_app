@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
+import 'package:stream_transform/stream_transform.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
@@ -22,9 +23,7 @@ part 'wear_bridge.g.dart';
 
 final Logger _wearLogger = Logger('Wear');
 final _watch = WatchConnectivity();
-bool _didInitWear = false;
 WearThemeData? wearThemeData;
-Lock _initLock = Lock();
 
 void _watchIncomingMessageListener(Map<String, dynamic> event) {
   _wearLogger.info("Watch Message: $event");
@@ -52,14 +51,12 @@ void _watchIncomingMessageListener(Map<String, dynamic> event) {
   }
 }
 
-Future<void> initWear() async {
-  if (_didInitWear) {
-    return;
-  }
-  _initLock.synchronized(() async {
-    await Future.delayed(const Duration(seconds: 5));
+void initWear()  {
+
     try {
-      _watch.messageStream.listen(_watchIncomingMessageListener);
+      _wearLogger.info("Setting up listeners");
+
+      _watch.messageStream.asBroadcastStream().debounce(Duration(milliseconds: 250)).listen(_watchIncomingMessageListener);
       KnownDevices.instance.addListener(() {
         KnownDevices.instance.state.values.map((e) => e).forEach((element) {
           element.batteryLevel
@@ -73,13 +70,13 @@ Future<void> initWear() async {
             ..removeListener(updateWearData)
             ..addListener(updateWearData);
         });
+
         //react to device pairing
         updateWearData();
       });
     } catch (e, s) {
       _wearLogger.severe("exception setting up Wear $e", e, s);
     }
-  });
 }
 
 Future<bool> isReachable() {
@@ -99,12 +96,12 @@ Future<Map<String, dynamic>> applicationContext() {
 }
 
 Future<void> updateWearData() async {
-  _initLock.synchronized(() async {
     try {
-      await initWear();
       if (!await isPaired()) {
         return; // Don't update wear actions if wear is not supported / no watch is paired
       }
+      _wearLogger.info("Updating watch data");
+
       Iterable<BaseAction> allActions = FavoriteActions.instance.state.map((e) => ActionRegistry.getActionFromUUID(e.actionUUID)).nonNulls;
       BuiltList<Trigger> triggers = TriggerList.instance.state;
       final List<WearActionData> favoriteMap = allActions.map((e) => WearActionData(uuid: e.uuid, name: e.name)).toList();
@@ -138,7 +135,6 @@ Future<void> updateWearData() async {
     } catch (e, s) {
       _wearLogger.severe("Unable to send favorite actions to watch", e, s);
     }
-  });
 }
 
 @freezed

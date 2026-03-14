@@ -48,6 +48,8 @@ dependencies:
   data_saver: ^0.4.0 # check if data saver is enabled
   battery_plus: ^7.0.0
   ble_peripheral: ^2.4.0 # nearby gear
+  stream_transform: ^2.1.1 # debouncing wear commands
+
 
   # Watch
   watch_connectivity: ^0.2.1+1
@@ -124,6 +126,7 @@ dev_dependencies:
   hive_ce_generator: ^1.9.2 # required for @HiveType annotations
   go_router_builder: ^4.1.1
   mockito: ^5.4.0
+  mocktail: ^0.2.0
   freezed: ^3.2.3 # required for @freezed annotations
 
   flutter_lints: # Dryer Lint

@@ -30,7 +30,7 @@ abstract class DynamicConfigInfo with _$DynamicConfigInfo {
       "MiTail": "https://thetailcompany.com/fw/mitail.json",
       "minitail": "https://thetailcompany.com/fw/mini.json",
       "EG2": "https://thetailcompany.com/fw/eg",
-      "flutter": "https://thetailcompany.com/fw/flutter"
+      "flutter": "https://thetailcompany.com/fw/flutter",
     })
     Map<String, String> updateURLs,
     @Default(URLs()) URLs urls,
@@ -41,23 +41,15 @@ abstract class DynamicConfigInfo with _$DynamicConfigInfo {
 
 @freezed
 abstract class AppVersion with _$AppVersion {
-  const factory AppVersion({
-    @Default(Version(major: 1, minor: 0, patch: 0)) Version version,
-    @Default("") String changelog,
-    @Default("") String url,
-  }) = _AppVersion;
+  const factory AppVersion({@Default(Version(major: 1, minor: 0, patch: 0)) Version version, @Default("") String changelog, @Default("") String url}) = _AppVersion;
 
   factory AppVersion.fromJson(Map<String, dynamic> json) => _$AppVersionFromJson(json);
 }
 
 @freezed
 abstract class SentryConfig with _$SentryConfig {
-  const factory SentryConfig({
-    @Default(0.5) double tracesSampleRate,
-    @Default(0.5) double profilesSampleRate,
-    @Default(0) double replaySessionSampleRate,
-    @Default(0) double replayOnErrorSampleRate,
-  }) = _SentryConfig;
+  const factory SentryConfig({@Default(0.5) double tracesSampleRate, @Default(0.5) double profilesSampleRate, @Default(0) double replaySessionSampleRate, @Default(0) double replayOnErrorSampleRate}) =
+      _SentryConfig;
 
   factory SentryConfig.fromJson(Map<String, dynamic> json) => _$SentryConfigFromJson(json);
 }
@@ -90,6 +82,12 @@ abstract class URLs with _$URLs {
 
 DynamicConfigInfo? _dynamicConfigInfo;
 
+@visibleForTesting
+void clearDynamicConfigCache() {
+  _dynamicConfigInfo = null;
+  HiveProxy.deleteKey(settings, dynamicConfigJsonString);
+}
+
 Future<DynamicConfigInfo> getDynamicConfigInfo() async {
   if (_dynamicConfigInfo != null) {
     return _dynamicConfigInfo!;
@@ -119,7 +117,10 @@ Future<void> _getRemoteDynamicConfigInfo() async {
   try {
     _dynamicConfigLogger.info("Downloading latest config file");
     // TODO: move to own domain
-    Response<String> response = await dio.get(_dynamicConfigInfo!.urls.dynamicConfigFileUrl, options: Options(contentType: ContentType.json.mimeType, responseType: ResponseType.json));
+    Response<String> response = await dio.get(
+      _dynamicConfigInfo!.urls.dynamicConfigFileUrl,
+      options: Options(contentType: ContentType.json.mimeType, responseType: ResponseType.json),
+    );
     if (response.statusCode! < 400) {
       String jsonData = response.data!;
       // ignore: unused_local_variable

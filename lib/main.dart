@@ -157,11 +157,18 @@ void initFlutter() {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); // keeps the splash screen visible
 }
 
+bool _didInitHive = false;
 Future<void> initHive() async {
+  if (_didInitHive) {
+    return;
+  }
   mainLogger.fine("Init Hive");
-
-  final Directory appDir = await getApplicationSupportDirectory();
-  Hive.init(appDir.path);
+  if (Platform.isAndroid || Platform.isIOS) {
+    final Directory appDir = await getApplicationSupportDirectory();
+    Hive.init(appDir.path);
+  } else {
+    Hive.init(Directory(".HiveTest").path);
+  }
 
   //Hive Type ID 1
   if (!Hive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
@@ -229,6 +236,8 @@ Future<void> initHive() async {
   await Hive.openBox<AudioAction>(audioActionsBox);
   await Hive.openBox<MoveList>(sequencesBox);
   await Hive.openBox<BaseStoredDevice>(devicesBox);
+
+  _didInitHive = true;
 }
 
 class TailApp extends ConsumerWidget {
