@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-01-07T17:49:25.872728",
+  "@@last_modified": "2026-03-15T09:11:05.778940",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1289,7 +1289,13 @@
   },
   "watchKnownGearNoGearPairedTip": "On your phone, Use the `Scan For New Gear` button to pair your gear",
   "@watchKnownGearNoGearPairedTip": {
-    "description": "the tip for when no actions are favorited on the watch app",
+    "description": "the tip for when no gear is paired that shows on the watch app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "watchPhoneAppNotOpen": "Please open 'The Tail Co' app on your phone to connect your gear.",
+  "@watchPhoneAppNotOpen": {
+    "description": "the message that informs the user to open the phone app",
     "type": "text",
     "placeholders": {}
   }
