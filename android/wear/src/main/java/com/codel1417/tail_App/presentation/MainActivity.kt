@@ -9,17 +9,20 @@ package com.codel1417.tail_App.presentation
 import android.R
 import android.content.Context
 import android.os.Bundle
+import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -46,10 +49,10 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
-import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.LinearProgressIndicator
 import androidx.wear.compose.material3.SwitchButton
 import androidx.wear.compose.material3.TimeText
+import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.codel1417.tail_App.json.WearData
 import com.codel1417.tail_App.json.WearSendData
 import com.codel1417.tail_App.presentation.theme._androidTheme
@@ -68,16 +71,18 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
+import androidx.core.net.toUri
+import androidx.wear.compose.material3.OpenOnPhoneDialog
+import androidx.wear.compose.material3.OpenOnPhoneDialogDefaults
+import androidx.wear.compose.material3.openOnPhoneDialogCurvedText
 
 /** TODO:
- * Show spinner when no data available / loading from app
- * Move actions / triggers / gear to their own page with horizontal swipe
- * show all actions, not just favorites
  * Theme based on main app colors
  */
 class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     CapabilityClient.OnCapabilityChangedListener {
-    private var wearData: MutableLiveData<WearData> = MutableLiveData<WearData>(WearData())
+    private var wearData: MutableLiveData<WearData> =
+        MutableLiveData<WearData>(WearData())
 
     override fun onResume() {
         super.onResume()
@@ -165,7 +170,8 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                     data.capability,
                     FILTER_REACHABLE
                 ).addOnSuccessListener { result ->
-                    val capabilityId =         // Find a nearby node or pick one arbitrarily.
+                    val capabilityId =
+                        // Find a nearby node or pick one arbitrarily.
                         result.nodes.firstOrNull { it.isNearby }?.id
                             ?: result.nodes.firstOrNull()?.id
                     //println("Capability ID: ${capabilityId}")
@@ -173,19 +179,38 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         return@addOnSuccessListener
                     }
                     val gson = Gson()
-                    val messageType = object : TypeToken<Map<String, Any>>() {}.type
+                    val messageType =
+                        object : TypeToken<Map<String, Any>>() {}.type
                     val message = gson.fromJson<Map<String, Any>>(
                         gson.toJson(data),
                         messageType
                     )
                     Wearable.getMessageClient(context)
-                        .sendMessage(capabilityId, "/${data.capability}", asBytes(message))
+                        .sendMessage(
+                            capabilityId,
+                            "/${data.capability}",
+                            asBytes(message)
+                        )
                 }
         } catch (e: Exception) {
             println("Error triggering action $e")
         }
     }
 
+    fun launchPhoneApp() {
+        val remoteActivityHelper =
+            RemoteActivityHelper(this)
+        remoteActivityHelper.startRemoteActivity(
+            Intent(Intent.ACTION_VIEW)
+                .setData(
+                    ("http://play.google.com/store/apps/details?id=com" +
+                            ".codel1417.tailApp").toUri()
+                )
+                .addCategory(Intent.CATEGORY_BROWSABLE)
+
+        )
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //println("onCreate()")
@@ -302,17 +327,54 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                 vignette = {
                     Vignette(vignettePosition = VignettePosition.TopAndBottom)
                 }) {
+                val expiredState = state.value == null || (System
+                    .currentTimeMillis() - state.value!!.timestamp) > 60000;
+                // 60 seconds
 
-                if (state.value == null) {
-                    Box(
+                // Should be an impossible state as every value has a default
+                if (expiredState) {
+                    sendMessageToPhone(
+                        data = WearSendData(
+                            capability = "refresh",
+                        ), context
+                    )
+                    ScalingLazyColumn(
                         modifier = Modifier.fillMaxSize(),
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .align(alignment = Alignment.Center)
-                                .fillMaxSize(0.6f)
+                        autoCentering = AutoCenteringParams(itemIndex = 0),
+                        state = listState,
+                        flingBehavior = ScalingLazyColumnDefaults.snapFlingBehavior(
+                            state = listState,
+                            snapOffset = 0.dp
+                            // Exponential decay by default. You can also explicitly define a
+                            // DecayAnimationSpec.
                         )
+                    ) {
+                        item {
+                            var showConfirmation by remember {
+                                mutableStateOf(
+                                    false
+                                )
+                            }
+                            Card(
+                                onClick = { showConfirmation = true }
+                            ) { Text(text = state.value!!.localization.phonAppClosed) }
+
+                            val text = OpenOnPhoneDialogDefaults.text
+                            val style =
+                                OpenOnPhoneDialogDefaults.curvedTextStyle
+                            OpenOnPhoneDialog(
+                                visible = showConfirmation,
+                                onDismissRequest = { showConfirmation = false },
+                                curvedText = {
+                                    openOnPhoneDialogCurvedText(
+                                        text = text,
+                                        style = style,
+                                    )
+                                },
+                            )
+                        }
                     }
+
                 } else {
                     ScalingLazyColumn(
                         modifier = Modifier.fillMaxSize(),
@@ -325,6 +387,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                             // DecayAnimationSpec.
                         )
                     ) {
+
                         item { ListHeader { Text(text = state.value!!.localization.actionsPage) } }
                         if (state.value!!.favoriteActions.isEmpty()) {
                             item {
@@ -364,12 +427,13 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                                 ) { Text(text = state.value!!.localization.watchKnownGearNoGearPairedTip) }
                             }
                         } else {
-                            state.value!!.knownGear.map {
+                            state.value!!.knownGear.mapIndexed { index, it ->
+
                                 item {
                                     GearButton(
                                         contentModifier,
                                         it.name,
-                                        it.batteryLevel,
+                                        index,
                                         it.color
                                     )
                                 }
@@ -442,19 +506,22 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     fun GearButton(
         modifier: Modifier = Modifier,
         name: String,
-        battery: Int,
+        index: Int,
         color: Long
     ) {
+        val state by wearData.observeAsState()
+
         Chip(
             modifier = modifier,
             colors = ChipDefaults.chipColors(backgroundColor = Color(color)),
             label = { Text(text = name, textAlign = TextAlign.Center) },
             onClick = {},
-            enabled = battery > -1,
+            enabled = state!!.knownGear[index].batteryLevel > -1,
             secondaryLabel = {
-                if (battery > -1) {
+                if (state!!.knownGear[index].batteryLevel > -1
+                ) {
                     LinearProgressIndicator(
-                        progress = { battery.toFloat() / 100 },
+                        progress = { state!!.knownGear[index].batteryLevel.toFloat() / 100 },
                         modifier = Modifier.fillMaxWidth(),
                     )
                 }

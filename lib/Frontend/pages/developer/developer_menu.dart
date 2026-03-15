@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 
+import '../../../Backend/dynamic_config.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../Backend/wear_bridge.dart';
 import '../../../constants.dart';
@@ -59,10 +60,22 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text(hasCompletedOnboarding),
             trailing: Switch(
-              value: HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree,
+              value:
+                  HiveProxy.getOrDefault(
+                    settings,
+                    hasCompletedOnboarding,
+                    defaultValue: hasCompletedOnboardingDefault,
+                  ) ==
+                  hasCompletedOnboardingVersionToAgree,
               onChanged: (bool value) async {
                 setState(() {
-                  HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
+                  HiveProxy.put(
+                    settings,
+                    hasCompletedOnboarding,
+                    value
+                        ? hasCompletedOnboardingVersionToAgree
+                        : hasCompletedOnboardingDefault,
+                  );
                   if (!value) {
                     OnBoardingPageRoute().go(context);
                   }
@@ -76,8 +89,16 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               divisions: 30,
               max: 30,
               min: 0,
-              label: HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault).toString(),
-              value: HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault).toDouble(),
+              label: HiveProxy.getOrDefault(
+                settings,
+                triggerActionCooldown,
+                defaultValue: triggerActionCooldownDefault,
+              ).toString(),
+              value: HiveProxy.getOrDefault(
+                settings,
+                triggerActionCooldown,
+                defaultValue: triggerActionCooldownDefault,
+              ).toDouble(),
               onChanged: (double value) async {
                 setState(() {
                   HiveProxy.put(settings, triggerActionCooldown, value.toInt());
@@ -91,11 +112,23 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               divisions: 29,
               max: 30,
               min: 1,
-              label: HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault).toString(),
-              value: HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault).toDouble(),
+              label: HiveProxy.getOrDefault(
+                settings,
+                gearConnectRetryAttempts,
+                defaultValue: gearConnectRetryAttemptsDefault,
+              ).toString(),
+              value: HiveProxy.getOrDefault(
+                settings,
+                gearConnectRetryAttempts,
+                defaultValue: gearConnectRetryAttemptsDefault,
+              ).toDouble(),
               onChanged: (double value) async {
                 setState(() {
-                  HiveProxy.put(settings, gearConnectRetryAttempts, value.toInt());
+                  HiveProxy.put(
+                    settings,
+                    gearConnectRetryAttempts,
+                    value.toInt(),
+                  );
                 });
               },
             ),
@@ -103,7 +136,11 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           ListTile(
             title: const Text(showDebugging),
             trailing: Switch(
-              value: HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault),
+              value: HiveProxy.getOrDefault(
+                settings,
+                showDebugging,
+                defaultValue: showDebuggingDefault,
+              ),
               onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, showDebugging, value);
@@ -115,17 +152,24 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
           const ListTile(title: Divider()),
           ListenableBuilder(
             listenable: Scan.instance,
-            builder: (context, child) => ListTile(title: const Text("ScanState"), subtitle: Text(Scan.instance.state.toString())),
+            builder: (context, child) => ListTile(
+              title: const Text("ScanState"),
+              subtitle: Text(Scan.instance.state.toString()),
+            ),
           ),
           ListTile(
             title: const Text("AdapterState"),
             subtitle: StreamBuilder(
               stream: FlutterBluePlus.adapterState.asBroadcastStream(),
-              builder: (BuildContext context, AsyncSnapshot<BluetoothAdapterState> snapshot) {
-                var value = snapshot.data;
-                String text = value != null ? value.toString() : "unknown";
-                return Text(text);
-              },
+              builder:
+                  (
+                    BuildContext context,
+                    AsyncSnapshot<BluetoothAdapterState> snapshot,
+                  ) {
+                    var value = snapshot.data;
+                    String text = value != null ? value.toString() : "unknown";
+                    return Text(text);
+                  },
             ),
           ),
           ListTile(
@@ -175,11 +219,15 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
             title: const Text("ConnectivityType"),
             subtitle: StreamBuilder(
               stream: Connectivity().onConnectivityChanged,
-              builder: (BuildContext context, AsyncSnapshot<List<ConnectivityResult>> snapshot) {
-                var value = snapshot.data;
-                String text = value != null ? value.toString() : "unknown";
-                return Text(text);
-              },
+              builder:
+                  (
+                    BuildContext context,
+                    AsyncSnapshot<List<ConnectivityResult>> snapshot,
+                  ) {
+                    var value = snapshot.data;
+                    String text = value != null ? value.toString() : "unknown";
+                    return Text(text);
+                  },
             ),
           ),
           ListTile(
@@ -204,11 +252,44 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 if (snapshot.hasData) {
                   dynamicConfigJsonDefault = snapshot.data!;
                 }
-                return Text(HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: dynamicConfigJsonDefault));
+                return Text(
+                  HiveProxy.getOrDefault(
+                    settings,
+                    dynamicConfigJsonString,
+                    defaultValue: dynamicConfigJsonDefault,
+                  ),
+                );
               },
             ),
           ),
-          ListTile(title: const Text("PlatformLocale"), subtitle: Text(Platform.localeName)),
+          ListTile(
+            subtitle: OverflowBar(
+              children: [
+                FilledButton(
+                  onPressed: () {
+                    clearDynamicConfigCache();
+                    if (context.mounted) {
+                      setState(() {});
+                    }
+                  },
+                  child: Text("Clear Config"),
+                ),
+                FilledButton(
+                  onPressed: () {
+                    getDynamicConfigInfo();
+                    if (context.mounted) {
+                      setState(() {});
+                    }
+                  },
+                  child: Text("Refresh Config"),
+                ),
+              ],
+            ),
+          ),
+          ListTile(
+            title: const Text("PlatformLocale"),
+            subtitle: Text(Platform.localeName),
+          ),
           const ListTile(title: Divider()),
           ListTile(
             title: const Text("WatchIsReachable"),
@@ -248,6 +329,30 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
                 Map<String, dynamic> value = snapshot.data ?? {};
                 return Text(value.toString());
               },
+            ),
+          ),
+          ListTile(
+            subtitle: OverflowBar(
+              children: [
+                FilledButton(
+                  onPressed: () async {
+                    await clearContext();
+                    if (context.mounted) {
+                      setState(() {});
+                    }
+                  },
+                  child: Text("Clear Context"),
+                ),
+                FilledButton(
+                  onPressed: () async {
+                    await updateWearData(reason: "Manual Refresh");
+                    if (context.mounted) {
+                      setState(() {});
+                    }
+                  },
+                  child: Text("Refresh Context"),
+                ),
+              ],
             ),
           ),
         ],

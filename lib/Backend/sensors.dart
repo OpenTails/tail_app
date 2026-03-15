@@ -177,7 +177,7 @@ abstract class TriggerDefinition extends ChangeNotifier implements Comparable<Tr
 
     //Refresh wear data when a trigger is enabled/disabled
     // ignore: unused_result
-    updateWearData();
+    updateWearData(reason: "Trigger Enabled/Disabled");
   }
 
   Future<void> onEnable();
@@ -1058,7 +1058,7 @@ class TriggerList with ChangeNotifier {
     await HiveProxy.clear<Trigger>(triggerBox);
     await HiveProxy.addAll<Trigger>(triggerBox, _state);
     notifyListeners();
-    updateWearData();
+    updateWearData(reason: "Trigger Added/Removed");
   }
 }
 

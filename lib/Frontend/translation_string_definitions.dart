@@ -535,4 +535,6 @@ String watchFavoriteActionsNoFavoritesTip() =>
 String watchFavoriteActionsTitle() => Intl.message("Favorite Actions", name: 'watchFavoriteActionsTitle', desc: 'title for the favorite actions section of the watch app');
 
 String watchKnownGearNoGearPairedTip() =>
-    Intl.message("On your phone, Use the `Scan For New Gear` button to pair your gear", name: 'watchKnownGearNoGearPairedTip', desc: 'the tip for when no actions are favorited on the watch app');
+    Intl.message("On your phone, Use the `Scan For New Gear` button to pair your gear", name: 'watchKnownGearNoGearPairedTip', desc: 'the tip for when no gear is paired that shows on the watch app');
+String watchPhoneAppNotOpen() =>
+    Intl.message("Please open 'The Tail Co' app on your phone to connect your gear.", name: 'watchPhoneAppNotOpen', desc: 'the message that informs the user to open the phone app');
