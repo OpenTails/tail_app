@@ -6,7 +6,6 @@ import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/ear_speed_widget.dart';
@@ -24,32 +23,41 @@ import '../translation_string_definitions.dart';
 import '../utils.dart';
 import 'home.dart';
 
-class ActionPage extends ConsumerWidget {
+class ActionPage extends StatelessWidget {
   const ActionPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return const ActionPageBuilder();
   }
 }
 
-class ActionPageBuilder extends ConsumerStatefulWidget {
+class ActionPageBuilder extends StatefulWidget {
   const ActionPageBuilder({super.key});
 
   @override
-  ConsumerState<ActionPageBuilder> createState() => _ActionPageBuilderState();
+  State<ActionPageBuilder> createState() => _ActionPageBuilderState();
 }
 
-class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
+class _ActionPageBuilderState extends State<ActionPageBuilder> {
   @override
   Widget build(BuildContext context) {
-    bool largerCards = HiveProxy.getOrDefault(settings, largerActionCardSize, defaultValue: largerActionCardSizeDefault);
-    BuiltMap<String, BuiltSet<BaseAction>> actionsCatMap = ref.watch(getAvailableActionsProvider);
-    List<String> catList = actionsCatMap.keys.toList();
+    bool largerCards = HiveProxy.getOrDefault(
+      settings,
+      largerActionCardSize,
+      defaultValue: largerActionCardSizeDefault,
+    );
     return ListenableBuilder(
-      listenable: KnownDevices.instance,
+      listenable: GetActions.instance,
       builder: (context, child) {
-        List<BaseStatefulDevice> knownDevicesFiltered = KnownDevices.instance.connectedGear.toList();
+        List<BaseStatefulDevice> knownDevicesFiltered = KnownDevices
+            .instance
+            .connectedGear
+            .toList();
+        BuiltMap<String, BuiltSet<BaseAction>> actionsCatMap = GetActions
+            .instance
+            .getActions(onlyConnected: true);
+        List<String> catList = actionsCatMap.keys.toList();
 
         return AnimatedSwitcher(
           duration: animationTransitionDuration,
@@ -57,13 +65,30 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
               ? ListenableBuilder(
                   listenable: FavoriteActions.instance,
                   builder: (context, child) {
-                    Iterable<BaseAction> availableFavorites = actionsCatMap.values.flattened.where((element) => FavoriteActions.instance.state.any((favorite) => favorite.actionUUID == element.uuid));
+                    Iterable<BaseAction> availableFavorites = actionsCatMap
+                        .values
+                        .flattened
+                        .where(
+                          (element) => FavoriteActions.instance.state.any(
+                            (favorite) => favorite.actionUUID == element.uuid,
+                          ),
+                        );
                     return ListView(
                       shrinkWrap: false,
                       children: [
                         AnimatedSwitcher(
                           duration: animationTransitionDuration,
-                          child: KnownDevices.instance.getConnectedGearForType(BuiltSet([DeviceType.ears])).where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy).isNotEmpty
+                          child:
+                              KnownDevices.instance
+                                  .getConnectedGearForType(
+                                    BuiltSet([DeviceType.ears]),
+                                  )
+                                  .where(
+                                    (p0) =>
+                                        p0.isTailCoNTROL.value ==
+                                        TailControlStatus.legacy,
+                                  )
+                                  .isNotEmpty
                               ? const EarSpeedWidget()
                               : null,
                         ),
@@ -72,14 +97,25 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                           secondChild: GridView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: largerCards ? 250 : 125,
+                                ),
                             itemCount: availableFavorites.length,
                             itemBuilder: (BuildContext context, int index) {
-                              BaseAction baseAction = availableFavorites.toList()[index];
-                              return ActionCard(actionIndex: index, knownDevices: knownDevicesFiltered, action: baseAction, largerCards: largerCards);
+                              BaseAction baseAction = availableFavorites
+                                  .toList()[index];
+                              return ActionCard(
+                                actionIndex: index,
+                                knownDevices: knownDevicesFiltered,
+                                action: baseAction,
+                                largerCards: largerCards,
+                              );
                             },
                           ),
-                          crossFadeState: availableFavorites.isEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                          crossFadeState: availableFavorites.isEmpty
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
                           duration: animationTransitionDuration,
                         ),
                         ListView.builder(
@@ -87,22 +123,49 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
                           itemCount: catList.length,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int categoryIndex) {
-                            List<BaseAction> actionsForCat = actionsCatMap.values.toList()[categoryIndex].toList();
+                            List<BaseAction> actionsForCat = actionsCatMap
+                                .values
+                                .toList()[categoryIndex]
+                                .toList();
                             return FadeIn(
-                              delay: Duration(milliseconds: 100 * categoryIndex),
+                              delay: Duration(
+                                milliseconds: 100 * categoryIndex,
+                              ),
                               child: ListView(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 children: [
-                                  Center(child: Text(catList[categoryIndex], style: Theme.of(context).textTheme.titleLarge)),
+                                  Center(
+                                    child: Text(
+                                      catList[categoryIndex],
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleLarge,
+                                    ),
+                                  ),
                                   GridView.builder(
-                                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: largerCards ? 250 : 125),
-                                    physics: const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                          maxCrossAxisExtent: largerCards
+                                              ? 250
+                                              : 125,
+                                        ),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: actionsForCat.length,
-                                    itemBuilder: (BuildContext context, int actionIndex) {
-                                      return ActionCard(actionIndex: actionIndex, knownDevices: knownDevicesFiltered, action: actionsForCat[actionIndex], largerCards: largerCards);
-                                    },
+                                    itemBuilder:
+                                        (
+                                          BuildContext context,
+                                          int actionIndex,
+                                        ) {
+                                          return ActionCard(
+                                            actionIndex: actionIndex,
+                                            knownDevices: knownDevicesFiltered,
+                                            action: actionsForCat[actionIndex],
+                                            largerCards: largerCards,
+                                          );
+                                        },
                                   ),
                                 ],
                               ),
@@ -120,88 +183,142 @@ class _ActionPageBuilderState extends ConsumerState<ActionPageBuilder> {
   }
 }
 
-class ActionCard extends ConsumerStatefulWidget {
+class ActionCard extends StatefulWidget {
   final int actionIndex;
   final List<BaseStatefulDevice> knownDevices;
   final BaseAction action;
   final bool largerCards;
 
-  const ActionCard({required this.actionIndex, required this.knownDevices, required this.action, required this.largerCards, super.key});
+  const ActionCard({
+    required this.actionIndex,
+    required this.knownDevices,
+    required this.action,
+    required this.largerCards,
+    super.key,
+  });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ActionCardState();
+  State<StatefulWidget> createState() => _ActionCardState();
 }
 
-class _ActionCardState extends ConsumerState<ActionCard> {
+class _ActionCardState extends State<ActionCard> {
   @override
   Widget build(BuildContext context) {
-    Color color = ref.watch(getColorForDeviceTypeProvider(widget.action.deviceCategory.toBuiltSet()));
-    Color textColor = getTextColor(color);
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      color: color,
-      elevation: 1,
-      child: InkWell(
-        onLongPress: () async {
-          if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
-            HapticFeedback.mediumImpact();
-            setState(() {
-              if (FavoriteActions.instance.contains(widget.action)) {
-                FavoriteActions.instance.remove(widget.action);
-              } else {
-                FavoriteActions.instance.add(widget.action);
+    return ListenableBuilder(
+      listenable: KnownDevices.instance,
+      builder: (context, child) {
+        Color color = getColor(widget.action.deviceCategory.toBuiltSet());
+        Color textColor = getTextColor(color);
+        return Card(
+          clipBehavior: Clip.antiAlias,
+          color: color,
+          elevation: 1,
+          child: InkWell(
+            onLongPress: () async {
+              if (HiveProxy.getOrDefault(
+                settings,
+                haptics,
+                defaultValue: hapticsDefault,
+              )) {
+                HapticFeedback.mediumImpact();
+                setState(() {
+                  if (FavoriteActions.instance.contains(widget.action)) {
+                    FavoriteActions.instance.remove(widget.action);
+                  } else {
+                    FavoriteActions.instance.add(widget.action);
+                  }
+                });
               }
-            });
-          }
-        },
-        onTap: () async {
-          if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
-            HapticFeedback.selectionClick();
-          }
-          for (var device in getByAction(widget.action).toList()..shuffle()) {
-            if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
-              await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
-            }
-            runAction(device, widget.action, triggeredBy: "Actions Page");
-          }
-        },
-        child: SizedBox.expand(
-          child: Stack(
-            children: [
-              // Shows when an action is in progress
-              AnimatedCrossFade(
-                firstChild: Center(child: Container()),
-                secondChild: const Center(child: CircularProgressIndicator()),
-                crossFadeState: ref.watch(isGearMoveRunningProvider(widget.action.deviceCategory.toBuiltSet())) ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                alignment: Alignment.center,
-                duration: animationTransitionDuration,
+            },
+            onTap: () async {
+              if (HiveProxy.getOrDefault(
+                settings,
+                haptics,
+                defaultValue: hapticsDefault,
+              )) {
+                HapticFeedback.selectionClick();
+              }
+              for (var device in getByAction(
+                widget.action,
+              ).toList()..shuffle()) {
+                if (HiveProxy.getOrDefault(
+                  settings,
+                  kitsuneModeToggle,
+                  defaultValue: kitsuneModeDefault,
+                )) {
+                  await Future.delayed(
+                    Duration(milliseconds: Random().nextInt(kitsuneDelayRange)),
+                  );
+                }
+                runAction(device, widget.action, triggeredBy: "Actions Page");
+              }
+            },
+            child: SizedBox.expand(
+              child: Stack(
+                children: [
+                  // Shows when an action is in progress
+                  ListenableBuilder(
+                    listenable: IsGearMoveRunning.instance,
+                    builder: (context, child) {
+                      return AnimatedCrossFade(
+                        firstChild: Center(child: Container()),
+                        secondChild: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        crossFadeState:
+                            IsGearMoveRunning.instance.getState(
+                              widget.action.deviceCategory.toBuiltSet(),
+                            )
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                        alignment: Alignment.center,
+                        duration: animationTransitionDuration,
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(widget.largerCards ? 16 : 8),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: FavoriteActions.instance.contains(widget.action)
+                          ? Transform.scale(
+                              scale: widget.largerCards ? 1.8 : 0.8,
+                              child: Icon(Icons.favorite, color: textColor),
+                            )
+                          : null,
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      convertToUwU(
+                        widget.action.getName(
+                          KnownDevices.instance.connectedGearTypes,
+                        ),
+                      ),
+                      semanticsLabel: widget.action.name,
+                      overflow: TextOverflow.fade,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.labelLarge!.copyWith(color: textColor),
+                      textScaler: TextScaler.linear(widget.largerCards ? 2 : 1),
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.all(widget.largerCards ? 16 : 8),
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: FavoriteActions.instance.contains(widget.action)
-                      ? Transform.scale(
-                          scale: widget.largerCards ? 1.8 : 0.8,
-                          child: Icon(Icons.favorite, color: textColor),
-                        )
-                      : null,
-                ),
-              ),
-              Center(
-                child: Text(
-                  convertToUwU(widget.action.getName(KnownDevices.instance.connectedGearTypes)),
-                  semanticsLabel: widget.action.name,
-                  overflow: TextOverflow.fade,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),
-                  textScaler: TextScaler.linear(widget.largerCards ? 2 : 1),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
+  }
+
+  Color getColor(BuiltSet<DeviceType> deviceTypes) {
+    final BuiltList<BaseStatefulDevice> watch = KnownDevices.instance
+        .getConnectedGearForType(deviceTypes);
+    if (watch.isEmpty) {
+      return deviceTypes.first.color();
+    }
+    return Color(watch.first.baseStoredDevice.color);
   }
 }

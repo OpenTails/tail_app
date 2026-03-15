@@ -1,9 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/firmware_update.dart';
 import '../../Backend/logging_wrappers.dart';
@@ -13,30 +12,42 @@ import '../Widgets/lottie_lazy_load.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
-class OtaUpdate extends ConsumerStatefulWidget {
-  const OtaUpdate({required this.device, super.key});
+class OtaUpdate extends StatefulWidget {
+  late final OtaUpdater otaUpdater;
+  final String deviceMac;
+  late final BaseStatefulDevice device;
 
-  final String device;
+  OtaUpdate({required this.deviceMac, super.key}) {
+    device = KnownDevices.instance.connectedGear.firstWhere(
+      (p0) => p0.baseStoredDevice.btMACAddress == deviceMac,
+    );
+    otaUpdater = OtaUpdater(device);
+  }
 
   @override
-  ConsumerState<OtaUpdate> createState() => _OtaUpdateState();
+  State<OtaUpdate> createState() => _OtaUpdateState();
 }
 
-class _OtaUpdateState extends ConsumerState<OtaUpdate> {
-  BaseStatefulDevice? baseStatefulDevice;
+class _OtaUpdateState extends State<OtaUpdate> {
   OtaError? otaError;
 
   @override
   void initState() {
     super.initState();
-    baseStatefulDevice = KnownDevices.instance.state[widget.device];
-    hasOtaUpdate(baseStatefulDevice!);
-    ref.read(otaUpdaterProvider(baseStatefulDevice!).notifier).onError = ((OtaError p0) => setState(() => otaError = p0));
+    hasOtaUpdate(widget.device);
+    widget.otaUpdater.addListener(onStateChange);
+    widget.otaUpdater.onError = ((OtaError p0) =>
+        setState(() => otaError = p0));
   }
 
   @override
   void dispose() {
     super.dispose();
+    widget.otaUpdater.removeListener(onStateChange);
+  }
+
+  void onStateChange() {
+    setState(() {});
   }
 
   String getErrorMessage(OtaError otaError) {
@@ -62,8 +73,8 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
 
   @override
   Widget build(BuildContext context) {
-    OtaState otaState = ref.watch(otaUpdaterProvider(baseStatefulDevice!));
-    OtaUpdater otaUpdater = ref.read(otaUpdaterProvider(baseStatefulDevice!).notifier);
+    OtaState otaState = widget.otaUpdater.otaState;
+
     return Scaffold(
       appBar: AppBar(title: Text(convertToUwU(otaTitle()))),
       body: Center(
@@ -75,24 +86,35 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
             direction: Axis.vertical,
             children: [
               if ([OtaState.standby, OtaState.manual].contains(otaState)) ...[
-                if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                if (HiveProxy.getOrDefault(
+                  settings,
+                  showDebugging,
+                  defaultValue: showDebuggingDefault,
+                )) ...[
                   Expanded(
                     child: ListTile(
                       title: const Text("Debug"),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("MD5: ${otaUpdater.firmwareInfo?.md5sum}"),
-                          Text("DL MD5: ${otaUpdater.downloadedMD5}"),
+                          Text(
+                            "MD5: ${widget.otaUpdater.firmwareInfo?.md5sum}",
+                          ),
+                          Text("DL MD5: ${widget.otaUpdater.downloadedMD5}"),
                           FutureBuilder(
-                            future: baseStatefulDevice?.baseDeviceDefinition.getFwURL(),
+                            future: widget.device.baseDeviceDefinition
+                                .getFwURL(),
                             builder: (context, snapshot) {
                               return Text("URL: ${snapshot.data ?? ""}");
                             },
                           ),
-                          Text("AVAILABLE VERSION: ${otaUpdater.firmwareInfo?.version}"),
-                          Text("CURRENT VERSION: ${baseStatefulDevice?.fwVersion.value}"),
-                          Text("STATE: ${otaState}"),
+                          Text(
+                            "AVAILABLE VERSION: ${widget.otaUpdater.firmwareInfo?.version}",
+                          ),
+                          Text(
+                            "CURRENT VERSION: ${widget.device.fwVersion.value}",
+                          ),
+                          Text("STATE: $otaState"),
                         ],
                       ),
                     ),
@@ -101,12 +123,23 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   flex: 2,
                   child: Center(
-                    child: LottieLazyLoad(width: MediaQuery.of(context).size.width, asset: Assets.tailcostickers.tailCoStickersFile144834357),
+                    child: LottieLazyLoad(
+                      width: MediaQuery.of(context).size.width,
+                      asset: Assets.tailcostickers.tailCoStickersFile144834357,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: SingleChildScrollView(
-                    child: ListTile(title: Text(convertToUwU(otaChangelogLabel())), subtitle: Text(convertToUwU(otaUpdater.firmwareInfo?.changelog ?? "Unavailable"))),
+                    child: ListTile(
+                      title: Text(convertToUwU(otaChangelogLabel())),
+                      subtitle: Text(
+                        convertToUwU(
+                          widget.otaUpdater.firmwareInfo?.changelog ??
+                              "Unavailable",
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
@@ -115,23 +148,56 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                       alignment: MainAxisAlignment.center,
                       children: [
                         FilledButton(
-                          onPressed: (otaUpdater.firmwareInfo != null || otaUpdater.firmwareFile != null) ? otaUpdater.beginUpdate : null,
+                          onPressed:
+                              (widget.otaUpdater.firmwareInfo != null ||
+                                  widget.otaUpdater.firmwareFile != null)
+                              ? widget.otaUpdater.beginUpdate
+                              : null,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.system_update, color: getTextColor(Theme.of(context).colorScheme.primary)),
-                              const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
-                              Text(convertToUwU(otaDownloadButtonLabel()), style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(Theme.of(context).colorScheme.primary))),
+                              Icon(
+                                Icons.system_update,
+                                color: getTextColor(
+                                  Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4),
+                              ),
+                              Text(
+                                convertToUwU(otaDownloadButtonLabel()),
+                                style: Theme.of(context).textTheme.labelLarge!
+                                    .copyWith(
+                                      color: getTextColor(
+                                        Theme.of(context).colorScheme.primary,
+                                      ),
+                                    ),
+                              ),
                             ],
                           ),
                         ),
-                        if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                        if (HiveProxy.getOrDefault(
+                          settings,
+                          showDebugging,
+                          defaultValue: showDebuggingDefault,
+                        )) ...[
                           ElevatedButton(
                             onPressed: () async {
-                              FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, withData: true, allowedExtensions: ['bin']);
+                              FilePickerResult? result = await FilePicker
+                                  .platform
+                                  .pickFiles(
+                                    type: FileType.custom,
+                                    withData: true,
+                                    allowedExtensions: ['bin'],
+                                  );
                               if (result != null) {
                                 setState(() {
-                                  otaUpdater.setManualOtaFile(result.files.single.bytes?.toList(growable: false));
+                                  widget.otaUpdater.setManualOtaFile(
+                                    result.files.single.bytes?.toList(
+                                      growable: false,
+                                    ),
+                                  );
                                 });
                               } else {
                                 // User canceled the picker
@@ -149,14 +215,21 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   child: Center(
                     child: ListTile(
-                      title: Text(convertToUwU(otaCompletedTitle()), style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+                      title: Text(
+                        convertToUwU(otaCompletedTitle()),
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 2,
                   child: Center(
-                    child: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834339, width: MediaQuery.of(context).size.width),
+                    child: LottieLazyLoad(
+                      asset: Assets.tailcostickers.tailCoStickersFile144834339,
+                      width: MediaQuery.of(context).size.width,
+                    ),
                   ),
                 ),
               ],
@@ -164,15 +237,27 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   child: Center(
                     child: ListTile(
-                      title: Text(convertToUwU(otaFailedTitle()), style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
-                      subtitle: Text(convertToUwU(otaError != null ? getErrorMessage(otaError!) : ""), textAlign: TextAlign.center),
+                      title: Text(
+                        convertToUwU(otaFailedTitle()),
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                      subtitle: Text(
+                        convertToUwU(
+                          otaError != null ? getErrorMessage(otaError!) : "",
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 2,
                   child: Center(
-                    child: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834348, width: MediaQuery.of(context).size.width),
+                    child: LottieLazyLoad(
+                      asset: Assets.tailcostickers.tailCoStickersFile144834348,
+                      width: MediaQuery.of(context).size.width,
+                    ),
                   ),
                 ),
               ],
@@ -180,52 +265,85 @@ class _OtaUpdateState extends ConsumerState<OtaUpdate> {
                 Expanded(
                   child: Center(
                     child: ListTile(
-                      title: Text(convertToUwU(otaLowBattery()), style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+                      title: Text(
+                        convertToUwU(otaLowBattery()),
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 2,
                   child: Center(
-                    child: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834342, width: MediaQuery.of(context).size.width),
+                    child: LottieLazyLoad(
+                      asset: Assets.tailcostickers.tailCoStickersFile144834342,
+                      width: MediaQuery.of(context).size.width,
+                    ),
                   ),
                 ),
               ],
-              if ([OtaState.download, OtaState.upload, OtaState.rebooting].contains(otaState)) ...[
+              if ([
+                OtaState.download,
+                OtaState.upload,
+                OtaState.rebooting,
+              ].contains(otaState)) ...[
                 Expanded(
                   child: Center(
                     child: ListTile(
-                      title: Text(convertToUwU(otaInProgressTitle()), style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+                      title: Text(
+                        convertToUwU(otaInProgressTitle()),
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: LottieLazyLoad(asset: Assets.tailcostickers.tailCoStickersFile144834340, width: MediaQuery.of(context).size.width, renderCache: true),
+                  child: LottieLazyLoad(
+                    asset: Assets.tailcostickers.tailCoStickersFile144834340,
+                    width: MediaQuery.of(context).size.width,
+                    renderCache: true,
+                  ),
                 ),
                 Expanded(
                   child: Center(
                     child: ListTile(
                       subtitle: Builder(
                         builder: (context) {
-                          return LinearProgressIndicator(value: otaState == OtaState.rebooting ? null : otaUpdater.progress);
+                          return LinearProgressIndicator(
+                            value: otaState == OtaState.rebooting
+                                ? null
+                                : widget.otaUpdater.progress,
+                          );
                         },
                       ),
                     ),
                   ),
                 ),
-                if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+                if (HiveProxy.getOrDefault(
+                  settings,
+                  showDebugging,
+                  defaultValue: showDebuggingDefault,
+                )) ...[
                   Expanded(
                     child: ListTile(
                       trailing: const Icon(Icons.bug_report),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Upload Progress: ${otaUpdater.currentFirmwareUploadPosition} / ${otaUpdater.firmwareFile?.length} = ${otaUpdater.uploadProgress.toStringAsPrecision(3)}'),
-                          Text('MTU: ${baseStatefulDevice!.mtu.value}'),
+                          Text(
+                            'Upload Progress: ${widget.otaUpdater.currentFirmwareUploadPosition} / ${widget.otaUpdater.firmwareFile?.length} = ${widget.otaUpdater.uploadProgress.toStringAsPrecision(3)}',
+                          ),
+                          Text('MTU: ${widget.device.mtu.value}'),
                           Text('OtaState: ${otaState.name}'),
-                          Text('DeviceState: ${baseStatefulDevice!.deviceState.value}'),
-                          Text('ConnectivityState: ${baseStatefulDevice!.deviceConnectionState.value}'),
+                          Text(
+                            'DeviceState: ${widget.device.deviceState.value}',
+                          ),
+                          Text(
+                            'ConnectivityState: ${widget.device.deviceConnectionState.value}',
+                          ),
                         ],
                       ),
                     ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -18,11 +17,18 @@ class PageInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool show = !HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault);
+    bool show = !HiveProxy.getOrDefault(
+      settings,
+      hideTutorialCards,
+      defaultValue: hideTutorialCardsDefault,
+    );
     if (show) {
       return BaseCard(
         child: Center(
-          child: Padding(padding: const EdgeInsets.all(16.0), child: Text(convertToUwU(text))),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(convertToUwU(text)),
+          ),
         ),
       );
     } else {
@@ -31,15 +37,20 @@ class PageInfoCard extends StatelessWidget {
   }
 }
 
-class GearOutOfDateWarning extends ConsumerWidget {
+class GearOutOfDateWarning extends StatelessWidget {
   const GearOutOfDateWarning({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: KnownDevices.instance,
       builder: (BuildContext context, Widget? child) {
-        List<ValueNotifier<bool>> valueNotifiers = KnownDevices.instance.state.values.map((e) => e.mandatoryOtaRequired).toList();
+        List<ValueNotifier<bool>> valueNotifiers = KnownDevices
+            .instance
+            .state
+            .values
+            .map((e) => e.mandatoryOtaRequired)
+            .toList();
         if (valueNotifiers.isNotEmpty) {
           return MultiValueListenableBuilder(
             valueListenables: valueNotifiers,
@@ -50,7 +61,13 @@ class GearOutOfDateWarning extends ConsumerWidget {
                   color: color,
                   child: InkWell(
                     onTap: () async {
-                      String? mac = KnownDevices.instance.state.values.where((element) => element.mandatoryOtaRequired.value).firstOrNull?.baseStoredDevice.btMACAddress;
+                      String? mac = KnownDevices.instance.state.values
+                          .where(
+                            (element) => element.mandatoryOtaRequired.value,
+                          )
+                          .firstOrNull
+                          ?.baseStoredDevice
+                          .btMACAddress;
                       if (mac != null) {
                         OtaUpdateRoute(device: mac).push(context);
                       }
@@ -58,7 +75,11 @@ class GearOutOfDateWarning extends ConsumerWidget {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Text(convertToUwU(featureLimitedOtaRequiredLabel()), style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color))),
+                        child: Text(
+                          convertToUwU(featureLimitedOtaRequiredLabel()),
+                          style: Theme.of(context).textTheme.labelLarge!
+                              .copyWith(color: getTextColor(color)),
+                        ),
                       ),
                     ),
                   ),

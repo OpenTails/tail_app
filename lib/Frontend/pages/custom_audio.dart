@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:built_collection/built_collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tail_app/Backend/analytics.dart';
@@ -17,14 +16,14 @@ import '../translation_string_definitions.dart';
 
 final Logger _audioLogger = Logger('Audio');
 
-class CustomAudio extends ConsumerStatefulWidget {
+class CustomAudio extends StatefulWidget {
   const CustomAudio({super.key});
 
   @override
-  ConsumerState<CustomAudio> createState() => _CustomAudioState();
+  State<CustomAudio> createState() => _CustomAudioState();
 }
 
-class _CustomAudioState extends ConsumerState<CustomAudio> {
+class _CustomAudioState extends State<CustomAudio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +31,19 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           _audioLogger.info("Opening file dialog");
-          FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, withReadStream: true, allowedExtensions: ['aac', 'm4a', 'flac', 'wav', 'avif', 'mp3', 'ac3']);
+          FilePickerResult? result = await FilePicker.platform.pickFiles(
+            type: FileType.custom,
+            withReadStream: true,
+            allowedExtensions: [
+              'aac',
+              'm4a',
+              'flac',
+              'wav',
+              'avif',
+              'mp3',
+              'ac3',
+            ],
+          );
           if (result != null) {
             _audioLogger.info("Selected file");
             PlatformFile file = result.files.first;
@@ -49,7 +60,10 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
             ioSinkWrite.close();
             _audioLogger.info("Wrote file to app storage");
             AudioAction action = AudioAction(
-              name: file.name.substring(0, file.name.lastIndexOf(".")).replaceAll("_", " ").replaceAll("-", " "),
+              name: file.name
+                  .substring(0, file.name.lastIndexOf("."))
+                  .replaceAll("_", " ")
+                  .replaceAll("-", " "),
               uuid: const Uuid().v4(),
               file: storedAudioFilePath.path,
             );
@@ -69,7 +83,8 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
           ListenableBuilder(
             listenable: UserAudioActions.instance,
             builder: (context, child) {
-              BuiltList<AudioAction> userAudioActions = UserAudioActions.instance.state;
+              BuiltList<AudioAction> userAudioActions =
+                  UserAudioActions.instance.state;
 
               return ListView.builder(
                 itemCount: userAudioActions.length,
@@ -95,16 +110,28 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
                                 title: Text(convertToUwU(audioDelete())),
-                                content: Text(convertToUwU(audioDeleteDescription())),
+                                content: Text(
+                                  convertToUwU(audioDeleteDescription()),
+                                ),
                                 actions: <Widget>[
-                                  TextButton(onPressed: () => Navigator.pop(context, false), child: Text(convertToUwU(cancel()))),
-                                  TextButton(onPressed: () => Navigator.pop(context, true), child: Text(convertToUwU(ok()))),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, false),
+                                    child: Text(convertToUwU(cancel())),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, true),
+                                    child: Text(convertToUwU(ok())),
+                                  ),
                                 ],
                               ),
                             ).then((value) async {
                               if (value ?? true) {
                                 UserAudioActions.instance.remove(audioAction);
-                                File storedAudioFilePath = File(audioAction.file);
+                                File storedAudioFilePath = File(
+                                  audioAction.file,
+                                );
                                 await storedAudioFilePath.delete();
                                 setState(() {
                                   _audioLogger.info("Deleted audio file");
@@ -149,8 +176,13 @@ class _CustomAudioState extends ConsumerState<CustomAudio> {
                   children: [
                     ListTile(
                       subtitle: TextField(
-                        controller: TextEditingController(text: audioAction.name),
-                        decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName()),
+                        controller: TextEditingController(
+                          text: audioAction.name,
+                        ),
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          labelText: sequencesEditName(),
+                        ),
                         maxLines: 1,
                         scrollPhysics: const NeverScrollableScrollPhysics(),
                         maxLength: 30,

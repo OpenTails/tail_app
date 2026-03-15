@@ -21,7 +21,8 @@
     "enableErrorReporting": true,
     "enableCoshubPosts": true,
     "enableTailBlogPosts": true,
-    "analyticsTickDurationSeconds": 30
+    "analyticsTickDurationSeconds": 30,
+    "hideOtaCheck": true
   },
   "updateURLs": {
     "_commant": "bt name : ota info url",

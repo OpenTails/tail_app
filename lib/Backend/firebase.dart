@@ -1,38 +1,61 @@
 import 'package:collection/collection.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 part 'firebase.g.dart';
+
 part 'firebase.freezed.dart';
 
-@Riverpod(keepAlive: true)
-Future<void> initCosHubFirebase(Ref ref) async {
+@freezed
+abstract class CosHubPost with _$CosHubPost {
+  const factory CosHubPost({
+    required String id,
+    required String url,
+    String? character,
+    required String thumbnailUrl,
+    String? profileThumbnailUrl,
+    required String username,
+    required DateTime timestamp,
+  }) = _CosHubPost;
+
+  factory CosHubPost.fromJson(Map<String, dynamic> json) =>
+      _$CosHubPostFromJson(json);
+}
+
+Future<void> initFirebase() async {
+  final String cosHubFirebaseAppName = "CosHub";
+
+  // Skip if already loaded
+  if (Firebase.apps
+      .where((element) => element.name == cosHubFirebaseAppName)
+      .isNotEmpty) {
+    return;
+  }
   await Firebase.initializeApp(
-    name: 'CosHub', // Give your second app a custom name
+    name: cosHubFirebaseAppName, // Give your second app a custom name
     options: CosHubFirebaseOptions.currentPlatform,
   );
 }
 
-@freezed
-abstract class CosHubPost with _$CosHubPost {
-  const factory CosHubPost({required String id, required String url, String? character, required String thumbnailUrl, String? profileThumbnailUrl, required String username, required DateTime timestamp}) = _CosHubPost;
-
-  factory CosHubPost.fromJson(Map<String, dynamic> json) => _$CosHubPostFromJson(json);
-}
-
-@Riverpod()
-Future<List<CosHubPost>> getCosHubPosts(Ref ref) async {
-  await ref.read(initCosHubFirebaseProvider.future);
+Future<List<CosHubPost>> getCosHubPosts() async {
+  await initFirebase();
   FirebaseApp secondaryApp = Firebase.app("CosHub");
-  FirebaseFirestore firestore = FirebaseFirestore.instanceFor(app: secondaryApp);
+  FirebaseFirestore firestore = FirebaseFirestore.instanceFor(
+    app: secondaryApp,
+  );
   final appConstants = firestore.collection("appConstants");
-  DocumentSnapshot<Map<String, dynamic>> featuredCosplayersUserIdsQuery = await appConstants.doc("featured_cosplayers").get();
-  List<dynamic> featuredCosplayersUserIds = featuredCosplayersUserIdsQuery.data()!["user"] as List<dynamic>;
-  final QuerySnapshot<Map<String, dynamic>> usersQuery = await firestore.collection("users").where("id", whereIn: featuredCosplayersUserIds).get();
+  DocumentSnapshot<Map<String, dynamic>> featuredCosplayersUserIdsQuery =
+      await appConstants.doc("featured_cosplayers").get();
+  List<dynamic> featuredCosplayersUserIds =
+      featuredCosplayersUserIdsQuery.data()!["user"] as List<dynamic>;
+  final QuerySnapshot<Map<String, dynamic>> usersQuery = await firestore
+      .collection("users")
+      .where("id", whereIn: featuredCosplayersUserIds)
+      .get();
 
   List<CosHubPost> mappedPosts = [];
 
@@ -54,7 +77,11 @@ Future<List<CosHubPost>> getCosHubPosts(Ref ref) async {
             return postImageUrls != null && postImageUrls.isNotEmpty;
           })
           .map((postData) {
-            Map<String, dynamic> userData = usersQuery.docs.firstWhere((element) => element.data()["id"] == postData["userId"]).data();
+            Map<String, dynamic> userData = usersQuery.docs
+                .firstWhere(
+                  (element) => element.data()["id"] == postData["userId"],
+                )
+                .data();
             CosHubPost cosHubPost = CosHubPost(
               id: postData["id"],
               url: cosHubUrl,
@@ -62,11 +89,12 @@ Future<List<CosHubPost>> getCosHubPosts(Ref ref) async {
               profileThumbnailUrl: userData["profilePicture"],
               username: userData["username"],
               character: postData["character"],
-              timestamp: (postData['createdAt'] as Timestamp).toDate()
+              timestamp: (postData['createdAt'] as Timestamp).toDate(),
             );
             return cosHubPost;
           })
-          .sortedBy((element) => element.timestamp,).toList(),
+          .sortedBy((element) => element.timestamp)
+          .toList(),
     );
   }
 

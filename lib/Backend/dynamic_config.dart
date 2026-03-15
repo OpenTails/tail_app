@@ -77,6 +77,7 @@ abstract class FeatureFlags with _$FeatureFlags {
     @Default(true) bool enableCoshubPosts,
     @Default(true) bool enableTailBlogPosts,
     @Default(30) int analyticsTickDurationSeconds,
+    @Default(true) bool hideOtaCheck,
   }) = _FeatureFlags;
 
   factory FeatureFlags.fromJson(Map<String, dynamic> json) =>

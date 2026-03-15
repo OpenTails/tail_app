@@ -8,12 +8,13 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_ce/hive.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:intl/intl.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
@@ -23,55 +24,102 @@ import '../constants.dart';
 import '../l10n/app_localizations.dart';
 import '../l10n/messages_all_locales.dart';
 
-part 'utils.g.dart';
-
 enum BluetoothPermissionStatus { granted, denied, unknown }
 
 Lock _bluetoothPermissionsLock = Lock();
 
-BluetoothPermissionStatus _bluetoothPermissionStatus = BluetoothPermissionStatus.unknown;
+BluetoothPermissionStatus _bluetoothPermissionStatus =
+    BluetoothPermissionStatus.unknown;
+
 Future<BluetoothPermissionStatus> getBluetoothPermission() async {
   return _bluetoothPermissionsLock.synchronized(() async {
     if (_bluetoothPermissionStatus == BluetoothPermissionStatus.granted) {
       return BluetoothPermissionStatus.granted;
     }
     BluetoothPermissionStatus status = BluetoothPermissionStatus.unknown;
-    if (Platform.isAndroid && (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
-      PermissionStatus permissionStatusScan = await Permission.bluetoothScan.request();
+    if (Platform.isAndroid &&
+        (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
+      PermissionStatus permissionStatusScan = await Permission.bluetoothScan
+          .request();
       //logger.info("permissionStatusScan $permissionStatusScan");
-      status = PermissionStatus.granted == permissionStatusScan ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+      status = PermissionStatus.granted == permissionStatusScan
+          ? BluetoothPermissionStatus.granted
+          : BluetoothPermissionStatus.denied;
 
-      PermissionStatus permissionStatusConnect = await Permission.bluetoothConnect.request();
+      PermissionStatus permissionStatusConnect = await Permission
+          .bluetoothConnect
+          .request();
       //logger.info("permissionStatusConnect $permissionStatusConnect");
-      status = status == BluetoothPermissionStatus.granted && PermissionStatus.granted == permissionStatusConnect ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+      status =
+          status == BluetoothPermissionStatus.granted &&
+              PermissionStatus.granted == permissionStatusConnect
+          ? BluetoothPermissionStatus.granted
+          : BluetoothPermissionStatus.denied;
     } else if (Platform.isAndroid) {
-      PermissionStatus permissionStatusLocation = await Permission.location.request();
+      PermissionStatus permissionStatusLocation = await Permission.location
+          .request();
       //logger.info("permissionStatusLocation $permissionStatusLocation");
-      status = PermissionStatus.granted == permissionStatusLocation ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+      status = PermissionStatus.granted == permissionStatusLocation
+          ? BluetoothPermissionStatus.granted
+          : BluetoothPermissionStatus.denied;
 
-      PermissionStatus permissionStatusLocationInUse = await Permission.locationWhenInUse.request();
+      PermissionStatus permissionStatusLocationInUse = await Permission
+          .locationWhenInUse
+          .request();
       //logger.info("permissionStatusLocationInUse $permissionStatusLocationInUse");
-      status = status == BluetoothPermissionStatus.granted && PermissionStatus.granted == permissionStatusLocationInUse ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+      status =
+          status == BluetoothPermissionStatus.granted &&
+              PermissionStatus.granted == permissionStatusLocationInUse
+          ? BluetoothPermissionStatus.granted
+          : BluetoothPermissionStatus.denied;
     } else {
-      PermissionStatus permissionStatusBluetooth = await Permission.bluetooth.request();
+      PermissionStatus permissionStatusBluetooth = await Permission.bluetooth
+          .request();
       //logger.info("permissionStatusBluetooth $permissionStatusBluetooth");
-      status = PermissionStatus.granted == permissionStatusBluetooth ? BluetoothPermissionStatus.granted : BluetoothPermissionStatus.denied;
+      status = PermissionStatus.granted == permissionStatusBluetooth
+          ? BluetoothPermissionStatus.granted
+          : BluetoothPermissionStatus.denied;
     }
     return status;
   });
 }
 
-@Riverpod(keepAlive: true)
-Future<String> initLocale(Ref ref) async {
-  final String defaultLocale = Platform.localeName; // Returns locale string in the form 'en_US'
+class UserLocale with ChangeNotifier {
+  static final UserLocale instance = UserLocale._internal();
 
-  String locale =
-      AppLocalizations.supportedLocales.where((element) => element.toLanguageTag() == HiveProxy.getOrDefault(settings, selectedLocale, defaultValue: "")).map((e) => e.toLanguageTag()).firstOrNull ??
-      defaultLocale;
+  UserLocale._internal() {
+    Hive.box(settings).listenable(keys: [selectedLocale, uwuTextEnabled])
+      ..removeListener(_notify)
+      ..addListener(_notify);
+  }
 
-  await initializeMessages(locale);
-  Intl.defaultLocale = locale;
-  return locale;
+  void _notify() {
+    notifyListeners();
+  }
+
+  Future<String> get() async {
+    final String defaultLocale =
+        Platform.localeName; // Returns locale string in the form 'en_US'
+
+    String locale =
+        AppLocalizations.supportedLocales
+            .where(
+              (element) =>
+                  element.toLanguageTag() ==
+                  HiveProxy.getOrDefault(
+                    settings,
+                    selectedLocale,
+                    defaultValue: "",
+                  ),
+            )
+            .map((e) => e.toLanguageTag())
+            .firstOrNull ??
+        defaultLocale;
+
+    await initializeMessages(locale);
+    Intl.defaultLocale = locale;
+    return locale;
+  }
 }
 
 final dioLogger = Logger('Dio');
@@ -127,7 +175,10 @@ Future<WordpressClient> getWordpressClient() async {
     return _wordpressClient!;
   }
   Dio dio = await initDio();
-  return WordpressClient.fromDioInstance(baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'), instance: dio);
+  return WordpressClient.fromDioInstance(
+    baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'),
+    instance: dio,
+  );
 }
 
 Version getVersionSemVer(String input) {
@@ -141,16 +192,22 @@ Version getVersionSemVer(String input) {
   if (split.length > 1 && int.tryParse(split[1]) != null) {
     minor = split[1];
   }
-  if (split.length > 2 && int.tryParse(split[2].replaceAll(RegExp('[^0-9]'), '')) != null) {
+  if (split.length > 2 &&
+      int.tryParse(split[2].replaceAll(RegExp('[^0-9]'), '')) != null) {
     patch = split[2].replaceAll(RegExp('[^0-9]'), '');
   }
-  return Version(major: int.parse(major), minor: int.parse(minor), patch: int.parse(patch));
+  return Version(
+    major: int.parse(major),
+    minor: int.parse(minor),
+    patch: int.parse(patch),
+  );
 }
 
 Color getTextColor(Color color) {
   // Counting the perceptive luminance - human eye favors green color...
   // Does not work with r/g/b double values
-  double luminance = (0.299 * color.red + 0.587 * color.green + 0.114 * color.blue) / 255;
+  double luminance =
+      (0.299 * color.red + 0.587 * color.green + 0.114 * color.blue) / 255;
 
   if (luminance > 0.7) {
     return Typography.material2021().black.labelLarge!.color!;
@@ -166,7 +223,9 @@ Future<void> setupSystemColor(BuildContext context) async {
     statusBarIconBrightness: Brightness.dark /*Android=23*/,
     systemStatusBarContrastEnforced: false /*Android=29*/,
     systemNavigationBarColor: Colors.transparent /*Android=27*/,
-    systemNavigationBarDividerColor: Colors.transparent.withAlpha(1) /*Android=28,不能用全透明 */,
+    systemNavigationBarDividerColor: Colors.transparent.withAlpha(
+      1,
+    ) /*Android=28,不能用全透明 */,
     systemNavigationBarIconBrightness: Brightness.dark /*Android=27*/,
     systemNavigationBarContrastEnforced: false /*Android=29*/,
   );
@@ -178,7 +237,9 @@ Future<void> setupSystemColor(BuildContext context) async {
     systemNavigationBarColor: Colors.transparent,
     // 27
     systemStatusBarContrastEnforced: false /*Android=29*/,
-    systemNavigationBarDividerColor: Colors.transparent.withAlpha(1) /* 不能用全透明 */,
+    systemNavigationBarDividerColor: Colors.transparent.withAlpha(
+      1,
+    ) /* 不能用全透明 */,
     // 28
     systemNavigationBarIconBrightness: Brightness.dark,
     // 27
@@ -193,7 +254,8 @@ Future<void> setupSystemColor(BuildContext context) async {
 }
 
 Future<bool> isLimitedDataEnvironment() async {
-  final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+  final List<ConnectivityResult> connectivityResult = await (Connectivity()
+      .checkConnectivity());
   if (connectivityResult.contains(ConnectivityResult.none)) {
     return true;
   }
@@ -204,7 +266,12 @@ Future<bool> isLimitedDataEnvironment() async {
     return true;
   }
 
-  if (HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault) && isMobile) {
+  if (HiveProxy.getOrDefault(
+        settings,
+        tailBlogWifiOnly,
+        defaultValue: tailBlogWifiOnlyDefault,
+      ) &&
+      isMobile) {
     return true;
   }
   return false;

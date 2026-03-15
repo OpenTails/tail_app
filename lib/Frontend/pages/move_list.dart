@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -22,14 +21,14 @@ import '../Widgets/tutorial_card.dart';
 import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 
-class MoveListView extends ConsumerStatefulWidget {
+class MoveListView extends StatefulWidget {
   const MoveListView({super.key});
 
   @override
-  ConsumerState<MoveListView> createState() => _MoveListViewState();
+  State<MoveListView> createState() => _MoveListViewState();
 }
 
-class _MoveListViewState extends ConsumerState<MoveListView> {
+class _MoveListViewState extends State<MoveListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +37,14 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
         icon: const Icon(Icons.add),
         onPressed: () async {
           setState(() {
-            MoveLists.instance.add(MoveList(name: sequencesPage(), deviceCategory: DeviceType.values.toList(), actionCategory: ActionCategory.sequence, uuid: const Uuid().v4()));
+            MoveLists.instance.add(
+              MoveList(
+                name: sequencesPage(),
+                deviceCategory: DeviceType.values.toList(),
+                actionCategory: ActionCategory.sequence,
+                uuid: const Uuid().v4(),
+              ),
+            );
           });
           EditMoveListRoute($extra: MoveLists.instance.state.last)
               .push<MoveList>(context)
@@ -46,13 +52,22 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                 (value) => setState(() {
                   if (value != null) {
                     if (MoveLists.instance.state.isNotEmpty) {
-                      MoveLists.instance.replace(MoveLists.instance.state.last, value);
+                      MoveLists.instance.replace(
+                        MoveLists.instance.state.last,
+                        value,
+                      );
                     } else {
                       MoveLists.instance.add(value);
                     }
                     MoveLists.instance.store();
                   }
-                  analyticsEvent(name: "Edit Custom Action", props: {"Number of Moves": value!.moves.length.toString(), "Repeat": value.repeat.toString()});
+                  analyticsEvent(
+                    name: "Edit Custom Action",
+                    props: {
+                      "Number of Moves": value!.moves.length.toString(),
+                      "Repeat": value.repeat.toString(),
+                    },
+                  );
                 }),
               );
         },
@@ -67,7 +82,8 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
             ListenableBuilder(
               listenable: MoveLists.instance,
               builder: (context, child) {
-                final BuiltList<MoveList> allMoveLists = MoveLists.instance.state;
+                final BuiltList<MoveList> allMoveLists =
+                    MoveLists.instance.state;
 
                 return ListView.builder(
                   itemCount: allMoveLists.length,
@@ -77,7 +93,11 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                     return ListTile(
                       key: Key('$index'),
                       title: Text(convertToUwU(allMoveLists[index].name)),
-                      subtitle: Text(convertToUwU("${allMoveLists[index].moves.length} move(s)")),
+                      subtitle: Text(
+                        convertToUwU(
+                          "${allMoveLists[index].moves.length} move(s)",
+                        ),
+                      ),
                       //TODO: Localize
                       trailing: IconButton(
                         tooltip: sequencesEdit(),
@@ -88,24 +108,54 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
                               .then(
                                 (value) => setState(() {
                                   if (value != null) {
-                                    MoveLists.instance.replace(allMoveLists[index], value);
+                                    MoveLists.instance.replace(
+                                      allMoveLists[index],
+                                      value,
+                                    );
                                   }
                                 }),
                               );
                         },
                       ),
                       onTap: () async {
-                        if (HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
+                        if (HiveProxy.getOrDefault(
+                          settings,
+                          haptics,
+                          defaultValue: hapticsDefault,
+                        )) {
                           HapticFeedback.selectionClick();
                         }
                         KnownDevices.instance.state.values
-                            .where((element) => allMoveLists[index].deviceCategory.contains(element.baseDeviceDefinition.deviceType))
-                            .where((element) => element.deviceState.value == DeviceState.standby)
+                            .where(
+                              (element) =>
+                                  allMoveLists[index].deviceCategory.contains(
+                                    element.baseDeviceDefinition.deviceType,
+                                  ),
+                            )
+                            .where(
+                              (element) =>
+                                  element.deviceState.value ==
+                                  DeviceState.standby,
+                            )
                             .forEach((element) async {
-                              if (HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault)) {
-                                await Future.delayed(Duration(milliseconds: Random().nextInt(kitsuneDelayRange)));
+                              if (HiveProxy.getOrDefault(
+                                settings,
+                                kitsuneModeToggle,
+                                defaultValue: kitsuneModeDefault,
+                              )) {
+                                await Future.delayed(
+                                  Duration(
+                                    milliseconds: Random().nextInt(
+                                      kitsuneDelayRange,
+                                    ),
+                                  ),
+                                );
                               }
-                              runAction(element, allMoveLists[index], triggeredBy: "Custom Action Page");
+                              runAction(
+                                element,
+                                allMoveLists[index],
+                                triggeredBy: "Custom Action Page",
+                              );
                             });
                       },
                     );
@@ -120,28 +170,25 @@ class _MoveListViewState extends ConsumerState<MoveListView> {
   }
 }
 
-class EditMoveList extends ConsumerStatefulWidget {
+class EditMoveList extends StatefulWidget {
   const EditMoveList({required this.moveList, super.key});
 
   final MoveList moveList;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EditMoveList();
+  State<StatefulWidget> createState() => _EditMoveList();
 }
 
-class _EditMoveList extends ConsumerState<EditMoveList> {
-  //TODO: Only store on back/save
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _EditMoveList extends State<EditMoveList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(convertToUwU(sequencesEdit())),
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop(widget.moveList)),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(widget.moveList),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
@@ -153,14 +200,27 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
                   title: Text(convertToUwU(sequencesEditDeleteTitle())),
                   content: Text(convertToUwU(sequencesEditDeleteDescription())),
                   actions: <Widget>[
-                    TextButton(onPressed: () => Navigator.pop(context, false), child: Text(convertToUwU(cancel()))),
-                    TextButton(onPressed: () => Navigator.pop(context, true), child: Text(convertToUwU(ok()))),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: Text(convertToUwU(cancel())),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: Text(convertToUwU(ok())),
+                    ),
                   ],
                 ),
               ).then((value) async {
                 if (value ?? true) {
                   await MoveLists.instance.remove(widget.moveList);
-                  analyticsEvent(name: "Remove Custom Action", props: {"Number of Moves": widget.moveList.moves.length.toString(), "Repeat": widget.moveList.repeat.toString()});
+                  analyticsEvent(
+                    name: "Remove Custom Action",
+                    props: {
+                      "Number of Moves": widget.moveList.moves.length
+                          .toString(),
+                      "Repeat": widget.moveList.repeat.toString(),
+                    },
+                  );
 
                   if (context.mounted) {
                     context.pop();
@@ -176,16 +236,21 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
               icon: const Icon(Icons.add),
               onPressed: () async {
                 setState(() {
-                  widget.moveList.moves = widget.moveList.moves.toList()..add(Move());
+                  widget.moveList.moves = widget.moveList.moves.toList()
+                    ..add(Move());
                 });
-                Move move = widget.moveList.moves[widget.moveList.moves.length - 1];
+                Move move =
+                    widget.moveList.moves[widget.moveList.moves.length - 1];
 
-                EditMoveListMoveRoute($extra: move).push(context).whenComplete(() {
-                  setState(() {
-                    widget.moveList.moves[widget.moveList.moves.length - 1] = move;
-                  });
-                  MoveLists.instance.store();
-                });
+                EditMoveListMoveRoute($extra: move).push(context).whenComplete(
+                  () {
+                    setState(() {
+                      widget.moveList.moves[widget.moveList.moves.length - 1] =
+                          move;
+                    });
+                    MoveLists.instance.store();
+                  },
+                );
                 //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves.last).then((value) => setState(() => moveList!.moves.last = value!));
               },
               label: Text(convertToUwU(sequencesEditAdd())),
@@ -208,7 +273,10 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 controller: TextEditingController(text: widget.moveList.name),
-                decoration: InputDecoration(border: const OutlineInputBorder(), labelText: sequencesEditName()),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: sequencesEditName(),
+                ),
                 maxLines: 1,
                 maxLength: 30,
                 autocorrect: false,
@@ -248,15 +316,23 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               children: <Widget>[
-                for (int index = 0; index < widget.moveList.moves.length; index += 1)
+                for (
+                  int index = 0;
+                  index < widget.moveList.moves.length;
+                  index += 1
+                )
                   ListTile(
                     key: Key('$index'),
-                    title: Text(convertToUwU(widget.moveList.moves[index].toString())),
+                    title: Text(
+                      convertToUwU(widget.moveList.moves[index].toString()),
+                    ),
                     leading: Icon(widget.moveList.moves[index].moveType.icon),
                     onTap: () async {
                       Move move = widget.moveList.moves[index];
 
-                      EditMoveListMoveRoute($extra: move).push(context).whenComplete(() {
+                      EditMoveListMoveRoute(
+                        $extra: move,
+                      ).push(context).whenComplete(() {
                         setState(() {
                           widget.moveList.moves[index] = move;
                         });
@@ -289,21 +365,25 @@ class _EditMoveList extends ConsumerState<EditMoveList> {
   }
 }
 
-class EditMove extends ConsumerStatefulWidget {
+class EditMove extends StatefulWidget {
   const EditMove({required this.move, super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EditMoveState();
+  State<StatefulWidget> createState() => _EditMoveState();
   final Move move;
 }
 
-class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMixin {
+class _EditMoveState extends State<EditMove> with TickerProviderStateMixin {
   TabController? _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, initialIndex: widget.move.moveType.index, vsync: this);
+    _tabController = TabController(
+      length: 2,
+      initialIndex: widget.move.moveType.index,
+      vsync: this,
+    );
     _tabController?.addListener(() {
       widget.move.moveType = MoveType.values[_tabController!.index];
     });
@@ -320,8 +400,14 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
             TabBar(
               controller: _tabController,
               tabs: <Widget>[
-                Tab(icon: const Icon(Icons.auto_graph), text: sequencesEditMove()),
-                Tab(icon: const Icon(Icons.timer_rounded), text: sequencesEditDelay()),
+                Tab(
+                  icon: const Icon(Icons.auto_graph),
+                  text: sequencesEditMove(),
+                ),
+                Tab(
+                  icon: const Icon(Icons.timer_rounded),
+                  text: sequencesEditDelay(),
+                ),
               ],
             ),
             Expanded(
@@ -364,7 +450,8 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                           value: widget.move.leftServo,
                           max: 128,
                           divisions: 8,
-                          label: "${widget.move.leftServo.round().clamp(0, 128) ~/ 16}",
+                          label:
+                              "${widget.move.leftServo.round().clamp(0, 128) ~/ 16}",
                           onChanged: (value) {
                             setState(() => widget.move.leftServo = value);
                           },
@@ -377,7 +464,8 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                           value: widget.move.rightServo,
                           max: 128,
                           divisions: 8,
-                          label: "${widget.move.rightServo.round().clamp(0, 128) ~/ 16}",
+                          label:
+                              "${widget.move.rightServo.round().clamp(0, 128) ~/ 16}",
                           onChanged: (value) {
                             setState(() => widget.move.rightServo = value);
                           },
@@ -386,7 +474,9 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                       SpeedWidget(
                         value: widget.move.speed,
                         onChanged: (double value) {
-                          setState(() => widget.move.speed = value.roundToDouble());
+                          setState(
+                            () => widget.move.speed = value.roundToDouble(),
+                          );
                         },
                       ),
                       ListTile(
@@ -394,11 +484,21 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                         subtitle: SegmentedButton<EasingType>(
                           selected: <EasingType>{widget.move.easingType},
                           onSelectionChanged: (Set<EasingType> value) {
-                            setState(() => widget.move.easingType = value.first);
+                            setState(
+                              () => widget.move.easingType = value.first,
+                            );
                           },
-                          segments: EasingType.values.map<ButtonSegment<EasingType>>((EasingType value) {
-                            return ButtonSegment<EasingType>(value: value, tooltip: value.name, icon: value.widget(context));
-                          }).toList(),
+                          segments: EasingType.values
+                              .map<ButtonSegment<EasingType>>((
+                                EasingType value,
+                              ) {
+                                return ButtonSegment<EasingType>(
+                                  value: value,
+                                  tooltip: value.name,
+                                  icon: value.widget(context),
+                                );
+                              })
+                              .toList(),
                         ),
                       ),
                     ],
@@ -416,7 +516,9 @@ class _EditMoveState extends ConsumerState<EditMove> with TickerProviderStateMix
                           min: 1,
                           divisions: 125,
                           onChanged: (value) {
-                            setState(() => widget.move.time = value.roundToDouble());
+                            setState(
+                              () => widget.move.time = value.roundToDouble(),
+                            );
                           },
                         ),
                       ),

@@ -32,14 +32,17 @@ void _watchIncomingMessageListener(Map<String, dynamic> event) {
     case "run_action":
       BaseAction? action = ActionRegistry.getActionFromUUID(wearCommand.uuid);
       if (action != null) {
-        Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.connectedIdleGear;
+        Iterable<BaseStatefulDevice> knownDevices =
+            KnownDevices.instance.connectedIdleGear;
         for (BaseStatefulDevice device in knownDevices) {
           runAction(device, action, triggeredBy: "Watch");
         }
       }
       break;
     case "toggle_trigger":
-      Trigger? trigger = TriggerList.instance.state.where((p0) => p0.uuid == wearCommand.uuid).firstOrNull;
+      Trigger? trigger = TriggerList.instance.state
+          .where((p0) => p0.uuid == wearCommand.uuid)
+          .firstOrNull;
       if (trigger != null) {
         trigger.enabled = wearCommand.enabled;
       }
@@ -56,102 +59,135 @@ Future<void> clearContext() async {
   await _watch.updateApplicationContext({});
 }
 
-void initWear()  {
-    try {
-      _wearLogger.info("Setting up listeners");
+void initWear() {
+  try {
+    _wearLogger.info("Setting up listeners");
 
-      _watch.messageStream.asBroadcastStream().debounce(Duration(milliseconds: 250)).listen(_watchIncomingMessageListener);
-      KnownDevices.instance.addListener(() {
-        KnownDevices.instance.state.values.map((e) => e).forEach((element) {
-          element.batteryLevel
-            ..removeListener(_onGearBatteryLevelChanged)
-            ..addListener(_onGearBatteryLevelChanged);
-          element.deviceConnectionState
-            ..removeListener(_onGearConnectivityStateChanged)
-            ..addListener(_onGearConnectivityStateChanged);
-          // Gear color
-          element.baseStoredDevice
-            ..removeListener(_onGearStoredConfigChanged)
-            ..addListener(_onGearStoredConfigChanged);
-        });
-
-        //react to device pairing
-        updateWearData(reason: "Initial");
+    _watch.messageStream
+        .asBroadcastStream()
+        .debounce(Duration(milliseconds: 250))
+        .listen(_watchIncomingMessageListener);
+    KnownDevices.instance.addListener(() {
+      KnownDevices.instance.state.values.map((e) => e).forEach((element) {
+        element.batteryLevel
+          ..removeListener(_onGearBatteryLevelChanged)
+          ..addListener(_onGearBatteryLevelChanged);
+        element.deviceConnectionState
+          ..removeListener(_onGearConnectivityStateChanged)
+          ..addListener(_onGearConnectivityStateChanged);
+        // Gear color
+        element.baseStoredDevice
+          ..removeListener(_onGearStoredConfigChanged)
+          ..addListener(_onGearStoredConfigChanged);
       });
-    } catch (e, s) {
-      _wearLogger.severe("exception setting up Wear $e", e, s);
-    }
+
+      //react to device pairing
+      updateWearData(reason: "Initial");
+    });
+  } catch (e, s) {
+    _wearLogger.severe("exception setting up Wear $e", e, s);
+  }
 }
 
 Future<bool> isReachable() {
-  return _watch.isReachable.catchError((e) => false).onError((error, stackTrace) => false);
+  return _watch.isReachable
+      .catchError((e) => false)
+      .onError((error, stackTrace) => false);
 }
 
 Future<bool> isSupported() {
-  return _watch.isSupported.catchError((e) => false).onError((error, stackTrace) => false);
+  return _watch.isSupported
+      .catchError((e) => false)
+      .onError((error, stackTrace) => false);
 }
 
 Future<bool> isPaired() {
-  return _watch.isPaired.catchError((e) => false).onError((error, stackTrace) => false);
+  return _watch.isPaired
+      .catchError((e) => false)
+      .onError((error, stackTrace) => false);
 }
 
 Future<Map<String, dynamic>> applicationContext() {
-  return _watch.applicationContext.catchError((e) => <String, dynamic>{}).onError((error, stackTrace) => {});
+  return _watch.applicationContext
+      .catchError((e) => <String, dynamic>{})
+      .onError((error, stackTrace) => {});
 }
-
 
 /// Listeners. Split apart to keep track of individual trigger reasons
 Future<void> _onGearBatteryLevelChanged() async {
   updateWearData(reason: "Gear battery Level changed");
 }
+
 Future<void> _onGearConnectivityStateChanged() async {
   updateWearData(reason: "Gear connectivity state changed");
 }
+
 Future<void> _onGearStoredConfigChanged() async {
   updateWearData(reason: "Gear stored config changed");
 }
 
 Future<void> updateWearData({required String reason}) async {
-    try {
-      if (!await isPaired()) {
-        return; // Don't update wear actions if wear is not supported / no watch is paired
-      }
-      _wearLogger.info("Updating watch data: ${reason}");
-
-      Iterable<BaseAction> allActions = FavoriteActions.instance.state.map((e) => ActionRegistry.getActionFromUUID(e.actionUUID)).nonNulls;
-      BuiltList<Trigger> triggers = TriggerList.instance.state;
-      final List<WearActionData> favoriteMap = allActions.map((e) => WearActionData(uuid: e.uuid, name: e.name)).toList();
-      final List<WearTriggerData> triggersMap = triggers.map((e) => WearTriggerData(uuid: e.uuid, name: e.triggerDefinition!.name(), enabled: e.enabled)).toList();
-      final List<WearGearData> knownGear = KnownDevices.instance.state.values
-          .map(
-            (e) => WearGearData(
-              name: e.baseStoredDevice.name,
-              uuid: e.baseStoredDevice.btMACAddress,
-              batteryLevel: e.batteryLevel.value.toInt(),
-              connected: e.deviceConnectionState.value == ConnectivityState.connected,
-              color: e.baseStoredDevice.color,
-            ),
-          )
-          .toList();
-      // Listen for gear connect/disconnect events
-      //TODO: rework entire gear handler without riverpod
-      //ref.watch(getAvailableGearProvider);
-
-      final WearLocalizationData localizationData = WearLocalizationData(
-        triggersPage: convertToUwU(triggersPage()),
-        actionsPage: convertToUwU(watchFavoriteActionsTitle()),
-        favoriteActionsDescription: convertToUwU(watchFavoriteActionsNoFavoritesTip()),
-        knownGear: convertToUwU(watchKnownGearTitle()),
-        watchKnownGearNoGearPairedTip: convertToUwU(watchKnownGearNoGearPairedTip()),
-        phonAppClosed: convertToUwU(watchPhoneAppNotOpen())
-      );
-      final WearData wearData = WearData(favoriteActions: favoriteMap, configuredTriggers: triggersMap, themeData: wearThemeData!, knownGear: knownGear, localization: localizationData, timestamp: DateTime.now().millisecondsSinceEpoch);
-      if (await isReachable()) {
-        await _watch.updateApplicationContext(wearData.toJson());
-      }
-    } catch (e, s) {
-      _wearLogger.severe("Unable to send favorite actions to watch", e, s);
+  try {
+    if (!await isPaired()) {
+      return; // Don't update wear actions if wear is not supported / no watch is paired
     }
+    _wearLogger.info("Updating watch data: $reason");
+
+    Iterable<BaseAction> allActions = FavoriteActions.instance.state
+        .map((e) => ActionRegistry.getActionFromUUID(e.actionUUID))
+        .nonNulls;
+    BuiltList<Trigger> triggers = TriggerList.instance.state;
+    final List<WearActionData> favoriteMap = allActions
+        .map((e) => WearActionData(uuid: e.uuid, name: e.name))
+        .toList();
+    final List<WearTriggerData> triggersMap = triggers
+        .map(
+          (e) => WearTriggerData(
+            uuid: e.uuid,
+            name: e.triggerDefinition!.name(),
+            enabled: e.enabled,
+          ),
+        )
+        .toList();
+    final List<WearGearData> knownGear = KnownDevices.instance.state.values
+        .map(
+          (e) => WearGearData(
+            name: e.baseStoredDevice.name,
+            uuid: e.baseStoredDevice.btMACAddress,
+            batteryLevel: e.batteryLevel.value.toInt(),
+            connected:
+                e.deviceConnectionState.value == ConnectivityState.connected,
+            color: e.baseStoredDevice.color,
+          ),
+        )
+        .toList();
+
+    final WearLocalizationData localizationData = WearLocalizationData(
+      triggersPage: convertToUwU(triggersPage()),
+      actionsPage: convertToUwU(watchFavoriteActionsTitle()),
+      favoriteActionsDescription: convertToUwU(
+        watchFavoriteActionsNoFavoritesTip(),
+      ),
+      knownGear: convertToUwU(watchKnownGearTitle()),
+      watchKnownGearNoGearPairedTip: convertToUwU(
+        watchKnownGearNoGearPairedTip(),
+      ),
+      phonAppClosed: convertToUwU(watchPhoneAppNotOpen()),
+    );
+    final WearData wearData = WearData(
+      favoriteActions: favoriteMap,
+      configuredTriggers: triggersMap,
+      themeData: wearThemeData!,
+      knownGear: knownGear,
+      localization: localizationData,
+      timestamp: DateTime.now().millisecondsSinceEpoch,
+    );
+    if (await isReachable()) {
+      await _watch.updateApplicationContext(wearData.toJson());
+    }
+  } catch (e, s) {
+    _wearLogger.severe("Unable to send favorite actions to watch", e, s);
+  }
 }
 
 @freezed
@@ -165,21 +201,29 @@ abstract class WearData with _$WearData {
     required int timestamp,
   }) = _WearData;
 
-  factory WearData.fromJson(Map<String, dynamic> json) => _$WearDataFromJson(json);
+  factory WearData.fromJson(Map<String, dynamic> json) =>
+      _$WearDataFromJson(json);
 }
 
 @freezed
 abstract class WearThemeData with _$WearThemeData {
-  const factory WearThemeData({required int primary, required int secondary}) = _WearThemeData;
+  const factory WearThemeData({required int primary, required int secondary}) =
+      _WearThemeData;
 
-  factory WearThemeData.fromJson(Map<String, dynamic> json) => _$WearThemeDataFromJson(json);
+  factory WearThemeData.fromJson(Map<String, dynamic> json) =>
+      _$WearThemeDataFromJson(json);
 }
 
 @freezed
 abstract class WearTriggerData with _$WearTriggerData {
-  const factory WearTriggerData({required String name, required String uuid, required bool enabled}) = _WearTriggerData;
+  const factory WearTriggerData({
+    required String name,
+    required String uuid,
+    required bool enabled,
+  }) = _WearTriggerData;
 
-  factory WearTriggerData.fromJson(Map<String, dynamic> json) => _$WearTriggerDataFromJson(json);
+  factory WearTriggerData.fromJson(Map<String, dynamic> json) =>
+      _$WearTriggerDataFromJson(json);
 }
 
 @freezed
@@ -191,31 +235,45 @@ abstract class WearLocalizationData with _$WearLocalizationData {
     required String favoriteActionsDescription,
     required String watchKnownGearNoGearPairedTip,
     required String phonAppClosed,
-
   }) = _WearLocalizationData;
 
-  factory WearLocalizationData.fromJson(Map<String, dynamic> json) => _$WearLocalizationDataFromJson(json);
+  factory WearLocalizationData.fromJson(Map<String, dynamic> json) =>
+      _$WearLocalizationDataFromJson(json);
 }
 
 @freezed
 abstract class WearGearData with _$WearGearData {
-  const factory WearGearData({required String name, required String uuid, required bool connected, required int batteryLevel, required int color}) = _WearGearData;
+  const factory WearGearData({
+    required String name,
+    required String uuid,
+    required bool connected,
+    required int batteryLevel,
+    required int color,
+  }) = _WearGearData;
 
-  factory WearGearData.fromJson(Map<String, dynamic> json) => _$WearGearDataFromJson(json);
+  factory WearGearData.fromJson(Map<String, dynamic> json) =>
+      _$WearGearDataFromJson(json);
 }
 
 @freezed
 abstract class WearActionData with _$WearActionData {
-  const factory WearActionData({required String name, required String uuid}) = _WearActionData;
+  const factory WearActionData({required String name, required String uuid}) =
+      _WearActionData;
 
-  factory WearActionData.fromJson(Map<String, dynamic> json) => _$WearActionDataFromJson(json);
+  factory WearActionData.fromJson(Map<String, dynamic> json) =>
+      _$WearActionDataFromJson(json);
 }
 
 @freezed
 abstract class WearCommand with _$WearCommand {
-  const factory WearCommand({required String capability, @Default("") String uuid, @Default(false) bool enabled}) = _WearCommand;
+  const factory WearCommand({
+    required String capability,
+    @Default("") String uuid,
+    @Default(false) bool enabled,
+  }) = _WearCommand;
 
-  factory WearCommand.fromJson(Map<String, dynamic> json) => _$WearCommandFromJson(json);
+  factory WearCommand.fromJson(Map<String, dynamic> json) =>
+      _$WearCommandFromJson(json);
 }
 
 enum WearCommandType { runAction, toggleTrigger }

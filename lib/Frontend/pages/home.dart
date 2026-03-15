@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
@@ -17,14 +16,14 @@ import 'markdown_viewer.dart';
 
 final log.Logger homeLogger = log.Logger('Home');
 
-class Home extends ConsumerStatefulWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  ConsumerState<Home> createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends ConsumerState<Home> {
+class _HomeState extends State<Home> {
   final ScrollController _controller = ScrollController();
 
   @override
@@ -55,14 +54,21 @@ class _HomeState extends ConsumerState<Home> {
                   TextButton(
                     onPressed: () async {
                       MarkdownViewerRoute(
-                        $extra: MarkdownInfo(content: await rootBundle.loadString('CHANGELOG.md'), title: homeChangelogLinkTitle(), analyticsLabel: 'Changelog'),
+                        $extra: MarkdownInfo(
+                          content: await rootBundle.loadString('CHANGELOG.md'),
+                          title: homeChangelogLinkTitle(),
+                          analyticsLabel: 'Changelog',
+                        ),
                       ).push(context);
                     },
                     child: Text(convertToUwU(homeChangelogLinkTitle())),
                   ),
                   TextButton(
                     onPressed: () async {
-                      await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Store");
+                      await launchExternalUrl(
+                        url: "https://thetailcompany.com",
+                        analyticsLabel: "Store",
+                      );
                     },
                     child: Text(convertToUwU('Tail Company Store')),
                   ),
@@ -81,13 +87,17 @@ class _HomeState extends ConsumerState<Home> {
                   ListTile(
                     leading: const Icon(Icons.bluetooth_disabled),
                     title: Text(convertToUwU(actionsNoBluetooth())),
-                    subtitle: Text(convertToUwU(actionsNoBluetoothDescription())),
+                    subtitle: Text(
+                      convertToUwU(actionsNoBluetoothDescription()),
+                    ),
                   ),
                 ],
               ),
             ),
             firstChild: Container(),
-            crossFadeState: bluetoothEnabled ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            crossFadeState: bluetoothEnabled
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
             duration: animationTransitionDuration,
           ),
         ),
@@ -98,25 +108,15 @@ class _HomeState extends ConsumerState<Home> {
           ),
           trailing: Icon(Icons.newspaper),
         ),
-        SizedBox(
-          height: 350,
-          child: TailBlog(),
-        ),
+        SizedBox(height: 350, child: TailBlog()),
         ListTile(
           title: Text(
             convertToUwU(homeCosHubTitle()),
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          trailing: Image.asset(
-            Assets.cosHubBT.path,
-            width: 24,
-            height: 24,
-          ),
+          trailing: Image.asset(Assets.cosHubBT.path, width: 24, height: 24),
         ),
-        SizedBox(
-          height: 350,
-          child: CoshubFeed(),
-        ),
+        SizedBox(height: 350, child: CoshubFeed()),
       ],
     );
   }

@@ -1,7 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -19,19 +18,21 @@ part 'action_selector.freezed.dart';
 
 @freezed
 abstract class ActionSelectorInfo with _$ActionSelectorInfo {
-  const factory ActionSelectorInfo({required List<BaseAction> selectedActions}) = _ActionSelectorInfo;
+  const factory ActionSelectorInfo({
+    required List<BaseAction> selectedActions,
+  }) = _ActionSelectorInfo;
 }
 
-class ActionSelector extends ConsumerStatefulWidget {
+class ActionSelector extends StatefulWidget {
   const ActionSelector({required this.actionSelectorInfo, super.key});
 
   final ActionSelectorInfo actionSelectorInfo;
 
   @override
-  ConsumerState<ActionSelector> createState() => _ActionSelectorState();
+  State<ActionSelector> createState() => _ActionSelectorState();
 }
 
-class _ActionSelectorState extends ConsumerState<ActionSelector> {
+class _ActionSelectorState extends State<ActionSelector> {
   BuiltMap<String, BuiltSet<BaseAction>> actionsCatMap = BuiltMap();
   List<String> catList = [];
   List<BaseAction> selected = [];
@@ -40,12 +41,30 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
   @override
   void initState() {
     super.initState();
-    knownDeviceTypes = KnownDevices.instance.state.values.map((e) => e.baseDeviceDefinition.deviceType).toSet();
+    knownDeviceTypes = KnownDevices.instance.state.values
+        .map((e) => e.baseDeviceDefinition.deviceType)
+        .toSet();
     actionsCatMap = BuiltMap(
       Map.fromEntries(
-        ref.read(getAllActionsProvider).entries.sorted((a, b) {
-          int first = a.value.map((e) => e.deviceCategory).flattened.toSet().intersection(knownDeviceTypes).isNotEmpty ? 1 : -1;
-          int second = b.value.map((e) => e.deviceCategory).flattened.toSet().intersection(knownDeviceTypes).isNotEmpty ? 1 : -1;
+        GetActions.instance.getActions().entries.sorted((a, b) {
+          int first =
+              a.value
+                  .map((e) => e.deviceCategory)
+                  .flattened
+                  .toSet()
+                  .intersection(knownDeviceTypes)
+                  .isNotEmpty
+              ? 1
+              : -1;
+          int second =
+              b.value
+                  .map((e) => e.deviceCategory)
+                  .flattened
+                  .toSet()
+                  .intersection(knownDeviceTypes)
+                  .isNotEmpty
+              ? 1
+              : -1;
           return second.compareTo(first);
         }),
       ),
@@ -85,7 +104,10 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.transparent, Theme.of(context).colorScheme.primary.withAlpha(128)],
+            colors: [
+              Colors.transparent,
+              Theme.of(context).colorScheme.primary.withAlpha(128),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             tileMode: TileMode.clamp,
@@ -103,9 +125,19 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.save, color: getTextColor(Theme.of(context).colorScheme.primary)),
+                  Icon(
+                    Icons.save,
+                    color: getTextColor(Theme.of(context).colorScheme.primary),
+                  ),
                   const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
-                  Text(convertToUwU(triggersSelectSaveLabel()), style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(Theme.of(context).colorScheme.primary))),
+                  Text(
+                    convertToUwU(triggersSelectSaveLabel()),
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      color: getTextColor(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -121,16 +153,31 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
             shrinkWrap: true,
             itemCount: catList.length,
             itemBuilder: (BuildContext context, int categoryIndex) {
-              List<BaseAction> actionsForCat = actionsCatMap.values.toList()[categoryIndex].toList();
-              bool hasConnectedDevice = actionsForCat.map((e) => e.deviceCategory).flattened.toSet().intersection(knownDeviceTypes).isNotEmpty;
+              List<BaseAction> actionsForCat = actionsCatMap.values
+                  .toList()[categoryIndex]
+                  .toList();
+              bool hasConnectedDevice = actionsForCat
+                  .map((e) => e.deviceCategory)
+                  .flattened
+                  .toSet()
+                  .intersection(knownDeviceTypes)
+                  .isNotEmpty;
               return Theme(
-                data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                data: Theme.of(
+                  context,
+                ).copyWith(dividerColor: Colors.transparent),
                 child: ExpansionTile(
                   initiallyExpanded: hasConnectedDevice,
-                  title: Text(convertToUwU(catList[categoryIndex]), style: Theme.of(context).textTheme.titleLarge),
+                  title: Text(
+                    convertToUwU(catList[categoryIndex]),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   children: [
                     GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 125),
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 125,
+                          ),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: actionsForCat.length,
@@ -139,10 +186,21 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
                         bool isSelected = selected.contains(baseAction);
                         return TweenAnimationBuilder(
                           builder: (context, value, child) {
-                            Color? color = Color.lerp(Theme.of(context).colorScheme.primary, Theme.of(context).cardColor, value);
-                            return Card(clipBehavior: Clip.antiAlias, elevation: 2, color: color, child: cardChild(isSelected, baseAction, color!));
+                            Color? color = Color.lerp(
+                              Theme.of(context).colorScheme.primary,
+                              Theme.of(context).cardColor,
+                              value,
+                            );
+                            return Card(
+                              clipBehavior: Clip.antiAlias,
+                              elevation: 2,
+                              color: color,
+                              child: cardChild(isSelected, baseAction, color!),
+                            );
                           },
-                          tween: isSelected ? Tween<double>(begin: 1, end: 0) : Tween<double>(begin: 0, end: 1),
+                          tween: isSelected
+                              ? Tween<double>(begin: 1, end: 0)
+                              : Tween<double>(begin: 0, end: 1),
                           duration: animationTransitionDuration,
                         );
                       },
@@ -179,7 +237,9 @@ class _ActionSelectorState extends ConsumerState<ActionSelector> {
             semanticsLabel: baseAction.name,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(color: getTextColor(color)),
+            style: Theme.of(
+              context,
+            ).textTheme.labelLarge?.copyWith(color: getTextColor(color)),
           ),
         ),
       ),

@@ -5,7 +5,6 @@ import 'package:data_saver/data_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
@@ -18,14 +17,14 @@ import '../../../gen/assets.gen.dart';
 import '../../../main.dart';
 import '../../go_router_config.dart';
 
-class DeveloperMenu extends ConsumerStatefulWidget {
+class DeveloperMenu extends StatefulWidget {
   const DeveloperMenu({super.key});
 
   @override
-  ConsumerState<DeveloperMenu> createState() => _DeveloperMenuState();
+  State<DeveloperMenu> createState() => _DeveloperMenuState();
 }
 
-class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
+class _DeveloperMenuState extends State<DeveloperMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -243,6 +242,7 @@ class _DeveloperMenuState extends ConsumerState<DeveloperMenu> {
               },
             ),
           ),
+          const ListTile(title: Divider()),
           ListTile(
             title: const Text("DynamicConfig"),
             subtitle: FutureBuilder(

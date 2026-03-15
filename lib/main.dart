@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/misc.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -37,7 +35,13 @@ import 'l10n/app_localizations.dart';
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
 
-  bool reportingEnabled = HiveProxy.getOrDefault(settings, "allowErrorReporting", defaultValue: true) && dynamicConfigInfo.featureFlags.enableErrorReporting;
+  bool reportingEnabled =
+      HiveProxy.getOrDefault(
+        settings,
+        "allowErrorReporting",
+        defaultValue: true,
+      ) &&
+      dynamicConfigInfo.featureFlags.enableErrorReporting;
   if (reportingEnabled) {
     if (kDebugMode) {
       print('Before sending sentry event');
@@ -106,8 +110,12 @@ Future<void> startSentryApp(Widget child) async {
         ..debug = kDebugMode
         ..diagnosticLevel = SentryLevel.info
         ..environment = environment
-        ..tracesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryConfig.tracesSampleRate
-        ..profilesSampleRate = kDebugMode ? 1 : dynamicConfigInfo.sentryConfig.profilesSampleRate
+        ..tracesSampleRate = kDebugMode
+            ? 1
+            : dynamicConfigInfo.sentryConfig.tracesSampleRate
+        ..profilesSampleRate = kDebugMode
+            ? 1
+            : dynamicConfigInfo.sentryConfig.profilesSampleRate
         ..beforeSend = beforeSend
         ..reportPackages = false
         ..attachScreenshot = true
@@ -115,8 +123,10 @@ Future<void> startSentryApp(Widget child) async {
         ..privacy.maskAllText =
             false // app does not contain any PII
         ..screenshotQuality = SentryScreenshotQuality.low
-        ..replay.sessionSampleRate = dynamicConfigInfo.sentryConfig.replaySessionSampleRate
-        ..replay.onErrorSampleRate = dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
+        ..replay.sessionSampleRate =
+            dynamicConfigInfo.sentryConfig.replaySessionSampleRate
+        ..replay.onErrorSampleRate =
+            dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
     },
     // Init your App.
     // ignore: missing_provider_scope
@@ -130,7 +140,11 @@ Future<void> main() async {
   Logger.root.onRecord.listen((event) {
     try {
       // Hive may not be ready yet. just log in that case
-      if (!HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) {
+      if (!HiveProxy.getOrDefault(
+        settings,
+        showDebugging,
+        defaultValue: showDebuggingDefault,
+      )) {
         return;
       }
       // ignore: empty_catches
@@ -153,11 +167,15 @@ Future<void> main() async {
 }
 
 void initFlutter() {
-  WidgetsBinding widgetsBinding = SentryWidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); // keeps the splash screen visible
+  WidgetsBinding widgetsBinding =
+      SentryWidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(
+    widgetsBinding: widgetsBinding,
+  ); // keeps the splash screen visible
 }
 
 bool _didInitHive = false;
+
 Future<void> initHive() async {
   if (_didInitHive) {
     return;
@@ -240,11 +258,11 @@ Future<void> initHive() async {
   _didInitHive = true;
 }
 
-class TailApp extends ConsumerWidget {
+class TailApp extends StatelessWidget {
   const TailApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     mainLogger.info('Starting app');
     launchAppAnalytics();
 
@@ -257,17 +275,15 @@ class TailApp extends ConsumerWidget {
     }
 
     return WithForegroundTask(
-      child: ProviderScope(
-        retry: (retryCount, error) => null, // disables retry on riverpod
-        observers: [RiverpodProviderObserver()],
-        child: BtAppStateController(
-          child: ValueListenableBuilder(
-            valueListenable: Hive.box(settings).listenable(keys: [appColor, uwuTextEnabled, selectedLocale]),
-            builder: (BuildContext context, value, Widget? child) {
-              rebuildAllChildren(context);
-              return TailAppMainWidget();
-            },
-          ),
+      child: BtAppStateController(
+        child: ValueListenableBuilder(
+          valueListenable: Hive.box(
+            settings,
+          ).listenable(keys: [appColor, uwuTextEnabled, selectedLocale]),
+          builder: (BuildContext context, value, Widget? child) {
+            rebuildAllChildren(context);
+            return TailAppMainWidget();
+          },
         ),
       ),
     );
@@ -284,25 +300,34 @@ class TailApp extends ConsumerWidget {
   }
 }
 
-class TailAppMainWidget extends ConsumerWidget {
+class TailAppMainWidget extends StatelessWidget {
   const TailAppMainWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     setupSystemColor(context);
-    ref.watch(initLocaleProvider);
-    Future(FlutterNativeSplash.remove); //remove the splash screen one frame later
-    Color color = Color(HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault));
-    return MaterialApp.router(
-      title: title(),
-      color: color,
-      theme: buildTheme(Brightness.light, color),
-      darkTheme: buildTheme(Brightness.dark, color),
-      routerConfig: router,
-      localizationsDelegates: [LocaleNamesLocalizationsDelegate(), ...AppLocalizations.localizationsDelegates],
-      supportedLocales: AppLocalizations.supportedLocales,
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
+    Future(
+      FlutterNativeSplash.remove,
+    ); //remove the splash screen one frame later
+    Color color = Color(
+      HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault),
+    );
+    return ListenableBuilder(
+      listenable: UserLocale.instance,
+      builder: (context, child) => MaterialApp.router(
+        title: title(),
+        color: color,
+        theme: buildTheme(Brightness.light, color),
+        darkTheme: buildTheme(Brightness.dark, color),
+        routerConfig: router,
+        localizationsDelegates: [
+          LocaleNamesLocalizationsDelegate(),
+          ...AppLocalizations.localizationsDelegates,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        themeMode: ThemeMode.system,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
@@ -310,48 +335,34 @@ class TailAppMainWidget extends ConsumerWidget {
 ThemeData buildTheme(Brightness brightness, Color color) {
   if (brightness == Brightness.light) {
     return ThemeData(
-      colorScheme: ColorScheme.fromSeed(brightness: Brightness.light, seedColor: color, primary: color),
+      colorScheme: ColorScheme.fromSeed(
+        brightness: Brightness.light,
+        seedColor: color,
+        primary: color,
+      ),
       appBarTheme: const AppBarTheme(elevation: 2),
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(),
-      filledButtonTheme: FilledButtonThemeData(style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color))),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color)),
+      ),
     );
   } else {
     return ThemeData(
-      colorScheme: ColorScheme.fromSeed(brightness: Brightness.dark, seedColor: color, primary: color),
+      colorScheme: ColorScheme.fromSeed(
+        brightness: Brightness.dark,
+        seedColor: color,
+        primary: color,
+      ),
       appBarTheme: const AppBarTheme(elevation: 2),
       // We use the nicer Material-3 Typography in both M2 and M3 mode.
       typography: Typography.material2021(),
-      filledButtonTheme: FilledButtonThemeData(style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color), elevation: 1)),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: getTextColor(color),
+          elevation: 1,
+        ),
+      ),
     );
-  }
-}
-
-final class RiverpodProviderObserver extends ProviderObserver {
-  final Logger riverpodLogger = Logger('Riverpod');
-
-  @override
-  void didAddProvider(ProviderObserverContext context, Object? value) {
-    riverpodLogger.info('Provider ${context.provider} was initialized with $value');
-  }
-
-  @override
-  void didDisposeProvider(ProviderObserverContext context) {
-    riverpodLogger.info('Provider ${context.provider} was disposed');
-  }
-
-  @override
-  void didUpdateProvider(ProviderObserverContext context, Object? previousValue, Object? newValue) {
-    riverpodLogger.info('Provider ${context.provider} updated from $previousValue to $newValue');
-  }
-
-  @override
-  void providerDidFail(ProviderObserverContext context, Object error, StackTrace stackTrace) {
-    if (error is ProviderException) {
-      // The provider didn't fail directly, but instead depends on a failed provider.
-      // The error was therefore already logged.
-      return;
-    }
-    riverpodLogger.warning('Provider ${context.provider} threw $error at $stackTrace', error, stackTrace);
   }
 }

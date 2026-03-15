@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/known_devices.dart';
@@ -11,14 +10,16 @@ import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
-class KnownGear extends ConsumerStatefulWidget {
+class KnownGear extends StatefulWidget {
   const KnownGear({super.key, this.hideScanButton = false});
+
   final bool hideScanButton;
+
   @override
-  ConsumerState<KnownGear> createState() => _KnownGearState();
+  State<KnownGear> createState() => _KnownGearState();
 }
 
-class _KnownGearState extends ConsumerState<KnownGear> {
+class _KnownGearState extends State<KnownGear> {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
@@ -28,7 +29,10 @@ class _KnownGearState extends ConsumerState<KnownGear> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ...KnownDevices.instance.state.values.map((BaseStatefulDevice baseStatefulDevice) => KnownGearCard(baseStatefulDevice: baseStatefulDevice)),
+            ...KnownDevices.instance.state.values.map(
+              (BaseStatefulDevice baseStatefulDevice) =>
+                  KnownGearCard(baseStatefulDevice: baseStatefulDevice),
+            ),
             if (!widget.hideScanButton) ...[const ScanForNewGearButton()],
           ],
         );
@@ -37,19 +41,25 @@ class _KnownGearState extends ConsumerState<KnownGear> {
   }
 }
 
-class ScanForNewGearButton extends ConsumerWidget {
+class ScanForNewGearButton extends StatelessWidget {
   const ScanForNewGearButton({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: KnownDevices.instance,
       builder: (BuildContext context, Widget? child) {
         return TweenAnimationBuilder(
-          tween: KnownDevices.instance.state.isEmpty ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
+          tween: KnownDevices.instance.state.isEmpty
+              ? Tween<double>(begin: 0, end: 1)
+              : Tween<double>(begin: 1, end: 0),
           duration: animationTransitionDuration,
           builder: (context, value, child) {
-            Color? color = Color.lerp(Theme.of(context).cardColor, Theme.of(context).colorScheme.primary, value);
+            Color? color = Color.lerp(
+              Theme.of(context).cardColor,
+              Theme.of(context).colorScheme.primary,
+              value,
+            );
             return Card(
               clipBehavior: Clip.antiAlias,
               color: color,
@@ -58,12 +68,16 @@ class ScanForNewGearButton extends ConsumerWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     height: 50 * MediaQuery.textScalerOf(context).scale(1),
-                    width: KnownDevices.instance.state.values.length > 1 ? 100 * MediaQuery.textScalerOf(context).scale(1) : 200 * MediaQuery.textScalerOf(context).scale(1),
+                    width: KnownDevices.instance.state.values.length > 1
+                        ? 100 * MediaQuery.textScalerOf(context).scale(1)
+                        : 200 * MediaQuery.textScalerOf(context).scale(1),
                     child: Center(
                       child: Text(
                         convertToUwU(scanDevicesTitle()),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(color!)),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: getTextColor(color!),
+                        ),
                       ),
                     ),
                   ),
@@ -80,16 +94,16 @@ class ScanForNewGearButton extends ConsumerWidget {
   }
 }
 
-class KnownGearCard extends ConsumerStatefulWidget {
+class KnownGearCard extends StatefulWidget {
   const KnownGearCard({required this.baseStatefulDevice, super.key});
 
   final BaseStatefulDevice baseStatefulDevice;
 
   @override
-  ConsumerState<KnownGearCard> createState() => _KnownGearCardState();
+  State<KnownGearCard> createState() => _KnownGearCardState();
 }
 
-class _KnownGearCardState extends ConsumerState<KnownGearCard> {
+class _KnownGearCardState extends State<KnownGearCard> {
   @override
   Widget build(BuildContext context) {
     return FadeIn(
@@ -101,20 +115,37 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
             child: ValueListenableBuilder(
               valueListenable: widget.baseStatefulDevice.hasUpdate,
               builder: (BuildContext context, bool hasUpdate, Widget? child) {
-                return Badge(isLabelVisible: hasUpdate, largeSize: 35, backgroundColor: Theme.of(context).primaryColor, label: const Icon(Icons.system_update), child: child);
+                return Badge(
+                  isLabelVisible: hasUpdate,
+                  largeSize: 35,
+                  backgroundColor: Theme.of(context).primaryColor,
+                  label: const Icon(Icons.system_update),
+                  child: child,
+                );
               },
               child: TweenAnimationBuilder(
-                tween: connectivityState == ConnectivityState.connected ? Tween<double>(begin: 0, end: 1) : Tween<double>(begin: 1, end: 0),
+                tween: connectivityState == ConnectivityState.connected
+                    ? Tween<double>(begin: 0, end: 1)
+                    : Tween<double>(begin: 1, end: 0),
                 duration: animationTransitionDuration,
                 builder: (BuildContext context, double value, Widget? child) {
-                  Color? cardColor = Color.lerp(Theme.of(context).cardColor, Color(widget.baseStatefulDevice.baseStoredDevice.color), value);
+                  Color? cardColor = Color.lerp(
+                    Theme.of(context).cardColor,
+                    Color(widget.baseStatefulDevice.baseStoredDevice.color),
+                    value,
+                  );
                   Color textColor = getTextColor(cardColor!);
                   return Card(
                     clipBehavior: Clip.antiAlias,
                     color: cardColor,
                     child: InkWell(
                       onTap: () async {
-                        ManageGearRoute(btMac: widget.baseStatefulDevice.baseStoredDevice.btMACAddress).push(context).then((value) {
+                        ManageGearRoute(
+                          btMac: widget
+                              .baseStatefulDevice
+                              .baseStoredDevice
+                              .btMACAddress,
+                        ).push(context).then((value) {
                           setState(() {}); //force widget update
                           return;
                         });
@@ -127,9 +158,15 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                           child: Stack(
                             children: [
                               Text(
-                                convertToUwU(widget.baseStatefulDevice.baseStoredDevice.name),
+                                convertToUwU(
+                                  widget
+                                      .baseStatefulDevice
+                                      .baseStoredDevice
+                                      .name,
+                                ),
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),
+                                style: Theme.of(context).textTheme.labelLarge!
+                                    .copyWith(color: textColor),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 16),
@@ -137,47 +174,121 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
                                   alignment: Alignment.bottomCenter,
                                   child: AnimatedCrossFade(
                                     firstChild: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         ValueListenableBuilder(
-                                          valueListenable: widget.baseStatefulDevice.batteryLevel,
-                                          builder: (BuildContext context, batteryLevel, Widget? child) {
-                                            return AnimatedSwitcher(duration: animationTransitionDuration, child: getBattery(batteryLevel, textColor));
-                                          },
+                                          valueListenable: widget
+                                              .baseStatefulDevice
+                                              .batteryLevel,
+                                          builder:
+                                              (
+                                                BuildContext context,
+                                                batteryLevel,
+                                                Widget? child,
+                                              ) {
+                                                return AnimatedSwitcher(
+                                                  duration:
+                                                      animationTransitionDuration,
+                                                  child: getBattery(
+                                                    batteryLevel,
+                                                    textColor,
+                                                  ),
+                                                );
+                                              },
                                         ),
                                         ValueListenableBuilder(
-                                          valueListenable: widget.baseStatefulDevice.batteryCharging,
-                                          builder: (BuildContext context, batteryCharging, Widget? child) {
-                                            return AnimatedCrossFade(
-                                              firstChild: Icon(Icons.power, color: textColor),
-                                              secondChild: Container(),
-                                              crossFadeState: batteryCharging ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                                              duration: animationTransitionDuration,
-                                            );
-                                          },
+                                          valueListenable: widget
+                                              .baseStatefulDevice
+                                              .batteryCharging,
+                                          builder:
+                                              (
+                                                BuildContext context,
+                                                batteryCharging,
+                                                Widget? child,
+                                              ) {
+                                                return AnimatedCrossFade(
+                                                  firstChild: Icon(
+                                                    Icons.power,
+                                                    color: textColor,
+                                                  ),
+                                                  secondChild: Container(),
+                                                  crossFadeState:
+                                                      batteryCharging
+                                                      ? CrossFadeState.showFirst
+                                                      : CrossFadeState
+                                                            .showSecond,
+                                                  duration:
+                                                      animationTransitionDuration,
+                                                );
+                                              },
                                         ),
                                         ValueListenableBuilder(
-                                          valueListenable: widget.baseStatefulDevice.mandatoryOtaRequired,
-                                          builder: (BuildContext context, otaRequired, Widget? child) {
-                                            return AnimatedCrossFade(
-                                              firstChild: Flash(child: Icon(Icons.warning, color: textColor)),
-                                              secondChild: Container(),
-                                              crossFadeState: otaRequired ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                                              duration: animationTransitionDuration,
-                                            );
-                                          },
+                                          valueListenable: widget
+                                              .baseStatefulDevice
+                                              .mandatoryOtaRequired,
+                                          builder:
+                                              (
+                                                BuildContext context,
+                                                otaRequired,
+                                                Widget? child,
+                                              ) {
+                                                return AnimatedCrossFade(
+                                                  firstChild: Flash(
+                                                    child: Icon(
+                                                      Icons.warning,
+                                                      color: textColor,
+                                                    ),
+                                                  ),
+                                                  secondChild: Container(),
+                                                  crossFadeState: otaRequired
+                                                      ? CrossFadeState.showFirst
+                                                      : CrossFadeState
+                                                            .showSecond,
+                                                  duration:
+                                                      animationTransitionDuration,
+                                                );
+                                              },
                                         ),
-                                        widget.baseStatefulDevice.baseDeviceDefinition.unsupported ? Icon(Icons.warning, color: textColor) : Container(),
+                                        widget
+                                                .baseStatefulDevice
+                                                .baseDeviceDefinition
+                                                .unsupported
+                                            ? Icon(
+                                                Icons.warning,
+                                                color: textColor,
+                                              )
+                                            : Container(),
                                         ValueListenableBuilder(
-                                          valueListenable: widget.baseStatefulDevice.rssi,
-                                          builder: (BuildContext context, rssi, Widget? child) {
-                                            return AnimatedSwitcher(duration: animationTransitionDuration, child: getSignal(rssi, textColor));
-                                          },
+                                          valueListenable:
+                                              widget.baseStatefulDevice.rssi,
+                                          builder:
+                                              (
+                                                BuildContext context,
+                                                rssi,
+                                                Widget? child,
+                                              ) {
+                                                return AnimatedSwitcher(
+                                                  duration:
+                                                      animationTransitionDuration,
+                                                  child: getSignal(
+                                                    rssi,
+                                                    textColor,
+                                                  ),
+                                                );
+                                              },
                                         ),
                                       ],
                                     ),
-                                    secondChild: Icon(Icons.bluetooth_disabled, color: textColor),
-                                    crossFadeState: connectivityState == ConnectivityState.connected ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                    secondChild: Icon(
+                                      Icons.bluetooth_disabled,
+                                      color: textColor,
+                                    ),
+                                    crossFadeState:
+                                        connectivityState ==
+                                            ConnectivityState.connected
+                                        ? CrossFadeState.showFirst
+                                        : CrossFadeState.showSecond,
                                     duration: animationTransitionDuration,
                                   ),
                                 ),
@@ -200,7 +311,10 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
   Widget getSignal(int rssi, Color color) {
     if (rssi == -1) {
       // Not Connected
-      return Icon(Icons.signal_cellular_connected_no_internet_0_bar, color: color);
+      return Icon(
+        Icons.signal_cellular_connected_no_internet_0_bar,
+        color: color,
+      );
     } else if (rssi < -80) {
       return Icon(Icons.signal_cellular_alt_1_bar, color: color);
     } else if (rssi < -60) {
@@ -211,20 +325,36 @@ class _KnownGearCardState extends ConsumerState<KnownGearCard> {
   }
 
   Widget getBattery(double level, Color color) {
-    if (HiveProxy.getOrDefault(settings, showAccurateBattery, defaultValue: showAccurateBatteryDefault)) {
+    if (HiveProxy.getOrDefault(
+      settings,
+      showAccurateBattery,
+      defaultValue: showAccurateBatteryDefault,
+    )) {
       if (level < 0) {
         // battery level is unknown
-        return Text('?%', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color));
+        return Text(
+          '?%',
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color),
+        );
       }
-      return Text('${level.toInt()}%', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color));
+      return Text(
+        '${level.toInt()}%',
+        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color),
+      );
     }
     if (level < 0) {
       return Icon(Icons.battery_unknown, color: color);
     }
     if (level < 12.5) {
-      return Flash(infinite: true, child: Icon(Icons.battery_0_bar, color: color));
+      return Flash(
+        infinite: true,
+        child: Icon(Icons.battery_0_bar, color: color),
+      );
     } else if (level < 25) {
-      return Flash(infinite: true, child: Icon(Icons.battery_1_bar, color: color));
+      return Flash(
+        infinite: true,
+        child: Icon(Icons.battery_1_bar, color: color),
+      );
     } else if (level < 37.5) {
       return Icon(Icons.battery_2_bar, color: color);
     } else if (level < 50) {

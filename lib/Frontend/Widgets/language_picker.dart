@@ -2,7 +2,6 @@ import 'package:choice/choice.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/logging_wrappers.dart';
@@ -11,19 +10,20 @@ import '../../l10n/app_localizations.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 
-class LanguagePicker extends ConsumerWidget {
+class LanguagePicker extends StatelessWidget {
   final bool isButton;
 
-  const LanguagePicker({
-    super.key,
-    this.isButton = false,
-  });
+  const LanguagePicker({super.key, this.isButton = false});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return PromptedChoice<Locale>.single(
       title: convertToUwU(appLanguageSelectorTitle()),
-      promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
+      promptDelegate: ChoicePrompt.delegateBottomSheet(
+        useRootNavigator: true,
+        enableDrag: true,
+        maxHeightFactor: 0.8,
+      ),
       itemCount: AppLocalizations.supportedLocales.length,
       modalHeaderBuilder: ChoiceModal.createHeader(
         automaticallyImplyLeading: true,
@@ -40,10 +40,8 @@ class LanguagePicker extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(Icons.language),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                    ),
-                    Text(convertToUwU(appLanguageSelectorTitle()))
+                    Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
+                    Text(convertToUwU(appLanguageSelectorTitle())),
                   ],
                 ),
               ),
@@ -54,7 +52,9 @@ class LanguagePicker extends ConsumerWidget {
             onTap: openModal,
             title: Text(convertToUwU(appLanguageSelectorTitle())),
             leading: Icon(Icons.language),
-            subtitle: state.single != null ? Text(convertToUwU(state.single!.toString())) : null,
+            subtitle: state.single != null
+                ? Text(convertToUwU(state.single!.toString()))
+                : null,
           );
         }
       },
@@ -63,21 +63,21 @@ class LanguagePicker extends ConsumerWidget {
         children: [
           (choiceController) {
             return FilledButton(
-              onPressed: choiceController.value.isNotEmpty ? () => choiceController.closeModal(confirmed: true) : null,
+              onPressed: choiceController.value.isNotEmpty
+                  ? () => choiceController.closeModal(confirmed: true)
+                  : null,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(Icons.check),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
-                  ),
+                  const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
                   Text(
                     convertToUwU(triggersDefSelectSaveLabel()),
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: getTextColor(
-                            Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
+                      color: getTextColor(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -88,13 +88,18 @@ class LanguagePicker extends ConsumerWidget {
       onChanged: (value) async {
         if (value != null) {
           HiveProxy.put(settings, selectedLocale, value.toLanguageTag());
-          ref.invalidate(initLocaleProvider);
         }
       },
       confirmation: true,
       value: AppLocalizations.supportedLocales
           .where(
-            (element) => element.toLanguageTag() == HiveProxy.getOrDefault(settings, selectedLocale, defaultValue: ""),
+            (element) =>
+                element.toLanguageTag() ==
+                HiveProxy.getOrDefault(
+                  settings,
+                  selectedLocale,
+                  defaultValue: "",
+                ),
           )
           .firstOrNull,
       itemBuilder: (ChoiceController<Locale> state, int index) {
@@ -105,14 +110,27 @@ class LanguagePicker extends ConsumerWidget {
             state.select(locale);
           },
           groupValue: state.single,
-          title: Text(convertToUwU(LocaleNames.of(context)!.nameOf(locale.toLanguageTag().replaceAll("-", "_")) ?? locale.toLanguageTag())),
-          secondary: Builder(builder: (context) {
-            if (locale.countryCode != null) {
-              return CountryFlag.fromCountryCode(locale.countryCode!.replaceAll("zh", "zh-cn"));
-            } else {
-              return CountryFlag.fromLanguageCode(locale.languageCode.replaceAll("zh", "zh-cn"));
-            }
-          }),
+          title: Text(
+            convertToUwU(
+              LocaleNames.of(
+                    context,
+                  )!.nameOf(locale.toLanguageTag().replaceAll("-", "_")) ??
+                  locale.toLanguageTag(),
+            ),
+          ),
+          secondary: Builder(
+            builder: (context) {
+              if (locale.countryCode != null) {
+                return CountryFlag.fromCountryCode(
+                  locale.countryCode!.replaceAll("zh", "zh-cn"),
+                );
+              } else {
+                return CountryFlag.fromLanguageCode(
+                  locale.languageCode.replaceAll("zh", "zh-cn"),
+                );
+              }
+            },
+          ),
         );
       },
     );

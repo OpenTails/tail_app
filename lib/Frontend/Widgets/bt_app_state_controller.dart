@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 
-class BtAppStateController extends ConsumerStatefulWidget {
+class BtAppStateController extends StatefulWidget {
   const BtAppStateController({required this.child, super.key});
 
   final Widget child;
 
   @override
-  ConsumerState<BtAppStateController> createState() => _BtAppStateControllerState();
+  State<BtAppStateController> createState() => _BtAppStateControllerState();
 }
 
-class _BtAppStateControllerState extends ConsumerState<BtAppStateController> {
+class _BtAppStateControllerState extends State<BtAppStateController> {
   late final AppLifecycleListener _listener;
 
   @override
@@ -23,7 +22,12 @@ class _BtAppStateControllerState extends ConsumerState<BtAppStateController> {
     _listener = AppLifecycleListener(
       onResume: () {
         // start FlutterBluePlus if its not started already
-        if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) >= hasCompletedOnboardingVersionToAgree) {
+        if (HiveProxy.getOrDefault(
+              settings,
+              hasCompletedOnboarding,
+              defaultValue: hasCompletedOnboardingDefault,
+            ) >=
+            hasCompletedOnboardingVersionToAgree) {
           initFlutterBluePlus();
         }
       },
@@ -34,7 +38,12 @@ class _BtAppStateControllerState extends ConsumerState<BtAppStateController> {
       },
     );
     // start FlutterBluePlus if its not started already
-    if (HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) >= hasCompletedOnboardingVersionToAgree) {
+    if (HiveProxy.getOrDefault(
+          settings,
+          hasCompletedOnboarding,
+          defaultValue: hasCompletedOnboardingDefault,
+        ) >=
+        hasCompletedOnboardingVersionToAgree) {
       initFlutterBluePlus();
     }
   }
