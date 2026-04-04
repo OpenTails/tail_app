@@ -6,8 +6,6 @@ import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/gen/assets.gen.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../../constants.dart';
 import '../Widgets/base_card.dart';
 import '../Widgets/tail_blog.dart';
 import '../go_router_config.dart';
@@ -75,30 +73,6 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ],
-          ),
-        ),
-        ValueListenableBuilder(
-          valueListenable: isBluetoothEnabled,
-          builder: (context, bluetoothEnabled, child) => AnimatedCrossFade(
-            secondChild: BaseCard(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    leading: const Icon(Icons.bluetooth_disabled),
-                    title: Text(convertToUwU(actionsNoBluetooth())),
-                    subtitle: Text(
-                      convertToUwU(actionsNoBluetoothDescription()),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            firstChild: Container(),
-            crossFadeState: bluetoothEnabled
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
-            duration: animationTransitionDuration,
           ),
         ),
         ListTile(
