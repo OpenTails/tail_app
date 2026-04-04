@@ -2,20 +2,16 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:data_saver/data_saver.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:intl/intl.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:synchronized/synchronized.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
 import '../Backend/logging_wrappers.dart';
@@ -23,66 +19,6 @@ import '../Backend/version.dart';
 import '../constants.dart';
 import '../l10n/app_localizations.dart';
 import '../l10n/messages_all_locales.dart';
-
-enum BluetoothPermissionStatus { granted, denied, unknown }
-
-Lock _bluetoothPermissionsLock = Lock();
-
-BluetoothPermissionStatus _bluetoothPermissionStatus =
-    BluetoothPermissionStatus.unknown;
-
-Future<BluetoothPermissionStatus> getBluetoothPermission() async {
-  return _bluetoothPermissionsLock.synchronized(() async {
-    if (_bluetoothPermissionStatus == BluetoothPermissionStatus.granted) {
-      return BluetoothPermissionStatus.granted;
-    }
-    BluetoothPermissionStatus status = BluetoothPermissionStatus.unknown;
-    if (Platform.isAndroid &&
-        (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
-      PermissionStatus permissionStatusScan = await Permission.bluetoothScan
-          .request();
-      //logger.info("permissionStatusScan $permissionStatusScan");
-      status = PermissionStatus.granted == permissionStatusScan
-          ? BluetoothPermissionStatus.granted
-          : BluetoothPermissionStatus.denied;
-
-      PermissionStatus permissionStatusConnect = await Permission
-          .bluetoothConnect
-          .request();
-      //logger.info("permissionStatusConnect $permissionStatusConnect");
-      status =
-          status == BluetoothPermissionStatus.granted &&
-              PermissionStatus.granted == permissionStatusConnect
-          ? BluetoothPermissionStatus.granted
-          : BluetoothPermissionStatus.denied;
-    } else if (Platform.isAndroid) {
-      PermissionStatus permissionStatusLocation = await Permission.location
-          .request();
-      //logger.info("permissionStatusLocation $permissionStatusLocation");
-      status = PermissionStatus.granted == permissionStatusLocation
-          ? BluetoothPermissionStatus.granted
-          : BluetoothPermissionStatus.denied;
-
-      PermissionStatus permissionStatusLocationInUse = await Permission
-          .locationWhenInUse
-          .request();
-      //logger.info("permissionStatusLocationInUse $permissionStatusLocationInUse");
-      status =
-          status == BluetoothPermissionStatus.granted &&
-              PermissionStatus.granted == permissionStatusLocationInUse
-          ? BluetoothPermissionStatus.granted
-          : BluetoothPermissionStatus.denied;
-    } else {
-      PermissionStatus permissionStatusBluetooth = await Permission.bluetooth
-          .request();
-      //logger.info("permissionStatusBluetooth $permissionStatusBluetooth");
-      status = PermissionStatus.granted == permissionStatusBluetooth
-          ? BluetoothPermissionStatus.granted
-          : BluetoothPermissionStatus.denied;
-    }
-    return status;
-  });
-}
 
 class UserLocale with ChangeNotifier {
   static final UserLocale instance = UserLocale._internal();

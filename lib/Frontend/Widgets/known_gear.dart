@@ -1,7 +1,11 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:tail_app/Backend/BluetoothIssuesCheck.dart';
+import 'package:tail_app/Frontend/Widgets/base_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
+import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
@@ -23,20 +27,109 @@ class _KnownGearState extends State<KnownGear> {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: KnownDevices.instance,
-      builder: (BuildContext context, Widget? child) {
-        return Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ...KnownDevices.instance.state.values.map(
-              (BaseStatefulDevice baseStatefulDevice) =>
-                  KnownGearCard(baseStatefulDevice: baseStatefulDevice),
-            ),
-            if (!widget.hideScanButton) ...[const ScanForNewGearButton()],
-          ],
+      listenable: BluetoothIssues.instance,
+      builder: (context, child) {
+        return ListenableBuilder(
+          listenable: KnownDevices.instance,
+          builder: (BuildContext context, Widget? child) {
+            return ValueListenableBuilder(
+              valueListenable: isBluetoothEnabled,
+              builder: (context, value, child) {
+                bool arePermissionsGranted =
+                    BluetoothIssues.instance.status ==
+                    BluetoothPermissionStatus.granted;
+
+                bool isReady =
+                    arePermissionsGranted && isBluetoothEnabled.value;
+
+                if (isReady) {
+                  return Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ...KnownDevices.instance.state.values.map(
+                        (BaseStatefulDevice baseStatefulDevice) =>
+                            KnownGearCard(
+                              baseStatefulDevice: baseStatefulDevice,
+                            ),
+                      ),
+                      if (!widget.hideScanButton) ...[
+                        const ScanForNewGearButton(),
+                      ],
+                    ],
+                  );
+                } else {
+                  return Container(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width,
+                      maxHeight:
+                          100 * MediaQuery.textScalerOf(context).scale(1),
+                    ),
+                    child: Builder(
+                      builder: (context) {
+                        if (!arePermissionsGranted) {
+                          return MissingRequirementsCard(
+                            onTap: () async =>
+                                BluetoothIssues.instance.requestPermissions(),
+                            text: onboardingBluetoothDescription,
+                          );
+                        } else if (!isBluetoothEnabled.value) {
+                          return MissingRequirementsCard(
+                            onTap: () async =>
+                                await AppSettings.openAppSettings(
+                                  type: AppSettingsType.bluetooth,
+                                ),
+                            text: onboardingBluetoothEnableButtonLabel,
+                          );
+                        }
+                        return Container();
+                      },
+                    ),
+                  );
+                }
+              },
+            );
+          },
         );
       },
+    );
+  }
+}
+
+class MissingRequirementsCard extends StatelessWidget {
+  const MissingRequirementsCard({
+    super.key,
+    required this.onTap,
+    required this.text,
+  });
+
+  final Function onTap;
+  final Function text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      color: Colors.red,
+      child: InkWell(
+        onTap: () => onTap(),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 50 * MediaQuery.textScalerOf(context).scale(1),
+            width: 200 * MediaQuery.textScalerOf(context).scale(1),
+            child: Center(
+              child: Text(
+                convertToUwU(text()),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: getTextColor(Colors.red),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

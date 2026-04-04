@@ -11,6 +11,7 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:tail_app/Backend/BluetoothIssuesCheck.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/command_history.dart';
 import 'package:tail_app/Backend/version.dart';
@@ -36,7 +37,7 @@ Future<void> initFlutterBluePlus() async {
   if (_didInitFlutterBluePlus) {
     return;
   }
-  if (await getBluetoothPermission() == BluetoothPermissionStatus.denied) {
+  if (!await BluetoothIssues.instance.hasPermissions()) {
     _bluetoothPlusLogger.info("Bluetooth permission not granted");
     return;
   }
