@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
 
 part 'version.freezed.dart';
+
 part 'version.g.dart';
 
 @freezed
@@ -38,5 +39,19 @@ abstract class Version with _$Version implements Comparable<Version> {
 
   bool operator >=(Version other) => compareTo(other) >= 0;
 
-  factory Version.fromJson(Map<String, dynamic> json) => _$VersionFromJson(json);
+  factory Version.fromJson(Map<String, dynamic> json) =>
+      _$VersionFromJson(json);
+
+  // for the version from PackageInfo
+  factory Version.fromString(String string) {
+    List<String> split = string.split(".");
+    if (split.length != 3) {
+      throw FormatException("Version string is not semver 1.0.0");
+    }
+    return Version(
+      major: int.parse(split[0]),
+      minor: int.parse(split[1]),
+      patch: int.parse(split[2]),
+    );
+  }
 }

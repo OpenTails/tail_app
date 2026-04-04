@@ -25,7 +25,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -198,6 +200,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     }
 
     fun launchPhoneApp() {
+        //TODO: Launch the main app
         val remoteActivityHelper =
             RemoteActivityHelper(this)
         remoteActivityHelper.startRemoteActivity(
@@ -356,7 +359,10 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                                 )
                             }
                             Card(
-                                onClick = { showConfirmation = true }
+                                onClick = {
+                                    showConfirmation = true
+                                    launchPhoneApp()
+                                }
                             ) { Text(text = state.value!!.localization.phonAppClosed) }
 
                             val text = OpenOnPhoneDialogDefaults.text
@@ -462,12 +468,14 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
         contents: String,
         uuid: String,
     ) {
+        val haptics = LocalHapticFeedback.current
         val context = LocalContext.current
         Chip(
             modifier = modifier,
             colors = ChipDefaults.chipColors(backgroundColor = Color(wearData.value!!.themeData.primary)),
             label = { Text(text = contents, textAlign = TextAlign.Center) },
             onClick = {
+                haptics.performHapticFeedback(HapticFeedbackType.ToggleOn)
                 sendMessageToPhone(
                     data = WearSendData(
                         capability = "run_action",

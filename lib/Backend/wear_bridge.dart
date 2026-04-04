@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:stream_transform/stream_transform.dart';
-import 'package:synchronized/synchronized.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/sensors.dart';
+import 'package:tail_app/Backend/version.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
@@ -127,6 +128,9 @@ Future<void> _onGearStoredConfigChanged() async {
 }
 
 Future<void> updateWearData({required String reason}) async {
+  Version appVersion = Version.fromString(
+    (await PackageInfo.fromPlatform()).version,
+  );
   try {
     if (!await isPaired()) {
       return; // Don't update wear actions if wear is not supported / no watch is paired
@@ -181,6 +185,7 @@ Future<void> updateWearData({required String reason}) async {
       knownGear: knownGear,
       localization: localizationData,
       timestamp: DateTime.now().millisecondsSinceEpoch,
+      appVersion: appVersion,
     );
     if (await isReachable()) {
       await _watch.updateApplicationContext(wearData.toJson());
@@ -199,6 +204,7 @@ abstract class WearData with _$WearData {
     required WearLocalizationData localization,
     required WearThemeData themeData,
     required int timestamp,
+    required Version appVersion,
   }) = _WearData;
 
   factory WearData.fromJson(Map<String, dynamic> json) =>

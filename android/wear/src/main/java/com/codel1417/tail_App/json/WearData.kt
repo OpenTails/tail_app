@@ -35,11 +35,18 @@ data class WearData(
     val knownGear: List<WearGearData> = ArrayList<WearGearData>(),
     val localization: WearLocalizationData = WearLocalizationData(),
     val themeData: WearThemeData = WearThemeData(),
-    val timestamp: Long = 0
+    val timestamp: Long = 0,
+    val appVersion: Version = Version()
 )
 
 data class WearSendData(
     val capability: String,
     val uuid: String = "",
     val enabled: Boolean = false
+)
+
+data class Version(
+    val major: Long = 0,
+    val minor: Long = 0,
+    val patch: Long = 0
 )

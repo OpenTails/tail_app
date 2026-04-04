@@ -47,7 +47,7 @@ android {
     defaultConfig {
         applicationId = "com.codel1417.tailApp"
         minSdk = 30
-        targetSdk = 34
+        targetSdk = 36
         versionCode = flutterVersionCode.toInt()
         versionName = flutterVersionName
         vectorDrawables {
