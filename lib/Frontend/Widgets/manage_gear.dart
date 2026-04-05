@@ -259,9 +259,9 @@ class _ManageGearState extends State<ManageGear> {
                       setState(() {
                         if (device!.deviceConnectionState.value ==
                             ConnectivityState.connected) {
-                          disconnect(device!.baseStoredDevice.btMACAddress);
                           device!.forgetOnDisconnect = true;
                           device!.disableAutoConnect = true;
+                          disconnect(device!.baseStoredDevice.btMACAddress);
                         } else {
                           KnownDevices.instance.remove(
                             device!.baseStoredDevice.btMACAddress,

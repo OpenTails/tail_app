@@ -1,31 +1,19 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
-import 'package:permission_handler/permission_handler.dart';
 import 'package:tail_app/Backend/BluetoothIssuesCheck.dart';
-import 'package:tail_app/Backend/analytics.dart';
-import 'package:tail_app/Backend/command_history.dart';
-import 'package:tail_app/Backend/version.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 
-import '../../Frontend/utils.dart';
 import '../../constants.dart';
 import '../Definitions/Device/device_definition.dart';
 import '../device_registry.dart';
-import '../firmware_update.dart';
 import '../logging_wrappers.dart';
-import '../sensors.dart';
 import 'known_devices.dart';
-import 'bluetooth_message.dart';
 
 final _bluetoothPlusLogger = log.Logger('BluetoothPlus');
 
@@ -59,9 +47,6 @@ Future<void> initFlutterBluePlus() async {
   FlutterBluePlus.adapterState.listen(_adapterStateListener);
   FlutterBluePlus.events.onServicesReset.listen(_onServicesResetListener);
   FlutterBluePlus.events.onMtuChanged.listen(_onMtuChangedListener);
-  FlutterBluePlus.events.onCharacteristicReceived.listen(
-    _onCharacteristicReceivedListener,
-  );
   FlutterBluePlus.events.onConnectionStateChanged.listen(
     _onConnectionStateChangedListener,
   );
@@ -99,134 +84,6 @@ void _onMtuChangedListener(OnMtuChangedEvent event) {
   statefulDevice?.mtu.value = event.mtu;
 }
 
-Future<void> _onCharacteristicReceivedListener(
-  OnCharacteristicReceivedEvent event,
-) async {
-  _bluetoothPlusLogger.info(
-    'onCharacteristicReceived ${event.device.advName} ${event.characteristic.uuid.str128} ${event.value}',
-  );
-
-  BluetoothDevice bluetoothDevice = event.device;
-  BluetoothCharacteristic bluetoothCharacteristic = event.characteristic;
-  List<int> values = event.value;
-  BaseStatefulDevice? statefulDevice =
-      KnownDevices.instance.state[bluetoothDevice.remoteId.str];
-  // get Device object
-  // set value
-  if (statefulDevice == null) {
-    return;
-  }
-  if (bluetoothCharacteristic.characteristicUuid.str.toLowerCase() == "2a19") {
-    statefulDevice.batteryLevel.value = values.first.toDouble();
-  } else if (bluetoothCharacteristic.characteristicUuid.str128.toLowerCase() ==
-      "5073792e-4fc0-45a0-b0a5-78b6c1756c91") {
-    try {
-      String value = const Utf8Decoder().convert(values);
-      statefulDevice.commandQueue.commandHistory.add(
-        type: MessageHistoryType.receive,
-        message: value,
-      );
-
-      statefulDevice.batteryCharging.value = value == "CHARGE ON";
-    } catch (e) {
-      _bluetoothPlusLogger.warning("Unable to read values: $values", e);
-      statefulDevice.commandQueue.commandHistory.add(
-        type: MessageHistoryType.receive,
-        message: "Unknown: ${values.toString()}",
-      );
-
-      return;
-    }
-  } else if (statefulDevice.bluetoothUartService.value != null &&
-      bluetoothCharacteristic.characteristicUuid.str128.toLowerCase() ==
-          statefulDevice.bluetoothUartService.value!.bleRxCharacteristic
-              .toLowerCase()) {
-    String value = "";
-    try {
-      value = const Utf8Decoder().convert(values);
-    } catch (e) {
-      _bluetoothPlusLogger.warning("Unable to read values: $values $e");
-      statefulDevice.commandQueue.commandHistory.add(
-        type: MessageHistoryType.receive,
-        message: "Unknown: ${values.toString()}",
-      );
-      return;
-    }
-    statefulDevice.commandQueue.commandHistory.add(
-      type: MessageHistoryType.receive,
-      message: value,
-    );
-
-    // Firmware Version
-    if (value.startsWith("VER")) {
-      statefulDevice.fwVersion.value = getVersionSemVer(
-        value.substring(value.indexOf(" ")),
-      );
-      if (statefulDevice.isTailCoNTROL.value == TailControlStatus.tailControl) {
-        statefulDevice.commandQueue.addCommand(
-          BluetoothMessage(message: "READNVS", timestamp: DateTime.timestamp()),
-        );
-      }
-      // Don't check for updates unless both values are set
-      if (statefulDevice.hwVersion.value.isNotEmpty &&
-          statefulDevice.fwVersion.value != Version()) {
-        await hasOtaUpdate(
-          statefulDevice,
-        ).catchError((error, stackTrace) => true);
-      }
-      // Sent after VER message
-    } else if (value.startsWith("GLOWTIP")) {
-      String substring = value.substring(value.indexOf(" ")).trim();
-      if (substring == 'TRUE') {
-        statefulDevice.hasGlowtip.value = GlowtipStatus.glowtip;
-      } else if (substring == 'FALSE') {
-        statefulDevice.hasGlowtip.value = GlowtipStatus.noGlowtip;
-      }
-    } else if (value.startsWith("RGB")) {
-      String substring = value.substring(value.indexOf(" ")).trim();
-      if (substring == 'TRUE') {
-        statefulDevice.hasRGB.value = RGBStatus.rgb;
-      } else if (substring == 'FALSE') {
-        statefulDevice.hasRGB.value = RGBStatus.noRGB;
-      }
-    } else if (value.contains("BUSY")) {
-      //statefulDevice.deviceState.value = DeviceState.busy;
-      statefulDevice.gearReturnedError.value = true;
-    } else if (value.contains("LOWBATT")) {
-      statefulDevice.batteryLow.value = true;
-    } else if (value.contains("ERR")) {
-      statefulDevice.gearReturnedError.value = true;
-    } else if (value.contains("SHUTDOWN BEGIN")) {
-      statefulDevice.deviceConnectionState.value =
-          ConnectivityState.disconnected;
-    } else if (value.contains("HWVER") ||
-        value.contains("MITAIL") ||
-        value.contains("MINITAIL") ||
-        value.contains("FLUTTERWINGS")) {
-      // Hardware Version
-      statefulDevice.hwVersion.value = value.substring(value.indexOf(" "));
-      // Don't check for updates unless both values are set
-      if (statefulDevice.hwVersion.value.isNotEmpty &&
-          statefulDevice.fwVersion.value != Version()) {
-        await hasOtaUpdate(
-          statefulDevice,
-        ).catchError((error, stackTrace) => true);
-      }
-    } else if (value.contains("READNVS")) {
-      try {
-        statefulDevice.gearConfigInfo.value = GearConfigInfo.fromGearString(
-          value.replaceFirst("READNVS ", ""),
-        );
-      } on Exception catch (e) {
-        _bluetoothPlusLogger.warning("Unable to parse NVS data: $e");
-      }
-    } else if (int.tryParse(value) != null) {
-      // Battery Level
-      statefulDevice.batteryLevel.value = int.parse(value).toDouble();
-    }
-  }
-}
-
 Future<void> _onDiscoveredServicesListener(
   OnDiscoveredServicesEvent event,
 ) async {
@@ -246,8 +103,11 @@ Future<void> _onDiscoveredServicesListener(
     for (BluetoothCharacteristic characteristic in service.characteristics) {
       try {
         await characteristic.setNotifyValue(true);
-      } on Exception catch (e) {
-        // TODO
+      } on Exception {
+        bluetoothLog.warning(
+          "Unable to set notify on characteristic "
+          "${characteristic.characteristicUuid}",
+        );
       }
     }
   }
@@ -284,149 +144,22 @@ Future<void> _onConnectionStateChangedListener(
   if (knownDevices.containsKey(deviceID)) {
     statefulDevice = knownDevices[deviceID]!;
     baseStoredDevice = statefulDevice.baseStoredDevice;
-    if (statefulDevice.baseStoredDevice.conModePin.isEmpty) {
-      int code = Random().nextInt(899999) + 100000;
-      baseStoredDevice.conModePin = code.toString();
-      Future(() => KnownDevices.instance.add(statefulDevice));
-    }
   } else {
     baseStoredDevice = BaseStoredDevice(
       deviceDefinition.uuid,
       deviceID,
       deviceDefinition.deviceType.color().toARGB32(),
     )..name = getNameFromBTName(deviceDefinition.btName);
-    int code = Random().nextInt(899999) + 100000;
-    baseStoredDevice.conModePin = code.toString();
+
     statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice);
-    Future(() => KnownDevices.instance.add(statefulDevice));
   }
   statefulDevice.deviceConnectionState.value =
       event.connectionState == BluetoothConnectionState.connected
       ? ConnectivityState.connected
       : ConnectivityState.disconnected;
   if (bluetoothConnectionState == BluetoothConnectionState.connected) {
-    bluetoothDevice
-        .readRssi()
-        .catchError((e) => -1)
-        .onError((error, stackTrace) => -1);
-    BaseDeviceDefinition? baseDeviceDefinition = DeviceRegistry.getByName(
-      event.device.advName,
-    );
-    if (baseDeviceDefinition == null) {
-      return;
-    }
-    // The timer used for the time value on the battery level graph
-    statefulDevice.stopWatch.start();
-    if (HiveProxy.getOrDefault(
-      settings,
-      keepAwake,
-      defaultValue: keepAwakeDefault,
-    )) {
-      _bluetoothPlusLogger.fine('Enabling wakelock');
-      WakelockPlus.enable();
-    }
-    if (Platform.isAndroid) {
-      //start foreground service on device connected. Library handles duplicate start calls
-      _bluetoothPlusLogger
-        ..fine('Requesting notification permission')
-        ..finer(
-          'Requesting notification permission result${await Permission.notification.request()}',
-        ); // Used only for Foreground service
-      FlutterForegroundTask.init(
-        androidNotificationOptions: AndroidNotificationOptions(
-          channelId: 'foreground_service',
-          channelName: 'Gear Connected',
-          channelDescription:
-              'This notification appears when any gear is running.',
-          channelImportance: NotificationChannelImportance.LOW,
-          priority: NotificationPriority.LOW,
-        ),
-        iosNotificationOptions: const IOSNotificationOptions(),
-        foregroundTaskOptions: ForegroundTaskOptions(
-          eventAction: ForegroundTaskEventAction.repeat(100),
-          allowWakeLock: true,
-        ),
-      );
-      FlutterForegroundTask.startService(
-        notificationTitle: "Gear Connected",
-        notificationText: "Gear is connected to The Tail Company app",
-        notificationIcon: const NotificationIcon(
-          metaDataName: 'com.codel1417.tailApp.notificationIcon',
-        ),
-      );
-      FlutterForegroundTask.setOnLockScreenVisibility(true);
-    }
-    analyticsEvent(
-      name: "Connect Gear",
-      props: {"Gear Type": deviceDefinition.btName},
-    );
     await event.device.discoverServices();
-
-    // queue up commands to get gear info
-    statefulDevice.commandQueue
-      ..addCommand(
-        BluetoothMessage(
-          message: "VER",
-          priority: Priority.low,
-          type: CommandType.system,
-          timestamp: DateTime.now(),
-        ),
-      )
-      ..addCommand(
-        BluetoothMessage(
-          message: "HWVER",
-          priority: Priority.low,
-          type: CommandType.system,
-          timestamp: DateTime.now(),
-        ),
-      );
-  }
-  if (bluetoothConnectionState == BluetoothConnectionState.disconnected) {
-    _bluetoothPlusLogger.info(
-      "Disconnected from device: ${bluetoothDevice.remoteId.str}",
-    );
-
-    // remove foreground service if no devices connected
-    int deviceCount = knownDevices.values
-        .where(
-          (element) =>
-              element.deviceConnectionState.value ==
-              ConnectivityState.connected,
-        )
-        .length;
-    bool lastDevice = deviceCount == 0;
-    if (lastDevice) {
-      _bluetoothPlusLogger.fine('Last gear detected');
-      // Disable all triggers on last device
-      TriggerList.instance.state.where((element) => element.enabled).forEach((
-        element,
-      ) {
-        element.enabled = false;
-      });
-      _bluetoothPlusLogger.finer('Disabling wakelock');
-      // stop wakelock if its started
-      WakelockPlus.disable();
-      // Close foreground service
-      if (Platform.isAndroid) {
-        _bluetoothPlusLogger.finer('Stopping foreground service');
-        FlutterForegroundTask.stopService();
-      }
-    }
-    // if the forget button was used, remove the device
-    if (knownDevices[bluetoothDevice.remoteId.str] != null &&
-        knownDevices[bluetoothDevice.remoteId.str]!.forgetOnDisconnect) {
-      _bluetoothPlusLogger.finer('forgetting about gear');
-      KnownDevices.instance.remove(bluetoothDevice.remoteId.str);
-      analyticsEvent(
-        name: "Forgetting Gear",
-        props: {"Gear Type": deviceDefinition.btName},
-      );
-    } else {
-      analyticsEvent(
-        name: "Disconnect Gear",
-        props: {"Gear Type": deviceDefinition.btName},
-      );
-    }
+    KnownDevices.instance.add(statefulDevice);
   }
 }
 
@@ -438,7 +171,7 @@ class _KeepGearAwake {
     _bluetoothPlusLogger.info("Starting _KeepGearAwake timer");
     // The stream/app should pause in the background, so this should be fine
     _streamSubscription ??= Stream.periodic(
-      const Duration(seconds: 10),
+      const Duration(seconds: 15),
     ).listen(_periodicListener);
   }
 
@@ -446,54 +179,10 @@ class _KeepGearAwake {
     BuiltMap<String, BaseStatefulDevice> knownDevices =
         KnownDevices.instance.state;
     for (var element in FlutterBluePlus.connectedDevices) {
-      BaseStatefulDevice? device = knownDevices[element.remoteId.str];
-      if (device != null) {
-        // required to keep the connection open on IOS, otherwise the app will suspend and walk mode will stop working
-        device.commandQueue.addCommand(
-          BluetoothMessage(
-            message: "PING",
-            priority: Priority.low,
-            type: CommandType.system,
-            timestamp: DateTime.now(),
-          ),
-        );
-        // Battery characteristic works fine for tailcontrol, so we don't need to manually request the battery level
-        if (device.isTailCoNTROL.value != TailControlStatus.tailControl) {
-          device.commandQueue.addCommand(
-            BluetoothMessage(
-              message: "BATT",
-              priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
-            ),
-          );
-        }
-        element
-            .readRssi()
-            .catchError((e) => -1)
-            .onError((error, stackTrace) => -1);
-
-        if (device.fwVersion.value == Version()) {
-          device.commandQueue.addCommand(
-            BluetoothMessage(
-              message: "VER",
-              priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
-            ),
-          );
-        }
-        if (device.hwVersion.value.isEmpty) {
-          device.commandQueue.addCommand(
-            BluetoothMessage(
-              message: "HWVER",
-              priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
-            ),
-          );
-        }
-      }
+      element
+          .readRssi()
+          .catchError((e) => -1)
+          .onError((error, stackTrace) => -1);
     }
   }
 }
@@ -506,6 +195,8 @@ Future<void> _onScanResultsListener(List<ScanResult> results) async {
     );
     BuiltMap<String, BaseStatefulDevice> knownDevices =
         KnownDevices.instance.state;
+
+    // check for known gear with the same mac address and try to connect
     if (knownDevices.containsKey(r.device.remoteId.str) &&
         knownDevices[r.device.remoteId.str]?.deviceConnectionState.value ==
             ConnectivityState.disconnected &&
@@ -524,6 +215,9 @@ Future<void> disconnect(String id) async {
   BluetoothDevice? device = FlutterBluePlus.connectedDevices.firstWhereOrNull(
     (element) => element.remoteId.str == id,
   );
+  KnownDevices.instance.state[id]?.deviceConnectionState.value =
+      ConnectivityState.disconnected;
+
   if (device != null) {
     _bluetoothPlusLogger.info("disconnecting from ${device.advName}");
     await device.disconnect(queue: false);
@@ -674,7 +368,7 @@ Future<void> sendMessage(
   bool withoutResponse = false,
 }) async {
   if (!_didInitFlutterBluePlus ||
-      device.baseStoredDevice.btMACAddress.startsWith("DEV")) {
+      device.baseStoredDevice.btMACAddress.startsWith(demoGearPrefix)) {
     return;
   }
   BluetoothDevice? bluetoothDevice = FlutterBluePlus.connectedDevices

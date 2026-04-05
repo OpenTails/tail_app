@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:logging/logging.dart' as log;
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../constants.dart';
 import '../Definitions/Device/device_definition.dart';
@@ -26,7 +29,8 @@ class KnownDevices with ChangeNotifier {
     try {
       if (storedDevices.isNotEmpty) {
         for (BaseStoredDevice e in storedDevices) {
-          if (e.btMACAddress.contains("DEV")) {
+          // We don't care for stored demo gear
+          if (e.btMACAddress.contains(demoGearPrefix)) {
             continue;
           }
           BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID(
@@ -43,6 +47,9 @@ class KnownDevices with ChangeNotifier {
       bluetoothLog.severe("Unable to load stored devices due to $e", e, s);
     }
     _state = BuiltMap(results);
+
+    //register listeners
+    _onDevicePaired();
   }
 
   Future<void> add(BaseStatefulDevice baseStatefulDevice) async {
@@ -65,13 +72,11 @@ class KnownDevices with ChangeNotifier {
       state.values.map((e) => e.baseStoredDevice),
     );
     _notify();
-
-    _onDevicePaired();
   }
 
   Future<void> removeDevGear() async {
     _state = _state.rebuild(
-      (p0) => p0.removeWhere((p0, p1) => p0.contains("DEV")),
+      (p0) => p0.removeWhere((p0, p1) => p0.contains(demoGearPrefix)),
     );
     await store();
   }
@@ -146,22 +151,75 @@ class KnownDevices with ChangeNotifier {
   }
 
   void _onDevicePaired() {
-    for (BaseStatefulDevice baseStatefulDevice
-        in KnownDevices.instance.state.values) {
+    for (BaseStatefulDevice baseStatefulDevice in state.values) {
       baseStatefulDevice.deviceConnectionState
         ..removeListener(_notify)
         ..addListener(_notify);
+      baseStatefulDevice.deviceConnectionState
+        ..removeListener(_wakelock)
+        ..addListener(_wakelock);
+      baseStatefulDevice.deviceConnectionState
+        ..removeListener(_foregroundService)
+        ..addListener(_foregroundService);
       baseStatefulDevice.bluetoothUartService
         ..removeListener(_notify)
         ..addListener(_notify);
       baseStatefulDevice.baseStoredDevice
         ..removeListener(_notify)
         ..addListener(_notify);
-
       //refresh on moves
       baseStatefulDevice.deviceState
         ..removeListener(_notify)
         ..addListener(_notify);
+    }
+  }
+
+  Future<void> _wakelock() async {
+    if (HiveProxy.getOrDefault(
+          settings,
+          keepAwake,
+          defaultValue: keepAwakeDefault,
+        ) &&
+        connectedGear.isNotEmpty) {
+      WakelockPlus.enable();
+    } else if (connectedGear.isEmpty) {
+      WakelockPlus.disable();
+    }
+  }
+
+  Future<void> _foregroundService() async {
+    if (!Platform.isAndroid) {
+      return;
+    }
+    if (connectedGear.isNotEmpty) {
+      //start foreground service on device connected. Library handles duplicate start calls
+      //TODO: translate strings
+      FlutterForegroundTask.init(
+        androidNotificationOptions: AndroidNotificationOptions(
+          channelId: 'foreground_service',
+          channelName: 'Gear Connected',
+          channelDescription:
+              'This notification appears when any gear is running.',
+          channelImportance: NotificationChannelImportance.LOW,
+          priority: NotificationPriority.LOW,
+        ),
+        iosNotificationOptions: const IOSNotificationOptions(),
+        foregroundTaskOptions: ForegroundTaskOptions(
+          // required to keep the app awake
+          eventAction: ForegroundTaskEventAction.repeat(100),
+          allowWakeLock: true,
+        ),
+      );
+      FlutterForegroundTask.startService(
+        notificationTitle: "Gear Connected",
+        notificationText: "Gear is connected to The Tail Company app",
+        notificationIcon: const NotificationIcon(
+          metaDataName: 'com.codel1417.tailApp.notificationIcon',
+        ),
+      );
+      FlutterForegroundTask.setOnLockScreenVisibility(true);
+    } else {
+      FlutterForegroundTask.stopService();
     }
   }
 }

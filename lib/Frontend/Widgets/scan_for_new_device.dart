@@ -95,8 +95,6 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                                               element.label == "TailCoNTROL",
                                         );
                                   }
-                                  int code = Random().nextInt(899999) + 100000;
-                                  baseStoredDevice.conModePin = code.toString();
                                   if (!KnownDevices.instance.state.containsKey(
                                     baseStoredDevice.btMACAddress,
                                   )) {

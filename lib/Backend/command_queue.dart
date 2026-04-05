@@ -7,6 +7,7 @@ import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/command_history.dart';
 
+import '../constants.dart';
 import 'Bluetooth/bluetooth_message.dart';
 import 'Definitions/Device/device_definition.dart';
 
@@ -36,7 +37,9 @@ class CommandQueue with ChangeNotifier {
     device.deviceConnectionState.addListener(_connectionStateListener);
     device.gearReturnedError.addListener(_gearErrorListener);
     device.deviceState.addListener(_deviceStateListener);
-    device.rxCharacteristicStream.asBroadcastStream().listen(_bluetoothResponseListener);
+    device.rxCharacteristicStream.asBroadcastStream().listen(
+      _bluetoothResponseListener,
+    );
     addListener(_onStateChanged);
   }
 
@@ -63,7 +66,9 @@ class CommandQueue with ChangeNotifier {
 
   /// Used to listen for a response if one is set in [BluetoothMessage].responseMSG
   void _bluetoothResponseListener(String msg) {
-    if (state == CommandQueueState.waitingForResponse && currentMessage != null && currentMessage!.responseMSG != null) {
+    if (state == CommandQueueState.waitingForResponse &&
+        currentMessage != null &&
+        currentMessage!.responseMSG != null) {
       if (msg == currentMessage!.responseMSG!) {
         _setState(CommandQueueState.idle);
       }
@@ -74,14 +79,22 @@ class CommandQueue with ChangeNotifier {
   void _onTimeout() {
     currentMessage == null;
     _runningCommandTimer == null;
-    if ([CommandQueueState.delay, CommandQueueState.waitingForResponse, CommandQueueState.running].contains(state)) {
+    if ([
+      CommandQueueState.delay,
+      CommandQueueState.waitingForResponse,
+      CommandQueueState.running,
+    ].contains(state)) {
       _setState(CommandQueueState.idle);
     }
   }
 
   /// Trigger resending the current command if the gear returns ERR/BUSY
   void _gearErrorListener() {
-    if (_device.gearReturnedError.value && [CommandQueueState.delay, CommandQueueState.waitingForResponse].contains(state)) {
+    if (_device.gearReturnedError.value &&
+        [
+          CommandQueueState.delay,
+          CommandQueueState.waitingForResponse,
+        ].contains(state)) {
       _device.gearReturnedError.value = false;
       _resendCommand();
     }
@@ -89,16 +102,20 @@ class CommandQueue with ChangeNotifier {
 
   void _resendCommand() {
     if (currentMessage != null) {
-      bluetoothLog.warning("Resending message for ${_device.baseStoredDevice.name} $currentMessage");
+      bluetoothLog.warning(
+        "Resending message for ${_device.baseStoredDevice.name} $currentMessage",
+      );
       addCommand(currentMessage!);
       _onTimeout(); //abort waiting for the command to finish
     }
   }
 
   void _deviceStateListener() {
-    if (state == CommandQueueState.blocked && _device.deviceState.value == DeviceState.standby) {
+    if (state == CommandQueueState.blocked &&
+        _device.deviceState.value == DeviceState.standby) {
       startQueue();
-    } else if (state != CommandQueueState.blocked && _device.deviceState.value == DeviceState.busy) {
+    } else if (state != CommandQueueState.blocked &&
+        _device.deviceState.value == DeviceState.busy) {
       stopQueue();
     }
   }
@@ -149,18 +166,30 @@ class CommandQueue with ChangeNotifier {
     // handle if the command is a delay command
     if (bluetoothMessage.delay != null) {
       bluetoothLog.fine("Pausing queue for ${_device.baseStoredDevice.name}");
-      _runningCommandTimer = Timer(Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20), _onTimeout);
+      _runningCommandTimer = Timer(
+        Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20),
+        _onTimeout,
+      );
       _setState(CommandQueueState.delay);
     } else {
-      bluetoothLog.fine("Sending command to ${_device.baseStoredDevice.name}:${bluetoothMessage.message}");
-      commandHistory.add(type: MessageHistoryType.send, message: bluetoothMessage.message);
+      bluetoothLog.fine(
+        "Sending command to ${_device.baseStoredDevice.name}:${bluetoothMessage.message}",
+      );
+      commandHistory.add(
+        type: MessageHistoryType.send,
+        message: bluetoothMessage.message,
+      );
 
       // skip delay for dev gear but still add the command to the queue
-      if (bluetoothMessage.responseMSG != null && !_device.baseStoredDevice.btMACAddress.startsWith("DEV")) {
+      if (bluetoothMessage.responseMSG != null &&
+          !_device.baseStoredDevice.btMACAddress.startsWith(demoGearPrefix)) {
         _setState(CommandQueueState.waitingForResponse);
         _runningCommandTimer = Timer(timeoutDuration, _onTimeout);
       }
-      await sendMessage(_device, const Utf8Encoder().convert(bluetoothMessage.message));
+      await sendMessage(
+        _device,
+        const Utf8Encoder().convert(bluetoothMessage.message),
+      );
       if (bluetoothMessage.responseMSG == null) {
         _onTimeout(); // end the current command if no reason to wait
       }
@@ -169,14 +198,21 @@ class CommandQueue with ChangeNotifier {
 
   void addCommand(BluetoothMessage bluetoothMessage) {
     // Don't add commands to disconnected or dev gear.
-    if (_device.deviceConnectionState.value != ConnectivityState.connected || state == CommandQueueState.blocked) {
+    if (_device.deviceConnectionState.value != ConnectivityState.connected ||
+        state == CommandQueueState.blocked) {
       return;
     }
     bluetoothLog.info("Adding command to queue $bluetoothMessage");
 
     // preempt queue if other direct commands exist. used for joystick
     if (bluetoothMessage.type == CommandType.direct) {
-      _internalCommandQueue.toUnorderedList().where((element) => [CommandType.move, CommandType.direct].contains(element.type)).forEach(_internalCommandQueue.remove);
+      _internalCommandQueue
+          .toUnorderedList()
+          .where(
+            (element) =>
+                [CommandType.move, CommandType.direct].contains(element.type),
+          )
+          .forEach(_internalCommandQueue.remove);
     }
     _internalCommandQueue.add(bluetoothMessage);
     // Start the queue is its stopped/idle

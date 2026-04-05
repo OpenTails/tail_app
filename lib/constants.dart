@@ -4,6 +4,7 @@ import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 
 const int kitsuneDelayRange = 1000;
 const Duration animationTransitionDuration = Duration(milliseconds: 500);
+const String demoGearPrefix = "DEV";
 
 // Settings labels
 const String settings = 'settings';
