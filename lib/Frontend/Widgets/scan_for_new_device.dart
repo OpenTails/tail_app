@@ -51,87 +51,95 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                     ),
                   ),
                   ScanGearList(),
-                  if (HiveProxy.getOrDefault(
-                    settings,
-                    showDebugging,
-                    defaultValue: showDemoGearDefault,
-                  )) ...[
-                    ExpansionTile(
-                      title: Text(convertToUwU(scanDemoGear())),
-                      children: [
-                        PageInfoCard(text: scanDemoGearTip()),
-                        ListTile(
-                          leading: const Icon(Icons.add),
-                          subtitle: DropdownMenu<BaseDeviceDefinition>(
-                            initialSelection: null,
-                            expandedInsets: EdgeInsets.zero,
-                            label: Text(convertToUwU(scanAddDemoGear())),
-                            onSelected: (value) async {
-                              if (value != null) {
-                                setState(() {
-                                  BaseStoredDevice baseStoredDevice;
-                                  BaseStatefulDevice statefulDevice;
-                                  baseStoredDevice = BaseStoredDevice(
-                                    value.uuid,
-                                    "DEV${value.deviceType.translatedName}",
-                                    value.deviceType.color().toARGB32(),
-                                  )..name = getNameFromBTName(value.btName);
-                                  statefulDevice = BaseStatefulDevice(
-                                    value,
-                                    baseStoredDevice,
-                                  );
-                                  statefulDevice.deviceConnectionState.value =
-                                      ConnectivityState.connected;
-                                  if (value.deviceType == DeviceType.ears) {
-                                    statefulDevice.bluetoothUartService.value =
-                                        uartServices.firstWhere(
-                                          (element) =>
-                                              element.label == "Legacy Ears",
-                                        );
-                                  } else {
-                                    statefulDevice.bluetoothUartService.value =
-                                        uartServices.firstWhere(
-                                          (element) =>
-                                              element.label == "TailCoNTROL",
-                                        );
-                                  }
-                                  if (!KnownDevices.instance.state.containsKey(
-                                    baseStoredDevice.btMACAddress,
-                                  )) {
-                                    KnownDevices.instance.add(statefulDevice);
-                                  }
-                                  context.pop();
-                                });
-                              }
-                            },
-                            dropdownMenuEntries: DeviceRegistry.allDevices
-                                .map(
-                                  (e) => DropdownMenuEntry(
-                                    value: e,
-                                    label: getNameFromBTName(e.btName),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(convertToUwU(scanRemoveDemoGear())),
-                          leading: const Icon(Icons.delete),
-                          onTap: () async {
-                            KnownDevices.instance.removeDevGear();
-                            if (KnownDevices.instance.state.values
-                                .where(
-                                  (element) =>
-                                      element.deviceConnectionState.value ==
-                                      ConnectivityState.connected,
-                                )
-                                .isEmpty) {}
-                            context.pop();
+                  ExpansionTile(
+                    title: Text(convertToUwU(scanDemoGear())),
+                    children: [
+                      PageInfoCard(text: scanDemoGearTip()),
+                      ListTile(
+                        leading: const Icon(Icons.add),
+                        subtitle: DropdownMenu<BaseDeviceDefinition>(
+                          initialSelection: null,
+                          expandedInsets: EdgeInsets.zero,
+                          label: Text(convertToUwU(scanAddDemoGear())),
+                          onSelected: (value) async {
+                            if (value != null) {
+                              setState(() {
+                                BaseStoredDevice baseStoredDevice;
+                                BaseStatefulDevice statefulDevice;
+                                baseStoredDevice = BaseStoredDevice(
+                                  value.uuid,
+                                  "DEV${value.deviceType.translatedName}",
+                                  value.deviceType.color().toARGB32(),
+                                )..name = getNameFromBTName(value.btName);
+                                statefulDevice = BaseStatefulDevice(
+                                  value,
+                                  baseStoredDevice,
+                                );
+                                statefulDevice.deviceConnectionState.value =
+                                    ConnectivityState.connected;
+                                if (value.deviceType == DeviceType.ears) {
+                                  statefulDevice.bluetoothUartService.value =
+                                      uartServices.firstWhere(
+                                        (element) =>
+                                            element.label == "Legacy Ears",
+                                      );
+                                } else {
+                                  statefulDevice.bluetoothUartService.value =
+                                      uartServices.firstWhere(
+                                        (element) =>
+                                            element.label == "TailCoNTROL",
+                                      );
+                                }
+                                if (!KnownDevices.instance.state.containsKey(
+                                  baseStoredDevice.btMACAddress,
+                                )) {
+                                  KnownDevices.instance.add(statefulDevice);
+                                }
+                                context.pop();
+                              });
+                            }
                           },
+                          dropdownMenuEntries: DeviceRegistry.allDevices
+                              .where((element) {
+                                if (HiveProxy.getOrDefault(
+                                  settings,
+                                  showDebugging,
+                                  defaultValue: showDemoGearDefault,
+                                )) {
+                                  return true;
+                                } else {
+                                  return [
+                                    "EG2",
+                                    "MiTail",
+                                  ].contains(element.btName);
+                                }
+                              })
+                              .map(
+                                (e) => DropdownMenuEntry(
+                                  value: e,
+                                  label: getNameFromBTName(e.btName),
+                                ),
+                              )
+                              .toList(),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      ListTile(
+                        title: Text(convertToUwU(scanRemoveDemoGear())),
+                        leading: const Icon(Icons.delete),
+                        onTap: () async {
+                          KnownDevices.instance.removeDevGear();
+                          if (KnownDevices.instance.state.values
+                              .where(
+                                (element) =>
+                                    element.deviceConnectionState.value ==
+                                    ConnectivityState.connected,
+                              )
+                              .isEmpty) {}
+                          context.pop();
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               );
             } else {
