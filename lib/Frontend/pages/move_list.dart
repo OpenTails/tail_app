@@ -39,7 +39,7 @@ class _MoveListViewState extends State<MoveListView> {
           setState(() {
             MoveLists.instance.add(
               MoveList(
-                name: sequencesPage(),
+                name: sequencesAdd(),
                 deviceCategory: DeviceType.values.toList(),
                 actionCategory: ActionCategory.sequence,
                 uuid: const Uuid().v4(),
