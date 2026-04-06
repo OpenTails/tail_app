@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -23,8 +24,13 @@ class KnownDevices with ChangeNotifier {
   static final KnownDevices instance = KnownDevices._internal();
 
   KnownDevices._internal() {
-    BuiltList<BaseStoredDevice> storedDevices =
-        HiveProxy.getAll<BaseStoredDevice>(devicesBox).toBuiltList();
+    BuiltList<BaseStoredDevice> storedDevices = Hive.box<BaseStoredDevice>(
+      devicesBox,
+    ).values.toBuiltList();
+
+    // after all device entries are loaded, close the box. The box will be
+    // re-opened as a lazy box to save ram
+    Hive.box<BaseStoredDevice>(devicesBox).close();
     Map<String, BaseStatefulDevice> results = {};
     try {
       if (storedDevices.isNotEmpty) {
@@ -66,11 +72,10 @@ class KnownDevices with ChangeNotifier {
   }
 
   Future<void> store() async {
-    await HiveProxy.clear<BaseStoredDevice>(devicesBox);
-    await HiveProxy.addAll<BaseStoredDevice>(
-      devicesBox,
-      state.values.map((e) => e.baseStoredDevice),
-    );
+    LazyBox<BaseStoredDevice> lazyBox =
+        await Hive.openLazyBox<BaseStoredDevice>(devicesBox);
+    await lazyBox.clear();
+    await lazyBox.addAll(state.values.map((e) => e.baseStoredDevice));
     _notify();
   }
 

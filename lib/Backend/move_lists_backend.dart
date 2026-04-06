@@ -27,13 +27,38 @@ extension EasingTypeExtension on EasingType {
       case EasingType.linear:
         return SizedBox(
           width: 65,
-          child: Sparkline(data: const [0, 1], lineColor: Theme.of(context).colorScheme.outline, lineWidth: 5),
+          child: Sparkline(
+            data: const [0, 1],
+            lineColor: Theme.of(context).colorScheme.outline,
+            lineWidth: 5,
+          ),
         );
       case EasingType.cubic:
         return SizedBox(
           width: 65,
           child: Sparkline(
-            data: const [0.271, 0.488, 0.657, 0.784, 0.875, 0.936, 0.973, 0.992, 0.999, 1, 1.001, 1.008, 1.027, 1.064, 1.125, 1.216, 1.343, 1.512, 1.729, 2],
+            data: const [
+              0.271,
+              0.488,
+              0.657,
+              0.784,
+              0.875,
+              0.936,
+              0.973,
+              0.992,
+              0.999,
+              1,
+              1.001,
+              1.008,
+              1.027,
+              1.064,
+              1.125,
+              1.216,
+              1.343,
+              1.512,
+              1.729,
+              2,
+            ],
             lineColor: Theme.of(context).colorScheme.outline,
             lineWidth: 5,
           ),
@@ -98,7 +123,13 @@ class Move {
 
   Move();
 
-  Move.move({this.leftServo = 0, this.rightServo = 0, this.speed = 50, this.easingType = EasingType.linear, this.moveType = MoveType.move});
+  Move.move({
+    this.leftServo = 0,
+    this.rightServo = 0,
+    this.speed = 50,
+    this.easingType = EasingType.linear,
+    this.moveType = MoveType.move,
+  });
 
   Move.delay(this.time) {
     moveType = MoveType.delay;
@@ -133,11 +164,18 @@ class Move {
           moveType == other.moveType;
 
   @override
-  int get hashCode => leftServo.hashCode ^ rightServo.hashCode ^ speed.hashCode ^ time.hashCode ^ easingType.hashCode ^ moveType.hashCode;
+  int get hashCode =>
+      leftServo.hashCode ^
+      rightServo.hashCode ^
+      speed.hashCode ^
+      time.hashCode ^
+      easingType.hashCode ^
+      moveType.hashCode;
 }
 
 class MoveLists with ChangeNotifier {
   BuiltList<MoveList> _state = BuiltList();
+
   BuiltList<MoveList> get state => _state;
 
   static final MoveLists instance = MoveLists._internal();
@@ -150,10 +188,11 @@ class MoveLists with ChangeNotifier {
   void reload() {
     List<MoveList> results = [];
     try {
-      results = HiveProxy.getAll<MoveList>(sequencesBox).toList(growable: true);
+      results = Hive.box<MoveList>(sequencesBox).values.toList();
     } catch (e, s) {
       sequencesLogger.severe("Unable to load sequences: $e", e, s);
     }
+    Hive.box<MoveList>(sequencesBox).close();
     _state = results.toBuiltList();
   }
 
@@ -179,8 +218,9 @@ class MoveLists with ChangeNotifier {
 
   Future<void> store() async {
     sequencesLogger.info("Storing sequences");
-    await HiveProxy.clear<MoveList>(sequencesBox);
-    await HiveProxy.addAll<MoveList>(sequencesBox, _state);
+    LazyBox<MoveList> lazyBox = await Hive.openLazyBox<MoveList>(sequencesBox);
+    await lazyBox.clear();
+    await lazyBox.addAll(_state);
     notifyListeners();
   }
 }

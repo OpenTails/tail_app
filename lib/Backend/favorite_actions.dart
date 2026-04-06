@@ -17,11 +17,16 @@ final _favoriteActionsLogger = Logger('Favorites');
 
 @HiveType(typeId: 13)
 @freezed
-abstract class FavoriteAction with _$FavoriteAction implements Comparable<FavoriteAction> {
+abstract class FavoriteAction
+    with _$FavoriteAction
+    implements Comparable<FavoriteAction> {
   const FavoriteAction._();
 
   @Implements<Comparable<FavoriteAction>>()
-  const factory FavoriteAction({@HiveField(1) required String actionUUID, @HiveField(2) required int id}) = _FavoriteAction;
+  const factory FavoriteAction({
+    @HiveField(1) required String actionUUID,
+    @HiveField(2) required int id,
+  }) = _FavoriteAction;
 
   @override
   int compareTo(other) {
@@ -32,6 +37,7 @@ abstract class FavoriteAction with _$FavoriteAction implements Comparable<Favori
 
 class FavoriteActions with ChangeNotifier {
   BuiltList<FavoriteAction> _state = BuiltList();
+
   BuiltList<FavoriteAction> get state => _state;
 
   static final FavoriteActions instance = FavoriteActions._internal();
@@ -39,10 +45,13 @@ class FavoriteActions with ChangeNotifier {
   FavoriteActions._internal() {
     List<FavoriteAction> results = [];
     try {
-      results = HiveProxy.getAll<FavoriteAction>(favoriteActionsBox).toList(growable: true);
+      results = Hive.box<FavoriteAction>(
+        favoriteActionsBox,
+      ).values.toList(growable: true);
     } catch (e, s) {
       _favoriteActionsLogger.severe("Unable to load favorites: $e", e, s);
     }
+    Hive.box<FavoriteAction>(favoriteActionsBox).close();
     _state = results.toBuiltList();
   }
 
@@ -56,7 +65,9 @@ class FavoriteActions with ChangeNotifier {
   }
 
   Future<void> remove(BaseAction action) async {
-    _state = _state.rebuild((p0) => p0.removeWhere((element) => element.actionUUID == action.uuid));
+    _state = _state.rebuild(
+      (p0) => p0.removeWhere((element) => element.actionUUID == action.uuid),
+    );
     await store();
   }
 
@@ -66,8 +77,11 @@ class FavoriteActions with ChangeNotifier {
 
   Future<void> store() async {
     _favoriteActionsLogger.info("Storing favorites");
-    await HiveProxy.clear<FavoriteAction>(favoriteActionsBox);
-    await HiveProxy.addAll<FavoriteAction>(favoriteActionsBox, _state);
+    LazyBox<FavoriteAction> lazyBox = await Hive.openLazyBox<FavoriteAction>(
+      favoriteActionsBox,
+    );
+    await lazyBox.clear();
+    await lazyBox.addAll(_state);
     updateShortcuts(_state);
     // ignore: unused_result
     notifyListeners();

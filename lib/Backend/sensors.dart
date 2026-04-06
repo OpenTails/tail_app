@@ -1426,7 +1426,7 @@ class TriggerList with ChangeNotifier {
   TriggerList._internal() {
     List<Trigger> results = [];
     try {
-      results = HiveProxy.getAll<Trigger>(triggerBox)
+      results = Hive.box<Trigger>(triggerBox).values
           .map((trigger) {
             Trigger trigger2 = Trigger.trigDef(
               TriggerDefinitionList.allTriggerDefinitions.firstWhere(
@@ -1441,6 +1441,7 @@ class TriggerList with ChangeNotifier {
     } catch (e, s) {
       sensorsLogger.severe("Unable to load stored triggers: $e", e, s);
     }
+    Hive.box<Trigger>(triggerBox).close();
     if (results.isEmpty) {
       TriggerDefinition triggerDefinition = TriggerDefinitionList
           .allTriggerDefinitions
@@ -1475,8 +1476,9 @@ class TriggerList with ChangeNotifier {
 
   Future<void> store() async {
     sensorsLogger.info("Storing triggers");
-    await HiveProxy.clear<Trigger>(triggerBox);
-    await HiveProxy.addAll<Trigger>(triggerBox, _state);
+    LazyBox<Trigger> lazyBox = await Hive.openLazyBox<Trigger>(triggerBox);
+    await lazyBox.clear();
+    await lazyBox.addAll(_state);
     notifyListeners();
     updateWearData(reason: "Trigger Added/Removed");
   }

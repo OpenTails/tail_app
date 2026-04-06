@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
 
 import '../constants.dart';
@@ -25,18 +26,20 @@ Future<void> playSound(String file) async {
 
 class UserAudioActions with ChangeNotifier {
   BuiltList<AudioAction> _state = BuiltList();
+
   BuiltList<AudioAction> get state => _state;
 
   static final UserAudioActions instance = UserAudioActions._internal();
 
   UserAudioActions._internal() {
-    List<AudioAction> results = [];
+    Iterable<AudioAction> results = [];
     try {
-      results = HiveProxy.getAll<AudioAction>(audioActionsBox).toList(growable: true);
+      results = Hive.box<AudioAction>(audioActionsBox).values;
     } catch (e, s) {
       _audioLogger.severe("Unable to load audio: $e", e, s);
     }
-    _state = results.build();
+    Hive.box<AudioAction>(audioActionsBox).close();
+    _state = results.toList().build();
   }
 
   Future<void> add(AudioAction action) async {
@@ -49,7 +52,9 @@ class UserAudioActions with ChangeNotifier {
   }
 
   Future<void> remove(AudioAction action) async {
-    _state = _state.rebuild((p0) => p0.removeWhere((element) => element.uuid == action.uuid));
+    _state = _state.rebuild(
+      (p0) => p0.removeWhere((element) => element.uuid == action.uuid),
+    );
     store();
   }
 
@@ -59,8 +64,11 @@ class UserAudioActions with ChangeNotifier {
 
   Future<void> store() async {
     _audioLogger.info("Storing Custom Audio");
-    await HiveProxy.clear<AudioAction>(audioActionsBox);
-    await HiveProxy.addAll<AudioAction>(audioActionsBox, _state);
+    LazyBox<AudioAction> lazyBox = await Hive.openLazyBox<AudioAction>(
+      audioActionsBox,
+    );
+    await lazyBox.clear();
+    await lazyBox.addAll(_state);
     notifyListeners();
   }
 }

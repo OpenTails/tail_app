@@ -249,6 +249,8 @@ Future<void> initHive() async {
     Hive.registerAdapter(VersionAdapter());
   }
   await Hive.openBox(settings); // Do not set type here
+
+  // closed after first read, reloads as lazybox
   await Hive.openBox<Trigger>(triggerBox);
   await Hive.openBox<FavoriteAction>(favoriteActionsBox);
   await Hive.openBox<AudioAction>(audioActionsBox);
