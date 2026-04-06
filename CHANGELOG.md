@@ -1,6 +1,16 @@
+### V 1.5.0
+
+- Lots of backend changes to support Watches
+- Rework permissions
+- Remove marketing notifications
+- Move permission & bluetooth check to the Known Gear bar.
+- Bring back demo gear as a more flushed out feature, Now it is treated
+  similar to regular gear.
+
 ### V 1.4.1
 
-- Fix issue where having a glowtip move selected will stop normal moves from running for triggers
+- Fix issue where having a glowtip move selected will stop normal moves from
+  running for triggers
 
 ### V 1.4.0
 
@@ -9,7 +19,8 @@
 - Add CosHub posts to Home UI
 - Fix some missing blog post images
 - Hide unavailable moves on the trigger edit screen.
-- Disabled 'Nearby Gear' trigger as it has been broken for awhile. This will hopefully come back in a future release
+- Disabled 'Nearby Gear' trigger as it has been broken for a while. This will
+  hopefully come back in a future release
 - Add support for future firmware changes
 - some bug fixes
 
@@ -123,8 +134,10 @@ Theres so many improvements over our old app - heres the headlines
 - Joystick control. Waaaat?!
 - Tail Co links in the app
 - Lots of easy-to-use gestures to control your gear, like the volume keys
-- Haptic feedback, Kitsune Mode and Fake Gear mode (for those wishing to test the app before purchasing)
+- Haptic feedback, Kitsune Mode and Fake Gear mode (for those wishing to test
+  the app before purchasing)
 - Much better handling of app crashes and errors.
 - And a "Send feedback" button that lets you navigate and illustrate the issue!
 
-  Theres actually even more than this - the best way to discover our new app is to have a really good wag.
+  Theres actually even more than this - the best way to discover our new app is
+  to have a really good wag.
