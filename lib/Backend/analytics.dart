@@ -36,55 +36,114 @@ Future<void> _initAptBase() async {
         printDebugMessages: kDebugMode,
         host: "https://aptabase.codel1417.xyz",
         tickDuration: Duration(
-          seconds: (await getDynamicConfigInfo()).featureFlags.analyticsTickDurationSeconds,
+          seconds: (await getDynamicConfigInfo())
+              .featureFlags
+              .analyticsTickDurationSeconds,
         ),
       ),
     );
     _didInit = true;
   });
-
 }
 
-Future<void> analyticsEvent({String name = "", Map<String, String> props = const {}}) async {
+Future<void> analyticsEvent({
+  String name = "",
+  Map<String, String> props = const {},
+}) async {
   // global config file check
   if (!(await getDynamicConfigInfo()).featureFlags.enableAnalytics) {
     return;
   }
 
-// user config check
-  if (!HiveProxy.getOrDefault(settings, allowAnalytics, defaultValue: allowAnalyticsDefault)) {
+  // user config check
+  if (!HiveProxy.getOrDefault(
+    settings,
+    allowAnalytics,
+    defaultValue: allowAnalyticsDefault,
+  )) {
     return;
   }
   await _initAptBase();
   Aptabase.instance.trackEvent(name, props);
 }
 
-Future<Map<String, String>> _getSettingsProps({Map<String, String> props = const {}}) async {
+Future<Map<String, String>> _getSettingsProps({
+  Map<String, String> props = const {},
+}) async {
   props = Map.of(props);
 
   // Settings
-  props['UwU Enabled'] = HiveProxy.getOrDefault(settings, uwuTextEnabled, defaultValue: uwuTextEnabledDefault).toString();
-  props['Fake Gear Enabled'] = HiveProxy.getOrDefault(settings, showDemoGear, defaultValue: showDemoGearDefault).toString();
-  props['Hide Tutorial Cards Enabled'] = HiveProxy.getOrDefault(settings, hideTutorialCards, defaultValue: hideTutorialCardsDefault).toString();
-  props['Haptic Feedback Enabled'] = HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault).toString();
-  props['Kitsune Mode Enabled'] = HiveProxy.getOrDefault(settings, kitsuneModeToggle, defaultValue: kitsuneModeDefault).toString();
-  props['Reduce Data Usage Enabled'] = HiveProxy.getOrDefault(settings, tailBlogWifiOnly, defaultValue: tailBlogWifiOnlyDefault).toString();
-  props['Larger Cards Enabled'] = HiveProxy.getOrDefault(settings, largerActionCardSize, defaultValue: largerActionCardSizeDefault).toString();
-  props['Show Battery % Enabled'] = HiveProxy.getOrDefault(settings, showAccurateBattery, defaultValue: showAccurateBatteryDefault).toString();
-  props['Keep Screen On Enabled'] = HiveProxy.getOrDefault(settings, keepAwake, defaultValue: keepAwakeDefault).toString();
-  props['Selected Language'] = HiveProxy.getOrDefault(settings, selectedLocale, defaultValue: "Not Set").toString();
-  props['Developer Mode'] = HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault).toString();
-  props['Custom App Color'] = (HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault) != appColorDefault).toString();
+  props['UwU Enabled'] = HiveProxy.getOrDefault(
+    settings,
+    uwuTextEnabled,
+    defaultValue: uwuTextEnabledDefault,
+  ).toString();
+  props['Hide Tutorial Cards Enabled'] = HiveProxy.getOrDefault(
+    settings,
+    hideTutorialCards,
+    defaultValue: hideTutorialCardsDefault,
+  ).toString();
+  props['Haptic Feedback Enabled'] = HiveProxy.getOrDefault(
+    settings,
+    haptics,
+    defaultValue: hapticsDefault,
+  ).toString();
+  props['Kitsune Mode Enabled'] = HiveProxy.getOrDefault(
+    settings,
+    kitsuneModeToggle,
+    defaultValue: kitsuneModeDefault,
+  ).toString();
+  props['Reduce Data Usage Enabled'] = HiveProxy.getOrDefault(
+    settings,
+    tailBlogWifiOnly,
+    defaultValue: tailBlogWifiOnlyDefault,
+  ).toString();
+  props['Larger Cards Enabled'] = HiveProxy.getOrDefault(
+    settings,
+    largerActionCardSize,
+    defaultValue: largerActionCardSizeDefault,
+  ).toString();
+  props['Show Battery % Enabled'] = HiveProxy.getOrDefault(
+    settings,
+    showAccurateBattery,
+    defaultValue: showAccurateBatteryDefault,
+  ).toString();
+  props['Keep Screen On Enabled'] = HiveProxy.getOrDefault(
+    settings,
+    keepAwake,
+    defaultValue: keepAwakeDefault,
+  ).toString();
+  props['Selected Language'] = HiveProxy.getOrDefault(
+    settings,
+    selectedLocale,
+    defaultValue: "Not Set",
+  ).toString();
+  props['Developer Mode'] = HiveProxy.getOrDefault(
+    settings,
+    showDebugging,
+    defaultValue: showDebuggingDefault,
+  ).toString();
+  props['Custom App Color'] =
+      (HiveProxy.getOrDefault(
+                settings,
+                appColor,
+                defaultValue: appColorDefault,
+              ) !=
+              appColorDefault)
+          .toString();
 
   return props;
 }
 
-Future<Map<String, String>> _getLaunchProps({Map<String, String> props = const {}}) async {
+Future<Map<String, String>> _getLaunchProps({
+  Map<String, String> props = const {},
+}) async {
   props = Map.of(props);
   //props['App Version'] = (await PackageInfo.fromPlatform()).version;
   props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
   props['Locale'] = Platform.localeName;
-  props['Installer Store'] = (await PackageInfo.fromPlatform()).installerStore ?? "Unknown";
+  props['Installer Store'] =
+      (await PackageInfo.fromPlatform()).installerStore ?? "Unknown";
 
   try {
     props['Has Watch'] = (await isPaired()).toString();
@@ -101,9 +160,15 @@ Future<Map<String, String>> _getLaunchProps({Map<String, String> props = const {
   return props;
 }
 
-Future<void> launchExternalUrl({required String url, required String analyticsLabel, bool addTrackingUtm = true}) async {
+Future<void> launchExternalUrl({
+  required String url,
+  required String analyticsLabel,
+  bool addTrackingUtm = true,
+}) async {
   analyticsEvent(name: "Launch External URL", props: {"type": analyticsLabel});
-  await launchUrl(Uri.parse(url + (addTrackingUtm ? "/${getOutboundUtm()}" : "")));
+  await launchUrl(
+    Uri.parse(url + (addTrackingUtm ? "/${getOutboundUtm()}" : "")),
+  );
 }
 
 String getOutboundUtm() {

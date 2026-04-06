@@ -268,10 +268,7 @@ class TailApp extends StatelessWidget {
 
     if (kDebugMode) {
       mainLogger.info('Debug Mode Enabled');
-      HiveProxy
-        ..put(settings, showDebugging, true)
-        //..put(settings, allowAnalytics, false)
-        ..put(settings, showDemoGear, true);
+      HiveProxy.put(settings, showDebugging, true);
     }
 
     return WithForegroundTask(

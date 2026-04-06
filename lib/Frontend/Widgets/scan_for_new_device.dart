@@ -104,7 +104,7 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                                 if (HiveProxy.getOrDefault(
                                   settings,
                                   showDebugging,
-                                  defaultValue: showDemoGearDefault,
+                                  defaultValue: showDebuggingDefault,
                                 )) {
                                   return true;
                                 } else {
