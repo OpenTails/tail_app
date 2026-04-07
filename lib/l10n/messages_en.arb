@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-03-15T09:11:05.778940",
+  "@@last_modified": "2026-04-07T00:18:39.661090",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -282,12 +282,6 @@
   "actionsNoBluetooth": "Bluetooth is unavailable",
   "@actionsNoBluetooth": {
     "description": "Label on the actions page when bluetooth is unavailable",
-    "type": "text",
-    "placeholders": {}
-  },
-  "actionsNoBluetoothDescription": "Bluetooth is required to connect to Gear. Please turn on bluetooth in settings. Do not connect to gear while in your devices bluetooth settings.",
-  "@actionsNoBluetoothDescription": {
-    "description": "description on the actions page when bluetooth is unavailable",
     "type": "text",
     "placeholders": {}
   },
@@ -1122,30 +1116,6 @@
   "joystickWarning": "The Joystick feature is experimental. Use at your own risk.",
   "@joystickWarning": {
     "description": "Label for the warning tutorial card on the joystick page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarLabel": "Please update your gear",
-  "@otaAvailableSnackbarLabel": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "otaAvailableSnackbarTitle": "Update Available",
-  "@otaAvailableSnackbarTitle": {
-    "description": "Label for the snackbar that appears when gear has an update",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarTitle": "Gear Connected",
-  "@newGearConnectedSnackbarTitle": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
-    "type": "text",
-    "placeholders": {}
-  },
-  "newGearConnectedSnackbarLabel": "Happy Wagging",
-  "@newGearConnectedSnackbarLabel": {
-    "description": "Label for the snackbar that appears when new gear is paired and connected",
     "type": "text",
     "placeholders": {}
   },
