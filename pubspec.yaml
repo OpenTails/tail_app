@@ -44,7 +44,7 @@ dependencies:
   quick_actions: ^1.1.0 # puts favorites on the home screen
   audioplayers: ^6.6.0
   platform: ^3.1.6 # used to enable mocking platform
-  connectivity_plus: ^7.1.0
+  connectivity_plus: 7.0.0
   data_saver: ^0.4.0 # check if data saver is enabled
   battery_plus: ^7.0.0
   ble_peripheral: ^2.4.0 # nearby gear
