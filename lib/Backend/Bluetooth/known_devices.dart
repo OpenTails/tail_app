@@ -76,6 +76,7 @@ class KnownDevices with ChangeNotifier {
         await Hive.openLazyBox<BaseStoredDevice>(devicesBox);
     await lazyBox.clear();
     await lazyBox.addAll(state.values.map((e) => e.baseStoredDevice));
+    _onDevicePaired();
     _notify();
   }
 
