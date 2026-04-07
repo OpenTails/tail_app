@@ -13,7 +13,10 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
+import '../../Backend/Definitions/Device/bluetooth_uart_services_list.dart';
+import '../../Backend/Definitions/Device/common_device_stuffs.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/Definitions/Device/device_type_enum.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../main.dart';
@@ -33,13 +36,13 @@ class ManageGear extends StatefulWidget {
 
 class _ManageGearState extends State<ManageGear> {
   Color? color;
-  BaseStatefulDevice? device;
+  StatefulDevice? device;
 
   @override
   void initState() {
     super.initState();
     device = KnownDevices.instance.state[widget.btMac];
-    color = Color(device!.baseStoredDevice.color);
+    color = Color(device!.storedDevice.color);
   }
 
   @override
@@ -54,7 +57,7 @@ class _ManageGearState extends State<ManageGear> {
             shrinkWrap: true,
             controller: scrollController,
             children: [
-              if (device!.baseDeviceDefinition.unsupported) ...[
+              if (device!.deviceDefinition.unsupported) ...[
                 BaseCard(
                   elevation: 3,
                   color: Colors.red,
@@ -83,7 +86,7 @@ class _ManageGearState extends State<ManageGear> {
                           child: InkWell(
                             onTap: () async {
                               OtaUpdateRoute(
-                                device: device!.baseStoredDevice.btMACAddress,
+                                device: device!.storedDevice.btMACAddress,
                               ).push(context);
                             },
                             child: ListTile(
@@ -111,7 +114,7 @@ class _ManageGearState extends State<ManageGear> {
                           child: FilledButton(
                             onPressed: () async {
                               OtaUpdateRoute(
-                                device: device!.baseStoredDevice.btMACAddress,
+                                device: device!.storedDevice.btMACAddress,
                               ).push(context);
                             },
                             style: ElevatedButton.styleFrom(
@@ -146,12 +149,12 @@ class _ManageGearState extends State<ManageGear> {
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
                   controller: TextEditingController(
-                    text: device!.baseStoredDevice.name,
+                    text: device!.storedDevice.name,
                   ),
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: sequencesEditName(),
-                    hintText: device!.baseDeviceDefinition.btName,
+                    hintText: device!.deviceDefinition.btName,
                   ),
                   maxLines: 1,
                   maxLength: 30,
@@ -159,10 +162,10 @@ class _ManageGearState extends State<ManageGear> {
                   onSubmitted: (nameValue) async {
                     setState(() {
                       if (nameValue.isNotEmpty) {
-                        device!.baseStoredDevice.name = nameValue;
+                        device!.storedDevice.name = nameValue;
                       } else {
-                        device!.baseStoredDevice.name =
-                            device!.baseDeviceDefinition.btName;
+                        device!.storedDevice.name =
+                            device!.deviceDefinition.btName;
                       }
                     });
                     KnownDevices.instance.store();
@@ -175,7 +178,7 @@ class _ManageGearState extends State<ManageGear> {
                   width: 44,
                   height: 44,
                   borderRadius: 22,
-                  color: Color(device!.baseStoredDevice.color),
+                  color: Color(device!.storedDevice.color),
                 ),
                 onTap: () async {
                   ColorPickerRoute(defaultColor: color!.toARGB32())
@@ -183,7 +186,7 @@ class _ManageGearState extends State<ManageGear> {
                       .then(
                         (color) => setState(() {
                           if (color != null) {
-                            device!.baseStoredDevice.color = color;
+                            device!.storedDevice.color = color;
                             this.color = Color(color);
                             KnownDevices.instance.store();
                           }
@@ -196,8 +199,7 @@ class _ManageGearState extends State<ManageGear> {
                 showDebugging,
                 defaultValue: showDebuggingDefault,
               )) ...[
-                if (device!.baseDeviceDefinition.deviceType ==
-                    DeviceType.ears) ...[
+                if (device!.deviceDefinition.deviceType == DeviceType.ears) ...[
                   ManageGearHomePosition(device: device!),
                 ],
                 ManageGearBatteryGraph(device: device!),
@@ -218,7 +220,7 @@ class _ManageGearState extends State<ManageGear> {
                       onPressed: () async {
                         setState(() {
                           device!.disableAutoConnect = true;
-                          disconnect(device!.baseStoredDevice.btMACAddress);
+                          disconnect(device!.storedDevice.btMACAddress);
                         });
                         Navigator.pop(context);
                       },
@@ -261,10 +263,10 @@ class _ManageGearState extends State<ManageGear> {
                             ConnectivityState.connected) {
                           device!.forgetOnDisconnect = true;
                           device!.disableAutoConnect = true;
-                          disconnect(device!.baseStoredDevice.btMACAddress);
+                          disconnect(device!.storedDevice.btMACAddress);
                         } else {
                           KnownDevices.instance.remove(
-                            device!.baseStoredDevice.btMACAddress,
+                            device!.storedDevice.btMACAddress,
                           );
                         }
                       });
@@ -283,7 +285,7 @@ class _ManageGearState extends State<ManageGear> {
 }
 
 class ManageGearUpdateCheckButton extends StatefulWidget {
-  final BaseStatefulDevice device;
+  final StatefulDevice device;
   final Color color;
 
   const ManageGearUpdateCheckButton({
@@ -337,7 +339,7 @@ class _ManageGearUpdateCheckButtonState
                   : () {
                       if (snapshot.data == true) {
                         OtaUpdateRoute(
-                          device: widget.device.baseStoredDevice.btMACAddress,
+                          device: widget.device.storedDevice.btMACAddress,
                         ).push(context);
                       } else {
                         setState(() {
@@ -381,7 +383,7 @@ class _ManageGearUpdateCheckButtonState
 }
 
 class ManageGearConventionMode extends StatelessWidget {
-  final BaseStatefulDevice device;
+  final StatefulDevice device;
 
   const ManageGearConventionMode({super.key, required this.device});
 
@@ -403,23 +405,21 @@ class ManageGearConventionMode extends StatelessWidget {
           trailing: ValueListenableBuilder(
             valueListenable: device.deviceConnectionState,
             builder: (context, connectivityState, child) => Switch(
-              value: device.baseStoredDevice.conModeEnabled,
+              value: device.storedDevice.conModeEnabled,
               onChanged: connectivityState == ConnectivityState.connected
                   ? (value) async {
                       //TODO: Validate the setting took correctly. Reboot check?
                       if (value) {
                         BluetoothMessage bluetoothMessage = BluetoothMessage(
                           message:
-                              "SETPUSSKEY ${device.baseStoredDevice.conModePin}",
+                              "SETPUSSKEY ${device.storedDevice.conModePin}",
                           timestamp: DateTime.timestamp(),
                         );
                         device.commandQueue.addCommand(bluetoothMessage);
-                        device.baseStoredDevice.conModeEnabled = true;
+                        device.storedDevice.conModeEnabled = true;
                         KnownDevices.instance.store();
                         await Clipboard.setData(
-                          ClipboardData(
-                            text: device.baseStoredDevice.conModePin,
-                          ),
+                          ClipboardData(text: device.storedDevice.conModePin),
                         );
                       } else {
                         //TODO? if gear is disconnected and this is attempted, offer instructions to reset gear
@@ -428,9 +428,9 @@ class ManageGearConventionMode extends StatelessWidget {
                           timestamp: DateTime.timestamp(),
                         );
                         device.commandQueue.addCommand(bluetoothMessage);
-                        device.baseStoredDevice.conModeEnabled = false;
+                        device.storedDevice.conModeEnabled = false;
                         KnownDevices.instance.store();
-                        forgetBond(device.baseStoredDevice.btMACAddress);
+                        forgetBond(device.storedDevice.btMACAddress);
                         //TODO: add IOS instructions for clearing bonds
                       }
                     }
@@ -442,7 +442,7 @@ class ManageGearConventionMode extends StatelessWidget {
           children: [
             FilledButton(
               onPressed: () => PinCodeRoute(
-                pin: device.baseStoredDevice.conModePin,
+                pin: device.storedDevice.conModePin,
               ).push(context),
               child: Text(manageGearConModePincodeTitle()),
             ),
@@ -454,7 +454,7 @@ class ManageGearConventionMode extends StatelessWidget {
 }
 
 class ManageGearAbout extends StatelessWidget {
-  final BaseStatefulDevice device;
+  final StatefulDevice device;
   final Color color;
 
   const ManageGearAbout({super.key, required this.device, required this.color});
@@ -510,7 +510,7 @@ class ManageGearAbout extends StatelessWidget {
 }
 
 class ManageGearBatteryGraph extends StatelessWidget {
-  final BaseStatefulDevice device;
+  final StatefulDevice device;
 
   const ManageGearBatteryGraph({super.key, required this.device});
 
@@ -579,7 +579,7 @@ class ManageGearBatteryGraph extends StatelessWidget {
 }
 
 class ManageGearDebug extends StatefulWidget {
-  final BaseStatefulDevice device;
+  final StatefulDevice device;
 
   const ManageGearDebug({super.key, required this.device});
 
@@ -607,7 +607,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
               child: FilledButton(
                 onPressed: () async {
                   OtaUpdateRoute(
-                    device: widget.device.baseStoredDevice.btMACAddress,
+                    device: widget.device.storedDevice.btMACAddress,
                   ).push(context);
                 },
                 child: Text(manageDevicesOtaButton()),
@@ -619,19 +619,17 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("BT MAC: ${widget.device.baseStoredDevice.btMACAddress}"),
+              Text("BT MAC: ${widget.device.storedDevice.btMACAddress}"),
               ValueListenableBuilder(
                 valueListenable: widget.device.fwInfo,
                 builder: (context, value, child) =>
                     Text("FW AVAIL: ${widget.device.fwInfo.value}"),
               ),
               Text("CON ELAPSED: ${widget.device.stopWatch.elapsed}"),
-              Text("DEV UUID: ${widget.device.baseDeviceDefinition.uuid}"),
-              Text(
-                "DEV TYPE: ${widget.device.baseDeviceDefinition.deviceType}",
-              ),
+              Text("DEV UUID: ${widget.device.deviceDefinition.uuid}"),
+              Text("DEV TYPE: ${widget.device.deviceDefinition.deviceType}"),
               FutureBuilder(
-                future: widget.device.baseDeviceDefinition.getFwURL(),
+                future: widget.device.deviceDefinition.getFwURL(),
                 builder: (context, snapshot) {
                   return Text("DEV FW URL: ${snapshot.data ?? ""}");
                 },
@@ -642,7 +640,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                     Text("MTU: ${widget.device.mtu.value}"),
               ),
               Text(
-                "MIN FIRMWARE: ${widget.device.baseDeviceDefinition.minVersion}",
+                "MIN FIRMWARE: ${widget.device.deviceDefinition.minVersion}",
               ),
               ValueListenableBuilder(
                 valueListenable: widget.device.gearConfigInfo,
@@ -961,7 +959,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
           valueListenable: widget.device.deviceState,
           builder: (context, value, child) => ListTile(
             title: const Text("Device State"),
-            trailing: DropdownMenu<DeviceState>(
+            trailing: DropdownMenu<DeviceMoveState>(
               initialSelection: widget.device.deviceState.value,
               onSelected: (value) {
                 if (value != null) {
@@ -970,7 +968,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                   });
                 }
               },
-              dropdownMenuEntries: DeviceState.values
+              dropdownMenuEntries: DeviceMoveState.values
                   .map((e) => DropdownMenuEntry(value: e, label: e.name))
                   .toList(),
             ),
@@ -1035,7 +1033,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
 }
 
 class ManageGearHomePosition extends StatefulWidget {
-  final BaseStatefulDevice device;
+  final StatefulDevice device;
 
   const ManageGearHomePosition({super.key, required this.device});
 
@@ -1053,15 +1051,15 @@ class _ManageGearHomePositionState extends State<ManageGearHomePosition> {
         ListTile(
           title: Text(convertToUwU(sequencesEditLeftServo())),
           subtitle: Slider(
-            value: widget.device.baseStoredDevice.leftHomePosition.toDouble(),
-            label: widget.device.baseStoredDevice.leftHomePosition.toString(),
+            value: widget.device.storedDevice.leftHomePosition.toDouble(),
+            label: widget.device.storedDevice.leftHomePosition.toString(),
             divisions: 7,
             min: 0,
             max: 8,
             onChangeEnd: (value) => updateHomePosition(),
             onChanged: (value) {
               setState(() {
-                widget.device.baseStoredDevice.leftHomePosition = value.toInt();
+                widget.device.storedDevice.leftHomePosition = value.toInt();
               });
             },
           ),
@@ -1069,16 +1067,15 @@ class _ManageGearHomePositionState extends State<ManageGearHomePosition> {
         ListTile(
           title: Text(convertToUwU(sequencesEditRightServo())),
           subtitle: Slider(
-            value: widget.device.baseStoredDevice.rightHomePosition.toDouble(),
-            label: widget.device.baseStoredDevice.rightHomePosition.toString(),
+            value: widget.device.storedDevice.rightHomePosition.toDouble(),
+            label: widget.device.storedDevice.rightHomePosition.toString(),
             divisions: 7,
             min: 0,
             max: 8,
             onChangeEnd: (value) => updateHomePosition(),
             onChanged: (value) {
               setState(() {
-                widget.device.baseStoredDevice.rightHomePosition = value
-                    .toInt();
+                widget.device.storedDevice.rightHomePosition = value.toInt();
               });
             },
           ),
@@ -1090,15 +1087,11 @@ class _ManageGearHomePositionState extends State<ManageGearHomePosition> {
   void updateHomePosition() {
     Move move = Move.move(
       leftServo:
-          (widget.device.baseStoredDevice.leftHomePosition
-                      .clamp(0, 8)
-                      .toDouble() *
+          (widget.device.storedDevice.leftHomePosition.clamp(0, 8).toDouble() *
                   16)
               .clamp(0, 127),
       rightServo:
-          (widget.device.baseStoredDevice.rightHomePosition
-                      .clamp(0, 8)
-                      .toDouble() *
+          (widget.device.storedDevice.rightHomePosition.clamp(0, 8).toDouble() *
                   16)
               .clamp(0, 127),
     );

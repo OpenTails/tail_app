@@ -48,35 +48,72 @@ class _TriggersState extends State<Triggers> {
                     ? Container()
                     : PromptedChoice<TriggerDefinition>.single(
                         itemCount: triggerDefinitions.length,
-                        itemBuilder: (ChoiceController<TriggerDefinition> state, int index) {
-                          TriggerDefinition triggerDefinition = triggerDefinitions[index];
-                          return RadioListTile(
-                            value: triggerDefinition,
-                            groupValue: state.single,
-                            onChanged: (value) {
-                              state.select(triggerDefinition);
+                        itemBuilder:
+                            (
+                              ChoiceController<TriggerDefinition> state,
+                              int index,
+                            ) {
+                              TriggerDefinition triggerDefinition =
+                                  triggerDefinitions[index];
+                              return RadioListTile(
+                                value: triggerDefinition,
+                                groupValue: state.single,
+                                onChanged: (value) {
+                                  state.select(triggerDefinition);
+                                },
+                                secondary: triggerDefinition.icon,
+                                subtitle: ChoiceText(
+                                  convertToUwU(triggerDefinition.description()),
+                                  highlight: state.search?.value,
+                                ),
+                                title: ChoiceText(
+                                  convertToUwU(triggerDefinition.name()),
+                                  highlight: state.search?.value,
+                                ),
+                              );
                             },
-                            secondary: triggerDefinition.icon,
-                            subtitle: ChoiceText(convertToUwU(triggerDefinition.description()), highlight: state.search?.value),
-                            title: ChoiceText(convertToUwU(triggerDefinition.name()), highlight: state.search?.value),
-                          );
-                        },
-                        promptDelegate: ChoicePrompt.delegateBottomSheet(useRootNavigator: true, enableDrag: true, maxHeightFactor: 0.8),
-                        modalHeaderBuilder: ChoiceModal.createHeader(automaticallyImplyLeading: true, actionsBuilder: []),
+                        promptDelegate: ChoicePrompt.delegateBottomSheet(
+                          useRootNavigator: true,
+                          enableDrag: true,
+                          maxHeightFactor: 0.8,
+                        ),
+                        modalHeaderBuilder: ChoiceModal.createHeader(
+                          automaticallyImplyLeading: true,
+                          actionsBuilder: [],
+                        ),
                         modalFooterBuilder: ChoiceModal.createFooter(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             (choiceController) {
                               return FilledButton(
-                                onPressed: choiceController.value.isNotEmpty ? () => choiceController.closeModal(confirmed: true) : null,
+                                onPressed: choiceController.value.isNotEmpty
+                                    ? () => choiceController.closeModal(
+                                        confirmed: true,
+                                      )
+                                    : null,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Icon(Icons.check),
-                                    const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
+                                    const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 4,
+                                      ),
+                                    ),
                                     Text(
-                                      convertToUwU(triggersDefSelectSaveLabel()),
-                                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: getTextColor(Theme.of(context).colorScheme.primary)),
+                                      convertToUwU(
+                                        triggersDefSelectSaveLabel(),
+                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge!
+                                          .copyWith(
+                                            color: getTextColor(
+                                              Theme.of(
+                                                context,
+                                              ).colorScheme.primary,
+                                            ),
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -89,14 +126,29 @@ class _TriggersState extends State<Triggers> {
                         onChanged: (value) async {
                           if (value != null) {
                             setState(() {
-                              Trigger trigger = Trigger.trigDef(value, const Uuid().v4());
+                              Trigger trigger = Trigger.trigDef(
+                                value,
+                                const Uuid().v4(),
+                              );
                               TriggerList.instance.add(trigger);
-                              analyticsEvent(name: "Add Trigger", props: {"Trigger Type": Intl.withLocale('en', () => value.name())});
+                              analyticsEvent(
+                                name: "Add Trigger",
+                                props: {
+                                  "Trigger Type": Intl.withLocale(
+                                    'en',
+                                    () => value.name(),
+                                  ),
+                                },
+                              );
                             });
                           }
                         },
                         anchorBuilder: (state, openModal) {
-                          return FloatingActionButton.extended(icon: const Icon(Icons.add), label: Text(convertToUwU(triggersAdd())), onPressed: openModal);
+                          return FloatingActionButton.extended(
+                            icon: const Icon(Icons.add),
+                            label: Text(convertToUwU(triggersAdd())),
+                            onPressed: openModal,
+                          );
                         },
                       ),
               );
@@ -115,40 +167,69 @@ class _TriggersState extends State<Triggers> {
                     Trigger trigger = triggersList[index];
                     return ListTile(
                       onTap: () async {
-                        TriggersEditRoute(uuid: triggersList[index].uuid).push(context).whenComplete(() => setState(() {}));
+                        TriggersEditRoute(
+                          uuid: triggersList[index].uuid,
+                        ).push(context).whenComplete(() => setState(() {}));
                       },
-                      title: Text(convertToUwU(trigger.triggerDefinition!.name())),
+                      title: Text(
+                        convertToUwU(trigger.triggerDefinition!.name()),
+                      ),
                       subtitle: MultiValueListenableBuilder(
-                        builder: (BuildContext context, List<dynamic> values, Widget? child) {
-                          return AnimatedCrossFade(
-                            firstChild: Text(convertToUwU(trigger.triggerDefinition!.description())),
-                            secondChild: MultiValueListenableBuilder(
-                              valueListenables: trigger.actions.map((e) => e.isActiveProgress).toList(),
-                              builder: (context, values, child) {
-                                return TweenAnimationBuilder<double>(
-                                  duration: const Duration(milliseconds: 250),
-                                  curve: Curves.easeInOut,
-                                  tween: Tween<double>(
-                                    begin: 0,
-                                    end: values.map((e) => e as double).firstWhere(orElse: () => 0, (element) {
-                                      return element > 0 && element <= 1;
-                                    }),
+                        builder:
+                            (
+                              BuildContext context,
+                              List<dynamic> values,
+                              Widget? child,
+                            ) {
+                              return AnimatedCrossFade(
+                                firstChild: Text(
+                                  convertToUwU(
+                                    trigger.triggerDefinition!.description(),
                                   ),
-                                  builder: (context, value, _) => LinearProgressIndicator(value: value),
-                                );
-                              },
-                            ),
-                            crossFadeState: !values.any((element) => element == true) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                            duration: animationTransitionDuration,
-                          );
-                        },
-                        valueListenables: trigger.actions.map((e) => e.isActive).toList(),
+                                ),
+                                secondChild: MultiValueListenableBuilder(
+                                  valueListenables: trigger.actions
+                                      .map((e) => e.isActiveProgress)
+                                      .toList(),
+                                  builder: (context, values, child) {
+                                    return TweenAnimationBuilder<double>(
+                                      duration: const Duration(
+                                        milliseconds: 250,
+                                      ),
+                                      curve: Curves.easeInOut,
+                                      tween: Tween<double>(
+                                        begin: 0,
+                                        end: values
+                                            .map((e) => e as double)
+                                            .firstWhere(orElse: () => 0, (
+                                              element,
+                                            ) {
+                                              return element > 0 &&
+                                                  element <= 1;
+                                            }),
+                                      ),
+                                      builder: (context, value, _) =>
+                                          LinearProgressIndicator(value: value),
+                                    );
+                                  },
+                                ),
+                                crossFadeState:
+                                    !values.any((element) => element == true)
+                                    ? CrossFadeState.showFirst
+                                    : CrossFadeState.showSecond,
+                                duration: animationTransitionDuration,
+                              );
+                            },
+                        valueListenables: trigger.actions
+                            .map((e) => e.isActive)
+                            .toList(),
                       ),
                       leading: ListenableBuilder(
                         listenable: trigger,
                         builder: (BuildContext context, Widget? child) {
                           return Semantics(
-                            label: 'A switch to toggle the trigger ${trigger.triggerDefinition?.name}',
+                            label:
+                                'A switch to toggle the trigger ${trigger.triggerDefinition?.name}',
                             child: FutureBuilder(
                               future: trigger.triggerDefinition!.isSupported(),
                               builder: (context, snapshot) => Switch(
@@ -157,8 +238,18 @@ class _TriggersState extends State<Triggers> {
                                     ? (bool value) async {
                                         setState(() {
                                           trigger.enabled = !trigger.enabled;
-                                          TriggerDefinition triggerDefinition = trigger.triggerDefinition!;
-                                          analyticsEvent(name: "${value ? "Enable" : "Disable"} Trigger", props: {"Trigger Type": Intl.withLocale('en', () => triggerDefinition.name())});
+                                          TriggerDefinition triggerDefinition =
+                                              trigger.triggerDefinition!;
+                                          analyticsEvent(
+                                            name:
+                                                "${value ? "Enable" : "Disable"} Trigger",
+                                            props: {
+                                              "Trigger Type": Intl.withLocale(
+                                                'en',
+                                                () => triggerDefinition.name(),
+                                              ),
+                                            },
+                                          );
                                         });
                                       }
                                     : null,
@@ -194,7 +285,9 @@ class _TriggerEditState extends State<TriggerEdit> {
 
   @override
   void initState() {
-    trigger = TriggerList.instance.state.firstWhereOrNull((element) => element.uuid == widget.uuid);
+    trigger = TriggerList.instance.state.firstWhereOrNull(
+      (element) => element.uuid == widget.uuid,
+    );
     triggerDefinition = trigger?.triggerDefinition;
     super.initState();
   }
@@ -224,7 +317,8 @@ class _TriggerEditState extends State<TriggerEdit> {
                   listenable: trigger!,
                   builder: (BuildContext context, Widget? child) {
                     return Semantics(
-                      label: 'A switch to toggle the trigger ${triggerDefinition?.name}',
+                      label:
+                          'A switch to toggle the trigger ${triggerDefinition?.name}',
                       child: FutureBuilder(
                         future: trigger!.triggerDefinition!.isSupported(),
                         builder: (context, snapshot) => Switch(
@@ -233,8 +327,18 @@ class _TriggerEditState extends State<TriggerEdit> {
                               ? (bool value) {
                                   setState(() {
                                     trigger!.enabled = !trigger!.enabled;
-                                    TriggerDefinition triggerDefinition = trigger!.triggerDefinition!;
-                                    analyticsEvent(name: "${value ? "Enable" : "Disable"} Trigger", props: {"Trigger Type": Intl.withLocale('en', () => triggerDefinition.name())});
+                                    TriggerDefinition triggerDefinition =
+                                        trigger!.triggerDefinition!;
+                                    analyticsEvent(
+                                      name:
+                                          "${value ? "Enable" : "Disable"} Trigger",
+                                      props: {
+                                        "Trigger Type": Intl.withLocale(
+                                          'en',
+                                          () => triggerDefinition.name(),
+                                        ),
+                                      },
+                                    );
                                   });
                                 }
                               : null,
@@ -244,10 +348,16 @@ class _TriggerEditState extends State<TriggerEdit> {
                   },
                 ),
               ),
-              if (triggerDefinition is RandomTriggerDefinition) ...[const CasualModeDelayWidget()],
+              if (triggerDefinition is RandomTriggerDefinition) ...[
+                const CasualModeDelayWidget(),
+              ],
               PageInfoCard(text: triggerInfoEditActionDescription()),
               ...trigger!.actions.map((TriggerAction e) {
-                TriggerActionDef triggerActionDef = trigger!.triggerDefinition!.actionTypes.where((element) => e.uuid == element.uuid).first;
+                TriggerActionDef triggerActionDef = trigger!
+                    .triggerDefinition!
+                    .actionTypes
+                    .where((element) => e.uuid == element.uuid)
+                    .first;
                 return ListTile(
                   title: Text(convertToUwU(triggerActionDef.translated())),
                   subtitle: ValueListenableBuilder(
@@ -256,18 +366,24 @@ class _TriggerEditState extends State<TriggerEdit> {
                       return AnimatedCrossFade(
                         duration: animationTransitionDuration,
                         secondChild: MultiValueListenableBuilder(
-                          valueListenables: trigger!.actions.map((e) => e.isActiveProgress).toList(),
+                          valueListenables: trigger!.actions
+                              .map((e) => e.isActiveProgress)
+                              .toList(),
                           builder: (context, values, child) {
                             return TweenAnimationBuilder<double>(
                               duration: const Duration(milliseconds: 250),
                               curve: Curves.easeInOut,
                               tween: Tween<double>(
                                 begin: 0,
-                                end: values.map((e) => e as double).firstWhere(orElse: () => 0, (element) {
-                                  return element > 0 && element <= 1;
-                                }),
+                                end: values.map((e) => e as double).firstWhere(
+                                  orElse: () => 0,
+                                  (element) {
+                                    return element > 0 && element <= 1;
+                                  },
+                                ),
                               ),
-                              builder: (context, value, _) => LinearProgressIndicator(value: value),
+                              builder: (context, value, _) =>
+                                  LinearProgressIndicator(value: value),
                             );
                           },
                         ),
@@ -277,30 +393,60 @@ class _TriggerEditState extends State<TriggerEdit> {
                               listenable: KnownDevices.instance,
                               builder: (context, child) {
                                 String text = "";
-                                Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.state.values;
+                                Iterable<StatefulDevice> knownDevices =
+                                    KnownDevices.instance.state.values;
                                 for (String actionUUID in e.actions) {
-                                  BaseAction? baseAction = ActionRegistry.getActionFromUUID(actionUUID);
+                                  BaseAction? baseAction =
+                                      ActionRegistry.getActionFromUUID(
+                                        actionUUID,
+                                      );
                                   if (baseAction != null &&
-                                      (knownDevices.isEmpty || knownDevices.where((element) => baseAction.deviceCategory.contains(element.baseDeviceDefinition.deviceType)).isNotEmpty)) {
+                                      (knownDevices.isEmpty ||
+                                          knownDevices
+                                              .where(
+                                                (element) => baseAction
+                                                    .deviceCategory
+                                                    .contains(
+                                                      element
+                                                          .deviceDefinition
+                                                          .deviceType,
+                                                    ),
+                                              )
+                                              .isNotEmpty)) {
                                     if (text.isNotEmpty) {
                                       text += ', ';
                                     }
                                     text += baseAction.name;
                                   }
                                 }
-                                return Text(convertToUwU(text.isNotEmpty ? text : triggerActionNotSet()));
+                                return Text(
+                                  convertToUwU(
+                                    text.isNotEmpty
+                                        ? text
+                                        : triggerActionNotSet(),
+                                  ),
+                                );
                               },
                             );
                           },
                         ),
-                        crossFadeState: !value ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                        crossFadeState: !value
+                            ? CrossFadeState.showFirst
+                            : CrossFadeState.showSecond,
                       );
                     },
                   ),
-                  leading: HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)
+                  leading:
+                      HiveProxy.getOrDefault(
+                        settings,
+                        showDebugging,
+                        defaultValue: showDebuggingDefault,
+                      )
                       ? IconButton(
                           onPressed: () {
-                            triggerDefinition!.sendCommands(triggerActionDef.name);
+                            triggerDefinition!.sendCommands(
+                              triggerActionDef.name,
+                            );
                           },
                           tooltip: "Run Action (Debug)",
                           icon: Icon(Icons.play_arrow),
@@ -318,13 +464,25 @@ class _TriggerEditState extends State<TriggerEdit> {
                         builder: (BuildContext context) {
                           return Dialog.fullscreen(
                             backgroundColor: Theme.of(context).canvasColor,
-                            child: ActionSelector(actionSelectorInfo: ActionSelectorInfo(selectedActions: e.actions.map((e) => ActionRegistry.getActionFromUUID(e)).nonNulls.toList())),
+                            child: ActionSelector(
+                              actionSelectorInfo: ActionSelectorInfo(
+                                selectedActions: e.actions
+                                    .map(
+                                      (e) =>
+                                          ActionRegistry.getActionFromUUID(e),
+                                    )
+                                    .nonNulls
+                                    .toList(),
+                              ),
+                            ),
                           );
                         },
                       );
                       if (result != null) {
                         setState(() {
-                          e.actions = result.map((element) => element.uuid).toList();
+                          e.actions = result
+                              .map((element) => element.uuid)
+                              .toList();
                           TriggerList.instance.store();
                         });
                       }
@@ -338,8 +496,17 @@ class _TriggerEditState extends State<TriggerEdit> {
                     onPressed: () async {
                       trigger!.enabled = false;
                       await TriggerList.instance.remove(trigger!);
-                      TriggerDefinition triggerDefinition = trigger!.triggerDefinition!;
-                      analyticsEvent(name: "Delete Trigger", props: {"Trigger Type": Intl.withLocale('en', () => triggerDefinition.name())});
+                      TriggerDefinition triggerDefinition =
+                          trigger!.triggerDefinition!;
+                      analyticsEvent(
+                        name: "Delete Trigger",
+                        props: {
+                          "Trigger Type": Intl.withLocale(
+                            'en',
+                            () => triggerDefinition.name(),
+                          ),
+                        },
+                      );
                       setState(() {
                         Navigator.of(context).pop();
                       });

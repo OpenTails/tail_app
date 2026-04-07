@@ -15,11 +15,11 @@ import '../utils.dart';
 class OtaUpdate extends StatefulWidget {
   late final OtaUpdater otaUpdater;
   final String deviceMac;
-  late final BaseStatefulDevice device;
+  late final StatefulDevice device;
 
   OtaUpdate({required this.deviceMac, super.key}) {
     device = KnownDevices.instance.connectedGear.firstWhere(
-      (p0) => p0.baseStoredDevice.btMACAddress == deviceMac,
+      (p0) => p0.storedDevice.btMACAddress == deviceMac,
     );
     otaUpdater = OtaUpdater(device);
   }
@@ -102,8 +102,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                           ),
                           Text("DL MD5: ${widget.otaUpdater.downloadedMD5}"),
                           FutureBuilder(
-                            future: widget.device.baseDeviceDefinition
-                                .getFwURL(),
+                            future: widget.device.deviceDefinition.getFwURL(),
                             builder: (context, snapshot) {
                               return Text("URL: ${snapshot.data ?? ""}");
                             },

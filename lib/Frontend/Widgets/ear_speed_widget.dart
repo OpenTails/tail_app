@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
+import '../../Backend/Definitions/Device/ear_speed_enum.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../translation_string_definitions.dart';
@@ -23,23 +23,21 @@ class _EarSpeedWidgetState extends State<EarSpeedWidget> {
       subtitle: SegmentedButton<EarSpeed>(
         selected: <EarSpeed>{earSpeed},
         onSelectionChanged: (Set<EarSpeed> value) {
-          setState(
-            () {
-              earSpeed = value.first;
-              HiveProxy.put(settings, earMoveSpeed, earSpeed);
-            },
-          );
+          setState(() {
+            earSpeed = value.first;
+            HiveProxy.put(settings, earMoveSpeed, earSpeed);
+          });
         },
-        segments: EarSpeed.values.map<ButtonSegment<EarSpeed>>(
-          (EarSpeed value) {
-            return ButtonSegment<EarSpeed>(
-              value: value,
-              label: Text(convertToUwU(value.name)),
-              icon: value.icon,
-              tooltip: value.name,
-            );
-          },
-        ).toList(),
+        segments: EarSpeed.values.map<ButtonSegment<EarSpeed>>((
+          EarSpeed value,
+        ) {
+          return ButtonSegment<EarSpeed>(
+            value: value,
+            label: Text(convertToUwU(value.name)),
+            icon: value.icon,
+            tooltip: value.name,
+          );
+        }).toList(),
       ),
     );
   }
@@ -47,6 +45,10 @@ class _EarSpeedWidgetState extends State<EarSpeedWidget> {
   @override
   void initState() {
     super.initState();
-    earSpeed = HiveProxy.getOrDefault(settings, earMoveSpeed, defaultValue: earMoveSpeedDefault);
+    earSpeed = HiveProxy.getOrDefault(
+      settings,
+      earMoveSpeed,
+      defaultValue: earMoveSpeedDefault,
+    );
   }
 }

@@ -7,7 +7,7 @@ import '../../../Backend/Definitions/Device/device_definition.dart';
 import '../../go_router_config.dart';
 
 class BluetoothConsole extends StatefulWidget {
-  final BaseStatefulDevice device;
+  final StatefulDevice device;
 
   const BluetoothConsole({required this.device, super.key});
 
@@ -29,12 +29,23 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
             alignment: Alignment.bottomLeft,
             child: TextField(
               controller: TextEditingController(text: cmd),
-              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: "Send a Command", hintText: 'TAILHA'),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "Send a Command",
+                hintText: 'TAILHA',
+              ),
               maxLines: 1,
               maxLength: 128,
               autocorrect: false,
               onEditingComplete: () {
-                widget.device.commandQueue.addCommand(BluetoothMessage(message: cmd, priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()));
+                widget.device.commandQueue.addCommand(
+                  BluetoothMessage(
+                    message: cmd,
+                    priority: Priority.high,
+                    type: CommandType.system,
+                    timestamp: DateTime.now(),
+                  ),
+                );
                 setState(() {
                   cmd = "";
                 });
@@ -48,7 +59,14 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
             alignment: Alignment.bottomRight,
             child: IconButton(
               onPressed: () {
-                widget.device.commandQueue.addCommand(BluetoothMessage(message: cmd, priority: Priority.high, type: CommandType.system, timestamp: DateTime.now()));
+                widget.device.commandQueue.addCommand(
+                  BluetoothMessage(
+                    message: cmd,
+                    priority: Priority.high,
+                    type: CommandType.system,
+                    timestamp: DateTime.now(),
+                  ),
+                );
                 setState(() {
                   cmd = "";
                 });
@@ -78,7 +96,8 @@ class _DisplayLogState extends State<DisplayLog> {
     return ListenableBuilder(
       listenable: widget.console.device.commandQueue.commandHistory,
       builder: (context, child) {
-        CircularBuffer buffer = widget.console.device.commandQueue.commandHistory.state;
+        CircularBuffer buffer =
+            widget.console.device.commandQueue.commandHistory.state;
         return Padding(
           padding: const EdgeInsets.only(bottom: 100),
           child: ListView.builder(
@@ -86,8 +105,15 @@ class _DisplayLogState extends State<DisplayLog> {
             shrinkWrap: true,
             itemCount: buffer.length,
             itemBuilder: (BuildContext context, int index) {
-              MessageHistoryEntry messageHistoryEntry = buffer.reversed.toList()[index];
-              return Text(messageHistoryEntry.message, textDirection: messageHistoryEntry.type == MessageHistoryType.send ? TextDirection.rtl : TextDirection.ltr);
+              MessageHistoryEntry messageHistoryEntry = buffer.reversed
+                  .toList()[index];
+              return Text(
+                messageHistoryEntry.message,
+                textDirection:
+                    messageHistoryEntry.type == MessageHistoryType.send
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
+              );
             },
           ),
         );

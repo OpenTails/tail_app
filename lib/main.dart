@@ -17,7 +17,10 @@ import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/version.dart';
 
 import 'Backend/Definitions/Action/base_action.dart';
-import 'Backend/Definitions/Device/device_definition.dart';
+import 'Backend/Definitions/Device/common_device_stuffs.dart';
+import 'Backend/Definitions/Device/device_type_enum.dart';
+import 'Backend/Definitions/Device/ear_speed_enum.dart';
+import 'Backend/Definitions/Device/stored_device.dart';
 import 'Backend/app_shortcuts.dart';
 import 'Backend/dynamic_config.dart';
 import 'Backend/favorite_actions.dart';
@@ -189,8 +192,8 @@ Future<void> initHive() async {
   }
 
   //Hive Type ID 1
-  if (!Hive.isAdapterRegistered(BaseStoredDeviceAdapter().typeId)) {
-    Hive.registerAdapter(BaseStoredDeviceAdapter());
+  if (!Hive.isAdapterRegistered(StoredDeviceAdapter().typeId)) {
+    Hive.registerAdapter(StoredDeviceAdapter());
   }
   //Hive Type ID 2
   if (!Hive.isAdapterRegistered(TriggerAdapter().typeId)) {
@@ -255,7 +258,7 @@ Future<void> initHive() async {
   await Hive.openBox<FavoriteAction>(favoriteActionsBox);
   await Hive.openBox<AudioAction>(audioActionsBox);
   await Hive.openBox<MoveList>(sequencesBox);
-  await Hive.openBox<BaseStoredDevice>(devicesBox);
+  await Hive.openBox<StoredDevice>(devicesBox);
 
   _didInitHive = true;
 }

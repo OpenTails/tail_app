@@ -92,30 +92,30 @@ Future<FWInfo?> getFirmwareInfo(String url, String hwVer) async {
   return null;
 }
 
-Future<FWInfo?> checkForFWUpdate(BaseStatefulDevice baseStatefulDevice) async {
+Future<FWInfo?> checkForFWUpdate(StatefulDevice statefulDevice) async {
   // check if FW was already downloaded
-  if (baseStatefulDevice.fwInfo.value != null) {
-    return baseStatefulDevice.fwInfo.value;
+  if (statefulDevice.fwInfo.value != null) {
+    return statefulDevice.fwInfo.value;
   }
-  String url = await baseStatefulDevice.baseDeviceDefinition.getFwURL();
+  String url = await statefulDevice.deviceDefinition.getFwURL();
   if (url.isEmpty) {
     return null;
   }
-  String hwVer = baseStatefulDevice.hwVersion.value;
+  String hwVer = statefulDevice.hwVersion.value;
   if (hwVer.isEmpty) {
     throw Exception("Hardware Version from gear is unknown");
   }
   FWInfo? fwInfo = await getFirmwareInfo(url, hwVer);
-  baseStatefulDevice.fwInfo.value = fwInfo;
+  statefulDevice.fwInfo.value = fwInfo;
   return fwInfo;
 }
 
-Future<bool> hasOtaUpdate(BaseStatefulDevice baseStatefulDevice) async {
-  FWInfo? fwInfo = await checkForFWUpdate(baseStatefulDevice);
-  Version fwVersion = baseStatefulDevice.fwVersion.value;
+Future<bool> hasOtaUpdate(StatefulDevice statefulDevice) async {
+  FWInfo? fwInfo = await checkForFWUpdate(statefulDevice);
+  Version fwVersion = statefulDevice.fwVersion.value;
 
   // Check if fw version is not set (0.0.0)
-  if (baseStatefulDevice.fwVersion.value == const Version()) {
+  if (statefulDevice.fwVersion.value == const Version()) {
     throw Exception("Version from gear is unknown");
   }
   // check if firmware info from firmware is set and is greater than (0.0.0)
@@ -126,14 +126,12 @@ Future<bool> hasOtaUpdate(BaseStatefulDevice baseStatefulDevice) async {
   // Check that the firmware from the server is greater than the firmware on device
   // changed to only compare if they are the same at MT's request. allows rolling back
   if (fwVersion != getVersionSemVer(fwInfo.version)) {
-    baseStatefulDevice.hasUpdate.value = true;
+    statefulDevice.hasUpdate.value = true;
     // handle if the update is mandatory for app functionality
-    if (baseStatefulDevice.baseDeviceDefinition.minVersion != null) {
-      if (fwVersion.compareTo(
-            baseStatefulDevice.baseDeviceDefinition.minVersion!,
-          ) <
+    if (statefulDevice.deviceDefinition.minVersion != null) {
+      if (fwVersion.compareTo(statefulDevice.deviceDefinition.minVersion!) <
           0) {
-        baseStatefulDevice.mandatoryOtaRequired.value = true;
+        statefulDevice.mandatoryOtaRequired.value = true;
       }
     }
     return true;
@@ -168,19 +166,19 @@ class OtaUpdater extends ChangeNotifier {
   OtaState _otaState = OtaState.standby;
 
   OtaState get otaState => _otaState;
-  BaseStatefulDevice baseStatefulDevice;
+  StatefulDevice statefulDevice;
 
   void setState(OtaState state) {
     _otaState = state;
     notifyListeners();
   }
 
-  OtaUpdater(this.baseStatefulDevice) {
-    firmwareInfo ??= baseStatefulDevice.fwInfo.value;
+  OtaUpdater(this.statefulDevice) {
+    firmwareInfo ??= statefulDevice.fwInfo.value;
     WakelockPlus.enabled.then((value) => _wakelockEnabledBeforehand = value);
-    baseStatefulDevice.fwVersion.addListener(_verListener);
-    baseStatefulDevice.fwInfo.addListener(_fwInfoListener);
-    baseStatefulDevice.deviceConnectionState.addListener(
+    statefulDevice.fwVersion.addListener(_verListener);
+    statefulDevice.fwInfo.addListener(_fwInfoListener);
+    statefulDevice.deviceConnectionState.addListener(
       _connectivityStateListener,
     );
   }
@@ -255,24 +253,18 @@ class OtaUpdater extends ChangeNotifier {
 
   Future<void> beginUpdate() async {
     transaction = Sentry.startTransaction('beginUpdate()', 'task');
-    transaction?.setData(
-      "Gear Model",
-      baseStatefulDevice.baseDeviceDefinition.btName,
-    );
+    transaction?.setData("Gear Model", statefulDevice.deviceDefinition.btName);
     transaction?.setData(
       "Current FW Version",
-      baseStatefulDevice.fwVersion.value.toString(),
+      statefulDevice.fwVersion.value.toString(),
     );
-    transaction?.setData(
-      "Hardware Version",
-      baseStatefulDevice.hwVersion.value,
-    );
+    transaction?.setData("Hardware Version", statefulDevice.hwVersion.value);
     transaction?.setData(
       "Target Firmware Version",
-      baseStatefulDevice.fwInfo.value?.version,
+      statefulDevice.fwInfo.value?.version,
     );
 
-    if (baseStatefulDevice.batteryLevel.value < 50) {
+    if (statefulDevice.batteryLevel.value < 50) {
       setState(OtaState.lowBattery);
       transaction?.status = SpanStatus.fromString("lowBattery");
       transaction?.finish();
@@ -325,7 +317,7 @@ class OtaUpdater extends ChangeNotifier {
   }
 
   Future<void> _verListener() async {
-    Version version = baseStatefulDevice.fwVersion.value;
+    Version version = statefulDevice.fwVersion.value;
     FWInfo? fwInfo = firmwareInfo;
     if (fwInfo != null &&
         version.compareTo(const Version()) > 0 &&
@@ -343,12 +335,12 @@ class OtaUpdater extends ChangeNotifier {
   }
 
   void _fwInfoListener() {
-    firmwareInfo = baseStatefulDevice.fwInfo.value;
+    firmwareInfo = statefulDevice.fwInfo.value;
   }
 
   void _connectivityStateListener() {
     ConnectivityState connectivityState =
-        baseStatefulDevice.deviceConnectionState.value;
+        statefulDevice.deviceConnectionState.value;
     if (OtaState.rebooting == otaState) {
       if (connectivityState == ConnectivityState.disconnected) {
         _disconnectTimer?.cancel();
@@ -371,9 +363,9 @@ class OtaUpdater extends ChangeNotifier {
     setState(OtaState.upload);
     uploadProgress = 0;
     if (firmwareFile != null) {
-      int mtu = baseStatefulDevice.mtu.value - 10;
+      int mtu = statefulDevice.mtu.value - 10;
       currentFirmwareUploadPosition = 0;
-      baseStatefulDevice.gearReturnedError.value = false;
+      statefulDevice.gearReturnedError.value = false;
 
       _otaLogger.info("Holding the command queue");
       _otaLogger.info("Send OTA begin message");
@@ -382,12 +374,12 @@ class OtaUpdater extends ChangeNotifier {
           "OTA ${firmwareFile!.length} $downloadedMD5",
         ),
       );
-      await sendMessage(baseStatefulDevice, beginOTA);
+      await sendMessage(statefulDevice, beginOTA);
       uploadSpan?.setData("Gear MTU", mtu);
       while (uploadProgress < 1 && otaState != OtaState.error) {
-        baseStatefulDevice.deviceState.value =
-            DeviceState.busy; // hold the command queue
-        if (baseStatefulDevice.gearReturnedError.value) {
+        statefulDevice.deviceState.value =
+            DeviceMoveState.busy; // hold the command queue
+        if (statefulDevice.gearReturnedError.value) {
           _onError(OtaError.gearReturnedError, uploadSpan);
           break;
         }
@@ -398,7 +390,7 @@ class OtaUpdater extends ChangeNotifier {
             .toList();
         if (chunk.isNotEmpty) {
           try {
-            await sendMessage(baseStatefulDevice, chunk, withoutResponse: true);
+            await sendMessage(statefulDevice, chunk, withoutResponse: true);
           } catch (e, s) {
             _otaLogger.severe("Exception during ota upload:$e", e, s);
             if ((currentFirmwareUploadPosition + chunk.length) /
@@ -440,19 +432,21 @@ class OtaUpdater extends ChangeNotifier {
         analyticsEvent(
           name: "Update Gear",
           props: {
-            "Target Gear": baseStatefulDevice.baseDeviceDefinition.btName,
-            "Hardware Version": baseStatefulDevice.hwVersion.value,
-            "Firmware Version": baseStatefulDevice.fwVersion.value.toString(),
+            "Target Gear": statefulDevice.deviceDefinition.btName,
+            "Hardware Version": statefulDevice.hwVersion.value,
+            "Firmware Version": statefulDevice.fwVersion.value.toString(),
           },
         );
       }
-      baseStatefulDevice.deviceState.value =
-          DeviceState.standby; // release the command queue
+      statefulDevice.deviceState.value =
+          DeviceMoveState.standby; // release the command queue
     }
     uploadSpan?.finish();
   }
 
+  @override
   void dispose() {
+    super.dispose();
     _cancelTimers();
     if (!_wakelockEnabledBeforehand) {
       WakelockPlus.disable();

@@ -7,7 +7,6 @@ import 'package:logging/logging.dart';
 import '../constants.dart';
 import 'Definitions/Action/base_action.dart';
 import 'app_shortcuts.dart';
-import 'logging_wrappers.dart';
 
 part 'favorite_actions.freezed.dart';
 

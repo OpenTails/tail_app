@@ -5,9 +5,10 @@ import 'package:uuid/uuid.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 import '../../move_lists_backend.dart';
-import '../Device/device_definition.dart';
+import '../Device/device_type_enum.dart';
 
 part 'base_action.freezed.dart';
+
 part 'base_action.g.dart';
 
 @HiveType(typeId: 7)
@@ -88,13 +89,22 @@ abstract class CommandAction extends BaseAction with _$CommandAction {
   }) = _CommandAction;
 
   factory CommandAction.hiddenEars(String command, String response) {
-    return CommandAction(command: command, response: response, deviceCategory: [DeviceType.ears], actionCategory: ActionCategory.hidden, uuid: const Uuid().v4(), name: command);
+    return CommandAction(
+      command: command,
+      response: response,
+      deviceCategory: [DeviceType.ears],
+      actionCategory: ActionCategory.hidden,
+      uuid: const Uuid().v4(),
+      name: command,
+    );
   }
 }
 
 @HiveType(typeId: 12)
 @unfreezed
-abstract class AudioAction extends BaseAction with _$AudioAction implements Comparable<AudioAction> {
+abstract class AudioAction extends BaseAction
+    with _$AudioAction
+    implements Comparable<AudioAction> {
   AudioAction._();
 
   @Implements<BaseAction>()
@@ -102,8 +112,12 @@ abstract class AudioAction extends BaseAction with _$AudioAction implements Comp
     @HiveField(5) required String file,
     @HiveField(1) required String name,
     @HiveField(4) required final String uuid,
-    @HiveField(2) @Default(DeviceType.values) final List<DeviceType> deviceCategory,
-    @HiveField(3) @Default(ActionCategory.audio) final ActionCategory? actionCategory,
+    @HiveField(2)
+    @Default(DeviceType.values)
+    final List<DeviceType> deviceCategory,
+    @HiveField(3)
+    @Default(ActionCategory.audio)
+    final ActionCategory? actionCategory,
   }) = _AudioAction;
 
   @override
@@ -122,7 +136,9 @@ abstract class MoveList extends BaseAction with _$MoveList {
     @HiveField(1) required String name,
     @HiveField(4) required final String uuid,
     @HiveField(2) @Default(DeviceType.values) List<DeviceType> deviceCategory,
-    @HiveField(3) @Default(ActionCategory.sequence) final ActionCategory? actionCategory,
+    @HiveField(3)
+    @Default(ActionCategory.sequence)
+    final ActionCategory? actionCategory,
     @HiveField(5) @Default([]) List<Move> moves,
     @HiveField(6) @Default(1) double repeat,
   }) = _MoveList;

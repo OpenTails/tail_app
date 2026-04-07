@@ -13,6 +13,7 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/Definitions/Device/device_type_enum.dart';
 import '../../Backend/action_registry.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/favorite_actions.dart';
@@ -50,7 +51,7 @@ class _ActionPageBuilderState extends State<ActionPageBuilder> {
     return ListenableBuilder(
       listenable: GetActions.instance,
       builder: (context, child) {
-        List<BaseStatefulDevice> knownDevicesFiltered = KnownDevices
+        List<StatefulDevice> knownDevicesFiltered = KnownDevices
             .instance
             .connectedGear
             .toList();
@@ -185,7 +186,7 @@ class _ActionPageBuilderState extends State<ActionPageBuilder> {
 
 class ActionCard extends StatefulWidget {
   final int actionIndex;
-  final List<BaseStatefulDevice> knownDevices;
+  final List<StatefulDevice> knownDevices;
   final BaseAction action;
   final bool largerCards;
 
@@ -314,11 +315,11 @@ class _ActionCardState extends State<ActionCard> {
   }
 
   Color getColor(BuiltSet<DeviceType> deviceTypes) {
-    final BuiltList<BaseStatefulDevice> watch = KnownDevices.instance
+    final BuiltList<StatefulDevice> watch = KnownDevices.instance
         .getConnectedGearForType(deviceTypes);
     if (watch.isEmpty) {
       return deviceTypes.first.color();
     }
-    return Color(watch.first.baseStoredDevice.color);
+    return Color(watch.first.storedDevice.color);
   }
 }

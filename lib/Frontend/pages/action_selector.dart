@@ -7,7 +7,7 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Action/base_action.dart';
-import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/Definitions/Device/device_type_enum.dart';
 import '../../Backend/action_registry.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
@@ -42,7 +42,7 @@ class _ActionSelectorState extends State<ActionSelector> {
   void initState() {
     super.initState();
     knownDeviceTypes = KnownDevices.instance.state.values
-        .map((e) => e.baseDeviceDefinition.deviceType)
+        .map((e) => e.deviceDefinition.deviceType)
         .toSet();
     actionsCatMap = BuiltMap(
       Map.fromEntries(

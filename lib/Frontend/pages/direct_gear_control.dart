@@ -10,7 +10,7 @@ import 'package:vector_math/vector_math.dart';
 
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
-import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/Definitions/Device/device_type_enum.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/move_lists_backend.dart';
 import '../../constants.dart';
@@ -42,9 +42,7 @@ class _JoystickState extends State<DirectGearControl> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(convertToUwU(joyStickPage())),
-      ),
+      appBar: AppBar(title: Text(convertToUwU(joyStickPage()))),
       body: Column(
         children: [
           Expanded(
@@ -64,21 +62,29 @@ class _JoystickState extends State<DirectGearControl> {
                         child: Joystick(
                           mode: JoystickMode.all,
                           onStickDragEnd: () async {
-                            await Future.delayed(Duration(milliseconds: (speed * 20).toInt() + 500));
+                            await Future.delayed(
+                              Duration(
+                                milliseconds: (speed * 20).toInt() + 500,
+                              ),
+                            );
                             Move move = Move()..moveType = MoveType.home;
                             if (!context.mounted) {
                               return;
                             }
-                            KnownDevices.instance.state.values.forEach(
-                              (element) {
-                                generateMoveCommand(move, element, CommandType.direct, noResponseMsg: true, priority: Priority.high).forEach(
-                                  (message) {
-                                    element.commandQueue.addCommand(message);
-                                    element.commandQueue.addCommand(message);
-                                  },
-                                );
-                              },
-                            );
+                            KnownDevices.instance.state.values.forEach((
+                              element,
+                            ) {
+                              generateMoveCommand(
+                                move,
+                                element,
+                                CommandType.direct,
+                                noResponseMsg: true,
+                                priority: Priority.high,
+                              ).forEach((message) {
+                                element.commandQueue.addCommand(message);
+                                element.commandQueue.addCommand(message);
+                              });
+                            });
                           },
                           base: const Card(
                             elevation: 1,
@@ -92,13 +98,13 @@ class _JoystickState extends State<DirectGearControl> {
                             child: const SizedBox.square(dimension: 100),
                           ),
                           listener: (details) async {
-                            setState(
-                              () {
-                                TailServoPositions positions = calculatePosition(details);
-                                left = positions.left;
-                                right = positions.right;
-                              },
-                            );
+                            setState(() {
+                              TailServoPositions positions = calculatePosition(
+                                details,
+                              );
+                              left = positions.left;
+                              right = positions.right;
+                            });
                             sendMove();
                           },
                           period: Duration(milliseconds: (speed * 20).toInt()),
@@ -114,11 +120,9 @@ class _JoystickState extends State<DirectGearControl> {
                     SpeedWidget(
                       value: speed,
                       onChanged: (double value) {
-                        setState(
-                          () {
-                            speed = value;
-                          },
-                        );
+                        setState(() {
+                          speed = value;
+                        });
                       },
                     ),
                     ListTile(
@@ -126,21 +130,19 @@ class _JoystickState extends State<DirectGearControl> {
                       subtitle: SegmentedButton<EasingType>(
                         selected: <EasingType>{easingType},
                         onSelectionChanged: (Set<EasingType> value) {
-                          setState(
-                            () {
-                              easingType = value.first;
-                            },
-                          );
+                          setState(() {
+                            easingType = value.first;
+                          });
                         },
-                        segments: EasingType.values.map<ButtonSegment<EasingType>>(
-                          (EasingType value) {
-                            return ButtonSegment<EasingType>(
-                              value: value,
-                              icon: value.widget(context),
-                              tooltip: value.name,
-                            );
-                          },
-                        ).toList(),
+                        segments: EasingType.values
+                            .map<ButtonSegment<EasingType>>((EasingType value) {
+                              return ButtonSegment<EasingType>(
+                                value: value,
+                                icon: value.widget(context),
+                                tooltip: value.name,
+                              );
+                            })
+                            .toList(),
                       ),
                     ),
                     DeviceTypeWidget(
@@ -165,15 +167,22 @@ class _JoystickState extends State<DirectGearControl> {
       ..speed = speed
       ..rightServo = right
       ..leftServo = left;
-    KnownDevices.instance.state.values.where((element) => deviceTypes.contains(element.baseDeviceDefinition.deviceType)).forEach(
-      (element) {
-        generateMoveCommand(move, element, CommandType.direct, priority: Priority.high, noResponseMsg: true).forEach(
-          (message) {
+    KnownDevices.instance.state.values
+        .where(
+          (element) =>
+              deviceTypes.contains(element.deviceDefinition.deviceType),
+        )
+        .forEach((element) {
+          generateMoveCommand(
+            move,
+            element,
+            CommandType.direct,
+            priority: Priority.high,
+            noResponseMsg: true,
+          ).forEach((message) {
             element.commandQueue.addCommand(message);
-          },
-        );
-      },
-    );
+          });
+        });
   }
 }
 
@@ -196,10 +205,12 @@ TailServoPositions calculatePosition(StickDragDetails details) {
 
   double sign = x.sign;
   double direction = degrees(atan2(y.abs(), x.abs())); // 0-90
-  double magnitude = sqrt(pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble());
+  double magnitude = sqrt(
+    pow(x.abs(), 2).toDouble() + pow(y.abs(), 2).toDouble(),
+  );
 
-// NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
-// min is always zero
+  // NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+  // min is always zero
   double secondServo = (direction * (128 / 90)).clamp(0, 128);
   double primaryServo = (magnitude * 128).clamp(0, 128);
   if (sign > 0) {

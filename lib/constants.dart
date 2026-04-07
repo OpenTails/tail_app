@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'Backend/Definitions/Device/ear_speed_enum.dart';
 
 const int kitsuneDelayRange = 1000;
 const Duration animationTransitionDuration = Duration(milliseconds: 500);

@@ -7,10 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
-import 'package:tail_app/Backend/BluetoothIssuesCheck.dart';
 
 import '../../constants.dart';
+import '../Definitions/Device/bluetooth_uart_services_list.dart';
+import '../Definitions/Device/common_device_stuffs.dart';
 import '../Definitions/Device/device_definition.dart';
+import '../Definitions/Device/device_type_enum.dart';
+import '../Definitions/Device/stored_device.dart';
+import '../bluetooth_issues_check.dart';
 import '../device_registry.dart';
 import '../logging_wrappers.dart';
 import 'known_devices.dart';
@@ -79,7 +83,7 @@ void _adapterStateListener(BluetoothAdapterState state) {
 
 void _onMtuChangedListener(OnMtuChangedEvent event) {
   _bluetoothPlusLogger.info('${event.device.advName} MTU:${event.mtu}');
-  BaseStatefulDevice? statefulDevice =
+  StatefulDevice? statefulDevice =
       KnownDevices.instance.state[event.device.remoteId.str];
   statefulDevice?.mtu.value = event.mtu;
 }
@@ -96,7 +100,7 @@ Future<void> _onDiscoveredServicesListener(
           service.serviceUuid.str128.toLowerCase(),
     );
     if (bluetoothUartService != null) {
-      BaseStatefulDevice? statefulDevice =
+      StatefulDevice? statefulDevice =
           KnownDevices.instance.state[event.device.remoteId.str];
       statefulDevice?.bluetoothUartService.value = bluetoothUartService;
     }
@@ -115,7 +119,7 @@ Future<void> _onDiscoveredServicesListener(
 
 void _onReadRssiListener(OnReadRssiEvent event) {
   _bluetoothPlusLogger.info('${event.device.advName} RSSI:${event.rssi}');
-  BaseStatefulDevice? statefulDevice =
+  StatefulDevice? statefulDevice =
       KnownDevices.instance.state[event.device.remoteId.str];
   statefulDevice?.rssi.value = event.rssi;
 }
@@ -124,13 +128,12 @@ Future<void> _onConnectionStateChangedListener(
   OnConnectionStateChangedEvent event,
 ) async {
   _bluetoothPlusLogger.info('${event.device.advName} ${event.connectionState}');
-  BuiltMap<String, BaseStatefulDevice> knownDevices =
-      KnownDevices.instance.state;
+  BuiltMap<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   BluetoothDevice bluetoothDevice = event.device;
   BluetoothConnectionState bluetoothConnectionState = event.connectionState;
   String deviceID = bluetoothDevice.remoteId.str;
 
-  BaseDeviceDefinition? deviceDefinition = DeviceRegistry.getByName(
+  DeviceDefinition? deviceDefinition = DeviceRegistry.getByName(
     bluetoothDevice.advName,
   );
   if (deviceDefinition == null) {
@@ -138,20 +141,20 @@ Future<void> _onConnectionStateChangedListener(
     return;
   }
 
-  BaseStoredDevice baseStoredDevice;
-  BaseStatefulDevice statefulDevice;
+  StoredDevice storedDevice;
+  StatefulDevice statefulDevice;
   //get existing entry
   if (knownDevices.containsKey(deviceID)) {
     statefulDevice = knownDevices[deviceID]!;
-    baseStoredDevice = statefulDevice.baseStoredDevice;
+    storedDevice = statefulDevice.storedDevice;
   } else {
-    baseStoredDevice = BaseStoredDevice(
+    storedDevice = StoredDevice(
       deviceDefinition.uuid,
       deviceID,
       deviceDefinition.deviceType.color().toARGB32(),
     )..name = getNameFromBTName(deviceDefinition.btName);
 
-    statefulDevice = BaseStatefulDevice(deviceDefinition, baseStoredDevice);
+    statefulDevice = StatefulDevice(deviceDefinition, storedDevice);
   }
   statefulDevice.deviceConnectionState.value =
       event.connectionState == BluetoothConnectionState.connected
@@ -176,8 +179,6 @@ class _KeepGearAwake {
   }
 
   void _periodicListener(dynamic event) {
-    BuiltMap<String, BaseStatefulDevice> knownDevices =
-        KnownDevices.instance.state;
     for (var element in FlutterBluePlus.connectedDevices) {
       element
           .readRssi()
@@ -193,8 +194,7 @@ Future<void> _onScanResultsListener(List<ScanResult> results) async {
     _bluetoothPlusLogger.info(
       '${r.device.remoteId}: "${r.advertisementData.advName}" found!',
     );
-    BuiltMap<String, BaseStatefulDevice> knownDevices =
-        KnownDevices.instance.state;
+    BuiltMap<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
 
     // check for known gear with the same mac address and try to connect
     if (knownDevices.containsKey(r.device.remoteId.str) &&
@@ -363,18 +363,17 @@ class Scan with ChangeNotifier {
 enum ScanReason { background, addGear, notScanning }
 
 Future<void> sendMessage(
-  BaseStatefulDevice device,
+  StatefulDevice device,
   List<int> message, {
   bool withoutResponse = false,
 }) async {
   if (!_didInitFlutterBluePlus ||
-      device.baseStoredDevice.btMACAddress.startsWith(demoGearPrefix)) {
+      device.storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
     return;
   }
   BluetoothDevice? bluetoothDevice = FlutterBluePlus.connectedDevices
       .firstWhereOrNull(
-        (element) =>
-            element.remoteId.str == device.baseStoredDevice.btMACAddress,
+        (element) => element.remoteId.str == device.storedDevice.btMACAddress,
       );
   if (bluetoothDevice != null && device.bluetoothUartService.value != null) {
     BluetoothCharacteristic? bluetoothCharacteristic = bluetoothDevice
@@ -407,13 +406,13 @@ Future<void> sendMessage(
         )
         .catchError(
           (e) => _bluetoothPlusLogger.warning(
-            "Unable to send message to ${device.baseDeviceDefinition.btName} $e",
+            "Unable to send message to ${device.deviceDefinition.btName} $e",
             e,
           ),
         )
         .onError(
           (e, s) => _bluetoothPlusLogger.severe(
-            "Unable to send message to ${device.baseDeviceDefinition.btName} $e",
+            "Unable to send message to ${device.deviceDefinition.btName} $e",
             e,
           ),
         );

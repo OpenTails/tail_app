@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:go_router/go_router.dart';
@@ -7,7 +5,11 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Definitions/Device/bluetooth_uart_services_list.dart';
+import '../../Backend/Definitions/Device/common_device_stuffs.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/Definitions/Device/device_type_enum.dart';
+import '../../Backend/Definitions/Device/stored_device.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
@@ -57,23 +59,23 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                       PageInfoCard(text: scanDemoGearTip()),
                       ListTile(
                         leading: const Icon(Icons.add),
-                        subtitle: DropdownMenu<BaseDeviceDefinition>(
+                        subtitle: DropdownMenu<DeviceDefinition>(
                           initialSelection: null,
                           expandedInsets: EdgeInsets.zero,
                           label: Text(convertToUwU(scanAddDemoGear())),
                           onSelected: (value) async {
                             if (value != null) {
                               setState(() {
-                                BaseStoredDevice baseStoredDevice;
-                                BaseStatefulDevice statefulDevice;
-                                baseStoredDevice = BaseStoredDevice(
+                                StoredDevice storedDevice;
+                                StatefulDevice statefulDevice;
+                                storedDevice = StoredDevice(
                                   value.uuid,
                                   "DEV${value.deviceType.translatedName}",
                                   value.deviceType.color().toARGB32(),
                                 )..name = getNameFromBTName(value.btName);
-                                statefulDevice = BaseStatefulDevice(
+                                statefulDevice = StatefulDevice(
                                   value,
-                                  baseStoredDevice,
+                                  storedDevice,
                                 );
                                 statefulDevice.deviceConnectionState.value =
                                     ConnectivityState.connected;
@@ -91,7 +93,7 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                                       );
                                 }
                                 if (!KnownDevices.instance.state.containsKey(
-                                  baseStoredDevice.btMACAddress,
+                                  storedDevice.btMACAddress,
                                 )) {
                                   KnownDevices.instance.add(statefulDevice);
                                 }

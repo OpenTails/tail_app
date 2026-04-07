@@ -29,7 +29,9 @@ import '../constants.dart';
 import 'Bluetooth/known_devices.dart';
 import 'Bluetooth/bluetooth_message.dart';
 import 'Definitions/Action/base_action.dart';
+import 'Definitions/Device/common_device_stuffs.dart';
 import 'Definitions/Device/device_definition.dart';
+import 'Definitions/Device/device_type_enum.dart';
 import 'action_registry.dart';
 import 'logging_wrappers.dart';
 
@@ -356,7 +358,7 @@ abstract class TriggerDefinition extends ChangeNotifier
           // keep track of the devices a command was sent to so multiple move commands are not sent to the same device
           Set<DeviceType> sentDeviceTypes = {};
           for (BaseAction baseAction in actionsToRun) {
-            for (BaseStatefulDevice baseStatefulDevice
+            for (StatefulDevice statefulDevice
                 in KnownDevices.instance
                     .getConnectedIdleGearForType(
                       baseAction.deviceCategory
@@ -367,7 +369,7 @@ abstract class TriggerDefinition extends ChangeNotifier
                     .where(
                       // support sending to next device type if 2 actions+ actions are set
                       (element) => !sentDeviceTypes.contains(
-                        element.baseDeviceDefinition.deviceType,
+                        element.deviceDefinition.deviceType,
                       ),
                     )
                     .where((element) {
@@ -399,7 +401,7 @@ abstract class TriggerDefinition extends ChangeNotifier
                 );
               }
               runAction(
-                baseStatefulDevice,
+                statefulDevice,
                 baseAction,
                 triggeredBy: Intl.withLocale('en', () => this.name()),
               );
@@ -409,9 +411,7 @@ abstract class TriggerDefinition extends ChangeNotifier
                     ActionCategory.sequence,
                   ].contains(baseAction.actionCategory) ||
                   baseAction.actionCategory == null) {
-                sentDeviceTypes.add(
-                  baseStatefulDevice.baseDeviceDefinition.deviceType,
-                );
+                sentDeviceTypes.add(statefulDevice.deviceDefinition.deviceType);
               }
             }
           }

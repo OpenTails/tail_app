@@ -275,7 +275,7 @@ class ActionPageRoute extends GoRouteData with $ActionPageRoute {
 class BluetoothConsoleRoute extends GoRouteData with $BluetoothConsoleRoute {
   const BluetoothConsoleRoute({required this.$extra});
 
-  final BaseStatefulDevice $extra;
+  final StatefulDevice $extra;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>

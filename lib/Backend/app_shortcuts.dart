@@ -13,6 +13,7 @@ import 'favorite_actions.dart';
 const QuickActions quickActions = QuickActions();
 Lock _shortcutsLock = Lock();
 bool _didInitShortcuts = false;
+
 Future<void> appShortcuts() async {
   _shortcutsLock.synchronized(() async {
     if (_didInitShortcuts) {
@@ -21,8 +22,9 @@ Future<void> appShortcuts() async {
     await quickActions.initialize((shortcutType) {
       BaseAction? action = ActionRegistry.getActionFromUUID(shortcutType);
       if (action != null) {
-        Iterable<BaseStatefulDevice> knownDevices = KnownDevices.instance.connectedIdleGear;
-        for (BaseStatefulDevice device in knownDevices) {
+        Iterable<StatefulDevice> knownDevices =
+            KnownDevices.instance.connectedIdleGear;
+        for (StatefulDevice device in knownDevices) {
           runAction(device, action, triggeredBy: "App Shortcut");
         }
         analyticsEvent(name: "Use App Shortcut");
@@ -34,7 +36,13 @@ Future<void> appShortcuts() async {
 
 Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions) async {
   appShortcuts();
-  Iterable<BaseAction> allActions = favoriteActions.map((e) => ActionRegistry.getActionFromUUID(e.actionUUID)).nonNulls;
+  Iterable<BaseAction> allActions = favoriteActions
+      .map((e) => ActionRegistry.getActionFromUUID(e.actionUUID))
+      .nonNulls;
 
-  quickActions.setShortcutItems(allActions.map((e) => ShortcutItem(type: e.uuid, localizedTitle: e.name)).toList());
+  quickActions.setShortcutItems(
+    allActions
+        .map((e) => ShortcutItem(type: e.uuid, localizedTitle: e.name))
+        .toList(),
+  );
 }

@@ -6,6 +6,7 @@ import 'package:tail_app/Backend/firmware_update.dart';
 import 'package:tail_app/Frontend/Widgets/device_type_widget.dart';
 
 import '../../../Backend/Definitions/Device/device_definition.dart';
+import '../../../Backend/Definitions/Device/device_type_enum.dart';
 
 class BulkOTA extends StatefulWidget {
   const BulkOTA({super.key});
@@ -16,8 +17,8 @@ class BulkOTA extends StatefulWidget {
 
 class _BulkOTAState extends State<BulkOTA> {
   List<DeviceType> selectedDeviceType = DeviceType.values;
-  Map<BaseStatefulDevice, OtaUpdater> updaters = {};
-  BuiltList<BaseStatefulDevice> devices = BuiltList();
+  Map<StatefulDevice, OtaUpdater> updaters = {};
+  BuiltList<StatefulDevice> devices = BuiltList();
 
   @override
   void initState() {
@@ -86,7 +87,7 @@ class _BulkOTAState extends State<BulkOTA> {
                   onPressed: otaInProgress || devices.isEmpty
                       ? null
                       : () {
-                          for (BaseStatefulDevice device in devices) {
+                          for (StatefulDevice device in devices) {
                             updaters[device]!.beginUpdate();
                           }
                         },
@@ -96,7 +97,7 @@ class _BulkOTAState extends State<BulkOTA> {
                   onPressed: !otaInProgress
                       ? null
                       : () {
-                          for (BaseStatefulDevice device in devices) {
+                          for (StatefulDevice device in devices) {
                             updaters[device]!.abort();
                           }
                         },
@@ -114,7 +115,7 @@ class _BulkOTAState extends State<BulkOTA> {
                               );
                           if (result != null) {
                             setState(() {
-                              for (BaseStatefulDevice device in devices) {
+                              for (StatefulDevice device in devices) {
                                 updaters[device]!.setManualOtaFile(
                                   result.files.single.bytes?.toList(
                                     growable: false,
@@ -135,7 +136,7 @@ class _BulkOTAState extends State<BulkOTA> {
                 shrinkWrap: true,
                 itemCount: devices.length,
                 itemBuilder: (context, index) {
-                  BaseStatefulDevice device = devices[index];
+                  StatefulDevice device = devices[index];
                   return OtaListItem(
                     device: device,
                     otaUpdater: updaters[device]!,
@@ -157,7 +158,7 @@ class OtaListItem extends StatefulWidget {
     required this.otaUpdater,
   });
 
-  final BaseStatefulDevice device;
+  final StatefulDevice device;
   final OtaUpdater otaUpdater;
 
   @override
@@ -170,7 +171,7 @@ class _OtaListItemState extends State<OtaListItem> {
     return ListenableBuilder(
       listenable: widget.otaUpdater,
       builder: (context, child) => ListTile(
-        title: Text(widget.device.baseStoredDevice.name),
+        title: Text(widget.device.storedDevice.name),
         trailing: Text(widget.otaUpdater.otaState.toString()),
         subtitle: LinearProgressIndicator(value: widget.otaUpdater.progress),
       ),

@@ -13,6 +13,7 @@ import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
+import '../../Backend/Definitions/Device/device_type_enum.dart';
 import '../../Backend/analytics.dart';
 import 'package:tail_app/constants.dart';
 import '../Widgets/device_type_widget.dart';
@@ -129,13 +130,13 @@ class _MoveListViewState extends State<MoveListView> {
                             .where(
                               (element) =>
                                   allMoveLists[index].deviceCategory.contains(
-                                    element.baseDeviceDefinition.deviceType,
+                                    element.deviceDefinition.deviceType,
                                   ),
                             )
                             .where(
                               (element) =>
                                   element.deviceState.value ==
-                                  DeviceState.standby,
+                                  DeviceMoveState.standby,
                             )
                             .forEach((element) async {
                               if (HiveProxy.getOrDefault(

@@ -10,43 +10,42 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../constants.dart';
 import '../Definitions/Device/device_definition.dart';
+import '../Definitions/Device/device_type_enum.dart';
+import '../Definitions/Device/stored_device.dart';
 import '../device_registry.dart';
 import '../logging_wrappers.dart';
 
 final log.Logger bluetoothLog = log.Logger('Bluetooth');
 
 class KnownDevices with ChangeNotifier {
-  late BuiltMap<String, BaseStatefulDevice> _state;
+  late BuiltMap<String, StatefulDevice> _state;
 
-  BuiltMap<String, BaseStatefulDevice> get state => _state;
+  BuiltMap<String, StatefulDevice> get state => _state;
 
   //https://stackoverflow.com/questions/12649573/how-do-you-build-a-singleton-in-dart
   static final KnownDevices instance = KnownDevices._internal();
 
   KnownDevices._internal() {
-    BuiltList<BaseStoredDevice> storedDevices = Hive.box<BaseStoredDevice>(
+    BuiltList<StoredDevice> storedDevices = Hive.box<StoredDevice>(
       devicesBox,
     ).values.toBuiltList();
 
     // after all device entries are loaded, close the box. The box will be
     // re-opened as a lazy box to save ram
-    Hive.box<BaseStoredDevice>(devicesBox).close();
-    Map<String, BaseStatefulDevice> results = {};
+    Hive.box<StoredDevice>(devicesBox).close();
+    Map<String, StatefulDevice> results = {};
     try {
       if (storedDevices.isNotEmpty) {
-        for (BaseStoredDevice e in storedDevices) {
+        for (StoredDevice e in storedDevices) {
           // We don't care for stored demo gear
           if (e.btMACAddress.contains(demoGearPrefix)) {
             continue;
           }
-          BaseDeviceDefinition baseDeviceDefinition = DeviceRegistry.getByUUID(
+          DeviceDefinition deviceDefinition = DeviceRegistry.getByUUID(
             e.deviceDefinitionUUID,
           );
-          BaseStatefulDevice baseStatefulDevice = BaseStatefulDevice(
-            baseDeviceDefinition,
-            e,
-          );
-          results[e.btMACAddress] = baseStatefulDevice;
+          StatefulDevice statefulDevice = StatefulDevice(deviceDefinition, e);
+          results[e.btMACAddress] = statefulDevice;
         }
       }
     } catch (e, s) {
@@ -58,10 +57,9 @@ class KnownDevices with ChangeNotifier {
     _onDevicePaired();
   }
 
-  Future<void> add(BaseStatefulDevice baseStatefulDevice) async {
+  Future<void> add(StatefulDevice statefulDevice) async {
     _state = _state.rebuild(
-      (p0) => p0[baseStatefulDevice.baseStoredDevice.btMACAddress] =
-          baseStatefulDevice,
+      (p0) => p0[statefulDevice.storedDevice.btMACAddress] = statefulDevice,
     );
     await store();
   }
@@ -72,10 +70,11 @@ class KnownDevices with ChangeNotifier {
   }
 
   Future<void> store() async {
-    LazyBox<BaseStoredDevice> lazyBox =
-        await Hive.openLazyBox<BaseStoredDevice>(devicesBox);
+    LazyBox<StoredDevice> lazyBox = await Hive.openLazyBox<StoredDevice>(
+      devicesBox,
+    );
     await lazyBox.clear();
-    await lazyBox.addAll(state.values.map((e) => e.baseStoredDevice));
+    await lazyBox.addAll(state.values.map((e) => e.storedDevice));
     _onDevicePaired();
     _notify();
   }
@@ -93,7 +92,7 @@ class KnownDevices with ChangeNotifier {
     notifyListeners();
   }
 
-  BuiltList<BaseStatefulDevice> get connectedGear {
+  BuiltList<StatefulDevice> get connectedGear {
     return KnownDevices.instance.state.values
         .where(
           (element) =>
@@ -112,69 +111,69 @@ class KnownDevices with ChangeNotifier {
   }
 
   BuiltSet<DeviceType> get connectedGearTypes {
-    return connectedGear
-        .map((e) => e.baseDeviceDefinition.deviceType)
-        .toBuiltSet();
+    return connectedGear.map((e) => e.deviceDefinition.deviceType).toBuiltSet();
   }
 
-  BuiltList<BaseStatefulDevice> getKnownGearForType(
+  BuiltList<StatefulDevice> getKnownGearForType(
     BuiltSet<DeviceType> deviceTypes,
   ) {
     return state.values
         .where(
           (element) =>
-              deviceTypes.contains(element.baseDeviceDefinition.deviceType),
+              deviceTypes.contains(element.deviceDefinition.deviceType),
         )
         .toBuiltList();
   }
 
-  BuiltList<BaseStatefulDevice> getConnectedGearForType(
+  BuiltList<StatefulDevice> getConnectedGearForType(
     BuiltSet<DeviceType> deviceTypes,
   ) {
     return connectedGear
         .where(
           (element) =>
-              deviceTypes.contains(element.baseDeviceDefinition.deviceType),
+              deviceTypes.contains(element.deviceDefinition.deviceType),
         )
         .toBuiltList();
   }
 
-  BuiltList<BaseStatefulDevice> get connectedIdleGear {
+  BuiltList<StatefulDevice> get connectedIdleGear {
     return connectedGear
-        .where((element) => element.deviceState.value == DeviceState.standby)
+        .where(
+          (element) => element.deviceState.value == DeviceMoveState.standby,
+        )
         .toBuiltList();
   }
 
-  BuiltList<BaseStatefulDevice> getConnectedIdleGearForType(
+  BuiltList<StatefulDevice> getConnectedIdleGearForType(
     BuiltSet<DeviceType> deviceTypes,
   ) {
     return connectedIdleGear
         .where(
           (element) =>
-              deviceTypes.contains(element.baseDeviceDefinition.deviceType),
+              deviceTypes.contains(element.deviceDefinition.deviceType),
         )
         .toBuiltList();
   }
 
   void _onDevicePaired() {
-    for (BaseStatefulDevice baseStatefulDevice in state.values) {
-      baseStatefulDevice.deviceConnectionState
+    for (StatefulDevice statefulDevice in state.values) {
+      statefulDevice.deviceConnectionState
         ..removeListener(_notify)
         ..addListener(_notify);
-      baseStatefulDevice.deviceConnectionState
+      statefulDevice.deviceConnectionState
         ..removeListener(_wakelock)
         ..addListener(_wakelock);
-      baseStatefulDevice.deviceConnectionState
+      statefulDevice.deviceConnectionState
         ..removeListener(_foregroundService)
         ..addListener(_foregroundService);
-      baseStatefulDevice.bluetoothUartService
+      statefulDevice.bluetoothUartService
         ..removeListener(_notify)
         ..addListener(_notify);
-      baseStatefulDevice.baseStoredDevice
+      statefulDevice.storedDevice
         ..removeListener(_notify)
         ..addListener(_notify);
       //refresh on moves
-      baseStatefulDevice.deviceState
+      statefulDevice.deviceState
         ..removeListener(_notify)
         ..addListener(_notify);
     }
@@ -238,9 +237,8 @@ class IsGearMoveRunning extends ChangeNotifier {
     KnownDevices.instance
       ..removeListener(_notify)
       ..addListener(_notify);
-    for (BaseStatefulDevice baseStatefulDevice
-        in KnownDevices.instance.state.values) {
-      baseStatefulDevice.deviceState
+    for (StatefulDevice statefulDevice in KnownDevices.instance.state.values) {
+      statefulDevice.deviceState
         ..removeListener(_notify)
         ..addListener(_notify);
     }
@@ -249,7 +247,9 @@ class IsGearMoveRunning extends ChangeNotifier {
   bool getState(BuiltSet<DeviceType> deviceTypes) {
     return KnownDevices.instance
         .getConnectedGearForType(deviceTypes)
-        .where((element) => element.deviceState.value == DeviceState.runAction)
+        .where(
+          (element) => element.deviceState.value == DeviceMoveState.runAction,
+        )
         .isNotEmpty;
   }
 

@@ -1,13 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
-import 'package:tail_app/Backend/BluetoothIssuesCheck.dart';
-import 'package:tail_app/Frontend/Widgets/base_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/bluetooth_issues_check.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../go_router_config.dart';
@@ -48,10 +47,8 @@ class _KnownGearState extends State<KnownGear> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ...KnownDevices.instance.state.values.map(
-                        (BaseStatefulDevice baseStatefulDevice) =>
-                            KnownGearCard(
-                              baseStatefulDevice: baseStatefulDevice,
-                            ),
+                        (StatefulDevice statefulDevice) =>
+                            KnownGearCard(statefulDevice: statefulDevice),
                       ),
                       if (!widget.hideScanButton) ...[
                         const ScanForNewGearButton(),
@@ -188,9 +185,9 @@ class ScanForNewGearButton extends StatelessWidget {
 }
 
 class KnownGearCard extends StatefulWidget {
-  const KnownGearCard({required this.baseStatefulDevice, super.key});
+  const KnownGearCard({required this.statefulDevice, super.key});
 
-  final BaseStatefulDevice baseStatefulDevice;
+  final StatefulDevice statefulDevice;
 
   @override
   State<KnownGearCard> createState() => _KnownGearCardState();
@@ -201,12 +198,12 @@ class _KnownGearCardState extends State<KnownGearCard> {
   Widget build(BuildContext context) {
     return FadeIn(
       child: ValueListenableBuilder(
-        valueListenable: widget.baseStatefulDevice.deviceConnectionState,
+        valueListenable: widget.statefulDevice.deviceConnectionState,
         builder: (BuildContext context, ConnectivityState connectivityState, Widget? child) {
           return Flash(
             animate: connectivityState == ConnectivityState.connected,
             child: ValueListenableBuilder(
-              valueListenable: widget.baseStatefulDevice.hasUpdate,
+              valueListenable: widget.statefulDevice.hasUpdate,
               builder: (BuildContext context, bool hasUpdate, Widget? child) {
                 return Badge(
                   isLabelVisible: hasUpdate,
@@ -224,7 +221,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                 builder: (BuildContext context, double value, Widget? child) {
                   Color? cardColor = Color.lerp(
                     Theme.of(context).cardColor,
-                    Color(widget.baseStatefulDevice.baseStoredDevice.color),
+                    Color(widget.statefulDevice.storedDevice.color),
                     value,
                   );
                   Color textColor = getTextColor(cardColor!);
@@ -234,10 +231,8 @@ class _KnownGearCardState extends State<KnownGearCard> {
                     child: InkWell(
                       onTap: () async {
                         ManageGearRoute(
-                          btMac: widget
-                              .baseStatefulDevice
-                              .baseStoredDevice
-                              .btMACAddress,
+                          btMac:
+                              widget.statefulDevice.storedDevice.btMACAddress,
                         ).push(context).then((value) {
                           setState(() {}); //force widget update
                           return;
@@ -252,10 +247,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                             children: [
                               Text(
                                 convertToUwU(
-                                  widget
-                                      .baseStatefulDevice
-                                      .baseStoredDevice
-                                      .name,
+                                  widget.statefulDevice.storedDevice.name,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.labelLarge!
@@ -272,7 +264,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                       children: [
                                         ValueListenableBuilder(
                                           valueListenable: widget
-                                              .baseStatefulDevice
+                                              .statefulDevice
                                               .batteryLevel,
                                           builder:
                                               (
@@ -292,7 +284,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                         ),
                                         ValueListenableBuilder(
                                           valueListenable: widget
-                                              .baseStatefulDevice
+                                              .statefulDevice
                                               .batteryCharging,
                                           builder:
                                               (
@@ -318,7 +310,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                         ),
                                         ValueListenableBuilder(
                                           valueListenable: widget
-                                              .baseStatefulDevice
+                                              .statefulDevice
                                               .mandatoryOtaRequired,
                                           builder:
                                               (
@@ -344,8 +336,8 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                               },
                                         ),
                                         widget
-                                                .baseStatefulDevice
-                                                .baseDeviceDefinition
+                                                .statefulDevice
+                                                .deviceDefinition
                                                 .unsupported
                                             ? Icon(
                                                 Icons.warning,
@@ -354,7 +346,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                             : Container(),
                                         ValueListenableBuilder(
                                           valueListenable:
-                                              widget.baseStatefulDevice.rssi,
+                                              widget.statefulDevice.rssi,
                                           builder:
                                               (
                                                 BuildContext context,

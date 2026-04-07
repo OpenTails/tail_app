@@ -33,9 +33,9 @@ void _watchIncomingMessageListener(Map<String, dynamic> event) {
     case "run_action":
       BaseAction? action = ActionRegistry.getActionFromUUID(wearCommand.uuid);
       if (action != null) {
-        Iterable<BaseStatefulDevice> knownDevices =
+        Iterable<StatefulDevice> knownDevices =
             KnownDevices.instance.connectedIdleGear;
-        for (BaseStatefulDevice device in knownDevices) {
+        for (StatefulDevice device in knownDevices) {
           runAction(device, action, triggeredBy: "Watch");
         }
       }
@@ -77,7 +77,7 @@ void initWear() {
           ..removeListener(_onGearConnectivityStateChanged)
           ..addListener(_onGearConnectivityStateChanged);
         // Gear color
-        element.baseStoredDevice
+        element.storedDevice
           ..removeListener(_onGearStoredConfigChanged)
           ..addListener(_onGearStoredConfigChanged);
       });
@@ -156,12 +156,12 @@ Future<void> updateWearData({required String reason}) async {
     final List<WearGearData> knownGear = KnownDevices.instance.state.values
         .map(
           (e) => WearGearData(
-            name: e.baseStoredDevice.name,
-            uuid: e.baseStoredDevice.btMACAddress,
+            name: e.storedDevice.name,
+            uuid: e.storedDevice.btMACAddress,
             batteryLevel: e.batteryLevel.value.toInt(),
             connected:
                 e.deviceConnectionState.value == ConnectivityState.connected,
-            color: e.baseStoredDevice.color,
+            color: e.storedDevice.color,
           ),
         )
         .toList();

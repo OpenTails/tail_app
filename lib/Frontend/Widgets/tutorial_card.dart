@@ -66,7 +66,7 @@ class GearOutOfDateWarning extends StatelessWidget {
                             (element) => element.mandatoryOtaRequired.value,
                           )
                           .firstOrNull
-                          ?.baseStoredDevice
+                          ?.storedDevice
                           .btMACAddress;
                       if (mac != null) {
                         OtaUpdateRoute(device: mac).push(context);

@@ -5,7 +5,9 @@ import 'package:tail_app/Frontend/utils.dart';
 
 import 'Bluetooth/known_devices.dart';
 import 'Definitions/Action/base_action.dart';
+import 'Definitions/Device/common_device_stuffs.dart';
 import 'Definitions/Device/device_definition.dart';
+import 'Definitions/Device/device_type_enum.dart';
 import 'audio.dart';
 import 'move_lists_backend.dart';
 
@@ -523,18 +525,17 @@ class GetActions with ChangeNotifier {
     UserAudioActions.instance
       ..removeListener(_refresh)
       ..addListener(_refresh);
-    for (BaseStatefulDevice baseStatefulDevice
-        in KnownDevices.instance.state.values) {
-      baseStatefulDevice.hasRGB
+    for (StatefulDevice statefulDevice in KnownDevices.instance.state.values) {
+      statefulDevice.hasRGB
         ..removeListener(_refresh)
         ..addListener(_refresh);
-      baseStatefulDevice.hasGlowtip
+      statefulDevice.hasGlowtip
         ..removeListener(_refresh)
         ..addListener(_refresh);
-      baseStatefulDevice.isTailCoNTROL
+      statefulDevice.isTailCoNTROL
         ..removeListener(_refresh)
         ..addListener(_refresh);
-      baseStatefulDevice.deviceConnectionState
+      statefulDevice.deviceConnectionState
         ..removeListener(_refresh)
         ..addListener(_refresh);
 
@@ -565,18 +566,18 @@ class GetActions with ChangeNotifier {
                     ConnectivityState.connected
               : false;
         })
-        .map((e) => e.baseDeviceDefinition.deviceType)
+        .map((e) => e.deviceDefinition.deviceType)
         .toSet();
     bool hasLegacyEars = KnownDevices.instance.connectedGear
-        .where((p0) => p0.baseDeviceDefinition.deviceType == DeviceType.ears)
+        .where((p0) => p0.deviceDefinition.deviceType == DeviceType.ears)
         .where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy)
         .isNotEmpty;
 
     bool hasRGB = KnownDevices.instance.state.values
-        .map((e) => e.baseStoredDevice.hasRGB)
+        .map((e) => e.storedDevice.hasRGB)
         .any((element) => element == RGBStatus.rgb);
     bool hasGlowTip = KnownDevices.instance.state.values
-        .map((e) => e.baseStoredDevice.hasGlowtip)
+        .map((e) => e.storedDevice.hasGlowtip)
         .any((element) => element == GlowtipStatus.glowtip);
 
     for (BaseAction baseAction
