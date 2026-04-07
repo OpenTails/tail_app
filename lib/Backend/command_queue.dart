@@ -180,18 +180,20 @@ class CommandQueue with ChangeNotifier {
         message: bluetoothMessage.message,
       );
 
-      // skip delay for dev gear but still add the command to the queue
-      if (bluetoothMessage.responseMSG != null &&
-          !_device.storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
-        _setState(CommandQueueState.waitingForResponse);
-        _runningCommandTimer = Timer(timeoutDuration, _onTimeout);
-      }
-      await sendMessage(
-        _device,
-        const Utf8Encoder().convert(bluetoothMessage.message),
-      );
-      if (bluetoothMessage.responseMSG == null) {
-        _onTimeout(); // end the current command if no reason to wait
+      if (!_device.storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
+        if (bluetoothMessage.responseMSG != null) {
+          _setState(CommandQueueState.waitingForResponse);
+          _runningCommandTimer = Timer(timeoutDuration, _onTimeout);
+        }
+        await sendMessage(
+          _device,
+          const Utf8Encoder().convert(bluetoothMessage.message),
+        );
+        if (bluetoothMessage.responseMSG == null) {
+          _onTimeout(); // end the current command if no reason to wait
+        }
+      } else {
+        _onTimeout(); // end the current command if demo gear
       }
     }
   }
