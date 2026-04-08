@@ -160,10 +160,10 @@ class KnownDevices with ChangeNotifier {
       statefulDevice.deviceConnectionState
         ..removeListener(_notify)
         ..addListener(_notify);
-      statefulDevice.deviceConnectionState
+      statefulDevice.bluetoothUartService
         ..removeListener(_wakelock)
         ..addListener(_wakelock);
-      statefulDevice.deviceConnectionState
+      statefulDevice.bluetoothUartService
         ..removeListener(_foregroundService)
         ..addListener(_foregroundService);
       statefulDevice.bluetoothUartService
