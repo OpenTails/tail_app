@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:aptabase_flutter/aptabase_flutter.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -10,6 +9,8 @@ import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
+import '../vendor/aptabase/aptabase_flutter.dart';
+import '../vendor/aptabase/init_options.dart';
 import 'logging_wrappers.dart';
 
 bool _didInit = false;

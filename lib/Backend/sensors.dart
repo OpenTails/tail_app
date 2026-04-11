@@ -528,7 +528,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
     if (!Platform.isAndroid && !Platform.isIOS) {
       return false;
     }
-    return ProximitySensor.isSupported();
+    return ProximitySensor.isProximitySensorAvailable();
   }
 
   @override

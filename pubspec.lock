@@ -49,14 +49,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
-  aptabase_flutter:
-    dependency: "direct main"
-    description:
-      name: aptabase_flutter
-      sha256: "96094518859798ac2dbb0f6e8d8b760444a882c17fb80274d422a2b6d3e72643"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.1"
   archive:
     dependency: transitive
     description:
@@ -439,10 +431,10 @@ packages:
     dependency: "direct main"
     description:
       name: device_info_plus
-      sha256: a7fd703482b391a87d60b6061d04dfdeab07826b96f9abd8f5ed98068acc0074
+      sha256: b4fed1b2835da9d670d7bed7db79ae2a94b0f5ad6312268158a9b5479abbacdd
       url: "https://pub.dev"
     source: hosted
-    version: "10.1.2"
+    version: "12.4.0"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -856,14 +848,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
-  hive:
-    dependency: transitive
-    description:
-      name: hive
-      sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.3"
   hive_ce:
     dependency: "direct main"
     description:
@@ -888,14 +872,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
-  hive_flutter:
-    dependency: transitive
-    description:
-      name: hive_flutter
-      sha256: dca1da446b1d808a51689fb5d0c6c9510c0a2ba01e22805d492c73b68e33eecc
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   hooks:
     dependency: transitive
     description:
@@ -1205,10 +1181,10 @@ packages:
     dependency: "direct main"
     description:
       name: package_info_plus
-      sha256: "16eee997588c60225bda0488b6dcfac69280a6b7a3cf02c741895dd370a02968"
+      sha256: "468c26b4254ab01979fa5e4a98cb343ea3631b9acee6f21028997419a80e1a20"
       url: "https://pub.dev"
     source: hosted
-    version: "8.3.1"
+    version: "9.0.1"
   package_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -1389,12 +1365,11 @@ packages:
   proximity_sensor:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "4925f442bba2885318ec9600cd3e117c848acb44"
-      url: "https://github.com/Codel1417/flutter-proximity-sensor-plugin"
-    source: git
-    version: "1.3.7"
+      name: proximity_sensor
+      sha256: d7771a9f8b92862a11056624582a58c2a9a46f9d67decd30772e7f79f70be706
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.10"
   pub_semver:
     dependency: transitive
     description:
@@ -1455,18 +1430,18 @@ packages:
     dependency: transitive
     description:
       name: sensors_plus
-      sha256: "6898cd4490ffc27fea4de5976585e92fae55355175d46c6c3b3d719d42f9e230"
+      sha256: "89e2bfc3d883743539ce5774a2b93df61effde40ff958ecad78cd66b1a8b8d52"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.1"
+    version: "6.1.2"
   sensors_plus_platform_interface:
     dependency: transitive
     description:
       name: sensors_plus_platform_interface
-      sha256: bc472d6cfd622acb4f020e726433ee31788b038056691ba433fec80e448a094f
+      sha256: "58815d2f5e46c0c41c40fb39375d3f127306f7742efe3b891c0b1c87e2b5cd5d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "2.0.1"
   sentry:
     dependency: transitive
     description:
@@ -1496,8 +1471,8 @@ packages:
     description:
       path: "."
       ref: dieringe
-      resolved-ref: "13978dd2487313a371d99c2826d56be89ed6f474"
-      url: "https://github.com/Codel1417/shake"
+      resolved-ref: "62721f62f39cb32881c6ae6706ccfecb85a97a2e"
+      url: "https://github.com/dieringe/shake"
     source: git
     version: "2.2.0"
   shared_preferences:
@@ -1797,10 +1772,10 @@ packages:
     dependency: "direct main"
     description:
       name: wakelock_plus
-      sha256: "61713aa82b7f85c21c9f4cd0a148abd75f38a74ec645fcb1e446f882c82fd09b"
+      sha256: "8b12256f616346910c519a35606fb69b1fe0737c06b6a447c6df43888b097f39"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.3"
+    version: "1.5.1"
   wakelock_plus_platform_interface:
     dependency: transitive
     description:
@@ -1869,10 +1844,10 @@ packages:
     dependency: transitive
     description:
       name: win32_registry
-      sha256: "21ec76dfc731550fd3e2ce7a33a9ea90b828fdf19a5c3bcf556fa992cfa99852"
+      sha256: "6f1b564492d0147b330dd794fee8f512cec4977957f310f9951b5f9d83618dae"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.5"
+    version: "2.1.0"
   wordpress_client:
     dependency: "direct main"
     description:
