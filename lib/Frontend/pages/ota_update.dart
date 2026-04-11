@@ -183,9 +183,8 @@ class _OtaUpdateState extends State<OtaUpdate> {
                         )) ...[
                           ElevatedButton(
                             onPressed: () async {
-                              FilePickerResult? result = await FilePicker
-                                  .platform
-                                  .pickFiles(
+                              FilePickerResult? result =
+                                  await FilePicker.pickFiles(
                                     type: FileType.custom,
                                     withData: true,
                                     allowedExtensions: ['bin'],

@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class TailBlogImage extends StatelessWidget {
@@ -15,7 +15,7 @@ class TailBlogImage extends StatelessWidget {
         child: CachedNetworkImage(
           height: 250,
           imageUrl: url,
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorBuilder: (context, url, error) => Icon(Icons.error),
         ),
       ),
     );

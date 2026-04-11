@@ -31,7 +31,7 @@ class _CustomAudioState extends State<CustomAudio> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           _audioLogger.info("Opening file dialog");
-          FilePickerResult? result = await FilePicker.platform.pickFiles(
+          FilePickerResult? result = await FilePicker.pickFiles(
             type: FileType.custom,
             withReadStream: true,
             allowedExtensions: [
