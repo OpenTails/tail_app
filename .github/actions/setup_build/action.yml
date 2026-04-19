@@ -12,7 +12,7 @@ inputs:
     default: "3.41.4"
   ruby-version:
     description: "Ruby Version"
-    default: "3.4"
+    default: "4.0.2"
 runs:
   using: "composite"
   steps:
@@ -32,4 +32,4 @@ runs:
     - uses: maxim-lobanov/setup-xcode@v1
       if: runner.os == 'macOS'
       with:
-        xcode-version: 16.4
+        xcode-version: 26
