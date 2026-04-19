@@ -77,8 +77,8 @@ class CommandQueue with ChangeNotifier {
 
   /// Called when a delay command ends or after 10 seconds
   void _onTimeout() {
-    currentMessage == null;
-    _runningCommandTimer == null;
+    currentMessage = null;
+    _runningCommandTimer = null;
     if ([
       CommandQueueState.delay,
       CommandQueueState.waitingForResponse,
