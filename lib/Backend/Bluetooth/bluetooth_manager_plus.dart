@@ -14,7 +14,7 @@ import '../Definitions/Device/common_device_stuffs.dart';
 import '../Definitions/Device/device_definition.dart';
 import '../Definitions/Device/device_type_enum.dart';
 import '../Definitions/Device/stored_device.dart';
-import '../bluetooth_issues_check.dart';
+import 'bluetooth_issues_check.dart';
 import '../device_registry.dart';
 import '../logging_wrappers.dart';
 import 'known_devices.dart';

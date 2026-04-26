@@ -233,8 +233,6 @@ class _ManageGearState extends State<ManageGear> {
                             BluetoothMessage(
                               message: "SHUTDOWN",
                               priority: Priority.high,
-                              type: CommandType.system,
-                              timestamp: DateTime.now(),
                             ),
                           );
                         });
@@ -413,7 +411,6 @@ class ManageGearConventionMode extends StatelessWidget {
                         BluetoothMessage bluetoothMessage = BluetoothMessage(
                           message:
                               "SETPUSSKEY ${device.storedDevice.conModePin}",
-                          timestamp: DateTime.timestamp(),
                         );
                         device.commandQueue.addCommand(bluetoothMessage);
                         device.storedDevice.conModeEnabled = true;
@@ -425,7 +422,6 @@ class ManageGearConventionMode extends StatelessWidget {
                         //TODO? if gear is disconnected and this is attempted, offer instructions to reset gear
                         BluetoothMessage bluetoothMessage = BluetoothMessage(
                           message: "STOPPUSSKEY",
-                          timestamp: DateTime.timestamp(),
                         );
                         device.commandQueue.addCommand(bluetoothMessage);
                         device.storedDevice.conModeEnabled = false;
@@ -1103,7 +1099,6 @@ class _ManageGearHomePositionState extends State<ManageGearHomePosition> {
     );
     BluetoothMessage bluetoothMessage = BluetoothMessage(
       message: "SETHOME",
-      timestamp: DateTime.now(),
       responseMSG: "OK",
       priority: Priority.high,
     );

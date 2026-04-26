@@ -1,5 +1,4 @@
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
-import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/audio.dart';
@@ -10,6 +9,8 @@ import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 import 'package:battery_plus/battery_plus.dart';
 
+import 'Action/base_action.dart';
+import 'Action/action_category.dart';
 import 'Definitions/Device/device_type_enum.dart';
 import 'Definitions/Device/ear_speed_enum.dart';
 
@@ -71,20 +72,17 @@ Future<void> runAction(
           earMoveSpeed,
           defaultValue: earMoveSpeedDefault,
         );
+
         BluetoothMessage speedMsg = BluetoothMessage(
           message: earSpeed.command,
-          priority: Priority.normal,
           type: CommandType.move,
           responseMSG: earSpeed.command,
-          timestamp: DateTime.now(),
         );
         device.commandQueue.addCommand(speedMsg);
         BluetoothMessage delayMessage = BluetoothMessage(
           delay: 1,
-          priority: Priority.normal,
           type: CommandType.move,
           message: '',
-          timestamp: DateTime.now(),
         );
         device.commandQueue.addCommand(delayMessage);
         for (int i = 0; i < action.legacyEarCommandMoves!.length; i++) {
@@ -93,10 +91,8 @@ Future<void> runAction(
             if (element.moveType == MoveType.delay) {
               BluetoothMessage message = BluetoothMessage(
                 delay: element.time,
-                priority: Priority.normal,
                 type: CommandType.move,
                 message: '',
-                timestamp: DateTime.now(),
               );
               device.commandQueue.addCommand(message);
             }
@@ -104,10 +100,8 @@ Future<void> runAction(
             //Generate move command
             BluetoothMessage message = BluetoothMessage(
               message: element.command,
-              priority: Priority.normal,
               type: CommandType.move,
               responseMSG: element.response,
-              timestamp: DateTime.now(),
             );
             device.commandQueue.addCommand(message);
           }
@@ -118,10 +112,8 @@ Future<void> runAction(
     device.commandQueue.addCommand(
       BluetoothMessage(
         message: action.command,
-        priority: Priority.normal,
         responseMSG: action.response,
         type: CommandType.move,
-        timestamp: DateTime.now(),
       ),
     );
   } else if (action is MoveList) {
@@ -166,20 +158,13 @@ Future<void> runAction(
       }
       cmd = '$cmd $a $b $e $f $sl $m H1';
       device.commandQueue.addCommand(
-        BluetoothMessage(
-          message: cmd,
-          priority: Priority.normal,
-          type: CommandType.move,
-          timestamp: DateTime.now(),
-        ),
+        BluetoothMessage(message: cmd, type: CommandType.move),
       );
       device.commandQueue.addCommand(
         BluetoothMessage(
           message: "TAILU$preset",
-          priority: Priority.normal,
           responseMSG: "TAILU$preset END",
           type: CommandType.move,
-          timestamp: DateTime.now(),
         ),
       );
     } else {
@@ -197,10 +182,8 @@ Future<void> runAction(
         if (element.moveType == MoveType.delay) {
           BluetoothMessage message = BluetoothMessage(
             delay: element.time,
-            priority: Priority.normal,
             type: CommandType.move,
             message: '',
-            timestamp: DateTime.now(),
           );
           device.commandQueue.addCommand(message);
         } else {
@@ -238,7 +221,6 @@ List<BluetoothMessage> generateMoveCommand(
           priority: priority,
           responseMSG: noResponseMsg ? null : "EARHOME END",
           type: type,
-          timestamp: DateTime.now(),
         ),
       );
     } else {
@@ -248,7 +230,6 @@ List<BluetoothMessage> generateMoveCommand(
           priority: priority,
           responseMSG: noResponseMsg ? null : "END TAILHM",
           type: type,
-          timestamp: DateTime.now(),
         ),
       );
     }
@@ -268,7 +249,6 @@ List<BluetoothMessage> generateMoveCommand(
                 ? EarSpeed.fast.command
                 : EarSpeed.slow.command,
             type: type,
-            timestamp: DateTime.now(),
           ),
         )
         ..add(
@@ -278,7 +258,6 @@ List<BluetoothMessage> generateMoveCommand(
             priority: priority,
             responseMSG: noResponseMsg ? null : "DSSP END",
             type: CommandType.move,
-            timestamp: DateTime.now(),
           ),
         );
     } else {
@@ -289,7 +268,6 @@ List<BluetoothMessage> generateMoveCommand(
           priority: priority,
           responseMSG: noResponseMsg ? null : "OK",
           type: type,
-          timestamp: DateTime.now(),
         ),
       );
     }

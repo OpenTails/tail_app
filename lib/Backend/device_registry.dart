@@ -2,8 +2,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart' as log;
 
+import 'Action/base_action.dart';
 import 'Bluetooth/known_devices.dart';
-import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/bluetooth_uart_services_list.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'Definitions/Device/device_type_enum.dart';

@@ -7,7 +7,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
 
 import '../constants.dart';
-import 'Definitions/Action/base_action.dart';
+import 'Action/base_action.dart';
 
 final Logger _audioLogger = Logger('Audio');
 

@@ -3,44 +3,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../Frontend/translation_string_definitions.dart';
-import '../../move_lists_backend.dart';
-import '../Device/device_type_enum.dart';
+import '../Definitions/Device/device_type_enum.dart';
+import '../move_lists_backend.dart';
+import 'action_category.dart';
 
 part 'base_action.freezed.dart';
 
 part 'base_action.g.dart';
-
-@HiveType(typeId: 7)
-enum ActionCategory {
-  @HiveField(1)
-  sequence,
-  @HiveField(5)
-  glowtip,
-  @HiveField(7)
-  hidden, // used as a sub-action for legacy ear moves
-  @HiveField(8)
-  audio,
-  @HiveField(9)
-  rgb,
-}
-
-extension ActionCategoryExtension on ActionCategory {
-  String get friendly {
-    switch (this) {
-      case ActionCategory.glowtip:
-        return actionsCategoryGlowtip();
-      case ActionCategory.rgb:
-        return actionsCategoryRGB();
-      case ActionCategory.sequence:
-        return sequencesPage();
-      case ActionCategory.hidden:
-        return "";
-      case ActionCategory.audio:
-        return audioActionCategory();
-    }
-  }
-}
 
 abstract class BaseAction {
   String get name;

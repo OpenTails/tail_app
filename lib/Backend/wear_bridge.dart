@@ -14,8 +14,8 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
 
-import 'Definitions/Action/base_action.dart';
-import 'action_registry.dart';
+import 'Action/action_registry.dart';
+import 'Action/base_action.dart';
 import 'favorite_actions.dart';
 
 part 'wear_bridge.freezed.dart';

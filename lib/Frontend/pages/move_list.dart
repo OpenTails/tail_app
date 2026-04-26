@@ -9,10 +9,11 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
-import 'package:tail_app/Backend/Definitions/Action/base_action.dart';
 import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
+import '../../Backend/Action/action_category.dart';
+import '../../Backend/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_type_enum.dart';
 import '../../Backend/analytics.dart';
 import 'package:tail_app/constants.dart';

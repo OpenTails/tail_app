@@ -5,10 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
+import '../../Backend/Action/action_registry.dart';
+import '../../Backend/Action/base_action.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
-import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_type_enum.dart';
-import '../../Backend/action_registry.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';

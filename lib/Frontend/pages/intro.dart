@@ -8,7 +8,7 @@ import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../../Backend/bluetooth_issues_check.dart';
+import '../../Backend/Bluetooth/bluetooth_issues_check.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
 import '../../constants.dart';

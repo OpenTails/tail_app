@@ -7,10 +7,10 @@ import 'package:multi_value_listenable_builder/multi_value_listenable_builder.da
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../Backend/Action/action_registry.dart';
+import '../../Backend/Action/base_action.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
-import '../../Backend/Definitions/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/action_registry.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
 import '../../Backend/sensors.dart';

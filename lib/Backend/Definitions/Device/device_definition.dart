@@ -240,9 +240,7 @@ class StatefulDevice {
     if (value.startsWith("VER")) {
       fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
       if (isTailCoNTROL.value == TailControlStatus.tailControl) {
-        commandQueue.addCommand(
-          BluetoothMessage(message: "READNVS", timestamp: DateTime.timestamp()),
-        );
+        commandQueue.addCommand(BluetoothMessage(message: "READNVS"));
       }
       // Sent after VER message
     } else if (value.startsWith("GLOWTIP")) {
@@ -317,43 +315,23 @@ class StatefulDevice {
     // required to keep the connection open on IOS, otherwise the app will suspend and walk mode will stop working
     // also required to keep eargear awake
     commandQueue.addCommand(
-      BluetoothMessage(
-        message: "PING",
-        priority: Priority.low,
-        type: CommandType.system,
-        timestamp: DateTime.now(),
-      ),
+      BluetoothMessage(message: "PING", priority: Priority.low),
     );
     // Battery characteristic works fine for tailcontrol, so we don't need to manually request the battery level
     if (isTailCoNTROL.value != TailControlStatus.tailControl) {
       commandQueue.addCommand(
-        BluetoothMessage(
-          message: "BATT",
-          priority: Priority.low,
-          type: CommandType.system,
-          timestamp: DateTime.now(),
-        ),
+        BluetoothMessage(message: "BATT", priority: Priority.low),
       );
     }
 
     if (fwVersion.value == Version()) {
       commandQueue.addCommand(
-        BluetoothMessage(
-          message: "VER",
-          priority: Priority.low,
-          type: CommandType.system,
-          timestamp: DateTime.now(),
-        ),
+        BluetoothMessage(message: "VER", priority: Priority.low),
       );
     }
     if (hwVersion.value.isEmpty) {
       commandQueue.addCommand(
-        BluetoothMessage(
-          message: "HWVER",
-          priority: Priority.low,
-          type: CommandType.system,
-          timestamp: DateTime.now(),
-        ),
+        BluetoothMessage(message: "HWVER", priority: Priority.low),
       );
     }
   }

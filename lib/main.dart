@@ -16,7 +16,7 @@ import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/version.dart';
 
-import 'Backend/Definitions/Action/base_action.dart';
+import 'Backend/Action/base_action.dart';
 import 'Backend/Definitions/Device/common_device_stuffs.dart';
 import 'Backend/Definitions/Device/device_type_enum.dart';
 import 'Backend/Definitions/Device/ear_speed_enum.dart';

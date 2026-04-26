@@ -26,13 +26,14 @@ import 'package:tail_app/Backend/wear_bridge.dart';
 
 import '../Frontend/translation_string_definitions.dart';
 import '../constants.dart';
+import 'Action/action_category.dart';
+import 'Action/action_registry.dart';
+import 'Action/base_action.dart';
 import 'Bluetooth/known_devices.dart';
 import 'Bluetooth/bluetooth_message.dart';
-import 'Definitions/Action/base_action.dart';
 import 'Definitions/Device/common_device_stuffs.dart';
 import 'Definitions/Device/device_definition.dart';
 import 'Definitions/Device/device_type_enum.dart';
-import 'action_registry.dart';
 import 'logging_wrappers.dart';
 
 part 'sensors.freezed.dart';
@@ -604,8 +605,6 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
               message: "STOPTILT",
               priority: Priority.low,
               responseMSG: "OK",
-              type: CommandType.system,
-              timestamp: DateTime.now(),
             ),
           );
         });
@@ -624,8 +623,6 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
               message: "TILTMODE",
               responseMSG: "OK",
               priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
             ),
           );
         });
@@ -666,8 +663,6 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
               message: "TILTMODE",
               responseMSG: "OK",
               priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
             ),
           );
           //TODO: Wire up with the real commands
@@ -729,8 +724,6 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
               message: "STOPCLAP",
               priority: Priority.low,
               responseMSG: "OK",
-              type: CommandType.system,
-              timestamp: DateTime.now(),
             ),
           );
         });
@@ -749,8 +742,6 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
               message: "CLAPMODE",
               responseMSG: "OK",
               priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
             ),
           );
         });
@@ -793,8 +784,6 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
               message: "CLAPMODE",
               responseMSG: "OK",
               priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
             ),
           );
           return element.rxCharacteristicStream.listen((msg) {
@@ -862,8 +851,6 @@ class EarMicTriggerDefinition extends TriggerDefinition {
               message: command,
               priority: Priority.low,
               responseMSG: responseMSG,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
             ),
           );
         });
@@ -884,12 +871,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
             command = "LISTENMODE";
           }
           element.commandQueue.addCommand(
-            BluetoothMessage(
-              message: command,
-              priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
-            ),
+            BluetoothMessage(message: command, priority: Priority.low),
           );
         });
     //add listeners on new device paired
@@ -924,12 +906,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
             command = "LISTENMODE";
           }
           element.commandQueue.addCommand(
-            BluetoothMessage(
-              message: command,
-              priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
-            ),
+            BluetoothMessage(message: command, priority: Priority.low),
           );
           return element.rxCharacteristicStream.listen((msg) {
             if (msg.contains("LISTEN_FULL BANG")) {
@@ -1004,12 +981,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
             command = "STOPTILT";
           }
           element.commandQueue.addCommand(
-            BluetoothMessage(
-              message: command,
-              priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
-            ),
+            BluetoothMessage(message: command, priority: Priority.low),
           );
         });
   }
@@ -1029,12 +1001,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
             command = "TILTMODE";
           }
           element.commandQueue.addCommand(
-            BluetoothMessage(
-              message: command,
-              priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
-            ),
+            BluetoothMessage(message: command, priority: Priority.low),
           );
         });
     //add listeners on new device paired
@@ -1069,12 +1036,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
             command = "TILTMODE";
           }
           element.commandQueue.addCommand(
-            BluetoothMessage(
-              message: command,
-              priority: Priority.low,
-              type: CommandType.system,
-              timestamp: DateTime.now(),
-            ),
+            BluetoothMessage(message: command, priority: Priority.low),
           );
           return element.rxCharacteristicStream.listen((msg) {
             if (msg.contains("TILT LEFT")) {

@@ -11,10 +11,10 @@ import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/ear_speed_widget.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Definitions/Action/base_action.dart';
+import '../../Backend/Action/action_registry.dart';
+import '../../Backend/Action/base_action.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/Definitions/Device/device_type_enum.dart';
-import '../../Backend/action_registry.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/favorite_actions.dart';
 import '../../Backend/logging_wrappers.dart';

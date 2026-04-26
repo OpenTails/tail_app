@@ -5,9 +5,9 @@ import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 
-import 'Definitions/Action/base_action.dart';
+import 'Action/action_registry.dart';
+import 'Action/base_action.dart';
 import 'Definitions/Device/device_definition.dart';
-import 'action_registry.dart';
 import 'favorite_actions.dart';
 
 const QuickActions quickActions = QuickActions();

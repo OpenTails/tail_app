@@ -9,7 +9,7 @@ import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../Backend/Definitions/Action/base_action.dart';
+import '../../Backend/Action/base_action.dart';
 import '../../Backend/audio.dart';
 import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';

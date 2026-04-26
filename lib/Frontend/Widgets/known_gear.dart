@@ -6,7 +6,7 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/bluetooth_issues_check.dart';
+import '../../Backend/Bluetooth/bluetooth_issues_check.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../go_router_config.dart';

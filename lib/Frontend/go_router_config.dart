@@ -7,7 +7,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
-import '../Backend/Definitions/Action/base_action.dart';
+import '../Backend/Action/base_action.dart';
 import '../Backend/Definitions/Device/device_definition.dart';
 import '../Backend/logging_wrappers.dart';
 import '../Backend/move_lists_backend.dart';
