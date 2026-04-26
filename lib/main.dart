@@ -16,6 +16,7 @@ import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/version.dart';
 
+import 'Backend/Action/action_category.dart';
 import 'Backend/Action/base_action.dart';
 import 'Backend/Definitions/Device/common_device_stuffs.dart';
 import 'Backend/Definitions/Device/device_type_enum.dart';
@@ -26,7 +27,8 @@ import 'Backend/dynamic_config.dart';
 import 'Backend/favorite_actions.dart';
 import 'Backend/logging_wrappers.dart';
 import 'Backend/move_lists_backend.dart';
-import 'Backend/sensors.dart';
+import 'Backend/triggers/trigger.dart';
+import 'Backend/triggers/trigger_action.dart';
 import 'Backend/wear_bridge.dart';
 import 'Frontend/Widgets/bt_app_state_controller.dart';
 import 'Frontend/go_router_config.dart';

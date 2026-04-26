@@ -13,7 +13,13 @@ import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
-import '../../Backend/sensors.dart';
+import '../../Backend/triggers/sensor_definition.dart';
+import '../../Backend/triggers/sensor_definition_action_definition.dart';
+import '../../Backend/triggers/sensor_definition_list.dart';
+import '../../Backend/triggers/sensors/casual.dart';
+import '../../Backend/triggers/stored_triggers.dart';
+import '../../Backend/triggers/trigger.dart';
+import '../../Backend/triggers/trigger_action.dart';
 import '../../constants.dart';
 import '../Widgets/casual_mode_delay_widget.dart';
 import '../Widgets/tutorial_card.dart';
@@ -355,7 +361,7 @@ class _TriggerEditState extends State<TriggerEdit> {
               ...trigger!.actions.map((TriggerAction e) {
                 TriggerActionDef triggerActionDef = trigger!
                     .triggerDefinition!
-                    .actionTypes
+                    .triggerActionDefinitions
                     .where((element) => e.uuid == element.uuid)
                     .first;
                 return ListTile(

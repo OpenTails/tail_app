@@ -9,23 +9,30 @@ enum Priority { low, normal, high }
 enum CommandType { system, move, direct }
 
 @freezed
-abstract class BluetoothMessage
+class BluetoothMessage
     with _$BluetoothMessage
     implements Comparable<BluetoothMessage> {
-  late DateTime timestamp;
+  @override
+  final DateTime timestamp;
+  @override
+  final String message;
+  @override
+  final String? responseMSG;
+  @override
+  final Priority priority;
+  @override
+  final double? delay;
+  @override
+  final CommandType type;
 
-  BluetoothMessage._() {
-    timestamp = DateTime.now();
-  }
-
-  @Implements<Comparable<BluetoothMessage>>()
-  const factory BluetoothMessage({
-    required String message,
-    final String? responseMSG,
-    @Default(Priority.normal) final Priority priority,
-    final double? delay,
-    @Default(CommandType.system) CommandType type,
-  }) = _BluetoothMessage;
+  BluetoothMessage({
+    required this.message,
+    this.responseMSG,
+    this.priority = Priority.normal,
+    this.type = CommandType.system,
+    DateTime? timestamp,
+    this.delay,
+  }) : timestamp = timestamp ?? DateTime.now();
 
   @override
   int compareTo(other) {

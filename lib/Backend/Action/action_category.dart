@@ -2,6 +2,8 @@ import 'package:hive_ce/hive.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 
+part 'action_category.g.dart';
+
 @HiveType(typeId: 7)
 enum ActionCategory {
   @HiveField(1)
