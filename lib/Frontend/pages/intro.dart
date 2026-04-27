@@ -12,7 +12,7 @@ import '../../Backend/Bluetooth/bluetooth_issues_check.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
 import '../../constants.dart';
-import '../../gen/assets.gen.dart';
+import '../../assets.dart';
 import '../Widgets/language_picker.dart';
 import '../Widgets/lottie_lazy_load.dart';
 import '../go_router_config.dart';
@@ -116,12 +116,12 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                   if (Theme.of(context).colorScheme.brightness ==
                       Brightness.light) {
                     return _buildImage(
-                      Assets.splashLightTransparent.path,
+                      Assets.splashLightTransparent,
                       MediaQuery.of(context).size.width,
                     );
                   } else {
                     return _buildImage(
-                      Assets.splashDarkTransparent.path,
+                      Assets.splashDarkTransparent,
                       MediaQuery.of(context).size.width,
                     );
                   }
@@ -134,7 +134,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
               title: convertToUwU(morePrivacyPolicyLinkTitle()),
               body: convertToUwU(onboardingPrivacyPolicyDescription()),
               image: LottieLazyLoad(
-                asset: Assets.tailcostickers.tailCoStickersFile144834359,
+                asset: Assets.tailcostickers.blanketCrumpet,
                 width: MediaQuery.of(context).size.width,
               ),
               footer: OverflowBar(
@@ -189,7 +189,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
               title: convertToUwU(onboardingBluetoothTitle()),
               body: convertToUwU(onboardingBluetoothDescription()),
               image: LottieLazyLoad(
-                asset: Assets.tailcostickers.tailCoStickersFile144834357,
+                asset: Assets.tailcostickers.cyberCrumpet,
                 width: MediaQuery.of(context).size.width,
               ),
               footer: OverflowBar(
@@ -237,7 +237,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
               title: convertToUwU(onboardingCompletedTitle()),
               body: "",
               image: LottieLazyLoad(
-                asset: Assets.tailcostickers.tailCoStickersFile144834338,
+                asset: Assets.tailcostickers.smilingCrumpet,
                 width: MediaQuery.of(context).size.width,
               ),
               decoration: pageDecoration.copyWith(

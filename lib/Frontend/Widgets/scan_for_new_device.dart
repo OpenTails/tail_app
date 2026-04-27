@@ -15,7 +15,7 @@ import '../../Backend/device_registry.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
 import '../../constants.dart';
-import '../../gen/assets.gen.dart';
+import '../../assets.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 import 'lottie_lazy_load.dart';
@@ -336,9 +336,7 @@ class _ScanGearListState extends State<ScanGearList> {
                           child: Column(
                             children: [
                               LottieLazyLoad(
-                                asset: Assets
-                                    .tailcostickers
-                                    .tailCoStickersFile144834340,
+                                asset: Assets.tailcostickers.spinningCrumpet,
                                 width: 200,
                                 renderCache: false,
                               ),

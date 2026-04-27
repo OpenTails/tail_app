@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../Backend/logging_wrappers.dart';
 import '../../../constants.dart';
-import '../../../gen/assets.gen.dart';
+import '../../../assets.dart';
 import '../../Widgets/lottie_lazy_load.dart';
 
 class DeveloperPincode extends StatefulWidget {
@@ -20,7 +20,7 @@ class _DeveloperPincodeState extends State<DeveloperPincode> {
     return Scaffold(
       body: ScreenLock(
         title: LottieLazyLoad(
-          asset: Assets.tailcostickers.tailCoStickersFile144834344,
+          asset: Assets.tailcostickers.happyCrumpet,
           width: 80,
         ),
         onCancelled: () => context.pop(),
@@ -32,7 +32,18 @@ class _DeveloperPincodeState extends State<DeveloperPincode> {
         correctString: '0476',
         keyPadConfig: const KeyPadConfig(
           // 0 - 9
-          displayStrings: ['🦊', '🐶', '🐵', '🐦', '🐉', '🐎', '🦖', '🦦', '🐿️', '🐭'],
+          displayStrings: [
+            '🦊',
+            '🐶',
+            '🐵',
+            '🐦',
+            '🐉',
+            '🐎',
+            '🦖',
+            '🦦',
+            '🐿️',
+            '🐭',
+          ],
         ),
         cancelButton: const Icon(Icons.close),
         deleteButton: const Icon(Icons.delete),

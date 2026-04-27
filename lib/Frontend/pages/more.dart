@@ -8,7 +8,7 @@ import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
-import '../../gen/assets.gen.dart';
+import '../../assets.dart';
 import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import 'html_page.dart';
@@ -34,27 +34,37 @@ class _MoreState extends State<More> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Builder(builder: (context) {
-          String couponCode = "APPCOV25";
-          return ListTile(
-            title: Text(convertToUwU(morePageCoverPromoTitle())),
-            subtitle: Text(convertToUwU(morePageCoverPromoDescription(couponCode: couponCode))),
-            leading: const Icon(Icons.store),
-            onTap: () async {
-              await launchExternalUrl(url: "https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode", analyticsLabel: "Coupon", addTrackingUtm: false);
-            },
-          );
-        }),
+        Builder(
+          builder: (context) {
+            String couponCode = "APPCOV25";
+            return ListTile(
+              title: Text(convertToUwU(morePageCoverPromoTitle())),
+              subtitle: Text(
+                convertToUwU(
+                  morePageCoverPromoDescription(couponCode: couponCode),
+                ),
+              ),
+              leading: const Icon(Icons.store),
+              onTap: () async {
+                await launchExternalUrl(
+                  url:
+                      "https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode",
+                  analyticsLabel: "Coupon",
+                  addTrackingUtm: false,
+                );
+              },
+            );
+          },
+        ),
         ListTile(
           title: Text(convertToUwU(moreCoshubPromoTitle())),
           subtitle: Text(convertToUwU(moreCoshubPromoDescription())),
-          leading: Image.asset(
-            Assets.cosHubBT.path,
-            width: 24,
-            height: 24,
-          ),
+          leading: Image.asset(Assets.cosHubBT, width: 24, height: 24),
           onTap: () async {
-            await launchExternalUrl(url: (await getDynamicConfigInfo()).urls.coshubUrl, analyticsLabel: "CosHub");
+            await launchExternalUrl(
+              url: (await getDynamicConfigInfo()).urls.coshubUrl,
+              analyticsLabel: "CosHub",
+            );
           },
         ),
         ListTile(
@@ -65,7 +75,11 @@ class _MoreState extends State<More> {
             const SettingsRoute().push(context);
           },
         ),
-        if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+        if (HiveProxy.getOrDefault(
+          settings,
+          showDebugging,
+          defaultValue: showDebuggingDefault,
+        )) ...[
           ListTile(
             title: Text(convertToUwU("Development Menu")),
             leading: const Icon(Icons.bug_report),
@@ -81,7 +95,11 @@ class _MoreState extends State<More> {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
-        if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) ...[
+        if (HiveProxy.getOrDefault(
+          settings,
+          showDebugging,
+          defaultValue: showDebuggingDefault,
+        )) ...[
           ListTile(
             title: Text(convertToUwU(joyStickPage())),
             subtitle: Text(convertToUwU(joyStickPageDescription())),
@@ -109,10 +127,11 @@ class _MoreState extends State<More> {
           },
         ),
         ListTile(
-            title: Text(
-          convertToUwU("${moreManualTitle()} (${moreManualSubTitle()})"),
-          style: Theme.of(context).textTheme.headlineLarge,
-        )),
+          title: Text(
+            convertToUwU("${moreManualTitle()} (${moreManualSubTitle()})"),
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+        ),
         ListTile(
           title: Text(convertToUwU(moreManualMiTailTitle())),
           onTap: () async {
@@ -154,7 +173,8 @@ class _MoreState extends State<More> {
           onTap: () async {
             HtmlPageRoute(
               $extra: HtmlPageInfo(
-                url: "https://docs.thetailcompany.com/doku.php?id=en:safety&do=export_xhtmlbody",
+                url:
+                    "https://docs.thetailcompany.com/doku.php?id=en:safety&do=export_xhtmlbody",
                 title: moreManualResponsibleWaggingTitle(),
                 analyticsLabel: "Responsible Wagging",
               ),
@@ -162,29 +182,40 @@ class _MoreState extends State<More> {
           },
         ),
         ListTile(
-            title: Text(
-          convertToUwU(moreUsefulLinksTitle()),
-          style: Theme.of(context).textTheme.headlineLarge,
-        )),
+          title: Text(
+            convertToUwU(moreUsefulLinksTitle()),
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+        ),
         ListTile(
           title: Text(convertToUwU("Store")),
           leading: const Icon(Icons.store),
           onTap: () async {
-            await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Store");
+            await launchExternalUrl(
+              url: "https://thetailcompany.com",
+              analyticsLabel: "Store",
+            );
           },
         ),
         ListTile(
           title: Text(convertToUwU("Technical Wiki")),
           leading: const Icon(Icons.menu_book),
           onTap: () async {
-            await launchExternalUrl(url: "https://docs.thetailcompany.com", analyticsLabel: "Wiki");
+            await launchExternalUrl(
+              url: "https://docs.thetailcompany.com",
+              analyticsLabel: "Wiki",
+            );
           },
         ),
         ListTile(
           title: Text(convertToUwU("Telegram")),
           leading: const Icon(Icons.telegram),
           onTap: () async {
-            await launchExternalUrl(url: "https://t.me/joinchat/VCdXxqKgRv2yrDNC", analyticsLabel: "Telegram", addTrackingUtm: false);
+            await launchExternalUrl(
+              url: "https://t.me/joinchat/VCdXxqKgRv2yrDNC",
+              analyticsLabel: "Telegram",
+              addTrackingUtm: false,
+            );
           },
         ),
         ListTile(
@@ -192,7 +223,10 @@ class _MoreState extends State<More> {
           subtitle: Text(convertToUwU(morePageTranslateDescription())),
           leading: const Icon(Icons.language),
           onTap: () async {
-            await launchExternalUrl(url: "https://weblate.stargazer.at", analyticsLabel: "Weblate");
+            await launchExternalUrl(
+              url: "https://weblate.stargazer.at",
+              analyticsLabel: "Weblate",
+            );
           },
         ),
         ListTile(
@@ -200,17 +234,28 @@ class _MoreState extends State<More> {
           leading: const Icon(Icons.message),
           subtitle: Text(convertToUwU(supportDescription())),
           onTap: () async {
-            await launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Support");
+            await launchExternalUrl(
+              url: "https://thetailcompany.com",
+              analyticsLabel: "Support",
+            );
           },
         ),
         ListTile(
           title: Text(convertToUwU(moreSourceCode())),
           leading: const Icon(Icons.code),
           onTap: () async {
-            await launchExternalUrl(url: "https://github.com/Codel1417/tail_app", analyticsLabel: "Source Code", addTrackingUtm: false);
+            await launchExternalUrl(
+              url: "https://github.com/Codel1417/tail_app",
+              analyticsLabel: "Source Code",
+              addTrackingUtm: false,
+            );
           },
           onLongPress: () async {
-            if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault)) {
+            if (HiveProxy.getOrDefault(
+              settings,
+              showDebugging,
+              defaultValue: showDebuggingDefault,
+            )) {
               return;
             }
             const DeveloperPincodeRoute().push(context);
@@ -238,9 +283,10 @@ class _MoreState extends State<More> {
                 context: context,
                 useRootNavigator: true,
                 applicationVersion: "${value.version} (${value.buildNumber})",
-                applicationLegalese: "Developed by Code-Floof for the community. Open Source GPL 3.0 Licensed",
+                applicationLegalese:
+                    "Developed by Code-Floof for the community. Open Source GPL 3.0 Licensed",
                 applicationIcon: Image.asset(
-                  Assets.tCLogoTransparentNoText.path,
+                  Assets.tCLogoTransparentNoText,
                   width: 150,
                   height: 150,
                 ),

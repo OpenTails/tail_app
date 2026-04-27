@@ -8,7 +8,7 @@ import '../../Backend/Device/ota/updater.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
-import '../../gen/assets.gen.dart';
+import '../../assets.dart';
 import '../Widgets/lottie_lazy_load.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
@@ -125,7 +125,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                   child: Center(
                     child: LottieLazyLoad(
                       width: MediaQuery.of(context).size.width,
-                      asset: Assets.tailcostickers.tailCoStickersFile144834357,
+                      asset: Assets.tailcostickers.cyberCrumpet,
                     ),
                   ),
                 ),
@@ -226,7 +226,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                   flex: 2,
                   child: Center(
                     child: LottieLazyLoad(
-                      asset: Assets.tailcostickers.tailCoStickersFile144834339,
+                      asset: Assets.tailcostickers.excitedCrumpet,
                       width: MediaQuery.of(context).size.width,
                     ),
                   ),
@@ -254,7 +254,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                   flex: 2,
                   child: Center(
                     child: LottieLazyLoad(
-                      asset: Assets.tailcostickers.tailCoStickersFile144834348,
+                      asset: Assets.tailcostickers.angryCrumpet,
                       width: MediaQuery.of(context).size.width,
                     ),
                   ),
@@ -276,7 +276,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                   flex: 2,
                   child: Center(
                     child: LottieLazyLoad(
-                      asset: Assets.tailcostickers.tailCoStickersFile144834342,
+                      asset: Assets.tailcostickers.sleepyCrumpet,
                       width: MediaQuery.of(context).size.width,
                     ),
                   ),
@@ -301,7 +301,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                 Expanded(
                   flex: 2,
                   child: LottieLazyLoad(
-                    asset: Assets.tailcostickers.tailCoStickersFile144834340,
+                    asset: Assets.tailcostickers.spinningCrumpet,
                     width: MediaQuery.of(context).size.width,
                     renderCache: true,
                   ),

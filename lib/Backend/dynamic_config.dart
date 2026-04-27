@@ -10,7 +10,7 @@ import 'package:tail_app/Backend/version.dart';
 
 import '../Frontend/utils.dart';
 import '../constants.dart';
-import '../gen/assets.gen.dart';
+import '../assets.dart';
 import 'logging_wrappers.dart';
 
 part 'dynamic_config.freezed.dart';

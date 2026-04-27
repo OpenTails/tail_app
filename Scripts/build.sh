@@ -34,7 +34,6 @@ setUpTools() {
   # Configure flutter & pre-build tasks
   echo "::group::Configure tools"
   flutter config --no-cli-animations --enable-analytics
-  dart pub global activate flutter_gen
   dart pub global activate intl_translation
   dart pub global activate build_runner
   dart pub global activate icons_launcher

@@ -4,8 +4,8 @@ import 'package:logging/logging.dart' as log;
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
-import 'package:tail_app/gen/assets.gen.dart';
 
+import '../../assets.dart';
 import '../Widgets/base_card.dart';
 import '../Widgets/tail_blog.dart';
 import '../go_router_config.dart';
@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
             convertToUwU(homeCosHubTitle()),
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          trailing: Image.asset(Assets.cosHubBT.path, width: 24, height: 24),
+          trailing: Image.asset(Assets.cosHubBT, width: 24, height: 24),
         ),
         SizedBox(height: 350, child: CoshubFeed()),
       ],
