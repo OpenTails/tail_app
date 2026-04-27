@@ -3,7 +3,6 @@ import 'package:choice/choice.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
@@ -27,6 +26,8 @@ import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
 import '../utils.dart';
 import 'action_selector.dart';
+
+//TODO: break up into smaller widgets
 
 class Triggers extends StatefulWidget {
   const Triggers({super.key});
@@ -180,55 +181,38 @@ class _TriggersState extends State<Triggers> {
                       title: Text(
                         convertToUwU(trigger.triggerDefinition!.name()),
                       ),
-                      subtitle: MultiValueListenableBuilder(
-                        builder:
-                            (
-                              BuildContext context,
-                              List<dynamic> values,
-                              Widget? child,
-                            ) {
-                              return AnimatedCrossFade(
-                                firstChild: Text(
-                                  convertToUwU(
-                                    trigger.triggerDefinition!.description(),
-                                  ),
-                                ),
-                                secondChild: MultiValueListenableBuilder(
-                                  valueListenables: trigger.actions
-                                      .map((e) => e.isActiveProgress)
-                                      .toList(),
-                                  builder: (context, values, child) {
-                                    return TweenAnimationBuilder<double>(
-                                      duration: const Duration(
-                                        milliseconds: 250,
-                                      ),
-                                      curve: Curves.easeInOut,
-                                      tween: Tween<double>(
-                                        begin: 0,
-                                        end: values
-                                            .map((e) => e as double)
-                                            .firstWhere(orElse: () => 0, (
-                                              element,
-                                            ) {
-                                              return element > 0 &&
-                                                  element <= 1;
-                                            }),
-                                      ),
-                                      builder: (context, value, _) =>
-                                          LinearProgressIndicator(value: value),
-                                    );
-                                  },
-                                ),
-                                crossFadeState:
-                                    !values.any((element) => element == true)
-                                    ? CrossFadeState.showFirst
-                                    : CrossFadeState.showSecond,
-                                duration: animationTransitionDuration,
-                              );
-                            },
-                        valueListenables: trigger.actions
-                            .map((e) => e.isActive)
-                            .toList(),
+                      subtitle: AnimatedCrossFade(
+                        firstChild: Text(
+                          convertToUwU(
+                            trigger.triggerDefinition!.description(),
+                          ),
+                        ),
+                        secondChild: ListenableBuilder(
+                          listenable: Listenable.merge(trigger.actions),
+                          builder: (context, child) {
+                            return TweenAnimationBuilder<double>(
+                              duration: const Duration(milliseconds: 250),
+                              curve: Curves.easeInOut,
+                              tween: Tween<double>(
+                                begin: 0,
+                                end: trigger.actions
+                                    .map((e) => e.isActiveProgress)
+                                    .firstWhere(orElse: () => 0, (element) {
+                                      return element > 0 && element <= 1;
+                                    }),
+                              ),
+                              builder: (context, value, _) =>
+                                  LinearProgressIndicator(value: value),
+                            );
+                          },
+                        ),
+                        crossFadeState:
+                            !trigger.actions
+                                .map((e) => e.isActive)
+                                .any((element) => element == true)
+                            ? CrossFadeState.showFirst
+                            : CrossFadeState.showSecond,
+                        duration: animationTransitionDuration,
                       ),
                       leading: ListenableBuilder(
                         listenable: trigger,
@@ -312,17 +296,19 @@ class _TriggerEditState extends State<TriggerEdit> {
         if (trigger == null) {
           return const Center(child: Text(''));
         } else {
-          return ListView(
-            shrinkWrap: true,
-            controller: scrollController,
-            children: [
-              ListTile(
-                title: Text(convertToUwU(triggerDefinition!.name())),
-                subtitle: Text(convertToUwU(triggerDefinition!.description())),
-                leading: ListenableBuilder(
-                  listenable: trigger!,
-                  builder: (BuildContext context, Widget? child) {
-                    return Semantics(
+          return ListenableBuilder(
+            listenable: Listenable.merge([trigger!, ...trigger!.actions]),
+            builder: (context, child) {
+              return ListView(
+                shrinkWrap: true,
+                controller: scrollController,
+                children: [
+                  ListTile(
+                    title: Text(convertToUwU(triggerDefinition!.name())),
+                    subtitle: Text(
+                      convertToUwU(triggerDefinition!.description()),
+                    ),
+                    leading: Semantics(
                       label:
                           'A switch to toggle the trigger ${triggerDefinition?.name}',
                       child: FutureBuilder(
@@ -350,48 +336,31 @@ class _TriggerEditState extends State<TriggerEdit> {
                               : null,
                         ),
                       ),
-                    );
-                  },
-                ),
-              ),
-              if (triggerDefinition is RandomTriggerDefinition) ...[
-                const CasualModeDelayWidget(),
-              ],
-              PageInfoCard(text: triggerInfoEditActionDescription()),
-              ...trigger!.actions.map((TriggerAction e) {
-                TriggerActionDef triggerActionDef = trigger!
-                    .triggerDefinition!
-                    .triggerActionDefinitions
-                    .where((element) => e.uuid == element.uuid)
-                    .first;
-                return ListTile(
-                  title: Text(convertToUwU(triggerActionDef.translated())),
-                  subtitle: ValueListenableBuilder(
-                    valueListenable: e.isActive,
-                    builder: (BuildContext context, value, Widget? child) {
-                      return AnimatedCrossFade(
+                    ),
+                  ),
+                  if (triggerDefinition is RandomTriggerDefinition) ...[
+                    const CasualModeDelayWidget(),
+                  ],
+                  PageInfoCard(text: triggerInfoEditActionDescription()),
+                  ...trigger!.actions.map((TriggerAction triggerAction) {
+                    TriggerActionDef triggerActionDef = trigger!
+                        .triggerDefinition!
+                        .triggerActionDefinitions
+                        .where((element) => triggerAction.uuid == element.uuid)
+                        .first;
+                    return ListTile(
+                      title: Text(convertToUwU(triggerActionDef.translated())),
+                      subtitle: AnimatedCrossFade(
                         duration: animationTransitionDuration,
-                        secondChild: MultiValueListenableBuilder(
-                          valueListenables: trigger!.actions
-                              .map((e) => e.isActiveProgress)
-                              .toList(),
-                          builder: (context, values, child) {
-                            return TweenAnimationBuilder<double>(
-                              duration: const Duration(milliseconds: 250),
-                              curve: Curves.easeInOut,
-                              tween: Tween<double>(
-                                begin: 0,
-                                end: values.map((e) => e as double).firstWhere(
-                                  orElse: () => 0,
-                                  (element) {
-                                    return element > 0 && element <= 1;
-                                  },
-                                ),
-                              ),
-                              builder: (context, value, _) =>
-                                  LinearProgressIndicator(value: value),
-                            );
-                          },
+                        secondChild: TweenAnimationBuilder<double>(
+                          duration: const Duration(milliseconds: 250),
+                          curve: Curves.easeInOut,
+                          tween: Tween<double>(
+                            begin: 0,
+                            end: triggerAction.isActiveProgress,
+                          ),
+                          builder: (context, value, _) =>
+                              LinearProgressIndicator(value: value),
                         ),
                         firstChild: Builder(
                           builder: (context) {
@@ -401,7 +370,8 @@ class _TriggerEditState extends State<TriggerEdit> {
                                 String text = "";
                                 Iterable<StatefulDevice> knownDevices =
                                     KnownDevices.instance.state.values;
-                                for (String actionUUID in e.actions) {
+                                for (String actionUUID
+                                    in triggerAction.actions) {
                                   BaseAction? baseAction =
                                       ActionRegistry.getActionFromUUID(
                                         actionUUID,
@@ -436,92 +406,94 @@ class _TriggerEditState extends State<TriggerEdit> {
                             );
                           },
                         ),
-                        crossFadeState: !value
+                        crossFadeState: !triggerAction.isActive
                             ? CrossFadeState.showFirst
                             : CrossFadeState.showSecond,
-                      );
-                    },
-                  ),
-                  leading:
-                      HiveProxy.getOrDefault(
-                        settings,
-                        showDebugging,
-                        defaultValue: showDebuggingDefault,
-                      )
-                      ? IconButton(
-                          onPressed: () {
-                            triggerDefinition!.sendCommands(
-                              triggerActionDef.name,
-                            );
-                          },
-                          tooltip: "Run Action (Debug)",
-                          icon: Icon(Icons.play_arrow),
-                        )
-                      : null,
-                  trailing: IconButton(
-                    tooltip: actionsSelectScreen(),
-                    icon: const Icon(Icons.edit),
-                    onPressed: () async {
-                      List<BaseAction>? result = await showDialog(
-                        useRootNavigator: true,
-                        barrierDismissible: true,
-                        barrierColor: Theme.of(context).canvasColor,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Dialog.fullscreen(
-                            backgroundColor: Theme.of(context).canvasColor,
-                            child: ActionSelector(
-                              actionSelectorInfo: ActionSelectorInfo(
-                                selectedActions: e.actions
-                                    .map(
-                                      (e) =>
-                                          ActionRegistry.getActionFromUUID(e),
-                                    )
-                                    .nonNulls
-                                    .toList(),
-                              ),
-                            ),
+                      ),
+                      leading:
+                          HiveProxy.getOrDefault(
+                            settings,
+                            showDebugging,
+                            defaultValue: showDebuggingDefault,
+                          )
+                          ? IconButton(
+                              onPressed: () {
+                                triggerDefinition!.sendCommands(
+                                  triggerActionDef.name,
+                                );
+                              },
+                              tooltip: "Run Action (Debug)",
+                              icon: Icon(Icons.play_arrow),
+                            )
+                          : null,
+                      trailing: IconButton(
+                        tooltip: actionsSelectScreen(),
+                        icon: const Icon(Icons.edit),
+                        onPressed: () async {
+                          List<BaseAction>? result = await showDialog(
+                            useRootNavigator: true,
+                            barrierDismissible: true,
+                            barrierColor: Theme.of(context).canvasColor,
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog.fullscreen(
+                                backgroundColor: Theme.of(context).canvasColor,
+                                child: ActionSelector(
+                                  actionSelectorInfo: ActionSelectorInfo(
+                                    selectedActions: triggerAction.actions
+                                        .map(
+                                          (e) =>
+                                              ActionRegistry.getActionFromUUID(
+                                                e,
+                                              ),
+                                        )
+                                        .nonNulls
+                                        .toList(),
+                                  ),
+                                ),
+                              );
+                            },
                           );
+                          if (result != null) {
+                            setState(() {
+                              triggerAction.actions = result
+                                  .map((element) => element.uuid)
+                                  .toList();
+                              TriggerList.instance.store();
+                            });
+                          }
                         },
-                      );
-                      if (result != null) {
-                        setState(() {
-                          e.actions = result
-                              .map((element) => element.uuid)
-                              .toList();
-                          TriggerList.instance.store();
-                        });
-                      }
-                    },
-                  ),
-                );
-              }),
-              OverflowBar(
-                children: [
-                  TextButton(
-                    onPressed: () async {
-                      trigger!.enabled = false;
-                      await TriggerList.instance.remove(trigger!);
-                      TriggerDefinition triggerDefinition =
-                          trigger!.triggerDefinition!;
-                      analyticsEvent(
-                        name: "Delete Trigger",
-                        props: {
-                          "Trigger Type": Intl.withLocale(
-                            'en',
-                            () => triggerDefinition.name(),
-                          ),
+                      ),
+                    );
+                  }),
+                  OverflowBar(
+                    children: [
+                      TextButton(
+                        onPressed: () async {
+                          trigger!.enabled = false;
+                          await TriggerList.instance.remove(trigger!);
+                          TriggerDefinition triggerDefinition =
+                              trigger!.triggerDefinition!;
+                          analyticsEvent(
+                            name: "Delete Trigger",
+                            props: {
+                              "Trigger Type": Intl.withLocale(
+                                'en',
+                                () => triggerDefinition.name(),
+                              ),
+                            },
+                          );
+                          setState(() {
+                            Navigator.of(context).pop();
+                          });
                         },
-                      );
-                      setState(() {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                    child: Text(convertToUwU("Delete Trigger")),
+                        child: Text(convertToUwU("Delete Trigger")),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
+              );
+            },
           );
         }
       },

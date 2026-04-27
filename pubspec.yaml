@@ -63,7 +63,6 @@ dependencies:
   fl_chart: ^1.2.0 # Used for the battery graph
   chart_sparkline: ^1.1.2 # used for the move easing visual
   flutter_joystick: ^0.2.2
-  multi_value_listenable_builder: ^0.0.2
   flutter_markdown_plus: ^1.0.7
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
   flutter_native_splash: ^2.4.7

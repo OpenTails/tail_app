@@ -13,10 +13,8 @@ import '../Action/action_registry.dart';
 import '../Action/base_action.dart';
 import '../Bluetooth/known_devices.dart';
 import '../Device/common_device_stuffs.dart';
-import '../Device/device_definition.dart';
 import '../Device/device_type_enum.dart';
 import '../Device/stateful/connected_gear.dart';
-import '../Device/tail_control_status_enum.dart';
 import '../command_runner.dart';
 import '../logging_wrappers.dart';
 import '../wear_bridge.dart';
@@ -88,7 +86,7 @@ abstract class TriggerDefinition extends ChangeNotifier
               e.uuid,
         )
         .forEach((TriggerAction triggerAction) async {
-          if (triggerAction.isActive.value || triggerAction.actions.isEmpty) {
+          if (triggerAction.isActive || triggerAction.actions.isEmpty) {
             // 15 second cool-down between moves
             return;
           }
@@ -210,7 +208,7 @@ abstract class TriggerDefinition extends ChangeNotifier
             }
           }
           // updates the frontend that a trigger activated
-          triggerAction.isActive.value = true;
+          triggerAction.isActive = true;
 
           // keep track of the devices a command was sent to so multiple move commands are not sent to the same device
           Set<DeviceType> sentDeviceTypes = {};

@@ -9,49 +9,72 @@ import '../logging_wrappers.dart';
 part 'trigger_action.g.dart';
 
 @HiveType(typeId: 8)
-class TriggerAction {
+class TriggerAction with ChangeNotifier {
   Timer? _timer;
   Timer? _periodicTimer;
   @HiveField(1)
   final String uuid; //uuid matches triggerActionDef
   @HiveField(2)
   List<String> actions = [];
-  ValueNotifier<bool> isActive = ValueNotifier(false);
-  ValueNotifier<double> isActiveProgress = ValueNotifier(0);
+  bool _isActive = false;
+  int _duration = 0;
+  final int _progressUpdateInterval = 250;
 
-  TriggerAction(this.uuid) {
-    isActive.addListener(() {
-      if (isActive.value) {
-        isActiveProgress.value = 0.01;
-        _timer = Timer(
-          Duration(
-            seconds: HiveProxy.getOrDefault(
-              settings,
-              triggerActionCooldown,
-              defaultValue: triggerActionCooldownDefault,
-            ),
-          ),
-          () {
-            isActive.value = false;
-            _periodicTimer?.cancel();
-            _timer?.cancel();
-            isActiveProgress.value = 0;
-            _periodicTimer = null;
-            _timer = null;
-          },
-        );
-        _periodicTimer = Timer.periodic(const Duration(milliseconds: 500), (
-          Timer timer,
-        ) {
-          timer.tick;
-          double change = (timer.tick + 1) / 30;
-          if (change > 1) {
-            change = 1;
-          }
-          isActiveProgress.value = change;
-        });
-      }
-    });
+  bool get isActive => _isActive;
+
+  set isActive(bool value) {
+    if (_isActive == value) {
+      return;
+    }
+    _isActive = value;
+    if (value) {
+      _startTimers();
+    } else {
+      _triggerTimerFinished();
+    }
+    notifyListeners();
+  }
+
+  double isActiveProgress = 0;
+
+  TriggerAction(this.uuid);
+
+  void _startTimers() {
+    _duration = HiveProxy.getOrDefault(
+      settings,
+      triggerActionCooldown,
+      defaultValue: triggerActionCooldownDefault,
+    );
+    if (isActive) {
+      isActiveProgress = 0.01;
+      _timer = Timer(
+        Duration(seconds: _duration),
+        () => _triggerTimerFinished(),
+      );
+      _periodicTimer = Timer.periodic(
+        Duration(milliseconds: _progressUpdateInterval),
+        _updateProgressBar,
+      );
+    }
+  }
+
+  void _updateProgressBar(Timer timer) {
+    double change =
+        (timer.tick + 1) / (_duration / (_progressUpdateInterval * 0.001));
+    if (change > 1) {
+      change = 1;
+    }
+    isActiveProgress = change;
+    notifyListeners();
+  }
+
+  void _triggerTimerFinished() {
+    _periodicTimer?.cancel();
+    _timer?.cancel();
+    isActiveProgress = 0;
+    _periodicTimer = null;
+    _timer = null;
+    isActive = false;
   }
 
   @override
