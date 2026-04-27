@@ -1,6 +1,7 @@
 # Repository Secrets
 
-Some of these values aren't actually secret and can be shared. Specifically the sentry ones
+Some of these values aren't actually secret and can be shared. Specifically the
+sentry ones
 
 ## Sentry
 
@@ -25,8 +26,6 @@ Some of these values aren't actually secret and can be shared. Specifically the 
 
 # Firebase
 
-| Name             | File Location                         | How to get                                                                         | Uses                               |
-|------------------|---------------------------------------|------------------------------------------------------------------------------------|------------------------------------|
-| ANDROID_FIREBASE | /android/app/google-services.json     | From the Firebase [Console](https://console.firebase.google.com/) Android settings | Firebase ID for push notifications |
-| IOS_FIREBASE     | ./ios/Runner/GoogleService-Info.plist | From the Firebase [Console](https://console.firebase.google.com/) IOS settings     |                                    |
-| DART_FIREBASE    | ./lib/firebase_options.dart           | From the flutter flutterfire_cli                                                   |                                    |
+| Name          | File Location               | How to get                       | Uses |
+|---------------|-----------------------------|----------------------------------|------|
+| DART_FIREBASE | ./lib/firebase_options.dart | From the flutter flutterfire_cli |      |

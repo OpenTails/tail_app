@@ -45,13 +45,16 @@
 > flutter upgrade
 > ```
 >
-> if you get an error similar to `Error: Couldn't resolve the package 'flutter_gen' in 'package:flutter_gen/gen_l10n/app_localizations.dart'` run
+> if you get an error similar to
+`Error: Couldn't resolve the package 'flutter_gen' in 'package:flutter_gen/gen_l10n/app_localizations.dart'`
+> run
 >
 > ```
 > flutter pub get
 > ```
 >
-> if you get an error during riverpod generator such as `RangeError (index): Invalid value: Not in inclusive range 0..20491: 77535` try
+> if you get an error during riverpod generator such as
+`RangeError (index): Invalid value: Not in inclusive range 0..20491: 77535` try
 >
 > ```shell
 > flutter clean
@@ -62,16 +65,21 @@
 
 ## Firebase configuration is required for building
 
-Follow the official flutter firebase guide [here](https://firebase.google.com/docs/flutter/
+Follow the official flutter firebase
+guide [here](https://firebase.google.com/docs/flutter/
 setup?platform=android)
 
-The `google-services.json` (Android), `GoogleService-Info.plist` (IOS) files must be places in their correct location.
+The `firebase_options.dart` file must be places in their correct location.
 
 ## Building for each platform
 
 ### For IOS
 
-The xcode project is configured to to use automatic code signing for develop builds. make sure to open xcode and sign in with your developer account. Check the Signing and Capabilities page of Runner to verify the signing configuration is correct. Release builds are set up to rely on Fastlane to provide the signing certificate.
+The xcode project is configured to use automatic code signing for develop
+builds. make sure to open xcode and sign in with your developer account. Check
+the Signing and Capabilities page of Runner to verify the signing configuration
+is correct. Release builds are set up to rely on Fastlane to provide the signing
+certificate.
 
 ```shell
 cd ios
@@ -81,7 +89,9 @@ flutter build ipa --debug
 ```
 
 > [!TIP]
-> MacOS may display multiple permission prompts such as File Access, KeyChain Access, Device Access (iphone) & Controlling XCode. Accept them for the build to complete. These only need to be accepted once
+> MacOS may display multiple permission prompts such as File Access, KeyChain
+> Access, Device Access (iphone) & Controlling XCode. Accept them for the build to
+> complete. These only need to be accepted once
 >
 > If you receive an error that IOS is not installed in XCode during build.
 > 1. Go to XCode (In Top menu bar) -> Settings
@@ -90,16 +100,18 @@ flutter build ipa --debug
 > 4. Click the small `-` icon near the bottom of the settings window
 > 5. Click Delete
 >
-> If CocoaPods returns a version error, delete [`ios/Podfile.lock`](ios/Podfile.lock)
+> If CocoaPods returns a version error, delete [
+`ios/Podfile.lock`](ios/Podfile.lock)
 >
-> If Permissions are not working, revert any changes you may have done to [`ios/Podfile`](ios/Podfile)
+> If Permissions are not working, revert any changes you may have done to [
+`ios/Podfile`](ios/Podfile)
 
 ### For Android
 
 Android looks for a [key.properties](android/key.example.properties) file.
 If this file is missing the apk is not signed.
-A keystore jks is also expected at the location specified in the keystore.properties file.
-The Sentry plugin will run on release builds and expects the sentry env variables to be set
+A keystore jks is also expected at the location specified in the
+keystore.properties file.
 
 ```shell
 # Build APK
