@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../Frontend/translation_string_definitions.dart';
 import '../../../Bluetooth/bluetooth_message.dart';
 import '../../../Bluetooth/known_devices.dart';
-import '../../../Definitions/Device/device_type_enum.dart';
+import '../../../Device/device_type_enum.dart';
 import '../../../version.dart';
 import '../../sensor_definition.dart';
 import '../../sensor_definition_action_definition.dart';
@@ -67,7 +67,8 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
         .getConnectedGearForType(BuiltSet([DeviceType.ears]))
         .forEach((element) {
           String command = "";
-          if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+          if (element.firmwareStatus.firmwareVersion <
+              Version(major: 5, minor: 4)) {
             command = "ENDTILTMODE";
           } else {
             command = "STOPTILT";
@@ -87,7 +88,8 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
         .getConnectedGearForType(BuiltSet([DeviceType.ears]))
         .forEach((element) {
           String command = "";
-          if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+          if (element.firmwareStatus.firmwareVersion <
+              Version(major: 5, minor: 4)) {
             command = "TILTMODE START";
           } else {
             command = "TILTMODE";
@@ -122,7 +124,8 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
         .getConnectedGearForType(BuiltSet([DeviceType.ears]))
         .map((element) {
           String command = "";
-          if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+          if (element.firmwareStatus.firmwareVersion <
+              Version(major: 5, minor: 4)) {
             command = "TILTMODE START";
           } else {
             command = "TILTMODE";

@@ -8,7 +8,7 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import '../../Backend/Action/action_registry.dart';
 import '../../Backend/Action/base_action.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
-import '../../Backend/Definitions/Device/device_type_enum.dart';
+import '../../Backend/Device/device_type_enum.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';

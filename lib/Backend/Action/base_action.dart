@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:uuid/uuid.dart';
 
-import '../Definitions/Device/device_type_enum.dart';
+import '../Device/device_type_enum.dart';
 import '../move_lists_backend.dart';
 import 'action_category.dart';
 

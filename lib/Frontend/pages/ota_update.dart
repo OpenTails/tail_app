@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/firmware_update.dart';
+import '../../Backend/Device/ota/firmware_update.dart';
+import '../../Backend/Device/ota/updater.dart';
+import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../gen/assets.gen.dart';
@@ -111,7 +112,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                             "AVAILABLE VERSION: ${widget.otaUpdater.firmwareInfo?.version}",
                           ),
                           Text(
-                            "CURRENT VERSION: ${widget.device.fwVersion.value}",
+                            "CURRENT VERSION: ${widget.device.firmwareStatus.firmwareVersion}",
                           ),
                           Text("STATE: $otaState"),
                         ],

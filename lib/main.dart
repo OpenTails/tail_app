@@ -18,10 +18,10 @@ import 'package:tail_app/Backend/version.dart';
 
 import 'Backend/Action/action_category.dart';
 import 'Backend/Action/base_action.dart';
-import 'Backend/Definitions/Device/common_device_stuffs.dart';
-import 'Backend/Definitions/Device/device_type_enum.dart';
-import 'Backend/Definitions/Device/ear_speed_enum.dart';
-import 'Backend/Definitions/Device/stored_device.dart';
+import 'Backend/Device/common_device_stuffs.dart';
+import 'Backend/Device/device_type_enum.dart';
+import 'Backend/Device/ear_speed_enum.dart';
+import 'Backend/Device/stored_device.dart';
 import 'Backend/app_shortcuts.dart';
 import 'Backend/dynamic_config.dart';
 import 'Backend/favorite_actions.dart';

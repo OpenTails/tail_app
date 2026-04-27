@@ -1,143 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tail_app/Backend/analytics.dart';
+import 'package:tail_app/Backend/Device/ota/update_info.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-import '../Frontend/utils.dart';
-import 'Bluetooth/bluetooth_manager_plus.dart';
-import 'Definitions/Device/device_definition.dart';
-import 'version.dart';
-
-part 'firmware_update.freezed.dart';
-
-part 'firmware_update.g.dart';
-
-@freezed
-abstract class FWInfo with _$FWInfo {
-  const factory FWInfo({
-    required String version,
-    required String md5sum,
-    required String url,
-    required List<String> supportedHardwareVersions,
-    required String minimumAppVersion,
-    @Default("") final String changelog,
-    @Default("") final String glash,
-  }) = _FWInfo;
-
-  factory FWInfo.fromJson(Map<String, dynamic> json) => _$FWInfoFromJson(json);
-}
-
-Future<List<FWInfo>?> _getBaseFirmwareInfo(String url) async {
-  Dio dio = await initDio();
-  Future<Response<String>>
-  valueFuture = dio.get(url, options: Options(responseType: ResponseType.json))
-    ..onError((error, stackTrace) {
-      //bluetoothLog.warning("Unable to get Firmware info for ${url} :$error", error, stackTrace);
-      return Response(requestOptions: RequestOptions(), statusCode: 500);
-    });
-  Response<String> value = await valueFuture;
-  List<FWInfo> results = [];
-  if (value.statusCode! < 400) {
-    results = (const JsonDecoder().convert(value.data.toString()) as List).map((
-      e,
-    ) {
-      return FWInfo.fromJson(e);
-    }).toList();
-  }
-  return results;
-}
-
-Future<FWInfo?> getFirmwareInfo(String url, String hwVer) async {
-  if (url.isEmpty || hwVer.isEmpty) {
-    return null;
-  }
-  final fwInfos = await _getBaseFirmwareInfo(url);
-  if (fwInfos == null) {
-    return null;
-  }
-  if (fwInfos.isNotEmpty) {
-    // Find a FW file that matches the gear hardware version
-    FWInfo? fwInfo = fwInfos.firstWhereOrNull(
-      (element) =>
-          element.supportedHardwareVersions.firstWhereOrNull(
-            (element) =>
-                element.trim().toUpperCase() == hwVer.trim().toUpperCase(),
-          ) !=
-          null,
-    );
-    // Fall back to a generic file if it exists
-    fwInfo ??= fwInfos.firstWhereOrNull(
-      (element) => element.supportedHardwareVersions.isEmpty,
-    );
-    if (fwInfo != null) {
-      //check that the app supports this firmware version
-      Version minimumAppVersion = getVersionSemVer(fwInfo.minimumAppVersion);
-      Version appVersion = getVersionSemVer(
-        (await PackageInfo.fromPlatform()).version,
-      );
-      if (appVersion.compareTo(minimumAppVersion) >= 0) {
-        return fwInfo;
-      }
-    }
-  }
-  return null;
-}
-
-Future<FWInfo?> checkForFWUpdate(StatefulDevice statefulDevice) async {
-  // check if FW was already downloaded
-  if (statefulDevice.fwInfo.value != null) {
-    return statefulDevice.fwInfo.value;
-  }
-  String url = await statefulDevice.deviceDefinition.getFwURL();
-  if (url.isEmpty) {
-    return null;
-  }
-  String hwVer = statefulDevice.hwVersion.value;
-  if (hwVer.isEmpty) {
-    throw Exception("Hardware Version from gear is unknown");
-  }
-  FWInfo? fwInfo = await getFirmwareInfo(url, hwVer);
-  statefulDevice.fwInfo.value = fwInfo;
-  return fwInfo;
-}
-
-Future<bool> hasOtaUpdate(StatefulDevice statefulDevice) async {
-  FWInfo? fwInfo = await checkForFWUpdate(statefulDevice);
-  Version fwVersion = statefulDevice.fwVersion.value;
-
-  // Check if fw version is not set (0.0.0)
-  if (statefulDevice.fwVersion.value == const Version()) {
-    throw Exception("Version from gear is unknown");
-  }
-  // check if firmware info from firmware is set and is greater than (0.0.0)
-  if (fwInfo == null || fwVersion.compareTo(const Version()) <= 0) {
-    throw Exception("Version from gear or server is unavailable");
-  }
-
-  // Check that the firmware from the server is greater than the firmware on device
-  // changed to only compare if they are the same at MT's request. allows rolling back
-  if (fwVersion != getVersionSemVer(fwInfo.version)) {
-    statefulDevice.hasUpdate.value = true;
-    // handle if the update is mandatory for app functionality
-    if (statefulDevice.deviceDefinition.minVersion != null) {
-      if (fwVersion.compareTo(statefulDevice.deviceDefinition.minVersion!) <
-          0) {
-        statefulDevice.mandatoryOtaRequired.value = true;
-      }
-    }
-    return true;
-  }
-  return false;
-}
+import '../../../Frontend/utils.dart';
+import '../../Bluetooth/bluetooth_manager_plus.dart';
+import '../../analytics.dart';
+import '../../version.dart';
+import '../stateful/connected_gear.dart';
 
 enum OtaState {
   standby,
@@ -174,10 +50,10 @@ class OtaUpdater extends ChangeNotifier {
   }
 
   OtaUpdater(this.statefulDevice) {
-    firmwareInfo ??= statefulDevice.fwInfo.value;
+    firmwareInfo ??= statefulDevice.firmwareStatus.remoteFirmwareInfo;
     WakelockPlus.enabled.then((value) => _wakelockEnabledBeforehand = value);
-    statefulDevice.fwVersion.addListener(_verListener);
-    statefulDevice.fwInfo.addListener(_fwInfoListener);
+    statefulDevice.firmwareStatus.addListener(_verListener);
+    statefulDevice.firmwareStatus.addListener(_fwInfoListener);
     statefulDevice.deviceConnectionState.addListener(
       _connectivityStateListener,
     );
@@ -256,15 +132,18 @@ class OtaUpdater extends ChangeNotifier {
     transaction?.setData("Gear Model", statefulDevice.deviceDefinition.btName);
     transaction?.setData(
       "Current FW Version",
-      statefulDevice.fwVersion.value.toString(),
+      statefulDevice.firmwareStatus.firmwareVersion.toString(),
     );
-    transaction?.setData("Hardware Version", statefulDevice.hwVersion.value);
+    transaction?.setData(
+      "Hardware Version",
+      statefulDevice.firmwareStatus.hardwareVersion,
+    );
     transaction?.setData(
       "Target Firmware Version",
-      statefulDevice.fwInfo.value?.version,
+      statefulDevice.firmwareStatus.remoteFirmwareInfo?.version,
     );
 
-    if (statefulDevice.batteryLevel.value < 50) {
+    if (statefulDevice.battery.level < 50) {
       setState(OtaState.lowBattery);
       transaction?.status = SpanStatus.fromString("lowBattery");
       transaction?.finish();
@@ -317,12 +196,13 @@ class OtaUpdater extends ChangeNotifier {
   }
 
   Future<void> _verListener() async {
-    Version version = statefulDevice.fwVersion.value;
+    Version version = statefulDevice.firmwareStatus.firmwareVersion;
     FWInfo? fwInfo = firmwareInfo;
     if (fwInfo != null &&
         version.compareTo(const Version()) > 0 &&
         otaState == OtaState.rebooting) {
-      bool updated = version.compareTo(getVersionSemVer(fwInfo.version)) >= 0;
+      bool updated =
+          version.compareTo(Version.getFromSemVer(fwInfo.version)) >= 0;
       if (!updated) {
         _onError(OtaError.gearVersionMismatch, transaction);
       } else {
@@ -335,7 +215,7 @@ class OtaUpdater extends ChangeNotifier {
   }
 
   void _fwInfoListener() {
-    firmwareInfo = statefulDevice.fwInfo.value;
+    firmwareInfo = statefulDevice.firmwareStatus.remoteFirmwareInfo;
   }
 
   void _connectivityStateListener() {
@@ -433,8 +313,9 @@ class OtaUpdater extends ChangeNotifier {
           name: "Update Gear",
           props: {
             "Target Gear": statefulDevice.deviceDefinition.btName,
-            "Hardware Version": statefulDevice.hwVersion.value,
-            "Firmware Version": statefulDevice.fwVersion.value.toString(),
+            "Hardware Version": statefulDevice.firmwareStatus.hardwareVersion,
+            "Firmware Version": statefulDevice.firmwareStatus.firmwareVersion
+                .toString(),
           },
         );
       }

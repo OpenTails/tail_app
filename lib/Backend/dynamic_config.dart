@@ -19,7 +19,7 @@ part 'dynamic_config.g.dart';
 
 final _dynamicConfigLogger = Logger('DynamicConfig');
 
-// All Values MUST have a default value to avoid backwards compatability issues
+// All Values MUST have a default value to avoid backwards compatibility issues
 
 @freezed
 abstract class DynamicConfigInfo with _$DynamicConfigInfo {

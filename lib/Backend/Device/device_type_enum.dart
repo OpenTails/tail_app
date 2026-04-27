@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:tail_app/Backend/Device/stateful/connected_gear.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
-import '../../Bluetooth/known_devices.dart';
+import '../Bluetooth/known_devices.dart';
 import 'device_definition.dart';
 
 part 'device_type_enum.g.dart';

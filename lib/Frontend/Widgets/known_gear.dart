@@ -5,8 +5,8 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
-import '../../Backend/Definitions/Device/device_definition.dart';
 import '../../Backend/Bluetooth/bluetooth_issues_check.dart';
+import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../go_router_config.dart';
@@ -199,196 +199,181 @@ class _KnownGearCardState extends State<KnownGearCard> {
     return FadeIn(
       child: ValueListenableBuilder(
         valueListenable: widget.statefulDevice.deviceConnectionState,
-        builder: (BuildContext context, ConnectivityState connectivityState, Widget? child) {
-          return Flash(
-            animate: connectivityState == ConnectivityState.connected,
-            child: ValueListenableBuilder(
-              valueListenable: widget.statefulDevice.hasUpdate,
-              builder: (BuildContext context, bool hasUpdate, Widget? child) {
-                return Badge(
-                  isLabelVisible: hasUpdate,
-                  largeSize: 35,
-                  backgroundColor: Theme.of(context).primaryColor,
-                  label: const Icon(Icons.system_update),
-                  child: child,
-                );
-              },
-              child: TweenAnimationBuilder(
-                tween: connectivityState == ConnectivityState.connected
-                    ? Tween<double>(begin: 0, end: 1)
-                    : Tween<double>(begin: 1, end: 0),
-                duration: animationTransitionDuration,
-                builder: (BuildContext context, double value, Widget? child) {
-                  Color? cardColor = Color.lerp(
-                    Theme.of(context).cardColor,
-                    Color(widget.statefulDevice.storedDevice.color),
-                    value,
-                  );
-                  Color textColor = getTextColor(cardColor!);
-                  return Card(
-                    clipBehavior: Clip.antiAlias,
-                    color: cardColor,
-                    child: InkWell(
-                      onTap: () async {
-                        ManageGearRoute(
-                          btMac:
-                              widget.statefulDevice.storedDevice.btMACAddress,
-                        ).push(context).then((value) {
-                          setState(() {}); //force widget update
-                          return;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 50,
-                          width: 100,
-                          child: Stack(
-                            children: [
-                              Text(
-                                convertToUwU(
-                                  widget.statefulDevice.storedDevice.name,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.labelLarge!
-                                    .copyWith(color: textColor),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 16),
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: AnimatedCrossFade(
-                                    firstChild: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ValueListenableBuilder(
-                                          valueListenable: widget
-                                              .statefulDevice
-                                              .batteryLevel,
-                                          builder:
-                                              (
-                                                BuildContext context,
-                                                batteryLevel,
-                                                Widget? child,
-                                              ) {
-                                                return AnimatedSwitcher(
-                                                  duration:
-                                                      animationTransitionDuration,
-                                                  child: getBattery(
-                                                    batteryLevel,
-                                                    textColor,
-                                                  ),
-                                                );
-                                              },
-                                        ),
-                                        ValueListenableBuilder(
-                                          valueListenable: widget
-                                              .statefulDevice
-                                              .batteryCharging,
-                                          builder:
-                                              (
-                                                BuildContext context,
-                                                batteryCharging,
-                                                Widget? child,
-                                              ) {
-                                                return AnimatedCrossFade(
-                                                  firstChild: Icon(
-                                                    Icons.power,
-                                                    color: textColor,
-                                                  ),
-                                                  secondChild: Container(),
-                                                  crossFadeState:
-                                                      batteryCharging
-                                                      ? CrossFadeState.showFirst
-                                                      : CrossFadeState
-                                                            .showSecond,
-                                                  duration:
-                                                      animationTransitionDuration,
-                                                );
-                                              },
-                                        ),
-                                        ValueListenableBuilder(
-                                          valueListenable: widget
-                                              .statefulDevice
-                                              .mandatoryOtaRequired,
-                                          builder:
-                                              (
-                                                BuildContext context,
-                                                otaRequired,
-                                                Widget? child,
-                                              ) {
-                                                return AnimatedCrossFade(
-                                                  firstChild: Flash(
-                                                    child: Icon(
+        builder:
+            (
+              BuildContext context,
+              ConnectivityState connectivityState,
+              Widget? child,
+            ) {
+              return Flash(
+                animate: connectivityState == ConnectivityState.connected,
+                child: ListenableBuilder(
+                  listenable: widget.statefulDevice.firmwareStatus,
+                  builder: (BuildContext context, Widget? child) {
+                    return Badge(
+                      isLabelVisible:
+                          widget.statefulDevice.firmwareStatus.hasUpdate,
+                      largeSize: 35,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      label: const Icon(Icons.system_update),
+                      child: child,
+                    );
+                  },
+                  child: TweenAnimationBuilder(
+                    tween: connectivityState == ConnectivityState.connected
+                        ? Tween<double>(begin: 0, end: 1)
+                        : Tween<double>(begin: 1, end: 0),
+                    duration: animationTransitionDuration,
+                    builder: (BuildContext context, double value, Widget? child) {
+                      Color? cardColor = Color.lerp(
+                        Theme.of(context).cardColor,
+                        Color(widget.statefulDevice.storedDevice.color),
+                        value,
+                      );
+                      Color textColor = getTextColor(cardColor!);
+                      return Card(
+                        clipBehavior: Clip.antiAlias,
+                        color: cardColor,
+                        child: InkWell(
+                          onTap: () async {
+                            ManageGearRoute(
+                              btMac: widget
+                                  .statefulDevice
+                                  .storedDevice
+                                  .btMACAddress,
+                            ).push(context).then((value) {
+                              setState(() {}); //force widget update
+                              return;
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              height: 50,
+                              width: 100,
+                              child: Stack(
+                                children: [
+                                  Text(
+                                    convertToUwU(
+                                      widget.statefulDevice.storedDevice.name,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge!
+                                        .copyWith(color: textColor),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 16),
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: AnimatedCrossFade(
+                                        firstChild: ListenableBuilder(
+                                          listenable:
+                                              widget.statefulDevice.battery,
+                                          builder: (context, child) => Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              getBattery(
+                                                widget
+                                                    .statefulDevice
+                                                    .battery
+                                                    .level,
+                                                textColor,
+                                              ),
+                                              if (widget
+                                                  .statefulDevice
+                                                  .battery
+                                                  .isCharging) ...[
+                                                Icon(
+                                                  Icons.power,
+                                                  color: textColor,
+                                                ),
+                                              ],
+                                              ListenableBuilder(
+                                                listenable: widget
+                                                    .statefulDevice
+                                                    .firmwareStatus,
+                                                builder:
+                                                    (
+                                                      BuildContext context,
+                                                      Widget? child,
+                                                    ) {
+                                                      return AnimatedCrossFade(
+                                                        firstChild: Flash(
+                                                          child: Icon(
+                                                            Icons.warning,
+                                                            color: textColor,
+                                                          ),
+                                                        ),
+                                                        secondChild:
+                                                            Container(),
+                                                        crossFadeState:
+                                                            widget
+                                                                .statefulDevice
+                                                                .firmwareStatus
+                                                                .mandatoryOtaRequired
+                                                            ? CrossFadeState
+                                                                  .showFirst
+                                                            : CrossFadeState
+                                                                  .showSecond,
+                                                        duration:
+                                                            animationTransitionDuration,
+                                                      );
+                                                    },
+                                              ),
+                                              widget
+                                                      .statefulDevice
+                                                      .deviceDefinition
+                                                      .unsupported
+                                                  ? Icon(
                                                       Icons.warning,
                                                       color: textColor,
-                                                    ),
-                                                  ),
-                                                  secondChild: Container(),
-                                                  crossFadeState: otaRequired
-                                                      ? CrossFadeState.showFirst
-                                                      : CrossFadeState
-                                                            .showSecond,
-                                                  duration:
-                                                      animationTransitionDuration,
-                                                );
-                                              },
+                                                    )
+                                                  : Container(),
+                                              ValueListenableBuilder(
+                                                valueListenable:
+                                                    widget.statefulDevice.rssi,
+                                                builder:
+                                                    (
+                                                      BuildContext context,
+                                                      rssi,
+                                                      Widget? child,
+                                                    ) {
+                                                      return getSignal(
+                                                        rssi,
+                                                        textColor,
+                                                      );
+                                                    },
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        widget
-                                                .statefulDevice
-                                                .deviceDefinition
-                                                .unsupported
-                                            ? Icon(
-                                                Icons.warning,
-                                                color: textColor,
-                                              )
-                                            : Container(),
-                                        ValueListenableBuilder(
-                                          valueListenable:
-                                              widget.statefulDevice.rssi,
-                                          builder:
-                                              (
-                                                BuildContext context,
-                                                rssi,
-                                                Widget? child,
-                                              ) {
-                                                return AnimatedSwitcher(
-                                                  duration:
-                                                      animationTransitionDuration,
-                                                  child: getSignal(
-                                                    rssi,
-                                                    textColor,
-                                                  ),
-                                                );
-                                              },
+                                        secondChild: Icon(
+                                          Icons.bluetooth_disabled,
+                                          color: textColor,
                                         ),
-                                      ],
+                                        crossFadeState:
+                                            connectivityState ==
+                                                ConnectivityState.connected
+                                            ? CrossFadeState.showFirst
+                                            : CrossFadeState.showSecond,
+                                        duration: animationTransitionDuration,
+                                      ),
                                     ),
-                                    secondChild: Icon(
-                                      Icons.bluetooth_disabled,
-                                      color: textColor,
-                                    ),
-                                    crossFadeState:
-                                        connectivityState ==
-                                            ConnectivityState.connected
-                                        ? CrossFadeState.showFirst
-                                        : CrossFadeState.showSecond,
-                                    duration: animationTransitionDuration,
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          );
-        },
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
       ),
     );
   }

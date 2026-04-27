@@ -9,11 +9,12 @@ import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 
 import '../../constants.dart';
-import '../Definitions/Device/bluetooth_uart_services_list.dart';
-import '../Definitions/Device/common_device_stuffs.dart';
-import '../Definitions/Device/device_definition.dart';
-import '../Definitions/Device/device_type_enum.dart';
-import '../Definitions/Device/stored_device.dart';
+import '../Device/bluetooth_uart_services_list.dart';
+import '../Device/common_device_stuffs.dart';
+import '../Device/device_definition.dart';
+import '../Device/device_type_enum.dart';
+import '../Device/stateful/connected_gear.dart';
+import '../Device/stored_device.dart';
 import 'bluetooth_issues_check.dart';
 import '../device_registry.dart';
 import '../logging_wrappers.dart';

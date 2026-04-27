@@ -6,7 +6,6 @@ import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 import 'package:tail_app/Backend/triggers/trigger.dart';
@@ -17,6 +16,7 @@ import 'package:watch_connectivity/watch_connectivity.dart';
 
 import 'Action/action_registry.dart';
 import 'Action/base_action.dart';
+import 'Device/stateful/connected_gear.dart';
 import 'favorite_actions.dart';
 
 part 'wear_bridge.freezed.dart';
@@ -71,7 +71,7 @@ void initWear() {
         .listen(_watchIncomingMessageListener);
     KnownDevices.instance.addListener(() {
       KnownDevices.instance.state.values.map((e) => e).forEach((element) {
-        element.batteryLevel
+        element.battery
           ..removeListener(_onGearBatteryLevelChanged)
           ..addListener(_onGearBatteryLevelChanged);
         element.deviceConnectionState
@@ -159,7 +159,7 @@ Future<void> updateWearData({required String reason}) async {
           (e) => WearGearData(
             name: e.storedDevice.name,
             uuid: e.storedDevice.btMACAddress,
-            batteryLevel: e.batteryLevel.value.toInt(),
+            batteryLevel: e.battery.level.toInt(),
             connected:
                 e.deviceConnectionState.value == ConnectivityState.connected,
             color: e.storedDevice.color,

@@ -9,9 +9,10 @@ import 'package:logging/logging.dart' as log;
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../constants.dart';
-import '../Definitions/Device/device_definition.dart';
-import '../Definitions/Device/device_type_enum.dart';
-import '../Definitions/Device/stored_device.dart';
+import '../Device/device_definition.dart';
+import '../Device/device_type_enum.dart';
+import '../Device/stateful/connected_gear.dart';
+import '../Device/stored_device.dart';
 import '../device_registry.dart';
 import '../logging_wrappers.dart';
 

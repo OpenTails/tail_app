@@ -7,7 +7,7 @@ import 'package:tail_app/Backend/command_runner.dart';
 
 import 'Action/action_registry.dart';
 import 'Action/base_action.dart';
-import 'Definitions/Device/device_definition.dart';
+import 'Device/stateful/connected_gear.dart';
 import 'favorite_actions.dart';
 
 const QuickActions quickActions = QuickActions();

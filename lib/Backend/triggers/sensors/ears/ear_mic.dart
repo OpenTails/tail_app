@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../Frontend/translation_string_definitions.dart';
 import '../../../Bluetooth/bluetooth_message.dart';
 import '../../../Bluetooth/known_devices.dart';
-import '../../../Definitions/Device/device_type_enum.dart';
+import '../../../Device/device_type_enum.dart';
 import '../../../version.dart';
 import '../../sensor_definition.dart';
 import '../../sensor_definition_action_definition.dart';
@@ -53,7 +53,8 @@ class EarMicTriggerDefinition extends TriggerDefinition {
         .forEach((element) {
           String command = "";
           String responseMSG = "";
-          if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+          if (element.firmwareStatus.firmwareVersion <
+              Version(major: 5, minor: 4)) {
             command = "ENDLISTEN";
             responseMSG = "LISTEN OFF";
           } else {
@@ -79,7 +80,8 @@ class EarMicTriggerDefinition extends TriggerDefinition {
         .getKnownGearForType(BuiltSet([DeviceType.ears]))
         .forEach((element) {
           String command = "";
-          if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+          if (element.firmwareStatus.firmwareVersion <
+              Version(major: 5, minor: 4)) {
             command = "LISTEN FULL";
           } else {
             command = "LISTENMODE";
@@ -114,7 +116,8 @@ class EarMicTriggerDefinition extends TriggerDefinition {
         .getConnectedGearForType(BuiltSet([DeviceType.ears]))
         .map((element) {
           String command = "";
-          if (element.fwVersion.value < Version(major: 5, minor: 4)) {
+          if (element.firmwareStatus.firmwareVersion <
+              Version(major: 5, minor: 4)) {
             command = "LISTEN FULL";
           } else {
             command = "LISTENMODE";

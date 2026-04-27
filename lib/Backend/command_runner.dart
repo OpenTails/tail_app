@@ -1,5 +1,5 @@
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
-import 'package:tail_app/Backend/Definitions/Device/device_definition.dart';
+import 'package:tail_app/Backend/Device/device_definition.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/audio.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
@@ -11,8 +11,10 @@ import 'package:battery_plus/battery_plus.dart';
 
 import 'Action/base_action.dart';
 import 'Action/action_category.dart';
-import 'Definitions/Device/device_type_enum.dart';
-import 'Definitions/Device/ear_speed_enum.dart';
+import 'Device/device_type_enum.dart';
+import 'Device/ear_speed_enum.dart';
+import 'Device/stateful/connected_gear.dart';
+import 'Device/tail_control_status_enum.dart';
 
 Battery _battery = Battery();
 

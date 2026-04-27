@@ -10,7 +10,7 @@ import 'package:uuid/uuid.dart';
 import '../../Backend/Action/action_registry.dart';
 import '../../Backend/Action/base_action.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
-import '../../Backend/Definitions/Device/device_definition.dart';
+import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
 import '../../Backend/triggers/sensor_definition.dart';

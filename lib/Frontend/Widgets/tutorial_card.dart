@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
+import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/known_devices.dart';
@@ -45,17 +45,16 @@ class GearOutOfDateWarning extends StatelessWidget {
     return ListenableBuilder(
       listenable: KnownDevices.instance,
       builder: (BuildContext context, Widget? child) {
-        List<ValueNotifier<bool>> valueNotifiers = KnownDevices
-            .instance
-            .state
-            .values
-            .map((e) => e.mandatoryOtaRequired)
+        List<FirmwareStatus> valueNotifiers = KnownDevices.instance.state.values
+            .map((e) => e.firmwareStatus)
             .toList();
         if (valueNotifiers.isNotEmpty) {
-          return MultiValueListenableBuilder(
-            valueListenables: valueNotifiers,
-            builder: (context, values, child) {
-              if (values.contains(true)) {
+          return ListenableBuilder(
+            listenable: Listenable.merge(valueNotifiers),
+            builder: (context, child) {
+              if (valueNotifiers
+                  .map((e) => e.mandatoryOtaRequired)
+                  .contains(true)) {
                 Color color = Theme.of(context).colorScheme.primary;
                 return BaseCard(
                   color: color,
@@ -63,7 +62,8 @@ class GearOutOfDateWarning extends StatelessWidget {
                     onTap: () async {
                       String? mac = KnownDevices.instance.state.values
                           .where(
-                            (element) => element.mandatoryOtaRequired.value,
+                            (element) =>
+                                element.firmwareStatus.mandatoryOtaRequired,
                           )
                           .firstOrNull
                           ?.storedDevice

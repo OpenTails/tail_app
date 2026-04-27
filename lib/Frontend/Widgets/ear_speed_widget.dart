@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Definitions/Device/ear_speed_enum.dart';
+import '../../Backend/Device/ear_speed_enum.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../translation_string_definitions.dart';

@@ -4,9 +4,10 @@ import 'package:logging/logging.dart' as log;
 
 import 'Action/base_action.dart';
 import 'Bluetooth/known_devices.dart';
-import 'Definitions/Device/bluetooth_uart_services_list.dart';
-import 'Definitions/Device/device_definition.dart';
-import 'Definitions/Device/device_type_enum.dart';
+import 'Device/bluetooth_uart_services_list.dart';
+import 'Device/device_definition.dart';
+import 'Device/device_type_enum.dart';
+import 'Device/stateful/connected_gear.dart';
 import 'version.dart';
 
 final _deviceRegistryLogger = log.Logger('DeviceRegistry');

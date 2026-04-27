@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tail_app/Backend/command_history.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_message.dart';
-import '../../../Backend/Definitions/Device/device_definition.dart';
+import '../../../Backend/Device/stateful/connected_gear.dart';
 import '../../go_router_config.dart';
 
 class BluetoothConsole extends StatefulWidget {

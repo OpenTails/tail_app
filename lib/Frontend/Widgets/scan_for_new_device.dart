@@ -5,11 +5,12 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
-import '../../Backend/Definitions/Device/bluetooth_uart_services_list.dart';
-import '../../Backend/Definitions/Device/common_device_stuffs.dart';
-import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/Definitions/Device/device_type_enum.dart';
-import '../../Backend/Definitions/Device/stored_device.dart';
+import '../../Backend/Device/bluetooth_uart_services_list.dart';
+import '../../Backend/Device/common_device_stuffs.dart';
+import '../../Backend/Device/device_definition.dart';
+import '../../Backend/Device/device_type_enum.dart';
+import '../../Backend/Device/stateful/connected_gear.dart';
+import '../../Backend/Device/stored_device.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';

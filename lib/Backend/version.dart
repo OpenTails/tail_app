@@ -54,4 +54,26 @@ abstract class Version with _$Version implements Comparable<Version> {
       patch: int.parse(split[2]),
     );
   }
+
+  static Version getFromSemVer(String input) {
+    String major = "0";
+    String minor = "0";
+    String patch = "0";
+    List<String> split = input.split(" ").last.split(".");
+    if (split.isNotEmpty && int.tryParse(split[0]) != null) {
+      major = split[0];
+    }
+    if (split.length > 1 && int.tryParse(split[1]) != null) {
+      minor = split[1];
+    }
+    if (split.length > 2 &&
+        int.tryParse(split[2].replaceAll(RegExp('[^0-9]'), '')) != null) {
+      patch = split[2].replaceAll(RegExp('[^0-9]'), '');
+    }
+    return Version(
+      major: int.parse(major),
+      minor: int.parse(minor),
+      patch: int.parse(patch),
+    );
+  }
 }

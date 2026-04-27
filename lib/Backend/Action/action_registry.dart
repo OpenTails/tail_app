@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:tail_app/Frontend/utils.dart';
 
 import '../Bluetooth/known_devices.dart';
-import '../Definitions/Device/common_device_stuffs.dart';
-import '../Definitions/Device/device_definition.dart';
-import '../Definitions/Device/device_type_enum.dart';
+import '../Device/common_device_stuffs.dart';
+import '../Device/device_type_enum.dart';
+import '../Device/stateful/connected_gear.dart';
+import '../Device/tail_control_status_enum.dart';
 import '../audio.dart';
 import '../move_lists_backend.dart';
 import 'action_category.dart';

@@ -15,7 +15,6 @@ import 'package:logging/logging.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
 import '../Backend/logging_wrappers.dart';
-import '../Backend/version.dart';
 import '../constants.dart';
 import '../l10n/app_localizations.dart';
 import '../l10n/messages_all_locales.dart';
@@ -117,34 +116,10 @@ Future<WordpressClient> getWordpressClient() async {
   );
 }
 
-Version getVersionSemVer(String input) {
-  String major = "0";
-  String minor = "0";
-  String patch = "0";
-  List<String> split = input.split(" ").last.split(".");
-  if (split.isNotEmpty && int.tryParse(split[0]) != null) {
-    major = split[0];
-  }
-  if (split.length > 1 && int.tryParse(split[1]) != null) {
-    minor = split[1];
-  }
-  if (split.length > 2 &&
-      int.tryParse(split[2].replaceAll(RegExp('[^0-9]'), '')) != null) {
-    patch = split[2].replaceAll(RegExp('[^0-9]'), '');
-  }
-  return Version(
-    major: int.parse(major),
-    minor: int.parse(minor),
-    patch: int.parse(patch),
-  );
-}
-
 Color getTextColor(Color color) {
   // Counting the perceptive luminance - human eye favors green color...
   // Does not work with r/g/b double values
-  double luminance =
-      (0.299 * color.red + 0.587 * color.green + 0.114 * color.blue) / 255;
-
+  double luminance = color.computeLuminance();
   if (luminance > 0.7) {
     return Typography.material2021().black.labelLarge!.color!;
   } else {

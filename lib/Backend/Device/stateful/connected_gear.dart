@@ -1,59 +1,31 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:core';
 import 'dart:math';
 
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tail_app/Backend/Definitions/Device/stored_device.dart';
-import 'package:tail_app/Backend/command_queue.dart';
-import 'package:tail_app/Backend/dynamic_config.dart';
+import 'package:tail_app/Backend/Device/stateful/battery_status.dart';
+import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
 
-import '../../../Frontend/utils.dart';
 import '../../../constants.dart';
 import '../../Bluetooth/bluetooth_message.dart';
 import '../../Bluetooth/known_devices.dart';
 import '../../analytics.dart';
 import '../../command_history.dart';
-import '../../firmware_update.dart';
+import '../../command_queue.dart';
 import '../../logging_wrappers.dart';
 import '../../version.dart';
-import 'bluetooth_uart_services_list.dart';
-import 'common_device_stuffs.dart';
-import 'device_type_enum.dart';
-
-part 'device_definition.freezed.dart';
-
-/// When adding new gear make sure to update `getNameFromBTName()`
+import '../bluetooth_uart_services_list.dart';
+import '../common_device_stuffs.dart';
+import '../device_definition.dart';
+import '../ota/firmware_update.dart';
+import '../stored_device.dart';
+import '../tail_control_status_enum.dart';
 
 enum ConnectivityState { connected, disconnected, connecting }
 
 enum DeviceMoveState { standby, runAction, busy }
 
-enum TailControlStatus { tailControl, legacy, unknown }
-
-@freezed
-abstract class DeviceDefinition with _$DeviceDefinition {
-  const DeviceDefinition._();
-
-  const factory DeviceDefinition({
-    required String uuid,
-    required String btName,
-    required DeviceType deviceType,
-    Version? minVersion,
-    @Default(false) bool unsupported,
-  }) = _DeviceDefinition;
-
-  Future<String> getFwURL() async {
-    DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-    return dynamicConfigInfo.updateURLs[btName] ?? "";
-  }
-}
-
-// data that represents the current state of a device
-//TODO: Split firmware & battery into subclasses for organization
 class StatefulDevice {
   final DeviceDefinition deviceDefinition;
   final StoredDevice storedDevice;
@@ -61,12 +33,10 @@ class StatefulDevice {
       ValueNotifier(null);
   late final CommandQueue commandQueue;
 
-  final ValueNotifier<double> batteryLevel = ValueNotifier(-1);
-  final ValueNotifier<bool> batteryCharging = ValueNotifier(false);
-  final ValueNotifier<bool> batteryLow = ValueNotifier(false);
+  final BatteryStatus battery = BatteryStatus();
+  final FirmwareStatus firmwareStatus = FirmwareStatus();
+
   final ValueNotifier<bool> gearReturnedError = ValueNotifier(false);
-  final ValueNotifier<Version> fwVersion = ValueNotifier(const Version());
-  final ValueNotifier<String> hwVersion = ValueNotifier("");
   final ValueNotifier<GlowtipStatus> hasGlowtip = ValueNotifier(
     GlowtipStatus.unknown,
   );
@@ -83,20 +53,15 @@ class StatefulDevice {
   final ValueNotifier<GearConfigInfo> gearConfigInfo = ValueNotifier(
     GearConfigInfo(),
   );
-  final ValueNotifier<FWInfo?> fwInfo = ValueNotifier(null);
-  final ValueNotifier<bool> hasUpdate = ValueNotifier(false);
   final ValueNotifier<TailControlStatus> isTailCoNTROL = ValueNotifier(
     TailControlStatus.unknown,
   );
   late final Stream<String> rxCharacteristicStream;
-  List<FlSpot> batlevels = [];
-  Stopwatch stopWatch = Stopwatch();
 
   StreamSubscription? _periodicTimerStream;
 
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
-  ValueNotifier<bool> mandatoryOtaRequired = ValueNotifier(false);
   Timer? deviceStateWatchdogTimer;
 
   StatefulDevice(this.deviceDefinition, this.storedDevice) {
@@ -140,12 +105,12 @@ class StatefulDevice {
         })
         .where((event) => event.isNotEmpty)
         .listen((event) {
-          batteryCharging.value = event == "CHARGE ON";
+          battery.isCharging = event == "CHARGE ON";
         });
     deviceCharacteristicStream
         .where((event) => event.characteristic.characteristicUuid.str == "2a19")
         .listen((event) {
-          batteryLevel.value = event.value.first.toDouble();
+          battery.level = event.value.first.toDouble();
         });
     commandQueue = CommandQueue(this);
 
@@ -166,7 +131,6 @@ class StatefulDevice {
       }
       if (deviceConnectionState.value == ConnectivityState.connected) {
         // The timer used for the time value on the battery level graph
-        stopWatch.start();
         _periodicTimerStream = Stream.periodic(
           const Duration(seconds: 10),
         ).listen(_periodicListener);
@@ -180,12 +144,6 @@ class StatefulDevice {
           );
         }
       }
-    });
-    batteryLevel.addListener(() {
-      batlevels.add(
-        FlSpot(stopWatch.elapsed.inSeconds.toDouble(), batteryLevel.value),
-      );
-      batteryLow.value = batteryLevel.value < 20;
     });
 
     bluetoothUartService.addListener(() {
@@ -227,8 +185,7 @@ class StatefulDevice {
     });
 
     // only store, do not read back on gear load
-    hwVersion.addListener(_versionListener);
-    fwVersion.addListener(_versionListener);
+    firmwareStatus.addListener(_versionListener);
   }
 
   Future<void> _receivedCommandListener(String value) async {
@@ -238,7 +195,9 @@ class StatefulDevice {
     );
     // Firmware Version
     if (value.startsWith("VER")) {
-      fwVersion.value = getVersionSemVer(value.substring(value.indexOf(" ")));
+      firmwareStatus.firmwareVersion = Version.getFromSemVer(
+        value.substring(value.indexOf(" ")),
+      );
       if (isTailCoNTROL.value == TailControlStatus.tailControl) {
         commandQueue.addCommand(BluetoothMessage(message: "READNVS"));
       }
@@ -261,7 +220,7 @@ class StatefulDevice {
       //statefulDevice.deviceState.value = DeviceState.busy;
       gearReturnedError.value = true;
     } else if (value.contains("LOWBATT")) {
-      batteryLow.value = true;
+      battery.isLow = true;
     } else if (value.contains("ERR")) {
       gearReturnedError.value = true;
     } else if (value.contains("SHUTDOWN BEGIN")) {
@@ -271,7 +230,7 @@ class StatefulDevice {
         value.contains("MINITAIL") ||
         value.contains("FLUTTERWINGS")) {
       // Hardware Version
-      hwVersion.value = value.substring(value.indexOf(" "));
+      firmwareStatus.hardwareVersion = value.substring(value.indexOf(" "));
     } else if (value.contains("READNVS")) {
       try {
         gearConfigInfo.value = GearConfigInfo.fromGearString(
@@ -282,22 +241,23 @@ class StatefulDevice {
       }
     } else if (int.tryParse(value) != null) {
       // Battery Level
-      batteryLevel.value = int.parse(value).toDouble();
+      battery.level = int.parse(value).toDouble();
     }
   }
 
   Future<void> _versionListener() async {
-    if (hwVersion.value != "" &&
-        storedDevice.hardwareVersion != hwVersion.value) {
-      storedDevice.hardwareVersion = hwVersion.value;
+    if (firmwareStatus.hardwareVersion != "" &&
+        storedDevice.hardwareVersion != firmwareStatus.hardwareVersion) {
+      storedDevice.hardwareVersion = firmwareStatus.hardwareVersion;
       KnownDevices.instance.store();
     }
-    if (fwVersion.value != Version() &&
-        storedDevice.firmwareVersion != fwVersion.value) {
-      storedDevice.firmwareVersion = fwVersion.value;
+    if (firmwareStatus.firmwareVersion != Version() &&
+        storedDevice.firmwareVersion != firmwareStatus.firmwareVersion) {
+      storedDevice.firmwareVersion = firmwareStatus.firmwareVersion;
       KnownDevices.instance.store();
     }
-    if (hwVersion.value.isNotEmpty && fwVersion.value != Version()) {
+    if (firmwareStatus.hardwareVersion.isNotEmpty &&
+        firmwareStatus.firmwareVersion != Version()) {
       await hasOtaUpdate(this).catchError((error, stackTrace) => true);
     }
   }
@@ -309,7 +269,7 @@ class StatefulDevice {
 
     // Demo gear
     if (storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
-      batteryLevel.value = Random().nextInt(100).toDouble();
+      battery.level = Random().nextInt(100).toDouble();
       rssi.value = (Random().nextInt(100) * -1);
     }
     // required to keep the connection open on IOS, otherwise the app will suspend and walk mode will stop working
@@ -324,12 +284,12 @@ class StatefulDevice {
       );
     }
 
-    if (fwVersion.value == Version()) {
+    if (firmwareStatus.firmwareVersion == Version()) {
       commandQueue.addCommand(
         BluetoothMessage(message: "VER", priority: Priority.low),
       );
     }
-    if (hwVersion.value.isEmpty) {
+    if (firmwareStatus.hardwareVersion.isEmpty) {
       commandQueue.addCommand(
         BluetoothMessage(message: "HWVER", priority: Priority.low),
       );
@@ -360,22 +320,17 @@ class StatefulDevice {
 
   @override
   String toString() {
-    return 'statefulDevice{deviceDefinition: $deviceDefinition, storedDevice: $storedDevice, battery: $batteryLevel}';
+    return 'statefulDevice{deviceDefinition: $deviceDefinition, storedDevice:'
+        ' $storedDevice, battery: ${battery.level}}';
   }
 
   void reset() {
-    batteryLevel.value = -1;
-    batteryCharging.value = false;
-    batteryLow.value = false;
+    battery.reset();
     gearReturnedError.value = false;
     deviceState.value = DeviceMoveState.standby;
     rssi.value = -1;
-    hasUpdate.value = false;
-    fwVersion.value = const Version();
-    batlevels = [];
-    stopWatch.reset();
+    firmwareStatus.reset();
     mtu.value = -1;
-    mandatoryOtaRequired.value = false;
     isTailCoNTROL.value = TailControlStatus.unknown;
     bluetoothUartService.value = null;
     _periodicTimerStream?.cancel();

@@ -2,11 +2,11 @@ import 'package:built_collection/built_collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
-import 'package:tail_app/Backend/firmware_update.dart';
 import 'package:tail_app/Frontend/Widgets/device_type_widget.dart';
 
-import '../../../Backend/Definitions/Device/device_definition.dart';
-import '../../../Backend/Definitions/Device/device_type_enum.dart';
+import '../../../Backend/Device/device_type_enum.dart';
+import '../../../Backend/Device/ota/updater.dart';
+import '../../../Backend/Device/stateful/connected_gear.dart';
 
 class BulkOTA extends StatefulWidget {
   const BulkOTA({super.key});

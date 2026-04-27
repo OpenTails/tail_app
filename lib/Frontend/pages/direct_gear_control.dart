@@ -10,7 +10,7 @@ import 'package:vector_math/vector_math.dart';
 
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
-import '../../Backend/Definitions/Device/device_type_enum.dart';
+import '../../Backend/Device/device_type_enum.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/move_lists_backend.dart';
 import '../../constants.dart';
@@ -71,9 +71,8 @@ class _JoystickState extends State<DirectGearControl> {
                             if (!context.mounted) {
                               return;
                             }
-                            KnownDevices.instance.state.values.forEach((
-                              element,
-                            ) {
+                            for (var element
+                                in KnownDevices.instance.state.values) {
                               generateMoveCommand(
                                 move,
                                 element,
@@ -84,7 +83,7 @@ class _JoystickState extends State<DirectGearControl> {
                                 element.commandQueue.addCommand(message);
                                 element.commandQueue.addCommand(message);
                               });
-                            });
+                            }
                           },
                           base: const Card(
                             elevation: 1,

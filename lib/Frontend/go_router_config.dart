@@ -8,7 +8,8 @@ import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
 import '../Backend/Action/base_action.dart';
-import '../Backend/Definitions/Device/device_definition.dart';
+import '../Backend/Device/device_definition.dart';
+import '../Backend/Device/stateful/connected_gear.dart';
 import '../Backend/logging_wrappers.dart';
 import '../Backend/move_lists_backend.dart';
 import '../Backend/analytics.dart';

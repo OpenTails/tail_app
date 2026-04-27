@@ -13,8 +13,9 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Action/action_registry.dart';
 import '../../Backend/Action/base_action.dart';
-import '../../Backend/Definitions/Device/device_definition.dart';
-import '../../Backend/Definitions/Device/device_type_enum.dart';
+import '../../Backend/Device/device_type_enum.dart';
+import '../../Backend/Device/stateful/connected_gear.dart';
+import '../../Backend/Device/tail_control_status_enum.dart';
 import '../../Backend/device_registry.dart';
 import '../../Backend/favorite_actions.dart';
 import '../../Backend/logging_wrappers.dart';

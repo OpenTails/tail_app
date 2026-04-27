@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../Frontend/translation_string_definitions.dart';
 import '../../../Bluetooth/bluetooth_message.dart';
 import '../../../Bluetooth/known_devices.dart';
-import '../../../Definitions/Device/device_type_enum.dart';
+import '../../../Device/device_type_enum.dart';
 import '../../sensor_definition.dart';
 import '../../sensor_definition_action_definition.dart';
 import '../../stored_triggers.dart';
