@@ -103,16 +103,9 @@ abstract class TriggerDefinition extends ChangeNotifier
           }
           // we need to handle legacy ears for now
           // assuming only legacy or tailcontrol ears are connected. no mixing
-          bool hasLegacyEars = KnownDevices.instance
-              .getConnectedIdleGearForType([DeviceType.ears].toBuiltSet())
-              .where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy)
-              .isNotEmpty;
-          bool hasGlowtipGear = KnownDevices.instance.connectedIdleGear
-              .where((p0) => p0.hasGlowtip.value == GlowtipStatus.glowtip)
-              .isNotEmpty;
-          bool hasRgbGear = KnownDevices.instance.connectedIdleGear
-              .where((p0) => p0.hasRGB.value == RGBStatus.rgb)
-              .isNotEmpty;
+          bool hasLegacyEars = KnownDevices.instance.isLegacyEarsConnected;
+          bool hasGlowtipGear = KnownDevices.instance.isGlowtipGearConnected;
+          bool hasRgbGear = KnownDevices.instance.isRgbGearConnected;
 
           final List<BaseAction> moveActions = allActionsMapped
               .where(

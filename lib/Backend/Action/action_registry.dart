@@ -558,6 +558,7 @@ class GetActions with ChangeNotifier {
     Map<String, Set<BaseAction>> sortedActions = {};
     final BuiltList<MoveList> moveLists = MoveLists.instance.state;
     final BuiltList<AudioAction> audioActions = UserAudioActions.instance.state;
+
     // Filter out moves from unpaired gear
     Set<DeviceType> pairedDeviceTypes = KnownDevices.instance.state.values
         .where((element) {
@@ -570,17 +571,15 @@ class GetActions with ChangeNotifier {
         })
         .map((e) => e.deviceDefinition.deviceType)
         .toSet();
-    bool hasLegacyEars = KnownDevices.instance.connectedGear
-        .where((p0) => p0.deviceDefinition.deviceType == DeviceType.ears)
-        .where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy)
-        .isNotEmpty;
 
-    bool hasRGB = KnownDevices.instance.state.values
-        .map((e) => e.storedDevice.hasRGB)
-        .any((element) => element == RGBStatus.rgb);
-    bool hasGlowTip = KnownDevices.instance.state.values
-        .map((e) => e.storedDevice.hasGlowtip)
-        .any((element) => element == GlowtipStatus.glowtip);
+    // if no gear connected, return empty. Otherwise Audio and Custom moves
+    // are returned.
+    if (onlyConnected && pairedDeviceTypes.isEmpty) {
+      return BuiltMap();
+    }
+    bool hasLegacyEars = KnownDevices.instance.isLegacyEarsConnected;
+    bool hasRGB = KnownDevices.instance.isRgbGearConnected;
+    bool hasGlowTip = KnownDevices.instance.isGlowtipGearConnected;
 
     for (BaseAction baseAction
         in List.from(

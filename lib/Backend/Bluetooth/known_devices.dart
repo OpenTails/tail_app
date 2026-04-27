@@ -9,10 +9,12 @@ import 'package:logging/logging.dart' as log;
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../constants.dart';
+import '../Device/common_device_stuffs.dart';
 import '../Device/device_definition.dart';
 import '../Device/device_type_enum.dart';
 import '../Device/stateful/connected_gear.dart';
 import '../Device/stored_device.dart';
+import '../Device/tail_control_status_enum.dart';
 import '../device_registry.dart';
 import '../logging_wrappers.dart';
 
@@ -105,6 +107,25 @@ class KnownDevices with ChangeNotifier {
           (element) => element.bluetoothUartService.value != null,
         )
         .toBuiltList();
+  }
+
+  bool get isGlowtipGearConnected {
+    return state.values
+        .map((e) => e.storedDevice.hasGlowtip)
+        .any((element) => element == GlowtipStatus.glowtip);
+  }
+
+  bool get isLegacyEarsConnected {
+    return connectedGear
+        .where((p0) => p0.deviceDefinition.deviceType == DeviceType.ears)
+        .where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy)
+        .isNotEmpty;
+  }
+
+  bool get isRgbGearConnected {
+    return state.values
+        .map((e) => e.storedDevice.hasRGB)
+        .any((element) => element == RGBStatus.rgb);
   }
 
   bool get isAllGearConnected {
