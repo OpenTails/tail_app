@@ -116,22 +116,28 @@ class _CoshubFeedState extends State<CoshubFeed> {
 
   Future<void> getFeed() async {
     if (results.isNotEmpty) {
-      setState(() {
-        feedState = FeedState.loaded;
-      });
+      if (mounted && context.mounted) {
+        setState(() {
+          feedState = FeedState.loaded;
+        });
+      }
       return;
     }
     if (await isLimitedDataEnvironment() ||
         !(await getDynamicConfigInfo()).featureFlags.enableCoshubPosts) {
-      setState(() {
-        feedState = FeedState.noInternet;
-      });
+      if (mounted && context.mounted) {
+        setState(() {
+          feedState = FeedState.noInternet;
+        });
+      }
       return;
     }
     List<CosHubPost> cosHubPosts = await getCosHubPosts();
-    setState(() {
-      results = cosHubPosts;
-      feedState = FeedState.loaded;
-    });
+    if (mounted && context.mounted) {
+      setState(() {
+        results = cosHubPosts;
+        feedState = FeedState.loaded;
+      });
+    }
   }
 }
