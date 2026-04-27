@@ -26,23 +26,16 @@ abstract class CosHubPost with _$CosHubPost {
 }
 
 Future<void> initFirebase() async {
-  final String cosHubFirebaseAppName = "CosHub";
-
   // Skip if already loaded
-  if (Firebase.apps
-      .where((element) => element.name == cosHubFirebaseAppName)
-      .isNotEmpty) {
+  if (Firebase.apps.isNotEmpty) {
     return;
   }
-  await Firebase.initializeApp(
-    name: cosHubFirebaseAppName, // Give your second app a custom name
-    options: CosHubFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
 Future<List<CosHubPost>> getCosHubPosts() async {
   await initFirebase();
-  FirebaseApp secondaryApp = Firebase.app("CosHub");
+  FirebaseApp secondaryApp = Firebase.app();
   FirebaseFirestore firestore = FirebaseFirestore.instanceFor(
     app: secondaryApp,
   );

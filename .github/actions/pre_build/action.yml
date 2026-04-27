@@ -1,6 +1,9 @@
 name: 'Pre Build Tail App builds'
 description: 'Internal Action for Tail App'
-
+inputs:
+  dart_firebase:
+    description: "dart_firebase"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -25,3 +28,8 @@ runs:
     - name: Generate dart .g files
       shell: bash
       run: dart pub run build_runner build --delete-conflicting-outputs
+    - name: Write Firebase Flutter
+      shell: bash
+      run: echo "$DART_FIREBASE" > ./lib/firebase_options.dart
+      env:
+        DART_FIREBASE: ${{ inputs.dart_firebase }}
