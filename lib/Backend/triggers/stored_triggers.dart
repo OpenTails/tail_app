@@ -35,8 +35,9 @@ class TriggerList with ChangeNotifier {
           .toList(growable: true);
     } catch (e, s) {
       _logger.severe("Unable to load stored triggers: $e", e, s);
+    } finally {
+      Hive.box<Trigger>(triggerBox).close();
     }
-    Hive.box<Trigger>(triggerBox).close();
     if (results.isEmpty) {
       TriggerDefinition triggerDefinition = TriggerDefinitionList
           .allTriggerDefinitions
@@ -49,7 +50,7 @@ class TriggerList with ChangeNotifier {
         '91e3d421-6a52-45ab-a23e-f38e4987a8f5',
       );
       _state = [trigger].build();
-      store();
+      //store();
     } else {
       _state = results.build();
     }
