@@ -30,15 +30,17 @@ Future<void> initFirebase() async {
   if (Firebase.apps.isNotEmpty) {
     return;
   }
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    //often throws with "FirebaseApp name [DEFAULT] already exists!"
+  } catch (ignored) {}
 }
 
 Future<List<CosHubPost>> getCosHubPosts() async {
   await initFirebase();
-  FirebaseApp secondaryApp = Firebase.app();
-  FirebaseFirestore firestore = FirebaseFirestore.instanceFor(
-    app: secondaryApp,
-  );
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   final appConstants = firestore.collection("appConstants");
   DocumentSnapshot<Map<String, dynamic>> featuredCosplayersUserIdsQuery =
       await appConstants.doc("featured_cosplayers").get();
