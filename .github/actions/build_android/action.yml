@@ -12,13 +12,13 @@ inputs:
   android-key-properties:
     description: 'Properties file containing signing info'
     required: true
-  android-key-jks: 
+  android-key-jks:
     description: 'Base64 version of the jks file'
     required: true
-  android-keystore-password: 
+  android-keystore-password:
     description: 'password to decrypt the jks file'
     required: true
-  android-key-password: 
+  android-key-password:
     description: 'password to decrypt the key'
     required: true
   # Sentry 
@@ -49,14 +49,14 @@ runs:
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
     - name: Convert aab to apk
       id: convert_aab
-      uses: mukeshsolanki/bundletool-action@v1.0.0
+      uses: mukeshsolanki/bundletool-action@v2.0.0
       with:
         aabFile: build/app/outputs/bundle/release/app-release.aab
         base64Keystore: ${{ inputs.android-key-jks }}
         keystorePassword: ${{ inputs.android-keystore-password }}
         keystoreAlias: tailApp
         keyPassword: ${{ inputs.android-key-password }}
-        bundletoolVersion: '1.9.0'
+        #bundletoolVersion: '1.9.0'
     - name: Rename APK
       shell: bash
       run: |
