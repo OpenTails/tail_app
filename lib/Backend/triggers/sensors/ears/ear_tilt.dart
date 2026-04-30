@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../Frontend/translation_string_definitions.dart';
 import '../../../Bluetooth/bluetooth_message.dart';
 import '../../../Bluetooth/known_devices.dart';
 import '../../../Device/device_type_enum.dart';
-import '../../../version.dart';
+import '../../../utilities/version.dart';
 import '../../sensor_definition.dart';
 import '../../sensor_definition_action_definition.dart';
 
@@ -46,37 +45,37 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return KnownDevices.instance
-        .getKnownGearForType(BuiltSet([DeviceType.ears]))
-        .isNotEmpty;
+    return KnownDevices.instance.getKnownGearForType({
+      DeviceType.ears,
+    }).isNotEmpty;
   }
 
   @override
   Future<void> onDisable() async {
     KnownDevices.instance.removeListener(onDeviceConnected);
-    KnownDevices.instance
-        .getKnownGearForType(BuiltSet([DeviceType.ears]))
-        .forEach((element) {
-          element.deviceConnectionState.removeListener(onDeviceConnected);
-        });
+    KnownDevices.instance.getKnownGearForType({DeviceType.ears}).forEach((
+      element,
+    ) {
+      element.deviceConnectionState.removeListener(onDeviceConnected);
+    });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    KnownDevices.instance
-        .getConnectedGearForType(BuiltSet([DeviceType.ears]))
-        .forEach((element) {
-          String command = "";
-          if (element.firmwareStatus.firmwareVersion <
-              Version(major: 5, minor: 4)) {
-            command = "ENDTILTMODE";
-          } else {
-            command = "STOPTILT";
-          }
-          element.commandQueue.addCommand(
-            BluetoothMessage(message: command, priority: Priority.low),
-          );
-        });
+    KnownDevices.instance.getConnectedGearForType({DeviceType.ears}).forEach((
+      element,
+    ) {
+      String command = "";
+      if (element.firmwareStatus.firmwareVersion <
+          Version(major: 5, minor: 4)) {
+        command = "ENDTILTMODE";
+      } else {
+        command = "STOPTILT";
+      }
+      element.commandQueue.addCommand(
+        BluetoothMessage(message: command, priority: Priority.low),
+      );
+    });
   }
 
   @override
@@ -84,28 +83,26 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    KnownDevices.instance
-        .getConnectedGearForType(BuiltSet([DeviceType.ears]))
-        .forEach((element) {
-          String command = "";
-          if (element.firmwareStatus.firmwareVersion <
-              Version(major: 5, minor: 4)) {
-            command = "TILTMODE START";
-          } else {
-            command = "TILTMODE";
-          }
-          element.commandQueue.addCommand(
-            BluetoothMessage(message: command, priority: Priority.low),
-          );
-        });
+    KnownDevices.instance.getConnectedGearForType({DeviceType.ears}).forEach((
+      element,
+    ) {
+      String command = "";
+      if (element.firmwareStatus.firmwareVersion <
+          Version(major: 5, minor: 4)) {
+        command = "TILTMODE START";
+      } else {
+        command = "TILTMODE";
+      }
+      element.commandQueue.addCommand(
+        BluetoothMessage(message: command, priority: Priority.low),
+      );
+    });
     //add listeners on new device paired
     KnownDevices.instance.addListener(onDeviceConnected);
   }
 
   Future<void> onDeviceConnected() async {
-    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).map((
-      e,
-    ) {
+    KnownDevices.instance.getKnownGearForType({DeviceType.ears}).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -120,35 +117,34 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = KnownDevices.instance
-        .getConnectedGearForType(BuiltSet([DeviceType.ears]))
-        .map((element) {
-          String command = "";
-          if (element.firmwareStatus.firmwareVersion <
-              Version(major: 5, minor: 4)) {
-            command = "TILTMODE START";
-          } else {
-            command = "TILTMODE";
-          }
-          element.commandQueue.addCommand(
-            BluetoothMessage(message: command, priority: Priority.low),
-          );
-          return element.rxCharacteristicStream.listen((msg) {
-            if (msg.contains("TILT LEFT")) {
-              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-              sendCommands("Left");
-            } else if (msg.contains("TILT RIGHT")) {
-              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-              sendCommands("Right");
-            } else if (msg.contains("TILT FORWARD")) {
-              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-              sendCommands("Forward");
-            } else if (msg.contains("TILT BACKWARD")) {
-              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-              sendCommands("Backward");
-            }
-          });
-        })
-        .toList();
+    rxSubscriptions = KnownDevices.instance.getConnectedGearForType({DeviceType.ears}).map((
+      element,
+    ) {
+      String command = "";
+      if (element.firmwareStatus.firmwareVersion <
+          Version(major: 5, minor: 4)) {
+        command = "TILTMODE START";
+      } else {
+        command = "TILTMODE";
+      }
+      element.commandQueue.addCommand(
+        BluetoothMessage(message: command, priority: Priority.low),
+      );
+      return element.rxCharacteristicStream.listen((msg) {
+        if (msg.contains("TILT LEFT")) {
+          // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+          sendCommands("Left");
+        } else if (msg.contains("TILT RIGHT")) {
+          // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+          sendCommands("Right");
+        } else if (msg.contains("TILT FORWARD")) {
+          // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+          sendCommands("Forward");
+        } else if (msg.contains("TILT BACKWARD")) {
+          // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+          sendCommands("Backward");
+        }
+      });
+    }).toList();
   }
 }

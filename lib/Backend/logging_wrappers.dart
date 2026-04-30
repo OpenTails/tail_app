@@ -1,5 +1,8 @@
 import 'package:hive_ce/hive.dart';
 import 'package:logarte/logarte.dart';
+import 'package:logging/logging.dart';
+
+import '../constants.dart';
 
 // ignore: library_private_types_in_public_api
 _HiveProxyImpl HiveProxy = _HiveProxyImpl();
@@ -24,3 +27,30 @@ final Logarte logarte = Logarte(
   ignorePassword: true,
   disableDebugConsoleLogs: true,
 );
+
+void configureLogging() {
+  Logger.root.level = Level.ALL;
+
+  //Filtering for Logarte
+  Logger.root.onRecord.listen((event) {
+    try {
+      // Hive may not be ready yet. just log in that case
+      if (!HiveProxy.getOrDefault(
+        settings,
+        showDebugging,
+        defaultValue: showDebuggingDefault,
+      )) {
+        return;
+      }
+      // ignore: empty_catches
+    } catch (ignored) {}
+    if (["GoRouter", "Dio"].contains(event.loggerName)) {
+      return;
+    }
+    logarte.log(
+      event.message,
+      source: event.loggerName,
+      stackTrace: event.stackTrace,
+    );
+  });
+}

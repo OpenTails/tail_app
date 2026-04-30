@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
 
-import '../version.dart';
+import '../utilities/version.dart';
 import 'common_device_stuffs.dart';
 
 part 'stored_device.freezed.dart';

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -9,7 +8,7 @@ import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 import 'package:tail_app/Backend/triggers/trigger.dart';
-import 'package:tail_app/Backend/version.dart';
+import 'package:tail_app/Backend/utilities/version.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
@@ -34,11 +33,7 @@ void _watchIncomingMessageListener(Map<String, dynamic> event) {
     case "run_action":
       BaseAction? action = ActionRegistry.getActionFromUUID(wearCommand.uuid);
       if (action != null) {
-        Iterable<StatefulDevice> knownDevices =
-            KnownDevices.instance.connectedIdleGear;
-        for (StatefulDevice device in knownDevices) {
-          runAction(device, action, triggeredBy: "Watch");
-        }
+        runActionOnAllSupportedGear(action, triggeredBy: "Watch");
       }
       break;
     case "toggle_trigger":
@@ -141,11 +136,11 @@ Future<void> updateWearData({required String reason}) async {
     Iterable<BaseAction> allActions = FavoriteActions.instance.state
         .map((e) => ActionRegistry.getActionFromUUID(e.actionUUID))
         .nonNulls;
-    BuiltList<Trigger> triggers = TriggerList.instance.state;
-    final List<WearActionData> favoriteMap = allActions
+    Iterable<Trigger> triggers = TriggerList.instance.state;
+    final Iterable<WearActionData> favoriteMap = allActions
         .map((e) => WearActionData(uuid: e.uuid, name: e.name))
         .toList();
-    final List<WearTriggerData> triggersMap = triggers
+    final Iterable<WearTriggerData> triggersMap = triggers
         .map(
           (e) => WearTriggerData(
             uuid: e.uuid,
@@ -199,9 +194,9 @@ Future<void> updateWearData({required String reason}) async {
 @freezed
 abstract class WearData with _$WearData {
   const factory WearData({
-    required List<WearActionData> favoriteActions,
-    required List<WearTriggerData> configuredTriggers,
-    required List<WearGearData> knownGear,
+    required Iterable<WearActionData> favoriteActions,
+    required Iterable<WearTriggerData> configuredTriggers,
+    required Iterable<WearGearData> knownGear,
     required WearLocalizationData localization,
     required WearThemeData themeData,
     required int timestamp,

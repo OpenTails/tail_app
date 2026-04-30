@@ -1,21 +1,18 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:tail_app/Frontend/utils.dart';
 
 import '../Bluetooth/known_devices.dart';
-import '../Device/common_device_stuffs.dart';
 import '../Device/device_type_enum.dart';
 import '../Device/stateful/connected_gear.dart';
-import '../Device/tail_control_status_enum.dart';
 import '../audio.dart';
 import '../move_lists_backend.dart';
+import '../utilities/locale.dart';
 import 'action_category.dart';
 import 'base_action.dart';
 
 @immutable
 class ActionRegistry {
-  static final BuiltSet<BaseAction> clawMoves = {
+  static final Set<BaseAction> clawMoves = {
     CommandAction(
       name: "Extend Slow",
       command: "MOVE1",
@@ -65,9 +62,9 @@ class ActionRegistry {
       response: "RAWR END",
       uuid: "58b5465f-2f1b-492d-9390-ea0d43d2ee90",
     ),
-  }.build();
+  };
 
-  static final BuiltSet<BaseAction> earMoves = {
+  static final Set<BaseAction> earMoves = {
     //TailControl only
     CommandAction(
       name: "Slow Forward",
@@ -197,9 +194,9 @@ class ActionRegistry {
         CommandAction.hiddenEars("EARHOME", "EARHOME END"),
       ],
     ),
-  }.build();
+  };
 
-  static final BuiltSet<BaseAction> glowtipCommands = {
+  static final Set<BaseAction> glowtipCommands = {
     CommandAction(
       name: "LEDs off",
       command: "LEDOFF",
@@ -249,9 +246,9 @@ class ActionRegistry {
       actionCategory: ActionCategory.glowtip,
       uuid: "e46566b4-1071-4866-815b-1aefbf06b573",
     ),
-  }.build();
+  };
 
-  static final BuiltSet<BaseAction> rgbCommands = {
+  static final Set<BaseAction> rgbCommands = {
     CommandAction(
       name: "LEDs off",
       command: "RGBOFF",
@@ -308,8 +305,8 @@ class ActionRegistry {
       actionCategory: ActionCategory.rgb,
       uuid: "01f2f0b3-7ba4-4a14-9405-f8e412073ce0",
     ),
-  }.build();
-  static final BuiltSet<BaseAction> tailMoves = {
+  };
+  static final Set<BaseAction> tailMoves = {
     CommandAction(
       name: "Slow Wag 1",
       command: "TAILS1",
@@ -387,8 +384,8 @@ class ActionRegistry {
       response: "TAILET END",
       uuid: "4909d4c2-0054-4f16-9589-6273ef6bf6c9",
     ),
-  }.build();
-  static final BuiltSet<BaseAction> miniTailMoves = {
+  };
+  static final Set<BaseAction> miniTailMoves = {
     CommandAction(
       name: "Wag 1",
       command: "TAILS1",
@@ -417,8 +414,8 @@ class ActionRegistry {
       response: "TAILFA END",
       uuid: "86852cff-b640-4e8d-a482-ac16d909f107",
     ),
-  }.build();
-  static final BuiltSet<BaseAction> flutterWingsMoves = {
+  };
+  static final Set<BaseAction> flutterWingsMoves = {
     CommandAction(
       name: "Flutter 1",
       command: "TAILS1",
@@ -496,8 +493,8 @@ class ActionRegistry {
       response: "TAILET END",
       uuid: "0dfeb464-572b-452b-be4a-5a36affd2da9",
     ),
-  }.build();
-  static final BuiltSet<BaseAction> allCommands = BuiltSet<BaseAction>()
+  };
+  static final Set<BaseAction> allCommands = <BaseAction>{}
       .union(glowtipCommands)
       .union(earMoves)
       .union(flutterWingsMoves)
@@ -552,22 +549,22 @@ class GetActions with ChangeNotifier {
     notifyListeners();
   }
 
-  BuiltMap<String, BuiltSet<BaseAction>> getActions({
-    bool onlyConnected = false,
-  }) {
+  Map<String, Set<BaseAction>> getActions({bool onlyConnected = false}) {
     Map<String, Set<BaseAction>> sortedActions = {};
-    final BuiltList<MoveList> moveLists = MoveLists.instance.state;
-    final BuiltList<AudioAction> audioActions = UserAudioActions.instance.state;
+    final Iterable<MoveList> moveLists = MoveLists.instance.state;
+    final Iterable<AudioAction> audioActions = UserAudioActions.instance.state;
 
     // Filter out moves from unpaired gear
-    Set<DeviceType> pairedDeviceTypes = KnownDevices.instance.state.values
+    Iterable<StatefulDevice> statefulDevices =
+        KnownDevices.instance.state.values;
+    Set<DeviceType> pairedDeviceTypes = statefulDevices
         .where((element) {
           // if gear isn't connected and filtering is enabled, filter those
           // moves out
           return onlyConnected
               ? element.deviceConnectionState.value ==
                     ConnectivityState.connected
-              : false;
+              : true;
         })
         .map((e) => e.deviceDefinition.deviceType)
         .toSet();
@@ -575,7 +572,7 @@ class GetActions with ChangeNotifier {
     // if no gear connected, return empty. Otherwise Audio and Custom moves
     // are returned.
     if (onlyConnected && pairedDeviceTypes.isEmpty) {
-      return BuiltMap();
+      return {};
     }
     bool hasLegacyEars = KnownDevices.instance.isLegacyEarsConnected;
     bool hasRGB = KnownDevices.instance.isRgbGearConnected;
@@ -621,8 +618,6 @@ class GetActions with ChangeNotifier {
         sortedActions[baseAction.getCategoryName()] = baseActions;
       }
     }
-    return BuiltMap(
-      sortedActions.map((key, value) => MapEntry(key, value.build())),
-    );
+    return sortedActions.map((key, value) => MapEntry(key, value));
   }
 }

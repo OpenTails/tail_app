@@ -7,7 +7,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Device/ota/update_info.dart';
 
 import '../../../Frontend/utils.dart';
-import '../../version.dart';
+import '../../utilities/version.dart';
 import '../stateful/connected_gear.dart';
 
 Future<List<FWInfo>?> _getBaseFirmwareInfo(String url) async {

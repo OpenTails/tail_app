@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tail_app/Backend/version.dart';
+import 'package:tail_app/Backend/utilities/version.dart';
 
 import '../Frontend/utils.dart';
 import '../constants.dart';

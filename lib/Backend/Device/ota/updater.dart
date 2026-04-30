@@ -12,7 +12,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../../Frontend/utils.dart';
 import '../../Bluetooth/bluetooth_manager_plus.dart';
 import '../../analytics.dart';
-import '../../version.dart';
+import '../../utilities/version.dart';
 import '../stateful/connected_gear.dart';
 
 enum OtaState {

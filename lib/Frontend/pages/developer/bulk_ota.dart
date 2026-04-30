@@ -1,4 +1,3 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
@@ -18,7 +17,7 @@ class BulkOTA extends StatefulWidget {
 class _BulkOTAState extends State<BulkOTA> {
   List<DeviceType> selectedDeviceType = DeviceType.values;
   Map<StatefulDevice, OtaUpdater> updaters = {};
-  BuiltList<StatefulDevice> devices = BuiltList();
+  List<StatefulDevice> devices = [];
 
   @override
   void initState() {
@@ -27,9 +26,9 @@ class _BulkOTAState extends State<BulkOTA> {
   }
 
   void refreshDevices() {
-    devices = KnownDevices.instance.getConnectedGearForType(
-      selectedDeviceType.toBuiltSet(),
-    );
+    devices = KnownDevices.instance
+        .getConnectedGearForType(selectedDeviceType.toSet())
+        .toList();
   }
 
   void beginOta() {

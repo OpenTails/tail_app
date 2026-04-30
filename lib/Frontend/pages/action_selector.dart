@@ -1,4 +1,3 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,8 +10,8 @@ import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/device_type_enum.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
+import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
-import '../utils.dart';
 
 part 'action_selector.freezed.dart';
 
@@ -33,7 +32,7 @@ class ActionSelector extends StatefulWidget {
 }
 
 class _ActionSelectorState extends State<ActionSelector> {
-  BuiltMap<String, BuiltSet<BaseAction>> actionsCatMap = BuiltMap();
+  Map<String, Set<BaseAction>> actionsCatMap = {};
   List<String> catList = [];
   List<BaseAction> selected = [];
   Set<DeviceType> knownDeviceTypes = {};
@@ -44,30 +43,28 @@ class _ActionSelectorState extends State<ActionSelector> {
     knownDeviceTypes = KnownDevices.instance.state.values
         .map((e) => e.deviceDefinition.deviceType)
         .toSet();
-    actionsCatMap = BuiltMap(
-      Map.fromEntries(
-        GetActions.instance.getActions().entries.sorted((a, b) {
-          int first =
-              a.value
-                  .map((e) => e.deviceCategory)
-                  .flattened
-                  .toSet()
-                  .intersection(knownDeviceTypes)
-                  .isNotEmpty
-              ? 1
-              : -1;
-          int second =
-              b.value
-                  .map((e) => e.deviceCategory)
-                  .flattened
-                  .toSet()
-                  .intersection(knownDeviceTypes)
-                  .isNotEmpty
-              ? 1
-              : -1;
-          return second.compareTo(first);
-        }),
-      ),
+    actionsCatMap = Map.fromEntries(
+      GetActions.instance.getActions().entries.sorted((a, b) {
+        int first =
+            a.value
+                .map((e) => e.deviceCategory)
+                .flattened
+                .toSet()
+                .intersection(knownDeviceTypes)
+                .isNotEmpty
+            ? 1
+            : -1;
+        int second =
+            b.value
+                .map((e) => e.deviceCategory)
+                .flattened
+                .toSet()
+                .intersection(knownDeviceTypes)
+                .isNotEmpty
+            ? 1
+            : -1;
+        return second.compareTo(first);
+      }),
     );
     selected = widget.actionSelectorInfo.selectedActions.toList();
     catList = actionsCatMap.keys.toList();

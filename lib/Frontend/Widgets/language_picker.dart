@@ -7,8 +7,8 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../l10n/app_localizations.dart';
+import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
-import '../utils.dart';
 
 class LanguagePicker extends StatelessWidget {
   final bool isButton;

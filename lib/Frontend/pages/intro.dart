@@ -11,13 +11,14 @@ import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/bluetooth_issues_check.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
+import '../../Backend/utilities/locale.dart';
 import '../../constants.dart';
 import '../../assets.dart';
 import '../Widgets/language_picker.dart';
 import '../Widgets/lottie_lazy_load.dart';
 import '../go_router_config.dart';
+import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
-import '../utils.dart';
 import 'markdown_viewer.dart';
 
 class OnBoardingPage extends StatefulWidget {

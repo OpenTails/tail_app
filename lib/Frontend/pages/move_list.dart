@@ -1,22 +1,15 @@
-import 'dart:math';
-
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
-import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
 import '../../Backend/Action/action_category.dart';
 import '../../Backend/Action/base_action.dart';
 import '../../Backend/Device/device_type_enum.dart';
-import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/analytics.dart';
-import 'package:tail_app/constants.dart';
 import '../Widgets/device_type_widget.dart';
 import '../Widgets/speed_widget.dart';
 import '../Widgets/tutorial_card.dart';
@@ -120,45 +113,11 @@ class _MoveListViewState extends State<MoveListView> {
                         },
                       ),
                       onTap: () async {
-                        if (HiveProxy.getOrDefault(
-                          settings,
-                          haptics,
-                          defaultValue: hapticsDefault,
-                        )) {
-                          HapticFeedback.selectionClick();
-                        }
-                        KnownDevices.instance.state.values
-                            .where(
-                              (element) =>
-                                  allMoveLists[index].deviceCategory.contains(
-                                    element.deviceDefinition.deviceType,
-                                  ),
-                            )
-                            .where(
-                              (element) =>
-                                  element.deviceState.value ==
-                                  DeviceMoveState.standby,
-                            )
-                            .forEach((element) async {
-                              if (HiveProxy.getOrDefault(
-                                settings,
-                                kitsuneModeToggle,
-                                defaultValue: kitsuneModeDefault,
-                              )) {
-                                await Future.delayed(
-                                  Duration(
-                                    milliseconds: Random().nextInt(
-                                      kitsuneDelayRange,
-                                    ),
-                                  ),
-                                );
-                              }
-                              runAction(
-                                element,
-                                allMoveLists[index],
-                                triggeredBy: "Custom Action Page",
-                              );
-                            });
+                        runActionOnAllSupportedGear(
+                          allMoveLists[index],
+                          triggeredBy: "Custom Action Page",
+                          useHaptics: true,
+                        );
                       },
                     );
                   },
@@ -259,7 +218,10 @@ class _EditMoveList extends State<EditMoveList> {
             )
           : null,
       body: PopScope(
-        onPopInvoked: (didPop) async {
+        onPopInvokedWithResult: (didPop, result) async {
+          if (!didPop) {
+            return;
+          }
           //This is broken >.<
           //https://github.com/flutter/flutter/issues/138737
           //https://github.com/flutter/flutter/issues/138525

@@ -9,7 +9,6 @@ import 'package:tail_app/Backend/command_history.dart';
 
 import '../constants.dart';
 import 'Bluetooth/bluetooth_message.dart';
-import 'Device/device_definition.dart';
 import 'Device/stateful/connected_gear.dart';
 
 enum CommandQueueState {

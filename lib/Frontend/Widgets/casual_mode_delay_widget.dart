@@ -20,8 +20,16 @@ class _CasualModeDelayWidgetState extends State<CasualModeDelayWidget> {
 
   @override
   Widget build(BuildContext context) {
-    int min = HiveProxy.getOrDefault(settings, casualModeDelayMin, defaultValue: casualModeDelayMinDefault);
-    int max = HiveProxy.getOrDefault(settings, casualModeDelayMax, defaultValue: casualModeDelayMaxDefault);
+    int min = HiveProxy.getOrDefault(
+      settings,
+      casualModeDelayMin,
+      defaultValue: casualModeDelayMinDefault,
+    );
+    int max = HiveProxy.getOrDefault(
+      settings,
+      casualModeDelayMax,
+      defaultValue: casualModeDelayMaxDefault,
+    );
     return ListTile(
       title: Text(convertToUwU(casualModeDelayTitle())),
       subtitle: RangeSlider(

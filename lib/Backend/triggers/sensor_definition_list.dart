@@ -1,4 +1,3 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'sensor_definition.dart';
 import 'sensors/walking.dart';
@@ -17,21 +16,22 @@ import 'sensors/volume.dart';
 
 // Defines what triggers show in the UI
 class TriggerDefinitionList {
-  static final BuiltList<TriggerDefinition> allTriggerDefinitions = [
-    WalkingTriggerDefinition(),
-    CoverTriggerDefinition(),
-    TailProximityTriggerDefinition(),
-    ShakeTriggerDefinition(),
-    EarMicTriggerDefinition(),
-    EarTiltTriggerDefinition(),
-    RandomTriggerDefinition(),
-    VolumeButtonTriggerDefinition(),
-    ClawClapTriggerDefinition(),
-    ClawTiltTriggerDefinition(),
-  ].build();
+  static final Iterable<TriggerDefinition> allTriggerDefinitions =
+      List.unmodifiable([
+        WalkingTriggerDefinition(),
+        CoverTriggerDefinition(),
+        TailProximityTriggerDefinition(),
+        ShakeTriggerDefinition(),
+        EarMicTriggerDefinition(),
+        EarTiltTriggerDefinition(),
+        RandomTriggerDefinition(),
+        VolumeButtonTriggerDefinition(),
+        ClawClapTriggerDefinition(),
+        ClawTiltTriggerDefinition(),
+      ]);
 
   //Filter by unused sensors
-  static List<TriggerDefinition> get() => allTriggerDefinitions
+  static Iterable<TriggerDefinition> get() => allTriggerDefinitions
       .toSet()
       .difference(
         TriggerList.instance.state
@@ -42,7 +42,7 @@ class TriggerDefinitionList {
       .toList();
 
   static Future<List<TriggerDefinition>> getSupported() async {
-    List<TriggerDefinition> unusedTriggerDefinitions = get();
+    Iterable<TriggerDefinition> unusedTriggerDefinitions = get();
     List<TriggerDefinition> supportedTriggerDefinitions = [];
     for (TriggerDefinition triggerDefinition in unusedTriggerDefinitions) {
       if (await triggerDefinition.isSupported()) {

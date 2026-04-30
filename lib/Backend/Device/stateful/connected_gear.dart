@@ -14,7 +14,7 @@ import '../../analytics.dart';
 import '../../command_history.dart';
 import '../../command_queue.dart';
 import '../../logging_wrappers.dart';
-import '../../version.dart';
+import '../../utilities/version.dart';
 import '../bluetooth_uart_services_list.dart';
 import '../common_device_stuffs.dart';
 import '../device_definition.dart';

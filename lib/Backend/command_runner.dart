@@ -1,5 +1,8 @@
+import 'dart:math';
+
+import 'package:flutter/services.dart';
+import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
-import 'package:tail_app/Backend/Device/device_definition.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/audio.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
@@ -15,8 +18,10 @@ import 'Device/device_type_enum.dart';
 import 'Device/ear_speed_enum.dart';
 import 'Device/stateful/connected_gear.dart';
 import 'Device/tail_control_status_enum.dart';
+import 'device_registry.dart';
 
 Battery _battery = Battery();
+Logger _logger = Logger("CommandRunner");
 
 Future<void> _actionAnalytics(BaseAction action, String triggeredBy) async {
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
@@ -55,7 +60,34 @@ Future<void> _actionAnalytics(BaseAction action, String triggeredBy) async {
   );
 }
 
-Future<void> runAction(
+Future<void> runActionOnAllSupportedGear(
+  BaseAction action, {
+  required String triggeredBy,
+  bool useHaptics = false,
+}) async {
+  List<StatefulDevice> devices = getByAction(action).toList()..shuffle();
+
+  if (devices.isNotEmpty &&
+      useHaptics &&
+      HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
+    HapticFeedback.selectionClick();
+  }
+
+  for (StatefulDevice device in devices) {
+    if (HiveProxy.getOrDefault(
+      settings,
+      kitsuneModeToggle,
+      defaultValue: kitsuneModeDefault,
+    )) {
+      await Future.delayed(
+        Duration(milliseconds: Random().nextInt(kitsuneDelayRange)),
+      );
+    }
+    await _runAction(device, action, triggeredBy: triggeredBy);
+  }
+}
+
+Future<void> _runAction(
   StatefulDevice device,
   BaseAction action, {
   required String triggeredBy,
@@ -119,7 +151,7 @@ Future<void> runAction(
       ),
     );
   } else if (action is MoveList) {
-    sequencesLogger.info("Starting MoveList ${action.name}.");
+    _logger.info("Starting MoveList ${action.name}.");
     if (action.moves.isNotEmpty &&
         action.moves.length <= 5 &&
         (device.deviceDefinition.deviceType != DeviceType.ears ||

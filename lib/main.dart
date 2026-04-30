@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -9,166 +8,35 @@ import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/analytics.dart';
-import 'package:tail_app/Backend/version.dart';
 
-import 'Backend/Action/action_category.dart';
-import 'Backend/Action/base_action.dart';
-import 'Backend/Device/common_device_stuffs.dart';
-import 'Backend/Device/device_type_enum.dart';
-import 'Backend/Device/ear_speed_enum.dart';
-import 'Backend/Device/stored_device.dart';
 import 'Backend/app_shortcuts.dart';
-import 'Backend/dynamic_config.dart';
-import 'Backend/favorite_actions.dart';
 import 'Backend/logging_wrappers.dart';
-import 'Backend/move_lists_backend.dart';
-import 'Backend/triggers/trigger.dart';
-import 'Backend/triggers/trigger_action.dart';
+import 'Backend/utilities/hive.dart';
+import 'Backend/utilities/locale.dart';
+import 'Backend/utilities/sentry.dart';
 import 'Backend/wear_bridge.dart';
 import 'Frontend/Widgets/bt_app_state_controller.dart';
 import 'Frontend/go_router_config.dart';
+import 'Frontend/theme_helpers.dart';
 import 'Frontend/translation_string_definitions.dart';
-import 'Frontend/utils.dart';
 import 'constants.dart';
 import 'l10n/app_localizations.dart';
 
-FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
-  DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-
-  bool reportingEnabled =
-      HiveProxy.getOrDefault(
-        settings,
-        "allowErrorReporting",
-        defaultValue: true,
-      ) &&
-      dynamicConfigInfo.featureFlags.enableErrorReporting;
-  if (reportingEnabled) {
-    if (kDebugMode) {
-      print('Before sending sentry event');
-    }
-    return event;
-  } else {
-    return null;
-  }
-}
-
-final mainLogger = Logger('Main');
-
-Future<String> getSentryEnvironment() async {
-  if (!kReleaseMode) {
-    return 'debug';
-  }
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  String referral = packageInfo.installerStore ?? "";
-  if (Platform.isIOS) {
-    if (referral == "com.apple.testflight") {
-      return 'staging';
-    }
-    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    if (!iosInfo.isPhysicalDevice) {
-      return 'debug';
-    }
-  }
-
-  if (Platform.isAndroid) {
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    if (!androidInfo.isPhysicalDevice) {
-      return 'debug';
-    }
-    //final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
-    //if (isRunningInTestlab) {
-    //  return 'staging';
-    //}
-  }
-  return 'production';
-}
-
-Future<void> initMainApp() async {
-  //initialize the foreground service library
-  if (Platform.isAndroid) {
-    FlutterForegroundTask.initCommunicationPort();
-  }
-  await startSentryApp(TailApp());
-}
-
-Future<void> startSentryApp(Widget child) async {
-  if (const String.fromEnvironment('SENTRY_DSN', defaultValue: "").isEmpty) {
-    runApp(child);
-  }
-  mainLogger.fine("Init Sentry");
-  String environment = await getSentryEnvironment();
-  DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-  mainLogger.info("Detected Environment: $environment");
-
-  await SentryFlutter.init(
-    (options) async {
-      options
-        ..dsn = const String.fromEnvironment('SENTRY_DSN', defaultValue: "")
-        ..addIntegration(LoggingIntegration())
-        ..enableBreadcrumbTrackingForCurrentPlatform()
-        ..debug = kDebugMode
-        ..diagnosticLevel = SentryLevel.info
-        ..environment = environment
-        ..tracesSampleRate = kDebugMode
-            ? 1
-            : dynamicConfigInfo.sentryConfig.tracesSampleRate
-        ..profilesSampleRate = kDebugMode
-            ? 1
-            : dynamicConfigInfo.sentryConfig.profilesSampleRate
-        ..beforeSend = beforeSend
-        ..reportPackages = false
-        ..attachScreenshot = true
-        ..privacy.maskAllImages = false
-        ..privacy.maskAllText =
-            false // app does not contain any PII
-        ..screenshotQuality = SentryScreenshotQuality.low
-        ..replay.sessionSampleRate =
-            dynamicConfigInfo.sentryConfig.replaySessionSampleRate
-        ..replay.onErrorSampleRate =
-            dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
-    },
-    // Init your App.
-    // ignore: missing_provider_scope
-    appRunner: () => runApp(SentryScreenshotWidget(child: TailApp())),
-  );
-}
+final _logger = Logger('Main');
 
 Future<void> main() async {
-  Logger.root.level = Level.ALL;
-  mainLogger.info("Begin");
-  Logger.root.onRecord.listen((event) {
-    try {
-      // Hive may not be ready yet. just log in that case
-      if (!HiveProxy.getOrDefault(
-        settings,
-        showDebugging,
-        defaultValue: showDebuggingDefault,
-      )) {
-        return;
-      }
-      // ignore: empty_catches
-    } catch (ignored) {}
-    if (["GoRouter", "Dio"].contains(event.loggerName)) {
-      return;
-    }
-    if (event.level.value < 1000 && event.stackTrace == null) {
-      logarte.info(event.message, source: event.loggerName);
-    } else {
-      logarte.error(event.message, stackTrace: event.stackTrace);
-    }
-  });
-
+  configureLogging();
+  _logger.info("Begin");
   initFlutter();
   await initHive();
   initWear();
   appShortcuts();
-  initMainApp();
+  if (Platform.isAndroid) {
+    FlutterForegroundTask.initCommunicationPort();
+  }
+  await startSentryApp(TailApp());
 }
 
 void initFlutter() {
@@ -179,114 +47,55 @@ void initFlutter() {
   ); // keeps the splash screen visible
 }
 
-bool _didInitHive = false;
-
-Future<void> initHive() async {
-  if (_didInitHive) {
-    return;
-  }
-  mainLogger.fine("Init Hive");
-  if (Platform.isAndroid || Platform.isIOS) {
-    final Directory appDir = await getApplicationSupportDirectory();
-    Hive.init(appDir.path);
-  } else {
-    Hive.init(Directory(".HiveTest").path);
-  }
-
-  //Hive Type ID 1
-  if (!Hive.isAdapterRegistered(StoredDeviceAdapter().typeId)) {
-    Hive.registerAdapter(StoredDeviceAdapter());
-  }
-  //Hive Type ID 2
-  if (!Hive.isAdapterRegistered(TriggerAdapter().typeId)) {
-    Hive.registerAdapter(TriggerAdapter());
-  }
-  //Hive Type ID 3
-  if (!Hive.isAdapterRegistered(MoveListAdapter().typeId)) {
-    Hive.registerAdapter(MoveListAdapter());
-  }
-  //Hive Type ID 5
-  if (!Hive.isAdapterRegistered(MoveAdapter().typeId)) {
-    Hive.registerAdapter(MoveAdapter());
-  }
-  //Hive Type ID 6
-  if (!Hive.isAdapterRegistered(DeviceTypeAdapter().typeId)) {
-    Hive.registerAdapter(DeviceTypeAdapter());
-  }
-  //Hive Type ID 7
-  if (!Hive.isAdapterRegistered(ActionCategoryAdapter().typeId)) {
-    Hive.registerAdapter(ActionCategoryAdapter());
-  }
-  //Hive Type ID 8
-  if (!Hive.isAdapterRegistered(TriggerActionAdapter().typeId)) {
-    Hive.registerAdapter(TriggerActionAdapter());
-  }
-  //Hive Type ID 10
-  if (!Hive.isAdapterRegistered(EasingTypeAdapter().typeId)) {
-    Hive.registerAdapter(EasingTypeAdapter());
-  }
-  //Hive Type ID 11
-  if (!Hive.isAdapterRegistered(MoveTypeAdapter().typeId)) {
-    Hive.registerAdapter(MoveTypeAdapter());
-  }
-  //Hive Type ID 12
-  if (!Hive.isAdapterRegistered(AudioActionAdapter().typeId)) {
-    Hive.registerAdapter(AudioActionAdapter());
-  }
-  //Hive Type ID 13
-  if (!Hive.isAdapterRegistered(FavoriteActionAdapter().typeId)) {
-    Hive.registerAdapter(FavoriteActionAdapter());
-  }
-  //Hive Type ID 14
-  if (!Hive.isAdapterRegistered(EarSpeedAdapter().typeId)) {
-    Hive.registerAdapter(EarSpeedAdapter());
-  }
-  //Hive Type ID 15
-  if (!Hive.isAdapterRegistered(GlowtipStatusAdapter().typeId)) {
-    Hive.registerAdapter(GlowtipStatusAdapter());
-  }
-  //Hive Type ID 16
-  if (!Hive.isAdapterRegistered(RGBStatusAdapter().typeId)) {
-    Hive.registerAdapter(RGBStatusAdapter());
-  }
-  //Hive Type ID 17
-  if (!Hive.isAdapterRegistered(VersionAdapter().typeId)) {
-    Hive.registerAdapter(VersionAdapter());
-  }
-  await Hive.openBox(settings); // Do not set type here
-
-  // closed after first read, reloads as lazybox
-  await Hive.openBox<Trigger>(triggerBox);
-  await Hive.openBox<FavoriteAction>(favoriteActionsBox);
-  await Hive.openBox<AudioAction>(audioActionsBox);
-  await Hive.openBox<MoveList>(sequencesBox);
-  await Hive.openBox<StoredDevice>(devicesBox);
-
-  _didInitHive = true;
-}
-
 class TailApp extends StatelessWidget {
-  const TailApp({super.key});
+  TailApp({super.key}) {
+    if (kDebugMode) {
+      _logger.info('Debug Mode Enabled');
+      HiveProxy.put(settings, showDebugging, true);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    mainLogger.info('Starting app');
+    _logger.info('Starting app');
     launchAppAnalytics();
+    setupSystemColor(context);
 
     if (kDebugMode) {
-      mainLogger.info('Debug Mode Enabled');
+      _logger.info('Debug Mode Enabled');
       HiveProxy.put(settings, showDebugging, true);
     }
-
+    Future(
+      FlutterNativeSplash.remove,
+    ); //remove the splash screen one frame later
+    Color primaryAppColor = Color(
+      HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault),
+    );
     return WithForegroundTask(
       child: BtAppStateController(
-        child: ValueListenableBuilder(
-          valueListenable: Hive.box(
-            settings,
-          ).listenable(keys: [appColor, uwuTextEnabled, selectedLocale]),
-          builder: (BuildContext context, value, Widget? child) {
+        child: ListenableBuilder(
+          listenable: Listenable.merge([
+            Hive.box(
+              settings,
+            ).listenable(keys: [appColor, uwuTextEnabled, selectedLocale]),
+            UserLocale.instance,
+          ]),
+          builder: (BuildContext context, Widget? child) {
             rebuildAllChildren(context);
-            return TailAppMainWidget();
+            return MaterialApp.router(
+              title: title(),
+              color: primaryAppColor,
+              theme: buildTheme(Brightness.light, primaryAppColor),
+              darkTheme: buildTheme(Brightness.dark, primaryAppColor),
+              routerConfig: router,
+              localizationsDelegates: [
+                LocaleNamesLocalizationsDelegate(),
+                ...AppLocalizations.localizationsDelegates,
+              ],
+              supportedLocales: AppLocalizations.supportedLocales,
+              themeMode: ThemeMode.system,
+              debugShowCheckedModeBanner: false,
+            );
           },
         ),
       ),
@@ -301,72 +110,5 @@ class TailApp extends StatelessWidget {
     }
 
     (context as Element).visitChildren(rebuild);
-  }
-}
-
-class TailAppMainWidget extends StatelessWidget {
-  const TailAppMainWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    setupSystemColor(context);
-    Future(
-      FlutterNativeSplash.remove,
-    ); //remove the splash screen one frame later
-    Color color = Color(
-      HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault),
-    );
-    return ListenableBuilder(
-      listenable: UserLocale.instance,
-      builder: (context, child) => MaterialApp.router(
-        title: title(),
-        color: color,
-        theme: buildTheme(Brightness.light, color),
-        darkTheme: buildTheme(Brightness.dark, color),
-        routerConfig: router,
-        localizationsDelegates: [
-          LocaleNamesLocalizationsDelegate(),
-          ...AppLocalizations.localizationsDelegates,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        themeMode: ThemeMode.system,
-        debugShowCheckedModeBanner: false,
-      ),
-    );
-  }
-}
-
-ThemeData buildTheme(Brightness brightness, Color color) {
-  if (brightness == Brightness.light) {
-    return ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.light,
-        seedColor: color,
-        primary: color,
-      ),
-      appBarTheme: const AppBarTheme(elevation: 2),
-      // We use the nicer Material-3 Typography in both M2 and M3 mode.
-      typography: Typography.material2021(),
-      filledButtonTheme: FilledButtonThemeData(
-        style: ElevatedButton.styleFrom(foregroundColor: getTextColor(color)),
-      ),
-    );
-  } else {
-    return ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.dark,
-        seedColor: color,
-        primary: color,
-      ),
-      appBarTheme: const AppBarTheme(elevation: 2),
-      // We use the nicer Material-3 Typography in both M2 and M3 mode.
-      typography: Typography.material2021(),
-      filledButtonTheme: FilledButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: getTextColor(color),
-          elevation: 1,
-        ),
-      ),
-    );
   }
 }

@@ -1,13 +1,10 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:synchronized/synchronized.dart';
-import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 
 import 'Action/action_registry.dart';
 import 'Action/base_action.dart';
-import 'Device/stateful/connected_gear.dart';
 import 'favorite_actions.dart';
 
 const QuickActions quickActions = QuickActions();
@@ -22,11 +19,7 @@ Future<void> appShortcuts() async {
     await quickActions.initialize((shortcutType) {
       BaseAction? action = ActionRegistry.getActionFromUUID(shortcutType);
       if (action != null) {
-        Iterable<StatefulDevice> knownDevices =
-            KnownDevices.instance.connectedIdleGear;
-        for (StatefulDevice device in knownDevices) {
-          runAction(device, action, triggeredBy: "App Shortcut");
-        }
+        runActionOnAllSupportedGear(action, triggeredBy: "App Shortcut");
         analyticsEvent(name: "Use App Shortcut");
       }
       _didInitShortcuts = true;
@@ -34,7 +27,7 @@ Future<void> appShortcuts() async {
   });
 }
 
-Future<void> updateShortcuts(BuiltList<FavoriteAction> favoriteActions) async {
+Future<void> updateShortcuts(Iterable<FavoriteAction> favoriteActions) async {
   appShortcuts();
   Iterable<BaseAction> allActions = favoriteActions
       .map((e) => ActionRegistry.getActionFromUUID(e.actionUUID))

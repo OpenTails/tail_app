@@ -8,7 +8,6 @@ import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
 import '../Backend/Action/base_action.dart';
-import '../Backend/Device/device_definition.dart';
 import '../Backend/Device/stateful/connected_gear.dart';
 import '../Backend/logging_wrappers.dart';
 import '../Backend/move_lists_backend.dart';
@@ -19,7 +18,7 @@ import 'Widgets/manage_gear.dart';
 import 'Widgets/pincode_dialog.dart';
 import 'Widgets/scan_for_new_device.dart';
 import 'pages/action_selector.dart';
-import 'pages/actions.dart';
+import 'pages/actions/actions.dart';
 import 'pages/custom_audio.dart';
 import 'pages/developer/bluetooth_console.dart';
 import 'pages/developer/developer_menu.dart';
@@ -447,7 +446,7 @@ class LogsRoute extends GoRouteData with $LogsRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      LogarteDashboardScreen(logarte, showBackButton: true);
+      LogarteDashboardScreen(logarte);
 }
 
 class ModalPage<T> extends Page<T> {

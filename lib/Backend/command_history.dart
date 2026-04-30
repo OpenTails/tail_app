@@ -10,15 +10,24 @@ enum MessageHistoryType { send, receive }
 
 @freezed
 abstract class MessageHistoryEntry with _$MessageHistoryEntry {
-  const factory MessageHistoryEntry({required MessageHistoryType type, required String message}) = _MessageHistoryEntry;
+  const factory MessageHistoryEntry({
+    required MessageHistoryType type,
+    required String message,
+  }) = _MessageHistoryEntry;
 }
 
 class CommandHistory with ChangeNotifier {
   final CircularBuffer<MessageHistoryEntry> _state = CircularBuffer(50);
+
   CircularBuffer<MessageHistoryEntry> get state => _state;
 
   void add({required MessageHistoryType type, required String message}) {
-    if (HiveProxy.getOrDefault(settings, showDebugging, defaultValue: showDebuggingDefault) == false) {
+    if (HiveProxy.getOrDefault(
+          settings,
+          showDebugging,
+          defaultValue: showDebuggingDefault,
+        ) ==
+        false) {
       return;
     }
     _state.add(MessageHistoryEntry(type: type, message: message));

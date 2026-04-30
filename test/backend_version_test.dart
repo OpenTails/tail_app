@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tail_app/Backend/version.dart';
+import 'package:tail_app/Backend/utilities/version.dart';
 
 void main() {
   group('Version', () {
@@ -27,12 +27,12 @@ void main() {
       final vB = Version(major: 1, minor: 0, patch: 0);
       expect(vA < vB, isTrue); // major lower
       expect(vB > vA, isTrue);
-      
+
       final vC = Version(major: 1, minor: 2, patch: 3);
       final vD = Version(major: 1, minor: 2, patch: 4);
       expect(vC < vD, isTrue); // patch lower
       expect(vD > vC, isTrue);
-      
+
       final vE = Version(major: 1, minor: 2, patch: 3);
       final vF = Version(major: 1, minor: 2, patch: 3);
       expect(vE <= vF, isTrue); // equal

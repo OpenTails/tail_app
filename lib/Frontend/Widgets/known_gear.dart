@@ -10,8 +10,8 @@ import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../go_router_config.dart';
+import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
-import '../utils.dart';
 
 class KnownGear extends StatefulWidget {
   const KnownGear({super.key, this.hideScanButton = false});

@@ -6,7 +6,7 @@ import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
-import 'package:tail_app/Backend/version.dart';
+import 'package:tail_app/Backend/utilities/version.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -20,10 +20,9 @@ import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/Device/tail_control_status_enum.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
-import '../../main.dart';
 import '../go_router_config.dart';
+import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
-import '../utils.dart';
 import 'base_card.dart';
 
 class ManageGear extends StatefulWidget {

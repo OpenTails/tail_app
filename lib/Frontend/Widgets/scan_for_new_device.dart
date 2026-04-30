@@ -16,8 +16,8 @@ import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
 import '../../constants.dart';
 import '../../assets.dart';
+import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
-import '../utils.dart';
 import 'lottie_lazy_load.dart';
 import 'tutorial_card.dart';
 

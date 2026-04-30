@@ -11,10 +11,10 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 
 import '../../../Backend/dynamic_config.dart';
 import '../../../Backend/logging_wrappers.dart';
+import '../../../Backend/utilities/sentry.dart';
 import '../../../Backend/wear_bridge.dart';
 import '../../../constants.dart';
 import '../../../assets.dart';
-import '../../../main.dart';
 import '../../go_router_config.dart';
 
 class DeveloperMenu extends StatefulWidget {
@@ -179,16 +179,6 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                 var value = snapshot.data;
                 String text = value != null ? value.toString() : "unknown";
                 return Text(text);
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text("adapterName"),
-            subtitle: FutureBuilder<String>(
-              future: FlutterBluePlus.adapterName,
-              builder: (context, snapshot) {
-                String value = snapshot.data ?? '';
-                return Text(value);
               },
             ),
           ),

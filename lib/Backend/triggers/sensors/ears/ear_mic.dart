@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../Frontend/translation_string_definitions.dart';
 import '../../../Bluetooth/bluetooth_message.dart';
 import '../../../Bluetooth/known_devices.dart';
 import '../../../Device/device_type_enum.dart';
-import '../../../version.dart';
+import '../../../utilities/version.dart';
 import '../../sensor_definition.dart';
 import '../../sensor_definition_action_definition.dart';
 
@@ -31,44 +30,44 @@ class EarMicTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return KnownDevices.instance
-        .getKnownGearForType(BuiltSet([DeviceType.ears]))
-        .isNotEmpty;
+    return KnownDevices.instance.getKnownGearForType({
+      DeviceType.ears,
+    }).isNotEmpty;
   }
 
   @override
   Future<void> onDisable() async {
     KnownDevices.instance.removeListener(onDeviceConnected);
-    KnownDevices.instance
-        .getKnownGearForType(BuiltSet([DeviceType.ears]))
-        .forEach((element) {
-          element.deviceConnectionState.removeListener(onDeviceConnected);
-        });
+    KnownDevices.instance.getKnownGearForType({DeviceType.ears}).forEach((
+      element,
+    ) {
+      element.deviceConnectionState.removeListener(onDeviceConnected);
+    });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    KnownDevices.instance
-        .getKnownGearForType(BuiltSet([DeviceType.ears]))
-        .forEach((element) {
-          String command = "";
-          String responseMSG = "";
-          if (element.firmwareStatus.firmwareVersion <
-              Version(major: 5, minor: 4)) {
-            command = "ENDLISTEN";
-            responseMSG = "LISTEN OFF";
-          } else {
-            command = "STOPLISTEN";
-            responseMSG = "OK";
-          }
-          element.commandQueue.addCommand(
-            BluetoothMessage(
-              message: command,
-              priority: Priority.low,
-              responseMSG: responseMSG,
-            ),
-          );
-        });
+    KnownDevices.instance.getKnownGearForType({DeviceType.ears}).forEach((
+      element,
+    ) {
+      String command = "";
+      String responseMSG = "";
+      if (element.firmwareStatus.firmwareVersion <
+          Version(major: 5, minor: 4)) {
+        command = "ENDLISTEN";
+        responseMSG = "LISTEN OFF";
+      } else {
+        command = "STOPLISTEN";
+        responseMSG = "OK";
+      }
+      element.commandQueue.addCommand(
+        BluetoothMessage(
+          message: command,
+          priority: Priority.low,
+          responseMSG: responseMSG,
+        ),
+      );
+    });
   }
 
   @override
@@ -76,28 +75,26 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    KnownDevices.instance
-        .getKnownGearForType(BuiltSet([DeviceType.ears]))
-        .forEach((element) {
-          String command = "";
-          if (element.firmwareStatus.firmwareVersion <
-              Version(major: 5, minor: 4)) {
-            command = "LISTEN FULL";
-          } else {
-            command = "LISTENMODE";
-          }
-          element.commandQueue.addCommand(
-            BluetoothMessage(message: command, priority: Priority.low),
-          );
-        });
+    KnownDevices.instance.getKnownGearForType({DeviceType.ears}).forEach((
+      element,
+    ) {
+      String command = "";
+      if (element.firmwareStatus.firmwareVersion <
+          Version(major: 5, minor: 4)) {
+        command = "LISTEN FULL";
+      } else {
+        command = "LISTENMODE";
+      }
+      element.commandQueue.addCommand(
+        BluetoothMessage(message: command, priority: Priority.low),
+      );
+    });
     //add listeners on new device paired
     KnownDevices.instance.addListener(onDeviceConnected);
   }
 
   Future<void> onDeviceConnected() async {
-    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.ears])).map((
-      e,
-    ) {
+    KnownDevices.instance.getKnownGearForType({DeviceType.ears}).map((e) {
       e.deviceConnectionState.removeListener(onDeviceConnected);
       e.deviceConnectionState.addListener(onDeviceConnected);
     });
@@ -113,7 +110,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
     }
     //Store the current streams to keep them open
     rxSubscriptions = KnownDevices.instance
-        .getConnectedGearForType(BuiltSet([DeviceType.ears]))
+        .getConnectedGearForType({DeviceType.ears})
         .map((element) {
           String command = "";
           if (element.firmwareStatus.firmwareVersion <

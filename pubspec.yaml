@@ -24,9 +24,7 @@ dependencies:
   crypto: ^3.0.7 # used for md5 hash checking during ota download
   circular_buffer: ^0.13.0 # Used for serial console
   wordpress_client: ^9.3.0 # Used for tail blog
-  logarte:
-    git:
-      url: https://github.com/Codel1417/logarte
+  logarte: ^1.4.1
   freezed_annotation: ^3.1.0
   built_collection: ^5.1.1
   synchronized: ^3.4.0 # solve analytics init errors

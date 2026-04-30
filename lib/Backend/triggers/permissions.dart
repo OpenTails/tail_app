@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:permission_handler/permission_handler.dart';
 
+
+//TODO: Unify permission classes
 class TriggerPermissionHandle {
   final Set<Permission> android;
   final Set<Permission> ios;

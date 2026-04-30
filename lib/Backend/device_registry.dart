@@ -1,4 +1,3 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart' as log;
 
@@ -8,13 +7,13 @@ import 'Device/bluetooth_uart_services_list.dart';
 import 'Device/device_definition.dart';
 import 'Device/device_type_enum.dart';
 import 'Device/stateful/connected_gear.dart';
-import 'version.dart';
+import 'utilities/version.dart';
 
 final _deviceRegistryLogger = log.Logger('DeviceRegistry');
 
 @immutable
 class DeviceRegistry {
-  static const List<DeviceDefinition> allDevices = [
+  static const Iterable<DeviceDefinition> allDevices = [
     DeviceDefinition(
       uuid: "798e1528-2832-4a87-93d7-4d1b25a2f418",
       btName: "MiTail",
@@ -70,12 +69,12 @@ class DeviceRegistry {
     );
   }
 
-  static BuiltList<String> getAllIds() {
-    return uartServices.map((e) => e.bleDeviceService).toBuiltList();
+  static Iterable<String> getAllIds() {
+    return uartServices.map((e) => e.bleDeviceService);
   }
 }
 
-BuiltSet<StatefulDevice> getByAction(BaseAction baseAction) {
+Set<StatefulDevice> getByAction(BaseAction baseAction) {
   _deviceRegistryLogger.info("Getting devices for action::$baseAction");
   Set<StatefulDevice> foundDevices = {};
   for (StatefulDevice device in KnownDevices.instance.connectedIdleGear) {
@@ -86,5 +85,5 @@ BuiltSet<StatefulDevice> getByAction(BaseAction baseAction) {
       foundDevices.add(device);
     }
   }
-  return foundDevices.build();
+  return foundDevices;
 }

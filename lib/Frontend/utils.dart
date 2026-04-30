@@ -1,61 +1,15 @@
-import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:data_saver/data_saver.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hive_ce_flutter/adapters.dart';
 import 'package:http_cache_hive_store/http_cache_hive_store.dart';
-import 'package:intl/intl.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
 import '../Backend/logging_wrappers.dart';
 import '../constants.dart';
-import '../l10n/app_localizations.dart';
-import '../l10n/messages_all_locales.dart';
-
-class UserLocale with ChangeNotifier {
-  static final UserLocale instance = UserLocale._internal();
-
-  UserLocale._internal() {
-    Hive.box(settings).listenable(keys: [selectedLocale, uwuTextEnabled])
-      ..removeListener(_notify)
-      ..addListener(_notify);
-  }
-
-  void _notify() {
-    notifyListeners();
-  }
-
-  Future<String> get() async {
-    final String defaultLocale =
-        Platform.localeName; // Returns locale string in the form 'en_US'
-
-    String locale =
-        AppLocalizations.supportedLocales
-            .where(
-              (element) =>
-                  element.toLanguageTag() ==
-                  HiveProxy.getOrDefault(
-                    settings,
-                    selectedLocale,
-                    defaultValue: "",
-                  ),
-            )
-            .map((e) => e.toLanguageTag())
-            .firstOrNull ??
-        defaultLocale;
-
-    await initializeMessages(locale);
-    Intl.defaultLocale = locale;
-    return locale;
-  }
-}
 
 final dioLogger = Logger('Dio');
 
@@ -114,54 +68,6 @@ Future<WordpressClient> getWordpressClient() async {
     baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'),
     instance: dio,
   );
-}
-
-Color getTextColor(Color color) {
-  // Counting the perceptive luminance - human eye favors green color...
-  // Does not work with r/g/b double values
-  double luminance = color.computeLuminance();
-  if (luminance > 0.7) {
-    return Typography.material2021().black.labelLarge!.color!;
-  } else {
-    return Typography.material2021().white.labelLarge!.color!;
-  }
-}
-
-Future<void> setupSystemColor(BuildContext context) async {
-  final SystemUiOverlayStyle dark = SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent /*Android=23*/,
-    statusBarBrightness: Brightness.light /*iOS*/,
-    statusBarIconBrightness: Brightness.dark /*Android=23*/,
-    systemStatusBarContrastEnforced: false /*Android=29*/,
-    systemNavigationBarColor: Colors.transparent /*Android=27*/,
-    systemNavigationBarDividerColor: Colors.transparent.withAlpha(
-      1,
-    ) /*Android=28,不能用全透明 */,
-    systemNavigationBarIconBrightness: Brightness.dark /*Android=27*/,
-    systemNavigationBarContrastEnforced: false /*Android=29*/,
-  );
-  final SystemUiOverlayStyle light = SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    // 23
-    statusBarIconBrightness: Brightness.dark,
-    // 23
-    systemNavigationBarColor: Colors.transparent,
-    // 27
-    systemStatusBarContrastEnforced: false /*Android=29*/,
-    systemNavigationBarDividerColor: Colors.transparent.withAlpha(
-      1,
-    ) /* 不能用全透明 */,
-    // 28
-    systemNavigationBarIconBrightness: Brightness.dark,
-    // 27
-    systemNavigationBarContrastEnforced: false, // 29
-  );
-  if (Theme.of(context).colorScheme.brightness == Brightness.light) {
-    SystemChrome.setSystemUIOverlayStyle(light);
-  } else {
-    SystemChrome.setSystemUIOverlayStyle(dark);
-  }
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 }
 
 Future<bool> isLimitedDataEnvironment() async {

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../Frontend/translation_string_definitions.dart';
@@ -36,34 +35,34 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return KnownDevices.instance
-        .getKnownGearForType(BuiltSet([DeviceType.claws]))
-        .isNotEmpty;
+    return KnownDevices.instance.getKnownGearForType({
+      DeviceType.claws,
+    }).isNotEmpty;
   }
 
   @override
   Future<void> onDisable() async {
     KnownDevices.instance.removeListener(onDeviceConnected);
-    KnownDevices.instance
-        .getKnownGearForType(BuiltSet([DeviceType.claws]))
-        .forEach((element) {
-          element.deviceConnectionState.removeListener(onDeviceConnected);
-        });
+    KnownDevices.instance.getKnownGearForType({DeviceType.claws}).forEach((
+      element,
+    ) {
+      element.deviceConnectionState.removeListener(onDeviceConnected);
+    });
     for (var element in rxSubscriptions) {
       element?.cancel();
     }
     rxSubscriptions = [];
-    KnownDevices.instance
-        .getConnectedGearForType(BuiltSet([DeviceType.claws]))
-        .forEach((element) {
-          element.commandQueue.addCommand(
-            BluetoothMessage(
-              message: "STOPTILT",
-              priority: Priority.low,
-              responseMSG: "OK",
-            ),
-          );
-        });
+    KnownDevices.instance.getConnectedGearForType({DeviceType.claws}).forEach((
+      element,
+    ) {
+      element.commandQueue.addCommand(
+        BluetoothMessage(
+          message: "STOPTILT",
+          priority: Priority.low,
+          responseMSG: "OK",
+        ),
+      );
+    });
   }
 
   @override
@@ -71,17 +70,17 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
     if (rxSubscriptions.isNotEmpty) {
       return;
     }
-    KnownDevices.instance
-        .getConnectedGearForType(BuiltSet([DeviceType.claws]))
-        .forEach((element) {
-          element.commandQueue.addCommand(
-            BluetoothMessage(
-              message: "TILTMODE",
-              responseMSG: "OK",
-              priority: Priority.low,
-            ),
-          );
-        });
+    KnownDevices.instance.getConnectedGearForType({DeviceType.claws}).forEach((
+      element,
+    ) {
+      element.commandQueue.addCommand(
+        BluetoothMessage(
+          message: "TILTMODE",
+          responseMSG: "OK",
+          priority: Priority.low,
+        ),
+      );
+    });
     // Disable clap trigger when this one enables
     TriggerList.instance.state
         .where(
@@ -94,12 +93,10 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
   }
 
   Future<void> onDeviceConnected() async {
-    KnownDevices.instance.getKnownGearForType(BuiltSet([DeviceType.claws])).map(
-      (e) {
-        e.deviceConnectionState.removeListener(onDeviceConnected);
-        e.deviceConnectionState.addListener(onDeviceConnected);
-      },
-    );
+    KnownDevices.instance.getKnownGearForType({DeviceType.claws}).map((e) {
+      e.deviceConnectionState.removeListener(onDeviceConnected);
+      e.deviceConnectionState.addListener(onDeviceConnected);
+    });
     listen();
   }
 
@@ -112,7 +109,7 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
     }
     //Store the current streams to keep them open
     rxSubscriptions = KnownDevices.instance
-        .getConnectedGearForType(BuiltSet([DeviceType.claws]))
+        .getConnectedGearForType({DeviceType.claws})
         .map((element) {
           element.commandQueue.addCommand(
             BluetoothMessage(

@@ -4,7 +4,7 @@ import 'package:tail_app/Backend/Action/base_action.dart';
 
 import 'package:tail_app/Backend/Device/device_type_enum.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
-import 'package:tail_app/main.dart';
+import 'package:tail_app/Backend/utilities/hive.dart';
 import 'package:tail_app/constants.dart';
 import 'package:uuid/uuid.dart';
 

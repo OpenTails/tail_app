@@ -1,22 +1,18 @@
 import 'dart:math';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:tail_app/Backend/triggers/permissions.dart';
 import 'package:tail_app/Backend/triggers/sensor_definition_action_definition.dart';
 import 'package:tail_app/Backend/triggers/trigger_action.dart';
 
-import '../../constants.dart';
 import '../Action/action_category.dart';
 import '../Action/action_registry.dart';
 import '../Action/base_action.dart';
 import '../Bluetooth/known_devices.dart';
 import '../Device/common_device_stuffs.dart';
 import '../Device/device_type_enum.dart';
-import '../Device/stateful/connected_gear.dart';
 import '../command_runner.dart';
-import '../logging_wrappers.dart';
 import '../wear_bridge.dart';
 
 final _random = Random();
@@ -213,61 +209,50 @@ abstract class TriggerDefinition extends ChangeNotifier
           // keep track of the devices a command was sent to so multiple move commands are not sent to the same device
           Set<DeviceType> sentDeviceTypes = {};
           for (BaseAction baseAction in actionsToRun) {
-            for (StatefulDevice statefulDevice
-                in KnownDevices.instance
-                    .getConnectedIdleGearForType(
-                      baseAction.deviceCategory
-                          .toSet()
-                          .intersection(DeviceType.values.toSet())
-                          .toBuiltSet(),
-                    )
-                    .where(
-                      // support sending to next device type if 2 actions+ actions are set
-                      (element) => !sentDeviceTypes.contains(
-                        element.deviceDefinition.deviceType,
-                      ),
-                    )
-                    .where((element) {
-                      // filter out devices without a glowtip if its a glowtip action
-                      if ([
-                        ActionCategory.glowtip,
-                      ].contains(baseAction.actionCategory)) {
-                        return element.hasGlowtip.value ==
-                            GlowtipStatus.glowtip;
-                      }
-                      if ([
-                        ActionCategory.rgb,
-                      ].contains(baseAction.actionCategory)) {
-                        return element.hasRGB.value == RGBStatus.rgb;
-                      }
-                      // return remaining gear
-                      return true;
-                    })
-                    .toList()
-                  ..shuffle()) {
-              // actually send the command here
-              if (HiveProxy.getOrDefault(
-                settings,
-                kitsuneModeToggle,
-                defaultValue: kitsuneModeDefault,
-              )) {
-                await Future.delayed(
-                  Duration(milliseconds: Random().nextInt(kitsuneDelayRange)),
-                );
-              }
-              runAction(
-                statefulDevice,
-                baseAction,
-                triggeredBy: Intl.withLocale('en', () => this.name()),
-              );
+            Set<DeviceType> availableDeviceTypesToRun = KnownDevices.instance
+                .getConnectedIdleGearForType(
+                  baseAction.deviceCategory.toSet().intersection(
+                    DeviceType.values.toSet(),
+                  ),
+                )
+                .where(
+                  // support sending to next device type if 2 actions+ actions are set
+                  (element) => !sentDeviceTypes.contains(
+                    element.deviceDefinition.deviceType,
+                  ),
+                )
+                .where((element) {
+                  // filter out devices without a glowtip if its a glowtip action
+                  if ([
+                    ActionCategory.glowtip,
+                  ].contains(baseAction.actionCategory)) {
+                    return element.hasGlowtip.value == GlowtipStatus.glowtip;
+                  }
+                  if ([
+                    ActionCategory.rgb,
+                  ].contains(baseAction.actionCategory)) {
+                    return element.hasRGB.value == RGBStatus.rgb;
+                  }
+                  // return remaining gear
+                  return true;
+                })
+                .map((e) => e.deviceDefinition.deviceType)
+                .toSet();
 
-              // filter out non move categories from the send device types.
-              if ([
-                    ActionCategory.sequence,
-                  ].contains(baseAction.actionCategory) ||
-                  baseAction.actionCategory == null) {
-                sentDeviceTypes.add(statefulDevice.deviceDefinition.deviceType);
-              }
+            // Move on to the next action
+            if (availableDeviceTypesToRun.isEmpty) {
+              continue;
+            }
+
+            runActionOnAllSupportedGear(
+              baseAction,
+              triggeredBy: Intl.withLocale('en', () => this.name()),
+            );
+
+            // filter out non move categories from the send device types.
+            if ([ActionCategory.sequence].contains(baseAction.actionCategory) ||
+                baseAction.actionCategory == null) {
+              sentDeviceTypes.addAll(availableDeviceTypesToRun);
             }
           }
         });

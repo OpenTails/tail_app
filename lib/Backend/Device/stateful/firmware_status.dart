@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:tail_app/Backend/Device/ota/update_info.dart';
-import 'package:tail_app/Backend/version.dart';
+import 'package:tail_app/Backend/utilities/version.dart';
 
 class FirmwareStatus with ChangeNotifier {
   Version _firmwareVersion = Version();

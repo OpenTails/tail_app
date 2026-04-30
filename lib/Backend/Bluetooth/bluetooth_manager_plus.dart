@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -129,7 +128,7 @@ Future<void> _onConnectionStateChangedListener(
   OnConnectionStateChangedEvent event,
 ) async {
   _bluetoothPlusLogger.info('${event.device.advName} ${event.connectionState}');
-  BuiltMap<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
+  Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   BluetoothDevice bluetoothDevice = event.device;
   BluetoothConnectionState bluetoothConnectionState = event.connectionState;
   String deviceID = bluetoothDevice.remoteId.str;
@@ -195,7 +194,7 @@ Future<void> _onScanResultsListener(List<ScanResult> results) async {
     _bluetoothPlusLogger.info(
       '${r.device.remoteId}: "${r.advertisementData.advName}" found!',
     );
-    BuiltMap<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
+    Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
 
     // check for known gear with the same mac address and try to connect
     if (knownDevices.containsKey(r.device.remoteId.str) &&

@@ -1043,12 +1043,11 @@ packages:
   logarte:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "7412e0b02415b448b8e3a92677af4f3c9ad66fd3"
-      url: "https://github.com/Codel1417/logarte"
-    source: git
-    version: "0.1.6"
+      name: logarte
+      sha256: ff01d102561b2b50122a7229c4507bf626cba9fd34609f77632e02d73ea4470a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.1"
   logging:
     dependency: "direct main"
     description:
