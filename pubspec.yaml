@@ -113,7 +113,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: # Required for build
-  json_serializable: ^6.13.1 # required for @JsonSerializable annotations
+  json_serializable: ^6.13.2 # required for @JsonSerializable annotations
   hive_ce_generator: ^1.11.1 # required for @HiveType annotations
   go_router_builder: ^4.3.0
   mockito: ^5.6.4
