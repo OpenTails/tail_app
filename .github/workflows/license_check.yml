@@ -1,0 +1,25 @@
+on:
+  push:
+    paths:
+      - "pubspec.lock"
+  pull_request:
+    paths:
+      - "pubspec.lock"
+name: Verify licenses are approved
+jobs:
+  build:
+    permissions:
+      pull-requests: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Setup Environment
+        uses: ./.github/actions/setup_build
+      - name: Get Pub Packages
+        run: flutter pub get
+      - name: install license_checker tool
+        run: dart pub global activate license_checker
+      - name: Check Licenses
+        run: lic_ck check-licenses --config .\license_check.yml --problematic
