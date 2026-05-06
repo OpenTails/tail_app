@@ -102,7 +102,7 @@ dependencies:
   # Spicy
   firebase_core: ^4.7.0
   cloud_firestore: ^6.3.0
-  upgrader: ^13.1.0 # update notices
+  upgrader: ^13.2.0 # update notices
 
   # Sentry
   sentry_flutter: ^9.19.0 # Base sentry + Flutter integration
