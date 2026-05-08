@@ -47,6 +47,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
     }
     detector = ShakeDetector.waitForStart(
       onPhoneShake: () {
+        debug = DateTime.timestamp().toString();
         sendCommands("Shake");
       },
     );

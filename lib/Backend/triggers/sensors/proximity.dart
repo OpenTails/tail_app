@@ -55,11 +55,15 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
     proximityStream = ProximitySensor.events.listen((int event) {
       _logger.fine("CoverEvent:: $event");
+      String proximity = "";
       if (event >= 1) {
-        sendCommands("Near");
+        proximity = "Near";
+        sendCommands(proximity);
       } else if (event == 0) {
-        sendCommands("Far");
+        proximity = "Far";
+        sendCommands(proximity);
       }
+      debug = "$event: $proximity";
     });
   }
 }

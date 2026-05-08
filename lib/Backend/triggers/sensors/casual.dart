@@ -46,15 +46,15 @@ class RandomTriggerDefinition extends TriggerDefinition {
       casualModeDelayMax,
       defaultValue: casualModeDelayMaxDefault,
     );
+    debug = "Min delay $min seconds before next timer";
     await Future.delayed(Duration(seconds: min));
     if (enabled) {
-      randomTimer = Timer(
-        Duration(seconds: Random().nextInt((max - min).clamp(1, max))),
-        () {
-          sendCommands("Action");
-          onEnable();
-        },
-      );
+      int timerDurationSeconds = Random().nextInt((max - min).clamp(1, max));
+      randomTimer = Timer(Duration(seconds: timerDurationSeconds), () {
+        sendCommands("Action");
+        onEnable();
+      });
+      debug = "Timer Duration $timerDurationSeconds seconds";
     }
   }
 }

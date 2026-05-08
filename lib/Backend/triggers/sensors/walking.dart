@@ -75,6 +75,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
       PedestrianStatus event,
     ) {
       _logger.info("PedestrianStatus:: ${event.status}");
+      debug = event.status;
       if (event.status == "walking") {
         sendCommands("Walking");
       } else if (event.status == "stopped") {
@@ -83,6 +84,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     });
     stepCountStream = Pedometer.stepCountStream.listen((StepCount event) {
       _logger.fine("StepCount:: ${event.steps}");
+      debug = "${event.steps} steps";
       sendCommands("Step");
     });
   }

@@ -10,8 +10,8 @@ import '../../Backend/Action/action_registry.dart';
 import '../../Backend/Action/base_action.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
-import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
+import '../../Backend/logging_wrappers.dart';
 import '../../Backend/triggers/sensor_definition.dart';
 import '../../Backend/triggers/sensor_definition_action_definition.dart';
 import '../../Backend/triggers/sensor_definition_list.dart';
@@ -340,6 +340,16 @@ class _TriggerEditState extends State<TriggerEdit> {
                   ),
                   if (triggerDefinition is RandomTriggerDefinition) ...[
                     const CasualModeDelayWidget(),
+                  ],
+                  if (HiveProxy.getOrDefault(
+                    settings,
+                    showDebugging,
+                    defaultValue: showDebuggingDefault,
+                  )) ...[
+                    ListTile(
+                      title: Text("Debug"),
+                      subtitle: Text(trigger!.triggerDefinition!.debug),
+                    ),
                   ],
                   PageInfoCard(text: triggerInfoEditActionDescription()),
                   ...trigger!.actions.map((TriggerAction triggerAction) {

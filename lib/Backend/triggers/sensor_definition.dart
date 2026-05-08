@@ -55,6 +55,15 @@ abstract class TriggerDefinition extends ChangeNotifier
     updateWearData(reason: "Trigger Enabled/Disabled");
   }
 
+  String _debug = "";
+
+  String get debug => _debug;
+
+  set debug(String value) {
+    _debug = value;
+    notifyListeners();
+  }
+
   Future<void> onEnable();
 
   Future<void> onDisable();
