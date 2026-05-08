@@ -22,4 +22,4 @@ jobs:
       - name: install license_checker tool
         run: dart pub global activate license_checker
       - name: Check Licenses
-        run: lic_ck check-licenses --config .\license_check.yml --problematic
+        run: lic_ck check-licenses --config license_check.yml --problematic
