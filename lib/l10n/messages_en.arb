@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-04-07T00:18:39.661090",
+  "@@last_modified": "2026-05-08T21:48:59.636551",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1266,6 +1266,48 @@
   "watchPhoneAppNotOpen": "Please open 'The Tail Co' app on your phone to connect your gear.",
   "@watchPhoneAppNotOpen": {
     "description": "the message that informs the user to open the phone app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerAccelerometerTitle": "Phone Orientation",
+  "@triggerAccelerometerTitle": {
+    "description": "Accelerometer trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerAccelerometerDescription": "Trigger an action depending on which side of your phone is facing up",
+  "@triggerAccelerometerDescription": {
+    "description": "Accelerometer trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerAccelerometerFaceUp": "Screen Facing Up",
+  "@triggerAccelerometerFaceUp": {
+    "description": "Accelerometer trigger face up label\"",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerAccelerometerFaceDown": "Screen Facing Down",
+  "@triggerAccelerometerFaceDown": {
+    "description": "Accelerometer trigger face down label\"",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerAccelerometerUp": "Phone Standing Up",
+  "@triggerAccelerometerUp": {
+    "description": "Accelerometer trigger up label\"",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerAccelerometerDown": "Phone Upside Down",
+  "@triggerAccelerometerDown": {
+    "description": "Accelerometer trigger down label\"",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerAccelerometerRight": "Phone Right Side Up",
+  "@triggerAccelerometerRight": {
+    "description": "Accelerometer trigger right label\"",
     "type": "text",
     "placeholders": {}
   }
