@@ -11,7 +11,6 @@ import '../../Backend/Action/base_action.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/analytics.dart';
-import '../../Backend/logging_wrappers.dart';
 import '../../Backend/triggers/sensor_definition.dart';
 import '../../Backend/triggers/sensor_definition_action_definition.dart';
 import '../../Backend/triggers/sensor_definition_list.dart';
@@ -19,6 +18,7 @@ import '../../Backend/triggers/sensors/casual.dart';
 import '../../Backend/triggers/stored_triggers.dart';
 import '../../Backend/triggers/trigger.dart';
 import '../../Backend/triggers/trigger_action.dart';
+import '../../Backend/utilities/settings.dart';
 import '../../constants.dart';
 import '../Widgets/casual_mode_delay_widget.dart';
 import '../Widgets/tutorial_card.dart';
@@ -341,11 +341,7 @@ class _TriggerEditState extends State<TriggerEdit> {
                   if (triggerDefinition is RandomTriggerDefinition) ...[
                     const CasualModeDelayWidget(),
                   ],
-                  if (HiveProxy.getOrDefault(
-                    settings,
-                    showDebugging,
-                    defaultValue: showDebuggingDefault,
-                  )) ...[
+                  if (isDeveloperEnabled) ...[
                     ListTile(
                       title: Text("Debug"),
                       subtitle: Text(trigger!.triggerDefinition!.debug),
@@ -420,12 +416,7 @@ class _TriggerEditState extends State<TriggerEdit> {
                             ? CrossFadeState.showFirst
                             : CrossFadeState.showSecond,
                       ),
-                      leading:
-                          HiveProxy.getOrDefault(
-                            settings,
-                            showDebugging,
-                            defaultValue: showDebuggingDefault,
-                          )
+                      leading: isDeveloperEnabled
                           ? IconButton(
                               onPressed: () {
                                 triggerDefinition!.sendCommands(

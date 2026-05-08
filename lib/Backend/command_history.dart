@@ -1,8 +1,7 @@
 import 'package:circular_buffer/circular_buffer.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tail_app/Backend/logging_wrappers.dart';
-import 'package:tail_app/constants.dart';
+import 'package:tail_app/Backend/utilities/settings.dart';
 
 part 'command_history.freezed.dart';
 
@@ -22,12 +21,7 @@ class CommandHistory with ChangeNotifier {
   CircularBuffer<MessageHistoryEntry> get state => _state;
 
   void add({required MessageHistoryType type, required String message}) {
-    if (HiveProxy.getOrDefault(
-          settings,
-          showDebugging,
-          defaultValue: showDebuggingDefault,
-        ) ==
-        false) {
+    if (isDeveloperEnabled == false) {
       return;
     }
     _state.add(MessageHistoryEntry(type: type, message: message));

@@ -53,6 +53,7 @@ abstract class TriggerDefinition extends ChangeNotifier
     //Refresh wear data when a trigger is enabled/disabled
     // ignore: unused_result
     updateWearData(reason: "Trigger Enabled/Disabled");
+    debug = "enabled: $enabled";
   }
 
   String _debug = "";

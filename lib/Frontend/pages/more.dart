@@ -6,8 +6,7 @@ import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
-import '../../Backend/logging_wrappers.dart';
-import '../../constants.dart';
+import '../../Backend/utilities/settings.dart';
 import '../../assets.dart';
 import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
@@ -75,11 +74,7 @@ class _MoreState extends State<More> {
             const SettingsRoute().push(context);
           },
         ),
-        if (HiveProxy.getOrDefault(
-          settings,
-          showDebugging,
-          defaultValue: showDebuggingDefault,
-        )) ...[
+        if (isDeveloperEnabled) ...[
           ListTile(
             title: Text(convertToUwU("Development Menu")),
             leading: const Icon(Icons.bug_report),
@@ -95,11 +90,7 @@ class _MoreState extends State<More> {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
-        if (HiveProxy.getOrDefault(
-          settings,
-          showDebugging,
-          defaultValue: showDebuggingDefault,
-        )) ...[
+        if (isDeveloperEnabled) ...[
           ListTile(
             title: Text(convertToUwU(joyStickPage())),
             subtitle: Text(convertToUwU(joyStickPageDescription())),
@@ -251,11 +242,7 @@ class _MoreState extends State<More> {
             );
           },
           onLongPress: () async {
-            if (HiveProxy.getOrDefault(
-              settings,
-              showDebugging,
-              defaultValue: showDebuggingDefault,
-            )) {
+            if (isDeveloperEnabled) {
               return;
             }
             const DeveloperPincodeRoute().push(context);

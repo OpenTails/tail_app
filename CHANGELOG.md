@@ -6,6 +6,8 @@
 - Move permission & bluetooth check to the Known Gear bar.
 - Bring back demo gear as a more flushed out feature, Now it is treated
   similar to regular gear.
+- Disabled the "Cover" trigger for now as many phones lack a real proximity
+  sensor.
 
 ### V 1.4.1
 

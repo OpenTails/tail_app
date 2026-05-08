@@ -2,24 +2,23 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
-import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
+import 'package:tail_app/Backend/utilities/settings.dart';
 import 'package:tail_app/Backend/utilities/version.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/bluetooth_uart_services_list.dart';
 import '../../Backend/Device/common_device_stuffs.dart';
 import '../../Backend/Device/device_type_enum.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/Device/tail_control_status_enum.dart';
-import '../../Backend/logging_wrappers.dart';
-import '../../constants.dart';
 import '../go_router_config.dart';
 import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
@@ -194,11 +193,7 @@ class _ManageGearState extends State<ManageGear> {
                       );
                 },
               ),
-              if (HiveProxy.getOrDefault(
-                settings,
-                showDebugging,
-                defaultValue: showDebuggingDefault,
-              )) ...[
+              if (isDeveloperEnabled) ...[
                 if (device!.deviceDefinition.deviceType == DeviceType.ears) ...[
                   ManageGearHomePosition(device: device!),
                 ],

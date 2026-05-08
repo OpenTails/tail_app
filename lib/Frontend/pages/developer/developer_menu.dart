@@ -12,6 +12,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../../Backend/dynamic_config.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../Backend/utilities/sentry.dart';
+import '../../../Backend/utilities/settings.dart';
 import '../../../Backend/wear_bridge.dart';
 import '../../../constants.dart';
 import '../../../assets.dart';
@@ -135,11 +136,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
           ListTile(
             title: const Text(showDebugging),
             trailing: Switch(
-              value: HiveProxy.getOrDefault(
-                settings,
-                showDebugging,
-                defaultValue: showDebuggingDefault,
-              ),
+              value: isDeveloperEnabled,
               onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, showDebugging, value);

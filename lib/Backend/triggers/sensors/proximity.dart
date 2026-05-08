@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
+import '../../utilities/settings.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
 
@@ -35,7 +36,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (!Platform.isAndroid && !Platform.isIOS) {
+    if (!isDeveloperEnabled || (!Platform.isAndroid && !Platform.isIOS)) {
       return false;
     }
     return ProximitySensor.isProximitySensorAvailable();
@@ -52,7 +53,6 @@ class CoverTriggerDefinition extends TriggerDefinition {
     if (proximityStream != null) {
       return;
     }
-
     proximityStream = ProximitySensor.events.listen((int event) {
       _logger.fine("CoverEvent:: $event");
       String proximity = "";

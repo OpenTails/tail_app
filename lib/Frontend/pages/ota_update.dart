@@ -6,9 +6,9 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import '../../Backend/Device/ota/firmware_update.dart';
 import '../../Backend/Device/ota/updater.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
-import '../../Backend/logging_wrappers.dart';
-import '../../constants.dart';
+import '../../Backend/utilities/settings.dart';
 import '../../assets.dart';
+import '../../constants.dart';
 import '../Widgets/lottie_lazy_load.dart';
 import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
@@ -87,11 +87,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
             direction: Axis.vertical,
             children: [
               if ([OtaState.standby, OtaState.manual].contains(otaState)) ...[
-                if (HiveProxy.getOrDefault(
-                  settings,
-                  showDebugging,
-                  defaultValue: showDebuggingDefault,
-                )) ...[
+                if (isDeveloperEnabled) ...[
                   Expanded(
                     child: ListTile(
                       title: const Text("Debug"),
@@ -177,11 +173,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                             ],
                           ),
                         ),
-                        if (HiveProxy.getOrDefault(
-                          settings,
-                          showDebugging,
-                          defaultValue: showDebuggingDefault,
-                        )) ...[
+                        if (isDeveloperEnabled) ...[
                           ElevatedButton(
                             onPressed: () async {
                               FilePickerResult? result =
@@ -321,11 +313,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                     ),
                   ),
                 ),
-                if (HiveProxy.getOrDefault(
-                  settings,
-                  showDebugging,
-                  defaultValue: showDebuggingDefault,
-                )) ...[
+                if (isDeveloperEnabled) ...[
                   Expanded(
                     child: ListTile(
                       trailing: const Icon(Icons.bug_report),

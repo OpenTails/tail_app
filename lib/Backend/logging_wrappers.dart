@@ -1,8 +1,7 @@
 import 'package:hive_ce/hive.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
-
-import '../constants.dart';
+import 'package:tail_app/Backend/utilities/settings.dart';
 
 // ignore: library_private_types_in_public_api
 _HiveProxyImpl HiveProxy = _HiveProxyImpl();
@@ -35,11 +34,7 @@ void configureLogging() {
   Logger.root.onRecord.listen((event) {
     try {
       // Hive may not be ready yet. just log in that case
-      if (!HiveProxy.getOrDefault(
-        settings,
-        showDebugging,
-        defaultValue: showDebuggingDefault,
-      )) {
+      if (!isDeveloperEnabled) {
         return;
       }
       // ignore: empty_catches

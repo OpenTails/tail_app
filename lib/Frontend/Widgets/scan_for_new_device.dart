@@ -3,19 +3,19 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/bluetooth_uart_services_list.dart';
 import '../../Backend/Device/common_device_stuffs.dart';
 import '../../Backend/Device/device_definition.dart';
 import '../../Backend/Device/device_type_enum.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/Device/stored_device.dart';
-import '../../Backend/device_registry.dart';
-import '../../Backend/logging_wrappers.dart';
 import '../../Backend/analytics.dart';
-import '../../constants.dart';
+import '../../Backend/device_registry.dart';
+import '../../Backend/utilities/settings.dart';
 import '../../assets.dart';
+import '../../constants.dart';
 import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 import 'lottie_lazy_load.dart';
@@ -104,11 +104,7 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                           },
                           dropdownMenuEntries: DeviceRegistry.allDevices
                               .where((element) {
-                                if (HiveProxy.getOrDefault(
-                                  settings,
-                                  showDebugging,
-                                  defaultValue: showDebuggingDefault,
-                                )) {
+                                if (isDeveloperEnabled) {
                                   return true;
                                 } else {
                                   return [
@@ -242,12 +238,7 @@ class _ScanGearListState extends State<ScanGearList> {
                                             ),
                                           ),
                                           trailing: Text(
-                                            HiveProxy.getOrDefault(
-                                                  settings,
-                                                  showDebugging,
-                                                  defaultValue:
-                                                      showDebuggingDefault,
-                                                )
+                                            isDeveloperEnabled
                                                 ? e.device.remoteId.str
                                                 : "",
                                           ),
