@@ -1316,3 +1316,51 @@ String watchPhoneAppNotOpen() => Intl.message(
   name: 'watchPhoneAppNotOpen',
   desc: 'the message that informs the user to open the phone app',
 );
+
+String triggerAccelerometerTitle() => Intl.message(
+  "Phone Orientation",
+  name: 'triggerAccelerometerTitle',
+  desc: 'Accelerometer trigger title',
+);
+
+String triggerAccelerometerDescription() => Intl.message(
+  "Trigger an action depending on which side of your phone is facing up",
+  name: 'triggerAccelerometerDescription',
+  desc: 'Accelerometer trigger description',
+);
+
+String triggerAccelerometerFaceUp() => Intl.message(
+  "Screen Facing Up",
+  name: 'triggerAccelerometerFaceUp',
+  desc: 'Accelerometer trigger face up label"',
+);
+
+String triggerAccelerometerFaceDown() => Intl.message(
+  "Screen Facing Down",
+  name: 'triggerAccelerometerFaceDown',
+  desc: 'Accelerometer trigger face down label"',
+);
+
+String triggerAccelerometerUp() => Intl.message(
+  "Phone Standing Up",
+  name: 'triggerAccelerometerUp',
+  desc: 'Accelerometer trigger up label"',
+);
+
+String triggerAccelerometerDown() => Intl.message(
+  "Phone Upside Down",
+  name: 'triggerAccelerometerDown',
+  desc: 'Accelerometer trigger down label"',
+);
+
+String triggerAccelerometerRight() => Intl.message(
+  "Phone Right Side Up",
+  name: 'triggerAccelerometerRight',
+  desc: 'Accelerometer trigger right label"',
+);
+
+String triggerAccelerometerLeft() => Intl.message(
+  "Phone Left Side Up",
+  name: 'triggerAccelerometerRight',
+  desc: 'Accelerometer trigger left label"',
+);

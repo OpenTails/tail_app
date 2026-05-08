@@ -1,5 +1,6 @@
 ### V 1.5.0
 
+- Add Phone orientation trigger
 - Lots of backend changes to support Watches
 - Rework permissions
 - Remove marketing notifications

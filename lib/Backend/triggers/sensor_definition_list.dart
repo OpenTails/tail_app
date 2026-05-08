@@ -1,9 +1,7 @@
 import 'package:collection/collection.dart';
-import 'sensor_definition.dart';
-import 'sensors/walking.dart';
-import 'stored_triggers.dart';
-import 'trigger.dart';
 
+import 'sensor_definition.dart';
+import 'sensors/accelerometer.dart';
 import 'sensors/ble_proximity.dart';
 import 'sensors/casual.dart';
 import 'sensors/claws/claw_clap.dart';
@@ -13,6 +11,9 @@ import 'sensors/ears/ear_tilt.dart';
 import 'sensors/proximity.dart';
 import 'sensors/shake.dart';
 import 'sensors/volume.dart';
+import 'sensors/walking.dart';
+import 'stored_triggers.dart';
+import 'trigger.dart';
 
 // Defines what triggers show in the UI
 class TriggerDefinitionList {
@@ -28,6 +29,7 @@ class TriggerDefinitionList {
         VolumeButtonTriggerDefinition(),
         ClawClapTriggerDefinition(),
         ClawTiltTriggerDefinition(),
+        AccelerometerTriggerDefinition(),
       ]);
 
   //Filter by unused sensors
