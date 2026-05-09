@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:logging/logging.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
@@ -20,7 +19,6 @@ enum AccelerometerOrientationState {
 }
 
 class AccelerometerTriggerDefinition extends TriggerDefinition {
-  final Logger _logger = Logger("AccelerometerTrigger");
   StreamSubscription<AccelerometerEvent>? accelSensorStream;
   AccelerometerOrientationState state = AccelerometerOrientationState.unknown;
 

@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:tail_app/Backend/triggers/sensors/noise.dart';
 
 import 'sensor_definition.dart';
 import 'sensors/accelerometer.dart';
@@ -30,6 +31,7 @@ class TriggerDefinitionList {
         ClawClapTriggerDefinition(),
         ClawTiltTriggerDefinition(),
         AccelerometerTriggerDefinition(),
+        NoiseTriggerDefinition(),
       ]);
 
   //Filter by unused sensors

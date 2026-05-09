@@ -47,6 +47,7 @@
 	<array>
 		<string>bluetooth-central</string>
 		<string>remote-notification</string>
+		<string>audio</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
@@ -67,5 +68,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>Used to detect how loud the environment is, so devices connected to
+    the app can react to loud noises. Audio is not stored or transmitted
+    </string>
 </dict>
 </plist>

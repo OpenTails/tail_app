@@ -73,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.13.1"
+  audio_streamer:
+    dependency: transitive
+    description:
+      name: audio_streamer
+      sha256: aed4bc55f57d65953b16344f5848239e1c9bd058cf5a6c23d7b4173f337d4ea8
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.3.0"
   audioplayers:
     dependency: "direct main"
     description:
@@ -220,11 +228,10 @@ packages:
   cached_network_image_ce:
     dependency: "direct main"
     description:
-      path: cached_network_image
-      ref: HEAD
-      resolved-ref: ee02682326ea5141b92e224a2d1f827471edffb5
-      url: "https://github.com/Codel1417/flutter_cached_network_image_ce_lazy"
-    source: git
+      name: cached_network_image_ce
+      sha256: d4701fbbdf508de831e847fd1d49c644ffa6191c6018c416ab6f66bbe1ad5fff
+      url: "https://pub.dev"
+    source: hosted
     version: "4.6.4"
   cached_network_image_platform_interface_ce:
     dependency: transitive
@@ -1128,6 +1135,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
+  noise_meter:
+    dependency: "direct main"
+    description:
+      name: noise_meter
+      sha256: a05ffa13ac533e4fcfb1dd772f43d7262c5130c80bbc1bf2842f7b15794f6264
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   objective_c:
     dependency: transitive
     description:

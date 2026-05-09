@@ -1364,3 +1364,34 @@ String triggerAccelerometerLeft() => Intl.message(
   name: 'triggerAccelerometerRight',
   desc: 'Accelerometer trigger left label"',
 );
+
+String triggerPhoneMicTitle() => Intl.message(
+  "Noise",
+  name: 'triggerPhoneMicTitle',
+  desc: 'Phone Mic trigger title',
+);
+
+String triggerPhoneMicDescription() => Intl.message(
+  "Trigger an action depending on if the noise in the area is loud or quiet. "
+  "This trigger uses your phone microphone",
+  name: 'triggerPhoneMicDescription',
+  desc: 'Phone Mic trigger description',
+);
+
+String triggerPhoneMicThresholdSliderLabel() => Intl.message(
+  "Noise Threshold",
+  name: 'triggerPhoneMicThresholdSliderLabel',
+  desc: 'Phone Mic trigger label for the noise threshold slider',
+);
+
+String triggerPhoneMicLoud() => Intl.message(
+  "Loud",
+  name: 'triggerPhoneMicLoud',
+  desc: 'Phone Mic trigger area is loud label',
+);
+
+String triggerPhoneMicQuiet() => Intl.message(
+  "Quiet",
+  name: 'triggerPhoneMicLoud',
+  desc: 'Phone Mic trigger area is Quiet label',
+);

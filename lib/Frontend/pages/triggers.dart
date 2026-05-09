@@ -295,7 +295,11 @@ class _TriggerEditState extends State<TriggerEdit> {
           return const Center(child: Text(''));
         } else {
           return ListenableBuilder(
-            listenable: Listenable.merge([trigger!, ...trigger!.actions]),
+            listenable: Listenable.merge([
+              trigger!,
+              ...trigger!.actions,
+              if (isDeveloperEnabled) ...[trigger!.triggerDefinition!],
+            ]),
             builder: (context, child) {
               return ListView(
                 shrinkWrap: true,

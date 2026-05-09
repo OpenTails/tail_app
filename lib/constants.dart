@@ -24,6 +24,7 @@ const String showAdvancedSettings = 'showAdvancedSettings';
 const String dynamicConfigJsonString = 'dynamicConfigJsonString';
 const String dynamicConfigStoredBuildNumber = 'dynamicConfigStoredBuildNumber';
 const String casualModeDelayMin = 'casualModeDelayMin';
+const String noiseThreshold = 'noiseThreshold';
 const String casualModeDelayMax = 'casualModeDelayMax';
 const String tailBlogWifiOnly = 'tailBlogWifiOnly';
 const String triggerActionCooldown = 'triggerActionCooldown';
@@ -51,6 +52,7 @@ const bool tailBlogWifiOnlyDefault = false;
 const int triggerActionCooldownDefault = 15;
 const int gearConnectRetryAttemptsDefault = 3;
 const bool uwuTextEnabledDefault = false;
+const double noiseThresholdDefault = 9;
 
 const String triggerBox = 'triggers';
 const String sequencesBox = 'sequences';

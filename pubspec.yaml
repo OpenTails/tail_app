@@ -46,7 +46,6 @@ dependencies:
   connectivity_plus: ^7.1.1
   data_saver: ^0.4.0 # check if data saver is enabled
   battery_plus: ^7.0.0
-  ble_peripheral: ^2.4.0 # nearby gear
   stream_transform: ^2.1.1 # debouncing wear commands
   app_settings: ^7.0.0
 
@@ -90,11 +89,13 @@ dependencies:
   pedometer: ^4.2.0
   sensors_plus: ^6.1.2
   proximity_sensor: ^1.3.10
+  noise_meter: ^5.1.0
   shake:
     git:
       url: https://github.com/dieringe/shake
       ref: dieringe
   flutter_android_volume_keydown: ^1.0.1
+  ble_peripheral: ^2.4.0 # nearby gear
 
   # Hive
   hive_ce: ^2.19.3
@@ -134,10 +135,6 @@ dependency_overrides:
   flutter_joystick:
     git:
       url: https://github.com/Codel1417/flutter_joystick
-  cached_network_image_ce: # hive box to lazybox
-    git:
-      url: https://github.com/Codel1417/flutter_cached_network_image_ce_lazy
-      path: cached_network_image
 
 flutter:
   uses-material-design: true
