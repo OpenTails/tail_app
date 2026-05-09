@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-05-08T21:48:59.636551",
+  "@@last_modified": "2026-05-09T02:18:08.020861",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1308,6 +1308,30 @@
   "triggerAccelerometerRight": "Phone Right Side Up",
   "@triggerAccelerometerRight": {
     "description": "Accelerometer trigger right label\"",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerPhoneMicTitle": "Noise",
+  "@triggerPhoneMicTitle": {
+    "description": "Phone Mic trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerPhoneMicDescription": "Trigger an action depending on if the noise in the area is loud or quiet. This trigger uses your phone microphone",
+  "@triggerPhoneMicDescription": {
+    "description": "Phone Mic trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerPhoneMicThresholdSliderLabel": "Noise Threshold",
+  "@triggerPhoneMicThresholdSliderLabel": {
+    "description": "Phone Mic trigger label for the noise threshold slider",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerPhoneMicLoud": "Loud",
+  "@triggerPhoneMicLoud": {
+    "description": "Phone Mic trigger area is loud label",
     "type": "text",
     "placeholders": {}
   }
