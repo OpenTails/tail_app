@@ -30,13 +30,13 @@ class _NoiseThresholdWidgetState extends State<NoiseThresholdWidget> {
       title: Text(convertToUwU(triggerPhoneMicThresholdSliderLabel())),
       subtitle: Slider(
         value: threshold,
-        min: 0,
-        max: 240,
-        divisions: 240 - 15,
-        label: "$threshold Db",
+        min: 30,
+        max: 100,
+        divisions: 70,
+        label: "${threshold.toInt()} Db",
         onChanged: (value) {
           setState(() {
-            threshold = value.clamp(15, 240);
+            threshold = value.clamp(30, 100);
           });
           widget.triggerDefinition.optionalSettings = {
             noiseThreshold: threshold,

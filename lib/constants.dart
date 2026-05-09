@@ -52,7 +52,7 @@ const bool tailBlogWifiOnlyDefault = false;
 const int triggerActionCooldownDefault = 15;
 const int gearConnectRetryAttemptsDefault = 3;
 const bool uwuTextEnabledDefault = false;
-const double noiseThresholdDefault = 9;
+const double noiseThresholdDefault = 65;
 
 const String triggerBox = 'triggers';
 const String sequencesBox = 'sequences';
