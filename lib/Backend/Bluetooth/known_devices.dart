@@ -216,6 +216,8 @@ class KnownDevices with ChangeNotifier {
           // required to keep the app awake
           eventAction: ForegroundTaskEventAction.repeat(100),
           allowWakeLock: true,
+          stopWithTask: true,
+          allowAutoRestart: false,
         ),
       );
       FlutterForegroundTask.startService(
