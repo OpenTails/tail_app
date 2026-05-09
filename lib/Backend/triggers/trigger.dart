@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:tail_app/Backend/triggers/sensor_definition.dart';
 import 'package:tail_app/Backend/triggers/sensor_definition_action_definition.dart';
+import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 import 'package:tail_app/Backend/triggers/trigger_action.dart';
 
 import '../Action/action_category.dart';
@@ -15,7 +16,17 @@ class Trigger extends ChangeNotifier {
   // definition class.
   @HiveField(1)
   late final String triggerDefUUID;
-  TriggerDefinition? triggerDefinition;
+  TriggerDefinition? _triggerDefinition;
+
+  TriggerDefinition? get triggerDefinition => _triggerDefinition;
+
+  set triggerDefinition(TriggerDefinition? value) {
+    _triggerDefinition = value;
+    triggerDefinition
+      ?..removeListener(triggerDefListener)
+      ..addListener(triggerDefListener);
+    triggerDefinition?.optionalSettings = optionalSettings;
+  }
 
   bool _enabled = false;
   @HiveField(4)
@@ -30,16 +41,20 @@ class Trigger extends ChangeNotifier {
     _enabled = value;
     if (_enabled) {
       triggerDefinition?.triggerActions = actions;
-      triggerDefinition?.addListener(triggerDefListener);
-      triggerDefinition?.enabled = value;
     } else {
       triggerDefinition?.triggerActions = [];
-      triggerDefinition?.removeListener(triggerDefListener);
-      triggerDefinition?.enabled = value;
     }
+    triggerDefinition?.enabled = value;
   }
 
   void triggerDefListener() {
+    if (triggerDefinition == null) {
+      return;
+    }
+    if (optionalSettings != triggerDefinition!.optionalSettings) {
+      optionalSettings = triggerDefinition!.optionalSettings;
+      TriggerList.instance.store();
+    }
     if (triggerDefinition?.enabled != _enabled && _enabled) {
       enabled = false;
       notifyListeners();
@@ -52,6 +67,8 @@ class Trigger extends ChangeNotifier {
 
   @HiveField(3)
   List<TriggerAction> _actions = [];
+  @HiveField(5, defaultValue: {})
+  Map<String, dynamic> optionalSettings = {};
 
   List<TriggerAction> get actions => _actions;
 
@@ -66,8 +83,12 @@ class Trigger extends ChangeNotifier {
     // called by hive when loading object
   }
 
-  Trigger.trigDef(this.triggerDefinition, this.uuid) {
+  Trigger.trigDef(this._triggerDefinition, this.uuid) {
     triggerDefUUID = triggerDefinition!.uuid;
+    triggerDefinition
+      ?..removeListener(triggerDefListener)
+      ..addListener(triggerDefListener);
+
     actions.addAll(
       triggerDefinition!.triggerActionDefinitions.map(
         (e) => TriggerAction(e.uuid),

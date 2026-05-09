@@ -14,13 +14,11 @@ import '../../Backend/analytics.dart';
 import '../../Backend/triggers/sensor_definition.dart';
 import '../../Backend/triggers/sensor_definition_action_definition.dart';
 import '../../Backend/triggers/sensor_definition_list.dart';
-import '../../Backend/triggers/sensors/casual.dart';
 import '../../Backend/triggers/stored_triggers.dart';
 import '../../Backend/triggers/trigger.dart';
 import '../../Backend/triggers/trigger_action.dart';
 import '../../Backend/utilities/settings.dart';
 import '../../constants.dart';
-import '../Widgets/casual_mode_delay_widget.dart';
 import '../Widgets/tutorial_card.dart';
 import '../go_router_config.dart';
 import '../theme_helpers.dart';
@@ -338,8 +336,8 @@ class _TriggerEditState extends State<TriggerEdit> {
                       ),
                     ),
                   ),
-                  if (triggerDefinition is RandomTriggerDefinition) ...[
-                    const CasualModeDelayWidget(),
+                  if (triggerDefinition!.settingsWidget != null) ...[
+                    triggerDefinition!.settingsWidget!,
                   ],
                   if (isDeveloperEnabled) ...[
                     ListTile(

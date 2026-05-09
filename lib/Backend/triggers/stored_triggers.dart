@@ -1,4 +1,5 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
@@ -23,15 +24,14 @@ class TriggerList with ChangeNotifier {
     try {
       results = Hive.box<Trigger>(triggerBox).values
           .map((trigger) {
-            Trigger trigger2 = Trigger.trigDef(
-              TriggerDefinitionList.allTriggerDefinitions.firstWhere(
-                (element) => element.uuid == trigger.triggerDefUUID,
-              ),
-              trigger.uuid,
-            );
-            trigger2.actions = trigger.actions;
-            return trigger2;
+            trigger.triggerDefinition = TriggerDefinitionList
+                .allTriggerDefinitions
+                .firstWhereOrNull(
+                  (element) => element.uuid == trigger.triggerDefUUID,
+                );
+            return trigger;
           })
+          .where((trigger) => trigger.triggerDefinition != null)
           .toList(growable: true);
     } catch (e, s) {
       _logger.severe("Unable to load stored triggers: $e", e, s);

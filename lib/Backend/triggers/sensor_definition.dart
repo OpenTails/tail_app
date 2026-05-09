@@ -25,6 +25,15 @@ abstract class TriggerDefinition extends ChangeNotifier
   late final String uuid;
   List<TriggerAction> triggerActions = [];
   bool _enabled = false;
+  Widget? settingsWidget;
+  Map<String, dynamic> _optionalSettings = {};
+
+  Map<String, dynamic> get optionalSettings => _optionalSettings;
+
+  set optionalSettings(Map<String, dynamic> value) {
+    _optionalSettings = value;
+    notifyListeners();
+  }
 
   bool get enabled => _enabled;
 

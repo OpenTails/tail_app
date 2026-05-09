@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../../Frontend/Widgets/casual_mode_delay_widget.dart';
 import '../../../Frontend/translation_string_definitions.dart';
 import '../../../constants.dart';
-import '../../logging_wrappers.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
 
@@ -26,6 +26,7 @@ class RandomTriggerDefinition extends TriggerDefinition {
         defaultActions: true,
       ),
     ];
+    super.settingsWidget = CasualModeDelayWidget(triggerDefinition: this);
   }
 
   @override
@@ -36,16 +37,12 @@ class RandomTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<void> onEnable() async {
-    int min = HiveProxy.getOrDefault(
-      settings,
-      casualModeDelayMin,
-      defaultValue: casualModeDelayMinDefault,
-    );
-    int max = HiveProxy.getOrDefault(
-      settings,
-      casualModeDelayMax,
-      defaultValue: casualModeDelayMaxDefault,
-    );
+    int min = optionalSettings.containsKey(casualModeDelayMin)
+        ? optionalSettings[casualModeDelayMin]
+        : casualModeDelayMaxDefault;
+    int max = optionalSettings.containsKey(casualModeDelayMax)
+        ? optionalSettings[casualModeDelayMax]
+        : casualModeDelayMaxDefault;
     debug = "Min delay $min seconds before next timer";
     await Future.delayed(Duration(seconds: min));
     if (enabled) {
