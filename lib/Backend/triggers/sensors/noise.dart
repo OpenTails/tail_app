@@ -66,10 +66,11 @@ class NoiseTriggerDefinition extends TriggerDefinition {
     noiseMeterStream = NoiseMeter().noise.listen(
       (NoiseReading noiseReading) {
         debug = noiseReading.toString();
-        if (state == NoiseState.quiet && noiseReading.maxDecibel > threshold) {
+        if (state != NoiseState.loud && noiseReading.meanDecibel > threshold) {
           state = NoiseState.loud;
           sendCommands("Loud");
-        } else if (state != NoiseState.quiet) {
+        } else if (state != NoiseState.quiet &&
+            noiseReading.meanDecibel < threshold) {
           state = NoiseState.quiet;
           sendCommands("Quiet");
         }
