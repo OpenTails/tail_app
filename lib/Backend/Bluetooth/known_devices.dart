@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -57,8 +55,14 @@ class KnownDevices with ChangeNotifier {
 
     //register listeners
     _onDevicePaired();
+    this
+      ..removeListener(_onDevicePaired)
+      ..addListener(_onDevicePaired);
   }
 
+  /// Register and store the connected/dev gear.
+  /// Must be called *BEFORE* setting any values as listeners are not
+  /// registered yet
   Future<void> add(StatefulDevice statefulDevice) async {
     _state[statefulDevice.storedDevice.btMACAddress] = statefulDevice;
     await store();
@@ -167,9 +171,6 @@ class KnownDevices with ChangeNotifier {
         ..removeListener(_wakelock)
         ..addListener(_wakelock);
       statefulDevice.bluetoothUartService
-        ..removeListener(_foregroundService)
-        ..addListener(_foregroundService);
-      statefulDevice.bluetoothUartService
         ..removeListener(_notify)
         ..addListener(_notify);
       statefulDevice.storedDevice
@@ -192,44 +193,6 @@ class KnownDevices with ChangeNotifier {
       WakelockPlus.enable();
     } else if (connectedGear.isEmpty) {
       WakelockPlus.disable();
-    }
-  }
-
-  Future<void> _foregroundService() async {
-    if (!Platform.isAndroid) {
-      return;
-    }
-    if (connectedGear.isNotEmpty) {
-      //start foreground service on device connected. Library handles duplicate start calls
-      //TODO: translate strings
-      FlutterForegroundTask.init(
-        androidNotificationOptions: AndroidNotificationOptions(
-          channelId: 'foreground_service',
-          channelName: 'Gear Connected',
-          channelDescription:
-              'This notification appears when any gear is running.',
-          channelImportance: NotificationChannelImportance.LOW,
-          priority: NotificationPriority.LOW,
-        ),
-        iosNotificationOptions: const IOSNotificationOptions(),
-        foregroundTaskOptions: ForegroundTaskOptions(
-          // required to keep the app awake
-          eventAction: ForegroundTaskEventAction.repeat(100),
-          allowWakeLock: true,
-          stopWithTask: true,
-          allowAutoRestart: false,
-        ),
-      );
-      FlutterForegroundTask.startService(
-        notificationTitle: "Gear Connected",
-        notificationText: "Gear is connected to The Tail Company app",
-        notificationIcon: const NotificationIcon(
-          metaDataName: 'com.codel1417.tailApp.notificationIcon',
-        ),
-      );
-      FlutterForegroundTask.setOnLockScreenVisibility(true);
-    } else {
-      FlutterForegroundTask.stopService();
     }
   }
 }

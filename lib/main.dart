@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +8,13 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/analytics.dart';
+import 'package:tail_app/Backend/foreground_service_manager.dart';
+import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 
 import 'Backend/app_shortcuts.dart';
+import 'Backend/firebase.dart';
 import 'Backend/logging_wrappers.dart';
 import 'Backend/utilities/hive.dart';
 import 'Backend/utilities/locale.dart';
@@ -33,9 +36,7 @@ Future<void> main() async {
   await initHive();
   initWear();
   appShortcuts();
-  if (Platform.isAndroid) {
-    FlutterForegroundTask.initCommunicationPort();
-  }
+  initFirebase();
   await startSentryApp(TailApp());
 }
 
@@ -53,6 +54,11 @@ class TailApp extends StatelessWidget {
       _logger.info('Debug Mode Enabled');
       HiveProxy.put(settings, showDebugging, true);
     }
+
+    // Force start singletons
+    KnownDevices.instance;
+    TriggerList.instance;
+    ForegroundServiceManager.instance;
   }
 
   @override

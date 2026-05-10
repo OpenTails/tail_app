@@ -1,13 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/firebase_options.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-part 'firebase.g.dart';
 
 part 'firebase.freezed.dart';
+part 'firebase.g.dart';
 
 @freezed
 abstract class CosHubPost with _$CosHubPost {
@@ -25,13 +24,15 @@ abstract class CosHubPost with _$CosHubPost {
       _$CosHubPostFromJson(json);
 }
 
+FirebaseApp? firebaseApp;
+
 Future<void> initFirebase() async {
   // Skip if already loaded
-  if (Firebase.apps.isNotEmpty) {
+  if (firebaseApp != null) {
     return;
   }
   try {
-    await Firebase.initializeApp(
+    firebaseApp = await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     //often throws with "FirebaseApp name [DEFAULT] already exists!"
@@ -40,7 +41,12 @@ Future<void> initFirebase() async {
 
 Future<List<CosHubPost>> getCosHubPosts() async {
   await initFirebase();
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  if (firebaseApp == null) {
+    await initFirebase();
+  }
+  FirebaseFirestore firestore = FirebaseFirestore.instanceFor(
+    app: firebaseApp!,
+  );
   final appConstants = firestore.collection("appConstants");
   DocumentSnapshot<Map<String, dynamic>> featuredCosplayersUserIdsQuery =
       await appConstants.doc("featured_cosplayers").get();

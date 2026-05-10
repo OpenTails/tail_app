@@ -88,6 +88,7 @@ abstract class TriggerDefinition extends ChangeNotifier
     return true;
   }
 
+  //TODO: Merge body with main command method
   Future<void> sendCommands(String name) async {
     if (KnownDevices.instance.connectedGear.isEmpty) {
       return;

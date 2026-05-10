@@ -67,37 +67,7 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                           onSelected: (value) async {
                             if (value != null) {
                               setState(() {
-                                StoredDevice storedDevice;
-                                StatefulDevice statefulDevice;
-                                storedDevice = StoredDevice(
-                                  value.uuid,
-                                  "DEV${value.deviceType.translatedName}",
-                                  value.deviceType.color().toARGB32(),
-                                )..name = getNameFromBTName(value.btName);
-                                statefulDevice = StatefulDevice(
-                                  value,
-                                  storedDevice,
-                                );
-                                statefulDevice.deviceConnectionState.value =
-                                    ConnectivityState.connected;
-                                if (value.deviceType == DeviceType.ears) {
-                                  statefulDevice.bluetoothUartService.value =
-                                      uartServices.firstWhere(
-                                        (element) =>
-                                            element.label == "Legacy Ears",
-                                      );
-                                } else {
-                                  statefulDevice.bluetoothUartService.value =
-                                      uartServices.firstWhere(
-                                        (element) =>
-                                            element.label == "TailCoNTROL",
-                                      );
-                                }
-                                if (!KnownDevices.instance.state.containsKey(
-                                  storedDevice.btMACAddress,
-                                )) {
-                                  KnownDevices.instance.add(statefulDevice);
-                                }
+                                createDemoGear(value);
                                 context.pop();
                               });
                             }
@@ -154,6 +124,35 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
       expand: false,
       initialChildSize: 0.5,
     );
+  }
+
+  Future<void> createDemoGear(DeviceDefinition value) async {
+    String btMac = "DEV${value.deviceType.translatedName}";
+    if (KnownDevices.instance.state.containsKey(btMac)) {
+      return;
+    }
+    StoredDevice storedDevice;
+    StatefulDevice statefulDevice;
+    storedDevice = StoredDevice(
+      value.uuid,
+      btMac,
+      value.deviceType.color().toARGB32(),
+    )..name = getNameFromBTName(value.btName);
+    statefulDevice = StatefulDevice(value, storedDevice);
+
+    // Has to be added before updating connection state
+    await KnownDevices.instance.add(statefulDevice);
+
+    statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
+    if (value.deviceType == DeviceType.ears) {
+      statefulDevice.bluetoothUartService.value = uartServices.firstWhere(
+        (element) => element.label == "Legacy Ears",
+      );
+    } else {
+      statefulDevice.bluetoothUartService.value = uartServices.firstWhere(
+        (element) => element.label == "TailCoNTROL",
+      );
+    }
   }
 }
 

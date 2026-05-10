@@ -555,19 +555,8 @@ class GetActions with ChangeNotifier {
     final Iterable<AudioAction> audioActions = UserAudioActions.instance.state;
 
     // Filter out moves from unpaired gear
-    Iterable<StatefulDevice> statefulDevices =
-        KnownDevices.instance.state.values;
-    Set<DeviceType> pairedDeviceTypes = statefulDevices
-        .where((element) {
-          // if gear isn't connected and filtering is enabled, filter those
-          // moves out
-          return onlyConnected
-              ? element.deviceConnectionState.value ==
-                    ConnectivityState.connected
-              : true;
-        })
-        .map((e) => e.deviceDefinition.deviceType)
-        .toSet();
+    Set<DeviceType> pairedDeviceTypes =
+        KnownDevices.instance.connectedGearTypes;
 
     // if no gear connected, return empty. Otherwise Audio and Custom moves
     // are returned.

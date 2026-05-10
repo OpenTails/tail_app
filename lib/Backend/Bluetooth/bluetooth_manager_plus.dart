@@ -14,9 +14,9 @@ import '../Device/device_definition.dart';
 import '../Device/device_type_enum.dart';
 import '../Device/stateful/connected_gear.dart';
 import '../Device/stored_device.dart';
-import 'bluetooth_issues_check.dart';
 import '../device_registry.dart';
 import '../logging_wrappers.dart';
+import 'bluetooth_issues_check.dart';
 import 'known_devices.dart';
 
 final _bluetoothPlusLogger = log.Logger('BluetoothPlus');
@@ -155,6 +155,7 @@ Future<void> _onConnectionStateChangedListener(
     )..name = getNameFromBTName(deviceDefinition.btName);
 
     statefulDevice = StatefulDevice(deviceDefinition, storedDevice);
+    await KnownDevices.instance.add(statefulDevice);
   }
   statefulDevice.deviceConnectionState.value =
       event.connectionState == BluetoothConnectionState.connected
@@ -162,7 +163,6 @@ Future<void> _onConnectionStateChangedListener(
       : ConnectivityState.disconnected;
   if (bluetoothConnectionState == BluetoothConnectionState.connected) {
     await event.device.discoverServices();
-    KnownDevices.instance.add(statefulDevice);
   }
 }
 
