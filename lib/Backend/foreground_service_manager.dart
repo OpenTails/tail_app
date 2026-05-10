@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -11,7 +13,6 @@ import 'package:tail_app/Backend/triggers/trigger.dart';
 // android.
 class ForegroundServiceManager with ChangeNotifier {
   final Logger _logger = Logger("ForegroundServiceManager");
-  bool _isRunning = false;
   static final ForegroundServiceManager instance =
       ForegroundServiceManager._internal();
 
@@ -22,8 +23,6 @@ class ForegroundServiceManager with ChangeNotifier {
         channelName: 'Gear Connected',
         channelDescription:
             'This notification appears when any gear is running.',
-        channelImportance: NotificationChannelImportance.LOW,
-        priority: NotificationPriority.LOW,
       ),
       iosNotificationOptions: const IOSNotificationOptions(),
       foregroundTaskOptions: ForegroundTaskOptions(
@@ -58,11 +57,15 @@ class ForegroundServiceManager with ChangeNotifier {
   }
 
   Future<void> _listener() async {
-    if (_serviceTypes.isEmpty && _isRunning) {
+    if (!Platform.isAndroid && !Platform.isIOS) {
+      return;
+    }
+    bool isRunning = await FlutterForegroundTask.isRunningService;
+    if (_serviceTypes.isEmpty && isRunning) {
       await _stop();
     } else {
-      if (_isRunning) {
-        _update();
+      if (isRunning) {
+        await _update();
       } else {
         await _start();
       }
@@ -74,15 +77,21 @@ class ForegroundServiceManager with ChangeNotifier {
     _logger.info(
       "Starting foreground service of types ${_runningServiceTypes.keys}",
     );
-    await FlutterForegroundTask.startService(
-      notificationTitle: "Gear Connected",
-      notificationText: "Gear is connected to The Tail Company app",
-      notificationIcon: const NotificationIcon(
-        metaDataName: 'com.codel1417.tailApp.notificationIcon',
-      ),
-      serviceTypes: _runningServiceTypes.values.toList(),
-    );
-    _isRunning = true;
+    ServiceRequestResult serviceRequestResult =
+        await FlutterForegroundTask.startService(
+          notificationTitle: "Gear Connected",
+          notificationText: "Gear is connected to The Tail Company app",
+          notificationIcon: const NotificationIcon(
+            metaDataName: 'com.codel1417.tailApp.notificationIcon',
+          ),
+          serviceTypes: _runningServiceTypes.values.toList(),
+        ).onError((error, stackTrace) {
+          _logger.severe("Failed to start service $error", error, stackTrace);
+          return ServiceRequestFailure(error: error!);
+        });
+    if (serviceRequestResult is ServiceRequestFailure) {
+      _logger.severe("Failed to start service ${serviceRequestResult.error}");
+    }
   }
 
   Future<void> _stop() async {
@@ -90,21 +99,27 @@ class ForegroundServiceManager with ChangeNotifier {
       "Stopping foreground service of types "
       "${_runningServiceTypes.keys}",
     );
-    _isRunning = false;
-    await FlutterForegroundTask.stopService();
+    ServiceRequestResult serviceRequestResult =
+        await FlutterForegroundTask.stopService().onError((error, stackTrace) {
+          _logger.severe("Failed to stop service $error", error, stackTrace);
+          return ServiceRequestFailure(error: error!);
+        });
+    if (serviceRequestResult is ServiceRequestFailure) {
+      _logger.severe("Failed to stop service ${serviceRequestResult.error}");
+    }
   }
 
   // This should only happen if the user connects gear or turns on/off the
   // noise trigger
   // Maybe expand with connected gear counts or something
-  void _update() {
+  Future<void> _update() async {
     if (!ListEquality<String>().equals(
       _runningServiceTypes.keys.toList(),
       _serviceTypes.keys.toList(),
     )) {
       _logger.info("restarting foreground service due to service type change");
-      _stop();
-      _start();
+      await _stop();
+      await _start();
     }
   }
 
