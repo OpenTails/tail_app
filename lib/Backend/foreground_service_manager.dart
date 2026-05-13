@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 import 'package:tail_app/Backend/triggers/trigger.dart';
@@ -69,6 +70,13 @@ class ForegroundServiceManager with ChangeNotifier {
       } else {
         await _start();
       }
+      isRunning = await FlutterForegroundTask.isRunningService;
+      Sentry.configureScope(
+        (scope) => scope.setContexts('foregroundService', {
+          "Running": isRunning,
+          "serviceTypes": _runningServiceTypes.keys,
+        }),
+      );
     }
   }
 
