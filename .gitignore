@@ -98,3 +98,4 @@ android/app/google-services.json
 HiveTest/
 
 .HiveTest/
+/android/.kotlin/
