@@ -1,0 +1,66 @@
+import 'dart:io';
+
+import 'package:age_range_signals/age_range_signals.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:google_api_availability/google_api_availability.dart';
+import 'package:logging/logging.dart';
+
+Logger _logger = Logger("AgeCheck");
+
+/// Assumes coshub should be shown unless the user is confirmed to be underage
+Future<bool> shouldShowCoshub() async {
+  bool showCoshub = true;
+  if (!Platform.isAndroid && !Platform.isIOS) {
+    return true;
+  }
+  await AgeRangeSignals.instance.initialize(ageGates: [13, 16]);
+
+  // Check age signals
+  try {
+    if (Platform.isIOS) {
+      IosDeviceInfo iosDeviceInfo = await DeviceInfoPlugin().iosInfo;
+      if (int.parse(iosDeviceInfo.systemVersion.split(".")[0]) < 26) {
+        _logger.info("IOS version below 26");
+        return true;
+      }
+    }
+    if (Platform.isAndroid) {
+      GooglePlayServicesAvailability availability = await GoogleApiAvailability
+          .instance
+          .checkGooglePlayServicesAvailability();
+      //Coshub posts need Play services anyway, so just hide them
+      if (availability != GooglePlayServicesAvailability.success) {
+        _logger.info("Play Services is not available");
+        return false;
+      }
+    }
+    final result = await AgeRangeSignals.instance.checkAgeSignals();
+
+    switch (result.status) {
+      case AgeSignalsStatus.verified:
+        _logger.info('User is verified as above age threshold');
+        break;
+      case AgeSignalsStatus.supervised:
+        _logger.info('User is under parental supervision');
+        return false;
+      case AgeSignalsStatus.supervisedApprovalPending:
+        _logger.info('Waiting for guardian approval');
+        return false;
+      case AgeSignalsStatus.supervisedApprovalDenied:
+        _logger.info('Guardian denied access');
+        return false;
+      case AgeSignalsStatus.declared:
+        _logger.info('User declared their age through Google Play');
+        return (result.ageUpper ?? 0) > 15 || (result.ageLower ?? 0) > 15;
+      case AgeSignalsStatus.declined:
+        _logger.info('User declined to share age information');
+        return false;
+      case AgeSignalsStatus.unknown:
+        _logger.info('Age information is not available');
+        break;
+    }
+  } catch (e, s) {
+    _logger.warning("Failed to get user age", e, s);
+  }
+  return showCoshub;
+}
