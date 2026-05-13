@@ -103,7 +103,7 @@ dependencies:
 
   # Spicy
   firebase_core: ^4.7.0
-  cloud_firestore: ^6.3.0
+  cloud_firestore: ^6.4.0
   upgrader: ^13.1.0 # update notices
   age_range_signals: ^0.5.1
   google_api_availability: ^5.0.1
