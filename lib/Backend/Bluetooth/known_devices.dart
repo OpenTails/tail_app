@@ -176,10 +176,6 @@ class KnownDevices with ChangeNotifier {
       statefulDevice.storedDevice
         ..removeListener(_notify)
         ..addListener(_notify);
-      //refresh on moves
-      statefulDevice.deviceState
-        ..removeListener(_notify)
-        ..addListener(_notify);
     }
   }
 
