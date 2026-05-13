@@ -22,22 +22,22 @@ subprojects {
                 }
 
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
+                    sourceCompatibility = JavaVersion.VERSION_21
+                    targetCompatibility = JavaVersion.VERSION_21
                 }
             }
         }
 
         plugins.withType<org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin> {
             configure<org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension> {
-                jvmToolchain(17)
+                jvmToolchain(21)
             }
         }
 
         plugins.withType<org.gradle.api.plugins.JavaBasePlugin> {
             configure<org.gradle.api.plugins.JavaPluginExtension> {
                 toolchain {
-                    languageVersion = JavaLanguageVersion.of(17)
+                    languageVersion = JavaLanguageVersion.of(21)
                 }
             }
         }
@@ -45,7 +45,7 @@ subprojects {
         tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions>>()
             .configureEach {
                 compilerOptions {
-                    jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+                    jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
                 }
             }
     }

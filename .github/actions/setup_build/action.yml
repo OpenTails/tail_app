@@ -3,7 +3,7 @@ description: "Internal Action for Tail App"
 inputs:
   java-version:
     description: "Java version for android"
-    default: "17"
+    default: "21"
   java-distribution:
     description: "Java distribution"
     default: "zulu"
