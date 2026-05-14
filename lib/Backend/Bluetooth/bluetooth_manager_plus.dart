@@ -335,6 +335,9 @@ class Scan with ChangeNotifier {
     if (!_didInitFlutterBluePlus) {
       return;
     }
+    if (_state == ScanReason.notScanning) {
+      return;
+    }
     _bluetoothPlusLogger.info("stopScan called");
     await FlutterBluePlus.stopScan();
     _state = ScanReason.notScanning;
