@@ -19,11 +19,12 @@ import 'Device/stateful/connected_gear.dart';
 import 'favorite_actions.dart';
 
 part 'wear_bridge.freezed.dart';
-
 part 'wear_bridge.g.dart';
 
 final Logger _wearLogger = Logger('Wear');
 final _watch = WatchConnectivity();
+
+// Set by wear_helper widget when color changes
 WearThemeData? wearThemeData;
 
 void _watchIncomingMessageListener(Map<String, dynamic> event) {

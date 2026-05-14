@@ -32,6 +32,7 @@ analyzer:
     - build/**
     - pub_cache/**
     - lib/**.g.dart
+    - lib/**.freezed.dart
     - lib/l10n/**
   plugins:
     - custom_lint

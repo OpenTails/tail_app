@@ -14,8 +14,10 @@ class WearHelper extends StatelessWidget {
       primary: theme.colorScheme.primary.toARGB32(),
       secondary: theme.colorScheme.secondary.toARGB32(),
     );
-    wearThemeData = themeData;
-    updateWearData(reason: "Color scheme changed");
+    if (themeData != wearThemeData) {
+      wearThemeData = themeData;
+      updateWearData(reason: "Color scheme changed");
+    }
     return child;
   }
 }
