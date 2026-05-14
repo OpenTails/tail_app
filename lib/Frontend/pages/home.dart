@@ -6,6 +6,7 @@ import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
+import '../../assets.dart';
 import '../Widgets/base_card.dart';
 import '../Widgets/tail_blog.dart';
 import '../go_router_config.dart';
@@ -87,7 +88,22 @@ class _HomeState extends State<Home> {
           future: shouldShowCoshub(),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data == true) {
-              return SizedBox(height: 350, child: CoshubFeed());
+              return Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      convertToUwU(homeCosHubTitle()),
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    trailing: Image.asset(
+                      Assets.cosHubBT,
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                  SizedBox(height: 350, child: CoshubFeed()),
+                ],
+              );
             } else {
               return Container();
             }
