@@ -13,7 +13,7 @@ Future<bool> shouldShowCoshub() async {
   if (!Platform.isAndroid && !Platform.isIOS) {
     return true;
   }
-  await AgeRangeSignals.instance.initialize(ageGates: [13, 16]);
+  await AgeRangeSignals.instance.initialize(ageGates: [13]);
 
   // Check age signals
   try {
@@ -51,7 +51,7 @@ Future<bool> shouldShowCoshub() async {
         return false;
       case AgeSignalsStatus.declared:
         _logger.info('User declared their age through Google Play');
-        return (result.ageUpper ?? 0) > 15 || (result.ageLower ?? 0) > 15;
+        return (result.ageLower ?? 0) >= 13;
       case AgeSignalsStatus.declined:
         _logger.info('User declined to share age information');
         return false;

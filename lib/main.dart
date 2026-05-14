@@ -15,7 +15,6 @@ import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 
 import 'Backend/app_badges.dart';
 import 'Backend/app_shortcuts.dart';
-import 'Backend/firebase.dart';
 import 'Backend/logging_wrappers.dart';
 import 'Backend/utilities/hive.dart';
 import 'Backend/utilities/locale.dart';
@@ -37,7 +36,7 @@ Future<void> main() async {
   await initHive();
   initWear();
   appShortcuts();
-  initFirebase();
+  //initFirebase();
   await startSentryApp(TailApp());
 }
 
