@@ -13,6 +13,7 @@ import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/foreground_service_manager.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 
+import 'Backend/app_badges.dart';
 import 'Backend/app_shortcuts.dart';
 import 'Backend/firebase.dart';
 import 'Backend/logging_wrappers.dart';
@@ -59,6 +60,7 @@ class TailApp extends StatelessWidget {
     KnownDevices.instance;
     TriggerList.instance;
     ForegroundServiceManager.instance;
+    AppBadgeManager.instance;
   }
 
   @override
