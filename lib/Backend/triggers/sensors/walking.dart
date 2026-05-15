@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
@@ -7,6 +6,7 @@ import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
+import '../../../Frontend/utils.dart';
 import '../permissions.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
@@ -49,7 +49,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (!Platform.isAndroid && !Platform.isIOS) {
+    if (!isMobile) {
       return false;
     }
     bool isStepCountSupported = await Pedometer.isStepCountSupported == true;

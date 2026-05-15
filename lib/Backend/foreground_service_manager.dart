@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -8,6 +6,8 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 import 'package:tail_app/Backend/triggers/trigger.dart';
+
+import '../Frontend/utils.dart';
 
 // If the noise trigger is enabled/disabled, we need to update the foreground
 // service type, otherwise mic access will be blocked in the background on
@@ -18,6 +18,9 @@ class ForegroundServiceManager with ChangeNotifier {
       ForegroundServiceManager._internal();
 
   ForegroundServiceManager._internal() {
+    if (!isMobile) {
+      return;
+    }
     FlutterForegroundTask.init(
       androidNotificationOptions: AndroidNotificationOptions(
         channelId: 'foreground_service',
@@ -58,7 +61,7 @@ class ForegroundServiceManager with ChangeNotifier {
   }
 
   Future<void> _listener() async {
-    if (!Platform.isAndroid && !Platform.isIOS) {
+    if (!isMobile) {
       return;
     }
     bool isRunning = await FlutterForegroundTask.isRunningService;

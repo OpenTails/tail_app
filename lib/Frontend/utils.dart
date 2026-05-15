@@ -3,16 +3,20 @@ import 'package:data_saver/data_saver.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
+import 'package:platform/platform.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
 import '../Backend/logging_wrappers.dart';
 import '../constants.dart';
 
 final dioLogger = Logger('Dio');
+final LocalPlatform platform = LocalPlatform();
 
+bool get isMobile => !kIsWeb && (platform.isAndroid || platform.isIOS);
 Dio? _dio;
 final cacheOptions = CacheOptions(
   // A default store is required for interceptor.
@@ -27,6 +31,7 @@ Future<Dio> initDio() async {
   if (_dio != null) {
     return _dio!;
   }
+
   final Dio dio = Dio()..interceptors.add(LogarteDioInterceptor(logarte));
   dio.interceptors.add(
     RetryInterceptor(
@@ -71,15 +76,18 @@ Future<WordpressClient> getWordpressClient() async {
 }
 
 Future<bool> isLimitedDataEnvironment() async {
+  if (!isMobile) {
+    return false;
+  }
   final List<ConnectivityResult> connectivityResult = await (Connectivity()
       .checkConnectivity());
   if (connectivityResult.contains(ConnectivityResult.none)) {
     return true;
   }
   final DataSaverMode mode = await DataSaver().checkMode();
-  bool isMobile = connectivityResult.contains(ConnectivityResult.mobile);
+  bool isMobileData = connectivityResult.contains(ConnectivityResult.mobile);
 
-  if (mode == DataSaverMode.enabled && isMobile) {
+  if (mode == DataSaverMode.enabled && isMobileData) {
     return true;
   }
 
@@ -88,7 +96,7 @@ Future<bool> isLimitedDataEnvironment() async {
         tailBlogWifiOnly,
         defaultValue: tailBlogWifiOnlyDefault,
       ) &&
-      isMobile) {
+      isMobileData) {
     return true;
   }
   return false;

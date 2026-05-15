@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tail_app/Backend/utilities/version.dart';
 
+import '../../Frontend/utils.dart';
 import '../../constants.dart';
 import '../Action/action_category.dart';
 import '../Action/base_action.dart';
@@ -88,9 +90,11 @@ Future<void> initHive() async {
     return;
   }
   _logger.fine("Init Hive");
-  if (Platform.isAndroid || Platform.isIOS) {
+  if (isMobile) {
     final Directory appDir = await getApplicationSupportDirectory();
     Hive.init(appDir.path);
+  } else if (kIsWeb) {
+    Hive.init("");
   } else {
     Hive.init(Directory(".HiveTest").path);
   }

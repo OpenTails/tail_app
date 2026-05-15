@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 
+import '../../Frontend/utils.dart';
 import '../../constants.dart';
 import '../../l10n/app_localizations.dart';
 import '../../l10n/messages_all_locales.dart';
@@ -24,7 +23,7 @@ class UserLocale with ChangeNotifier {
 
   Future<String> get() async {
     final String defaultLocale =
-        Platform.localeName; // Returns locale string in the form 'en_US'
+        platform.localeName; // Returns locale string in the form 'en_US'
 
     String locale =
         AppLocalizations.supportedLocales

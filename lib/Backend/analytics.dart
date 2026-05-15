@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -9,6 +7,7 @@ import 'package:tail_app/Backend/utilities/settings.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../Frontend/utils.dart';
 import '../constants.dart';
 import '../vendor/aptabase/aptabase_flutter.dart';
 import '../vendor/aptabase/init_options.dart';
@@ -139,7 +138,7 @@ Future<Map<String, String>> _getLaunchProps({
   props = Map.of(props);
   //props['App Version'] = (await PackageInfo.fromPlatform()).version;
   props['App Build'] = (await PackageInfo.fromPlatform()).buildNumber;
-  props['Locale'] = Platform.localeName;
+  props['Locale'] = platform.localeName;
   props['Installer Store'] =
       (await PackageInfo.fromPlatform()).installerStore ?? "Unknown";
 
@@ -149,10 +148,10 @@ Future<Map<String, String>> _getLaunchProps({
     props['Has Watch'] = false.toString();
   }
 
-  if (Platform.isAndroid) {
+  if (platform.isAndroid) {
     AndroidDeviceInfo androidDeviceInfo = await DeviceInfoPlugin().androidInfo;
     props['Device Brand'] = androidDeviceInfo.brand;
-  } else if (Platform.isIOS) {
+  } else if (platform.isIOS) {
     props['Device Brand'] = "Apple";
   }
   return props;
@@ -171,9 +170,9 @@ Future<void> launchExternalUrl({
 
 String getOutboundUtm() {
   String utm = "?utm_medium=Tail_App";
-  if (Platform.isAndroid) {
+  if (platform.isAndroid) {
     utm = "$utm?utm_source=tailappandr";
-  } else if (Platform.isIOS) {
+  } else if (platform.isIOS) {
     utm = "$utm?utm_source=tailappios";
   }
   return utm;

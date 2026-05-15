@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../Frontend/utils.dart';
 
 //TODO: Unify permission classes
 class TriggerPermissionHandle {
@@ -11,7 +10,7 @@ class TriggerPermissionHandle {
   const TriggerPermissionHandle({this.android = const {}, this.ios = const {}});
 
   Future<bool> hasAllPermissions() async {
-    if (Platform.isAndroid) {
+    if (platform.isAndroid) {
       for (Permission permission in android) {
         PermissionStatus permissionStatus = await permission.request();
         if (PermissionStatus.granted != permissionStatus) {
@@ -19,7 +18,7 @@ class TriggerPermissionHandle {
         }
       }
     }
-    if (Platform.isIOS) {
+    if (platform.isIOS) {
       for (Permission permission in ios) {
         PermissionStatus permissionStatus = await permission.request();
         if (PermissionStatus.granted != permissionStatus) {

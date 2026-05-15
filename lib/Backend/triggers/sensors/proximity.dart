@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
+import '../../../Frontend/utils.dart';
 import '../../utilities/settings.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
@@ -36,7 +36,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (!isDeveloperEnabled || (!Platform.isAndroid && !Platform.isIOS)) {
+    if (!isDeveloperEnabled && !isMobile) {
       return false;
     }
     return ProximitySensor.isProximitySensorAvailable();

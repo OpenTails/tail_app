@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:shake/shake.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
+import '../../../Frontend/utils.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
 
@@ -28,7 +27,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (!Platform.isAndroid && !Platform.isIOS) {
+    if (!isMobile) {
       return false;
     }
     return true;

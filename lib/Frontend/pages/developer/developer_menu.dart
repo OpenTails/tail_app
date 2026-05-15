@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:data_saver/data_saver.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +12,10 @@ import '../../../Backend/logging_wrappers.dart';
 import '../../../Backend/utilities/sentry.dart';
 import '../../../Backend/utilities/settings.dart';
 import '../../../Backend/wear_bridge.dart';
-import '../../../constants.dart';
 import '../../../assets.dart';
+import '../../../constants.dart';
 import '../../go_router_config.dart';
+import '../../utils.dart';
 
 class DeveloperMenu extends StatefulWidget {
   const DeveloperMenu({super.key});
@@ -275,7 +274,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
           ),
           ListTile(
             title: const Text("PlatformLocale"),
-            subtitle: Text(Platform.localeName),
+            subtitle: Text(platform.localeName),
           ),
           const ListTile(title: Divider()),
           ListTile(

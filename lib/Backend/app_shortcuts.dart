@@ -3,6 +3,7 @@ import 'package:synchronized/synchronized.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/command_runner.dart';
 
+import '../Frontend/utils.dart';
 import 'Action/action_registry.dart';
 import 'Action/base_action.dart';
 import 'favorite_actions.dart';
@@ -12,6 +13,9 @@ Lock _shortcutsLock = Lock();
 bool _didInitShortcuts = false;
 
 Future<void> appShortcuts() async {
+  if (!isMobile) {
+    return;
+  }
   _shortcutsLock.synchronized(() async {
     if (_didInitShortcuts) {
       return;
@@ -28,6 +32,9 @@ Future<void> appShortcuts() async {
 }
 
 Future<void> updateShortcuts(Iterable<FavoriteAction> favoriteActions) async {
+  if (!isMobile) {
+    return;
+  }
   appShortcuts();
   Iterable<BaseAction> allActions = favoriteActions
       .map((e) => ActionRegistry.getActionFromUUID(e.actionUUID))

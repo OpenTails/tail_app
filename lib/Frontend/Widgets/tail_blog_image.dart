@@ -1,4 +1,5 @@
 import 'package:cached_network_image_ce/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class TailBlogImage extends StatelessWidget {
@@ -12,11 +13,17 @@ class TailBlogImage extends StatelessWidget {
       child: FittedBox(
         alignment: Alignment.center,
         fit: BoxFit.cover,
-        child: CachedNetworkImage(
-          height: 250,
-          imageUrl: url,
-          errorBuilder: (context, url, error) => Icon(Icons.error),
-        ),
+        child: kIsWeb
+            ? Image.network(
+                url,
+                height: 250,
+                errorBuilder: (context, url, error) => Icon(Icons.error),
+              )
+            : CachedNetworkImage(
+                height: 250,
+                imageUrl: url,
+                errorBuilder: (context, url, error) => Icon(Icons.error),
+              ),
       ),
     );
   }

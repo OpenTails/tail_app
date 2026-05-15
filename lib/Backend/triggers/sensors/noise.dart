@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:noise_meter/noise_meter.dart';
@@ -8,6 +7,7 @@ import 'package:tail_app/Backend/triggers/permissions.dart';
 import 'package:tail_app/Frontend/Widgets/noise_threshold_widget.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
+import '../../../Frontend/utils.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
 
@@ -43,7 +43,7 @@ class NoiseTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (!Platform.isAndroid && !Platform.isIOS) {
+    if (!isMobile) {
       return false;
     }
     return true;

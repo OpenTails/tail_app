@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -9,6 +8,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 
+import '../../Frontend/utils.dart';
 import '../../constants.dart';
 import '../dynamic_config.dart';
 import '../logging_wrappers.dart';
@@ -20,7 +20,7 @@ Future<String> getSentryEnvironment() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   String referral = packageInfo.installerStore ?? "";
-  if (Platform.isIOS) {
+  if (platform.isIOS) {
     if (referral == "com.apple.testflight") {
       return 'staging';
     }
@@ -30,7 +30,7 @@ Future<String> getSentryEnvironment() async {
     }
   }
 
-  if (Platform.isAndroid) {
+  if (platform.isAndroid) {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     if (!androidInfo.isPhysicalDevice) {
       return 'debug';

@@ -1,30 +1,36 @@
-import 'dart:io';
-
 import 'package:age_range_signals/age_range_signals.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:google_api_availability/google_api_availability.dart';
 import 'package:logging/logging.dart';
+
+import '../Frontend/utils.dart';
 
 Logger _logger = Logger("AgeCheck");
 
 /// Assumes coshub should be shown unless the user is confirmed to be underage
 Future<bool> shouldShowCoshub() async {
   bool showCoshub = true;
-  if (!Platform.isAndroid && !Platform.isIOS) {
+
+  // Age signals only available on mobile
+  if (!isMobile) {
+    //Firebase doesn't support web
+    if (platform.isLinux) {
+      return false;
+    }
     return true;
   }
   await AgeRangeSignals.instance.initialize(ageGates: [13]);
 
   // Check age signals
   try {
-    if (Platform.isIOS) {
+    if (platform.isIOS) {
       IosDeviceInfo iosDeviceInfo = await DeviceInfoPlugin().iosInfo;
       if (int.parse(iosDeviceInfo.systemVersion.split(".")[0]) < 26) {
         _logger.info("IOS version below 26");
         return true;
       }
     }
-    if (Platform.isAndroid) {
+    if (platform.isAndroid) {
       GooglePlayServicesAvailability availability = await GoogleApiAvailability
           .instance
           .checkGooglePlayServicesAvailability();

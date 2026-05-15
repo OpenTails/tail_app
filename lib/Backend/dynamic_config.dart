@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -9,12 +8,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/utilities/version.dart';
 
 import '../Frontend/utils.dart';
-import '../constants.dart';
 import '../assets.dart';
+import '../constants.dart';
 import 'logging_wrappers.dart';
 
 part 'dynamic_config.freezed.dart';
-
 part 'dynamic_config.g.dart';
 
 final _dynamicConfigLogger = Logger('DynamicConfig');
@@ -149,7 +147,7 @@ Future<void> _getRemoteDynamicConfigInfo() async {
     Response<String> response = await dio.get(
       _dynamicConfigInfo!.urls.dynamicConfigFileUrl,
       options: Options(
-        contentType: ContentType.json.mimeType,
+        contentType: "application/json",
         responseType: ResponseType.json,
       ),
     );

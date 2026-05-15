@@ -13,6 +13,7 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/translation_string_definitions.dart';
 import 'package:watch_connectivity/watch_connectivity.dart';
 
+import '../Frontend/utils.dart';
 import 'Action/action_registry.dart';
 import 'Action/base_action.dart';
 import 'Device/stateful/connected_gear.dart';
@@ -58,6 +59,9 @@ Future<void> clearContext() async {
 }
 
 void initWear() {
+  if (!isMobile) {
+    return;
+  }
   try {
     _wearLogger.info("Setting up listeners");
 
@@ -87,25 +91,37 @@ void initWear() {
   }
 }
 
-Future<bool> isReachable() {
+Future<bool> isReachable() async {
+  if (!isMobile) {
+    return false;
+  }
   return _watch.isReachable
       .catchError((e) => false)
       .onError((error, stackTrace) => false);
 }
 
-Future<bool> isSupported() {
+Future<bool> isSupported() async {
+  if (!isMobile) {
+    return false;
+  }
   return _watch.isSupported
       .catchError((e) => false)
       .onError((error, stackTrace) => false);
 }
 
-Future<bool> isPaired() {
+Future<bool> isPaired() async {
+  if (!isMobile) {
+    return false;
+  }
   return _watch.isPaired
       .catchError((e) => false)
       .onError((error, stackTrace) => false);
 }
 
-Future<Map<String, dynamic>> applicationContext() {
+Future<Map<String, dynamic>> applicationContext() async {
+  if (!isMobile) {
+    return {};
+  }
   return _watch.applicationContext
       .catchError((e) => <String, dynamic>{})
       .onError((error, stackTrace) => {});
