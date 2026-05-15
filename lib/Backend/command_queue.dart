@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
+import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/command_history.dart';
 
@@ -23,6 +23,7 @@ enum CommandQueueState {
 }
 
 class CommandQueue with ChangeNotifier {
+  final Logger _logger = Logger("CommandQueue");
   final PriorityQueue<BluetoothMessage> _internalCommandQueue = PriorityQueue();
   late final StatefulDevice _device;
   Duration timeoutDuration = const Duration(seconds: 10);
@@ -102,7 +103,7 @@ class CommandQueue with ChangeNotifier {
 
   void _resendCommand() {
     if (currentMessage != null) {
-      bluetoothLog.warning(
+      _logger.warning(
         "Resending message for ${_device.storedDevice.name} $currentMessage",
       );
       addCommand(currentMessage!);
@@ -122,7 +123,7 @@ class CommandQueue with ChangeNotifier {
 
   /// Stops the queue and aborts waiting for the next command;
   void stopQueue() {
-    bluetoothLog.fine("Stopping queue for ${_device.storedDevice.name}");
+    _logger.fine("Stopping queue for ${_device.storedDevice.name}");
     _setState(CommandQueueState.blocked);
     _runningCommandTimer?.cancel();
     _runningCommandTimer = null;
@@ -130,7 +131,7 @@ class CommandQueue with ChangeNotifier {
   }
 
   void startQueue() {
-    bluetoothLog.fine("Starting queue for ${_device.storedDevice.name}");
+    _logger.fine("Starting queue for ${_device.storedDevice.name}");
     _setState(CommandQueueState.idle);
   }
 
@@ -165,14 +166,14 @@ class CommandQueue with ChangeNotifier {
 
     // handle if the command is a delay command
     if (bluetoothMessage.delay != null) {
-      bluetoothLog.fine("Pausing queue for ${_device.storedDevice.name}");
+      _logger.fine("Pausing queue for ${_device.storedDevice.name}");
       _runningCommandTimer = Timer(
         Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20),
         _onTimeout,
       );
       _setState(CommandQueueState.delay);
     } else {
-      bluetoothLog.fine(
+      _logger.fine(
         "Sending command to ${_device.storedDevice.name}:${bluetoothMessage.message}",
       );
       commandHistory.add(
@@ -204,7 +205,7 @@ class CommandQueue with ChangeNotifier {
         state == CommandQueueState.blocked) {
       return;
     }
-    bluetoothLog.info("Adding command to queue $bluetoothMessage");
+    _logger.info("Adding command to queue $bluetoothMessage");
 
     // preempt queue if other direct commands exist. used for joystick
     if (bluetoothMessage.type == CommandType.direct) {

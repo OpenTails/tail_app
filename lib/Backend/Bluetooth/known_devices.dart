@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
-import 'package:logging/logging.dart' as log;
-import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:logging/logging.dart';
 
 import '../../constants.dart';
 import '../Device/common_device_stuffs.dart';
@@ -13,9 +12,8 @@ import '../Device/stateful/connected_gear.dart';
 import '../Device/stored_device.dart';
 import '../Device/tail_control_status_enum.dart';
 import '../device_registry.dart';
-import '../logging_wrappers.dart';
 
-final log.Logger bluetoothLog = log.Logger('Bluetooth');
+final Logger _logger = Logger("KnownGear");
 
 class KnownDevices with ChangeNotifier {
   Map<String, StatefulDevice> _state = {};
@@ -49,7 +47,7 @@ class KnownDevices with ChangeNotifier {
         }
       }
     } catch (e, s) {
-      bluetoothLog.severe("Unable to load stored devices due to $e", e, s);
+      _logger.severe("Unable to load stored devices due to $e", e, s);
     }
     _state = results;
 
@@ -74,6 +72,7 @@ class KnownDevices with ChangeNotifier {
   }
 
   Future<void> store() async {
+    _logger.info("Storing gear");
     LazyBox<StoredDevice> lazyBox = await Hive.openLazyBox<StoredDevice>(
       devicesBox,
     );
@@ -168,27 +167,14 @@ class KnownDevices with ChangeNotifier {
         ..removeListener(_notify)
         ..addListener(_notify);
       statefulDevice.bluetoothUartService
-        ..removeListener(_wakelock)
-        ..addListener(_wakelock);
-      statefulDevice.bluetoothUartService
         ..removeListener(_notify)
         ..addListener(_notify);
+
+      // Listen for gear color change (Probably should be handled somewhere
+      // else)
       statefulDevice.storedDevice
         ..removeListener(_notify)
         ..addListener(_notify);
-    }
-  }
-
-  Future<void> _wakelock() async {
-    if (HiveProxy.getOrDefault(
-          settings,
-          keepAwake,
-          defaultValue: keepAwakeDefault,
-        ) &&
-        connectedGear.isNotEmpty) {
-      WakelockPlus.enable();
-    } else if (connectedGear.isEmpty) {
-      WakelockPlus.disable();
     }
   }
 }

@@ -1126,7 +1126,8 @@ String scanRemoveDemoGear() => Intl.message(
 );
 
 String scanDemoGearTip() => Intl.message(
-  "Want to try out the app but are waiting for your gear to arrive? Add a fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own. This enables a new section on the 'Scan For New Gear' page.",
+  "Want to try out the app but are waiting for your gear to arrive? Add a "
+  "fake gear. This lets you experience the app as if you had your gear, or if you want to try out gear you currently do not own.",
   name: 'scanDemoGearTip',
   desc:
       'Tip Card description for the  demo gear on the scan for new devices page',

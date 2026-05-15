@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
+import '../../../Frontend/utils.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
 
@@ -32,7 +33,7 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    return Platform.isAndroid;
+    return platform.isAndroid;
   }
 
   @override

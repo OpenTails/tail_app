@@ -8,6 +8,10 @@ class BatteryStatus with ChangeNotifier {
   double get level => _level;
 
   set level(double value) {
+    if (_level == value) {
+      return;
+    }
+
     _level = value;
 
     // battery graph

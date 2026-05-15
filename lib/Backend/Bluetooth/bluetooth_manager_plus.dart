@@ -108,7 +108,7 @@ Future<void> _onDiscoveredServicesListener(
       try {
         await characteristic.setNotifyValue(true);
       } on Exception {
-        bluetoothLog.warning(
+        _bluetoothPlusLogger.warning(
           "Unable to set notify on characteristic "
           "${characteristic.characteristicUuid}",
         );
@@ -137,7 +137,9 @@ Future<void> _onConnectionStateChangedListener(
     bluetoothDevice.advName,
   );
   if (deviceDefinition == null) {
-    bluetoothLog.warning("Unknown device found: ${bluetoothDevice.advName}");
+    _bluetoothPlusLogger.warning(
+      "Unknown device found: ${bluetoothDevice.advName}",
+    );
     return;
   }
 

@@ -12,6 +12,7 @@ import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/foreground_service_manager.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
+import 'package:tail_app/Backend/wakelock_manager.dart';
 
 import 'Backend/app_badges.dart';
 import 'Backend/app_shortcuts.dart';
@@ -59,6 +60,7 @@ class TailApp extends StatelessWidget {
     TriggerList.instance;
     ForegroundServiceManager.instance;
     AppBadgeManager.instance;
+    WakelockManager.instance;
   }
 
   @override

@@ -3,9 +3,11 @@ import 'package:data_saver/data_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../../Backend/dynamic_config.dart';
 import '../../../Backend/logging_wrappers.dart';
@@ -225,6 +227,32 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                   dataSaverMode = snapshot.data!.name;
                 }
                 return Text(dataSaverMode);
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("Foreground Service"),
+            subtitle: FutureBuilder(
+              future: FlutterForegroundTask.isRunningService,
+              builder: (context, snapshot) {
+                String foregroundRunning = "";
+                if (snapshot.hasData) {
+                  foregroundRunning = snapshot.data!.toString();
+                }
+                return Text(foregroundRunning);
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text("Wakelock"),
+            subtitle: FutureBuilder(
+              future: WakelockPlus.enabled,
+              builder: (context, snapshot) {
+                String wakelockStatus = "";
+                if (snapshot.hasData) {
+                  wakelockStatus = snapshot.data!.toString();
+                }
+                return Text(wakelockStatus);
               },
             ),
           ),

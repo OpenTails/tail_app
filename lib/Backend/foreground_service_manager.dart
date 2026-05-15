@@ -12,8 +12,10 @@ import '../Frontend/utils.dart';
 // If the noise trigger is enabled/disabled, we need to update the foreground
 // service type, otherwise mic access will be blocked in the background on
 // android.
+
+final Logger _logger = Logger("ForegroundServiceManager");
+
 class ForegroundServiceManager with ChangeNotifier {
-  final Logger _logger = Logger("ForegroundServiceManager");
   static final ForegroundServiceManager instance =
       ForegroundServiceManager._internal();
 
@@ -31,12 +33,11 @@ class ForegroundServiceManager with ChangeNotifier {
       iosNotificationOptions: const IOSNotificationOptions(),
       foregroundTaskOptions: ForegroundTaskOptions(
         // required to keep the app awake
-        eventAction: ForegroundTaskEventAction.repeat(100),
+        eventAction: ForegroundTaskEventAction.repeat(10),
         allowWakeLock: true,
-        stopWithTask: true,
-        allowAutoRestart: false,
       ),
     );
+    FlutterForegroundTask.setTaskHandler(ForegroundTask());
     FlutterForegroundTask.setOnLockScreenVisibility(true);
     FlutterForegroundTask.initCommunicationPort();
     KnownDevices.instance.addListener(_listener);
@@ -153,5 +154,22 @@ class ForegroundServiceManager with ChangeNotifier {
       types["microphone"] = ForegroundServiceTypes.microphone;
     }
     return types;
+  }
+}
+
+class ForegroundTask extends TaskHandler {
+  @override
+  Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
+    _logger.info("Service Stopped. isTimeout=$isTimeout");
+  }
+
+  @override
+  void onRepeatEvent(DateTime timestamp) {
+    // TODO: implement onRepeatEvent
+  }
+
+  @override
+  Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
+    _logger.info("Service started");
   }
 }

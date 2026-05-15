@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Device/stateful/battery_status.dart';
 import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
 
@@ -13,7 +14,6 @@ import '../../Bluetooth/known_devices.dart';
 import '../../analytics.dart';
 import '../../command_history.dart';
 import '../../command_queue.dart';
-import '../../logging_wrappers.dart';
 import '../../utilities/version.dart';
 import '../bluetooth_uart_services_list.dart';
 import '../common_device_stuffs.dart';
@@ -27,6 +27,7 @@ enum ConnectivityState { connected, disconnected, connecting }
 enum DeviceMoveState { standby, runAction, busy }
 
 class StatefulDevice {
+  final Logger _logger = Logger("StatefulDevice");
   final DeviceDefinition deviceDefinition;
   final StoredDevice storedDevice;
   final ValueNotifier<BluetoothUartService?> bluetoothUartService =
@@ -62,7 +63,6 @@ class StatefulDevice {
 
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
-  Timer? deviceStateWatchdogTimer;
 
   StatefulDevice(this.deviceDefinition, this.storedDevice) {
     Stream<OnCharacteristicReceivedEvent> deviceCharacteristicStream =
@@ -82,7 +82,7 @@ class StatefulDevice {
           try {
             return const Utf8Decoder().convert(event.value);
           } catch (e) {
-            bluetoothLog.warning("Unable to read values: ${event.value} $e");
+            _logger.warning("Unable to read values: ${event.value} $e");
           }
           return "";
         })
@@ -99,7 +99,7 @@ class StatefulDevice {
           try {
             return const Utf8Decoder().convert(event.value);
           } catch (e) {
-            bluetoothLog.warning("Unable to read values: ${event.value} $e");
+            _logger.warning("Unable to read values: ${event.value} $e");
           }
           return "";
         })
@@ -165,8 +165,6 @@ class StatefulDevice {
       //Fires off the FW/HW version and batt commands
       _periodicListener("");
     });
-    // prevent gear from being stuck in a move.
-    deviceState.addListener(_deviceStateWatchdog);
 
     // Store glowtip/rgb status
     hasGlowtip.value = storedDevice.hasGlowtip;
@@ -293,28 +291,6 @@ class StatefulDevice {
       commandQueue.addCommand(
         BluetoothMessage(message: "HWVER", priority: Priority.low),
       );
-    }
-  }
-
-  void _deviceStateWatchdog() {
-    if (deviceState.value == DeviceMoveState.runAction &&
-        deviceStateWatchdogTimer == null) {
-      deviceStateWatchdogTimer = Timer(
-        Duration(
-          seconds: HiveProxy.getOrDefault(
-            settings,
-            triggerActionCooldown,
-            defaultValue: triggerActionCooldownDefault,
-          ),
-        ),
-        () {
-          deviceState.value = DeviceMoveState.standby;
-        },
-      );
-    } else if (deviceState.value != DeviceMoveState.runAction &&
-        deviceStateWatchdogTimer != null) {
-      deviceStateWatchdogTimer?.cancel();
-      deviceStateWatchdogTimer = null;
     }
   }
 
