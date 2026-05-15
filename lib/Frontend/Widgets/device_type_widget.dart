@@ -34,13 +34,9 @@ class DeviceTypeWidget extends StatelessWidget {
             clearable: false,
             value: selected,
             onChanged: onSelectionChanged,
-            itemCount: DeviceType.values
-                .where((element) => !element.isHidden())
-                .length,
+            itemCount: DeviceType.values.length,
             itemBuilder: (state, i) {
-              DeviceType deviceType = DeviceType.values
-                  .where((element) => !element.isHidden())
-                  .toList()[i];
+              DeviceType deviceType = DeviceType.values.toList()[i];
               return ChoiceChip(
                 selectedColor: deviceType.color(),
                 selected: state.selected(deviceType),

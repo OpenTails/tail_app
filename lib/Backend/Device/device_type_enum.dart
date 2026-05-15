@@ -61,14 +61,4 @@ extension DeviceTypeExtension on DeviceType {
         return Colors.deepPurpleAccent;
     }
   }
-
-  //mainly used to hide claws from the custom moves pages, since usermove/dssp isnt relevent there.
-  bool isHidden() {
-    switch (this) {
-      case DeviceType.claws:
-        return true;
-      default:
-        return false;
-    }
-  }
 }

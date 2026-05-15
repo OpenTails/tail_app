@@ -36,7 +36,6 @@ Future<void> main() async {
   await initHive();
   initWear();
   appShortcuts();
-  //initFirebase();
   await startSentryApp(TailApp());
 }
 
