@@ -29,14 +29,17 @@ class _BulkOTAState extends State<BulkOTA> {
     devices = KnownDevices.instance
         .getConnectedGearForType(selectedDeviceType.toSet())
         .toList();
+    for (StatefulDevice device in devices) {
+      updaters[device] = OtaUpdater(device);
+    }
   }
 
   void beginOta() {
     for (var device in devices) {
-      if (updaters.containsKey(device)) {
+      if (updaters.containsKey(device) &&
+          updaters[device]!.otaState == OtaState.standby) {
         continue;
       }
-      updaters[device] = OtaUpdater(device);
       updaters[device]!.beginUpdate();
     }
   }
@@ -59,7 +62,6 @@ class _BulkOTAState extends State<BulkOTA> {
         .isNotEmpty;
 
     return PopScope(
-      canPop: !otaInProgress,
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) {
           abort();

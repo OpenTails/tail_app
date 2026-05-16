@@ -149,6 +149,13 @@ class OtaUpdater extends ChangeNotifier {
       transaction?.finish();
       return;
     }
+    if (statefulDevice.firmwareStatus.remoteFirmwareInfo == null &&
+        firmwareFile == null) {
+      setState(OtaState.error);
+      transaction?.status = SpanStatus.fromString("noRemoteFirmwareInfo");
+      transaction?.finish();
+      return;
+    }
     WakelockPlus.enable();
     if (firmwareFile == null) {
       await _downloadFirmware();

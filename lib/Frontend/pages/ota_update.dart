@@ -19,9 +19,7 @@ class OtaUpdate extends StatefulWidget {
   late final StatefulDevice device;
 
   OtaUpdate({required this.deviceMac, super.key}) {
-    device = KnownDevices.instance.connectedGear.firstWhere(
-      (p0) => p0.storedDevice.btMACAddress == deviceMac,
-    );
+    device = KnownDevices.instance.state[deviceMac]!;
     otaUpdater = OtaUpdater(device);
   }
 
