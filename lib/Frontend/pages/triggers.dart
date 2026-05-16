@@ -38,10 +38,7 @@ class _TriggersState extends State<Triggers> {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: Listenable.merge([
-        TriggerList.instance,
-        IsGearMoveRunning.instance,
-      ]),
+      listenable: TriggerList.instance,
       builder: (context, child) {
         final BuiltList<Trigger> triggersList = TriggerList.instance.state;
 

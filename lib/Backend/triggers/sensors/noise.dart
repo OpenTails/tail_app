@@ -8,6 +8,7 @@ import 'package:tail_app/Frontend/Widgets/noise_threshold_widget.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 import '../../../Frontend/utils.dart';
+import '../../../constants.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
 
@@ -56,7 +57,7 @@ class NoiseTriggerDefinition extends TriggerDefinition {
     state = NoiseState.unknown;
   }
 
-  double threshold = 9;
+  double threshold = 65;
 
   @override
   Future<void> onEnable() async {
@@ -66,6 +67,7 @@ class NoiseTriggerDefinition extends TriggerDefinition {
     noiseMeterStream = NoiseMeter().noise.listen(
       (NoiseReading noiseReading) {
         debug = noiseReading.toString();
+        threshold = optionalSettings[noiseThreshold];
         if (state != NoiseState.loud && noiseReading.meanDecibel > threshold) {
           state = NoiseState.loud;
           sendCommands("Loud");
