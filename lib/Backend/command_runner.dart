@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
@@ -10,10 +11,9 @@ import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
-import 'package:battery_plus/battery_plus.dart';
 
-import 'Action/base_action.dart';
 import 'Action/action_category.dart';
+import 'Action/base_action.dart';
 import 'Device/device_type_enum.dart';
 import 'Device/ear_speed_enum.dart';
 import 'Device/stateful/connected_gear.dart';
@@ -99,57 +99,58 @@ Future<void> _runAction(
         device.isTailCoNTROL.value == TailControlStatus.legacy &&
         action.legacyEarCommandMoves != null) {
       //support legacy ear firmware
-      if (action.legacyEarCommandMoves!.isNotEmpty &&
-          device.deviceDefinition.deviceType == DeviceType.ears) {
-        EarSpeed earSpeed = HiveProxy.getOrDefault(
-          settings,
-          earMoveSpeed,
-          defaultValue: earMoveSpeedDefault,
-        );
+      EarSpeed earSpeed = HiveProxy.getOrDefault(
+        settings,
+        earMoveSpeed,
+        defaultValue: earMoveSpeedDefault,
+      );
 
-        BluetoothMessage speedMsg = BluetoothMessage(
-          message: earSpeed.command,
-          type: CommandType.move,
-          responseMSG: earSpeed.command,
-        );
-        device.commandQueue.addCommand(speedMsg);
-        BluetoothMessage delayMessage = BluetoothMessage(
-          delay: 1,
-          type: CommandType.move,
-          message: '',
-        );
-        device.commandQueue.addCommand(delayMessage);
-        for (int i = 0; i < action.legacyEarCommandMoves!.length; i++) {
-          Object element = action.legacyEarCommandMoves![i];
-          if (element is Move) {
-            if (element.moveType == MoveType.delay) {
-              BluetoothMessage message = BluetoothMessage(
-                delay: element.time,
-                type: CommandType.move,
-                message: '',
-              );
-              device.commandQueue.addCommand(message);
-            }
-          } else if (element is CommandAction) {
-            //Generate move command
+      BluetoothMessage speedMsg = BluetoothMessage(
+        message: earSpeed.command,
+        type: CommandType.move,
+        responseMSG: earSpeed.command,
+      );
+      device.commandQueue.addCommand(speedMsg);
+
+      //There is a delay from when the legacy eargear responds to
+      // setting speed before the new speed applies
+      BluetoothMessage delayMessage = BluetoothMessage(
+        delay: 1,
+        type: CommandType.move,
+        message: '',
+      );
+      device.commandQueue.addCommand(delayMessage);
+      for (int i = 0; i < action.legacyEarCommandMoves!.length; i++) {
+        Object element = action.legacyEarCommandMoves![i];
+        if (element is Move) {
+          if (element.moveType == MoveType.delay) {
             BluetoothMessage message = BluetoothMessage(
-              message: element.command,
+              delay: element.time,
               type: CommandType.move,
-              responseMSG: element.response,
+              message: '',
             );
             device.commandQueue.addCommand(message);
           }
+        } else if (element is CommandAction) {
+          //Generate move command
+          BluetoothMessage message = BluetoothMessage(
+            message: element.command,
+            type: CommandType.move,
+            responseMSG: element.response,
+          );
+          device.commandQueue.addCommand(message);
         }
       }
+    } else {
+      //Tailcontrol/Normal command
+      device.commandQueue.addCommand(
+        BluetoothMessage(
+          message: action.command,
+          responseMSG: action.response,
+          type: CommandType.move,
+        ),
+      );
     }
-
-    device.commandQueue.addCommand(
-      BluetoothMessage(
-        message: action.command,
-        responseMSG: action.response,
-        type: CommandType.move,
-      ),
-    );
   } else if (action is MoveList) {
     _logger.info("Starting MoveList ${action.name}.");
     if (action.moves.isNotEmpty &&

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ import '../logging_wrappers.dart';
 import 'bluetooth_issues_check.dart';
 import 'known_devices.dart';
 
-final _bluetoothPlusLogger = log.Logger('BluetoothPlus');
+final _logger = log.Logger('BluetoothPlus');
 
 ValueNotifier<bool> isBluetoothEnabled = ValueNotifier(false);
 
@@ -30,7 +31,7 @@ Future<void> initFlutterBluePlus() async {
     return;
   }
   if (!await BluetoothIssues.instance.hasPermissions()) {
-    _bluetoothPlusLogger.info("Bluetooth permission not granted");
+    _logger.info("Bluetooth permission not granted");
     return;
   }
 
@@ -38,7 +39,7 @@ Future<void> initFlutterBluePlus() async {
   // first, check if bluetooth is supported by your hardware
   // Note: The platform is initialized on the first call to any FlutterBluePlus method.
   if (await FlutterBluePlus.isSupported == false) {
-    _bluetoothPlusLogger.info("Bluetooth not supported by this device");
+    _logger.info("Bluetooth not supported by this device");
     return;
   }
   _didInitFlutterBluePlus = true;
@@ -56,33 +57,32 @@ Future<void> initFlutterBluePlus() async {
   );
   FlutterBluePlus.events.onReadRssi.listen(
     _onReadRssiListener,
-    onError: (e) => _bluetoothPlusLogger.warning("Unable to read rssi: $e", e),
+    onError: (e) => _logger.warning("Unable to read rssi: $e", e),
   );
   FlutterBluePlus.events.onDiscoveredServices.listen(
     _onDiscoveredServicesListener,
-    onError: (e) =>
-        _bluetoothPlusLogger.warning("Unable to discover services: $e", e),
+    onError: (e) => _logger.warning("Unable to discover services: $e", e),
   );
   FlutterBluePlus.onScanResults.listen(
     _onScanResultsListener,
-    onError: (e, s) => _bluetoothPlusLogger.severe("", e, s),
+    onError: (e, s) => _logger.severe("", e, s),
   );
   Scan.instance;
   _KeepGearAwake.instance;
 }
 
 void _onServicesResetListener(OnServicesResetEvent event) async {
-  _bluetoothPlusLogger.info("${event.device.advName} onServicesReset");
+  _logger.info("${event.device.advName} onServicesReset");
   await event.device.discoverServices();
 }
 
 void _adapterStateListener(BluetoothAdapterState state) {
-  _bluetoothPlusLogger.info(state);
+  _logger.info(state);
   isBluetoothEnabled.value = state == BluetoothAdapterState.on;
 }
 
 void _onMtuChangedListener(OnMtuChangedEvent event) {
-  _bluetoothPlusLogger.info('${event.device.advName} MTU:${event.mtu}');
+  _logger.info('${event.device.advName} MTU:${event.mtu}');
   StatefulDevice? statefulDevice =
       KnownDevices.instance.state[event.device.remoteId.str];
   statefulDevice?.mtu.value = event.mtu;
@@ -108,7 +108,7 @@ Future<void> _onDiscoveredServicesListener(
       try {
         await characteristic.setNotifyValue(true);
       } on Exception {
-        _bluetoothPlusLogger.warning(
+        _logger.warning(
           "Unable to set notify on characteristic "
           "${characteristic.characteristicUuid}",
         );
@@ -118,7 +118,7 @@ Future<void> _onDiscoveredServicesListener(
 }
 
 void _onReadRssiListener(OnReadRssiEvent event) {
-  _bluetoothPlusLogger.info('${event.device.advName} RSSI:${event.rssi}');
+  _logger.info('${event.device.advName} RSSI:${event.rssi}');
   StatefulDevice? statefulDevice =
       KnownDevices.instance.state[event.device.remoteId.str];
   statefulDevice?.rssi.value = event.rssi;
@@ -127,7 +127,7 @@ void _onReadRssiListener(OnReadRssiEvent event) {
 Future<void> _onConnectionStateChangedListener(
   OnConnectionStateChangedEvent event,
 ) async {
-  _bluetoothPlusLogger.info('${event.device.advName} ${event.connectionState}');
+  _logger.info('${event.device.advName} ${event.connectionState}');
   Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   BluetoothDevice bluetoothDevice = event.device;
   BluetoothConnectionState bluetoothConnectionState = event.connectionState;
@@ -137,9 +137,7 @@ Future<void> _onConnectionStateChangedListener(
     bluetoothDevice.advName,
   );
   if (deviceDefinition == null) {
-    _bluetoothPlusLogger.warning(
-      "Unknown device found: ${bluetoothDevice.advName}",
-    );
+    _logger.warning("Unknown device found: ${bluetoothDevice.advName}");
     return;
   }
 
@@ -150,6 +148,11 @@ Future<void> _onConnectionStateChangedListener(
     statefulDevice = knownDevices[deviceID]!;
     storedDevice = statefulDevice.storedDevice;
   } else {
+    // Don't create a new entry on device disconnect if the stored device
+    // doesn't exist. Stops forgotten gear from immediately being repaired
+    if (event.connectionState == BluetoothConnectionState.disconnected) {
+      return;
+    }
     storedDevice = StoredDevice(
       deviceDefinition.uuid,
       deviceID,
@@ -173,7 +176,7 @@ class _KeepGearAwake {
   static final _KeepGearAwake instance = _KeepGearAwake._internal();
 
   _KeepGearAwake._internal() {
-    _bluetoothPlusLogger.info("Starting _KeepGearAwake timer");
+    _logger.info("Starting _KeepGearAwake timer");
     // The stream/app should pause in the background, so this should be fine
     _streamSubscription ??= Stream.periodic(
       const Duration(seconds: 15),
@@ -193,7 +196,7 @@ class _KeepGearAwake {
 Future<void> _onScanResultsListener(List<ScanResult> results) async {
   if (results.isNotEmpty) {
     ScanResult r = results.last; // the most recently found device
-    _bluetoothPlusLogger.info(
+    _logger.info(
       '${r.device.remoteId}: "${r.advertisementData.advName}" found!',
     );
     Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
@@ -221,7 +224,7 @@ Future<void> disconnect(String id) async {
       ConnectivityState.disconnected;
 
   if (device != null) {
-    _bluetoothPlusLogger.info("disconnecting from ${device.advName}");
+    _logger.info("disconnecting from ${device.advName}");
     await device.disconnect(queue: false);
   }
 }
@@ -238,7 +241,7 @@ Future<void> forgetBond(String id) async {
     (element) => element.remoteId.str == id,
   );
   if (device != null) {
-    _bluetoothPlusLogger.info("forgetting ${device.advName}");
+    _logger.info("forgetting ${device.advName}");
     await device.removeBond();
   }
 }
@@ -264,7 +267,7 @@ Future<void> connect(String id) async {
         break;
       } on FlutterBluePlusException catch (e) {
         retry = retry + 1;
-        _bluetoothPlusLogger.warning(
+        _logger.warning(
           "Failed to connect to ${result.device.advName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
           e,
         );
@@ -315,7 +318,7 @@ class Scan with ChangeNotifier {
     if (_didInitFlutterBluePlus &&
         !FlutterBluePlus.isScanningNow &&
         isBluetoothEnabled.value) {
-      _bluetoothPlusLogger.info("Starting scan");
+      _logger.info("Starting scan");
       _state = scanReason;
       await FlutterBluePlus.startScan(
         withServices: DeviceRegistry.getAllIds().map(Guid.new).toList(),
@@ -340,7 +343,7 @@ class Scan with ChangeNotifier {
     if (_state == ScanReason.notScanning) {
       return;
     }
-    _bluetoothPlusLogger.info("stopScan called");
+    _logger.info("stopScan called");
     await FlutterBluePlus.stopScan();
     _state = ScanReason.notScanning;
   }
@@ -396,7 +399,7 @@ Future<void> sendMessage(
                   .toLowerCase(),
         );
     if (bluetoothCharacteristic == null) {
-      _bluetoothPlusLogger.warning(
+      _logger.warning(
         "Unable to find bluetooth characteristic to send command to",
       );
       return;
@@ -410,13 +413,13 @@ Future<void> sendMessage(
               bluetoothCharacteristic.properties.writeWithoutResponse,
         )
         .catchError(
-          (e) => _bluetoothPlusLogger.warning(
+          (e) => _logger.warning(
             "Unable to send message to ${device.deviceDefinition.btName} $e",
             e,
           ),
         )
         .onError(
-          (e, s) => _bluetoothPlusLogger.severe(
+          (e, s) => _logger.severe(
             "Unable to send message to ${device.deviceDefinition.btName} $e",
             e,
           ),
@@ -437,4 +440,53 @@ Stream<bool> isScanning() {
     return Stream.value(false);
   }
   return FlutterBluePlus.isScanning;
+}
+
+Stream<OnCharacteristicReceivedEvent> getBaseRxStream(String macAddress) {
+  return FlutterBluePlus.events.onCharacteristicReceived.where(
+    (event) => event.device.remoteId.str == macAddress,
+  );
+}
+
+Stream<String> getRxStream(String macAddress, String charcteristicId) {
+  return getBaseRxStream(macAddress)
+      .where(
+        (event) =>
+            event.characteristic.characteristicUuid.str == charcteristicId,
+      )
+      .map((event) {
+        try {
+          return const Utf8Decoder().convert(event.value);
+        } catch (e) {
+          _logger.warning("Unable to read values: ${event.value} $e");
+        }
+        return "";
+      })
+      .where((event) => event.isNotEmpty)
+      .asBroadcastStream();
+}
+
+Stream<bool> getIsChargingStream(String macAddress) {
+  return getBaseRxStream(macAddress)
+      .where(
+        (event) =>
+            event.characteristic.characteristicUuid.str ==
+            "5073792e-4fc0-45a0-b0a5-78b6c1756c91",
+      )
+      .map((event) {
+        try {
+          return const Utf8Decoder().convert(event.value);
+        } catch (e) {
+          _logger.warning("Unable to read values: ${event.value} $e");
+        }
+        return "";
+      })
+      .where((event) => event.isNotEmpty)
+      .map((event) => event == "CHARGE ON");
+}
+
+Stream<double> getBatteryLevelStream(String macAddress) {
+  return getBaseRxStream(macAddress)
+      .where((event) => event.characteristic.characteristicUuid.str == "2a19")
+      .map((event) => event.value.first.toDouble());
 }

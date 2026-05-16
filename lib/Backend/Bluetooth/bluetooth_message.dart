@@ -25,6 +25,9 @@ class BluetoothMessage
   @override
   final CommandType type;
 
+  @override
+  final int resendRetries;
+
   BluetoothMessage({
     required this.message,
     this.responseMSG,
@@ -32,6 +35,7 @@ class BluetoothMessage
     this.type = CommandType.system,
     DateTime? timestamp,
     this.delay,
+    this.resendRetries = 1,
   }) : timestamp = timestamp ?? DateTime.now();
 
   @override

@@ -69,10 +69,6 @@ class TailApp extends StatelessWidget {
     launchAppAnalytics();
     setupSystemColor(context);
 
-    if (kDebugMode) {
-      _logger.info('Debug Mode Enabled');
-      HiveProxy.put(settings, showDebugging, true);
-    }
     Future(
       FlutterNativeSplash.remove,
     ); //remove the splash screen one frame later

@@ -115,13 +115,14 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
               priority: Priority.low,
             ),
           );
-          return element.rxCharacteristicStream.listen((msg) {
+          return element.rxCharacteristicStream?.listen((msg) {
             if (msg.contains("DOUBLE CLAP")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
               sendCommands("Clap");
             }
           });
         })
+        .nonNulls
         .toList();
   }
 }

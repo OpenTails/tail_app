@@ -164,9 +164,7 @@ class ForegroundTask extends TaskHandler {
   }
 
   @override
-  void onRepeatEvent(DateTime timestamp) {
-    // TODO: implement onRepeatEvent
-  }
+  void onRepeatEvent(DateTime timestamp) {}
 
   @override
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {

@@ -117,34 +117,36 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
       }
     }
     //Store the current streams to keep them open
-    rxSubscriptions = KnownDevices.instance.getConnectedGearForType({DeviceType.ears}).map((
-      element,
-    ) {
-      String command = "";
-      if (element.firmwareStatus.firmwareVersion <
-          Version(major: 5, minor: 4)) {
-        command = "TILTMODE START";
-      } else {
-        command = "TILTMODE";
-      }
-      element.commandQueue.addCommand(
-        BluetoothMessage(message: command, priority: Priority.low),
-      );
-      return element.rxCharacteristicStream.listen((msg) {
-        if (msg.contains("TILT LEFT")) {
-          // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Left");
-        } else if (msg.contains("TILT RIGHT")) {
-          // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Right");
-        } else if (msg.contains("TILT FORWARD")) {
-          // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Forward");
-        } else if (msg.contains("TILT BACKWARD")) {
-          // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
-          sendCommands("Backward");
-        }
-      });
-    }).toList();
+    rxSubscriptions = KnownDevices.instance
+        .getConnectedGearForType({DeviceType.ears})
+        .map((element) {
+          String command = "";
+          if (element.firmwareStatus.firmwareVersion <
+              Version(major: 5, minor: 4)) {
+            command = "TILTMODE START";
+          } else {
+            command = "TILTMODE";
+          }
+          element.commandQueue.addCommand(
+            BluetoothMessage(message: command, priority: Priority.low),
+          );
+          return element.rxCharacteristicStream?.listen((msg) {
+            if (msg.contains("TILT LEFT")) {
+              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+              sendCommands("Left");
+            } else if (msg.contains("TILT RIGHT")) {
+              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+              sendCommands("Right");
+            } else if (msg.contains("TILT FORWARD")) {
+              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+              sendCommands("Forward");
+            } else if (msg.contains("TILT BACKWARD")) {
+              // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
+              sendCommands("Backward");
+            }
+          });
+        })
+        .nonNulls
+        .toList();
   }
 }

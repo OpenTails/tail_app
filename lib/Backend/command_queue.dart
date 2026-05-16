@@ -25,22 +25,19 @@ enum CommandQueueState {
 class CommandQueue with ChangeNotifier {
   final Logger _logger = Logger("CommandQueue");
   final PriorityQueue<BluetoothMessage> _internalCommandQueue = PriorityQueue();
-  late final StatefulDevice _device;
+  final StatefulDevice device;
   Duration timeoutDuration = const Duration(seconds: 10);
   Timer? _runningCommandTimer;
   BluetoothMessage? currentMessage;
-  CommandHistory commandHistory = CommandHistory();
+  int retryCount = -1;
+  final CommandHistory commandHistory = CommandHistory();
 
   List<BluetoothMessage> get queue => _internalCommandQueue.toList();
 
-  CommandQueue(StatefulDevice device) {
-    _device = device;
-    device.deviceConnectionState.addListener(_connectionStateListener);
+  CommandQueue(this.device) {
+    device.bluetoothUartService.addListener(_connectionStateListener);
     device.gearReturnedError.addListener(_gearErrorListener);
     device.deviceState.addListener(_deviceStateListener);
-    device.rxCharacteristicStream.asBroadcastStream().listen(
-      _bluetoothResponseListener,
-    );
     addListener(_onStateChanged);
   }
 
@@ -48,6 +45,9 @@ class CommandQueue with ChangeNotifier {
   CommandQueueState _state = CommandQueueState.empty;
 
   void _setState(CommandQueueState state) {
+    if (_state == state) {
+      return;
+    }
     if (_internalCommandQueue.isEmpty && state == CommandQueueState.idle) {
       _state = CommandQueueState.empty;
     } else {
@@ -57,7 +57,7 @@ class CommandQueue with ChangeNotifier {
   }
 
   void _connectionStateListener() {
-    if (_device.deviceConnectionState.value != ConnectivityState.connected) {
+    if (device.deviceConnectionState.value != ConnectivityState.connected) {
       _internalCommandQueue.clear(); // clear the queue on disconnect
       stopQueue();
     } else {
@@ -66,7 +66,7 @@ class CommandQueue with ChangeNotifier {
   }
 
   /// Used to listen for a response if one is set in [BluetoothMessage].responseMSG
-  void _bluetoothResponseListener(String msg) {
+  void bluetoothResponseListener(String msg) {
     if (state == CommandQueueState.waitingForResponse &&
         currentMessage != null &&
         currentMessage!.responseMSG != null) {
@@ -76,10 +76,26 @@ class CommandQueue with ChangeNotifier {
     }
   }
 
-  /// Called when a delay command ends or after 10 seconds
+  /// Called when a command response is not received
   void _onTimeout() {
+    if (currentMessage != null &&
+        currentMessage!.resendRetries - retryCount > 0) {
+      retryCount += 1;
+      _logger.warning(
+        "Resending command $currentMessage. Retries remaining "
+        "$retryCount",
+      );
+      runCommand(currentMessage!);
+    } else {
+      _logger.warning("Command timed out! $currentMessage");
+      _endCommand();
+    }
+  }
+
+  void _endCommand() {
     currentMessage = null;
     _runningCommandTimer = null;
+    retryCount = -1;
     if ([
       CommandQueueState.delay,
       CommandQueueState.waitingForResponse,
@@ -91,12 +107,12 @@ class CommandQueue with ChangeNotifier {
 
   /// Trigger resending the current command if the gear returns ERR/BUSY
   void _gearErrorListener() {
-    if (_device.gearReturnedError.value &&
+    if (device.gearReturnedError.value &&
         [
           CommandQueueState.delay,
           CommandQueueState.waitingForResponse,
         ].contains(state)) {
-      _device.gearReturnedError.value = false;
+      device.gearReturnedError.value = false;
       _resendCommand();
     }
   }
@@ -104,26 +120,26 @@ class CommandQueue with ChangeNotifier {
   void _resendCommand() {
     if (currentMessage != null) {
       _logger.warning(
-        "Resending message for ${_device.storedDevice.name} $currentMessage",
+        "Resending message for ${device.storedDevice.name} $currentMessage",
       );
       addCommand(currentMessage!);
-      _onTimeout(); //abort waiting for the command to finish
+      _endCommand(); //abort waiting for the command to finish
     }
   }
 
   void _deviceStateListener() {
     if (state == CommandQueueState.blocked &&
-        _device.deviceState.value == DeviceMoveState.standby) {
+        device.deviceState.value == DeviceMoveState.standby) {
       startQueue();
     } else if (state != CommandQueueState.blocked &&
-        _device.deviceState.value == DeviceMoveState.busy) {
+        device.deviceState.value == DeviceMoveState.busy) {
       stopQueue();
     }
   }
 
   /// Stops the queue and aborts waiting for the next command;
   void stopQueue() {
-    _logger.fine("Stopping queue for ${_device.storedDevice.name}");
+    _logger.fine("Stopping queue for ${device.storedDevice.name}");
     _setState(CommandQueueState.blocked);
     _runningCommandTimer?.cancel();
     _runningCommandTimer = null;
@@ -131,7 +147,7 @@ class CommandQueue with ChangeNotifier {
   }
 
   void startQueue() {
-    _logger.fine("Starting queue for ${_device.storedDevice.name}");
+    _logger.fine("Starting queue for ${device.storedDevice.name}");
     _setState(CommandQueueState.idle);
   }
 
@@ -141,10 +157,10 @@ class CommandQueue with ChangeNotifier {
       case CommandQueueState.running:
       case CommandQueueState.waitingForResponse:
       case CommandQueueState.delay:
-        _device.deviceState.value = DeviceMoveState.runAction;
+        device.deviceState.value = DeviceMoveState.runAction;
         break;
       case CommandQueueState.blocked:
-        _device.deviceState.value = DeviceMoveState.busy;
+        device.deviceState.value = DeviceMoveState.busy;
         break;
       case CommandQueueState.idle:
         if (_internalCommandQueue.isEmpty) {
@@ -154,54 +170,57 @@ class CommandQueue with ChangeNotifier {
         }
         break;
       case CommandQueueState.empty:
-        _device.deviceState.value = DeviceMoveState.standby;
+        device.deviceState.value = DeviceMoveState.standby;
         break;
     }
   }
 
   Future<void> runCommand(BluetoothMessage bluetoothMessage) async {
     currentMessage = bluetoothMessage;
+    if (retryCount < 0) {
+      retryCount = currentMessage!.resendRetries.clamp(0, 5);
+    }
     _setState(CommandQueueState.running);
-    _device.gearReturnedError.value = false;
+    device.gearReturnedError.value = false;
 
     // handle if the command is a delay command
     if (bluetoothMessage.delay != null) {
-      _logger.fine("Pausing queue for ${_device.storedDevice.name}");
+      _logger.fine("Pausing queue for ${device.storedDevice.name}");
       _runningCommandTimer = Timer(
         Duration(milliseconds: bluetoothMessage.delay!.toInt() * 20),
-        _onTimeout,
+        _endCommand,
       );
       _setState(CommandQueueState.delay);
     } else {
       _logger.fine(
-        "Sending command to ${_device.storedDevice.name}:${bluetoothMessage.message}",
+        "Sending command to ${device.storedDevice.name}:${bluetoothMessage.message}",
       );
       commandHistory.add(
         type: MessageHistoryType.send,
         message: bluetoothMessage.message,
       );
 
-      if (!_device.storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
+      if (!device.storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
         if (bluetoothMessage.responseMSG != null) {
           _setState(CommandQueueState.waitingForResponse);
           _runningCommandTimer = Timer(timeoutDuration, _onTimeout);
         }
         await sendMessage(
-          _device,
+          device,
           const Utf8Encoder().convert(bluetoothMessage.message),
         );
         if (bluetoothMessage.responseMSG == null) {
-          _onTimeout(); // end the current command if no reason to wait
+          _endCommand(); // end the current command if no reason to wait
         }
       } else {
-        _onTimeout(); // end the current command if demo gear
+        _endCommand(); // end the current command if demo gear
       }
     }
   }
 
   void addCommand(BluetoothMessage bluetoothMessage) {
     // Don't add commands to disconnected or dev gear.
-    if (_device.deviceConnectionState.value != ConnectivityState.connected ||
+    if (device.deviceConnectionState.value != ConnectivityState.connected ||
         state == CommandQueueState.blocked) {
       return;
     }

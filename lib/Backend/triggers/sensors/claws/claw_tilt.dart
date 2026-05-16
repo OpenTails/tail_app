@@ -119,7 +119,7 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
             ),
           );
           //TODO: Wire up with the real commands
-          return element.rxCharacteristicStream.listen((msg) {
+          return element.rxCharacteristicStream?.listen((msg) {
             if (msg.contains("TILT UP")) {
               sendCommands("Extend");
             }
@@ -128,6 +128,7 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
             }
           });
         })
+        .nonNulls
         .toList();
   }
 }

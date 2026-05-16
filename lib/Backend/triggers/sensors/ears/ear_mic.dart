@@ -122,13 +122,14 @@ class EarMicTriggerDefinition extends TriggerDefinition {
           element.commandQueue.addCommand(
             BluetoothMessage(message: command, priority: Priority.low),
           );
-          return element.rxCharacteristicStream.listen((msg) {
+          return element.rxCharacteristicStream?.listen((msg) {
             if (msg.contains("LISTEN_FULL BANG")) {
               // we don't store the actions in class as multiple Triggers can exist, so go get them. This is only necessary when the action is dependent on gear being available
               sendCommands("Sound");
             }
           });
         })
+        .nonNulls
         .toList();
   }
 }

@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:logging/logging.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Device/stateful/battery_status.dart';
 import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
 
@@ -57,61 +56,13 @@ class StatefulDevice {
   final ValueNotifier<TailControlStatus> isTailCoNTROL = ValueNotifier(
     TailControlStatus.unknown,
   );
-  late final Stream<String> rxCharacteristicStream;
-
+  Stream<String>? rxCharacteristicStream;
   StreamSubscription? _periodicTimerStream;
 
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
 
   StatefulDevice(this.deviceDefinition, this.storedDevice) {
-    Stream<OnCharacteristicReceivedEvent> deviceCharacteristicStream =
-        FlutterBluePlus.events.onCharacteristicReceived
-            .asBroadcastStream()
-            .where(
-              (event) => event.device.remoteId.str == storedDevice.btMACAddress,
-            );
-
-    rxCharacteristicStream = deviceCharacteristicStream
-        .where(
-          (event) =>
-              event.characteristic.characteristicUuid.str ==
-              bluetoothUartService.value!.bleRxCharacteristic,
-        )
-        .map((event) {
-          try {
-            return const Utf8Decoder().convert(event.value);
-          } catch (e) {
-            _logger.warning("Unable to read values: ${event.value} $e");
-          }
-          return "";
-        })
-        .where((event) => event.isNotEmpty);
-    rxCharacteristicStream.asBroadcastStream().listen(_receivedCommandListener);
-
-    deviceCharacteristicStream
-        .where(
-          (event) =>
-              event.characteristic.characteristicUuid.str ==
-              "5073792e-4fc0-45a0-b0a5-78b6c1756c91",
-        )
-        .map((event) {
-          try {
-            return const Utf8Decoder().convert(event.value);
-          } catch (e) {
-            _logger.warning("Unable to read values: ${event.value} $e");
-          }
-          return "";
-        })
-        .where((event) => event.isNotEmpty)
-        .listen((event) {
-          battery.isCharging = event == "CHARGE ON";
-        });
-    deviceCharacteristicStream
-        .where((event) => event.characteristic.characteristicUuid.str == "2a19")
-        .listen((event) {
-          battery.level = event.value.first.toDouble();
-        });
     commandQueue = CommandQueue(this);
 
     deviceConnectionState.addListener(() {
@@ -122,6 +73,7 @@ class StatefulDevice {
           props: {"Gear Type": deviceDefinition.btName},
         );
         if (forgetOnDisconnect) {
+          _logger.info("Forgetting device");
           KnownDevices.instance.remove(storedDevice.btMACAddress);
           analyticsEvent(
             name: "Forgetting Gear",
@@ -151,7 +103,7 @@ class StatefulDevice {
         isTailCoNTROL.value = TailControlStatus.unknown;
         return;
       }
-
+      _registerCharacteristicStreams();
       isTailCoNTROL.value =
           bluetoothUartService.value ==
               uartServices.firstWhere(
@@ -186,11 +138,38 @@ class StatefulDevice {
     firmwareStatus.addListener(_versionListener);
   }
 
+  StreamSubscription<String>? _rxCharacteristicStreamSubscription;
+  StreamSubscription<bool>? _batteryChargingStreamSubscription;
+  StreamSubscription<double>? _batteryStreamSubscription;
+
+  void _registerCharacteristicStreams() {
+    if (bluetoothUartService.value == null) {
+      return;
+    }
+    rxCharacteristicStream = getRxStream(
+      storedDevice.btMACAddress,
+      bluetoothUartService.value!.bleRxCharacteristic,
+    );
+    _rxCharacteristicStreamSubscription = rxCharacteristicStream!.listen(
+      _receivedCommandListener,
+    );
+
+    _batteryChargingStreamSubscription =
+        getIsChargingStream(storedDevice.btMACAddress).listen((event) {
+          battery.isCharging = event;
+        });
+    _batteryStreamSubscription =
+        getBatteryLevelStream(storedDevice.btMACAddress).listen((event) {
+          battery.level = event;
+        });
+  }
+
   Future<void> _receivedCommandListener(String value) async {
     commandQueue.commandHistory.add(
       type: MessageHistoryType.receive,
       message: value,
     );
+    commandQueue.bluetoothResponseListener(value);
     // Firmware Version
     if (value.startsWith("VER")) {
       firmwareStatus.firmwareVersion = Version.getFromSemVer(
@@ -311,5 +290,12 @@ class StatefulDevice {
     bluetoothUartService.value = null;
     _periodicTimerStream?.cancel();
     _periodicTimerStream = null;
+    rxCharacteristicStream = null;
+    _rxCharacteristicStreamSubscription?.cancel();
+    _rxCharacteristicStreamSubscription = null;
+    _batteryChargingStreamSubscription?.cancel();
+    _batteryChargingStreamSubscription = null;
+    _batteryStreamSubscription?.cancel();
+    _batteryStreamSubscription = null;
   }
 }
