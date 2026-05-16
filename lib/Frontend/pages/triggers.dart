@@ -38,7 +38,10 @@ class _TriggersState extends State<Triggers> {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: TriggerList.instance,
+      listenable: Listenable.merge([
+        TriggerList.instance,
+        IsGearMoveRunning.instance,
+      ]),
       builder: (context, child) {
         final BuiltList<Trigger> triggersList = TriggerList.instance.state;
 
@@ -206,8 +209,9 @@ class _TriggersState extends State<Triggers> {
                         ),
                         crossFadeState:
                             !trigger.actions
-                                .map((e) => e.isActive)
-                                .any((element) => element == true)
+                                .where((e) => e.isActive)
+                                .map((e) => e.isActiveProgress)
+                                .any((element) => element > 0)
                             ? CrossFadeState.showFirst
                             : CrossFadeState.showSecond,
                         duration: animationTransitionDuration,
