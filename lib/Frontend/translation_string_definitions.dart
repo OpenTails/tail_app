@@ -1396,3 +1396,34 @@ String triggerPhoneMicQuiet() => Intl.message(
   name: 'triggerPhoneMicLoud',
   desc: 'Phone Mic trigger area is Quiet label',
 );
+
+String triggerMediaControlsTitle() => Intl.message(
+  "Fake Media Controls",
+  name: 'triggerMediaControlsTitle',
+  desc: 'Media Controls trigger title',
+);
+
+String triggerMediaControlsDescription() => Intl.message(
+  "Pretends to play audio to listen for playback controls, such as from "
+  "headphones or from the notification area",
+  name: 'triggerMediaControlsDescription',
+  desc: 'Media Controls trigger description',
+);
+
+String triggerMediaControlsPlayPause() => Intl.message(
+  "Play/Pause",
+  name: 'triggerMediaControlsPlayPause',
+  desc: 'Media Controls trigger play/pause action label',
+);
+
+String triggerMediaControlsForward() => Intl.message(
+  "Forward",
+  name: 'triggerMediaControlsForward',
+  desc: 'Media Controls trigger forward action label',
+);
+
+String triggerMediaControlsRewind() => Intl.message(
+  "Rewind",
+  name: 'triggerMediaControlsRewind',
+  desc: 'Media Controls trigger rewind action label',
+);

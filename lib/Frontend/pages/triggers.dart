@@ -352,6 +352,8 @@ class _TriggerEditState extends State<TriggerEdit> {
                   ],
                   PageInfoCard(text: triggerInfoEditActionDescription()),
                   ...trigger!.actions.map((TriggerAction triggerAction) {
+                    // Will fail for existing stored data if a
+                    // TriggerDefinition action is deleted/UUID changed
                     TriggerActionDef triggerActionDef = trigger!
                         .triggerDefinition!
                         .triggerActionDefinitions

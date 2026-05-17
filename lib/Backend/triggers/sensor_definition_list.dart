@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:tail_app/Backend/triggers/sensors/media_session.dart';
 import 'package:tail_app/Backend/triggers/sensors/noise.dart';
 
 import 'sensor_definition.dart';
@@ -32,6 +33,7 @@ class TriggerDefinitionList {
         ClawTiltTriggerDefinition(),
         AccelerometerTriggerDefinition(),
         NoiseTriggerDefinition(),
+        MediaSessionTriggerDefinition(),
       ]);
 
   //Filter by unused sensors

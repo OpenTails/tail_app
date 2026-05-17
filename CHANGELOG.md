@@ -1,12 +1,14 @@
 ### V 1.5.0
 
+- Add fake media playback trigger to allow controlling gear with earbuds and
+  bluetooth media remotes
 - Add phone orientation trigger
 - Add noise trigger
-- Lots of backend changes to support Watches
+- Lots of backend changes to support watches
 - Rework permissions
 - Remove marketing notifications
 - Move permission & bluetooth check to the Known Gear bar.
-- Bring back demo gear as a more flushed out feature, Now it is treated
+- Bring back demo gear as a more fleshed out feature, Now it is treated
   similar to regular gear.
 - Disabled the "Cover" trigger for now as many phones lack a real proximity
   sensor.
