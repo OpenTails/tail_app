@@ -93,7 +93,7 @@ abstract class TriggerDefinition extends ChangeNotifier
 
   //TODO: Merge body with main command method
   Future<void> sendCommands(String name) async {
-    if (KnownDevices.instance.connectedGear.isEmpty) {
+    if (KnownDevices.instance.connectedGear.isEmpty || !enabled) {
       return;
     }
     triggerActions

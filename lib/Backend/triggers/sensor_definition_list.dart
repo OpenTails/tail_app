@@ -21,33 +21,34 @@ import 'trigger.dart';
 // Defines what triggers show in the UI
 class TriggerDefinitionList {
   static final Iterable<TriggerDefinition> allTriggerDefinitions =
-      List.unmodifiable([
-        WalkingTriggerDefinition(),
-        CoverTriggerDefinition(),
-        TailProximityTriggerDefinition(),
-        ShakeTriggerDefinition(),
-        EarMicTriggerDefinition(),
-        EarTiltTriggerDefinition(),
-        RandomTriggerDefinition(),
-        VolumeButtonTriggerDefinition(),
-        ClawClapTriggerDefinition(),
-        ClawTiltTriggerDefinition(),
-        AccelerometerTriggerDefinition(),
-        NoiseTriggerDefinition(),
-        MediaSessionTriggerDefinition(),
-        GamepadTriggerDefinition(),
-      ]);
+  List.unmodifiable([
+    WalkingTriggerDefinition(),
+    CoverTriggerDefinition(),
+    TailProximityTriggerDefinition(),
+    ShakeTriggerDefinition(),
+    EarMicTriggerDefinition(),
+    EarTiltTriggerDefinition(),
+    RandomTriggerDefinition(),
+    VolumeButtonTriggerDefinition(),
+    ClawClapTriggerDefinition(),
+    ClawTiltTriggerDefinition(),
+    AccelerometerTriggerDefinition(),
+    NoiseTriggerDefinition(),
+    //MediaSessionTriggerDefinition(),
+    GamepadTriggerDefinition(),
+  ]);
 
   //Filter by unused sensors
-  static Iterable<TriggerDefinition> get() => allTriggerDefinitions
-      .toSet()
-      .difference(
+  static Iterable<TriggerDefinition> get() =>
+      allTriggerDefinitions
+          .toSet()
+          .difference(
         TriggerList.instance.state
             .map((Trigger e) => e.triggerDefinition!)
             .toSet(),
       )
-      .sorted()
-      .toList();
+          .sorted()
+          .toList();
 
   static Future<List<TriggerDefinition>> getSupported() async {
     Iterable<TriggerDefinition> unusedTriggerDefinitions = get();
