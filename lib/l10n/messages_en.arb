@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-05-15T04:58:46.157272",
+  "@@last_modified": "2026-05-18T01:02:34.608221",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1332,6 +1332,48 @@
   "triggerPhoneMicLoud": "Loud",
   "@triggerPhoneMicLoud": {
     "description": "Phone Mic trigger area is loud label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerMediaControlsTitle": "Fake Media Controls",
+  "@triggerMediaControlsTitle": {
+    "description": "Media Controls trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerMediaControlsDescription": "Pretends to play audio to listen for playback controls, such as from headphones or from the notification area",
+  "@triggerMediaControlsDescription": {
+    "description": "Media Controls trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerMediaControlsPlayPause": "Play/Pause",
+  "@triggerMediaControlsPlayPause": {
+    "description": "Media Controls trigger play/pause action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerMediaControlsForward": "Forward",
+  "@triggerMediaControlsForward": {
+    "description": "Media Controls trigger forward action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerMediaControlsRewind": "Rewind",
+  "@triggerMediaControlsRewind": {
+    "description": "Media Controls trigger rewind action label",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerGamepadTitle": "Gamepad",
+  "@triggerGamepadTitle": {
+    "description": "Gamepad trigger title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "triggerGamepadDescription": "Use a connected gamepad to control gear",
+  "@triggerGamepadDescription": {
+    "description": "Gamepad trigger description",
     "type": "text",
     "placeholders": {}
   }
