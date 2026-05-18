@@ -360,7 +360,9 @@ class _TriggerEditState extends State<TriggerEdit> {
                         .where((element) => triggerAction.uuid == element.uuid)
                         .first;
                     return ListTile(
-                      title: Text(convertToUwU(triggerActionDef.translated())),
+                      title:
+                          triggerActionDef.icon ??
+                          Text(convertToUwU(triggerActionDef.translated())),
                       subtitle: AnimatedCrossFade(
                         duration: animationTransitionDuration,
                         secondChild: TweenAnimationBuilder<double>(

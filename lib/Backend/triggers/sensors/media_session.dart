@@ -33,11 +33,13 @@ class MediaSessionTriggerDefinition extends TriggerDefinition {
         name: "Forward",
         translated: triggerMediaControlsForward,
         uuid: "eb464780-2384-4a93-92dc-a579010b01f9",
+        defaultActions: true,
       ),
       TriggerActionDef(
         name: "Rewind",
         translated: triggerMediaControlsRewind,
         uuid: "54a0a163-dd02-4abb-9831-70b656977d40",
+        defaultActions: true,
       ),
     ];
   }

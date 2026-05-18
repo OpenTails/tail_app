@@ -1,5 +1,6 @@
 ### V 1.5.0
 
+- Add gamepad trigger to trigger moves with connected gamepad buttons
 - Add fake media playback trigger to allow controlling gear with earbuds and
   bluetooth media remotes
 - Add phone orientation trigger

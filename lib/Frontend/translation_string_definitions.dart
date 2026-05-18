@@ -1427,3 +1427,15 @@ String triggerMediaControlsRewind() => Intl.message(
   name: 'triggerMediaControlsRewind',
   desc: 'Media Controls trigger rewind action label',
 );
+
+String triggerGamepadTitle() => Intl.message(
+  "Gamepad",
+  name: 'triggerGamepadTitle',
+  desc: 'Gamepad trigger title',
+);
+
+String triggerGamepadDescription() => Intl.message(
+  "Use a connected gamepad to control gear",
+  name: 'triggerGamepadDescription',
+  desc: 'Gamepad trigger description',
+);

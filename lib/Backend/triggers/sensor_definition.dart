@@ -13,6 +13,7 @@ import '../Bluetooth/known_devices.dart';
 import '../Device/common_device_stuffs.dart';
 import '../Device/device_type_enum.dart';
 import '../command_runner.dart';
+import '../utilities/settings.dart';
 import '../wear_bridge.dart';
 
 final _random = Random();
@@ -70,8 +71,10 @@ abstract class TriggerDefinition extends ChangeNotifier
   String get debug => _debug;
 
   set debug(String value) {
-    _debug = value;
-    notifyListeners();
+    if (isDeveloperEnabled) {
+      _debug = value;
+      notifyListeners();
+    }
   }
 
   Future<void> onEnable();

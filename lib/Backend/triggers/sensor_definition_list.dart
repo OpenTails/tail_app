@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:tail_app/Backend/triggers/sensors/gamepad.dart';
 import 'package:tail_app/Backend/triggers/sensors/media_session.dart';
 import 'package:tail_app/Backend/triggers/sensors/noise.dart';
 
@@ -34,6 +35,7 @@ class TriggerDefinitionList {
         AccelerometerTriggerDefinition(),
         NoiseTriggerDefinition(),
         MediaSessionTriggerDefinition(),
+        GamepadTriggerDefinition(),
       ]);
 
   //Filter by unused sensors
