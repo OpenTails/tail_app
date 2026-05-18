@@ -73,7 +73,7 @@ flutter {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.3.20")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.3.21")
     testImplementation("junit:junit:4.13.2")
 
 }
