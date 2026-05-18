@@ -105,7 +105,7 @@ dependencies:
   hive_ce_flutter: ^2.3.4
 
   # Spicy
-  firebase_core: ^4.8.0
+  firebase_core: ^4.9.0
   cloud_firestore: ^6.4.0
   upgrader: ^13.1.0 # update notices
   age_range_signals: ^0.5.1
