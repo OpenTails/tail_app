@@ -22,7 +22,7 @@ packageLicenseOverride:
   flutter_localizations: BSD-3-Clause
   flutter_test: BSD-3-Clause
   flutter_web_plugins: BSD-3-Clause
-
+  gamepads_web: MIT
 packageSourceOverride:
 
 omitDisclaimer:
