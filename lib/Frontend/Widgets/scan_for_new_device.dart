@@ -232,7 +232,7 @@ class _ScanGearListState extends State<ScanGearList> {
                                           title: Text(
                                             convertToUwU(
                                               getNameFromBTName(
-                                                e.device.advName,
+                                                e.device.platformName,
                                               ),
                                             ),
                                           ),
@@ -246,7 +246,8 @@ class _ScanGearListState extends State<ScanGearList> {
                                             analyticsEvent(
                                               name: "Connect New Gear",
                                               props: {
-                                                "Gear Type": e.device.advName,
+                                                "Gear Type":
+                                                    e.device.platformName,
                                                 "Onboarding in Progress":
                                                     (!widget.popOnConnect)
                                                         .toString(),

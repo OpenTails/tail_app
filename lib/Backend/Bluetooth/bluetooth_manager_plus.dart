@@ -72,7 +72,7 @@ Future<void> initFlutterBluePlus() async {
 }
 
 void _onServicesResetListener(OnServicesResetEvent event) async {
-  _logger.info("${event.device.advName} onServicesReset");
+  _logger.info("${event.device.platformName} onServicesReset");
   await event.device.discoverServices();
 }
 
@@ -82,7 +82,7 @@ void _adapterStateListener(BluetoothAdapterState state) {
 }
 
 void _onMtuChangedListener(OnMtuChangedEvent event) {
-  _logger.info('${event.device.advName} MTU:${event.mtu}');
+  _logger.info('${event.device.platformName} MTU:${event.mtu}');
   StatefulDevice? statefulDevice =
       KnownDevices.instance.state[event.device.remoteId.str];
   statefulDevice?.mtu.value = event.mtu;
@@ -118,7 +118,7 @@ Future<void> _onDiscoveredServicesListener(
 }
 
 void _onReadRssiListener(OnReadRssiEvent event) {
-  _logger.info('${event.device.advName} RSSI:${event.rssi}');
+  _logger.info('${event.device.platformName} RSSI:${event.rssi}');
   StatefulDevice? statefulDevice =
       KnownDevices.instance.state[event.device.remoteId.str];
   statefulDevice?.rssi.value = event.rssi;
@@ -127,17 +127,17 @@ void _onReadRssiListener(OnReadRssiEvent event) {
 Future<void> _onConnectionStateChangedListener(
   OnConnectionStateChangedEvent event,
 ) async {
-  _logger.info('${event.device.advName} ${event.connectionState}');
+  _logger.info('${event.device.platformName} ${event.connectionState}');
   Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   BluetoothDevice bluetoothDevice = event.device;
   BluetoothConnectionState bluetoothConnectionState = event.connectionState;
   String deviceID = bluetoothDevice.remoteId.str;
 
   DeviceDefinition? deviceDefinition = DeviceRegistry.getByName(
-    bluetoothDevice.advName,
+    bluetoothDevice.platformName,
   );
   if (deviceDefinition == null) {
-    _logger.warning("Unknown device found: ${bluetoothDevice.advName}");
+    _logger.severe("Unknown device found: ${bluetoothDevice.platformName}");
     return;
   }
 
@@ -224,7 +224,7 @@ Future<void> disconnect(String id) async {
       ConnectivityState.disconnected;
 
   if (device != null) {
-    _logger.info("disconnecting from ${device.advName}");
+    _logger.info("disconnecting from ${device.platformName}");
     await device.disconnect(queue: false);
   }
 }
@@ -241,7 +241,7 @@ Future<void> forgetBond(String id) async {
     (element) => element.remoteId.str == id,
   );
   if (device != null) {
-    _logger.info("forgetting ${device.advName}");
+    _logger.info("forgetting ${device.platformName}");
     await device.removeBond();
   }
 }
@@ -268,7 +268,7 @@ Future<void> connect(String id) async {
       } on FlutterBluePlusException catch (e) {
         retry = retry + 1;
         _logger.warning(
-          "Failed to connect to ${result.device.advName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
+          "Failed to connect to ${result.device.platformName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
           e,
         );
         await Future.delayed(Duration(milliseconds: 250));
