@@ -35,8 +35,6 @@ Future<void> main() async {
   _logger.info("Begin");
   initFlutter();
   await initHive();
-  initWear();
-  appShortcuts();
   await startSentryApp(TailApp());
 }
 
@@ -61,12 +59,14 @@ class TailApp extends StatelessWidget {
     ForegroundServiceManager.instance;
     AppBadgeManager.instance;
     WakelockManager.instance;
+    initWear();
+    appShortcuts();
+    launchAppAnalytics();
   }
 
   @override
   Widget build(BuildContext context) {
     _logger.info('Starting app');
-    launchAppAnalytics();
     setupSystemColor(context);
 
     Future(

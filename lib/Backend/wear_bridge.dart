@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:stream_transform/stream_transform.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
@@ -66,10 +65,9 @@ void initWear() {
   try {
     _wearLogger.info("Setting up listeners");
 
-    _watch.messageStream
-        .asBroadcastStream()
-        .debounce(Duration(milliseconds: 250))
-        .listen(_watchIncomingMessageListener);
+    _watch.messageStream.asBroadcastStream().listen(
+      _watchIncomingMessageListener,
+    );
     KnownDevices.instance.addListener(() {
       KnownDevices.instance.state.values.map((e) => e).forEach((element) {
         element.battery

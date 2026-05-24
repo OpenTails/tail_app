@@ -182,7 +182,6 @@ class KnownDevices with ChangeNotifier {
 class IsGearMoveRunning extends ChangeNotifier {
   static final IsGearMoveRunning instance = IsGearMoveRunning._internal();
 
-  @override
   IsGearMoveRunning._internal() {
     KnownDevices.instance
       ..removeListener(_notify)

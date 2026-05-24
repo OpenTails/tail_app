@@ -103,6 +103,10 @@ Future<void> startSentryApp(Widget child) async {
     },
     // Init your App.
     // ignore: missing_provider_scope
-    appRunner: () => runApp(SentryScreenshotWidget(child: child)),
+    appRunner: () => runApp(
+      SentryWidget(
+        child: DefaultAssetBundle(bundle: SentryAssetBundle(), child: child),
+      ),
+    ),
   );
 }

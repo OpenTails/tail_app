@@ -19,15 +19,14 @@ class UserLocale with ChangeNotifier {
       ..addListener(_notify);
   }
 
-  void _notify() {
-    get();
+  Future<void> _notify() async {
+    await get();
     notifyListeners();
   }
 
   Future<String> get() async {
     final String defaultLocale =
         Platform.localeName; // Returns locale string in the form 'en_US'
-
     String userSelectedLocale = HiveProxy.getOrDefault(
       settings,
       selectedLocale,
