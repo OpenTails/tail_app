@@ -1,6 +1,6 @@
 import 'package:circular_buffer/circular_buffer.dart';
 import 'package:flutter/material.dart';
-import 'package:tail_app/Backend/command_history.dart';
+import 'package:tail_app/Backend/Device/command/command_history.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../../Backend/Device/stateful/connected_gear.dart';

@@ -5,7 +5,7 @@ import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
-import 'package:tail_app/Backend/command_runner.dart';
+import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 import 'package:tail_app/Backend/triggers/trigger.dart';
 import 'package:tail_app/Backend/utilities/version.dart';
@@ -20,6 +20,7 @@ import 'Device/stateful/connected_gear.dart';
 import 'favorite_actions.dart';
 
 part 'wear_bridge.freezed.dart';
+
 part 'wear_bridge.g.dart';
 
 final Logger _wearLogger = Logger('Wear');

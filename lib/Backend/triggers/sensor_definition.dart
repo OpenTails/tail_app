@@ -10,9 +10,9 @@ import '../Action/action_category.dart';
 import '../Action/action_registry.dart';
 import '../Action/base_action.dart';
 import '../Bluetooth/known_devices.dart';
+import '../Device/command/command_runner.dart';
 import '../Device/common_device_stuffs.dart';
 import '../Device/device_type_enum.dart';
-import '../command_runner.dart';
 import '../utilities/settings.dart';
 import '../wear_bridge.dart';
 

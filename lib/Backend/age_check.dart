@@ -2,6 +2,7 @@ import 'package:age_range_signals/age_range_signals.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:google_api_availability/google_api_availability.dart';
 import 'package:logging/logging.dart';
+import 'package:universal_io/io.dart';
 
 import '../Frontend/utils.dart';
 
@@ -14,7 +15,7 @@ Future<bool> shouldShowCoshub() async {
   // Age signals only available on mobile
   if (!isMobile) {
     //Firebase doesn't support web
-    if (platform.isLinux) {
+    if (Platform.isLinux) {
       return false;
     }
     return true;
@@ -23,14 +24,14 @@ Future<bool> shouldShowCoshub() async {
 
   // Check age signals
   try {
-    if (platform.isIOS) {
+    if (Platform.isIOS) {
       IosDeviceInfo iosDeviceInfo = await DeviceInfoPlugin().iosInfo;
       if (int.parse(iosDeviceInfo.systemVersion.split(".")[0]) < 26) {
         _logger.info("IOS version below 26");
         return true;
       }
     }
-    if (platform.isAndroid) {
+    if (Platform.isAndroid) {
       GooglePlayServicesAvailability availability = await GoogleApiAvailability
           .instance
           .checkGooglePlayServicesAvailability();

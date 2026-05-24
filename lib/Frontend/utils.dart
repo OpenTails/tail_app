@@ -7,16 +7,15 @@ import 'package:flutter/foundation.dart';
 import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
-import 'package:platform/platform.dart';
+import 'package:universal_io/io.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
 import '../Backend/logging_wrappers.dart';
 import '../constants.dart';
 
 final dioLogger = Logger('Dio');
-final LocalPlatform platform = LocalPlatform();
 
-bool get isMobile => !kIsWeb && (platform.isAndroid || platform.isIOS);
+bool get isMobile => !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 Dio? _dio;
 final cacheOptions = CacheOptions(
   // A default store is required for interceptor.

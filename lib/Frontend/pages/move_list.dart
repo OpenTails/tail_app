@@ -1,11 +1,11 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tail_app/Backend/command_runner.dart';
+import 'package:tail_app/Backend/Device/command/command_runner.dart';
+import 'package:tail_app/Backend/move_lists_backend.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:tail_app/Backend/move_lists_backend.dart';
 import '../../Backend/Action/action_category.dart';
 import '../../Backend/Action/base_action.dart';
 import '../../Backend/Device/device_type_enum.dart';

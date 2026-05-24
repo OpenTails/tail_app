@@ -3,7 +3,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
-import 'package:tail_app/Backend/command_runner.dart';
+import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
 import 'package:tail_app/Backend/utilities/settings.dart';

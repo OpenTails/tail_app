@@ -12,7 +12,7 @@ import '../../Backend/Device/device_type_enum.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/Device/stored_device.dart';
 import '../../Backend/analytics.dart';
-import '../../Backend/device_registry.dart';
+import '../../Backend/Device/device_registry.dart';
 import '../../Backend/utilities/settings.dart';
 import '../../assets.dart';
 import '../../constants.dart';

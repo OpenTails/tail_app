@@ -7,6 +7,7 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
+import 'package:universal_io/io.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../../Backend/dynamic_config.dart';
@@ -17,7 +18,6 @@ import '../../../Backend/wear_bridge.dart';
 import '../../../assets.dart';
 import '../../../constants.dart';
 import '../../go_router_config.dart';
-import '../../utils.dart';
 
 class DeveloperMenu extends StatefulWidget {
   const DeveloperMenu({super.key});
@@ -302,7 +302,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
           ),
           ListTile(
             title: const Text("PlatformLocale"),
-            subtitle: Text(platform.localeName),
+            subtitle: Text(Platform.localeName),
           ),
           const ListTile(title: Divider()),
           ListTile(

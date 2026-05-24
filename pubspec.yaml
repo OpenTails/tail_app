@@ -42,14 +42,13 @@ dependencies:
   flutter_foreground_task: ^9.2.2 # Keep the app running in the background on android
   quick_actions: ^1.1.0 # puts favorites on the home screen
   audioplayers: ^6.6.0
-  platform: ^3.1.6 # used to enable mocking platform
   connectivity_plus: ^7.1.1
   data_saver: ^0.4.0 # check if data saver is enabled
   battery_plus: ^7.0.0
   stream_transform: ^2.1.1 # debouncing wear commands
   app_settings: ^7.0.0
   app_badge_plus: ^1.2.10
-
+  universal_io: ^2.3.1
   # Watch
   watch_connectivity: ^0.2.1+1
 
@@ -174,7 +173,12 @@ icons_launcher:
       tinted_path: "assets/TC_Logo_Transparent_NoText_greyscale.png"
     web:
       enable: true
-
+    windows:
+      enable: true
+    macos:
+      enable: true
+    linux:
+      enable: true
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.
@@ -201,4 +205,3 @@ flutter_native_splash:
     color_dark: "#212121"
     image: "assets/TC_Logo_Transparent.png"
     image_dark: "assets/TC_Logo_Transparent_dark.png"
-

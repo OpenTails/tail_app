@@ -15,13 +15,13 @@ runs:
       run: dart pub global activate intl_translation
     - name: Get dependencies
       shell: bash
-      run: flutter pub get
+      run: flutter pub get --no-example --enforce-lockfile
     - name: Generate translation files
       shell: bash
       run: dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
     - name: Generate dart .g files
       shell: bash
-      run: dart pub run build_runner build --delete-conflicting-outputs
+      run: dart pub run build_runner build
     - name: Write Firebase Flutter
       shell: bash
       run: echo "$DART_FIREBASE" > ./lib/firebase_options.dart

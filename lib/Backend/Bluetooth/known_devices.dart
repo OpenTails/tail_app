@@ -7,11 +7,11 @@ import 'package:logging/logging.dart';
 import '../../constants.dart';
 import '../Device/common_device_stuffs.dart';
 import '../Device/device_definition.dart';
+import '../Device/device_registry.dart';
 import '../Device/device_type_enum.dart';
 import '../Device/stateful/connected_gear.dart';
 import '../Device/stored_device.dart';
 import '../Device/tail_control_status_enum.dart';
-import '../device_registry.dart';
 
 final Logger _logger = Logger("KnownGear");
 

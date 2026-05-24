@@ -1,7 +1,7 @@
 import 'package:quick_actions/quick_actions.dart';
 import 'package:synchronized/synchronized.dart';
+import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/analytics.dart';
-import 'package:tail_app/Backend/command_runner.dart';
 
 import '../Frontend/utils.dart';
 import 'Action/action_registry.dart';

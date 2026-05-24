@@ -33,28 +33,17 @@ getBuildNumber() {
 setUpTools() {
   # Configure flutter & pre-build tasks
   echo "::group::Configure tools"
-  flutter config --no-cli-animations --enable-analytics
-  dart pub global activate intl_translation
-  dart pub global activate build_runner
-  dart pub global activate icons_launcher
+  flutter config --no-cli-animations --disable-analytics
+  flutter pub global activate intl_translation
   echo "::endgroup::"
 }
 preBuildTasks() {
   echo "::group::Generate Translation Files"
-  dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
-  echo "::endgroup::"
-
-  echo "::group:: Run FlutterGen"
-  fluttergen -c pubspec.yaml
+  flutter pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
   echo "::endgroup::"
 
   echo "::group::Generate Dart .g Files"
-  dart pub run build_runner build --delete-conflicting-outputs
-  echo "::endgroup::"
-
-  echo "::group::Generate App assets"
-  dart run flutter_native_splash:create
-  dart pub global run icons_launcher:create
+  flutter pub run build_runner build
   echo "::endgroup::"
 }
 
@@ -69,7 +58,7 @@ setUpTools
 
 
 echo "::group::Get Dependencies"
-dart pub get
+flutter pub get --no-example --enforce-lockfile
 echo "::endgroup::"
 
 DEBUG=""

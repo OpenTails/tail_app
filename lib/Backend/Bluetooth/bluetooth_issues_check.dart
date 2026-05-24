@@ -3,7 +3,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tail_app/Frontend/utils.dart';
+import 'package:universal_io/io.dart';
 
 /// TODO: Connect together and to UI
 /// Add strings for each type of action on the new card
@@ -24,28 +24,28 @@ class BluetoothIssues with ChangeNotifier {
 
   Future<Map<Permission, String>> _getRequiredPermissions() async {
     Map<Permission, String> requiredPermissions = {};
-    if (kIsWeb || platform.isLinux || platform.isMacOS) {
+    if (kIsWeb || Platform.isLinux || Platform.isMacOS) {
       return requiredPermissions;
     }
-    if (platform.isAndroid &&
+    if (Platform.isAndroid &&
         (await DeviceInfoPlugin().androidInfo).version.sdkInt > 30) {
       requiredPermissions[Permission.bluetoothScan] = "bluetoothScan";
       requiredPermissions[Permission.bluetoothConnect] = "bluetoothConnect";
-    } else if (platform.isAndroid) {
+    } else if (Platform.isAndroid) {
       requiredPermissions[Permission.location] = "location";
       requiredPermissions[Permission.locationWhenInUse] = "locationWhenInUse";
     } else {
       requiredPermissions[Permission.bluetooth] = "bluetooth";
     }
     // For foreground service
-    if (platform.isAndroid) {
+    if (Platform.isAndroid) {
       requiredPermissions[Permission.notification] = "notification";
     }
     return requiredPermissions;
   }
 
   Future<void> openSettings() async {
-    if (platform.isAndroid) {
+    if (Platform.isAndroid) {
       switch (deniedPermission) {
         case "bluetoothScan":
         case "bluetoothConnect":

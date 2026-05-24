@@ -99,3 +99,4 @@ HiveTest/
 
 .HiveTest/
 /android/.kotlin/
+.sentry-native/

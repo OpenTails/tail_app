@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart' as log;
 
-import 'Action/base_action.dart';
-import 'Bluetooth/known_devices.dart';
-import 'Device/bluetooth_uart_services_list.dart';
-import 'Device/device_definition.dart';
-import 'Device/device_type_enum.dart';
-import 'Device/stateful/connected_gear.dart';
-import 'utilities/version.dart';
+import '../Action/base_action.dart';
+import '../Bluetooth/known_devices.dart';
+import 'bluetooth_uart_services_list.dart';
+import 'device_definition.dart';
+import 'device_type_enum.dart';
+import 'stateful/connected_gear.dart';
+import '../utilities/version.dart';
 
 final _deviceRegistryLogger = log.Logger('DeviceRegistry');
 

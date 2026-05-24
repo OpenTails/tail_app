@@ -4,7 +4,6 @@
 import "dart:async";
 import "dart:convert";
 import "dart:developer" as developer;
-import "dart:io";
 
 import "package:dio/dio.dart";
 import "package:flutter/foundation.dart";
@@ -222,7 +221,7 @@ class Aptabase {
 
       Map<String, String> headers = {};
       headers["App-Key"] = _appKey;
-      headers[HttpHeaders.contentTypeHeader] =
+      headers["content-type"] =
           "application/json; "
           "charset=UTF-8";
       if (!kIsWeb) {

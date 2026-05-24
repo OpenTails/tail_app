@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tail_app/Backend/command_runner.dart';
+import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:vector_math/vector_math.dart';
 
-import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
+import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/device_type_enum.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../Backend/move_lists_backend.dart';

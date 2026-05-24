@@ -3,9 +3,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
-import 'package:tail_app/Backend/command_runner.dart';
-import 'package:tail_app/Frontend/pages/actions/ear_speed_widget.dart';
+import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
+import 'package:tail_app/Frontend/pages/actions/ear_speed_widget.dart';
 
 import '../../../Backend/Action/action_registry.dart';
 import '../../../Backend/Action/base_action.dart';

@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
+import 'package:universal_io/io.dart';
 
-import '../../Frontend/utils.dart';
 import '../../constants.dart';
 import '../Device/bluetooth_uart_services_list.dart';
 import '../Device/common_device_stuffs.dart';
 import '../Device/device_definition.dart';
+import '../Device/device_registry.dart';
 import '../Device/device_type_enum.dart';
 import '../Device/stateful/connected_gear.dart';
 import '../Device/stored_device.dart';
-import '../device_registry.dart';
 import '../logging_wrappers.dart';
 import 'bluetooth_issues_check.dart';
 import 'known_devices.dart';
@@ -234,7 +234,7 @@ Future<void> forgetBond(String id) async {
     return;
   }
   // removing bonds is supported on android
-  if (!platform.isAndroid) {
+  if (!Platform.isAndroid) {
     return;
   }
   BluetoothDevice? device = FlutterBluePlus.connectedDevices.firstWhereOrNull(

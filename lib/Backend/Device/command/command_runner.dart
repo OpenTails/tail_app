@@ -12,13 +12,13 @@ import 'package:tail_app/Backend/move_lists_backend.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 
-import 'Action/action_category.dart';
-import 'Action/base_action.dart';
-import 'Device/device_type_enum.dart';
-import 'Device/ear_speed_enum.dart';
-import 'Device/stateful/connected_gear.dart';
-import 'Device/tail_control_status_enum.dart';
-import 'device_registry.dart';
+import '../../Action/action_category.dart';
+import '../../Action/base_action.dart';
+import '../device_registry.dart';
+import '../device_type_enum.dart';
+import '../ear_speed_enum.dart';
+import '../stateful/connected_gear.dart';
+import '../tail_control_status_enum.dart';
 
 Battery _battery = Battery();
 Logger _logger = Logger("CommandRunner");
