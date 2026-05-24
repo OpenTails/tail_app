@@ -72,33 +72,40 @@ class TailApp extends StatelessWidget {
     Future(
       FlutterNativeSplash.remove,
     ); //remove the splash screen one frame later
-    Color primaryAppColor = Color(
-      HiveProxy.getOrDefault(settings, appColor, defaultValue: appColorDefault),
-    );
     return WithForegroundTask(
       child: BtAppStateController(
         child: ListenableBuilder(
           listenable: Listenable.merge([
-            Hive.box(
-              settings,
-            ).listenable(keys: [appColor, uwuTextEnabled, selectedLocale]),
+            Hive.box(settings).listenable(keys: [appColor]),
             UserLocale.instance,
           ]),
           builder: (BuildContext context, Widget? child) {
             rebuildAllChildren(context);
-            return MaterialApp.router(
-              title: title(),
-              color: primaryAppColor,
-              theme: buildTheme(Brightness.light, primaryAppColor),
-              darkTheme: buildTheme(Brightness.dark, primaryAppColor),
-              routerConfig: router,
-              localizationsDelegates: [
-                LocaleNamesLocalizationsDelegate(),
-                ...AppLocalizations.localizationsDelegates,
-              ],
-              supportedLocales: AppLocalizations.supportedLocales,
-              themeMode: ThemeMode.system,
-              debugShowCheckedModeBanner: false,
+            Color primaryAppColor = Color(
+              HiveProxy.getOrDefault(
+                settings,
+                appColor,
+                defaultValue: appColorDefault,
+              ),
+            );
+            return FutureBuilder(
+              future: UserLocale.instance.get(),
+              builder: (context, asyncSnapshot) {
+                return MaterialApp.router(
+                  title: title(),
+                  color: primaryAppColor,
+                  theme: buildTheme(Brightness.light, primaryAppColor),
+                  darkTheme: buildTheme(Brightness.dark, primaryAppColor),
+                  routerConfig: router,
+                  localizationsDelegates: [
+                    LocaleNamesLocalizationsDelegate(),
+                    ...AppLocalizations.localizationsDelegates,
+                  ],
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  themeMode: ThemeMode.system,
+                  debugShowCheckedModeBanner: false,
+                );
+              },
             );
           },
         ),
@@ -108,6 +115,7 @@ class TailApp extends StatelessWidget {
 
   //https://stackoverflow.com/questions/43778488/how-to-force-flutter-to-rebuild-redraw-all-widgets
   void rebuildAllChildren(BuildContext context) {
+    _logger.warning("rebuildAllChildren() Called");
     void rebuild(Element el) {
       el.markNeedsBuild();
       el.visitChildren(rebuild);
