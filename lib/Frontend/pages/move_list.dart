@@ -306,10 +306,7 @@ class _EditMoveList extends State<EditMoveList> {
                     },
                   ),
               ],
-              onReorder: (int oldIndex, int newIndex) async {
-                if (oldIndex < newIndex) {
-                  newIndex -= 1;
-                }
+              onReorderItem: (int oldIndex, int newIndex) async {
                 setState(() {
                   final Move item = widget.moveList.moves.removeAt(oldIndex);
                   widget.moveList.moves.insert(newIndex, item);

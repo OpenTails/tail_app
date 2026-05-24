@@ -110,16 +110,13 @@ class _BulkOTAState extends State<BulkOTA> {
                       : () async {
                           FilePickerResult? result = await FilePicker.pickFiles(
                             type: FileType.custom,
-                            withData: true,
                             allowedExtensions: ['bin'],
                           );
                           if (result != null) {
-                            setState(() {
+                            setState(() async {
                               for (StatefulDevice device in devices) {
                                 updaters[device]!.setManualOtaFile(
-                                  result.files.single.bytes?.toList(
-                                    growable: false,
-                                  ),
+                                  await result.files.single.readAsBytes(),
                                 );
                               }
                             });

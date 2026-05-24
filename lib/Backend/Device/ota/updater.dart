@@ -232,7 +232,7 @@ class OtaUpdater extends ChangeNotifier {
       if (connectivityState == ConnectivityState.disconnected) {
         _disconnectTimer?.cancel();
         _reconnectTimer = Timer(const Duration(seconds: 30), () {
-          _otaLogger.warning("Gear did not reconnect");
+          _otaLogger.severe("Gear did not reconnect");
           _onError(OtaError.gearReconnectTimeout, transaction);
           transaction?.finish();
         });
@@ -302,14 +302,14 @@ class OtaUpdater extends ChangeNotifier {
         _otaLogger.info("File Uploaded");
         setState(OtaState.rebooting);
         _disconnectTimer = Timer(const Duration(seconds: 30), () {
-          _otaLogger.warning("Gear did not disconnect");
+          _otaLogger.severe("Gear did not disconnect");
           _onError(OtaError.gearDisconnectTimeout, transaction);
           transaction?.finish();
         });
         // start scanning for the gear to reconnect
         _finalTimer = Timer(const Duration(seconds: 60), () {
           if (otaState != OtaState.completed) {
-            _otaLogger.warning(
+            _otaLogger.severe(
               "Gear did not return correct version after reboot",
             );
             _onError(OtaError.gearOtaFinalTimeout, transaction);

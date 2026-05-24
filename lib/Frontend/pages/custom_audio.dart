@@ -33,7 +33,6 @@ class _CustomAudioState extends State<CustomAudio> {
           _audioLogger.info("Opening file dialog");
           FilePickerResult? result = await FilePicker.pickFiles(
             type: FileType.custom,
-            withReadStream: true,
             allowedExtensions: [
               'aac',
               'm4a',
@@ -54,7 +53,7 @@ class _CustomAudioState extends State<CustomAudio> {
             _audioLogger
               ..info("File path ${storedAudioFilePath.path}")
               ..info("Selected file Path ${file.path}");
-            Stream<List<int>> openRead = file.readStream!;
+            Stream<List<int>> openRead = file.readAsByteStream();
             IOSink ioSinkWrite = storedAudioFilePath.openWrite();
             await ioSinkWrite.addStream(openRead);
             ioSinkWrite.close();

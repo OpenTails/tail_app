@@ -181,11 +181,9 @@ class _OtaUpdateState extends State<OtaUpdate> {
                                     allowedExtensions: ['bin'],
                                   );
                               if (result != null) {
-                                setState(() {
+                                setState(() async {
                                   widget.otaUpdater.setManualOtaFile(
-                                    result.files.single.bytes?.toList(
-                                      growable: false,
-                                    ),
+                                    await result.files.single.readAsBytes(),
                                   );
                                 });
                               } else {
