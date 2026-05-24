@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shake/shake.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 import '../../../Frontend/utils.dart';
+import '../../../vendor/shake.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
 
