@@ -11,6 +11,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/foreground_service_manager.dart';
+import 'package:tail_app/Backend/pebble.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 import 'package:tail_app/Backend/wakelock_manager.dart';
 
@@ -59,6 +60,7 @@ class TailApp extends StatelessWidget {
     ForegroundServiceManager.instance;
     AppBadgeManager.instance;
     WakelockManager.instance;
+    PebbleManager.instance;
     initWear();
     appShortcuts();
     launchAppAnalytics();

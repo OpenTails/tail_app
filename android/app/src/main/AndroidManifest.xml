@@ -104,6 +104,14 @@
             android:exported="false"
             android:foregroundServiceType="connectedDevice|microphone"
             android:stopWithTask="true" />
+        <service
+            android:name="com.codel1417.tailApp.PebbleListenerService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="io.rebble.pebblekit2.RECEIVE_DATA_FROM_WATCH" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
