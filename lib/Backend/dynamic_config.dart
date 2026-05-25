@@ -58,6 +58,7 @@ abstract class SentryConfig with _$SentryConfig {
     @Default(0.5) double profilesSampleRate,
     @Default(0) double replaySessionSampleRate,
     @Default(0) double replayOnErrorSampleRate,
+    @Default(false) bool reportSilentErrors,
   }) = _SentryConfig;
 
   factory SentryConfig.fromJson(Map<String, dynamic> json) =>

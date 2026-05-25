@@ -1,8 +1,10 @@
+import io.sentry.android.gradle.extensions.InstrumentationFeature
 import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
     id("com.android.application")
+    id("io.sentry.android.gradle") version "6.8.1"
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
@@ -72,4 +74,35 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.3.20")
     testImplementation("junit:junit:4.13.2")
     implementation("io.rebble.pebblekit2:client:1.1.0")
+}
+
+sentry {
+    ignoredBuildTypes.set(setOf("debug"))
+    org.set("floof")
+    projectName.set("tail-app")
+    authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
+    url.set("https://glitchtip.codel1417.xyz")
+    includeProguardMapping.set(true)
+    autoUploadProguardMapping.set(true)
+    includeNativeSources.set(true)
+    includeSourceContext.set(true)
+    tracingInstrumentation {
+        enabled.set(true)
+        features.set(setOf(InstrumentationFeature.DATABASE, InstrumentationFeature.FILE_IO, InstrumentationFeature.OKHTTP, InstrumentationFeature.COMPOSE))
+        logcat {
+            enabled.set(true)
+            // Specifies a minimum log level for the logcat breadcrumb logging.
+            // Defaults to LogcatLevel.WARNING.
+            //minLevel.set(LogcatLevel.WARNING)
+        }
+    }
+    // Enable auto-installation of Sentry components (sentry-android SDK and okhttp, timber, fragment and compose integrations).
+    // Default is enabled.
+    // Only available v3.1.0 and above.
+    autoInstallation {
+        enabled.set(false)
+    }
+    sizeAnalysis {
+        enabled = providers.environmentVariable("GITHUB_ACTIONS").isPresent
+    }
 }

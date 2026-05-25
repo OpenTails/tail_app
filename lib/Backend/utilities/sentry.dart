@@ -90,7 +90,10 @@ Future<void> startSentryApp(Widget child) async {
             ? 1
             : dynamicConfigInfo.sentryConfig.profilesSampleRate
         ..beforeSend = beforeSend
-        ..reportPackages = false
+        ..enableTombstone = true
+        ..reportSilentFlutterErrors =
+            dynamicConfigInfo.sentryConfig.reportSilentErrors
+        ..attachViewHierarchy = true
         ..attachScreenshot = true
         ..privacy.maskAllImages = false
         ..privacy.maskAllText =

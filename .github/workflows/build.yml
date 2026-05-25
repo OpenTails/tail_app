@@ -55,7 +55,7 @@ jobs:
           android-key-properties: ${{ secrets.ANDROID_KEY_PROPERTIES }}
           android-keystore-password: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           android-key-password: ${{ secrets.ANDROID_KEY_PASSWORD }}
-
+          sentry-auth: ${{ secrets.SENTRY_AUTH_TOKEN }}
           sentry-dsn: ${{ secrets.SENTRY_DSN }}
       - name: Build IOS / Upload Beta
         if: github.event_name == 'push'
