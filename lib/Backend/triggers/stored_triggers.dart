@@ -2,7 +2,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/triggers/sensor_definition.dart';
 import 'package:tail_app/Backend/triggers/sensor_definition_list.dart';
 import 'package:tail_app/Backend/triggers/trigger.dart';
@@ -57,6 +59,7 @@ class TriggerList with ChangeNotifier {
     KnownDevices.instance
       ..removeListener(_disableAllTriggers)
       ..addListener(_disableAllTriggers);
+    updateSentryContext();
   }
 
   Future<void> add(Trigger trigger) async {
@@ -77,6 +80,7 @@ class TriggerList with ChangeNotifier {
     await lazyBox.addAll(_state);
     notifyListeners();
     updateWearData(reason: "Trigger Added/Removed");
+    updateSentryContext();
   }
 
   void _disableAllTriggers() {
@@ -87,5 +91,29 @@ class TriggerList with ChangeNotifier {
     state.where((element) => element.enabled).forEach((element) {
       element.enabled = false;
     });
+  }
+
+  void updateSentryContext() {
+    Sentry.configureScope(
+      (scope) => scope.setContexts('Sensors', {
+        "Enabled": state
+            .map((trigger) => trigger.triggerDefinition)
+            .nonNulls
+            .where((triggerDefinition) => triggerDefinition.enabled)
+            .map(
+              (triggerDefinition) =>
+                  Intl.withLocale('en', () => triggerDefinition.name()),
+            )
+            .toString(),
+        "Configured": state
+            .map((trigger) => trigger.triggerDefinition)
+            .nonNulls
+            .map(
+              (triggerDefinition) =>
+                  Intl.withLocale('en', () => triggerDefinition.name()),
+            )
+            .toString(),
+      }),
+    );
   }
 }

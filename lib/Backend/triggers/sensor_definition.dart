@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:tail_app/Backend/triggers/permissions.dart';
 import 'package:tail_app/Backend/triggers/sensor_definition_action_definition.dart';
+import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 import 'package:tail_app/Backend/triggers/trigger_action.dart';
 
 import '../Action/action_category.dart';
@@ -64,6 +65,7 @@ abstract class TriggerDefinition extends ChangeNotifier
     // ignore: unused_result
     updateWearData(reason: "Trigger Enabled/Disabled");
     debug = "enabled: $enabled";
+    TriggerList.instance.updateSentryContext();
   }
 
   String _debug = "";

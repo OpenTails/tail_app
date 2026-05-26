@@ -27,10 +27,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
 
   @override
   Future<bool> isSupported() async {
-    if (!isMobile) {
-      return false;
-    }
-    return true;
+    return isMobile;
   }
 
   @override
