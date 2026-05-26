@@ -14,14 +14,14 @@ class PebbleManager {
   final int pebbleFavoriteActionListKey = 1;
   final Logger _logger = Logger("Pebble");
   static final instance = PebbleManager._internal();
-  final MethodChannel _methodChannel = MethodChannel("pebble");
-  final EventChannel _eventChannel = EventChannel("pebble_streanm");
+  MethodChannel? _methodChannel;
+  EventChannel? _eventChannel;
   final String companionUUID = "2f0f69dd-af4c-4bb3-a679-138ed0ff9242";
 
   PebbleManager._internal() {
     KnownDevices.instance.addListener(_listener);
     FavoriteActions.instance.addListener(_listener);
-    _eventChannel.receiveBroadcastStream().listen(_onDataReceived);
+    _eventChannel?.receiveBroadcastStream().listen(_onDataReceived);
     init(companionUUID);
   }
 
@@ -59,6 +59,7 @@ class PebbleManager {
     }
     dataToSend[pebbleDeviceListKey] = deviceList;
     dataToSend[pebbleFavoriteActionListKey] = favoriteActionsList;
+    sendData(dataToSend);
   }
 
   bool get isSupported => Platform.isAndroid;
@@ -68,7 +69,7 @@ class PebbleManager {
       return false;
     }
     return await _methodChannel
-            .invokeMethod<bool>("isConnected")
+            ?.invokeMethod<bool>("isConnected")
             .timeout(
               Duration(seconds: 10),
               onTimeout: () {
@@ -91,6 +92,9 @@ class PebbleManager {
   }
 
   Future<void> sendData(Map<int, dynamic> data) async {
+    if (!isSupported) {
+      return;
+    }
     if (!_didInit) {
       throw Exception("Pebble companion uuid not set");
     }
@@ -106,7 +110,7 @@ class PebbleManager {
       return;
     }
     await _methodChannel
-        .invokeMethod("sendData", data)
+        ?.invokeMethod("sendData", data)
         .timeout(
           Duration(seconds: 10),
           onTimeout: () =>
@@ -132,8 +136,10 @@ class PebbleManager {
     if (!isSupported) {
       return;
     }
+    _methodChannel = MethodChannel("pebble");
+    _eventChannel = EventChannel("pebble_streanm");
     _logger.info("Configuring pebble");
-    await _methodChannel
+    await _methodChannel!
         .invokeMethod("init", companionAppUUID)
         .timeout(
           Duration(seconds: 10),
