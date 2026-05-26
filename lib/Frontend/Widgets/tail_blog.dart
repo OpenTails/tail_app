@@ -16,7 +16,7 @@ import '../utils.dart';
 
 part 'tail_blog.freezed.dart';
 
-final _wpLogger = Logger('Main');
+final _wpLogger = Logger('TailBlog');
 
 class TailBlog extends StatefulWidget {
   const TailBlog({super.key});
@@ -39,7 +39,15 @@ class _TailBlogState extends State<TailBlog> {
         return Center(child: CircularProgressIndicator());
       case FeedState.noInternet:
       case FeedState.error:
-        return const Center(child: Opacity(opacity: 0.5, child: Icon(Icons.signal_cellular_connected_no_internet_0_bar, size: 150)));
+        return const Center(
+          child: Opacity(
+            opacity: 0.5,
+            child: Icon(
+              Icons.signal_cellular_connected_no_internet_0_bar,
+              size: 150,
+            ),
+          ),
+        );
       case FeedState.loaded:
         return ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -55,15 +63,25 @@ class _TailBlogState extends State<TailBlog> {
                   child: SizedBox(
                     width: 250,
                     child: Semantics(
-                      label: 'A button to view the blog post: ${feedItem.title}',
+                      label:
+                          'A button to view the blog post: ${feedItem.title}',
                       child: InkWell(
                         onTap: () async {
-                          await launchExternalUrl(url: feedItem.url, analyticsLabel: "Tail Blog Post");
+                          await launchExternalUrl(
+                            url: feedItem.url,
+                            analyticsLabel: "Tail Blog Post",
+                          );
                         },
                         child: Stack(
                           alignment: Alignment.bottomCenter,
                           children: <Widget>[
-                            if (feedItem.imageId != null) ...[SizedBox.expand(child: TailBlogImage(url: feedItem.imageUrl ?? ""))],
+                            if (feedItem.imageId != null) ...[
+                              SizedBox.expand(
+                                child: TailBlogImage(
+                                  url: feedItem.imageUrl ?? "",
+                                ),
+                              ),
+                            ],
                             Card(
                               clipBehavior: Clip.antiAlias,
                               margin: EdgeInsets.zero,
@@ -100,7 +118,8 @@ class _TailBlogState extends State<TailBlog> {
 
   Future<void> getFeed() async {
     if (results.isEmpty) {
-      if (await isLimitedDataEnvironment() || !(await getDynamicConfigInfo()).featureFlags.enableTailBlogPosts) {
+      if (await isLimitedDataEnvironment() ||
+          !(await getDynamicConfigInfo()).featureFlags.enableTailBlogPosts) {
         setState(() {
           feedState = FeedState.noInternet;
         });
@@ -113,11 +132,16 @@ class _TailBlogState extends State<TailBlog> {
           page: 1,
           perPage: 10,
           order: Order.desc,
-          queryParameters: {'_embed': 'true', '_fields': '_links.wp:featuredmedia,id,link,title,date,featured_media'},
+          queryParameters: {
+            '_embed': 'true',
+            '_fields':
+                '_links.wp:featuredmedia,id,link,title,date,featured_media',
+          },
           context: RequestContext.embed,
         );
         client ??= await getWordpressClient();
-        final WordpressResponse<List<Post>> wordpressPostResponse = await client!.posts.list(request);
+        final WordpressResponse<List<Post>> wordpressPostResponse =
+            await client!.posts.list(request);
         List<Post>? data = wordpressPostResponse.dataOrNull();
         if (data != null) {
           wordpressPosts = data;
@@ -130,7 +154,15 @@ class _TailBlogState extends State<TailBlog> {
       }
       if (wordpressPosts.isNotEmpty) {
         for (Post post in wordpressPosts) {
-          results.add(FeedItem(title: post.title!.parsedText, publishDate: post.date!, url: post.link, imageId: post.featuredMedia, imageUrl: await getImageURL(post)));
+          results.add(
+            FeedItem(
+              title: post.title!.parsedText,
+              publishDate: post.date!,
+              url: post.link,
+              imageId: post.featuredMedia,
+              imageUrl: await getImageURL(post),
+            ),
+          );
         }
       }
       //filter out posts that are missing a thumbnail
@@ -149,7 +181,13 @@ class _TailBlogState extends State<TailBlog> {
 
   Future<String?> getImageURL(Post post) async {
     try {
-      MediaDetails mediaDetails = MediaDetails.fromJson(post.self['_embedded']['wp:featuredmedia'][0]['media_details']);
+      Map<String, dynamic>? json =
+          post.self['_embedded']?['wp:featuredmedia']?[0]?['media_details'];
+      if (json == null || json.isEmpty) {
+        _wpLogger.warning("No featured media for post ${post.title}");
+        return null;
+      }
+      MediaDetails? mediaDetails = MediaDetails.fromJson(json);
 
       // if the post does not have a featured image, or if the featured image does not have the compressed versions created by wordpress.
       if (mediaDetails.sizes == null) {
@@ -169,7 +207,9 @@ class _TailBlogState extends State<TailBlog> {
         return "https://thetailcompany.com/wp-content/uploads/${mediaDetails.file}";
       }
     } catch (e) {
-      _wpLogger.warning("Unable to load featured media for post ${post.title}. $e");
+      _wpLogger.severe(
+        "Unable to load featured media for post ${post.title}. $e",
+      );
     }
     return null;
   }
@@ -181,7 +221,13 @@ abstract class FeedItem with _$FeedItem implements Comparable<FeedItem> {
   const FeedItem._();
 
   @Implements<Comparable<FeedItem>>()
-  const factory FeedItem({required String url, required String title, required DateTime publishDate, final int? imageId, final String? imageUrl}) = _FeedItem;
+  const factory FeedItem({
+    required String url,
+    required String title,
+    required DateTime publishDate,
+    final int? imageId,
+    final String? imageUrl,
+  }) = _FeedItem;
 
   @override
   int compareTo(FeedItem other) {
