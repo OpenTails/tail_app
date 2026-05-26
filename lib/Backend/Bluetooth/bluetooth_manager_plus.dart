@@ -128,6 +128,11 @@ Future<void> _onConnectionStateChangedListener(
   OnConnectionStateChangedEvent event,
 ) async {
   _logger.info('${event.device.platformName} ${event.connectionState}');
+  if (event.connectionState == BluetoothConnectionState.connected &&
+      event.device.platformName.trim().isEmpty) {
+    _logger.warning("Disconnecting from BLE device with blank platform name");
+    disconnect(event.device.remoteId.str);
+  }
   Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   BluetoothDevice bluetoothDevice = event.device;
   BluetoothConnectionState bluetoothConnectionState = event.connectionState;

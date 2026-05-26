@@ -61,6 +61,7 @@ class StatefulDevice {
 
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
+  Timer? _connectBleServiceWatchdog;
 
   StatefulDevice(this.deviceDefinition, this.storedDevice) {
     commandQueue = CommandQueue(this);
@@ -80,6 +81,18 @@ class StatefulDevice {
             props: {"Gear Type": deviceDefinition.btName},
           );
         }
+      } else {
+        _connectBleServiceWatchdog = Timer(Duration(seconds: 10), () {
+          if (bluetoothUartService.value != null ||
+              deviceConnectionState.value != ConnectivityState.connected) {
+            _connectBleServiceWatchdog = null;
+            return;
+          }
+          _logger.severe(
+            "Failed to connect or locate BLE UART service in time for device ${deviceDefinition.btName}.",
+          );
+          disconnect(storedDevice.btMACAddress);
+        });
       }
       if (deviceConnectionState.value == ConnectivityState.connected) {
         // The timer used for the time value on the battery level graph
@@ -297,5 +310,7 @@ class StatefulDevice {
     _batteryChargingStreamSubscription = null;
     _batteryStreamSubscription?.cancel();
     _batteryStreamSubscription = null;
+    _connectBleServiceWatchdog?.cancel();
+    _connectBleServiceWatchdog = null;
   }
 }
