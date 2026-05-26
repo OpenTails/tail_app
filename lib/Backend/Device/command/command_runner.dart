@@ -18,7 +18,6 @@ import '../device_registry.dart';
 import '../device_type_enum.dart';
 import '../ear_speed_enum.dart';
 import '../stateful/connected_gear.dart';
-import '../tail_control_status_enum.dart';
 
 Battery _battery = Battery();
 Logger _logger = Logger("CommandRunner");
@@ -96,7 +95,7 @@ Future<void> _runAction(
 
   if (action is CommandAction) {
     if (device.deviceDefinition.deviceType == DeviceType.ears &&
-        device.isTailCoNTROL.value == TailControlStatus.legacy &&
+        !device.bluetoothUartService.value!.isTailcontrol &&
         action.legacyEarCommandMoves != null) {
       //support legacy ear firmware
       EarSpeed earSpeed = HiveProxy.getOrDefault(
@@ -156,7 +155,7 @@ Future<void> _runAction(
     if (action.moves.isNotEmpty &&
         action.moves.length <= 5 &&
         (device.deviceDefinition.deviceType != DeviceType.ears ||
-            device.isTailCoNTROL.value == TailControlStatus.tailControl)) {
+            device.bluetoothUartService.value!.isTailcontrol)) {
       int preset = 1; //TODO: store
       String cmd =
           "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt()}";
@@ -249,7 +248,7 @@ List<BluetoothMessage> generateMoveCommand(
   List<BluetoothMessage> commands = [];
   if (move.moveType == MoveType.home) {
     if (device.deviceDefinition.deviceType == DeviceType.ears &&
-        device.isTailCoNTROL.value != TailControlStatus.tailControl) {
+        !device.bluetoothUartService.value!.isTailcontrol) {
       commands.add(
         BluetoothMessage(
           message: "EARHOME",
@@ -270,7 +269,7 @@ List<BluetoothMessage> generateMoveCommand(
     }
   } else if (move.moveType == MoveType.move) {
     if (device.deviceDefinition.deviceType == DeviceType.ears &&
-        device.isTailCoNTROL.value != TailControlStatus.tailControl) {
+        !device.bluetoothUartService.value!.isTailcontrol) {
       commands
         ..add(
           BluetoothMessage(

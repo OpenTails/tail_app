@@ -17,9 +17,11 @@ abstract class DeviceDefinition with _$DeviceDefinition {
   const factory DeviceDefinition({
     required String uuid,
     required String btName,
+    required String friendlyName,
     required DeviceType deviceType,
     Version? minVersion,
     @Default(false) bool unsupported,
+    @Default(true) bool enableDemo,
   }) = _DeviceDefinition;
 
   Future<String> getFwURL() async {

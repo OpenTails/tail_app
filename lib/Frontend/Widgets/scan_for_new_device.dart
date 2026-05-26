@@ -6,13 +6,12 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/bluetooth_uart_services_list.dart';
-import '../../Backend/Device/common_device_stuffs.dart';
 import '../../Backend/Device/device_definition.dart';
+import '../../Backend/Device/device_registry.dart';
 import '../../Backend/Device/device_type_enum.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/Device/stored_device.dart';
 import '../../Backend/analytics.dart';
-import '../../Backend/Device/device_registry.dart';
 import '../../Backend/utilities/settings.dart';
 import '../../assets.dart';
 import '../../constants.dart';
@@ -73,39 +72,21 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                             }
                           },
                           dropdownMenuEntries: DeviceRegistry.allDevices
-                              .where((element) {
+                              .where((deviceDefinition) {
                                 if (isDeveloperEnabled) {
                                   return true;
                                 } else {
-                                  return [
-                                    "EG2",
-                                    "MiTail",
-                                  ].contains(element.btName);
+                                  return deviceDefinition.enableDemo;
                                 }
                               })
                               .map(
                                 (e) => DropdownMenuEntry(
                                   value: e,
-                                  label: getNameFromBTName(e.btName),
+                                  label: e.friendlyName,
                                 ),
                               )
                               .toList(),
                         ),
-                      ),
-                      ListTile(
-                        title: Text(convertToUwU(scanRemoveDemoGear())),
-                        leading: const Icon(Icons.delete),
-                        onTap: () async {
-                          KnownDevices.instance.removeDevGear();
-                          if (KnownDevices.instance.state.values
-                              .where(
-                                (element) =>
-                                    element.deviceConnectionState.value ==
-                                    ConnectivityState.connected,
-                              )
-                              .isEmpty) {}
-                          context.pop();
-                        },
                       ),
                     ],
                   ),
@@ -131,14 +112,12 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
     if (KnownDevices.instance.state.containsKey(btMac)) {
       return;
     }
-    StoredDevice storedDevice;
-    StatefulDevice statefulDevice;
-    storedDevice = StoredDevice(
+    StoredDevice storedDevice = StoredDevice(
       value.uuid,
       btMac,
       value.deviceType.color().toARGB32(),
-    )..name = getNameFromBTName(value.btName);
-    statefulDevice = StatefulDevice(value, storedDevice);
+    )..name = value.friendlyName;
+    StatefulDevice statefulDevice = StatefulDevice(value, storedDevice);
 
     // Has to be added before updating connection state
     await KnownDevices.instance.add(statefulDevice);
@@ -167,12 +146,14 @@ class ScanGearList extends StatefulWidget {
 
 class _ScanGearListState extends State<ScanGearList> {
   bool anyKnownGear = false;
+  List<BluetoothDevice> foundSystemDevices = [];
 
   @override
   void initState() {
     super.initState();
     anyKnownGear = KnownDevices.instance.state.isNotEmpty;
     Scan.instance.beginScan(scanReason: ScanReason.addGear);
+    getSystemDevices();
   }
 
   @override
@@ -193,15 +174,18 @@ class _ScanGearListState extends State<ScanGearList> {
           stream: FlutterBluePlus.scanResults,
           builder:
               (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
-                List<ScanResult> list = [];
+                List<BluetoothDevice> foundDevices = [];
                 if (snapshot.hasData) {
-                  list = snapshot.data!
+                  foundDevices = snapshot.data!
                       .where(
-                        (test) =>
-                            !knownDeviceIds.contains(test.device.remoteId.str),
+                        (scanResult) => !knownDeviceIds.contains(
+                          scanResult.device.remoteId.str,
+                        ),
                       )
+                      .map((scanResult) => scanResult.device)
                       .toList();
-                  anyGearFound = list.isNotEmpty;
+                  foundDevices.addAll(foundSystemDevices);
+                  anyGearFound = foundDevices.isNotEmpty;
                 }
                 return ListView(
                   shrinkWrap: true,
@@ -224,30 +208,30 @@ class _ScanGearListState extends State<ScanGearList> {
                                 ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: list.length,
+                                  itemCount: foundDevices.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                        ScanResult e = list[index];
+                                        BluetoothDevice e = foundDevices[index];
                                         return ListTile(
                                           title: Text(
                                             convertToUwU(
-                                              getNameFromBTName(
-                                                e.device.platformName,
-                                              ),
+                                              DeviceRegistry.getByName(
+                                                    e.platformName,
+                                                  )?.friendlyName ??
+                                                  "",
                                             ),
                                           ),
                                           trailing: Text(
                                             isDeveloperEnabled
-                                                ? e.device.remoteId.str
+                                                ? e.remoteId.str
                                                 : "",
                                           ),
                                           onTap: () async {
-                                            await e.device.connect();
+                                            await e.connect();
                                             analyticsEvent(
                                               name: "Connect New Gear",
                                               props: {
-                                                "Gear Type":
-                                                    e.device.platformName,
+                                                "Gear Type": e.platformName,
                                                 "Onboarding in Progress":
                                                     (!widget.popOnConnect)
                                                         .toString(),
@@ -261,12 +245,13 @@ class _ScanGearListState extends State<ScanGearList> {
                                         );
                                       },
                                 ),
-                                if (list.length > 1) ...[
+                                if (foundDevices.length > 1) ...[
                                   Center(
                                     child: FilledButton(
                                       onPressed: () async {
-                                        for (ScanResult scanResult in list) {
-                                          scanResult.device.connect();
+                                        for (BluetoothDevice bluetoothDevice
+                                            in foundDevices) {
+                                          bluetoothDevice.connect();
                                         }
                                         if (widget.popOnConnect) {
                                           Navigator.pop(context);
@@ -354,5 +339,28 @@ class _ScanGearListState extends State<ScanGearList> {
         );
       },
     );
+  }
+
+  Future<void> getSystemDevices() async {
+    foundSystemDevices =
+        await FlutterBluePlus.systemDevices(
+          DeviceRegistry.fbpGearServices,
+        ).then(
+          (value) => value
+              .where(
+                (bluetoothDevice) => !KnownDevices.instance.state.containsKey(
+                  bluetoothDevice.remoteId.str,
+                ),
+              )
+              .where(
+                (bluetoothDevice) =>
+                    DeviceRegistry.getByName(bluetoothDevice.platformName) !=
+                    null,
+              )
+              .toList(),
+        );
+    if (foundSystemDevices.isNotEmpty && mounted && context.mounted) {
+      setState(() {});
+    }
   }
 }

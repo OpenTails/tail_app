@@ -21,23 +21,3 @@ enum RGBStatus {
   @HiveField(3)
   unknown,
 }
-
-String getNameFromBTName(String bluetoothDeviceName) {
-  switch (bluetoothDeviceName) {
-    case 'EarGear':
-      return 'EarGear';
-    case 'EG2':
-      return 'EarGear 2';
-    case 'mitail':
-      return 'MiTail';
-    case 'minitail':
-      return 'Mini';
-    case 'flutter':
-      return 'FlutterWings';
-    case '(!)Tail1':
-      return 'DigiTail';
-    case 'clawgear':
-      return 'Claws';
-  }
-  return bluetoothDeviceName;
-}

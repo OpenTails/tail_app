@@ -11,7 +11,6 @@ import '../../../Backend/Action/action_registry.dart';
 import '../../../Backend/Action/base_action.dart';
 import '../../../Backend/Device/device_type_enum.dart';
 import '../../../Backend/Device/stateful/connected_gear.dart';
-import '../../../Backend/Device/tail_control_status_enum.dart';
 import '../../../Backend/favorite_actions.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../constants.dart';
@@ -181,7 +180,9 @@ class ShowEarSpeed extends StatelessWidget {
       child:
           KnownDevices.instance
               .getConnectedGearForType({DeviceType.ears})
-              .where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy)
+              .where(
+                (device) => !device.bluetoothUartService.value!.isTailcontrol,
+              )
               .isNotEmpty
           ? const EarSpeedWidget()
           : null,

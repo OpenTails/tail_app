@@ -1,8 +1,11 @@
-import 'package:fl_chart/fl_chart.dart';
+import 'dart:async';
+
+import 'package:circular_buffer/circular_buffer.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 class BatteryStatus with ChangeNotifier {
-  Stopwatch stopWatch = Stopwatch();
+  StreamSubscription? periodicStream;
   double _level = -1;
 
   double get level => _level;
@@ -15,10 +18,18 @@ class BatteryStatus with ChangeNotifier {
     _level = value;
 
     // battery graph
-    if (value > 0 && !stopWatch.isRunning) {
-      stopWatch.start();
+    if (value > 0 && periodicStream == null) {
+      periodicStream = Stream.periodic(Duration(minutes: 1)).listen((event) {
+        if (shortTermHistory.isEmpty) {
+          return;
+        }
+        averageHistory.add(shortTermHistory.average);
+        shortTermHistory.clear();
+        notifyListeners();
+      });
+      averageHistory.add(level);
     }
-    history.add(FlSpot(stopWatch.elapsed.inSeconds.toDouble(), level));
+    shortTermHistory.add(level);
 
     //consider gear at low battery even if gear has not reported low battery
     _isLow = level < 20;
@@ -43,13 +54,16 @@ class BatteryStatus with ChangeNotifier {
     notifyListeners();
   }
 
-  List<FlSpot> history = [];
+  CircularBuffer<double> averageHistory = CircularBuffer(60);
+  List<double> shortTermHistory = [];
 
   void reset() {
     level = -1;
     isCharging = false;
     isLow = false;
-    history = List.empty(growable: true);
-    stopWatch.reset();
+    shortTermHistory = List.empty(growable: true);
+    averageHistory.clear();
+    periodicStream?.cancel();
+    periodicStream = null;
   }
 }

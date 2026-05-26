@@ -531,13 +531,9 @@ class GetActions with ChangeNotifier {
       statefulDevice.hasGlowtip
         ..removeListener(_refresh)
         ..addListener(_refresh);
-      statefulDevice.isTailCoNTROL
+      statefulDevice.bluetoothUartService
         ..removeListener(_refresh)
         ..addListener(_refresh);
-      statefulDevice.deviceConnectionState
-        ..removeListener(_refresh)
-        ..addListener(_refresh);
-
       // Refresh category names
       UserLocale.instance
         ..removeListener(_refresh)

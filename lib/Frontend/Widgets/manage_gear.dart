@@ -1,9 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
+import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
 import 'package:tail_app/Backend/utilities/settings.dart';
@@ -18,7 +19,6 @@ import '../../Backend/Device/bluetooth_uart_services_list.dart';
 import '../../Backend/Device/common_device_stuffs.dart';
 import '../../Backend/Device/device_type_enum.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
-import '../../Backend/Device/tail_control_status_enum.dart';
 import '../go_router_config.dart';
 import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
@@ -515,9 +515,9 @@ class ManageGearBatteryGraph extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(
               right: 16,
-              top: 8,
-              bottom: 8,
-              left: 8,
+              top: 16,
+              bottom: 16,
+              left: 16,
             ),
             child: ListenableBuilder(
               listenable: device.battery,
@@ -532,29 +532,47 @@ class ManageGearBatteryGraph extends StatelessWidget {
                     ),
                     leftTitles: AxisTitles(
                       axisNameWidget: Text(convertToUwU('Battery')),
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        maxIncluded: true,
+                        minIncluded: true,
+                        reservedSize: 40,
+                      ),
                     ),
                     bottomTitles: AxisTitles(
-                      axisNameWidget: Text(convertToUwU('Time')),
-                      sideTitles: SideTitles(showTitles: true),
+                      axisNameWidget: Text(convertToUwU('Time (1hr)')),
+                      sideTitles: SideTitles(showTitles: false),
                     ),
                   ),
                   lineTouchData: const LineTouchData(enabled: false),
                   borderData: FlBorderData(show: false),
+                  gridData: FlGridData(
+                    verticalInterval: 10,
+                    horizontalInterval: 25,
+                  ),
                   minY: 0,
                   maxY: 100,
                   minX: 0,
-                  maxX: device.battery.history.isNotEmpty
-                      ? device.battery.history.last.x
-                      : 1,
+                  maxX: 60,
                   lineBarsData: [
                     LineChartBarData(
-                      spots: device.battery.history,
+                      spots: device.battery.averageHistory
+                          .mapIndexed(
+                            (index, element) => FlSpot(
+                              (60 - device.battery.averageHistory.length) +
+                                  index.toDouble(),
+                              element,
+                            ),
+                          )
+                          .toList(),
                       color: Theme.of(context).colorScheme.primary,
                       dotData: const FlDotData(show: false),
                       isCurved: true,
+                      isStrokeCapRound: true,
                       curveSmoothness: 0.1,
+                      barWidth: 6,
                       preventCurveOverShooting: true,
-                      show: device.battery.history.isNotEmpty,
+                      show: device.battery.averageHistory.isNotEmpty,
                     ),
                   ],
                 ),
@@ -614,9 +632,6 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                   Text("BT MAC: ${widget.device.storedDevice.btMACAddress}"),
                   Text(
                     "FW AVAIL: ${widget.device.firmwareStatus.remoteFirmwareInfo}",
-                  ),
-                  Text(
-                    "CON ELAPSED: ${widget.device.battery.stopWatch.elapsed}",
                   ),
                   Text("DEV UUID: ${widget.device.deviceDefinition.uuid}"),
                   Text(
@@ -983,25 +998,6 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                     }
                   },
                   dropdownMenuEntries: DeviceMoveState.values
-                      .map((e) => DropdownMenuEntry(value: e, label: e.name))
-                      .toList(),
-                ),
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: widget.device.isTailCoNTROL,
-              builder: (context, value, child) => ListTile(
-                title: const Text("isTailCoNTROL"),
-                trailing: DropdownMenu<TailControlStatus>(
-                  initialSelection: widget.device.isTailCoNTROL.value,
-                  onSelected: (value) {
-                    if (value != null) {
-                      setState(() {
-                        widget.device.isTailCoNTROL.value = value;
-                      });
-                    }
-                  },
-                  dropdownMenuEntries: TailControlStatus.values
                       .map((e) => DropdownMenuEntry(value: e, label: e.name))
                       .toList(),
                 ),

@@ -1,5 +1,6 @@
 ### V 1.5.0
 
+- Add support for Paws with Claws
 - Add gamepad trigger to trigger moves with connected gamepad buttons
 - Add phone orientation trigger
 - Add noise trigger

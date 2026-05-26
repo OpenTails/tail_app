@@ -10,7 +10,6 @@ import 'package:universal_io/io.dart';
 
 import '../../constants.dart';
 import '../Device/bluetooth_uart_services_list.dart';
-import '../Device/common_device_stuffs.dart';
 import '../Device/device_definition.dart';
 import '../Device/device_registry.dart';
 import '../Device/device_type_enum.dart';
@@ -162,7 +161,7 @@ Future<void> _onConnectionStateChangedListener(
       deviceDefinition.uuid,
       deviceID,
       deviceDefinition.deviceType.color().toARGB32(),
-    )..name = getNameFromBTName(deviceDefinition.btName);
+    )..name = deviceDefinition.friendlyName;
 
     statefulDevice = StatefulDevice(deviceDefinition, storedDevice);
     await KnownDevices.instance.add(statefulDevice);
@@ -260,11 +259,12 @@ Future<void> connect(String id) async {
       .where((element) => element.device.remoteId.str == id)
       .map((scanResult) => scanResult.device)
       .firstOrNull;
-  result ??= await FlutterBluePlus.systemDevices(_gearServices).then(
-    (value) => value
-        .where((bluetoothDevice) => id == bluetoothDevice.remoteId.str)
-        .firstOrNull,
-  );
+  result ??= await FlutterBluePlus.systemDevices(DeviceRegistry.fbpGearServices)
+      .then(
+        (value) => value
+            .where((bluetoothDevice) => id == bluetoothDevice.remoteId.str)
+            .firstOrNull,
+      );
   if (result != null) {
     int retry = 0;
     while (retry <
@@ -287,8 +287,6 @@ Future<void> connect(String id) async {
     }
   }
 }
-
-List<Guid> _gearServices = DeviceRegistry.getAllIds().map(Guid.new).toList();
 
 class Scan with ChangeNotifier {
   StreamSubscription<bool>? isScanningStreamSubscription;
@@ -336,7 +334,7 @@ class Scan with ChangeNotifier {
       _state = scanReason;
 
       //Pull in paired & connected gear that isn't connected to the app
-      FlutterBluePlus.systemDevices(_gearServices).then(
+      FlutterBluePlus.systemDevices(DeviceRegistry.fbpGearServices).then(
         (value) => value
             .where(
               (bluetoothDevice) => KnownDevices.instance.state.containsKey(
@@ -347,17 +345,23 @@ class Scan with ChangeNotifier {
               (bluetoothDevice) =>
                   KnownDevices
                       .instance
-                      .state[bluetoothDevice.remoteId.str]
-                      ?.deviceConnectionState
+                      .state[bluetoothDevice.remoteId.str]!
+                      .deviceConnectionState
                       .value ==
                   ConnectivityState.disconnected,
+            )
+            .where(
+              (bluetoothDevice) => !KnownDevices
+                  .instance
+                  .state[bluetoothDevice.remoteId.str]!
+                  .disableAutoConnect,
             )
             .forEach(
               (bluetoothDevice) => connect(bluetoothDevice.remoteId.str),
             ),
       );
       await FlutterBluePlus.startScan(
-        withServices: _gearServices,
+        withServices: DeviceRegistry.fbpGearServices,
         continuousUpdates: timeout == null,
         androidScanMode: AndroidScanMode.lowPower,
         timeout: timeout,
@@ -462,20 +466,6 @@ Future<void> sendMessage(
         );
     await future;
   }
-}
-
-bool isScanningNow() {
-  if (!_didInitFlutterBluePlus) {
-    return false;
-  }
-  return FlutterBluePlus.isScanningNow;
-}
-
-Stream<bool> isScanning() {
-  if (!_didInitFlutterBluePlus) {
-    return Stream.value(false);
-  }
-  return FlutterBluePlus.isScanning;
 }
 
 Stream<OnCharacteristicReceivedEvent> getBaseRxStream(String macAddress) {

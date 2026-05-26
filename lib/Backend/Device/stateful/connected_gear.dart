@@ -19,7 +19,6 @@ import '../common_device_stuffs.dart';
 import '../device_definition.dart';
 import '../ota/firmware_update.dart';
 import '../stored_device.dart';
-import '../tail_control_status_enum.dart';
 
 enum ConnectivityState { connected, disconnected, connecting }
 
@@ -52,9 +51,6 @@ class StatefulDevice {
   final ValueNotifier<int> mtu = ValueNotifier(-1);
   final ValueNotifier<GearConfigInfo> gearConfigInfo = ValueNotifier(
     GearConfigInfo(),
-  );
-  final ValueNotifier<TailControlStatus> isTailCoNTROL = ValueNotifier(
-    TailControlStatus.unknown,
   );
   Stream<String>? rxCharacteristicStream;
   StreamSubscription? _periodicTimerStream;
@@ -95,7 +91,6 @@ class StatefulDevice {
         });
       }
       if (deviceConnectionState.value == ConnectivityState.connected) {
-        // The timer used for the time value on the battery level graph
         _periodicTimerStream = Stream.periodic(
           const Duration(seconds: 10),
         ).listen(_periodicListener);
@@ -113,19 +108,9 @@ class StatefulDevice {
 
     bluetoothUartService.addListener(() {
       if (bluetoothUartService.value == null) {
-        isTailCoNTROL.value = TailControlStatus.unknown;
         return;
       }
       _registerCharacteristicStreams();
-      isTailCoNTROL.value =
-          bluetoothUartService.value ==
-              uartServices.firstWhere(
-                (element) =>
-                    element.bleDeviceService.toLowerCase() ==
-                    "19f8ade2-d0c6-4c0a-912a-30601d9b3060",
-              )
-          ? TailControlStatus.tailControl
-          : TailControlStatus.legacy;
 
       //Fires off the FW/HW version and batt commands
       _periodicListener("");
@@ -173,7 +158,9 @@ class StatefulDevice {
         });
     _batteryStreamSubscription =
         getBatteryLevelStream(storedDevice.btMACAddress).listen((event) {
-          battery.level = event;
+          if (deviceState.value == DeviceMoveState.standby) {
+            battery.level = event;
+          }
         });
   }
 
@@ -188,7 +175,7 @@ class StatefulDevice {
       firmwareStatus.firmwareVersion = Version.getFromSemVer(
         value.substring(value.indexOf(" ")),
       );
-      if (isTailCoNTROL.value == TailControlStatus.tailControl) {
+      if (bluetoothUartService.value!.isTailcontrol) {
         commandQueue.addCommand(BluetoothMessage(message: "READNVS"));
       }
       // Sent after VER message
@@ -268,7 +255,7 @@ class StatefulDevice {
       BluetoothMessage(message: "PING", priority: Priority.low),
     );
     // Battery characteristic works fine for tailcontrol, so we don't need to manually request the battery level
-    if (isTailCoNTROL.value != TailControlStatus.tailControl) {
+    if (!bluetoothUartService.value!.isTailcontrol) {
       commandQueue.addCommand(
         BluetoothMessage(message: "BATT", priority: Priority.low),
       );
@@ -299,7 +286,6 @@ class StatefulDevice {
     rssi.value = -1;
     firmwareStatus.reset();
     mtu.value = -1;
-    isTailCoNTROL.value = TailControlStatus.unknown;
     bluetoothUartService.value = null;
     _periodicTimerStream?.cancel();
     _periodicTimerStream = null;

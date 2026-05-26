@@ -11,7 +11,6 @@ import '../Device/device_registry.dart';
 import '../Device/device_type_enum.dart';
 import '../Device/stateful/connected_gear.dart';
 import '../Device/stored_device.dart';
-import '../Device/tail_control_status_enum.dart';
 
 final Logger _logger = Logger("KnownGear");
 
@@ -115,7 +114,7 @@ class KnownDevices with ChangeNotifier {
   bool get isLegacyEarsConnected {
     return connectedGear
         .where((p0) => p0.deviceDefinition.deviceType == DeviceType.ears)
-        .where((p0) => p0.isTailCoNTROL.value == TailControlStatus.legacy)
+        .where((p0) => !p0.bluetoothUartService.value!.isTailcontrol)
         .isNotEmpty;
   }
 

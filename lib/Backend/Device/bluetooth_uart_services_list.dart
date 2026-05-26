@@ -9,6 +9,7 @@ abstract class BluetoothUartService with _$BluetoothUartService {
     required String bleRxCharacteristic,
     required String bleTxCharacteristic,
     required String label,
+    @Default(false) bool isTailcontrol,
   }) = _BluetoothUartService;
 }
 
@@ -37,5 +38,6 @@ final List<BluetoothUartService> uartServices = const [
     bleRxCharacteristic: "567a99d6-a442-4ac0-b676-4993bf95f805",
     bleTxCharacteristic: "5e4d86ac-ef2f-466f-a857-8776d45ffbc2",
     label: "TailCoNTROL",
+    isTailcontrol: true,
   ),
 ];
