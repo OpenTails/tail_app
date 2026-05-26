@@ -256,9 +256,15 @@ Future<void> connect(String id) async {
     return;
   }
   List<ScanResult> results = await FlutterBluePlus.onScanResults.first;
-  ScanResult? result = results
+  BluetoothDevice? result = results
       .where((element) => element.device.remoteId.str == id)
+      .map((scanResult) => scanResult.device)
       .firstOrNull;
+  result ??= await FlutterBluePlus.systemDevices(_gearServices).then(
+    (value) => value
+        .where((bluetoothDevice) => id == bluetoothDevice.remoteId.str)
+        .firstOrNull,
+  );
   if (result != null) {
     int retry = 0;
     while (retry <
@@ -268,12 +274,12 @@ Future<void> connect(String id) async {
           defaultValue: gearConnectRetryAttemptsDefault,
         )) {
       try {
-        await result.device.connect();
+        await result.connect();
         break;
       } on FlutterBluePlusException catch (e) {
         retry = retry + 1;
         _logger.warning(
-          "Failed to connect to ${result.device.platformName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
+          "Failed to connect to ${result.platformName}. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
           e,
         );
         await Future.delayed(Duration(milliseconds: 250));
@@ -281,6 +287,8 @@ Future<void> connect(String id) async {
     }
   }
 }
+
+List<Guid> _gearServices = DeviceRegistry.getAllIds().map(Guid.new).toList();
 
 class Scan with ChangeNotifier {
   StreamSubscription<bool>? isScanningStreamSubscription;
@@ -324,9 +332,32 @@ class Scan with ChangeNotifier {
         !FlutterBluePlus.isScanningNow &&
         isBluetoothEnabled.value) {
       _logger.info("Starting scan");
+
       _state = scanReason;
+
+      //Pull in paired & connected gear that isn't connected to the app
+      FlutterBluePlus.systemDevices(_gearServices).then(
+        (value) => value
+            .where(
+              (bluetoothDevice) => KnownDevices.instance.state.containsKey(
+                bluetoothDevice.remoteId.str,
+              ),
+            )
+            .where(
+              (bluetoothDevice) =>
+                  KnownDevices
+                      .instance
+                      .state[bluetoothDevice.remoteId.str]
+                      ?.deviceConnectionState
+                      .value ==
+                  ConnectivityState.disconnected,
+            )
+            .forEach(
+              (bluetoothDevice) => connect(bluetoothDevice.remoteId.str),
+            ),
+      );
       await FlutterBluePlus.startScan(
-        withServices: DeviceRegistry.getAllIds().map(Guid.new).toList(),
+        withServices: _gearServices,
         continuousUpdates: timeout == null,
         androidScanMode: AndroidScanMode.lowPower,
         timeout: timeout,
