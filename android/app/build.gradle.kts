@@ -102,7 +102,4 @@ sentry {
     autoInstallation {
         enabled.set(false)
     }
-    sizeAnalysis {
-        enabled = providers.environmentVariable("GITHUB_ACTIONS").isPresent
-    }
 }
