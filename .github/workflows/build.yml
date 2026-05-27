@@ -19,6 +19,7 @@ jobs:
     permissions:
       pull-requests: read
     strategy:
+      fail-fast: false
       matrix:
         os: [ ubuntu-latest, macos-latest ]
         build: [ apk, ipa ]

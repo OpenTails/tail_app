@@ -77,7 +77,7 @@ dependencies {
 }
 
 sentry {
-    ignoredBuildTypes.set(setOf("debug"))
+    ignoredBuildTypes.set(setOf("debug", "release"))
     org.set("floof")
     projectName.set("tail-app")
     authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
