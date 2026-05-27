@@ -29,4 +29,4 @@ runs:
     - uses: maxim-lobanov/setup-xcode@v1.7.0
       if: runner.os == 'macOS'
       with:
-        xcode-version: 26.4
+        xcode-version: 26
