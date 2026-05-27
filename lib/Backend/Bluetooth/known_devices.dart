@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
+import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 
 import '../../constants.dart';
 import '../Device/common_device_stuffs.dart';
@@ -82,7 +83,7 @@ class KnownDevices with ChangeNotifier {
   }
 
   Future<void> removeDevGear() async {
-    _state.removeWhere((p0, p1) => p0.contains(demoGearPrefix));
+    _state.removeWhere((ix, device) => isDemoGear(device));
     await store();
   }
 

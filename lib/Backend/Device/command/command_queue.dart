@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Device/command/command_history.dart';
+import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 
-import '../../../constants.dart';
 import '../../Bluetooth/bluetooth_message.dart';
 import '../stateful/connected_gear.dart';
 
@@ -200,7 +200,7 @@ class CommandQueue with ChangeNotifier {
         message: bluetoothMessage.message,
       );
 
-      if (!device.storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
+      if (!isDemoGear(device)) {
         if (bluetoothMessage.responseMSG != null) {
           _setState(CommandQueueState.waitingForResponse);
           _runningCommandTimer = Timer(timeoutDuration, _onTimeout);

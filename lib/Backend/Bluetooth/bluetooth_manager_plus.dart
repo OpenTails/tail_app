@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
+import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 import 'package:universal_io/io.dart';
 
 import '../../constants.dart';
@@ -415,8 +416,7 @@ Future<void> sendMessage(
   List<int> message, {
   bool withoutResponse = false,
 }) async {
-  if (!_didInitFlutterBluePlus ||
-      device.storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
+  if (!_didInitFlutterBluePlus || isDemoGear(device)) {
     return;
   }
   BluetoothDevice? bluetoothDevice = FlutterBluePlus.connectedDevices

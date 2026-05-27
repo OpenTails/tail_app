@@ -6,8 +6,8 @@ import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
 import 'package:tail_app/Backend/Device/stateful/battery_status.dart';
 import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
+import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 
-import '../../../constants.dart';
 import '../../Bluetooth/bluetooth_message.dart';
 import '../../Bluetooth/known_devices.dart';
 import '../../analytics.dart';
@@ -98,11 +98,6 @@ class StatefulDevice {
           name: "Connect Gear",
           props: {"Gear Type": deviceDefinition.btName},
         );
-        if (storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
-          bluetoothUartService.value = uartServices.firstWhere(
-            (element) => element.label == "TailCoNTROL",
-          );
-        }
       }
     });
 
@@ -245,7 +240,7 @@ class StatefulDevice {
     }
 
     // Demo gear
-    if (storedDevice.btMACAddress.startsWith(demoGearPrefix)) {
+    if (isDemoGear(this)) {
       battery.level = Random().nextInt(100).toDouble();
       rssi.value = (Random().nextInt(100) * -1);
     }

@@ -7,6 +7,7 @@ import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
+import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 import 'package:tail_app/Backend/utilities/settings.dart';
 import 'package:tail_app/Backend/utilities/version.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
@@ -243,6 +244,9 @@ class _ManageGearState extends State<ManageGear> {
                       onPressed: () {
                         setState(() {
                           device!.disableAutoConnect = false;
+                          if (isDemoGear(device!)) {
+                            connectDemoGear(device!);
+                          }
                         });
                         Navigator.pop(context);
                       },

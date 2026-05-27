@@ -5,13 +5,10 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
-import '../../Backend/Device/bluetooth_uart_services_list.dart';
 import '../../Backend/Device/device_definition.dart';
 import '../../Backend/Device/device_registry.dart';
-import '../../Backend/Device/device_type_enum.dart';
-import '../../Backend/Device/stateful/connected_gear.dart';
-import '../../Backend/Device/stored_device.dart';
 import '../../Backend/analytics.dart';
+import '../../Backend/utilities/demo_gear_helpers.dart';
 import '../../Backend/utilities/settings.dart';
 import '../../assets.dart';
 import '../../constants.dart';
@@ -105,33 +102,6 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
       expand: false,
       initialChildSize: 0.5,
     );
-  }
-
-  Future<void> createDemoGear(DeviceDefinition value) async {
-    String btMac = "DEV${value.deviceType.translatedName}";
-    if (KnownDevices.instance.state.containsKey(btMac)) {
-      return;
-    }
-    StoredDevice storedDevice = StoredDevice(
-      value.uuid,
-      btMac,
-      value.deviceType.color().toARGB32(),
-    )..name = value.friendlyName;
-    StatefulDevice statefulDevice = StatefulDevice(value, storedDevice);
-
-    // Has to be added before updating connection state
-    await KnownDevices.instance.add(statefulDevice);
-
-    statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
-    if (value.deviceType == DeviceType.ears) {
-      statefulDevice.bluetoothUartService.value = uartServices.firstWhere(
-        (element) => element.label == "Legacy Ears",
-      );
-    } else {
-      statefulDevice.bluetoothUartService.value = uartServices.firstWhere(
-        (element) => element.label == "TailCoNTROL",
-      );
-    }
   }
 }
 
