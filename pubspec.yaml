@@ -17,7 +17,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   logging: ^1.3.0
-  go_router: ^17.2.3
+  go_router: ^17.3.0
   vector_math: # used for joystick, pinned to SDK version
   collection: ^1.19.1 # Priority Queue
   uuid: ^4.5.3 # Used to generate UUID v4 ids for custom actions & move lists
@@ -28,25 +28,25 @@ dependencies:
   logarte: ^1.4.1
   freezed_annotation: ^3.1.0
   built_collection: ^5.1.1
-  synchronized: ^3.4.0 # solve analytics init errors
+  synchronized: ^3.4.1 # solve analytics init errors
 
   # Platform Interfaces
   device_info_plus: ^13.1.0
   wakelock_plus: ^1.6.1 # Keeps the screen awake
-  file_picker: ^12.0.0-beta.4 # used to manually select firmware file
+  file_picker: ^12.0.0-beta.5 # used to manually select firmware file
   path_provider: ^2.1.5 # used to get paths for app storage and cache storage
   package_info_plus: ^10.1.0
-  permission_handler: ^12.0.1
+  permission_handler: ^12.0.3
   url_launcher: ^6.3.2 # Open URLS in external apps
   flutter_blue_plus: 1.36.8 # 2.0 bad license don't update
   flutter_foreground_task: ^9.2.2 # Keep the app running in the background on android
   quick_actions: ^1.1.0 # puts favorites on the home screen
-  audioplayers: ^6.6.0
+  audioplayers: ^6.7.1
   connectivity_plus: ^7.1.1
   data_saver: ^0.4.0 # check if data saver is enabled
   battery_plus: ^7.0.0
   app_settings: ^7.0.0
-  app_badge_plus: ^1.2.10
+  app_badge_plus: ^1.3.0
   universal_io: ^2.3.1
   # Watch
   watch_connectivity: ^0.2.1+1
@@ -62,7 +62,7 @@ dependencies:
   flutter_joystick: ^0.2.2
   flutter_markdown_plus: ^1.0.7
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
-  flutter_native_splash: ^2.4.7
+  flutter_native_splash: ^2.4.8
   choice:
     git:
       url: https://github.com/davigmacode/flutter_choice
@@ -99,15 +99,15 @@ dependencies:
   hive_ce_flutter: ^2.3.4
 
   # Spicy
-  firebase_core: ^4.9.0
-  cloud_firestore: ^6.4.1
-  upgrader: ^13.4.0 # update notices
+  firebase_core: ^4.10.0
+  cloud_firestore: ^6.5.0
+  upgrader: ^13.5.0 # update notices
   age_range_signals: ^0.5.1
   google_api_availability: ^5.0.1
 
   # Sentry
-  sentry_flutter: ^9.20.0 # Base sentry + Flutter integration
-  sentry_logging: ^9.20.0 # Collects app logs
+  sentry_flutter: ^9.21.0 # Base sentry + Flutter integration
+  sentry_logging: ^9.21.0 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
   #sentry_dio: ^9.8.0 # Collects Dio HTTP requests
 
