@@ -54,7 +54,7 @@ subprojects {
 configurations.all {
     resolutionStrategy {
         force("androidx.core:core-ktx:1.18.0")
-        force("org.jetbrains.kotlin:kotlin-stdlib:2.3.20")
+        force("org.jetbrains.kotlin:kotlin-stdlib:2.3.21")
     }
 }
 val newBuildDir: Directory =
