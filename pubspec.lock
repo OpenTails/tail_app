@@ -21,10 +21,10 @@ packages:
     dependency: "direct main"
     description:
       name: age_range_signals
-      sha256: "6ed81dc318e9a39e5d25642bcf615344136891c97d3c53c7bd1fbce7d96a884f"
+      sha256: "52dfdc0a2979608381d52a31dacda9d4b5ed58c0881b22f4f136efd8d2ee4321"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.1"
   analyzer:
     dependency: transitive
     description:
