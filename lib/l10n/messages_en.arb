@@ -975,7 +975,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingBluetoothEnableButtonLabel": "Open Settings to turn On Bluetooth",
+  "onboardingBluetoothEnableButtonLabel": "Open Phone Settings to enable Bluetooth",
   "@onboardingBluetoothEnableButtonLabel": {
     "description": "Label for the button to open bluetooth settings on the onboarding screen",
     "type": "text",
