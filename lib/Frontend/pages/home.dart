@@ -12,8 +12,8 @@ import '../Widgets/base_card.dart';
 import '../Widgets/tail_blog.dart';
 import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
-import 'html_page.dart';
 import 'markdown_viewer.dart';
+import 'more.dart';
 
 final log.Logger homeLogger = log.Logger('Home');
 
@@ -76,13 +76,10 @@ class _HomeState extends State<Home> {
                 OverflowBar(
                   children: <Widget>[
                     TextButton(
-                      onPressed: () => HtmlPageRoute(
-                        $extra: HtmlPageInfo(
-                          url: "https://docs.thetailcompany.com/doku.php?id=en:app&do=export_xhtmlbody",
-                          title: "Instructions",
-                          analyticsLabel: "Instructions",
-                        ),
-                      ).push(context),
+                      onPressed: () {
+                        More.requestScrollToManuals();
+                        const MoreRoute().go(context);
+                      },
                       child: Text(convertToUwU('Instructions')),
                     ),
                     TextButton(

@@ -14,14 +14,46 @@ import '../translation_string_definitions.dart';
 import 'html_page.dart';
 import 'markdown_viewer.dart';
 
-class More extends StatelessWidget {
+class More extends StatefulWidget {
   const More({super.key});
+
+  static bool _pendingScrollToManuals = false;
+  static void requestScrollToManuals() => _pendingScrollToManuals = true;
+
+  @override
+  State<More> createState() => _MoreState();
+}
+
+class _MoreState extends State<More> {
+  final ScrollController _controller = ScrollController();
+  final GlobalKey _manualsKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    if (More._pendingScrollToManuals) {
+      More._pendingScrollToManuals = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final ctx = _manualsKey.currentContext;
+        if (ctx != null) {
+          Scrollable.ensureVisible(ctx, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut, alignment: 0.1);
+        }
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     const String couponCode = "APPCOV25";
 
     return ListView(
+      controller: _controller,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       children: [
         // ── Promos ────────────────────────────────────────────────────────────
@@ -81,7 +113,7 @@ class More extends StatelessWidget {
         const SizedBox(height: 24),
 
         // ── Manuals ───────────────────────────────────────────────────────────
-        _SectionLabel("${moreManualTitle()} (${moreManualSubTitle()})"),
+        SizedBox(key: _manualsKey, child: _SectionLabel("${moreManualTitle()} (${moreManualSubTitle()})")),
         const SizedBox(height: 8),
         _GroupCard(children: [
           ListTile(
