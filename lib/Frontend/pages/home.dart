@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:tail_app/Backend/age_check.dart';
-import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -13,6 +12,7 @@ import '../Widgets/base_card.dart';
 import '../Widgets/tail_blog.dart';
 import '../go_router_config.dart';
 import '../translation_string_definitions.dart';
+import 'html_page.dart';
 import 'markdown_viewer.dart';
 
 final log.Logger homeLogger = log.Logger('Home');
@@ -76,13 +76,14 @@ class _HomeState extends State<Home> {
                 OverflowBar(
                   children: <Widget>[
                     TextButton(
-                      onPressed: () async {
-                        await launchExternalUrl(
-                          url: "https://docs.thetailcompany.com",
-                          analyticsLabel: "Getting Started",
-                        );
-                      },
-                      child: Text(convertToUwU('Getting Started')),
+                      onPressed: () => HtmlPageRoute(
+                        $extra: HtmlPageInfo(
+                          url: "https://docs.thetailcompany.com/doku.php?id=en:app&do=export_xhtmlbody",
+                          title: "Instructions",
+                          analyticsLabel: "Instructions",
+                        ),
+                      ).push(context),
+                      child: Text(convertToUwU('Instructions')),
                     ),
                     TextButton(
                       onPressed: () async {

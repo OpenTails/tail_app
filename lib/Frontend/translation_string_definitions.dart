@@ -36,7 +36,7 @@ String homeWelcomeMessageTitle() => Intl.message(
 );
 
 String homeWelcomeMessage() => Intl.message(
-  'Tap the Scan button to find your Tail Co gear. No Bluetooth pairing needed. Once found, make your gear move, set up triggers and keep your gear up to date. All in one place.',
+  'Tap the Scan button to find your gear! Once found, you can make your gear move, set up triggers, and keep it up to date, all in one place.',
   name: 'homeWelcomeMessage',
   desc: 'The welcome message on the home screen when no gear is connected',
 );
