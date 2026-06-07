@@ -12,7 +12,9 @@ plugins {
 
 val keystorePropertiesFile = rootProject.file("key.properties")
 val keystoreProperties = Properties()
-keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+if (file(keystorePropertiesFile).exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
 kotlin {
     compilerOptions {
         languageVersion =
@@ -31,12 +33,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
+        if (file(keystorePropertiesFile).exists()) {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
         }
+
     }
     defaultConfig {
         applicationId = "com.codel1417.tailApp"
@@ -55,7 +60,9 @@ android {
             ndk {
                 debugSymbolLevel = "FULL"
             }
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (file(keystorePropertiesFile).exists())
+                signingConfigs
+                    .getByName("release") else signingConfigs.getByName("debug")
         }
         getByName("debug") {
             isDebuggable = true
@@ -88,7 +95,14 @@ sentry {
     includeSourceContext.set(true)
     tracingInstrumentation {
         enabled.set(true)
-        features.set(setOf(InstrumentationFeature.DATABASE, InstrumentationFeature.FILE_IO, InstrumentationFeature.OKHTTP, InstrumentationFeature.COMPOSE))
+        features.set(
+            setOf(
+                InstrumentationFeature.DATABASE,
+                InstrumentationFeature.FILE_IO,
+                InstrumentationFeature.OKHTTP,
+                InstrumentationFeature.COMPOSE
+            )
+        )
         logcat {
             enabled.set(true)
             // Specifies a minimum log level for the logcat breadcrumb logging.

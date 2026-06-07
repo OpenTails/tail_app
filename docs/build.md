@@ -2,9 +2,6 @@
 
 ## Preparing for build
 
-> [!TIP]
-> A pre-made build script exists at [`scripts/build,sh`](Scripts/build.sh)
-
 > [!IMPORTANT]
 > These commands must be run before building or running.
 >
@@ -14,7 +11,7 @@
 > 
 > flutter pub get # Downloads Dependencies
 > dart run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
-> flutter pub run build_runner build --delete-conflicting-outputs  # Generates .g files
+> flutter pub run build_runner build # Generates .g files
 > ```
 
 > [!NOTE]
@@ -35,7 +32,7 @@
 > To build generated `.g` and `.freezed` files, run
 >
 > ```shell
-> flutter pub run build_runner build --delete-conflicting-outputs
+> flutter pub run build_runner build
 > ```
 
 > [!TIP]
@@ -45,23 +42,6 @@
 > flutter upgrade
 > ```
 >
-> if you get an error similar to
-`Error: Couldn't resolve the package 'flutter_gen' in 'package:flutter_gen/gen_l10n/app_localizations.dart'`
-> run
->
-> ```
-> flutter pub get
-> ```
->
-> if you get an error during riverpod generator such as
-`RangeError (index): Invalid value: Not in inclusive range 0..20491: 77535` try
->
-> ```shell
-> flutter clean
-> flutter pub get
-> flutter pub run build_runner build --delete-conflicting-outputs
-> flutter pub get # fixes app_localizations error
-> ```
 
 ## Firebase configuration is required for building
 
@@ -90,7 +70,8 @@ flutter build ipa --debug
 
 > [!TIP]
 > MacOS may display multiple permission prompts such as File Access, KeyChain
-> Access, Device Access (iphone) & Controlling XCode. Accept them for the build to
+> Access, Device Access (iphone) & Controlling XCode. Accept them for the build
+> to
 > complete. These only need to be accepted once
 >
 > If you receive an error that IOS is not installed in XCode during build.
