@@ -998,7 +998,7 @@ String onboardingBluetoothRequestButtonLabel() => Intl.message(
 );
 
 String onboardingBluetoothEnableButtonLabel() => Intl.message(
-  "Open Phone Settings to enable Bluetooth",
+  "Open phone settings to enable Bluetooth",
   name: 'onboardingBluetoothEnableButtonLabel',
   desc:
       'Label for the button to open bluetooth settings on the onboarding screen',
