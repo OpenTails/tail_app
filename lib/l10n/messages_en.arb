@@ -19,13 +19,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessageTitle": "Welcome",
+  "homeWelcomeMessageTitle": "Welcome to Tail App",
   "@homeWelcomeMessageTitle": {
     "description": "The welcome message title on the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
-  "homeWelcomeMessage": "You can control, explore and update all your Tail Co gear right here. There are instructions and guides available too. Happy Wagging!",
+  "homeWelcomeMessage": "Tap the Scan button to find your Tail Co gear. No Bluetooth pairing needed. Once found, make your gear move, set up triggers and keep your gear up to date. All in one place.",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
     "type": "text",
