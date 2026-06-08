@@ -49,7 +49,7 @@ dependencies:
   app_badge_plus: ^1.3.0
   universal_io: ^2.3.1
   # Watch
-  watch_connectivity: ^0.2.1+1
+  watch_connectivity: ^0.2.9
 
   # Widgets / UI
   flutter_screen_lock: ^9.2.2+2 # used to hide dev mode toggle

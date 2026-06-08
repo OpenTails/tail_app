@@ -1897,10 +1897,10 @@ packages:
     dependency: "direct main"
     description:
       name: watch_connectivity
-      sha256: "2d4f1be2a8c6eb199b263a4396db351efd953b49238e0d5374e65292393d6cfe"
+      sha256: "78539baf45557a3427a56e6940ec581eba444f08faf2c0a681ed9a186d4d88f6"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.8"
+    version: "0.2.9"
   watch_connectivity_platform_interface:
     dependency: transitive
     description:
