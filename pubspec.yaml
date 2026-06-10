@@ -71,7 +71,7 @@ dependencies:
   lottie: ^3.3.3
   pdfx: ^2.9.2
   owoify_dart: ^2.1.0
-  cached_network_image_ce: ^4.6.4
+  cached_network_image_ce: ^4.7.0
 
   # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
