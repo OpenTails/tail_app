@@ -16,6 +16,10 @@ runs:
     - name: Get dependencies
       shell: bash
       run: flutter pub get --no-example --enforce-lockfile
+      # We received a "notice" over dependabot trying to update flutter_blue_plus to a version that forbids commercial use. Let's never let that happen again
+    - name: Validate licenses are approved. Added due to hostile package maintainers
+      shell: bash
+      run: lic_ck check-licenses --config license_check.yml --problematic
     - name: Generate translation files
       shell: bash
       run: dart pub global run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/Frontend/translation_string_definitions.dart lib/l10n/*.arb
