@@ -28,7 +28,7 @@ class _BtAppStateControllerState extends State<BtAppStateController> {
               defaultValue: hasCompletedOnboardingDefault,
             ) >=
             hasCompletedOnboardingVersionToAgree) {
-          initFlutterBluePlus();
+          initBle();
         }
       },
       onPause: () {
@@ -44,7 +44,7 @@ class _BtAppStateControllerState extends State<BtAppStateController> {
           defaultValue: hasCompletedOnboardingDefault,
         ) >=
         hasCompletedOnboardingVersionToAgree) {
-      initFlutterBluePlus();
+      initBle();
     }
   }
 

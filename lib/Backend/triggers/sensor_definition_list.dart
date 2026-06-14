@@ -6,7 +6,6 @@ import 'package:tail_app/Backend/triggers/sensors/noise.dart';
 
 import 'sensor_definition.dart';
 import 'sensors/accelerometer.dart';
-import 'sensors/ble_proximity.dart';
 import 'sensors/casual.dart';
 import 'sensors/claws/claw_clap.dart';
 import 'sensors/claws/claw_tilt.dart';
@@ -23,33 +22,24 @@ import 'trigger.dart';
 final Logger _logger = Logger("SensorList");
 
 class TriggerDefinitionList {
-  static final Iterable<TriggerDefinition> allTriggerDefinitions =
-      List.unmodifiable([
-        WalkingTriggerDefinition(),
-        CoverTriggerDefinition(),
-        TailProximityTriggerDefinition(),
-        ShakeTriggerDefinition(),
-        EarMicTriggerDefinition(),
-        EarTiltTriggerDefinition(),
-        RandomTriggerDefinition(),
-        VolumeButtonTriggerDefinition(),
-        ClawClapTriggerDefinition(),
-        ClawTiltTriggerDefinition(),
-        AccelerometerTriggerDefinition(),
-        NoiseTriggerDefinition(),
-        //MediaSessionTriggerDefinition(),
-        GamepadTriggerDefinition(),
-      ]);
+  static final Iterable<TriggerDefinition> allTriggerDefinitions = List.unmodifiable([
+    WalkingTriggerDefinition(),
+    CoverTriggerDefinition(),
+    ShakeTriggerDefinition(),
+    EarMicTriggerDefinition(),
+    EarTiltTriggerDefinition(),
+    RandomTriggerDefinition(),
+    VolumeButtonTriggerDefinition(),
+    ClawClapTriggerDefinition(),
+    ClawTiltTriggerDefinition(),
+    AccelerometerTriggerDefinition(),
+    NoiseTriggerDefinition(),
+    //MediaSessionTriggerDefinition(),
+    GamepadTriggerDefinition(),
+  ]);
 
   //Filter by unused sensors
-  static Iterable<TriggerDefinition> get() => allTriggerDefinitions
-      .toSet()
-      .difference(
-        TriggerList.instance.state
-            .map((Trigger e) => e.triggerDefinition!)
-            .toSet(),
-      )
-      .sorted();
+  static Iterable<TriggerDefinition> get() => allTriggerDefinitions.toSet().difference(TriggerList.instance.state.map((Trigger e) => e.triggerDefinition!).toSet()).sorted();
 
   static Future<List<TriggerDefinition>> getSupported() async {
     Iterable<TriggerDefinition> unusedTriggerDefinitions = get();
@@ -58,9 +48,7 @@ class TriggerDefinitionList {
       if (await triggerDefinition.isSupported().timeout(
         Duration(seconds: 5),
         onTimeout: () {
-          _logger.severe(
-            "Timed our checking if ${Intl.withLocale('en', () => triggerDefinition.name())} is supported",
-          );
+          _logger.severe("Timed our checking if ${Intl.withLocale('en', () => triggerDefinition.name())} is supported");
           return false;
         },
       )) {

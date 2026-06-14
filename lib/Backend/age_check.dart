@@ -35,10 +35,9 @@ Future<bool> shouldShowCoshub() async {
       GooglePlayServicesAvailability availability = await GoogleApiAvailability
           .instance
           .checkGooglePlayServicesAvailability();
-      //Coshub posts need Play services anyway, so just hide them
       if (availability != GooglePlayServicesAvailability.success) {
         _logger.info("Play Services is not available");
-        return false;
+        return true;
       }
     }
     final result = await AgeRangeSignals.instance.checkAgeSignals();

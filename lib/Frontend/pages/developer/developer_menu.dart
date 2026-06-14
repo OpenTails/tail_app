@@ -2,11 +2,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:data_saver/data_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
+import 'package:universal_ble/universal_ble.dart';
 import 'package:universal_io/io.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -61,22 +61,10 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
           ListTile(
             title: const Text(hasCompletedOnboarding),
             trailing: Switch(
-              value:
-                  HiveProxy.getOrDefault(
-                    settings,
-                    hasCompletedOnboarding,
-                    defaultValue: hasCompletedOnboardingDefault,
-                  ) ==
-                  hasCompletedOnboardingVersionToAgree,
+              value: HiveProxy.getOrDefault(settings, hasCompletedOnboarding, defaultValue: hasCompletedOnboardingDefault) == hasCompletedOnboardingVersionToAgree,
               onChanged: (bool value) async {
                 setState(() {
-                  HiveProxy.put(
-                    settings,
-                    hasCompletedOnboarding,
-                    value
-                        ? hasCompletedOnboardingVersionToAgree
-                        : hasCompletedOnboardingDefault,
-                  );
+                  HiveProxy.put(settings, hasCompletedOnboarding, value ? hasCompletedOnboardingVersionToAgree : hasCompletedOnboardingDefault);
                   if (!value) {
                     OnBoardingPageRoute().go(context);
                   }
@@ -90,16 +78,8 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
               divisions: 30,
               max: 30,
               min: 0,
-              label: HiveProxy.getOrDefault(
-                settings,
-                triggerActionCooldown,
-                defaultValue: triggerActionCooldownDefault,
-              ).toString(),
-              value: HiveProxy.getOrDefault(
-                settings,
-                triggerActionCooldown,
-                defaultValue: triggerActionCooldownDefault,
-              ).toDouble(),
+              label: HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault).toString(),
+              value: HiveProxy.getOrDefault(settings, triggerActionCooldown, defaultValue: triggerActionCooldownDefault).toDouble(),
               onChanged: (double value) async {
                 setState(() {
                   HiveProxy.put(settings, triggerActionCooldown, value.toInt());
@@ -113,23 +93,11 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
               divisions: 29,
               max: 30,
               min: 1,
-              label: HiveProxy.getOrDefault(
-                settings,
-                gearConnectRetryAttempts,
-                defaultValue: gearConnectRetryAttemptsDefault,
-              ).toString(),
-              value: HiveProxy.getOrDefault(
-                settings,
-                gearConnectRetryAttempts,
-                defaultValue: gearConnectRetryAttemptsDefault,
-              ).toDouble(),
+              label: HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault).toString(),
+              value: HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault).toDouble(),
               onChanged: (double value) async {
                 setState(() {
-                  HiveProxy.put(
-                    settings,
-                    gearConnectRetryAttempts,
-                    value.toInt(),
-                  );
+                  HiveProxy.put(settings, gearConnectRetryAttempts, value.toInt());
                 });
               },
             ),
@@ -149,31 +117,13 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
           const ListTile(title: Divider()),
           ListenableBuilder(
             listenable: Scan.instance,
-            builder: (context, child) => ListTile(
-              title: const Text("ScanState"),
-              subtitle: Text(Scan.instance.state.toString()),
-            ),
+            builder: (context, child) => ListTile(title: const Text("ScanState"), subtitle: Text(Scan.instance.state.toString())),
           ),
           ListTile(
-            title: const Text("AdapterState"),
+            title: const Text("BLE Availability"),
             subtitle: StreamBuilder(
-              stream: FlutterBluePlus.adapterState.asBroadcastStream(),
-              builder:
-                  (
-                    BuildContext context,
-                    AsyncSnapshot<BluetoothAdapterState> snapshot,
-                  ) {
-                    var value = snapshot.data;
-                    String text = value != null ? value.toString() : "unknown";
-                    return Text(text);
-                  },
-            ),
-          ),
-          ListTile(
-            title: const Text("isScanning"),
-            subtitle: StreamBuilder(
-              stream: FlutterBluePlus.isScanning.asBroadcastStream(),
-              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              stream: UniversalBle.availabilityStream.asBroadcastStream(),
+              builder: (BuildContext context, AsyncSnapshot<AvailabilityState> snapshot) {
                 var value = snapshot.data;
                 String text = value != null ? value.toString() : "unknown";
                 return Text(text);
@@ -206,15 +156,11 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
             title: const Text("ConnectivityType"),
             subtitle: StreamBuilder(
               stream: Connectivity().onConnectivityChanged,
-              builder:
-                  (
-                    BuildContext context,
-                    AsyncSnapshot<List<ConnectivityResult>> snapshot,
-                  ) {
-                    var value = snapshot.data;
-                    String text = value != null ? value.toString() : "unknown";
-                    return Text(text);
-                  },
+              builder: (BuildContext context, AsyncSnapshot<List<ConnectivityResult>> snapshot) {
+                var value = snapshot.data;
+                String text = value != null ? value.toString() : "unknown";
+                return Text(text);
+              },
             ),
           ),
           ListTile(
@@ -266,13 +212,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                 if (snapshot.hasData) {
                   dynamicConfigJsonDefault = snapshot.data!;
                 }
-                return Text(
-                  HiveProxy.getOrDefault(
-                    settings,
-                    dynamicConfigJsonString,
-                    defaultValue: dynamicConfigJsonDefault,
-                  ),
-                );
+                return Text(HiveProxy.getOrDefault(settings, dynamicConfigJsonString, defaultValue: dynamicConfigJsonDefault));
               },
             ),
           ),
@@ -300,10 +240,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
               ],
             ),
           ),
-          ListTile(
-            title: const Text("PlatformLocale"),
-            subtitle: Text(Platform.localeName),
-          ),
+          ListTile(title: const Text("PlatformLocale"), subtitle: Text(Platform.localeName)),
           const ListTile(title: Divider()),
           ListTile(
             title: const Text("WatchIsReachable"),

@@ -9,6 +9,7 @@ import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 
 import '../../Bluetooth/bluetooth_message.dart';
+import '../../Bluetooth/bluetooth_stream_helpers.dart';
 import '../../Bluetooth/known_devices.dart';
 import '../../analytics.dart';
 import '../../utilities/version.dart';
@@ -31,7 +32,6 @@ class StatefulDevice {
   final ValueNotifier<BluetoothUartService?> bluetoothUartService =
       ValueNotifier(null);
   late final CommandQueue commandQueue;
-
   final BatteryStatus battery = BatteryStatus();
   final FirmwareStatus firmwareStatus = FirmwareStatus();
 
@@ -148,11 +148,11 @@ class StatefulDevice {
     );
 
     _batteryChargingStreamSubscription =
-        getIsChargingStream(storedDevice.btMACAddress).listen((event) {
+        (getIsChargingStream(storedDevice.btMACAddress)).listen((event) {
           battery.isCharging = event;
         });
     _batteryStreamSubscription =
-        getBatteryLevelStream(storedDevice.btMACAddress).listen((event) {
+        (getBatteryLevelStream(storedDevice.btMACAddress)).listen((event) {
           if (deviceState.value == DeviceMoveState.standby) {
             battery.level = event;
           }

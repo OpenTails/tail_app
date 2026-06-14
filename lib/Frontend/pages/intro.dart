@@ -205,7 +205,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                                 BluetoothPermissionStatus.granted) {
                               setState(() {
                                 // Start FlutterBluePlus
-                                initFlutterBluePlus();
+                                initBle();
                                 bluetoothAccepted = true;
                               });
                               if (firstTimeOnboarding) {

@@ -16,6 +16,9 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  tail_app_shared:
+    git:
+      url: https://github.com/OpenTails/tail_app_shared
   logging: ^1.3.0
   go_router: ^17.3.0
   vector_math: # used for joystick, pinned to SDK version
@@ -38,7 +41,7 @@ dependencies:
   package_info_plus: ^10.1.0
   permission_handler: ^12.0.3
   url_launcher: ^6.3.2 # Open URLS in external apps
-  flutter_blue_plus: 1.36.8 # 2.0 bad license don't update
+  universal_ble: ^2.0.4 # Good riddance FBP
   flutter_foreground_task: ^9.2.2 # Keep the app running in the background on android
   quick_actions: ^1.1.0 # puts favorites on the home screen
   audioplayers: ^6.7.1
@@ -46,10 +49,10 @@ dependencies:
   data_saver: ^0.4.0 # check if data saver is enabled
   battery_plus: ^7.0.0
   app_settings: ^7.0.0
-  app_badge_plus: ^1.3.0
+  app_badge_plus: ^1.3.1
   universal_io: ^2.3.1
   # Watch
-  watch_connectivity: ^0.2.1+1
+  watch_connectivity: 0.2.8
 
   # Widgets / UI
   flutter_screen_lock: ^9.2.2+2 # used to hide dev mode toggle
@@ -71,7 +74,7 @@ dependencies:
   lottie: ^3.3.3
   pdfx: ^2.9.2
   owoify_dart: ^2.1.0
-  cached_network_image_ce: ^4.6.4
+  cached_network_image_ce: ^4.7.0
 
   # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
@@ -87,10 +90,9 @@ dependencies:
   # Sensors
   pedometer: ^4.2.0
   sensors_plus: ^7.0.0
-  proximity_sensor: ^1.3.10
+  proximity_sensor: ^1.4.0
   noise_meter: ^5.1.0
   flutter_android_volume_keydown: ^1.0.1
-  ble_peripheral: ^2.4.0 # nearby gear
   #flutter_media_session: 2.0.0 #2.0.0 works, 2.1.3 does not
   gamepads: ^0.1.10+2
 
@@ -99,15 +101,14 @@ dependencies:
   hive_ce_flutter: ^2.3.4
 
   # Spicy
-  firebase_core: ^4.10.0
-  cloud_firestore: ^6.5.0
   upgrader: ^13.5.0 # update notices
   age_range_signals: ^0.6.1
   google_api_availability: ^5.0.1
+  firedart: ^0.9.8
 
   # Sentry
-  sentry_flutter: ^9.21.0 # Base sentry + Flutter integration
-  sentry_logging: ^9.21.0 # Collects app logs
+  sentry_flutter: 9.21.0 # Base sentry + Flutter integration
+  sentry_logging: 9.21.0 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
   #sentry_dio: ^9.8.0 # Collects Dio HTTP requests
 
@@ -134,7 +135,10 @@ dependency_overrides:
   flutter_joystick:
     git:
       url: https://github.com/Codel1417/flutter_joystick
-
+  firedart:
+    git:
+      url: https://github.com/roman-stakhovskyi/firedart
+      ref: bump-grpc-5-protobuf-6
 flutter:
   uses-material-design: true
   generate: true # Generate app_localizations.dart

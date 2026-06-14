@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tail_app/Backend/analytics.dart';
+import 'package:tail_app/Backend/coshub.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
-import 'package:tail_app/Backend/firebase.dart';
 import 'package:tail_app/Frontend/Widgets/tail_blog.dart';
 import 'package:tail_app/Frontend/Widgets/tail_blog_image.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/utils.dart';
+import 'package:tail_app_shared/tail_app_shared.dart';
 
 class CoshubFeed extends StatefulWidget {
   const CoshubFeed({super.key});
@@ -132,7 +133,7 @@ class _CoshubFeedState extends State<CoshubFeed> {
       }
       return;
     }
-    List<CosHubPost> cosHubPosts = await getCosHubPosts();
+    List<CosHubPost> cosHubPosts = await getCoshubPosts();
     if (mounted && context.mounted) {
       setState(() {
         results = cosHubPosts;

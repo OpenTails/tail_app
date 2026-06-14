@@ -86,6 +86,9 @@ class ForegroundServiceManager with ChangeNotifier {
 
   Future<void> _start() async {
     _runningServiceTypes = _serviceTypes;
+    if (_runningServiceTypes.isEmpty) {
+      return;
+    }
     _logger.info(
       "Starting foreground service of types ${_runningServiceTypes.keys}",
     );

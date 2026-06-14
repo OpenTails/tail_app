@@ -43,14 +43,6 @@
 > ```
 >
 
-## Firebase configuration is required for building
-
-Follow the official flutter firebase
-guide [here](https://firebase.google.com/docs/flutter/
-setup?platform=android)
-
-The `firebase_options.dart` file must be places in their correct location.
-
 ## Building for each platform
 
 ### For IOS

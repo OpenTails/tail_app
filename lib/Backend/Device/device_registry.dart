@@ -1,5 +1,5 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:logging/logging.dart' as log;
 
 import '../Action/base_action.dart';
@@ -75,7 +75,7 @@ class DeviceRegistry {
   }
 
   static DeviceDefinition? getByName(String id) {
-    return allDevices.firstWhere(
+    return allDevices.firstWhereOrNull(
       (DeviceDefinition element) =>
           element.btName.toLowerCase() == id.toLowerCase(),
     );
@@ -84,9 +84,6 @@ class DeviceRegistry {
   static final Iterable<String> getAllIds = uartServices.map(
     (e) => e.bleDeviceService,
   );
-  static final List<Guid> fbpGearServices = DeviceRegistry.getAllIds
-      .map(Guid.new)
-      .toList();
 }
 
 Set<StatefulDevice> getByAction(BaseAction baseAction) {

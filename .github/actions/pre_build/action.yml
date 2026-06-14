@@ -1,9 +1,5 @@
 name: 'Pre Build Tail App builds'
 description: 'Internal Action for Tail App'
-inputs:
-  dart_firebase:
-    description: "dart_firebase"
-    required: true
 runs:
   using: "composite"
   steps:
@@ -17,6 +13,9 @@ runs:
       shell: bash
       run: flutter pub get --no-example --enforce-lockfile
       # We received a "notice" over dependabot trying to update flutter_blue_plus to a version that forbids commercial use. Let's never let that happen again
+    - name: install license_checker tool
+      shell: bash
+      run: dart pub global activate license_checker
     - name: Validate licenses are approved. Added due to hostile package maintainers
       shell: bash
       run: lic_ck check-licenses --config license_check.yml --problematic
@@ -26,8 +25,3 @@ runs:
     - name: Generate dart .g files
       shell: bash
       run: dart pub run build_runner build
-    - name: Write Firebase Flutter
-      shell: bash
-      run: echo "$DART_FIREBASE" > ./lib/firebase_options.dart
-      env:
-        DART_FIREBASE: ${{ inputs.dart_firebase }}

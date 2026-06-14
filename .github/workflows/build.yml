@@ -39,8 +39,6 @@ jobs:
         uses: ./.github/actions/setup_build
       - name: Pre Build Tasks
         uses: ./.github/actions/pre_build
-        with:
-          dart_firebase: ${{ secrets.DART_FIREBASE }}
       - name: get Version
         id: version
         uses: ./.github/actions/version
@@ -51,13 +49,12 @@ jobs:
         with:
           version: ${{ steps.version.outputs.version }}
           build-number: ${{ steps.version.outputs.build-number }}
-
           android-key-jks: ${{ secrets.ANDROID_KEY_JKS }}
           android-key-properties: ${{ secrets.ANDROID_KEY_PROPERTIES }}
           android-keystore-password: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           android-key-password: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          sentry-auth: ${{ secrets.SENTRY_AUTH_TOKEN }}
           sentry-dsn: ${{ secrets.SENTRY_DSN }}
+
       - name: Build IOS / Upload Beta
         if: github.event_name == 'push'
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
@@ -69,7 +66,6 @@ jobs:
           APPLE_SECRETS: ${{ secrets.APPLE }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.FASTLANE_GITHUB }}
           MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
-
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
       - name: Upload Dart/Flutter debug symbols
         run: dart pub global activate sentry_dart_plugin && dart pub global run sentry_dart_plugin
