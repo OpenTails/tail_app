@@ -11,12 +11,6 @@ void init() {
   if (_didInit) {
     return;
   }
-  if (const String.fromEnvironment(
-    'FIREBASE_PROJECT_ID',
-    defaultValue: "",
-  ).isEmpty) {
-    return;
-  }
   Firestore.initialize("coshub-df5cf");
   _didInit = true;
 }

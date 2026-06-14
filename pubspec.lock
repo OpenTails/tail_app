@@ -386,6 +386,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  cupertino_icons:
+    dependency: transitive
+    description:
+      name: cupertino_icons
+      sha256: "41e005c33bd814be4d3096aff55b1908d419fde52ca656c8c47719ec745873cd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.9"
   dart_style:
     dependency: transitive
     description:
@@ -1072,6 +1080,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.14.0"
+  json_visualizer:
+    dependency: "direct main"
+    description:
+      name: json_visualizer
+      sha256: "4f03b4288aa84ed0580798d49a5c21e0ac590fa266167d65357dcaf81b150239"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   leak_tracker:
     dependency: transitive
     description:
@@ -1695,6 +1711,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.11"
+  theme_inspector:
+    dependency: "direct main"
+    description:
+      name: theme_inspector
+      sha256: "011cb476059d3aad62881b3fdb7559d5b673454898621dba77b4a43e09767075"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   typed_data:
     dependency: transitive
     description:
