@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
@@ -48,6 +46,7 @@ Future<void> initBle() async {
   UniversalBle.queueType = QueueType.perDevice;
   UniversalBle.onScanResult = _onScanResultsListener;
   UniversalBle.onValueChange = valueChanged;
+  UniversalBle.setLogLevel(kDebugMode ? BleLogLevel.debug : BleLogLevel.info);
   Scan.instance;
   _KeepGearAwake.instance;
 }

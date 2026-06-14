@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:universal_ble/universal_ble.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/device_definition.dart';
 import '../../Backend/Device/device_registry.dart';

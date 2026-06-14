@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Device/command/command_history.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 

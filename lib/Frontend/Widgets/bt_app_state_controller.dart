@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 

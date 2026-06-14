@@ -10,7 +10,7 @@ import 'package:tail_app/Backend/Device/ota/update_info.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../../Frontend/utils.dart';
-import '../../Bluetooth/bluetooth_manager_plus.dart';
+import '../../Bluetooth/bluetooth_manager.dart';
 import '../../analytics.dart';
 import '../../utilities/version.dart';
 import '../stateful/connected_gear.dart';
