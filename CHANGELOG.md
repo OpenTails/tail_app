@@ -12,6 +12,7 @@
   similar to regular gear.
 - Disabled the "Cover" trigger for now as many phones lack a real proximity
   sensor.
+- Replaced bluetooth library
 
 ### V 1.4.1
 

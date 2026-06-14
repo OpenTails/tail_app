@@ -13,7 +13,7 @@ import 'package:tail_app/Backend/utilities/version.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/bluetooth_uart_services_list.dart';

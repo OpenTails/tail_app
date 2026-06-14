@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 
 final knownGearScanControllerLogger = log.Logger('KnownGearScanController');
 
@@ -14,7 +14,8 @@ class KnownGearScanController extends StatefulWidget {
   final Widget child;
 
   @override
-  State<KnownGearScanController> createState() => _KnownGearScanControllerState();
+  State<KnownGearScanController> createState() =>
+      _KnownGearScanControllerState();
 }
 
 class _KnownGearScanControllerState extends State<KnownGearScanController> {

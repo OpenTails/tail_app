@@ -1,10 +1,8 @@
-import io.sentry.android.gradle.extensions.InstrumentationFeature
 import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
     id("com.android.application")
-    id("io.sentry.android.gradle") version "6.8.1"
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
@@ -12,7 +10,9 @@ plugins {
 
 val keystorePropertiesFile = rootProject.file("key.properties")
 val keystoreProperties = Properties()
-keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+if (file(keystorePropertiesFile).exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
 kotlin {
     compilerOptions {
         languageVersion =
@@ -31,12 +31,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
+        if (file(keystorePropertiesFile).exists()) {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
         }
+
     }
     defaultConfig {
         applicationId = "com.codel1417.tailApp"
@@ -55,7 +58,9 @@ android {
             ndk {
                 debugSymbolLevel = "FULL"
             }
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (file(keystorePropertiesFile).exists())
+                signingConfigs
+                    .getByName("release") else signingConfigs.getByName("debug")
         }
         getByName("debug") {
             isDebuggable = true
@@ -74,32 +79,4 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.3.21")
     testImplementation("junit:junit:4.13.2")
     implementation("io.rebble.pebblekit2:client:1.1.0")
-}
-
-sentry {
-    ignoredBuildTypes.set(setOf("debug", "release"))
-    org.set("floof")
-    projectName.set("tail-app")
-    authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
-    url.set("https://glitchtip.codel1417.xyz")
-    includeProguardMapping.set(true)
-    autoUploadProguardMapping.set(true)
-    includeNativeSources.set(true)
-    includeSourceContext.set(true)
-    tracingInstrumentation {
-        enabled.set(true)
-        features.set(setOf(InstrumentationFeature.DATABASE, InstrumentationFeature.FILE_IO, InstrumentationFeature.OKHTTP, InstrumentationFeature.COMPOSE))
-        logcat {
-            enabled.set(true)
-            // Specifies a minimum log level for the logcat breadcrumb logging.
-            // Defaults to LogcatLevel.WARNING.
-            //minLevel.set(LogcatLevel.WARNING)
-        }
-    }
-    // Enable auto-installation of Sentry components (sentry-android SDK and okhttp, timber, fragment and compose integrations).
-    // Default is enabled.
-    // Only available v3.1.0 and above.
-    autoInstallation {
-        enabled.set(false)
-    }
 }

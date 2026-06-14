@@ -25,9 +25,6 @@ inputs:
   sentry-dsn:
     description: 'The sentry dsn for sending error info'
     required: true
-  sentry-auth:
-    description: 'The sentry token for sending symbols'
-    required: true
 runs:
   using: "composite"
   steps:
@@ -50,8 +47,6 @@ runs:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
-        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth }}
-
     - name: Convert aab to apk
       id: convert_aab
       uses: mukeshsolanki/bundletool-action@v2.0.0

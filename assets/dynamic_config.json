@@ -23,7 +23,8 @@
     "enableCoshubPosts": true,
     "enableTailBlogPosts": true,
     "analyticsTickDurationSeconds": 30,
-    "hideOtaCheck": true
+    "hideOtaCheck": true,
+    "enableAgeCheckForCoshub": false
   },
   "updateURLs": {
     "_commant": "bt name : ota info url",

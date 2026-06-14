@@ -12,7 +12,8 @@ permittedLicenses:
   - Zlib
 
 approvedPackages:
-
+  GPL-3.0:
+    - tail_app_shared
 rejectedLicenses:
   - GPL
 

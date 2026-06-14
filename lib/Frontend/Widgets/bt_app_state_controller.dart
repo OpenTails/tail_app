@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 
@@ -28,7 +28,7 @@ class _BtAppStateControllerState extends State<BtAppStateController> {
               defaultValue: hasCompletedOnboardingDefault,
             ) >=
             hasCompletedOnboardingVersionToAgree) {
-          initFlutterBluePlus();
+          initBle();
         }
       },
       onPause: () {
@@ -44,7 +44,7 @@ class _BtAppStateControllerState extends State<BtAppStateController> {
           defaultValue: hasCompletedOnboardingDefault,
         ) >=
         hasCompletedOnboardingVersionToAgree) {
-      initFlutterBluePlus();
+      initBle();
     }
   }
 

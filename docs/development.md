@@ -77,9 +77,6 @@ fastlane folder to use and begins the upload.
 
 This project uses Firebase for CosHub posts.
 
-This file [`firebase_options.dart`](lib/firebase_options.dart) is supplied in
-build via secrets.
-
 ### Repository Integrations
 
 #### Sentry

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
+import 'package:universal_ble/universal_ble.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/device_definition.dart';
 import '../../Backend/Device/device_registry.dart';
@@ -116,7 +116,7 @@ class ScanGearList extends StatefulWidget {
 
 class _ScanGearListState extends State<ScanGearList> {
   bool anyKnownGear = false;
-  List<BluetoothDevice> foundSystemDevices = [];
+  List<BleDevice> foundSystemDevices = [];
 
   @override
   void initState() {
@@ -133,6 +133,7 @@ class _ScanGearListState extends State<ScanGearList> {
   }
 
   bool anyGearFound = false;
+  List<BleDevice> foundDevices = [];
 
   @override
   Widget build(BuildContext context) {
@@ -140,197 +141,190 @@ class _ScanGearListState extends State<ScanGearList> {
       listenable: KnownDevices.instance,
       builder: (BuildContext context, Widget? child) {
         Iterable<String> knownDeviceIds = KnownDevices.instance.state.keys;
-        return StreamBuilder<List<ScanResult>>(
-          stream: FlutterBluePlus.scanResults,
-          builder:
-              (BuildContext context, AsyncSnapshot<List<ScanResult>> snapshot) {
-                List<BluetoothDevice> foundDevices = [];
-                if (snapshot.hasData) {
-                  foundDevices = snapshot.data!
-                      .where(
-                        (scanResult) => !knownDeviceIds.contains(
-                          scanResult.device.remoteId.str,
-                        ),
-                      )
-                      .map((scanResult) => scanResult.device)
-                      .toList();
-                  foundDevices.addAll(foundSystemDevices);
-                  anyGearFound = foundDevices.isNotEmpty;
-                }
-                return ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    AnimatedCrossFade(
-                      firstChild: anyGearFound
-                          ? ListView(
-                              physics: const NeverScrollableScrollPhysics(),
+        return StreamBuilder<BleDevice>(
+          stream: UniversalBle.scanStream,
+          builder: (BuildContext context, AsyncSnapshot<BleDevice> snapshot) {
+            if (snapshot.hasData) {
+              BleDevice foundDevice = snapshot.data!;
+              if (!knownDeviceIds.contains(foundDevice.deviceId) &&
+                  !foundDevices
+                      .map((e) => e.deviceId)
+                      .any((element) => element == foundDevice.deviceId)) {
+                foundDevices.add(foundDevice);
+              }
+              anyGearFound = foundDevices.isNotEmpty;
+            }
+            return ListView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                AnimatedCrossFade(
+                  firstChild: anyGearFound
+                      ? ListView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          children: [
+                            ListTile(
+                              title: Text(
+                                convertToUwU(scanDevicesFoundTitle()),
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                            ListView.builder(
                               shrinkWrap: true,
-                              children: [
-                                ListTile(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: foundDevices.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                BleDevice e = foundDevices[index];
+                                return ListTile(
                                   title: Text(
-                                    convertToUwU(scanDevicesFoundTitle()),
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleMedium,
-                                  ),
-                                ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: foundDevices.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                        BluetoothDevice e = foundDevices[index];
-                                        return ListTile(
-                                          title: Text(
-                                            convertToUwU(
-                                              DeviceRegistry.getByName(
-                                                    e.platformName,
-                                                  )?.friendlyName ??
-                                                  "",
-                                            ),
-                                          ),
-                                          trailing: Text(
-                                            isDeveloperEnabled
-                                                ? e.remoteId.str
-                                                : "",
-                                          ),
-                                          onTap: () async {
-                                            await e.connect();
-                                            analyticsEvent(
-                                              name: "Connect New Gear",
-                                              props: {
-                                                "Gear Type": e.platformName,
-                                                "Onboarding in Progress":
-                                                    (!widget.popOnConnect)
-                                                        .toString(),
-                                              },
-                                            );
-                                            if (context.mounted &&
-                                                widget.popOnConnect) {
-                                              Navigator.pop(context);
-                                            }
-                                          },
-                                        );
-                                      },
-                                ),
-                                if (foundDevices.length > 1) ...[
-                                  Center(
-                                    child: FilledButton(
-                                      onPressed: () async {
-                                        for (BluetoothDevice bluetoothDevice
-                                            in foundDevices) {
-                                          bluetoothDevice.connect();
-                                        }
-                                        if (widget.popOnConnect) {
-                                          Navigator.pop(context);
-                                        }
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.select_all,
-                                            color: getTextColor(
-                                              Theme.of(
-                                                context,
-                                              ).colorScheme.primary,
-                                            ),
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 4,
-                                            ),
-                                          ),
-                                          Text(
-                                            convertToUwU(
-                                              scanConnectToAllButtonLabel(),
-                                            ),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelLarge!
-                                                .copyWith(
-                                                  color: getTextColor(
-                                                    Theme.of(
-                                                      context,
-                                                    ).colorScheme.primary,
-                                                  ),
-                                                ),
-                                          ),
-                                        ],
-                                      ),
+                                    convertToUwU(
+                                      DeviceRegistry.getByName(
+                                            e.name ?? "",
+                                          )?.friendlyName ??
+                                          "",
                                     ),
                                   ),
-                                ],
-                              ],
-                            )
-                          : Container(),
-                      secondChild: Container(),
-                      crossFadeState: anyGearFound
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
-                      duration: animationTransitionDuration,
-                    ),
-                    AnimatedOpacity(
-                      opacity: anyGearFound ? 0.5 : 1,
-                      duration: animationTransitionDuration,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Center(
-                          child: Column(
-                            children: [
-                              LottieLazyLoad(
-                                asset: Assets.tailcostickers.spinningCrumpet,
-                                width: 200,
-                                renderCache: false,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  //Show a different message during onboarding
-                                  convertToUwU(
-                                    widget.popOnConnect
-                                        ? scanDevicesScanMessage()
-                                        : scanDevicesOnboardingScanMessage(),
+                                  trailing: Text(
+                                    isDeveloperEnabled ? e.deviceId : "",
                                   ),
-                                  textAlign: TextAlign.center,
+                                  onTap: () async {
+                                    await createAndConnect(
+                                      e.deviceId,
+                                      e.name ?? "",
+                                    );
+                                    analyticsEvent(
+                                      name: "Connect New Gear",
+                                      props: {
+                                        "Gear Type": e.name ?? "",
+                                        "Onboarding in Progress":
+                                            (!widget.popOnConnect).toString(),
+                                      },
+                                    );
+                                    if (context.mounted &&
+                                        widget.popOnConnect) {
+                                      Navigator.pop(context);
+                                    }
+                                  },
+                                );
+                              },
+                            ),
+                            if (foundDevices.length > 1) ...[
+                              Center(
+                                child: FilledButton(
+                                  onPressed: () async {
+                                    for (BleDevice bluetoothDevice
+                                        in foundDevices) {
+                                      await createAndConnect(
+                                        bluetoothDevice.deviceId,
+                                        bluetoothDevice.name ?? "",
+                                      );
+                                    }
+                                    if (widget.popOnConnect &&
+                                        mounted &&
+                                        context.mounted) {
+                                      Navigator.pop(context);
+                                    }
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.select_all,
+                                        color: getTextColor(
+                                          Theme.of(context).colorScheme.primary,
+                                        ),
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 4,
+                                        ),
+                                      ),
+                                      Text(
+                                        convertToUwU(
+                                          scanConnectToAllButtonLabel(),
+                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(
+                                              color: getTextColor(
+                                                Theme.of(
+                                                  context,
+                                                ).colorScheme.primary,
+                                              ),
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
+                          ],
+                        )
+                      : Container(),
+                  secondChild: Container(),
+                  crossFadeState: anyGearFound
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
+                  duration: animationTransitionDuration,
+                ),
+                AnimatedOpacity(
+                  opacity: anyGearFound ? 0.5 : 1,
+                  duration: animationTransitionDuration,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          LottieLazyLoad(
+                            asset: Assets.tailcostickers.spinningCrumpet,
+                            width: 200,
+                            renderCache: false,
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              //Show a different message during onboarding
+                              convertToUwU(
+                                widget.popOnConnect
+                                    ? scanDevicesScanMessage()
+                                    : scanDevicesOnboardingScanMessage(),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                );
-              },
+                  ),
+                ),
+              ],
+            );
+          },
         );
       },
     );
   }
 
   Future<void> getSystemDevices() async {
-    foundSystemDevices =
-        await FlutterBluePlus.systemDevices(
-          DeviceRegistry.fbpGearServices,
-        ).then(
-          (value) => value
-              .where(
-                (bluetoothDevice) => !KnownDevices.instance.state.containsKey(
-                  bluetoothDevice.remoteId.str,
-                ),
-              )
-              .where(
-                (bluetoothDevice) =>
-                    DeviceRegistry.getByName(bluetoothDevice.platformName) !=
-                    null,
-              )
-              .toList(),
-        );
+    foundSystemDevices = await UniversalBle.getSystemDevices().then(
+      (value) => value
+          .where(
+            (bluetoothDevice) => !KnownDevices.instance.state.containsKey(
+              bluetoothDevice.deviceId,
+            ),
+          )
+          .where(
+            (bluetoothDevice) =>
+                DeviceRegistry.getByName(bluetoothDevice.name ?? "") != null,
+          )
+          .toList(),
+    );
     if (foundSystemDevices.isNotEmpty && mounted && context.mounted) {
-      setState(() {});
+      setState(() {
+        foundDevices.addAll(foundSystemDevices);
+      });
     }
   }
 }

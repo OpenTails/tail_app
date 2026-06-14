@@ -1,9 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:tail_app/Frontend/Widgets/signal_icon.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
-import '../../Backend/Bluetooth/bluetooth_manager_plus.dart';
+import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_issues_check.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
@@ -338,12 +339,12 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                                 builder:
                                                     (
                                                       BuildContext context,
-                                                      rssi,
+                                                      int rssi,
                                                       Widget? child,
                                                     ) {
-                                                      return getSignal(
-                                                        rssi,
-                                                        textColor,
+                                                      return SignalIcon(
+                                                        rssi: rssi,
+                                                        color: textColor,
                                                       );
                                                     },
                                               ),
@@ -376,22 +377,6 @@ class _KnownGearCardState extends State<KnownGearCard> {
             },
       ),
     );
-  }
-
-  Widget getSignal(int rssi, Color color) {
-    if (rssi == -1) {
-      // Not Connected
-      return Icon(
-        Icons.signal_cellular_connected_no_internet_0_bar,
-        color: color,
-      );
-    } else if (rssi < -80) {
-      return Icon(Icons.signal_cellular_alt_1_bar, color: color);
-    } else if (rssi < -60) {
-      return Icon(Icons.signal_cellular_alt_2_bar, color: color);
-    } else {
-      return Icon(Icons.signal_cellular_alt, color: color);
-    }
   }
 
   Widget getBattery(double level, Color color) {

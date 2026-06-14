@@ -2,11 +2,14 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:data_saver/data_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:go_router/go_router.dart';
+import 'package:json_visualizer/widgets/json_visualizer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tail_app/Backend/Bluetooth/bluetooth_manager_plus.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
+import 'package:tail_app/Frontend/theme_helpers.dart';
+import 'package:theme_inspector/theme_inspector.dart';
+import 'package:universal_ble/universal_ble.dart';
 import 'package:universal_io/io.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -17,6 +20,7 @@ import '../../../Backend/utilities/settings.dart';
 import '../../../Backend/wear_bridge.dart';
 import '../../../assets.dart';
 import '../../../constants.dart';
+import '../../Widgets/signal_icon.dart';
 import '../../go_router_config.dart';
 
 class DeveloperMenu extends StatefulWidget {
@@ -57,6 +61,12 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
             onTap: () {
               throw Exception('Sentry Test');
             },
+          ),
+          ListTile(
+            title: const Text("Theme Inspector"),
+            leading: const Icon(Icons.color_lens),
+            subtitle: const Text("Visualize the current theme"),
+            onTap: () => ThemeInspector.open(context),
           ),
           ListTile(
             title: const Text(hasCompletedOnboarding),
@@ -155,13 +165,13 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
             ),
           ),
           ListTile(
-            title: const Text("AdapterState"),
-            subtitle: StreamBuilder(
-              stream: FlutterBluePlus.adapterState.asBroadcastStream(),
+            title: const Text("BLE Availability"),
+            subtitle: FutureBuilder(
+              future: UniversalBle.getBluetoothAvailabilityState(),
               builder:
                   (
                     BuildContext context,
-                    AsyncSnapshot<BluetoothAdapterState> snapshot,
+                    AsyncSnapshot<AvailabilityState> snapshot,
                   ) {
                     var value = snapshot.data;
                     String text = value != null ? value.toString() : "unknown";
@@ -170,13 +180,38 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
             ),
           ),
           ListTile(
-            title: const Text("isScanning"),
+            title: const Text("System Devices"),
             subtitle: StreamBuilder(
-              stream: FlutterBluePlus.isScanning.asBroadcastStream(),
-              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                var value = snapshot.data;
-                String text = value != null ? value.toString() : "unknown";
-                return Text(text);
+              stream: Stream.periodic(Duration(seconds: 1)).asBroadcastStream(),
+              builder: (context, asyncSnapshot) {
+                return FutureBuilder(
+                  future: UniversalBle.getSystemDevices(),
+                  builder: (context, snapshot) {
+                    String value = "";
+                    Color textColor = Theme.of(context).colorScheme.surface;
+                    if (snapshot.hasData) {
+                      return ListView(
+                        shrinkWrap: true,
+                        primary: false,
+                        children: snapshot.data!
+                            .map(
+                              (e) => ListTile(
+                                dense: true,
+                                title: Text(e.name ?? "unknown"),
+                                subtitle: Text(e.deviceId),
+                                leading: SignalIcon(
+                                  rssi: e.rssi ?? -1,
+                                  color: getTextColor(textColor),
+                                ),
+                                trailing: Text(e.isSystemDevice.toString()),
+                              ),
+                            )
+                            .toList(),
+                      );
+                    }
+                    return Text(value);
+                  },
+                );
               },
             ),
           ),
@@ -266,8 +301,9 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                 if (snapshot.hasData) {
                   dynamicConfigJsonDefault = snapshot.data!;
                 }
-                return Text(
-                  HiveProxy.getOrDefault(
+                return JsonVisualizer(
+                  expandDepth: 3,
+                  data: HiveProxy.getOrDefault(
                     settings,
                     dynamicConfigJsonString,
                     defaultValue: dynamicConfigJsonDefault,
@@ -341,7 +377,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
               future: applicationContext(),
               builder: (context, snapshot) {
                 Map<String, dynamic> value = snapshot.data ?? {};
-                return Text(value.toString());
+                return JsonVisualizer(expandDepth: 3, data: value.toString());
               },
             ),
           ),
