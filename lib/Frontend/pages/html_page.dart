@@ -16,7 +16,11 @@ part 'html_page.freezed.dart';
 
 @freezed
 abstract class HtmlPageInfo with _$HtmlPageInfo {
-  const factory HtmlPageInfo({required String url, required String title, required String analyticsLabel}) = _HtmlPageInfo;
+  const factory HtmlPageInfo({
+    required String url,
+    required String title,
+    required String analyticsLabel,
+  }) = _HtmlPageInfo;
 }
 
 class HtmlPage extends StatefulWidget {
@@ -29,18 +33,14 @@ class HtmlPage extends StatefulWidget {
 
 class _HtmlPageState extends State<HtmlPage> {
   String body = "";
-  _HtmlPageState() {
-    analyticsEvent(name: "View File", props: {"file": widget.htmlPageInfo.analyticsLabel});
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(convertToUwU(widget.htmlPageInfo.title))),
       body: AnimatedCrossFade(
         alignment: Alignment.center,
-        firstChild: const Center(
-          child: CircularProgressIndicator(),
-        ),
+        firstChild: const Center(child: CircularProgressIndicator()),
         secondChild: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: HtmlWidget(
@@ -59,7 +59,9 @@ class _HtmlPageState extends State<HtmlPage> {
             },
           ),
         ),
-        crossFadeState: body.isNotEmpty ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+        crossFadeState: body.isNotEmpty
+            ? CrossFadeState.showSecond
+            : CrossFadeState.showFirst,
         duration: animationTransitionDuration,
       ),
     );
@@ -73,8 +75,14 @@ class _HtmlPageState extends State<HtmlPage> {
 
   Future<void> getContent() async {
     Dio dio = await initDio();
-    Response<String> pageContentResponse = await dio.get(widget.htmlPageInfo.url);
+    Response<String> pageContentResponse = await dio.get(
+      widget.htmlPageInfo.url,
+    );
     if (pageContentResponse.statusCode! < 400 && mounted) {
+      analyticsEvent(
+        name: "View File",
+        props: {"file": widget.htmlPageInfo.analyticsLabel},
+      );
       setState(() {
         body = pageContentResponse.data!;
       });
@@ -124,16 +132,10 @@ class _LoadImageState extends State<LoadImage> {
     Dio dio = await initDio();
     Response<List<int>> response = await dio.get(
       widget.url,
-      options: Options(
-        responseType: ResponseType.bytes,
-        followRedirects: true,
-      ),
+      options: Options(responseType: ResponseType.bytes, followRedirects: true),
     );
     if (response.statusCode! < 400 && mounted) {
-      return Image.memory(
-        Uint8List.fromList(response.data!),
-        fit: BoxFit.fill,
-      );
+      return Image.memory(Uint8List.fromList(response.data!), fit: BoxFit.fill);
     }
     return Container();
   }
