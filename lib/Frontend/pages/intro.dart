@@ -92,7 +92,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           footerPadding: const EdgeInsets.symmetric(vertical: 16),
           imageFlex: 5,
           bodyFlex: 5,
-          //safeArea: 0,
         );
         return IntroductionScreen(
           key: introKey,
@@ -289,7 +288,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           ),
           dotsFlex: 0,
           isProgress: false,
-          controlsPadding: const EdgeInsets.symmetric(vertical: 32),
+          //controlsPadding: const EdgeInsets.symmetric(vertical: 32),
+          controlsMargin: EdgeInsets.symmetric(vertical: 32),
         );
       },
     );
