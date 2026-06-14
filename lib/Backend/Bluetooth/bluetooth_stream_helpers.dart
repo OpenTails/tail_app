@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
+import 'package:universal_ble/universal_ble.dart';
 
 part 'bluetooth_stream_helpers.freezed.dart';
 
@@ -71,6 +72,6 @@ Stream<bool> getIsChargingStream(String macAddress) {
 Stream<double> getBatteryLevelStream(String macAddress) {
   return (getBaseRxStream(
     macAddress,
-    "2a19",
+    BleUuidParser.string("2a19"),
   )).map((event) => event.first.toDouble());
 }
