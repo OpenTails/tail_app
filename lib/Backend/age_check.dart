@@ -2,6 +2,7 @@ import 'package:age_range_signals/age_range_signals.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:google_api_availability/google_api_availability.dart';
 import 'package:logging/logging.dart';
+import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:universal_io/io.dart';
 
 import '../Frontend/utils.dart';
@@ -12,12 +13,13 @@ Logger _logger = Logger("AgeCheck");
 Future<bool> shouldShowCoshub() async {
   bool showCoshub = true;
 
+  // Skip age checks if disabled. Allow coshub posts
+  if (!(await getDynamicConfigInfo()).featureFlags.enableAgeCheckForCoshub) {
+    return true;
+  }
+
   // Age signals only available on mobile
   if (!isMobile) {
-    //Firebase doesn't support web
-    if (Platform.isLinux) {
-      return false;
-    }
     return true;
   }
   await AgeRangeSignals.instance.initialize(ageGates: [13]);

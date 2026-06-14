@@ -13,6 +13,7 @@ import '../constants.dart';
 import 'logging_wrappers.dart';
 
 part 'dynamic_config.freezed.dart';
+
 part 'dynamic_config.g.dart';
 
 final _dynamicConfigLogger = Logger('DynamicConfig');
@@ -77,6 +78,7 @@ abstract class FeatureFlags with _$FeatureFlags {
     @Default(true) bool enableTailBlogPosts,
     @Default(30) int analyticsTickDurationSeconds,
     @Default(true) bool hideOtaCheck,
+    @Default(false) bool enableAgeCheckForCoshub,
   }) = _FeatureFlags;
 
   factory FeatureFlags.fromJson(Map<String, dynamic> json) =>
