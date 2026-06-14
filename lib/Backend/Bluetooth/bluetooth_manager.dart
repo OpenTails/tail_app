@@ -61,41 +61,42 @@ Future<void> _onConnectionStateChangedListener(
   bool isConnected,
   String? error,
 ) async {
-  BleDevice? bluetoothDevice = await getBleDeviceByID(id);
-  _logger.info('name: ${bluetoothDevice?.name} connected: $isConnected');
-  if (isConnected &&
-      bluetoothDevice != null &&
-      bluetoothDevice.name != null &&
-      bluetoothDevice.name!.trim().isEmpty) {
-    _logger.warning("Disconnecting from BLE device with blank platform name");
-    disconnect(id);
-  }
   Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
-
-  StoredDevice storedDevice;
   StatefulDevice statefulDevice;
   //get existing entry
   if (knownDevices.containsKey(id)) {
     statefulDevice = knownDevices[id]!;
-    storedDevice = statefulDevice.storedDevice;
   } else {
-    // Don't create a new entry on device disconnect if the stored device
-    // doesn't exist. Stops forgotten gear from immediately being repaired
-    if (!isConnected) {
-      return;
+    if (isConnected) {
+      await disconnect(id);
     }
-    if (bluetoothDevice == null) {
-      _logger.severe("BLEDevice not found for ID: $id");
-      return;
-    }
-    DeviceDefinition? deviceDefinition = DeviceRegistry.getByName(
-      bluetoothDevice.name!,
-    );
+    return;
+  }
+  statefulDevice.deviceConnectionState.value = isConnected
+      ? ConnectivityState.connected
+      : ConnectivityState.disconnected;
+  if (isConnected) {
+    await discoverServices(id);
+    int mtu = await UniversalBle.requestMtu(id, 512);
+    statefulDevice.mtu.value = mtu;
+  }
+}
+
+/// Create a new Stored/Stateful device entry if it doesn't exist and try to connect
+Future<void> createAndConnect(String id, String name) async {
+  Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
+  StatefulDevice statefulDevice;
+  //get existing entry
+  if (knownDevices.containsKey(id)) {
+    statefulDevice = knownDevices[id]!;
+  } else {
+    _logger.info("Registering new device $name $id");
+    DeviceDefinition? deviceDefinition = DeviceRegistry.getByName(name);
     if (deviceDefinition == null) {
-      _logger.severe("Unknown device found: ${bluetoothDevice.name}");
+      _logger.severe("Unknown device found: $name");
       return;
     }
-    storedDevice = StoredDevice(
+    StoredDevice storedDevice = StoredDevice(
       deviceDefinition.uuid,
       id,
       deviceDefinition.deviceType.color().toARGB32(),
@@ -104,18 +105,11 @@ Future<void> _onConnectionStateChangedListener(
     statefulDevice = StatefulDevice(deviceDefinition, storedDevice);
     await KnownDevices.instance.add(statefulDevice);
   }
-  statefulDevice.deviceConnectionState.value = isConnected
-      ? ConnectivityState.connected
-      : ConnectivityState.disconnected;
-  if (isConnected && bluetoothDevice != null) {
-    await discoverServices(bluetoothDevice);
-    int mtu = await bluetoothDevice.requestMtu(512);
-    statefulDevice.mtu.value = mtu;
-  }
+  await _connect(id);
 }
 
-Future<void> discoverServices(BleDevice device) async {
-  List<BleService> services = await device.discoverServices();
+Future<void> discoverServices(String id) async {
+  List<BleService> services = await UniversalBle.discoverServices(id);
   List<BleCharacteristic> characteristics = services
       .map((e) => e.characteristics)
       .flattened
@@ -128,8 +122,7 @@ Future<void> discoverServices(BleDevice device) async {
           element.bleDeviceService.toLowerCase() == service.uuid.toLowerCase(),
     );
     if (bluetoothUartService != null) {
-      StatefulDevice? statefulDevice =
-          KnownDevices.instance.state[device.deviceId];
+      StatefulDevice? statefulDevice = KnownDevices.instance.state[id];
       statefulDevice?.bluetoothUartService.value = bluetoothUartService;
     }
   }
@@ -183,7 +176,7 @@ Future<void> _onScanResultsListener(BleDevice scanResult) async {
       !knownDevices[scanResult.deviceId]!.disableAutoConnect) {
     knownDevices[scanResult.deviceId]?.deviceConnectionState.value =
         ConnectivityState.connecting;
-    await connect(scanResult.deviceId);
+    await _connect(scanResult.deviceId);
   }
 }
 
@@ -191,22 +184,14 @@ Future<void> disconnect(String id) async {
   if (!_didInitBle) {
     return;
   }
-  BleDevice? device = await getBleDeviceByID(id);
-  KnownDevices.instance.state[id]?.deviceConnectionState.value =
-      ConnectivityState.disconnected;
+  StatefulDevice? statefulDevice = KnownDevices.instance.state[id];
+  statefulDevice?.deviceConnectionState.value = ConnectivityState.disconnected;
 
-  if (device != null) {
-    _logger.info("disconnecting from ${device.name}");
-    await device.disconnect();
+  if (statefulDevice != null && isDemoGear(statefulDevice)) {
+    return;
   }
-}
-
-Future<BleDevice?> getBleDeviceByID(String id) async {
-  List<BleDevice> connectedDevices = await UniversalBle.getSystemDevices();
-  BleDevice? device = connectedDevices.firstWhereOrNull(
-    (element) => element.deviceId == id,
-  );
-  return device;
+  _logger.info("disconnecting from $id");
+  await UniversalBle.disconnect(id);
 }
 
 Future<void> forgetBond(String id) async {
@@ -217,14 +202,12 @@ Future<void> forgetBond(String id) async {
   if (!Platform.isAndroid) {
     return;
   }
-  BleDevice? device = await getBleDeviceByID(id);
-  if (device != null) {
-    _logger.info("forgetting ${device.name}");
-    await device.unpair();
-  }
+  _logger.info("forgetting $id");
+  await UniversalBle.unpair(id);
 }
 
-Future<void> connect(String id) async {
+/// Attempt to connect to the ble mac address, tries a few times
+Future<void> _connect(String id) async {
   if (!_didInitBle) {
     return;
   }
@@ -320,7 +303,7 @@ class Scan with ChangeNotifier {
                   .disableAutoConnect,
             )
             .where((element) => element.isSystemDevice == true)
-            .forEach((bluetoothDevice) => connect(bluetoothDevice.deviceId)),
+            .forEach((bluetoothDevice) => _connect(bluetoothDevice.deviceId)),
       );
       // Or optionally add a scan filter
       await UniversalBle.startScan(

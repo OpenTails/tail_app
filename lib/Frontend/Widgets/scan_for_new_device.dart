@@ -189,7 +189,10 @@ class _ScanGearListState extends State<ScanGearList> {
                                     isDeveloperEnabled ? e.deviceId : "",
                                   ),
                                   onTap: () async {
-                                    await e.connect();
+                                    await createAndConnect(
+                                      e.deviceId,
+                                      e.name ?? "",
+                                    );
                                     analyticsEvent(
                                       name: "Connect New Gear",
                                       props: {
@@ -212,9 +215,14 @@ class _ScanGearListState extends State<ScanGearList> {
                                   onPressed: () async {
                                     for (BleDevice bluetoothDevice
                                         in foundDevices) {
-                                      bluetoothDevice.connect();
+                                      await createAndConnect(
+                                        bluetoothDevice.deviceId,
+                                        bluetoothDevice.name ?? "",
+                                      );
                                     }
-                                    if (widget.popOnConnect) {
+                                    if (widget.popOnConnect &&
+                                        mounted &&
+                                        context.mounted) {
                                       Navigator.pop(context);
                                     }
                                   },
