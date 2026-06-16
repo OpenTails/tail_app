@@ -66,10 +66,13 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
 Logger _logger = Logger("Sentry");
 
 Future<void> startSentryApp(Widget child) async {
-  if (const String.fromEnvironment('SENTRY_DSN', defaultValue: "").isEmpty) {
+  _logger.fine("Init Sentry");
+  String dsn = const String.fromEnvironment('SENTRY_DSN', defaultValue: "");
+  _logger.info("Sentry DSN: $dsn");
+  if (dsn.isEmpty) {
+    _logger.severe("Sentry DSN is empty, Launching without sentry");
     runApp(child);
   }
-  _logger.fine("Init Sentry");
   String environment = await getSentryEnvironment();
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
   _logger.info("Detected Environment: $environment");
@@ -77,11 +80,11 @@ Future<void> startSentryApp(Widget child) async {
   await SentryFlutter.init(
     (options) async {
       options
-        ..dsn = const String.fromEnvironment('SENTRY_DSN', defaultValue: "")
+        ..dsn = dsn
         ..addIntegration(LoggingIntegration())
         ..enableBreadcrumbTrackingForCurrentPlatform()
         ..debug = kDebugMode
-        ..diagnosticLevel = SentryLevel.info
+        ..diagnosticLevel = kDebugMode ? SentryLevel.debug : SentryLevel.info
         ..environment = environment
         ..tracesSampleRate = kDebugMode
             ? 1
@@ -90,10 +93,8 @@ Future<void> startSentryApp(Widget child) async {
             ? 1
             : dynamicConfigInfo.sentryConfig.profilesSampleRate
         ..beforeSend = beforeSend
-        ..enableTombstone = true
         ..reportSilentFlutterErrors =
             dynamicConfigInfo.sentryConfig.reportSilentErrors
-        ..attachViewHierarchy = true
         ..attachScreenshot = true
         ..privacy.maskAllImages = false
         ..privacy.maskAllText =
