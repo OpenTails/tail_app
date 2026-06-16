@@ -151,7 +151,7 @@ Future<void> discoverServices(String id) async {
   for (BleService service in services) {
     BluetoothUartService? bluetoothUartService = uartServices.firstWhereOrNull(
       (element) =>
-          element.bleDeviceService.toLowerCase() == service.uuid.toLowerCase(),
+          BleUuidParser.compareStrings(element.bleDeviceService, service.uuid),
     );
     if (bluetoothUartService != null) {
       statefulDevice.bluetoothUartService.value = bluetoothUartService;
