@@ -34,27 +34,33 @@ abstract class GearConfigInfo with _$GearConfigInfo {
     @Default("") String homeOnAppPoweroff,
     @Default("") String conferenceModeEnabled,
     @Default("") String securityPasskey,
+    @Default("") String numRGBLEDs,
+    @Default("") String maxRGBVolt,
+    @Default("") String maxRGBmAmp,
   }) = _GearConfigInfo;
 
   factory GearConfigInfo.fromGearString(String fwInput) {
     List<String> values = fwInput.split(" ");
     String ver = values[0];
-    String minsToSleep = values[1];
-    String minsToNPM = values[2];
-    String minNPMPauseSec = values[3];
-    String maxNPMPauseSec = values[4];
-    String groupsNPM = values[5];
-    String servo1home = values[6];
-    String servo2home = values[7];
-    String listenModeNPMEnabled = values[8];
-    String listenModeResponseOnly = values[9];
-    String groupsLM = values[10];
-    String tiltModeNPMEnabled = values[11];
-    String tiltModeResponseOnly = values[12];
-    String disconnectedCountdownEnabled = values[13];
-    String homeOnAppPoweroff = values[14];
-    String conferenceModeEnabled = values[15];
-    String securityPasskey = values[16];
+    String minsToSleep = values.length > 1 ? values[1] : "";
+    String minsToNPM = values.length > 2 ? values[2] : "";
+    String minNPMPauseSec = values.length > 3 ? values[3] : "";
+    String maxNPMPauseSec = values.length > 4 ? values[4] : "";
+    String groupsNPM = values.length > 5 ? values[5] : "";
+    String servo1home = values.length > 6 ? values[6] : "";
+    String servo2home = values.length > 7 ? values[7] : "";
+    String listenModeNPMEnabled = values.length > 8 ? values[8] : "";
+    String listenModeResponseOnly = values.length > 9 ? values[9] : "";
+    String groupsLM = values.length > 10 ? values[10] : "";
+    String tiltModeNPMEnabled = values.length > 11 ? values[11] : "";
+    String tiltModeResponseOnly = values.length > 12 ? values[12] : "";
+    String disconnectedCountdownEnabled = values.length > 13 ? values[13] : "";
+    String homeOnAppPoweroff = values.length > 14 ? values[14] : "";
+    String conferenceModeEnabled = values.length > 15 ? values[15] : "";
+    String securityPasskey = values.length > 16 ? values[16] : "";
+    String numRGBLEDs = values.length > 17 ? values[17] : "";
+    String maxRGBVolt = values.length > 18 ? values[18] : "";
+    String maxRGBmAmp = values.length > 19 ? values[19] : "";
 
     return GearConfigInfo(
       ver: ver,
@@ -74,6 +80,9 @@ abstract class GearConfigInfo with _$GearConfigInfo {
       homeOnAppPoweroff: homeOnAppPoweroff,
       conferenceModeEnabled: conferenceModeEnabled,
       securityPasskey: securityPasskey,
+      numRGBLEDs: numRGBLEDs,
+      maxRGBVolt: maxRGBVolt,
+      maxRGBmAmp: maxRGBmAmp,
     );
   }
 

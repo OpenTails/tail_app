@@ -11,6 +11,7 @@ part 'bluetooth_stream_helpers.freezed.dart';
 final _logger = Logger('Bluetooth');
 // This class exists to map the value changed callback to a stream
 StreamController<RxInfo> _streamController = StreamController();
+Stream<RxInfo> _streamBroadcast = _streamController.stream.asBroadcastStream();
 
 void valueChanged(
   String deviceId,
@@ -44,14 +45,15 @@ abstract class RxInfo with _$RxInfo {
 }
 
 Stream<Uint8List> getBaseRxStream(String macAddress, String characteristicId) {
-  return (_streamController.stream
-      .where(
-        (event) => BleUuidParser.compareStrings(
-          characteristicId,
-          event.characteristicId,
-        ),
-      )
-      .map((event) => event.value));
+  return (_streamBroadcast
+          .where(
+            (event) => BleUuidParser.compareStrings(
+              characteristicId,
+              event.characteristicId,
+            ),
+          )
+          .map((event) => event.value))
+      .asBroadcastStream();
 }
 
 Stream<String> getRxStream(String macAddress, String characteristicId) {
@@ -64,7 +66,8 @@ Stream<String> getRxStream(String macAddress, String characteristicId) {
         }
         return "";
       })
-      .where((event) => event.isNotEmpty);
+      .where((event) => event.isNotEmpty)
+      .asBroadcastStream();
 }
 
 Stream<bool> getIsChargingStream(String macAddress) {

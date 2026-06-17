@@ -134,8 +134,8 @@ Future<void> discoverServices(String id) async {
       _logger.warning(
         "Failed to discover services for $id. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
       );
-    } else {
-      return;
+    } else if (services.isNotEmpty) {
+      break;
     }
   }
   if (services.isEmpty) {
@@ -155,6 +155,7 @@ Future<void> discoverServices(String id) async {
     );
     if (bluetoothUartService != null) {
       statefulDevice.bluetoothUartService.value = bluetoothUartService;
+      break;
     }
   }
 
