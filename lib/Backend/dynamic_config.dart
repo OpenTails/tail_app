@@ -112,34 +112,39 @@ Future<DynamicConfigInfo> getDynamicConfigInfo() async {
   }
   _dynamicConfigLogger.info("Loading dynamic config");
 
-  // Check if the stored dynamic config file is from an old app version and delete it.
-  String buildNumber = (await PackageInfo.fromPlatform()).buildNumber;
-  String storedBuildNumber = HiveProxy.getOrDefault(
-    settings,
-    dynamicConfigStoredBuildNumber,
-    defaultValue: '',
-  );
-  if (storedBuildNumber != buildNumber) {
-    HiveProxy.deleteKey(settings, dynamicConfigJsonString);
+  try {
+    // Check if the stored dynamic config file is from an old app version and delete it.
+    String buildNumber = (await PackageInfo.fromPlatform()).buildNumber;
+    String storedBuildNumber = HiveProxy.getOrDefault(
+      settings,
+      dynamicConfigStoredBuildNumber,
+      defaultValue: '',
+    );
+    if (storedBuildNumber != buildNumber) {
+      HiveProxy.deleteKey(settings, dynamicConfigJsonString);
+    }
+
+    // Load the stored or bundled dynamic config file
+    String dynamicConfigJsonDefault = await rootBundle.loadString(
+      Assets.dynamicConfig,
+    );
+    String dynamicConfigJson = HiveProxy.getOrDefault(
+      settings,
+      dynamicConfigJsonString,
+      defaultValue: dynamicConfigJsonDefault,
+    );
+    DynamicConfigInfo dynamicConfigInfo = DynamicConfigInfo.fromJson(
+      const JsonDecoder().convert(dynamicConfigJson),
+    );
+    _dynamicConfigInfo = dynamicConfigInfo;
+    return dynamicConfigInfo;
+  } catch (e, s) {
+    _dynamicConfigLogger.severe("Failed to read dynamic config", e, s);
+    //load default config on error
+    return DynamicConfigInfo();
+  } finally {
+    _getRemoteDynamicConfigInfo(); // trigger updating config file without waiting
   }
-
-  // Load the stored or bundled dynamic config file
-  String dynamicConfigJsonDefault = await rootBundle.loadString(
-    Assets.dynamicConfig,
-  );
-  String dynamicConfigJson = HiveProxy.getOrDefault(
-    settings,
-    dynamicConfigJsonString,
-    defaultValue: dynamicConfigJsonDefault,
-  );
-  DynamicConfigInfo dynamicConfigInfo = DynamicConfigInfo.fromJson(
-    const JsonDecoder().convert(dynamicConfigJson),
-  );
-  _dynamicConfigInfo = dynamicConfigInfo;
-
-  _getRemoteDynamicConfigInfo(); // trigger updating config file without waiting
-
-  return dynamicConfigInfo;
 }
 
 Future<void> _getRemoteDynamicConfigInfo() async {

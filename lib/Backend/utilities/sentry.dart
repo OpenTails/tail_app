@@ -17,28 +17,32 @@ Future<String> getSentryEnvironment() async {
   if (!kReleaseMode) {
     return 'debug';
   }
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  String referral = packageInfo.installerStore ?? "";
-  if (Platform.isIOS) {
-    if (referral == "com.apple.testflight") {
-      return 'staging';
+  try {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String referral = packageInfo.installerStore ?? "";
+    if (Platform.isIOS) {
+      if (referral == "com.apple.testflight") {
+        return 'staging';
+      }
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      if (!iosInfo.isPhysicalDevice) {
+        return 'debug';
+      }
     }
-    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    if (!iosInfo.isPhysicalDevice) {
-      return 'debug';
-    }
-  }
 
-  if (Platform.isAndroid) {
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    if (!androidInfo.isPhysicalDevice) {
-      return 'debug';
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      if (!androidInfo.isPhysicalDevice) {
+        return 'debug';
+      }
+      //final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
+      //if (isRunningInTestlab) {
+      //  return 'staging';
+      //}
     }
-    //final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
-    //if (isRunningInTestlab) {
-    //  return 'staging';
-    //}
+  } catch (e, s) {
+    _logger.severe("Failed to determine environment for sentry", e, s);
   }
   return 'production';
 }
