@@ -60,7 +60,7 @@ class TailApp extends StatelessWidget {
     ForegroundServiceManager.instance;
     AppBadgeManager.instance;
     WakelockManager.instance;
-    PebbleManager.instance;
+    //PebbleManager.instance;
     initWear();
     appShortcuts();
     launchAppAnalytics();
