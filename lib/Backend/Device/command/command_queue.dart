@@ -166,7 +166,8 @@ class CommandQueue with ChangeNotifier {
         if (_internalCommandQueue.isEmpty) {
           _setState(CommandQueueState.empty);
         } else {
-          Future(() => runCommand(_internalCommandQueue.removeFirst()));
+          // could cause recursion until the queue is empty
+          runCommand(_internalCommandQueue.removeFirst());
         }
         break;
       case CommandQueueState.empty:
