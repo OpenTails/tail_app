@@ -238,7 +238,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                       BluetoothPermissionStatus.granted) {
                     return KnownGear(hideScanButton: true);
                   } else {
-                    introKey.currentState?.previous();
                     return Container();
                   }
                 },

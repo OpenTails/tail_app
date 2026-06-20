@@ -7,12 +7,12 @@
     "reportSilentErrors": true
   },
   "appVersion": {
-    "url": "https://github.com/OpenTails/tail_app/releases/download/1.4.1/tailCompanyApp-1.4.1-2428.apk",
-    "changelog": "\n- Fix issue where having a glowtip move selected will stop normal moves from running for triggers\n",
+    "url": "https://github.com/OpenTails/tail_app/releases/download/1.5.0/tailCompanyApp-1.5.0-2597.apk",
+    "changelog": "\n- Add support for Paws with Claws\n- Add gamepad trigger to trigger moves with connected gamepad buttons\n- Add phone orientation trigger\n- Add noise trigger\n- Lots of backend changes to support watches\n- Rework permissions\n- Remove marketing notifications\n- Move permission & bluetooth check to the Known Gear bar.\n- Bring back demo gear as a more fleshed out feature, Now it is treated\n  similar to regular gear.\n- Disabled the \"Cover\" trigger for now as many phones lack a real proximity\n  sensor.\n- Replaced bluetooth library\n",
     "version": {
       "major": 1,
-      "minor": 4,
-      "patch": 1
+      "minor": 5,
+      "patch": 0
     }
   },
   "featureFlags": {
