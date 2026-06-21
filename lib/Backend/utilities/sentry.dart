@@ -90,6 +90,9 @@ Future<void> startSentryApp(Widget child) async {
         ..debug = kDebugMode
         ..diagnosticLevel = kDebugMode ? SentryLevel.debug : SentryLevel.info
         ..environment = environment
+        ..sampleRate = kDebugMode
+            ? 1
+            : dynamicConfigInfo.sentryConfig.sampleRate
         ..tracesSampleRate = kDebugMode
             ? 1
             : dynamicConfigInfo.sentryConfig.tracesSampleRate
@@ -100,6 +103,10 @@ Future<void> startSentryApp(Widget child) async {
         ..reportSilentFlutterErrors =
             dynamicConfigInfo.sentryConfig.reportSilentErrors
         ..attachScreenshot = true
+        ..attachViewHierarchy = true
+        ..sampleRate
+        ..enableTombstone = true
+        ..enableFramesTracking
         ..privacy.maskAllImages = false
         ..privacy.maskAllText =
             false // app does not contain any PII

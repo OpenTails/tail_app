@@ -55,6 +55,7 @@ abstract class AppVersion with _$AppVersion {
 @freezed
 abstract class SentryConfig with _$SentryConfig {
   const factory SentryConfig({
+    @Default(1.0) double sampleRate,
     @Default(0.5) double tracesSampleRate,
     @Default(0.5) double profilesSampleRate,
     @Default(0) double replaySessionSampleRate,

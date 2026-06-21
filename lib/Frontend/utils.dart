@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_dio/sentry_dio.dart';
 import 'package:universal_io/io.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
@@ -57,6 +58,7 @@ Future<Dio> initDio() async {
   // Global options
 
   dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
+  dio.addSentry();
   _dio = dio;
   return dio;
 }
