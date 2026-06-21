@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tail_app/constants.dart';
 
 // ── Brand palette ─────────────────────────────────────────────────────────────
 // Source: Brand Guide v3 / Tail Company Design System
@@ -52,27 +53,29 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
   );
 
   // Override with fixed brand secondaries/tertiaries; tonal surfaces use navy.
-  final ColorScheme colorScheme = base.copyWith(
-    secondary: tcTeal,
-    onSecondary: _gray0,
-    secondaryContainer: _teal100,
-    onSecondaryContainer: _teal800,
-    tertiary: tcOrange,
-    onTertiary: _gray0,
-    tertiaryContainer: _orange100,
-    onTertiaryContainer: _orange600,
-    surface: isLight ? _gray25 : _dark1,
-    onSurface: isLight ? _gray700 : _gray100,
-    surfaceContainerLowest: isLight ? _gray0 : _dark0,
-    surfaceContainerLow: isLight ? _gray25 : _dark1,
-    surfaceContainer: isLight ? _gray50 : _dark2,
-    surfaceContainerHigh: isLight ? _gray100 : _dark4,
-    surfaceContainerHighest: isLight ? _gray200 : _dark5,
-    outline: isLight ? _gray200 : _dark6,
-    outlineVariant: isLight ? _gray100 : _dark4,
-    error: isLight ? const Color(0xFFD84545) : const Color(0xFFFF6B6B),
-    onError: _gray0,
-  );
+  final ColorScheme colorScheme = seedColor == Color(appColorDefault)
+      ? base.copyWith(
+          secondary: tcTeal,
+          onSecondary: _gray0,
+          secondaryContainer: _teal100,
+          onSecondaryContainer: _teal800,
+          tertiary: tcOrange,
+          onTertiary: _gray0,
+          tertiaryContainer: _orange100,
+          onTertiaryContainer: _orange600,
+          surface: isLight ? _gray25 : _dark1,
+          onSurface: isLight ? _gray700 : _gray100,
+          surfaceContainerLowest: isLight ? _gray0 : _dark0,
+          surfaceContainerLow: isLight ? _gray25 : _dark1,
+          surfaceContainer: isLight ? _gray50 : _dark2,
+          surfaceContainerHigh: isLight ? _gray100 : _dark4,
+          surfaceContainerHighest: isLight ? _gray200 : _dark5,
+          outline: isLight ? _gray200 : _dark6,
+          outlineVariant: isLight ? _gray100 : _dark4,
+          error: isLight ? const Color(0xFFD84545) : const Color(0xFFFF6B6B),
+          onError: _gray0,
+        )
+      : base.copyWith(primary: seedColor);
 
   final TextTheme textTheme = _buildTextTheme();
 
@@ -84,9 +87,9 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     appBarTheme: AppBarTheme(
       elevation: 0,
       scrolledUnderElevation: 1,
-      backgroundColor: colorScheme.surface,
-      foregroundColor: colorScheme.onSurface,
-      surfaceTintColor: Colors.transparent,
+      //backgroundColor: colorScheme.surface,
+      //foregroundColor: colorScheme.onSurface,
+      //surfaceTintColor: Colors.transparent,
       titleTextStyle: TextStyle(
         fontFamily: 'Fredoka',
         fontSize: 22,
