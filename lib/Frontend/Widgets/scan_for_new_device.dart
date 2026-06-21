@@ -170,44 +170,62 @@ class _ScanGearListState extends State<ScanGearList> {
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),
-                            ListView.builder(
+                            GridView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: foundDevices.length,
                               itemBuilder: (BuildContext context, int index) {
                                 BleDevice e = foundDevices[index];
-                                return ListTile(
-                                  title: Text(
-                                    convertToUwU(
-                                      DeviceRegistry.getByName(
-                                            e.name ?? "",
-                                          )?.friendlyName ??
-                                          "",
+                                return Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  child: InkWell(
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          flex: 5,
+                                          child: Icon(
+                                            Icons.question_mark,
+                                            size: 150,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            convertToUwU(
+                                              DeviceRegistry.getByName(
+                                                    e.name ?? "",
+                                                  )?.friendlyName ??
+                                                  "",
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
+                                    onTap: () async {
+                                      await createAndConnect(
+                                        e.deviceId,
+                                        e.name ?? "",
+                                      );
+                                      analyticsEvent(
+                                        name: "Connect New Gear",
+                                        props: {
+                                          "Gear Type": e.name ?? "",
+                                          "Onboarding in Progress":
+                                              (!widget.popOnConnect).toString(),
+                                        },
+                                      );
+                                      if (context.mounted &&
+                                          widget.popOnConnect) {
+                                        Navigator.pop(context);
+                                      }
+                                    },
                                   ),
-                                  trailing: Text(
-                                    isDeveloperEnabled ? e.deviceId : "",
-                                  ),
-                                  onTap: () async {
-                                    await createAndConnect(
-                                      e.deviceId,
-                                      e.name ?? "",
-                                    );
-                                    analyticsEvent(
-                                      name: "Connect New Gear",
-                                      props: {
-                                        "Gear Type": e.name ?? "",
-                                        "Onboarding in Progress":
-                                            (!widget.popOnConnect).toString(),
-                                      },
-                                    );
-                                    if (context.mounted &&
-                                        widget.popOnConnect) {
-                                      Navigator.pop(context);
-                                    }
-                                  },
                                 );
                               },
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 300,
+                                  ),
                             ),
                             if (foundDevices.length > 1) ...[
                               Center(

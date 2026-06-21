@@ -18,6 +18,7 @@ class More extends StatefulWidget {
   const More({super.key});
 
   static bool _pendingScrollToManuals = false;
+
   static void requestScrollToManuals() => _pendingScrollToManuals = true;
 
   @override
@@ -36,7 +37,12 @@ class _MoreState extends State<More> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final ctx = _manualsKey.currentContext;
         if (ctx != null) {
-          Scrollable.ensureVisible(ctx, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut, alignment: 0.1);
+          Scrollable.ensureVisible(
+            ctx,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOut,
+            alignment: 0.1,
+          );
         }
       });
     }
@@ -60,10 +66,13 @@ class _MoreState extends State<More> {
         _PromoCard(
           icon: Icons.store,
           title: convertToUwU(morePageCoverPromoTitle()),
-          subtitle: convertToUwU(morePageCoverPromoDescription(couponCode: couponCode)),
+          subtitle: convertToUwU(
+            morePageCoverPromoDescription(couponCode: couponCode),
+          ),
           badge: couponCode,
           onTap: () => launchExternalUrl(
-            url: "https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode",
+            url:
+                "https://thetailcompany.com/product/tail-and-ear-covers/${getOutboundUtm()}&wdr_coupon=$couponCode",
             analyticsLabel: "Coupon",
             addTrackingUtm: false,
           ),
@@ -75,7 +84,10 @@ class _MoreState extends State<More> {
           subtitle: convertToUwU(moreCoshubPromoDescription()),
           onTap: () async {
             final info = await getDynamicConfigInfo();
-            await launchExternalUrl(url: info.urls.coshubUrl, analyticsLabel: "CosHub");
+            await launchExternalUrl(
+              url: info.urls.coshubUrl,
+              analyticsLabel: "CosHub",
+            );
           },
         ),
         const SizedBox(height: 24),
@@ -84,151 +96,229 @@ class _MoreState extends State<More> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: _FeatureTile(icon: Icons.settings, label: convertToUwU(settingsPage()), onTap: () => const SettingsRoute().push(context))),
+            Expanded(
+              child: _FeatureTile(
+                icon: Icons.settings,
+                label: convertToUwU(settingsPage()),
+                onTap: () => const SettingsRoute().push(context),
+              ),
+            ),
             const SizedBox(width: 8),
-            Expanded(child: _FeatureTile(icon: Icons.list, label: convertToUwU(sequencesPage()), onTap: () => const MoveListRoute().push(context))),
+            Expanded(
+              child: _FeatureTile(
+                icon: Icons.list,
+                label: convertToUwU(sequencesPage()),
+                onTap: () => const MoveListRoute().push(context),
+              ),
+            ),
             const SizedBox(width: 8),
-            Expanded(child: _FeatureTile(icon: Icons.audio_file, label: convertToUwU(audioPage()), onTap: () => const CustomAudioRoute().push(context))),
+            Expanded(
+              child: _FeatureTile(
+                icon: Icons.audio_file,
+                label: convertToUwU(audioPage()),
+                onTap: () => const CustomAudioRoute().push(context),
+              ),
+            ),
           ],
         ),
         if (isDeveloperEnabled) ...[
           const SizedBox(height: 12),
-          _GroupCard(children: [
-            ListTile(
-              leading: const Icon(Icons.bug_report),
-              title: Text(convertToUwU("Development Menu")),
-              subtitle: Text(convertToUwU("It is illegal to read this message")),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => const DeveloperMenuRoute().push(context),
-            ),
-            ListTile(
-              leading: const Icon(Icons.gamepad),
-              title: Text(convertToUwU(joyStickPage())),
-              subtitle: Text(convertToUwU(joyStickPageDescription())),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => const DirectGearControlRoute().push(context),
-            ),
-          ]),
+          _GroupCard(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.bug_report),
+                title: Text(convertToUwU("Development Menu")),
+                subtitle: Text(
+                  convertToUwU("It is illegal to read this message"),
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => const DeveloperMenuRoute().push(context),
+              ),
+              ListTile(
+                leading: const Icon(Icons.gamepad),
+                title: Text(convertToUwU(joyStickPage())),
+                subtitle: Text(convertToUwU(joyStickPageDescription())),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => const DirectGearControlRoute().push(context),
+              ),
+            ],
+          ),
         ],
         const SizedBox(height: 24),
 
         // ── Manuals ───────────────────────────────────────────────────────────
-        SizedBox(key: _manualsKey, child: _SectionLabel("${moreManualTitle()} (${moreManualSubTitle()})")),
+        SizedBox(
+          key: _manualsKey,
+          child: _SectionLabel(
+            "${moreManualTitle()} (${moreManualSubTitle()})",
+          ),
+        ),
         const SizedBox(height: 8),
-        _GroupCard(children: [
-          ListTile(
-            title: Text(convertToUwU(moreManualMiTailTitle())),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => PDFPageRoute(
-              $extra: PDFInfo(url: "https://thetailcompany.com/mitail.pdf", title: moreManualMiTailTitle(), analyticsLabel: "MiTail Manual"),
-            ).push(context),
-          ),
-          ListTile(
-            title: Text(convertToUwU(moreManualEargearTitle())),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => PDFPageRoute(
-              $extra: PDFInfo(url: "https://thetailcompany.com/eargear.pdf", title: moreManualEargearTitle(), analyticsLabel: "EarGear Manual"),
-            ).push(context),
-          ),
-          ListTile(
-            title: Text(convertToUwU(moreManualFlutterWingsTitle())),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => PDFPageRoute(
-              $extra: PDFInfo(url: "https://thetailcompany.com/flutterwings.pdf", title: moreManualFlutterWingsTitle(), analyticsLabel: "FlutterWings Manual"),
-            ).push(context),
-          ),
-          ListTile(
-            title: Text(convertToUwU(moreManualResponsibleWaggingTitle())),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => HtmlPageRoute(
-              $extra: HtmlPageInfo(
-                url: "https://docs.thetailcompany.com/doku.php?id=en:safety&do=export_xhtmlbody",
-                title: moreManualResponsibleWaggingTitle(),
-                analyticsLabel: "Responsible Wagging",
-              ),
-            ).push(context),
-          ),
-        ]),
+        _GroupCard(
+          children: [
+            ListTile(
+              title: Text(convertToUwU(moreManualMiTailTitle())),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => PDFPageRoute(
+                $extra: PDFInfo(
+                  url: "https://thetailcompany.com/mitail.pdf",
+                  title: moreManualMiTailTitle(),
+                  analyticsLabel: "MiTail Manual",
+                ),
+              ).push(context),
+            ),
+            ListTile(
+              title: Text(convertToUwU(moreManualEargearTitle())),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => PDFPageRoute(
+                $extra: PDFInfo(
+                  url: "https://thetailcompany.com/eargear.pdf",
+                  title: moreManualEargearTitle(),
+                  analyticsLabel: "EarGear Manual",
+                ),
+              ).push(context),
+            ),
+            ListTile(
+              title: Text(convertToUwU(moreManualFlutterWingsTitle())),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => PDFPageRoute(
+                $extra: PDFInfo(
+                  url: "https://thetailcompany.com/flutterwings.pdf",
+                  title: moreManualFlutterWingsTitle(),
+                  analyticsLabel: "FlutterWings Manual",
+                ),
+              ).push(context),
+            ),
+            ListTile(
+              title: Text(convertToUwU(moreManualResponsibleWaggingTitle())),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => HtmlPageRoute(
+                $extra: HtmlPageInfo(
+                  url:
+                      "https://docs.thetailcompany.com/doku.php?id=en:safety&do=export_xhtmlbody",
+                  title: moreManualResponsibleWaggingTitle(),
+                  analyticsLabel: "Responsible Wagging",
+                ),
+              ).push(context),
+            ),
+          ],
+        ),
         const SizedBox(height: 24),
 
         // ── Useful links ──────────────────────────────────────────────────────
         _SectionLabel(moreUsefulLinksTitle()),
         const SizedBox(height: 8),
-        _GroupCard(children: [
-          ListTile(
-            leading: const Icon(Icons.store),
-            title: Text(convertToUwU("Store")),
-            trailing: const Icon(Icons.open_in_new, size: 18),
-            onTap: () => launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Store"),
-          ),
-          ListTile(
-            leading: const Icon(Icons.menu_book),
-            title: Text(convertToUwU("Technical Wiki")),
-            trailing: const Icon(Icons.open_in_new, size: 18),
-            onTap: () => launchExternalUrl(url: "https://docs.thetailcompany.com", analyticsLabel: "Wiki"),
-          ),
-          ListTile(
-            leading: const Icon(Icons.telegram),
-            title: Text(convertToUwU("Telegram")),
-            trailing: const Icon(Icons.open_in_new, size: 18),
-            onTap: () => launchExternalUrl(url: "https://t.me/joinchat/VCdXxqKgRv2yrDNC", analyticsLabel: "Telegram", addTrackingUtm: false),
-          ),
-          ListTile(
-            leading: const Icon(Icons.language),
-            title: Text(convertToUwU(morePageTranslateTitle())),
-            subtitle: Text(convertToUwU(morePageTranslateDescription())),
-            trailing: const Icon(Icons.open_in_new, size: 18),
-            onTap: () => launchExternalUrl(url: "https://weblate.stargazer.at", analyticsLabel: "Weblate"),
-          ),
-          ListTile(
-            leading: const Icon(Icons.message),
-            title: Text(convertToUwU(supportTitle())),
-            subtitle: Text(convertToUwU(supportDescription())),
-            trailing: const Icon(Icons.open_in_new, size: 18),
-            onTap: () => launchExternalUrl(url: "https://thetailcompany.com", analyticsLabel: "Support"),
-          ),
-          ListTile(
-            leading: const Icon(Icons.code),
-            title: Text(convertToUwU(moreSourceCode())),
-            trailing: const Icon(Icons.open_in_new, size: 18),
-            onTap: () => launchExternalUrl(url: "https://github.com/Codel1417/tail_app", analyticsLabel: "Source Code", addTrackingUtm: false),
-            onLongPress: isDeveloperEnabled ? null : () => const DeveloperPincodeRoute().push(context),
-          ),
-        ]),
+        _GroupCard(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.store),
+              title: Text(convertToUwU("Store")),
+              trailing: const Icon(Icons.open_in_new, size: 18),
+              onTap: () => launchExternalUrl(
+                url: "https://thetailcompany.com",
+                analyticsLabel: "Store",
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.menu_book),
+              title: Text(convertToUwU("Technical Wiki")),
+              trailing: const Icon(Icons.open_in_new, size: 18),
+              onTap: () => launchExternalUrl(
+                url: "https://docs.thetailcompany.com",
+                analyticsLabel: "Wiki",
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.telegram),
+              title: Text(convertToUwU("Telegram")),
+              trailing: const Icon(Icons.open_in_new, size: 18),
+              onTap: () => launchExternalUrl(
+                url: "https://t.me/joinchat/VCdXxqKgRv2yrDNC",
+                analyticsLabel: "Telegram",
+                addTrackingUtm: false,
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: Text(convertToUwU(morePageTranslateTitle())),
+              subtitle: Text(convertToUwU(morePageTranslateDescription())),
+              trailing: const Icon(Icons.open_in_new, size: 18),
+              onTap: () => launchExternalUrl(
+                url: "https://weblate.stargazer.at",
+                analyticsLabel: "Weblate",
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.message),
+              title: Text(convertToUwU(supportTitle())),
+              subtitle: Text(convertToUwU(supportDescription())),
+              trailing: const Icon(Icons.open_in_new, size: 18),
+              onTap: () => launchExternalUrl(
+                url: "https://thetailcompany.com",
+                analyticsLabel: "Support",
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.code),
+              title: Text(convertToUwU(moreSourceCode())),
+              trailing: const Icon(Icons.open_in_new, size: 18),
+              onTap: () => launchExternalUrl(
+                url: "https://github.com/Codel1417/tail_app",
+                analyticsLabel: "Source Code",
+                addTrackingUtm: false,
+              ),
+              onLongPress: isDeveloperEnabled
+                  ? null
+                  : () => const DeveloperPincodeRoute().push(context),
+            ),
+          ],
+        ),
         const SizedBox(height: 24),
 
         // ── Legal / About ─────────────────────────────────────────────────────
-        _GroupCard(children: [
-          ListTile(
-            leading: const Icon(Icons.privacy_tip),
-            title: Text(convertToUwU(morePrivacyPolicyLinkTitle())),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () async {
-              final content = await rootBundle.loadString(Assets.privacy);
-              if (context.mounted) {
-                MarkdownViewerRoute(
-                  $extra: MarkdownInfo(content: content, title: morePrivacyPolicyLinkTitle(), analyticsLabel: "Privacy Policy"),
-                ).push(context);
-              }
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.info),
-            title: Text(convertToUwU(aboutPage())),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => PackageInfo.fromPlatform().then((value) {
-              if (context.mounted) {
-                showLicensePage(
-                  context: context,
-                  useRootNavigator: true,
-                  applicationVersion: "${value.version} (${value.buildNumber})",
-                  applicationLegalese: "Developed by Code-Floof for the community. Open Source GPL 3.0 Licensed",
-                  applicationIcon: Image.asset(Assets.tCLogoTransparentNoText, width: 150, height: 150),
-                );
-              }
-            }),
-          ),
-        ]),
+        _GroupCard(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.privacy_tip),
+              title: Text(convertToUwU(morePrivacyPolicyLinkTitle())),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () async {
+                final content = await rootBundle.loadString(Assets.privacy);
+                if (context.mounted) {
+                  MarkdownViewerRoute(
+                    $extra: MarkdownInfo(
+                      content: content,
+                      title: morePrivacyPolicyLinkTitle(),
+                      analyticsLabel: "Privacy Policy",
+                    ),
+                  ).push(context);
+                }
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: Text(convertToUwU(aboutPage())),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => PackageInfo.fromPlatform().then((value) {
+                if (context.mounted) {
+                  showLicensePage(
+                    context: context,
+                    useRootNavigator: true,
+                    applicationVersion:
+                        "${value.version} (${value.buildNumber})",
+                    applicationLegalese:
+                        "Developed by Code-Floof for the community. Open Source GPL 3.0 Licensed",
+                    applicationIcon: Image.asset(
+                      Assets.tCLogoTransparentNoText,
+                      width: 150,
+                      height: 150,
+                    ),
+                  );
+                }
+              }),
+            ),
+          ],
+        ),
         const SizedBox(height: 16),
       ],
     );
@@ -239,6 +329,7 @@ class _MoreState extends State<More> {
 
 class _SectionLabel extends StatelessWidget {
   final String text;
+
   const _SectionLabel(this.text);
 
   @override
@@ -258,17 +349,24 @@ class _SectionLabel extends StatelessWidget {
 
 class _GroupCard extends StatelessWidget {
   final List<Widget> children;
+
   const _GroupCard({required this.children});
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
           for (int i = 0; i < children.length; i++) ...[
             children[i],
             if (i < children.length - 1)
-              Divider(height: 1, indent: 16, endIndent: 16, color: Theme.of(context).colorScheme.outlineVariant),
+              Divider(
+                height: 1,
+                indent: 16,
+                endIndent: 16,
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
           ],
         ],
       ),
@@ -281,15 +379,20 @@ class _FeatureTile extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
 
-  const _FeatureTile({required this.icon, required this.label, required this.onTap});
+  const _FeatureTile({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Card(
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(radiusLg),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
           child: Column(
@@ -332,12 +435,14 @@ class _PromoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final leading = customLeading ?? Icon(icon!, color: colorScheme.primary, size: 28);
+    final leading =
+        customLeading ?? Icon(icon!, color: colorScheme.primary, size: 28);
 
     return Card(
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(radiusLg),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(
@@ -347,7 +452,7 @@ class _PromoCard extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: colorScheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(radiusMd),
                 ),
                 child: leading,
               ),
@@ -358,11 +463,17 @@ class _PromoCard extends StatelessWidget {
                   children: [
                     Text(title, style: Theme.of(context).textTheme.titleSmall),
                     const SizedBox(height: 2),
-                    Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+                    Text(
+                      subtitle,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     if (badge != null) ...[
                       const SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: tcBlue,
                           borderRadius: BorderRadius.circular(6),
@@ -371,7 +482,7 @@ class _PromoCard extends StatelessWidget {
                           badge!,
                           style: const TextStyle(
                             fontFamily: 'Fredoka',
-                            color: Color(0xFFFFFFFF),
+                            color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontSize: 13,
                             letterSpacing: 1.5,

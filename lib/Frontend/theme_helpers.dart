@@ -38,11 +38,11 @@ const Color _dark5 = Color(0xFF213444);
 const Color _dark6 = Color(0xFF2A3F50);
 
 // ── Radii ─────────────────────────────────────────────────────────────────────
-const double _radiusSm = 10.0; // inputs, small chips
-const double _radiusMd = 14.0; // dialogs, list tiles
-const double _radiusLg = 20.0; // cards
-const double _radiusXl = 28.0; // bottom sheets, large panels
-const double _radiusPill = 64.0; // buttons (pill shape)
+const double radiusSm = 10.0; // inputs, small chips
+const double radiusMd = 14.0; // dialogs, list tiles
+const double radiusLg = 20.0; // cards
+const double radiusXl = 28.0; // bottom sheets, large panels
+const double radiusPill = 64.0; // buttons (pill shape)
 
 ThemeData buildTheme(Brightness brightness, Color seedColor) {
   final bool isLight = brightness == Brightness.light;
@@ -103,7 +103,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
       elevation: 0,
       color: isLight ? _gray0 : _dark3,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(_radiusLg),
+        borderRadius: BorderRadius.circular(radiusLg),
         side: BorderSide(color: colorScheme.outlineVariant, width: 1.5),
       ),
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
@@ -114,7 +114,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(_radiusPill),
+          borderRadius: BorderRadius.circular(radiusPill),
         ),
         textStyle: TextStyle(
           fontFamily: 'Fredoka',
@@ -127,7 +127,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(_radiusPill),
+          borderRadius: BorderRadius.circular(radiusPill),
         ),
         textStyle: TextStyle(
           fontFamily: 'Fredoka',
@@ -141,7 +141,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(_radiusPill),
+          borderRadius: BorderRadius.circular(radiusPill),
         ),
         textStyle: TextStyle(
           fontFamily: 'Fredoka',
@@ -154,7 +154,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(_radiusPill),
+          borderRadius: BorderRadius.circular(radiusPill),
         ),
         textStyle: TextStyle(
           fontFamily: 'Fredoka',
@@ -168,23 +168,23 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
       filled: true,
       fillColor: isLight ? _gray0 : _dark3,
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(_radiusSm),
+        borderRadius: BorderRadius.circular(radiusSm),
         borderSide: BorderSide(color: colorScheme.outline, width: 1.5),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(_radiusSm),
+        borderRadius: BorderRadius.circular(radiusSm),
         borderSide: BorderSide(color: colorScheme.outline, width: 1.5),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(_radiusSm),
+        borderRadius: BorderRadius.circular(radiusSm),
         borderSide: BorderSide(color: colorScheme.primary, width: 2),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(_radiusSm),
+        borderRadius: BorderRadius.circular(radiusSm),
         borderSide: BorderSide(color: colorScheme.error, width: 1.5),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(_radiusSm),
+        borderRadius: BorderRadius.circular(radiusSm),
         borderSide: BorderSide(color: colorScheme.error, width: 2),
       ),
       labelStyle: TextStyle(
@@ -200,7 +200,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     // ── Dialogs ───────────────────────────────────────────────────────────────
     dialogTheme: DialogThemeData(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(_radiusLg),
+        borderRadius: BorderRadius.circular(radiusLg),
       ),
       elevation: 8,
       shadowColor: tcNavy.withAlpha(46),
@@ -222,8 +222,8 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     bottomSheetTheme: const BottomSheetThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(_radiusXl),
-          topRight: Radius.circular(_radiusXl),
+          topLeft: Radius.circular(radiusXl),
+          topRight: Radius.circular(radiusXl),
         ),
       ),
     ),
@@ -241,7 +241,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     // ── Chips ────────────────────────────────────────────────────────────────
     chipTheme: ChipThemeData(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(_radiusMd),
+        borderRadius: BorderRadius.circular(radiusMd),
       ),
       labelStyle: TextStyle(
         fontFamily: 'HankenGrotesk',
@@ -254,7 +254,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     snackBarTheme: SnackBarThemeData(
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(_radiusMd),
+        borderRadius: BorderRadius.circular(radiusMd),
       ),
       backgroundColor: tcNavy,
       contentTextStyle: TextStyle(
@@ -279,7 +279,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
         color: colorScheme.onSurfaceVariant,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(_radiusMd),
+        borderRadius: BorderRadius.circular(radiusMd),
       ),
     ),
     // ── Switch ───────────────────────────────────────────────────────────────
