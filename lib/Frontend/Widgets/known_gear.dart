@@ -108,7 +108,7 @@ class MissingRequirementsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAlias,
-      color: Colors.red,
+      color: ColorScheme.of(context).error,
       child: InkWell(
         onTap: () => onTap(),
         child: Padding(
@@ -121,7 +121,7 @@ class MissingRequirementsCard extends StatelessWidget {
                 convertToUwU(text()),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: getTextColor(Colors.red),
+                  color: getTextColor(ColorScheme.of(context).error),
                 ),
               ),
             ),

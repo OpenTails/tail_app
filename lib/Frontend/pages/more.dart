@@ -87,6 +87,8 @@ class _MoreState extends State<More> {
             Expanded(child: _FeatureTile(icon: Icons.settings, label: convertToUwU(settingsPage()), onTap: () => const SettingsRoute().push(context))),
             const SizedBox(width: 8),
             Expanded(child: _FeatureTile(icon: Icons.list, label: convertToUwU(sequencesPage()), onTap: () => const MoveListRoute().push(context))),
+            const SizedBox(width: 8),
+            Expanded(child: _FeatureTile(icon: Icons.audio_file, label: convertToUwU(audioPage()), onTap: () => const CustomAudioRoute().push(context))),
           ],
         ),
         if (isDeveloperEnabled) ...[
