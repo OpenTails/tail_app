@@ -109,7 +109,39 @@ Future<void> createAndConnect(String id, String name) async {
 }
 
 Future<void> discoverServices(String id) async {
-  List<BleService> services = await UniversalBle.discoverServices(id);
+  StatefulDevice? statefulDevice = KnownDevices.instance.state[id];
+  if (statefulDevice == null) {
+    return;
+  }
+
+  List<BleService> services = [];
+  int retry = 0;
+  while (retry <
+      HiveProxy.getOrDefault(
+        settings,
+        gearConnectRetryAttempts,
+        defaultValue: gearConnectRetryAttemptsDefault,
+      )) {
+    try {
+      services = await UniversalBle.discoverServices(id);
+    } catch (e) {
+      _logger.severe("Error while discovering services for $id.", e);
+    }
+    retry = retry + 1;
+    if (services.isEmpty &&
+        await UniversalBle.getConnectionState(id) ==
+            BleConnectionState.connected) {
+      _logger.warning(
+        "Failed to discover services for $id. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
+      );
+    } else if (services.isNotEmpty) {
+      break;
+    }
+  }
+  if (services.isEmpty) {
+    _logger.severe("Failed to discover services for $id.");
+  }
+
   List<BleCharacteristic> characteristics = services
       .map((e) => e.characteristics)
       .flattened
@@ -119,21 +151,33 @@ Future<void> discoverServices(String id) async {
   for (BleService service in services) {
     BluetoothUartService? bluetoothUartService = uartServices.firstWhereOrNull(
       (element) =>
-          element.bleDeviceService.toLowerCase() == service.uuid.toLowerCase(),
+          BleUuidParser.compareStrings(element.bleDeviceService, service.uuid),
     );
     if (bluetoothUartService != null) {
-      StatefulDevice? statefulDevice = KnownDevices.instance.state[id];
-      statefulDevice?.bluetoothUartService.value = bluetoothUartService;
+      statefulDevice.bluetoothUartService.value = bluetoothUartService;
+      break;
     }
+  }
+
+  if (statefulDevice.bluetoothUartService.value == null) {
+    _logger.severe("Bluetooth uart service not found for $id, Disconnecting");
+    await disconnect(id);
   }
 
   // Subscribe to all notifications
   for (BleCharacteristic characteristic in characteristics) {
-    if (characteristic.notifications.isSupported) {
-      await characteristic.notifications.subscribe();
-    }
-    if (characteristic.indications.isSupported) {
-      await characteristic.indications.subscribe();
+    try {
+      if (characteristic.notifications.isSupported) {
+        await characteristic.notifications.subscribe();
+      }
+      if (characteristic.indications.isSupported) {
+        await characteristic.indications.subscribe();
+      }
+    } catch (e) {
+      _logger.severe(
+        "Failed to subscribe to characteristic ${characteristic.uuid}",
+        e,
+      );
     }
   }
 }

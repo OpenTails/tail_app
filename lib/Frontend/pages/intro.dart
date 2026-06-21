@@ -231,7 +231,17 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                 footerFlex: 1,
                 contentMargin: EdgeInsets.all(0),
               ),
-              footer: KnownGear(hideScanButton: true),
+              footer: ListenableBuilder(
+                listenable: BluetoothIssues.instance,
+                builder: (context, child) {
+                  if (BluetoothIssues.instance.status ==
+                      BluetoothPermissionStatus.granted) {
+                    return KnownGear(hideScanButton: true);
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
             ),
             PageViewModel(
               title: convertToUwU(onboardingCompletedTitle()),

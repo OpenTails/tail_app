@@ -17,28 +17,32 @@ Future<String> getSentryEnvironment() async {
   if (!kReleaseMode) {
     return 'debug';
   }
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  String referral = packageInfo.installerStore ?? "";
-  if (Platform.isIOS) {
-    if (referral == "com.apple.testflight") {
-      return 'staging';
+  try {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String referral = packageInfo.installerStore ?? "";
+    if (Platform.isIOS) {
+      if (referral == "com.apple.testflight") {
+        return 'staging';
+      }
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      if (!iosInfo.isPhysicalDevice) {
+        return 'debug';
+      }
     }
-    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    if (!iosInfo.isPhysicalDevice) {
-      return 'debug';
-    }
-  }
 
-  if (Platform.isAndroid) {
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    if (!androidInfo.isPhysicalDevice) {
-      return 'debug';
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      if (!androidInfo.isPhysicalDevice) {
+        return 'debug';
+      }
+      //final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
+      //if (isRunningInTestlab) {
+      //  return 'staging';
+      //}
     }
-    //final bool isRunningInTestlab = await FirebaseTestlabDetector.isAppRunningInTestlab() ?? false;
-    //if (isRunningInTestlab) {
-    //  return 'staging';
-    //}
+  } catch (e, s) {
+    _logger.severe("Failed to determine environment for sentry", e, s);
   }
   return 'production';
 }
@@ -66,10 +70,13 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
 Logger _logger = Logger("Sentry");
 
 Future<void> startSentryApp(Widget child) async {
-  if (const String.fromEnvironment('SENTRY_DSN', defaultValue: "").isEmpty) {
+  _logger.fine("Init Sentry");
+  String dsn = const String.fromEnvironment('SENTRY_DSN', defaultValue: "");
+  _logger.info("Sentry DSN: $dsn");
+  if (dsn.isEmpty) {
+    _logger.severe("Sentry DSN is empty, Launching without sentry");
     runApp(child);
   }
-  _logger.fine("Init Sentry");
   String environment = await getSentryEnvironment();
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
   _logger.info("Detected Environment: $environment");
@@ -77,12 +84,15 @@ Future<void> startSentryApp(Widget child) async {
   await SentryFlutter.init(
     (options) async {
       options
-        ..dsn = const String.fromEnvironment('SENTRY_DSN', defaultValue: "")
+        ..dsn = dsn
         ..addIntegration(LoggingIntegration())
         ..enableBreadcrumbTrackingForCurrentPlatform()
         ..debug = kDebugMode
-        ..diagnosticLevel = SentryLevel.info
+        ..diagnosticLevel = kDebugMode ? SentryLevel.debug : SentryLevel.info
         ..environment = environment
+        ..sampleRate = kDebugMode
+            ? 1
+            : dynamicConfigInfo.sentryConfig.sampleRate
         ..tracesSampleRate = kDebugMode
             ? 1
             : dynamicConfigInfo.sentryConfig.tracesSampleRate
@@ -90,11 +100,13 @@ Future<void> startSentryApp(Widget child) async {
             ? 1
             : dynamicConfigInfo.sentryConfig.profilesSampleRate
         ..beforeSend = beforeSend
-        ..enableTombstone = true
         ..reportSilentFlutterErrors =
             dynamicConfigInfo.sentryConfig.reportSilentErrors
-        ..attachViewHierarchy = true
         ..attachScreenshot = true
+        ..attachViewHierarchy = true
+        ..sampleRate
+        ..enableTombstone = true
+        ..enableFramesTracking
         ..privacy.maskAllImages = false
         ..privacy.maskAllText =
             false // app does not contain any PII

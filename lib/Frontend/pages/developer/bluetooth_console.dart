@@ -22,49 +22,45 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Console")),
-      body: Stack(
-        children: [
-          DisplayLog(console: widget),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: TextField(
-              controller: TextEditingController(text: cmd),
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Send a Command",
-                hintText: 'TAILHA',
-              ),
-              maxLines: 1,
-              maxLength: 128,
-              autocorrect: false,
-              onEditingComplete: () {
-                widget.device.commandQueue.addCommand(
-                  BluetoothMessage(message: cmd, priority: Priority.high),
-                );
-                setState(() {
-                  cmd = "";
-                });
-              },
-              onChanged: (nameValue) {
-                cmd = nameValue.toUpperCase();
-              },
+      body: DisplayLog(console: widget),
+      bottomNavigationBar: SafeArea(
+        child: ListTile(
+          isThreeLine: true,
+          dense: true,
+          subtitle: TextField(
+            controller: TextEditingController(text: cmd),
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Send a Command",
+              hintText: 'TAILHA',
             ),
+            maxLines: 1,
+            maxLength: 128,
+            autocorrect: false,
+            onEditingComplete: () {
+              widget.device.commandQueue.addCommand(
+                BluetoothMessage(message: cmd, priority: Priority.high),
+              );
+              setState(() {
+                cmd = "";
+              });
+            },
+            onChanged: (nameValue) {
+              cmd = nameValue.toUpperCase();
+            },
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: IconButton(
-              onPressed: () {
-                widget.device.commandQueue.addCommand(
-                  BluetoothMessage(message: cmd, priority: Priority.high),
-                );
-                setState(() {
-                  cmd = "";
-                });
-              },
-              icon: const Icon(Icons.send),
-            ),
+          trailing: IconButton.filled(
+            onPressed: () {
+              widget.device.commandQueue.addCommand(
+                BluetoothMessage(message: cmd, priority: Priority.high),
+              );
+              setState(() {
+                cmd = "";
+              });
+            },
+            icon: const Icon(Icons.send),
           ),
-        ],
+        ),
       ),
     );
   }

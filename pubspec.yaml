@@ -73,7 +73,7 @@ dependencies:
   lottie: ^3.3.3
   pdfx: ^2.9.2
   owoify_dart: ^2.1.0
-  cached_network_image_ce: ^4.7.0
+  cached_network_image_ce: ^4.9.0
 
   # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
@@ -109,7 +109,7 @@ dependencies:
   sentry_flutter: ^9.22.0 # Base sentry + Flutter integration
   sentry_logging: ^9.22.0 # Collects app logs
   #sentry_hive: ^8.12.0 # Collects Hive storage accesses
-  #sentry_dio: ^9.8.0 # Collects Dio HTTP requests
+  sentry_dio: ^9.22.0 # Collects Dio HTTP requests
 
 
   # Debug
@@ -167,7 +167,7 @@ sentry: # used by the sentry-dart-plugin to upload symbols. Credentials are prov
   symbols_path: ./symbols
   project: "tail-app"
   org: "floof"
-  url: "https://glitchtip.codel1417.xyz"
+  url: "https://sentry.codel1417.xyz"
 
 icons_launcher:
   image_path: "assets/TC_Logo.png"

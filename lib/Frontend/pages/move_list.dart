@@ -55,14 +55,14 @@ class _MoveListViewState extends State<MoveListView> {
                       MoveLists.instance.add(value);
                     }
                     MoveLists.instance.store();
+                    analyticsEvent(
+                      name: "Edit Custom Action",
+                      props: {
+                        "Number of Moves": value!.moves.length.toString(),
+                        "Repeat": value.repeat.toString(),
+                      },
+                    );
                   }
-                  analyticsEvent(
-                    name: "Edit Custom Action",
-                    props: {
-                      "Number of Moves": value!.moves.length.toString(),
-                      "Repeat": value.repeat.toString(),
-                    },
-                  );
                 }),
               );
         },

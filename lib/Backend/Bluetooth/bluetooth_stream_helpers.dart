@@ -11,6 +11,7 @@ part 'bluetooth_stream_helpers.freezed.dart';
 final _logger = Logger('Bluetooth');
 // This class exists to map the value changed callback to a stream
 StreamController<RxInfo> _streamController = StreamController();
+Stream<RxInfo> _streamBroadcast = _streamController.stream.asBroadcastStream();
 
 void valueChanged(
   String deviceId,
@@ -43,14 +44,20 @@ abstract class RxInfo with _$RxInfo {
   }) = _RxInfo;
 }
 
-Stream<Uint8List> getBaseRxStream(String macAddress, String charcteristicId) {
-  return (_streamController.stream
-      .where((event) => event.characteristicId == charcteristicId)
-      .map((event) => event.value));
+Stream<Uint8List> getBaseRxStream(String macAddress, String characteristicId) {
+  return (_streamBroadcast
+          .where(
+            (event) => BleUuidParser.compareStrings(
+              characteristicId,
+              event.characteristicId,
+            ),
+          )
+          .map((event) => event.value))
+      .asBroadcastStream();
 }
 
-Stream<String> getRxStream(String macAddress, String charcteristicId) {
-  return (getBaseRxStream(macAddress, charcteristicId))
+Stream<String> getRxStream(String macAddress, String characteristicId) {
+  return (getBaseRxStream(macAddress, characteristicId))
       .map((event) {
         try {
           return const Utf8Decoder().convert(event);
@@ -59,13 +66,14 @@ Stream<String> getRxStream(String macAddress, String charcteristicId) {
         }
         return "";
       })
-      .where((event) => event.isNotEmpty);
+      .where((event) => event.isNotEmpty)
+      .asBroadcastStream();
 }
 
 Stream<bool> getIsChargingStream(String macAddress) {
   return (getRxStream(
     macAddress,
-    "5073792e-4fc0-45a0-b0a5-78b6c1756c91",
+    BleUuidParser.string("5073792e-4fc0-45a0-b0a5-78b6c1756c91"),
   )).map((event) => event == "CHARGE ON");
 }
 
