@@ -56,7 +56,7 @@ class GearIcons {
 
   String get wings => "assets/icons/icon-wings.svg";
 
-  String get tail9 => "assets/icons/small-tail9.svg";
+  String get tail9 => "assets/icons/small_tail_9.svg";
 
-  String get claws2 => "assets/icons/claws2.svg";
+  String get claws2 => "assets/icons/claws_2.svg";
 }
