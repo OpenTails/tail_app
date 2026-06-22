@@ -399,6 +399,9 @@ class Scan with ChangeNotifier {
   }
 
   Future<void> addDemoGear(DeviceDefinition deviceDefinition) async {
+    if (isDemoGearExists(deviceDefinition)) {
+      return;
+    }
     _scanStreamController.sink.add(
       BleDevice(
         deviceId: getDemoGearBleMac(deviceDefinition),
