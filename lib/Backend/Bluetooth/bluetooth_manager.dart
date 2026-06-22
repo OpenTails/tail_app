@@ -96,6 +96,12 @@ Future<void> createAndConnect(String id, String name) async {
       _logger.severe("Unknown device found: $name");
       return;
     }
+
+    if (isDemoGearMac(id)) {
+      createDemoGear(deviceDefinition);
+      return;
+    }
+
     StoredDevice storedDevice = StoredDevice(
       deviceDefinition.uuid,
       id,
@@ -116,12 +122,7 @@ Future<void> discoverServices(String id) async {
 
   List<BleService> services = [];
   int retry = 0;
-  while (retry <
-      HiveProxy.getOrDefault(
-        settings,
-        gearConnectRetryAttempts,
-        defaultValue: gearConnectRetryAttemptsDefault,
-      )) {
+  while (retry < gearConnectRetryAttemptsDefault) {
     try {
       services = await UniversalBle.discoverServices(id);
     } catch (e) {
@@ -132,7 +133,7 @@ Future<void> discoverServices(String id) async {
         await UniversalBle.getConnectionState(id) ==
             BleConnectionState.connected) {
       _logger.warning(
-        "Failed to discover services for $id. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
+        "Failed to discover services for $id. Attempt $retry/$gearConnectRetryAttemptsDefault",
       );
     } else if (services.isNotEmpty) {
       break;
@@ -256,19 +257,14 @@ Future<void> _connect(String id) async {
     return;
   }
   int retry = 0;
-  while (retry <
-      HiveProxy.getOrDefault(
-        settings,
-        gearConnectRetryAttempts,
-        defaultValue: gearConnectRetryAttemptsDefault,
-      )) {
+  while (retry < gearConnectRetryAttemptsDefault) {
     try {
       await UniversalBle.connect(id, timeout: Duration(seconds: 20));
       break;
     } on ConnectionException catch (e) {
       retry = retry + 1;
       _logger.warning(
-        "Failed to connect to $id. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
+        "Failed to connect to $id. Attempt $retry/$gearConnectRetryAttemptsDefault",
         e,
       );
       await Future.delayed(Duration(milliseconds: 250));
@@ -282,11 +278,18 @@ class Scan with ChangeNotifier {
   ScanReason get state => _state;
   ScanReason _state = ScanReason.notScanning;
   static final Scan instance = Scan._internal();
+  final StreamController<BleDevice> _scanStreamController = StreamController();
+  late final Stream<BleDevice> scanStream;
+  late final StreamSubscription<BleDevice> streamSubscription;
 
   Scan._internal() {
     // isScanningStreamSubscription = FlutterBluePlus.isScanning.listen(
     //   onIsScanningChange,
     // );
+    scanStream = _scanStreamController.stream.asBroadcastStream();
+    streamSubscription = UniversalBle.scanStream.listen(
+      _universalBleScanStreamListener,
+    );
 
     Hive.box(settings).listenable(keys: [hasCompletedOnboarding])
       ..removeListener(isAllGearConnectedListener)
@@ -302,12 +305,6 @@ class Scan with ChangeNotifier {
       Duration(milliseconds: 1),
       () => isAllGearConnectedListener(),
     );
-  }
-
-  void onIsScanningChange(bool isScanning) {
-    if (_state != ScanReason.notScanning && !isScanning) {
-      _state = ScanReason.notScanning;
-    }
   }
 
   Future<void> beginScan({
@@ -392,6 +389,25 @@ class Scan with ChangeNotifier {
         !isBluetoothEnabled.value) {
       stopScan();
     }
+  }
+
+  void _universalBleScanStreamListener(BleDevice device) {
+    if (!_scanStreamController.hasListener) {
+      return;
+    }
+    _scanStreamController.sink.add(device);
+  }
+
+  Future<void> addDemoGear(DeviceDefinition deviceDefinition) async {
+    if (isDemoGearExists(deviceDefinition)) {
+      return;
+    }
+    _scanStreamController.sink.add(
+      BleDevice(
+        deviceId: getDemoGearBleMac(deviceDefinition),
+        name: deviceDefinition.btName,
+      ),
+    );
   }
 }
 

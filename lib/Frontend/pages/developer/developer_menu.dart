@@ -118,33 +118,6 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
             ),
           ),
           ListTile(
-            title: const Text(gearConnectRetryAttempts),
-            subtitle: Slider(
-              divisions: 29,
-              max: 30,
-              min: 1,
-              label: HiveProxy.getOrDefault(
-                settings,
-                gearConnectRetryAttempts,
-                defaultValue: gearConnectRetryAttemptsDefault,
-              ).toString(),
-              value: HiveProxy.getOrDefault(
-                settings,
-                gearConnectRetryAttempts,
-                defaultValue: gearConnectRetryAttemptsDefault,
-              ).toDouble(),
-              onChanged: (double value) async {
-                setState(() {
-                  HiveProxy.put(
-                    settings,
-                    gearConnectRetryAttempts,
-                    value.toInt(),
-                  );
-                });
-              },
-            ),
-          ),
-          ListTile(
             title: const Text(showDebugging),
             trailing: Switch(
               value: isDeveloperEnabled,

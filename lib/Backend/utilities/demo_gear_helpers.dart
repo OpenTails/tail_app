@@ -6,17 +6,20 @@ import '../Device/device_type_enum.dart';
 import '../Device/stateful/connected_gear.dart';
 import '../Device/stored_device.dart';
 
-Future<void> createDemoGear(DeviceDefinition value) async {
-  String btMac = "DEV${value.deviceType.translatedName}";
-  if (KnownDevices.instance.state.containsKey(btMac)) {
+Future<void> createDemoGear(DeviceDefinition deviceDefinition) async {
+  if (isDemoGearExists(deviceDefinition)) {
     return;
   }
+  String btMac = getDemoGearBleMac(deviceDefinition);
   StoredDevice storedDevice = StoredDevice(
-    value.uuid,
+    deviceDefinition.uuid,
     btMac,
-    value.deviceType.color().toARGB32(),
-  )..name = value.friendlyName;
-  StatefulDevice statefulDevice = StatefulDevice(value, storedDevice);
+    deviceDefinition.deviceType.color().toARGB32(),
+  )..name = deviceDefinition.friendlyName;
+  StatefulDevice statefulDevice = StatefulDevice(
+    deviceDefinition,
+    storedDevice,
+  );
 
   // Has to be added before updating connection state
   await KnownDevices.instance.add(statefulDevice);
@@ -36,6 +39,20 @@ void connectDemoGear(StatefulDevice statefulDevice) {
   }
 }
 
+String getDemoGearBleMac(DeviceDefinition deviceDefinition) {
+  return "$demoGearPrefix${deviceDefinition.btName}";
+}
+
+bool isDemoGearExists(DeviceDefinition deviceDefinition) {
+  return KnownDevices.instance.state.containsKey(
+    getDemoGearBleMac(deviceDefinition),
+  );
+}
+
 bool isDemoGear(StatefulDevice statefulDevice) {
   return statefulDevice.storedDevice.btMACAddress.startsWith(demoGearPrefix);
+}
+
+bool isDemoGearMac(String btMac) {
+  return btMac.startsWith(demoGearPrefix);
 }

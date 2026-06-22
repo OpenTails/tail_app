@@ -74,6 +74,8 @@ dependencies:
   pdfx: ^2.9.2
   owoify_dart: ^2.1.0
   cached_network_image_ce: ^4.9.0
+  flutter_svg: ^2.3.0
+
 
   # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
@@ -157,6 +159,7 @@ flutter:
   assets:
     - assets/
     - assets/tailcostickers/
+    - assets/icons/
     - CHANGELOG.md
     - PRIVACY.md
 

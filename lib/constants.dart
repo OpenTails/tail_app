@@ -28,7 +28,6 @@ const String noiseThreshold = 'noiseThreshold';
 const String casualModeDelayMax = 'casualModeDelayMax';
 const String tailBlogWifiOnly = 'tailBlogWifiOnly';
 const String triggerActionCooldown = 'triggerActionCooldown';
-const String gearConnectRetryAttempts = 'gearConnectRetryAttempts';
 const String selectedLocale = 'selectedLocale';
 const String uwuTextEnabled = 'uwuTextEnabled';
 

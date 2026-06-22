@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tail_app/Backend/Device/device_type_enum.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:universal_ble/universal_ble.dart';
 
@@ -50,43 +51,7 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                     ),
                   ),
                   ScanGearList(),
-                  ExpansionTile(
-                    title: Text(convertToUwU(scanDemoGear())),
-                    children: [
-                      PageInfoCard(text: scanDemoGearTip()),
-                      ListTile(
-                        leading: const Icon(Icons.add),
-                        subtitle: DropdownMenu<DeviceDefinition>(
-                          initialSelection: null,
-                          expandedInsets: EdgeInsets.zero,
-                          label: Text(convertToUwU(scanAddDemoGear())),
-                          onSelected: (value) async {
-                            if (value != null) {
-                              setState(() {
-                                createDemoGear(value);
-                                context.pop();
-                              });
-                            }
-                          },
-                          dropdownMenuEntries: DeviceRegistry.allDevices
-                              .where((deviceDefinition) {
-                                if (isDeveloperEnabled) {
-                                  return true;
-                                } else {
-                                  return deviceDefinition.enableDemo;
-                                }
-                              })
-                              .map(
-                                (e) => DropdownMenuEntry(
-                                  value: e,
-                                  label: e.friendlyName,
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    ],
-                  ),
+                  DemoGearDropdown(),
                 ],
               );
             } else {
@@ -132,7 +97,6 @@ class _ScanGearListState extends State<ScanGearList> {
     super.deactivate();
   }
 
-  bool anyGearFound = false;
   List<BleDevice> foundDevices = [];
 
   @override
@@ -142,7 +106,7 @@ class _ScanGearListState extends State<ScanGearList> {
       builder: (BuildContext context, Widget? child) {
         Iterable<String> knownDeviceIds = KnownDevices.instance.state.keys;
         return StreamBuilder<BleDevice>(
-          stream: UniversalBle.scanStream,
+          stream: Scan.instance.scanStream,
           builder: (BuildContext context, AsyncSnapshot<BleDevice> snapshot) {
             if (snapshot.hasData) {
               BleDevice foundDevice = snapshot.data!;
@@ -152,14 +116,13 @@ class _ScanGearListState extends State<ScanGearList> {
                       .any((element) => element == foundDevice.deviceId)) {
                 foundDevices.add(foundDevice);
               }
-              anyGearFound = foundDevices.isNotEmpty;
             }
             return ListView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 AnimatedCrossFade(
-                  firstChild: anyGearFound
+                  firstChild: foundDevices.isNotEmpty
                       ? ListView(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -176,6 +139,11 @@ class _ScanGearListState extends State<ScanGearList> {
                               itemCount: foundDevices.length,
                               itemBuilder: (BuildContext context, int index) {
                                 BleDevice e = foundDevices[index];
+                                DeviceDefinition? deviceDefinition =
+                                    DeviceRegistry.getByName(e.name ?? "");
+                                Color iconColor = Theme.of(
+                                  context,
+                                ).colorScheme.onSurface;
                                 return Card(
                                   clipBehavior: Clip.antiAlias,
                                   child: InkWell(
@@ -183,18 +151,17 @@ class _ScanGearListState extends State<ScanGearList> {
                                       children: [
                                         Expanded(
                                           flex: 5,
-                                          child: Icon(
-                                            Icons.question_mark,
-                                            size: 150,
-                                          ),
+                                          child: deviceDefinition!.deviceType
+                                              .icon(150, iconColor),
                                         ),
                                         Expanded(
                                           flex: 1,
                                           child: Text(
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.headlineSmall,
                                             convertToUwU(
-                                              DeviceRegistry.getByName(
-                                                    e.name ?? "",
-                                                  )?.friendlyName ??
+                                              deviceDefinition.friendlyName ??
                                                   "",
                                             ),
                                           ),
@@ -206,14 +173,18 @@ class _ScanGearListState extends State<ScanGearList> {
                                         e.deviceId,
                                         e.name ?? "",
                                       );
-                                      analyticsEvent(
-                                        name: "Connect New Gear",
-                                        props: {
-                                          "Gear Type": e.name ?? "",
-                                          "Onboarding in Progress":
-                                              (!widget.popOnConnect).toString(),
-                                        },
-                                      );
+                                      if (!isDemoGearMac(e.deviceId)) {
+                                        analyticsEvent(
+                                          name: "Connect New Gear",
+                                          props: {
+                                            "Gear Type": e.name ?? "",
+                                            "Onboarding in Progress":
+                                                (!widget.popOnConnect)
+                                                    .toString(),
+                                          },
+                                        );
+                                      }
+
                                       if (context.mounted &&
                                           widget.popOnConnect) {
                                         Navigator.pop(context);
@@ -237,6 +208,20 @@ class _ScanGearListState extends State<ScanGearList> {
                                         bluetoothDevice.deviceId,
                                         bluetoothDevice.name ?? "",
                                       );
+                                      if (!isDemoGearMac(
+                                        bluetoothDevice.deviceId,
+                                      )) {
+                                        analyticsEvent(
+                                          name: "Connect New Gear",
+                                          props: {
+                                            "Gear Type":
+                                                bluetoothDevice.name ?? "",
+                                            "Onboarding in Progress":
+                                                (!widget.popOnConnect)
+                                                    .toString(),
+                                          },
+                                        );
+                                      }
                                     }
                                     if (widget.popOnConnect &&
                                         mounted &&
@@ -246,6 +231,7 @@ class _ScanGearListState extends State<ScanGearList> {
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Icon(
                                         Icons.select_all,
@@ -282,13 +268,13 @@ class _ScanGearListState extends State<ScanGearList> {
                         )
                       : Container(),
                   secondChild: Container(),
-                  crossFadeState: anyGearFound
+                  crossFadeState: foundDevices.isNotEmpty
                       ? CrossFadeState.showFirst
                       : CrossFadeState.showSecond,
                   duration: animationTransitionDuration,
                 ),
                 AnimatedOpacity(
-                  opacity: anyGearFound ? 0.5 : 1,
+                  opacity: foundDevices.isNotEmpty ? 0.5 : 1,
                   duration: animationTransitionDuration,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20),
@@ -344,5 +330,59 @@ class _ScanGearListState extends State<ScanGearList> {
         foundDevices.addAll(foundSystemDevices);
       });
     }
+  }
+}
+
+class DemoGearDropdown extends StatefulWidget {
+  const DemoGearDropdown({super.key});
+
+  @override
+  State<DemoGearDropdown> createState() => _DemoGearDropdownState();
+}
+
+class _DemoGearDropdownState extends State<DemoGearDropdown> {
+  final ExpansibleController _expansibleController = ExpansibleController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _expansibleController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      controller: _expansibleController,
+      title: Text(convertToUwU(scanDemoGear())),
+      children: [
+        PageInfoCard(text: scanDemoGearTip()),
+        ListTile(
+          leading: const Icon(Icons.add),
+          subtitle: DropdownMenu<DeviceDefinition>(
+            initialSelection: null,
+            expandedInsets: EdgeInsets.zero,
+            label: Text(convertToUwU(scanAddDemoGear())),
+            onSelected: (value) async {
+              if (value != null) {
+                Scan.instance.addDemoGear(value);
+                setState(() {
+                  _expansibleController.collapse();
+                });
+              }
+            },
+            dropdownMenuEntries: DeviceRegistry.allDevices
+                .where((deviceDefinition) {
+                  if (isDeveloperEnabled) {
+                    return true;
+                  } else {
+                    return deviceDefinition.enableDemo;
+                  }
+                })
+                .map((e) => DropdownMenuEntry(value: e, label: e.friendlyName))
+                .toList(),
+          ),
+        ),
+      ],
+    );
   }
 }

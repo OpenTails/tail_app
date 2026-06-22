@@ -415,7 +415,7 @@ Future<void> setupSystemColor(BuildContext context) async {
 /// Chooses the light or dark text color based on the supplied background color.
 Color getTextColor(Color color) {
   double luminance = color.computeLuminance();
-  if (luminance > 0.7) {
+  if (luminance > 0.6) {
     return Typography.material2021().black.labelLarge!.color!;
   } else {
     return Typography.material2021().white.labelLarge!.color!;

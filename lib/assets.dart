@@ -44,4 +44,17 @@ class Assets {
 
   static const $AssetsTailcostickersGen tailcostickers =
       $AssetsTailcostickersGen();
+  static const GearIcons icons = GearIcons();
+}
+
+class GearIcons {
+  const GearIcons();
+
+  String get ears => "assets/icons/icon-ears.svg";
+
+  String get tail2 => "assets/icons/icon-tail2.svg";
+
+  String get wings => "assets/icons/icon-wings.svg";
+
+  String get tail9 => "assets/icons/small-tail9.svg";
 }
