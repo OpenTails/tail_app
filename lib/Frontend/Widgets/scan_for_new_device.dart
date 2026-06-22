@@ -152,7 +152,7 @@ class _ScanGearListState extends State<ScanGearList> {
                                         Expanded(
                                           flex: 5,
                                           child: deviceDefinition!.deviceType
-                                              .icon(150, iconColor),
+                                              .icon(175, iconColor),
                                         ),
                                         Expanded(
                                           flex: 1,

@@ -58,21 +58,7 @@ class _ManageGearState extends State<ManageGear> {
             controller: scrollController,
             children: [
               if (device!.deviceDefinition.unsupported) ...[
-                BaseCard(
-                  elevation: 3,
-                  color: Colors.red,
-                  child: ListTile(
-                    leading: const Icon(Icons.warning, color: Colors.white),
-                    trailing: const Icon(Icons.warning, color: Colors.white),
-                    title: Text(
-                      convertToUwU(noLongerSupported()),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleMedium?.copyWith(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
+                WarningBarCard(text: convertToUwU(noLongerSupported())),
               ],
               ListenableBuilder(
                 listenable: device!.firmwareStatus,
@@ -80,64 +66,43 @@ class _ManageGearState extends State<ManageGear> {
                   return Column(
                     children: [
                       if (device!.firmwareStatus.mandatoryOtaRequired) ...[
-                        BaseCard(
-                          elevation: 3,
-                          color: Colors.red,
-                          child: InkWell(
-                            onTap: () async {
-                              OtaUpdateRoute(
-                                device: device!.storedDevice.btMACAddress,
-                              ).push(context);
-                            },
-                            child: ListTile(
-                              leading: const Icon(
-                                Icons.warning,
-                                color: Colors.white,
-                              ),
-                              trailing: const Icon(
-                                Icons.warning,
-                                color: Colors.white,
-                              ),
-                              title: Text(
-                                convertToUwU(mandatoryOtaRequired()),
-                                style: Theme.of(context).textTheme.titleMedium
-                                    ?.copyWith(color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
+                        WarningBarCard(
+                          text: convertToUwU(mandatoryOtaRequired()),
+                          onTap: () async {
+                            OtaUpdateRoute(
+                              device: device!.storedDevice.btMACAddress,
+                            ).push(context);
+                          },
                         ),
                       ],
                       if (device!.firmwareStatus.hasUpdate) ...[
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: FilledButton(
-                            onPressed: () async {
-                              OtaUpdateRoute(
-                                device: device!.storedDevice.btMACAddress,
-                              ).push(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: getTextColor(color!),
-                              elevation: 1,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.system_update,
-                                  color: getTextColor(color!),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 4),
-                                ),
-                                Text(
-                                  convertToUwU(manageDevicesOtaButton()),
-                                  style: Theme.of(context).textTheme.labelLarge!
-                                      .copyWith(color: getTextColor(color!)),
-                                ),
-                              ],
-                            ),
+                        FilledButton(
+                          onPressed: () async {
+                            OtaUpdateRoute(
+                              device: device!.storedDevice.btMACAddress,
+                            ).push(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: getTextColor(color!),
+                            elevation: 1,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.system_update,
+                                color: getTextColor(color!),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4),
+                              ),
+                              Text(
+                                convertToUwU(manageDevicesOtaButton()),
+                                style: Theme.of(context).textTheme.labelLarge!
+                                    .copyWith(color: getTextColor(color!)),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -145,9 +110,8 @@ class _ManageGearState extends State<ManageGear> {
                   );
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextField(
+              ListTile(
+                title: TextField(
                   controller: TextEditingController(
                     text: device!.storedDevice.name,
                   ),
@@ -171,6 +135,8 @@ class _ManageGearState extends State<ManageGear> {
                     KnownDevices.instance.store();
                   },
                 ),
+                titleAlignment: ListTileTitleAlignment.top,
+                leading: device!.deviceDefinition.deviceType.icon(60, color!),
               ),
               ListTile(
                 title: Text(convertToUwU(manageDevicesColor())),
@@ -1123,5 +1089,34 @@ class _ManageGearHomePositionState extends State<ManageGearHomePosition> {
       priority: Priority.high,
     );
     widget.device.commandQueue.addCommand(bluetoothMessage);
+  }
+}
+
+class WarningBarCard extends StatelessWidget {
+  final String text;
+  final GestureTapCallback? onTap;
+
+  const WarningBarCard({super.key, required this.text, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    Color errorColor = ColorScheme.of(context).error;
+    Color textColor = getTextColor(errorColor);
+    return BaseCard(
+      elevation: 3,
+      color: errorColor,
+      child: ListTile(
+        onTap: onTap,
+        leading: Icon(Icons.warning, color: textColor),
+        trailing: Icon(Icons.warning, color: textColor),
+        title: Text(
+          text,
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(color: textColor),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
 }
