@@ -75,7 +75,7 @@ extension DeviceTypeExtension on DeviceType {
       case DeviceType.wings:
         return Assets.icons.wings;
       case DeviceType.claws:
-        return "";
+        return Assets.icons.claws2;
     }
   }
 

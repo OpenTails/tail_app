@@ -43,7 +43,7 @@ class Assets {
       'assets/splash_light_transparent.gif';
 
   static const $AssetsTailcostickersGen tailcostickers =
-      $AssetsTailcostickersGen();
+  $AssetsTailcostickersGen();
   static const GearIcons icons = GearIcons();
 }
 
@@ -57,4 +57,6 @@ class GearIcons {
   String get wings => "assets/icons/icon-wings.svg";
 
   String get tail9 => "assets/icons/small-tail9.svg";
+
+  String get claws2 => "assets/icons/claws2.svg";
 }

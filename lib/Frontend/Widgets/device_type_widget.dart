@@ -38,14 +38,17 @@ class DeviceTypeWidget extends StatelessWidget {
             itemCount: DeviceType.values.length,
             itemBuilder: (state, i) {
               DeviceType deviceType = DeviceType.values.toList()[i];
+              Color color = deviceType.color();
+              Color textColor = getTextColor(color);
               return ChoiceChip(
-                selectedColor: deviceType.color(),
+                checkmarkColor: textColor,
+                selectedColor: color,
                 tooltip: deviceType.translatedName,
                 selected: state.selected(deviceType),
                 onSelected: state.onSelected(deviceType),
                 label: deviceType.iconAssetPath().isEmpty
                     ? Text(convertToUwU(deviceType.translatedName))
-                    : deviceType.icon(30, getTextColor(deviceType.color())),
+                    : deviceType.icon(30, textColor),
                 elevation: 1,
               );
             },
