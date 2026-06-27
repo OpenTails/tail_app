@@ -54,7 +54,7 @@ default_platform(:android)
         #release_status: "draft",
     )
     sentry_upload_build(
-      auth_token: 'ENV['SENTRY_AUTH_TOKEN']',
+      auth_token: ENV['SENTRY_AUTH_TOKEN'],
       org_slug: 'floof',
       project_slug: 'tail-app',
       aab_path:  "../build/app/outputs/bundle/release/app-release.aab",
