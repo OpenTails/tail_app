@@ -1,3 +1,7 @@
+### V 1.5.1
+
+- Many bug fixes and changes to prevent the app from freezing at launch
+
 ### V 1.5.0
 
 - Add support for Paws with Claws
