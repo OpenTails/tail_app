@@ -50,6 +50,7 @@ runs:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
+        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth }}
     - name: Convert aab to apk
       id: convert_aab
       uses: mukeshsolanki/bundletool-action@v2.0.0
@@ -59,7 +60,6 @@ runs:
         keystorePassword: ${{ inputs.android-keystore-password }}
         keystoreAlias: tailApp
         keyPassword: ${{ inputs.android-key-password }}
-        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth }}
         #bundletoolVersion: '1.9.0'
     - name: Rename APK
       shell: bash
