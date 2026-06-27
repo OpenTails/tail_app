@@ -2,12 +2,7 @@ source "https://rubygems.org"
 
 gem "fastlane"
 gem "cocoapods"
-
-# https://github.com/fastlane/fastlane/issues/29183
-# Until Fastlane includes them directly.
-gem "abbrev"
-gem "mutex_m"
-gem "ostruct"
+gem "fastlane-plugin-sentry"
 
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
