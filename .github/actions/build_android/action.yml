@@ -25,6 +25,9 @@ inputs:
   sentry-dsn:
     description: 'The sentry dsn for sending error info'
     required: true
+  sentry-auth:
+    description: 'The sentry token for sending symbols'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -56,6 +59,7 @@ runs:
         keystorePassword: ${{ inputs.android-keystore-password }}
         keystoreAlias: tailApp
         keyPassword: ${{ inputs.android-key-password }}
+        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth }}
         #bundletoolVersion: '1.9.0'
     - name: Rename APK
       shell: bash

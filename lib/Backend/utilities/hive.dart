@@ -22,6 +22,8 @@ import '../triggers/trigger_action.dart';
 Logger _logger = Logger("Hive");
 bool _didInitHive = false;
 
+bool get isHiveReady => _didInitHive;
+
 void registerHiveTypes() {
   //Hive Type ID 1
   if (!Hive.isAdapterRegistered(StoredDeviceAdapter().typeId)) {
@@ -99,14 +101,35 @@ Future<void> initHive() async {
     Hive.init(Directory(".HiveTest").path);
   }
   registerHiveTypes();
+  try {
+    await openBoxes();
+  } catch (e, s) {
+    _logger.severe("Failed to open hive box: ", e, s);
+    await deleteAllBoxes();
+    await openBoxes();
+  }
+
+  _didInitHive = true;
+}
+
+Future<void> openBoxes() async {
   await Hive.openBox(settings); // Do not set type here
 
   // closed after first read, reloads as lazybox
+  //TODO: Rework to load data after sentry init (Inside the singleton that manages the data)
   await Hive.openBox<Trigger>(triggerBox);
   await Hive.openBox<FavoriteAction>(favoriteActionsBox);
   await Hive.openBox<AudioAction>(audioActionsBox);
   await Hive.openBox<MoveList>(sequencesBox);
   await Hive.openBox<StoredDevice>(devicesBox);
+}
 
-  _didInitHive = true;
+Future<void> deleteAllBoxes() async {
+  _logger.warning("Deleting stored hive data");
+  await Hive.deleteBoxFromDisk(settings);
+  await Hive.deleteBoxFromDisk(triggerBox);
+  await Hive.deleteBoxFromDisk(favoriteActionsBox);
+  await Hive.deleteBoxFromDisk(audioActionsBox);
+  await Hive.deleteBoxFromDisk(sequencesBox);
+  await Hive.deleteBoxFromDisk(devicesBox);
 }

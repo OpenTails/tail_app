@@ -7,6 +7,7 @@ import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
+import 'package:tail_app/Backend/utilities/hive.dart';
 import 'package:universal_io/io.dart';
 
 import '../../constants.dart';
@@ -48,23 +49,39 @@ Future<String> getSentryEnvironment() async {
 }
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
-  DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-
-  bool reportingEnabled =
-      HiveProxy.getOrDefault(
-        settings,
-        allowErrorReporting,
-        defaultValue: allowErrorReportingDefault,
-      ) &&
-      dynamicConfigInfo.featureFlags.enableErrorReporting;
+  bool reportingEnabled = true;
+  if (isHiveReady) {
+    DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
+    reportingEnabled =
+        HiveProxy.getOrDefault(
+          settings,
+          allowErrorReporting,
+          defaultValue: allowErrorReportingDefault,
+        ) &&
+            dynamicConfigInfo.featureFlags.enableErrorReporting;
+  }
   if (reportingEnabled) {
-    if (kDebugMode) {
-      print('Before sending sentry event');
-    }
     return event;
   } else {
     return null;
   }
+}
+
+/// Filter out bluetooth device Ids so errors don't duplicate
+Breadcrumb? beforeBreadcrumb(Breadcrumb? breadcrumb, Hint hint) {
+  breadcrumb?.message = breadcrumb.message?.replaceAllMapped(
+    RegExp(r'\^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})', caseSensitive: false),
+        (match) => "[filtered mac address]",
+  );
+  //TODO: Verify other UUIDs are not caught in the crossfire
+  breadcrumb?.message = breadcrumb.message?.replaceAllMapped(
+    RegExp(
+      r'\^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+      caseSensitive: false,
+    ),
+        (match) => "[filtered UUID]",
+  );
+  return breadcrumb;
 }
 
 Logger _logger = Logger("Sentry");
@@ -77,19 +94,18 @@ Future<void> startSentryApp(Widget child) async {
     _logger.severe("Sentry DSN is empty, Launching without sentry");
     runApp(child);
   }
-  String environment = await getSentryEnvironment();
+  //String environment = await getSentryEnvironment();
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-  _logger.info("Detected Environment: $environment");
-
+  //_logger.info("Detected Environment: $environment");
   await SentryFlutter.init(
-    (options) async {
+        (options) async {
       options
         ..dsn = dsn
         ..addIntegration(LoggingIntegration())
         ..enableBreadcrumbTrackingForCurrentPlatform()
         ..debug = kDebugMode
         ..diagnosticLevel = kDebugMode ? SentryLevel.debug : SentryLevel.info
-        ..environment = environment
+      //..environment = environment
         ..sampleRate = kDebugMode
             ? 1
             : dynamicConfigInfo.sentryConfig.sampleRate
@@ -100,17 +116,18 @@ Future<void> startSentryApp(Widget child) async {
             ? 1
             : dynamicConfigInfo.sentryConfig.profilesSampleRate
         ..beforeSend = beforeSend
+        ..beforeBreadcrumb = beforeBreadcrumb
         ..reportSilentFlutterErrors =
             dynamicConfigInfo.sentryConfig.reportSilentErrors
         ..attachScreenshot = true
         ..attachViewHierarchy = true
-        ..sampleRate
         ..enableTombstone = true
         ..enableFramesTracking
         ..privacy.maskAllImages = false
         ..privacy.maskAllText =
-            false // app does not contain any PII
+        false // app does not contain any PII
         ..screenshotQuality = SentryScreenshotQuality.low
+        ..includeModuleInStackTrace = true
         ..replay.sessionSampleRate =
             dynamicConfigInfo.sentryConfig.replaySessionSampleRate
         ..replay.onErrorSampleRate =
@@ -118,10 +135,12 @@ Future<void> startSentryApp(Widget child) async {
     },
     // Init your App.
     // ignore: missing_provider_scope
-    appRunner: () => runApp(
-      SentryWidget(
-        child: DefaultAssetBundle(bundle: SentryAssetBundle(), child: child),
-      ),
-    ),
+    appRunner: () =>
+        runApp(
+          SentryWidget(
+            child: DefaultAssetBundle(
+                bundle: SentryAssetBundle(), child: child),
+          ),
+        ),
   );
 }

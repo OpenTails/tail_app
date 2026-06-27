@@ -36,6 +36,12 @@ platform :ios do
       api_key_path:"APPLE_SECRETS.json",
       skip_waiting_for_build_processing: true,
     )
+    sentry_upload_build(
+      auth_token: 'ENV['SENTRY_AUTH_TOKEN']',
+      org_slug: 'floof',
+      project_slug: 'tail-app',
+      xcarchive_path:  "../build/ios/archive/Runner.xcarchive",
+    )
   end
   lane :certs do
     match_nuke(
