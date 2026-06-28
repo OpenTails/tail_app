@@ -62,7 +62,7 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
           defaultValue: allowErrorReportingDefault,
         ) &&
         dynamicConfigInfo.featureFlags.enableErrorReporting &&
-        _random.nextDouble() > dynamicConfigInfo.sentryConfig.sampleRate;
+        _random.nextDouble() <= dynamicConfigInfo.sentryConfig.sampleRate;
   }
   if (reportingEnabled) {
     return event;
@@ -77,7 +77,7 @@ FutureOr<SentryTransaction?> beforeSendTransaction(
 ) async {
   if (isHiveReady) {
     DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-    if (_random.nextDouble() >
+    if (_random.nextDouble() <=
         dynamicConfigInfo.sentryConfig.tracesSampleRate) {
       return transaction;
     } else {
