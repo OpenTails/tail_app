@@ -184,15 +184,16 @@ class MoveLists with ChangeNotifier {
   }
 
   @visibleForTesting
-  void reload() {
+  Future<void> reload() async {
     List<MoveList> results = [];
     try {
-      results = Hive.box<MoveList>(sequencesBox).values.toList();
+      Box<MoveList> box = await Hive.openBox<MoveList>(sequencesBox);
+      results = box.values.toList();
     } catch (e, s) {
       sequencesLogger.severe("Unable to load sequences: $e", e, s);
     }
-    Hive.box<MoveList>(sequencesBox).close();
     _state = results.toBuiltList();
+    notifyListeners();
   }
 
   Future<void> add(MoveList moveList) async {
@@ -217,9 +218,9 @@ class MoveLists with ChangeNotifier {
 
   Future<void> store() async {
     sequencesLogger.info("Storing sequences");
-    LazyBox<MoveList> lazyBox = await Hive.openLazyBox<MoveList>(sequencesBox);
-    await lazyBox.clear();
-    await lazyBox.addAll(_state);
+    Box<MoveList> box = await Hive.openBox<MoveList>(sequencesBox);
+    await box.clear();
+    await box.addAll(_state);
     notifyListeners();
   }
 }

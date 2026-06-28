@@ -58,7 +58,7 @@ class _MoveListViewState extends State<MoveListView> {
                     analyticsEvent(
                       name: "Edit Custom Action",
                       props: {
-                        "Number of Moves": value!.moves.length.toString(),
+                        "Number of Moves": value.moves.length.toString(),
                         "Repeat": value.repeat.toString(),
                       },
                     );

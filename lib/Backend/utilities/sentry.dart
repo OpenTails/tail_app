@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -13,6 +14,8 @@ import 'package:universal_io/io.dart';
 import '../../constants.dart';
 import '../dynamic_config.dart';
 import '../logging_wrappers.dart';
+
+Random _random = Random();
 
 Future<String> getSentryEnvironment() async {
   if (!kReleaseMode) {
@@ -58,7 +61,8 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
           allowErrorReporting,
           defaultValue: allowErrorReportingDefault,
         ) &&
-            dynamicConfigInfo.featureFlags.enableErrorReporting;
+        dynamicConfigInfo.featureFlags.enableErrorReporting &&
+        _random.nextDouble() > dynamicConfigInfo.sentryConfig.sampleRate;
   }
   if (reportingEnabled) {
     return event;
@@ -67,11 +71,28 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
   }
 }
 
+FutureOr<SentryTransaction?> beforeSendTransaction(
+  SentryTransaction transaction,
+  Hint hint,
+) async {
+  if (isHiveReady) {
+    DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
+    if (_random.nextDouble() >
+        dynamicConfigInfo.sentryConfig.tracesSampleRate) {
+      return transaction;
+    } else {
+      return null;
+    }
+  }
+  return transaction;
+}
+
 /// Filter out bluetooth device Ids so errors don't duplicate
+/// TODO: More filtering for events
 Breadcrumb? beforeBreadcrumb(Breadcrumb? breadcrumb, Hint hint) {
   breadcrumb?.message = breadcrumb.message?.replaceAllMapped(
     RegExp(r'\^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})', caseSensitive: false),
-        (match) => "[filtered mac address]",
+    (match) => "[filtered mac address]",
   );
   //TODO: Verify other UUIDs are not caught in the crossfire
   breadcrumb?.message = breadcrumb.message?.replaceAllMapped(
@@ -79,7 +100,7 @@ Breadcrumb? beforeBreadcrumb(Breadcrumb? breadcrumb, Hint hint) {
       r'\^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
       caseSensitive: false,
     ),
-        (match) => "[filtered UUID]",
+    (match) => "[filtered UUID]",
   );
   return breadcrumb;
 }
@@ -95,52 +116,60 @@ Future<void> startSentryApp(Widget child) async {
     runApp(child);
   }
   //String environment = await getSentryEnvironment();
-  DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
   //_logger.info("Detected Environment: $environment");
   await SentryFlutter.init(
-        (options) async {
+    (options) async {
       options
         ..dsn = dsn
         ..addIntegration(LoggingIntegration())
         ..enableBreadcrumbTrackingForCurrentPlatform()
-        ..debug = kDebugMode
-        ..diagnosticLevel = kDebugMode ? SentryLevel.debug : SentryLevel.info
-      //..environment = environment
-        ..sampleRate = kDebugMode
-            ? 1
-            : dynamicConfigInfo.sentryConfig.sampleRate
-        ..tracesSampleRate = kDebugMode
-            ? 1
-            : dynamicConfigInfo.sentryConfig.tracesSampleRate
-        ..profilesSampleRate = kDebugMode
-            ? 1
-            : dynamicConfigInfo.sentryConfig.profilesSampleRate
+        ..diagnosticLevel = SentryLevel.info
+        //..environment = environment
+        ..sampleRate = 1
+        ..tracesSampleRate = 1
+        // ..profilesSampleRate = kDebugMode
+        //     ? 1
+        //     : dynamicConfigInfo.sentryConfig.profilesSampleRate
         ..beforeSend = beforeSend
         ..beforeBreadcrumb = beforeBreadcrumb
+        ..beforeSendTransaction = beforeSendTransaction
+        ..addEventProcessor(EventSampleRateFilter())
         ..reportSilentFlutterErrors =
-            dynamicConfigInfo.sentryConfig.reportSilentErrors
+            true //TODO: configure dynamically after sentry inits
         ..attachScreenshot = true
         ..attachViewHierarchy = true
         ..enableTombstone = true
         ..enableFramesTracking
         ..privacy.maskAllImages = false
         ..privacy.maskAllText =
-        false // app does not contain any PII
+            false // app does not contain any PII
         ..screenshotQuality = SentryScreenshotQuality.low
-        ..includeModuleInStackTrace = true
-        ..replay.sessionSampleRate =
-            dynamicConfigInfo.sentryConfig.replaySessionSampleRate
-        ..replay.onErrorSampleRate =
-            dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
+        ..includeModuleInStackTrace = true;
+      // ..replay.sessionSampleRate =
+      //     dynamicConfigInfo.sentryConfig.replaySessionSampleRate
+      // ..replay.onErrorSampleRate =
+      //     dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
     },
     // Init your App.
     // ignore: missing_provider_scope
-    appRunner: () =>
-        runApp(
-          SentryWidget(
-            child: DefaultAssetBundle(
-                bundle: SentryAssetBundle(), child: child),
-          ),
-        ),
+    appRunner: () => runApp(
+      SentryWidget(
+        child: DefaultAssetBundle(bundle: SentryAssetBundle(), child: child),
+      ),
+    ),
   );
+}
+
+class EventSampleRateFilter implements EventProcessor {
+  String environment = kReleaseMode ? "production" : "debug";
+
+  EventSampleRateFilter() {
+    Future(getSentryEnvironment).then((value) => environment = value);
+  }
+
+  @override
+  FutureOr<SentryEvent?> apply(SentryEvent event, Hint hint) {
+    event.environment = environment;
+    return event;
+  }
 }

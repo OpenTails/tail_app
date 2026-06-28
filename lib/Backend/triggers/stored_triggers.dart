@@ -22,9 +22,21 @@ class TriggerList with ChangeNotifier {
   static final TriggerList instance = TriggerList._internal();
 
   TriggerList._internal() {
+    KnownDevices.instance
+      ..removeListener(_disableAllTriggers)
+      ..addListener(_disableAllTriggers);
+    this
+      ..removeListener(updateSentryContext)
+      ..addListener(updateSentryContext);
+    reload();
+  }
+
+  @visibleForTesting
+  Future<void> reload() async {
     List<Trigger> results = [];
     try {
-      results = Hive.box<Trigger>(triggerBox).values
+      Box<Trigger> box = await Hive.openBox<Trigger>(triggerBox);
+      results = box.values
           .map((trigger) {
             trigger.triggerDefinition = TriggerDefinitionList
                 .allTriggerDefinitions
@@ -56,10 +68,8 @@ class TriggerList with ChangeNotifier {
     } else {
       _state = results.build();
     }
-    KnownDevices.instance
-      ..removeListener(_disableAllTriggers)
-      ..addListener(_disableAllTriggers);
-    updateSentryContext();
+    notifyListeners();
+    updateWearData(reason: "Triggers loaded");
   }
 
   Future<void> add(Trigger trigger) async {
@@ -75,12 +85,11 @@ class TriggerList with ChangeNotifier {
 
   Future<void> store() async {
     _logger.info("Storing triggers");
-    LazyBox<Trigger> lazyBox = await Hive.openLazyBox<Trigger>(triggerBox);
-    await lazyBox.clear();
-    await lazyBox.addAll(_state);
+    Box<Trigger> box = await Hive.openBox<Trigger>(triggerBox);
+    await box.clear();
+    await box.addAll(_state);
     notifyListeners();
     updateWearData(reason: "Trigger Added/Removed");
-    updateSentryContext();
   }
 
   void _disableAllTriggers() {

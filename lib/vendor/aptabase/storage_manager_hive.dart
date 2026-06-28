@@ -1,13 +1,14 @@
 import "package:hive_ce/hive.dart";
 import "package:tail_app/vendor/aptabase/storage_manager.dart";
 
+final String aptabaseEventBoxName = "aptabaseEvents";
+
 class StorageManagerHive extends StorageManager {
-  final _eventBoxName = "aptabaseEvents";
   late LazyBox<String> _eventBox;
 
   @override
   Future<void> init() async {
-    _eventBox = await Hive.openLazyBox(_eventBoxName);
+    _eventBox = await Hive.openLazyBox(aptabaseEventBoxName);
 
     return super.init();
   }

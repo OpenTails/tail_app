@@ -8,6 +8,7 @@ import 'package:tail_app/Backend/utilities/version.dart';
 
 import '../../Frontend/utils.dart';
 import '../../constants.dart';
+import '../../vendor/aptabase/storage_manager_hive.dart';
 import '../Action/action_category.dart';
 import '../Action/base_action.dart';
 import '../Device/common_device_stuffs.dart';
@@ -24,7 +25,7 @@ bool _didInitHive = false;
 
 bool get isHiveReady => _didInitHive;
 
-void registerHiveTypes() {
+void _registerHiveTypes() {
   //Hive Type ID 1
   if (!Hive.isAdapterRegistered(StoredDeviceAdapter().typeId)) {
     Hive.registerAdapter(StoredDeviceAdapter());
@@ -100,7 +101,7 @@ Future<void> initHive() async {
   } else {
     Hive.init(Directory(".HiveTest").path);
   }
-  registerHiveTypes();
+  _registerHiveTypes();
   try {
     await openBoxes();
   } catch (e, s) {
@@ -114,16 +115,9 @@ Future<void> initHive() async {
 
 Future<void> openBoxes() async {
   await Hive.openBox(settings); // Do not set type here
-
-  // closed after first read, reloads as lazybox
-  //TODO: Rework to load data after sentry init (Inside the singleton that manages the data)
-  await Hive.openBox<Trigger>(triggerBox);
-  await Hive.openBox<FavoriteAction>(favoriteActionsBox);
-  await Hive.openBox<AudioAction>(audioActionsBox);
-  await Hive.openBox<MoveList>(sequencesBox);
-  await Hive.openBox<StoredDevice>(devicesBox);
 }
 
+@visibleForTesting
 Future<void> deleteAllBoxes() async {
   _logger.warning("Deleting stored hive data");
   await Hive.deleteBoxFromDisk(settings);
@@ -132,4 +126,5 @@ Future<void> deleteAllBoxes() async {
   await Hive.deleteBoxFromDisk(audioActionsBox);
   await Hive.deleteBoxFromDisk(sequencesBox);
   await Hive.deleteBoxFromDisk(devicesBox);
+  await Hive.deleteBoxFromDisk(aptabaseEventBoxName);
 }

@@ -8,11 +8,9 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/foreground_service_manager.dart';
 import 'package:tail_app/Backend/pebble.dart';
-import 'package:tail_app/Backend/triggers/stored_triggers.dart';
 import 'package:tail_app/Backend/wakelock_manager.dart';
 
 import 'Backend/app_badges.dart';
@@ -34,8 +32,8 @@ final _logger = Logger('Main');
 Future<void> main() async {
   _logger.info("Begin");
   initFlutter();
-  await initHive();
-  await startSentryApp(TailApp());
+  configureLogging();
+  await startSentryApp(HiveInit());
 }
 
 void initFlutter() {
@@ -47,32 +45,7 @@ void initFlutter() {
 }
 
 class TailApp extends StatelessWidget {
-  TailApp({super.key}) {
-    configureLogging();
-    if (kDebugMode) {
-      _logger.info('Debug Mode Enabled');
-      HiveProxy.put(settings, showDebugging, true);
-    }
-
-    Future(configureBackgroundSystems);
-  }
-
-  Future<void> configureBackgroundSystems() async {
-    // Force start singletons
-    //KnownDevices.instance;
-    //TriggerList.instance;
-    ForegroundServiceManager.instance;
-    WakelockManager.instance;
-    Future(configureNonEssentialBackgroundServices);
-  }
-
-  Future<void> configureNonEssentialBackgroundServices() async {
-    PebbleManager.instance;
-    AppBadgeManager.instance;
-    initWear();
-    appShortcuts();
-    launchAppAnalytics();
-  }
+  const TailApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -133,4 +106,44 @@ class TailApp extends StatelessWidget {
 
     (context as Element).visitChildren(rebuild);
   }
+}
+
+/// This exists to wait for hive to start AFTER sentry inits
+class HiveInit extends StatelessWidget {
+  final GlobalKey tailAppKey = GlobalKey();
+
+  HiveInit({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: initHive(),
+      builder: (context, snapshot) {
+        if (isHiveReady) {
+          if (kDebugMode) {
+            _logger.info('Debug Mode Enabled');
+            HiveProxy.put(settings, showDebugging, true);
+          }
+          Future(configureBackgroundSystems);
+          return TailApp(key: tailAppKey);
+        } else {
+          return Container();
+        }
+      },
+    );
+  }
+}
+
+Future<void> configureBackgroundSystems() async {
+  ForegroundServiceManager.instance;
+  WakelockManager.instance;
+  Future(configureNonEssentialBackgroundServices);
+}
+
+Future<void> configureNonEssentialBackgroundServices() async {
+  PebbleManager.instance;
+  AppBadgeManager.instance;
+  initWear();
+  appShortcuts();
+  launchAppAnalytics();
 }

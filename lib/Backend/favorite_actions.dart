@@ -42,16 +42,22 @@ class FavoriteActions with ChangeNotifier {
   static final FavoriteActions instance = FavoriteActions._internal();
 
   FavoriteActions._internal() {
+    reload();
+  }
+
+  @visibleForTesting
+  Future<void> reload() async {
     List<FavoriteAction> results = [];
     try {
-      results = Hive.box<FavoriteAction>(
+      Box<FavoriteAction> box = await Hive.openBox<FavoriteAction>(
         favoriteActionsBox,
-      ).values.toList(growable: true);
+      );
+      results = box.values.toList(growable: true);
     } catch (e, s) {
       _favoriteActionsLogger.severe("Unable to load favorites: $e", e, s);
     }
-    Hive.box<FavoriteAction>(favoriteActionsBox).close();
     _state = results.toBuiltList();
+    notifyListeners();
   }
 
   Future<void> add(BaseAction action) async {
@@ -76,11 +82,11 @@ class FavoriteActions with ChangeNotifier {
 
   Future<void> store() async {
     _favoriteActionsLogger.info("Storing favorites");
-    LazyBox<FavoriteAction> lazyBox = await Hive.openLazyBox<FavoriteAction>(
+    Box<FavoriteAction> box = await Hive.openBox<FavoriteAction>(
       favoriteActionsBox,
     );
-    await lazyBox.clear();
-    await lazyBox.addAll(_state);
+    await box.clear();
+    await box.addAll(_state);
     updateShortcuts(_state);
     // ignore: unused_result
     notifyListeners();

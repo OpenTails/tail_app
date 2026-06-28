@@ -24,15 +24,18 @@ class KnownDevices with ChangeNotifier {
   static final KnownDevices instance = KnownDevices._internal();
 
   KnownDevices._internal() {
-    Iterable<StoredDevice> storedDevices = Hive.box<StoredDevice>(
-      devicesBox,
-    ).values;
+    this
+      ..removeListener(_onDevicePaired)
+      ..addListener(_onDevicePaired);
+    reload();
+  }
 
-    // after all device entries are loaded, close the box. The box will be
-    // re-opened as a lazy box to save ram
-    Hive.box<StoredDevice>(devicesBox).close();
+  @visibleForTesting
+  Future<void> reload() async {
     Map<String, StatefulDevice> results = {};
     try {
+      Box<StoredDevice> box = await Hive.openBox<StoredDevice>(devicesBox);
+      Iterable<StoredDevice> storedDevices = box.values;
       if (storedDevices.isNotEmpty) {
         for (StoredDevice e in storedDevices) {
           // We don't care for stored demo gear
@@ -50,12 +53,8 @@ class KnownDevices with ChangeNotifier {
       _logger.severe("Unable to load stored devices due to $e", e, s);
     }
     _state = results;
-
     //register listeners
-    _onDevicePaired();
-    this
-      ..removeListener(_onDevicePaired)
-      ..addListener(_onDevicePaired);
+    _notify();
   }
 
   /// Register and store the connected/dev gear.
@@ -73,11 +72,9 @@ class KnownDevices with ChangeNotifier {
 
   Future<void> store() async {
     _logger.info("Storing gear");
-    LazyBox<StoredDevice> lazyBox = await Hive.openLazyBox<StoredDevice>(
-      devicesBox,
-    );
-    await lazyBox.clear();
-    await lazyBox.addAll(state.values.map((e) => e.storedDevice));
+    Box<StoredDevice> box = await Hive.openBox<StoredDevice>(devicesBox);
+    await box.clear();
+    await box.addAll(state.values.map((e) => e.storedDevice));
     _onDevicePaired();
     _notify();
   }

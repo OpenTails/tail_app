@@ -31,14 +31,20 @@ class UserAudioActions with ChangeNotifier {
   static final UserAudioActions instance = UserAudioActions._internal();
 
   UserAudioActions._internal() {
+    reload();
+  }
+
+  @visibleForTesting
+  Future<void> reload() async {
     Iterable<AudioAction> results = [];
     try {
-      results = Hive.box<AudioAction>(audioActionsBox).values;
+      Box<AudioAction> box = await Hive.openBox<AudioAction>(audioActionsBox);
+      results = box.values;
     } catch (e, s) {
       _audioLogger.severe("Unable to load audio: $e", e, s);
     }
-    Hive.box<AudioAction>(audioActionsBox).close();
     _state = results.toList().build();
+    notifyListeners();
   }
 
   Future<void> add(AudioAction action) async {
@@ -63,11 +69,9 @@ class UserAudioActions with ChangeNotifier {
 
   Future<void> store() async {
     _audioLogger.info("Storing Custom Audio");
-    LazyBox<AudioAction> lazyBox = await Hive.openLazyBox<AudioAction>(
-      audioActionsBox,
-    );
-    await lazyBox.clear();
-    await lazyBox.addAll(_state);
+    Box<AudioAction> box = await Hive.openBox<AudioAction>(audioActionsBox);
+    await box.clear();
+    await box.addAll(_state);
     notifyListeners();
   }
 }
