@@ -103,6 +103,7 @@ class StatefulDevice {
 
     bluetoothUartService.addListener(() {
       if (bluetoothUartService.value == null) {
+        _unRegisterCharacteristicStreams();
         return;
       }
       _registerCharacteristicStreams();
@@ -135,9 +136,22 @@ class StatefulDevice {
   StreamSubscription<bool>? _batteryChargingStreamSubscription;
   StreamSubscription<double>? _batteryStreamSubscription;
 
+  void _unRegisterCharacteristicStreams() {
+    rxCharacteristicStream = null;
+    _rxCharacteristicStreamSubscription?.cancel();
+    _rxCharacteristicStreamSubscription = null;
+    _batteryChargingStreamSubscription?.cancel();
+    _batteryChargingStreamSubscription = null;
+    _batteryStreamSubscription?.cancel();
+    _batteryStreamSubscription = null;
+  }
+
   void _registerCharacteristicStreams() {
     if (bluetoothUartService.value == null) {
       return;
+    }
+    if (rxCharacteristicStream != null) {
+      _unRegisterCharacteristicStreams();
     }
     rxCharacteristicStream = getRxStream(
       storedDevice.btMACAddress,
@@ -170,7 +184,8 @@ class StatefulDevice {
       firmwareStatus.firmwareVersion = Version.getFromSemVer(
         value.substring(value.indexOf(" ")),
       );
-      if (bluetoothUartService.value!.isTailcontrol) {
+      if (bluetoothUartService.value != null &&
+          bluetoothUartService.value!.isTailcontrol) {
         commandQueue.addCommand(BluetoothMessage(message: "READNVS"));
       }
       // Sent after VER message
@@ -284,13 +299,6 @@ class StatefulDevice {
     bluetoothUartService.value = null;
     _periodicTimerStream?.cancel();
     _periodicTimerStream = null;
-    rxCharacteristicStream = null;
-    _rxCharacteristicStreamSubscription?.cancel();
-    _rxCharacteristicStreamSubscription = null;
-    _batteryChargingStreamSubscription?.cancel();
-    _batteryChargingStreamSubscription = null;
-    _batteryStreamSubscription?.cancel();
-    _batteryStreamSubscription = null;
     _connectBleServiceWatchdog?.cancel();
     _connectBleServiceWatchdog = null;
   }
