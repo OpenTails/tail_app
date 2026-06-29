@@ -50,7 +50,7 @@ class TailApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _logger.info('Starting app');
-    //setupSystemColor(context);
+    setupSystemColor(context);
 
     Future(
       FlutterNativeSplash.remove,

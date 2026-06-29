@@ -36,7 +36,6 @@ ThemeData buildTheme(Brightness brightness, Color color) {
   }
 }
 
-//TODO: Check if even required anymore
 Future<void> setupSystemColor(BuildContext context) async {
   final SystemUiOverlayStyle dark = SystemUiOverlayStyle(
     statusBarColor: Colors.transparent /*Android=23*/,
