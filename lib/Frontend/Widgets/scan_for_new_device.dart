@@ -204,6 +204,10 @@ class _ScanGearListState extends State<ScanGearList> {
                                     if (context.mounted &&
                                         widget.popOnConnect) {
                                       Navigator.pop(context);
+                                    } else if (context.mounted) {
+                                      setState(() {
+                                        foundDevices.remove(e);
+                                      });
                                     }
                                   },
                                 );

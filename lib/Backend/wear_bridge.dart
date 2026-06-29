@@ -140,6 +140,10 @@ Future<void> _onGearStoredConfigChanged() async {
 }
 
 Future<void> updateWearData({required String reason}) async {
+  //Populated after the shell/main route loads
+  if (wearThemeData == null) {
+    return;
+  }
   Version appVersion = Version.fromString(
     (await PackageInfo.fromPlatform()).version,
   );

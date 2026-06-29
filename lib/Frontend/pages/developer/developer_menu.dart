@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:data_saver/data_saver.dart';
 import 'package:flutter/material.dart';
@@ -376,8 +378,12 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
             subtitle: FutureBuilder(
               future: applicationContext(),
               builder: (context, snapshot) {
-                Map<String, dynamic> value = snapshot.data ?? {};
-                return JsonVisualizer(expandDepth: 3, data: value.toString());
+                Map<String, dynamic> value =
+                    snapshot.data ?? <String, dynamic>{};
+                return JsonVisualizer(
+                  expandDepth: 3,
+                  data: JsonEncoder().convert(value),
+                );
               },
             ),
           ),
