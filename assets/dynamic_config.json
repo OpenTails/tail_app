@@ -1,7 +1,7 @@
 {
   "sentry": {
     "sampleRate": 1.0,
-    "tracesSampleRate": 0.5,
+    "tracesSampleRate": 0.49,
     "profilesSampleRate": 0,
     "replaySessionSampleRate": 0.0,
     "replayOnErrorSampleRate": 0.0,
