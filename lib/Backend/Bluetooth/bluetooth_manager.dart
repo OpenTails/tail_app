@@ -195,17 +195,10 @@ class _KeepGearAwake {
   }
 
   Future<void> _periodicListener(dynamic event) async {
-    for (BleDevice element in await UniversalBle.getSystemDevices()) {
-      if (element.isSystemDevice == true || await element.isConnected != true) {
-        continue;
-      }
-      StatefulDevice? statefulDevice =
-          KnownDevices.instance.state[element.deviceId];
-
-      statefulDevice?.rssi.value = await element
-          .readRssi()
-          .catchError((e) => -1)
-          .onError((error, stackTrace) => -1);
+    for (StatefulDevice statefulDevice in KnownDevices.instance.connectedGear) {
+      statefulDevice.rssi.value = await UniversalBle.readRssi(
+        statefulDevice.storedDevice.btMACAddress,
+      ).catchError((e) => -1).onError((error, stackTrace) => -1);
     }
   }
 }
