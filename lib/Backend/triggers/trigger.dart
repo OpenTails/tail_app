@@ -10,6 +10,7 @@ import '../Action/action_registry.dart';
 
 part 'trigger.g.dart';
 
+//restricted field ids: 5
 @HiveType(typeId: 2)
 class Trigger extends ChangeNotifier {
   // The sensor definition is stored as a UUID to avoid storing the entire
@@ -67,7 +68,7 @@ class Trigger extends ChangeNotifier {
 
   @HiveField(3)
   List<TriggerAction> _actions = [];
-  @HiveField(5, defaultValue: {})
+  @HiveField(6, defaultValue: {})
   Map<String, dynamic> optionalSettings = {};
 
   List<TriggerAction> get actions => _actions;
