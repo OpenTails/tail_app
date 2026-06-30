@@ -49,7 +49,7 @@ class TriggerList with ChangeNotifier {
           .toList(growable: true);
     } catch (e, s) {
       _logger.severe("Unable to load stored triggers: $e", e, s);
-      await Hive.deleteBoxFromDisk(triggerBox)
+      await Hive.deleteBoxFromDisk(triggerBox);
     }
     if (results.isEmpty) {
       TriggerDefinition triggerDefinition = TriggerDefinitionList
