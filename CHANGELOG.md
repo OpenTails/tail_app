@@ -1,3 +1,7 @@
+### v 1.5.2
+
+- Fixed the root cause of the app freezing at launch in 1.5.0 
+
 ### V 1.5.1
 
 - Many bug fixes and changes to prevent the app from freezing at launch
