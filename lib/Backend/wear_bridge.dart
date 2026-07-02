@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/triggers/stored_triggers.dart';
@@ -144,6 +145,8 @@ Future<void> updateWearData({required String reason}) async {
   if (wearThemeData == null) {
     return;
   }
+  final ISentrySpan? span = Sentry.getSpan()?.startChild('Watch.update');
+
   Version appVersion = Version.fromString(
     (await PackageInfo.fromPlatform()).version,
   );
@@ -208,6 +211,8 @@ Future<void> updateWearData({required String reason}) async {
     }
   } catch (e, s) {
     _wearLogger.severe("Unable to send favorite actions to watch", e, s);
+  } finally {
+    span?.finish();
   }
 }
 

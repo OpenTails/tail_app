@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:firedart/firedart.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app_shared/tail_app_shared.dart';
 
@@ -50,6 +51,7 @@ Future<CoshubResponse> updateCoshubResponse() async {
 }
 
 Future<List<CosHubPost>> getCoshubPosts() async {
+  final ISentrySpan? span = Sentry.getSpan()?.startChild('CosHub.get');
   init();
   var appConstants = Firestore.instance.collection("appConstants");
   var featuredCosplayersUserIdsQuery = await appConstants
@@ -100,5 +102,9 @@ Future<List<CosHubPost>> getCoshubPosts() async {
           .toList(),
     );
   }
+  if (mappedPosts.isNotEmpty) {
+    Firestore.instance.close();
+  }
+  span?.finish();
   return mappedPosts;
 }

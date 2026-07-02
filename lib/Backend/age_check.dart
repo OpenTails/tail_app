@@ -2,6 +2,7 @@ import 'package:age_range_signals/age_range_signals.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:google_api_availability/google_api_availability.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:universal_io/io.dart';
 
@@ -11,21 +12,22 @@ Logger _logger = Logger("AgeCheck");
 
 /// Assumes coshub should be shown unless the user is confirmed to be underage
 Future<bool> shouldShowCoshub() async {
+  final ISentrySpan? span = Sentry.getSpan()?.startChild('AgeCheck.check');
+
   bool showCoshub = true;
-
-  // Skip age checks if disabled. Allow coshub posts
-  if (!(await getDynamicConfigInfo()).featureFlags.enableAgeCheckForCoshub) {
-    return true;
-  }
-
-  // Age signals only available on mobile
-  if (!isMobile) {
-    return true;
-  }
-  await AgeRangeSignals.instance.initialize(ageGates: [13]);
-
   // Check age signals
   try {
+    // Skip age checks if disabled. Allow coshub posts
+    if (!(await getDynamicConfigInfo()).featureFlags.enableAgeCheckForCoshub) {
+      return true;
+    }
+
+    // Age signals only available on mobile
+    if (!isMobile) {
+      return true;
+    }
+    await AgeRangeSignals.instance.initialize(ageGates: [13]);
+
     if (Platform.isIOS) {
       IosDeviceInfo iosDeviceInfo = await DeviceInfoPlugin().iosInfo;
       if (int.parse(iosDeviceInfo.systemVersion.split(".")[0]) < 26) {
@@ -69,6 +71,8 @@ Future<bool> shouldShowCoshub() async {
     }
   } catch (e, s) {
     _logger.warning("Failed to get user age", e, s);
+  } finally {
+    span?.finish();
   }
   return showCoshub;
 }

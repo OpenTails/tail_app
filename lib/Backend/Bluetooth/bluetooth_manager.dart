@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 import 'package:universal_ble/universal_ble.dart';
 import 'package:universal_io/io.dart';
@@ -84,6 +85,8 @@ Future<void> _onConnectionStateChangedListener(
 
 /// Create a new Stored/Stateful device entry if it doesn't exist and try to connect
 Future<void> createAndConnect(String id, String name) async {
+  final ISentrySpan? span = Sentry.getSpan()?.startChild('Bluetooth.create');
+
   Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   StatefulDevice statefulDevice;
   //get existing entry
@@ -106,6 +109,7 @@ Future<void> createAndConnect(String id, String name) async {
     await KnownDevices.instance.add(statefulDevice);
   }
   await _connect(id);
+  span?.finish();
 }
 
 Future<void> discoverServices(String id) async {
@@ -113,6 +117,9 @@ Future<void> discoverServices(String id) async {
   if (statefulDevice == null) {
     return;
   }
+  final ISentrySpan? span = Sentry.getSpan()?.startChild(
+    'Bluetooth.discoverServices',
+  );
 
   List<BleService> services = [];
   int retry = 0;
@@ -180,6 +187,7 @@ Future<void> discoverServices(String id) async {
       );
     }
   }
+  span?.finish();
 }
 
 class _KeepGearAwake {
@@ -221,14 +229,22 @@ Future<void> disconnect(String id) async {
   if (!_didInitBle) {
     return;
   }
-  StatefulDevice? statefulDevice = KnownDevices.instance.state[id];
-  statefulDevice?.deviceConnectionState.value = ConnectivityState.disconnected;
+  final ISentrySpan? span = Sentry.getSpan()?.startChild(
+    'Bluetooth.disconnect',
+  );
+  try {
+    StatefulDevice? statefulDevice = KnownDevices.instance.state[id];
+    statefulDevice?.deviceConnectionState.value =
+        ConnectivityState.disconnected;
 
-  if (statefulDevice != null && isDemoGear(statefulDevice)) {
-    return;
+    if (statefulDevice != null && isDemoGear(statefulDevice)) {
+      return;
+    }
+    _logger.info("disconnecting from $id");
+    await UniversalBle.disconnect(id);
+  } finally {
+    span?.finish();
   }
-  _logger.info("disconnecting from $id");
-  await UniversalBle.disconnect(id);
 }
 
 Future<void> forgetBond(String id) async {
@@ -248,24 +264,29 @@ Future<void> _connect(String id) async {
   if (!_didInitBle) {
     return;
   }
-  int retry = 0;
-  while (retry <
-      HiveProxy.getOrDefault(
-        settings,
-        gearConnectRetryAttempts,
-        defaultValue: gearConnectRetryAttemptsDefault,
-      )) {
-    try {
-      await UniversalBle.connect(id, timeout: Duration(seconds: 20));
-      break;
-    } on ConnectionException catch (e) {
-      retry = retry + 1;
-      _logger.warning(
-        "Failed to connect to $id. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
-        e,
-      );
-      await Future.delayed(Duration(milliseconds: 250));
+  final ISentrySpan? span = Sentry.getSpan()?.startChild('Bluetooth.connect');
+  try {
+    int retry = 0;
+    while (retry <
+        HiveProxy.getOrDefault(
+          settings,
+          gearConnectRetryAttempts,
+          defaultValue: gearConnectRetryAttemptsDefault,
+        )) {
+      try {
+        await UniversalBle.connect(id, timeout: Duration(seconds: 20));
+        break;
+      } on ConnectionException catch (e) {
+        retry = retry + 1;
+        _logger.warning(
+          "Failed to connect to $id. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
+          e,
+        );
+        await Future.delayed(Duration(milliseconds: 250));
+      }
     }
+  } finally {
+    span?.finish();
   }
 }
 

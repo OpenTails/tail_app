@@ -33,6 +33,9 @@ class TriggerList with ChangeNotifier {
 
   @visibleForTesting
   Future<void> reload() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'StoredTriggers.reload',
+    );
     List<Trigger> results = [];
     try {
       Box<Trigger> box = await Hive.openBox<Trigger>(triggerBox);
@@ -69,26 +72,39 @@ class TriggerList with ChangeNotifier {
     }
     notifyListeners();
     updateWearData(reason: "Triggers loaded");
+    span?.finish();
   }
 
   Future<void> add(Trigger trigger) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'StoredTriggers.add',
+    );
     _state = _state.rebuild((p0) => p0.add(trigger));
     await store();
+    span?.finish();
   }
 
   Future<void> remove(Trigger trigger) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'StoredTriggers.remove',
+    );
     trigger.enabled = false;
     _state = _state.rebuild((p0) => p0.remove(trigger));
     await store();
+    span?.finish();
   }
 
   Future<void> store() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'StoredTriggers.store',
+    );
     _logger.info("Storing triggers");
     Box<Trigger> box = await Hive.openBox<Trigger>(triggerBox);
     await box.clear();
     await box.addAll(_state);
     notifyListeners();
     updateWearData(reason: "Trigger Added/Removed");
+    span?.finish();
   }
 
   void _disableAllTriggers() {

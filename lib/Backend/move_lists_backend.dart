@@ -3,6 +3,7 @@ import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../Frontend/translation_string_definitions.dart';
 import '../constants.dart';
@@ -185,23 +186,30 @@ class MoveLists with ChangeNotifier {
 
   @visibleForTesting
   Future<void> reload() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild('MoveList.reload');
+
     List<MoveList> results = [];
     try {
       Box<MoveList> box = await Hive.openBox<MoveList>(sequencesBox);
       results = box.values.toList();
     } catch (e, s) {
       sequencesLogger.severe("Unable to load sequences: $e", e, s);
+      await Hive.deleteBoxFromDisk(sequencesBox);
     }
     _state = results.toBuiltList();
     notifyListeners();
+    span?.finish();
   }
 
   Future<void> add(MoveList moveList) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild('MoveList.add');
     _state = _state.rebuild((p0) => p0.add(moveList));
     await store();
+    span?.finish();
   }
 
   Future<void> replace(MoveList oldValue, MoveList newValue) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild('MoveList.replace');
     _state = _state.rebuild((p0) {
       int index = _state.indexOf(oldValue);
       p0
@@ -209,18 +217,23 @@ class MoveLists with ChangeNotifier {
         ..insert(index, newValue);
     });
     await store();
+    span?.finish();
   }
 
   Future<void> remove(MoveList moveList) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild('MoveList.remove');
     _state = _state.rebuild((p0) => p0.remove(moveList));
     await store();
+    span?.finish();
   }
 
   Future<void> store() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild('MoveList.store');
     sequencesLogger.info("Storing sequences");
     Box<MoveList> box = await Hive.openBox<MoveList>(sequencesBox);
     await box.clear();
     await box.addAll(_state);
     notifyListeners();
+    span?.finish();
   }
 }

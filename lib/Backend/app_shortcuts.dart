@@ -1,4 +1,5 @@
 import 'package:quick_actions/quick_actions.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/analytics.dart';
@@ -16,6 +17,7 @@ Future<void> appShortcuts() async {
   if (!isMobile) {
     return;
   }
+  final ISentrySpan? span = Sentry.getSpan()?.startChild('AppShortcuts.init');
   _shortcutsLock.synchronized(() async {
     if (_didInitShortcuts) {
       return;
@@ -29,20 +31,23 @@ Future<void> appShortcuts() async {
       _didInitShortcuts = true;
     });
   });
+  span?.finish();
 }
 
 Future<void> updateShortcuts(Iterable<FavoriteAction> favoriteActions) async {
   if (!isMobile) {
     return;
   }
-  appShortcuts();
+  final ISentrySpan? span = Sentry.getSpan()?.startChild('AppShortcuts.update');
+  await appShortcuts();
   Iterable<BaseAction> allActions = favoriteActions
       .map((e) => ActionRegistry.getActionFromUUID(e.actionUUID))
       .nonNulls;
 
-  quickActions.setShortcutItems(
+  await quickActions.setShortcutItems(
     allActions
         .map((e) => ShortcutItem(type: e.uuid, localizedTitle: e.name))
         .toList(),
   );
+  span?.finish();
 }
