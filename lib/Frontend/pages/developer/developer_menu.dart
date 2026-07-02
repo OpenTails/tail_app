@@ -65,6 +65,21 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
             },
           ),
           ListTile(
+            title: const Text("Send all sentry events"),
+            trailing: Switch(
+              value: HiveProxy.getOrDefault(
+                settings,
+                sendAllSentryEvents,
+                defaultValue: false,
+              ),
+              onChanged: (bool value) async {
+                setState(() {
+                  HiveProxy.put(settings, sendAllSentryEvents, value);
+                });
+              },
+            ),
+          ),
+          ListTile(
             title: const Text("Theme Inspector"),
             leading: const Icon(Icons.color_lens),
             subtitle: const Text("Visualize the current theme"),

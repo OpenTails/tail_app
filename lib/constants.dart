@@ -31,6 +31,7 @@ const String triggerActionCooldown = 'triggerActionCooldown';
 const String gearConnectRetryAttempts = 'gearConnectRetryAttempts';
 const String selectedLocale = 'selectedLocale';
 const String uwuTextEnabled = 'uwuTextEnabled';
+const String sendAllSentryEvents = "sendAllSentryEvents";
 
 // Settings Default value
 const bool kitsuneModeDefault = false;

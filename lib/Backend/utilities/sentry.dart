@@ -9,6 +9,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tail_app/Backend/utilities/hive.dart';
+import 'package:tail_app/Backend/utilities/settings.dart';
 import 'package:universal_io/io.dart';
 
 import '../../constants.dart';
@@ -18,10 +19,13 @@ import '../logging_wrappers.dart';
 Random _random = Random();
 
 Future<String> getSentryEnvironment() async {
-  if (!kReleaseMode) {
-    return 'debug';
-  }
+  final ISentrySpan? span = Sentry.getSpan()?.startChild(
+    'Sentry.getEnvironment',
+  );
   try {
+    if (!kReleaseMode) {
+      return 'debug';
+    }
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String referral = packageInfo.installerStore ?? "";
@@ -47,6 +51,9 @@ Future<String> getSentryEnvironment() async {
     }
   } catch (e, s) {
     _logger.severe("Failed to determine environment for sentry", e, s);
+    span?.status = SpanStatus.internalError();
+  } finally {
+    span?.finish();
   }
   return 'production';
 }
@@ -56,13 +63,14 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
   if (isHiveReady) {
     DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
     reportingEnabled =
-        HiveProxy.getOrDefault(
-          settings,
-          allowErrorReporting,
-          defaultValue: allowErrorReportingDefault,
-        ) &&
-        dynamicConfigInfo.featureFlags.enableErrorReporting &&
-        _random.nextDouble() <= dynamicConfigInfo.sentryConfig.sampleRate;
+        disableSentryFiltering ||
+        (HiveProxy.getOrDefault(
+              settings,
+              allowErrorReporting,
+              defaultValue: allowErrorReportingDefault,
+            ) &&
+            dynamicConfigInfo.featureFlags.enableErrorReporting &&
+            _random.nextDouble() <= dynamicConfigInfo.sentryConfig.sampleRate);
   }
   if (reportingEnabled) {
     return event;
@@ -77,8 +85,9 @@ FutureOr<SentryTransaction?> beforeSendTransaction(
 ) async {
   if (isHiveReady) {
     DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-    if (_random.nextDouble() <=
-        dynamicConfigInfo.sentryConfig.tracesSampleRate) {
+    if (disableSentryFiltering ||
+        _random.nextDouble() <=
+            dynamicConfigInfo.sentryConfig.tracesSampleRate) {
       return transaction;
     } else {
       return null;
