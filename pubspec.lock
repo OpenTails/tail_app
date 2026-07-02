@@ -13,10 +13,10 @@ packages:
     dependency: "direct main"
     description:
       name: age_range_signals
-      sha256: "52dfdc0a2979608381d52a31dacda9d4b5ed58c0881b22f4f136efd8d2ee4321"
+      sha256: f121c1d6fb00f5b64ec97080347e2d8d779ffd40fa5078fe7842cd48dbccb27a
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.1"
+    version: "0.6.2"
   analyzer:
     dependency: transitive
     description:
@@ -93,10 +93,10 @@ packages:
     dependency: "direct main"
     description:
       name: audioplayers
-      sha256: ab3868065119285370fcd41399c7541fb32239dd90f65be1338d284a80487668
+      sha256: "2ba4bb2944baacbdd5372ff8254a8e7feb8c10d7739545e392f5605a8f618745"
       url: "https://pub.dev"
     source: hosted
-    version: "6.8.0"
+    version: "6.8.1"
   audioplayers_android:
     dependency: transitive
     description:
@@ -141,10 +141,10 @@ packages:
     dependency: transitive
     description:
       name: audioplayers_windows
-      sha256: d0690f33b1443ee89632126861a997db33dc90f3af54aef305dfb977bc580f2c
+      sha256: a70ae82bba2dfcb6eb03dd4815d737a2d46d33ea5a96a03f535cfcaac490e413
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.0"
+    version: "4.4.1"
   battery_plus:
     dependency: "direct main"
     description:
@@ -764,18 +764,18 @@ packages:
     dependency: "direct main"
     description:
       name: gamepads
-      sha256: "3470b8adf85cca314f8d820280b8e0b249be33f64fed6893216d1c510d0ccf6f"
+      sha256: "534e21d00cb3ac796537a7152d004f1ef3bd04c2d03f21a0a2ea4fb03f0e3513"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.10+3"
+    version: "0.1.10+4"
   gamepads_android:
     dependency: transitive
     description:
       name: gamepads_android
-      sha256: "1fac5d0e854529f0734eea7f9122e8c92f7e201414ce65d42989132ee40ae785"
+      sha256: "95be47ba12bbe6236a6960910fbcb1ba681ead006036dcb5d496cf67d853fe8f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.8"
+    version: "0.1.8+1"
   gamepads_darwin:
     dependency: transitive
     description:
