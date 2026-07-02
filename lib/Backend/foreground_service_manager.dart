@@ -37,7 +37,7 @@ class ForegroundServiceManager with ChangeNotifier {
         allowWakeLock: true,
       ),
     );
-    FlutterForegroundTask.setTaskHandler(ForegroundTask());
+    //FlutterForegroundTask.setTaskHandler(ForegroundTask());
     FlutterForegroundTask.setOnLockScreenVisibility(true);
     FlutterForegroundTask.initCommunicationPort();
     KnownDevices.instance.addListener(_listener);
@@ -100,6 +100,7 @@ class ForegroundServiceManager with ChangeNotifier {
             metaDataName: 'com.codel1417.tailApp.notificationIcon',
           ),
           serviceTypes: _runningServiceTypes.values.toList(),
+          callback: startCallback,
         ).onError((error, stackTrace) {
           _logger.severe("Failed to start service $error", error, stackTrace);
           return ServiceRequestFailure(error: error!);
@@ -173,4 +174,9 @@ class ForegroundTask extends TaskHandler {
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
     _logger.info("Service started");
   }
+}
+
+@pragma('vm:entry-point')
+void startCallback() {
+  FlutterForegroundTask.setTaskHandler(ForegroundTask());
 }
