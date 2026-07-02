@@ -96,6 +96,13 @@ FutureOr<SentryTransaction?> beforeSendTransaction(
   return transaction;
 }
 
+FutureOr<SentryLog?> beforeSendLog(SentryLog log) {
+  if (!disableSentryFiltering) {
+    return null;
+  }
+  return log;
+}
+
 /// Filter out bluetooth device Ids so errors don't duplicate
 /// TODO: More filtering for events
 Breadcrumb? beforeBreadcrumb(Breadcrumb? breadcrumb, Hint hint) {
@@ -142,6 +149,7 @@ Future<void> startSentryApp(Widget child) async {
         ..beforeSend = beforeSend
         ..beforeBreadcrumb = beforeBreadcrumb
         ..beforeSendTransaction = beforeSendTransaction
+        ..beforeSendLog = beforeSendLog
         ..addEventProcessor(EventSampleRateFilter())
         ..reportSilentFlutterErrors =
             true //TODO: configure dynamically after sentry inits
