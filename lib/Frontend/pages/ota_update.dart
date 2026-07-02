@@ -319,7 +319,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                           Text(
                             'Upload Progress: ${widget.otaUpdater.currentFirmwareUploadPosition} / ${widget.otaUpdater.firmwareFile?.length} = ${widget.otaUpdater.uploadProgress.toStringAsPrecision(3)}',
                           ),
-                          Text('MTU: ${widget.device.mtu.value}'),
+                          Text('MTU: ${widget.device.mtu}'),
                           Text('OtaState: ${otaState.name}'),
                           Text(
                             'DeviceState: ${widget.device.deviceState.value}',

@@ -29,13 +29,12 @@ class StatefulDevice {
   final Logger _logger = Logger("StatefulDevice");
   final DeviceDefinition deviceDefinition;
   final StoredDevice storedDevice;
-  final ValueNotifier<BluetoothUartService?> bluetoothUartService =
-      ValueNotifier(null);
+
   late final CommandQueue commandQueue;
   final BatteryStatus battery = BatteryStatus();
   final FirmwareStatus firmwareStatus = FirmwareStatus();
 
-  final ValueNotifier<bool> gearReturnedError = ValueNotifier(false);
+  bool gearReturnedError = false;
   final ValueNotifier<GlowtipStatus> hasGlowtip = ValueNotifier(
     GlowtipStatus.unknown,
   );
@@ -44,97 +43,111 @@ class StatefulDevice {
   final ValueNotifier<DeviceMoveState> deviceState = ValueNotifier(
     DeviceMoveState.standby,
   );
-  final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(
-    ConnectivityState.disconnected,
-  );
+
   final ValueNotifier<int> rssi = ValueNotifier(-1);
-  final ValueNotifier<int> mtu = ValueNotifier(-1);
+  int mtu = -1;
   final ValueNotifier<GearConfigInfo> gearConfigInfo = ValueNotifier(
     GearConfigInfo(),
   );
+
   Stream<String>? rxCharacteristicStream;
   StreamSubscription? _periodicTimerStream;
+  StreamSubscription<String>? _rxCharacteristicStreamSubscription;
+  StreamSubscription<bool>? _batteryChargingStreamSubscription;
+  StreamSubscription<double>? _batteryStreamSubscription;
 
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
   Timer? _connectBleServiceWatchdog;
+  final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(
+    ConnectivityState.disconnected,
+  );
+  final ValueNotifier<BluetoothUartService?> bluetoothUartService =
+      ValueNotifier(null);
 
   StatefulDevice(this.deviceDefinition, this.storedDevice) {
     commandQueue = CommandQueue(this);
+    deviceConnectionState.addListener(_onConnectionStateChanged);
 
-    deviceConnectionState.addListener(() {
-      if (deviceConnectionState.value == ConnectivityState.disconnected) {
-        reset();
-        analyticsEvent(
-          name: "Disconnect Gear",
-          props: {"Gear Type": deviceDefinition.btName},
-        );
-        if (forgetOnDisconnect) {
-          _logger.info("Forgetting device");
-          KnownDevices.instance.remove(storedDevice.btMACAddress);
-          analyticsEvent(
-            name: "Forgetting Gear",
-            props: {"Gear Type": deviceDefinition.btName},
-          );
-        }
-      } else {
-        _connectBleServiceWatchdog = Timer(Duration(seconds: 10), () {
-          if (bluetoothUartService.value != null ||
-              deviceConnectionState.value != ConnectivityState.connected) {
-            _connectBleServiceWatchdog = null;
-            return;
-          }
-          _logger.severe(
-            "Failed to connect or locate BLE UART service in time for device ${deviceDefinition.btName}.",
-          );
-          disconnect(storedDevice.btMACAddress);
-        });
-      }
-      if (deviceConnectionState.value == ConnectivityState.connected) {
-        _periodicTimerStream = Stream.periodic(
-          const Duration(seconds: 10),
-        ).listen(_periodicListener);
-        analyticsEvent(
-          name: "Connect Gear",
-          props: {"Gear Type": deviceDefinition.btName},
-        );
-      }
-    });
+    bluetoothUartService.addListener(_onBluetoothUartServiceChanged);
 
-    bluetoothUartService.addListener(() {
-      if (bluetoothUartService.value == null) {
-        _unRegisterCharacteristicStreams();
-        return;
-      }
-      _registerCharacteristicStreams();
-
-      //Fires off the FW/HW version and batt commands
-      _periodicListener("");
-    });
-
-    // Store glowtip/rgb status
+    // Load glowtip/rgb status
     hasGlowtip.value = storedDevice.hasGlowtip;
-    hasGlowtip.addListener(() {
-      if (hasGlowtip.value != GlowtipStatus.unknown) {
-        storedDevice.hasGlowtip = hasGlowtip.value;
-        KnownDevices.instance.store();
-      }
-    });
     hasRGB.value = storedDevice.hasRGB;
-    hasRGB.addListener(() {
-      if (hasRGB.value != RGBStatus.unknown) {
-        storedDevice.hasRGB = hasRGB.value;
-        KnownDevices.instance.store();
-      }
-    });
+    hasGlowtip.addListener(_onGearSupportedFeatureChanged);
+    hasRGB.addListener(_onGearSupportedFeatureChanged);
 
     // only store, do not read back on gear load
     firmwareStatus.addListener(_versionListener);
   }
 
-  StreamSubscription<String>? _rxCharacteristicStreamSubscription;
-  StreamSubscription<bool>? _batteryChargingStreamSubscription;
-  StreamSubscription<double>? _batteryStreamSubscription;
+  void _onGearSupportedFeatureChanged() {
+    if (hasRGB.value != RGBStatus.unknown &&
+        storedDevice.hasRGB != hasRGB.value) {
+      storedDevice.hasRGB = hasRGB.value;
+      KnownDevices.instance.store();
+    }
+    if (hasGlowtip.value != GlowtipStatus.unknown &&
+        storedDevice.hasGlowtip != hasGlowtip.value) {
+      storedDevice.hasGlowtip = hasGlowtip.value;
+      KnownDevices.instance.store();
+    }
+  }
+
+  void _onConnectionStateChanged() {
+    if (deviceConnectionState.value == ConnectivityState.disconnected) {
+      reset();
+      analyticsEvent(
+        name: "Disconnect Gear",
+        props: {"Gear Type": deviceDefinition.btName},
+      );
+      if (forgetOnDisconnect) {
+        _logger.info("Forgetting device");
+        KnownDevices.instance.remove(storedDevice.btMACAddress);
+        analyticsEvent(
+          name: "Forgetting Gear",
+          props: {"Gear Type": deviceDefinition.btName},
+        );
+      }
+    } else {
+      _connectBleServiceWatchdog = Timer(
+        Duration(seconds: 10),
+        _onConnectBleServiceWatchdogTimeout,
+      );
+    }
+    if (deviceConnectionState.value == ConnectivityState.connected) {
+      _periodicTimerStream = Stream.periodic(
+        const Duration(seconds: 10),
+      ).listen(_periodicListener);
+      analyticsEvent(
+        name: "Connect Gear",
+        props: {"Gear Type": deviceDefinition.btName},
+      );
+    }
+  }
+
+  void _onBluetoothUartServiceChanged() {
+    if (bluetoothUartService.value == null) {
+      _unRegisterCharacteristicStreams();
+      return;
+    }
+    _registerCharacteristicStreams();
+
+    //Fires off the FW/HW version and batt commands
+    _periodicListener("");
+  }
+
+  void _onConnectBleServiceWatchdogTimeout() {
+    if (bluetoothUartService.value != null ||
+        deviceConnectionState.value != ConnectivityState.connected) {
+      _connectBleServiceWatchdog = null;
+      return;
+    }
+    _logger.severe(
+      "Failed to connect or locate BLE UART service in time for device ${deviceDefinition.btName}.",
+    );
+    disconnect(storedDevice.btMACAddress);
+  }
 
   void _unRegisterCharacteristicStreams() {
     rxCharacteristicStream = null;
@@ -173,7 +186,7 @@ class StatefulDevice {
         });
   }
 
-  Future<void> _receivedCommandListener(String value) async {
+  void _receivedCommandListener(String value) {
     commandQueue.commandHistory.add(
       type: MessageHistoryType.receive,
       message: value,
@@ -203,13 +216,10 @@ class StatefulDevice {
       } else if (substring == 'FALSE') {
         hasRGB.value = RGBStatus.noRGB;
       }
-    } else if (value.contains("BUSY")) {
-      //statefulDevice.deviceState.value = DeviceState.busy;
-      gearReturnedError.value = true;
+    } else if (value.contains("BUSY") || value.contains("ERR")) {
+      gearReturnedError = true;
     } else if (value.contains("LOWBATT")) {
       battery.isLow = true;
-    } else if (value.contains("ERR")) {
-      gearReturnedError.value = true;
     } else if (value.contains("SHUTDOWN BEGIN")) {
       deviceConnectionState.value = ConnectivityState.disconnected;
     } else if (value.contains("HWVER") ||
@@ -236,12 +246,12 @@ class StatefulDevice {
     if (firmwareStatus.hardwareVersion != "" &&
         storedDevice.hardwareVersion != firmwareStatus.hardwareVersion) {
       storedDevice.hardwareVersion = firmwareStatus.hardwareVersion;
-      KnownDevices.instance.store();
+      await KnownDevices.instance.store();
     }
     if (firmwareStatus.firmwareVersion != Version() &&
         storedDevice.firmwareVersion != firmwareStatus.firmwareVersion) {
       storedDevice.firmwareVersion = firmwareStatus.firmwareVersion;
-      KnownDevices.instance.store();
+      await KnownDevices.instance.store();
     }
     if (firmwareStatus.hardwareVersion.isNotEmpty &&
         firmwareStatus.firmwareVersion != Version()) {
@@ -291,11 +301,11 @@ class StatefulDevice {
 
   void reset() {
     battery.reset();
-    gearReturnedError.value = false;
+    gearReturnedError = false;
     deviceState.value = DeviceMoveState.standby;
     rssi.value = -1;
     firmwareStatus.reset();
-    mtu.value = -1;
+    mtu = -1;
     bluetoothUartService.value = null;
     _periodicTimerStream?.cancel();
     _periodicTimerStream = null;

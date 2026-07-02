@@ -647,11 +647,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                       return Text("DEV FW URL: ${snapshot.data ?? ""}");
                     },
                   ),
-                  ValueListenableBuilder(
-                    valueListenable: widget.device.mtu,
-                    builder: (context, value, child) =>
-                        Text("MTU: ${widget.device.mtu.value}"),
-                  ),
+                  Text("MTU: ${widget.device.mtu}"),
                   Text(
                     "MIN FIRMWARE: ${widget.device.deviceDefinition.minVersion}",
                   ),
@@ -955,18 +951,15 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                 ),
               ),
             ),
-            ValueListenableBuilder(
-              valueListenable: widget.device.gearReturnedError,
-              builder: (context, value, child) => ListTile(
-                title: const Text("Error"),
-                trailing: Switch(
-                  value: widget.device.gearReturnedError.value,
-                  onChanged: (bool value) {
-                    setState(() {
-                      widget.device.gearReturnedError.value = value;
-                    });
-                  },
-                ),
+            ListTile(
+              title: const Text("Error"),
+              trailing: Switch(
+                value: widget.device.gearReturnedError,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.gearReturnedError = value;
+                  });
+                },
               ),
             ),
             ValueListenableBuilder(

@@ -79,7 +79,7 @@ Future<void> _onConnectionStateChangedListener(
   if (isConnected) {
     await discoverServices(id);
     int mtu = await UniversalBle.requestMtu(id, 512);
-    statefulDevice.mtu.value = mtu;
+    statefulDevice.mtu = mtu;
   }
 }
 
@@ -206,6 +206,7 @@ class _KeepGearAwake {
     for (StatefulDevice statefulDevice in KnownDevices.instance.connectedGear) {
       statefulDevice.rssi.value = await UniversalBle.readRssi(
         statefulDevice.storedDevice.btMACAddress,
+        timeout: Duration(seconds: 5),
       ).catchError((e) => -1).onError((error, stackTrace) => -1);
     }
   }
