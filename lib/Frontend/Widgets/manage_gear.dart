@@ -188,6 +188,13 @@ class _ManageGearState extends State<ManageGear> {
                           if (color != null) {
                             device!.storedDevice.color = color;
                             this.color = Color(color);
+
+                            BluetoothMessage message = BluetoothMessage(
+                              message: "SETMYCOLOR ${this.color!.hex}",
+                              type: CommandType.system,
+                            );
+
+                            device!.commandQueue.addCommand(message);
                             KnownDevices.instance.store();
                           }
                         }),

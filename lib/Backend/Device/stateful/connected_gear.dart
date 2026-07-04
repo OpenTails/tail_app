@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
@@ -216,6 +217,10 @@ class StatefulDevice {
       } else if (substring == 'FALSE') {
         hasRGB.value = RGBStatus.noRGB;
       }
+    } else if (value.contains("MYCOLOR")) {
+      String substring = value.substring(value.indexOf(" ")).trim();
+      Color gearColor = Color(int.parse(substring, radix: 16));
+      storedDevice.color = gearColor.toARGB32();
     } else if (value.contains("BUSY") || value.contains("ERR")) {
       gearReturnedError = true;
     } else if (value.contains("LOWBATT")) {
