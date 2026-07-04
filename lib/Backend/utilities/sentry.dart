@@ -64,12 +64,7 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
     DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
     reportingEnabled =
         disableSentryFiltering ||
-        (HiveProxy.getOrDefault(
-              settings,
-              allowErrorReporting,
-              defaultValue: allowErrorReportingDefault,
-            ) &&
-            dynamicConfigInfo.featureFlags.enableErrorReporting &&
+        (dynamicConfigInfo.featureFlags.enableErrorReporting &&
             _random.nextDouble() <= dynamicConfigInfo.sentryConfig.sampleRate);
   }
   if (reportingEnabled) {
@@ -161,11 +156,9 @@ Future<void> startSentryApp(Widget child) async {
         ..privacy.maskAllText =
             false // app does not contain any PII
         ..screenshotQuality = SentryScreenshotQuality.low
-        ..includeModuleInStackTrace = true;
-      // ..replay.sessionSampleRate =
-      //     dynamicConfigInfo.sentryConfig.replaySessionSampleRate
-      // ..replay.onErrorSampleRate =
-      //     dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
+        ..includeModuleInStackTrace = true
+        ..replay.sessionSampleRate = 0.1
+        ..replay.onErrorSampleRate = 0.5;
     },
     // Init your App.
     // ignore: missing_provider_scope
@@ -186,6 +179,15 @@ class EventSampleRateFilter implements EventProcessor {
 
   @override
   FutureOr<SentryEvent?> apply(SentryEvent event, Hint hint) {
+    if (isHiveReady &&
+        (!HiveProxy.getOrDefault(
+              settings,
+              allowErrorReporting,
+              defaultValue: allowErrorReportingDefault,
+            ) ||
+            !disableSentryFiltering)) {
+      return null;
+    }
     event.environment = environment;
     return event;
   }
