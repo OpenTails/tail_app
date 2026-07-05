@@ -5,14 +5,12 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   battery_plus
-  ble_peripheral
-  cloud_firestore
   connectivity_plus
-  firebase_core
   gamepads_windows
   pdfx
   permission_handler_windows
   sentry_flutter
+  universal_ble
   url_launcher_windows
 )
 
