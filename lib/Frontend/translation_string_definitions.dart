@@ -1439,3 +1439,10 @@ String triggerGamepadDescription() => Intl.message(
   name: 'triggerGamepadDescription',
   desc: 'Gamepad trigger description',
 );
+
+String gearRgbBrightness() => Intl.message(
+  "RGB Brightness",
+  name: 'gearRgbBrightness',
+  desc:
+      'Title for the gear brightness widget that appears on the actions page when gear with RGB support are connected',
+);

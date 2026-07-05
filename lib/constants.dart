@@ -32,6 +32,7 @@ const String gearConnectRetryAttempts = 'gearConnectRetryAttempts';
 const String selectedLocale = 'selectedLocale';
 const String uwuTextEnabled = 'uwuTextEnabled';
 const String sendAllSentryEvents = "sendAllSentryEvents";
+const String rgbBrightness = 'rgbBrightness';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -54,6 +55,7 @@ const int triggerActionCooldownDefault = 10;
 const int gearConnectRetryAttemptsDefault = 3;
 const bool uwuTextEnabledDefault = false;
 const double noiseThresholdDefault = 65;
+const double rgbBrightnessDefault = 1;
 
 const String triggerBox = 'triggers';
 const String sequencesBox = 'sequences';
