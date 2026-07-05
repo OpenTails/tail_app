@@ -13,7 +13,7 @@ class RgbBrightness extends StatefulWidget {
 }
 
 class _RgbBrightnessState extends State<RgbBrightness> {
-  double brightness = 1;
+  double brightness = 100;
 
   @override
   Widget build(BuildContext context) {

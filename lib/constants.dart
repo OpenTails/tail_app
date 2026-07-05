@@ -55,7 +55,7 @@ const int triggerActionCooldownDefault = 10;
 const int gearConnectRetryAttemptsDefault = 3;
 const bool uwuTextEnabledDefault = false;
 const double noiseThresholdDefault = 65;
-const double rgbBrightnessDefault = 1;
+const double rgbBrightnessDefault = 100;
 
 const String triggerBox = 'triggers';
 const String sequencesBox = 'sequences';
