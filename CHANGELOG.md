@@ -1,6 +1,11 @@
-### v 1.5.2
+### V 1.5.3
 
-- Fixed the root cause of the app freezing at launch in 1.5.0 
+- Misc Bug Fixes
+- Add indicator on the trigger action progress bar if a trigger would have ran during the cooldown
+
+### V 1.5.2
+
+- Fixed the root cause of the app freezing at launch in 1.5.0
 
 ### V 1.5.1
 
