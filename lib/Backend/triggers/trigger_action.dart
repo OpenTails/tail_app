@@ -29,6 +29,7 @@ class TriggerAction with ChangeNotifier {
   set isActive(bool value) {
     if (_isActive == value) {
       if (value) {
+        // Triggers the UI to update if the event that starts this action occurs multiple times
         _moveTriggeredDuringCooldownController.sink.add(
           Random().nextInt(100000),
         );

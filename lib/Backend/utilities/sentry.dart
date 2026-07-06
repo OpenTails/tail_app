@@ -149,7 +149,6 @@ Future<void> startSentryApp(Widget child) async {
         ..reportSilentFlutterErrors =
             true //TODO: configure dynamically after sentry inits
         ..attachScreenshot = true
-        ..attachViewHierarchy = true
         ..enableTombstone = true
         ..enableLogs = true
         ..privacy.maskAllImages = false
