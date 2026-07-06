@@ -224,7 +224,17 @@ class OnBoardingPageState extends State<OnBoardingPage> {
             ),
             PageViewModel(
               title: convertToUwU(scanDevicesOnboardingTitle()),
-              bodyWidget: ScanGearList(popOnConnect: false),
+              bodyWidget: ListenableBuilder(
+                listenable: BluetoothIssues.instance,
+                builder: (context, child) {
+                  if (BluetoothIssues.instance.status ==
+                      BluetoothPermissionStatus.granted) {
+                    return ScanGearList(popOnConnect: false);
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
               useScrollView: true,
               decoration: pageDecoration.copyWith(
                 bodyFlex: 10,
