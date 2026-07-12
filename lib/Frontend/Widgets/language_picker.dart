@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
+import '../../Backend/analytics.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../l10n/app_localizations.dart';
@@ -27,23 +28,30 @@ class LanguagePicker extends StatelessWidget {
       itemCount: AppLocalizations.supportedLocales.length,
       modalHeaderBuilder: ChoiceModal.createHeader(
         automaticallyImplyLeading: true,
-        actionsBuilder: [],
+        actionsBuilder: [
+          (choiceController) {
+            return IconButton(
+              onPressed: () {
+                launchExternalUrl(
+                  url: "https://weblate.stargazer.at",
+                  analyticsLabel: "Weblate",
+                );
+              },
+              icon: Icon(Icons.language),
+              tooltip: morePageTranslateDescription(),
+            );
+          },
+        ],
       ),
       anchorBuilder: (state, openModal) {
         if (isButton) {
           return OverflowBar(
             alignment: MainAxisAlignment.center,
             children: [
-              FilledButton(
+              FilledButton.icon(
                 onPressed: openModal,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.language),
-                    Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
-                    Text(convertToUwU(appLanguageSelectorTitle())),
-                  ],
-                ),
+                icon: Icon(Icons.language),
+                label: Text(convertToUwU(appLanguageSelectorTitle())),
               ),
             ],
           );
@@ -62,25 +70,12 @@ class LanguagePicker extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           (choiceController) {
-            return FilledButton(
+            return FilledButton.icon(
               onPressed: choiceController.value.isNotEmpty
                   ? () => choiceController.closeModal(confirmed: true)
                   : null,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.check),
-                  const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
-                  Text(
-                    convertToUwU(triggersDefSelectSaveLabel()),
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: getTextColor(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              icon: const Icon(Icons.check),
+              label: Text(convertToUwU(triggersDefSelectSaveLabel())),
             );
           },
         ],
