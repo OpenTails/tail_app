@@ -111,7 +111,7 @@ class _ManageGearState extends State<ManageGear> {
                       if (device!.firmwareStatus.hasUpdate) ...[
                         Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: FilledButton(
+                          child: FilledButton.icon(
                             onPressed: () async {
                               OtaUpdateRoute(
                                 device: device!.storedDevice.btMACAddress,
@@ -121,22 +121,14 @@ class _ManageGearState extends State<ManageGear> {
                               foregroundColor: getTextColor(color!),
                               elevation: 1,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.system_update,
-                                  color: getTextColor(color!),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 4),
-                                ),
-                                Text(
-                                  convertToUwU(manageDevicesOtaButton()),
-                                  style: Theme.of(context).textTheme.labelLarge!
-                                      .copyWith(color: getTextColor(color!)),
-                                ),
-                              ],
+                            icon: Icon(
+                              Icons.system_update,
+                              color: getTextColor(color!),
+                            ),
+                            label: Text(
+                              convertToUwU(manageDevicesOtaButton()),
+                              style: Theme.of(context).textTheme.labelLarge!
+                                  .copyWith(color: getTextColor(color!)),
                             ),
                           ),
                         ),
@@ -335,7 +327,7 @@ class _ManageGearUpdateCheckButtonState
                 snapshot.connectionState == ConnectionState.waiting) {
               buttonText = manageDevicesOtaCheckInProgressButtonLabel();
             }
-            return FilledButton(
+            return FilledButton.icon(
               onPressed:
                   (snapshot.connectionState == ConnectionState.active ||
                       snapshot.connectionState == ConnectionState.waiting)
@@ -358,26 +350,16 @@ class _ManageGearUpdateCheckButtonState
                 foregroundColor: getTextColor(widget.color),
                 elevation: 1,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (snapshot.connectionState == ConnectionState.active ||
-                      snapshot.connectionState == ConnectionState.waiting) ...[
-                    CircularProgressIndicator(
-                      color: getTextColor(widget.color),
-                    ),
-                  ] else ...[
-                    Icon(iconData, color: getTextColor(widget.color)),
-                  ],
-                  const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
-                  Text(
-                    convertToUwU(buttonText),
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: getTextColor(widget.color),
-                    ),
-                  ),
-                ],
+              icon:
+                  (snapshot.connectionState == ConnectionState.active ||
+                      snapshot.connectionState == ConnectionState.waiting)
+                  ? CircularProgressIndicator(color: getTextColor(widget.color))
+                  : Icon(iconData, color: getTextColor(widget.color)),
+              label: Text(
+                convertToUwU(buttonText),
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: getTextColor(widget.color),
+                ),
               ),
             );
           },

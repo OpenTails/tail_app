@@ -215,7 +215,7 @@ class _ScanGearListState extends State<ScanGearList> {
                             ),
                             if (foundDevices.length > 1) ...[
                               Center(
-                                child: FilledButton(
+                                child: FilledButton.icon(
                                   onPressed: () async {
                                     for (BleDevice bluetoothDevice
                                         in foundDevices) {
@@ -230,36 +230,9 @@ class _ScanGearListState extends State<ScanGearList> {
                                       Navigator.pop(context);
                                     }
                                   },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.select_all,
-                                        color: getTextColor(
-                                          Theme.of(context).colorScheme.primary,
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 4,
-                                        ),
-                                      ),
-                                      Text(
-                                        convertToUwU(
-                                          scanConnectToAllButtonLabel(),
-                                        ),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge!
-                                            .copyWith(
-                                              color: getTextColor(
-                                                Theme.of(
-                                                  context,
-                                                ).colorScheme.primary,
-                                              ),
-                                            ),
-                                      ),
-                                    ],
+                                  icon: Icon(Icons.select_all),
+                                  label: Text(
+                                    convertToUwU(scanConnectToAllButtonLabel()),
                                   ),
                                 ),
                               ),
