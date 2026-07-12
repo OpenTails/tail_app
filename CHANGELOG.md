@@ -2,6 +2,8 @@
 
 - Misc Bug Fixes
 - Add indicator on the trigger action progress bar if a trigger would have ran during the cooldown
+- Add button on language picker to open Weblate
+- Changes to appease the fruit company
 
 ### V 1.5.2
 
