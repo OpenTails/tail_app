@@ -48,7 +48,7 @@ dependencies:
   data_saver: ^0.4.0 # check if data saver is enabled
   battery_plus: ^7.1.0
   app_settings: ^7.0.0
-  app_badge_plus: ^1.3.1
+  app_badge_plus: ^1.3.2
   universal_io: ^2.3.1
   # Watch
   watch_connectivity: 0.2.8
@@ -62,7 +62,7 @@ dependencies:
   fl_chart: ^1.2.0 # Used for the battery graph
   chart_sparkline: ^1.1.2 # used for the move easing visual
   flutter_joystick: ^0.2.2
-  flutter_markdown_plus: ^1.0.7
+  flutter_markdown_plus: ^1.0.12
   fading_edge_scrollview: ^4.1.1 # used for known gear bar
   flutter_native_splash: ^2.4.8
   choice:
@@ -70,7 +70,7 @@ dependencies:
       url: https://github.com/davigmacode/flutter_choice
   #feedback: ^3.1.0
   flutter_widget_from_html_core: ^0.17.2
-  lottie: ^3.4.0
+  lottie: ^3.5.1
   pdfx: ^2.9.2
   owoify_dart: ^2.1.0
   cached_network_image_ce: ^4.9.0
@@ -81,19 +81,19 @@ dependencies:
   intl: #pinned to flutter version?
 
   # Dio HTTP
-  dio: ^5.9.2
+  dio: ^5.10.0
   dio_smart_retry: ^7.0.1
   dio_cache_interceptor: ^4.0.7
-  http_cache_hive_store: ^5.1.0
+  http_cache_hive_store: ^5.1.1
 
   # Sensors
   pedometer: ^4.2.0
   sensors_plus: ^7.1.0
-  proximity_sensor: ^1.4.0
+  proximity_sensor: ^2.0.0
   noise_meter: ^5.1.0
   flutter_android_volume_keydown: ^1.0.1
   #flutter_media_session: 2.0.0 #2.0.0 works, 2.1.3 does not
-  gamepads: ^0.1.10+4
+  gamepads: ^0.1.10+5
 
   # Hive
   hive_ce: ^2.19.3
@@ -101,18 +101,18 @@ dependencies:
 
   # Spicy
   upgrader: ^13.5.0 # update notices
-  age_range_signals: ^0.6.2
+  age_range_signals: ^0.7.0
   google_api_availability: ^5.0.1
   firedart: ^0.9.8
 
   # Sentry
-  sentry_flutter: ^9.22.0 # Base sentry + Flutter integration
-  sentry_logging: ^9.22.0 # Collects app logs
-  sentry_dio: ^9.22.0 # Collects Dio HTTP requests
+  sentry_flutter: ^9.24.0 # Base sentry + Flutter integration
+  sentry_logging: ^9.24.0 # Collects app logs
+  sentry_dio: ^9.24.0 # Collects Dio HTTP requests
 
   # Debug
   theme_inspector: ^1.0.4
-  logarte: ^1.4.1
+  logarte: ^1.5.0
   json_visualizer: ^0.0.2
 
 dev_dependencies:
