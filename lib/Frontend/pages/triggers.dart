@@ -427,7 +427,6 @@ class _TriggerActionListTileState extends State<TriggerActionListTile> {
   @override
   void dispose() {
     super.dispose();
-    _controller?.dispose();
   }
 
   @override
