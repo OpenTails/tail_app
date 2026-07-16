@@ -113,30 +113,14 @@ class _ActionSelectorState extends State<ActionSelector> {
         child: OverflowBar(
           alignment: MainAxisAlignment.center,
           children: [
-            FilledButton(
+            FilledButton.icon(
               onPressed: () {
                 setState(() {
                   context.pop(selected);
                 });
               },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.save,
-                    color: getTextColor(Theme.of(context).colorScheme.primary),
-                  ),
-                  const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
-                  Text(
-                    convertToUwU(triggersSelectSaveLabel()),
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: getTextColor(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              icon: Icon(Icons.save),
+              label: Text(convertToUwU(triggersSelectSaveLabel())),
             ),
           ],
         ),

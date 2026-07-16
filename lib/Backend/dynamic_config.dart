@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/utilities/version.dart';
 
 import '../Frontend/utils.dart';
@@ -111,8 +112,8 @@ Future<DynamicConfigInfo> getDynamicConfigInfo() async {
   if (_dynamicConfigInfo != null) {
     return _dynamicConfigInfo!;
   }
+  final ISentrySpan? span = Sentry.getSpan()?.startChild('DynamicConfig.get');
   _dynamicConfigLogger.info("Loading dynamic config");
-
   try {
     // Check if the stored dynamic config file is from an old app version and delete it.
     String buildNumber = (await PackageInfo.fromPlatform()).buildNumber;
@@ -145,10 +146,14 @@ Future<DynamicConfigInfo> getDynamicConfigInfo() async {
     return DynamicConfigInfo();
   } finally {
     _getRemoteDynamicConfigInfo(); // trigger updating config file without waiting
+    span?.finish();
   }
 }
 
 Future<void> _getRemoteDynamicConfigInfo() async {
+  final ISentrySpan? span = Sentry.getSpan()?.startChild(
+    'DynamicConfig.update',
+  );
   Dio dio = await initDio();
   try {
     _dynamicConfigLogger.info("Downloading latest config file");
@@ -185,4 +190,5 @@ Future<void> _getRemoteDynamicConfigInfo() async {
       s,
     );
   }
+  span?.finish();
 }

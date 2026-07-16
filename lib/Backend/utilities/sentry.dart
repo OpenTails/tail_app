@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -7,17 +8,24 @@ import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
+import 'package:tail_app/Backend/utilities/hive.dart';
+import 'package:tail_app/Backend/utilities/settings.dart';
 import 'package:universal_io/io.dart';
 
 import '../../constants.dart';
 import '../dynamic_config.dart';
 import '../logging_wrappers.dart';
 
+Random _random = Random();
+
 Future<String> getSentryEnvironment() async {
-  if (!kReleaseMode) {
-    return 'debug';
-  }
+  final ISentrySpan? span = Sentry.getSpan()?.startChild(
+    'Sentry.getEnvironment',
+  );
   try {
+    if (!kReleaseMode) {
+      return 'debug';
+    }
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String referral = packageInfo.installerStore ?? "";
@@ -43,28 +51,69 @@ Future<String> getSentryEnvironment() async {
     }
   } catch (e, s) {
     _logger.severe("Failed to determine environment for sentry", e, s);
+    span?.status = SpanStatus.internalError();
+  } finally {
+    span?.finish();
   }
   return 'production';
 }
 
 FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
-  DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-
-  bool reportingEnabled =
-      HiveProxy.getOrDefault(
-        settings,
-        allowErrorReporting,
-        defaultValue: allowErrorReportingDefault,
-      ) &&
-      dynamicConfigInfo.featureFlags.enableErrorReporting;
+  bool reportingEnabled = true;
+  if (isHiveReady) {
+    DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
+    reportingEnabled =
+        disableSentryFiltering ||
+        (dynamicConfigInfo.featureFlags.enableErrorReporting &&
+            _random.nextDouble() <= dynamicConfigInfo.sentryConfig.sampleRate);
+  }
   if (reportingEnabled) {
-    if (kDebugMode) {
-      print('Before sending sentry event');
-    }
     return event;
   } else {
     return null;
   }
+}
+
+FutureOr<SentryTransaction?> beforeSendTransaction(
+  SentryTransaction transaction,
+  Hint hint,
+) async {
+  if (isHiveReady) {
+    DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
+    if (disableSentryFiltering ||
+        _random.nextDouble() <=
+            dynamicConfigInfo.sentryConfig.tracesSampleRate) {
+      return transaction;
+    } else {
+      return null;
+    }
+  }
+  return transaction;
+}
+
+FutureOr<SentryLog?> beforeSendLog(SentryLog log) {
+  if (!disableSentryFiltering) {
+    return null;
+  }
+  return log;
+}
+
+/// Filter out bluetooth device Ids so errors don't duplicate
+/// TODO: More filtering for events
+Breadcrumb? beforeBreadcrumb(Breadcrumb? breadcrumb, Hint hint) {
+  breadcrumb?.message = breadcrumb.message?.replaceAllMapped(
+    RegExp(r'\^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})', caseSensitive: false),
+    (match) => "[filtered mac address]",
+  );
+  //TODO: Verify other UUIDs are not caught in the crossfire
+  breadcrumb?.message = breadcrumb.message?.replaceAllMapped(
+    RegExp(
+      r'\^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+      caseSensitive: false,
+    ),
+    (match) => "[filtered UUID]",
+  );
+  return breadcrumb;
 }
 
 Logger _logger = Logger("Sentry");
@@ -77,44 +126,38 @@ Future<void> startSentryApp(Widget child) async {
     _logger.severe("Sentry DSN is empty, Launching without sentry");
     runApp(child);
   }
-  String environment = await getSentryEnvironment();
-  DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-  _logger.info("Detected Environment: $environment");
-
+  //String environment = await getSentryEnvironment();
+  //_logger.info("Detected Environment: $environment");
   await SentryFlutter.init(
     (options) async {
       options
         ..dsn = dsn
         ..addIntegration(LoggingIntegration())
         ..enableBreadcrumbTrackingForCurrentPlatform()
-        ..debug = kDebugMode
-        ..diagnosticLevel = kDebugMode ? SentryLevel.debug : SentryLevel.info
-        ..environment = environment
-        ..sampleRate = kDebugMode
-            ? 1
-            : dynamicConfigInfo.sentryConfig.sampleRate
-        ..tracesSampleRate = kDebugMode
-            ? 1
-            : dynamicConfigInfo.sentryConfig.tracesSampleRate
-        ..profilesSampleRate = kDebugMode
-            ? 1
-            : dynamicConfigInfo.sentryConfig.profilesSampleRate
+        ..diagnosticLevel = SentryLevel.info
+        //..environment = environment
+        ..sampleRate = 1
+        ..tracesSampleRate = 1
+        // ..profilesSampleRate = kDebugMode
+        //     ? 1
+        //     : dynamicConfigInfo.sentryConfig.profilesSampleRate
         ..beforeSend = beforeSend
+        ..beforeBreadcrumb = beforeBreadcrumb
+        ..beforeSendTransaction = beforeSendTransaction
+        ..beforeSendLog = beforeSendLog
+        ..addEventProcessor(EventSampleRateFilter())
         ..reportSilentFlutterErrors =
-            dynamicConfigInfo.sentryConfig.reportSilentErrors
+            true //TODO: configure dynamically after sentry inits
         ..attachScreenshot = true
-        ..attachViewHierarchy = true
-        ..sampleRate
         ..enableTombstone = true
-        ..enableFramesTracking
+        ..enableLogs = true
         ..privacy.maskAllImages = false
         ..privacy.maskAllText =
             false // app does not contain any PII
         ..screenshotQuality = SentryScreenshotQuality.low
-        ..replay.sessionSampleRate =
-            dynamicConfigInfo.sentryConfig.replaySessionSampleRate
-        ..replay.onErrorSampleRate =
-            dynamicConfigInfo.sentryConfig.replayOnErrorSampleRate;
+        ..includeModuleInStackTrace = true
+        ..replay.sessionSampleRate = 0.1
+        ..replay.onErrorSampleRate = 0.5;
     },
     // Init your App.
     // ignore: missing_provider_scope
@@ -124,4 +167,27 @@ Future<void> startSentryApp(Widget child) async {
       ),
     ),
   );
+}
+
+class EventSampleRateFilter implements EventProcessor {
+  String environment = kReleaseMode ? "production" : "debug";
+
+  EventSampleRateFilter() {
+    Future(getSentryEnvironment).then((value) => environment = value);
+  }
+
+  @override
+  FutureOr<SentryEvent?> apply(SentryEvent event, Hint hint) {
+    if (isHiveReady &&
+        (!HiveProxy.getOrDefault(
+              settings,
+              allowErrorReporting,
+              defaultValue: allowErrorReportingDefault,
+            ) ||
+            !disableSentryFiltering)) {
+      return null;
+    }
+    event.environment = environment;
+    return event;
+  }
 }

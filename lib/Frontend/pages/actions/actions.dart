@@ -6,6 +6,7 @@ import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/pages/actions/ear_speed_widget.dart';
+import 'package:tail_app/Frontend/pages/actions/rgb_brightness_widget.dart';
 
 import '../../../Backend/Action/action_registry.dart';
 import '../../../Backend/Action/base_action.dart';
@@ -75,6 +76,7 @@ class ActionsList extends StatelessWidget {
           shrinkWrap: false,
           children: [
             ShowEarSpeed(),
+            ShowRGBBrightness(),
             FavoriteActionsButtons(
               largerCards: largerCards,
               actionsCatMap: actionsCatMap,
@@ -185,6 +187,20 @@ class ShowEarSpeed extends StatelessWidget {
               )
               .isNotEmpty
           ? const EarSpeedWidget()
+          : null,
+    );
+  }
+}
+
+class ShowRGBBrightness extends StatelessWidget {
+  const ShowRGBBrightness({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: animationTransitionDuration,
+      child: KnownDevices.instance.isRgbGearConnected
+          ? const RgbBrightness()
           : null,
     );
   }

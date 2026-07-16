@@ -96,7 +96,8 @@ class PebbleManager {
       return;
     }
     if (!_didInit) {
-      throw Exception("Pebble companion uuid not set");
+      return;
+      //throw Exception("Pebble companion uuid not set");
     }
     if (!await isConnected()) {
       return;

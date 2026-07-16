@@ -106,6 +106,31 @@ class _ManageGearState extends State<ManageGear> {
                           ),
                         ),
                       ],
+                      if (device!.firmwareStatus.hasUpdate) ...[
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: FilledButton.icon(
+                            onPressed: () async {
+                              OtaUpdateRoute(
+                                device: device!.storedDevice.btMACAddress,
+                              ).push(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: getTextColor(color!),
+                              elevation: 1,
+                            ),
+                            icon: Icon(
+                              Icons.system_update,
+                              color: getTextColor(color!),
+                            ),
+                            label: Text(
+                              convertToUwU(manageDevicesOtaButton()),
+                              style: Theme.of(context).textTheme.labelLarge!
+                                  .copyWith(color: getTextColor(color!)),
+                            ),
+                          ),
+                        ),
+                      ],
                     ],
                   );
                 },
@@ -154,6 +179,13 @@ class _ManageGearState extends State<ManageGear> {
                           if (color != null) {
                             device!.storedDevice.color = color;
                             this.color = Color(color);
+
+                            BluetoothMessage message = BluetoothMessage(
+                              message: "SETMYCOLOR ${this.color!.hex}",
+                              type: CommandType.system,
+                            );
+
+                            device!.commandQueue.addCommand(message);
                             KnownDevices.instance.store();
                           }
                         }),
@@ -294,7 +326,7 @@ class _ManageGearUpdateCheckButtonState
                 snapshot.connectionState == ConnectionState.waiting) {
               buttonText = manageDevicesOtaCheckInProgressButtonLabel();
             }
-            return FilledButton(
+            return FilledButton.icon(
               onPressed:
                   (snapshot.connectionState == ConnectionState.active ||
                       snapshot.connectionState == ConnectionState.waiting)
@@ -317,26 +349,16 @@ class _ManageGearUpdateCheckButtonState
                 foregroundColor: getTextColor(widget.color),
                 elevation: 1,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (snapshot.connectionState == ConnectionState.active ||
-                      snapshot.connectionState == ConnectionState.waiting) ...[
-                    CircularProgressIndicator(
-                      color: getTextColor(widget.color),
-                    ),
-                  ] else ...[
-                    Icon(iconData, color: getTextColor(widget.color)),
-                  ],
-                  const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
-                  Text(
-                    convertToUwU(buttonText),
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: getTextColor(widget.color),
-                    ),
-                  ),
-                ],
+              icon:
+                  (snapshot.connectionState == ConnectionState.active ||
+                      snapshot.connectionState == ConnectionState.waiting)
+                  ? CircularProgressIndicator(color: getTextColor(widget.color))
+                  : Icon(iconData, color: getTextColor(widget.color)),
+              label: Text(
+                convertToUwU(buttonText),
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: getTextColor(widget.color),
+                ),
               ),
             );
           },
@@ -613,11 +635,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                       return Text("DEV FW URL: ${snapshot.data ?? ""}");
                     },
                   ),
-                  ValueListenableBuilder(
-                    valueListenable: widget.device.mtu,
-                    builder: (context, value, child) =>
-                        Text("MTU: ${widget.device.mtu.value}"),
-                  ),
+                  Text("MTU: ${widget.device.mtu}"),
                   Text(
                     "MIN FIRMWARE: ${widget.device.deviceDefinition.minVersion}",
                   ),
@@ -921,18 +939,15 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                 ),
               ),
             ),
-            ValueListenableBuilder(
-              valueListenable: widget.device.gearReturnedError,
-              builder: (context, value, child) => ListTile(
-                title: const Text("Error"),
-                trailing: Switch(
-                  value: widget.device.gearReturnedError.value,
-                  onChanged: (bool value) {
-                    setState(() {
-                      widget.device.gearReturnedError.value = value;
-                    });
-                  },
-                ),
+            ListTile(
+              title: const Text("Error"),
+              trailing: Switch(
+                value: widget.device.gearReturnedError,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.device.gearReturnedError = value;
+                  });
+                },
               ),
             ),
             ValueListenableBuilder(

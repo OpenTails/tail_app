@@ -21,8 +21,8 @@ Future<void> launchAppAnalytics() async {
   if (_didInit) {
     return;
   }
-  analyticsEvent(name: "Launch App", props: await _getLaunchProps());
-  analyticsEvent(name: "Settings", props: await _getSettingsProps());
+  await analyticsEvent(name: "Launch App", props: await _getLaunchProps());
+  await analyticsEvent(name: "Settings", props: await _getSettingsProps());
 }
 
 Future<void> _initAptBase() async {

@@ -103,7 +103,6 @@ Future<void> _runAction(
         earMoveSpeed,
         defaultValue: earMoveSpeedDefault,
       );
-
       BluetoothMessage speedMsg = BluetoothMessage(
         message: earSpeed.command,
         type: CommandType.move,
@@ -141,14 +140,30 @@ Future<void> _runAction(
         }
       }
     } else {
-      //Tailcontrol/Normal command
-      device.commandQueue.addCommand(
-        BluetoothMessage(
-          message: action.command,
-          responseMSG: action.response,
-          type: CommandType.move,
-        ),
-      );
+      if (action.actionCategory == ActionCategory.rgb) {
+        double rgbBrightnessValue = HiveProxy.getOrDefault(
+          settings,
+          rgbBrightness,
+          defaultValue: rgbBrightnessDefault,
+        );
+        device.commandQueue.addCommand(
+          BluetoothMessage(
+            message:
+                "${action.command} ${rgbBrightnessValue.toInt().clamp(1, 100)}",
+            responseMSG: action.response,
+            type: CommandType.move,
+          ),
+        );
+      } else {
+        //Tailcontrol/Normal command
+        device.commandQueue.addCommand(
+          BluetoothMessage(
+            message: action.command,
+            responseMSG: action.response,
+            type: CommandType.move,
+          ),
+        );
+      }
     }
   } else if (action is MoveList) {
     _logger.info("Starting MoveList ${action.name}.");

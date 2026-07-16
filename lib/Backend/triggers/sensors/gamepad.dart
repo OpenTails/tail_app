@@ -165,7 +165,7 @@ class GamepadTriggerDefinition extends TriggerDefinition {
         GamepadAxis.rightStickY,
       ].contains(event.axis)) {
         if (event.value > 0.5) {
-          sendCommands("Up");
+          sendCommands("UP");
         } else if (event.value < -0.5) {
           sendCommands("Down");
         }

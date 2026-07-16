@@ -22,7 +22,7 @@ platform :ios do
       api_key_path:"APPLE_SECRETS.json",
     )
     Dir.chdir("../..") do
-        sh "flutter build ipa --dart-define=SENTRY_DSN=$SENTRY_DSN  --build-number=$BUILD_NUMBER --build-name=$VERSION --export-options-plist ./ios/Runner/export.plist"
+        sh "flutter build ipa --split-debug-info=./symbols --dart-define=SENTRY_DSN=$SENTRY_DSN  --build-number=$BUILD_NUMBER --build-name=$VERSION --export-options-plist ./ios/Runner/export.plist"
     end
     build_app(
       skip_build_archive: true,
@@ -35,6 +35,12 @@ platform :ios do
       reject_build_waiting_for_review: true,
       api_key_path:"APPLE_SECRETS.json",
       skip_waiting_for_build_processing: true,
+    )
+    sentry_upload_build(
+      auth_token: ENV['SENTRY_AUTH_TOKEN'],
+      org_slug: 'floof',
+      project_slug: 'tail-app',
+      xcarchive_path:  "../build/ios/archive/Runner.xcarchive",
     )
   end
   lane :certs do

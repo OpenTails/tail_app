@@ -109,6 +109,10 @@ abstract class TriggerDefinition extends ChangeNotifier
         .forEach((TriggerAction triggerAction) async {
           if (triggerAction.isActive || triggerAction.actions.isEmpty) {
             // 15 second cool-down between moves
+            // indicates trigger event happened again, even if no moves were sent
+            if (triggerAction.isActive) {
+              triggerAction.isActive = true;
+            }
             return;
           }
           final List<BaseAction> allActionsMapped = triggerAction.actions

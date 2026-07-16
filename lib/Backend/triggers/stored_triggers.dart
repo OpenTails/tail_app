@@ -22,9 +22,24 @@ class TriggerList with ChangeNotifier {
   static final TriggerList instance = TriggerList._internal();
 
   TriggerList._internal() {
+    KnownDevices.instance
+      ..removeListener(_disableAllTriggers)
+      ..addListener(_disableAllTriggers);
+    this
+      ..removeListener(updateSentryContext)
+      ..addListener(updateSentryContext);
+    reload();
+  }
+
+  @visibleForTesting
+  Future<void> reload() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'StoredTriggers.reload',
+    );
     List<Trigger> results = [];
     try {
-      results = Hive.box<Trigger>(triggerBox).values
+      Box<Trigger> box = await Hive.openBox<Trigger>(triggerBox);
+      results = box.values
           .map((trigger) {
             trigger.triggerDefinition = TriggerDefinitionList
                 .allTriggerDefinitions
@@ -37,8 +52,7 @@ class TriggerList with ChangeNotifier {
           .toList(growable: true);
     } catch (e, s) {
       _logger.severe("Unable to load stored triggers: $e", e, s);
-    } finally {
-      Hive.box<Trigger>(triggerBox).close();
+      await Hive.deleteBoxFromDisk(triggerBox);
     }
     if (results.isEmpty) {
       TriggerDefinition triggerDefinition = TriggerDefinitionList
@@ -56,31 +70,41 @@ class TriggerList with ChangeNotifier {
     } else {
       _state = results.build();
     }
-    KnownDevices.instance
-      ..removeListener(_disableAllTriggers)
-      ..addListener(_disableAllTriggers);
-    updateSentryContext();
+    notifyListeners();
+    updateWearData(reason: "Triggers loaded");
+    span?.finish();
   }
 
   Future<void> add(Trigger trigger) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'StoredTriggers.add',
+    );
     _state = _state.rebuild((p0) => p0.add(trigger));
     await store();
+    span?.finish();
   }
 
   Future<void> remove(Trigger trigger) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'StoredTriggers.remove',
+    );
     trigger.enabled = false;
     _state = _state.rebuild((p0) => p0.remove(trigger));
     await store();
+    span?.finish();
   }
 
   Future<void> store() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'StoredTriggers.store',
+    );
     _logger.info("Storing triggers");
-    LazyBox<Trigger> lazyBox = await Hive.openLazyBox<Trigger>(triggerBox);
-    await lazyBox.clear();
-    await lazyBox.addAll(_state);
+    Box<Trigger> box = await Hive.openBox<Trigger>(triggerBox);
+    await box.clear();
+    await box.addAll(_state);
     notifyListeners();
     updateWearData(reason: "Trigger Added/Removed");
-    updateSentryContext();
+    span?.finish();
   }
 
   void _disableAllTriggers() {

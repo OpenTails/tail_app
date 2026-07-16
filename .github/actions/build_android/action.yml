@@ -25,6 +25,9 @@ inputs:
   sentry-dsn:
     description: 'The sentry dsn for sending error info'
     required: true
+  sentry-auth:
+    description: 'The sentry token for sending symbols'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -42,11 +45,12 @@ runs:
         ANDROID_KEY_JKS: ${{ inputs.android-key-jks }}
     - name: Build AppBundle
       shell: bash
-      run: flutter build appbundle --build-number="$BUILD_NUMBER" --build-name="$VERSION"  --dart-define=SENTRY_DSN="$SENTRY_DSN"
+      run: flutter build appbundle --split-debug-info=./symbols --build-number="$BUILD_NUMBER" --build-name="$VERSION"  --dart-define=SENTRY_DSN="$SENTRY_DSN"
       env:
         VERSION: ${{ inputs.version }}
         BUILD_NUMBER: ${{ inputs.build-number }}
         SENTRY_DSN: ${{ inputs.sentry-dsn }}
+        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth }}
     - name: Convert aab to apk
       id: convert_aab
       uses: mukeshsolanki/bundletool-action@v2.0.0

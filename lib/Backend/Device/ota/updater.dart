@@ -250,9 +250,9 @@ class OtaUpdater extends ChangeNotifier {
     setState(OtaState.upload);
     uploadProgress = 0;
     if (firmwareFile != null) {
-      int mtu = statefulDevice.mtu.value - 10;
+      int mtu = statefulDevice.mtu - 10;
       currentFirmwareUploadPosition = 0;
-      statefulDevice.gearReturnedError.value = false;
+      statefulDevice.gearReturnedError = false;
 
       _otaLogger.info("Holding the command queue");
       _otaLogger.info("Send OTA begin message");
@@ -266,7 +266,7 @@ class OtaUpdater extends ChangeNotifier {
       while (uploadProgress < 1 && otaState != OtaState.error) {
         statefulDevice.deviceState.value =
             DeviceMoveState.busy; // hold the command queue
-        if (statefulDevice.gearReturnedError.value) {
+        if (statefulDevice.gearReturnedError) {
           _onError(OtaError.gearReturnedError, uploadSpan);
           break;
         }

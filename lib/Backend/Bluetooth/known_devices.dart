@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 
 import '../../constants.dart';
@@ -24,15 +25,21 @@ class KnownDevices with ChangeNotifier {
   static final KnownDevices instance = KnownDevices._internal();
 
   KnownDevices._internal() {
-    Iterable<StoredDevice> storedDevices = Hive.box<StoredDevice>(
-      devicesBox,
-    ).values;
+    this
+      ..removeListener(_onDevicePaired)
+      ..addListener(_onDevicePaired);
+    reload();
+  }
 
-    // after all device entries are loaded, close the box. The box will be
-    // re-opened as a lazy box to save ram
-    Hive.box<StoredDevice>(devicesBox).close();
+  @visibleForTesting
+  Future<void> reload() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'KnownDevices.reload',
+    );
     Map<String, StatefulDevice> results = {};
     try {
+      Box<StoredDevice> box = await Hive.openBox<StoredDevice>(devicesBox);
+      Iterable<StoredDevice> storedDevices = box.values;
       if (storedDevices.isNotEmpty) {
         for (StoredDevice e in storedDevices) {
           // We don't care for stored demo gear
@@ -48,38 +55,44 @@ class KnownDevices with ChangeNotifier {
       }
     } catch (e, s) {
       _logger.severe("Unable to load stored devices due to $e", e, s);
+      await Hive.deleteBoxFromDisk(devicesBox);
     }
     _state = results;
-
     //register listeners
-    _onDevicePaired();
-    this
-      ..removeListener(_onDevicePaired)
-      ..addListener(_onDevicePaired);
+    _notify();
+    span?.finish();
   }
 
   /// Register and store the connected/dev gear.
   /// Must be called *BEFORE* setting any values as listeners are not
   /// registered yet
   Future<void> add(StatefulDevice statefulDevice) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild('KnownDevices.add');
     _state[statefulDevice.storedDevice.btMACAddress] = statefulDevice;
     await store();
+    span?.finish();
   }
 
   Future<void> remove(String id) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'KnownDevices.remove',
+    );
     _state.remove(id);
     await store();
+    span?.finish();
   }
 
   Future<void> store() async {
-    _logger.info("Storing gear");
-    LazyBox<StoredDevice> lazyBox = await Hive.openLazyBox<StoredDevice>(
-      devicesBox,
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'KnownDevices.store',
     );
-    await lazyBox.clear();
-    await lazyBox.addAll(state.values.map((e) => e.storedDevice));
+    _logger.info("Storing gear");
+    Box<StoredDevice> box = await Hive.openBox<StoredDevice>(devicesBox);
+    await box.clear();
+    await box.addAll(state.values.map((e) => e.storedDevice));
     _onDevicePaired();
     _notify();
+    span?.finish();
   }
 
   Future<void> removeDevGear() async {

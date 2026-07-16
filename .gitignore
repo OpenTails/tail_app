@@ -100,3 +100,5 @@ HiveTest/
 .HiveTest/
 /android/.kotlin/
 .sentry-native/
+
+untranslated_messages.txt

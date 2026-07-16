@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../constants.dart';
 import 'Action/base_action.dart';
@@ -42,32 +43,51 @@ class FavoriteActions with ChangeNotifier {
   static final FavoriteActions instance = FavoriteActions._internal();
 
   FavoriteActions._internal() {
+    reload();
+  }
+
+  @visibleForTesting
+  Future<void> reload() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'FavoriteActions.reload',
+    );
     List<FavoriteAction> results = [];
     try {
-      results = Hive.box<FavoriteAction>(
+      Box<FavoriteAction> box = await Hive.openBox<FavoriteAction>(
         favoriteActionsBox,
-      ).values.toList(growable: true);
+      );
+      results = box.values.toList(growable: true);
     } catch (e, s) {
       _favoriteActionsLogger.severe("Unable to load favorites: $e", e, s);
+      await Hive.deleteBoxFromDisk(favoriteActionsBox);
     }
-    Hive.box<FavoriteAction>(favoriteActionsBox).close();
     _state = results.toBuiltList();
+    notifyListeners();
+    span?.finish();
   }
 
   Future<void> add(BaseAction action) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'FavoriteActions.add',
+    );
     _state = _state.rebuild((p0) {
       p0
         ..add(FavoriteAction(actionUUID: action.uuid, id: _state.length + 1))
         ..sort();
     });
     await store();
+    span?.finish();
   }
 
   Future<void> remove(BaseAction action) async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'FavoriteActions.add',
+    );
     _state = _state.rebuild(
       (p0) => p0.removeWhere((element) => element.actionUUID == action.uuid),
     );
     await store();
+    span?.finish();
   }
 
   bool contains(BaseAction action) {
@@ -75,14 +95,18 @@ class FavoriteActions with ChangeNotifier {
   }
 
   Future<void> store() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'FavoriteActions.store',
+    );
     _favoriteActionsLogger.info("Storing favorites");
-    LazyBox<FavoriteAction> lazyBox = await Hive.openLazyBox<FavoriteAction>(
+    Box<FavoriteAction> box = await Hive.openBox<FavoriteAction>(
       favoriteActionsBox,
     );
-    await lazyBox.clear();
-    await lazyBox.addAll(_state);
+    await box.clear();
+    await box.addAll(_state);
     updateShortcuts(_state);
     // ignore: unused_result
     notifyListeners();
+    span?.finish();
   }
 }

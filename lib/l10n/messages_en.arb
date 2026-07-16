@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-05-18T01:02:34.608221",
+  "@@last_modified": "2026-07-05T19:56:55.218935",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -1374,6 +1374,12 @@
   "triggerGamepadDescription": "Use a connected gamepad to control gear",
   "@triggerGamepadDescription": {
     "description": "Gamepad trigger description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "gearRgbBrightness": "RGB Brightness",
+  "@gearRgbBrightness": {
+    "description": "Title for the gear brightness widget that appears on the actions page when gear with RGB support are connected",
     "type": "text",
     "placeholders": {}
   }

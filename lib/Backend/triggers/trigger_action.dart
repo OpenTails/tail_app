@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
@@ -19,11 +20,20 @@ class TriggerAction with ChangeNotifier {
   bool _isActive = false;
   int _duration = 0;
   final int _progressUpdateInterval = 250;
+  final StreamController<int> _moveTriggeredDuringCooldownController =
+      StreamController();
+  late Stream<int> moveTriggeredStream;
 
   bool get isActive => _isActive;
 
   set isActive(bool value) {
     if (_isActive == value) {
+      if (value) {
+        // Triggers the UI to update if the event that starts this action occurs multiple times
+        _moveTriggeredDuringCooldownController.sink.add(
+          Random().nextInt(100000),
+        );
+      }
       return;
     }
     _isActive = value;
@@ -37,7 +47,10 @@ class TriggerAction with ChangeNotifier {
 
   double isActiveProgress = 0;
 
-  TriggerAction(this.uuid);
+  TriggerAction(this.uuid) {
+    moveTriggeredStream = _moveTriggeredDuringCooldownController.stream
+        .asBroadcastStream();
+  }
 
   void _startTimers() {
     _duration = HiveProxy.getOrDefault(

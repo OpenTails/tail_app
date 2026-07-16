@@ -63,6 +63,16 @@ jobs:
           fail_on_unmatched_files: true
           generate_release_notes: true
           body: ${{ steps.extract-changelog.outputs.markdown }}
+      - name: Create Sentry release
+        uses: getsentry/action-release@v3
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: floof
+          SENTRY_PROJECT: tail-app
+          SENTRY_URL: https://sentry.codel1417.xyz/
+        with:
+          environment: production
+          finalize: true
   update_json:
     permissions:
       contents: write

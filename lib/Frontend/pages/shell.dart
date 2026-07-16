@@ -68,6 +68,7 @@ class _NavigationDrawerExampleState extends State<NavigationDrawerExample> {
     return WearHelper(
       child: UpgradeAlert(
         dialogStyle: UpgradeDialogStyle.material,
+        showIgnore: false,
         navigatorKey: rootNavigatorKey,
         child: AdaptiveScaffold(
           // An option to override the default breakpoints used for small, medium,

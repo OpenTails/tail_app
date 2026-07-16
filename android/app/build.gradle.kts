@@ -4,6 +4,7 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("io.sentry.android.gradle") version "6.13.0"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
@@ -49,6 +50,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        resValue("string", "SentyDSN", System.getenv("SENTRY_DSN") ?: "")
     }
     buildTypes {
         getByName("release") {
@@ -78,5 +80,19 @@ flutter {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.3.21")
     testImplementation("junit:junit:4.13.2")
-    implementation("io.rebble.pebblekit2:client:1.1.0")
+    implementation("io.rebble.pebblekit2:client:1.2.0")
+}
+
+sentry {
+    ignoredBuildTypes.set(setOf("debug", "release"))
+    org.set("floof")
+    projectName.set("tail-app")
+    authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
+    url.set("https://sentry.codel1417.xyz")
+    includeNativeSources.set(true)
+    uploadNativeSymbols.set(true)
+    includeSourceContext.set(true)
+    autoInstallation {
+        enabled.set(false)
+    }
 }

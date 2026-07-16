@@ -1,3 +1,18 @@
+### V 1.5.3
+
+- Misc Bug Fixes
+- Add indicator on the trigger action progress bar if a trigger would have ran during the cooldown
+- Add button on language picker to open Weblate
+- Changes to appease the fruit company
+
+### V 1.5.2
+
+- Fixed the root cause of the app freezing at launch in 1.5.0
+
+### V 1.5.1
+
+- Many bug fixes and changes to prevent the app from freezing at launch
+
 ### V 1.5.0
 
 - Add support for Paws with Claws

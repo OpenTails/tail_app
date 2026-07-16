@@ -36,7 +36,6 @@ class CommandQueue with ChangeNotifier {
 
   CommandQueue(this.device) {
     device.bluetoothUartService.addListener(_connectionStateListener);
-    device.gearReturnedError.addListener(_gearErrorListener);
     device.deviceState.addListener(_deviceStateListener);
     addListener(_onStateChanged);
   }
@@ -70,6 +69,12 @@ class CommandQueue with ChangeNotifier {
     if (state == CommandQueueState.waitingForResponse &&
         currentMessage != null &&
         currentMessage!.responseMSG != null) {
+      if (msg.contains("ERR") || msg.contains("BUSY")) {
+        _resendCommand();
+      }
+      if (msg.contains("LOWBATT")) {
+        _setState(CommandQueueState.idle);
+      }
       if (msg == currentMessage!.responseMSG!) {
         _setState(CommandQueueState.idle);
       }
@@ -102,18 +107,6 @@ class CommandQueue with ChangeNotifier {
       CommandQueueState.running,
     ].contains(state)) {
       _setState(CommandQueueState.idle);
-    }
-  }
-
-  /// Trigger resending the current command if the gear returns ERR/BUSY
-  void _gearErrorListener() {
-    if (device.gearReturnedError.value &&
-        [
-          CommandQueueState.delay,
-          CommandQueueState.waitingForResponse,
-        ].contains(state)) {
-      device.gearReturnedError.value = false;
-      _resendCommand();
     }
   }
 
@@ -182,7 +175,7 @@ class CommandQueue with ChangeNotifier {
       retryCount = currentMessage!.resendRetries.clamp(0, 5);
     }
     _setState(CommandQueueState.running);
-    device.gearReturnedError.value = false;
+    device.gearReturnedError = false;
 
     // handle if the command is a delay command
     if (bluetoothMessage.delay != null) {
