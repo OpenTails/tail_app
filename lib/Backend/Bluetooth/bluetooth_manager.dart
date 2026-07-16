@@ -269,19 +269,14 @@ Future<void> _connect(String id) async {
   final ISentrySpan? span = Sentry.getSpan()?.startChild('Bluetooth.connect');
   try {
     int retry = 0;
-    while (retry <
-        HiveProxy.getOrDefault(
-          settings,
-          gearConnectRetryAttempts,
-          defaultValue: gearConnectRetryAttemptsDefault,
-        )) {
+    while (retry < gearConnectRetryAttemptsDefault) {
       try {
         await UniversalBle.connect(id, timeout: Duration(seconds: 20));
         break;
       } on ConnectionException catch (e) {
         retry = retry + 1;
         _logger.warning(
-          "Failed to connect to $id. Attempt $retry/${HiveProxy.getOrDefault(settings, gearConnectRetryAttempts, defaultValue: gearConnectRetryAttemptsDefault)}",
+          "Failed to connect to $id. Attempt $retry/$gearConnectRetryAttemptsDefault",
           e,
         );
         await Future.delayed(Duration(milliseconds: 250));

@@ -84,6 +84,8 @@ extension DeviceTypeExtension on DeviceType {
       iconAssetPath(),
       colorMapper: _MyColorMapper(iconColor: iconColor),
       height: size,
+      width: size,
+      clipBehavior: Clip.antiAlias,
     );
   }
 }

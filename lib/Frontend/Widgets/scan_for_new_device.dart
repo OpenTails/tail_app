@@ -328,31 +328,46 @@ class _DemoGearDropdownState extends State<DemoGearDropdown> {
       title: Text(convertToUwU(scanDemoGear())),
       children: [
         PageInfoCard(text: scanDemoGearTip()),
-        ListTile(
-          leading: const Icon(Icons.add),
-          subtitle: DropdownMenu<DeviceDefinition>(
-            initialSelection: null,
-            expandedInsets: EdgeInsets.zero,
-            label: Text(convertToUwU(scanAddDemoGear())),
-            onSelected: (value) async {
-              if (value != null) {
-                Scan.instance.addDemoGear(value);
-                setState(() {
-                  _expansibleController.collapse();
-                });
-              }
-            },
-            dropdownMenuEntries: DeviceRegistry.allDevices
-                .where((deviceDefinition) {
-                  if (isDeveloperEnabled) {
-                    return true;
-                  } else {
-                    return deviceDefinition.enableDemo;
-                  }
-                })
-                .map((e) => DropdownMenuEntry(value: e, label: e.friendlyName))
-                .toList(),
-          ),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          children: DeviceRegistry.allDevices
+              .where((deviceDefinition) {
+                // only 1 demo gear can exist per device definition
+                if (isDemoGearExists(deviceDefinition)) {
+                  return false;
+                }
+                if (isDeveloperEnabled) {
+                  return true;
+                } else {
+                  return deviceDefinition.enableDemo;
+                }
+              })
+              .map(
+                (e) => ActionChip.elevated(
+                  label: Text(
+                    e.btName,
+                    style: ChipTheme.of(context).labelStyle?.copyWith(
+                      color: getTextColor(
+                        ChipTheme.of(context).backgroundColor ??
+                            Theme.of(context).colorScheme.surface,
+                      ),
+                    ),
+                  ),
+                  avatar: e.deviceType.icon(
+                    IconTheme.of(context).size ?? 32,
+                    Theme.of(context).colorScheme.onSurface,
+                  ),
+                  tooltip: scanAddDemoGear(),
+                  onPressed: () {
+                    Scan.instance.addDemoGear(e);
+                    setState(() {
+                      _expansibleController.collapse();
+                    });
+                  },
+                ),
+              )
+              .toList(),
         ),
       ],
     );

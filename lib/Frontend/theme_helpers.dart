@@ -50,6 +50,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
   final ColorScheme base = ColorScheme.fromSeed(
     brightness: brightness,
     seedColor: seedColor,
+    dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
   );
 
   // Override with fixed brand secondaries/tertiaries; tonal surfaces use navy.

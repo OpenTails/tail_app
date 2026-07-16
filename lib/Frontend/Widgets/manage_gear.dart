@@ -76,37 +76,6 @@ class _ManageGearState extends State<ManageGear> {
                         ),
                       ],
                       if (device!.firmwareStatus.hasUpdate) ...[
-                        FilledButton(
-                          onPressed: () async {
-                            OtaUpdateRoute(
-                              device: device!.storedDevice.btMACAddress,
-                            ).push(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: getTextColor(color!),
-                            elevation: 1,
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.system_update,
-                                color: getTextColor(color!),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 4),
-                              ),
-                              Text(
-                                convertToUwU(manageDevicesOtaButton()),
-                                style: Theme.of(context).textTheme.labelLarge!
-                                    .copyWith(color: getTextColor(color!)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                      if (device!.firmwareStatus.hasUpdate) ...[
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: FilledButton.icon(
