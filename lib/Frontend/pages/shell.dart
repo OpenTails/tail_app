@@ -112,6 +112,7 @@ class _NavigationDrawerExampleState extends State<NavigationDrawerExample> {
           appBar: AppBar(
             title: const DeviceStatusWidget(),
             centerTitle: true,
+            clipBehavior: Clip.none,
             leadingWidth: 0,
             titleSpacing: 0,
             toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1),
@@ -143,13 +144,12 @@ class _DeviceStatusWidgetState extends State<DeviceStatusWidget> {
     return KnownGearScanController(
       child: FadingEdgeScrollView.fromSingleChildScrollView(
         child: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          padding: EdgeInsets.symmetric(horizontal: 8),
           controller: _scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: KnownGear(),
-          ),
+          child: KnownGear(),
         ),
       ),
     );

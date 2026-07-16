@@ -50,7 +50,6 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
   final ColorScheme base = ColorScheme.fromSeed(
     brightness: brightness,
     seedColor: seedColor,
-    dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
   );
 
   // Override with fixed brand secondaries/tertiaries; tonal surfaces use navy.
@@ -79,7 +78,11 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
       : base.copyWith(primary: seedColor);
 
   final TextTheme textTheme = _buildTextTheme();
-
+  final TextStyle buttonTextStyle = TextStyle(
+    fontFamily: 'Fredoka',
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+  );
   return ThemeData(
     colorScheme: colorScheme,
     typography: Typography.material2021(),
@@ -117,11 +120,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusPill),
         ),
-        textStyle: TextStyle(
-          fontFamily: 'Fredoka',
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-        ),
+        textStyle: buttonTextStyle,
         elevation: 0,
       ),
     ),
@@ -130,11 +129,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusPill),
         ),
-        textStyle: TextStyle(
-          fontFamily: 'Fredoka',
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-        ),
+        textStyle: buttonTextStyle,
         elevation: 1,
         shadowColor: tcNavy.withAlpha(46),
       ),
@@ -144,11 +139,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusPill),
         ),
-        textStyle: TextStyle(
-          fontFamily: 'Fredoka',
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-        ),
+        textStyle: buttonTextStyle,
         side: BorderSide(color: colorScheme.outline, width: 1.5),
       ),
     ),
@@ -157,11 +148,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusPill),
         ),
-        textStyle: TextStyle(
-          fontFamily: 'Fredoka',
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-        ),
+        textStyle: buttonTextStyle,
       ),
     ),
     // ── Inputs ────────────────────────────────────────────────────────────────
