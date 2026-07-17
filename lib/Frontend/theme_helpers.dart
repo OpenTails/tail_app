@@ -83,6 +83,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     fontWeight: FontWeight.w600,
     fontSize: 16,
   );
+
   return ThemeData(
     colorScheme: colorScheme,
     typography: Typography.material2021(),
@@ -101,7 +102,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
         color: colorScheme.onSurface,
       ),
     ),
-    iconTheme: IconThemeData(weight: 150),
+    iconTheme: IconThemeData(weight: 150, color: colorScheme.onSurface),
     // ── Cards ─────────────────────────────────────────────────────────────────
     // White surface, 1.5px border, soft warm-tinted shadow (no heavy elevation)
     cardTheme: CardThemeData(
@@ -275,7 +276,8 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     switchTheme: SwitchThemeData(
       thumbColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) return _gray0;
-        return null;
+        if (states.contains(WidgetState.disabled)) return Colors.transparent;
+        return _gray400;
       }),
     ),
     // ── Divider ──────────────────────────────────────────────────────────────
