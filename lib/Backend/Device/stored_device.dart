@@ -125,9 +125,6 @@ class StoredDevice extends ChangeNotifier {
   int get color => _color;
 
   set color(int value) {
-    if (_color == color) {
-      return;
-    }
     _color = value;
     notifyListeners();
   }
