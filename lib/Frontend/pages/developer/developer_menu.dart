@@ -179,7 +179,6 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                   future: UniversalBle.getSystemDevices(),
                   builder: (context, snapshot) {
                     String value = "";
-                    Color textColor = Theme.of(context).colorScheme.surface;
                     if (snapshot.hasData) {
                       return ListView(
                         shrinkWrap: true,
@@ -190,10 +189,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                                 dense: true,
                                 title: Text(e.name ?? "unknown"),
                                 subtitle: Text(e.deviceId),
-                                leading: SignalIcon(
-                                  rssi: e.rssi ?? -1,
-                                  color: getTextColor(textColor),
-                                ),
+                                leading: SignalIcon(rssi: e.rssi ?? -1),
                                 trailing: Text(e.isSystemDevice.toString()),
                               ),
                             )

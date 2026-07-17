@@ -47,9 +47,19 @@ const double radiusPill = 64.0; // buttons (pill shape)
 ThemeData buildTheme(Brightness brightness, Color seedColor) {
   final bool isLight = brightness == Brightness.light;
 
+  // Prevent colors that are too light or dark
+  HSLColor hslColor = HSLColor.fromColor(seedColor);
+  HSLColor newHslColor = HSLColor.fromAHSL(
+    hslColor.alpha,
+    hslColor.hue,
+    hslColor.saturation.clamp(0.4, 1),
+    hslColor.lightness.clamp(0.3, 0.7),
+  );
+
   final ColorScheme base = ColorScheme.fromSeed(
     brightness: brightness,
-    seedColor: seedColor,
+    seedColor: newHslColor.toColor(),
+    dynamicSchemeVariant: DynamicSchemeVariant.expressive,
   );
 
   // Override with fixed brand secondaries/tertiaries; tonal surfaces use navy.
@@ -75,7 +85,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
           error: isLight ? const Color(0xFFD84545) : const Color(0xFFFF6B6B),
           onError: _gray0,
         )
-      : base.copyWith(primary: seedColor);
+      : base.copyWith(primary: newHslColor.toColor());
 
   final TextTheme textTheme = _buildTextTheme();
   final TextStyle buttonTextStyle = TextStyle(
@@ -102,6 +112,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
         color: colorScheme.onSurface,
       ),
     ),
+    // ── Icons ───────────────────────────────────────────────────────
     iconTheme: IconThemeData(weight: 150, color: colorScheme.onSurface),
     // ── Cards ─────────────────────────────────────────────────────────────────
     // White surface, 1.5px border, soft warm-tinted shadow (no heavy elevation)
@@ -237,6 +248,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
         fontFamily: 'HankenGrotesk',
         fontWeight: FontWeight.w600,
         fontSize: 13,
+        color: colorScheme.onSurfaceVariant,
       ),
       side: BorderSide(color: colorScheme.outline, width: 1.5),
     ),
@@ -379,11 +391,14 @@ Future<void> setupSystemColor(BuildContext context) async {
 }
 
 /// Chooses the light or dark text color based on the supplied background color.
-Color getTextColor(Color color) {
+Color getTextColor({required Color color, required BuildContext context}) {
+  ColorScheme colorScheme = ColorScheme.of(context);
   double luminance = color.computeLuminance();
+
+  bool isLight = colorScheme.brightness == Brightness.light;
   if (luminance > 0.6) {
-    return Typography.material2021().black.labelLarge!.color!;
+    return isLight ? colorScheme.onSurface : colorScheme.surface;
   } else {
-    return Typography.material2021().white.labelLarge!.color!;
+    return isLight ? colorScheme.surface : colorScheme.onSurface;
   }
 }

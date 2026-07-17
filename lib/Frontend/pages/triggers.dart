@@ -92,38 +92,16 @@ class _TriggersState extends State<Triggers> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             (choiceController) {
-                              return FilledButton(
+                              return FilledButton.icon(
                                 onPressed: choiceController.value.isNotEmpty
                                     ? () => choiceController.closeModal(
                                         confirmed: true,
                                       )
                                     : null,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(Symbols.check),
-                                    const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 4,
-                                      ),
-                                    ),
-                                    Text(
-                                      convertToUwU(
-                                        triggersDefSelectSaveLabel(),
-                                      ),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge!
-                                          .copyWith(
-                                            color: getTextColor(
-                                              Theme.of(
-                                                context,
-                                              ).colorScheme.primary,
-                                            ),
-                                          ),
-                                    ),
-                                  ],
+                                label: Text(
+                                  convertToUwU(triggersDefSelectSaveLabel()),
                                 ),
+                                icon: const Icon(Symbols.check),
                               );
                             },
                           ],

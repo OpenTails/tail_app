@@ -122,7 +122,7 @@ class MissingRequirementsCard extends StatelessWidget {
                 convertToUwU(text()),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: getTextColor(ColorScheme.of(context).error),
+                  color: ColorScheme.of(context).onError,
                 ),
               ),
             ),
@@ -168,7 +168,7 @@ class ScanForNewGearButton extends StatelessWidget {
                         convertToUwU(scanDevicesTitle()),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: getTextColor(color!),
+                          color: getTextColor(color: color!, context: context),
                         ),
                       ),
                     ),
@@ -216,10 +216,10 @@ class _KnownGearCardState extends State<KnownGearCard> {
                       isLabelVisible:
                           widget.statefulDevice.firmwareStatus.hasUpdate,
                       largeSize: 35,
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: ColorScheme.of(context).error,
                       label: Icon(
                         Symbols.system_update,
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: ColorScheme.of(context).onError,
                       ),
                       child: child,
                     );
@@ -235,7 +235,10 @@ class _KnownGearCardState extends State<KnownGearCard> {
                         Color(widget.statefulDevice.storedDevice.color),
                         value,
                       );
-                      Color textColor = getTextColor(cardColor!);
+                      Color textColor = getTextColor(
+                        color: cardColor!,
+                        context: context,
+                      );
                       return Card(
                         clipBehavior: Clip.antiAlias,
                         color: cardColor,
@@ -393,10 +396,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
     )) {
       if (level < 0) {
         // battery level is unknown
-        return Text(
-          '?%',
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color),
-        );
+        return Text('?%');
       }
       return Text(
         '${level.toInt()}%',

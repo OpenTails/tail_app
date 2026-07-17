@@ -39,7 +39,7 @@ class DeviceTypeWidget extends StatelessWidget {
             itemBuilder: (state, i) {
               DeviceType deviceType = DeviceType.values.toList()[i];
               Color color = deviceType.color();
-              Color textColor = getTextColor(color);
+              Color textColor = getTextColor(color: color, context: context);
               return ChoiceChip(
                 checkmarkColor: textColor,
                 selectedColor: color,

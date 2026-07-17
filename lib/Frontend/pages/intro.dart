@@ -18,7 +18,6 @@ import '../../assets.dart';
 import '../Widgets/language_picker.dart';
 import '../Widgets/lottie_lazy_load.dart';
 import '../go_router_config.dart';
-import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 import 'markdown_viewer.dart';
 
@@ -82,11 +81,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           listenable: UserLocale.instance,
           builder: (context, child) {
             var pageDecoration = PageDecoration(
-              titleTextStyle: const TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.w700,
-              ),
-              bodyTextStyle: const TextStyle(fontSize: 19.0),
+              titleTextStyle: TextTheme.of(context).headlineMedium!,
+              bodyTextStyle: TextTheme.of(context).bodyLarge!,
               bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
               pageColor: Theme.of(context).canvasColor,
               imagePadding: EdgeInsets.zero,
@@ -298,10 +294,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                         onPressed();
                       }
                     },
-                    label: Text(
-                      convertToUwU(onboardingContinueLabel()),
-                      style: const TextStyle(fontWeight: FontWeight.w600),
-                    ),
+                    label: Text(convertToUwU(onboardingContinueLabel())),
                     icon: const Icon(
                       Symbols.arrow_forward,
                       key: Key('nextPage'),
@@ -310,14 +303,12 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                 ],
               ),
               skip: const Icon(Symbols.skip_next),
-              done: FilledButton(
+              done: FilledButton.icon(
                 onPressed: () {
                   _onIntroEnd(context);
                 },
-                child: Text(
-                  convertToUwU(onboardingDoneButtonLabel()),
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
+                label: Text(convertToUwU(onboardingDoneButtonLabel())),
+                icon: const Icon(Symbols.arrow_forward, key: Key('nextPage')),
               ),
               dotsFlex: 0,
               isProgress: false,

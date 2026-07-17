@@ -142,35 +142,14 @@ class _OtaUpdateState extends State<OtaUpdate> {
                     child: OverflowBar(
                       alignment: MainAxisAlignment.center,
                       children: [
-                        FilledButton(
+                        FilledButton.icon(
                           onPressed:
                               (widget.otaUpdater.firmwareInfo != null ||
                                   widget.otaUpdater.firmwareFile != null)
                               ? widget.otaUpdater.beginUpdate
                               : null,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Symbols.system_update,
-                                color: getTextColor(
-                                  Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 4),
-                              ),
-                              Text(
-                                convertToUwU(otaDownloadButtonLabel()),
-                                style: Theme.of(context).textTheme.labelLarge!
-                                    .copyWith(
-                                      color: getTextColor(
-                                        Theme.of(context).colorScheme.primary,
-                                      ),
-                                    ),
-                              ),
-                            ],
-                          ),
+                          label: Text(convertToUwU(otaDownloadButtonLabel())),
+                          icon: Icon(Symbols.system_update),
                         ),
                         if (isDeveloperEnabled) ...[
                           ElevatedButton(

@@ -85,19 +85,8 @@ class _ManageGearState extends State<ManageGear> {
                                 device: device!.storedDevice.btMACAddress,
                               ).push(context);
                             },
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: getTextColor(color!),
-                              elevation: 1,
-                            ),
-                            icon: Icon(
-                              Symbols.system_update,
-                              color: getTextColor(color!),
-                            ),
-                            label: Text(
-                              convertToUwU(manageDevicesOtaButton()),
-                              style: Theme.of(context).textTheme.labelLarge!
-                                  .copyWith(color: getTextColor(color!)),
-                            ),
+                            icon: Icon(Symbols.system_update),
+                            label: Text(convertToUwU(manageDevicesOtaButton())),
                           ),
                         ),
                       ],
@@ -251,13 +240,8 @@ class _ManageGearState extends State<ManageGear> {
 
 class ManageGearUpdateCheckButton extends StatefulWidget {
   final StatefulDevice device;
-  final Color color;
 
-  const ManageGearUpdateCheckButton({
-    super.key,
-    required this.device,
-    required this.color,
-  });
+  const ManageGearUpdateCheckButton({super.key, required this.device});
 
   @override
   State<StatefulWidget> createState() => _ManageGearUpdateCheckButtonState();
@@ -315,21 +299,12 @@ class _ManageGearUpdateCheckButtonState
                         });
                       }
                     },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: getTextColor(widget.color),
-                elevation: 1,
-              ),
               icon:
                   (snapshot.connectionState == ConnectionState.active ||
                       snapshot.connectionState == ConnectionState.waiting)
-                  ? CircularProgressIndicator(color: getTextColor(widget.color))
-                  : Icon(iconData, color: getTextColor(widget.color)),
-              label: Text(
-                convertToUwU(buttonText),
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: getTextColor(widget.color),
-                ),
-              ),
+                  ? CircularProgressIndicator()
+                  : Icon(iconData),
+              label: Text(convertToUwU(buttonText)),
             );
           },
         ),
@@ -446,9 +421,7 @@ class ManageGearAbout extends StatelessWidget {
                 if (snapshot.hasData &&
                     !snapshot.data!.featureFlags.hideOtaCheck) {
                   return OverflowBar(
-                    children: [
-                      ManageGearUpdateCheckButton(device: device, color: color),
-                    ],
+                    children: [ManageGearUpdateCheckButton(device: device)],
                   );
                 } else {
                   return Container();
@@ -1086,7 +1059,7 @@ class WarningBarCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color errorColor = ColorScheme.of(context).error;
-    Color textColor = getTextColor(errorColor);
+    Color textColor = ColorScheme.of(context).onError;
     return BaseCard(
       elevation: 3,
       color: errorColor,

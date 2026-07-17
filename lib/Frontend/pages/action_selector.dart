@@ -221,9 +221,9 @@ class _ActionSelectorState extends State<ActionSelector> {
             semanticsLabel: baseAction.name,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
-            style: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(color: getTextColor(color)),
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: getTextColor(color: color, context: context),
+            ),
           ),
         ),
       ),

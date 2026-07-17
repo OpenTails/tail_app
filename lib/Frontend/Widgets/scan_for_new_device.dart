@@ -346,15 +346,7 @@ class _DemoGearDropdownState extends State<DemoGearDropdown> {
               })
               .map(
                 (e) => ActionChip.elevated(
-                  label: Text(
-                    e.friendlyName,
-                    style: ChipTheme.of(context).labelStyle?.copyWith(
-                      color: getTextColor(
-                        ChipTheme.of(context).backgroundColor ??
-                            Theme.of(context).colorScheme.surface,
-                      ),
-                    ),
-                  ),
+                  label: Text(e.friendlyName),
                   avatar: e.deviceType.icon(
                     IconTheme.of(context).size ?? 32,
                     Theme.of(context).colorScheme.onSurface,

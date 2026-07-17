@@ -230,7 +230,7 @@ class _ActionCardState extends State<ActionCard> {
       listenable: KnownDevices.instance,
       builder: (context, child) {
         Color color = getColor(widget.action.deviceCategory.toSet());
-        Color textColor = getTextColor(color);
+        Color textColor = getTextColor(color: color, context: context);
         return Card(
           clipBehavior: Clip.antiAlias,
           color: color,
