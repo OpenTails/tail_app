@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/tail_blog_image.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
+
 // Used as MediaDetails isn't exported
 // ignore: implementation_imports
 import 'package:wordpress_client/src/responses/properties/media_details.dart';
@@ -43,7 +45,7 @@ class _TailBlogState extends State<TailBlog> {
           child: Opacity(
             opacity: 0.5,
             child: Icon(
-              Icons.signal_cellular_connected_no_internet_0_bar,
+              Symbols.signal_cellular_connected_no_internet_0_bar,
               size: 150,
             ),
           ),

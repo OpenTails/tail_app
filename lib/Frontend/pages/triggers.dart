@@ -4,6 +4,7 @@ import 'package:choice/choice.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
@@ -100,7 +101,7 @@ class _TriggersState extends State<Triggers> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(Icons.check),
+                                    const Icon(Symbols.check),
                                     const Padding(
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 4,
@@ -151,7 +152,7 @@ class _TriggersState extends State<Triggers> {
                         },
                         anchorBuilder: (state, openModal) {
                           return FloatingActionButton.extended(
-                            icon: const Icon(Icons.add),
+                            icon: const Icon(Symbols.add),
                             label: Text(convertToUwU(triggersAdd())),
                             onPressed: openModal,
                           );
@@ -518,12 +519,12 @@ class _TriggerActionListTileState extends State<TriggerActionListTile> {
                 );
               },
               tooltip: "Run Action (Debug)",
-              icon: Icon(Icons.play_arrow),
+              icon: Icon(Symbols.play_arrow),
             )
           : null,
       trailing: IconButton(
         tooltip: actionsSelectScreen(),
-        icon: const Icon(Icons.edit),
+        icon: const Icon(Symbols.edit),
         onPressed: () async {
           List<BaseAction>? result = await showDialog(
             useRootNavigator: true,

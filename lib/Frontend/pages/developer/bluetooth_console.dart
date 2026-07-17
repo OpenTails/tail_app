@@ -1,5 +1,6 @@
 import 'package:circular_buffer/circular_buffer.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Device/command/command_history.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_message.dart';
@@ -58,7 +59,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
                 cmd = "";
               });
             },
-            icon: const Icon(Icons.send),
+            icon: const Icon(Symbols.send),
           ),
         ),
       ),

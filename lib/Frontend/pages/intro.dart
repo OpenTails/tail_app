@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/known_gear.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -74,7 +75,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    setupSystemColor(context);
     return Container(
       color: Theme.of(context).canvasColor,
       child: SafeArea(
@@ -302,11 +302,14 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                       convertToUwU(onboardingContinueLabel()),
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
-                    icon: const Icon(Icons.arrow_forward, key: Key('nextPage')),
+                    icon: const Icon(
+                      Symbols.arrow_forward,
+                      key: Key('nextPage'),
+                    ),
                   ),
                 ],
               ),
-              skip: const Icon(Icons.skip_next),
+              skip: const Icon(Symbols.skip_next),
               done: FilledButton(
                 onPressed: () {
                   _onIntroEnd(context);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/coshub.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
@@ -31,7 +32,7 @@ class _CoshubFeedState extends State<CoshubFeed> {
           child: Opacity(
             opacity: 0.5,
             child: Icon(
-              Icons.signal_cellular_connected_no_internet_0_bar,
+              Symbols.signal_cellular_connected_no_internet_0_bar,
               size: 150,
             ),
           ),

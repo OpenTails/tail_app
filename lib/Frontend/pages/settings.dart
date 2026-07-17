@@ -1,5 +1,6 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -39,7 +40,7 @@ class _SettingsState extends State<Settings> {
         children: [
           LanguagePicker(),
           ListTile(
-            leading: const Icon(Icons.color_lens),
+            leading: const Icon(Symbols.color_lens),
             title: Text(convertToUwU(settingsAppColor())),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -57,7 +58,7 @@ class _SettingsState extends State<Settings> {
                         appColorValue = Color(appColorDefault);
                       });
                     },
-                    icon: Icon(Icons.clear),
+                    icon: Icon(Symbols.clear),
                   ),
                 ],
                 ColorIndicator(
@@ -83,7 +84,7 @@ class _SettingsState extends State<Settings> {
           ),
           ListTile(
             title: Text(convertToUwU(settingsBatteryPercentageToggleTitle())),
-            leading: const Icon(Icons.battery_unknown),
+            leading: const Icon(Symbols.battery_unknown),
             subtitle: Text(
               convertToUwU(settingsBatteryPercentageToggleSubTitle()),
             ),
@@ -102,7 +103,7 @@ class _SettingsState extends State<Settings> {
           ),
           ListTile(
             title: Text(convertToUwU(settingsLargerCardsToggleTitle())),
-            leading: const Icon(Icons.format_size),
+            leading: const Icon(Symbols.format_size),
             subtitle: Text(convertToUwU(settingsLargerCardsToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(
@@ -119,7 +120,7 @@ class _SettingsState extends State<Settings> {
           ),
           ListTile(
             title: Text(convertToUwU(settingsTutorialCardToggleTitle())),
-            leading: const Icon(Icons.help),
+            leading: const Icon(Symbols.help),
             subtitle: Text(convertToUwU(settingsTutorialCardToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(
@@ -136,7 +137,7 @@ class _SettingsState extends State<Settings> {
           ),
           ListTile(
             title: Text(convertToUwU(settingsTailBlogWifiOnlyTitle())),
-            leading: const Icon(Icons.wifi),
+            leading: const Icon(Symbols.wifi),
             subtitle: Text(convertToUwU(settingsTailBlogWifiOnlyDescription())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(
@@ -154,7 +155,7 @@ class _SettingsState extends State<Settings> {
           const ListTile(title: Divider()),
           ListTile(
             title: Text(convertToUwU(settingsHapticsToggleTitle())),
-            leading: const Icon(Icons.vibration),
+            leading: const Icon(Symbols.vibration),
             subtitle: Text(convertToUwU(settingsHapticsToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(
@@ -171,7 +172,7 @@ class _SettingsState extends State<Settings> {
           ),
           ListTile(
             title: Text(convertToUwU(settingsKeepScreenOnToggleTitle())),
-            leading: const Icon(Icons.phone_android),
+            leading: const Icon(Symbols.phone_android),
             subtitle: Text(convertToUwU(settingsKeepScreenOnToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(
@@ -201,7 +202,7 @@ class _SettingsState extends State<Settings> {
           ),
           ListTile(
             title: Text(convertToUwU(settingsKitsuneToggleTitle())),
-            leading: const Icon(Icons.more_time),
+            leading: const Icon(Symbols.more_time),
             subtitle: Text(convertToUwU(settingsKitsuneToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(
@@ -218,7 +219,7 @@ class _SettingsState extends State<Settings> {
           ),
           ListTile(
             title: Text(convertToUwU(settingsUwUToggleTitle())),
-            leading: const Icon(Icons.explore),
+            leading: const Icon(Symbols.explore),
             subtitle: Text(convertToUwU(settingsUwUToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(
@@ -236,7 +237,7 @@ class _SettingsState extends State<Settings> {
           const ListTile(title: Divider()),
           ListTile(
             title: Text(convertToUwU(settingsAnalyticsToggleTitle())),
-            leading: const Icon(Icons.analytics),
+            leading: const Icon(Symbols.analytics),
             subtitle: Text(convertToUwU(settingsAnalyticsToggleSubTitle())),
             trailing: Switch(
               value: HiveProxy.getOrDefault(

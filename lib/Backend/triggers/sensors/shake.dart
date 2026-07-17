@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 import '../../../Frontend/utils.dart';
@@ -12,7 +13,7 @@ class ShakeTriggerDefinition extends TriggerDefinition {
   ShakeTriggerDefinition() {
     super.name = triggerShakeTitle;
     super.description = triggerShakeDescription;
-    super.icon = const Icon(Icons.vibration);
+    super.icon = const Icon(Symbols.vibration);
     super.requiredPermission = null;
     super.uuid = "059d445a-35fe-45a3-8d3d-de8bce213a05";
     super.triggerActionDefinitions = [

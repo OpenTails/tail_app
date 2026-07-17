@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart' as log;
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/age_check.dart';
 import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -66,7 +67,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close),
+                        icon: const Icon(Symbols.close),
                         tooltip: 'Dismiss',
                         onPressed: _dismissWelcomeCard,
                       ),
@@ -84,7 +85,9 @@ class _HomeState extends State<Home> {
                     ),
                     TextButton(
                       onPressed: () async {
-                        final content = await rootBundle.loadString('CHANGELOG.md');
+                        final content = await rootBundle.loadString(
+                          'CHANGELOG.md',
+                        );
                         if (context.mounted) {
                           MarkdownViewerRoute(
                             $extra: MarkdownInfo(
@@ -105,9 +108,11 @@ class _HomeState extends State<Home> {
         ListTile(
           title: Text(
             convertToUwU(homeNewsTitle()),
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
           ),
-          trailing: Icon(Icons.newspaper),
+          trailing: Icon(Symbols.newspaper),
         ),
         SizedBox(height: 350, child: TailBlog()),
         FutureBuilder(
@@ -119,7 +124,9 @@ class _HomeState extends State<Home> {
                   ListTile(
                     title: Text(
                       convertToUwU(homeCosHubTitle()),
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                     trailing: Image.asset(
                       Assets.cosHubBT,

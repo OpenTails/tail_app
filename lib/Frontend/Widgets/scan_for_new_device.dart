@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Device/device_type_enum.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:universal_ble/universal_ble.dart';
@@ -229,7 +230,7 @@ class _ScanGearListState extends State<ScanGearList> {
                                       Navigator.pop(context);
                                     }
                                   },
-                                  icon: Icon(Icons.select_all),
+                                  icon: Icon(Symbols.select_all),
                                   label: Text(
                                     convertToUwU(scanConnectToAllButtonLabel()),
                                   ),

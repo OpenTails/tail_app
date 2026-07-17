@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tail_app/Backend/Device/device_type_enum.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -64,7 +67,7 @@ class _MoreState extends State<More> {
       children: [
         // ── Promos ────────────────────────────────────────────────────────────
         _PromoCard(
-          icon: Icons.store,
+          icon: Symbols.store,
           title: convertToUwU(morePageCoverPromoTitle()),
           subtitle: convertToUwU(
             morePageCoverPromoDescription(couponCode: couponCode),
@@ -95,26 +98,25 @@ class _MoreState extends State<More> {
         // ── Feature shortcuts ─────────────────────────────────────────────────
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
           children: [
             Expanded(
               child: _FeatureTile(
-                icon: Icons.settings,
+                icon: Symbols.settings,
                 label: convertToUwU(settingsPage()),
                 onTap: () => const SettingsRoute().push(context),
               ),
             ),
-            const SizedBox(width: 8),
             Expanded(
               child: _FeatureTile(
-                icon: Icons.list,
+                icon: Symbols.list,
                 label: convertToUwU(sequencesPage()),
                 onTap: () => const MoveListRoute().push(context),
               ),
             ),
-            const SizedBox(width: 8),
             Expanded(
               child: _FeatureTile(
-                icon: Icons.audio_file,
+                icon: Symbols.audio_file,
                 label: convertToUwU(audioPage()),
                 onTap: () => const CustomAudioRoute().push(context),
               ),
@@ -126,26 +128,25 @@ class _MoreState extends State<More> {
           _GroupCard(
             children: [
               ListTile(
-                leading: const Icon(Icons.bug_report),
+                leading: const Icon(Symbols.bug_report),
                 title: Text(convertToUwU("Development Menu")),
                 subtitle: Text(
                   convertToUwU("It is illegal to read this message"),
                 ),
-                trailing: const Icon(Icons.chevron_right),
+                trailing: const Icon(Symbols.chevron_right),
                 onTap: () => const DeveloperMenuRoute().push(context),
               ),
               ListTile(
-                leading: const Icon(Icons.gamepad),
+                leading: const Icon(Symbols.gamepad),
                 title: Text(convertToUwU(joyStickPage())),
                 subtitle: Text(convertToUwU(joyStickPageDescription())),
-                trailing: const Icon(Icons.chevron_right),
+                trailing: const Icon(Symbols.chevron_right),
                 onTap: () => const DirectGearControlRoute().push(context),
               ),
             ],
           ),
         ],
         const SizedBox(height: 24),
-
         // ── Manuals ───────────────────────────────────────────────────────────
         SizedBox(
           key: _manualsKey,
@@ -158,7 +159,11 @@ class _MoreState extends State<More> {
           children: [
             ListTile(
               title: Text(convertToUwU(moreManualMiTailTitle())),
-              trailing: const Icon(Icons.chevron_right),
+              leading: DeviceType.tail.icon(
+                IconTheme.of(context).size ?? 24,
+                Theme.of(context).colorScheme.onSurface,
+              ),
+              trailing: const Icon(Symbols.chevron_right),
               onTap: () => PDFPageRoute(
                 $extra: PDFInfo(
                   url: "https://thetailcompany.com/mitail.pdf",
@@ -169,7 +174,11 @@ class _MoreState extends State<More> {
             ),
             ListTile(
               title: Text(convertToUwU(moreManualEargearTitle())),
-              trailing: const Icon(Icons.chevron_right),
+              leading: DeviceType.ears.icon(
+                IconTheme.of(context).size ?? 24,
+                Theme.of(context).colorScheme.onSurface,
+              ),
+              trailing: const Icon(Symbols.chevron_right),
               onTap: () => PDFPageRoute(
                 $extra: PDFInfo(
                   url: "https://thetailcompany.com/eargear.pdf",
@@ -180,7 +189,11 @@ class _MoreState extends State<More> {
             ),
             ListTile(
               title: Text(convertToUwU(moreManualFlutterWingsTitle())),
-              trailing: const Icon(Icons.chevron_right),
+              leading: DeviceType.wings.icon(
+                IconTheme.of(context).size ?? 24,
+                Theme.of(context).colorScheme.onSurface,
+              ),
+              trailing: const Icon(Symbols.chevron_right),
               onTap: () => PDFPageRoute(
                 $extra: PDFInfo(
                   url: "https://thetailcompany.com/flutterwings.pdf",
@@ -191,7 +204,7 @@ class _MoreState extends State<More> {
             ),
             ListTile(
               title: Text(convertToUwU(moreManualResponsibleWaggingTitle())),
-              trailing: const Icon(Icons.chevron_right),
+              trailing: const Icon(Symbols.chevron_right),
               onTap: () => HtmlPageRoute(
                 $extra: HtmlPageInfo(
                   url:
@@ -211,18 +224,18 @@ class _MoreState extends State<More> {
         _GroupCard(
           children: [
             ListTile(
-              leading: const Icon(Icons.store),
+              leading: const Icon(Symbols.store),
               title: Text(convertToUwU("Store")),
-              trailing: const Icon(Icons.open_in_new, size: 18),
+              trailing: const Icon(Symbols.open_in_new, size: 18),
               onTap: () => launchExternalUrl(
                 url: "https://thetailcompany.com",
                 analyticsLabel: "Store",
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.menu_book),
+              leading: const Icon(Symbols.menu_book),
               title: Text(convertToUwU("Technical Wiki")),
-              trailing: const Icon(Icons.open_in_new, size: 18),
+              trailing: const Icon(Symbols.open_in_new, size: 18),
               onTap: () => launchExternalUrl(
                 url: "https://docs.thetailcompany.com",
                 analyticsLabel: "Wiki",
@@ -231,7 +244,7 @@ class _MoreState extends State<More> {
             ListTile(
               leading: const Icon(Icons.telegram),
               title: Text(convertToUwU("Telegram")),
-              trailing: const Icon(Icons.open_in_new, size: 18),
+              trailing: const Icon(Symbols.open_in_new, size: 18),
               onTap: () => launchExternalUrl(
                 url: "https://t.me/joinchat/VCdXxqKgRv2yrDNC",
                 analyticsLabel: "Telegram",
@@ -239,29 +252,29 @@ class _MoreState extends State<More> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.language),
+              leading: const Icon(Symbols.language),
               title: Text(convertToUwU(morePageTranslateTitle())),
               subtitle: Text(convertToUwU(morePageTranslateDescription())),
-              trailing: const Icon(Icons.open_in_new, size: 18),
+              trailing: const Icon(Symbols.open_in_new, size: 18),
               onTap: () => launchExternalUrl(
                 url: "https://weblate.stargazer.at",
                 analyticsLabel: "Weblate",
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.message),
+              leading: const Icon(Symbols.message),
               title: Text(convertToUwU(supportTitle())),
               subtitle: Text(convertToUwU(supportDescription())),
-              trailing: const Icon(Icons.open_in_new, size: 18),
+              trailing: const Icon(Symbols.open_in_new, size: 18),
               onTap: () => launchExternalUrl(
                 url: "https://thetailcompany.com",
                 analyticsLabel: "Support",
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.code),
+              leading: const Icon(Symbols.code),
               title: Text(convertToUwU(moreSourceCode())),
-              trailing: const Icon(Icons.open_in_new, size: 18),
+              trailing: const Icon(Symbols.open_in_new, size: 18),
               onTap: () => launchExternalUrl(
                 url: "https://github.com/Codel1417/tail_app",
                 analyticsLabel: "Source Code",
@@ -279,9 +292,9 @@ class _MoreState extends State<More> {
         _GroupCard(
           children: [
             ListTile(
-              leading: const Icon(Icons.privacy_tip),
+              leading: const Icon(Symbols.privacy_tip),
               title: Text(convertToUwU(morePrivacyPolicyLinkTitle())),
-              trailing: const Icon(Icons.chevron_right),
+              trailing: const Icon(Symbols.chevron_right),
               onTap: () async {
                 final content = await rootBundle.loadString(Assets.privacy);
                 if (context.mounted) {
@@ -296,9 +309,9 @@ class _MoreState extends State<More> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.info),
+              leading: const Icon(Symbols.info),
               title: Text(convertToUwU(aboutPage())),
-              trailing: const Icon(Icons.chevron_right),
+              trailing: const Icon(Symbols.chevron_right),
               onTap: () => PackageInfo.fromPlatform().then((value) {
                 if (context.mounted) {
                   showLicensePage(
@@ -494,7 +507,7 @@ class _PromoCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Icon(Icons.chevron_right, color: colorScheme.onSurfaceVariant),
+              Icon(Symbols.chevron_right, color: colorScheme.onSurfaceVariant),
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class TailBlogImage extends StatelessWidget {
   const TailBlogImage({required this.url, super.key});
@@ -17,12 +18,12 @@ class TailBlogImage extends StatelessWidget {
             ? Image.network(
                 url,
                 height: 250,
-                errorBuilder: (context, url, error) => Icon(Icons.error),
+                errorBuilder: (context, url, error) => Icon(Symbols.error),
               )
             : CachedNetworkImage(
                 height: 250,
                 imageUrl: url,
-                errorBuilder: (context, url, error) => Icon(Icons.error),
+                errorBuilder: (context, url, error) => Icon(Symbols.error),
               ),
       ),
     );

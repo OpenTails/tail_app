@@ -4,6 +4,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -73,7 +74,7 @@ class _CustomAudioState extends State<CustomAudio> {
           }
           //Open File Picker
         },
-        icon: const Icon(Icons.add),
+        icon: const Icon(Symbols.add),
         label: Text(convertToUwU(audioAdd())),
       ),
       body: ListView(
@@ -101,7 +102,7 @@ class _CustomAudioState extends State<CustomAudio> {
                             editModal(context, audioAction);
                           },
                           tooltip: audioEdit(),
-                          icon: const Icon(Icons.edit),
+                          icon: const Icon(Symbols.edit),
                         ),
                         IconButton(
                           onPressed: () async {
@@ -139,7 +140,7 @@ class _CustomAudioState extends State<CustomAudio> {
                             });
                           }, //TODO: Show dialog, then delete record and file.
                           tooltip: audioDelete(),
-                          icon: const Icon(Icons.delete),
+                          icon: const Icon(Symbols.delete),
                         ),
                       ],
                     ),

@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
@@ -89,7 +90,7 @@ class _ManageGearState extends State<ManageGear> {
                               elevation: 1,
                             ),
                             icon: Icon(
-                              Icons.system_update,
+                              Symbols.system_update,
                               color: getTextColor(color!),
                             ),
                             label: Text(
@@ -275,22 +276,22 @@ class _ManageGearUpdateCheckButtonState
           future: _otaAvailable,
           builder: (context, snapshot) {
             String buttonText = "";
-            IconData iconData = Icons.device_unknown;
+            IconData iconData = Symbols.device_unknown;
             if (snapshot.connectionState == ConnectionState.none) {
               buttonText = manageDevicesOtaCheckButtonLabel();
-              iconData = Icons.question_mark;
+              iconData = Symbols.question_mark;
             } else if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.hasData) {
               if (snapshot.data == true) {
                 buttonText = manageDevicesOtaButton();
-                iconData = Icons.system_update;
+                iconData = Symbols.system_update;
               } else {
                 buttonText = manageDevicesOtaUpToDateButtonLabel();
-                iconData = Icons.check;
+                iconData = Symbols.check;
               }
             } else if (snapshot.hasError) {
               buttonText = manageDevicesOtaCheckErrorButtonLabel();
-              iconData = Icons.error;
+              iconData = Symbols.error;
             } else if (snapshot.connectionState == ConnectionState.active ||
                 snapshot.connectionState == ConnectionState.waiting) {
               buttonText = manageDevicesOtaCheckInProgressButtonLabel();
@@ -562,7 +563,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
       listenable: widget.device.firmwareStatus,
       builder: (context, child) {
         return ExpansionTile(
-          trailing: const Icon(Icons.bug_report),
+          trailing: const Icon(Symbols.bug_report),
           title: const Text("Debug (Dangerous)"),
           children: [
             OverflowBar(
@@ -1091,8 +1092,8 @@ class WarningBarCard extends StatelessWidget {
       color: errorColor,
       child: ListTile(
         onTap: onTap,
-        leading: Icon(Icons.warning, color: textColor),
-        trailing: Icon(Icons.warning, color: textColor),
+        leading: Icon(Symbols.warning, color: textColor),
+        trailing: Icon(Symbols.warning, color: textColor),
         title: Text(
           text,
           style: Theme.of(

@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -29,7 +30,7 @@ class _MoveListViewState extends State<MoveListView> {
     return Scaffold(
       appBar: AppBar(title: Text(convertToUwU(sequencesPage()))),
       floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.add),
+        icon: const Icon(Symbols.add),
         onPressed: () async {
           setState(() {
             MoveLists.instance.add(
@@ -96,7 +97,7 @@ class _MoveListViewState extends State<MoveListView> {
                       //TODO: Localize
                       trailing: IconButton(
                         tooltip: sequencesEdit(),
-                        icon: const Icon(Icons.edit),
+                        icon: const Icon(Symbols.edit),
                         onPressed: () async {
                           EditMoveListRoute($extra: allMoveLists[index])
                               .push<MoveList>(context)
@@ -147,12 +148,12 @@ class _EditMoveList extends State<EditMoveList> {
       appBar: AppBar(
         title: Text(convertToUwU(sequencesEdit())),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Symbols.arrow_back),
           onPressed: () => context.pop(widget.moveList),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete),
+            icon: const Icon(Symbols.delete),
             tooltip: sequencesEditDeleteTitle(),
             onPressed: () async {
               showDialog<bool>(
@@ -194,7 +195,7 @@ class _EditMoveList extends State<EditMoveList> {
       ),
       floatingActionButton: widget.moveList.moves.length < 6
           ? FloatingActionButton.extended(
-              icon: const Icon(Icons.add),
+              icon: const Icon(Symbols.add),
               onPressed: () async {
                 setState(() {
                   widget.moveList.moves = widget.moveList.moves.toList()
@@ -261,7 +262,7 @@ class _EditMoveList extends State<EditMoveList> {
             ),
             ListTile(
               title: Text(convertToUwU(sequenceEditRepeatTitle())),
-              leading: const Icon(Icons.repeat),
+              leading: const Icon(Symbols.repeat),
               subtitle: Slider(
                 value: widget.moveList.repeat,
                 min: 1,
@@ -362,7 +363,7 @@ class _EditMoveState extends State<EditMove> with TickerProviderStateMixin {
               controller: _tabController,
               tabs: <Widget>[
                 Tab(
-                  icon: const Icon(Icons.auto_graph),
+                  icon: const Icon(Symbols.auto_graph),
                   text: sequencesEditMove(),
                 ),
                 Tab(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 
@@ -26,9 +27,9 @@ extension EarSpeedExtension on EarSpeed {
   Widget get icon {
     switch (this) {
       case EarSpeed.fast:
-        return const Icon(Icons.fast_forward);
+        return const Icon(Symbols.fast_forward);
       case EarSpeed.slow:
-        return const Icon(Icons.play_arrow);
+        return const Icon(Symbols.play_arrow);
     }
   }
 

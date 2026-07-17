@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
@@ -17,7 +18,7 @@ class CoverTriggerDefinition extends TriggerDefinition {
   CoverTriggerDefinition() {
     super.name = triggerCoverTitle;
     super.description = triggerCoverDescription;
-    super.icon = const Icon(Icons.sensors);
+    super.icon = const Icon(Symbols.sensors);
     super.requiredPermission = null;
     super.uuid = "a390cd3c-c314-44c1-b89d-57be75bfc3a2";
     super.triggerActionDefinitions = [

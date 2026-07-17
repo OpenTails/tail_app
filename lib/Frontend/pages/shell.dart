@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/Widgets/wear_helper.dart';
 import 'package:tail_app/Frontend/go_router_config.dart';
@@ -28,22 +29,22 @@ abstract class NavDestination with _$NavDestination {
 List<NavDestination> destinations = <NavDestination>[
   NavDestination(
     label: convertToUwU(homePage()),
-    icon: const Icon(Icons.home_outlined),
-    selectedIcon: const Icon(Icons.home),
+    icon: Icon(Symbols.home),
+    selectedIcon: const Icon(Symbols.home_filled),
     path: '/',
   ),
   NavDestination(
     label: convertToUwU(triggersPage()),
-    icon: const Icon(Icons.sensors_outlined),
-    selectedIcon: const Icon(Icons.sensors),
+    icon: Icon(Symbols.sensors),
+    selectedIcon: Icon(Symbols.sensors),
     path: '/triggers',
   ),
   //NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
   //NavDestination(joyStickPage(), const Icon(Icons.gamepad_outlined), const Icon(Icons.gamepad), "/joystick"),
   NavDestination(
     label: convertToUwU(moreTitle()),
-    icon: const Icon(Icons.menu),
-    selectedIcon: const Icon(Icons.menu_open),
+    icon: Icon(Symbols.menu),
+    selectedIcon: Icon(Symbols.menu_open),
     path: "/more",
   ),
 ];
@@ -64,7 +65,6 @@ class _NavigationDrawerExampleState extends State<NavigationDrawerExample> {
 
   @override
   Widget build(BuildContext context) {
-    setupSystemColor(context);
     return WearHelper(
       child: UpgradeAlert(
         dialogStyle: UpgradeDialogStyle.material,

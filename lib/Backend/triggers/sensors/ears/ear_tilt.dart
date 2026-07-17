@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../../Frontend/translation_string_definitions.dart';
 import '../../../Bluetooth/bluetooth_message.dart';
@@ -16,7 +17,7 @@ class EarTiltTriggerDefinition extends TriggerDefinition {
   EarTiltTriggerDefinition() {
     super.name = triggerEarTiltTitle;
     super.description = triggerEarTiltDescription;
-    super.icon = const Icon(Icons.threed_rotation);
+    super.icon = const Icon(Symbols.threed_rotation);
     super.requiredPermission = null;
     super.uuid = "93d72792-145e-4b56-92b9-3279a5e7d839";
     super.triggerActionDefinitions = [

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
@@ -25,7 +26,7 @@ class AccelerometerTriggerDefinition extends TriggerDefinition {
   AccelerometerTriggerDefinition() {
     super.name = triggerAccelerometerTitle;
     super.description = triggerAccelerometerDescription;
-    super.icon = const Icon(Icons.screen_rotation);
+    super.icon = const Icon(Symbols.screen_rotation);
     super.requiredPermission = null;
     super.uuid = "155fab58-e3ee-4c6e-b64e-6a0b49811825";
     super.triggerActionDefinitions = [

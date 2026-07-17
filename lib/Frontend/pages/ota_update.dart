@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -151,7 +152,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
-                                Icons.system_update,
+                                Symbols.system_update,
                                 color: getTextColor(
                                   Theme.of(context).colorScheme.primary,
                                 ),
@@ -312,7 +313,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                 if (isDeveloperEnabled) ...[
                   Expanded(
                     child: ListTile(
-                      trailing: const Icon(Icons.bug_report),
+                      trailing: const Icon(Symbols.bug_report),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

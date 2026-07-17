@@ -101,6 +101,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
         color: colorScheme.onSurface,
       ),
     ),
+    iconTheme: IconThemeData(weight: 150),
     // ── Cards ─────────────────────────────────────────────────────────────────
     // White surface, 1.5px border, soft warm-tinted shadow (no heavy elevation)
     cardTheme: CardThemeData(
@@ -372,31 +373,6 @@ TextTheme _buildTextTheme() {
 }
 
 Future<void> setupSystemColor(BuildContext context) async {
-  final SystemUiOverlayStyle dark = SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarBrightness: Brightness.light,
-    statusBarIconBrightness: Brightness.dark,
-    systemStatusBarContrastEnforced: false,
-    systemNavigationBarColor: Colors.transparent,
-    systemNavigationBarDividerColor: Colors.transparent.withAlpha(1),
-    systemNavigationBarIconBrightness: Brightness.dark,
-    systemNavigationBarContrastEnforced: false,
-  );
-
-  final SystemUiOverlayStyle light = SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarColor: Colors.transparent,
-    systemStatusBarContrastEnforced: false,
-    systemNavigationBarDividerColor: Colors.transparent.withAlpha(1),
-    systemNavigationBarIconBrightness: Brightness.dark,
-    systemNavigationBarContrastEnforced: false,
-  );
-  if (Theme.of(context).colorScheme.brightness == Brightness.light) {
-    SystemChrome.setSystemUIOverlayStyle(light);
-  } else {
-    SystemChrome.setSystemUIOverlayStyle(dark);
-  }
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 }
 
