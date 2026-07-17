@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Device/device_type_enum.dart';
@@ -96,32 +95,34 @@ class _MoreState extends State<More> {
         const SizedBox(height: 24),
 
         // ── Feature shortcuts ─────────────────────────────────────────────────
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 8,
-          children: [
-            Expanded(
-              child: _FeatureTile(
-                icon: Symbols.settings,
-                label: convertToUwU(settingsPage()),
-                onTap: () => const SettingsRoute().push(context),
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: 8,
+            children: [
+              Expanded(
+                child: _FeatureTile(
+                  icon: Symbols.settings,
+                  label: convertToUwU(settingsPage()),
+                  onTap: () => const SettingsRoute().push(context),
+                ),
               ),
-            ),
-            Expanded(
-              child: _FeatureTile(
-                icon: Symbols.list,
-                label: convertToUwU(sequencesPage()),
-                onTap: () => const MoveListRoute().push(context),
+              Expanded(
+                child: _FeatureTile(
+                  icon: Symbols.list,
+                  label: convertToUwU(sequencesPage()),
+                  onTap: () => const MoveListRoute().push(context),
+                ),
               ),
-            ),
-            Expanded(
-              child: _FeatureTile(
-                icon: Symbols.audio_file,
-                label: convertToUwU(audioPage()),
-                onTap: () => const CustomAudioRoute().push(context),
+              Expanded(
+                child: _FeatureTile(
+                  icon: Symbols.audio_file,
+                  label: convertToUwU(audioPage()),
+                  onTap: () => const CustomAudioRoute().push(context),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         if (isDeveloperEnabled) ...[
           const SizedBox(height: 12),
