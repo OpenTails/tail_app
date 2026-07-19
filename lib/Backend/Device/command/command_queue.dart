@@ -218,6 +218,28 @@ class CommandQueue with ChangeNotifier {
         state == CommandQueueState.blocked) {
       return;
     }
+
+    // skip if current system message is already in the queue.
+    if (_internalCommandQueue
+        .toUnorderedList()
+        .where(
+          (element) =>
+              element.type == bluetoothMessage.type &&
+              element.type == CommandType.system &&
+              element.message == bluetoothMessage.message,
+        )
+        .isNotEmpty) {
+      return;
+    }
+    // make sure to allow the current message to be readded to the queue, for resending the same command
+    if (currentMessage != bluetoothMessage &&
+        currentMessage != null &&
+        currentMessage?.message == bluetoothMessage.message &&
+        bluetoothMessage.type == currentMessage?.type &&
+        bluetoothMessage.type == CommandType.system) {
+      return;
+    }
+
     _logger.info("Adding command to queue $bluetoothMessage");
 
     // preempt queue if other direct commands exist. used for joystick
