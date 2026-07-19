@@ -169,7 +169,7 @@ class _ManageGearState extends State<ManageGear> {
                 children: [
                   if (device!.deviceConnectionState.value ==
                       ConnectivityState.connected) ...[
-                    TextButton(
+                    TextButton.icon(
                       onPressed: () async {
                         setState(() {
                           device!.disableAutoConnect = true;
@@ -177,9 +177,10 @@ class _ManageGearState extends State<ManageGear> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text(convertToUwU(manageDevicesDisconnect())),
+                      label: Text(convertToUwU(manageDevicesDisconnect())),
+                      icon: Icon(Symbols.bluetooth_disabled),
                     ),
-                    TextButton(
+                    TextButton.icon(
                       onPressed: () {
                         setState(() {
                           device!.commandQueue.addCommand(
@@ -191,13 +192,14 @@ class _ManageGearState extends State<ManageGear> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text(convertToUwU(manageDevicesShutdown())),
+                      label: Text(convertToUwU(manageDevicesShutdown())),
+                      icon: Icon(Symbols.power),
                     ),
                   ],
                   if (device!.deviceConnectionState.value ==
                           ConnectivityState.disconnected &&
                       device!.disableAutoConnect) ...[
-                    TextButton(
+                    TextButton.icon(
                       onPressed: () {
                         setState(() {
                           device!.disableAutoConnect = false;
@@ -207,10 +209,11 @@ class _ManageGearState extends State<ManageGear> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text(convertToUwU(manageDevicesConnect())),
+                      label: Text(convertToUwU(manageDevicesConnect())),
+                      icon: Icon(Symbols.bluetooth),
                     ),
                   ],
-                  TextButton(
+                  TextButton.icon(
                     onPressed: () async {
                       setState(() {
                         if (device!.deviceConnectionState.value ==
@@ -226,7 +229,8 @@ class _ManageGearState extends State<ManageGear> {
                       });
                       Navigator.pop(context);
                     },
-                    child: Text(convertToUwU(manageDevicesForget())),
+                    label: Text(convertToUwU(manageDevicesForget())),
+                    icon: Icon(Symbols.delete),
                   ),
                 ],
               ),
@@ -540,23 +544,23 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
           title: const Text("Debug (Dangerous)"),
           children: [
             OverflowBar(
+              spacing: 16,
               children: [
-                FilledButton(
+                ElevatedButton.icon(
                   onPressed: () async {
                     BluetoothConsoleRoute($extra: widget.device).push(context);
                   },
-                  child: const Text("Open console"),
+                  label: const Text("Open console"),
+                  icon: Icon(Symbols.send),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: FilledButton(
-                    onPressed: () async {
-                      OtaUpdateRoute(
-                        device: widget.device.storedDevice.btMACAddress,
-                      ).push(context);
-                    },
-                    child: Text(manageDevicesOtaButton()),
-                  ),
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    OtaUpdateRoute(
+                      device: widget.device.storedDevice.btMACAddress,
+                    ).push(context);
+                  },
+                  label: Text(manageDevicesOtaButton()),
+                  icon: Icon(Symbols.update),
                 ),
               ],
             ),

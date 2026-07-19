@@ -27,4 +27,9 @@ class CommandHistory with ChangeNotifier {
     _state.add(MessageHistoryEntry(type: type, message: message));
     notifyListeners();
   }
+
+  void clear() {
+    _state.clear();
+    notifyListeners();
+  }
 }
