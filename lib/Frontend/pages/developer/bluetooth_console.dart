@@ -74,6 +74,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
               .commandQueue
               .commandHistory
               .state
+              .reversed
               .toList();
 
           if (_filterMessages) {
@@ -89,6 +90,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
           return ListView.builder(
             padding: const EdgeInsets.all(12),
             itemCount: buffer.length,
+            reverse: true,
             itemBuilder: (BuildContext context, int index) {
               MessageHistoryEntry entry = buffer[index];
               bool isSend = entry.type == MessageHistoryType.send;

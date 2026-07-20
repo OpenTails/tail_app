@@ -543,8 +543,7 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
           trailing: const Icon(Symbols.bug_report),
           title: const Text("Debug (Dangerous)"),
           children: [
-            OverflowBar(
-              spacing: 16,
+            Wrap(
               children: [
                 ElevatedButton.icon(
                   onPressed: () async {

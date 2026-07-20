@@ -380,31 +380,6 @@ class _EditMoveState extends State<EditMove> with TickerProviderStateMixin {
                     shrinkWrap: true,
                     controller: scrollController,
                     children: [
-                      /* Joystick(
-                        disableRecenterOnDragEnd: true,
-                        includeInitialAnimation: false,
-                        initialOffset: calculateInitialJoystickPosition(
-                          TailServoPositions(left: widget.move.leftServo, right: widget.move.rightServo),
-                        ),
-                        base: const Card(
-                          elevation: 3,
-                          shape: CircleBorder(),
-                          child: SizedBox.square(dimension: 300),
-                        ),
-                        stick: Card(
-                          elevation: 2,
-                          shape: const CircleBorder(),
-                          color: Theme.of(context).colorScheme.primary,
-                          child: const SizedBox.square(dimension: 100),
-                        ),
-                        listener: (details) {
-                          TailServoPositions positions = calculatePosition(details);
-                          setState(() {
-                            widget.move.leftServo = positions.left;
-                            widget.move.rightServo = positions.right;
-                          });
-                        },
-                      ), */
                       ListTile(
                         title: Text(convertToUwU(sequencesEditLeftServo())),
                         leading: const Icon(Icons.turn_slight_left),

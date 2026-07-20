@@ -145,30 +145,58 @@ class ScanForGearRoute extends GoRouteData with $ScanForGearRoute {
   );
 }
 
-@TypedShellRoute<NavigationDrawerExampleRoute>(
-  routes: <TypedRoute<RouteData>>[
-    TypedGoRoute<ActionPageRoute>(path: '/', name: 'Actions'),
-    TypedGoRoute<TriggersRoute>(
-      path: '/triggers',
-      name: 'Triggers',
-      routes: <TypedGoRoute<GoRouteData>>[
-        TypedGoRoute<ActionSelectorRoute>(
-          path: 'select',
-          name: 'Triggers/Select Action',
+class ActionPageBranch extends StatefulShellBranchData {
+  const ActionPageBranch();
+}
+
+class TriggersBranch extends StatefulShellBranchData {
+  const TriggersBranch();
+}
+
+class MoreBranch extends StatefulShellBranchData {
+  const MoreBranch();
+}
+
+@TypedStatefulShellRoute<NavigationDrawerExampleRoute>(
+  branches: [
+    TypedStatefulShellBranch<ActionPageBranch>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<ActionPageRoute>(path: '/', name: 'Actions'),
+      ],
+    ),
+    TypedStatefulShellBranch<TriggersBranch>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<TriggersRoute>(
+          path: '/triggers',
+          name: 'Triggers',
+          routes: <TypedGoRoute<GoRouteData>>[
+            TypedGoRoute<ActionSelectorRoute>(
+              path: 'select',
+              name: 'Triggers/Select Action',
+            ),
+          ],
         ),
       ],
     ),
-    TypedGoRoute<MoreRoute>(path: '/more', name: 'More'),
+    TypedStatefulShellBranch<MoreBranch>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<MoreRoute>(path: '/more', name: 'More'),
+      ],
+    ),
   ],
 )
-class NavigationDrawerExampleRoute extends ShellRouteData {
+class NavigationDrawerExampleRoute extends StatefulShellRouteData {
   const NavigationDrawerExampleRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 
   @override
-  Widget builder(BuildContext context, GoRouterState state, Widget navigator) {
-    return NavigationDrawerExample(navigator, state.matchedLocation);
+  Widget builder(
+    BuildContext context,
+    GoRouterState state,
+    StatefulNavigationShell navigationShell,
+  ) {
+    return NavigationDrawerExample(navigationShell, state.matchedLocation);
   }
 }
 

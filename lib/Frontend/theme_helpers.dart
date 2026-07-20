@@ -46,7 +46,7 @@ const double radiusPill = 64.0; // buttons (pill shape)
 
 ThemeData buildTheme(Brightness brightness, Color seedColor) {
   final bool isLight = brightness == Brightness.light;
-
+  final bool isCustomColor = seedColor == Color(appColorDefault);
   // Prevent colors that are too light or dark
   HSLColor hslColor = HSLColor.fromColor(seedColor);
   HSLColor newHslColor = HSLColor.fromAHSL(
@@ -59,11 +59,10 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
   final ColorScheme base = ColorScheme.fromSeed(
     brightness: brightness,
     seedColor: newHslColor.toColor(),
-    dynamicSchemeVariant: DynamicSchemeVariant.expressive,
   );
 
   // Override with fixed brand secondaries/tertiaries; tonal surfaces use navy.
-  final ColorScheme colorScheme = seedColor == Color(appColorDefault)
+  final ColorScheme colorScheme = isCustomColor
       ? base.copyWith(
           secondary: tcTeal,
           onSecondary: _gray0,
@@ -118,7 +117,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     // White surface, 1.5px border, soft warm-tinted shadow (no heavy elevation)
     cardTheme: CardThemeData(
       elevation: 0,
-      color: isLight ? _gray0 : _dark3,
+      color: colorScheme.surfaceContainerLowest,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radiusLg),
         side: BorderSide(color: colorScheme.outlineVariant, width: 1.5),
@@ -167,7 +166,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     // ── Inputs ────────────────────────────────────────────────────────────────
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: isLight ? _gray0 : _dark3,
+      fillColor: colorScheme.surfaceContainerLowest,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(radiusSm),
         borderSide: BorderSide(color: colorScheme.outline, width: 1.5),
@@ -205,7 +204,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
       ),
       elevation: 8,
       shadowColor: tcNavy.withAlpha(46),
-      backgroundColor: isLight ? _gray0 : _dark3,
+      backgroundColor: colorScheme.surfaceContainerLowest,
       titleTextStyle: TextStyle(
         fontFamily: 'Fredoka',
         fontSize: 20,

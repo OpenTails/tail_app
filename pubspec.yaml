@@ -47,7 +47,7 @@ dependencies:
   connectivity_plus: ^7.3.0
   data_saver: ^0.4.0 # check if data saver is enabled
   battery_plus: ^7.1.1
-  app_settings: ^8.0.0
+  app_settings: ^8.0.1
   app_badge_plus: ^1.3.2
   universal_io: ^2.3.1
   # Watch
@@ -136,9 +136,6 @@ dependency_overrides:
     git:
       url: https://github.com/Codel1417/flutter-plugins
       path: packages/pedometer
-  flutter_joystick:
-    git:
-      url: https://github.com/Codel1417/flutter_joystick
   firedart:
     git:
       url: https://github.com/roman-stakhovskyi/firedart
