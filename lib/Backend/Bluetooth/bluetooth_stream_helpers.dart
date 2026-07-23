@@ -13,7 +13,7 @@ final _logger = Logger('Bluetooth');
 StreamController<RxInfo> _streamController = StreamController();
 Stream<RxInfo> _streamBroadcast = _streamController.stream.asBroadcastStream();
 
-void valueChanged(
+void onBluetoothCharacteristicValueUpdate(
   String deviceId,
   String characteristicId,
   Uint8List value,

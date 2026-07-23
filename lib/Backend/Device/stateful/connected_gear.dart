@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
@@ -219,8 +220,9 @@ class StatefulDevice {
       }
     } else if (value.contains("MYCOLOR")) {
       String substring = value.substring(value.indexOf(" ")).trim();
-      Color gearColor = Color(int.parse(substring, radix: 16));
+      Color gearColor = Color(int.parse(substring, radix: 16)).withAlpha(255);
       storedDevice.color = gearColor.toARGB32();
+      KnownDevices.instance.store();
     } else if (value.contains("BUSY") || value.contains("ERR")) {
       gearReturnedError = true;
     } else if (value.contains("LOWBATT")) {
@@ -296,6 +298,19 @@ class StatefulDevice {
         BluetoothMessage(message: "HWVER", priority: Priority.low),
       );
     }
+  }
+
+  void mockReceivedMessage(String message) {
+    if (deviceConnectionState.value != ConnectivityState.connected ||
+        bluetoothUartService.value == null) {
+      return;
+    }
+    onBluetoothCharacteristicValueUpdate(
+      storedDevice.btMACAddress,
+      bluetoothUartService.value!.bleRxCharacteristic,
+      const Utf8Encoder().convert(message),
+      0,
+    );
   }
 
   @override

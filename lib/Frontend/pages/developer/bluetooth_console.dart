@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Device/command/command_history.dart';
+import 'package:tail_app/Backend/Device/device_type_enum.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../../Backend/Device/stateful/connected_gear.dart';
@@ -16,6 +17,7 @@ class BluetoothConsole extends StatefulWidget {
 }
 
 bool _filterMessages = false;
+bool _sendAsGear = false;
 
 class _BluetoothConsoleState extends State<BluetoothConsole> {
   String cmd = "";
@@ -29,9 +31,13 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
 
   void _sendCommand() {
     if (cmd.isEmpty) return;
-    widget.device.commandQueue.addCommand(
-      BluetoothMessage(message: cmd, priority: Priority.high),
-    );
+    if (_sendAsGear) {
+      widget.device.mockReceivedMessage(cmd);
+    } else {
+      widget.device.commandQueue.addCommand(
+        BluetoothMessage(message: cmd, priority: Priority.high),
+      );
+    }
     setState(() {
       cmd = "";
       _controller.clear();
@@ -42,7 +48,9 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(convertToUwU("Bluetooth Console")),
+        title: Text(
+          convertToUwU("Console: ${widget.device.storedDevice.name}"),
+        ),
         actions: [
           IconButton(
             onPressed: widget.device.commandQueue.commandHistory.clear,
@@ -64,10 +72,27 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
                   : "Hide VER/HWVER messages",
             ),
           ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _sendAsGear = !_sendAsGear;
+              });
+            },
+            icon: !_sendAsGear
+                ? Icon(Symbols.bluetooth)
+                : Icon(Symbols.devices),
+            tooltip: convertToUwU(
+              !_sendAsGear ? "Send as Gear" : "Send as App",
+            ),
+          ),
         ],
       ),
       body: ListenableBuilder(
-        listenable: widget.device.commandQueue.commandHistory,
+        listenable: Listenable.merge([
+          widget.device.commandQueue.commandHistory,
+          widget.device.bluetoothUartService,
+          widget.device.deviceConnectionState,
+        ]),
         builder: (context, child) {
           List<MessageHistoryEntry> buffer = widget
               .device
@@ -108,12 +133,15 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
               Expanded(
                 child: TextField(
                   controller: _controller,
+                  enabled: widget.device.bluetoothUartService.value != null,
                   onChanged: (value) {
                     cmd = value.toUpperCase();
                   },
                   onSubmitted: (_) => _sendCommand(),
                   decoration: InputDecoration(
-                    hintText: 'TAILHA',
+                    hintText: _sendAsGear
+                        ? "Simulate response from gear"
+                        : 'TAILHA',
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 12,
@@ -124,7 +152,9 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(24),
                       borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: _sendAsGear
+                            ? Theme.of(context).colorScheme.error
+                            : Theme.of(context).colorScheme.outline,
                       ),
                     ),
                   ),
@@ -132,7 +162,9 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
               ),
               const SizedBox(width: 8),
               IconButton.filled(
-                onPressed: _sendCommand,
+                onPressed: widget.device.bluetoothUartService.value != null
+                    ? _sendCommand
+                    : null,
                 icon: const Icon(Symbols.send),
               ),
             ],

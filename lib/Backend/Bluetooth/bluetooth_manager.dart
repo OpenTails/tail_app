@@ -46,7 +46,7 @@ Future<void> initBle() async {
   UniversalBle.availabilityStream.listen(_adapterStateListener);
   UniversalBle.queueType = QueueType.perDevice;
   UniversalBle.onScanResult = _onScanResultsListener;
-  UniversalBle.onValueChange = valueChanged;
+  UniversalBle.onValueChange = onBluetoothCharacteristicValueUpdate;
   UniversalBle.setLogLevel(kDebugMode ? BleLogLevel.debug : BleLogLevel.info);
   Scan.instance;
   _KeepGearAwake.instance;
