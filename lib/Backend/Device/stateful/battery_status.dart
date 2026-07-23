@@ -10,6 +10,14 @@ class BatteryStatus with ChangeNotifier {
 
   double get level => _level;
 
+  double get averagedCurrentLevel {
+    if (averageHistory.isNotEmpty) {
+      return averageHistory.last;
+    } else {
+      return level;
+    }
+  }
+
   set level(double value) {
     if (_level == value) {
       return;

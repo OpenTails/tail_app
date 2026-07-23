@@ -289,7 +289,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                                 widget
                                                     .statefulDevice
                                                     .battery
-                                                    .level,
+                                                    .averagedCurrentLevel,
                                                 textColor,
                                               ),
                                               if (widget
