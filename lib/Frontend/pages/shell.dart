@@ -11,6 +11,7 @@ import 'package:upgrader/upgrader.dart';
 
 import '../Widgets/known_gear.dart';
 import '../Widgets/known_gear_scan_controller.dart';
+import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 
 part 'shell.freezed.dart';
@@ -49,14 +50,10 @@ List<NavDestination> destinations = <NavDestination>[
 ];
 
 class NavigationDrawerExample extends StatefulWidget {
-  final StatefulNavigationShell navigationShell;
+  final Widget child;
   final String location;
 
-  const NavigationDrawerExample(
-    this.navigationShell,
-    this.location, {
-    super.key,
-  });
+  const NavigationDrawerExample(this.child, this.location, {super.key});
 
   @override
   State<NavigationDrawerExample> createState() =>
@@ -98,11 +95,7 @@ class _NavigationDrawerExampleState extends State<NavigationDrawerExample> {
               tooltip: destination.label,
             );
           }).toList(),
-          body: (_) => SafeArea(
-            bottom: false,
-            top: false,
-            child: widget.navigationShell,
-          ),
+          body: (_) => SafeArea(bottom: false, top: false, child: widget.child),
           // smallBody: (_) => SafeArea(
           //   bottom: false,
           //   top: false,
