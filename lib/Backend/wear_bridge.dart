@@ -178,8 +178,7 @@ Future<void> updateWearData({required String reason}) async {
             name: e.storedDevice.name,
             uuid: e.storedDevice.btMACAddress,
             batteryLevel: e.battery.level.toInt(),
-            connected:
-                e.deviceConnectionState.value == ConnectivityState.connected,
+            connected: e.isConnected,
             color: e.storedDevice.color,
           ),
         )

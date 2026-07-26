@@ -160,15 +160,13 @@ class _ManageGearState extends State<ManageGear> {
                 ManageGearDebug(device: device!),
               ],
               // We only know this info if the gear is connected
-              if (device!.deviceConnectionState.value ==
-                  ConnectivityState.connected) ...[
+              if (device!.isConnected) ...[
                 ManageGearAbout(device: device!, color: color!),
               ],
               OverflowBar(
                 alignment: MainAxisAlignment.end,
                 children: [
-                  if (device!.deviceConnectionState.value ==
-                      ConnectivityState.connected) ...[
+                  if (device!.isConnected) ...[
                     TextButton.icon(
                       onPressed: () async {
                         setState(() {
@@ -196,9 +194,7 @@ class _ManageGearState extends State<ManageGear> {
                       icon: Icon(Symbols.power),
                     ),
                   ],
-                  if (device!.deviceConnectionState.value ==
-                          ConnectivityState.disconnected &&
-                      device!.disableAutoConnect) ...[
+                  if (!device!.isConnected && device!.disableAutoConnect) ...[
                     TextButton.icon(
                       onPressed: () {
                         setState(() {
@@ -216,8 +212,7 @@ class _ManageGearState extends State<ManageGear> {
                   TextButton.icon(
                     onPressed: () async {
                       setState(() {
-                        if (device!.deviceConnectionState.value ==
-                            ConnectivityState.connected) {
+                        if (device!.isConnected) {
                           device!.forgetOnDisconnect = true;
                           device!.disableAutoConnect = true;
                           disconnect(device!.storedDevice.btMACAddress);
@@ -761,18 +756,18 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                     },
                   ),
                 ),
-                ValueListenableBuilder(
-                  valueListenable: widget.device.hasGlowtip,
-                  builder: (context, value, child) => ListTile(
+                ListenableBuilder(
+                  listenable: widget.device,
+                  builder: (context, child) => ListTile(
                     title: const Text("Has Glowtip"),
                     trailing: DropdownMenu<GlowtipStatus>(
-                      initialSelection: widget.device.hasGlowtip.value,
+                      initialSelection: widget.device.hasGlowtip,
                       onSelected: (GlowtipStatus? value) {
                         if (value == null) {
                           return;
                         }
                         setState(() {
-                          widget.device.hasGlowtip.value = value;
+                          widget.device.hasGlowtip = value;
                         });
                       },
                       dropdownMenuEntries: GlowtipStatus.values
@@ -783,18 +778,18 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                     ),
                   ),
                 ),
-                ValueListenableBuilder(
-                  valueListenable: widget.device.hasRGB,
-                  builder: (context, value, child) => ListTile(
+                ListenableBuilder(
+                  listenable: widget.device,
+                  builder: (context, child) => ListTile(
                     title: const Text("Has RGB"),
                     trailing: DropdownMenu<RGBStatus>(
-                      initialSelection: widget.device.hasRGB.value,
+                      initialSelection: widget.device.hasRGB,
                       onSelected: (RGBStatus? value) {
                         if (value == null) {
                           return;
                         }
                         setState(() {
-                          widget.device.hasRGB.value = value;
+                          widget.device.hasRGB = value;
                         });
                       },
                       dropdownMenuEntries: RGBStatus.values

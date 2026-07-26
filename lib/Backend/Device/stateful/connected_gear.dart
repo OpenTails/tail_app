@@ -27,27 +27,56 @@ enum ConnectivityState { connected, disconnected, connecting }
 
 enum DeviceMoveState { standby, runAction, busy }
 
-class StatefulDevice {
+class StatefulDevice extends ChangeNotifier {
   final Logger _logger = Logger("StatefulDevice");
   final DeviceDefinition deviceDefinition;
   final StoredDevice storedDevice;
-
   late final CommandQueue commandQueue;
   final BatteryStatus battery = BatteryStatus();
   final FirmwareStatus firmwareStatus = FirmwareStatus();
 
-  bool gearReturnedError = false;
-  final ValueNotifier<GlowtipStatus> hasGlowtip = ValueNotifier(
-    GlowtipStatus.unknown,
-  );
-  final ValueNotifier<RGBStatus> hasRGB = ValueNotifier(RGBStatus.unknown);
+  //State
+  bool get isConnected =>
+      deviceConnectionState.value == ConnectivityState.connected;
 
+  bool get isReady => isConnected && bluetoothUartService.value != null;
+  bool gearReturnedError = false;
   final ValueNotifier<DeviceMoveState> deviceState = ValueNotifier(
     DeviceMoveState.standby,
   );
-
   final ValueNotifier<int> rssi = ValueNotifier(-1);
   int mtu = -1;
+  final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(
+    ConnectivityState.disconnected,
+  );
+  final ValueNotifier<BluetoothUartService?> bluetoothUartService =
+      ValueNotifier(null);
+  bool disableAutoConnect = false;
+  bool forgetOnDisconnect = false;
+
+  // Gear Features
+  GlowtipStatus _hasGlowtip = GlowtipStatus.unknown;
+
+  GlowtipStatus get hasGlowtip => _hasGlowtip;
+
+  set hasGlowtip(GlowtipStatus value) {
+    if (_hasGlowtip != value) {
+      _hasGlowtip = value;
+      _onGearSupportedFeatureChanged();
+    }
+  }
+
+  RGBStatus _hasRGB = RGBStatus.unknown;
+
+  RGBStatus get hasRGB => _hasRGB;
+
+  set hasRGB(RGBStatus value) {
+    if (_hasRGB != value) {
+      _hasRGB = value;
+      _onGearSupportedFeatureChanged();
+    }
+  }
+
   final ValueNotifier<GearConfigInfo> gearConfigInfo = ValueNotifier(
     GearConfigInfo(),
   );
@@ -57,15 +86,7 @@ class StatefulDevice {
   StreamSubscription<String>? _rxCharacteristicStreamSubscription;
   StreamSubscription<bool>? _batteryChargingStreamSubscription;
   StreamSubscription<double>? _batteryStreamSubscription;
-
-  bool disableAutoConnect = false;
-  bool forgetOnDisconnect = false;
   Timer? _connectBleServiceWatchdog;
-  final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(
-    ConnectivityState.disconnected,
-  );
-  final ValueNotifier<BluetoothUartService?> bluetoothUartService =
-      ValueNotifier(null);
 
   StatefulDevice(this.deviceDefinition, this.storedDevice) {
     commandQueue = CommandQueue(this);
@@ -74,30 +95,27 @@ class StatefulDevice {
     bluetoothUartService.addListener(_onBluetoothUartServiceChanged);
 
     // Load glowtip/rgb status
-    hasGlowtip.value = storedDevice.hasGlowtip;
-    hasRGB.value = storedDevice.hasRGB;
-    hasGlowtip.addListener(_onGearSupportedFeatureChanged);
-    hasRGB.addListener(_onGearSupportedFeatureChanged);
-
+    hasGlowtip = storedDevice.hasGlowtip;
+    hasRGB = storedDevice.hasRGB;
     // only store, do not read back on gear load
     firmwareStatus.addListener(_versionListener);
   }
 
   void _onGearSupportedFeatureChanged() {
-    if (hasRGB.value != RGBStatus.unknown &&
-        storedDevice.hasRGB != hasRGB.value) {
-      storedDevice.hasRGB = hasRGB.value;
+    if (hasRGB != RGBStatus.unknown && storedDevice.hasRGB != hasRGB) {
+      storedDevice.hasRGB = hasRGB;
       KnownDevices.instance.store();
     }
-    if (hasGlowtip.value != GlowtipStatus.unknown &&
-        storedDevice.hasGlowtip != hasGlowtip.value) {
-      storedDevice.hasGlowtip = hasGlowtip.value;
+    if (hasGlowtip != GlowtipStatus.unknown &&
+        storedDevice.hasGlowtip != hasGlowtip) {
+      storedDevice.hasGlowtip = hasGlowtip;
       KnownDevices.instance.store();
     }
+    notifyListeners();
   }
 
   void _onConnectionStateChanged() {
-    if (deviceConnectionState.value == ConnectivityState.disconnected) {
+    if (!isReady) {
       reset();
       analyticsEvent(
         name: "Disconnect Gear",
@@ -117,7 +135,7 @@ class StatefulDevice {
         _onConnectBleServiceWatchdogTimeout,
       );
     }
-    if (deviceConnectionState.value == ConnectivityState.connected) {
+    if (isConnected) {
       _periodicTimerStream = Stream.periodic(
         const Duration(seconds: 10),
       ).listen(_periodicListener);
@@ -126,6 +144,7 @@ class StatefulDevice {
         props: {"Gear Type": deviceDefinition.btName},
       );
     }
+    notifyListeners();
   }
 
   void _onBluetoothUartServiceChanged() {
@@ -140,8 +159,7 @@ class StatefulDevice {
   }
 
   void _onConnectBleServiceWatchdogTimeout() {
-    if (bluetoothUartService.value != null ||
-        deviceConnectionState.value != ConnectivityState.connected) {
+    if (isReady || !isConnected) {
       _connectBleServiceWatchdog = null;
       return;
     }
@@ -207,16 +225,16 @@ class StatefulDevice {
     } else if (value.startsWith("GLOWTIP")) {
       String substring = value.substring(value.indexOf(" ")).trim();
       if (substring == 'TRUE') {
-        hasGlowtip.value = GlowtipStatus.glowtip;
+        hasGlowtip = GlowtipStatus.glowtip;
       } else if (substring == 'FALSE') {
-        hasGlowtip.value = GlowtipStatus.noGlowtip;
+        hasGlowtip = GlowtipStatus.noGlowtip;
       }
     } else if (value.startsWith("RGB")) {
       String substring = value.substring(value.indexOf(" ")).trim();
       if (substring == 'TRUE') {
-        hasRGB.value = RGBStatus.rgb;
+        hasRGB = RGBStatus.rgb;
       } else if (substring == 'FALSE') {
-        hasRGB.value = RGBStatus.noRGB;
+        hasRGB = RGBStatus.noRGB;
       }
     } else if (value.contains("MYCOLOR")) {
       String substring = value.substring(value.indexOf(" ")).trim();
@@ -267,7 +285,7 @@ class StatefulDevice {
   }
 
   void _periodicListener(dynamic ignored) {
-    if (deviceConnectionState.value != ConnectivityState.connected) {
+    if (!isReady) {
       return;
     }
 
@@ -301,8 +319,7 @@ class StatefulDevice {
   }
 
   void mockReceivedMessage(String message) {
-    if (deviceConnectionState.value != ConnectivityState.connected ||
-        bluetoothUartService.value == null) {
+    if (!isReady) {
       return;
     }
     onBluetoothCharacteristicValueUpdate(

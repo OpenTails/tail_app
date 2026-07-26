@@ -167,7 +167,7 @@ Future<void> discoverServices(String id) async {
     }
   }
 
-  if (statefulDevice.bluetoothUartService.value == null) {
+  if (statefulDevice.isReady) {
     _logger.severe("Bluetooth uart service not found for $id, Disconnecting");
     await disconnect(id);
   }
@@ -205,10 +205,12 @@ class _KeepGearAwake {
 
   Future<void> _periodicListener(dynamic event) async {
     for (StatefulDevice statefulDevice in KnownDevices.instance.connectedGear) {
-      statefulDevice.rssi.value = await UniversalBle.readRssi(
-        statefulDevice.storedDevice.btMACAddress,
-        timeout: Duration(seconds: 5),
-      ).catchError((e) => -1).onError((error, stackTrace) => -1);
+      if (statefulDevice.isConnected) {
+        statefulDevice.rssi.value = await UniversalBle.readRssi(
+          statefulDevice.storedDevice.btMACAddress,
+          timeout: Duration(seconds: 5),
+        ).catchError((e) => -1).onError((error, stackTrace) => -1);
+      }
     }
   }
 }
@@ -218,8 +220,7 @@ Future<void> _onScanResultsListener(BleDevice scanResult) async {
   _logger.info('${scanResult.deviceId}: "${scanResult.name}" found!');
   Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   if (knownDevices.containsKey(scanResult.deviceId) &&
-      knownDevices[scanResult.deviceId]?.deviceConnectionState.value ==
-          ConnectivityState.disconnected &&
+      !knownDevices[scanResult.deviceId]!.isConnected &&
       !knownDevices[scanResult.deviceId]!.disableAutoConnect) {
     knownDevices[scanResult.deviceId]?.deviceConnectionState.value =
         ConnectivityState.connecting;
@@ -344,13 +345,10 @@ class Scan with ChangeNotifier {
               ),
             )
             .where(
-              (bluetoothDevice) =>
-                  KnownDevices
-                      .instance
-                      .state[bluetoothDevice.deviceId]!
-                      .deviceConnectionState
-                      .value ==
-                  ConnectivityState.disconnected,
+              (bluetoothDevice) => !KnownDevices
+                  .instance
+                  .state[bluetoothDevice.deviceId]!
+                  .isConnected,
             )
             .where(
               (bluetoothDevice) => !KnownDevices
@@ -436,7 +434,7 @@ Future<void> sendMessage(
   if (!_didInitBle || isDemoGear(device)) {
     return;
   }
-  if (device.bluetoothUartService.value != null) {
+  if (device.isReady) {
     Future<void> future =
         UniversalBle.write(
               device.storedDevice.btMACAddress,

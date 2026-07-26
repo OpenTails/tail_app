@@ -90,8 +90,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
       body: ListenableBuilder(
         listenable: Listenable.merge([
           widget.device.commandQueue.commandHistory,
-          widget.device.bluetoothUartService,
-          widget.device.deviceConnectionState,
+          widget.device,
         ]),
         builder: (context, child) {
           List<MessageHistoryEntry> buffer = widget
@@ -133,7 +132,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
               Expanded(
                 child: TextField(
                   controller: _controller,
-                  enabled: widget.device.bluetoothUartService.value != null,
+                  enabled: widget.device.isReady,
                   onChanged: (value) {
                     cmd = value.toUpperCase();
                   },
@@ -162,9 +161,7 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
               ),
               const SizedBox(width: 8),
               IconButton.filled(
-                onPressed: widget.device.bluetoothUartService.value != null
-                    ? _sendCommand
-                    : null,
+                onPressed: widget.device.isReady ? _sendCommand : null,
                 icon: const Icon(Symbols.send),
               ),
             ],

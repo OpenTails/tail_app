@@ -107,16 +107,7 @@ class KnownDevices with ChangeNotifier {
   }
 
   Iterable<StatefulDevice> get connectedGear {
-    return _state.values
-        .where(
-          (element) =>
-              element.deviceConnectionState.value ==
-              ConnectivityState.connected,
-        )
-        .where(
-          // don't consider gear connected until services have been discovered
-          (element) => element.bluetoothUartService.value != null,
-        );
+    return _state.values.where((element) => element.isReady);
   }
 
   bool get isGlowtipGearConnected {
@@ -176,10 +167,7 @@ class KnownDevices with ChangeNotifier {
 
   void _onDevicePaired() {
     for (StatefulDevice statefulDevice in state.values) {
-      statefulDevice.deviceConnectionState
-        ..removeListener(_notify)
-        ..addListener(_notify);
-      statefulDevice.bluetoothUartService
+      statefulDevice
         ..removeListener(_notify)
         ..addListener(_notify);
 

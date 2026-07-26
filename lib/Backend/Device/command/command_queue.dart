@@ -56,7 +56,7 @@ class CommandQueue with ChangeNotifier {
   }
 
   void _connectionStateListener() {
-    if (device.deviceConnectionState.value != ConnectivityState.connected) {
+    if (!device.isReady) {
       _internalCommandQueue.clear(); // clear the queue on disconnect
       stopQueue();
     } else {
@@ -214,8 +214,7 @@ class CommandQueue with ChangeNotifier {
 
   void addCommand(BluetoothMessage bluetoothMessage) {
     // Don't add commands to disconnected or dev gear.
-    if (device.deviceConnectionState.value != ConnectivityState.connected ||
-        state == CommandQueueState.blocked) {
+    if (!device.isReady || state == CommandQueueState.blocked) {
       return;
     }
 

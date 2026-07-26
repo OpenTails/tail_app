@@ -539,10 +539,7 @@ class GetActions with ChangeNotifier {
       ..removeListener(_refresh)
       ..addListener(_refresh);
     for (StatefulDevice statefulDevice in KnownDevices.instance.state.values) {
-      statefulDevice.hasRGB
-        ..removeListener(_refresh)
-        ..addListener(_refresh);
-      statefulDevice.hasGlowtip
+      statefulDevice
         ..removeListener(_refresh)
         ..addListener(_refresh);
       statefulDevice.bluetoothUartService
