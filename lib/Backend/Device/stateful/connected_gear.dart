@@ -8,6 +8,7 @@ import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Device/stateful/battery_status.dart';
 import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
+import 'package:tail_app/Backend/triggers/sensor_definition.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 
 import '../../Bluetooth/bluetooth_message.dart';
@@ -69,6 +70,7 @@ class StatefulDevice extends ChangeNotifier {
     }
   }
 
+  /// Prevents this gear from automatically reconnecting during the next BLE scan
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
 
@@ -310,6 +312,7 @@ class StatefulDevice extends ChangeNotifier {
     }
   }
 
+  /// Inject an incoming message into the [StatefulDevice] state machines.
   void mockReceivedMessage(String message) {
     if (!isReady) {
       return;
@@ -328,6 +331,7 @@ class StatefulDevice extends ChangeNotifier {
         ' $storedDevice, battery: ${battery.level}}';
   }
 
+  /// Returns [StatefulDevice] to a default state after gear disconnects
   void reset() {
     battery.reset();
     gearReturnedError = false;

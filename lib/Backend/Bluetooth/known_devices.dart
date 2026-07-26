@@ -4,7 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
+import 'package:tail_app/Backend/Device/bluetooth_uart_services_list.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
+import 'package:tail_app/Frontend/pages/actions/actions.dart';
 
 import '../../constants.dart';
 import '../Device/common_device_stuffs.dart';
@@ -106,6 +109,7 @@ class KnownDevices with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Returns [StatefulDevice]s that are connected and have a [BluetoothUartService] set. ([StatefulDevice.isReady])
   Iterable<StatefulDevice> get connectedGear {
     return _state.values.where((element) => element.isReady);
   }
@@ -151,6 +155,7 @@ class KnownDevices with ChangeNotifier {
     );
   }
 
+  /// returns connected [StatefulDevice]s that the [StatefulDevice.deviceState] is [DeviceMoveState.standby]
   Iterable<StatefulDevice> get connectedIdleGear {
     return connectedGear.where(
       (element) => element.deviceState.value == DeviceMoveState.standby,
@@ -180,6 +185,7 @@ class KnownDevices with ChangeNotifier {
   }
 }
 
+/// Keeps track if any [StatefulDevice] is running a [BluetoothMessage] for the [ActionCard] running indicator
 class IsGearMoveRunning extends ChangeNotifier {
   static final IsGearMoveRunning instance = IsGearMoveRunning._internal();
 

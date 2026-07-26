@@ -10,6 +10,10 @@ class BatteryStatus with ChangeNotifier {
 
   double get level => _level;
 
+  /// Returns the battery level averaged to the last minute. (Not rolling)
+  /// returns the true battery level for the first minute
+  ///
+  /// Certain gear can have a battery level drop during a move. This will hopefully level out those battery level drops
   double get averagedCurrentLevel {
     if (averageHistory.isNotEmpty) {
       return averageHistory.last;
@@ -33,14 +37,15 @@ class BatteryStatus with ChangeNotifier {
         }
         averageHistory.add(shortTermHistory.average);
         shortTermHistory.clear();
+
+        // may clear low battery state from gear
+        _isLow = averagedCurrentLevel < 20;
         notifyListeners();
       });
       averageHistory.add(level);
     }
     shortTermHistory.add(level);
 
-    //consider gear at low battery even if gear has not reported low battery
-    _isLow = level < 20;
     notifyListeners();
   }
 
@@ -55,6 +60,7 @@ class BatteryStatus with ChangeNotifier {
 
   bool _isLow = false;
 
+  /// if battery level is < 20% or gear reports "LOWBATT"
   bool get isLow => _isLow;
 
   set isLow(bool value) {

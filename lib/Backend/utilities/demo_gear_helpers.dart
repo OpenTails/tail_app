@@ -6,6 +6,10 @@ import '../Device/device_type_enum.dart';
 import '../Device/stateful/connected_gear.dart';
 import '../Device/stored_device.dart';
 
+/// Create and connect to a new mock/demo gear.
+///
+/// [StatefulDevice.deviceConnectionState] and [StatefulDevice.bluetoothUartService] needs to be handled manually if the [connectDemoGear] method isn't used;
+/// Only 1 gear per [DeviceDefinition] can exist at a time.
 Future<void> createDemoGear(DeviceDefinition deviceDefinition) async {
   if (isDemoGearExists(deviceDefinition)) {
     return;
@@ -26,6 +30,9 @@ Future<void> createDemoGear(DeviceDefinition deviceDefinition) async {
   connectDemoGear(statefulDevice);
 }
 
+/// Connects existing demo/mock [StatefulDevice] gear
+///
+/// Ears use the ``Legacy Ears`` [BluetoothUartService] and tails use "TailCoNTROL"
 void connectDemoGear(StatefulDevice statefulDevice) {
   statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
   if (statefulDevice.deviceDefinition.deviceType == DeviceType.ears) {
@@ -39,6 +46,7 @@ void connectDemoGear(StatefulDevice statefulDevice) {
   }
 }
 
+/// returns a string of the [demoGearPrefix] and [deviceDefinition.btName]
 String getDemoGearBleMac(DeviceDefinition deviceDefinition) {
   return "$demoGearPrefix${deviceDefinition.btName}";
 }
