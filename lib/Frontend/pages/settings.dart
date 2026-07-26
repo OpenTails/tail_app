@@ -183,19 +183,6 @@ class _SettingsState extends State<Settings> {
               onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, keepAwake, value);
-                  if (KnownDevices.instance.state.values
-                      .where(
-                        (element) =>
-                            element.deviceConnectionState.value ==
-                            ConnectivityState.connected,
-                      )
-                      .isNotEmpty) {
-                    if (value) {
-                      WakelockPlus.enable();
-                    } else {
-                      WakelockPlus.disable();
-                    }
-                  }
                 });
               },
             ),
