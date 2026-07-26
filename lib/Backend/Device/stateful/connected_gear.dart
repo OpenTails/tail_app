@@ -198,12 +198,6 @@ class StatefulDevice extends ChangeNotifier {
         (getIsChargingStream(storedDevice.btMACAddress)).listen((event) {
           battery.isCharging = event;
         });
-    _batteryStreamSubscription =
-        (getBatteryLevelStream(storedDevice.btMACAddress)).listen((event) {
-          if (deviceState.value == DeviceMoveState.standby) {
-            battery.level = event;
-          }
-        });
   }
 
   void _receivedCommandListener(String value) {
