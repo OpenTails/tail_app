@@ -224,18 +224,12 @@ class StatefulDevice extends ChangeNotifier {
       // Sent after VER message
     } else if (value.startsWith("GLOWTIP")) {
       String substring = value.substring(value.indexOf(" ")).trim();
-      if (substring == 'TRUE') {
-        hasGlowtip = GlowtipStatus.glowtip;
-      } else if (substring == 'FALSE') {
-        hasGlowtip = GlowtipStatus.noGlowtip;
-      }
+      hasGlowtip = substring == 'TRUE'
+          ? GlowtipStatus.glowtip
+          : GlowtipStatus.noGlowtip;
     } else if (value.startsWith("RGB")) {
       String substring = value.substring(value.indexOf(" ")).trim();
-      if (substring == 'TRUE') {
-        hasRGB = RGBStatus.rgb;
-      } else if (substring == 'FALSE') {
-        hasRGB = RGBStatus.noRGB;
-      }
+      hasRGB = substring == 'TRUE' ? RGBStatus.rgb : RGBStatus.noRGB;
     } else if (value.contains("MYCOLOR")) {
       String substring = value.substring(value.indexOf(" ")).trim();
       Color gearColor = Color(int.parse(substring, radix: 16)).withAlpha(255);

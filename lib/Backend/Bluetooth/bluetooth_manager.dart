@@ -206,10 +206,21 @@ class _KeepGearAwake {
   Future<void> _periodicListener(dynamic event) async {
     for (StatefulDevice statefulDevice in KnownDevices.instance.connectedGear) {
       if (statefulDevice.isConnected) {
-        statefulDevice.rssi.value = await UniversalBle.readRssi(
-          statefulDevice.storedDevice.btMACAddress,
-          timeout: Duration(seconds: 5),
-        ).catchError((e) => -1).onError((error, stackTrace) => -1);
+        statefulDevice.rssi.value =
+            await UniversalBle.readRssi(
+                  statefulDevice.storedDevice.btMACAddress,
+                  timeout: Duration(seconds: 2),
+                )
+                .catchError((e) {
+                  return statefulDevice.rssi.value != -1
+                      ? statefulDevice.rssi.value
+                      : -1;
+                })
+                .onError((error, stackTrace) {
+                  return statefulDevice.rssi.value != -1
+                      ? statefulDevice.rssi.value
+                      : -1;
+                });
       }
     }
   }
