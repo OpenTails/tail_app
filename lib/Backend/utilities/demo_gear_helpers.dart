@@ -29,11 +29,11 @@ Future<void> createDemoGear(DeviceDefinition deviceDefinition) async {
 void connectDemoGear(StatefulDevice statefulDevice) {
   statefulDevice.deviceConnectionState.value = ConnectivityState.connected;
   if (statefulDevice.deviceDefinition.deviceType == DeviceType.ears) {
-    statefulDevice.bluetoothUartService.value = uartServices.firstWhere(
+    statefulDevice.bluetoothUartService = uartServices.firstWhere(
       (element) => element.label == "Legacy Ears",
     );
   } else {
-    statefulDevice.bluetoothUartService.value = uartServices.firstWhere(
+    statefulDevice.bluetoothUartService = uartServices.firstWhere(
       (element) => element.label == "TailCoNTROL",
     );
   }

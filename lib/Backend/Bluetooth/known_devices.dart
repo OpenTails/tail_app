@@ -119,7 +119,7 @@ class KnownDevices with ChangeNotifier {
   bool get isLegacyEarsConnected {
     return connectedGear
         .where((p0) => p0.deviceDefinition.deviceType == DeviceType.ears)
-        .where((p0) => !p0.bluetoothUartService.value!.isTailcontrol)
+        .where((p0) => !p0.bluetoothUartService!.isTailcontrol)
         .isNotEmpty;
   }
 

@@ -162,7 +162,7 @@ Future<void> discoverServices(String id) async {
           BleUuidParser.compareStrings(element.bleDeviceService, service.uuid),
     );
     if (bluetoothUartService != null) {
-      statefulDevice.bluetoothUartService.value = bluetoothUartService;
+      statefulDevice.bluetoothUartService = bluetoothUartService;
       break;
     }
   }
@@ -206,21 +206,26 @@ class _KeepGearAwake {
   Future<void> _periodicListener(dynamic event) async {
     for (StatefulDevice statefulDevice in KnownDevices.instance.connectedGear) {
       if (statefulDevice.isConnected) {
-        statefulDevice.rssi.value =
-            await UniversalBle.readRssi(
-                  statefulDevice.storedDevice.btMACAddress,
-                  timeout: Duration(seconds: 2),
-                )
-                .catchError((e) {
-                  return statefulDevice.rssi.value != -1
-                      ? statefulDevice.rssi.value
-                      : -1;
-                })
-                .onError((error, stackTrace) {
-                  return statefulDevice.rssi.value != -1
-                      ? statefulDevice.rssi.value
-                      : -1;
-                });
+        UniversalBle.readRssi(
+              statefulDevice.storedDevice.btMACAddress,
+              timeout: Duration(seconds: 2),
+            )
+            .catchError((e) {
+              return statefulDevice.rssi.value != -1
+                  ? statefulDevice.rssi.value
+                  : -1;
+            })
+            .onError((error, stackTrace) {
+              return statefulDevice.rssi.value != -1
+                  ? statefulDevice.rssi.value
+                  : -1;
+            })
+            .then((value) {
+              if (statefulDevice.isReady) {
+                statefulDevice.rssi.value = value;
+              }
+              return value;
+            });
       }
     }
   }
@@ -449,8 +454,8 @@ Future<void> sendMessage(
     Future<void> future =
         UniversalBle.write(
               device.storedDevice.btMACAddress,
-              device.bluetoothUartService.value!.bleDeviceService,
-              device.bluetoothUartService.value!.bleTxCharacteristic,
+              device.bluetoothUartService!.bleDeviceService,
+              device.bluetoothUartService!.bleTxCharacteristic,
               Uint8List.fromList(message),
               withoutResponse: withoutResponse,
             )

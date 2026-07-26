@@ -95,7 +95,7 @@ Future<void> _runAction(
 
   if (action is CommandAction) {
     if (device.deviceDefinition.deviceType == DeviceType.ears &&
-        !device.bluetoothUartService.value!.isTailcontrol &&
+        !device.bluetoothUartService!.isTailcontrol &&
         action.legacyEarCommandMoves != null) {
       //support legacy ear firmware
       EarSpeed earSpeed = HiveProxy.getOrDefault(
@@ -170,7 +170,7 @@ Future<void> _runAction(
     if (action.moves.isNotEmpty &&
         action.moves.length <= 5 &&
         (device.deviceDefinition.deviceType != DeviceType.ears ||
-            device.bluetoothUartService.value!.isTailcontrol)) {
+            device.bluetoothUartService!.isTailcontrol)) {
       int preset = 1; //TODO: store
       String cmd =
           "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt()}";
@@ -263,7 +263,7 @@ List<BluetoothMessage> generateMoveCommand(
   List<BluetoothMessage> commands = [];
   if (move.moveType == MoveType.home) {
     if (device.deviceDefinition.deviceType == DeviceType.ears &&
-        !device.bluetoothUartService.value!.isTailcontrol) {
+        !device.bluetoothUartService!.isTailcontrol) {
       commands.add(
         BluetoothMessage(
           message: "EARHOME",
@@ -284,7 +284,7 @@ List<BluetoothMessage> generateMoveCommand(
     }
   } else if (move.moveType == MoveType.move) {
     if (device.deviceDefinition.deviceType == DeviceType.ears &&
-        !device.bluetoothUartService.value!.isTailcontrol) {
+        !device.bluetoothUartService!.isTailcontrol) {
       commands
         ..add(
           BluetoothMessage(

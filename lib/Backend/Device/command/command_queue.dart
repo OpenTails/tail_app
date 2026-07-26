@@ -35,7 +35,7 @@ class CommandQueue with ChangeNotifier {
   List<BluetoothMessage> get queue => _internalCommandQueue.toList();
 
   CommandQueue(this.device) {
-    device.bluetoothUartService.addListener(_connectionStateListener);
+    device.addListener(_connectionStateListener);
     device.deviceState.addListener(_deviceStateListener);
     addListener(_onStateChanged);
   }
@@ -56,10 +56,10 @@ class CommandQueue with ChangeNotifier {
   }
 
   void _connectionStateListener() {
-    if (!device.isReady) {
+    if (!device.isReady && state != CommandQueueState.blocked) {
       _internalCommandQueue.clear(); // clear the queue on disconnect
       stopQueue();
-    } else {
+    } else if (!device.isReady && state == CommandQueueState.blocked) {
       startQueue();
     }
   }
@@ -121,6 +121,9 @@ class CommandQueue with ChangeNotifier {
   }
 
   void _deviceStateListener() {
+    if (!device.isReady) {
+      return;
+    }
     if (state == CommandQueueState.blocked &&
         device.deviceState.value == DeviceMoveState.standby) {
       startQueue();

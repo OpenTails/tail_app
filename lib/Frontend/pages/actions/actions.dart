@@ -183,9 +183,7 @@ class ShowEarSpeed extends StatelessWidget {
       child:
           KnownDevices.instance
               .getConnectedGearForType({DeviceType.ears})
-              .where(
-                (device) => !device.bluetoothUartService.value!.isTailcontrol,
-              )
+              .where((device) => !device.bluetoothUartService!.isTailcontrol)
               .isNotEmpty
           ? const EarSpeedWidget()
           : null,

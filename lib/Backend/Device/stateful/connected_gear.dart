@@ -39,7 +39,7 @@ class StatefulDevice extends ChangeNotifier {
   bool get isConnected =>
       deviceConnectionState.value == ConnectivityState.connected;
 
-  bool get isReady => isConnected && bluetoothUartService.value != null;
+  bool get isReady => isConnected && bluetoothUartService != null;
   bool gearReturnedError = false;
   final ValueNotifier<DeviceMoveState> deviceState = ValueNotifier(
     DeviceMoveState.standby,
@@ -49,8 +49,26 @@ class StatefulDevice extends ChangeNotifier {
   final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(
     ConnectivityState.disconnected,
   );
-  final ValueNotifier<BluetoothUartService?> bluetoothUartService =
-      ValueNotifier(null);
+  BluetoothUartService? _bluetoothUartService;
+
+  BluetoothUartService? get bluetoothUartService => _bluetoothUartService;
+
+  set bluetoothUartService(BluetoothUartService? value) {
+    if (_bluetoothUartService != value) {
+      //prevent UART service from being set if gear is considered disconnected, as this is an invalid state
+      _bluetoothUartService = isConnected ? value : null;
+      notifyListeners();
+    }
+    if (bluetoothUartService != null) {
+      _registerCharacteristicStreams();
+
+      //Fires off the FW/HW version and batt commands
+      _periodicListener("");
+    } else {
+      _unRegisterCharacteristicStreams();
+    }
+  }
+
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
 
@@ -85,14 +103,11 @@ class StatefulDevice extends ChangeNotifier {
   StreamSubscription? _periodicTimerStream;
   StreamSubscription<String>? _rxCharacteristicStreamSubscription;
   StreamSubscription<bool>? _batteryChargingStreamSubscription;
-  StreamSubscription<double>? _batteryStreamSubscription;
   Timer? _connectBleServiceWatchdog;
 
   StatefulDevice(this.deviceDefinition, this.storedDevice) {
     commandQueue = CommandQueue(this);
     deviceConnectionState.addListener(_onConnectionStateChanged);
-
-    bluetoothUartService.addListener(_onBluetoothUartServiceChanged);
 
     // Load glowtip/rgb status
     hasGlowtip = storedDevice.hasGlowtip;
@@ -147,17 +162,6 @@ class StatefulDevice extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _onBluetoothUartServiceChanged() {
-    if (bluetoothUartService.value == null) {
-      _unRegisterCharacteristicStreams();
-      return;
-    }
-    _registerCharacteristicStreams();
-
-    //Fires off the FW/HW version and batt commands
-    _periodicListener("");
-  }
-
   void _onConnectBleServiceWatchdogTimeout() {
     if (isReady || !isConnected) {
       _connectBleServiceWatchdog = null;
@@ -175,12 +179,10 @@ class StatefulDevice extends ChangeNotifier {
     _rxCharacteristicStreamSubscription = null;
     _batteryChargingStreamSubscription?.cancel();
     _batteryChargingStreamSubscription = null;
-    _batteryStreamSubscription?.cancel();
-    _batteryStreamSubscription = null;
   }
 
   void _registerCharacteristicStreams() {
-    if (bluetoothUartService.value == null) {
+    if (!isReady) {
       return;
     }
     if (rxCharacteristicStream != null) {
@@ -188,7 +190,7 @@ class StatefulDevice extends ChangeNotifier {
     }
     rxCharacteristicStream = getRxStream(
       storedDevice.btMACAddress,
-      bluetoothUartService.value!.bleRxCharacteristic,
+      bluetoothUartService!.bleRxCharacteristic,
     );
     _rxCharacteristicStreamSubscription = rxCharacteristicStream!.listen(
       _receivedCommandListener,
@@ -211,8 +213,7 @@ class StatefulDevice extends ChangeNotifier {
       firmwareStatus.firmwareVersion = Version.getFromSemVer(
         value.substring(value.indexOf(" ")),
       );
-      if (bluetoothUartService.value != null &&
-          bluetoothUartService.value!.isTailcontrol) {
+      if (bluetoothUartService != null && bluetoothUartService!.isTailcontrol) {
         commandQueue.addCommand(BluetoothMessage(message: "READNVS"));
       }
       // Sent after VER message
@@ -288,7 +289,7 @@ class StatefulDevice extends ChangeNotifier {
       BluetoothMessage(message: "PING", priority: Priority.low),
     );
     // Battery characteristic works fine for tailcontrol, so we don't need to manually request the battery level
-    if (!bluetoothUartService.value!.isTailcontrol) {
+    if (!bluetoothUartService!.isTailcontrol) {
       commandQueue.addCommand(
         BluetoothMessage(message: "BATT", priority: Priority.low),
       );
@@ -312,7 +313,7 @@ class StatefulDevice extends ChangeNotifier {
     }
     onBluetoothCharacteristicValueUpdate(
       storedDevice.btMACAddress,
-      bluetoothUartService.value!.bleRxCharacteristic,
+      bluetoothUartService!.bleRxCharacteristic,
       const Utf8Encoder().convert(message),
       0,
     );
@@ -331,7 +332,7 @@ class StatefulDevice extends ChangeNotifier {
     rssi.value = -1;
     firmwareStatus.reset();
     mtu = -1;
-    bluetoothUartService.value = null;
+    bluetoothUartService = null;
     _periodicTimerStream?.cancel();
     _periodicTimerStream = null;
     _connectBleServiceWatchdog?.cancel();

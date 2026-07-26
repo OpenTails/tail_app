@@ -924,16 +924,15 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                     ),
                   ),
                 ),
-                ValueListenableBuilder(
-                  valueListenable: widget.device.bluetoothUartService,
-                  builder: (context, value, child) => ListTile(
+                ListenableBuilder(
+                  listenable: widget.device,
+                  builder: (context, child) => ListTile(
                     title: const Text("bluetoothUartService"),
                     trailing: DropdownMenu<BluetoothUartService>(
-                      initialSelection:
-                          widget.device.bluetoothUartService.value,
+                      initialSelection: widget.device.bluetoothUartService,
                       onSelected: (value) {
                         setState(() {
-                          widget.device.bluetoothUartService.value = value;
+                          widget.device.bluetoothUartService = value;
                         });
                       },
                       dropdownMenuEntries: uartServices

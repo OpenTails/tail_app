@@ -542,9 +542,6 @@ class GetActions with ChangeNotifier {
       statefulDevice
         ..removeListener(_refresh)
         ..addListener(_refresh);
-      statefulDevice.bluetoothUartService
-        ..removeListener(_refresh)
-        ..addListener(_refresh);
       // Refresh category names
       UserLocale.instance
         ..removeListener(_refresh)
