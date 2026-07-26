@@ -206,6 +206,9 @@ class StatefulDevice extends ChangeNotifier {
     commandQueue.commandHistory.add(
       type: MessageHistoryType.receive,
       message: value,
+      bluetoothMessage: commandQueue.currentMessage?.responseMSG != null
+          ? commandQueue.currentMessage!
+          : null,
     );
     commandQueue.bluetoothResponseListener(value);
     // Firmware Version

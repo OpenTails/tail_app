@@ -195,6 +195,7 @@ class CommandQueue with ChangeNotifier {
       commandHistory.add(
         type: MessageHistoryType.send,
         message: bluetoothMessage.message,
+        bluetoothMessage: currentMessage,
       );
 
       if (!isDemoGear(device)) {
