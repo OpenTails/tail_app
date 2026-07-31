@@ -1,3 +1,8 @@
+### V 1.6.0
+
+- UI improvements
+- Improved battery level reporting
+
 ### V 1.5.3
 
 - Misc Bug Fixes
