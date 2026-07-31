@@ -13,7 +13,9 @@ final _logger = Logger('Bluetooth');
 StreamController<RxInfo> _streamController = StreamController();
 Stream<RxInfo> _streamBroadcast = _streamController.stream.asBroadcastStream();
 
-void valueChanged(
+/// Both the listener for [UniversalBle.onValueChange] and an entrypoint to inject incoming messages into the state machine.
+/// Adds messages to the relevant stream. usually [getRxStream]
+void onBluetoothCharacteristicValueUpdate(
   String deviceId,
   String characteristicId,
   Uint8List value,
@@ -44,6 +46,7 @@ abstract class RxInfo with _$RxInfo {
   }) = _RxInfo;
 }
 
+/// THe characteristic change stream but filtered by device and characteristic id;
 Stream<Uint8List> getBaseRxStream(String macAddress, String characteristicId) {
   return (_streamBroadcast
           .where(
@@ -56,6 +59,7 @@ Stream<Uint8List> getBaseRxStream(String macAddress, String characteristicId) {
       .asBroadcastStream();
 }
 
+/// Similar to [getBaseRxStream] but converted to [String]
 Stream<String> getRxStream(String macAddress, String characteristicId) {
   return (getBaseRxStream(macAddress, characteristicId))
       .map((event) {
@@ -70,16 +74,10 @@ Stream<String> getRxStream(String macAddress, String characteristicId) {
       .asBroadcastStream();
 }
 
+/// Similar to [getRxStream] but checks the charging characteristic
 Stream<bool> getIsChargingStream(String macAddress) {
   return (getRxStream(
     macAddress,
     BleUuidParser.string("5073792e-4fc0-45a0-b0a5-78b6c1756c91"),
   )).map((event) => event == "CHARGE ON");
-}
-
-Stream<double> getBatteryLevelStream(String macAddress) {
-  return (getBaseRxStream(
-    macAddress,
-    BleUuidParser.string("2a19"),
-  )).map((event) => event.first.toDouble());
 }

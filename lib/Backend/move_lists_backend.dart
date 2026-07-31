@@ -3,6 +3,7 @@ import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../Frontend/translation_string_definitions.dart';
@@ -90,11 +91,11 @@ extension MoveTypeExtension on MoveType {
   IconData get icon {
     switch (this) {
       case MoveType.move:
-        return Icons.moving;
+        return Symbols.moving;
       case MoveType.delay:
-        return Icons.timelapse;
+        return Symbols.timelapse;
       case MoveType.home:
-        return Icons.home;
+        return Symbols.home;
     }
   }
 }

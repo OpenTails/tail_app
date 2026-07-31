@@ -255,12 +255,12 @@ abstract class TriggerDefinition extends ChangeNotifier
                   if ([
                     ActionCategory.glowtip,
                   ].contains(baseAction.actionCategory)) {
-                    return element.hasGlowtip.value == GlowtipStatus.glowtip;
+                    return element.hasGlowtip == GlowtipStatus.glowtip;
                   }
                   if ([
                     ActionCategory.rgb,
                   ].contains(baseAction.actionCategory)) {
-                    return element.hasRGB.value == RGBStatus.rgb;
+                    return element.hasRGB == RGBStatus.rgb;
                   }
                   // return remaining gear
                   return true;

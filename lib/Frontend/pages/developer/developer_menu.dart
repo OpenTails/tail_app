@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:go_router/go_router.dart';
 import 'package:json_visualizer/widgets/json_visualizer.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Frontend/theme_helpers.dart';
@@ -42,7 +43,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
         children: [
           ListTile(
             title: const Text("Logs"),
-            leading: const Icon(Icons.list),
+            leading: const Icon(Symbols.list),
             subtitle: const Text("Application Logs"),
             onTap: () async {
               const LogsRoute().push(context);
@@ -50,7 +51,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
           ),
           ListTile(
             title: const Text("Bulk Update"),
-            leading: const Icon(Icons.system_update),
+            leading: const Icon(Symbols.system_update),
             subtitle: const Text("Update multiple gear"),
             onTap: () async {
               const BulkOtaUpdateRoute().push(context);
@@ -58,7 +59,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
           ),
           ListTile(
             title: const Text("Throw an error"),
-            leading: const Icon(Icons.bug_report),
+            leading: const Icon(Symbols.bug_report),
             subtitle: const Text("Sends an error to sentry"),
             onTap: () {
               throw Exception('Sentry Test');
@@ -81,7 +82,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
           ),
           ListTile(
             title: const Text("Theme Inspector"),
-            leading: const Icon(Icons.color_lens),
+            leading: const Icon(Symbols.color_lens),
             subtitle: const Text("Visualize the current theme"),
             onTap: () => ThemeInspector.open(context),
           ),
@@ -135,33 +136,6 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
             ),
           ),
           ListTile(
-            title: const Text(gearConnectRetryAttempts),
-            subtitle: Slider(
-              divisions: 29,
-              max: 30,
-              min: 1,
-              label: HiveProxy.getOrDefault(
-                settings,
-                gearConnectRetryAttempts,
-                defaultValue: gearConnectRetryAttemptsDefault,
-              ).toString(),
-              value: HiveProxy.getOrDefault(
-                settings,
-                gearConnectRetryAttempts,
-                defaultValue: gearConnectRetryAttemptsDefault,
-              ).toDouble(),
-              onChanged: (double value) async {
-                setState(() {
-                  HiveProxy.put(
-                    settings,
-                    gearConnectRetryAttempts,
-                    value.toInt(),
-                  );
-                });
-              },
-            ),
-          ),
-          ListTile(
             title: const Text(showDebugging),
             trailing: Switch(
               value: isDeveloperEnabled,
@@ -205,7 +179,6 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                   future: UniversalBle.getSystemDevices(),
                   builder: (context, snapshot) {
                     String value = "";
-                    Color textColor = Theme.of(context).colorScheme.surface;
                     if (snapshot.hasData) {
                       return ListView(
                         shrinkWrap: true,
@@ -216,10 +189,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                                 dense: true,
                                 title: Text(e.name ?? "unknown"),
                                 subtitle: Text(e.deviceId),
-                                leading: SignalIcon(
-                                  rssi: e.rssi ?? -1,
-                                  color: getTextColor(textColor),
-                                ),
+                                leading: SignalIcon(rssi: e.rssi ?? -1),
                                 trailing: Text(e.isSystemDevice.toString()),
                               ),
                             )

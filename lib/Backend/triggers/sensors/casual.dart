@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../Frontend/Widgets/casual_mode_delay_widget.dart';
 import '../../../Frontend/translation_string_definitions.dart';
@@ -15,7 +16,7 @@ class RandomTriggerDefinition extends TriggerDefinition {
   RandomTriggerDefinition() {
     super.name = triggerRandomButtonTitle;
     super.description = triggerRandomButtonDescription;
-    super.icon = const Icon(Icons.timelapse);
+    super.icon = const Icon(Symbols.timelapse);
     super.requiredPermission = null;
     super.uuid = "12e01dea-219a-40e7-b51d-d89d6d4460ac";
     super.triggerActionDefinitions = [

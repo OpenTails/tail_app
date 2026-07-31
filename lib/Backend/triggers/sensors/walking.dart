@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -19,7 +20,7 @@ class WalkingTriggerDefinition extends TriggerDefinition {
   WalkingTriggerDefinition() {
     super.name = triggerWalkingTitle;
     super.description = triggerWalkingDescription;
-    super.icon = const Icon(Icons.directions_walk);
+    super.icon = const Icon(Symbols.directions_walk);
     super.requiredPermission = TriggerPermissionHandle(
       android: {Permission.activityRecognition},
       ios: {Permission.sensors},

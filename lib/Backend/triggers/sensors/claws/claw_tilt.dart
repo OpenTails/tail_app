@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../../Frontend/translation_string_definitions.dart';
 import '../../../Bluetooth/bluetooth_message.dart';
@@ -16,7 +17,7 @@ class ClawTiltTriggerDefinition extends TriggerDefinition {
   ClawTiltTriggerDefinition() {
     super.name = triggerClawTiltModeTitle;
     super.description = triggerClawTiltModeDescription;
-    super.icon = const Icon(Icons.threed_rotation);
+    super.icon = const Icon(Symbols.threed_rotation);
     super.requiredPermission = null;
     super.uuid = "664bd073-34cd-4c78-a7da-2b8b44fd9661";
     super.triggerActionDefinitions = [

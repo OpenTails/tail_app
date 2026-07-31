@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/signal_icon.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -108,7 +109,7 @@ class MissingRequirementsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAlias,
-      color: Colors.red,
+      color: ColorScheme.of(context).error,
       child: InkWell(
         onTap: () => onTap(),
         child: Padding(
@@ -121,7 +122,7 @@ class MissingRequirementsCard extends StatelessWidget {
                 convertToUwU(text()),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: getTextColor(Colors.red),
+                  color: ColorScheme.of(context).onError,
                 ),
               ),
             ),
@@ -167,7 +168,7 @@ class ScanForNewGearButton extends StatelessWidget {
                         convertToUwU(scanDevicesTitle()),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: getTextColor(color!),
+                          color: getTextColor(color: color!, context: context),
                         ),
                       ),
                     ),
@@ -215,8 +216,11 @@ class _KnownGearCardState extends State<KnownGearCard> {
                       isLabelVisible:
                           widget.statefulDevice.firmwareStatus.hasUpdate,
                       largeSize: 35,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      label: const Icon(Icons.system_update),
+                      backgroundColor: ColorScheme.of(context).error,
+                      label: Icon(
+                        Symbols.system_update,
+                        color: ColorScheme.of(context).onError,
+                      ),
                       child: child,
                     );
                   },
@@ -231,10 +235,15 @@ class _KnownGearCardState extends State<KnownGearCard> {
                         Color(widget.statefulDevice.storedDevice.color),
                         value,
                       );
-                      Color textColor = getTextColor(cardColor!);
+                      Color textColor = getTextColor(
+                        color: cardColor!,
+                        context: context,
+                      );
                       return Card(
                         clipBehavior: Clip.antiAlias,
                         color: cardColor,
+                        margin: const EdgeInsets.all(4),
+
                         child: InkWell(
                           onTap: () async {
                             ManageGearRoute(
@@ -280,7 +289,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                                 widget
                                                     .statefulDevice
                                                     .battery
-                                                    .level,
+                                                    .averagedCurrentLevel,
                                                 textColor,
                                               ),
                                               if (widget
@@ -288,7 +297,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                                   .battery
                                                   .isCharging) ...[
                                                 Icon(
-                                                  Icons.power,
+                                                  Symbols.power,
                                                   color: textColor,
                                                 ),
                                               ],
@@ -304,7 +313,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                                       return AnimatedCrossFade(
                                                         firstChild: Flash(
                                                           child: Icon(
-                                                            Icons.warning,
+                                                            Symbols.warning,
                                                             color: textColor,
                                                           ),
                                                         ),
@@ -329,7 +338,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                                       .deviceDefinition
                                                       .unsupported
                                                   ? Icon(
-                                                      Icons.warning,
+                                                      Symbols.warning,
                                                       color: textColor,
                                                     )
                                                   : Container(),
@@ -352,7 +361,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                           ),
                                         ),
                                         secondChild: Icon(
-                                          Icons.bluetooth_disabled,
+                                          Symbols.bluetooth_disabled,
                                           color: textColor,
                                         ),
                                         crossFadeState:
@@ -387,10 +396,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
     )) {
       if (level < 0) {
         // battery level is unknown
-        return Text(
-          '?%',
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color),
-        );
+        return Text('?%');
       }
       return Text(
         '${level.toInt()}%',
@@ -398,30 +404,30 @@ class _KnownGearCardState extends State<KnownGearCard> {
       );
     }
     if (level < 0) {
-      return Icon(Icons.battery_unknown, color: color);
+      return Icon(Symbols.battery_unknown, color: color);
     }
     if (level < 12.5) {
       return Flash(
         infinite: true,
-        child: Icon(Icons.battery_0_bar, color: color),
+        child: Icon(Symbols.battery_0_bar, color: color),
       );
     } else if (level < 25) {
       return Flash(
         infinite: true,
-        child: Icon(Icons.battery_1_bar, color: color),
+        child: Icon(Symbols.battery_1_bar, color: color),
       );
     } else if (level < 37.5) {
-      return Icon(Icons.battery_2_bar, color: color);
+      return Icon(Symbols.battery_2_bar, color: color);
     } else if (level < 50) {
-      return Icon(Icons.battery_3_bar, color: color);
+      return Icon(Symbols.battery_3_bar, color: color);
     } else if (level < 62.5) {
-      return Icon(Icons.battery_4_bar, color: color);
+      return Icon(Symbols.battery_4_bar, color: color);
     } else if (level < 75) {
-      return Icon(Icons.battery_5_bar, color: color);
+      return Icon(Symbols.battery_5_bar, color: color);
     } else if (level < 87.5) {
-      return Icon(Icons.battery_6_bar, color: color);
+      return Icon(Symbols.battery_6_bar, color: color);
     } else {
-      return Icon(Icons.battery_full, color: color);
+      return Icon(Symbols.battery_full, color: color);
     }
   }
 }

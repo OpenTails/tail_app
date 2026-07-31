@@ -1,6 +1,7 @@
 import 'package:circular_buffer/circular_buffer.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
 import 'package:tail_app/Backend/utilities/settings.dart';
 
 part 'command_history.freezed.dart';
@@ -12,6 +13,7 @@ abstract class MessageHistoryEntry with _$MessageHistoryEntry {
   const factory MessageHistoryEntry({
     required MessageHistoryType type,
     required String message,
+    final BluetoothMessage? currentCommandQueueMessage,
   }) = _MessageHistoryEntry;
 }
 
@@ -20,11 +22,26 @@ class CommandHistory with ChangeNotifier {
 
   CircularBuffer<MessageHistoryEntry> get state => _state;
 
-  void add({required MessageHistoryType type, required String message}) {
+  void add({
+    required MessageHistoryType type,
+    required String message,
+    BluetoothMessage? bluetoothMessage,
+  }) {
     if (isDeveloperEnabled == false) {
       return;
     }
-    _state.add(MessageHistoryEntry(type: type, message: message));
+    _state.add(
+      MessageHistoryEntry(
+        type: type,
+        message: message,
+        currentCommandQueueMessage: bluetoothMessage,
+      ),
+    );
+    notifyListeners();
+  }
+
+  void clear() {
+    _state.clear();
     notifyListeners();
   }
 }

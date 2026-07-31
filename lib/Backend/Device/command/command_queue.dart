@@ -35,7 +35,7 @@ class CommandQueue with ChangeNotifier {
   List<BluetoothMessage> get queue => _internalCommandQueue.toList();
 
   CommandQueue(this.device) {
-    device.bluetoothUartService.addListener(_connectionStateListener);
+    device.addListener(_connectionStateListener);
     device.deviceState.addListener(_deviceStateListener);
     addListener(_onStateChanged);
   }
@@ -56,10 +56,10 @@ class CommandQueue with ChangeNotifier {
   }
 
   void _connectionStateListener() {
-    if (device.deviceConnectionState.value != ConnectivityState.connected) {
+    if (!device.isReady && state != CommandQueueState.blocked) {
       _internalCommandQueue.clear(); // clear the queue on disconnect
       stopQueue();
-    } else {
+    } else if (!device.isReady && state == CommandQueueState.blocked) {
       startQueue();
     }
   }
@@ -121,6 +121,9 @@ class CommandQueue with ChangeNotifier {
   }
 
   void _deviceStateListener() {
+    if (!device.isReady) {
+      return;
+    }
     if (state == CommandQueueState.blocked &&
         device.deviceState.value == DeviceMoveState.standby) {
       startQueue();
@@ -192,6 +195,7 @@ class CommandQueue with ChangeNotifier {
       commandHistory.add(
         type: MessageHistoryType.send,
         message: bluetoothMessage.message,
+        bluetoothMessage: currentMessage,
       );
 
       if (!isDemoGear(device)) {
@@ -214,10 +218,31 @@ class CommandQueue with ChangeNotifier {
 
   void addCommand(BluetoothMessage bluetoothMessage) {
     // Don't add commands to disconnected or dev gear.
-    if (device.deviceConnectionState.value != ConnectivityState.connected ||
-        state == CommandQueueState.blocked) {
+    if (!device.isReady || state == CommandQueueState.blocked) {
       return;
     }
+
+    // skip if current system message is already in the queue.
+    if (_internalCommandQueue
+        .toUnorderedList()
+        .where(
+          (element) =>
+              element.type == bluetoothMessage.type &&
+              element.type == CommandType.system &&
+              element.message == bluetoothMessage.message,
+        )
+        .isNotEmpty) {
+      return;
+    }
+    // make sure to allow the current message to be readded to the queue, for resending the same command
+    if (currentMessage != bluetoothMessage &&
+        currentMessage != null &&
+        currentMessage?.message == bluetoothMessage.message &&
+        bluetoothMessage.type == currentMessage?.type &&
+        bluetoothMessage.type == CommandType.system) {
+      return;
+    }
+
     _logger.info("Adding command to queue $bluetoothMessage");
 
     // preempt queue if other direct commands exist. used for joystick

@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
@@ -58,21 +59,7 @@ class _ManageGearState extends State<ManageGear> {
             controller: scrollController,
             children: [
               if (device!.deviceDefinition.unsupported) ...[
-                BaseCard(
-                  elevation: 3,
-                  color: Colors.red,
-                  child: ListTile(
-                    leading: const Icon(Icons.warning, color: Colors.white),
-                    trailing: const Icon(Icons.warning, color: Colors.white),
-                    title: Text(
-                      convertToUwU(noLongerSupported()),
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleMedium?.copyWith(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
+                WarningBarCard(text: convertToUwU(noLongerSupported())),
               ],
               ListenableBuilder(
                 listenable: device!.firmwareStatus,
@@ -80,32 +67,13 @@ class _ManageGearState extends State<ManageGear> {
                   return Column(
                     children: [
                       if (device!.firmwareStatus.mandatoryOtaRequired) ...[
-                        BaseCard(
-                          elevation: 3,
-                          color: Colors.red,
-                          child: InkWell(
-                            onTap: () async {
-                              OtaUpdateRoute(
-                                device: device!.storedDevice.btMACAddress,
-                              ).push(context);
-                            },
-                            child: ListTile(
-                              leading: const Icon(
-                                Icons.warning,
-                                color: Colors.white,
-                              ),
-                              trailing: const Icon(
-                                Icons.warning,
-                                color: Colors.white,
-                              ),
-                              title: Text(
-                                convertToUwU(mandatoryOtaRequired()),
-                                style: Theme.of(context).textTheme.titleMedium
-                                    ?.copyWith(color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
+                        WarningBarCard(
+                          text: convertToUwU(mandatoryOtaRequired()),
+                          onTap: () async {
+                            OtaUpdateRoute(
+                              device: device!.storedDevice.btMACAddress,
+                            ).push(context);
+                          },
                         ),
                       ],
                       if (device!.firmwareStatus.hasUpdate) ...[
@@ -117,19 +85,8 @@ class _ManageGearState extends State<ManageGear> {
                                 device: device!.storedDevice.btMACAddress,
                               ).push(context);
                             },
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: getTextColor(color!),
-                              elevation: 1,
-                            ),
-                            icon: Icon(
-                              Icons.system_update,
-                              color: getTextColor(color!),
-                            ),
-                            label: Text(
-                              convertToUwU(manageDevicesOtaButton()),
-                              style: Theme.of(context).textTheme.labelLarge!
-                                  .copyWith(color: getTextColor(color!)),
-                            ),
+                            icon: Icon(Symbols.system_update),
+                            label: Text(convertToUwU(manageDevicesOtaButton())),
                           ),
                         ),
                       ],
@@ -137,9 +94,8 @@ class _ManageGearState extends State<ManageGear> {
                   );
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextField(
+              ListTile(
+                title: TextField(
                   controller: TextEditingController(
                     text: device!.storedDevice.name,
                   ),
@@ -163,6 +119,8 @@ class _ManageGearState extends State<ManageGear> {
                     KnownDevices.instance.store();
                   },
                 ),
+                titleAlignment: ListTileTitleAlignment.top,
+                leading: device!.deviceDefinition.deviceType.icon(60, color!),
               ),
               ListTile(
                 title: Text(convertToUwU(manageDevicesColor())),
@@ -202,16 +160,14 @@ class _ManageGearState extends State<ManageGear> {
                 ManageGearDebug(device: device!),
               ],
               // We only know this info if the gear is connected
-              if (device!.deviceConnectionState.value ==
-                  ConnectivityState.connected) ...[
+              if (device!.isConnected) ...[
                 ManageGearAbout(device: device!, color: color!),
               ],
               OverflowBar(
                 alignment: MainAxisAlignment.end,
                 children: [
-                  if (device!.deviceConnectionState.value ==
-                      ConnectivityState.connected) ...[
-                    TextButton(
+                  if (device!.isConnected) ...[
+                    TextButton.icon(
                       onPressed: () async {
                         setState(() {
                           device!.disableAutoConnect = true;
@@ -219,9 +175,10 @@ class _ManageGearState extends State<ManageGear> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text(convertToUwU(manageDevicesDisconnect())),
+                      label: Text(convertToUwU(manageDevicesDisconnect())),
+                      icon: Icon(Symbols.bluetooth_disabled),
                     ),
-                    TextButton(
+                    TextButton.icon(
                       onPressed: () {
                         setState(() {
                           device!.commandQueue.addCommand(
@@ -233,13 +190,12 @@ class _ManageGearState extends State<ManageGear> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text(convertToUwU(manageDevicesShutdown())),
+                      label: Text(convertToUwU(manageDevicesShutdown())),
+                      icon: Icon(Symbols.power),
                     ),
                   ],
-                  if (device!.deviceConnectionState.value ==
-                          ConnectivityState.disconnected &&
-                      device!.disableAutoConnect) ...[
-                    TextButton(
+                  if (!device!.isConnected && device!.disableAutoConnect) ...[
+                    TextButton.icon(
                       onPressed: () {
                         setState(() {
                           device!.disableAutoConnect = false;
@@ -249,14 +205,14 @@ class _ManageGearState extends State<ManageGear> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text(convertToUwU(manageDevicesConnect())),
+                      label: Text(convertToUwU(manageDevicesConnect())),
+                      icon: Icon(Symbols.bluetooth),
                     ),
                   ],
-                  TextButton(
+                  TextButton.icon(
                     onPressed: () async {
                       setState(() {
-                        if (device!.deviceConnectionState.value ==
-                            ConnectivityState.connected) {
+                        if (device!.isConnected) {
                           device!.forgetOnDisconnect = true;
                           device!.disableAutoConnect = true;
                           disconnect(device!.storedDevice.btMACAddress);
@@ -268,7 +224,8 @@ class _ManageGearState extends State<ManageGear> {
                       });
                       Navigator.pop(context);
                     },
-                    child: Text(convertToUwU(manageDevicesForget())),
+                    label: Text(convertToUwU(manageDevicesForget())),
+                    icon: Icon(Symbols.delete),
                   ),
                 ],
               ),
@@ -282,13 +239,8 @@ class _ManageGearState extends State<ManageGear> {
 
 class ManageGearUpdateCheckButton extends StatefulWidget {
   final StatefulDevice device;
-  final Color color;
 
-  const ManageGearUpdateCheckButton({
-    super.key,
-    required this.device,
-    required this.color,
-  });
+  const ManageGearUpdateCheckButton({super.key, required this.device});
 
   @override
   State<StatefulWidget> createState() => _ManageGearUpdateCheckButtonState();
@@ -307,22 +259,22 @@ class _ManageGearUpdateCheckButtonState
           future: _otaAvailable,
           builder: (context, snapshot) {
             String buttonText = "";
-            IconData iconData = Icons.device_unknown;
+            IconData iconData = Symbols.device_unknown;
             if (snapshot.connectionState == ConnectionState.none) {
               buttonText = manageDevicesOtaCheckButtonLabel();
-              iconData = Icons.question_mark;
+              iconData = Symbols.question_mark;
             } else if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.hasData) {
               if (snapshot.data == true) {
                 buttonText = manageDevicesOtaButton();
-                iconData = Icons.system_update;
+                iconData = Symbols.system_update;
               } else {
                 buttonText = manageDevicesOtaUpToDateButtonLabel();
-                iconData = Icons.check;
+                iconData = Symbols.check;
               }
             } else if (snapshot.hasError) {
               buttonText = manageDevicesOtaCheckErrorButtonLabel();
-              iconData = Icons.error;
+              iconData = Symbols.error;
             } else if (snapshot.connectionState == ConnectionState.active ||
                 snapshot.connectionState == ConnectionState.waiting) {
               buttonText = manageDevicesOtaCheckInProgressButtonLabel();
@@ -346,21 +298,12 @@ class _ManageGearUpdateCheckButtonState
                         });
                       }
                     },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: getTextColor(widget.color),
-                elevation: 1,
-              ),
               icon:
                   (snapshot.connectionState == ConnectionState.active ||
                       snapshot.connectionState == ConnectionState.waiting)
-                  ? CircularProgressIndicator(color: getTextColor(widget.color))
-                  : Icon(iconData, color: getTextColor(widget.color)),
-              label: Text(
-                convertToUwU(buttonText),
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: getTextColor(widget.color),
-                ),
-              ),
+                  ? CircularProgressIndicator()
+                  : Icon(iconData),
+              label: Text(convertToUwU(buttonText)),
             );
           },
         ),
@@ -477,9 +420,7 @@ class ManageGearAbout extends StatelessWidget {
                 if (snapshot.hasData &&
                     !snapshot.data!.featureFlags.hideOtaCheck) {
                   return OverflowBar(
-                    children: [
-                      ManageGearUpdateCheckButton(device: device, color: color),
-                    ],
+                    children: [ManageGearUpdateCheckButton(device: device)],
                   );
                 } else {
                   return Container();
@@ -593,435 +534,453 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
     return ListenableBuilder(
       listenable: widget.device.firmwareStatus,
       builder: (context, child) {
-        return ExpansionTile(
-          trailing: const Icon(Icons.bug_report),
-          title: const Text("Debug (Dangerous)"),
+        return Column(
           children: [
-            OverflowBar(
+            ExpansionTile(
+              trailing: const Icon(Symbols.bug_report),
+              title: const Text("Debug (Dangerous)"),
               children: [
-                FilledButton(
-                  onPressed: () async {
-                    BluetoothConsoleRoute($extra: widget.device).push(context);
-                  },
-                  child: const Text("Open console"),
+                ListTile(
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "BT MAC: ${widget.device.storedDevice.btMACAddress}",
+                      ),
+                      Text(
+                        "FW AVAIL: ${widget.device.firmwareStatus.remoteFirmwareInfo}",
+                      ),
+                      Text("DEV UUID: ${widget.device.deviceDefinition.uuid}"),
+                      Text(
+                        "DEV TYPE: ${widget.device.deviceDefinition.deviceType}",
+                      ),
+                      FutureBuilder(
+                        future: widget.device.deviceDefinition.getFwURL(),
+                        builder: (context, snapshot) {
+                          return Text("DEV FW URL: ${snapshot.data ?? ""}");
+                        },
+                      ),
+                      Text("MTU: ${widget.device.mtu}"),
+                      Text(
+                        "MIN FIRMWARE: ${widget.device.deviceDefinition.minVersion}",
+                      ),
+                      ValueListenableBuilder(
+                        valueListenable: widget.device.gearConfigInfo,
+                        builder: (context, value, child) => Text(
+                          "NVS Config: ${widget.device.gearConfigInfo.value}",
+                        ),
+                      ),
+                      ListenableBuilder(
+                        listenable: widget.device.commandQueue,
+                        builder: (context, child) => Text(
+                          "QUEUE STATE: ${widget.device.commandQueue.state}",
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: FilledButton(
-                    onPressed: () async {
-                      OtaUpdateRoute(
-                        device: widget.device.storedDevice.btMACAddress,
-                      ).push(context);
+                ListTile(
+                  title: Text("Firmware Version"),
+                  subtitle: Flex(
+                    mainAxisSize: MainAxisSize.min,
+                    direction: Axis.horizontal,
+                    spacing: 8,
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: TextEditingController(
+                            text:
+                                "${widget.device.firmwareStatus.firmwareVersion.major}",
+                          ),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            label: Text("Major"),
+                          ),
+                          maxLines: 1,
+                          minLines: 1,
+                          maxLength: 2,
+                          autocorrect: false,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          onSubmitted: (nameValue) async {
+                            if (nameValue.isEmpty) {
+                              return;
+                            }
+                            setState(() {
+                              widget.device.firmwareStatus.firmwareVersion =
+                                  Version(
+                                    major: int.parse(nameValue),
+                                    minor: widget
+                                        .device
+                                        .firmwareStatus
+                                        .firmwareVersion
+                                        .minor,
+                                    patch: widget
+                                        .device
+                                        .firmwareStatus
+                                        .firmwareVersion
+                                        .patch,
+                                  );
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: TextEditingController(
+                            text:
+                                "${widget.device.firmwareStatus.firmwareVersion.minor}",
+                          ),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            label: Text("Minor"),
+                          ),
+                          maxLines: 1,
+                          minLines: 1,
+                          maxLength: 2,
+                          autocorrect: false,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          onSubmitted: (nameValue) async {
+                            if (nameValue.isEmpty) {
+                              return;
+                            }
+                            setState(() {
+                              widget.device.firmwareStatus.firmwareVersion =
+                                  Version(
+                                    major: widget
+                                        .device
+                                        .firmwareStatus
+                                        .firmwareVersion
+                                        .major,
+                                    minor: int.parse(nameValue),
+                                    patch: widget
+                                        .device
+                                        .firmwareStatus
+                                        .firmwareVersion
+                                        .patch,
+                                  );
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: TextEditingController(
+                            text:
+                                "${widget.device.firmwareStatus.firmwareVersion.patch}",
+                          ),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            label: Text("Patch"),
+                          ),
+                          maxLines: 1,
+                          minLines: 1,
+                          maxLength: 2,
+                          autocorrect: false,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          onSubmitted: (nameValue) async {
+                            if (nameValue.isEmpty) {
+                              return;
+                            }
+                            setState(() {
+                              widget.device.firmwareStatus.firmwareVersion =
+                                  Version(
+                                    major: widget
+                                        .device
+                                        .firmwareStatus
+                                        .firmwareVersion
+                                        .major,
+                                    minor: widget
+                                        .device
+                                        .firmwareStatus
+                                        .firmwareVersion
+                                        .minor,
+                                    patch: int.parse(nameValue),
+                                  );
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  title: const Text("Hardware Version"),
+                  subtitle: TextField(
+                    controller: TextEditingController(
+                      text: widget.device.firmwareStatus.hardwareVersion,
+                    ),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: sequencesEditName(),
+                    ),
+                    maxLines: 1,
+                    maxLength: 30,
+                    autocorrect: false,
+                    onSubmitted: (nameValue) async {
+                      setState(() {
+                        widget.device.firmwareStatus.hardwareVersion =
+                            nameValue;
+                      });
                     },
-                    child: Text(manageDevicesOtaButton()),
+                  ),
+                ),
+                ListTile(
+                  title: const Text("Has Update"),
+                  trailing: Switch(
+                    value: widget.device.firmwareStatus.hasUpdate,
+                    onChanged: (bool value) {
+                      setState(() {
+                        widget.device.firmwareStatus.hasUpdate = value;
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text("Mandatory OTA Required"),
+                  trailing: Switch(
+                    value: widget.device.firmwareStatus.mandatoryOtaRequired,
+                    onChanged: (bool value) {
+                      setState(() {
+                        widget.device.firmwareStatus.mandatoryOtaRequired =
+                            value;
+                      });
+                    },
+                  ),
+                ),
+                ListenableBuilder(
+                  listenable: widget.device,
+                  builder: (context, child) => ListTile(
+                    title: const Text("Has Glowtip"),
+                    trailing: DropdownMenu<GlowtipStatus>(
+                      initialSelection: widget.device.hasGlowtip,
+                      onSelected: (GlowtipStatus? value) {
+                        if (value == null) {
+                          return;
+                        }
+                        setState(() {
+                          widget.device.hasGlowtip = value;
+                        });
+                      },
+                      dropdownMenuEntries: GlowtipStatus.values
+                          .map(
+                            (e) => DropdownMenuEntry(value: e, label: e.name),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+                ListenableBuilder(
+                  listenable: widget.device,
+                  builder: (context, child) => ListTile(
+                    title: const Text("Has RGB"),
+                    trailing: DropdownMenu<RGBStatus>(
+                      initialSelection: widget.device.hasRGB,
+                      onSelected: (RGBStatus? value) {
+                        if (value == null) {
+                          return;
+                        }
+                        setState(() {
+                          widget.device.hasRGB = value;
+                        });
+                      },
+                      dropdownMenuEntries: RGBStatus.values
+                          .map(
+                            (e) => DropdownMenuEntry(value: e, label: e.name),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  title: const Text("Disable Autoconnect"),
+                  trailing: Switch(
+                    value: widget.device.disableAutoConnect,
+                    onChanged: (bool value) {
+                      setState(() {
+                        widget.device.disableAutoConnect = value;
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text("Forget on Disconnect"),
+                  trailing: Switch(
+                    value: widget.device.forgetOnDisconnect,
+                    onChanged: (bool value) {
+                      setState(() {
+                        widget.device.forgetOnDisconnect = value;
+                      });
+                    },
+                  ),
+                ),
+                ListenableBuilder(
+                  listenable: widget.device.battery,
+                  builder: (context, child) => ListTile(
+                    title: const Text("Battery Level"),
+                    subtitle: Slider(
+                      min: -1,
+                      max: 100,
+                      onChanged: (double value) {
+                        if (value == widget.device.battery.level) {
+                          return;
+                        }
+                        setState(() {
+                          widget.device.battery.level = value;
+                        });
+                      },
+                      value: widget.device.battery.level,
+                    ),
+                    trailing: Text("${widget.device.battery.level}"),
+                  ),
+                ),
+                ListenableBuilder(
+                  listenable: widget.device.battery,
+                  builder: (context, child) => ListTile(
+                    title: const Text("Battery Charging"),
+                    trailing: Switch(
+                      value: widget.device.battery.isCharging,
+                      onChanged: (bool value) {
+                        setState(() {
+                          widget.device.battery.isCharging = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                ListenableBuilder(
+                  listenable: widget.device.battery,
+                  builder: (context, child) => ListTile(
+                    title: const Text("Battery Low"),
+                    trailing: Switch(
+                      value: widget.device.battery.isLow,
+                      onChanged: (bool value) {
+                        setState(() {
+                          widget.device.battery.isLow = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                ListTile(
+                  title: const Text("Error"),
+                  trailing: Switch(
+                    value: widget.device.gearReturnedError,
+                    onChanged: (bool value) {
+                      setState(() {
+                        widget.device.gearReturnedError = value;
+                      });
+                    },
+                  ),
+                ),
+                ValueListenableBuilder(
+                  valueListenable: widget.device.deviceConnectionState,
+                  builder: (context, value, child) => ListTile(
+                    title: const Text("Connection State"),
+                    trailing: DropdownMenu<ConnectivityState>(
+                      initialSelection:
+                          widget.device.deviceConnectionState.value,
+                      onSelected: (value) {
+                        if (value != null) {
+                          setState(() {
+                            widget.device.deviceConnectionState.value = value;
+                          });
+                        }
+                      },
+                      dropdownMenuEntries: ConnectivityState.values
+                          .map(
+                            (e) => DropdownMenuEntry(value: e, label: e.name),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+                ValueListenableBuilder(
+                  valueListenable: widget.device.deviceState,
+                  builder: (context, value, child) => ListTile(
+                    title: const Text("Device State"),
+                    trailing: DropdownMenu<DeviceMoveState>(
+                      initialSelection: widget.device.deviceState.value,
+                      onSelected: (value) {
+                        if (value != null) {
+                          setState(() {
+                            widget.device.deviceState.value = value;
+                          });
+                        }
+                      },
+                      dropdownMenuEntries: DeviceMoveState.values
+                          .map(
+                            (e) => DropdownMenuEntry(value: e, label: e.name),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+                ListenableBuilder(
+                  listenable: widget.device,
+                  builder: (context, child) => ListTile(
+                    title: const Text("bluetoothUartService"),
+                    trailing: DropdownMenu<BluetoothUartService>(
+                      initialSelection: widget.device.bluetoothUartService,
+                      onSelected: (value) {
+                        setState(() {
+                          widget.device.bluetoothUartService = value;
+                        });
+                      },
+                      dropdownMenuEntries: uartServices
+                          .map(
+                            (e) => DropdownMenuEntry(value: e, label: e.label),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+                ValueListenableBuilder(
+                  valueListenable: widget.device.rssi,
+                  builder: (context, value, child) => ListTile(
+                    title: const Text("RSSI Level"),
+                    trailing: Text("${widget.device.rssi.value}"),
+                    subtitle: Slider(
+                      min: -150,
+                      max: -1,
+                      value: widget.device.rssi.value.toDouble(),
+                      onChanged: (double value) {
+                        setState(() {
+                          widget.device.rssi.value = value.toInt();
+                        });
+                      },
+                    ),
                   ),
                 ),
               ],
             ),
-            ListTile(
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("BT MAC: ${widget.device.storedDevice.btMACAddress}"),
-                  Text(
-                    "FW AVAIL: ${widget.device.firmwareStatus.remoteFirmwareInfo}",
-                  ),
-                  Text("DEV UUID: ${widget.device.deviceDefinition.uuid}"),
-                  Text(
-                    "DEV TYPE: ${widget.device.deviceDefinition.deviceType}",
-                  ),
-                  FutureBuilder(
-                    future: widget.device.deviceDefinition.getFwURL(),
-                    builder: (context, snapshot) {
-                      return Text("DEV FW URL: ${snapshot.data ?? ""}");
-                    },
-                  ),
-                  Text("MTU: ${widget.device.mtu}"),
-                  Text(
-                    "MIN FIRMWARE: ${widget.device.deviceDefinition.minVersion}",
-                  ),
-                  ValueListenableBuilder(
-                    valueListenable: widget.device.gearConfigInfo,
-                    builder: (context, value, child) => Text(
-                      "NVS Config: ${widget.device.gearConfigInfo.value}",
-                    ),
-                  ),
-                  ListenableBuilder(
-                    listenable: widget.device.commandQueue,
-                    builder: (context, child) => Text(
-                      "QUEUE STATE: ${widget.device.commandQueue.state}",
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: Text("Firmware Version"),
-              subtitle: Flex(
-                mainAxisSize: MainAxisSize.min,
-                direction: Axis.horizontal,
-                spacing: 8,
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: TextEditingController(
-                        text:
-                            "${widget.device.firmwareStatus.firmwareVersion.major}",
-                      ),
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        label: Text("Major"),
-                      ),
-                      maxLines: 1,
-                      minLines: 1,
-                      maxLength: 2,
-                      autocorrect: false,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onSubmitted: (nameValue) async {
-                        if (nameValue.isEmpty) {
-                          return;
-                        }
-                        setState(() {
-                          widget.device.firmwareStatus.firmwareVersion =
-                              Version(
-                                major: int.parse(nameValue),
-                                minor: widget
-                                    .device
-                                    .firmwareStatus
-                                    .firmwareVersion
-                                    .minor,
-                                patch: widget
-                                    .device
-                                    .firmwareStatus
-                                    .firmwareVersion
-                                    .patch,
-                              );
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      controller: TextEditingController(
-                        text:
-                            "${widget.device.firmwareStatus.firmwareVersion.minor}",
-                      ),
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        label: Text("Minor"),
-                      ),
-                      maxLines: 1,
-                      minLines: 1,
-                      maxLength: 2,
-                      autocorrect: false,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onSubmitted: (nameValue) async {
-                        if (nameValue.isEmpty) {
-                          return;
-                        }
-                        setState(() {
-                          widget.device.firmwareStatus.firmwareVersion =
-                              Version(
-                                major: widget
-                                    .device
-                                    .firmwareStatus
-                                    .firmwareVersion
-                                    .major,
-                                minor: int.parse(nameValue),
-                                patch: widget
-                                    .device
-                                    .firmwareStatus
-                                    .firmwareVersion
-                                    .patch,
-                              );
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      controller: TextEditingController(
-                        text:
-                            "${widget.device.firmwareStatus.firmwareVersion.patch}",
-                      ),
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        label: Text("Patch"),
-                      ),
-                      maxLines: 1,
-                      minLines: 1,
-                      maxLength: 2,
-                      autocorrect: false,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onSubmitted: (nameValue) async {
-                        if (nameValue.isEmpty) {
-                          return;
-                        }
-                        setState(() {
-                          widget.device.firmwareStatus.firmwareVersion =
-                              Version(
-                                major: widget
-                                    .device
-                                    .firmwareStatus
-                                    .firmwareVersion
-                                    .major,
-                                minor: widget
-                                    .device
-                                    .firmwareStatus
-                                    .firmwareVersion
-                                    .minor,
-                                patch: int.parse(nameValue),
-                              );
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: const Text("Hardware Version"),
-              subtitle: TextField(
-                controller: TextEditingController(
-                  text: widget.device.firmwareStatus.hardwareVersion,
-                ),
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: sequencesEditName(),
-                ),
-                maxLines: 1,
-                maxLength: 30,
-                autocorrect: false,
-                onSubmitted: (nameValue) async {
-                  setState(() {
-                    widget.device.firmwareStatus.hardwareVersion = nameValue;
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text("Has Update"),
-              trailing: Switch(
-                value: widget.device.firmwareStatus.hasUpdate,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.device.firmwareStatus.hasUpdate = value;
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text("Mandatory OTA Required"),
-              trailing: Switch(
-                value: widget.device.firmwareStatus.mandatoryOtaRequired,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.device.firmwareStatus.mandatoryOtaRequired = value;
-                  });
-                },
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: widget.device.hasGlowtip,
-              builder: (context, value, child) => ListTile(
-                title: const Text("Has Glowtip"),
-                trailing: DropdownMenu<GlowtipStatus>(
-                  initialSelection: widget.device.hasGlowtip.value,
-                  onSelected: (GlowtipStatus? value) {
-                    if (value == null) {
-                      return;
-                    }
-                    setState(() {
-                      widget.device.hasGlowtip.value = value;
-                    });
+            Wrap(
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    BluetoothConsoleRoute($extra: widget.device).push(context);
                   },
-                  dropdownMenuEntries: GlowtipStatus.values
-                      .map((e) => DropdownMenuEntry(value: e, label: e.name))
-                      .toList(),
+                  label: const Text("Open console"),
+                  icon: Icon(Symbols.send),
                 ),
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: widget.device.hasRGB,
-              builder: (context, value, child) => ListTile(
-                title: const Text("Has RGB"),
-                trailing: DropdownMenu<RGBStatus>(
-                  initialSelection: widget.device.hasRGB.value,
-                  onSelected: (RGBStatus? value) {
-                    if (value == null) {
-                      return;
-                    }
-                    setState(() {
-                      widget.device.hasRGB.value = value;
-                    });
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    OtaUpdateRoute(
+                      device: widget.device.storedDevice.btMACAddress,
+                    ).push(context);
                   },
-                  dropdownMenuEntries: RGBStatus.values
-                      .map((e) => DropdownMenuEntry(value: e, label: e.name))
-                      .toList(),
+                  label: Text(manageDevicesOtaButton()),
+                  icon: Icon(Symbols.update),
                 ),
-              ),
-            ),
-            ListTile(
-              title: const Text("Disable Autoconnect"),
-              trailing: Switch(
-                value: widget.device.disableAutoConnect,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.device.disableAutoConnect = value;
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text("Forget on Disconnect"),
-              trailing: Switch(
-                value: widget.device.forgetOnDisconnect,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.device.forgetOnDisconnect = value;
-                  });
-                },
-              ),
-            ),
-            ListenableBuilder(
-              listenable: widget.device.battery,
-              builder: (context, child) => ListTile(
-                title: const Text("Battery Level"),
-                subtitle: Slider(
-                  min: -1,
-                  max: 100,
-                  onChanged: (double value) {
-                    if (value == widget.device.battery.level) {
-                      return;
-                    }
-                    setState(() {
-                      widget.device.battery.level = value;
-                    });
-                  },
-                  value: widget.device.battery.level,
-                ),
-                trailing: Text("${widget.device.battery.level}"),
-              ),
-            ),
-            ListenableBuilder(
-              listenable: widget.device.battery,
-              builder: (context, child) => ListTile(
-                title: const Text("Battery Charging"),
-                trailing: Switch(
-                  value: widget.device.battery.isCharging,
-                  onChanged: (bool value) {
-                    setState(() {
-                      widget.device.battery.isCharging = value;
-                    });
-                  },
-                ),
-              ),
-            ),
-            ListenableBuilder(
-              listenable: widget.device.battery,
-              builder: (context, child) => ListTile(
-                title: const Text("Battery Low"),
-                trailing: Switch(
-                  value: widget.device.battery.isLow,
-                  onChanged: (bool value) {
-                    setState(() {
-                      widget.device.battery.isLow = value;
-                    });
-                  },
-                ),
-              ),
-            ),
-            ListTile(
-              title: const Text("Error"),
-              trailing: Switch(
-                value: widget.device.gearReturnedError,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.device.gearReturnedError = value;
-                  });
-                },
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: widget.device.deviceConnectionState,
-              builder: (context, value, child) => ListTile(
-                title: const Text("Connection State"),
-                trailing: DropdownMenu<ConnectivityState>(
-                  initialSelection: widget.device.deviceConnectionState.value,
-                  onSelected: (value) {
-                    if (value != null) {
-                      setState(() {
-                        widget.device.deviceConnectionState.value = value;
-                      });
-                    }
-                  },
-                  dropdownMenuEntries: ConnectivityState.values
-                      .map((e) => DropdownMenuEntry(value: e, label: e.name))
-                      .toList(),
-                ),
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: widget.device.deviceState,
-              builder: (context, value, child) => ListTile(
-                title: const Text("Device State"),
-                trailing: DropdownMenu<DeviceMoveState>(
-                  initialSelection: widget.device.deviceState.value,
-                  onSelected: (value) {
-                    if (value != null) {
-                      setState(() {
-                        widget.device.deviceState.value = value;
-                      });
-                    }
-                  },
-                  dropdownMenuEntries: DeviceMoveState.values
-                      .map((e) => DropdownMenuEntry(value: e, label: e.name))
-                      .toList(),
-                ),
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: widget.device.bluetoothUartService,
-              builder: (context, value, child) => ListTile(
-                title: const Text("bluetoothUartService"),
-                trailing: DropdownMenu<BluetoothUartService>(
-                  initialSelection: widget.device.bluetoothUartService.value,
-                  onSelected: (value) {
-                    setState(() {
-                      widget.device.bluetoothUartService.value = value;
-                    });
-                  },
-                  dropdownMenuEntries: uartServices
-                      .map((e) => DropdownMenuEntry(value: e, label: e.label))
-                      .toList(),
-                ),
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: widget.device.rssi,
-              builder: (context, value, child) => ListTile(
-                title: const Text("RSSI Level"),
-                trailing: Text("${widget.device.rssi.value}"),
-                subtitle: Slider(
-                  min: -150,
-                  max: -1,
-                  value: widget.device.rssi.value.toDouble(),
-                  onChanged: (double value) {
-                    setState(() {
-                      widget.device.rssi.value = value.toInt();
-                    });
-                  },
-                ),
-              ),
+              ],
             ),
           ],
         );
@@ -1105,5 +1064,34 @@ class _ManageGearHomePositionState extends State<ManageGearHomePosition> {
       priority: Priority.high,
     );
     widget.device.commandQueue.addCommand(bluetoothMessage);
+  }
+}
+
+class WarningBarCard extends StatelessWidget {
+  final String text;
+  final GestureTapCallback? onTap;
+
+  const WarningBarCard({super.key, required this.text, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    Color errorColor = ColorScheme.of(context).error;
+    Color textColor = ColorScheme.of(context).onError;
+    return BaseCard(
+      elevation: 3,
+      color: errorColor,
+      child: ListTile(
+        onTap: onTap,
+        leading: Icon(Symbols.warning, color: textColor),
+        trailing: Icon(Symbols.warning, color: textColor),
+        title: Text(
+          text,
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(color: textColor),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
 }

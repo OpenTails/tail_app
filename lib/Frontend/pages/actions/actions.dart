@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -182,9 +183,7 @@ class ShowEarSpeed extends StatelessWidget {
       child:
           KnownDevices.instance
               .getConnectedGearForType({DeviceType.ears})
-              .where(
-                (device) => !device.bluetoothUartService.value!.isTailcontrol,
-              )
+              .where((device) => !device.bluetoothUartService!.isTailcontrol)
               .isNotEmpty
           ? const EarSpeedWidget()
           : null,
@@ -229,11 +228,12 @@ class _ActionCardState extends State<ActionCard> {
       listenable: KnownDevices.instance,
       builder: (context, child) {
         Color color = getColor(widget.action.deviceCategory.toSet());
-        Color textColor = getTextColor(color);
+        Color textColor = getTextColor(color: color, context: context);
         return Card(
           clipBehavior: Clip.antiAlias,
           color: color,
           elevation: 1,
+          margin: const EdgeInsets.all(4),
           child: InkWell(
             onLongPress: toggleActionFavorite,
             onTap: () => runActionOnAllSupportedGear(
@@ -271,7 +271,7 @@ class _ActionCardState extends State<ActionCard> {
                       child: FavoriteActions.instance.contains(widget.action)
                           ? Transform.scale(
                               scale: widget.largerCards ? 1.8 : 0.8,
-                              child: Icon(Icons.favorite, color: textColor),
+                              child: Icon(Symbols.favorite, color: textColor),
                             )
                           : null,
                     ),

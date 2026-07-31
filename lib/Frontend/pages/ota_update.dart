@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -141,35 +142,14 @@ class _OtaUpdateState extends State<OtaUpdate> {
                     child: OverflowBar(
                       alignment: MainAxisAlignment.center,
                       children: [
-                        FilledButton(
+                        FilledButton.icon(
                           onPressed:
                               (widget.otaUpdater.firmwareInfo != null ||
                                   widget.otaUpdater.firmwareFile != null)
                               ? widget.otaUpdater.beginUpdate
                               : null,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.system_update,
-                                color: getTextColor(
-                                  Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 4),
-                              ),
-                              Text(
-                                convertToUwU(otaDownloadButtonLabel()),
-                                style: Theme.of(context).textTheme.labelLarge!
-                                    .copyWith(
-                                      color: getTextColor(
-                                        Theme.of(context).colorScheme.primary,
-                                      ),
-                                    ),
-                              ),
-                            ],
-                          ),
+                          label: Text(convertToUwU(otaDownloadButtonLabel())),
+                          icon: Icon(Symbols.system_update),
                         ),
                         if (isDeveloperEnabled) ...[
                           ElevatedButton(
@@ -312,7 +292,7 @@ class _OtaUpdateState extends State<OtaUpdate> {
                 if (isDeveloperEnabled) ...[
                   Expanded(
                     child: ListTile(
-                      trailing: const Icon(Icons.bug_report),
+                      trailing: const Icon(Symbols.bug_report),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

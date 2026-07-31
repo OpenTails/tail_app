@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_android_volume_keydown/flutter_android_volume_keydown.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:universal_io/io.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
@@ -14,7 +15,7 @@ class VolumeButtonTriggerDefinition extends TriggerDefinition {
   VolumeButtonTriggerDefinition() {
     super.name = triggerVolumeButtonTitle;
     super.description = triggerVolumeButtonDescription;
-    super.icon = const Icon(Icons.volume_up);
+    super.icon = const Icon(Symbols.volume_up);
     super.requiredPermission = null;
     super.uuid = "26c1eaef-5976-43cb-bc68-f67cfb29de51";
     super.triggerActionDefinitions = [

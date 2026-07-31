@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:noise_meter/noise_meter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tail_app/Backend/triggers/permissions.dart';
@@ -21,7 +22,7 @@ class NoiseTriggerDefinition extends TriggerDefinition {
   NoiseTriggerDefinition() {
     super.name = triggerPhoneMicTitle;
     super.description = triggerPhoneMicDescription;
-    super.icon = const Icon(Icons.mic);
+    super.icon = const Icon(Symbols.mic);
     super.requiredPermission = TriggerPermissionHandle(
       android: {Permission.microphone},
       ios: {Permission.microphone},

@@ -2,6 +2,7 @@ import 'package:choice/choice.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/analytics.dart';
@@ -37,7 +38,7 @@ class LanguagePicker extends StatelessWidget {
                   analyticsLabel: "Weblate",
                 );
               },
-              icon: Icon(Icons.language),
+              icon: Icon(Symbols.language),
               tooltip: morePageTranslateDescription(),
             );
           },
@@ -50,7 +51,7 @@ class LanguagePicker extends StatelessWidget {
             children: [
               FilledButton.icon(
                 onPressed: openModal,
-                icon: Icon(Icons.language),
+                icon: Icon(Symbols.language),
                 label: Text(convertToUwU(appLanguageSelectorTitle())),
               ),
             ],
@@ -59,7 +60,7 @@ class LanguagePicker extends StatelessWidget {
           return ListTile(
             onTap: openModal,
             title: Text(convertToUwU(appLanguageSelectorTitle())),
-            leading: Icon(Icons.language),
+            leading: Icon(Symbols.language),
             subtitle: state.single != null
                 ? Text(convertToUwU(state.single!.toString()))
                 : null,
@@ -74,7 +75,7 @@ class LanguagePicker extends StatelessWidget {
               onPressed: choiceController.value.isNotEmpty
                   ? () => choiceController.closeModal(confirmed: true)
                   : null,
-              icon: const Icon(Icons.check),
+              icon: const Icon(Symbols.check),
               label: Text(convertToUwU(triggersDefSelectSaveLabel())),
             );
           },

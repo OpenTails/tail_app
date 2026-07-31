@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../../Frontend/translation_string_definitions.dart';
 import '../../../Bluetooth/bluetooth_message.dart';
@@ -16,7 +17,7 @@ class ClawClapTriggerDefinition extends TriggerDefinition {
   ClawClapTriggerDefinition() {
     super.name = triggerClawClapModeTitle;
     super.description = triggerClawClapModeDescription;
-    super.icon = const Icon(Icons.waving_hand_sharp);
+    super.icon = const Icon(Symbols.waving_hand_sharp);
     super.requiredPermission = null;
     super.uuid = "50d65674-ed4f-4bf5-abd1-e5161faf2a5e";
     super.triggerActionDefinitions = [

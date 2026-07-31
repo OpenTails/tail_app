@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
+import 'package:tail_app/Backend/Device/device_type_enum.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:universal_ble/universal_ble.dart';
 
@@ -50,43 +52,7 @@ class _ScanForNewDevice extends State<ScanForNewDevice> {
                     ),
                   ),
                   ScanGearList(),
-                  ExpansionTile(
-                    title: Text(convertToUwU(scanDemoGear())),
-                    children: [
-                      PageInfoCard(text: scanDemoGearTip()),
-                      ListTile(
-                        leading: const Icon(Icons.add),
-                        subtitle: DropdownMenu<DeviceDefinition>(
-                          initialSelection: null,
-                          expandedInsets: EdgeInsets.zero,
-                          label: Text(convertToUwU(scanAddDemoGear())),
-                          onSelected: (value) async {
-                            if (value != null) {
-                              setState(() {
-                                createDemoGear(value);
-                                context.pop();
-                              });
-                            }
-                          },
-                          dropdownMenuEntries: DeviceRegistry.allDevices
-                              .where((deviceDefinition) {
-                                if (isDeveloperEnabled) {
-                                  return true;
-                                } else {
-                                  return deviceDefinition.enableDemo;
-                                }
-                              })
-                              .map(
-                                (e) => DropdownMenuEntry(
-                                  value: e,
-                                  label: e.friendlyName,
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    ],
-                  ),
+                  DemoGearDropdown(),
                 ],
               );
             } else {
@@ -132,7 +98,6 @@ class _ScanGearListState extends State<ScanGearList> {
     super.deactivate();
   }
 
-  bool anyGearFound = false;
   List<BleDevice> foundDevices = [];
 
   @override
@@ -142,7 +107,7 @@ class _ScanGearListState extends State<ScanGearList> {
       builder: (BuildContext context, Widget? child) {
         Iterable<String> knownDeviceIds = KnownDevices.instance.state.keys;
         return StreamBuilder<BleDevice>(
-          stream: UniversalBle.scanStream,
+          stream: Scan.instance.scanStream,
           builder: (BuildContext context, AsyncSnapshot<BleDevice> snapshot) {
             if (snapshot.hasData) {
               BleDevice foundDevice = snapshot.data!;
@@ -152,14 +117,13 @@ class _ScanGearListState extends State<ScanGearList> {
                       .any((element) => element == foundDevice.deviceId)) {
                 foundDevices.add(foundDevice);
               }
-              anyGearFound = foundDevices.isNotEmpty;
             }
             return ListView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 AnimatedCrossFade(
-                  firstChild: anyGearFound
+                  firstChild: foundDevices.isNotEmpty
                       ? ListView(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -170,48 +134,70 @@ class _ScanGearListState extends State<ScanGearList> {
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),
-                            ListView.builder(
+                            GridView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: foundDevices.length,
                               itemBuilder: (BuildContext context, int index) {
                                 BleDevice e = foundDevices[index];
-                                return ListTile(
-                                  title: Text(
-                                    convertToUwU(
-                                      DeviceRegistry.getByName(
-                                            e.name ?? "",
-                                          )?.friendlyName ??
-                                          "",
+                                DeviceDefinition? deviceDefinition =
+                                    DeviceRegistry.getByName(e.name ?? "");
+                                Color iconColor = Theme.of(
+                                  context,
+                                ).colorScheme.onSurface;
+                                return Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  child: InkWell(
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          flex: 5,
+                                          child: deviceDefinition!.deviceType
+                                              .icon(175, iconColor),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.headlineSmall,
+                                            convertToUwU(
+                                              deviceDefinition.friendlyName ??
+                                                  "",
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
+                                    onTap: () async {
+                                      await createAndConnect(
+                                        e.deviceId,
+                                        e.name ?? "",
+                                      );
+                                      if (!isDemoGearMac(e.deviceId)) {
+                                        analyticsEvent(
+                                          name: "Connect New Gear",
+                                          props: {
+                                            "Gear Type": e.name ?? "",
+                                            "Onboarding in Progress":
+                                                (!widget.popOnConnect)
+                                                    .toString(),
+                                          },
+                                        );
+                                      }
+
+                                      if (context.mounted &&
+                                          widget.popOnConnect) {
+                                        Navigator.pop(context);
+                                      }
+                                    },
                                   ),
-                                  trailing: Text(
-                                    isDeveloperEnabled ? e.deviceId : "",
-                                  ),
-                                  onTap: () async {
-                                    await createAndConnect(
-                                      e.deviceId,
-                                      e.name ?? "",
-                                    );
-                                    analyticsEvent(
-                                      name: "Connect New Gear",
-                                      props: {
-                                        "Gear Type": e.name ?? "",
-                                        "Onboarding in Progress":
-                                            (!widget.popOnConnect).toString(),
-                                      },
-                                    );
-                                    if (context.mounted &&
-                                        widget.popOnConnect) {
-                                      Navigator.pop(context);
-                                    } else if (context.mounted) {
-                                      setState(() {
-                                        foundDevices.remove(e);
-                                      });
-                                    }
-                                  },
                                 );
                               },
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 300,
+                                  ),
                             ),
                             if (foundDevices.length > 1) ...[
                               Center(
@@ -223,6 +209,20 @@ class _ScanGearListState extends State<ScanGearList> {
                                         bluetoothDevice.deviceId,
                                         bluetoothDevice.name ?? "",
                                       );
+                                      if (!isDemoGearMac(
+                                        bluetoothDevice.deviceId,
+                                      )) {
+                                        analyticsEvent(
+                                          name: "Connect New Gear",
+                                          props: {
+                                            "Gear Type":
+                                                bluetoothDevice.name ?? "",
+                                            "Onboarding in Progress":
+                                                (!widget.popOnConnect)
+                                                    .toString(),
+                                          },
+                                        );
+                                      }
                                     }
                                     if (widget.popOnConnect &&
                                         mounted &&
@@ -230,7 +230,7 @@ class _ScanGearListState extends State<ScanGearList> {
                                       Navigator.pop(context);
                                     }
                                   },
-                                  icon: Icon(Icons.select_all),
+                                  icon: Icon(Symbols.select_all),
                                   label: Text(
                                     convertToUwU(scanConnectToAllButtonLabel()),
                                   ),
@@ -241,13 +241,13 @@ class _ScanGearListState extends State<ScanGearList> {
                         )
                       : Container(),
                   secondChild: Container(),
-                  crossFadeState: anyGearFound
+                  crossFadeState: foundDevices.isNotEmpty
                       ? CrossFadeState.showFirst
                       : CrossFadeState.showSecond,
                   duration: animationTransitionDuration,
                 ),
                 AnimatedOpacity(
-                  opacity: anyGearFound ? 0.5 : 1,
+                  opacity: foundDevices.isNotEmpty ? 0.5 : 1,
                   duration: animationTransitionDuration,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20),
@@ -303,5 +303,66 @@ class _ScanGearListState extends State<ScanGearList> {
         foundDevices.addAll(foundSystemDevices);
       });
     }
+  }
+}
+
+class DemoGearDropdown extends StatefulWidget {
+  const DemoGearDropdown({super.key});
+
+  @override
+  State<DemoGearDropdown> createState() => _DemoGearDropdownState();
+}
+
+class _DemoGearDropdownState extends State<DemoGearDropdown> {
+  final ExpansibleController _expansibleController = ExpansibleController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _expansibleController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      controller: _expansibleController,
+      title: Text(convertToUwU(scanDemoGear())),
+      children: [
+        PageInfoCard(text: scanDemoGearTip()),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          children: DeviceRegistry.allDevices
+              .where((deviceDefinition) {
+                // only 1 demo gear can exist per device definition
+                if (isDemoGearExists(deviceDefinition)) {
+                  return false;
+                }
+                if (isDeveloperEnabled) {
+                  return true;
+                } else {
+                  return deviceDefinition.enableDemo;
+                }
+              })
+              .map(
+                (e) => ActionChip.elevated(
+                  label: Text(e.friendlyName),
+                  avatar: e.deviceType.icon(
+                    IconTheme.of(context).size ?? 32,
+                    Theme.of(context).colorScheme.onSurface,
+                  ),
+                  tooltip: scanAddDemoGear(),
+                  onPressed: () {
+                    Scan.instance.addDemoGear(e);
+                    setState(() {
+                      _expansibleController.collapse();
+                    });
+                  },
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    );
   }
 }

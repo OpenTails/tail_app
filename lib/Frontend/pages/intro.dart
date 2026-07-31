@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:logging/logging.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/known_gear.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -17,7 +18,6 @@ import '../../assets.dart';
 import '../Widgets/language_picker.dart';
 import '../Widgets/lottie_lazy_load.dart';
 import '../go_router_config.dart';
-import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 import 'markdown_viewer.dart';
 
@@ -74,7 +74,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    setupSystemColor(context);
     return Container(
       color: Theme.of(context).canvasColor,
       child: SafeArea(
@@ -82,11 +81,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           listenable: UserLocale.instance,
           builder: (context, child) {
             var pageDecoration = PageDecoration(
-              titleTextStyle: const TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.w700,
-              ),
-              bodyTextStyle: const TextStyle(fontSize: 19.0),
+              titleTextStyle: TextTheme.of(context).headlineMedium!,
+              bodyTextStyle: TextTheme.of(context).bodyLarge!,
               bodyPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
               pageColor: Theme.of(context).canvasColor,
               imagePadding: EdgeInsets.zero,
@@ -298,23 +294,21 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                         onPressed();
                       }
                     },
-                    label: Text(
-                      convertToUwU(onboardingContinueLabel()),
-                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    label: Text(convertToUwU(onboardingContinueLabel())),
+                    icon: const Icon(
+                      Symbols.arrow_forward,
+                      key: Key('nextPage'),
                     ),
-                    icon: const Icon(Icons.arrow_forward, key: Key('nextPage')),
                   ),
                 ],
               ),
-              skip: const Icon(Icons.skip_next),
-              done: FilledButton(
+              skip: const Icon(Symbols.skip_next),
+              done: FilledButton.icon(
                 onPressed: () {
                   _onIntroEnd(context);
                 },
-                child: Text(
-                  convertToUwU(onboardingDoneButtonLabel()),
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
+                label: Text(convertToUwU(onboardingDoneButtonLabel())),
+                icon: const Icon(Symbols.arrow_forward, key: Key('nextPage')),
               ),
               dotsFlex: 0,
               isProgress: false,

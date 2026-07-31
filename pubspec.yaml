@@ -23,7 +23,7 @@ dependencies:
   go_router: ^17.3.0
   vector_math: # used for joystick, pinned to SDK version
   collection: ^1.19.1 # Priority Queue
-  uuid: ^4.5.3 # Used to generate UUID v4 ids for custom actions & move lists
+  uuid: ^4.6.0 # Used to generate UUID v4 ids for custom actions & move lists
   json_annotation: ^4.12.0
   crypto: ^3.0.7 # used for md5 hash checking during ota download
   circular_buffer: ^0.13.0 # Used for serial console
@@ -37,17 +37,17 @@ dependencies:
   wakelock_plus: ^1.6.1 # Keeps the screen awake
   file_picker: ^12.0.0-beta.7 # used to manually select firmware file
   path_provider: ^2.1.6 # used to get paths for app storage and cache storage
-  package_info_plus: ^10.2.0
+  package_info_plus: ^10.2.1
   permission_handler: ^12.0.3
   url_launcher: ^6.3.2 # Open URLS in external apps
   universal_ble: ^2.1.0 # Good riddance FBP
-  flutter_foreground_task: ^9.2.2 # Keep the app running in the background on android
+  flutter_foreground_task: ^10.0.0 # Keep the app running in the background on android
   quick_actions: ^1.1.0 # puts favorites on the home screen
   audioplayers: ^6.8.1
-  connectivity_plus: ^7.2.0
+  connectivity_plus: ^7.3.0
   data_saver: ^0.4.0 # check if data saver is enabled
-  battery_plus: ^7.1.0
-  app_settings: ^7.0.0
+  battery_plus: ^7.1.1
+  app_settings: ^8.0.1
   app_badge_plus: ^1.3.2
   universal_io: ^2.3.1
   # Watch
@@ -68,12 +68,13 @@ dependencies:
   choice:
     git:
       url: https://github.com/davigmacode/flutter_choice
-  #feedback: ^3.1.0
   flutter_widget_from_html_core: ^0.17.2
   lottie: ^3.5.1
   pdfx: ^2.9.2
   owoify_dart: ^2.1.0
   cached_network_image_ce: ^4.9.0
+  flutter_svg: ^2.3.0
+  material_symbols_icons: ^4.2951.0
 
   # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
@@ -119,7 +120,7 @@ dev_dependencies:
   build_runner: # Required for build
   json_serializable: ^6.14.0 # required for @JsonSerializable annotations
   hive_ce_generator: ^1.11.2 # required for @HiveType annotations
-  go_router_builder: ^4.3.0
+  go_router_builder: ^4.3.1
   mockito: ^5.6.4
   freezed: ^3.2.5 # required for @freezed annotations
 
@@ -135,9 +136,6 @@ dependency_overrides:
     git:
       url: https://github.com/Codel1417/flutter-plugins
       path: packages/pedometer
-  flutter_joystick:
-    git:
-      url: https://github.com/Codel1417/flutter_joystick
   firedart:
     git:
       url: https://github.com/roman-stakhovskyi/firedart
@@ -145,9 +143,17 @@ dependency_overrides:
 flutter:
   uses-material-design: true
   generate: true # Generate app_localizations.dart
+  fonts:
+    - family: Fredoka
+      fonts:
+        - asset: assets/fonts/Fredoka-Variable.ttf
+    - family: HankenGrotesk
+      fonts:
+        - asset: assets/fonts/HankenGrotesk-Variable.ttf
   assets:
     - assets/
     - assets/tailcostickers/
+    - assets/icons/
     - CHANGELOG.md
     - PRIVACY.md
 

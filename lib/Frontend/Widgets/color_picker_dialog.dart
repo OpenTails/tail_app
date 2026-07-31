@@ -34,17 +34,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           onPressed: () {
             Navigator.of(context).pop(color.toARGB32());
           },
-          child: Text(
-            convertToUwU(ok()),
-          ),
+          child: Text(convertToUwU(ok())),
         ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(
-            convertToUwU(cancel()),
-          ),
+          child: Text(convertToUwU(cancel())),
         ),
       ],
       content: Wrap(

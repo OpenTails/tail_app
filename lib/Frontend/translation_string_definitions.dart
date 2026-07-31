@@ -29,14 +29,14 @@ String homeCosHubTitle() => Intl.message(
 );
 
 String homeWelcomeMessageTitle() => Intl.message(
-  'Welcome',
+  'Welcome to Tail App',
   name: 'homeWelcomeMessageTitle',
   desc:
       'The welcome message title on the home screen when no gear is connected',
 );
 
 String homeWelcomeMessage() => Intl.message(
-  'You can control, explore and update all your Tail Co gear right here. There are instructions and guides available too. Happy Wagging!',
+  'Tap the Scan button to find your gear! Once found, you can make your gear move, set up triggers, and keep it up to date, all in one place.',
   name: 'homeWelcomeMessage',
   desc: 'The welcome message on the home screen when no gear is connected',
 );
@@ -998,7 +998,7 @@ String onboardingBluetoothRequestButtonLabel() => Intl.message(
 );
 
 String onboardingBluetoothEnableButtonLabel() => Intl.message(
-  "Open Settings to turn On Bluetooth",
+  "Open phone settings to enable Bluetooth",
   name: 'onboardingBluetoothEnableButtonLabel',
   desc:
       'Label for the button to open bluetooth settings on the onboarding screen',

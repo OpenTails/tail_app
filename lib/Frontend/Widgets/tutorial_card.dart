@@ -55,7 +55,7 @@ class GearOutOfDateWarning extends StatelessWidget {
               if (valueNotifiers
                   .map((e) => e.mandatoryOtaRequired)
                   .contains(true)) {
-                Color color = Theme.of(context).colorScheme.primary;
+                Color color = Theme.of(context).colorScheme.error;
                 return BaseCard(
                   color: color,
                   child: InkWell(
@@ -78,7 +78,9 @@ class GearOutOfDateWarning extends StatelessWidget {
                         child: Text(
                           convertToUwU(featureLimitedOtaRequiredLabel()),
                           style: Theme.of(context).textTheme.labelLarge!
-                              .copyWith(color: getTextColor(color)),
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.onError,
+                              ),
                         ),
                       ),
                     ),

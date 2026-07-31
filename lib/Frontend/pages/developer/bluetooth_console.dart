@@ -1,10 +1,11 @@
-import 'package:circular_buffer/circular_buffer.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Device/command/command_history.dart';
+import 'package:tail_app/Backend/Device/device_type_enum.dart';
 
 import '../../../Backend/Bluetooth/bluetooth_message.dart';
 import '../../../Backend/Device/stateful/connected_gear.dart';
-import '../../go_router_config.dart';
+import '../../Widgets/uwu_text.dart';
 
 class BluetoothConsole extends StatefulWidget {
   final StatefulDevice device;
@@ -15,95 +16,208 @@ class BluetoothConsole extends StatefulWidget {
   State<BluetoothConsole> createState() => _BluetoothConsoleState();
 }
 
+bool _filterMessages = false;
+bool _sendAsGear = false;
+
 class _BluetoothConsoleState extends State<BluetoothConsole> {
   String cmd = "";
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _sendCommand() {
+    if (cmd.isEmpty) return;
+    if (_sendAsGear) {
+      widget.device.mockReceivedMessage(cmd);
+    } else {
+      widget.device.commandQueue.addCommand(
+        BluetoothMessage(message: cmd, priority: Priority.high),
+      );
+    }
+    setState(() {
+      cmd = "";
+      _controller.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Console")),
-      body: DisplayLog(console: widget),
-      bottomNavigationBar: SafeArea(
-        child: ListTile(
-          isThreeLine: true,
-          dense: true,
-          subtitle: TextField(
-            controller: TextEditingController(text: cmd),
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Send a Command",
-              hintText: 'TAILHA',
-            ),
-            maxLines: 1,
-            maxLength: 128,
-            autocorrect: false,
-            onEditingComplete: () {
-              widget.device.commandQueue.addCommand(
-                BluetoothMessage(message: cmd, priority: Priority.high),
-              );
-              setState(() {
-                cmd = "";
-              });
-            },
-            onChanged: (nameValue) {
-              cmd = nameValue.toUpperCase();
-            },
+      appBar: AppBar(
+        title: Text(
+          convertToUwU("Console: ${widget.device.storedDevice.name}"),
+        ),
+        actions: [
+          IconButton(
+            onPressed: widget.device.commandQueue.commandHistory.clear,
+            icon: const Icon(Symbols.delete_sweep),
+            tooltip: convertToUwU("Clear Log"),
           ),
-          trailing: IconButton.filled(
+          IconButton(
             onPressed: () {
-              widget.device.commandQueue.addCommand(
-                BluetoothMessage(message: cmd, priority: Priority.high),
-              );
               setState(() {
-                cmd = "";
+                _filterMessages = !_filterMessages;
               });
             },
-            icon: const Icon(Icons.send),
+            icon: Icon(
+              _filterMessages ? Symbols.filter_alt_off : Symbols.filter_alt,
+            ),
+            tooltip: convertToUwU(
+              _filterMessages
+                  ? "Show VER/HWVER messages"
+                  : "Hide VER/HWVER messages",
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _sendAsGear = !_sendAsGear;
+              });
+            },
+            icon: !_sendAsGear
+                ? Icon(Symbols.bluetooth)
+                : Icon(Symbols.devices),
+            tooltip: convertToUwU(
+              !_sendAsGear ? "Send as Gear" : "Send as App",
+            ),
+          ),
+        ],
+      ),
+      body: ListenableBuilder(
+        listenable: Listenable.merge([
+          widget.device.commandQueue.commandHistory,
+          widget.device,
+        ]),
+        builder: (context, child) {
+          List<MessageHistoryEntry> buffer = widget
+              .device
+              .commandQueue
+              .commandHistory
+              .state
+              .reversed
+              .toList();
+
+          if (_filterMessages) {
+            buffer = buffer
+                .where((entry) => !_shouldFilterMessage(entry.message))
+                .toList();
+
+            if (buffer.isEmpty) {
+              return Center(child: Text(convertToUwU("No messages in log")));
+            }
+          }
+
+          return ListView.builder(
+            padding: const EdgeInsets.all(12),
+            itemCount: buffer.length,
+            reverse: true,
+            itemBuilder: (BuildContext context, int index) {
+              MessageHistoryEntry entry = buffer[index];
+              bool isSend = entry.type == MessageHistoryType.send;
+
+              return _MessageBubble(entry: entry, isSend: isSend);
+            },
+          );
+        },
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  enabled: widget.device.isReady,
+                  onChanged: (value) {
+                    cmd = value.toUpperCase();
+                  },
+                  onSubmitted: (_) => _sendCommand(),
+                  decoration: InputDecoration(
+                    hintText: _sendAsGear
+                        ? "Simulate response from gear"
+                        : 'TAILHA',
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                      borderSide: BorderSide(
+                        color: _sendAsGear
+                            ? Theme.of(context).colorScheme.error
+                            : Theme.of(context).colorScheme.outline,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              IconButton.filled(
+                onPressed: widget.device.isReady ? _sendCommand : null,
+                icon: const Icon(Symbols.send),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+
+  bool _shouldFilterMessage(String message) {
+    return message.startsWith("VER") ||
+        message.startsWith("HWVER") ||
+        message.startsWith("PING") ||
+        message.startsWith("PONG") ||
+        message.startsWith("BATT");
+  }
 }
 
-class DisplayLog extends StatefulWidget {
-  const DisplayLog({required this.console, super.key});
+class _MessageBubble extends StatelessWidget {
+  final MessageHistoryEntry entry;
+  final bool isSend;
 
-  final BluetoothConsole console;
-  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  const _MessageBubble({required this.entry, required this.isSend});
 
-  @override
-  State<DisplayLog> createState() => _DisplayLogState();
-}
-
-class _DisplayLogState extends State<DisplayLog> {
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: widget.console.device.commandQueue.commandHistory,
-      builder: (context, child) {
-        CircularBuffer buffer =
-            widget.console.device.commandQueue.commandHistory.state;
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 100),
-          child: ListView.builder(
-            reverse: true,
-            shrinkWrap: true,
-            itemCount: buffer.length,
-            itemBuilder: (BuildContext context, int index) {
-              MessageHistoryEntry messageHistoryEntry = buffer.reversed
-                  .toList()[index];
-              return Text(
-                messageHistoryEntry.message,
-                textDirection:
-                    messageHistoryEntry.type == MessageHistoryType.send
-                    ? TextDirection.rtl
-                    : TextDirection.ltr,
-              );
-            },
+    return Align(
+      alignment: isSend ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.75,
+        ),
+        decoration: BoxDecoration(
+          color: isSend
+              ? Theme.of(context).colorScheme.primaryContainer
+              : Theme.of(context).colorScheme.secondaryContainer,
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(16),
+            topRight: const Radius.circular(16),
+            bottomLeft: Radius.circular(isSend ? 16 : 0),
+            bottomRight: Radius.circular(isSend ? 0 : 16),
           ),
-        );
-      },
+        ),
+        child: Text(
+          convertToUwU(entry.message),
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 14,
+            color: isSend
+                ? Theme.of(context).colorScheme.onPrimaryContainer
+                : Theme.of(context).colorScheme.onSecondaryContainer,
+          ),
+        ),
+      ),
     );
   }
 }

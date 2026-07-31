@@ -1,6 +1,7 @@
 import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
+import 'package:tail_app/Frontend/theme_helpers.dart';
 
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/device_type_enum.dart';
@@ -37,11 +38,17 @@ class DeviceTypeWidget extends StatelessWidget {
             itemCount: DeviceType.values.length,
             itemBuilder: (state, i) {
               DeviceType deviceType = DeviceType.values.toList()[i];
+              Color color = deviceType.color();
+              Color textColor = getTextColor(color: color, context: context);
               return ChoiceChip(
-                selectedColor: deviceType.color(),
+                checkmarkColor: textColor,
+                selectedColor: color,
+                tooltip: deviceType.translatedName,
                 selected: state.selected(deviceType),
                 onSelected: state.onSelected(deviceType),
-                label: Text(convertToUwU(deviceType.translatedName)),
+                label: deviceType.iconAssetPath().isEmpty
+                    ? Text(convertToUwU(deviceType.translatedName))
+                    : deviceType.icon(30, textColor),
                 elevation: 1,
               );
             },

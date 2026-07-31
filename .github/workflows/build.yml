@@ -7,8 +7,6 @@ on:
       - ".vscode/*"
       - ".run/*"
       - "scripts/*"
-    branches:
-      - master
   pull_request:
 concurrency:
   group: ci-${{ github.ref }}
@@ -57,7 +55,7 @@ jobs:
           sentry-auth: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
       - name: Build IOS / Upload Beta
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
         run: bash ${GITHUB_WORKSPACE}/Scripts/fastlane.sh
         working-directory: Scripts
         env:

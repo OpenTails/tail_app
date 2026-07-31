@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:gamepads/gamepads.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 import '../sensor_definition.dart';
@@ -13,7 +14,7 @@ class GamepadTriggerDefinition extends TriggerDefinition {
   GamepadTriggerDefinition() {
     super.name = triggerGamepadTitle;
     super.description = triggerGamepadDescription;
-    super.icon = const Icon(Icons.gamepad);
+    super.icon = const Icon(Symbols.gamepad);
     super.requiredPermission = null;
     super.uuid = "3d53ce88-d86c-4635-8458-9e0779ac3e4f";
     super.triggerActionDefinitions = [
@@ -68,28 +69,28 @@ class GamepadTriggerDefinition extends TriggerDefinition {
       TriggerActionDef(
         name: "UP",
         translated: () => "UP",
-        icon: Icon(Icons.keyboard_arrow_up),
+        icon: Icon(Symbols.keyboard_arrow_up),
         uuid: "460904ef-5641-44f2-987c-b89dd4849219",
         defaultActions: true,
       ),
       TriggerActionDef(
         name: "Down",
         translated: () => "Down",
-        icon: Icon(Icons.keyboard_arrow_down),
+        icon: Icon(Symbols.keyboard_arrow_down),
         uuid: "4f1990a8-0660-4723-8384-886ea5b18409",
         defaultActions: true,
       ),
       TriggerActionDef(
         name: "Left",
         translated: () => "Left",
-        icon: Icon(Icons.keyboard_arrow_left),
+        icon: Icon(Symbols.keyboard_arrow_left),
         uuid: "93f4978b-e021-4d04-adca-ebc9510d684f",
         defaultActions: true,
       ),
       TriggerActionDef(
         name: "Right",
         translated: () => "Right",
-        icon: Icon(Icons.keyboard_arrow_right),
+        icon: Icon(Symbols.keyboard_arrow_right),
         uuid: "82cd3c2c-f46a-44cd-9235-2af75cedbff5",
         defaultActions: true,
       ),

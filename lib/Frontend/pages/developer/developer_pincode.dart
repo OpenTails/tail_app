@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../Backend/logging_wrappers.dart';
 import '../../../constants.dart';
@@ -45,8 +46,8 @@ class _DeveloperPincodeState extends State<DeveloperPincode> {
             '🐭',
           ],
         ),
-        cancelButton: const Icon(Icons.close),
-        deleteButton: const Icon(Icons.delete),
+        cancelButton: const Icon(Symbols.close),
+        deleteButton: const Icon(Symbols.delete),
       ),
     );
   }

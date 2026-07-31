@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../../../Frontend/translation_string_definitions.dart';
 import '../../../Bluetooth/bluetooth_message.dart';
@@ -16,7 +17,7 @@ class EarMicTriggerDefinition extends TriggerDefinition {
   EarMicTriggerDefinition() {
     super.name = triggerEarMicTitle;
     super.description = triggerEarMicDescription;
-    super.icon = const Icon(Icons.mic);
+    super.icon = const Icon(Symbols.mic);
     super.requiredPermission = null;
     super.uuid = "3bbd2306-ea53-44f5-a930-474ff23ec23d";
     super.triggerActionDefinitions = [

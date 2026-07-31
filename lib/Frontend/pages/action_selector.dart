@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Action/action_registry.dart';
@@ -83,7 +84,7 @@ class _ActionSelectorState extends State<ActionSelector> {
                 selected = actionsCatMap.values.flattened.toList();
               });
             },
-            icon: const Icon(Icons.select_all),
+            icon: const Icon(Symbols.select_all),
             tooltip: triggersSelectAllLabel(),
           ),
           IconButton(
@@ -92,7 +93,7 @@ class _ActionSelectorState extends State<ActionSelector> {
                 selected.clear();
               });
             },
-            icon: const Icon(Icons.deselect),
+            icon: const Icon(Symbols.deselect),
             tooltip: triggersSelectClearLabel(),
           ),
         ],
@@ -119,7 +120,7 @@ class _ActionSelectorState extends State<ActionSelector> {
                   context.pop(selected);
                 });
               },
-              icon: Icon(Icons.save),
+              icon: Icon(Symbols.save),
               label: Text(convertToUwU(triggersSelectSaveLabel())),
             ),
           ],
@@ -176,6 +177,8 @@ class _ActionSelectorState extends State<ActionSelector> {
                               clipBehavior: Clip.antiAlias,
                               elevation: 2,
                               color: color,
+                              margin: const EdgeInsets.all(4),
+
                               child: cardChild(isSelected, baseAction, color!),
                             );
                           },
@@ -218,9 +221,9 @@ class _ActionSelectorState extends State<ActionSelector> {
             semanticsLabel: baseAction.name,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
-            style: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(color: getTextColor(color)),
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: getTextColor(color: color, context: context),
+            ),
           ),
         ),
       ),
