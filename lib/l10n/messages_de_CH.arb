@@ -923,7 +923,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "scanDemoGearTip": "Möchtisch d'App verusproche aber wartisch ufs Usrüstig? Füeg e falschs Usrüstig debi. Das letsch dech d App erläbe, als ob du dyni Usrüstig hätsch, oder wänn du nödigs nutze wotsch, wo du aktuell nöd besitzisch. Das ermöglicht en neue Abschnitt uf dr \"Scan For New Usrüstig\" Sita.",
+    "scanDemoGearTip": "Möchtisch d'App verusproche aber wartisch ufs Usrüstig? Füeg e falschs Usrüstig debi. Das letsch dech d App erläbe, als ob du dyni Usrüstig hätsch, oder wänn du nödigs nutze wotsch, wo du aktuell nöd besitzisch.",
     "@scanDemoGearTip": {
         "description": "Tip Card description for the  demo gear on the scan for new devices page",
         "type": "text",
@@ -1358,6 +1358,126 @@
     "triggerClawClapMode": "Händeklatscher erkannt",
     "@triggerClawClapMode": {
         "description": "ClawGear clap detected label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "watchPhoneAppNotOpen": "Bitte mach d'App 'The Tail Co' uf dini Handys, um dini Ausrüstig z'verbinde",
+    "@watchPhoneAppNotOpen": {
+        "description": "the message that informs the user to open the phone app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerAccelerometerTitle": "Wie s’Handy ghebt wird",
+    "@triggerAccelerometerTitle": {
+        "description": "Accelerometer trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerAccelerometerDescription": "Start e Aktion, je nachdem, uf welere Siite dis Handy ligt",
+    "@triggerAccelerometerDescription": {
+        "description": "Accelerometer trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerAccelerometerFaceUp": "Display nach obe",
+    "@triggerAccelerometerFaceUp": {
+        "description": "Accelerometer trigger face up label\"",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerAccelerometerFaceDown": "Display nach unde",
+    "@triggerAccelerometerFaceDown": {
+        "description": "Accelerometer trigger face down label\"",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerAccelerometerUp": "Handy staht uufrecht",
+    "@triggerAccelerometerUp": {
+        "description": "Accelerometer trigger up label\"",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerAccelerometerDown": "Handy uf em Chopf",
+    "@triggerAccelerometerDown": {
+        "description": "Accelerometer trigger down label\"",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerAccelerometerRight": "Handy rächts ume",
+    "@triggerAccelerometerRight": {
+        "description": "Accelerometer trigger right label\"",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerPhoneMicTitle": "Grüsch",
+    "@triggerPhoneMicTitle": {
+        "description": "Phone Mic trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerPhoneMicDescription": "Start e Aktion, wenn s’Grüsch i dinere Umgebig luut oder liislig isch. Nutzt s’Handy-Mikrofon",
+    "@triggerPhoneMicDescription": {
+        "description": "Phone Mic trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerPhoneMicThresholdSliderLabel": "Grüsch Grenzwärt",
+    "@triggerPhoneMicThresholdSliderLabel": {
+        "description": "Phone Mic trigger label for the noise threshold slider",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerPhoneMicLoud": "Luut",
+    "@triggerPhoneMicLoud": {
+        "description": "Phone Mic trigger area is loud label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerMediaControlsTitle": "Simulierti Mediensteuerig",
+    "@triggerMediaControlsTitle": {
+        "description": "Media Controls trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerMediaControlsDescription": "Spielt scheinbar Audio ab, zum Ufträg vo de Mediensteuerig z empfange, zum Bispiel vo Chopfhörer oder us de Benachrichtigige",
+    "@triggerMediaControlsDescription": {
+        "description": "Media Controls trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerMediaControlsPlayPause": "Abspiele/Pausiere",
+    "@triggerMediaControlsPlayPause": {
+        "description": "Media Controls trigger play/pause action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerMediaControlsForward": "Vorspuele",
+    "@triggerMediaControlsForward": {
+        "description": "Media Controls trigger forward action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerMediaControlsRewind": "Zruggspuele",
+    "@triggerMediaControlsRewind": {
+        "description": "Media Controls trigger rewind action label",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerGamepadTitle": "Gamepad",
+    "@triggerGamepadTitle": {
+        "description": "Gamepad trigger title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "triggerGamepadDescription": "Benutz es verbundes Gamepad, zum dis Gear z steuere",
+    "@triggerGamepadDescription": {
+        "description": "Gamepad trigger description",
+        "type": "text",
+        "placeholders": {}
+    },
+    "gearRgbBrightness": "RGB Liechtstärchi",
+    "@gearRgbBrightness": {
+        "description": "Title for the gear brightness widget that appears on the actions page when gear with RGB support are connected",
         "type": "text",
         "placeholders": {}
     }
