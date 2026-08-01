@@ -148,26 +148,34 @@ class _ScanGearListState extends State<ScanGearList> {
                                 return Card(
                                   clipBehavior: Clip.antiAlias,
                                   child: InkWell(
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                          flex: 5,
-                                          child: deviceDefinition!.deviceType
-                                              .icon(175, iconColor),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.headlineSmall,
-                                            convertToUwU(
-                                              deviceDefinition.friendlyName ??
-                                                  "",
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            flex: 5,
+                                            child: deviceDefinition!.deviceType
+                                                .icon(200, iconColor),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.headlineSmall,
+                                              convertToUwU(
+                                                deviceDefinition.friendlyName ??
+                                                    "",
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                     onTap: () async {
                                       await createAndConnect(
