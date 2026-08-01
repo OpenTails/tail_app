@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/age_check.dart';
+import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
+import '../../Backend/analytics.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../assets.dart';
 import '../../constants.dart';
@@ -112,7 +114,15 @@ class _HomeState extends State<Home> {
               context,
             ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
           ),
-          trailing: Icon(Symbols.newspaper),
+          trailing: IconButton(
+            onPressed: () async {
+              await launchExternalUrl(
+                url: "https://thetailcompany.com/news",
+                analyticsLabel: "Tail Blog",
+              );
+            },
+            icon: Icon(Symbols.newspaper),
+          ),
         ),
         SizedBox(height: 350, child: TailBlog()),
         FutureBuilder(
@@ -128,10 +138,14 @@ class _HomeState extends State<Home> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    trailing: Image.asset(
-                      Assets.cosHubBT,
-                      width: 24,
-                      height: 24,
+                    trailing: IconButton(
+                      onPressed: () async {
+                        await launchExternalUrl(
+                          url: (await getDynamicConfigInfo()).urls.coshubUrl,
+                          analyticsLabel: "CosHub",
+                        );
+                      },
+                      icon: Image.asset(Assets.cosHubBT, width: 24, height: 24),
                     ),
                   ),
                   SizedBox(height: 350, child: CoshubFeed()),
