@@ -79,25 +79,6 @@ class _SettingsState extends State<Settings> {
             },
           ),
           ListTile(
-            title: Text(convertToUwU(settingsBatteryPercentageToggleTitle())),
-            leading: const Icon(Symbols.battery_unknown),
-            subtitle: Text(
-              convertToUwU(settingsBatteryPercentageToggleSubTitle()),
-            ),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(
-                settings,
-                showAccurateBattery,
-                defaultValue: showAccurateBatteryDefault,
-              ),
-              onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, showAccurateBattery, value);
-                });
-              },
-            ),
-          ),
-          ListTile(
             title: Text(convertToUwU(settingsLargerCardsToggleTitle())),
             leading: const Icon(Symbols.format_size),
             subtitle: Text(convertToUwU(settingsLargerCardsToggleSubTitle())),

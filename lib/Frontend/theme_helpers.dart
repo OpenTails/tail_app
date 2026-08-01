@@ -396,11 +396,15 @@ Future<void> setupSystemColor(BuildContext context) async {
 }
 
 /// Chooses the light or dark text color based on the supplied background color.
-Color getTextColor({required Color color, required BuildContext context}) {
+Color getTextColor({
+  required Color color,
+  required BuildContext context,
+  bool invert = false,
+}) {
   ColorScheme colorScheme = ColorScheme.of(context);
   double luminance = color.computeLuminance();
 
-  bool isLight = colorScheme.brightness == Brightness.light;
+  bool isLight = colorScheme.brightness == Brightness.light && !invert;
   if (luminance > luminanceThreshold.value) {
     return isLight ? colorScheme.onSurface : colorScheme.surface;
   } else {

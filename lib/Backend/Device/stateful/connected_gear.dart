@@ -65,8 +65,9 @@ class StatefulDevice extends ChangeNotifier {
       //unlock the device and command queue;
       deviceState.value = DeviceMoveState.standby;
 
-      //Fires off the FW/HW version and batt commands
-      _periodicListener("");
+      // Fires off the FW/HW version and batt commands
+      // Wrapped in a future to fix issue with (isReady) being checked before the setter completes
+      Future(() => _periodicListener(""));
     } else {
       _unRegisterCharacteristicStreams();
     }
