@@ -62,6 +62,8 @@ class StatefulDevice extends ChangeNotifier {
     }
     if (bluetoothUartService != null) {
       _registerCharacteristicStreams();
+      //unlock the device and command queue;
+      deviceState.value = DeviceMoveState.standby;
 
       //Fires off the FW/HW version and batt commands
       _periodicListener("");
