@@ -293,12 +293,10 @@ class StatefulDevice extends ChangeNotifier {
     commandQueue.addCommand(
       BluetoothMessage(message: "PING", priority: Priority.low),
     );
-    // Battery characteristic works fine for tailcontrol, so we don't need to manually request the battery level
-    if (!bluetoothUartService!.isTailcontrol) {
-      commandQueue.addCommand(
-        BluetoothMessage(message: "BATT", priority: Priority.low),
-      );
-    }
+
+    commandQueue.addCommand(
+      BluetoothMessage(message: "BATT", priority: Priority.low),
+    );
 
     if (firmwareStatus.firmwareVersion == Version()) {
       commandQueue.addCommand(

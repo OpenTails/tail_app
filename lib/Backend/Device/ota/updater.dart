@@ -277,7 +277,7 @@ class OtaUpdater extends ChangeNotifier {
             .toList();
         if (chunk.isNotEmpty) {
           try {
-            await sendMessage(statefulDevice, chunk, withoutResponse: true);
+            await sendMessage(statefulDevice, chunk);
           } catch (e, s) {
             _otaLogger.severe("Exception during ota upload:$e", e, s);
             if ((currentFirmwareUploadPosition + chunk.length) /

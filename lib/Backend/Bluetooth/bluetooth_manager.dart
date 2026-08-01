@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:synchronized/synchronized.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:universal_ble/universal_ble.dart';
@@ -173,7 +174,7 @@ Future<void> discoverServices(String id) async {
     }
   }
 
-  if (statefulDevice.isReady) {
+  if (!statefulDevice.isReady) {
     _logger.severe("Bluetooth uart service not found for $id, Disconnecting");
     await disconnect(id);
   }
@@ -458,11 +459,7 @@ class Scan with ChangeNotifier {
 enum ScanReason { background, addGear, notScanning }
 
 /// Sends a BLE message to a [StatefulDevice]. No-Op for demo/mock gear.
-Future<void> sendMessage(
-  StatefulDevice device,
-  List<int> message, {
-  bool withoutResponse = false,
-}) async {
+Future<void> sendMessage(StatefulDevice device, List<int> message) async {
   if (!_didInitBle || isDemoGear(device)) {
     return;
   }
@@ -473,7 +470,6 @@ Future<void> sendMessage(
               device.bluetoothUartService!.bleDeviceService,
               device.bluetoothUartService!.bleTxCharacteristic,
               Uint8List.fromList(message),
-              withoutResponse: withoutResponse,
             )
             .catchError(
               (e) => _logger.warning(
