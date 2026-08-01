@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:tail_app/Backend/utilities/settings.dart';
 import 'package:tail_app/Frontend/Widgets/signal_icon.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -355,10 +356,15 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                                       int rssi,
                                                       Widget? child,
                                                     ) {
-                                                      return SignalIcon(
-                                                        rssi: rssi,
-                                                        color: textColor,
-                                                      );
+                                                      if (rssi == -1 ||
+                                                          !isDeveloperEnabled) {
+                                                        return Container();
+                                                      } else {
+                                                        return SignalIcon(
+                                                          rssi: rssi,
+                                                          color: textColor,
+                                                        );
+                                                      }
                                                     },
                                               ),
                                             ],
