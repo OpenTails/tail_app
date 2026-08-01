@@ -61,6 +61,8 @@ class TailApp extends StatelessWidget {
           listenable: Listenable.merge([
             Hive.box(settings).listenable(keys: [appColor]),
             UserLocale.instance,
+            dynamicSchemeVariant,
+            luminanceThreshold,
           ]),
           builder: (BuildContext context, Widget? child) {
             rebuildAllChildren(context);

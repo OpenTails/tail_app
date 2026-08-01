@@ -2,10 +2,6 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
-
-import '../../Backend/Bluetooth/known_devices.dart';
-import '../../Backend/Device/stateful/connected_gear.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../Widgets/language_picker.dart';

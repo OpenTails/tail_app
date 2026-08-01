@@ -149,7 +149,7 @@ class ScanForNewGearButton extends StatelessWidget {
           builder: (context, value, child) {
             Color? color = Color.lerp(
               Theme.of(context).cardColor,
-              Theme.of(context).colorScheme.primary,
+              ColorScheme.of(context).primary,
               value,
             );
             return Card(
@@ -168,7 +168,11 @@ class ScanForNewGearButton extends StatelessWidget {
                         convertToUwU(scanDevicesTitle()),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: getTextColor(color: color!, context: context),
+                          color: Color.lerp(
+                            ColorScheme.of(context).onSurface,
+                            ColorScheme.of(context).onPrimary,
+                            value,
+                          ),
                         ),
                       ),
                     ),

@@ -44,6 +44,11 @@ const double radiusLg = 20.0; // cards
 const double radiusXl = 28.0; // bottom sheets, large panels
 const double radiusPill = 64.0; // buttons (pill shape)
 
+final ValueNotifier<DynamicSchemeVariant> dynamicSchemeVariant = ValueNotifier(
+  DynamicSchemeVariant.tonalSpot,
+);
+final ValueNotifier<double> luminanceThreshold = ValueNotifier(0.6);
+
 ThemeData buildTheme(Brightness brightness, Color seedColor) {
   final bool isLight = brightness == Brightness.light;
   final bool isCustomColor = seedColor == Color(appColorDefault);
@@ -59,6 +64,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
   final ColorScheme base = ColorScheme.fromSeed(
     brightness: brightness,
     seedColor: newHslColor.toColor(),
+    dynamicSchemeVariant: dynamicSchemeVariant.value,
   );
 
   // Override with fixed brand secondaries/tertiaries; tonal surfaces use navy.
@@ -395,7 +401,7 @@ Color getTextColor({required Color color, required BuildContext context}) {
   double luminance = color.computeLuminance();
 
   bool isLight = colorScheme.brightness == Brightness.light;
-  if (luminance > 0.6) {
+  if (luminance > luminanceThreshold.value) {
     return isLight ? colorScheme.onSurface : colorScheme.surface;
   } else {
     return isLight ? colorScheme.surface : colorScheme.onSurface;
