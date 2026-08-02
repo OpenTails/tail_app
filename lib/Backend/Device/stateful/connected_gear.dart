@@ -235,6 +235,10 @@ class StatefulDevice extends ChangeNotifier {
       hasRGB = substring == 'TRUE' ? RGBStatus.rgb : RGBStatus.noRGB;
     } else if (value.contains("MYCOLOR")) {
       String substring = value.substring(value.indexOf(" ")).trim();
+      // ignore pure black as unset
+      if (substring == "000000") {
+        return;
+      }
       Color gearColor = Color(int.parse(substring, radix: 16)).withAlpha(255);
       storedDevice.color = gearColor.toARGB32();
       KnownDevices.instance.store();
