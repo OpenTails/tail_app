@@ -335,7 +335,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                           color: getTextColor(
                                             color: textColor,
                                             context: context,
-                                            invert: true,
+                                            invert: false,
                                           ),
                                         ),
                                       ],

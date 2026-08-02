@@ -107,6 +107,7 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
           GridView.extent(
             shrinkWrap: true,
             maxCrossAxisExtent: 150,
+            physics: NeverScrollableScrollPhysics(),
             padding: EdgeInsets.all(0),
             crossAxisSpacing: 0,
             mainAxisSpacing: 0,

@@ -136,11 +136,18 @@ class _ManageGearState extends State<ManageGear> {
                       .then(
                         (color) => setState(() {
                           if (color != null) {
-                            device!.storedDevice.color = color;
-                            this.color = Color(color);
-
+                            Color pickerColor = Color(color);
+                            Color clampedColor = Color.fromARGB(
+                              255,
+                              pickerColor!.red8bit.clamp(1, 255),
+                              pickerColor!.green8bit.clamp(1, 255),
+                              pickerColor!.blue8bit.clamp(1, 255),
+                            );
+                            device!.storedDevice.color = clampedColor
+                                .toARGB32();
+                            this.color = clampedColor;
                             BluetoothMessage message = BluetoothMessage(
-                              message: "SETMYCOLOR ${this.color!.hex}",
+                              message: "SETMYCOLOR ${clampedColor.hex}",
                               type: CommandType.system,
                             );
 
