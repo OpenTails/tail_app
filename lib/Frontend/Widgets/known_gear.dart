@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -216,10 +217,10 @@ class _KnownGearCardState extends State<KnownGearCard> {
                   isLabelVisible:
                       widget.statefulDevice.firmwareStatus.hasUpdate,
                   largeSize: 35,
-                  backgroundColor: ColorScheme.of(context).error,
+                  backgroundColor: ColorScheme.of(context).primaryContainer,
                   label: Icon(
                     Symbols.system_update,
-                    color: ColorScheme.of(context).onError,
+                    color: ColorScheme.of(context).onPrimaryContainer,
                   ),
                   child: Badge(
                     isLabelVisible:
@@ -235,7 +236,17 @@ class _KnownGearCardState extends State<KnownGearCard> {
                       Symbols.warning,
                       color: ColorScheme.of(context).onError,
                     ),
-                    child: child,
+                    child: Badge(
+                      alignment: AlignmentGeometry.bottomLeft,
+                      isLabelVisible: isDemoGear(widget.statefulDevice),
+                      label: Text(scanDemoGear()),
+                      textColor: ColorScheme.of(context).onSecondaryContainer,
+                      backgroundColor: ColorScheme.of(
+                        context,
+                      ).secondaryContainer,
+                      offset: Offset(0, -10),
+                      child: child,
+                    ),
                   ),
                 );
               },
