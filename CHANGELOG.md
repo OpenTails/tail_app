@@ -2,6 +2,7 @@
 
 - UI improvements
 - Improved battery level reporting
+- Added an "Identify" button to the manage gear page
 
 ### V 1.5.3
 

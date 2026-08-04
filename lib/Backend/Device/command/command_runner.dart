@@ -82,11 +82,11 @@ Future<void> runActionOnAllSupportedGear(
         Duration(milliseconds: Random().nextInt(kitsuneDelayRange)),
       );
     }
-    await _runAction(device, action, triggeredBy: triggeredBy);
+    await runAction(device, action, triggeredBy: triggeredBy);
   }
 }
 
-Future<void> _runAction(
+Future<void> runAction(
   StatefulDevice device,
   BaseAction action, {
   required String triggeredBy,

@@ -4,6 +4,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:tail_app/Backend/Action/action_registry.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/Device/ota/firmware_update.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
@@ -170,10 +171,33 @@ class _ManageGearState extends State<ManageGear> {
               if (device!.isConnected) ...[
                 ManageGearAbout(device: device!, color: color!),
               ],
-              OverflowBar(
-                alignment: MainAxisAlignment.end,
+              Wrap(
+                alignment: WrapAlignment.end,
                 children: [
                   if (device!.isConnected) ...[
+                    if (!device!.deviceDefinition.unsupported) ...[
+                      TextButton.icon(
+                        onPressed: () async {
+                          //skip if a move is running/queued
+                          if (device!.commandQueue.currentMessage?.type !=
+                                  CommandType.move &&
+                              device!.commandQueue.queue
+                                  .where(
+                                    (element) =>
+                                        element.type == CommandType.move,
+                                  )
+                                  .isEmpty) {
+                            runAction(
+                              device!,
+                              ActionRegistry.identifyMove,
+                              triggeredBy: "Identify",
+                            );
+                          }
+                        },
+                        label: Text(convertToUwU(manageDevicesIdentify())),
+                        icon: Icon(Symbols.location_searching),
+                      ),
+                    ],
                     TextButton.icon(
                       onPressed: () async {
                         setState(() {

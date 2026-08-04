@@ -508,14 +508,26 @@ class ActionRegistry {
       uuid: "0dfeb464-572b-452b-be4a-5a36affd2da9",
     ),
   };
-  static final Set<BaseAction> allCommands = <BaseAction>{}
-      .union(glowtipCommands)
-      .union(earMoves)
-      .union(flutterWingsMoves)
-      .union(miniTailMoves)
-      .union(tailMoves)
-      .union(rgbCommands)
-      .union(clawMoves);
+  static final identifyMove = MoveList(
+    name: "Identify",
+    actionCategory: ActionCategory.hidden,
+    deviceCategory: DeviceType.values,
+    uuid: "15dcaad0-9583-495c-909b-d08d6579a536",
+    moves: [
+      Move.move(leftServo: 127, rightServo: 127),
+      Move.move(leftServo: 0, rightServo: 0),
+    ],
+  );
+  static final Set<BaseAction> allCommands =
+      <BaseAction>{}
+          .union(glowtipCommands)
+          .union(earMoves)
+          .union(flutterWingsMoves)
+          .union(miniTailMoves)
+          .union(tailMoves)
+          .union(rgbCommands)
+          .union(clawMoves)
+        ..add(identifyMove);
 
   static BaseAction? getActionFromUUID(String? uuid) {
     if (uuid == null) {
@@ -575,6 +587,9 @@ class GetActions with ChangeNotifier {
         in List.from(
             ActionRegistry.allCommands
                 .where(
+                  (element) => element.actionCategory != ActionCategory.hidden,
+                )
+                .where(
                   (element) => pairedDeviceTypes
                       .intersection(element.deviceCategory.toSet())
                       .isNotEmpty,
@@ -598,7 +613,10 @@ class GetActions with ChangeNotifier {
                 ),
           )
           ..addAll(moveLists)
-          ..addAll(audioActions)) {
+          ..addAll(audioActions)
+          ..sort(
+            (a, b) => a.getCategoryName().compareTo(b.getCategoryName()),
+          )) {
       Set<BaseAction>? baseActions = {};
       // get category if it exists
       if (sortedActions.containsKey(baseAction.getCategoryName())) {

@@ -457,6 +457,12 @@ String manageDevicesShutdown() => Intl.message(
   desc: 'manage devices shutdown button title when managing a device',
 );
 
+String manageDevicesIdentify() => Intl.message(
+  'Identify',
+  name: 'manageDevicesIdentify',
+  desc: 'manage devices shutdown button title when managing a device',
+);
+
 String manageDevicesColor() => Intl.message(
   'Gear Color',
   name: 'manageDevicesColor',
