@@ -5,6 +5,8 @@ import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Device/ota/update_info.dart';
+import 'package:tail_app/Backend/dynamic_config.dart';
+import 'package:tail_app/Backend/utilities/settings.dart';
 
 import '../../../Frontend/utils.dart';
 import '../../utilities/version.dart';
@@ -32,6 +34,10 @@ Future<List<FWInfo>?> _getBaseFirmwareInfo(String url) async {
 
 Future<FWInfo?> getFirmwareInfo(String url, String hwVer) async {
   if (url.isEmpty || hwVer.isEmpty) {
+    return null;
+  }
+  if ((await getDynamicConfigInfo()).featureFlags.hideOtaCheck &&
+      !isDeveloperEnabled) {
     return null;
   }
   final fwInfos = await _getBaseFirmwareInfo(url);
