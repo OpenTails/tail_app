@@ -23,7 +23,6 @@ import '../../Backend/utilities/settings.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
 import '../go_router_config.dart';
-import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 import 'action_selector.dart';
 

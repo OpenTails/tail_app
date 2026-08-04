@@ -11,7 +11,6 @@ import '../../Backend/utilities/settings.dart';
 import '../../assets.dart';
 import '../../constants.dart';
 import '../Widgets/lottie_lazy_load.dart';
-import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 
 class OtaUpdate extends StatefulWidget {

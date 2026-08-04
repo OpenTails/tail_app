@@ -140,9 +140,9 @@ class _ManageGearState extends State<ManageGear> {
                             Color pickerColor = Color(color);
                             Color clampedColor = Color.fromARGB(
                               255,
-                              pickerColor!.red8bit.clamp(1, 255),
-                              pickerColor!.green8bit.clamp(1, 255),
-                              pickerColor!.blue8bit.clamp(1, 255),
+                              pickerColor.red8bit.clamp(1, 255),
+                              pickerColor.green8bit.clamp(1, 255),
+                              pickerColor.blue8bit.clamp(1, 255),
                             );
                             device!.storedDevice.color = clampedColor
                                 .toARGB32();

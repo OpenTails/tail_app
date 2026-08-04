@@ -16,7 +16,6 @@ import 'package:watch_connectivity/watch_connectivity.dart';
 import '../Frontend/utils.dart';
 import 'Action/action_registry.dart';
 import 'Action/base_action.dart';
-import 'Device/stateful/connected_gear.dart';
 import 'favorite_actions.dart';
 
 part 'wear_bridge.freezed.dart';

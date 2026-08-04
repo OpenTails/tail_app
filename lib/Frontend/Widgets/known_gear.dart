@@ -2,8 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:tail_app/Backend/utilities/settings.dart';
-import 'package:tail_app/Frontend/Widgets/signal_icon.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -304,7 +302,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                           infinite: true,
                                           child: LinearProgressIndicator(
                                             minHeight: 16,
-                                            color: textColor.withAlpha(180),
+                                            color: textColor,
                                             backgroundColor: textColor
                                                 .withAlpha(100),
                                             borderRadius: BorderRadius.circular(

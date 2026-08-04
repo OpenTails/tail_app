@@ -11,7 +11,6 @@ import 'package:upgrader/upgrader.dart';
 
 import '../Widgets/known_gear.dart';
 import '../Widgets/known_gear_scan_controller.dart';
-import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 
 part 'shell.freezed.dart';

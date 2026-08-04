@@ -6,7 +6,6 @@ import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../go_router_config.dart';
-import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 import 'base_card.dart';
 

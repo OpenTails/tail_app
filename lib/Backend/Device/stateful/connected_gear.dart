@@ -8,7 +8,6 @@ import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Device/stateful/battery_status.dart';
 import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
-import 'package:tail_app/Backend/triggers/sensor_definition.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 
 import '../../Bluetooth/bluetooth_message.dart';

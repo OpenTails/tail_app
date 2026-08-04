@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Device/device_type_enum.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
@@ -14,7 +13,6 @@ import '../../Backend/utilities/demo_gear_helpers.dart';
 import '../../Backend/utilities/settings.dart';
 import '../../assets.dart';
 import '../../constants.dart';
-import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 import 'lottie_lazy_load.dart';
 import 'tutorial_card.dart';

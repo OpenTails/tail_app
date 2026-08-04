@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:synchronized/synchronized.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 import 'package:tail_app/Frontend/Widgets/scan_for_new_device.dart';
 import 'package:universal_ble/universal_ble.dart';

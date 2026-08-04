@@ -9,7 +9,6 @@ import '../../Backend/analytics.dart';
 import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../../l10n/app_localizations.dart';
-import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
 
 class LanguagePicker extends StatelessWidget {
