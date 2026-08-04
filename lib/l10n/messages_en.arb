@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-07-31T07:45:59.553883",
+  "@@last_modified": "2026-08-04T07:40:08.664830",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -437,6 +437,12 @@
   },
   "manageDevicesShutdown": "Shut Down",
   "@manageDevicesShutdown": {
+    "description": "manage devices shutdown button title when managing a device",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageDevicesIdentify": "Identify",
+  "@manageDevicesIdentify": {
     "description": "manage devices shutdown button title when managing a device",
     "type": "text",
     "placeholders": {}
