@@ -141,7 +141,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("androidx.compose.runtime:runtime-livedata:1.10.5")
     implementation("androidx.wear:wear-remote-interactions:1.2.0")
-    implementation("com.google.guava:guava:31.0.1-android")
+    implementation("com.google.guava:guava:33.6.0-android")
 
     androidTestImplementation(platform("androidx.compose:compose-bom:2026.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
