@@ -128,7 +128,7 @@ dependencies {
     implementation("androidx.wear.compose:compose-ui-tooling")
     implementation("androidx.wear.compose:compose-navigation")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.wear.compose:compose-material3:1.5.6")
+    implementation("androidx.wear.compose:compose-material3:1.6.2")
     implementation("androidx.wear.compose:compose-foundation")
     implementation("androidx.compose.foundation:foundation:1.11.1")
     implementation("androidx.activity:activity-compose:1.13.0")
