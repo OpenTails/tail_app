@@ -974,23 +974,6 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                     ),
                   ),
                 ),
-                ValueListenableBuilder(
-                  valueListenable: widget.device.rssi,
-                  builder: (context, value, child) => ListTile(
-                    title: const Text("RSSI Level"),
-                    trailing: Text("${widget.device.rssi.value}"),
-                    subtitle: Slider(
-                      min: -150,
-                      max: -1,
-                      value: widget.device.rssi.value.toDouble(),
-                      onChanged: (double value) {
-                        setState(() {
-                          widget.device.rssi.value = value.toInt();
-                        });
-                      },
-                    ),
-                  ),
-                ),
               ],
             ),
             Wrap(

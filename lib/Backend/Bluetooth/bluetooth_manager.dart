@@ -50,7 +50,6 @@ Future<void> initBle() async {
   UniversalBle.onValueChange = onBluetoothCharacteristicValueUpdate;
   UniversalBle.setLogLevel(kDebugMode ? BleLogLevel.debug : BleLogLevel.info);
   Scan.instance;
-  _KeepGearAwake.instance;
 }
 
 void _adapterStateListener(AvailabilityState state) {
@@ -195,47 +194,6 @@ Future<void> discoverServices(String id) async {
     }
   }
   span?.finish();
-}
-
-/// updates the [StatefulDevice.rssi] of connected gear
-class _KeepGearAwake {
-  StreamSubscription? _streamSubscription;
-  static final _KeepGearAwake instance = _KeepGearAwake._internal();
-
-  _KeepGearAwake._internal() {
-    _logger.info("Starting _KeepGearAwake timer");
-    // The stream/app should pause in the background, so this should be fine
-    _streamSubscription ??= Stream.periodic(
-      const Duration(seconds: 15),
-    ).listen(_periodicListener);
-  }
-
-  Future<void> _periodicListener(dynamic event) async {
-    for (StatefulDevice statefulDevice in KnownDevices.instance.connectedGear) {
-      if (statefulDevice.isConnected) {
-        UniversalBle.readRssi(
-              statefulDevice.storedDevice.btMACAddress,
-              timeout: Duration(seconds: 2),
-            )
-            .catchError((e) {
-              return statefulDevice.rssi.value != -1
-                  ? statefulDevice.rssi.value
-                  : -1;
-            })
-            .onError((error, stackTrace) {
-              return statefulDevice.rssi.value != -1
-                  ? statefulDevice.rssi.value
-                  : -1;
-            })
-            .then((value) {
-              if (statefulDevice.isReady) {
-                statefulDevice.rssi.value = value;
-              }
-              return value;
-            });
-      }
-    }
-  }
 }
 
 /// checks for [KnownDevices] with the same mac address([StoredDevice.btMACAddress]) and try to connect

@@ -26,7 +26,6 @@ import '../../../Backend/utilities/settings.dart';
 import '../../../Backend/wear_bridge.dart';
 import '../../../assets.dart';
 import '../../../constants.dart';
-import '../../Widgets/signal_icon.dart';
 import '../../go_router_config.dart';
 
 class DeveloperMenu extends StatefulWidget {
@@ -350,7 +349,6 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                                 dense: true,
                                 title: Text(e.name ?? "unknown"),
                                 subtitle: Text(e.deviceId),
-                                leading: SignalIcon(rssi: e.rssi ?? -1),
                                 trailing: Text(e.isSystemDevice.toString()),
                               ),
                             )

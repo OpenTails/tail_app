@@ -44,7 +44,6 @@ class StatefulDevice extends ChangeNotifier {
   final ValueNotifier<DeviceMoveState> deviceState = ValueNotifier(
     DeviceMoveState.standby,
   );
-  final ValueNotifier<int> rssi = ValueNotifier(-1);
   int mtu = -1;
   final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(
     ConnectivityState.disconnected,
@@ -292,7 +291,6 @@ class StatefulDevice extends ChangeNotifier {
     // Demo gear
     if (isDemoGear(this)) {
       battery.level = Random().nextInt(100).toDouble();
-      rssi.value = (Random().nextInt(100) * -1);
     }
     // required to keep the connection open on IOS, otherwise the app will suspend and walk mode will stop working
     // also required to keep eargear awake
@@ -340,7 +338,6 @@ class StatefulDevice extends ChangeNotifier {
     battery.reset();
     gearReturnedError = false;
     deviceState.value = DeviceMoveState.standby;
-    rssi.value = -1;
     firmwareStatus.reset();
     mtu = -1;
     bluetoothUartService = null;
