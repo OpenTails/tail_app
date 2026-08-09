@@ -14,7 +14,7 @@ import '../Bluetooth/known_devices.dart';
 import '../Device/command/command_runner.dart';
 import '../Device/common_device_stuffs.dart';
 import '../Device/device_type_enum.dart';
-import '../utilities/settings.dart';
+import '../utilities/developer_options_helpers.dart';
 import '../wear_bridge.dart';
 
 final _random = Random();

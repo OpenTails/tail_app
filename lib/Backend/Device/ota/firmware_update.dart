@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tail_app/Backend/Device/ota/update_info.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
-import 'package:tail_app/Backend/utilities/settings.dart';
+import 'package:tail_app/Backend/utilities/developer_options_helpers.dart';
 
 import '../../../Frontend/utils.dart';
 import '../../utilities/version.dart';

@@ -19,7 +19,7 @@ import '../../Backend/triggers/sensor_definition_list.dart';
 import '../../Backend/triggers/stored_triggers.dart';
 import '../../Backend/triggers/trigger.dart';
 import '../../Backend/triggers/trigger_action.dart';
-import '../../Backend/utilities/settings.dart';
+import '../../Backend/utilities/developer_options_helpers.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
 import '../go_router_config.dart';

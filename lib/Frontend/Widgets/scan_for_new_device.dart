@@ -10,7 +10,7 @@ import '../../Backend/Device/device_definition.dart';
 import '../../Backend/Device/device_registry.dart';
 import '../../Backend/analytics.dart';
 import '../../Backend/utilities/demo_gear_helpers.dart';
-import '../../Backend/utilities/settings.dart';
+import '../../Backend/utilities/developer_options_helpers.dart';
 import '../../assets.dart';
 import '../../constants.dart';
 import '../translation_string_definitions.dart';
@@ -165,8 +165,7 @@ class _ScanGearListState extends State<ScanGearList> {
                                               context,
                                             ).textTheme.headlineSmall,
                                             convertToUwU(
-                                              deviceDefinition.friendlyName ??
-                                                  "",
+                                              deviceDefinition.friendlyName,
                                             ),
                                           ),
                                         ),

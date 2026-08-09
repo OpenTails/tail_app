@@ -7,7 +7,7 @@ import 'package:proximity_sensor/proximity_sensor.dart';
 
 import '../../../Frontend/translation_string_definitions.dart';
 import '../../../Frontend/utils.dart';
-import '../../utilities/settings.dart';
+import '../../utilities/developer_options_helpers.dart';
 import '../sensor_definition.dart';
 import '../sensor_definition_action_definition.dart';
 

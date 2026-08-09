@@ -8,7 +8,7 @@ import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
-import '../../Backend/utilities/settings.dart';
+import '../../Backend/utilities/developer_options_helpers.dart';
 import '../../assets.dart';
 import '../go_router_config.dart';
 import '../theme_helpers.dart';

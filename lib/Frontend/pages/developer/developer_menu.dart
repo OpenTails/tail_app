@@ -22,7 +22,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../../Backend/dynamic_config.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../Backend/utilities/sentry.dart';
-import '../../../Backend/utilities/settings.dart';
+import '../../../Backend/utilities/developer_options_helpers.dart';
 import '../../../Backend/wear_bridge.dart';
 import '../../../assets.dart';
 import '../../../constants.dart';

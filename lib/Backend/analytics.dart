@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
-import 'package:tail_app/Backend/utilities/settings.dart';
+import 'package:tail_app/Backend/utilities/developer_options_helpers.dart';
 import 'package:tail_app/Backend/wear_bridge.dart';
 import 'package:universal_io/io.dart';
 import 'package:url_launcher/url_launcher.dart';

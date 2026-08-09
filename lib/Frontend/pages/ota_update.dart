@@ -7,7 +7,7 @@ import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import '../../Backend/Device/ota/firmware_update.dart';
 import '../../Backend/Device/ota/updater.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
-import '../../Backend/utilities/settings.dart';
+import '../../Backend/utilities/developer_options_helpers.dart';
 import '../../assets.dart';
 import '../../constants.dart';
 import '../Widgets/lottie_lazy_load.dart';

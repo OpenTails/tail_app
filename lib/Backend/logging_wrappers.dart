@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/utilities/hive.dart';
-import 'package:tail_app/Backend/utilities/settings.dart';
+import 'package:tail_app/Backend/utilities/developer_options_helpers.dart';
 
 // ignore: library_private_types_in_public_api
 _HiveProxyImpl HiveProxy = _HiveProxyImpl();
@@ -29,7 +30,7 @@ final Logarte logarte = Logarte(
 );
 
 void configureLogging() {
-  Logger.root.level = Level.ALL;
+  Logger.root.level = kDebugMode ? Level.ALL : Level.INFO;
 
   //Filtering for Logarte
   Logger.root.onRecord.listen((event) {

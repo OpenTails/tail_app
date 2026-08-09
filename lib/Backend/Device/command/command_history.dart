@@ -2,7 +2,7 @@ import 'package:circular_buffer/circular_buffer.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
-import 'package:tail_app/Backend/utilities/settings.dart';
+import 'package:tail_app/Backend/utilities/developer_options_helpers.dart';
 
 part 'command_history.freezed.dart';
 
@@ -18,7 +18,7 @@ abstract class MessageHistoryEntry with _$MessageHistoryEntry {
 }
 
 class CommandHistory with ChangeNotifier {
-  final CircularBuffer<MessageHistoryEntry> _state = CircularBuffer(50);
+  final CircularBuffer<MessageHistoryEntry> _state = CircularBuffer(100);
 
   CircularBuffer<MessageHistoryEntry> get state => _state;
 
