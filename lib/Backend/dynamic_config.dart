@@ -23,7 +23,7 @@ final _dynamicConfigLogger = Logger('DynamicConfig');
 
 @freezed
 abstract class DynamicConfigInfo with _$DynamicConfigInfo {
-  factory DynamicConfigInfo({
+  const factory DynamicConfigInfo({
     @Default(AppVersion()) AppVersion appVersion,
     @Default(SentryConfig()) SentryConfig sentryConfig,
     @Default(FeatureFlags()) FeatureFlags featureFlags,
@@ -33,6 +33,7 @@ abstract class DynamicConfigInfo with _$DynamicConfigInfo {
       "EG2": "https://thetailcompany.com/fw/eg",
       "flutter": "https://thetailcompany.com/fw/flutter",
     })
+    @Default({})
     Map<String, String> updateURLs,
     @Default(URLs()) URLs urls,
   }) = _DynamicConfigInfo;

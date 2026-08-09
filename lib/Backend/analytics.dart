@@ -104,11 +104,6 @@ Future<Map<String, String>> _getSettingsProps({
     largerActionCardSize,
     defaultValue: largerActionCardSizeDefault,
   ).toString();
-  props['Show Battery % Enabled'] = HiveProxy.getOrDefault(
-    settings,
-    showAccurateBattery,
-    defaultValue: showAccurateBatteryDefault,
-  ).toString();
   props['Keep Screen On Enabled'] = HiveProxy.getOrDefault(
     settings,
     keepAwake,

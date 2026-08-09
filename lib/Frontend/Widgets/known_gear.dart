@@ -9,7 +9,6 @@ import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Bluetooth/bluetooth_issues_check.dart';
 import '../../Backend/Device/stateful/connected_gear.dart';
-import '../../Backend/logging_wrappers.dart';
 import '../../constants.dart';
 import '../go_router_config.dart';
 import '../theme_helpers.dart';
@@ -375,48 +374,5 @@ class _KnownGearCardState extends State<KnownGearCard> {
         },
       ),
     );
-  }
-
-  Widget getBattery(double level, Color color) {
-    if (HiveProxy.getOrDefault(
-      settings,
-      showAccurateBattery,
-      defaultValue: showAccurateBatteryDefault,
-    )) {
-      if (level < 0) {
-        // battery level is unknown
-        return Text('?%');
-      }
-      return Text(
-        '${level.toInt()}%',
-        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color),
-      );
-    }
-    if (level < 0) {
-      return Icon(Symbols.battery_unknown, color: color);
-    }
-    if (level < 12.5) {
-      return Flash(
-        infinite: true,
-        child: Icon(Symbols.battery_0_bar, color: color),
-      );
-    } else if (level < 25) {
-      return Flash(
-        infinite: true,
-        child: Icon(Symbols.battery_1_bar, color: color),
-      );
-    } else if (level < 37.5) {
-      return Icon(Symbols.battery_2_bar, color: color);
-    } else if (level < 50) {
-      return Icon(Symbols.battery_3_bar, color: color);
-    } else if (level < 62.5) {
-      return Icon(Symbols.battery_4_bar, color: color);
-    } else if (level < 75) {
-      return Icon(Symbols.battery_5_bar, color: color);
-    } else if (level < 87.5) {
-      return Icon(Symbols.battery_6_bar, color: color);
-    } else {
-      return Icon(Symbols.battery_full, color: color);
-    }
   }
 }
