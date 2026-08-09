@@ -173,8 +173,6 @@ class _BluetoothConsoleState extends State<BluetoothConsole> {
   bool _shouldFilterMessage(String message) {
     return message.startsWith("VER") ||
         message.startsWith("HWVER") ||
-        message.startsWith("PING") ||
-        message.startsWith("PONG") ||
         message.startsWith("BATT");
   }
 }

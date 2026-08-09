@@ -294,9 +294,6 @@ class StatefulDevice extends ChangeNotifier {
     }
     // required to keep the connection open on IOS, otherwise the app will suspend and walk mode will stop working
     // also required to keep eargear awake
-    commandQueue.addCommand(
-      BluetoothMessage(message: "PING", priority: Priority.low),
-    );
 
     commandQueue.addCommand(
       BluetoothMessage(message: "BATT", priority: Priority.low),
