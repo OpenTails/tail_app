@@ -18,15 +18,13 @@ const Color _teal100 = Color(0xFFC0E9DF);
 const Color _teal800 = Color(0xFF146658);
 const Color _orange100 = Color(0xFFFADCC4);
 const Color _orange600 = Color(0xFFA2480F);
-const Color _gray0 = Color(0xFFFFFFFF);
+const Color _gray0 = Colors.white;
 const Color _gray25 = Color(0xFFFAFBFC);
 const Color _gray50 = Color(0xFFF4F6F8);
 const Color _gray100 = Color(0xFFE9EDF1);
 const Color _gray200 = Color(0xFFD7DEE4);
 const Color _gray400 = Color(0xFF8C99A4);
 const Color _gray700 = Color(0xFF313B42);
-const Color _gray800 = Color(0xFF1E262C);
-const Color _navy900 = Color(0xFF0C232F);
 
 // Dark surfaces
 const Color _dark0 = Color(0xFF0A1219);
@@ -43,6 +41,14 @@ const double radiusMd = 14.0; // dialogs, list tiles
 const double radiusLg = 20.0; // cards
 const double radiusXl = 28.0; // bottom sheets, large panels
 const double radiusPill = 64.0; // buttons (pill shape)
+
+// Fonts
+const String titleFont = "Fredoka";
+const String bodyFont = "HankenGrotesk";
+
+// Border thickness
+const double standardBorderWidth = 1.5;
+const double thickBorderWidth = 2;
 
 final ValueNotifier<DynamicSchemeVariant> dynamicSchemeVariant = ValueNotifier(
   DynamicSchemeVariant.tonalSpot,
@@ -94,7 +100,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
 
   final TextTheme textTheme = _buildTextTheme();
   final TextStyle buttonTextStyle = TextStyle(
-    fontFamily: 'Fredoka',
+    fontFamily: titleFont,
     fontWeight: FontWeight.w600,
     fontSize: 16,
   );
@@ -107,11 +113,8 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     appBarTheme: AppBarTheme(
       elevation: 0,
       scrolledUnderElevation: 1,
-      //backgroundColor: colorScheme.surface,
-      //foregroundColor: colorScheme.onSurface,
-      //surfaceTintColor: Colors.transparent,
       titleTextStyle: TextStyle(
-        fontFamily: 'Fredoka',
+        fontFamily: titleFont,
         fontSize: 22,
         fontWeight: FontWeight.w600,
         color: colorScheme.onSurface,
@@ -126,7 +129,10 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
       color: colorScheme.surfaceContainerLowest,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radiusLg),
-        side: BorderSide(color: colorScheme.outlineVariant, width: 1.5),
+        side: BorderSide(
+          color: colorScheme.outlineVariant,
+          width: standardBorderWidth,
+        ),
       ),
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       shadowColor: tcNavy.withAlpha(26),
@@ -158,7 +164,10 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
           borderRadius: BorderRadius.circular(radiusPill),
         ),
         textStyle: buttonTextStyle,
-        side: BorderSide(color: colorScheme.outline, width: 1.5),
+        side: BorderSide(
+          color: colorScheme.outline,
+          width: standardBorderWidth,
+        ),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -175,32 +184,38 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
       fillColor: colorScheme.surfaceContainerLowest,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(radiusSm),
-        borderSide: BorderSide(color: colorScheme.outline, width: 1.5),
+        borderSide: BorderSide(
+          color: colorScheme.outline,
+          width: standardBorderWidth,
+        ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(radiusSm),
-        borderSide: BorderSide(color: colorScheme.outline, width: 1.5),
+        borderSide: BorderSide(
+          color: colorScheme.outline,
+          width: standardBorderWidth,
+        ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(radiusSm),
-        borderSide: BorderSide(color: colorScheme.primary, width: 2),
+        borderSide: BorderSide(
+          color: colorScheme.primary,
+          width: thickBorderWidth,
+        ),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(radiusSm),
-        borderSide: BorderSide(color: colorScheme.error, width: 1.5),
+        borderSide: BorderSide(
+          color: colorScheme.error,
+          width: standardBorderWidth,
+        ),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(radiusSm),
-        borderSide: BorderSide(color: colorScheme.error, width: 2),
-      ),
-      labelStyle: TextStyle(
-        fontFamily: 'HankenGrotesk',
-        fontWeight: FontWeight.w500,
-      ),
-      hintStyle: TextStyle(
-        fontFamily: 'HankenGrotesk',
-        fontWeight: FontWeight.w500,
-        color: _gray400,
+        borderSide: BorderSide(
+          color: colorScheme.error,
+          width: thickBorderWidth,
+        ),
       ),
     ),
     // ── Dialogs ───────────────────────────────────────────────────────────────
@@ -211,51 +226,33 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
       elevation: 8,
       shadowColor: tcNavy.withAlpha(46),
       backgroundColor: colorScheme.surfaceContainerLowest,
-      titleTextStyle: TextStyle(
-        fontFamily: 'Fredoka',
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: colorScheme.onSurface,
-      ),
-      contentTextStyle: TextStyle(
-        fontFamily: 'HankenGrotesk',
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
+      titleTextStyle: textTheme.headlineSmall,
+      contentTextStyle: textTheme.bodyMedium!.copyWith(
         color: colorScheme.onSurfaceVariant,
       ),
     ),
-    // ── Bottom sheets ────────────────────────────────────────────────────────
-    bottomSheetTheme: const BottomSheetThemeData(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(radiusXl),
-          topRight: Radius.circular(radiusXl),
-        ),
-      ),
-    ),
+
     // ── Navigation bar ───────────────────────────────────────────────────────
     navigationBarTheme: NavigationBarThemeData(
       indicatorColor: colorScheme.primary.withAlpha(31),
-      labelTextStyle: WidgetStateProperty.all(
-        TextStyle(
-          fontFamily: 'HankenGrotesk',
-          fontWeight: FontWeight.w600,
-          fontSize: 12,
-        ),
-      ),
+      labelTextStyle: WidgetStateProperty.all(textTheme.labelMedium),
     ),
+    navigationRailTheme: NavigationRailThemeData(
+      indicatorColor: colorScheme.primary.withAlpha(31),
+    ),
+
     // ── Chips ────────────────────────────────────────────────────────────────
     chipTheme: ChipThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radiusMd),
       ),
       labelStyle: TextStyle(
-        fontFamily: 'HankenGrotesk',
+        fontFamily: bodyFont,
         fontWeight: FontWeight.w600,
         fontSize: 13,
         color: colorScheme.onSurfaceVariant,
       ),
-      side: BorderSide(color: colorScheme.outline, width: 1.5),
+      side: BorderSide(color: colorScheme.outline, width: standardBorderWidth),
     ),
     // ── Snack bars ───────────────────────────────────────────────────────────
     snackBarTheme: SnackBarThemeData(
@@ -265,7 +262,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
       ),
       backgroundColor: tcNavy,
       contentTextStyle: TextStyle(
-        fontFamily: 'HankenGrotesk',
+        fontFamily: bodyFont,
         fontWeight: FontWeight.w500,
         color: _gray0,
       ),
@@ -274,13 +271,13 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     // ── List tiles ───────────────────────────────────────────────────────────
     listTileTheme: ListTileThemeData(
       titleTextStyle: TextStyle(
-        fontFamily: 'HankenGrotesk',
+        fontFamily: bodyFont,
         fontWeight: FontWeight.w600,
         fontSize: 15,
         color: colorScheme.onSurface,
       ),
       subtitleTextStyle: TextStyle(
-        fontFamily: 'HankenGrotesk',
+        fontFamily: bodyFont,
         fontWeight: FontWeight.w500,
         fontSize: 13,
         color: colorScheme.onSurfaceVariant,
@@ -310,80 +307,80 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
 TextTheme _buildTextTheme() {
   return TextTheme(
     displayLarge: TextStyle(
-      fontFamily: 'Fredoka',
+      fontFamily: titleFont,
       fontSize: 52,
       fontWeight: FontWeight.w700,
       letterSpacing: -0.5,
     ),
     displayMedium: TextStyle(
-      fontFamily: 'Fredoka',
+      fontFamily: titleFont,
       fontSize: 40,
       fontWeight: FontWeight.w700,
       letterSpacing: -0.3,
     ),
     displaySmall: TextStyle(
-      fontFamily: 'Fredoka',
+      fontFamily: titleFont,
       fontSize: 32,
       fontWeight: FontWeight.w600,
     ),
     headlineLarge: TextStyle(
-      fontFamily: 'Fredoka',
+      fontFamily: titleFont,
       fontSize: 28,
       fontWeight: FontWeight.w600,
     ),
     headlineMedium: TextStyle(
-      fontFamily: 'Fredoka',
+      fontFamily: titleFont,
       fontSize: 24,
       fontWeight: FontWeight.w600,
     ),
     headlineSmall: TextStyle(
-      fontFamily: 'Fredoka',
+      fontFamily: titleFont,
       fontSize: 20,
       fontWeight: FontWeight.w600,
     ),
     titleLarge: TextStyle(
-      fontFamily: 'Fredoka',
+      fontFamily: titleFont,
       fontSize: 20,
       fontWeight: FontWeight.w600,
     ),
     titleMedium: TextStyle(
-      fontFamily: 'HankenGrotesk',
+      fontFamily: bodyFont,
       fontSize: 16,
       fontWeight: FontWeight.w600,
     ),
     titleSmall: TextStyle(
-      fontFamily: 'HankenGrotesk',
+      fontFamily: bodyFont,
       fontSize: 14,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.1,
     ),
     bodyLarge: TextStyle(
-      fontFamily: 'HankenGrotesk',
+      fontFamily: bodyFont,
       fontSize: 16,
       fontWeight: FontWeight.w500,
     ),
     bodyMedium: TextStyle(
-      fontFamily: 'HankenGrotesk',
+      fontFamily: bodyFont,
       fontSize: 14,
       fontWeight: FontWeight.w500,
     ),
     bodySmall: TextStyle(
-      fontFamily: 'HankenGrotesk',
+      fontFamily: bodyFont,
       fontSize: 12,
       fontWeight: FontWeight.w500,
     ),
     labelLarge: TextStyle(
-      fontFamily: 'HankenGrotesk',
+      fontFamily: bodyFont,
       fontSize: 14,
       fontWeight: FontWeight.w600,
     ),
     labelMedium: TextStyle(
-      fontFamily: 'HankenGrotesk',
+      fontFamily: bodyFont,
       fontSize: 12,
       fontWeight: FontWeight.w600,
     ),
     labelSmall: TextStyle(
-      fontFamily: 'HankenGrotesk',
+      fontFamily: bodyFont,
       fontSize: 10,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.5,
