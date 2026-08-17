@@ -7,14 +7,15 @@ import androidx.wear.compose.material3.MaterialTheme
 
 @Composable
 fun _androidTheme(
+    primary: Long = 0xFFE46E26L,
+    secondary: Long = 0xFF21A58FL,
     content: @Composable () -> Unit
 ) {
-    /**
-     * Empty theme to customize for your app.
-     * See: https://developer.android.com/jetpack/compose/designsystems/custom
-     */
     MaterialTheme(
-        colorScheme = ColorScheme(primary = Color(0xFFE46E26)),
+        colorScheme = ColorScheme(
+            primary = Color(primary),
+            secondary = Color(secondary)
+        ),
         content = content
     )
 }

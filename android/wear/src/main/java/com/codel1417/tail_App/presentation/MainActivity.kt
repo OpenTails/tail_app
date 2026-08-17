@@ -6,10 +6,10 @@
 
 package com.codel1417.tail_App.presentation
 
-import android.R
 import android.content.Context
 import android.os.Bundle
 import android.content.Intent
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -55,7 +55,9 @@ import androidx.wear.compose.material3.LinearProgressIndicator
 import androidx.wear.compose.material3.SwitchButton
 import androidx.wear.compose.material3.TimeText
 import androidx.wear.remote.interactions.RemoteActivityHelper
+import androidx.wear.tooling.preview.devices.WearDevices
 import com.codel1417.tail_App.json.WearData
+import com.codel1417.tail_App.json.WearGearData
 import com.codel1417.tail_App.json.WearSendData
 import com.codel1417.tail_App.presentation.theme._androidTheme
 import com.google.android.gms.wearable.CapabilityClient
@@ -88,13 +90,11 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
 
     override fun onResume() {
         super.onResume()
-        //println("onResume()")
         Wearable.getDataClient(this).addListener(this)
     }
 
     override fun onPause() {
         super.onPause()
-        //println("onPause()")
         Wearable.getDataClient(this).removeListener(this)
     }
 
@@ -113,7 +113,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
             @Suppress("UNCHECKED_CAST")
             obj as Map<String, Any>
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e(TAG, "Failed to deserialize byte array to Map", e)
             null
         } finally {
             objectInputStream.close()
@@ -132,9 +132,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     }
 
     override fun onDataChanged(dataEvents: DataEventBuffer) {
-        //println("onDataChanged()")
         dataEvents.forEach { event ->
-            //println("onDataChanged() ${event.type}")
             // DataItem changed
             if (event.type == DataEvent.TYPE_CHANGED) {
                 event.dataItem.also { item ->
@@ -146,7 +144,6 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
 
     private fun getWearDataItem(item: DataItem) {
         try {
-            //println("Loading Actions")
             val gson = Gson()
             // asMap converts the bytes to the java object
             // The flutter library watch_connectivity was built for flutter to flutter, not flutter to compose
@@ -158,9 +155,9 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                 WearData::class.java
             )
             wearData.postValue(data)
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to parse WearData from data item", e)
         }
-
     }
 
 
@@ -176,7 +173,6 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         // Find a nearby node or pick one arbitrarily.
                         result.nodes.firstOrNull { it.isNearby }?.id
                             ?: result.nodes.firstOrNull()?.id
-                    //println("Capability ID: ${capabilityId}")
                     if (capabilityId == null) {
                         return@addOnSuccessListener
                     }
@@ -195,7 +191,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         )
                 }
         } catch (e: Exception) {
-            println("Error triggering action $e")
+            Log.e(TAG, "Error sending message to phone", e)
         }
     }
 
@@ -216,12 +212,9 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //println("onCreate()")
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
-
-        setTheme(R.style.Theme_DeviceDefault)
 
         setContent {
             WearApp()
@@ -231,7 +224,6 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     //TODO: When app is visible, send a message to update application context
     @Composable
     fun WearApp() {
-        //println("WearApp()")
         val context = LocalContext.current
         val state: State<WearData?> = wearData.observeAsState()
 
@@ -244,38 +236,6 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
             // for lifecycle events
             val observer = LifecycleEventObserver { _, event ->
                 when (event) {
-                    Lifecycle.Event.ON_CREATE -> {
-                        sendMessageToPhone(
-                            data = WearSendData(
-                                capability = "refresh",
-                            ), context
-                        )
-                        Wearable.getDataClient(context).dataItems
-                            .addOnSuccessListener { result ->
-                                result.forEach { item ->
-                                    getWearDataItem(
-                                        item
-                                    )
-                                }
-                            }
-                    }
-
-                    Lifecycle.Event.ON_START -> {
-                        sendMessageToPhone(
-                            data = WearSendData(
-                                capability = "refresh",
-                            ), context
-                        )
-                        Wearable.getDataClient(context).dataItems
-                            .addOnSuccessListener { result ->
-                                result.forEach { item ->
-                                    getWearDataItem(
-                                        item
-                                    )
-                                }
-                            }
-                    }
-
                     Lifecycle.Event.ON_RESUME -> {
                         sendMessageToPhone(
                             data = WearSendData(
@@ -292,18 +252,6 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                             }
                     }
 
-                    Lifecycle.Event.ON_PAUSE -> {
-
-                    }
-
-                    Lifecycle.Event.ON_STOP -> {
-
-                    }
-
-                    Lifecycle.Event.ON_DESTROY -> {
-
-                    }
-
                     else -> {}
                 }
             }
@@ -314,10 +262,11 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
             }
         }
 
-
-
-
-        _androidTheme {
+        val data = state.value
+        _androidTheme(
+            primary = data?.themeData?.primary ?: 0xFFE46E26L,
+            secondary = data?.themeData?.secondary ?: 0xFF21A58FL,
+        ) {
             // Hoist the list state to remember scroll position across compositions.
             val listState = rememberScalingLazyListState()
             Scaffold(
@@ -330,11 +279,10 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                 vignette = {
                     Vignette(vignettePosition = VignettePosition.TopAndBottom)
                 }) {
-                val expiredState = state.value == null || (System
-                    .currentTimeMillis() - state.value!!.timestamp) > 60000;
+                val expiredState = data == null || (System
+                    .currentTimeMillis() - data.timestamp) > 60000;
                 // 60 seconds
 
-                // Should be an impossible state as every value has a default
                 if (expiredState) {
                     sendMessageToPhone(
                         data = WearSendData(
@@ -363,7 +311,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                                     showConfirmation = true
                                     launchPhoneApp()
                                 }
-                            ) { Text(text = state.value!!.localization.phonAppClosed) }
+                            ) { Text(text = data?.localization?.phonAppClosed ?: "") }
 
                             val text = OpenOnPhoneDialogDefaults.text
                             val style =
@@ -382,6 +330,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                     }
 
                 } else {
+                    val currentData = data
                     ScalingLazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         autoCentering = AutoCenteringParams(itemIndex = 0),
@@ -394,15 +343,15 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                         )
                     ) {
 
-                        item { ListHeader { Text(text = state.value!!.localization.actionsPage) } }
-                        if (state.value!!.favoriteActions.isEmpty()) {
+                        item { ListHeader { Text(text = currentData.localization.actionsPage) } }
+                        if (currentData.favoriteActions.isEmpty()) {
                             item {
                                 Card(
                                     onClick = {}
-                                ) { Text(text = state.value!!.localization.favoriteActionsDescription) }
+                                ) { Text(text = currentData.localization.favoriteActionsDescription) }
                             }
                         } else {
-                            state.value!!.favoriteActions.map {
+                            currentData.favoriteActions.map {
                                 item {
                                     ActionButton(
                                         contentModifier,
@@ -412,9 +361,9 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                                 }
                             }
                         }
-                        if (!state.value!!.configuredTriggers.isEmpty()) {
-                            item { ListHeader { Text(text = state.value!!.localization.triggersPage) } }
-                            state.value!!.configuredTriggers.map {
+                        if (!currentData.configuredTriggers.isEmpty()) {
+                            item { ListHeader { Text(text = currentData.localization.triggersPage) } }
+                            currentData.configuredTriggers.map {
                                 item {
                                     TriggerButton(
                                         contentModifier,
@@ -425,22 +374,19 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
                                 }
                             }
                         }
-                        item { ListHeader { Text(text = state.value!!.localization.knownGear) } }
-                        if (state.value!!.knownGear.isEmpty()) {
+                        item { ListHeader { Text(text = currentData.localization.knownGear) } }
+                        if (currentData.knownGear.isEmpty()) {
                             item {
                                 Card(
                                     onClick = {}
-                                ) { Text(text = state.value!!.localization.watchKnownGearNoGearPairedTip) }
+                                ) { Text(text = currentData.localization.watchKnownGearNoGearPairedTip) }
                             }
                         } else {
-                            state.value!!.knownGear.mapIndexed { index, it ->
-
+                            currentData.knownGear.map { gear ->
                                 item {
                                     GearButton(
                                         contentModifier,
-                                        it.name,
-                                        index,
-                                        it.color
+                                        gear
                                     )
                                 }
                             }
@@ -456,7 +402,7 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
         .fillMaxWidth()
         .padding(bottom = 8.dp)
 
-    @Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
+    @Preview(device = WearDevices.SMALL_ROUND, showSystemUi = true)
     @Composable
     fun DefaultPreview() {
         WearApp()
@@ -470,9 +416,10 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     ) {
         val haptics = LocalHapticFeedback.current
         val context = LocalContext.current
+        val data = wearData.value
         Chip(
             modifier = modifier,
-            colors = ChipDefaults.chipColors(backgroundColor = Color(wearData.value!!.themeData.primary)),
+            colors = ChipDefaults.chipColors(backgroundColor = Color(data?.themeData?.primary ?: 0xFFE46E26)),
             label = { Text(text = contents, textAlign = TextAlign.Center) },
             onClick = {
                 haptics.performHapticFeedback(HapticFeedbackType.ToggleOn)
@@ -513,23 +460,22 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     @Composable
     fun GearButton(
         modifier: Modifier = Modifier,
-        name: String,
-        index: Int,
-        color: Long
+        gear: WearGearData
     ) {
         val state by wearData.observeAsState()
+        val currentGear = state?.knownGear?.firstOrNull { it.uuid == gear.uuid } ?: gear
+        val hasBattery = currentGear.batteryLevel > -1
 
         Chip(
             modifier = modifier,
-            colors = ChipDefaults.chipColors(backgroundColor = Color(color)),
-            label = { Text(text = name, textAlign = TextAlign.Center) },
+            colors = ChipDefaults.chipColors(backgroundColor = Color(currentGear.color)),
+            label = { Text(text = currentGear.name, textAlign = TextAlign.Center) },
             onClick = {},
-            enabled = state!!.knownGear[index].batteryLevel > -1,
+            enabled = hasBattery,
             secondaryLabel = {
-                if (state!!.knownGear[index].batteryLevel > -1
-                ) {
+                if (hasBattery) {
                     LinearProgressIndicator(
-                        progress = { state!!.knownGear[index].batteryLevel.toFloat() / 100 },
+                        progress = { currentGear.batteryLevel.toFloat() / 100 },
                         modifier = Modifier.fillMaxWidth(),
                     )
                 }
@@ -538,16 +484,14 @@ class MainActivity : ComponentActivity(), DataClient.OnDataChangedListener,
     }
 
     override fun onCapabilityChanged(p0: CapabilityInfo) {
-        //println("onCapabilityChanged() ${p0.name} ${p0.nodes}")
         sendMessageToPhone(
             data = WearSendData(
                 capability = "refresh",
             ), this
         )
     }
+
+    companion object {
+        private const val TAG = "WearMainActivity"
+    }
 }
-
-
-
-
-

@@ -5,9 +5,9 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.3.10" // this version matches your Kotlin version
-
+    id("org.jetbrains.kotlin.plugin.compose") version "2.3.21" // matches Kotlin version in settings.gradle.kts
 }
+
 val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
@@ -19,7 +19,6 @@ val localPropertiesFile = rootProject.file("key.properties")
 if (localPropertiesFile.exists()) {
     localProperties.load(FileInputStream(localPropertiesFile))
 }
-
 
 var flutterVersionCode = localProperties.getProperty("flutter.versionCode")
 if (project.hasProperty("versionCode")) {
@@ -53,28 +52,19 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-        }
-    }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_17
+            jvmTarget = JvmTarget.JVM_21
         }
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
@@ -91,12 +81,9 @@ android {
             }
         }
     }
-    buildToolsVersion = "35.0.0"
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now,
-            // so `flutter run --release` works.
+            isMinifyEnabled = false
             if (keystorePropertiesFile.exists()) {
                 signingConfig = signingConfigs.getByName("release")
             } else {
@@ -104,14 +91,8 @@ android {
             }
         }
         debug {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now,
-            // so `flutter run --release` works.
-            if (keystorePropertiesFile.exists()) {
-                signingConfig = signingConfigs.getByName("release")
-            } else {
-                signingConfig = signingConfigs.getByName("debug")
-            }
+            // Debug builds always use the debug signing config
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 }
@@ -141,6 +122,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("androidx.compose.runtime:runtime-livedata:1.10.5")
     implementation("androidx.wear:wear-remote-interactions:1.2.0")
+    implementation("androidx.wear:wear-tooling-preview:1.0.0")
     implementation("com.google.guava:guava:31.0.1-android")
 
     androidTestImplementation(platform("androidx.compose:compose-bom:2026.03.00"))
