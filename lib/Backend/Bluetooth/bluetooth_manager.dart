@@ -28,11 +28,12 @@ ValueNotifier<bool> isBluetoothEnabled = ValueNotifier(false);
 
 bool _didInitBle = false;
 
-Future<void> initBle() async {
+Future<void> initBle({bool skipPermissionCheck = false}) async {
   if (_didInitBle) {
     return;
   }
-  if (!await BluetoothIssues.instance.hasPermissions()) {
+  if (!skipPermissionCheck &&
+      !await BluetoothIssues.instance.hasPermissions()) {
     _logger.info("Bluetooth permission not granted");
     return;
   }
