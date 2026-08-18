@@ -92,164 +92,112 @@ Future<void> runAction(
   required String triggeredBy,
 }) async {
   _actionAnalytics(action, triggeredBy);
-
+  List<BluetoothMessage> commands = [];
   if (action is CommandAction) {
-    if (device.deviceDefinition.deviceType == DeviceType.ears &&
-        !device.bluetoothUartService!.isTailcontrol &&
-        action.legacyEarCommandMoves != null) {
-      //support legacy ear firmware
-      EarSpeed earSpeed = HiveProxy.getOrDefault(
-        settings,
-        earMoveSpeed,
-        defaultValue: earMoveSpeedDefault,
-      );
-      BluetoothMessage speedMsg = BluetoothMessage(
-        message: earSpeed.command,
-        type: CommandType.move,
-        responseMSG: earSpeed.command,
-      );
-      device.commandQueue.addCommand(speedMsg);
-
-      //There is a delay from when the legacy eargear responds to
-      // setting speed before the new speed applies
-      BluetoothMessage delayMessage = BluetoothMessage(
-        delay: 1,
-        type: CommandType.move,
-        message: '',
-      );
-      device.commandQueue.addCommand(delayMessage);
-      for (int i = 0; i < action.legacyEarCommandMoves!.length; i++) {
-        Object element = action.legacyEarCommandMoves![i];
-        if (element is Move) {
-          if (element.moveType == MoveType.delay) {
-            BluetoothMessage message = BluetoothMessage(
-              delay: element.time,
-              type: CommandType.move,
-              message: '',
-            );
-            device.commandQueue.addCommand(message);
-          }
-        } else if (element is CommandAction) {
-          //Generate move command
-          BluetoothMessage message = BluetoothMessage(
-            message: element.command,
-            type: CommandType.move,
-            responseMSG: element.response,
-          );
-          device.commandQueue.addCommand(message);
-        }
-      }
-    } else {
-      if (action.actionCategory == ActionCategory.rgb) {
-        double rgbBrightnessValue = HiveProxy.getOrDefault(
-          settings,
-          rgbBrightness,
-          defaultValue: rgbBrightnessDefault,
-        );
-        device.commandQueue.addCommand(
-          BluetoothMessage(
-            message:
-                "${action.command} ${rgbBrightnessValue.toInt().clamp(1, 100)}",
-            responseMSG: action.response,
-            type: CommandType.move,
-          ),
-        );
-      } else {
-        //Tailcontrol/Normal command
-        device.commandQueue.addCommand(
-          BluetoothMessage(
-            message: action.command,
-            responseMSG: action.response,
-            type: CommandType.move,
-          ),
-        );
-      }
-    }
+    commands.addAll(generateCommandActionCommands(action, device));
   } else if (action is MoveList) {
-    _logger.info("Starting MoveList ${action.name}.");
-    if (action.moves.isNotEmpty &&
-        action.moves.length <= 5 &&
-        (device.deviceDefinition.deviceType != DeviceType.ears ||
-            device.bluetoothUartService!.isTailcontrol)) {
-      int preset = 1; //TODO: store
-      String cmd =
-          "USERMOVE U${preset}P${action.moves.length}N${action.repeat.toInt()}";
-      String a = ''; // servo 1 position
-      String b = ''; // servo 2 position
-      String e = ''; // servo 1 easing
-      String f = ''; // servo 2 easing
-      String sl = ''; // servo 1 speed
-      String m = ''; // servo 2 speed
-      for (int i = 0; i < action.moves.length; i++) {
-        Move move = action.moves[i];
-        if (i == 0 && move.moveType == MoveType.delay) {
-          continue; // Skip first move if it is a delay
-        }
-        if (move.moveType == MoveType.delay) {
-          if (i > 0 &&
-              action.moves.length > i + 1 &&
-              action.moves[i + 1].moveType == MoveType.move) {
-            Move prevMove = action.moves[i + 1];
-            e = '${e}E${prevMove.easingType.num}';
-            f = '${f}F${prevMove.easingType.num}';
-            a = '${a}A${prevMove.leftServo.round().clamp(0, 128) ~/ 16}';
-            b = '${b}B${prevMove.rightServo.round().clamp(0, 128) ~/ 16}';
-            sl = '${sl}S${move.speed.toInt()}';
-            m = '${m}M${move.speed.toInt()}';
-          }
-        }
-        e = '${e}E${move.easingType.num}';
-        f = '${f}F${move.easingType.num}';
-        a = '${a}A${move.leftServo.round().clamp(0, 128) ~/ 16}';
-        b = '${b}B${move.rightServo.round().clamp(0, 128) ~/ 16}';
-        sl = '${sl}L${move.speed.toInt()}';
-        m = '${m}M${move.speed.toInt()}';
-      }
-      cmd = '$cmd $a $b $e $f $sl $m H1';
-      device.commandQueue.addCommand(
-        BluetoothMessage(message: cmd, type: CommandType.move),
-      );
-      device.commandQueue.addCommand(
-        BluetoothMessage(
-          message: "TAILU$preset",
-          responseMSG: "TAILU$preset END",
-          type: CommandType.move,
-        ),
-      );
-    } else {
-      List<Move> newMoveList = List.from(
-        action.moves,
-      ); //prevent home move from being added to original MoveList
-      if (action.repeat.toInt() > 1) {
-        for (int i = 1; i < action.repeat; i++) {
-          newMoveList.addAll(action.moves);
-        }
-      }
-      newMoveList.add(Move.home()); // add final home move
-      for (Move element in newMoveList) {
-        //run move command
-        if (element.moveType == MoveType.delay) {
-          BluetoothMessage message = BluetoothMessage(
-            delay: element.time,
-            type: CommandType.move,
-            message: '',
-          );
-          device.commandQueue.addCommand(message);
-        } else {
-          //Generate move command
-          generateMoveCommand(element, device, CommandType.move).forEach((
-            element,
-          ) {
-            device.commandQueue.addCommand(element);
-          });
-        }
-      }
-    }
+    commands.addAll(generateMoveListCommand(action, device));
   } else if (action is AudioAction) {
     String file = action.file;
 
     playSound(file);
   }
+  for (BluetoothMessage bluetoothMessage in commands) {
+    device.commandQueue.addCommand(bluetoothMessage);
+  }
+}
+
+List<BluetoothMessage> generateCommandActionCommands(
+  CommandAction action,
+  StatefulDevice device,
+) {
+  List<BluetoothMessage> commands = [];
+  if (device.deviceDefinition.deviceType == DeviceType.ears &&
+      !device.bluetoothUartService!.isTailcontrol &&
+      action.legacyEarCommandMoves != null) {
+    commands.addAll(generateLegacyEarMoveCommands(action, device));
+  } else {
+    if (action.actionCategory == ActionCategory.rgb) {
+      commands.add(generateRgbCommand(action, device));
+    } else {
+      //Tailcontrol/Normal command
+      commands.add(
+        BluetoothMessage(
+          message: action.command,
+          responseMSG: action.response,
+          type: CommandType.move,
+        ),
+      );
+    }
+  }
+  return commands;
+}
+
+List<BluetoothMessage> generateLegacyEarMoveCommands(
+  CommandAction action,
+  StatefulDevice device,
+) {
+  List<BluetoothMessage> commands = [];
+  //support legacy ear firmware
+  EarSpeed earSpeed = HiveProxy.getOrDefault(
+    settings,
+    earMoveSpeed,
+    defaultValue: earMoveSpeedDefault,
+  );
+  BluetoothMessage speedMsg = BluetoothMessage(
+    message: earSpeed.command,
+    type: CommandType.move,
+    responseMSG: earSpeed.command,
+  );
+  commands.add(speedMsg);
+
+  //There is a delay from when the legacy eargear responds to
+  // setting speed before the new speed applies
+  BluetoothMessage delayMessage = BluetoothMessage(
+    delay: 1,
+    type: CommandType.move,
+    message: '',
+  );
+  commands.add(delayMessage);
+  for (int i = 0; i < action.legacyEarCommandMoves!.length; i++) {
+    Object element = action.legacyEarCommandMoves![i];
+    if (element is Move) {
+      if (element.moveType == MoveType.delay) {
+        BluetoothMessage message = BluetoothMessage(
+          delay: element.time,
+          type: CommandType.move,
+          message: '',
+        );
+        commands.add(message);
+      }
+    } else if (element is CommandAction) {
+      //Generate move command
+      BluetoothMessage message = BluetoothMessage(
+        message: element.command,
+        type: CommandType.move,
+        responseMSG: element.response,
+      );
+      commands.add(message);
+    }
+  }
+  return commands;
+}
+
+BluetoothMessage generateRgbCommand(
+  CommandAction action,
+  StatefulDevice device,
+) {
+  double rgbBrightnessValue = HiveProxy.getOrDefault(
+    settings,
+    rgbBrightness,
+    defaultValue: rgbBrightnessDefault,
+  );
+
+  return BluetoothMessage(
+    message: "${action.command} ${rgbBrightnessValue.toInt().clamp(1, 100)}",
+    responseMSG: action.response,
+    type: CommandType.move,
+  );
 }
 
 // Generates the DSSP command for a given move
@@ -319,6 +267,87 @@ List<BluetoothMessage> generateMoveCommand(
           type: type,
         ),
       );
+    }
+  }
+  return commands;
+}
+
+List<BluetoothMessage> generateMoveListCommand(
+  MoveList movelist,
+  StatefulDevice device,
+) {
+  _logger.info("Starting MoveList ${movelist.name}.");
+  List<BluetoothMessage> commands = [];
+  if (movelist.moves.isNotEmpty &&
+      movelist.moves.length <= 5 &&
+      (device.deviceDefinition.deviceType != DeviceType.ears ||
+          device.bluetoothUartService!.isTailcontrol)) {
+    String cmd =
+        "USERMOVE U1P${movelist.moves.length}N${movelist.repeat.toInt()}";
+    String a = ''; // servo 1 position
+    String b = ''; // servo 2 position
+    String e = ''; // servo 1 easing
+    String f = ''; // servo 2 easing
+    String sl = ''; // servo 1 speed
+    String m = ''; // servo 2 speed
+    for (int i = 0; i < movelist.moves.length; i++) {
+      Move move = movelist.moves[i];
+      if (i == 0 && move.moveType == MoveType.delay) {
+        continue; // Skip first move if it is a delay
+      }
+      if (move.moveType == MoveType.delay) {
+        if (i > 0 &&
+            movelist.moves.length > i + 1 &&
+            movelist.moves[i + 1].moveType == MoveType.move) {
+          Move prevMove = movelist.moves[i + 1];
+          e = '${e}E${prevMove.easingType.num}';
+          f = '${f}F${prevMove.easingType.num}';
+          a = '${a}A${prevMove.leftServo.round().clamp(0, 128) ~/ 16}';
+          b = '${b}B${prevMove.rightServo.round().clamp(0, 128) ~/ 16}';
+          sl = '${sl}S${move.speed.toInt()}';
+          m = '${m}M${move.speed.toInt()}';
+        }
+      }
+      e = '${e}E${move.easingType.num}';
+      f = '${f}F${move.easingType.num}';
+      a = '${a}A${move.leftServo.round().clamp(0, 128) ~/ 16}';
+      b = '${b}B${move.rightServo.round().clamp(0, 128) ~/ 16}';
+      sl = '${sl}L${move.speed.toInt()}';
+      m = '${m}M${move.speed.toInt()}';
+    }
+    cmd = '$cmd $a $b $e $f $sl $m H1';
+    commands.add(BluetoothMessage(message: cmd, type: CommandType.move));
+    //runs the generated USERMOVE action
+    commands.add(
+      BluetoothMessage(
+        message: "TAILU1",
+        responseMSG: "TAILU1 END",
+        type: CommandType.move,
+      ),
+    );
+  } else {
+    List<Move> newMoveList = List.from(
+      movelist.moves,
+    ); //prevent home move from being added to original MoveList
+    if (movelist.repeat.toInt() > 1) {
+      for (int i = 1; i < movelist.repeat; i++) {
+        newMoveList.addAll(movelist.moves);
+      }
+    }
+    newMoveList.add(Move.home()); // add final home move
+    for (Move element in newMoveList) {
+      //run move command
+      if (element.moveType == MoveType.delay) {
+        BluetoothMessage message = BluetoothMessage(
+          delay: element.time,
+          type: CommandType.move,
+          message: '',
+        );
+        commands.add(message);
+      } else {
+        //Generate move command
+        commands.addAll(generateMoveCommand(element, device, CommandType.move));
+      }
     }
   }
   return commands;
