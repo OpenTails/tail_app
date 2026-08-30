@@ -27,7 +27,7 @@ class ScanForNewDevice extends StatefulWidget {
 class _ScanForNewDevice extends State<ScanForNewDevice> {
   @override
   void deactivate() {
-    Scan.instance.stopScan();
+    Scan.instance.stopActiveScan();
     super.deactivate();
   }
 

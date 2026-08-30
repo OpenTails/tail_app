@@ -46,7 +46,7 @@ Future<void> initBle({bool skipPermissionCheck = false}) async {
   // starts the listener providers
   UniversalBle.onConnectionChange = _onConnectionStateChangedListener;
   UniversalBle.availabilityStream.listen(_adapterStateListener);
-  UniversalBle.queueType = QueueType.perDevice;
+  UniversalBle.queueType = QueueType.global;
   UniversalBle.onScanResult = _onScanResultsListener;
   UniversalBle.onValueChange = onBluetoothCharacteristicValueUpdate;
   UniversalBle.setLogLevel(kDebugMode ? BleLogLevel.debug : BleLogLevel.info);
@@ -344,6 +344,7 @@ class Scan with ChangeNotifier {
             .where((element) => element.isSystemDevice == true)
             .forEach((bluetoothDevice) => _connect(bluetoothDevice.deviceId)),
       );
+
       // Or optionally add a scan filter
       await UniversalBle.startScan(
         scanFilter: ScanFilter(withServices: DeviceRegistry.getAllIds.toList()),
@@ -383,13 +384,14 @@ class Scan with ChangeNotifier {
           defaultValue: hasCompletedOnboardingDefault,
         ) <
         hasCompletedOnboardingVersionToAgree;
+
     if ((!allConnected || isInOnboarding) && isBluetoothEnabled.value) {
       beginScan(scanReason: ScanReason.background);
     } else if ((allConnected &&
             !isInOnboarding &&
             _state == ScanReason.background) ||
         !isBluetoothEnabled.value) {
-      stopScan();
+      //stopScan();
     }
   }
 

@@ -34,7 +34,7 @@ class _KnownGearScanControllerState extends State<KnownGearScanController> {
       },
       //onResume: () => _handleTransition('resume'),
       onHide: () async {
-        if (KnownDevices.instance.connectedIdleGear.isEmpty) {
+        if (KnownDevices.instance.connectedGear.isEmpty) {
           await Scan.instance.stopScan();
         }
       },
