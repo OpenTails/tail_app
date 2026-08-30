@@ -18,15 +18,15 @@ void main() {
       // Initialize Hive before running tests using the app's initHive function
       await initHive();
 
-      // Clear any existing data in sequencesBox to ensure clean state
-      final box = Hive.box<MoveList>(sequencesBox);
+      // Open the sequences box before accessing it
+      final box = await Hive.openBox<MoveList>(sequencesBox);
       await box.clear();
 
       // Initialize the MoveLists instance
       moveLists = MoveLists.instance;
 
-      // reload instance incase data still exists
-      moveLists.reload();
+      // Reload instance in case data still exists
+      await moveLists.reload();
     });
 
     tearDown(() async {
@@ -99,7 +99,7 @@ void main() {
       await moveLists.add(moveList);
 
       //force reloading data from hive
-      moveLists.reload();
+      await moveLists.reload();
 
       expect(moveLists.state.length, equals(1));
       expect(moveLists.state.first.name, equals('Persisted List'));

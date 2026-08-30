@@ -17,34 +17,30 @@ void main() {
       // Initialize Hive before running tests using the app's initHive function
       await initHive();
 
-      // "dynamic" boxes are limited to settings as there is no reliable way to dynamically check if a <Type> is specified or not.
-      testBoxName = settings;
-
       // Open the box
-      await Hive.openBox(testBoxName);
+      await Hive.openBox(settings);
     });
 
     tearDown(() async {
       // Clean up by closing the test box
-      final box = Hive.box(testBoxName);
+      final box = Hive.box(settings);
       await box.clear();
-      await box.close();
-      await Hive.openBox(testBoxName);
+      await Hive.openBox(settings);
     });
 
     test('HiveProxy should initialize successfully', () async {
       // Verify Hive is initialized and can open a box
-      expect(() => Hive.box(testBoxName), returnsNormally);
+      expect(() => Hive.box(settings), returnsNormally);
     });
 
     test('HiveProxy.put should store a value', () async {
       final key = 'test_key';
       final value = 'test_value';
 
-      await HiveProxy.put(testBoxName, key, value);
+      await HiveProxy.put(settings, key, value);
 
       final retrievedValue = HiveProxy.getOrDefault(
-        testBoxName,
+        settings,
         key,
         defaultValue: "stored",
       );
@@ -58,7 +54,7 @@ void main() {
         final defaultValue = 'default_value';
 
         final retrievedValue = HiveProxy.getOrDefault(
-          testBoxName,
+          settings,
           nonExistentKey,
           defaultValue: defaultValue,
         );
@@ -70,15 +66,15 @@ void main() {
       final key = 'key_to_delete';
       final value = 'value_to_delete';
 
-      await HiveProxy.put(testBoxName, key, value);
+      await HiveProxy.put(settings, key, value);
       expect(
-        HiveProxy.getOrDefault(testBoxName, key, defaultValue: ""),
+        HiveProxy.getOrDefault(settings, key, defaultValue: ""),
         equals(value),
       );
 
-      await HiveProxy.deleteKey(testBoxName, key);
+      await HiveProxy.deleteKey(settings, key);
       final retrievedValue = HiveProxy.getOrDefault(
-        testBoxName,
+        settings,
         key,
         defaultValue: "deleted",
       );

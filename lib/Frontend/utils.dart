@@ -17,7 +17,10 @@ import '../constants.dart';
 final dioLogger = Logger('Dio');
 
 bool get isMobile => !kIsWeb && (Platform.isAndroid || Platform.isIOS);
-Dio? _dio;
+@visibleForTesting
+Dio? globalDioInstance;
+
+
 final cacheOptions = CacheOptions(
   // A default store is required for interceptor.
   store: HiveCacheStore(null, hiveBoxName: "dioCache"),
@@ -28,8 +31,8 @@ final cacheOptions = CacheOptions(
 );
 
 Future<Dio> initDio() async {
-  if (_dio != null) {
-    return _dio!;
+  if (globalDioInstance != null) {
+    return globalDioInstance!;
   }
 
   final Dio dio = Dio()..interceptors.add(LogarteDioInterceptor(logarte));
@@ -59,7 +62,7 @@ Future<Dio> initDio() async {
 
   dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
   dio.addSentry();
-  _dio = dio;
+  globalDioInstance = dio;
   return dio;
 }
 
