@@ -227,8 +227,8 @@ abstract class FeedItem with _$FeedItem implements Comparable<FeedItem> {
     required String url,
     required String title,
     required DateTime publishDate,
-    final int? imageId,
-    final String? imageUrl,
+    int? imageId,
+    String? imageUrl,
   }) = _FeedItem;
 
   @override

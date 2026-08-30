@@ -12,8 +12,8 @@ abstract class FWInfo with _$FWInfo {
     required String url,
     required List<String> supportedHardwareVersions,
     required String minimumAppVersion,
-    @Default("") final String changelog,
-    @Default("") final String glash,
+    @Default("") String changelog,
+    @Default("") String glash,
   }) = _FWInfo;
 
   factory FWInfo.fromJson(Map<String, dynamic> json) => _$FWInfoFromJson(json);

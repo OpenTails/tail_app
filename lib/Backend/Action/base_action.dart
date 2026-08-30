@@ -36,19 +36,19 @@ abstract class BaseAction {
   }
 }
 
-@unfreezed
+@freezed
 abstract class CommandAction extends BaseAction with _$CommandAction {
   CommandAction._();
 
   @Implements<BaseAction>()
   factory CommandAction({
-    required final String command,
-    required final String name,
-    required final String uuid,
-    required final List<DeviceType> deviceCategory,
-    final ActionCategory? actionCategory,
-    final String? response,
-    final List<Object>? legacyEarCommandMoves,
+    required String command,
+    required String name,
+    required String uuid,
+    required List<DeviceType> deviceCategory,
+    ActionCategory? actionCategory,
+    String? response,
+    List<Object>? legacyEarCommandMoves,
   }) = _CommandAction;
 
   factory CommandAction.hiddenEars(String command, String response) {

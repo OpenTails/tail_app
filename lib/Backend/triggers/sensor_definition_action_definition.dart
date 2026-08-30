@@ -11,6 +11,6 @@ abstract class TriggerActionDef with _$TriggerActionDef {
     required Function translated,
     Widget? icon,
     required String uuid,
-    @Default(false) final bool defaultActions,
+    @Default(false) bool defaultActions,
   }) = _TriggerActionDef;
 }

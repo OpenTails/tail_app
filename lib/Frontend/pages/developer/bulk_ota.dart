@@ -108,7 +108,7 @@ class _BulkOTAState extends State<BulkOTA> {
                   onPressed: devices.isEmpty || selectedDeviceType.length != 1
                       ? null
                       : () async {
-                          FilePickerResult? result = await FilePicker.pickFiles(
+                          PlatformFile? result = await FilePicker.pickFile(
                             type: FileType.custom,
                             allowedExtensions: ['bin'],
                           );
@@ -116,7 +116,7 @@ class _BulkOTAState extends State<BulkOTA> {
                             setState(() async {
                               for (StatefulDevice device in devices) {
                                 updaters[device]!.setManualOtaFile(
-                                  await result.files.single.readAsBytes(),
+                                  await result.readAsBytes(),
                                 );
                               }
                             });

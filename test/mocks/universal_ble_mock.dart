@@ -168,8 +168,11 @@ class UniversalBleMock extends UniversalBlePlatform {
     Duration? timeout,
   }) async {
     final device = _getOrCreateDevice(deviceId.toLowerCase());
-    return device.characteristicValues[
-            _key(deviceId, service, characteristic)] ??
+    return device.characteristicValues[_key(
+          deviceId,
+          service,
+          characteristic,
+        )] ??
         Uint8List(0);
   }
 
@@ -218,7 +221,7 @@ class UniversalBleMock extends UniversalBlePlatform {
 
   /// Records connection priority requests for assertions.
   final List<({String deviceId, BleConnectionPriority priority})>
-      requestedConnectionPriorities = [];
+  requestedConnectionPriorities = [];
 
   @override
   Future<void> requestConnectionPriority(
@@ -316,8 +319,9 @@ class UniversalBleMock extends UniversalBlePlatform {
     String characteristic,
     Uint8List value,
   ) {
-    _getOrCreateDevice(deviceId.toLowerCase()).characteristicValues[
-        _key(deviceId, service, characteristic)] = value;
+    _getOrCreateDevice(
+      deviceId.toLowerCase(),
+    ).characteristicValues[_key(deviceId, service, characteristic)] = value;
   }
 
   /// Sets the connection state directly (without emitting an event).
@@ -391,6 +395,30 @@ class UniversalBleMock extends UniversalBlePlatform {
   /// Simulates an availability change event.
   void simulateAvailability(AvailabilityState state) {
     updateAvailability(state);
+  }
+
+  @override
+  Future<Uint8List> readDescriptorValue(
+    String deviceId,
+    String service,
+    String characteristic,
+    String descriptor, {
+    Duration? timeout,
+  }) {
+    // TODO: implement readDescriptorValue
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> writeDescriptorValue(
+    String deviceId,
+    String service,
+    String characteristic,
+    String descriptor,
+    Uint8List value,
+  ) {
+    // TODO: implement writeDescriptorValue
+    throw UnimplementedError();
   }
 }
 

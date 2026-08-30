@@ -12,9 +12,9 @@ abstract class Version with _$Version implements Comparable<Version> {
 
   @Implements<Comparable<Version>>()
   const factory Version({
-    @Default(0) @HiveField(0) final int major,
-    @Default(0) @HiveField(1) final int minor,
-    @Default(0) @HiveField(2) final int patch,
+    @Default(0) @HiveField(0) int major,
+    @Default(0) @HiveField(1) int minor,
+    @Default(0) @HiveField(2) int patch,
   }) = _Version;
 
   @override

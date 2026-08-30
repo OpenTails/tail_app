@@ -153,16 +153,14 @@ class _OtaUpdateState extends State<OtaUpdate> {
                         if (isDeveloperEnabled) ...[
                           ElevatedButton(
                             onPressed: () async {
-                              FilePickerResult? result =
-                                  await FilePicker.pickFiles(
-                                    type: FileType.custom,
-                                    withData: true,
-                                    allowedExtensions: ['bin'],
-                                  );
+                              PlatformFile? result = await FilePicker.pickFile(
+                                type: FileType.custom,
+                                allowedExtensions: ['bin'],
+                              );
                               if (result != null) {
                                 setState(() async {
                                   widget.otaUpdater.setManualOtaFile(
-                                    await result.files.single.readAsBytes(),
+                                    await result.readAsBytes(),
                                   );
                                 });
                               } else {

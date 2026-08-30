@@ -32,7 +32,7 @@ class _CustomAudioState extends State<CustomAudio> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           _audioLogger.info("Opening file dialog");
-          FilePickerResult? result = await FilePicker.pickFiles(
+          PlatformFile? result = await FilePicker.pickFile(
             type: FileType.custom,
             allowedExtensions: [
               'aac',
@@ -46,22 +46,21 @@ class _CustomAudioState extends State<CustomAudio> {
           );
           if (result != null) {
             _audioLogger.info("Selected file");
-            PlatformFile file = result.files.first;
             final Directory appDir = await getApplicationSupportDirectory();
             Directory audioDir = Directory("${appDir.path}/audio");
             await audioDir.create();
-            File storedAudioFilePath = File("${audioDir.path}/${file.name}");
+            File storedAudioFilePath = File("${audioDir.path}/${result.name}");
             _audioLogger
               ..info("File path ${storedAudioFilePath.path}")
-              ..info("Selected file Path ${file.path}");
-            Stream<List<int>> openRead = file.readAsByteStream();
+              ..info("Selected file Path ${result.path}");
+            Stream<List<int>> openRead = result.readAsByteStream();
             IOSink ioSinkWrite = storedAudioFilePath.openWrite();
             await ioSinkWrite.addStream(openRead);
             ioSinkWrite.close();
             _audioLogger.info("Wrote file to app storage");
             AudioAction action = AudioAction(
-              name: file.name
-                  .substring(0, file.name.lastIndexOf("."))
+              name: result.name
+                  .substring(0, result.name.lastIndexOf("."))
                   .replaceAll("_", " ")
                   .replaceAll("-", " "),
               uuid: const Uuid().v4(),

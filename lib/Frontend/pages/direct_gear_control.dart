@@ -189,10 +189,8 @@ class _JoystickState extends State<DirectGearControl> {
 abstract class TailServoPositions with _$TailServoPositions {
   TailServoPositions._();
 
-  factory TailServoPositions({
-    required final double left,
-    required final double right,
-  }) = _TailServoPositions;
+  factory TailServoPositions({required double left, required double right}) =
+      _TailServoPositions;
 }
 
 TailServoPositions calculatePosition(StickDragDetails details) {
