@@ -12,7 +12,7 @@ import battery_plus
 import connectivity_plus
 import data_saver
 import device_info_plus
-import file_picker
+import file_picker_darwin
 import gamepads_darwin
 import package_info_plus
 import pdfx
