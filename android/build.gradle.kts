@@ -4,7 +4,7 @@ allprojects {
         mavenCentral()
     }
 }
-var flutterCompileSdkVersion = 36
+var flutterCompileSdkVersion = 37
 subprojects {
     afterEvaluate {
         plugins.withType<com.flutter.gradle.FlutterPlugin> {

@@ -74,13 +74,9 @@ abstract class AudioAction extends BaseAction
   factory AudioAction({
     @HiveField(5) required String file,
     @HiveField(1) required String name,
-    @HiveField(4) required final String uuid,
-    @HiveField(2)
-    @Default(DeviceType.values)
-    final List<DeviceType> deviceCategory,
-    @HiveField(3)
-    @Default(ActionCategory.audio)
-    final ActionCategory? actionCategory,
+    @HiveField(4) required String uuid,
+    @HiveField(2) @Default(DeviceType.values) List<DeviceType> deviceCategory,
+    @HiveField(3) @Default(ActionCategory.audio) ActionCategory? actionCategory,
   }) = _AudioAction;
 
   @override
@@ -97,11 +93,11 @@ abstract class MoveList extends BaseAction with _$MoveList {
   @Implements<BaseAction>()
   factory MoveList({
     @HiveField(1) required String name,
-    @HiveField(4) required final String uuid,
+    @HiveField(4) required String uuid,
     @HiveField(2) @Default(DeviceType.values) List<DeviceType> deviceCategory,
     @HiveField(3)
     @Default(ActionCategory.sequence)
-    final ActionCategory? actionCategory,
+    ActionCategory? actionCategory,
     @HiveField(5) @Default([]) List<Move> moves,
     @HiveField(6) @Default(1) double repeat,
   }) = _MoveList;

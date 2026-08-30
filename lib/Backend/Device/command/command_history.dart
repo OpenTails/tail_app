@@ -13,7 +13,7 @@ abstract class MessageHistoryEntry with _$MessageHistoryEntry {
   const factory MessageHistoryEntry({
     required MessageHistoryType type,
     required String message,
-    final BluetoothMessage? currentCommandQueueMessage,
+    BluetoothMessage? currentCommandQueueMessage,
   }) = _MessageHistoryEntry;
 }
 
