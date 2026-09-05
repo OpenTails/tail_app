@@ -46,7 +46,7 @@ Future<void> initBle({bool skipPermissionCheck = false}) async {
   // starts the listener providers
   UniversalBle.onConnectionChange = _onConnectionStateChangedListener;
   UniversalBle.availabilityStream.listen(_adapterStateListener);
-  UniversalBle.queueType = QueueType.global;
+  UniversalBle.queueType = QueueType.perDevice;
   UniversalBle.onScanResult = _onScanResultsListener;
   UniversalBle.onValueChange = onBluetoothCharacteristicValueUpdate;
   UniversalBle.setLogLevel(kDebugMode ? BleLogLevel.debug : BleLogLevel.info);
