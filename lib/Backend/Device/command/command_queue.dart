@@ -151,6 +151,12 @@ class CommandQueue with ChangeNotifier {
   void _onStateChanged() {
     switch (state) {
       case CommandQueueState.running:
+        // make fire & forget system messages non-blocking
+        if (currentMessage?.type == CommandType.system &&
+            currentMessage?.responseMSG == null &&
+            currentMessage?.delay == null) {
+          break;
+        }
       case CommandQueueState.waitingForResponse:
       case CommandQueueState.delay:
         device.deviceState.value = DeviceMoveState.runAction;
@@ -206,7 +212,7 @@ class CommandQueue with ChangeNotifier {
         await sendMessage(
           device,
           const Utf8Encoder().convert(bluetoothMessage.message),
-        );
+        ).timeout(Duration(seconds: 15), onTimeout: _onTimeout);
         if (bluetoothMessage.responseMSG == null) {
           _endCommand(); // end the current command if no reason to wait
         }
