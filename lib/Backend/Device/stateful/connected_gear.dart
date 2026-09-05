@@ -44,6 +44,7 @@ class StatefulDevice extends ChangeNotifier {
   final ValueNotifier<DeviceMoveState> deviceState = ValueNotifier(
     DeviceMoveState.standby,
   );
+  Timer? _deviceStateWatchdogTimer;
   int mtu = -1;
   final ValueNotifier<ConnectivityState> deviceConnectionState = ValueNotifier(
     ConnectivityState.disconnected,
@@ -111,12 +112,54 @@ class StatefulDevice extends ChangeNotifier {
   StatefulDevice(this.deviceDefinition, this.storedDevice) {
     commandQueue = CommandQueue(this);
     deviceConnectionState.addListener(_onConnectionStateChanged);
-
+    deviceState.addListener(_onDeviceStateChanged);
     // Load glowtip/rgb status
     hasGlowtip = storedDevice.hasGlowtip;
     hasRGB = storedDevice.hasRGB;
     // only store, do not read back on gear load
     firmwareStatus.addListener(_versionListener);
+  }
+
+  void _onDeviceStateChanged() {
+    switch (deviceState.value) {
+      case DeviceMoveState.standby:
+      case DeviceMoveState.busy:
+        // cancel the timer
+        if (_deviceStateWatchdogTimer != null &&
+            _deviceStateWatchdogTimer!.isActive) {
+          _deviceStateWatchdogTimer?.cancel();
+          _deviceStateWatchdogTimer == null;
+        }
+        //avoid staying in "busy" if not in an update flow
+        if (deviceState.value == DeviceMoveState.busy &&
+            (firmwareStatus.hardwareVersion.isEmpty ||
+                firmwareStatus.firmwareVersion == Version())) {
+          deviceState.value == DeviceMoveState.standby;
+          if (commandQueue.state == CommandQueueState.blocked) {
+            commandQueue.startQueue();
+          }
+        }
+        break;
+      case DeviceMoveState.runAction:
+        _deviceStateWatchdogTimer = Timer(
+          Duration(seconds: 15),
+          _onDeviceStateWatchdogTimeout,
+        );
+        break;
+    }
+  }
+
+  /// Aborts the current move and sets state to standby
+  void _onDeviceStateWatchdogTimeout() {
+    _logger.warning(
+      "DeviceState watchdog exceeded for command ${commandQueue.currentMessage}",
+    );
+    deviceState.value == DeviceMoveState.standby;
+    _deviceStateWatchdogTimer = null;
+
+    //restart the queue to abort the current command
+    commandQueue.stopQueue();
+    commandQueue.startQueue();
   }
 
   void _onGearSupportedFeatureChanged() {
