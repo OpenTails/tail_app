@@ -1,3 +1,7 @@
+### V1.6.1
+
+- Fix the shutdown button disconnecting all gear
+
 ### V 1.6.0
 
 - UI improvements
