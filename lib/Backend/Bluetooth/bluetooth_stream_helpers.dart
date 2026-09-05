@@ -50,6 +50,9 @@ abstract class RxInfo with _$RxInfo {
 Stream<Uint8List> getBaseRxStream(String macAddress, String characteristicId) {
   return (_streamBroadcast
           .where(
+            (event) => event.deviceId.toLowerCase() == macAddress.toLowerCase(),
+          )
+          .where(
             (event) => BleUuidParser.compareStrings(
               characteristicId,
               event.characteristicId,

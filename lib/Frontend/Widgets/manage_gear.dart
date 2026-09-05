@@ -216,6 +216,7 @@ class _ManageGearState extends State<ManageGear> {
                             BluetoothMessage(
                               message: "SHUTDOWN",
                               priority: Priority.high,
+                              responseMSG: "SHUTDOWN BEGIN",
                             ),
                           );
                         });

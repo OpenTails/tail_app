@@ -246,6 +246,7 @@ class StatefulDevice extends ChangeNotifier {
       battery.isLow = true;
     } else if (value.contains("SHUTDOWN BEGIN")) {
       deviceConnectionState.value = ConnectivityState.disconnected;
+      disconnect(storedDevice.btMACAddress);
     } else if (value.contains("HWVER") ||
         value.contains("MITAIL") ||
         value.contains("MINITAIL") ||
