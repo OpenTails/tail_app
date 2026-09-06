@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-08-04T07:40:08.664830",
+  "@@last_modified": "2026-09-06T02:57:56.712505",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -232,6 +232,18 @@
   "sequencesEditRightServo": "Position of the Right Servo",
   "@sequencesEditRightServo": {
     "description": "Label for the right servo slider on the move tab of the move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesLeftServo": "Left Servo",
+  "@sequencesLeftServo": {
+    "description": "Label for the left servo on the custom move edit page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sequencesRightServo": "Right Servo",
+  "@sequencesRightServo": {
+    "description": "Label for the right servo on the custom move edit page",
     "type": "text",
     "placeholders": {}
   },
