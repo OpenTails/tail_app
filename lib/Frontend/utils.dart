@@ -20,7 +20,6 @@ bool get isMobile => !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 @visibleForTesting
 Dio? globalDioInstance;
 
-
 final cacheOptions = CacheOptions(
   // A default store is required for interceptor.
   store: HiveCacheStore(null, hiveBoxName: "dioCache"),
@@ -104,4 +103,8 @@ Future<bool> isLimitedDataEnvironment() async {
     return true;
   }
   return false;
+}
+
+double inverseDouble(double min, double max, double value) {
+  return max - value + min;
 }

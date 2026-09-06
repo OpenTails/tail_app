@@ -49,6 +49,11 @@ const String bodyFont = "HankenGrotesk";
 // Border thickness
 const double standardBorderWidth = 1.5;
 const double thickBorderWidth = 2;
+ 
+const sectionedListViewPadding = EdgeInsets.symmetric(
+  horizontal: 16,
+  vertical: 16,
+);
 
 final ValueNotifier<DynamicSchemeVariant> dynamicSchemeVariant = ValueNotifier(
   DynamicSchemeVariant.tonalSpot,

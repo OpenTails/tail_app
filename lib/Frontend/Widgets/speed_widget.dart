@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../translation_string_definitions.dart';
@@ -13,6 +14,7 @@ class SpeedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(convertToUwU(sequencesEditSpeed())),
+      leading: Icon(Symbols.speed),
       subtitle: Directionality(
         textDirection: TextDirection.rtl,
         child: Slider(

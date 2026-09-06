@@ -236,13 +236,13 @@ List<BluetoothMessage> generateMoveCommand(
       commands
         ..add(
           BluetoothMessage(
-            message: move.speed > 60
+            message: move.leftServoSpeed > 60
                 ? EarSpeed.fast.command
                 : EarSpeed.slow.command,
             priority: priority,
             responseMSG: noResponseMsg
                 ? null
-                : move.speed > 60
+                : move.leftServoSpeed > 60
                 ? EarSpeed.fast.command
                 : EarSpeed.slow.command,
             type: type,
@@ -261,7 +261,7 @@ List<BluetoothMessage> generateMoveCommand(
       commands.add(
         BluetoothMessage(
           message:
-              "DSSP E${move.easingType.num} F${move.easingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.speed.toInt()} M${move.speed.toInt()}",
+              "DSSP E${move.leftServoEasingType.num} F${move.rightServoEasingType.num} A${move.leftServo.round().clamp(0, 128) ~/ 16} B${move.rightServo.round().clamp(0, 128) ~/ 16} L${move.leftServoSpeed.toInt()} M${move.rightServoSpeed.toInt()}",
           priority: priority,
           responseMSG: noResponseMsg ? null : "OK",
           type: type,
@@ -278,17 +278,26 @@ List<BluetoothMessage> generateMoveListCommand(
 ) {
   _logger.info("Starting MoveList ${movelist.name}.");
   List<BluetoothMessage> commands = [];
-  if (movelist.moves.isNotEmpty &&
-      movelist.moves.length <= 5 &&
-      (device.deviceDefinition.deviceType != DeviceType.ears ||
-          device.bluetoothUartService!.isTailcontrol)) {
-    String cmd =
-        "USERMOVE U1P${movelist.moves.length}N${movelist.repeat.toInt()}";
+
+  if (movelist.moves.isEmpty) {
+    return commands;
+  }
+  //Fall back to DSSP
+  bool supportsUserMove =
+      (device.deviceDefinition.deviceType != DeviceType.ears &&
+          !device.deviceDefinition.unsupported) ||
+      device.bluetoothUartService!.isTailcontrol;
+
+  int maxNumberOfMovesSupported = device.bluetoothUartService!.isTailcontrol
+      ? 12
+      : 5;
+
+  if (movelist.moves.length <= maxNumberOfMovesSupported && supportsUserMove) {
     String a = ''; // servo 1 position
     String b = ''; // servo 2 position
     String e = ''; // servo 1 easing
     String f = ''; // servo 2 easing
-    String sl = ''; // servo 1 speed
+    String l = ''; // servo 1 speed
     String m = ''; // servo 2 speed
     for (int i = 0; i < movelist.moves.length; i++) {
       Move move = movelist.moves[i];
@@ -296,26 +305,29 @@ List<BluetoothMessage> generateMoveListCommand(
         continue; // Skip first move if it is a delay
       }
       if (move.moveType == MoveType.delay) {
-        if (i > 0 &&
-            movelist.moves.length > i + 1 &&
-            movelist.moves[i + 1].moveType == MoveType.move) {
-          Move prevMove = movelist.moves[i + 1];
-          e = '${e}E${prevMove.easingType.num}';
-          f = '${f}F${prevMove.easingType.num}';
-          a = '${a}A${prevMove.leftServo.round().clamp(0, 128) ~/ 16}';
-          b = '${b}B${prevMove.rightServo.round().clamp(0, 128) ~/ 16}';
-          sl = '${sl}S${move.speed.toInt()}';
-          m = '${m}M${move.speed.toInt()}';
-        }
+        Move prevMove = movelist.moves[i - 1];
+        e = '${e}E0';
+        f = '${f}F0';
+        a = '${a}A${prevMove.leftServo.round().clamp(0, 128) ~/ 16}';
+        b = '${b}B${prevMove.rightServo.round().clamp(0, 128) ~/ 16}';
+        l = '${l}L${move.time.toInt()}';
+        m = '${m}M${move.time.toInt()}';
+      } else {
+        e = '${e}E${move.leftServoEasingType.num}';
+        f = '${f}F${move.rightServoEasingType.num}';
+        a = '${a}A${move.leftServo.round().clamp(0, 128) ~/ 16}';
+        b = '${b}B${move.rightServo.round().clamp(0, 128) ~/ 16}';
+        l = '${l}L${move.leftServoSpeed.toInt()}';
+        m = '${m}M${move.rightServoSpeed.toInt()}';
       }
-      e = '${e}E${move.easingType.num}';
-      f = '${f}F${move.easingType.num}';
-      a = '${a}A${move.leftServo.round().clamp(0, 128) ~/ 16}';
-      b = '${b}B${move.rightServo.round().clamp(0, 128) ~/ 16}';
-      sl = '${sl}L${move.speed.toInt()}';
-      m = '${m}M${move.speed.toInt()}';
     }
-    cmd = '$cmd $a $b $e $f $sl $m H1';
+    String cmd =
+        'USERMOVE U1P${movelist.moves.length}N${movelist.repeat.toInt()} $a $b $e $f $l $m H1';
+    if (cmd.length > 127) {
+      _logger.warning(
+        "Generated USERMOVE command greater than 127 bytes. $cmd",
+      );
+    }
     commands.add(BluetoothMessage(message: cmd, type: CommandType.move));
     //runs the generated USERMOVE action
     commands.add(

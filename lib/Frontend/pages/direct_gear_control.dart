@@ -15,6 +15,7 @@ import '../../Backend/logging_wrappers.dart';
 import '../../Backend/move_lists_backend.dart';
 import '../../constants.dart';
 import '../Widgets/device_type_widget.dart';
+import '../Widgets/easing_types_widget.dart';
 import '../Widgets/speed_widget.dart';
 import '../Widgets/tutorial_card.dart';
 import '../translation_string_definitions.dart';
@@ -124,25 +125,11 @@ class _JoystickState extends State<DirectGearControl> {
                         });
                       },
                     ),
-                    ListTile(
-                      title: Text(convertToUwU(sequencesEditEasing())),
-                      subtitle: SegmentedButton<EasingType>(
-                        selected: <EasingType>{easingType},
-                        onSelectionChanged: (Set<EasingType> value) {
-                          setState(() {
-                            easingType = value.first;
-                          });
-                        },
-                        segments: EasingType.values
-                            .map<ButtonSegment<EasingType>>((EasingType value) {
-                              return ButtonSegment<EasingType>(
-                                value: value,
-                                icon: value.widget(context),
-                                tooltip: value.name,
-                              );
-                            })
-                            .toList(),
-                      ),
+                    EasingTypesWidget(
+                      value: easingType,
+                      onSelectionChanged: (Set<EasingType> value) {
+                        setState(() => easingType = value.first);
+                      },
                     ),
                     DeviceTypeWidget(
                       selected: deviceTypes.toList(),
@@ -163,7 +150,8 @@ class _JoystickState extends State<DirectGearControl> {
   void sendMove() {
     Move move = Move()
       ..easingType = easingType
-      ..speed = speed
+      ..leftServoSpeed = speed
+      ..rightServoSpeed = speed
       ..rightServo = right
       ..leftServo = left;
     KnownDevices.instance.state.values

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
+import 'package:tail_app/Frontend/Widgets/group_card.dart';
+import 'package:tail_app/Frontend/Widgets/section_label.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:uuid/uuid.dart';
 
@@ -12,10 +14,13 @@ import '../../Backend/Action/base_action.dart';
 import '../../Backend/Device/device_type_enum.dart';
 import '../../Backend/analytics.dart';
 import '../Widgets/device_type_widget.dart';
+import '../Widgets/easing_types_widget.dart';
 import '../Widgets/speed_widget.dart';
 import '../Widgets/tutorial_card.dart';
 import '../go_router_config.dart';
+import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
+import '../utils.dart';
 
 class MoveListView extends StatefulWidget {
   const MoveListView({super.key});
@@ -158,6 +163,7 @@ class _EditMoveList extends State<EditMoveList> {
             onPressed: () async {
               showDialog<bool>(
                 context: context,
+                barrierDismissible: false,
                 builder: (BuildContext context) => AlertDialog(
                   title: Text(convertToUwU(sequencesEditDeleteTitle())),
                   content: Text(convertToUwU(sequencesEditDeleteDescription())),
@@ -277,36 +283,132 @@ class _EditMoveList extends State<EditMoveList> {
                 },
               ),
             ),
-            ReorderableListView(
+            ReorderableListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              children: <Widget>[
-                for (
-                  int index = 0;
-                  index < widget.moveList.moves.length;
-                  index += 1
-                )
-                  ListTile(
-                    key: Key('$index'),
-                    title: Text(
-                      convertToUwU(widget.moveList.moves[index].toString()),
-                    ),
-                    leading: Icon(widget.moveList.moves[index].moveType.icon),
-                    onTap: () async {
-                      Move move = widget.moveList.moves[index];
-
-                      EditMoveListMoveRoute(
-                        $extra: move,
-                      ).push(context).whenComplete(() {
-                        setState(() {
-                          widget.moveList.moves[index] = move;
+              itemCount: widget.moveList.moves.length,
+              itemBuilder: (context, index) {
+                Move move = widget.moveList.moves[index];
+                ProgressIndicatorThemeData progressIndicatorThemeData =
+                    ProgressIndicatorTheme.of(context);
+                ProgressIndicatorThemeData newProgressTheme =
+                    progressIndicatorThemeData.copyWith(
+                      linearMinHeight: 8,
+                      borderRadius: BorderRadius.circular(radiusPill),
+                    );
+                return Card(
+                  key: Key('$index'),
+                  clipBehavior: Clip.antiAlias,
+                  child: Theme(
+                    data: Theme.of(
+                      context,
+                    ).copyWith(progressIndicatorTheme: newProgressTheme),
+                    child: ListTile(
+                      subtitle: Padding(
+                        padding: EdgeInsetsGeometry.symmetric(vertical: 16),
+                        child: move.moveType == MoveType.move
+                            ? Column(
+                                spacing: 0,
+                                children: [
+                                  Row(
+                                    spacing: 16,
+                                    children: [
+                                      SizedBox.square(
+                                        dimension: IconTheme.of(context).size,
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: SectionLabel(
+                                            convertToUwU(sequencesLeftServo()),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: SectionLabel(
+                                            convertToUwU(sequencesRightServo()),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    spacing: 16,
+                                    children: [
+                                      Icon(Symbols.rotate_right),
+                                      Expanded(
+                                        child: LinearProgressIndicator(
+                                          value: move.leftServo / 127,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: LinearProgressIndicator(
+                                          value: move.rightServo / 127,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    spacing: 16,
+                                    children: [
+                                      Icon(Symbols.speed),
+                                      Expanded(
+                                        child: LinearProgressIndicator(
+                                          value: inverseDouble(
+                                            0,
+                                            1,
+                                            move.leftServoSpeed / 127,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: LinearProgressIndicator(
+                                          value: inverseDouble(
+                                            0,
+                                            1,
+                                            move.rightServoSpeed / 127,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                spacing: 16,
+                                children: [
+                                  Icon(Symbols.timer_rounded),
+                                  Expanded(
+                                    child: LinearProgressIndicator(
+                                      value: move.time / 127,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            widget.moveList.moves.removeAt(index);
+                          });
+                        },
+                        icon: Icon(Symbols.delete),
+                      ),
+                      onTap: () async {
+                        EditMoveListMoveRoute(
+                          $extra: move,
+                        ).push(context).whenComplete(() {
+                          setState(() {
+                            widget.moveList.moves[index] = move;
+                          });
+                          MoveLists.instance.store();
                         });
-                        MoveLists.instance.store();
-                      });
-                      //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
-                    },
+                        //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
+                      },
+                    ),
                   ),
-              ],
+                );
+              },
               onReorderItem: (int oldIndex, int newIndex) async {
                 setState(() {
                   final Move item = widget.moveList.moves.removeAt(oldIndex);
@@ -367,7 +469,7 @@ class _EditMoveState extends State<EditMove> with TickerProviderStateMixin {
                   text: sequencesEditMove(),
                 ),
                 Tab(
-                  icon: const Icon(Icons.timer_rounded),
+                  icon: const Icon(Symbols.timer_rounded),
                   text: sequencesEditDelay(),
                 ),
               ],
@@ -378,65 +480,85 @@ class _EditMoveState extends State<EditMove> with TickerProviderStateMixin {
                 children: <Widget>[
                   ListView(
                     shrinkWrap: true,
+                    padding: sectionedListViewPadding,
+
                     controller: scrollController,
                     children: [
-                      ListTile(
-                        title: Text(convertToUwU(sequencesEditLeftServo())),
-                        leading: const Icon(Icons.turn_slight_left),
-                        subtitle: Slider(
-                          value: widget.move.leftServo,
-                          max: 128,
-                          divisions: 8,
-                          label:
-                              "${widget.move.leftServo.round().clamp(0, 128) ~/ 16}",
-                          onChanged: (value) {
-                            setState(() => widget.move.leftServo = value);
-                          },
-                        ),
+                      SectionLabel(convertToUwU(sequencesLeftServo())),
+                      GroupCard(
+                        children: [
+                          ListTile(
+                            title: Text(convertToUwU(sequencesEditLeftServo())),
+                            leading: const Icon(Icons.turn_slight_left),
+                            subtitle: Slider(
+                              value: widget.move.leftServo,
+                              max: 128,
+                              divisions: 8,
+                              label:
+                                  "${widget.move.leftServo.round().clamp(0, 128) ~/ 16}",
+                              onChanged: (value) {
+                                setState(() => widget.move.leftServo = value);
+                              },
+                            ),
+                          ),
+                          SpeedWidget(
+                            value: widget.move.leftServoSpeed,
+                            onChanged: (double value) {
+                              setState(
+                                () => widget.move.leftServoSpeed = value
+                                    .roundToDouble(),
+                              );
+                            },
+                          ),
+                          EasingTypesWidget(
+                            value: widget.move.leftServoEasingType,
+                            onSelectionChanged: (Set<EasingType> value) {
+                              setState(
+                                () => widget.move.leftServoEasingType =
+                                    value.first,
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      ListTile(
-                        title: Text(convertToUwU(sequencesEditRightServo())),
-                        leading: const Icon(Icons.turn_slight_right),
-                        subtitle: Slider(
-                          value: widget.move.rightServo,
-                          max: 128,
-                          divisions: 8,
-                          label:
-                              "${widget.move.rightServo.round().clamp(0, 128) ~/ 16}",
-                          onChanged: (value) {
-                            setState(() => widget.move.rightServo = value);
-                          },
-                        ),
-                      ),
-                      SpeedWidget(
-                        value: widget.move.speed,
-                        onChanged: (double value) {
-                          setState(
-                            () => widget.move.speed = value.roundToDouble(),
-                          );
-                        },
-                      ),
-                      ListTile(
-                        title: Text(convertToUwU(sequencesEditEasing())),
-                        subtitle: SegmentedButton<EasingType>(
-                          selected: <EasingType>{widget.move.easingType},
-                          onSelectionChanged: (Set<EasingType> value) {
-                            setState(
-                              () => widget.move.easingType = value.first,
-                            );
-                          },
-                          segments: EasingType.values
-                              .map<ButtonSegment<EasingType>>((
-                                EasingType value,
-                              ) {
-                                return ButtonSegment<EasingType>(
-                                  value: value,
-                                  tooltip: value.name,
-                                  icon: value.widget(context),
-                                );
-                              })
-                              .toList(),
-                        ),
+                      SectionLabel(convertToUwU(sequencesRightServo())),
+                      GroupCard(
+                        children: [
+                          ListTile(
+                            title: Text(
+                              convertToUwU(sequencesEditRightServo()),
+                            ),
+                            leading: const Icon(Icons.turn_slight_right),
+                            subtitle: Slider(
+                              value: widget.move.rightServo,
+                              max: 128,
+                              divisions: 8,
+                              label:
+                                  "${widget.move.rightServo.round().clamp(0, 128) ~/ 16}",
+                              onChanged: (value) {
+                                setState(() => widget.move.rightServo = value);
+                              },
+                            ),
+                          ),
+                          SpeedWidget(
+                            value: widget.move.rightServoSpeed,
+                            onChanged: (double value) {
+                              setState(
+                                () => widget.move.rightServoSpeed = value
+                                    .roundToDouble(),
+                              );
+                            },
+                          ),
+                          EasingTypesWidget(
+                            value: widget.move.rightServoEasingType,
+                            onSelectionChanged: (Set<EasingType> value) {
+                              setState(
+                                () => widget.move.rightServoEasingType =
+                                    value.first,
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),

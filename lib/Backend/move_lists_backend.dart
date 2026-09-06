@@ -111,24 +111,41 @@ class Move {
   double rightServo = 0;
 
   //Range 0-127
+  //legacy
   @HiveField(3)
-  double speed = 50;
+  double speed = -1;
 
   @HiveField(4)
   //Range 0-127
   double time = 1;
-  @HiveField(5, defaultValue: EasingType.linear)
-  EasingType easingType = EasingType.linear;
+
+  @HiveField(5)
+  EasingType? easingType;
+
   @HiveField(6, defaultValue: MoveType.move)
   MoveType moveType = MoveType.move;
+
+  //Range 0-127
+  @HiveField(7, defaultValue: -1)
+  double leftServoSpeed = 50;
+
+  //Range 0-127
+  @HiveField(8, defaultValue: -1)
+  double rightServoSpeed = 50;
+  @HiveField(9, defaultValue: EasingType.linear)
+  EasingType leftServoEasingType = EasingType.linear;
+  @HiveField(10, defaultValue: EasingType.linear)
+  EasingType rightServoEasingType = EasingType.linear;
 
   Move();
 
   Move.move({
     this.leftServo = 0,
     this.rightServo = 0,
-    this.speed = 50,
-    this.easingType = EasingType.linear,
+    this.leftServoSpeed = 50,
+    this.rightServoSpeed = 50,
+    this.leftServoEasingType = EasingType.linear,
+    this.rightServoEasingType = EasingType.linear,
     this.moveType = MoveType.move,
   });
 
@@ -198,7 +215,32 @@ class MoveLists with ChangeNotifier {
       await Hive.deleteBoxFromDisk(sequencesBox);
     }
     _state = results.toBuiltList();
+    migration();
     notifyListeners();
+    span?.finish();
+  }
+
+  /// Migrates speed into leftServoSpeed & rightServoSpeed for all moves
+  /// Migrates easingType into leftServoEasingType & rightServoEasingType for all moves
+  Future<void> migration() async {
+    final ISentrySpan? span = Sentry.getSpan()?.startChild(
+      'MoveList.migration',
+    );
+    for (MoveList moveList in state) {
+      for (Move move in moveList.moves) {
+        if (move.speed > 0) {
+          move.leftServoSpeed = move.speed;
+          move.rightServoSpeed = move.speed;
+          move.speed = -1;
+        }
+        if (move.easingType != null) {
+          move.leftServoEasingType = move.easingType!;
+          move.rightServoEasingType = move.easingType!;
+          move.easingType = null;
+        }
+      }
+    }
+    await store();
     span?.finish();
   }
 

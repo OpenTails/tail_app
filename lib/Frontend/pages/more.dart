@@ -10,6 +10,8 @@ import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
 import '../../Backend/utilities/developer_options_helpers.dart';
 import '../../assets.dart';
+import '../Widgets/group_card.dart';
+import '../Widgets/section_label.dart';
 import '../go_router_config.dart';
 import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
@@ -62,7 +64,7 @@ class _MoreState extends State<More> {
 
     return ListView(
       controller: _controller,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: sectionedListViewPadding,
       children: [
         // ── Promos ────────────────────────────────────────────────────────────
         _PromoCard(
@@ -126,7 +128,7 @@ class _MoreState extends State<More> {
         ),
         if (isDeveloperEnabled) ...[
           const SizedBox(height: 12),
-          _GroupCard(
+          GroupCard(
             children: [
               ListTile(
                 leading: const Icon(Symbols.bug_report),
@@ -151,12 +153,10 @@ class _MoreState extends State<More> {
         // ── Manuals ───────────────────────────────────────────────────────────
         SizedBox(
           key: _manualsKey,
-          child: _SectionLabel(
-            "${moreManualTitle()} (${moreManualSubTitle()})",
-          ),
+          child: SectionLabel("${moreManualTitle()} (${moreManualSubTitle()})"),
         ),
         const SizedBox(height: 8),
-        _GroupCard(
+        GroupCard(
           children: [
             ListTile(
               title: Text(convertToUwU(moreManualMiTailTitle())),
@@ -220,9 +220,9 @@ class _MoreState extends State<More> {
         const SizedBox(height: 24),
 
         // ── Useful links ──────────────────────────────────────────────────────
-        _SectionLabel(moreUsefulLinksTitle()),
+        SectionLabel(moreUsefulLinksTitle()),
         const SizedBox(height: 8),
-        _GroupCard(
+        GroupCard(
           children: [
             ListTile(
               leading: const Icon(Symbols.store),
@@ -290,7 +290,7 @@ class _MoreState extends State<More> {
         const SizedBox(height: 24),
 
         // ── Legal / About ─────────────────────────────────────────────────────
-        _GroupCard(
+        GroupCard(
           children: [
             ListTile(
               leading: const Icon(Symbols.privacy_tip),
@@ -340,53 +340,6 @@ class _MoreState extends State<More> {
 }
 
 // ── Private widgets ────────────────────────────────────────────────────────────
-
-class _SectionLabel extends StatelessWidget {
-  final String text;
-
-  const _SectionLabel(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 4),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-          color: Theme.of(context).colorScheme.primary,
-          letterSpacing: 0.5,
-        ),
-      ),
-    );
-  }
-}
-
-class _GroupCard extends StatelessWidget {
-  final List<Widget> children;
-
-  const _GroupCard({required this.children});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        children: [
-          for (int i = 0; i < children.length; i++) ...[
-            children[i],
-            if (i < children.length - 1)
-              Divider(
-                height: 1,
-                indent: 16,
-                endIndent: 16,
-                color: Theme.of(context).colorScheme.outlineVariant,
-              ),
-          ],
-        ],
-      ),
-    );
-  }
-}
 
 class _FeatureTile extends StatelessWidget {
   final IconData icon;

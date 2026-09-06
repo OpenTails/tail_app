@@ -251,6 +251,18 @@ String sequencesEditRightServo() => Intl.message(
       'Label for the right servo slider on the move tab of the move edit page',
 );
 
+String sequencesLeftServo() => Intl.message(
+  'Left Servo',
+  name: 'sequencesLeftServo',
+  desc: 'Label for the left servo on the custom move edit page',
+);
+
+String sequencesRightServo() => Intl.message(
+  'Right Servo',
+  name: 'sequencesRightServo',
+  desc: 'Label for the right servo on the custom move edit page',
+);
+
 String sequencesEditSpeed() => Intl.message(
   'How Fast should the gear move to this position?',
   name: 'sequencesEditSpeed',
