@@ -973,7 +973,7 @@ String sequencesInfoDescription() => Intl.message(
 );
 
 String sequencesInfoEditDescription() => Intl.message(
-  'Each Custom Action consists of 1-6 moves and may repeat up to 5 times. You can long press a move to re-order it.',
+  'Each Custom Action consists of 1-5 moves and may repeat up to 5 times. You can long press a move to re-order it.',
   name: 'sequencesInfoEditDescription',
   desc: 'Description for making a custom action on the edit Custom Action page',
 );

@@ -74,24 +74,23 @@ class _MoveListViewState extends State<MoveListView> {
         },
         label: Text(convertToUwU(sequencesPage())),
       ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            PageInfoCard(text: sequencesInfoDescription()),
-            const GearOutOfDateWarning(),
-            ListenableBuilder(
-              listenable: MoveLists.instance,
-              builder: (context, child) {
-                final BuiltList<MoveList> allMoveLists =
-                    MoveLists.instance.state;
+      body: ListView(
+        children: [
+          PageInfoCard(text: sequencesInfoDescription()),
+          const GearOutOfDateWarning(),
+          ListenableBuilder(
+            listenable: MoveLists.instance,
+            builder: (context, child) {
+              final BuiltList<MoveList> allMoveLists = MoveLists.instance.state;
 
-                return ListView.builder(
-                  itemCount: allMoveLists.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return ListTile(
+              return ListView.builder(
+                itemCount: allMoveLists.length,
+                padding: sectionedListViewPadding,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
                       key: Key('$index'),
                       title: Text(convertToUwU(allMoveLists[index].name)),
                       subtitle: Text(
@@ -125,13 +124,13 @@ class _MoveListViewState extends State<MoveListView> {
                           useHaptics: true,
                         );
                       },
-                    );
-                  },
-                );
-              },
-            ),
-          ],
-        ),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -238,10 +237,11 @@ class _EditMoveList extends State<EditMoveList> {
           MoveLists.instance.store();
         },
         child: ListView(
+          padding: sectionedListViewPadding,
           children: [
             PageInfoCard(text: sequencesInfoEditDescription()),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: TextEditingController(text: widget.moveList.name),
                 decoration: InputDecoration(
