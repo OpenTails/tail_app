@@ -1,3 +1,9 @@
+### V1.6.2
+
+- Add waveform to audio actions
+- Fix audio action text editing
+- Bug fixes
+
 ### V1.6.1
 
 - Fix the shutdown button disconnecting all gear
