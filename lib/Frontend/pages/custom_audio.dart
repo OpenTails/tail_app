@@ -96,94 +96,7 @@ class _CustomAudioState extends State<CustomAudio> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   AudioAction audioAction = userAudioActions[index];
-                  return Card(
-                    clipBehavior: Clip.antiAlias,
-                    child: ListTile(
-                      title: Text(convertToUwU(audioAction.name)),
-                      subtitle: FutureBuilder(
-                        future: getWaveformData(audioAction),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return SizedBox(
-                              height: 90,
-                              child: Center(child: LinearProgressIndicator()),
-                            );
-                          } else {
-                            return LayoutBuilder(
-                              builder: (context, constraints) {
-                                return AudioFileWaveforms(
-                                  size: Size(constraints.maxWidth, 90),
-                                  playerController: PlayerController(),
-                                  waveformData: snapshot.data!,
-                                  seekOnTapUp: false,
-                                  enableSeekGesture: false,
-                                  waveformType: WaveformType.fitWidth,
-                                  playerWaveStyle: PlayerWaveStyle(
-                                    showSeekLine: false,
-                                    spacing: 5,
-                                    fixedWaveColor: ColorScheme.of(
-                                      context,
-                                    ).primary,
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        },
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            onPressed: () async {
-                              editModal(context, audioAction);
-                            },
-                            tooltip: audioEdit(),
-                            icon: const Icon(Symbols.edit),
-                          ),
-                          IconButton(
-                            onPressed: () async {
-                              showDialog<bool>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Text(convertToUwU(audioDelete())),
-                                  content: Text(
-                                    convertToUwU(audioDeleteDescription()),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, false),
-                                      child: Text(convertToUwU(cancel())),
-                                    ),
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, true),
-                                      child: Text(convertToUwU(ok())),
-                                    ),
-                                  ],
-                                ),
-                              ).then((value) async {
-                                if (value ?? true) {
-                                  UserAudioActions.instance.remove(audioAction);
-                                  File storedAudioFilePath = File(
-                                    audioAction.file,
-                                  );
-                                  await storedAudioFilePath.delete();
-                                  setState(() {
-                                    _audioLogger.info("Deleted audio file");
-                                  });
-                                }
-                              });
-                            }, //TODO: Show dialog, then delete record and file.
-                            tooltip: audioDelete(),
-                            icon: const Icon(Symbols.delete),
-                          ),
-                        ],
-                      ),
-                      onTap: () async => playSound(audioAction.file),
-                    ),
-                  );
+                  return AudioListItem(audioAction: audioAction);
                 },
               );
             },
@@ -192,57 +105,153 @@ class _CustomAudioState extends State<CustomAudio> {
       ),
     );
   }
+}
 
-  Future<void> editModal(BuildContext context, AudioAction audioAction) async {
-    showModalBottomSheet<AudioAction>(
-      context: context,
-      showDragHandle: true,
-      enableDrag: true,
-      isDismissible: true,
-      isScrollControlled: true,
+class AudioListItem extends StatefulWidget {
+  final AudioAction audioAction;
+
+  const AudioListItem({super.key, required this.audioAction});
+
+  @override
+  State<AudioListItem> createState() => _AudioListItemState();
+}
+
+class _AudioListItemState extends State<AudioListItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
       clipBehavior: Clip.antiAlias,
-      builder: (context) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.3,
-          expand: false,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-                return ListView(
-                  shrinkWrap: true,
-                  controller: scrollController,
-                  children: [
-                    ListTile(
-                      subtitle: TextField(
-                        controller: TextEditingController(
-                          text: audioAction.name,
-                        ),
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: sequencesEditName(),
-                        ),
-                        maxLines: 1,
-                        scrollPhysics: const NeverScrollableScrollPhysics(),
-                        maxLength: 30,
-                        autocorrect: false,
-                        onSubmitted: (nameValue) {
-                          setState(() {
-                            audioAction.name = nameValue;
-                          });
-                          UserAudioActions.instance.store();
-                        },
-                      ),
+      child: ListTile(
+        title: Text(convertToUwU(widget.audioAction.name)),
+        subtitle: FutureBuilder(
+          future: getWaveformData(widget.audioAction),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return SizedBox(
+                height: 90,
+                child: Center(child: LinearProgressIndicator()),
+              );
+            } else {
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  return AudioFileWaveforms(
+                    size: Size(constraints.maxWidth, 90),
+                    playerController: PlayerController(),
+                    waveformData: snapshot.data!,
+                    seekOnTapUp: false,
+                    enableSeekGesture: false,
+                    waveformType: WaveformType.fitWidth,
+                    playerWaveStyle: PlayerWaveStyle(
+                      showSeekLine: false,
+                      spacing: 5,
+                      fixedWaveColor: ColorScheme.of(context).primary,
                     ),
-                  ],
-                );
-              },
-            );
+                  );
+                },
+              );
+            }
           },
-        );
-      },
-    ).whenComplete(() {
-      setState(() {});
-      UserAudioActions.instance.store();
-    });
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              onPressed: () async {
+                showModalBottomSheet<AudioAction>(
+                  context: context,
+                  showDragHandle: true,
+                  enableDrag: true,
+                  isDismissible: true,
+                  isScrollControlled: true,
+                  clipBehavior: Clip.antiAlias,
+                  builder: (context) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
+                      ),
+                      child: DraggableScrollableSheet(
+                        initialChildSize: 0.3,
+                        expand: false,
+                        builder:
+                            (
+                              BuildContext context,
+                              ScrollController scrollController,
+                            ) {
+                              return ListTile(
+                                subtitle: TextField(
+                                  controller:
+                                      TextEditingController(
+                                          text: widget.audioAction.name,
+                                        )
+                                        ..selection = TextSelection.collapsed(
+                                          offset:
+                                              widget.audioAction.name.length,
+                                        ),
+                                  autofocus: true,
+                                  selectAllOnFocus: true,
+                                  decoration: InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    labelText: sequencesEditName(),
+                                  ),
+                                  maxLines: 1,
+                                  scrollController: scrollController,
+                                  onChanged: (nameValue) {
+                                    setState(() {
+                                      widget.audioAction.name = nameValue;
+                                    });
+                                  },
+                                  onEditingComplete: () =>
+                                      Navigator.pop(context),
+                                ),
+                              );
+                            },
+                      ),
+                    );
+                  },
+                ).whenComplete(() {
+                  setState(() {});
+                  UserAudioActions.instance.store();
+                });
+              },
+              tooltip: audioEdit(),
+              icon: const Icon(Symbols.edit),
+            ),
+            IconButton(
+              onPressed: () async {
+                showDialog<bool>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text(convertToUwU(audioDelete())),
+                    content: Text(convertToUwU(audioDeleteDescription())),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: Text(convertToUwU(cancel())),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        child: Text(convertToUwU(ok())),
+                      ),
+                    ],
+                  ),
+                ).then((value) async {
+                  if (value ?? true) {
+                    UserAudioActions.instance.remove(widget.audioAction);
+                    File storedAudioFilePath = File(widget.audioAction.file);
+                    await storedAudioFilePath.delete();
+                    setState(() {
+                      _audioLogger.info("Deleted audio file");
+                    });
+                  }
+                });
+              }, //TODO: Show dialog, then delete record and file.
+              tooltip: audioDelete(),
+              icon: const Icon(Symbols.delete),
+            ),
+          ],
+        ),
+        onTap: () async => playSound(widget.audioAction.file),
+      ),
+    );
   }
 }
