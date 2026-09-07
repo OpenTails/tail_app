@@ -97,11 +97,14 @@ class _ManageGearState extends State<ManageGear> {
               ),
               ListTile(
                 title: TextField(
-                  controller: TextEditingController(
-                    text: device!.storedDevice.name,
-                  ),
+                  selectAllOnFocus: true,
+                  controller:
+                      TextEditingController(text: device!.storedDevice.name)
+                        ..selection = TextSelection(
+                          baseOffset: 0,
+                          extentOffset: device!.storedDevice.name.length,
+                        ),
                   decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
                     labelText: sequencesEditName(),
                     hintText: device!.deviceDefinition.btName,
                   ),
