@@ -179,14 +179,6 @@ icons_launcher:
       enable: true
       dark_path: "assets/TC_Logo_Transparent_dark.png"
       tinted_path: "assets/TC_Logo_Transparent_NoText_greyscale.png"
-    web:
-      enable: true
-    windows:
-      enable: true
-    macos:
-      enable: true
-    linux:
-      enable: true
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.
