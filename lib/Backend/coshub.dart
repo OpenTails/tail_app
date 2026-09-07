@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:firedart/firedart.dart';
+import 'package:logging/logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app_shared/tail_app_shared.dart';
 
 bool _didInit = false;
+Logger _logger = Logger("CosHub");
 
 void init() {
   if (_didInit) {
@@ -51,56 +53,65 @@ Future<CoshubResponse> updateCoshubResponse() async {
 }
 
 Future<List<CosHubPost>> getCoshubPosts() async {
+  _logger.info("Loading CosHub posts");
   final ISentrySpan? span = Sentry.getSpan()?.startChild('CosHub.get');
   init();
-  var appConstants = Firestore.instance.collection("appConstants");
-  var featuredCosplayersUserIdsQuery = await appConstants
-      .document("featured_cosplayers")
-      .get();
-  List<dynamic> featuredCosplayersUserIds =
-      featuredCosplayersUserIdsQuery.map["user"] as List<dynamic>;
-  var usersQuery = await Firestore.instance
-      .collection("users")
-      .where("id", whereIn: featuredCosplayersUserIds)
-      .get();
+  final int retries = 3;
   List<CosHubPost> mappedPosts = [];
-
-  final String cosHubUrl = (await getDynamicConfigInfo()).urls.coshubUrl;
-
-  for (String featuredCosplayersUserId in featuredCosplayersUserIds) {
-    var postsQuery = await Firestore.instance
-        .collection("posts")
-        .where("userId", isEqualTo: featuredCosplayersUserId)
-        .orderBy("createdAt", descending: true)
-        .limit(5)
+  for (int retry = 1; retry <= retries; retry++) {
+    var appConstants = Firestore.instance.collection("appConstants");
+    var featuredCosplayersUserIdsQuery = await appConstants
+        .document("featured_cosplayers")
         .get();
-    mappedPosts.addAll(
-      postsQuery
-          .map((e) => e.map)
-          .where((element) {
-            List<dynamic>? postImageUrls = element["postImageUrls"];
-            return postImageUrls != null && postImageUrls.isNotEmpty;
-          })
-          .map((postData) {
-            Map<String, dynamic> userData = usersQuery
-                .firstWhere(
-                  (element) => element.map["id"] == postData["userId"],
-                )
-                .map;
-            CosHubPost cosHubPost = CosHubPost(
-              id: postData["id"],
-              url: cosHubUrl,
-              thumbnailUrl: postData["postImageUrls"][0],
-              profileThumbnailUrl: userData["profilePicture"],
-              username: userData["username"],
-              character: postData["character"],
-              timestamp: postData['createdAt'],
-            );
-            return cosHubPost;
-          })
-          .sortedBy((element) => element.timestamp)
-          .toList(),
-    );
+    List<dynamic> featuredCosplayersUserIds =
+        featuredCosplayersUserIdsQuery.map["user"] as List<dynamic>;
+    var usersQuery = await Firestore.instance
+        .collection("users")
+        .where("id", whereIn: featuredCosplayersUserIds)
+        .get();
+
+    final String cosHubUrl = (await getDynamicConfigInfo()).urls.coshubUrl;
+
+    for (String featuredCosplayersUserId in featuredCosplayersUserIds) {
+      try {
+        var postsQuery = await Firestore.instance
+            .collection("posts")
+            .where("userId", isEqualTo: featuredCosplayersUserId)
+            .orderBy("createdAt", descending: true)
+            .limit(5)
+            .get();
+        mappedPosts.addAll(
+          postsQuery
+              .map((e) => e.map)
+              .where((element) {
+                List<dynamic>? postImageUrls = element["postImageUrls"];
+                return postImageUrls != null && postImageUrls.isNotEmpty;
+              })
+              .map((postData) {
+                Map<String, dynamic> userData = usersQuery
+                    .firstWhere(
+                      (element) => element.map["id"] == postData["userId"],
+                    )
+                    .map;
+                CosHubPost cosHubPost = CosHubPost(
+                  id: postData["id"],
+                  url: cosHubUrl,
+                  thumbnailUrl: postData["postImageUrls"][0],
+                  profileThumbnailUrl: userData["profilePicture"],
+                  username: userData["username"],
+                  character: postData["character"],
+                  timestamp: postData['createdAt'],
+                );
+                return cosHubPost;
+              })
+              .sortedBy((element) => element.timestamp)
+              .toList(),
+        );
+      } catch (e, s) {
+        _logger.warning("Failed to load CosHub posts", e, s);
+        await Future.delayed(Duration(seconds: retry * 2));
+      }
+    }
   }
   if (mappedPosts.isNotEmpty) {
     Firestore.instance.close();
