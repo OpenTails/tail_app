@@ -40,7 +40,7 @@ dependencies:
   package_info_plus: ^10.2.1
   permission_handler: ^13.0.2
   url_launcher: ^6.3.2 # Open URLS in external apps
-  universal_ble: ^2.2.0 # Good riddance FBP
+  universal_ble: ^2.3.0 # Good riddance FBP
   flutter_foreground_task: ^11.0.3 # Keep the app running in the background on android
   quick_actions: ^1.1.0 # puts favorites on the home screen
   audioplayers: ^6.8.1
