@@ -328,7 +328,9 @@ List<BluetoothMessage> generateMoveListCommand(
         "Generated USERMOVE command greater than 127 bytes. $cmd",
       );
     }
-    commands.add(BluetoothMessage(message: cmd, type: CommandType.move));
+    commands.add(
+      BluetoothMessage(message: cmd, type: CommandType.move, responseMSG: "OK"),
+    );
     //runs the generated USERMOVE action
     commands.add(
       BluetoothMessage(
