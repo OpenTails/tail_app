@@ -19,7 +19,7 @@ class SpeedWidget extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: Slider(
           label: "${(value.toInt() * 20).toInt()}ms",
-          value: value,
+          value: value.clamp(15, 127),
           min: 15,
           max: 127,
           divisions: 110,
