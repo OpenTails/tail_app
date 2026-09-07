@@ -1,6 +1,7 @@
 ### V1.6.1
 
 - Fix the shutdown button disconnecting all gear
+- Improved the Custom Actions UI & fixed many bugs
 
 ### V 1.6.0
 
