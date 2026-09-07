@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
+import 'package:tail_app/Frontend/Widgets/section_label.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/pages/actions/ear_speed_widget.dart';
 import 'package:tail_app/Frontend/pages/actions/rgb_brightness_widget.dart';
@@ -96,12 +97,7 @@ class ActionsList extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      Center(
-                        child: Text(
-                          catList[categoryIndex],
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
+                      SectionLabel(catList[categoryIndex]),
                       GridView.builder(
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: largerCards ? 250 : 125,
@@ -143,10 +139,11 @@ class FavoriteActionsButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     Iterable<BaseAction> availableFavorites = actionsCatMap.values.flattened
         .where(
-          (element) => FavoriteActions.instance.state.any(
-            (favorite) => favorite.actionUUID == element.uuid,
+          (element) =>
+          FavoriteActions.instance.state.any(
+                (favorite) => favorite.actionUUID == element.uuid,
           ),
-        );
+    );
     return AnimatedCrossFade(
       firstChild: PageInfoCard(text: actionsFavoriteTip()),
       secondChild: GridView.builder(
@@ -181,10 +178,10 @@ class ShowEarSpeed extends StatelessWidget {
     return AnimatedSwitcher(
       duration: animationTransitionDuration,
       child:
-          KnownDevices.instance
-              .getConnectedGearForType({DeviceType.ears})
-              .where((device) => !device.bluetoothUartService!.isTailcontrol)
-              .isNotEmpty
+      KnownDevices.instance
+          .getConnectedGearForType({DeviceType.ears})
+          .where((device) => !device.bluetoothUartService!.isTailcontrol)
+          .isNotEmpty
           ? const EarSpeedWidget()
           : null,
     );
@@ -236,11 +233,12 @@ class _ActionCardState extends State<ActionCard> {
           margin: const EdgeInsets.all(4),
           child: InkWell(
             onLongPress: toggleActionFavorite,
-            onTap: () => runActionOnAllSupportedGear(
-              widget.action,
-              triggeredBy: "Actions Page",
-              useHaptics: true,
-            ),
+            onTap: () =>
+                runActionOnAllSupportedGear(
+                  widget.action,
+                  triggeredBy: "Actions Page",
+                  useHaptics: true,
+                ),
             child: SizedBox.expand(
               child: Stack(
                 children: [
@@ -254,9 +252,9 @@ class _ActionCardState extends State<ActionCard> {
                           child: CircularProgressIndicator(),
                         ),
                         crossFadeState:
-                            IsGearMoveRunning.instance.getState(
-                              widget.action.deviceCategory.toSet(),
-                            )
+                        IsGearMoveRunning.instance.getState(
+                          widget.action.deviceCategory.toSet(),
+                        )
                             ? CrossFadeState.showSecond
                             : CrossFadeState.showFirst,
                         alignment: Alignment.center,
@@ -270,9 +268,9 @@ class _ActionCardState extends State<ActionCard> {
                       alignment: Alignment.bottomRight,
                       child: FavoriteActions.instance.contains(widget.action)
                           ? Transform.scale(
-                              scale: widget.largerCards ? 1.8 : 0.8,
-                              child: Icon(Symbols.favorite, color: textColor),
-                            )
+                        scale: widget.largerCards ? 1.8 : 0.8,
+                        child: Icon(Symbols.favorite, color: textColor),
+                      )
                           : null,
                     ),
                   ),
@@ -282,9 +280,13 @@ class _ActionCardState extends State<ActionCard> {
                       semanticsLabel: widget.action.name,
                       overflow: TextOverflow.fade,
                       textAlign: TextAlign.center,
-                      style: Theme.of(
+                      style: Theme
+                          .of(
                         context,
-                      ).textTheme.labelLarge!.copyWith(color: textColor),
+                      )
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(color: textColor),
                       textScaler: TextScaler.linear(widget.largerCards ? 2 : 1),
                     ),
                   ),
