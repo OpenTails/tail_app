@@ -8,12 +8,12 @@
     "reportSilentErrors": true
   },
   "appVersion": {
-    "url": "https://github.com/OpenTails/tail_app/releases/download/1.6.0/tailCompanyApp-1.6.0-2737.apk",
-    "changelog": "\n- UI improvements\n- Improved battery level reporting\n- Added an \"Identify\" button to the manage gear page\n",
+    "url": "https://github.com/OpenTails/tail_app/releases/download/1.6.1/tailCompanyApp-1.6.1-2749.apk",
+    "changelog": "\n- Fix the shutdown button disconnecting all gear\n- Improved the Custom Actions UI & fixed many bugs\n",
     "version": {
       "major": 1,
       "minor": 6,
-      "patch": 0
+      "patch": 1
     }
   },
   "featureFlags": {
