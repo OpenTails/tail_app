@@ -10,7 +10,6 @@ import '../../Backend/Action/base_action.dart';
 import '../../Backend/Bluetooth/known_devices.dart';
 import '../../Backend/Device/device_type_enum.dart';
 import '../../constants.dart';
-import '../Widgets/section_label.dart';
 import '../Widgets/tutorial_card.dart';
 import '../theme_helpers.dart';
 import '../translation_string_definitions.dart';
@@ -151,7 +150,10 @@ class _ActionSelectorState extends State<ActionSelector> {
                 ).copyWith(dividerColor: Colors.transparent),
                 child: ExpansionTile(
                   initiallyExpanded: hasConnectedDevice,
-                  title: SectionLabel(catList[categoryIndex]),
+                  title: Text(
+                    convertToUwU(catList[categoryIndex]),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   children: [
                     GridView.builder(
                       gridDelegate:
