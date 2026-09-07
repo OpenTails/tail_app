@@ -198,7 +198,7 @@ class _EditMoveList extends State<EditMoveList> {
           ),
         ],
       ),
-      floatingActionButton: widget.moveList.moves.length < 6
+      floatingActionButton: widget.moveList.moves.length < 5
           ? FloatingActionButton.extended(
               icon: const Icon(Symbols.add),
               onPressed: () async {

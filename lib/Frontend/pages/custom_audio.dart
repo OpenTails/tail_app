@@ -124,6 +124,7 @@ class _AudioListItemState extends State<AudioListItem> {
       child: ListTile(
         title: Text(convertToUwU(widget.audioAction.name)),
         subtitle: FutureBuilder(
+          key: Key(widget.audioAction.uuid),
           future: getWaveformData(widget.audioAction),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
