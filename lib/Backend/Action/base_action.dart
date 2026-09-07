@@ -72,6 +72,7 @@ abstract class AudioAction extends BaseAction
 
   @Implements<BaseAction>()
   factory AudioAction({
+    @HiveField(6) @Default([]) List<double> waveformData,
     @HiveField(5) required String file,
     @HiveField(1) required String name,
     @HiveField(4) required String uuid,

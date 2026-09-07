@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/foundation.dart';
@@ -22,6 +23,21 @@ Future<void> playSound(String file) async {
   } finally {
     player.dispose();
   }
+}
+
+Future<List<double>> getWaveformData(AudioAction audioAction) async {
+  if (audioAction.waveformData.isEmpty) {
+    final waveformExtraction = WaveformExtractionController();
+    final waveformData = await waveformExtraction.extractWaveformData(
+      path: audioAction.file,
+      noOfSamples: 150,
+    );
+    audioAction.waveformData = waveformData;
+    if (UserAudioActions.instance.state.contains(audioAction)) {
+      await UserAudioActions.instance.store();
+    }
+  }
+  return audioAction.waveformData;
 }
 
 class UserAudioActions with ChangeNotifier {
