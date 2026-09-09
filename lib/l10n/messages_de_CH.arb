@@ -785,7 +785,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "sequencesInfoEditDescription": "Jede individuell Aktion bestaht us 1 bis 6 Bewegige und cha bis zu 5 Mal widerhoolt werde. Du chasch es lang drucke, um d'Bewegige z'neu z'ordne.",
+    "sequencesInfoEditDescription": "Jede individuell Aktion bestaht us 1 bis 5 Bewegige und cha bis zu 5 Mal widerhoolt werde. Du chasch es lang drucke, um d'Bewegige z'neu z'ordne.",
     "@sequencesInfoEditDescription": {
         "description": "Description for making a custom action on the edit Custom Action page",
         "type": "text",
@@ -1361,7 +1361,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "watchPhoneAppNotOpen": "Bitte mach d'App 'The Tail Co' uf dini Handys, um dini Ausrüstig z'verbinde",
+    "watchPhoneAppNotOpen": "Bitte mach d'App 'The Tail Co' uf dini Handys, um dini Ausrüstig z'verbinde.",
     "@watchPhoneAppNotOpen": {
         "description": "the message that informs the user to open the phone app",
         "type": "text",
@@ -1484,6 +1484,18 @@
     "manageDevicesIdentify": "Finde",
     "@manageDevicesIdentify": {
         "description": "manage devices shutdown button title when managing a device",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesRightServo": "Rechti Servo",
+    "@sequencesRightServo": {
+        "description": "Label for the right servo on the custom move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "sequencesLeftServo": "Linki Servo",
+    "@sequencesLeftServo": {
+        "description": "Label for the left servo on the custom move edit page",
         "type": "text",
         "placeholders": {}
     }
