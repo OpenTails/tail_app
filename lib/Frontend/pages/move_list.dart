@@ -74,63 +74,67 @@ class _MoveListViewState extends State<MoveListView> {
         },
         label: Text(convertToUwU(sequencesPage())),
       ),
-      body: ListView(
-        children: [
-          PageInfoCard(text: sequencesInfoDescription()),
-          const GearOutOfDateWarning(),
-          ListenableBuilder(
-            listenable: MoveLists.instance,
-            builder: (context, child) {
-              final BuiltList<MoveList> allMoveLists = MoveLists.instance.state;
+      body: Container(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+        child: ListView(
+          children: [
+            PageInfoCard(text: sequencesInfoDescription()),
+            const GearOutOfDateWarning(),
+            ListenableBuilder(
+              listenable: MoveLists.instance,
+              builder: (context, child) {
+                final BuiltList<MoveList> allMoveLists =
+                    MoveLists.instance.state;
 
-              return ListView.builder(
-                itemCount: allMoveLists.length,
-                padding: sectionedListViewPadding,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      key: Key('$index'),
-                      title: Text(convertToUwU(allMoveLists[index].name)),
-                      subtitle: Text(
-                        convertToUwU(
-                          "${allMoveLists[index].moves.length} move(s)",
+                return ListView.builder(
+                  itemCount: allMoveLists.length,
+                  padding: sectionedListViewPadding,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                        key: Key('$index'),
+                        title: Text(convertToUwU(allMoveLists[index].name)),
+                        subtitle: Text(
+                          convertToUwU(
+                            "${allMoveLists[index].moves.length} move(s)",
+                          ),
                         ),
-                      ),
-                      //TODO: Localize
-                      trailing: IconButton(
-                        tooltip: sequencesEdit(),
-                        icon: const Icon(Symbols.edit),
-                        onPressed: () async {
-                          EditMoveListRoute($extra: allMoveLists[index])
-                              .push<MoveList>(context)
-                              .then(
-                                (value) => setState(() {
-                                  if (value != null) {
-                                    MoveLists.instance.replace(
-                                      allMoveLists[index],
-                                      value,
-                                    );
-                                  }
-                                }),
-                              );
+                        //TODO: Localize
+                        trailing: IconButton(
+                          tooltip: sequencesEdit(),
+                          icon: const Icon(Symbols.edit),
+                          onPressed: () async {
+                            EditMoveListRoute($extra: allMoveLists[index])
+                                .push<MoveList>(context)
+                                .then(
+                                  (value) => setState(() {
+                                    if (value != null) {
+                                      MoveLists.instance.replace(
+                                        allMoveLists[index],
+                                        value,
+                                      );
+                                    }
+                                  }),
+                                );
+                          },
+                        ),
+                        onTap: () async {
+                          runActionOnAllSupportedGear(
+                            allMoveLists[index],
+                            triggeredBy: "Custom Action Page",
+                            useHaptics: true,
+                          );
                         },
                       ),
-                      onTap: () async {
-                        runActionOnAllSupportedGear(
-                          allMoveLists[index],
-                          triggeredBy: "Custom Action Page",
-                          useHaptics: true,
-                        );
-                      },
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ],
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -236,188 +240,196 @@ class _EditMoveList extends State<EditMoveList> {
           }
           MoveLists.instance.store();
         },
-        child: ListView(
-          padding: sectionedListViewPadding,
-          children: [
-            PageInfoCard(text: sequencesInfoEditDescription()),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                controller: TextEditingController(text: widget.moveList.name),
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: sequencesEditName(),
+        child: SafeArea(
+          child: ListView(
+            padding: sectionedListViewPadding,
+            children: [
+              PageInfoCard(text: sequencesInfoEditDescription()),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: TextField(
+                  controller: TextEditingController(text: widget.moveList.name),
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: sequencesEditName(),
+                  ),
+                  maxLines: 1,
+                  maxLength: 30,
+                  autocorrect: false,
+                  onSubmitted: (nameValue) async {
+                    setState(() {
+                      widget.moveList.name = nameValue;
+                    });
+                    MoveLists.instance.store();
+                  },
                 ),
-                maxLines: 1,
-                maxLength: 30,
-                autocorrect: false,
-                onSubmitted: (nameValue) async {
+              ),
+              DeviceTypeWidget(
+                selected: widget.moveList.deviceCategory,
+                onSelectionChanged: (List<DeviceType> value) async {
+                  setState(
+                    () => widget.moveList.deviceCategory = value.toList(),
+                  );
+                  MoveLists.instance.store();
+                },
+              ),
+              ListTile(
+                title: Text(convertToUwU(sequenceEditRepeatTitle())),
+                leading: const Icon(Symbols.repeat),
+                subtitle: Slider(
+                  value: widget.moveList.repeat,
+                  min: 1,
+                  max: 5,
+                  divisions: 4,
+                  label: "${widget.moveList.repeat.toInt()}",
+                  onChanged: (double value) async {
+                    setState(() {
+                      setState(() => widget.moveList.repeat = value);
+                      MoveLists.instance.store();
+                    });
+                  },
+                ),
+              ),
+              ReorderableListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: widget.moveList.moves.length,
+                itemBuilder: (context, index) {
+                  Move move = widget.moveList.moves[index];
+                  ProgressIndicatorThemeData progressIndicatorThemeData =
+                      ProgressIndicatorTheme.of(context);
+                  ProgressIndicatorThemeData newProgressTheme =
+                      progressIndicatorThemeData.copyWith(
+                        linearMinHeight: 8,
+                        borderRadius: BorderRadius.circular(radiusPill),
+                      );
+                  return Card(
+                    key: Key('$index'),
+                    clipBehavior: Clip.antiAlias,
+                    child: Theme(
+                      data: Theme.of(
+                        context,
+                      ).copyWith(progressIndicatorTheme: newProgressTheme),
+                      child: ListTile(
+                        subtitle: Padding(
+                          padding: EdgeInsetsGeometry.symmetric(vertical: 16),
+                          child: move.moveType == MoveType.move
+                              ? Column(
+                                  spacing: 0,
+                                  children: [
+                                    Row(
+                                      spacing: 16,
+                                      children: [
+                                        SizedBox.square(
+                                          dimension: IconTheme.of(context).size,
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                            child: SectionLabel(
+                                              convertToUwU(
+                                                sequencesLeftServo(),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                            child: SectionLabel(
+                                              convertToUwU(
+                                                sequencesRightServo(),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      spacing: 16,
+                                      children: [
+                                        Icon(Symbols.rotate_right),
+                                        Expanded(
+                                          child: LinearProgressIndicator(
+                                            value: move.leftServo / 127,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: LinearProgressIndicator(
+                                            value: move.rightServo / 127,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      spacing: 16,
+                                      children: [
+                                        Icon(Symbols.speed),
+                                        Expanded(
+                                          child: LinearProgressIndicator(
+                                            value: inverseDouble(
+                                              0,
+                                              1,
+                                              move.leftServoSpeed / 127,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: LinearProgressIndicator(
+                                            value: inverseDouble(
+                                              0,
+                                              1,
+                                              move.rightServoSpeed / 127,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  spacing: 16,
+                                  children: [
+                                    Icon(Symbols.timer_rounded),
+                                    Expanded(
+                                      child: LinearProgressIndicator(
+                                        value: move.time / 127,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              widget.moveList.moves.removeAt(index);
+                            });
+                          },
+                          icon: Icon(Symbols.delete),
+                        ),
+                        onTap: () async {
+                          EditMoveListMoveRoute(
+                            $extra: move,
+                          ).push(context).whenComplete(() {
+                            setState(() {
+                              widget.moveList.moves[index] = move;
+                            });
+                            MoveLists.instance.store();
+                          });
+                          //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
+                        },
+                      ),
+                    ),
+                  );
+                },
+                onReorderItem: (int oldIndex, int newIndex) async {
                   setState(() {
-                    widget.moveList.name = nameValue;
+                    final Move item = widget.moveList.moves.removeAt(oldIndex);
+                    widget.moveList.moves.insert(newIndex, item);
                   });
                   MoveLists.instance.store();
                 },
               ),
-            ),
-            DeviceTypeWidget(
-              selected: widget.moveList.deviceCategory,
-              onSelectionChanged: (List<DeviceType> value) async {
-                setState(() => widget.moveList.deviceCategory = value.toList());
-                MoveLists.instance.store();
-              },
-            ),
-            ListTile(
-              title: Text(convertToUwU(sequenceEditRepeatTitle())),
-              leading: const Icon(Symbols.repeat),
-              subtitle: Slider(
-                value: widget.moveList.repeat,
-                min: 1,
-                max: 5,
-                divisions: 4,
-                label: "${widget.moveList.repeat.toInt()}",
-                onChanged: (double value) async {
-                  setState(() {
-                    setState(() => widget.moveList.repeat = value);
-                    MoveLists.instance.store();
-                  });
-                },
-              ),
-            ),
-            ReorderableListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: widget.moveList.moves.length,
-              itemBuilder: (context, index) {
-                Move move = widget.moveList.moves[index];
-                ProgressIndicatorThemeData progressIndicatorThemeData =
-                    ProgressIndicatorTheme.of(context);
-                ProgressIndicatorThemeData newProgressTheme =
-                    progressIndicatorThemeData.copyWith(
-                      linearMinHeight: 8,
-                      borderRadius: BorderRadius.circular(radiusPill),
-                    );
-                return Card(
-                  key: Key('$index'),
-                  clipBehavior: Clip.antiAlias,
-                  child: Theme(
-                    data: Theme.of(
-                      context,
-                    ).copyWith(progressIndicatorTheme: newProgressTheme),
-                    child: ListTile(
-                      subtitle: Padding(
-                        padding: EdgeInsetsGeometry.symmetric(vertical: 16),
-                        child: move.moveType == MoveType.move
-                            ? Column(
-                                spacing: 0,
-                                children: [
-                                  Row(
-                                    spacing: 16,
-                                    children: [
-                                      SizedBox.square(
-                                        dimension: IconTheme.of(context).size,
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: SectionLabel(
-                                            convertToUwU(sequencesLeftServo()),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: SectionLabel(
-                                            convertToUwU(sequencesRightServo()),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    spacing: 16,
-                                    children: [
-                                      Icon(Symbols.rotate_right),
-                                      Expanded(
-                                        child: LinearProgressIndicator(
-                                          value: move.leftServo / 127,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: LinearProgressIndicator(
-                                          value: move.rightServo / 127,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    spacing: 16,
-                                    children: [
-                                      Icon(Symbols.speed),
-                                      Expanded(
-                                        child: LinearProgressIndicator(
-                                          value: inverseDouble(
-                                            0,
-                                            1,
-                                            move.leftServoSpeed / 127,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: LinearProgressIndicator(
-                                          value: inverseDouble(
-                                            0,
-                                            1,
-                                            move.rightServoSpeed / 127,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            : Row(
-                                spacing: 16,
-                                children: [
-                                  Icon(Symbols.timer_rounded),
-                                  Expanded(
-                                    child: LinearProgressIndicator(
-                                      value: move.time / 127,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            widget.moveList.moves.removeAt(index);
-                          });
-                        },
-                        icon: Icon(Symbols.delete),
-                      ),
-                      onTap: () async {
-                        EditMoveListMoveRoute(
-                          $extra: move,
-                        ).push(context).whenComplete(() {
-                          setState(() {
-                            widget.moveList.moves[index] = move;
-                          });
-                          MoveLists.instance.store();
-                        });
-                        //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves[index]).then((value) => setState(() => moveList!.moves[index] = value!));
-                      },
-                    ),
-                  ),
-                );
-              },
-              onReorderItem: (int oldIndex, int newIndex) async {
-                setState(() {
-                  final Move item = widget.moveList.moves.removeAt(oldIndex);
-                  widget.moveList.moves.insert(newIndex, item);
-                });
-                MoveLists.instance.store();
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
