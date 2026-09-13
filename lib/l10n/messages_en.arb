@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-09-13T22:12:25.134376",
+  "@@last_modified": "2026-09-13T22:47:04.425448",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "settingsKitsuneToggleSubTitle": "If you connect many instances of the same devices, this mode will add random pauses to their move-start times, giving it a different visual effect.",
+  "settingsKitsuneToggleSubTitle": "If you connect many tails, this mode will add random pauses to their move-start times, giving it a different visual effect.",
   "@settingsKitsuneToggleSubTitle": {
     "description": "Settings page show battery percentage toggle subtitle",
     "type": "text",
