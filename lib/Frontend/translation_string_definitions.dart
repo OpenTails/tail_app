@@ -369,7 +369,7 @@ String settingsKitsuneToggleTitle() => Intl.message(
 );
 
 String settingsKitsuneToggleSubTitle() => Intl.message(
-  'If you connect many instances of the same devices, this mode will add random pauses to their move-start times, giving it a different visual effect.',
+  'If you connect many tails, this mode will add random pauses to their move-start times, giving it a different visual effect.',
   name: 'settingsKitsuneToggleSubTitle',
   desc: 'Settings page show battery percentage toggle subtitle',
 );
