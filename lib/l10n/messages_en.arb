@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-09-07T19:54:54.897006",
+  "@@last_modified": "2026-09-13T22:12:25.134376",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -82,6 +82,12 @@
   "settingsDescription": "Change app color, configure Haptics, and more",
   "@settingsDescription": {
     "description": "The description of the settings page on the more page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "actionsReorderButtonTitle": "Reorder Actions",
+  "@actionsReorderButtonTitle": {
+    "description": "The label and title of the dialog/button to reorder the groups of actions",
     "type": "text",
     "placeholders": {}
   },
