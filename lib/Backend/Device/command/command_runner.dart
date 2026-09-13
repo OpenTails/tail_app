@@ -4,11 +4,13 @@ import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
+import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/audio.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
+import 'package:tail_app/Frontend/Widgets/known_gear.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 
@@ -64,8 +66,12 @@ Future<void> runActionOnAllSupportedGear(
   required String triggeredBy,
   bool useHaptics = false,
 }) async {
+  final Set<DeviceType> tailDeviceTypes = {
+    DeviceType.tail,
+    DeviceType.miniTail,
+  };
   List<StatefulDevice> devices = getByAction(action).toList()..shuffle();
-
+  bool hasMultipleTails = KnownDevices.instance.hasMultipleTails;
   if (devices.isNotEmpty &&
       useHaptics &&
       HiveProxy.getOrDefault(settings, haptics, defaultValue: hapticsDefault)) {
@@ -74,10 +80,12 @@ Future<void> runActionOnAllSupportedGear(
 
   for (StatefulDevice device in devices) {
     if (HiveProxy.getOrDefault(
-      settings,
-      kitsuneModeToggle,
-      defaultValue: kitsuneModeDefault,
-    )) {
+          settings,
+          kitsuneModeToggle,
+          defaultValue: kitsuneModeDefault,
+        ) &&
+        tailDeviceTypes.contains(device.deviceDefinition.deviceType) &&
+        hasMultipleTails) {
       await Future.delayed(
         Duration(milliseconds: Random().nextInt(kitsuneDelayRange)),
       );

@@ -90,6 +90,7 @@ class _ActionsListState extends State<ActionsList> {
     return ListenableBuilder(
       listenable: Listenable.merge([
         FavoriteActions.instance,
+        KnownDevices.instance,
         Hive.box(settings).listenable(keys: [largerActionCardSize]),
       ]),
       builder: (context, child) {
@@ -142,23 +143,27 @@ class _ActionsListState extends State<ActionsList> {
                     },
                   ),
                 ),
-                ListTile(
-                  title: Text(convertToUwU(settingsKitsuneToggleTitle())),
-                  leading: const Icon(Symbols.more_time),
-                  subtitle: Text(convertToUwU(settingsKitsuneToggleSubTitle())),
-                  trailing: Switch(
-                    value: HiveProxy.getOrDefault(
-                      settings,
-                      kitsuneModeToggle,
-                      defaultValue: kitsuneModeDefault,
+                if (KnownDevices.instance.hasMultipleTails) ...[
+                  ListTile(
+                    title: Text(convertToUwU(settingsKitsuneToggleTitle())),
+                    leading: const Icon(Symbols.more_time),
+                    subtitle: Text(
+                      convertToUwU(settingsKitsuneToggleSubTitle()),
                     ),
-                    onChanged: (bool value) async {
-                      setState(() {
-                        HiveProxy.put(settings, kitsuneModeToggle, value);
-                      });
-                    },
+                    trailing: Switch(
+                      value: HiveProxy.getOrDefault(
+                        settings,
+                        kitsuneModeToggle,
+                        defaultValue: kitsuneModeDefault,
+                      ),
+                      onChanged: (bool value) async {
+                        setState(() {
+                          HiveProxy.put(settings, kitsuneModeToggle, value);
+                        });
+                      },
+                    ),
                   ),
-                ),
+                ],
                 Wrap(
                   children: [
                     FilledButton(

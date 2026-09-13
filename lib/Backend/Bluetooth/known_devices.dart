@@ -141,6 +141,14 @@ class KnownDevices with ChangeNotifier {
     return connectedGear.map((e) => e.deviceDefinition.deviceType).toSet();
   }
 
+  bool get hasMultipleTails {
+    return KnownDevices.instance.getConnectedGearForType({
+          DeviceType.tail,
+          DeviceType.miniTail,
+        }).length >
+        1;
+  }
+
   Iterable<StatefulDevice> getKnownGearForType(Set<DeviceType> deviceTypes) {
     return state.values.where(
       (element) => deviceTypes.contains(element.deviceDefinition.deviceType),
