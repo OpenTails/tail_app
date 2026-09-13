@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+import 'package:tail_app/Backend/Action/action_category.dart';
+
+import 'Backend/Device/device_type_enum.dart';
 import 'Backend/Device/ear_speed_enum.dart';
 
 const int kitsuneDelayRange = 1000;
@@ -30,6 +33,7 @@ const String selectedLocale = 'selectedLocale';
 const String uwuTextEnabled = 'uwuTextEnabled';
 const String sendAllSentryEvents = "sendAllSentryEvents";
 const String rgbBrightness = 'rgbBrightness';
+const String actionsSortOrder = 'actionsSortOrder';
 
 // Settings Default value
 const bool kitsuneModeDefault = false;
@@ -51,6 +55,14 @@ const int gearConnectRetryAttemptsDefault = 3;
 const bool uwuTextEnabledDefault = false;
 const double noiseThresholdDefault = 65;
 const double rgbBrightnessDefault = 100;
+List<String> actionsSortOrderDefault = [
+  ActionCategory.sequence.name,
+  DeviceType.tail.name,
+  DeviceType.miniTail.name,
+  DeviceType.ears.name,
+  DeviceType.wings.name,
+  DeviceType.claws.name,
+];
 
 const String triggerBox = 'triggers';
 const String sequencesBox = 'sequences';

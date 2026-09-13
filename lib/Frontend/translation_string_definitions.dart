@@ -101,6 +101,13 @@ String homePage() => Intl.message(
   desc: 'The label and title of the action page',
 );
 
+String actionsReorderButtonTitle() => Intl.message(
+  'Reorder Actions',
+  name: 'actionsReorderButtonTitle',
+  desc:
+      'The label and title of the dialog/button to reorder the groups of actions',
+);
+
 String triggersPage() => Intl.message(
   'Triggers',
   name: 'triggersPage',

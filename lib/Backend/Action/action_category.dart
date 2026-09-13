@@ -19,18 +19,18 @@ enum ActionCategory {
 }
 
 extension ActionCategoryExtension on ActionCategory {
-  String get friendly {
+  Function get friendly {
     switch (this) {
       case ActionCategory.glowtip:
-        return actionsCategoryGlowtip();
+        return actionsCategoryGlowtip;
       case ActionCategory.rgb:
-        return actionsCategoryRGB();
+        return actionsCategoryRGB;
       case ActionCategory.sequence:
-        return sequencesPage();
+        return sequencesPage;
       case ActionCategory.hidden:
-        return "";
+        return () => "";
       case ActionCategory.audio:
-        return audioActionCategory();
+        return audioActionCategory;
     }
   }
 }

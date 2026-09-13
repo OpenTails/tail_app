@@ -51,11 +51,11 @@ class DeviceTypeWidget extends StatelessWidget {
               return ChoiceChip(
                 checkmarkColor: textColor,
                 selectedColor: color,
-                tooltip: deviceType.translatedName,
+                tooltip: deviceType.translatedName(),
                 selected: state.selected(deviceType),
                 onSelected: state.onSelected(deviceType),
                 label: deviceType.iconAssetPath().isEmpty
-                    ? Text(convertToUwU(deviceType.translatedName))
+                    ? Text(convertToUwU(deviceType.translatedName()))
                     : deviceType.icon(30, iconColor),
                 elevation: 1,
               );

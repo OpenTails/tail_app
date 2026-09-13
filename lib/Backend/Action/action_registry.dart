@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:tail_app/Backend/favorite_actions.dart';
 
 import '../Bluetooth/known_devices.dart';
 import '../Device/device_type_enum.dart';
@@ -8,6 +9,7 @@ import '../audio.dart';
 import '../move_lists_backend.dart';
 import '../utilities/locale.dart';
 import 'action_category.dart';
+import 'action_list_category.dart';
 import 'base_action.dart';
 
 @immutable
@@ -565,10 +567,37 @@ class GetActions with ChangeNotifier {
     notifyListeners();
   }
 
-  Map<String, Set<BaseAction>> getActions({bool onlyConnected = false}) {
-    Map<String, Set<BaseAction>> sortedActions = {};
-    final Iterable<MoveList> moveLists = MoveLists.instance.state;
-    final Iterable<AudioAction> audioActions = UserAudioActions.instance.state;
+  List<ActionListCategory> sortActionListCategories({
+    required List<ActionListCategory> actionListCategories,
+    required List<String> sortOrder,
+  }) {
+    Map<String, ActionListCategory> sortedActionListCategories = {};
+
+    //handle ActionListCategories that were added but don't exist in sortOrder
+    Set<String> missingSortOrder = actionListCategories
+        .map((e) => e.name)
+        .toSet()
+        .difference(sortOrder.toSet());
+
+    for (String actionListName in sortOrder..addAll(missingSortOrder)) {
+      ActionListCategory? actionListCategory = actionListCategories
+          .firstWhereOrNull((element) => element.name == actionListName);
+      if (actionListCategory == null) {
+        //handle if partial ActionListCategories is sent (Actions Page)
+        continue;
+      }
+      sortedActionListCategories[actionListName] = actionListCategory;
+    }
+    if (sortedActionListCategories.length < actionListCategories.length) {}
+
+    return sortedActionListCategories.values.toList();
+  }
+
+  Set<ActionListCategory> getActionCategories({
+    bool onlyConnected = false,
+    bool includeEmpty = false,
+  }) {
+    Set<ActionListCategory> actionListCategories = {};
 
     // Filter out moves from unpaired gear
     Set<DeviceType> pairedDeviceTypes =
@@ -579,56 +608,136 @@ class GetActions with ChangeNotifier {
     if (onlyConnected && pairedDeviceTypes.isEmpty) {
       return {};
     }
-    bool hasLegacyEars = KnownDevices.instance.isLegacyEarsConnected;
-    bool hasRGB = KnownDevices.instance.isRgbGearConnected;
-    bool hasGlowTip = KnownDevices.instance.isGlowtipGearConnected;
 
-    for (BaseAction baseAction
-        in List.from(
-            ActionRegistry.allCommands
-                .where(
-                  (element) => element.actionCategory != ActionCategory.hidden,
-                )
-                .where(
-                  (element) => pairedDeviceTypes
-                      .intersection(element.deviceCategory.toSet())
-                      .isNotEmpty,
-                )
-                .whereNot(
-                  (element) =>
-                      element.actionCategory == ActionCategory.rgb && !hasRGB,
-                )
-                .whereNot(
-                  (element) =>
-                      element.actionCategory == ActionCategory.glowtip &&
-                      !hasGlowTip,
-                )
-                .whereNot(
-                  (element) =>
-                      element is CommandAction &&
-                      element.legacyEarCommandMoves == null &&
-                      element.deviceCategory.length == 1 &&
-                      element.deviceCategory.first == DeviceType.ears &&
-                      hasLegacyEars,
-                ),
-          )
-          ..addAll(moveLists)
-          ..addAll(audioActions)
-          ..sort(
-            (a, b) => a.getCategoryName().compareTo(b.getCategoryName()),
-          )) {
-      Set<BaseAction>? baseActions = {};
-      // get category if it exists
-      if (sortedActions.containsKey(baseAction.getCategoryName())) {
-        baseActions = sortedActions[baseAction.getCategoryName()];
-      }
-      // add action to category
-      baseActions?.add(baseAction);
-      // store result
-      if (baseActions != null && baseActions.isNotEmpty) {
-        sortedActions[baseAction.getCategoryName()] = baseActions;
+    if (UserAudioActions.instance.state.isNotEmpty || includeEmpty) {
+      actionListCategories.add(
+        ActionListCategory(
+          translated: ActionCategory.audio.friendly,
+          name: ActionCategory.audio.name,
+          actions: UserAudioActions.instance.state.toSet(),
+        ),
+      );
+    }
+    if (MoveLists.instance.state.isNotEmpty || includeEmpty) {
+      actionListCategories.add(
+        ActionListCategory(
+          translated: ActionCategory.sequence.friendly,
+          name: ActionCategory.sequence.name,
+          actions: MoveLists.instance.state.toSet(),
+        ),
+      );
+    }
+    actionListCategories.add(
+      ActionListCategory(
+        translated: ActionCategory.rgb.friendly,
+        name: ActionCategory.rgb.name,
+        actions: ActionRegistry.rgbCommands,
+        isAvailable: KnownDevices.instance.isRgbGearConnected,
+      ),
+    );
+
+    actionListCategories.add(
+      ActionListCategory(
+        translated: ActionCategory.glowtip.friendly,
+        name: ActionCategory.glowtip.name,
+        actions: ActionRegistry.glowtipCommands,
+        isAvailable: KnownDevices.instance.isGlowtipGearConnected,
+      ),
+    );
+
+    bool hasLegacyEars = KnownDevices.instance.isLegacyEarsConnected;
+
+    for (DeviceType deviceType in DeviceType.values) {
+      switch (deviceType) {
+        case DeviceType.tail:
+          actionListCategories.add(
+            ActionListCategory(
+              translated: DeviceType.tail.translatedName,
+              name: DeviceType.tail.name,
+              actions: ActionRegistry.tailMoves,
+              isAvailable: pairedDeviceTypes.contains(DeviceType.tail),
+            ),
+          );
+        case DeviceType.ears:
+          actionListCategories.add(
+            ActionListCategory(
+              translated: DeviceType.ears.translatedName,
+              name: DeviceType.ears.name,
+              actions: ActionRegistry.earMoves
+                  .where(
+                    // Filter out new moves from legacy (pre-tailcontrol) eargear
+                    (element) =>
+                        !hasLegacyEars ||
+                        (hasLegacyEars &&
+                            element is CommandAction &&
+                            element.legacyEarCommandMoves != null),
+                  )
+                  .toSet(),
+              isAvailable: pairedDeviceTypes.contains(DeviceType.ears),
+            ),
+          );
+        case DeviceType.wings:
+          actionListCategories.add(
+            ActionListCategory(
+              translated: DeviceType.wings.translatedName,
+              name: DeviceType.wings.name,
+              actions: ActionRegistry.flutterWingsMoves,
+              isAvailable: pairedDeviceTypes.contains(DeviceType.wings),
+            ),
+          );
+        case DeviceType.miniTail:
+          actionListCategories.add(
+            ActionListCategory(
+              translated: DeviceType.miniTail.translatedName,
+              name: DeviceType.miniTail.name,
+              actions: ActionRegistry.miniTailMoves,
+              isAvailable: pairedDeviceTypes.contains(DeviceType.miniTail),
+            ),
+          );
+        case DeviceType.claws:
+          actionListCategories.add(
+            ActionListCategory(
+              translated: DeviceType.claws.translatedName,
+              name: DeviceType.claws.name,
+              actions: ActionRegistry.clawMoves,
+              isAvailable: pairedDeviceTypes.contains(DeviceType.claws),
+            ),
+          );
       }
     }
-    return sortedActions.map((key, value) => MapEntry(key, value));
+    if (onlyConnected) {
+      return actionListCategories
+          .where((element) => element.isAvailable)
+          .toSet();
+    }
+    return actionListCategories;
+  }
+
+  List<BaseAction> getFavoriteActions() {
+    // Filter out moves from unpaired gear
+    Set<DeviceType> pairedDeviceTypes =
+        KnownDevices.instance.connectedGearTypes;
+
+    // if no gear connected, return empty. Otherwise Audio and Custom moves
+    // are returned.
+    if (pairedDeviceTypes.isEmpty) {
+      return [];
+    }
+    List<BaseAction> mappedFavoriteActions = FavoriteActions.instance.state
+        .map(
+          (favoriteAction) =>
+              ActionRegistry.getActionFromUUID(favoriteAction.actionUUID),
+        )
+        .nonNulls
+        .where(
+          (element) => pairedDeviceTypes
+              .intersection(element.deviceCategory.toSet())
+              .isNotEmpty,
+        )
+        .toList();
+    if (mappedFavoriteActions.isEmpty) {
+      return [];
+    }
+    return mappedFavoriteActions;
   }
 }

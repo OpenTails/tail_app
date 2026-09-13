@@ -1,5 +1,7 @@
 ### V1.6.2
 
+- Action groups can now be reordered
+- Moved gear related global settings to actions page
 - Add waveform to audio actions
 - Fix audio action text editing
 - Bug fixes

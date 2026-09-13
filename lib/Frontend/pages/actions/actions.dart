@@ -2,10 +2,14 @@ import 'package:animate_do/animate_do.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_ce/hive.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:tail_app/Backend/Action/action_list_category.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
 import 'package:tail_app/Backend/Device/command/command_runner.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
+import 'package:tail_app/Frontend/pages/actions/action_group.dart';
 import 'package:tail_app/Frontend/pages/actions/ear_speed_widget.dart';
 import 'package:tail_app/Frontend/pages/actions/rgb_brightness_widget.dart';
 
@@ -17,6 +21,7 @@ import '../../../Backend/favorite_actions.dart';
 import '../../../Backend/logging_wrappers.dart';
 import '../../../constants.dart';
 import '../../Widgets/tutorial_card.dart';
+import '../../go_router_config.dart';
 import '../../theme_helpers.dart';
 import '../../translation_string_definitions.dart';
 import '../home.dart';
@@ -41,15 +46,28 @@ class _ActionPageBuilderState extends State<ActionPageBuilder> {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: GetActions.instance,
+      listenable: Listenable.merge([
+        GetActions.instance,
+        Hive.box(settings).listenable(keys: [actionsSortOrder]),
+      ]),
       builder: (context, child) {
-        Map<String, Set<BaseAction>> actionsCatMap = GetActions.instance
-            .getActions(onlyConnected: true);
+        Set<ActionListCategory> actionsList = GetActions.instance
+            .getActionCategories(onlyConnected: true);
+        List<String> sortOrder = HiveProxy.getOrDefault(
+          settings,
+          actionsSortOrder,
+          defaultValue: actionsSortOrderDefault,
+        );
 
         return AnimatedSwitcher(
           duration: animationTransitionDuration,
-          child: actionsCatMap.isNotEmpty
-              ? ActionsList(actionsCatMap: actionsCatMap)
+          child: actionsList.isNotEmpty
+              ? ActionsList(
+                  actionsList: GetActions.instance.sortActionListCategories(
+                    actionListCategories: actionsList.toList(),
+                    sortOrder: sortOrder,
+                  ),
+                )
               : const Home(),
         );
       },
@@ -57,67 +75,112 @@ class _ActionPageBuilderState extends State<ActionPageBuilder> {
   }
 }
 
-class ActionsList extends StatelessWidget {
-  const ActionsList({super.key, required this.actionsCatMap});
+class ActionsList extends StatefulWidget {
+  const ActionsList({super.key, required this.actionsList});
 
-  final Map<String, Set<BaseAction>> actionsCatMap;
+  final List<ActionListCategory> actionsList;
 
   @override
+  State<ActionsList> createState() => _ActionsListState();
+}
+
+class _ActionsListState extends State<ActionsList> {
+  @override
   Widget build(BuildContext context) {
-    bool largerCards = HiveProxy.getOrDefault(
-      settings,
-      largerActionCardSize,
-      defaultValue: largerActionCardSizeDefault,
-    );
-    List<String> catList = actionsCatMap.keys.toList();
     return ListenableBuilder(
-      listenable: FavoriteActions.instance,
+      listenable: Listenable.merge([
+        FavoriteActions.instance,
+        Hive.box(settings).listenable(keys: [largerActionCardSize]),
+      ]),
       builder: (context, child) {
+        bool largerCards = HiveProxy.getOrDefault(
+          settings,
+          largerActionCardSize,
+          defaultValue: largerActionCardSizeDefault,
+        );
         return ListView(
           shrinkWrap: false,
           children: [
-            ShowEarSpeed(),
-            ShowRGBBrightness(),
-            FavoriteActionsButtons(
-              largerCards: largerCards,
-              actionsCatMap: actionsCatMap,
+            ExpansionTile(
+              title: Text(convertToUwU(settingsPage())),
+              children: [
+                ShowEarSpeed(),
+                ShowRGBBrightness(),
+                ListTile(
+                  title: Text(convertToUwU(settingsLargerCardsToggleTitle())),
+                  leading: const Icon(Symbols.format_size),
+                  subtitle: Text(
+                    convertToUwU(settingsLargerCardsToggleSubTitle()),
+                  ),
+                  trailing: Switch(
+                    value: HiveProxy.getOrDefault(
+                      settings,
+                      largerActionCardSize,
+                      defaultValue: largerActionCardSizeDefault,
+                    ),
+                    onChanged: (bool value) async {
+                      setState(() {
+                        HiveProxy.put(settings, largerActionCardSize, value);
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: Text(convertToUwU(settingsHapticsToggleTitle())),
+                  leading: const Icon(Symbols.vibration),
+                  subtitle: Text(convertToUwU(settingsHapticsToggleSubTitle())),
+                  trailing: Switch(
+                    value: HiveProxy.getOrDefault(
+                      settings,
+                      haptics,
+                      defaultValue: hapticsDefault,
+                    ),
+                    onChanged: (bool value) async {
+                      setState(() {
+                        HiveProxy.put(settings, haptics, value);
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: Text(convertToUwU(settingsKitsuneToggleTitle())),
+                  leading: const Icon(Symbols.more_time),
+                  subtitle: Text(convertToUwU(settingsKitsuneToggleSubTitle())),
+                  trailing: Switch(
+                    value: HiveProxy.getOrDefault(
+                      settings,
+                      kitsuneModeToggle,
+                      defaultValue: kitsuneModeDefault,
+                    ),
+                    onChanged: (bool value) async {
+                      setState(() {
+                        HiveProxy.put(settings, kitsuneModeToggle, value);
+                      });
+                    },
+                  ),
+                ),
+                Wrap(
+                  children: [
+                    FilledButton(
+                      onPressed: () =>
+                          ActionsReorderDialogRoute().push(context),
+                      child: Text(convertToUwU(actionsReorderButtonTitle())),
+                    ),
+                  ],
+                ),
+              ],
             ),
+            FavoriteActionsButtons(largerCards: largerCards),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: catList.length,
+              itemCount: widget.actionsList.length,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int categoryIndex) {
-                List<BaseAction> actionsForCat = actionsCatMap.values
-                    .toList()[categoryIndex]
-                    .toList();
                 return FadeIn(
                   delay: Duration(milliseconds: 100 * categoryIndex),
-                  child: ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    children: [
-                      Center(
-                        child: Text(
-                          catList[categoryIndex],
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                      GridView.builder(
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: largerCards ? 250 : 125,
-                        ),
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: actionsForCat.length,
-                        itemBuilder: (BuildContext context, int actionIndex) {
-                          return ActionCard(
-                            actionIndex: actionIndex,
-                            action: actionsForCat[actionIndex],
-                            largerCards: largerCards,
-                          );
-                        },
-                      ),
-                    ],
+                  child: ActionGroup(
+                    actionListCategory: widget.actionsList[categoryIndex],
+                    largerCards: largerCards,
                   ),
                 );
               },
@@ -130,23 +193,14 @@ class ActionsList extends StatelessWidget {
 }
 
 class FavoriteActionsButtons extends StatelessWidget {
-  const FavoriteActionsButtons({
-    super.key,
-    required this.largerCards,
-    required this.actionsCatMap,
-  });
+  const FavoriteActionsButtons({super.key, required this.largerCards});
 
   final bool largerCards;
-  final Map<String, Set<BaseAction>> actionsCatMap;
 
   @override
   Widget build(BuildContext context) {
-    Iterable<BaseAction> availableFavorites = actionsCatMap.values.flattened
-        .where(
-          (element) => FavoriteActions.instance.state.any(
-            (favorite) => favorite.actionUUID == element.uuid,
-          ),
-        );
+    Iterable<BaseAction> availableFavorites = GetActions.instance
+        .getFavoriteActions();
     return AnimatedCrossFade(
       firstChild: PageInfoCard(text: actionsFavoriteTip()),
       secondChild: GridView.builder(
@@ -158,11 +212,7 @@ class FavoriteActionsButtons extends StatelessWidget {
         itemCount: availableFavorites.length,
         itemBuilder: (BuildContext context, int index) {
           BaseAction baseAction = availableFavorites.toList()[index];
-          return ActionCard(
-            actionIndex: index,
-            action: baseAction,
-            largerCards: largerCards,
-          );
+          return ActionCard(action: baseAction, largerCards: largerCards);
         },
       ),
       crossFadeState: availableFavorites.isEmpty
@@ -206,12 +256,10 @@ class ShowRGBBrightness extends StatelessWidget {
 }
 
 class ActionCard extends StatefulWidget {
-  final int actionIndex;
   final BaseAction action;
   final bool largerCards;
 
   const ActionCard({
-    required this.actionIndex,
     required this.action,
     required this.largerCards,
     super.key,

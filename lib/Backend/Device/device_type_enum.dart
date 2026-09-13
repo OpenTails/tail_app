@@ -24,18 +24,18 @@ enum DeviceType {
 } //TODO extend with icon
 
 extension DeviceTypeExtension on DeviceType {
-  String get translatedName {
+  Function get translatedName {
     switch (this) {
       case DeviceType.tail:
-        return deviceTypeTail();
+        return deviceTypeTail;
       case DeviceType.ears:
-        return deviceTypeEars();
+        return deviceTypeEars;
       case DeviceType.wings:
-        return deviceTypeWings();
+        return deviceTypeWings;
       case DeviceType.miniTail:
-        return deviceTypeMiniTail();
+        return deviceTypeMiniTail;
       case DeviceType.claws:
-        return deviceTypeClawGear();
+        return deviceTypeClawGear;
     }
   }
 

@@ -79,23 +79,6 @@ class _SettingsState extends State<Settings> {
             },
           ),
           ListTile(
-            title: Text(convertToUwU(settingsLargerCardsToggleTitle())),
-            leading: const Icon(Symbols.format_size),
-            subtitle: Text(convertToUwU(settingsLargerCardsToggleSubTitle())),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(
-                settings,
-                largerActionCardSize,
-                defaultValue: largerActionCardSizeDefault,
-              ),
-              onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, largerActionCardSize, value);
-                });
-              },
-            ),
-          ),
-          ListTile(
             title: Text(convertToUwU(settingsTutorialCardToggleTitle())),
             leading: const Icon(Symbols.help),
             subtitle: Text(convertToUwU(settingsTutorialCardToggleSubTitle())),
@@ -129,24 +112,6 @@ class _SettingsState extends State<Settings> {
               },
             ),
           ),
-          const ListTile(title: Divider()),
-          ListTile(
-            title: Text(convertToUwU(settingsHapticsToggleTitle())),
-            leading: const Icon(Symbols.vibration),
-            subtitle: Text(convertToUwU(settingsHapticsToggleSubTitle())),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(
-                settings,
-                haptics,
-                defaultValue: hapticsDefault,
-              ),
-              onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, haptics, value);
-                });
-              },
-            ),
-          ),
           ListTile(
             title: Text(convertToUwU(settingsKeepScreenOnToggleTitle())),
             leading: const Icon(Symbols.phone_android),
@@ -160,23 +125,6 @@ class _SettingsState extends State<Settings> {
               onChanged: (bool value) async {
                 setState(() {
                   HiveProxy.put(settings, keepAwake, value);
-                });
-              },
-            ),
-          ),
-          ListTile(
-            title: Text(convertToUwU(settingsKitsuneToggleTitle())),
-            leading: const Icon(Symbols.more_time),
-            subtitle: Text(convertToUwU(settingsKitsuneToggleSubTitle())),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(
-                settings,
-                kitsuneModeToggle,
-                defaultValue: kitsuneModeDefault,
-              ),
-              onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, kitsuneModeToggle, value);
                 });
               },
             ),

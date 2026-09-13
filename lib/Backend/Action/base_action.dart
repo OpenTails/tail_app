@@ -21,9 +21,9 @@ abstract class BaseAction {
 
   String getCategoryName() {
     if (actionCategory != null) {
-      return actionCategory!.friendly;
+      return actionCategory!.friendly();
     } else {
-      return deviceCategory.first.translatedName;
+      return deviceCategory.first.translatedName();
     }
   }
 

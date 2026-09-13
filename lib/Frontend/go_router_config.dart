@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:tail_app/Frontend/pages/actions/reorder_actions.dart';
 import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
@@ -270,6 +271,21 @@ class ActionPageRoute extends GoRouteData with $ActionPageRoute {
     }
     return null;
   }
+}
+
+@TypedGoRoute<ActionsReorderDialogRoute>(
+  path: '/actions/reorder',
+  name: 'Reorder Actions',
+)
+class ActionsReorderDialogRoute extends GoRouteData
+    with $ActionsReorderDialogRoute {
+  const ActionsReorderDialogRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      DialogPage(key: state.pageKey, name: state.name, child: ReorderActions());
 }
 
 class BluetoothConsoleRoute extends GoRouteData with $BluetoothConsoleRoute {

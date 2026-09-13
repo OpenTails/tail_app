@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:tail_app/Backend/Action/action_list_category.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Action/action_registry.dart';
 import '../../Backend/Action/base_action.dart';
-import '../../Backend/Bluetooth/known_devices.dart';
-import '../../Backend/Device/device_type_enum.dart';
 import '../../constants.dart';
 import '../Widgets/tutorial_card.dart';
 import '../theme_helpers.dart';
@@ -33,42 +32,18 @@ class ActionSelector extends StatefulWidget {
 }
 
 class _ActionSelectorState extends State<ActionSelector> {
-  Map<String, Set<BaseAction>> actionsCatMap = {};
-  List<String> catList = [];
+  List<ActionListCategory> actionsCatMap = [];
   List<BaseAction> selected = [];
-  Set<DeviceType> knownDeviceTypes = {};
 
   @override
   void initState() {
     super.initState();
-    knownDeviceTypes = KnownDevices.instance.state.values
-        .map((e) => e.deviceDefinition.deviceType)
-        .toSet();
-    actionsCatMap = Map.fromEntries(
-      GetActions.instance.getActions().entries.sorted((a, b) {
-        int first =
-            a.value
-                .map((e) => e.deviceCategory)
-                .flattened
-                .toSet()
-                .intersection(knownDeviceTypes)
-                .isNotEmpty
-            ? 1
-            : -1;
-        int second =
-            b.value
-                .map((e) => e.deviceCategory)
-                .flattened
-                .toSet()
-                .intersection(knownDeviceTypes)
-                .isNotEmpty
-            ? 1
-            : -1;
-        return second.compareTo(first);
-      }),
-    );
+    actionsCatMap = GetActions.instance.getActionCategories().sorted((a, b) {
+      int first = a.isAvailable ? 1 : -1;
+      int second = b.isAvailable ? 1 : -1;
+      return second.compareTo(first);
+    });
     selected = widget.actionSelectorInfo.selectedActions.toList();
-    catList = actionsCatMap.keys.toList();
   }
 
   @override
@@ -81,7 +56,10 @@ class _ActionSelectorState extends State<ActionSelector> {
           IconButton(
             onPressed: () {
               setState(() {
-                selected = actionsCatMap.values.flattened.toList();
+                selected = actionsCatMap
+                    .map((e) => e.actions)
+                    .flattened
+                    .toList();
               });
             },
             icon: const Icon(Symbols.select_all),
@@ -133,25 +111,18 @@ class _ActionSelectorState extends State<ActionSelector> {
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: catList.length,
+            itemCount: actionsCatMap.length,
             itemBuilder: (BuildContext context, int categoryIndex) {
-              List<BaseAction> actionsForCat = actionsCatMap.values
-                  .toList()[categoryIndex]
-                  .toList();
-              bool hasConnectedDevice = actionsForCat
-                  .map((e) => e.deviceCategory)
-                  .flattened
-                  .toSet()
-                  .intersection(knownDeviceTypes)
-                  .isNotEmpty;
+              ActionListCategory actionListCategory =
+                  actionsCatMap[categoryIndex];
               return Theme(
                 data: Theme.of(
                   context,
                 ).copyWith(dividerColor: Colors.transparent),
                 child: ExpansionTile(
-                  initiallyExpanded: hasConnectedDevice,
+                  initiallyExpanded: actionListCategory.isAvailable,
                   title: Text(
-                    convertToUwU(catList[categoryIndex]),
+                    convertToUwU(actionListCategory.translated()),
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   children: [
@@ -162,9 +133,10 @@ class _ActionSelectorState extends State<ActionSelector> {
                           ),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: actionsForCat.length,
+                      itemCount: actionListCategory.actions.length,
                       itemBuilder: (BuildContext context, int actionIndex) {
-                        BaseAction baseAction = actionsForCat[actionIndex];
+                        BaseAction baseAction = actionListCategory.actions
+                            .toList()[actionIndex];
                         bool isSelected = selected.contains(baseAction);
                         return TweenAnimationBuilder(
                           builder: (context, value, child) {
