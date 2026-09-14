@@ -103,73 +103,80 @@ class _ActionsListState extends State<ActionsList> {
           shrinkWrap: false,
           children: [
             ExpansionTile(
+              leading: Icon(Symbols.settings),
               title: Text(convertToUwU(settingsPage())),
               children: [
                 ShowEarSpeed(),
                 ShowRGBBrightness(),
-                ListTile(
-                  title: Text(convertToUwU(settingsLargerCardsToggleTitle())),
-                  leading: const Icon(Symbols.format_size),
-                  subtitle: Text(
-                    convertToUwU(settingsLargerCardsToggleSubTitle()),
-                  ),
-                  trailing: Switch(
-                    value: HiveProxy.getOrDefault(
-                      settings,
-                      largerActionCardSize,
-                      defaultValue: largerActionCardSizeDefault,
-                    ),
-                    onChanged: (bool value) async {
-                      setState(() {
-                        HiveProxy.put(settings, largerActionCardSize, value);
-                      });
-                    },
-                  ),
-                ),
-                ListTile(
-                  title: Text(convertToUwU(settingsHapticsToggleTitle())),
-                  leading: const Icon(Symbols.vibration),
-                  subtitle: Text(convertToUwU(settingsHapticsToggleSubTitle())),
-                  trailing: Switch(
-                    value: HiveProxy.getOrDefault(
-                      settings,
-                      haptics,
-                      defaultValue: hapticsDefault,
-                    ),
-                    onChanged: (bool value) async {
-                      setState(() {
-                        HiveProxy.put(settings, haptics, value);
-                      });
-                    },
-                  ),
-                ),
-                if (KnownDevices.instance.hasMultipleTails) ...[
-                  ListTile(
-                    title: Text(convertToUwU(settingsKitsuneToggleTitle())),
-                    leading: const Icon(Symbols.more_time),
-                    subtitle: Text(
-                      convertToUwU(settingsKitsuneToggleSubTitle()),
-                    ),
+                Tooltip(
+                  message: convertToUwU(settingsLargerCardsToggleSubTitle()),
+                  triggerMode: TooltipTriggerMode.tap,
+                  child: ListTile(
+                    title: Text(convertToUwU(settingsLargerCardsToggleTitle())),
+                    leading: const Icon(Symbols.format_size),
                     trailing: Switch(
                       value: HiveProxy.getOrDefault(
                         settings,
-                        kitsuneModeToggle,
-                        defaultValue: kitsuneModeDefault,
+                        largerActionCardSize,
+                        defaultValue: largerActionCardSizeDefault,
                       ),
                       onChanged: (bool value) async {
                         setState(() {
-                          HiveProxy.put(settings, kitsuneModeToggle, value);
+                          HiveProxy.put(settings, largerActionCardSize, value);
                         });
                       },
+                    ),
+                  ),
+                ),
+                Tooltip(
+                  message: convertToUwU(settingsHapticsToggleSubTitle()),
+                  triggerMode: TooltipTriggerMode.tap,
+                  child: ListTile(
+                    title: Text(convertToUwU(settingsHapticsToggleTitle())),
+                    leading: const Icon(Symbols.vibration),
+                    trailing: Switch(
+                      value: HiveProxy.getOrDefault(
+                        settings,
+                        haptics,
+                        defaultValue: hapticsDefault,
+                      ),
+                      onChanged: (bool value) async {
+                        setState(() {
+                          HiveProxy.put(settings, haptics, value);
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                if (KnownDevices.instance.hasMultipleTails) ...[
+                  Tooltip(
+                    message: convertToUwU(settingsKitsuneToggleSubTitle()),
+                    triggerMode: TooltipTriggerMode.tap,
+                    child: ListTile(
+                      title: Text(convertToUwU(settingsKitsuneToggleTitle())),
+                      leading: const Icon(Symbols.more_time),
+                      trailing: Switch(
+                        value: HiveProxy.getOrDefault(
+                          settings,
+                          kitsuneModeToggle,
+                          defaultValue: kitsuneModeDefault,
+                        ),
+                        onChanged: (bool value) async {
+                          setState(() {
+                            HiveProxy.put(settings, kitsuneModeToggle, value);
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ],
                 Wrap(
                   children: [
-                    FilledButton(
+                    FilledButton.icon(
                       onPressed: () =>
                           ActionsReorderDialogRoute().push(context),
-                      child: Text(convertToUwU(actionsReorderButtonTitle())),
+                      label: Text(convertToUwU(actionsReorderButtonTitle())),
+                      icon: Icon(Symbols.drag_handle),
                     ),
                   ],
                 ),

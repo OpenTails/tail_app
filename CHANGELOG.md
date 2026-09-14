@@ -4,6 +4,7 @@
 - Moved gear related global settings to actions page
 - Add waveform to audio actions
 - Fix audio action text editing
+- Kitsune mode now only applies to tails
 - Bug fixes
 
 ### V1.6.1
