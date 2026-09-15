@@ -431,7 +431,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "settingsKitsuneToggleSubTitle": "Wenn du villi Instanze vom gliiche Gerät verbindsch, wird dere Modus zuefelligi Pausene zu ihre Move-Start-Ziite hinzuefüege, um es e anders Gschtalt z'ge.",
+    "settingsKitsuneToggleSubTitle": "Wenn du mehreri Schwiif verbindsch, füegt dä Modus vor em Start vo ihre Bewegige zuefälligi Pause ii. So beweged sich d Schwiif ziitlich versetzt, was en andere optische Effekt git.",
     "@settingsKitsuneToggleSubTitle": {
         "description": "Settings page show battery percentage toggle subtitle",
         "type": "text",
@@ -1496,6 +1496,12 @@
     "sequencesLeftServo": "Linki Servo",
     "@sequencesLeftServo": {
         "description": "Label for the left servo on the custom move edit page",
+        "type": "text",
+        "placeholders": {}
+    },
+    "actionsReorderButtonTitle": "Aktione neu aordne",
+    "@actionsReorderButtonTitle": {
+        "description": "The label and title of the dialog/button to reorder the groups of actions",
         "type": "text",
         "placeholders": {}
     }
