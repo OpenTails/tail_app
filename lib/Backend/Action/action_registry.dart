@@ -535,7 +535,10 @@ class ActionRegistry {
     if (uuid == null) {
       return null;
     }
-    return allCommands.where((element) => element.uuid == uuid).firstOrNull;
+    List<BaseAction> allActions = List.from(allCommands)
+      ..addAll(MoveLists.instance.state)
+      ..addAll(UserAudioActions.instance.state);
+    return allActions.where((element) => element.uuid == uuid).firstOrNull;
   }
 }
 
