@@ -105,7 +105,7 @@ composeCompiler {
 dependencies {
 
     implementation("com.google.android.gms:play-services-wearable:19.0.0")
-    implementation(platform("androidx.compose:compose-bom:2026.03.00"))
+    implementation(platform("androidx.compose:compose-bom:2026.05.01"))
     implementation("androidx.wear.compose:compose-ui-tooling")
     implementation("androidx.wear.compose:compose-navigation")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -125,7 +125,7 @@ dependencies {
     implementation("androidx.wear:wear-tooling-preview:1.0.0")
     implementation("com.google.guava:guava:31.0.1-android")
 
-    androidTestImplementation(platform("androidx.compose:compose-bom:2026.03.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2026.05.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
