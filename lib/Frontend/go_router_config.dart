@@ -6,6 +6,7 @@ import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/actions/reorder_actions.dart';
 import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
+import 'package:tail_app/Frontend/pages/triggers/trigger_edit.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
 import '../Backend/Action/base_action.dart';
@@ -33,7 +34,7 @@ import 'pages/move_list.dart';
 import 'pages/ota_update.dart';
 import 'pages/settings.dart';
 import 'pages/shell.dart';
-import 'pages/triggers.dart';
+import 'pages/triggers/triggers.dart';
 
 part 'go_router_config.g.dart';
 
