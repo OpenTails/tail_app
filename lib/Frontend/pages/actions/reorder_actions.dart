@@ -7,6 +7,7 @@ import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/constants.dart';
 
+import '../../Widgets/fix_dialog_listview_scrolling.dart';
 import '../../translation_string_definitions.dart';
 
 class ReorderActions extends StatefulWidget {
@@ -58,42 +59,30 @@ class _ReorderActionsState extends State<ReorderActions> {
           icon: Icon(Symbols.check),
         ),
       ],
-      content: Scrollbar(
-        thumbVisibility: true,
-        child: SingleChildScrollView(
-          child: Container(
-            width: double.maxFinite,
-
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ReorderableListView(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  onReorderItem: (oldIndex, newIndex) {
-                    String oldItem = sortOrder[oldIndex];
-                    setState(() {
-                      sortOrder.removeAt(oldIndex);
-                      sortOrder.insert(newIndex, oldItem);
-                      actionListCategories = GetActions.instance
-                          .sortActionListCategories(
-                            actionListCategories: actionListCategories,
-                            sortOrder: sortOrder,
-                          );
-                    });
-                    HiveProxy.put(settings, actionsSortOrder, sortOrder);
-                  },
-                  children: actionListCategories.map((actionListCategory) {
-                    return ListTile(
-                      key: ValueKey(actionListCategory.name),
-                      title: Text(actionListCategory.translated()),
-                      trailing: Icon(Symbols.drag_handle),
-                    );
-                  }).toList(),
-                ),
-              ],
-            ),
-          ),
+      content: FixDialogListviewScrolling(
+        child: ReorderableListView(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          onReorderItem: (oldIndex, newIndex) {
+            String oldItem = sortOrder[oldIndex];
+            setState(() {
+              sortOrder.removeAt(oldIndex);
+              sortOrder.insert(newIndex, oldItem);
+              actionListCategories = GetActions.instance
+                  .sortActionListCategories(
+                    actionListCategories: actionListCategories,
+                    sortOrder: sortOrder,
+                  );
+            });
+            HiveProxy.put(settings, actionsSortOrder, sortOrder);
+          },
+          children: actionListCategories.map((actionListCategory) {
+            return ListTile(
+              key: ValueKey(actionListCategory.name),
+              title: Text(actionListCategory.translated()),
+              trailing: Icon(Symbols.drag_handle),
+            );
+          }).toList(),
         ),
       ),
     );
