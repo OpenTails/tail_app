@@ -94,11 +94,6 @@ Future<Map<String, String>> _getSettingsProps({
     kitsuneModeToggle,
     defaultValue: kitsuneModeDefault,
   ).toString();
-  props['Reduce Data Usage Enabled'] = HiveProxy.getOrDefault(
-    settings,
-    tailBlogWifiOnly,
-    defaultValue: tailBlogWifiOnlyDefault,
-  ).toString();
   props['Larger Cards Enabled'] = HiveProxy.getOrDefault(
     settings,
     largerActionCardSize,

@@ -1215,18 +1215,6 @@ String manageGearHomePositionDescription() => Intl.message(
   desc: 'Description for the home position sliders on the manage gear screen',
 );
 
-String settingsTailBlogWifiOnlyTitle() => Intl.message(
-  "Reduce Data Usage",
-  name: 'settingsTailBlogWifiOnlyTitle',
-  desc: 'Description for the tail blog wifi only setting',
-);
-
-String settingsTailBlogWifiOnlyDescription() => Intl.message(
-  "Prevent loading of some content while connected to a mobile network",
-  name: 'settingsTailBlogWifiOnlyDescription',
-  desc: 'Description for the tail blog wifi only setting',
-);
-
 String supportTitle() => Intl.message(
   'Support',
   name: 'supportTitle',

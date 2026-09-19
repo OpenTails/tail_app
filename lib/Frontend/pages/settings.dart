@@ -96,23 +96,6 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           ListTile(
-            title: Text(convertToUwU(settingsTailBlogWifiOnlyTitle())),
-            leading: const Icon(Symbols.wifi),
-            subtitle: Text(convertToUwU(settingsTailBlogWifiOnlyDescription())),
-            trailing: Switch(
-              value: HiveProxy.getOrDefault(
-                settings,
-                tailBlogWifiOnly,
-                defaultValue: tailBlogWifiOnlyDefault,
-              ),
-              onChanged: (bool value) async {
-                setState(() {
-                  HiveProxy.put(settings, tailBlogWifiOnly, value);
-                });
-              },
-            ),
-          ),
-          ListTile(
             title: Text(convertToUwU(settingsKeepScreenOnToggleTitle())),
             leading: const Icon(Symbols.phone_android),
             subtitle: Text(convertToUwU(settingsKeepScreenOnToggleSubTitle())),

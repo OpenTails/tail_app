@@ -24,9 +24,9 @@ final cacheOptions = CacheOptions(
   // A default store is required for interceptor.
   store: HiveCacheStore(null, hiveBoxName: "dioCache"),
   hitCacheOnErrorCodes: const [500],
-
   hitCacheOnNetworkFailure: true,
-  maxStale: const Duration(days: 7),
+  policy: CachePolicy.refreshForceCache,
+  maxStale: const Duration(days: 14),
 );
 
 Future<Dio> initDio() async {
@@ -47,12 +47,6 @@ Future<Dio> initDio() async {
         Duration(seconds: 3),
         Duration(seconds: 4),
         Duration(seconds: 5),
-        Duration(seconds: 10),
-        Duration(seconds: 20),
-        Duration(seconds: 40),
-        Duration(seconds: 80),
-        Duration(seconds: 160),
-        Duration(seconds: 320),
       ],
     ),
   );
@@ -91,15 +85,6 @@ Future<bool> isLimitedDataEnvironment() async {
   bool isMobileData = connectivityResult.contains(ConnectivityResult.mobile);
 
   if (mode == DataSaverMode.enabled && isMobileData) {
-    return true;
-  }
-
-  if (HiveProxy.getOrDefault(
-        settings,
-        tailBlogWifiOnly,
-        defaultValue: tailBlogWifiOnlyDefault,
-      ) &&
-      isMobileData) {
     return true;
   }
   return false;
