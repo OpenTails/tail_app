@@ -605,30 +605,6 @@ String triggerWalkingStep() => Intl.message(
   desc: 'Walking/Step trigger Step action label',
 );
 
-String triggerCoverTitle() => Intl.message(
-  'Cover',
-  name: 'triggerCoverTitle',
-  desc: 'Cover trigger Title',
-);
-
-String triggerCoverDescription() => Intl.message(
-  "Trigger an action by covering the proximity sensor",
-  name: 'triggerCoverDescription',
-  desc: 'Cover trigger description',
-);
-
-String triggerCoverNear() => Intl.message(
-  "Device Covered",
-  name: 'triggerCoverNear',
-  desc: 'Cover trigger near action label',
-);
-
-String triggerCoverFar() => Intl.message(
-  "Device Uncovered",
-  name: 'triggerCoverFar',
-  desc: 'Cover trigger far action label',
-);
-
 String triggerRandomButtonTitle() => Intl.message(
   "Casual Mode",
   name: 'triggerRandomButtonTitle',
