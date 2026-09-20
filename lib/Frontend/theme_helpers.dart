@@ -49,7 +49,7 @@ const String bodyFont = "HankenGrotesk";
 // Border thickness
 const double standardBorderWidth = 1.5;
 const double thickBorderWidth = 2;
- 
+
 const sectionedListViewPadding = EdgeInsets.symmetric(
   horizontal: 16,
   vertical: 16,
@@ -231,7 +231,9 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
       elevation: 8,
       shadowColor: tcNavy.withAlpha(46),
       backgroundColor: colorScheme.surfaceContainerLowest,
-      titleTextStyle: textTheme.headlineSmall,
+      titleTextStyle: textTheme.headlineSmall?.copyWith(
+        color: colorScheme.onSurfaceVariant,
+      ),
       contentTextStyle: textTheme.bodyMedium!.copyWith(
         color: colorScheme.onSurfaceVariant,
       ),

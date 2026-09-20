@@ -6,7 +6,7 @@ import 'Backend/Device/device_type_enum.dart';
 import 'Backend/Device/ear_speed_enum.dart';
 
 const int kitsuneDelayRange = 1000;
-const Duration animationTransitionDuration = Duration(milliseconds: 500);
+const Duration animationTransitionDuration = Duration(milliseconds: 200);
 const String demoGearPrefix = "DEV";
 
 // Settings labels
