@@ -12,6 +12,7 @@ import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/foreground_service_manager.dart';
 import 'package:tail_app/Backend/pebble.dart';
 import 'package:tail_app/Backend/wakelock_manager.dart';
+import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import 'Backend/app_badges.dart';
 import 'Backend/app_shortcuts.dart';
@@ -82,6 +83,7 @@ class TailApp extends StatelessWidget {
                   theme: buildTheme(Brightness.light, primaryAppColor),
                   darkTheme: buildTheme(Brightness.dark, primaryAppColor),
                   routerConfig: router,
+                  onGenerateTitle: (context) => convertToUwU(title()),
                   localizationsDelegates: [
                     LocaleNamesLocalizationsDelegate(),
                     ...AppLocalizations.localizationsDelegates,
