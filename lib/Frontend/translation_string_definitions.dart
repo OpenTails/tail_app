@@ -1153,7 +1153,7 @@ String joystickWarning() => Intl.message(
 );
 
 String earSpeedTitle() => Intl.message(
-  "Ear Move Speed",
+  "Ear Speed",
   name: 'earSpeedTitle',
   desc: 'Title for the ear speed widget that appears when ears are connected',
 );

@@ -20,8 +20,9 @@ class _EarSpeedWidgetState extends State<EarSpeedWidget> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(convertToUwU(earSpeedTitle())),
-      subtitle: SegmentedButton<EarSpeed>(
+      trailing: SegmentedButton<EarSpeed>(
         selected: <EarSpeed>{earSpeed},
+        showSelectedIcon: false,
         onSelectionChanged: (Set<EarSpeed> value) {
           setState(() {
             earSpeed = value.first;

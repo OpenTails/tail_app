@@ -1,10 +1,8 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../Backend/analytics.dart';
 import '../../../Backend/triggers/sensor_definition.dart';

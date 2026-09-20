@@ -172,7 +172,7 @@ class _ActionsListState extends State<ActionsList> {
                 ],
                 Wrap(
                   children: [
-                    FilledButton.icon(
+                    ElevatedButton.icon(
                       onPressed: () =>
                           ActionsReorderDialogRoute().push(context),
                       label: Text(convertToUwU(actionsReorderButtonTitle())),

@@ -8,10 +8,10 @@ part 'ear_speed_enum.g.dart';
 
 @HiveType(typeId: 14)
 enum EarSpeed {
-  @HiveField(1)
-  fast,
   @HiveField(2)
   slow,
+  @HiveField(1)
+  fast,
 }
 
 extension EarSpeedExtension on EarSpeed {

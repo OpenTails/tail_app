@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_message.dart';
@@ -10,7 +9,6 @@ import 'package:tail_app/Backend/audio.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Backend/logging_wrappers.dart';
 import 'package:tail_app/Backend/move_lists_backend.dart';
-import 'package:tail_app/Frontend/Widgets/known_gear.dart';
 import 'package:tail_app/Frontend/utils.dart';
 import 'package:tail_app/constants.dart';
 
@@ -21,20 +19,11 @@ import '../device_type_enum.dart';
 import '../ear_speed_enum.dart';
 import '../stateful/connected_gear.dart';
 
-Battery _battery = Battery();
 Logger _logger = Logger("CommandRunner");
 
 Future<void> _actionAnalytics(BaseAction action, String triggeredBy) async {
   DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
   if (!dynamicConfigInfo.featureFlags.enableActionAnalytics) {
-    return;
-  }
-
-  // lets not kill the battery
-  final int batteryLevel = await _battery.batteryLevel;
-  final bool batterySaver = await _battery.isInBatterySaveMode;
-
-  if (batteryLevel < 50 || batterySaver) {
     return;
   }
 
