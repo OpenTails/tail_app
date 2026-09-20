@@ -6,6 +6,7 @@ import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/actions/reorder_actions.dart';
 import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
+import 'package:tail_app/Frontend/pages/triggers/add_trigger.dart';
 import 'package:tail_app/Frontend/pages/triggers/trigger_edit.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
 
@@ -71,6 +72,17 @@ class TriggersRoute extends GoRouteData with $TriggersRoute {
         name: state.name,
         child: const Triggers(),
       );
+}
+
+@TypedGoRoute<AddTriggerDialogRoute>(path: '/triggers/add', name: 'Add Trigger')
+class AddTriggerDialogRoute extends GoRouteData with $AddTriggerDialogRoute {
+  const AddTriggerDialogRoute();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      DialogPage(key: state.pageKey, name: state.name, child: AddTrigger());
 }
 
 @TypedGoRoute<TriggersEditRoute>(path: '/triggers/edit', name: 'Triggers/Edit')

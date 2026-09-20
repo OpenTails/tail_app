@@ -42,88 +42,10 @@ class _TriggersState extends State<Triggers> {
                 duration: animationTransitionDuration,
                 child: triggerDefinitions.isEmpty
                     ? Container()
-                    : PromptedChoice<TriggerDefinition>.single(
-                        itemCount: triggerDefinitions.length,
-                        itemBuilder:
-                            (
-                              ChoiceController<TriggerDefinition> state,
-                              int index,
-                            ) {
-                              TriggerDefinition triggerDefinition =
-                                  triggerDefinitions[index];
-                              return RadioListTile(
-                                value: triggerDefinition,
-                                groupValue: state.single,
-                                onChanged: (value) {
-                                  state.select(triggerDefinition);
-                                },
-                                secondary: triggerDefinition.icon,
-                                subtitle: ChoiceText(
-                                  convertToUwU(triggerDefinition.description()),
-                                  highlight: state.search?.value,
-                                ),
-                                title: ChoiceText(
-                                  convertToUwU(triggerDefinition.name()),
-                                  highlight: state.search?.value,
-                                ),
-                              );
-                            },
-                        promptDelegate: ChoicePrompt.delegateBottomSheet(
-                          useRootNavigator: true,
-                          enableDrag: true,
-                          maxHeightFactor: 0.8,
-                        ),
-                        modalHeaderBuilder: ChoiceModal.createHeader(
-                          automaticallyImplyLeading: true,
-                          actionsBuilder: [],
-                        ),
-                        modalFooterBuilder: ChoiceModal.createFooter(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            (choiceController) {
-                              return FilledButton.icon(
-                                onPressed: choiceController.value.isNotEmpty
-                                    ? () => choiceController.closeModal(
-                                        confirmed: true,
-                                      )
-                                    : null,
-                                label: Text(
-                                  convertToUwU(triggersDefSelectSaveLabel()),
-                                ),
-                                icon: const Icon(Symbols.check),
-                              );
-                            },
-                          ],
-                        ),
-                        title: triggersSelectLabel(),
-                        confirmation: true,
-                        onChanged: (value) async {
-                          if (value != null) {
-                            setState(() {
-                              Trigger trigger = Trigger.trigDef(
-                                value,
-                                const Uuid().v4(),
-                              );
-                              TriggerList.instance.add(trigger);
-                              analyticsEvent(
-                                name: "Add Trigger",
-                                props: {
-                                  "Trigger Type": Intl.withLocale(
-                                    'en',
-                                    () => value.name(),
-                                  ),
-                                },
-                              );
-                            });
-                          }
-                        },
-                        anchorBuilder: (state, openModal) {
-                          return FloatingActionButton.extended(
-                            icon: const Icon(Symbols.add),
-                            label: Text(convertToUwU(triggersAdd())),
-                            onPressed: openModal,
-                          );
-                        },
+                    : FloatingActionButton(
+                        tooltip: convertToUwU(triggersAdd()),
+                        onPressed: () => AddTriggerDialogRoute().push(context),
+                        child: Icon(Symbols.add),
                       ),
               );
             },

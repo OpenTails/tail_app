@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/pages/triggers/trigger_action_list_tile.dart';
 import 'package:tail_app/Frontend/pages/triggers/triggers.dart';
 
@@ -114,7 +115,7 @@ class _TriggerEditState extends State<TriggerEdit> {
                   }),
                   OverflowBar(
                     children: [
-                      TextButton(
+                      TextButton.icon(
                         onPressed: () async {
                           trigger!.enabled = false;
                           await TriggerList.instance.remove(trigger!);
@@ -133,7 +134,8 @@ class _TriggerEditState extends State<TriggerEdit> {
                             Navigator.of(context).pop();
                           });
                         },
-                        child: Text(convertToUwU("Delete Trigger")),
+                        label: Text(convertToUwU("Delete Trigger")),
+                        icon: Icon(Symbols.delete),
                       ),
                     ],
                   ),
