@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-09-20T01:20:43.917024",
+  "@@last_modified": "2026-09-20T02:20:31.220981",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -585,30 +585,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "triggerCoverTitle": "Cover",
-  "@triggerCoverTitle": {
-    "description": "Cover trigger Title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverDescription": "Trigger an action by covering the proximity sensor",
-  "@triggerCoverDescription": {
-    "description": "Cover trigger description",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverNear": "Device Covered",
-  "@triggerCoverNear": {
-    "description": "Cover trigger near action label",
-    "type": "text",
-    "placeholders": {}
-  },
-  "triggerCoverFar": "Device Uncovered",
-  "@triggerCoverFar": {
-    "description": "Cover trigger far action label",
-    "type": "text",
-    "placeholders": {}
-  },
   "triggerRandomButtonTitle": "Casual Mode",
   "@triggerRandomButtonTitle": {
     "description": "Casual Mode trigger title",
@@ -1143,7 +1119,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "earSpeedTitle": "Ear Move Speed",
+  "earSpeedTitle": "Ear Speed",
   "@earSpeedTitle": {
     "description": "Title for the ear speed widget that appears when ears are connected",
     "type": "text",
