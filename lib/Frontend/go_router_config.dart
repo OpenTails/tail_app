@@ -45,11 +45,7 @@ final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
 final GoRouter router = GoRouter(
   debugLogDiagnostics: true,
   navigatorKey: rootNavigatorKey,
-  observers: [
-    SentryNavigatorObserver(),
-    //CustomNavObserver(plausible),
-    LogarteNavigatorObserver(logarte),
-  ],
+  observers: [SentryNavigatorObserver(), LogarteNavigatorObserver(logarte)],
   redirect: (context, state) async {
     String name = state.uri.path;
     if (name.isNotEmpty) {
@@ -206,8 +202,12 @@ class OnBoardingPageRoute extends GoRouteData with $OnBoardingPageRoute {
   }
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const OnBoardingPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: const OnBoardingPage(),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 @TypedGoRoute<HtmlPageRoute>(path: '/viewHTML', name: 'viewHTML')
@@ -218,8 +218,12 @@ class HtmlPageRoute extends GoRouteData with $HtmlPageRoute {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      HtmlPage(htmlPageInfo: $extra);
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: HtmlPage(htmlPageInfo: $extra),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 @TypedGoRoute<PDFPageRoute>(path: '/viewPDF', name: 'viewPDF')
@@ -230,8 +234,12 @@ class PDFPageRoute extends GoRouteData with $PDFPageRoute {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      ViewPDF(pdfInfo: $extra);
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: ViewPDF(pdfInfo: $extra),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 @TypedGoRoute<DirectGearControlRoute>(
@@ -244,8 +252,12 @@ class DirectGearControlRoute extends GoRouteData with $DirectGearControlRoute {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const DirectGearControl();
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: const DirectGearControl(),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 @TypedGoRoute<CustomAudioRoute>(path: '/customAudio', name: 'CustomAudio')
@@ -255,8 +267,12 @@ class CustomAudioRoute extends GoRouteData with $CustomAudioRoute {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const CustomAudio();
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: const CustomAudio(),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 class ActionPageRoute extends GoRouteData with $ActionPageRoute {
@@ -307,8 +323,12 @@ class BluetoothConsoleRoute extends GoRouteData with $BluetoothConsoleRoute {
   final StatefulDevice $extra;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      BluetoothConsole(device: $extra);
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: BluetoothConsole(device: $extra),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 class ActionSelectorRoute extends GoRouteData with $ActionSelectorRoute {
@@ -317,8 +337,12 @@ class ActionSelectorRoute extends GoRouteData with $ActionSelectorRoute {
   final ActionSelectorInfo $extra;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      ActionSelector(actionSelectorInfo: $extra);
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: ActionSelector(actionSelectorInfo: $extra),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 class DeveloperMenuRoute extends GoRouteData with $DeveloperMenuRoute {
@@ -327,8 +351,12 @@ class DeveloperMenuRoute extends GoRouteData with $DeveloperMenuRoute {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const DeveloperMenu();
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: const DeveloperMenu(),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 class DeveloperPincodeRoute extends GoRouteData with $DeveloperPincodeRoute {
@@ -337,8 +365,12 @@ class DeveloperPincodeRoute extends GoRouteData with $DeveloperPincodeRoute {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const DeveloperPincode();
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: const DeveloperPincode(),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 @TypedGoRoute<MarkdownViewerRoute>(path: '/viewMarkdown', name: 'viewMarkdown')
@@ -350,8 +382,12 @@ class MarkdownViewerRoute extends GoRouteData with $MarkdownViewerRoute {
   final MarkdownInfo $extra;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      MarkdownViewer(markdownInfo: $extra);
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: MarkdownViewer(markdownInfo: $extra),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 class MoreRoute extends GoRouteData with $MoreRoute {
@@ -382,8 +418,12 @@ class MoveListRoute extends GoRouteData with $MoveListRoute {
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const MoveListView();
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: const MoveListView(),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 class EditMoveListRoute extends GoRouteData with $EditMoveListRoute {
@@ -393,8 +433,12 @@ class EditMoveListRoute extends GoRouteData with $EditMoveListRoute {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      EditMoveList(moveList: $extra);
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: EditMoveList(moveList: $extra),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 @TypedGoRoute<EditMoveListMoveRoute>(
@@ -422,15 +466,24 @@ class OtaUpdateRoute extends GoRouteData with $OtaUpdateRoute {
   final String device;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      OtaUpdate(deviceMac: device);
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: OtaUpdate(deviceMac: device),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 class BulkOtaUpdateRoute extends GoRouteData with $BulkOtaUpdateRoute {
   const BulkOtaUpdateRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const BulkOTA();
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: const BulkOTA(),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 @TypedGoRoute<SettingsRoute>(
@@ -467,15 +520,24 @@ class SettingsRoute extends GoRouteData with $SettingsRoute {
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const Settings();
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: const Settings(),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 class LogsRoute extends GoRouteData with $LogsRoute {
   const LogsRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      LogarteDashboardScreen(logarte);
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        child: LogarteDashboardScreen(logarte),
+        name: state.name,
+        key: state.pageKey,
+      );
 }
 
 class ModalPage<T> extends Page<T> {

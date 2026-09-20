@@ -151,6 +151,7 @@ Future<void> startSentryApp(Widget child) async {
         ..attachScreenshot = true
         ..enableTombstone = true
         ..enableLogs = true
+        ..enableTombstone = true
         ..privacy.maskAllImages = false
         ..privacy.maskAllText =
             false // app does not contain any PII
