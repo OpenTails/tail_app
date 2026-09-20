@@ -34,8 +34,7 @@ class _MoveListViewState extends State<MoveListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(convertToUwU(sequencesPage()))),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Symbols.add),
+      floatingActionButton: FloatingActionButton(
         onPressed: () async {
           setState(() {
             MoveLists.instance.add(
@@ -72,7 +71,8 @@ class _MoveListViewState extends State<MoveListView> {
                 }),
               );
         },
-        label: Text(convertToUwU(sequencesPage())),
+        tooltip: convertToUwU(sequencesPage()),
+        child: const Icon(Symbols.add),
       ),
       body: Container(
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
@@ -171,13 +171,15 @@ class _EditMoveList extends State<EditMoveList> {
                   title: Text(convertToUwU(sequencesEditDeleteTitle())),
                   content: Text(convertToUwU(sequencesEditDeleteDescription())),
                   actions: <Widget>[
-                    TextButton(
+                    TextButton.icon(
                       onPressed: () => Navigator.pop(context, false),
-                      child: Text(convertToUwU(cancel())),
+                      label: Text(convertToUwU(cancel())),
+                      icon: Icon(Symbols.cancel),
                     ),
-                    TextButton(
+                    TextButton.icon(
                       onPressed: () => Navigator.pop(context, true),
-                      child: Text(convertToUwU(ok())),
+                      label: Text(convertToUwU(ok())),
+                      icon: Icon(Symbols.delete),
                     ),
                   ],
                 ),
@@ -203,8 +205,7 @@ class _EditMoveList extends State<EditMoveList> {
         ],
       ),
       floatingActionButton: widget.moveList.moves.length < 5
-          ? FloatingActionButton.extended(
-              icon: const Icon(Symbols.add),
+          ? FloatingActionButton(
               onPressed: () async {
                 setState(() {
                   widget.moveList.moves = widget.moveList.moves.toList()
@@ -224,7 +225,8 @@ class _EditMoveList extends State<EditMoveList> {
                 );
                 //context.push<Move>("/moveLists/editMoveList/editMove", extra: moveList!.moves.last).then((value) => setState(() => moveList!.moves.last = value!));
               },
-              label: Text(convertToUwU(sequencesEditAdd())),
+              tooltip: convertToUwU(sequencesEditAdd()),
+              child: const Icon(Symbols.add),
             )
           : null,
       body: PopScope(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../translation_string_definitions.dart';
@@ -15,13 +16,16 @@ class PincodeDialog extends StatelessWidget {
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.center,
       actions: [
-        TextButton(
-          onPressed: () async => await Clipboard.setData(ClipboardData(text: pin)),
-          child: Text(convertToUwU(manageGearConModePincodeCopy())),
+        TextButton.icon(
+          onPressed: () async =>
+              await Clipboard.setData(ClipboardData(text: pin)),
+          label: Text(convertToUwU(manageGearConModePincodeCopy())),
+          icon: Icon(Symbols.content_copy),
         ),
-        TextButton(
+        TextButton.icon(
           onPressed: () => context.pop(),
-          child: Text(convertToUwU(ok())),
+          label: Text(convertToUwU(ok())),
+          icon: Icon(Symbols.check),
         ),
       ],
       title: Text(convertToUwU(manageGearConModePincodeTitle())),
@@ -30,10 +34,7 @@ class PincodeDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Center(
-            child: Text(
-              pin,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            child: Text(pin, style: Theme.of(context).textTheme.titleLarge),
           ),
         ],
       ),

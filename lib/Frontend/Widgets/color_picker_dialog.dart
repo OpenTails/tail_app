@@ -1,5 +1,6 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../translation_string_definitions.dart';
@@ -30,17 +31,19 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         style: Theme.of(context).textTheme.titleLarge,
       ),
       actions: [
-        TextButton(
+        TextButton.icon(
           onPressed: () {
             Navigator.of(context).pop(color.toARGB32());
           },
-          child: Text(convertToUwU(ok())),
+          label: Text(convertToUwU(ok())),
+          icon: Icon(Symbols.save),
         ),
-        TextButton(
+        TextButton.icon(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(convertToUwU(cancel())),
+          label: Text(convertToUwU(cancel())),
+          icon: Icon(Symbols.cancel),
         ),
       ],
       content: Wrap(

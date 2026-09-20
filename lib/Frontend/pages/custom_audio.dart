@@ -33,7 +33,7 @@ class _CustomAudioState extends State<CustomAudio> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(convertToUwU(audioPage()))),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () async {
           _audioLogger.info("Opening file dialog");
           PlatformFile? result = await FilePicker.pickFile(
@@ -77,8 +77,8 @@ class _CustomAudioState extends State<CustomAudio> {
           }
           //Open File Picker
         },
-        icon: const Icon(Symbols.add),
-        label: Text(convertToUwU(audioAdd())),
+        tooltip: convertToUwU(audioAdd()),
+        child: const Icon(Symbols.add),
       ),
       body: ListView(
         children: [
@@ -225,13 +225,15 @@ class _AudioListItemState extends State<AudioListItem> {
                     title: Text(convertToUwU(audioDelete())),
                     content: Text(convertToUwU(audioDeleteDescription())),
                     actions: <Widget>[
-                      TextButton(
+                      TextButton.icon(
                         onPressed: () => Navigator.pop(context, false),
-                        child: Text(convertToUwU(cancel())),
+                        label: Text(convertToUwU(cancel())),
+                        icon: Icon(Symbols.cancel),
                       ),
-                      TextButton(
+                      TextButton.icon(
                         onPressed: () => Navigator.pop(context, true),
-                        child: Text(convertToUwU(ok())),
+                        label: Text(convertToUwU(ok())),
+                        icon: Icon(Symbols.delete),
                       ),
                     ],
                   ),
