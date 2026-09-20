@@ -52,14 +52,6 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
             },
           ),
           ListTile(
-            title: const Text("Bulk Update"),
-            leading: const Icon(Symbols.system_update),
-            subtitle: const Text("Update multiple gear"),
-            onTap: () async {
-              const BulkOtaUpdateRoute().push(context);
-            },
-          ),
-          ListTile(
             title: const Text("Throw an error"),
             leading: const Icon(Symbols.bug_report),
             subtitle: const Text("Sends an error to sentry"),

@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:logarte/logarte.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tail_app/Frontend/pages/actions/reorder_actions.dart';
-import 'package:tail_app/Frontend/pages/developer/bulk_ota.dart';
 import 'package:tail_app/Frontend/pages/triggers/add_trigger.dart';
 import 'package:tail_app/Frontend/pages/triggers/trigger_edit.dart';
 import 'package:tail_app/Frontend/pages/view_pdf.dart';
@@ -474,18 +473,6 @@ class OtaUpdateRoute extends GoRouteData with $OtaUpdateRoute {
       );
 }
 
-class BulkOtaUpdateRoute extends GoRouteData with $BulkOtaUpdateRoute {
-  const BulkOtaUpdateRoute();
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      MaterialPage(
-        child: const BulkOTA(),
-        name: state.name,
-        key: state.pageKey,
-      );
-}
-
 @TypedGoRoute<SettingsRoute>(
   path: '/settings',
   name: 'Settings',
@@ -505,10 +492,6 @@ class BulkOtaUpdateRoute extends GoRouteData with $BulkOtaUpdateRoute {
         TypedGoRoute<LogsRoute>(
           path: 'log',
           name: 'Settings/Developer Menu/Logs',
-        ),
-        TypedGoRoute<BulkOtaUpdateRoute>(
-          path: 'bulkOta',
-          name: 'Settings/Developer Menu/bulkOta',
         ),
       ],
     ),
