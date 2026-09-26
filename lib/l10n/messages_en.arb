@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-09-20T02:20:31.220981",
+  "@@last_modified": "2026-09-26T23:06:19.866459",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -28,6 +28,12 @@
   "homeWelcomeMessage": "Tap the Scan button to find your gear! Once found, you can make your gear move, set up triggers, and keep it up to date, all in one place.",
   "@homeWelcomeMessage": {
     "description": "The welcome message on the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeUpdateAvailable": "An app update is available! Tap to update",
+  "@homeUpdateAvailable": {
+    "description": "A message encouraging the user to update the app",
     "type": "text",
     "placeholders": {}
   },
