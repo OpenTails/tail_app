@@ -62,10 +62,11 @@ class TriggersRoute extends GoRouteData with $TriggersRoute {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      NoTransitionPage(
+      CustomTransitionPage<void>(
         key: state.pageKey,
-        name: state.name,
         child: const Triggers(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(opacity: animation, child: child),
       );
 }
 
@@ -281,10 +282,11 @@ class ActionPageRoute extends GoRouteData with $ActionPageRoute {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      NoTransitionPage(
-        child: const ActionPage(),
-        name: state.name,
+      CustomTransitionPage<void>(
         key: state.pageKey,
+        child: const ActionPage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(opacity: animation, child: child),
       );
 
   @override
@@ -394,10 +396,11 @@ class MoreRoute extends GoRouteData with $MoreRoute {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      NoTransitionPage(
-        child: const More(),
+      CustomTransitionPage<void>(
         key: state.pageKey,
-        name: state.name,
+        child: const More(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(opacity: animation, child: child),
       );
 }
 
