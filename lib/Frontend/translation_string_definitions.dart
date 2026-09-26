@@ -41,6 +41,12 @@ String homeWelcomeMessage() => Intl.message(
   desc: 'The welcome message on the home screen when no gear is connected',
 );
 
+String homeUpdateAvailable() => Intl.message(
+  'An app update is available! Tap to update',
+  name: 'homeUpdateAvailable',
+  desc: 'A message encouraging the user to update the app',
+);
+
 String joyStickPage() => Intl.message(
   'Joystick',
   name: 'joyStickPage',

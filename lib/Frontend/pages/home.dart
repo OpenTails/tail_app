@@ -5,6 +5,7 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/age_check.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
+import 'package:tail_app/Frontend/Widgets/upgrade_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/analytics.dart';
@@ -52,6 +53,7 @@ class _HomeState extends State<Home> {
     return ListView(
       controller: _controller,
       children: [
+        CustomUpgradeCard(),
         if (showWelcome)
           BaseCard(
             child: Column(
