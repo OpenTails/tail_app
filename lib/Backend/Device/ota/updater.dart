@@ -225,17 +225,30 @@ class OtaUpdater extends ChangeNotifier {
     firmwareInfo = statefulDevice.firmwareStatus.remoteFirmwareInfo;
   }
 
+  void _startReconnectTimer() {
+    _disconnectTimer?.cancel();
+    _reconnectTimer = Timer(const Duration(seconds: 30), () {
+      _otaLogger.severe("Gear did not reconnect");
+      _onError(OtaError.gearReconnectTimeout, transaction);
+      transaction?.finish();
+    });
+  }
+
   void _connectivityStateListener() {
     ConnectivityState connectivityState =
         statefulDevice.deviceConnectionState.value;
+
+    bool isUploadFinished =
+        OtaState.upload == otaState && firmwareFile != null &&
+        currentFirmwareUploadPosition / firmwareFile!.length >= 0.99;
+    if (isUploadFinished) {
+      if (connectivityState == ConnectivityState.disconnected) {
+        _rebootState();
+      }
+    }
     if (OtaState.rebooting == otaState) {
       if (connectivityState == ConnectivityState.disconnected) {
-        _disconnectTimer?.cancel();
-        _reconnectTimer = Timer(const Duration(seconds: 30), () {
-          _otaLogger.severe("Gear did not reconnect");
-          _onError(OtaError.gearReconnectTimeout, transaction);
-          transaction?.finish();
-        });
+        _startReconnectTimer();
       } else if (connectivityState == ConnectivityState.connected) {
         _reconnectTimer?.cancel();
       }
@@ -276,21 +289,19 @@ class OtaUpdater extends ChangeNotifier {
             .take(mtu)
             .toList();
         if (chunk.isNotEmpty) {
+          currentFirmwareUploadPosition =
+              currentFirmwareUploadPosition + chunk.length;
           try {
             await sendMessage(statefulDevice, chunk);
           } catch (e, s) {
             _otaLogger.severe("Exception during ota upload:$e", e, s);
-            if ((currentFirmwareUploadPosition + chunk.length) /
-                    firmwareFile!.length <
-                0.99) {
+            if ((currentFirmwareUploadPosition) / firmwareFile!.length < 0.99) {
               _onError(OtaError.uploadFailed, uploadSpan);
               uploadSpan?.throwable = e;
               uploadSpan?.finish();
               return;
             }
           }
-          currentFirmwareUploadPosition =
-              currentFirmwareUploadPosition + chunk.length;
         } else {
           currentFirmwareUploadPosition = firmwareFile!.length;
         }
@@ -299,37 +310,42 @@ class OtaUpdater extends ChangeNotifier {
         _updateProgress();
       }
       if (uploadProgress == 1) {
-        _otaLogger.info("File Uploaded");
-        setState(OtaState.rebooting);
-        _disconnectTimer = Timer(const Duration(seconds: 30), () {
-          _otaLogger.severe("Gear did not disconnect");
-          _onError(OtaError.gearDisconnectTimeout, transaction);
-          transaction?.finish();
-        });
-        // start scanning for the gear to reconnect
-        _finalTimer = Timer(const Duration(seconds: 60), () {
-          if (otaState != OtaState.completed) {
-            _otaLogger.severe(
-              "Gear did not return correct version after reboot",
-            );
-            _onError(OtaError.gearOtaFinalTimeout, transaction);
-            transaction?.finish();
-          }
-        });
-        analyticsEvent(
-          name: "Update Gear",
-          props: {
-            "Target Gear": statefulDevice.deviceDefinition.btName,
-            "Hardware Version": statefulDevice.firmwareStatus.hardwareVersion,
-            "Firmware Version": statefulDevice.firmwareStatus.firmwareVersion
-                .toString(),
-          },
-        );
+        _rebootState();
       }
       statefulDevice.deviceState.value =
           DeviceMoveState.standby; // release the command queue
     }
     uploadSpan?.finish();
+  }
+
+  void _rebootState() {
+    if (otaState != OtaState.upload) {
+      return;
+    }
+    _otaLogger.info("File Uploaded");
+    setState(OtaState.rebooting);
+    _disconnectTimer = Timer(const Duration(seconds: 30), () {
+      _otaLogger.severe("Gear did not disconnect");
+      _onError(OtaError.gearDisconnectTimeout, transaction);
+      transaction?.finish();
+    });
+    // start scanning for the gear to reconnect
+    _finalTimer = Timer(const Duration(seconds: 60), () {
+      if (otaState != OtaState.completed) {
+        _otaLogger.severe("Gear did not return correct version after reboot");
+        _onError(OtaError.gearOtaFinalTimeout, transaction);
+        transaction?.finish();
+      }
+    });
+    analyticsEvent(
+      name: "Update Gear",
+      props: {
+        "Target Gear": statefulDevice.deviceDefinition.btName,
+        "Hardware Version": statefulDevice.firmwareStatus.hardwareVersion,
+        "Firmware Version": statefulDevice.firmwareStatus.firmwareVersion
+            .toString(),
+      },
+    );
   }
 
   @override
