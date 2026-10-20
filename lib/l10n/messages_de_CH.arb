@@ -1007,7 +1007,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "earSpeedTitle": "Öhrli bewege Speed",
+    "earSpeedTitle": "Öhrli Speed",
     "@earSpeedTitle": {
         "description": "Title for the ear speed widget that appears when ears are connected",
         "type": "text",
@@ -1502,6 +1502,12 @@
     "actionsReorderButtonTitle": "Aktione neu aordne",
     "@actionsReorderButtonTitle": {
         "description": "The label and title of the dialog/button to reorder the groups of actions",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeUpdateAvailable": "Es git es Update für d’App! Tipp druf, zum Aktualisiere",
+    "@homeUpdateAvailable": {
+        "description": "A message encouraging the user to update the app",
         "type": "text",
         "placeholders": {}
     }
