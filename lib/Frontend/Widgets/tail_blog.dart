@@ -198,12 +198,11 @@ class _TailBlogState extends State<TailBlog> {
       if (mediaDetails.sizes!.containsKey('medium')) {
         // matches the app blog image size
         return mediaDetails.sizes!['medium']!.sourceUrl;
-      } else if (mediaDetails.sizes!.containsKey('thumbnail')) {
-        // smaller fallback
-        return mediaDetails.sizes!['thumbnail']!.sourceUrl;
+      } else if (mediaDetails.sizes!.containsKey('large')) {
+        return mediaDetails.sizes!['large']!.sourceUrl;
       } else if (mediaDetails.sizes!.containsKey('full')) {
-        // when all else fails
         return mediaDetails.sizes!['full']!.sourceUrl;
+        // when all else fails
       } else if (mediaDetails.sizes!.isEmpty && mediaDetails.file != null) {
         _wpLogger.warning("Loading full size image for post: ${post.title}.");
         return "https://thetailcompany.com/wp-content/uploads/${mediaDetails.file}";

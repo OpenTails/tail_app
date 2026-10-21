@@ -1,5 +1,4 @@
 import 'package:cached_network_image_ce/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -14,17 +13,12 @@ class TailBlogImage extends StatelessWidget {
       child: FittedBox(
         alignment: Alignment.center,
         fit: BoxFit.cover,
-        child: kIsWeb
-            ? Image.network(
-                url,
-                height: 250,
-                errorBuilder: (context, url, error) => Icon(Symbols.error),
-              )
-            : CachedNetworkImage(
-                height: 250,
-                imageUrl: url,
-                errorBuilder: (context, url, error) => Icon(Symbols.error),
-              ),
+        child: CachedNetworkImage(
+          height: 300,
+          disablePlaceholderOnCacheHit: false,
+          imageUrl: url,
+          errorBuilder: (context, url, error) => Icon(Symbols.error),
+        ),
       ),
     );
   }
