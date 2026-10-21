@@ -205,11 +205,11 @@ class OtaUpdater extends ChangeNotifier {
   Future<void> _verListener() async {
     Version version = statefulDevice.firmwareStatus.firmwareVersion;
     FWInfo? fwInfo = firmwareInfo;
-    if (fwInfo != null &&
-        version.compareTo(const Version()) > 0 &&
+    if (version.compareTo(const Version()) > 0 &&
         otaState == OtaState.rebooting) {
       bool updated =
-          version.compareTo(Version.getFromSemVer(fwInfo.version)) >= 0;
+          fwInfo == null ||
+          (version.compareTo(Version.getFromSemVer(fwInfo.version)) >= 0);
       if (!updated) {
         _onError(OtaError.gearVersionMismatch, transaction);
       } else {
@@ -239,7 +239,8 @@ class OtaUpdater extends ChangeNotifier {
         statefulDevice.deviceConnectionState.value;
 
     bool isUploadFinished =
-        OtaState.upload == otaState && firmwareFile != null &&
+        OtaState.upload == otaState &&
+        firmwareFile != null &&
         currentFirmwareUploadPosition / firmwareFile!.length >= 0.99;
     if (isUploadFinished) {
       if (connectivityState == ConnectivityState.disconnected) {

@@ -83,13 +83,6 @@ Future<void> _onConnectionStateChangedListener(
     await discoverServices(id);
     int mtu = await UniversalBle.requestMtu(id, 512);
     statefulDevice.mtu = mtu;
-  } else {
-    // add short delay before reconnecting
-    if (!statefulDevice.disableAutoConnect) {
-      statefulDevice.disableAutoConnect = true;
-      await Future.delayed(Duration(seconds: 1));
-      statefulDevice.disableAutoConnect = false;
-    }
   }
 }
 
