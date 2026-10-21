@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 
 class BatteryStatus with ChangeNotifier {
   StreamSubscription? periodicStream;
+  Timer? _batteryIdleAfterMoveTimer;
+
   double _level = -1;
 
   double get level => _level;
@@ -26,7 +28,9 @@ class BatteryStatus with ChangeNotifier {
     if (_level == value) {
       return;
     }
-
+    if (_batteryIdleAfterMoveTimer?.isActive == true) {
+      return;
+    }
     _level = value;
 
     // battery graph
@@ -71,6 +75,19 @@ class BatteryStatus with ChangeNotifier {
   CircularBuffer<double> averageHistory = CircularBuffer(60);
   List<double> shortTermHistory = [];
 
+  /// Delay logging BATT levels for 8 seconds to let the battery level reading settle.
+  void startBatteryMoveCooldown() {
+    if (_batteryIdleAfterMoveTimer != null ||
+        _batteryIdleAfterMoveTimer!.isActive) {
+      _batteryIdleAfterMoveTimer?.cancel();
+      _batteryIdleAfterMoveTimer = null;
+    }
+
+    _batteryIdleAfterMoveTimer = Timer(Duration(seconds: 8), () {
+      _batteryIdleAfterMoveTimer = null;
+    });
+  }
+
   void reset() {
     level = -1;
     isCharging = false;
@@ -79,5 +96,7 @@ class BatteryStatus with ChangeNotifier {
     averageHistory.clear();
     periodicStream?.cancel();
     periodicStream = null;
+    _batteryIdleAfterMoveTimer?.cancel();
+    _batteryIdleAfterMoveTimer = null;
   }
 }

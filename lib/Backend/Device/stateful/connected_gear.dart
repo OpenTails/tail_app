@@ -198,7 +198,7 @@ class StatefulDevice extends ChangeNotifier {
     }
     if (isConnected) {
       _periodicTimerStream = Stream.periodic(
-        const Duration(seconds: 10),
+        const Duration(seconds: 5),
       ).listen(_periodicListener);
       analyticsEvent(
         name: "Connect Gear",
