@@ -6,8 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/Frontend/Widgets/wear_helper.dart';
-import 'package:tail_app/Frontend/go_router_config.dart';
-import 'package:upgrader/upgrader.dart';
 
 import '../Widgets/known_gear.dart';
 import '../Widgets/known_gear_scan_controller.dart';

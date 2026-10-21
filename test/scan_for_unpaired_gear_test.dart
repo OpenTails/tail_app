@@ -2,8 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Bluetooth/known_devices.dart';
-import 'package:tail_app/Backend/Device/bluetooth_uart_services_list.dart';
-import 'package:tail_app/Backend/Device/device_definition.dart';
 import 'package:tail_app/Backend/Device/device_registry.dart';
 import 'package:tail_app/Backend/Device/device_type_enum.dart';
 import 'package:tail_app/Backend/Device/stateful/connected_gear.dart';

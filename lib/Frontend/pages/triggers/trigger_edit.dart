@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Frontend/pages/triggers/trigger_action_list_tile.dart';
-import 'package:tail_app/Frontend/pages/triggers/triggers.dart';
 
 import '../../../Backend/analytics.dart';
 import '../../../Backend/triggers/sensor_definition.dart';

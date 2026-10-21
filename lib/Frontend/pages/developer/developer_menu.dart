@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:data_saver/data_saver.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -388,19 +387,6 @@ class _DeveloperMenuState extends State<DeveloperMenu> {
                     String text = value != null ? value.toString() : "unknown";
                     return Text(text);
                   },
-            ),
-          ),
-          ListTile(
-            title: const Text("DataSaver"),
-            subtitle: FutureBuilder(
-              future: DataSaver().checkMode(),
-              builder: (context, snapshot) {
-                String dataSaverMode = "";
-                if (snapshot.hasData) {
-                  dataSaverMode = snapshot.data!.name;
-                }
-                return Text(dataSaverMode);
-              },
             ),
           ),
           ListTile(

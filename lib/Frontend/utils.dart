@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:data_saver/data_saver.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
@@ -12,7 +11,6 @@ import 'package:universal_io/io.dart';
 import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
 import '../Backend/logging_wrappers.dart';
-import '../constants.dart';
 
 final dioLogger = Logger('Dio');
 
@@ -79,12 +77,6 @@ Future<bool> isLimitedDataEnvironment() async {
   final List<ConnectivityResult> connectivityResult = await (Connectivity()
       .checkConnectivity());
   if (connectivityResult.contains(ConnectivityResult.none)) {
-    return true;
-  }
-  final DataSaverMode mode = await DataSaver().checkMode();
-  bool isMobileData = connectivityResult.contains(ConnectivityResult.mobile);
-
-  if (mode == DataSaverMode.enabled && isMobileData) {
     return true;
   }
   return false;

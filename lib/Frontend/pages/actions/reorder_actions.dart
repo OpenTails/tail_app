@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:tail_app/Backend/Action/action_list_category.dart';
@@ -14,7 +13,7 @@ class ReorderActions extends StatefulWidget {
   const ReorderActions({Key? key}) : super(key: key);
 
   @override
-  _ReorderActionsState createState() => _ReorderActionsState();
+  State<ReorderActions> createState() => _ReorderActionsState();
 }
 
 class _ReorderActionsState extends State<ReorderActions> {

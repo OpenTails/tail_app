@@ -27,14 +27,19 @@ Future<void> _actionAnalytics(BaseAction action, String triggeredBy) async {
     return;
   }
 
-  if (await isLimitedDataEnvironment()) {
-    return;
-  }
-
   bool isCustomAction = [
     ActionCategory.sequence,
     ActionCategory.audio,
   ].contains(action.actionCategory);
+
+
+  // exclude triggers from analytics
+  bool isAllowedSource = ["App Shortcut","Watch","Actions Page","Custom Action Page"].contains(triggeredBy);
+  
+  if (!isAllowedSource) {
+    return;
+  }
+
   bool isAudioAction = action.actionCategory == ActionCategory.audio;
   String actionName = isCustomAction
       ? "Custom ${isAudioAction ? "Audio" : "Move"}"
