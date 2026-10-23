@@ -53,10 +53,11 @@ class WalkingTriggerDefinition extends TriggerDefinition {
     if (!isMobile) {
       return false;
     }
-    bool isStepCountSupported = await Pedometer.isStepCountSupported == true;
+    return true;
+/*    bool isStepCountSupported = await Pedometer.isStepCountSupported == true;
     bool isStepDetectionSupported =
         await Pedometer.isStepDetectionSupported == true;
-    return isStepDetectionSupported && isStepCountSupported;
+    return isStepDetectionSupported && isStepCountSupported;*/
   }
 
   @override

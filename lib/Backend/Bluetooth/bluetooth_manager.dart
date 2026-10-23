@@ -61,27 +61,25 @@ void _adapterStateListener(AvailabilityState state) {
 /// Maps the [UniveUniversalBle] connection state to [StatefulDevice] and fires off [discoverServices]
 /// disconnects if [id] doesn't match a [StoredDevice] in [KnownDevices]
 Future<void> _onConnectionStateChangedListener(
-  String id,
-  bool isConnected,
-  String? error,
+    BleConnectionChange onConnectionChanged,
 ) async {
   Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   StatefulDevice statefulDevice;
   //get existing entry
-  if (knownDevices.containsKey(id)) {
-    statefulDevice = knownDevices[id]!;
+  if (knownDevices.containsKey(onConnectionChanged.deviceId)) {
+    statefulDevice = knownDevices[onConnectionChanged.deviceId]!;
   } else {
-    if (isConnected) {
-      await disconnect(id);
+    if (onConnectionChanged.isConnected) {
+      await disconnect(onConnectionChanged.deviceId);
     }
     return;
   }
-  statefulDevice.deviceConnectionState.value = isConnected
+  statefulDevice.deviceConnectionState.value = onConnectionChanged.isConnected
       ? ConnectivityState.connected
       : ConnectivityState.disconnected;
-  if (isConnected) {
-    await discoverServices(id);
-    int mtu = await UniversalBle.requestMtu(id, 512);
+  if (onConnectionChanged.isConnected) {
+    await discoverServices(onConnectionChanged.deviceId);
+    int mtu = await UniversalBle.requestMtu(onConnectionChanged.deviceId, 512);
     statefulDevice.mtu = mtu;
   }
 }

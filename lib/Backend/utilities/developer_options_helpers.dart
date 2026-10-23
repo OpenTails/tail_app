@@ -7,6 +7,6 @@ bool get isDeveloperEnabled => HiveProxy.getOrDefault(
   defaultValue: showDebuggingDefault,
 );
 
-bool get disableSentryFiltering =>
+bool get bypassSentryFiltering =>
     isDeveloperEnabled &&
     HiveProxy.getOrDefault(settings, sendAllSentryEvents, defaultValue: false);

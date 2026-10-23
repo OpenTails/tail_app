@@ -2,49 +2,29 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:universal_ble/universal_ble.dart';
 
-part 'bluetooth_stream_helpers.freezed.dart';
 
 final _logger = Logger('Bluetooth');
 // This class exists to map the value changed callback to a stream
-StreamController<RxInfo> _streamController = StreamController();
-Stream<RxInfo> _streamBroadcast = _streamController.stream.asBroadcastStream();
+StreamController<BleCharacteristicValue> _streamController = StreamController();
+Stream<BleCharacteristicValue> _streamBroadcast = _streamController.stream.asBroadcastStream();
 
 /// Both the listener for [UniversalBle.onValueChange] and an entrypoint to inject incoming messages into the state machine.
 /// Adds messages to the relevant stream. usually [getRxStream]
 void onBluetoothCharacteristicValueUpdate(
-  String deviceId,
-  String characteristicId,
-  Uint8List value,
-  int? timestamp,
+  BleCharacteristicValue bleCharacteristicValue,
 ) {
   if (!_streamController.hasListener) {
     return;
   }
   _streamController.add(
-    RxInfo(
-      deviceId: deviceId,
-      characteristicId: characteristicId,
-      value: value,
-      timestamp: timestamp,
-    ),
+    bleCharacteristicValue
   );
 }
 
-@freezed
-abstract class RxInfo with _$RxInfo {
-  const RxInfo._();
 
-  const factory RxInfo({
-    required String deviceId,
-    required String characteristicId,
-    required Uint8List value,
-    int? timestamp,
-  }) = _RxInfo;
-}
 
 /// THe characteristic change stream but filtered by device and characteristic id;
 Stream<Uint8List> getBaseRxStream(String macAddress, String characteristicId) {

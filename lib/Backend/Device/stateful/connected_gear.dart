@@ -9,6 +9,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Device/stateful/battery_status.dart';
 import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
+import 'package:universal_ble/universal_ble.dart';
 
 import '../../Bluetooth/bluetooth_message.dart';
 import '../../Bluetooth/bluetooth_stream_helpers.dart';
@@ -361,10 +362,12 @@ class StatefulDevice extends ChangeNotifier {
       return;
     }
     onBluetoothCharacteristicValueUpdate(
-      storedDevice.btMACAddress,
-      bluetoothUartService!.bleRxCharacteristic,
-      const Utf8Encoder().convert(message),
-      0,
+      BleCharacteristicValue(
+        deviceId: storedDevice.btMACAddress,
+        characteristicId: bluetoothUartService!.bleRxCharacteristic,
+        value: const Utf8Encoder().convert(message),
+        timestamp: 0,
+      ),
     );
   }
 

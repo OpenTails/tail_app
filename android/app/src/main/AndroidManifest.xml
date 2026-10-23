@@ -112,10 +112,6 @@
                 <action android:name="io.rebble.pebblekit2.RECEIVE_DATA_FROM_WATCH" />
             </intent-filter>
         </service>
-
-        <meta-data
-            android:name="io.sentry.dsn"
-            android:value="String@SentryDSN" />
     </application>
     <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>

@@ -63,7 +63,7 @@ FutureOr<SentryEvent?> beforeSend(SentryEvent event, Hint hint) async {
   if (isHiveReady) {
     DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
     reportingEnabled =
-        disableSentryFiltering ||
+        bypassSentryFiltering ||
         (dynamicConfigInfo.featureFlags.enableErrorReporting &&
             _random.nextDouble() <= dynamicConfigInfo.sentryConfig.sampleRate);
   }
@@ -80,7 +80,7 @@ FutureOr<SentryTransaction?> beforeSendTransaction(
 ) async {
   if (isHiveReady) {
     DynamicConfigInfo dynamicConfigInfo = await getDynamicConfigInfo();
-    if (disableSentryFiltering ||
+    if (bypassSentryFiltering ||
         _random.nextDouble() <=
             dynamicConfigInfo.sentryConfig.tracesSampleRate) {
       return transaction;
@@ -91,8 +91,8 @@ FutureOr<SentryTransaction?> beforeSendTransaction(
   return transaction;
 }
 
-FutureOr<SentryLog?> beforeSendLog(SentryLog log) {
-  if (!disableSentryFiltering) {
+FutureOr<SentryLog?> beforeSendLog(SentryLog log, Hint hint) {
+  if (!bypassSentryFiltering) {
     return null;
   }
   return log;
@@ -150,7 +150,6 @@ Future<void> startSentryApp(Widget child) async {
             true //TODO: configure dynamically after sentry inits
         ..attachScreenshot = true
         ..enableTombstone = true
-        ..enableLogs = true
         ..enableTombstone = true
         ..privacy.maskAllImages = false
         ..privacy.maskAllText =
@@ -158,7 +157,7 @@ Future<void> startSentryApp(Widget child) async {
         ..screenshotQuality = SentryScreenshotQuality.low
         ..includeModuleInStackTrace = true
         ..replay.sessionSampleRate = 0.1
-        ..replay.onErrorSampleRate = 0.5;
+        ..replay.onErrorSampleRate = 1;
     },
     // Init your App.
     // ignore: missing_provider_scope
@@ -185,7 +184,7 @@ class EventSampleRateFilter implements EventProcessor {
               allowErrorReporting,
               defaultValue: allowErrorReportingDefault,
             ) ||
-            !disableSentryFiltering)) {
+            !bypassSentryFiltering)) {
       return null;
     }
     event.environment = environment;
