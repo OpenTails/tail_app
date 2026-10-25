@@ -7,20 +7,10 @@ allprojects {
 var flutterCompileSdkVersion = 37
 subprojects {
     afterEvaluate {
-        plugins.withType<com.flutter.gradle.FlutterPlugin> {
-            configure<com.flutter.gradle.FlutterExtension> {
-                flutterCompileSdkVersion = compileSdkVersion
-            }
-        }
-
         plugins.withType<com.android.build.gradle.BasePlugin> {
             configure<com.android.build.gradle.BaseExtension> {
-                val current =
-                    (compileSdkVersion ?: "android-1").substring(8).toInt()
-                if (current < flutterCompileSdkVersion) {
                     compileSdkVersion(flutterCompileSdkVersion)
-                }
-
+                
                 compileOptions {
                     sourceCompatibility = JavaVersion.VERSION_21
                     targetCompatibility = JavaVersion.VERSION_21
@@ -54,7 +44,7 @@ subprojects {
 configurations.all {
     resolutionStrategy {
         force("androidx.core:core-ktx:1.18.0")
-        force("org.jetbrains.kotlin:kotlin-stdlib:2.3.21")
+        force("org.jetbrains.kotlin:kotlin-stdlib:2.4.21")
     }
 }
 val newBuildDir: Directory =
