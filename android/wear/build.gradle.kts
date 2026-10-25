@@ -123,7 +123,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.10.5")
     implementation("androidx.wear:wear-remote-interactions:1.2.0")
     implementation("androidx.wear:wear-tooling-preview:1.0.0")
-    implementation("com.google.guava:guava:31.0.1-android")
+    implementation("com.google.guava:guava:33.7.2-android")
 
     androidTestImplementation(platform("androidx.compose:compose-bom:2026.05.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
