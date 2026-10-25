@@ -74,9 +74,11 @@ class OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).canvasColor,
-      child: SafeArea(
+    return Scaffold(
+      extendBody: true,
+      body: Container(
+        color: Theme.of(context).canvasColor,
+
         child: ListenableBuilder(
           listenable: UserLocale.instance,
           builder: (context, child) {
