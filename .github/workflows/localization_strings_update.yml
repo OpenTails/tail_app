@@ -10,7 +10,7 @@ jobs:
       contents: write           # 'write' access to repository contents
       pull-requests: write      # 'write' access to pull requests
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.ref_name }}   # must be a branch, not a tag or SHA (detached HEAD)
           fetch-depth: 0

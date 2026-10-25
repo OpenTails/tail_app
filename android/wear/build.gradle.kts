@@ -105,11 +105,11 @@ composeCompiler {
 dependencies {
 
     implementation("com.google.android.gms:play-services-wearable:19.0.0")
-    implementation(platform("androidx.compose:compose-bom:2026.03.00"))
+    implementation(platform("androidx.compose:compose-bom:2026.05.01"))
     implementation("androidx.wear.compose:compose-ui-tooling")
     implementation("androidx.wear.compose:compose-navigation")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.wear.compose:compose-material3:1.5.6")
+    implementation("androidx.wear.compose:compose-material3:1.6.2")
     implementation("androidx.wear.compose:compose-foundation")
     implementation("androidx.compose.foundation:foundation:1.11.1")
     implementation("androidx.activity:activity-compose:1.13.0")
@@ -123,9 +123,9 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.10.5")
     implementation("androidx.wear:wear-remote-interactions:1.2.0")
     implementation("androidx.wear:wear-tooling-preview:1.0.0")
-    implementation("com.google.guava:guava:31.0.1-android")
+    implementation("com.google.guava:guava:33.7.2-android")
 
-    androidTestImplementation(platform("androidx.compose:compose-bom:2026.03.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2026.05.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
