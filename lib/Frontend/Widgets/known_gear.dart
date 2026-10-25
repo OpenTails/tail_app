@@ -3,6 +3,7 @@ import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
+import 'package:tail_app/Frontend/Widgets/gear_battery_bar.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
@@ -204,174 +205,131 @@ class _KnownGearCardState extends State<KnownGearCard> {
     return FadeIn(
       child: ValueListenableBuilder(
         valueListenable: widget.statefulDevice.deviceConnectionState,
-        builder: (BuildContext context, ConnectivityState connectivityState, Widget? child) {
-          return Flash(
-            animate: connectivityState == ConnectivityState.connected,
-            child: ListenableBuilder(
-              listenable: Listenable.merge([
-                widget.statefulDevice.firmwareStatus,
-              ]),
-              builder: (BuildContext context, Widget? child) {
-                return Badge(
-                  isLabelVisible:
-                      widget.statefulDevice.firmwareStatus.hasUpdate,
-                  largeSize: 35,
-                  backgroundColor: ColorScheme.of(context).primaryContainer,
-                  label: Icon(
-                    Symbols.system_update,
-                    color: ColorScheme.of(context).onPrimaryContainer,
-                  ),
-                  child: Badge(
-                    isLabelVisible:
-                        widget
-                            .statefulDevice
-                            .firmwareStatus
-                            .mandatoryOtaRequired ||
-                        widget.statefulDevice.deviceDefinition.unsupported,
-                    largeSize: 35,
-                    alignment: AlignmentGeometry.topStart,
-                    backgroundColor: ColorScheme.of(context).error,
-                    label: Icon(
-                      Symbols.warning,
-                      color: ColorScheme.of(context).onError,
-                    ),
-                    child: Badge(
-                      alignment: AlignmentGeometry.bottomLeft,
-                      isLabelVisible: isDemoGear(widget.statefulDevice),
-                      label: Text(scanDemoGear()),
-                      textColor: ColorScheme.of(context).onSecondaryContainer,
-                      backgroundColor: ColorScheme.of(
-                        context,
-                      ).secondaryContainer,
-                      offset: Offset(0, -10),
-                      child: child,
-                    ),
-                  ),
-                );
-              },
-              child: TweenAnimationBuilder(
-                tween: connectivityState == ConnectivityState.connected
-                    ? Tween<double>(begin: 0, end: 1)
-                    : Tween<double>(begin: 1, end: 0),
-                duration: animationTransitionDuration,
-                builder: (BuildContext context, double value, Widget? child) {
-                  Color? cardColor = Color.lerp(
-                    Theme.of(context).cardColor,
-                    Color(widget.statefulDevice.storedDevice.color),
-                    value,
-                  );
-                  Color textColor = getTextColor(
-                    color: cardColor!,
-                    context: context,
-                  );
-                  return Card(
-                    clipBehavior: Clip.antiAlias,
-                    color: cardColor,
-                    margin: const EdgeInsets.all(4),
-
-                    child: InkWell(
-                      onTap: () async {
-                        ManageGearRoute(
-                          btMac:
-                              widget.statefulDevice.storedDevice.btMACAddress,
-                        ).push(context).then((value) {
-                          setState(() {}); //force widget update
-                          return;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 50,
-                          width: 100,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  convertToUwU(
-                                    widget.statefulDevice.storedDevice.name,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.labelLarge!
-                                      .copyWith(color: textColor),
-                                ),
-                              ),
-                              Expanded(
-                                child: AnimatedCrossFade(
-                                  firstChild: ListenableBuilder(
-                                    listenable: widget.statefulDevice.battery,
-                                    builder: (context, child) => Stack(
-                                      alignment: AlignmentGeometry.center,
-                                      children: [
-                                        Flash(
-                                          animate: widget
-                                              .statefulDevice
-                                              .battery
-                                              .isLow,
-                                          infinite: true,
-                                          child: LinearProgressIndicator(
-                                            minHeight: 16,
-                                            color: textColor,
-                                            backgroundColor: textColor
-                                                .withAlpha(100),
-                                            borderRadius: BorderRadius.circular(
-                                              16,
-                                            ),
-                                            value:
-                                                widget
-                                                        .statefulDevice
-                                                        .battery
-                                                        .averagedCurrentLevel >
-                                                    -1
-                                                ? widget
-                                                          .statefulDevice
-                                                          .battery
-                                                          .averagedCurrentLevel /
-                                                      100
-                                                : null,
-                                          ),
-                                        ),
-                                        Icon(
-                                          widget
-                                                  .statefulDevice
-                                                  .battery
-                                                  .isCharging
-                                              ? Symbols
-                                                    .battery_android_bolt_rounded
-                                              : Symbols.battery_android_0,
-                                          color: getTextColor(
-                                            color: textColor,
-                                            context: context,
-                                            invert: false,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  secondChild: Icon(
-                                    Symbols.bluetooth_disabled,
-                                    color: textColor,
-                                  ),
-                                  crossFadeState:
-                                      connectivityState ==
-                                          ConnectivityState.connected
-                                      ? CrossFadeState.showFirst
-                                      : CrossFadeState.showSecond,
-                                  duration: animationTransitionDuration,
-                                ),
-                              ),
-                            ],
-                          ),
+        builder:
+            (
+              BuildContext context,
+              ConnectivityState connectivityState,
+              Widget? child,
+            ) {
+              return Flash(
+                animate: connectivityState == ConnectivityState.connected,
+                child: ListenableBuilder(
+                  listenable: Listenable.merge([
+                    widget.statefulDevice.firmwareStatus,
+                  ]),
+                  builder: (BuildContext context, Widget? child) {
+                    return Badge(
+                      isLabelVisible:
+                          widget.statefulDevice.firmwareStatus.hasUpdate,
+                      largeSize: 35,
+                      backgroundColor: ColorScheme.of(context).primaryContainer,
+                      label: Icon(
+                        Symbols.system_update,
+                        color: ColorScheme.of(context).onPrimaryContainer,
+                      ),
+                      child: Badge(
+                        isLabelVisible:
+                            widget
+                                .statefulDevice
+                                .firmwareStatus
+                                .mandatoryOtaRequired ||
+                            widget.statefulDevice.deviceDefinition.unsupported,
+                        largeSize: 35,
+                        alignment: AlignmentGeometry.topStart,
+                        backgroundColor: ColorScheme.of(context).error,
+                        label: Icon(
+                          Symbols.warning,
+                          color: ColorScheme.of(context).onError,
+                        ),
+                        child: Badge(
+                          alignment: AlignmentGeometry.bottomLeft,
+                          isLabelVisible: isDemoGear(widget.statefulDevice),
+                          label: Text(scanDemoGear()),
+                          textColor: ColorScheme.of(
+                            context,
+                          ).onSecondaryContainer,
+                          backgroundColor: ColorScheme.of(
+                            context,
+                          ).secondaryContainer,
+                          offset: Offset(0, -10),
+                          child: child,
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          );
-        },
+                    );
+                  },
+                  child: TweenAnimationBuilder(
+                    tween: connectivityState == ConnectivityState.connected
+                        ? Tween<double>(begin: 0, end: 1)
+                        : Tween<double>(begin: 1, end: 0),
+                    duration: animationTransitionDuration,
+                    builder:
+                        (BuildContext context, double value, Widget? child) {
+                          Color? cardColor = Color.lerp(
+                            Theme.of(context).cardColor,
+                            Color(widget.statefulDevice.storedDevice.color),
+                            value,
+                          );
+                          Color textColor = getTextColor(
+                            color: cardColor!,
+                            context: context,
+                          );
+                          return Card(
+                            clipBehavior: Clip.antiAlias,
+                            color: cardColor,
+                            margin: const EdgeInsets.all(4),
+
+                            child: InkWell(
+                              onTap: () async {
+                                ManageGearRoute(
+                                  btMac: widget
+                                      .statefulDevice
+                                      .storedDevice
+                                      .btMACAddress,
+                                ).push(context).then((value) {
+                                  setState(() {}); //force widget update
+                                  return;
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  height: 50,
+                                  width: 100,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          convertToUwU(
+                                            widget
+                                                .statefulDevice
+                                                .storedDevice
+                                                .name,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge!
+                                              .copyWith(color: textColor),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: GearBatteryBar(
+                                          statefulDevice: widget.statefulDevice,
+                                          textColor: textColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                  ),
+                ),
+              );
+            },
       ),
     );
   }

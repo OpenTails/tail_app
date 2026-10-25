@@ -12,6 +12,7 @@ import 'package:tail_app/Backend/move_lists_backend.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 import 'package:tail_app/Backend/utilities/developer_options_helpers.dart';
 import 'package:tail_app/Backend/utilities/version.dart';
+import 'package:tail_app/Frontend/Widgets/gear_battery_bar.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -126,6 +127,8 @@ class _ManageGearState extends State<ManageGear> {
                 titleAlignment: ListTileTitleAlignment.top,
                 leading: device!.deviceDefinition.deviceType.icon(60, color!),
               ),
+              ManageGearBatteryGraph(device: device!, color: color!),
+
               ListTile(
                 title: Text(convertToUwU(manageDevicesColor())),
                 trailing: ColorIndicator(
@@ -166,7 +169,6 @@ class _ManageGearState extends State<ManageGear> {
                 if (device!.deviceDefinition.deviceType == DeviceType.ears) ...[
                   ManageGearHomePosition(device: device!),
                 ],
-                ManageGearBatteryGraph(device: device!),
                 ManageGearConventionMode(device: device!),
                 ManageGearDebug(device: device!),
               ],
@@ -471,85 +473,93 @@ class ManageGearAbout extends StatelessWidget {
 
 class ManageGearBatteryGraph extends StatelessWidget {
   final StatefulDevice device;
-
-  const ManageGearBatteryGraph({super.key, required this.device});
+  final Color color;
+  const ManageGearBatteryGraph({
+    super.key,
+    required this.device,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text(convertToUwU(manageDevicesBatteryGraphTitle())),
-      children: [
-        SizedBox(
-          height: 200,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              right: 16,
-              top: 16,
-              bottom: 16,
-              left: 16,
-            ),
-            child: ListenableBuilder(
-              listenable: device.battery,
-              builder: (context, child) => LineChart(
-                LineChartData(
-                  titlesData: FlTitlesData(
-                    rightTitles: AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    topTitles: AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    leftTitles: AxisTitles(
-                      axisNameWidget: Text(convertToUwU('Battery')),
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        maxIncluded: true,
-                        minIncluded: true,
-                        reservedSize: 40,
-                      ),
-                    ),
-                    bottomTitles: AxisTitles(
-                      axisNameWidget: Text(convertToUwU('Time (1hr)')),
-                      sideTitles: SideTitles(showTitles: false),
+    return ListTile(
+      title: GearBatteryBar(
+        statefulDevice: device,
+        textColor: color,
+        showPercentage: true,
+      ),
+      subtitle: SizedBox(
+        height: 100,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            right: 16,
+            top: 8,
+            bottom: 16,
+            left: 8,
+          ),
+          child: ListenableBuilder(
+            listenable: device.battery,
+            builder: (context, child) => LineChart(
+              LineChartData(
+                titlesData: FlTitlesData(
+                  rightTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  topTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      maxIncluded: true,
+                      minIncluded: true,
+                      interval: 50,
+                      getTitlesWidget: (value, meta) =>
+                          Text("${value.toInt()}%"),
+                      reservedSize: 40,
                     ),
                   ),
-                  lineTouchData: const LineTouchData(enabled: false),
-                  borderData: FlBorderData(show: false),
-                  gridData: FlGridData(
-                    verticalInterval: 10,
-                    horizontalInterval: 25,
+                  bottomTitles: AxisTitles(
+                    axisNameWidget: Text(convertToUwU('Time (1hr)')),
+                    sideTitles: SideTitles(showTitles: false),
                   ),
-                  minY: 0,
-                  maxY: 100,
-                  minX: 0,
-                  maxX: 60,
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: device.battery.averageHistory
-                          .mapIndexed(
-                            (index, element) => FlSpot(
-                              (60 - device.battery.averageHistory.length) +
-                                  index.toDouble(),
-                              element,
-                            ),
-                          )
-                          .toList(),
-                      color: Theme.of(context).colorScheme.primary,
-                      dotData: const FlDotData(show: false),
-                      isCurved: true,
-                      isStrokeCapRound: true,
-                      curveSmoothness: 0.1,
-                      barWidth: 6,
-                      preventCurveOverShooting: true,
-                      show: device.battery.averageHistory.isNotEmpty,
-                    ),
-                  ],
                 ),
+                lineTouchData: const LineTouchData(enabled: false),
+                borderData: FlBorderData(show: false),
+                gridData: FlGridData(
+                  verticalInterval: 10,
+                  horizontalInterval: 50,
+                ),
+                minY: 0,
+                maxY: 100,
+                minX: 0,
+                maxX: 60,
+                lineBarsData: [
+                  LineChartBarData(
+                    spots: device.battery.averageHistory
+                        .mapIndexed(
+                          (index, element) => FlSpot(
+                            (60 - device.battery.averageHistory.length) +
+                                index.toDouble(),
+                            element,
+                          ),
+                        )
+                        .toList(),
+                    color: Theme.of(context).colorScheme.primary,
+                    dotData: const FlDotData(show: false),
+                    isCurved: true,
+                    isStrokeCapRound: true,
+                    curveSmoothness: 0.1,
+                    barWidth: 6,
+                    preventCurveOverShooting: true,
+                    show: device.battery.averageHistory.isNotEmpty,
+                  ),
+                ],
               ),
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

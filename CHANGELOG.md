@@ -6,6 +6,7 @@
 - Fix audio action text editing
 - Kitsune mode now only applies to tails
 - Moved update notice to a card, instead of an annoying popup
+- add 1 hour battery graph to gear info page
 - Bug fixes
 
 ### V1.6.1
