@@ -6,7 +6,7 @@ part 'bluetooth_message.freezed.dart';
 
 enum Priority { low, normal, high }
 
-enum CommandType { system, move, direct }
+enum CommandType { system, move }
 
 @freezed
 class BluetoothMessage

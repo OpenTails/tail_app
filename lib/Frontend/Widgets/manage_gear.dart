@@ -1083,7 +1083,7 @@ class _ManageGearHomePositionState extends State<ManageGearHomePosition> {
     generateMoveCommand(
       move,
       widget.device,
-      CommandType.direct,
+      CommandType.system,
       priority: Priority.high,
     );
     BluetoothMessage bluetoothMessage = BluetoothMessage(

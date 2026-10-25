@@ -255,17 +255,6 @@ class CommandQueue with ChangeNotifier {
     }
 
     _logger.info("Adding command to queue $bluetoothMessage");
-
-    // preempt queue if other direct commands exist. used for joystick
-    if (bluetoothMessage.type == CommandType.direct) {
-      _internalCommandQueue
-          .toUnorderedList()
-          .where(
-            (element) =>
-                [CommandType.move, CommandType.direct].contains(element.type),
-          )
-          .forEach(_internalCommandQueue.remove);
-    }
     _internalCommandQueue.add(bluetoothMessage);
     // Start the queue is its stopped/idle
     if (state == CommandQueueState.empty) {

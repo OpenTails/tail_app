@@ -77,7 +77,7 @@ class _JoystickState extends State<DirectGearControl> {
                               generateMoveCommand(
                                 move,
                                 element,
-                                CommandType.direct,
+                                CommandType.system,
                                 noResponseMsg: true,
                                 priority: Priority.high,
                               ).forEach((message) {
@@ -163,7 +163,7 @@ class _JoystickState extends State<DirectGearControl> {
           generateMoveCommand(
             move,
             element,
-            CommandType.direct,
+            CommandType.system,
             priority: Priority.high,
             noResponseMsg: true,
           ).forEach((message) {
