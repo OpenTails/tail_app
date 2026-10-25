@@ -98,7 +98,6 @@ class CommandQueue with ChangeNotifier {
   }
 
   void _endCommand() {
-    
     // trigger the battery cooldown on move end
     if (currentMessage != null && currentMessage!.type != CommandType.system) {
       device.battery.startBatteryMoveCooldown();
@@ -160,6 +159,7 @@ class CommandQueue with ChangeNotifier {
         if (currentMessage?.type != CommandType.move &&
             currentMessage?.responseMSG == null &&
             currentMessage?.delay == null) {
+          _setState(CommandQueueState.idle);
           break;
         }
       case CommandQueueState.waitingForResponse:
