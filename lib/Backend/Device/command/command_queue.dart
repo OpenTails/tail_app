@@ -157,7 +157,7 @@ class CommandQueue with ChangeNotifier {
     switch (state) {
       case CommandQueueState.running:
         // make fire & forget system messages non-blocking
-        if (currentMessage?.type == CommandType.system &&
+        if (currentMessage?.type != CommandType.move &&
             currentMessage?.responseMSG == null &&
             currentMessage?.delay == null) {
           break;
