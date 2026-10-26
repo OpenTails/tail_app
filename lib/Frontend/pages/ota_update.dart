@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -17,7 +19,6 @@ class OtaUpdate extends StatefulWidget {
   late final OtaUpdater otaUpdater;
   final String deviceMac;
   late final StatefulDevice device;
-
   OtaUpdate({required this.deviceMac, super.key}) {
     device = KnownDevices.instance.state[deviceMac]!;
     otaUpdater = OtaUpdater(device);
@@ -29,6 +30,7 @@ class OtaUpdate extends StatefulWidget {
 
 class _OtaUpdateState extends State<OtaUpdate> {
   OtaError? otaError;
+  Timer? otaFinishedPopTimer;
 
   @override
   void initState() {
@@ -43,10 +45,23 @@ class _OtaUpdateState extends State<OtaUpdate> {
   void dispose() {
     super.dispose();
     widget.otaUpdater.removeListener(onStateChange);
+    if (otaFinishedPopTimer != null) {
+      otaFinishedPopTimer?.cancel();
+      otaFinishedPopTimer = null;
+    }
   }
 
   void onStateChange() {
     setState(() {});
+
+    // leave ota screen after a few seconds when completed
+    if (widget.otaUpdater.otaState == OtaState.completed) {
+      otaFinishedPopTimer = Timer(Duration(seconds: 5), () {
+        if (mounted && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      });
+    }
   }
 
   String getErrorMessage(OtaError otaError) {
