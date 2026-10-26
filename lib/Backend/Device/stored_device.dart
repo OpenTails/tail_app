@@ -1,95 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
 
 import '../utilities/version.dart';
 import 'common_device_stuffs.dart';
 
-part 'stored_device.freezed.dart';
-
 part 'stored_device.g.dart';
-
-@freezed
-// TailControl only
-abstract class GearConfigInfo with _$GearConfigInfo {
-  const GearConfigInfo._();
-
-  const factory GearConfigInfo({
-    @Default("") String ver,
-    @Default("") String minsToSleep,
-    @Default("") String minsToNPM,
-    @Default("") String minNPMPauseSec,
-    @Default("") String maxNPMPauseSec,
-    @Default("") String groupsNPM,
-    @Default("") String servo1home,
-    @Default("") String servo2home,
-    @Default("") String listenModeNPMEnabled,
-    @Default("") String listenModeResponseOnly,
-    @Default("") String groupsLM,
-    @Default("") String tiltModeNPMEnabled,
-    @Default("") String tiltModeResponseOnly,
-    @Default("") String disconnectedCountdownEnabled,
-    @Default("") String homeOnAppPoweroff,
-    @Default("") String conferenceModeEnabled,
-    @Default("") String securityPasskey,
-    @Default("") String numRGBLEDs,
-    @Default("") String maxRGBVolt,
-    @Default("") String maxRGBmAmp,
-  }) = _GearConfigInfo;
-
-  factory GearConfigInfo.fromGearString(String fwInput) {
-    List<String> values = fwInput.split(" ");
-    String ver = values[0];
-    String minsToSleep = values.length > 1 ? values[1] : "";
-    String minsToNPM = values.length > 2 ? values[2] : "";
-    String minNPMPauseSec = values.length > 3 ? values[3] : "";
-    String maxNPMPauseSec = values.length > 4 ? values[4] : "";
-    String groupsNPM = values.length > 5 ? values[5] : "";
-    String servo1home = values.length > 6 ? values[6] : "";
-    String servo2home = values.length > 7 ? values[7] : "";
-    String listenModeNPMEnabled = values.length > 8 ? values[8] : "";
-    String listenModeResponseOnly = values.length > 9 ? values[9] : "";
-    String groupsLM = values.length > 10 ? values[10] : "";
-    String tiltModeNPMEnabled = values.length > 11 ? values[11] : "";
-    String tiltModeResponseOnly = values.length > 12 ? values[12] : "";
-    String disconnectedCountdownEnabled = values.length > 13 ? values[13] : "";
-    String homeOnAppPoweroff = values.length > 14 ? values[14] : "";
-    String conferenceModeEnabled = values.length > 15 ? values[15] : "";
-    String securityPasskey = values.length > 16 ? values[16] : "";
-    String numRGBLEDs = values.length > 17 ? values[17] : "";
-    String maxRGBVolt = values.length > 18 ? values[18] : "";
-    String maxRGBmAmp = values.length > 19 ? values[19] : "";
-
-    return GearConfigInfo(
-      ver: ver,
-      minsToSleep: minsToSleep,
-      minsToNPM: minsToNPM,
-      minNPMPauseSec: minNPMPauseSec,
-      maxNPMPauseSec: maxNPMPauseSec,
-      groupsNPM: groupsNPM,
-      servo1home: servo1home,
-      servo2home: servo2home,
-      listenModeNPMEnabled: listenModeNPMEnabled,
-      listenModeResponseOnly: listenModeResponseOnly,
-      groupsLM: groupsLM,
-      tiltModeNPMEnabled: tiltModeNPMEnabled,
-      tiltModeResponseOnly: tiltModeResponseOnly,
-      disconnectedCountdownEnabled: disconnectedCountdownEnabled,
-      homeOnAppPoweroff: homeOnAppPoweroff,
-      conferenceModeEnabled: conferenceModeEnabled,
-      securityPasskey: securityPasskey,
-      numRGBLEDs: numRGBLEDs,
-      maxRGBVolt: maxRGBVolt,
-      maxRGBmAmp: maxRGBmAmp,
-    );
-  }
-
-  String toGearString() {
-    return "$ver $minsToSleep $minsToNPM $minNPMPauseSec $maxNPMPauseSec $groupsNPM $servo1home $servo2home $listenModeNPMEnabled $listenModeResponseOnly $groupsLM $tiltModeNPMEnabled $tiltModeResponseOnly $disconnectedCountdownEnabled $homeOnAppPoweroff $conferenceModeEnabled $securityPasskey $numRGBLEDs $maxRGBVolt $maxRGBmAmp";
-  }
-}
 
 // All serialized/stored data
 @HiveType(typeId: 1)
@@ -109,8 +26,16 @@ class StoredDevice extends ChangeNotifier {
   int rightHomePosition = 1;
   @HiveField(12, defaultValue: "")
   String conModePin = "";
+  bool _conModeEnabled = false;
+
   @HiveField(13, defaultValue: false)
-  bool conModeEnabled = false;
+  bool get conModeEnabled => _conModeEnabled;
+
+  @HiveField(13, defaultValue: false)
+  set conModeEnabled(bool value) {
+    _conModeEnabled = value;
+    notifyListeners();
+  }
 
   @HiveField(14, defaultValue: GlowtipStatus.unknown)
   GlowtipStatus hasGlowtip = GlowtipStatus.unknown;

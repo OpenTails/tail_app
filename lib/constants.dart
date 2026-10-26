@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:tail_app/Backend/Action/action_category.dart';
+import 'package:tail_app/Backend/utilities/version.dart';
 
 import 'Backend/Device/device_type_enum.dart';
 import 'Backend/Device/ear_speed_enum.dart';
@@ -8,6 +9,11 @@ import 'Backend/Device/ear_speed_enum.dart';
 const int kitsuneDelayRange = 1000;
 const Duration animationTransitionDuration = Duration(milliseconds: 200);
 const String demoGearPrefix = "DEV";
+const Version conventionModeMinFirmwareVersion = Version(
+  major: 5,
+  minor: 4,
+  patch: 11,
+);
 
 // Settings labels
 const String settings = 'settings';

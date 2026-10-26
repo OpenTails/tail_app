@@ -9,6 +9,7 @@ import 'package:tail_app/Backend/Bluetooth/bluetooth_manager.dart';
 import 'package:tail_app/Backend/Device/stateful/battery_status.dart';
 import 'package:tail_app/Backend/Device/stateful/firmware_status.dart';
 import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
+import 'package:tail_app/constants.dart';
 import 'package:universal_ble/universal_ble.dart';
 
 import '../../Bluetooth/bluetooth_message.dart';
@@ -99,10 +100,6 @@ class StatefulDevice extends ChangeNotifier {
       _onGearSupportedFeatureChanged();
     }
   }
-
-  final ValueNotifier<GearConfigInfo> gearConfigInfo = ValueNotifier(
-    GearConfigInfo(),
-  );
 
   Stream<String>? rxCharacteristicStream;
   StreamSubscription? _periodicTimerStream;
@@ -263,9 +260,16 @@ class StatefulDevice extends ChangeNotifier {
       firmwareStatus.firmwareVersion = Version.getFromSemVer(
         value.substring(value.indexOf(" ")),
       );
-      if (bluetoothUartService != null && bluetoothUartService!.isTailcontrol) {
-        commandQueue.addCommand(BluetoothMessage(message: "READNVS"));
+      if (firmwareStatus.firmwareVersion.compareTo(
+            conventionModeMinFirmwareVersion,
+          ) >=
+          0) {
+        // Convention mode status
+        commandQueue.addCommand(
+          BluetoothMessage(message: "PUSSKEYSTATE", type: CommandType.system),
+        );
       }
+
       // Sent after VER message
     } else if (value.startsWith("GLOWTIP")) {
       String substring = value.substring(value.indexOf(" ")).trim();
@@ -297,14 +301,9 @@ class StatefulDevice extends ChangeNotifier {
         value.contains("FLUTTERWINGS")) {
       // Hardware Version
       firmwareStatus.hardwareVersion = value.substring(value.indexOf(" "));
-    } else if (value.contains("READNVS")) {
-      try {
-        gearConfigInfo.value = GearConfigInfo.fromGearString(
-          value.replaceFirst("READNVS ", ""),
-        );
-      } on Exception {
-        //_bluetoothPlusLogger.warning("Unable to parse NVS data: $e");
-      }
+    } else if (value.contains("CONMODE")) {
+      String substring = value.substring(value.indexOf(" ")).trim();
+      storedDevice.conModeEnabled = substring == 'ENABLED';
     } else if (int.tryParse(value) != null) {
       // Battery Level
       battery.level = int.parse(value).toDouble();

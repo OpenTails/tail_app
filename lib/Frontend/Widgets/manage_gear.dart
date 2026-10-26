@@ -15,6 +15,7 @@ import 'package:tail_app/Backend/utilities/version.dart';
 import 'package:tail_app/Frontend/Widgets/gear_battery_bar.dart';
 import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
+import 'package:tail_app/constants.dart';
 
 import '../../Backend/Bluetooth/bluetooth_manager.dart';
 import '../../Backend/Bluetooth/bluetooth_message.dart';
@@ -169,7 +170,12 @@ class _ManageGearState extends State<ManageGear> {
                 if (device!.deviceDefinition.deviceType == DeviceType.ears) ...[
                   ManageGearHomePosition(device: device!),
                 ],
-                ManageGearConventionMode(device: device!),
+                if (device!.storedDevice.firmwareVersion.compareTo(
+                      conventionModeMinFirmwareVersion,
+                    ) >=
+                    0) ...[
+                  ManageGearConventionMode(device: device!),
+                ],
                 ManageGearDebug(device: device!),
               ],
               // We only know this info if the gear is connected
@@ -349,10 +355,24 @@ class _ManageGearUpdateCheckButtonState
   }
 }
 
-class ManageGearConventionMode extends StatelessWidget {
+class ManageGearConventionMode extends StatefulWidget {
   final StatefulDevice device;
 
   const ManageGearConventionMode({super.key, required this.device});
+
+  @override
+  State<ManageGearConventionMode> createState() =>
+      _ManageGearConventionModeState();
+}
+
+class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
+  bool changingConModeState = false;
+  late ConnectivityState connectivityState;
+  @override
+  void initState() {
+    super.initState();
+    connectivityState = widget.device.deviceConnectionState.value;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -360,54 +380,72 @@ class ManageGearConventionMode extends StatelessWidget {
       title: Text(convertToUwU(manageGearConModeTitle())),
       subtitle: Text(convertToUwU(manageGearConModeDescription())),
       children: [
-        PageInfoCard(
-          text:
-              "Super secret anti hacker power (Insert guide and reset instructions here)",
-        ),
         ListTile(
           title: Text(convertToUwU(manageGearConModeToggleTitle())),
           subtitle: Text(
             convertToUwU(manageGearConModePincodeEnableDescription()),
           ),
-          trailing: ValueListenableBuilder(
-            valueListenable: device.deviceConnectionState,
-            builder: (context, connectivityState, child) => Switch(
-              value: device.storedDevice.conModeEnabled,
-              onChanged: connectivityState == ConnectivityState.connected
-                  ? (value) async {
-                      //TODO: Validate the setting took correctly. Reboot check?
-                      if (value) {
-                        BluetoothMessage bluetoothMessage = BluetoothMessage(
-                          message:
-                              "SETPUSSKEY ${device.storedDevice.conModePin}",
-                        );
-                        device.commandQueue.addCommand(bluetoothMessage);
-                        device.storedDevice.conModeEnabled = true;
-                        KnownDevices.instance.store();
-                        await Clipboard.setData(
-                          ClipboardData(text: device.storedDevice.conModePin),
-                        );
-                      } else {
-                        //TODO? if gear is disconnected and this is attempted, offer instructions to reset gear
-                        BluetoothMessage bluetoothMessage = BluetoothMessage(
-                          message: "STOPPUSSKEY",
-                        );
-                        device.commandQueue.addCommand(bluetoothMessage);
-                        device.storedDevice.conModeEnabled = false;
-                        KnownDevices.instance.store();
-                        forgetBond(device.storedDevice.btMACAddress);
-                        //TODO: add IOS instructions for clearing bonds
+          trailing: ListenableBuilder(
+            listenable: Listenable.merge([
+              widget.device.deviceConnectionState,
+              widget.device.storedDevice,
+            ]),
+            builder: (context, child) {
+              if (connectivityState !=
+                  widget.device.deviceConnectionState.value) {
+                changingConModeState = false;
+              }
+
+              if (changingConModeState) {
+                return CircularProgressIndicator();
+              }
+
+              return Switch(
+                value: widget.device.storedDevice.conModeEnabled,
+                onChanged:
+                    widget.device.deviceConnectionState.value ==
+                        ConnectivityState.connected
+                    ? (value) async {
+                        setState(() {
+                          changingConModeState = true;
+                        });
+                        if (value) {
+                          BluetoothMessage bluetoothMessage = BluetoothMessage(
+                            message:
+                                "SETPUSSKEY ${widget.device.storedDevice.conModePin}",
+                          );
+                          widget.device.commandQueue.addCommand(
+                            bluetoothMessage,
+                          );
+                          widget.device.storedDevice.conModeEnabled = true;
+                          KnownDevices.instance.store();
+                          await Clipboard.setData(
+                            ClipboardData(
+                              text: widget.device.storedDevice.conModePin,
+                            ),
+                          );
+                        } else {
+                          BluetoothMessage bluetoothMessage = BluetoothMessage(
+                            message: "STOPPUSSKEY",
+                          );
+                          widget.device.commandQueue.addCommand(
+                            bluetoothMessage,
+                          );
+                          widget.device.storedDevice.conModeEnabled = false;
+                          KnownDevices.instance.store();
+                          forgetBond(widget.device.storedDevice.btMACAddress);
+                        }
                       }
-                    }
-                  : null,
-            ),
+                    : null,
+              );
+            },
           ),
         ),
         OverflowBar(
           children: [
             FilledButton(
               onPressed: () => PinCodeRoute(
-                pin: device.storedDevice.conModePin,
+                pin: widget.device.storedDevice.conModePin,
               ).push(context),
               child: Text(manageGearConModePincodeTitle()),
             ),
@@ -608,12 +646,6 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                       Text("MTU: ${widget.device.mtu}"),
                       Text(
                         "MIN FIRMWARE: ${widget.device.deviceDefinition.minVersion}",
-                      ),
-                      ValueListenableBuilder(
-                        valueListenable: widget.device.gearConfigInfo,
-                        builder: (context, value, child) => Text(
-                          "NVS Config: ${widget.device.gearConfigInfo.value}",
-                        ),
                       ),
                       ListenableBuilder(
                         listenable: widget.device.commandQueue,
