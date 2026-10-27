@@ -77,7 +77,7 @@ class StatefulDevice extends ChangeNotifier {
   /// Prevents this gear from automatically reconnecting during the next BLE scan
   bool disableAutoConnect = false;
   bool forgetOnDisconnect = false;
-
+  bool forgetBondOnDisconnect = false;
   // Gear Features
   GlowtipStatus _hasGlowtip = GlowtipStatus.unknown;
 

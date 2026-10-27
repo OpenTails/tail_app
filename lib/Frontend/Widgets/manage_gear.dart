@@ -433,7 +433,7 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
                           );
                           widget.device.storedDevice.conModeEnabled = false;
                           KnownDevices.instance.store();
-                          forgetBond(widget.device.storedDevice.btMACAddress);
+                          widget.device.forgetBondOnDisconnect = true;
                         }
                       }
                     : null,

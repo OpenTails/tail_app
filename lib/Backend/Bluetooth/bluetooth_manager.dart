@@ -61,7 +61,7 @@ void _adapterStateListener(AvailabilityState state) {
 /// Maps the [UniveUniversalBle] connection state to [StatefulDevice] and fires off [discoverServices]
 /// disconnects if [id] doesn't match a [StoredDevice] in [KnownDevices]
 Future<void> _onConnectionStateChangedListener(
-    BleConnectionChange onConnectionChanged,
+  BleConnectionChange onConnectionChanged,
 ) async {
   Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   StatefulDevice statefulDevice;
@@ -81,6 +81,11 @@ Future<void> _onConnectionStateChangedListener(
     await discoverServices(onConnectionChanged.deviceId);
     int mtu = await UniversalBle.requestMtu(onConnectionChanged.deviceId, 512);
     statefulDevice.mtu = mtu;
+  } else {
+    if (statefulDevice.forgetBondOnDisconnect) {
+      statefulDevice.forgetBondOnDisconnect = false;
+      await forgetBond(onConnectionChanged.deviceId);
+    }
   }
 }
 
@@ -237,11 +242,11 @@ Future<void> forgetBond(String id) async {
     return;
   }
   // removing bonds is supported on android
-  if (!Platform.isAndroid) {
-    return;
-  }
   _logger.info("forgetting $id");
-  await UniversalBle.unpair(id);
+  await UniversalBle.unpair(id).onError(
+    (error, stackTrace) =>
+        _logger.warning("Failed to remove bond for device $id"),
+  );
 }
 
 /// Attempt to connect to the ble mac address, tries a few times
