@@ -282,13 +282,6 @@ Future<void> discoverServices(String id) async {
     }
   }
 
-  // Don't set immediately to avoid writes while con mode status is verified
-  statefulDevice.bluetoothUartService = bluetoothUartService;
-  if (!statefulDevice.isReady) {
-    _logger.severe("Bluetooth uart service not found for $id, Disconnecting");
-    await disconnect(id, "Bluetooth uart service not found");
-    return;
-  }
 
   // Subscribe to all notifications
   for (BleCharacteristic characteristic in characteristics) {
@@ -305,6 +298,13 @@ Future<void> discoverServices(String id) async {
         e,
       );
     }
+  }
+    // Don't set immediately to avoid writes while con mode status is verified
+  statefulDevice.bluetoothUartService = bluetoothUartService;
+  if (!statefulDevice.isReady) {
+    _logger.severe("Bluetooth uart service not found for $id, Disconnecting");
+    await disconnect(id, "Bluetooth uart service not found");
+    return;
   }
   span?.finish();
 }
