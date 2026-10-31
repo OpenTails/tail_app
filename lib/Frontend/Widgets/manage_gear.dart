@@ -408,18 +408,22 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
                     "You can attempt to re-enable convention mode with the same pairing pin or you can factory reset your gear by holding the power button for 13 seconds",
                   ),
                 ),
-                Wrap(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        widget.device.attemptBondingOnConnect = true;
-                        widget.device.disableAutoConnect =
-                            DisableReconnectReason.canReconnect;
-                        Navigator.of(context).pop();
-                      },
-                      child: Text("Re-pair your gear"),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Wrap(
+                    children: [
+                      FilledButton.icon(
+                        onPressed: () {
+                          widget.device.attemptBondingOnConnect = true;
+                          widget.device.disableAutoConnect =
+                              DisableReconnectReason.canReconnect;
+                          Navigator.of(context).pop();
+                        },
+                        label: Text("Re-pair your gear"),
+                        icon: Icon(Symbols.replay),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -489,11 +493,12 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
         ),
         OverflowBar(
           children: [
-            FilledButton(
+            FilledButton.icon(
               onPressed: () => PinCodeRoute(
                 pin: widget.device.storedDevice.conModePin,
               ).push(context),
-              child: Text(manageGearConModePincodeTitle()),
+              label: Text(manageGearConModePincodeTitle()),
+              icon: Icon(Symbols.pin),
             ),
           ],
         ),
