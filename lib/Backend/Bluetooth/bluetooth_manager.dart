@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -70,7 +72,10 @@ Future<void> _onConnectionStateChangedListener(
     statefulDevice = knownDevices[onConnectionChanged.deviceId]!;
   } else {
     if (onConnectionChanged.isConnected) {
-      await disconnect(onConnectionChanged.deviceId);
+      await disconnect(
+        onConnectionChanged.deviceId,
+        "Gear not in known gear list",
+      );
     }
     return;
   }
@@ -79,8 +84,14 @@ Future<void> _onConnectionStateChangedListener(
       : ConnectivityState.disconnected;
   if (onConnectionChanged.isConnected) {
     await discoverServices(onConnectionChanged.deviceId);
-    int mtu = await UniversalBle.requestMtu(onConnectionChanged.deviceId, 512);
-    statefulDevice.mtu = mtu;
+    // gear can be disconnected during discoverServices
+    if (statefulDevice.isConnected) {
+      int mtu = await UniversalBle.requestMtu(
+        onConnectionChanged.deviceId,
+        512,
+      );
+      statefulDevice.mtu = mtu;
+    }
   } else {
     if (statefulDevice.forgetBondOnDisconnect) {
       statefulDevice.forgetBondOnDisconnect = false;
@@ -165,20 +176,118 @@ Future<void> discoverServices(String id) async {
       .toList();
 
   // Find the RX/TX service
+  BluetoothUartService? bluetoothUartService;
   for (BleService service in services) {
-    BluetoothUartService? bluetoothUartService = uartServices.firstWhereOrNull(
+    bluetoothUartService = uartServices.firstWhereOrNull(
       (element) =>
           BleUuidParser.compareStrings(element.bleDeviceService, service.uuid),
     );
     if (bluetoothUartService != null) {
-      statefulDevice.bluetoothUartService = bluetoothUartService;
       break;
     }
   }
+  if (bluetoothUartService == null) {
+    _logger.severe("Bluetooth uart service not found for $id, Disconnecting");
+    await disconnect(id, "Bluetooth uart service not found");
+    return;
+  }
 
+  // Convention Mode
+  BleCharacteristic? conModeStatusCharacteristic = characteristics
+      .where(
+        (characteristic) =>
+            BleUuidParser.compareStrings(characteristic.uuid, "0x2A28"),
+      )
+      .firstOrNull;
+
+  if (conModeStatusCharacteristic != null) {
+    Uint8List conModeStatusRaw = await conModeStatusCharacteristic.read();
+    String conModeStatus = const Utf8Decoder().convert(conModeStatusRaw);
+    _logger.info("Convention mode status for device id $id: $conModeStatus");
+    if (conModeStatus == "CONMODE ENABLED") {
+      // con mode enabled on tail but not app
+      if (!statefulDevice.storedDevice.conModeEnabled) {
+        statefulDevice.disableAutoConnect = DisableReconnectReason.missingBond;
+        await disconnect(id, "con mode enabled on tail but not app");
+        return;
+      }
+      // Verify the bond exists. May sadly trigger pairing if bond doesn't exist
+      bool isPaired = Platform.isAndroid
+          ? await UniversalBle.isPaired(id) ?? false
+          : await UniversalBle.isPaired(
+                  id,
+                  pairingCommand: BleCommand(
+                    service: bluetoothUartService.bleDeviceService,
+                    characteristic: bluetoothUartService.bleTxCharacteristic,
+                    writeValue: const Utf8Encoder().convert("PING"),
+                  ),
+                ) ??
+                false;
+
+      // Con mode enabled on gear and app, but no bond
+      if (!isPaired) {
+        if (statefulDevice.attemptBondingOnConnect) {
+          statefulDevice.attemptBondingOnConnect = false;
+
+          await Clipboard.setData(
+            ClipboardData(text: statefulDevice.storedDevice.conModePin),
+          );
+
+          Platform.isAndroid
+              ? await UniversalBle.pair(id).onError((error, stackTrace) {
+                  _logger.warning("Failed to pair to $id:$error");
+                })
+              : await UniversalBle.pair(
+                  id,
+                  pairingCommand: BleCommand(
+                    service: bluetoothUartService.bleDeviceService,
+                    characteristic: bluetoothUartService.bleTxCharacteristic,
+                    writeValue: const Utf8Encoder().convert("PING"),
+                  ),
+                ).onError((error, stackTrace) {
+                  _logger.warning("Failed to pair to $id:$error");
+                });
+          isPaired = Platform.isAndroid
+              ? await UniversalBle.isPaired(id) ?? false
+              : await UniversalBle.isPaired(
+                      id,
+                      pairingCommand: BleCommand(
+                        service: bluetoothUartService.bleDeviceService,
+                        characteristic:
+                            bluetoothUartService.bleTxCharacteristic,
+                        writeValue: const Utf8Encoder().convert("PING"),
+                      ),
+                    ) ??
+                    false;
+          if (!isPaired) {
+            statefulDevice.disableAutoConnect =
+                DisableReconnectReason.missingBond;
+            await disconnect(
+              id,
+              "Con mode enabled on gear and app, Failed to create new bond",
+            );
+            return;
+          }
+        } else {
+          statefulDevice.disableAutoConnect =
+              DisableReconnectReason.missingBond;
+          await disconnect(id, "Con mode enabled on gear and app, but no bond");
+          return;
+        }
+      }
+      // con mode disabled in gear but enabled in app
+    } else if (statefulDevice.storedDevice.conModeEnabled) {
+      statefulDevice.storedDevice.conModeEnabled = false;
+      await forgetBond(id);
+    }
+  }
+
+  // Don't set immediately to avoid writes while con mode status is verified
+  statefulDevice.bluetoothUartService = bluetoothUartService;
   if (!statefulDevice.isReady) {
     _logger.severe("Bluetooth uart service not found for $id, Disconnecting");
-    await disconnect(id);
+    await disconnect(id, "Bluetooth uart service not found");
+    return;
   }
 
   // Subscribe to all notifications
@@ -201,13 +310,14 @@ Future<void> discoverServices(String id) async {
 }
 
 /// checks for [KnownDevices] with the same mac address([StoredDevice.btMACAddress]) and try to connect
-/// Skips devices with [StatefulDevice.disableAutoConnect] set to true
+/// Skips devices with [StatefulDevice.disableAutoConnect] is not set to [DisableReconnectReason.canReconnect]
 Future<void> _onScanResultsListener(BleDevice scanResult) async {
   _logger.info('${scanResult.deviceId}: "${scanResult.name}" found!');
   Map<String, StatefulDevice> knownDevices = KnownDevices.instance.state;
   if (knownDevices.containsKey(scanResult.deviceId) &&
       !knownDevices[scanResult.deviceId]!.isConnected &&
-      !knownDevices[scanResult.deviceId]!.disableAutoConnect) {
+      knownDevices[scanResult.deviceId]!.disableAutoConnect ==
+          DisableReconnectReason.canReconnect) {
     knownDevices[scanResult.deviceId]?.deviceConnectionState.value =
         ConnectivityState.connecting;
     await _connect(scanResult.deviceId);
@@ -215,7 +325,7 @@ Future<void> _onScanResultsListener(BleDevice scanResult) async {
 }
 
 /// Disconnects connected real and demo/mock gear.
-Future<void> disconnect(String id) async {
+Future<void> disconnect(String id, String reason) async {
   if (!_didInitBle) {
     return;
   }
@@ -230,8 +340,17 @@ Future<void> disconnect(String id) async {
     if (statefulDevice != null && isDemoGear(statefulDevice)) {
       return;
     }
-    _logger.info("disconnecting from $id");
-    await UniversalBle.disconnect(id);
+    _logger.info("disconnecting from $id. Reason: $reason");
+    int retry = 0;
+    while (retry < 3) {
+      retry = retry + 1;
+      await UniversalBle.disconnect(id);
+      BleConnectionState bleConnectionState =
+          await UniversalBle.getConnectionState(id);
+      if (bleConnectionState == BleConnectionState.disconnected) {
+        return;
+      }
+    }
   } finally {
     span?.finish();
   }
@@ -339,10 +458,12 @@ class Scan with ChangeNotifier {
                   .isConnected,
             )
             .where(
-              (bluetoothDevice) => !KnownDevices
-                  .instance
-                  .state[bluetoothDevice.deviceId]!
-                  .disableAutoConnect,
+              (bluetoothDevice) =>
+                  KnownDevices
+                      .instance
+                      .state[bluetoothDevice.deviceId]!
+                      .disableAutoConnect ==
+                  DisableReconnectReason.canReconnect,
             )
             .where((element) => element.isSystemDevice == true)
             .forEach((bluetoothDevice) => _connect(bluetoothDevice.deviceId)),

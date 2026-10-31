@@ -13,7 +13,6 @@ import 'package:tail_app/Backend/utilities/demo_gear_helpers.dart';
 import 'package:tail_app/Backend/utilities/developer_options_helpers.dart';
 import 'package:tail_app/Backend/utilities/version.dart';
 import 'package:tail_app/Frontend/Widgets/gear_battery_bar.dart';
-import 'package:tail_app/Frontend/Widgets/tutorial_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 import 'package:tail_app/constants.dart';
 
@@ -212,8 +211,9 @@ class _ManageGearState extends State<ManageGear> {
                     TextButton.icon(
                       onPressed: () async {
                         setState(() {
-                          device!.disableAutoConnect = true;
-                          disconnect(device!.storedDevice.btMACAddress);
+                          device!.disableAutoConnect =
+                              DisableReconnectReason.manual;
+                          disconnect(device!.storedDevice.btMACAddress, "user");
                         });
                         Navigator.pop(context);
                       },
@@ -237,11 +237,14 @@ class _ManageGearState extends State<ManageGear> {
                       icon: Icon(Symbols.power),
                     ),
                   ],
-                  if (!device!.isConnected && device!.disableAutoConnect) ...[
+                  if (!device!.isConnected &&
+                      device!.disableAutoConnect !=
+                          DisableReconnectReason.canReconnect) ...[
                     TextButton.icon(
                       onPressed: () {
                         setState(() {
-                          device!.disableAutoConnect = false;
+                          device!.disableAutoConnect =
+                              DisableReconnectReason.canReconnect;
                           if (isDemoGear(device!)) {
                             connectDemoGear(device!);
                           }
@@ -256,9 +259,12 @@ class _ManageGearState extends State<ManageGear> {
                     onPressed: () async {
                       setState(() {
                         if (device!.isConnected) {
-                          device!.forgetOnDisconnect = true;
-                          device!.disableAutoConnect = true;
-                          disconnect(device!.storedDevice.btMACAddress);
+                          device!.disableAutoConnect =
+                              DisableReconnectReason.pendingRemoval;
+                          disconnect(
+                            device!.storedDevice.btMACAddress,
+                            "forgetting gear",
+                          );
                         } else {
                           KnownDevices.instance.remove(
                             device!.storedDevice.btMACAddress,
@@ -377,9 +383,46 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      initiallyExpanded:
+          widget.device.disableAutoConnect ==
+              DisableReconnectReason.missingBond ||
+          widget.device.storedDevice.conModeEnabled,
       title: Text(convertToUwU(manageGearConModeTitle())),
       subtitle: Text(convertToUwU(manageGearConModeDescription())),
       children: [
+        if (widget.device.disableAutoConnect ==
+            DisableReconnectReason.missingBond) ...[
+          Card(
+            color: ColorScheme.of(context).error,
+            margin: sectionedListViewPadding,
+            child: Column(
+              children: [
+                ListTile(
+                  textColor: ColorScheme.of(context).onError,
+                  title: Text(
+                    "Convention Mode is enabled but there is an issue with the bond between your phone and your gear",
+                  ),
+                  subtitle: Text(
+                    "You can attempt to re-enable convention mode with the same pairing pin or you can factory reset your gear by holding the power button for 13 seconds",
+                  ),
+                ),
+                Wrap(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        widget.device.attemptBondingOnConnect = true;
+                        widget.device.disableAutoConnect =
+                            DisableReconnectReason.canReconnect;
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Re-pair your gear"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
         ListTile(
           title: Text(convertToUwU(manageGearConModeToggleTitle())),
           subtitle: Text(
@@ -418,6 +461,7 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
                             bluetoothMessage,
                           );
                           widget.device.storedDevice.conModeEnabled = true;
+                          widget.device.attemptBondingOnConnect = true;
                           KnownDevices.instance.store();
                           await Clipboard.setData(
                             ClipboardData(
@@ -615,7 +659,10 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: widget.device.firmwareStatus,
+      listenable: Listenable.merge([
+        widget.device.firmwareStatus,
+        widget.device,
+      ]),
       builder: (context, child) {
         return Column(
           children: [
@@ -833,68 +880,64 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                     },
                   ),
                 ),
-                ListenableBuilder(
-                  listenable: widget.device,
-                  builder: (context, child) => ListTile(
-                    title: const Text("Has Glowtip"),
-                    trailing: DropdownMenu<GlowtipStatus>(
-                      initialSelection: widget.device.hasGlowtip,
-                      onSelected: (GlowtipStatus? value) {
-                        if (value == null) {
-                          return;
-                        }
-                        setState(() {
-                          widget.device.hasGlowtip = value;
-                        });
-                      },
-                      dropdownMenuEntries: GlowtipStatus.values
-                          .map(
-                            (e) => DropdownMenuEntry(value: e, label: e.name),
-                          )
-                          .toList(),
-                    ),
+                ListTile(
+                  title: const Text("Has Glowtip"),
+                  trailing: DropdownMenu<GlowtipStatus>(
+                    initialSelection: widget.device.hasGlowtip,
+                    onSelected: (GlowtipStatus? value) {
+                      if (value == null) {
+                        return;
+                      }
+                      setState(() {
+                        widget.device.hasGlowtip = value;
+                      });
+                    },
+                    dropdownMenuEntries: GlowtipStatus.values
+                        .map((e) => DropdownMenuEntry(value: e, label: e.name))
+                        .toList(),
                   ),
                 ),
-                ListenableBuilder(
-                  listenable: widget.device,
-                  builder: (context, child) => ListTile(
-                    title: const Text("Has RGB"),
-                    trailing: DropdownMenu<RGBStatus>(
-                      initialSelection: widget.device.hasRGB,
-                      onSelected: (RGBStatus? value) {
-                        if (value == null) {
-                          return;
-                        }
-                        setState(() {
-                          widget.device.hasRGB = value;
-                        });
-                      },
-                      dropdownMenuEntries: RGBStatus.values
-                          .map(
-                            (e) => DropdownMenuEntry(value: e, label: e.name),
-                          )
-                          .toList(),
-                    ),
+                ListTile(
+                  title: const Text("Has RGB"),
+                  trailing: DropdownMenu<RGBStatus>(
+                    initialSelection: widget.device.hasRGB,
+                    onSelected: (RGBStatus? value) {
+                      if (value == null) {
+                        return;
+                      }
+                      setState(() {
+                        widget.device.hasRGB = value;
+                      });
+                    },
+                    dropdownMenuEntries: RGBStatus.values
+                        .map((e) => DropdownMenuEntry(value: e, label: e.name))
+                        .toList(),
                   ),
                 ),
                 ListTile(
                   title: const Text("Disable Autoconnect"),
-                  trailing: Switch(
-                    value: widget.device.disableAutoConnect,
-                    onChanged: (bool value) {
+                  trailing: DropdownMenu<DisableReconnectReason>(
+                    initialSelection: widget.device.disableAutoConnect,
+                    onSelected: (DisableReconnectReason? value) {
+                      if (value == null) {
+                        return;
+                      }
                       setState(() {
                         widget.device.disableAutoConnect = value;
                       });
                     },
+                    dropdownMenuEntries: DisableReconnectReason.values
+                        .map((e) => DropdownMenuEntry(value: e, label: e.name))
+                        .toList(),
                   ),
                 ),
                 ListTile(
-                  title: const Text("Forget on Disconnect"),
+                  title: const Text("Attempt bonding on connect"),
                   trailing: Switch(
-                    value: widget.device.forgetOnDisconnect,
+                    value: widget.device.attemptBondingOnConnect,
                     onChanged: (bool value) {
                       setState(() {
-                        widget.device.forgetOnDisconnect = value;
+                        widget.device.attemptBondingOnConnect = value;
                       });
                     },
                   ),
@@ -1001,23 +1044,18 @@ class _ManageGearDebugState extends State<ManageGearDebug> {
                     ),
                   ),
                 ),
-                ListenableBuilder(
-                  listenable: widget.device,
-                  builder: (context, child) => ListTile(
-                    title: const Text("bluetoothUartService"),
-                    trailing: DropdownMenu<BluetoothUartService>(
-                      initialSelection: widget.device.bluetoothUartService,
-                      onSelected: (value) {
-                        setState(() {
-                          widget.device.bluetoothUartService = value;
-                        });
-                      },
-                      dropdownMenuEntries: uartServices
-                          .map(
-                            (e) => DropdownMenuEntry(value: e, label: e.label),
-                          )
-                          .toList(),
-                    ),
+                ListTile(
+                  title: const Text("bluetoothUartService"),
+                  trailing: DropdownMenu<BluetoothUartService>(
+                    initialSelection: widget.device.bluetoothUartService,
+                    onSelected: (value) {
+                      setState(() {
+                        widget.device.bluetoothUartService = value;
+                      });
+                    },
+                    dropdownMenuEntries: uartServices
+                        .map((e) => DropdownMenuEntry(value: e, label: e.label))
+                        .toList(),
                   ),
                 ),
               ],

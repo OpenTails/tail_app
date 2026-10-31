@@ -29,6 +29,14 @@ enum ConnectivityState { connected, disconnected, connecting }
 
 enum DeviceMoveState { standby, runAction, busy }
 
+enum DisableReconnectReason {
+  manual,
+  // When gear tries to reconnect but conmode is enabled/desynced with app
+  missingBond,
+  canReconnect,
+  pendingRemoval,
+}
+
 class StatefulDevice extends ChangeNotifier {
   final Logger _logger = Logger("StatefulDevice");
   final DeviceDefinition deviceDefinition;
@@ -75,8 +83,21 @@ class StatefulDevice extends ChangeNotifier {
   }
 
   /// Prevents this gear from automatically reconnecting during the next BLE scan
-  bool disableAutoConnect = false;
-  bool forgetOnDisconnect = false;
+  DisableReconnectReason _disableAutoConnect =
+      DisableReconnectReason.canReconnect;
+  bool attemptBondingOnConnect = false;
+
+  /// Prevents this gear from automatically reconnecting during the next BLE scan
+  DisableReconnectReason get disableAutoConnect => _disableAutoConnect;
+
+  /// Prevents this gear from automatically reconnecting during the next BLE scan
+  set disableAutoConnect(DisableReconnectReason value) {
+    if (value != _disableAutoConnect) {
+      _disableAutoConnect = value;
+      notifyListeners();
+    }
+  }
+
   bool forgetBondOnDisconnect = false;
   // Gear Features
   GlowtipStatus _hasGlowtip = GlowtipStatus.unknown;
@@ -180,7 +201,7 @@ class StatefulDevice extends ChangeNotifier {
         name: "Disconnect Gear",
         props: {"Gear Type": deviceDefinition.btName},
       );
-      if (forgetOnDisconnect) {
+      if (disableAutoConnect == DisableReconnectReason.pendingRemoval) {
         _logger.info("Forgetting device");
         KnownDevices.instance.remove(storedDevice.btMACAddress);
         analyticsEvent(
@@ -214,7 +235,10 @@ class StatefulDevice extends ChangeNotifier {
     _logger.severe(
       "Failed to connect or locate BLE UART service in time for device ${deviceDefinition.btName}.",
     );
-    disconnect(storedDevice.btMACAddress);
+    disconnect(
+      storedDevice.btMACAddress,
+      "Failed to connect or locate BLE UART service in time",
+    );
   }
 
   void _unRegisterCharacteristicStreams() {
@@ -294,7 +318,7 @@ class StatefulDevice extends ChangeNotifier {
       battery.isLow = true;
     } else if (value.contains("SHUTDOWN BEGIN")) {
       deviceConnectionState.value = ConnectivityState.disconnected;
-      disconnect(storedDevice.btMACAddress);
+      disconnect(storedDevice.btMACAddress, "Shutdown called");
     } else if (value.contains("HWVER") ||
         value.contains("MITAIL") ||
         value.contains("MINITAIL") ||

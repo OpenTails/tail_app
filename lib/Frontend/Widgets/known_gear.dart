@@ -216,6 +216,7 @@ class _KnownGearCardState extends State<KnownGearCard> {
                 child: ListenableBuilder(
                   listenable: Listenable.merge([
                     widget.statefulDevice.firmwareStatus,
+                    widget.statefulDevice,
                   ]),
                   builder: (BuildContext context, Widget? child) {
                     return Badge(
@@ -233,7 +234,12 @@ class _KnownGearCardState extends State<KnownGearCard> {
                                 .statefulDevice
                                 .firmwareStatus
                                 .mandatoryOtaRequired ||
-                            widget.statefulDevice.deviceDefinition.unsupported,
+                            widget
+                                .statefulDevice
+                                .deviceDefinition
+                                .unsupported ||
+                            widget.statefulDevice.disableAutoConnect ==
+                                DisableReconnectReason.missingBond,
                         largeSize: 35,
                         alignment: AlignmentGeometry.topStart,
                         backgroundColor: ColorScheme.of(context).error,
