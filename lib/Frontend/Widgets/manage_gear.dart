@@ -170,9 +170,11 @@ class _ManageGearState extends State<ManageGear> {
                   ManageGearHomePosition(device: device!),
                 ],
                 if (device!.storedDevice.firmwareVersion.compareTo(
-                      conventionModeMinFirmwareVersion,
-                    ) >=
-                    0) ...[
+                          conventionModeMinFirmwareVersion,
+                        ) >=
+                        0 ||
+                    device!.disableAutoConnect ==
+                        DisableReconnectReason.missingBond) ...[
                   ManageGearConventionMode(device: device!),
                 ],
                 ManageGearDebug(device: device!),
