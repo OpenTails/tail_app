@@ -18,7 +18,6 @@ abstract class NavDestination with _$NavDestination {
   const factory NavDestination({
     required String label,
     required Widget icon,
-    required Widget selectedIcon,
     required String path,
   }) = _NavDestination;
 }
@@ -27,13 +26,11 @@ List<NavDestination> destinations = <NavDestination>[
   NavDestination(
     label: convertToUwU(homePage()),
     icon: Icon(Symbols.home),
-    selectedIcon: const Icon(Symbols.home_filled),
     path: '/',
   ),
   NavDestination(
     label: convertToUwU(triggersPage()),
-    icon: Icon(Symbols.sensors),
-    selectedIcon: Icon(Symbols.sensors),
+    icon: Icon(Symbols.directions_walk),
     path: '/triggers',
   ),
   //NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
@@ -41,7 +38,6 @@ List<NavDestination> destinations = <NavDestination>[
   NavDestination(
     label: convertToUwU(moreTitle()),
     icon: Icon(Symbols.menu),
-    selectedIcon: Icon(Symbols.menu_open),
     path: "/more",
   ),
 ];
@@ -62,53 +58,55 @@ class _NavigationDrawerExampleState extends State<NavigationDrawerExample> {
 
   @override
   Widget build(BuildContext context) {
-    return WearHelper(
-      child: AdaptiveScaffold(
-        // An option to override the default breakpoints used for small, medium,
-        // and large.
-        smallBreakpoint: const Breakpoint(endWidth: 700),
-        mediumBreakpoint: const Breakpoint(beginWidth: 700, endWidth: 1000),
-        largeBreakpoint: const Breakpoint(beginWidth: 1000),
-        useDrawer: false,
-        internalAnimations: false,
-        transitionDuration: Duration.zero,
-        appBarBreakpoint: const Breakpoint(beginWidth: 0),
-        selectedIndex: screenIndex,
-        onSelectedIndexChange: (int index) {
-          setState(() {
-            screenIndex = index;
-            return GoRouter.of(context).go(destinations[index].path);
-          });
-        },
-        destinations: destinations.map((NavDestination destination) {
-          return NavigationDestination(
-            label: destination.label,
-            icon: destination.icon,
-            selectedIcon: destination.selectedIcon,
-            tooltip: destination.label,
-          );
-        }).toList(),
-        body: (_) => SafeArea(bottom: false, top: false, child: widget.child),
-        // smallBody: (_) => SafeArea(
-        //   bottom: false,
-        //   top: false,
-        //   child: SnackBarOverlay(
-        //     child: widget.child,
-        //   ),
-        // ),
-        // Define a default secondaryBody.
-        //secondaryBody: AdaptiveScaffold.emptyBuilder,
-        // Override the default secondaryBody during the smallBreakpoint to be
-        // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
-        // overridden.
-        smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
-        appBar: AppBar(
-          title: const DeviceStatusWidget(),
-          centerTitle: true,
-          clipBehavior: Clip.none,
-          leadingWidth: 0,
-          titleSpacing: 0,
-          toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1),
+    return PopScope(
+      canPop: false,
+      child: WearHelper(
+        child: AdaptiveScaffold(
+          // An option to override the default breakpoints used for small, medium,
+          // and large.
+          smallBreakpoint: const Breakpoint(endWidth: 700),
+          mediumBreakpoint: const Breakpoint(beginWidth: 700),
+          useDrawer: false,
+          internalAnimations: false,
+          transitionDuration: Duration.zero,
+          appBarBreakpoint: const Breakpoint(beginWidth: 0),
+          selectedIndex: screenIndex,
+          onSelectedIndexChange: (int index) {
+            setState(() {
+              screenIndex = index;
+              return GoRouter.of(context).go(destinations[index].path);
+            });
+          },
+          destinations: destinations.map((NavDestination destination) {
+            return NavigationDestination(
+              label: destination.label,
+              icon: destination.icon,
+              selectedIcon: destination.icon,
+              tooltip: destination.label,
+            );
+          }).toList(),
+          body: (_) => SafeArea(bottom: false, top: false, child: widget.child),
+          // smallBody: (_) => SafeArea(
+          //   bottom: false,
+          //   top: false,
+          //   child: SnackBarOverlay(
+          //     child: widget.child,
+          //   ),
+          // ),
+          // Define a default secondaryBody.
+          //secondaryBody: AdaptiveScaffold.emptyBuilder,
+          // Override the default secondaryBody during the smallBreakpoint to be
+          // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
+          // overridden.
+          smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
+          appBar: AppBar(
+            title: const DeviceStatusWidget(),
+            centerTitle: true,
+            clipBehavior: Clip.none,
+            leadingWidth: 0,
+            titleSpacing: 0,
+            toolbarHeight: 100 * MediaQuery.textScalerOf(context).scale(1),
+          ),
         ),
       ),
     );

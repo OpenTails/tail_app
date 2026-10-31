@@ -62,7 +62,7 @@ final ValueNotifier<double> luminanceThreshold = ValueNotifier(0.6);
 
 ThemeData buildTheme(Brightness brightness, Color seedColor) {
   final bool isLight = brightness == Brightness.light;
-  final bool isCustomColor = seedColor == Color(appColorDefault);
+  final bool isCustomColor = seedColor != Color(appColorDefault);
   // Prevent colors that are too light or dark
   HSLColor hslColor = HSLColor.fromColor(seedColor);
   HSLColor newHslColor = HSLColor.fromAHSL(
@@ -242,10 +242,15 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
     // ── Navigation bar ───────────────────────────────────────────────────────
     navigationBarTheme: NavigationBarThemeData(
       indicatorColor: colorScheme.primary.withAlpha(31),
+      backgroundColor: colorScheme.primary.withAlpha(isCustomColor ? 45 : 15),
       labelTextStyle: WidgetStateProperty.all(textTheme.labelMedium),
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+      height: 60,
     ),
     navigationRailTheme: NavigationRailThemeData(
       indicatorColor: colorScheme.primary.withAlpha(31),
+      backgroundColor: colorScheme.primary.withAlpha(15),
+      labelType: NavigationRailLabelType.none,
     ),
 
     // ── Chips ────────────────────────────────────────────────────────────────
