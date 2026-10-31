@@ -43,7 +43,7 @@ subprojects {
 
 configurations.all {
     resolutionStrategy {
-        force("androidx.core:core-ktx:1.18.0")
+        force("androidx.core:core-ktx:1.19.1")
         force("org.jetbrains.kotlin:kotlin-stdlib:2.4.21")
     }
 }
