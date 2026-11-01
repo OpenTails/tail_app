@@ -1777,10 +1777,10 @@ packages:
     dependency: "direct main"
     description:
       name: theme_inspector
-      sha256: abcba1e036c03ae4902bea34943f28321ab6d3c396743a97344a8d3ad7eca97c
+      sha256: "86db3b194ef11f9994192158d12908c3f5ef8308a22802b02cb0fe1e548002d2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "1.1.0"
   typed_data:
     dependency: transitive
     description:
