@@ -395,12 +395,12 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
         if (widget.device.disableAutoConnect ==
             DisableReconnectReason.missingBond) ...[
           Card(
-            color: ColorScheme.of(context).error,
+            color: ColorScheme.of(context).primaryContainer,
             margin: sectionedListViewPadding,
             child: Column(
               children: [
                 ListTile(
-                  textColor: ColorScheme.of(context).onError,
+                  textColor: ColorScheme.of(context).onPrimaryContainer,
                   title: Text(
                     "Convention Mode is enabled but there is an issue with the bond between your phone and your gear",
                   ),
@@ -426,7 +426,7 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
                   ),
                 ),
                 ListTile(
-                  textColor: ColorScheme.of(context).onError,
+                  textColor: ColorScheme.of(context).onPrimaryContainer,
                   title: Text(
                     "Pin not working? You may need to factory reset your gear",
                   ),
