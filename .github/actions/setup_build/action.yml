@@ -9,7 +9,7 @@ inputs:
     default: "zulu"
   ruby-version:
     description: "Ruby Version"
-    default: "4.0.2"
+    default: "4.0.9"
 runs:
   using: "composite"
   steps:
