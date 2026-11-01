@@ -1,6 +1,5 @@
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -55,50 +54,58 @@ class NavigationDrawerExample extends StatefulWidget {
 
 class _NavigationDrawerExampleState extends State<NavigationDrawerExample> {
   int screenIndex = 0;
-
   @override
   Widget build(BuildContext context) {
+    bool isTablet = MediaQuery.sizeOf(context).shortestSide > 600;
     return PopScope(
       canPop: false,
       child: WearHelper(
-        child: AdaptiveScaffold(
-          // An option to override the default breakpoints used for small, medium,
-          // and large.
-          smallBreakpoint: const Breakpoint(endWidth: 700),
-          mediumBreakpoint: const Breakpoint(beginWidth: 700),
-          useDrawer: false,
-          internalAnimations: false,
-          transitionDuration: Duration.zero,
-          appBarBreakpoint: const Breakpoint(beginWidth: 0),
-          selectedIndex: screenIndex,
-          onSelectedIndexChange: (int index) {
-            setState(() {
-              screenIndex = index;
-              return GoRouter.of(context).go(destinations[index].path);
-            });
-          },
-          destinations: destinations.map((NavDestination destination) {
-            return NavigationDestination(
-              label: destination.label,
-              icon: destination.icon,
-              selectedIcon: destination.icon,
-              tooltip: destination.label,
-            );
-          }).toList(),
-          body: (_) => SafeArea(bottom: false, top: false, child: widget.child),
-          // smallBody: (_) => SafeArea(
-          //   bottom: false,
-          //   top: false,
-          //   child: SnackBarOverlay(
-          //     child: widget.child,
-          //   ),
-          // ),
-          // Define a default secondaryBody.
-          //secondaryBody: AdaptiveScaffold.emptyBuilder,
-          // Override the default secondaryBody during the smallBreakpoint to be
-          // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
-          // overridden.
-          smallSecondaryBody: AdaptiveScaffold.emptyBuilder,
+        child: Scaffold(
+          bottomNavigationBar: isTablet
+              ? null
+              : NavigationBar(
+                  selectedIndex: screenIndex,
+                  destinations: destinations.map((NavDestination destination) {
+                    return NavigationDestination(
+                      label: destination.label,
+                      icon: destination.icon,
+                      tooltip: destination.label,
+                    );
+                  }).toList(),
+                  onDestinationSelected: (value) => setState(() {
+                    screenIndex = value;
+                    return GoRouter.of(context).go(destinations[value].path);
+                  }),
+                ),
+          body: Builder(
+            builder: (context) {
+              if (isTablet) {
+                return Row(
+                  children: [
+                    NavigationRail(
+                      selectedIndex: screenIndex,
+                      destinations: destinations.map((
+                        NavDestination destination,
+                      ) {
+                        return NavigationRailDestination(
+                          label: Text(destination.label),
+                          icon: destination.icon,
+                        );
+                      }).toList(),
+                      onDestinationSelected: (value) => setState(() {
+                        screenIndex = value;
+                        return GoRouter.of(
+                          context,
+                        ).go(destinations[value].path);
+                      }),
+                    ),
+                    Expanded(child: widget.child),
+                  ],
+                );
+              }
+              return SafeArea(bottom: false, top: false, child: widget.child);
+            },
+          ),
           appBar: AppBar(
             title: const DeviceStatusWidget(),
             centerTitle: true,

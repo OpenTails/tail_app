@@ -23,15 +23,15 @@ class PageInfoCard extends StatelessWidget {
     );
     if (show) {
       return BaseCard(
-        color: ColorScheme.of(context).primaryContainer,
+        color: ColorScheme.of(context).outline,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
               convertToUwU(text),
-              style: TextTheme.of(context).bodyMedium?.copyWith(
-                color: ColorScheme.of(context).onPrimaryContainer,
-              ),
+              style: TextTheme.of(
+                context,
+              ).bodyMedium?.copyWith(color: ColorScheme.of(context).onSurface),
             ),
           ),
         ),

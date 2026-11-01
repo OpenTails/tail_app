@@ -80,7 +80,8 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
 
   // Override with fixed brand secondaries/tertiaries; tonal surfaces use navy.
   final ColorScheme colorScheme = isCustomColor
-      ? base.copyWith(
+      ? base.copyWith(primary: newHslColor.toColor())
+      : base.copyWith(
           secondary: tcTeal,
           onSecondary: _gray0,
           secondaryContainer: _teal100,
@@ -100,8 +101,7 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
           outlineVariant: isLight ? _gray100 : _dark4,
           error: isLight ? const Color(0xFFD84545) : const Color(0xFFFF6B6B),
           onError: _gray0,
-        )
-      : base.copyWith(primary: newHslColor.toColor());
+        );
 
   final TextTheme textTheme = _buildTextTheme();
   final TextStyle buttonTextStyle = TextStyle(
@@ -241,15 +241,14 @@ ThemeData buildTheme(Brightness brightness, Color seedColor) {
 
     // ── Navigation bar ───────────────────────────────────────────────────────
     navigationBarTheme: NavigationBarThemeData(
-      indicatorColor: colorScheme.primary.withAlpha(31),
+      indicatorColor: colorScheme.secondary.withAlpha(50),
       backgroundColor: colorScheme.primary.withAlpha(isCustomColor ? 45 : 15),
       labelTextStyle: WidgetStateProperty.all(textTheme.labelMedium),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       height: 60,
     ),
     navigationRailTheme: NavigationRailThemeData(
-      indicatorColor: colorScheme.primary.withAlpha(31),
-      backgroundColor: colorScheme.primary.withAlpha(15),
+      indicatorColor: colorScheme.secondary.withAlpha(50),
       labelType: NavigationRailLabelType.none,
     ),
 
