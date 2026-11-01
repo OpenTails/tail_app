@@ -405,7 +405,7 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
                     "Convention Mode is enabled but there is an issue with the bond between your phone and your gear",
                   ),
                   subtitle: Text(
-                    "You can attempt to re-enable convention mode with the same pairing pin or you can factory reset your gear by holding the power button for 13 seconds",
+                    "You can attempt to re-enable convention mode with the same pairing pin.",
                   ),
                 ),
                 Padding(
@@ -423,6 +423,28 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
                         icon: Icon(Symbols.replay),
                       ),
                     ],
+                  ),
+                ),
+                ListTile(
+                  textColor: ColorScheme.of(context).onError,
+                  title: Text(
+                    "Pin not working? You may need to factory reset your gear",
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 4,
+                      children: [
+                        Text("1) Press and hold the power button."),
+                        Text(
+                          "2) At approximately 3 seconds, the blue LED will flash three times and turn off. Continue to hold without releasing the button.",
+                        ),
+                        Text(
+                          "3) Ten seconds after the triple-flash (13 seconds total of continuous holding), the blue LED will blink quickly continuously, release to perform the factory reset.",
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
