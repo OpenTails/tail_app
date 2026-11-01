@@ -513,9 +513,9 @@ class _ManageGearConventionModeState extends State<ManageGearConventionMode> {
             },
           ),
         ),
-        OverflowBar(
+        Wrap(
           children: [
-            FilledButton.icon(
+            ElevatedButton.icon(
               onPressed: () => PinCodeRoute(
                 pin: widget.device.storedDevice.conModePin,
               ).push(context),
