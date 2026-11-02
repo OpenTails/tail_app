@@ -5,7 +5,7 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.3.21" // matches Kotlin version in settings.gradle.kts
+    id("org.jetbrains.kotlin.plugin.compose") version "2.4.21" // matches Kotlin version in settings.gradle.kts
 }
 
 val keystoreProperties = Properties()
