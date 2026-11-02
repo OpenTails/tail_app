@@ -119,7 +119,7 @@ dependencies {
     implementation("com.google.android.horologist:horologist-compose-tools:0.7.15")
     implementation("com.google.android.horologist:horologist-tiles:0.7.15")
     implementation("androidx.wear.watchface:watchface-complications-data-source-ktx:1.3.0")
-    implementation("com.google.code.gson:gson:2.13.2")
+    implementation("com.google.code.gson:gson:2.15.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.10.5")
     implementation("androidx.wear:wear-remote-interactions:1.2.0")
     implementation("androidx.wear:wear-tooling-preview:1.0.0")
