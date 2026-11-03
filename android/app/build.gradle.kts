@@ -78,7 +78,7 @@ flutter {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.4.21")
     testImplementation("junit:junit:4.13.2")
-    implementation("io.rebble.pebblekit2:client:1.2.0")
+    implementation("io.rebble.pebblekit2:client:1.3.2")
 }
 
 sentry {
