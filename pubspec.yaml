@@ -100,9 +100,6 @@ dependencies:
 
   # Spicy
   upgrader: ^13.7.0 # update notices
-  age_range_signals: ^0.10.1
-  google_api_availability: ^5.0.1
-  firedart: ^0.9.8
 
   # Sentry
   sentry_flutter: ^10.2.0 # Base sentry + Flutter integration
@@ -126,16 +123,6 @@ dev_dependencies:
   # Testing
   flutter_test:
     sdk: flutter
-
-dependency_overrides:
-  #pedometer:
-  #git:
-  # url: https://github.com/Codel1417/flutter-plugins
-  #path: packages/pedometer
-  firedart:
-    git:
-      url: https://github.com/roman-stakhovskyi/firedart
-      ref: bump-grpc-5-protobuf-6
 
 flutter:
   uses-material-design: true

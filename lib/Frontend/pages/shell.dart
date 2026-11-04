@@ -32,8 +32,6 @@ List<NavDestination> destinations = <NavDestination>[
     icon: Icon(Symbols.directions_walk),
     path: '/triggers',
   ),
-  //NavDestination(sequencesPage(), const Icon(Icons.list_outlined), const Icon(Icons.list), "/moveLists"),
-  //NavDestination(joyStickPage(), const Icon(Icons.gamepad_outlined), const Icon(Icons.gamepad), "/joystick"),
   NavDestination(
     label: convertToUwU(moreTitle()),
     icon: Icon(Symbols.menu),

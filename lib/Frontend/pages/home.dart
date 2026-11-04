@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:tail_app/Backend/age_check.dart';
-import 'package:tail_app/Backend/dynamic_config.dart';
-import 'package:tail_app/Frontend/Widgets/coshub_feed.dart';
 import 'package:tail_app/Frontend/Widgets/upgrade_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
 import '../../Backend/analytics.dart';
 import '../../Backend/logging_wrappers.dart';
-import '../../assets.dart';
 import '../../constants.dart';
 import '../Widgets/base_card.dart';
 import '../Widgets/tail_blog.dart';
@@ -127,37 +123,6 @@ class _HomeState extends State<Home> {
           ),
         ),
         SizedBox(height: 350, child: TailBlog()),
-        FutureBuilder(
-          future: shouldShowCoshub(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data == true) {
-              return Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      convertToUwU(homeCosHubTitle()),
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    trailing: IconButton(
-                      onPressed: () async {
-                        await launchExternalUrl(
-                          url: (await getDynamicConfigInfo()).urls.coshubUrl,
-                          analyticsLabel: "CosHub",
-                        );
-                      },
-                      icon: Image.asset(Assets.cosHubBT, width: 24, height: 24),
-                    ),
-                  ),
-                  SizedBox(height: 350, child: CoshubFeed()),
-                ],
-              );
-            } else {
-              return Container();
-            }
-          },
-        ),
       ],
     );
   }

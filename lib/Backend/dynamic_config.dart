@@ -77,11 +77,9 @@ abstract class FeatureFlags with _$FeatureFlags {
     // Tracking which actions are sent to gear
     @Default(true) bool enableActionAnalytics,
     @Default(true) bool enableErrorReporting,
-    @Default(true) bool enableCoshubPosts,
     @Default(true) bool enableTailBlogPosts,
     @Default(30) int analyticsTickDurationSeconds,
     @Default(true) bool hideOtaCheck,
-    @Default(false) bool enableAgeCheckForCoshub,
   }) = _FeatureFlags;
 
   factory FeatureFlags.fromJson(Map<String, dynamic> json) =>
