@@ -107,7 +107,7 @@ dependencies:
   sentry_dio: ^10.2.0 # Collects Dio HTTP requests
 
   # Debug
-  theme_inspector: 1.1.0
+  theme_inspector: 2.1.0
   logarte: ^1.5.0
   json_visualizer: ^0.0.2
 
