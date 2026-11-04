@@ -105,7 +105,7 @@ composeCompiler {
 dependencies {
 
     implementation("com.google.android.gms:play-services-wearable:20.0.1")
-    implementation(platform("androidx.compose:compose-bom:2026.05.01"))
+    implementation(platform("androidx.compose:compose-bom:2026.09.00"))
     implementation("androidx.wear.compose:compose-ui-tooling")
     implementation("androidx.wear.compose:compose-navigation")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -119,13 +119,13 @@ dependencies {
     implementation("com.google.android.horologist:horologist-compose-tools:0.7.15")
     implementation("com.google.android.horologist:horologist-tiles:0.7.15")
     implementation("androidx.wear.watchface:watchface-complications-data-source-ktx:1.3.0")
-    implementation("com.google.code.gson:gson:2.13.2")
+    implementation("com.google.code.gson:gson:2.15.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.10.5")
     implementation("androidx.wear:wear-remote-interactions:1.2.0")
     implementation("androidx.wear:wear-tooling-preview:1.0.0")
     implementation("com.google.guava:guava:33.7.2-android")
 
-    androidTestImplementation(platform("androidx.compose:compose-bom:2026.05.01"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2026.09.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

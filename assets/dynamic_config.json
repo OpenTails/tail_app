@@ -21,7 +21,7 @@
     "enableAnalytics": true,
     "enableActionAnalytics": true,
     "enableErrorReporting": true,
-    "enableCoshubPosts": true,
+    "enableCoshubPosts": false,
     "enableTailBlogPosts": true,
     "analyticsTickDurationSeconds": 30,
     "hideOtaCheck": true,

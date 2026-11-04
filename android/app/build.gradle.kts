@@ -3,7 +3,7 @@ import java.util.Properties
 
 plugins {
     id("com.android.application")
-    id("io.sentry.android.gradle") version "6.13.0"
+    id("io.sentry.android.gradle") version "6.25.0"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
@@ -78,7 +78,7 @@ flutter {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.4.21")
     testImplementation("junit:junit:4.13.2")
-    implementation("io.rebble.pebblekit2:client:1.2.0")
+    implementation("io.rebble.pebblekit2:client:1.3.2")
 }
 
 sentry {
