@@ -103,7 +103,7 @@ dependencies:
 
   # Sentry
   sentry_flutter: ^10.2.0 # Base sentry + Flutter integration
-  sentry_logging: ^10.2.0 # Collects app logs
+  sentry_logging: ^10.3.0 # Collects app logs
   sentry_dio: ^10.2.0 # Collects Dio HTTP requests
 
   # Debug
