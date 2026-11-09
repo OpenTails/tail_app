@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:tail_app/Frontend/Widgets/store_feed.dart';
 import 'package:tail_app/Frontend/Widgets/upgrade_card.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
 
@@ -105,6 +106,25 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
+        ListTile(
+          title: Text(
+            convertToUwU(homeStoreProductsTitle()),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+          ),
+          trailing: IconButton(
+            onPressed: () async {
+              await launchExternalUrl(
+                url: "https://thetailcompany.com/",
+                analyticsLabel: "Store",
+              );
+            },
+            icon: Icon(Symbols.store),
+          ),
+        ),
+        SizedBox(height: 350, child: StoreProductList()),
+
         ListTile(
           title: Text(
             convertToUwU(homeNewsTitle()),

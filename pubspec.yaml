@@ -74,7 +74,8 @@ dependencies:
   cached_network_image_ce: ^4.13.2
   flutter_svg: ^2.3.2
   material_symbols_icons: ^4.2960.0
-
+  flutter_corner_banner: ^1.0.1
+  
   # Locale
   flutter_localized_locales: ^2.0.5 # Get language names from shortcode
   country_flags: ^4.1.2 # locale flags

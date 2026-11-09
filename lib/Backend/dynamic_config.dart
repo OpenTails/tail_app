@@ -78,6 +78,7 @@ abstract class FeatureFlags with _$FeatureFlags {
     @Default(true) bool enableActionAnalytics,
     @Default(true) bool enableErrorReporting,
     @Default(true) bool enableTailBlogPosts,
+    @Default(true) bool enableStoreProducts,
     @Default(30) int analyticsTickDurationSeconds,
     @Default(true) bool hideOtaCheck,
   }) = _FeatureFlags;

@@ -20,7 +20,12 @@ String homeNewsTitle() => Intl.message(
   desc:
       'The title header for the news in the home screen when no gear is connected',
 );
-
+String homeStoreProductsTitle() => Intl.message(
+  'Fresh from The Tail Company',
+  name: 'homeStoreProductsTitle',
+  desc:
+      'The title header for the store products list in the home screen when no gear is connected',
+);
 String homeCosHubTitle() => Intl.message(
   'Featured Cosplayers on CosHub',
   name: 'homeCosHubTitle',

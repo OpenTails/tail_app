@@ -615,6 +615,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  flutter_corner_banner:
+    dependency: "direct main"
+    description:
+      name: flutter_corner_banner
+      sha256: "67dd5c20a1c4da58bc43e6cd1dd1eb3687d2dbcdfd2eb112a85ae6ff77e39bd1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   flutter_foreground_task:
     dependency: "direct main"
     description:

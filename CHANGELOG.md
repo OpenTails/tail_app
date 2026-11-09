@@ -8,6 +8,7 @@
 - Moved update notice to a card, instead of an annoying popup
 - add 1 hour battery graph to gear info page
 - Messed with the UI
+- Swapped coshub posts with store posts
 - Bug fixes
 
 ### V1.6.1
