@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2026-10-25T04:55:32.605352",
+  "@@last_modified": "2026-11-09T06:27:48.330056",
   "title": "The Tail Company",
   "@title": {
     "description": "The name of the app",
@@ -10,6 +10,12 @@
   "homeNewsTitle": "Fresh from the Tail Blog",
   "@homeNewsTitle": {
     "description": "The title header for the news in the home screen when no gear is connected",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeStoreProductsTitle": "Fresh from The Tail Company",
+  "@homeStoreProductsTitle": {
+    "description": "The title header for the store products list in the home screen when no gear is connected",
     "type": "text",
     "placeholders": {}
   },
