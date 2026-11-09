@@ -162,7 +162,7 @@ class _StoreProductListState extends State<StoreProductList> {
       try {
         Dio dio = await initDio();
         Response<dynamic> response = await dio.get(
-          "https://thetailcompany.com/wp-json/wc/store/v1/products?tag=app",
+          "https://thetailcompany.com/wp-json/wc/store/v1/products?tag=select",
         );
 
         final List<dynamic> raw = response.data as List<dynamic>;
