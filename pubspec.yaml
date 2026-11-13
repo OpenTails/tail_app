@@ -103,7 +103,7 @@ dependencies:
   upgrader: ^13.7.0 # update notices
 
   # Sentry
-  sentry_flutter: ^10.2.0 # Base sentry + Flutter integration
+  sentry_flutter: ^10.3.0 # Base sentry + Flutter integration
   sentry_logging: ^10.2.0 # Collects app logs
   sentry_dio: ^10.2.0 # Collects Dio HTTP requests
 
