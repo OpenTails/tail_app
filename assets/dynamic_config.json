@@ -37,6 +37,7 @@
   },
   "urls": {
     "coshubUrl": "https://onelink.to/coshub",
-    "dynamicConfigFileUrl": "https://raw.githubusercontent.com/OpenTails/tail_app/master/assets/dynamic_config.json"
+    "dynamicConfigFileUrl": "https://raw.githubusercontent.com/OpenTails/tail_app/master/assets/dynamic_config.json",
+    "tailProxyBaseUrl": "https://tailproxy.codel1417.com"
   }
 }

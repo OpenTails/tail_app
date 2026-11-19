@@ -16,7 +16,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  tail_app_shared:
+  tail_company_wp_proxy:
     git:
       url: https://github.com/OpenTails/tail_app_shared
   logging: ^1.3.0
@@ -27,7 +27,6 @@ dependencies:
   json_annotation: ^4.12.0
   crypto: ^3.0.8 # used for md5 hash checking during ota download
   circular_buffer: ^0.13.0 # Used for serial console
-  wordpress_client: ^10.1.0 # Used for tail blog
   freezed_annotation: ^3.1.0
   built_collection: ^5.1.2
   synchronized: ^3.5.0 # solve analytics init errors
@@ -92,7 +91,6 @@ dependencies:
   sensors_plus: ^7.1.1
   noise_meter: ^6.0.0
   flutter_android_volume_keydown: ^1.0.1
-  #flutter_media_session: 2.0.0 #2.0.0 works, 2.1.3 does not
   gamepads: ^0.1.10+5
 
   # Hive
@@ -103,9 +101,9 @@ dependencies:
   upgrader: ^13.7.0 # update notices
 
   # Sentry
-  sentry_flutter: ^10.2.0 # Base sentry + Flutter integration
+  sentry_flutter: ^10.3.0 # Base sentry + Flutter integration
   sentry_logging: ^10.3.0 # Collects app logs
-  sentry_dio: ^10.2.0 # Collects Dio HTTP requests
+  sentry_dio: ^10.3.0 # Collects Dio HTTP requests
 
   # Debug
   theme_inspector: 1.1.0

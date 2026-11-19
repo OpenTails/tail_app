@@ -338,14 +338,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
-  cookie_jar:
-    dependency: transitive
-    description:
-      name: cookie_jar
-      sha256: "963da02c1ef64cb5ac20de948c9e5940aa351f1e34a12b1d327c83d85b7e8fff"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.9"
   country_flags:
     dependency: "direct main"
     description:
@@ -442,14 +434,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.7"
-  dio_cookie_manager:
-    dependency: transitive
-    description:
-      name: dio_cookie_manager
-      sha256: "4ed4669cacb11931517c1158876a2189f19386674b9dab498abcca063dbe4c61"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.5.0"
   dio_smart_retry:
     dependency: "direct main"
     description:
@@ -1659,15 +1643,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.5.0"
-  tail_app_shared:
+  tail_company_wp_proxy:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "425fee7048c3f99d56a49723ae49536a4125dbd8"
+      resolved-ref: "157fc7ab229847e348e243b2b7d8f163e1d677d1"
       url: "https://github.com/OpenTails/tail_app_shared"
     source: git
-    version: "1.0.0"
+    version: "0.1.0"
   term_glyph:
     dependency: transitive
     description:
@@ -1940,14 +1924,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  wordpress_client:
-    dependency: "direct main"
-    description:
-      name: wordpress_client
-      sha256: fdabb826e5386ac2a4efee5194473948c590446598423a9d1d976ebaf1beea66
-      url: "https://pub.dev"
-    source: hosted
-    version: "10.1.0"
   xdg_directories:
     dependency: transitive
     description:

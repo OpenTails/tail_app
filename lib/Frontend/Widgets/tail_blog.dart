@@ -1,22 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:tail_app/Backend/analytics.dart';
 import 'package:tail_app/Backend/dynamic_config.dart';
 import 'package:tail_app/Frontend/Widgets/tail_blog_image.dart';
 import 'package:tail_app/Frontend/Widgets/uwu_text.dart';
-
-// Used as MediaDetails isn't exported
-// ignore: implementation_imports
-import 'package:wordpress_client/src/responses/properties/media_details.dart';
-import 'package:wordpress_client/wordpress_client.dart' hide Widget;
+import 'package:tail_company_wp_proxy/tail_company_wp_proxy.dart';
 
 import '../utils.dart';
-
-part 'tail_blog.freezed.dart';
 
 final _wpLogger = Logger('TailBlog');
 
@@ -27,12 +20,10 @@ class TailBlog extends StatefulWidget {
   State<TailBlog> createState() => _TailBlogState();
 }
 
-List<FeedItem> results = [];
+List<BlogPost> results = [];
 
 class _TailBlogState extends State<TailBlog> {
   FeedState feedState = FeedState.loading;
-
-  WordpressClient? client;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +47,7 @@ class _TailBlogState extends State<TailBlog> {
           shrinkWrap: true,
           itemCount: results.length,
           itemBuilder: (BuildContext context, int index) {
-            FeedItem feedItem = results[index];
+            BlogPost feedItem = results[index];
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -65,8 +56,7 @@ class _TailBlogState extends State<TailBlog> {
                   child: SizedBox(
                     width: 250,
                     child: Semantics(
-                      label:
-                          'A button to view the blog post: ${feedItem.title}',
+                      label: 'A button to view the blog post: ${feedItem.name}',
                       child: InkWell(
                         onTap: () async {
                           await launchExternalUrl(
@@ -77,10 +67,10 @@ class _TailBlogState extends State<TailBlog> {
                         child: Stack(
                           alignment: Alignment.bottomCenter,
                           children: <Widget>[
-                            if (feedItem.imageId != null) ...[
+                            if (feedItem.thumbnail != null) ...[
                               SizedBox.expand(
                                 child: TailBlogImage(
-                                  url: feedItem.imageUrl ?? "",
+                                  url: feedItem.thumbnail ?? "",
                                 ),
                               ),
                             ],
@@ -90,7 +80,7 @@ class _TailBlogState extends State<TailBlog> {
                               elevation: 2,
                               child: ListTile(
                                 //leading: Icon(feedItem.feedType.icon),
-                                title: Text(convertToUwU(feedItem.title)),
+                                title: Text(convertToUwU(feedItem.name)),
                               ),
                             ),
                           ],
@@ -127,48 +117,25 @@ class _TailBlogState extends State<TailBlog> {
         });
         return;
       }
-      List<Post> wordpressPosts = [];
       try {
+        TailCompanyWpProxyClient tailCompanyWpProxyClient =
+            TailCompanyWpProxyClient(
+              dio: await initDio(),
+              baseUrl: (await getDynamicConfigInfo()).urls.tailProxyBaseUrl,
+            );
+        List<BlogPost> posts = await tailCompanyWpProxyClient.getBlogPosts();
+        results = posts;
+        //filter out posts that are missing a thumbnail
+        results = results
+            .where((element) => element.thumbnail != null)
+            .toList();
         // Slug, Sticky, and Author are not used
-        final ListPostRequest request = ListPostRequest(
-          page: 1,
-          perPage: 10,
-          order: Order.desc,
-          queryParameters: {
-            '_embed': 'true',
-            '_fields':
-                '_links.wp:featuredmedia,id,link,title,date,featured_media',
-          },
-          context: RequestContext.embed,
-        );
-        client ??= await getWordpressClient();
-        final WordpressResponse<List<Post>> wordpressPostResponse =
-            await client!.posts.list(request);
-        List<Post>? data = wordpressPostResponse.dataOrNull();
-        if (data != null) {
-          wordpressPosts = data;
-        }
       } catch (e, s) {
         setState(() {
           feedState = FeedState.error;
         });
         _wpLogger.warning('Error when getting blog posts: $e', e, s);
       }
-      if (wordpressPosts.isNotEmpty) {
-        for (Post post in wordpressPosts) {
-          results.add(
-            FeedItem(
-              title: post.title!.parsedText,
-              publishDate: post.date!,
-              url: post.link,
-              imageId: post.featuredMedia,
-              imageUrl: await getImageURL(post),
-            ),
-          );
-        }
-      }
-      //filter out posts that are missing a thumbnail
-      results = results.where((element) => element.imageUrl != null).toList();
     }
     if (mounted && context.mounted) {
       setState(() {
@@ -179,60 +146,6 @@ class _TailBlogState extends State<TailBlog> {
         }
       });
     }
-  }
-
-  Future<String?> getImageURL(Post post) async {
-    try {
-      Map<String, dynamic>? json =
-          post.self['_embedded']?['wp:featuredmedia']?[0]?['media_details'];
-      if (json == null || json.isEmpty) {
-        _wpLogger.warning("No featured media for post ${post.title}");
-        return null;
-      }
-      MediaDetails? mediaDetails = MediaDetails.fromJson(json);
-
-      // if the post does not have a featured image, or if the featured image does not have the compressed versions created by wordpress.
-      if (mediaDetails.sizes == null) {
-        return null;
-      }
-      if (mediaDetails.sizes!.containsKey('medium')) {
-        // matches the app blog image size
-        return mediaDetails.sizes!['medium']!.sourceUrl;
-      } else if (mediaDetails.sizes!.containsKey('large')) {
-        return mediaDetails.sizes!['large']!.sourceUrl;
-      } else if (mediaDetails.sizes!.containsKey('full')) {
-        return mediaDetails.sizes!['full']!.sourceUrl;
-        // when all else fails
-      } else if (mediaDetails.sizes!.isEmpty && mediaDetails.file != null) {
-        _wpLogger.warning("Loading full size image for post: ${post.title}.");
-        return "https://thetailcompany.com/wp-content/uploads/${mediaDetails.file}";
-      }
-    } catch (e) {
-      _wpLogger.severe(
-        "Unable to load featured media for post ${post.title}. $e",
-      );
-    }
-    return null;
-  }
-}
-
-@freezed
-abstract class FeedItem with _$FeedItem implements Comparable<FeedItem> {
-  //Image ID is used as the wordpress image ID and the unique id to identify the image in cache
-  const FeedItem._();
-
-  @Implements<Comparable<FeedItem>>()
-  const factory FeedItem({
-    required String url,
-    required String title,
-    required DateTime publishDate,
-    int? imageId,
-    String? imageUrl,
-  }) = _FeedItem;
-
-  @override
-  int compareTo(FeedItem other) {
-    return other.publishDate.compareTo(publishDate);
   }
 }
 

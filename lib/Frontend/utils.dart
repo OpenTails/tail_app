@@ -8,7 +8,6 @@ import 'package:logarte/logarte.dart';
 import 'package:logging/logging.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:universal_io/io.dart';
-import 'package:wordpress_client/wordpress_client.dart' hide Theme;
 
 import '../Backend/logging_wrappers.dart';
 
@@ -57,18 +56,6 @@ Future<Dio> initDio() async {
   return dio;
 }
 
-WordpressClient? _wordpressClient;
-
-Future<WordpressClient> getWordpressClient() async {
-  if (_wordpressClient != null) {
-    return _wordpressClient!;
-  }
-  Dio dio = await initDio();
-  return WordpressClient.fromDioInstance(
-    baseUrl: Uri.parse('https://thetailcompany.com/wp-json/wp/v2'),
-    instance: dio,
-  );
-}
 
 Future<bool> isLimitedDataEnvironment() async {
   if (!isMobile) {

@@ -95,6 +95,7 @@ abstract class URLs with _$URLs {
       "https://raw.githubusercontent.com/OpenTails/tail_app/master/assets/dynamic_config.json",
     )
     String dynamicConfigFileUrl,
+    @Default("https://tailproxy.codel1417.com") String tailProxyBaseUrl,
   }) = _URLs;
 
   factory URLs.fromJson(Map<String, dynamic> json) => _$URLsFromJson(json);
