@@ -67,7 +67,7 @@ dependencies:
     git:
       url: https://github.com/davigmacode/flutter_choice
   flutter_widget_from_html_core: ^0.17.4
-  lottie: ^3.8.1
+  lottie: ^3.8.2
   pdfx: ^2.11.0
   owoify_dart: ^2.1.0
   cached_network_image_ce: ^4.13.2
