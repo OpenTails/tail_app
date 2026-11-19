@@ -20,7 +20,7 @@ dependencies:
     git:
       url: https://github.com/OpenTails/tail_app_shared
   logging: ^1.3.0
-  go_router: ^18.1.2
+  go_router: ^18.1.4
   vector_math: # used for joystick, pinned to SDK version
   collection: ^1.19.1 # Priority Queue
   uuid: ^4.6.0 # Used to generate UUID v4 ids for custom actions & move lists
