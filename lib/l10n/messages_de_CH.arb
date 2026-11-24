@@ -1463,7 +1463,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "triggerGamepadTitle": "Gamepad",
+    "triggerGamepadTitle": "Gamepadli",
     "@triggerGamepadTitle": {
         "description": "Gamepad trigger title",
         "type": "text",
@@ -1508,6 +1508,12 @@
     "homeUpdateAvailable": "Es git es Update für d’App! Tipp druf, zum Aktualisiere",
     "@homeUpdateAvailable": {
         "description": "A message encouraging the user to update the app",
+        "type": "text",
+        "placeholders": {}
+    },
+    "homeStoreProductsTitle": "Frisch vo dr The Tail Company",
+    "@homeStoreProductsTitle": {
+        "description": "The title header for the store products list in the home screen when no gear is connected",
         "type": "text",
         "placeholders": {}
     }
